@@ -1,0 +1,54 @@
+package grill24.potionsplus.particle;
+
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.*;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.Mth;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+@OnlyIn(Dist.CLIENT)
+public class SuspendedParticle extends TextureSheetParticle {
+    SuspendedParticle(ClientLevel p_172403_, SpriteSet p_172404_, double p_172405_, double p_172406_, double p_172407_) {
+        super(p_172403_, p_172405_, p_172406_ - 0.125D, p_172407_);
+        this.setSize(0.01F, 0.01F);
+        this.pickSprite(p_172404_);
+        this.quadSize *= this.random.nextFloat() * 0.6F + 0.2F;
+        this.lifetime = (int) (16.0D / (Math.random() * 0.8D + 0.2D));
+        this.hasPhysics = false;
+        this.friction = 1.0F;
+        this.gravity = 0.0F;
+    }
+
+    SuspendedParticle(ClientLevel clientLevel, SpriteSet spriteSet, double x, double y, double z, double v3, double v4, double v5) {
+        super(clientLevel, x, y - 0.125D, z, v3, v4, v5);
+        this.setSize(0.01F, 0.01F);
+        this.pickSprite(spriteSet);
+        this.quadSize *= this.random.nextFloat() * 0.6F + 0.6F;
+        this.lifetime = (int) (16.0D / (Math.random() * 0.8D + 0.2D));
+        this.hasPhysics = false;
+        this.friction = 1.0F;
+        this.gravity = 0.0F;
+    }
+
+    public ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static class WanderingHeartProvider implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet sprite;
+
+        public WanderingHeartProvider(SpriteSet p_172419_) {
+            this.sprite = p_172419_;
+        }
+
+        public Particle createParticle(SimpleParticleType p_172430_, ClientLevel p_172431_, double p_172432_, double p_172433_, double p_172434_, double p_172435_, double p_172436_, double p_172437_) {
+            SuspendedParticle suspendedparticle = new SuspendedParticle(p_172431_, this.sprite, p_172432_, p_172433_, p_172434_, p_172435_, p_172436_, p_172437_);
+            suspendedparticle.lifetime = Mth.randomBetweenInclusive(p_172431_.random, 500, 1000);
+            suspendedparticle.gravity = 0.01F;
+            suspendedparticle.setPower(0.5F);
+            return suspendedparticle;
+        }
+    }
+}

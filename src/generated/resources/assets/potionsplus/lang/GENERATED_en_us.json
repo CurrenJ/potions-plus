@@ -1,0 +1,19 @@
+{
+  "block.potionsplus.brewing_cauldron": "Brewing Cauldron",
+  "block.potionsplus.particle_emitter": "Particle Emitter",
+  "effect.potionsplus.fall_of_the_void": "Fall of the Void",
+  "effect.potionsplus.geode_grace": "Geode Grace",
+  "effect.potionsplus.haste": "Haste",
+  "item.minecraft.lingering_potion.effect.fall_of_the_void": "Lingering Potion of Fall of the Void",
+  "item.minecraft.lingering_potion.effect.geode_grace": "Lingering Potion of Geode Grace",
+  "item.minecraft.lingering_potion.effect.haste": "Lingering Potion of Haste",
+  "item.minecraft.potion.effect.fall_of_the_void": "Potion of Fall of the Void",
+  "item.minecraft.potion.effect.geode_grace": "Potion of Geode Grace",
+  "item.minecraft.potion.effect.haste": "Potion of Haste",
+  "item.minecraft.splash_potion.effect.fall_of_the_void": "Splash Potion of Fall of the Void",
+  "item.minecraft.splash_potion.effect.geode_grace": "Splash Potion of Geode Grace",
+  "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",
+  "item.minecraft.tipped_arrow.effect.fall_of_the_void": "Arrow of Fall of the Void",
+  "item.minecraft.tipped_arrow.effect.geode_grace": "Arrow of Geode Grace",
+  "item.minecraft.tipped_arrow.effect.haste": "Arrow of Haste"
+}
