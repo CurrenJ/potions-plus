@@ -18,5 +18,18 @@
   "item.minecraft.potion.effect.haste": "Potion of Haste",
   "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",
   "item.minecraft.lingering_potion.effect.haste": "Lingering Potion of Haste",
-  "item.minecraft.tipped_arrow.effect.haste": "Arrow of Haste"
+  "item.minecraft.tipped_arrow.effect.haste": "Arrow of Haste",
+  "item.minecraft.potion.effect.levitation": "Potion of Levitation",
+  "item.minecraft.splash_potion.effect.levitation": "Splash Potion of Levitation",
+  "item.minecraft.lingering_potion.effect.levitation": "Lingering Potion of Levitation",
+  "item.minecraft.tipped_arrow.effect.levitation": "Arrow of Levitation",
+  "item.minecraft.potion.effect.long_levitation": "Potion of Levitation",
+  "item.minecraft.splash_potion.effect.long_levitation": "Splash Potion of Levitation",
+  "item.minecraft.lingering_potion.effect.long_levitation": "Lingering Potion of Levitation",
+  "item.minecraft.tipped_arrow.effect.long_levitation": "Arrow of Levitation",
+  "effect.potionsplus.exploding": "Exploding (Soon!)",
+  "item.minecraft.potion.effect.exploding": "Potion of Exploding",
+  "item.minecraft.splash_potion.effect.exploding": "Splash Potion of Exploding",
+  "item.minecraft.lingering_potion.effect.exploding": "Lingering Potion of Exploding",
+  "item.minecraft.tipped_arrow.effect.exploding": "Arrow of Exploding"
 }

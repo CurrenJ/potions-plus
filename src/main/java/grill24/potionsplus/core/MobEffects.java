@@ -16,4 +16,7 @@ public class MobEffects {
 
     public static final RegistryObject<MobEffect> FALL_OF_THE_VOID = EFFECTS.register("fall_of_the_void", () ->
             new MobEffect(MobEffectCategory.BENEFICIAL, 0xCE27F8));
+
+    public static final RegistryObject<MobEffect> EXPLODING = EFFECTS.register("exploding", () ->
+            new MobEffect(MobEffectCategory.BENEFICIAL, 0xaa2320));
 }

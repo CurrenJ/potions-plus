@@ -12,7 +12,7 @@ import net.minecraftforge.common.brewing.BrewingRecipe;
 // BetterBrewingRecipe Class by CAS-ual-TY from https://github.com/CAS-ual-TY/Extra-Potions (GPL-3.0 License)
 // https://github.com/CAS-ual-TY/Extra-Potions/blob/main/LICENSE
 
-// Modified by Grill24 to work with JEI recipe integration
+// Modified by grill24 to work with JEI recipe integration
 // Extend BrewingRecipe instead of implementing IBrewingRecipe and call parent constructor\
 // This change enables the recipe to be registered by mezz.jei.plugins.vanilla.brewing.BrewingRecipeMaker.getBrewingRecipes()
 public class BetterBrewingRecipe extends BrewingRecipe {

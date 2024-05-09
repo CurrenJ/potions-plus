@@ -19,7 +19,7 @@ public class FallOfTheVoidEffect extends MobEffect {
     }
 
     @SubscribeEvent
-    public static void onLivingEntityDeath(final LivingDamageEvent livingDamageEvent) {
+    public static void onLivingEntityDamage(final LivingDamageEvent livingDamageEvent) {
         if (livingDamageEvent.getSource() == DamageSource.OUT_OF_WORLD) {
             LivingEntity livingEntity = livingDamageEvent.getEntityLiving();
             if (livingEntity.hasEffect(MobEffects.FALL_OF_THE_VOID.get())) {
