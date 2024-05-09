@@ -6,7 +6,6 @@ import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.DeferredRegister;
@@ -29,10 +28,9 @@ public class LangProvider extends LanguageProvider {
 
     private <T> void addRegistered(DeferredRegister<T> register, Consumer<T> consumer) {
         for (RegistryObject<T> obj : register.getEntries()) {
-            if(obj.isPresent()) {
+            if (obj.isPresent()) {
                 consumer.accept(obj.get());
-            }
-            else {
+            } else {
                 PotionsPlus.LOGGER.warn("RegistryObject<T> not valid: " + obj.getId());
             }
         }

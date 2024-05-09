@@ -8,8 +8,6 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.brewing.BrewingRecipe;
-import net.minecraftforge.common.brewing.IBrewingRecipe;
-import net.minecraftforge.common.brewing.VanillaBrewingRecipe;
 
 // BetterBrewingRecipe Class by CAS-ual-TY from https://github.com/CAS-ual-TY/Extra-Potions (GPL-3.0 License)
 // https://github.com/CAS-ual-TY/Extra-Potions/blob/main/LICENSE
@@ -43,7 +41,7 @@ public class BetterBrewingRecipe extends BrewingRecipe {
 
     @Override
     public ItemStack getOutput(ItemStack input, ItemStack ingredient) {
-        if(!this.isInput(input) || !this.isIngredient(ingredient)) {
+        if (!this.isInput(input) || !this.isIngredient(ingredient)) {
             return ItemStack.EMPTY;
         }
 

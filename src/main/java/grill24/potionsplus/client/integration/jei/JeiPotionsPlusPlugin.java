@@ -4,24 +4,18 @@ import grill24.potionsplus.core.Potions;
 import grill24.potionsplus.utility.ModInfo;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.recipe.vanilla.IVanillaRecipeFactory;
-import mezz.jei.api.registration.*;
-import mezz.jei.api.runtime.IIngredientManager;
+import mezz.jei.api.registration.IRecipeRegistration;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 @JeiPlugin
 public class JeiPotionsPlusPlugin implements IModPlugin {
@@ -39,8 +33,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         registerPotionInfo(registration, Potions.GEODE_GRACE.get(), geodeGraceDescription);
     }
 
-    private static void registerPotionInfo(IRecipeRegistration registration, Potion potion, Component... descriptionComponents)
-    {
+    private static void registerPotionInfo(IRecipeRegistration registration, Potion potion, Component... descriptionComponents) {
         ItemStack potionItem = PotionUtils.setPotion(new ItemStack(Items.POTION), potion);
         ItemStack splashPotionItem = PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), potion);
         ItemStack lingeringPotionItem = PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), potion);

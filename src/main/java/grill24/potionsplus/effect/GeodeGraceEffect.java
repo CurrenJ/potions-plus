@@ -64,7 +64,7 @@ public class GeodeGraceEffect extends MobEffect {
 
     @SubscribeEvent
     public static void onLivingEntityDeath(final LivingDeathEvent livingDeathEvent) {
-        if (evaluateActivationConditions(livingDeathEvent.getEntityLiving(), livingDeathEvent.getSource().getEntity())){
+        if (evaluateActivationConditions(livingDeathEvent.getEntityLiving(), livingDeathEvent.getSource().getEntity())) {
             BlockPos pos = livingDeathEvent.getEntityLiving().blockPosition();
             Level level = livingDeathEvent.getEntityLiving().level;
 
@@ -73,9 +73,9 @@ public class GeodeGraceEffect extends MobEffect {
                 Block stoneOreToSpawn = STONE_ORE_WEIGHTS.getRandom(level.random).get().getData();
 
                 int numToSpawn = ORE_COUNT_WEIGHTS.getRandom(level.random).get().getData();
-                for(int i = 0; i < numToSpawn; i++) {
+                for (int i = 0; i < numToSpawn; i++) {
                     BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-                    if(tryGenerateBlock(level, pos, mutableBlockPos, stoneOreToSpawn)) {
+                    if (tryGenerateBlock(level, pos, mutableBlockPos, stoneOreToSpawn)) {
                         pos = mutableBlockPos;
                     }
                 }
@@ -90,9 +90,9 @@ public class GeodeGraceEffect extends MobEffect {
 
         boolean success = false;
         while (attempt < maxAttempts) {
-            success = tryReplaceBlockWithBlock(stoneOreToSpawn, ForgeRegistries.BLOCKS.tags().getTag(BlockTags.STONE_ORE_REPLACEABLES) , mutableBlockPos, level);
-            success = tryReplaceBlockWithBlock(STONE_TO_DEEPSLATE.get(stoneOreToSpawn), ForgeRegistries.BLOCKS.tags().getTag(BlockTags.DEEPSLATE_ORE_REPLACEABLES) , mutableBlockPos, level);
-            if(success) {
+            success = tryReplaceBlockWithBlock(stoneOreToSpawn, ForgeRegistries.BLOCKS.tags().getTag(BlockTags.STONE_ORE_REPLACEABLES), mutableBlockPos, level);
+            success = tryReplaceBlockWithBlock(STONE_TO_DEEPSLATE.get(stoneOreToSpawn), ForgeRegistries.BLOCKS.tags().getTag(BlockTags.DEEPSLATE_ORE_REPLACEABLES), mutableBlockPos, level);
+            if (success) {
                 return true;
             }
 

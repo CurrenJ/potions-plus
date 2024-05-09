@@ -1,7 +1,5 @@
 package grill24.potionsplus.data;
 
-import grill24.potionsplus.data.BlockStateProvider;
-import grill24.potionsplus.data.RecipeProvider;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;

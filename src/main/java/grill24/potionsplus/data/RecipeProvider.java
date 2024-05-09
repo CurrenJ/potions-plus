@@ -1,7 +1,6 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.Items;
-import grill24.potionsplus.core.Potions;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;

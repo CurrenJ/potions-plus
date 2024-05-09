@@ -1,23 +1,19 @@
 {
   "block.potionsplus.particle_emitter": "Particle Emitter",
   "jei.potionsplus.particle_emitter.description": "Emits particles in an area around itself when powered by redstone. Interact with an empty hand to cycle through different particles. Interact with a dirt block, iron ingot, gold ingot, or diamond to set the particle spawn rate to 1x (default), 2x, 3x, 4x, respectively.",
-
   "block.potionsplus.brewing_cauldron": "Brewing Cauldron",
-
   "effect.potionsplus.geode_grace": "Geode Grace",
   "item.minecraft.potion.effect.geode_grace": "Potion of Geode Grace",
   "item.minecraft.splash_potion.effect.geode_grace": "Splash Potion of Geode Grace",
   "item.minecraft.lingering_potion.effect.geode_grace": "Lingering Potion of Geode Grace",
   "item.minecraft.tipped_arrow.effect.geode_grace": "Arrow of Geode Grace",
   "jei.potionsplus.geode_grace.description": "When a player kills an experience-dropping mob that has Geode Grace, there is a 5% chance to replace nearby stone with a random ore.",
-
   "effect.potionsplus.fall_of_the_void": "Fall of the Void",
   "item.minecraft.potion.effect.fall_of_the_void": "Potion of Fall of the Void",
   "item.minecraft.splash_potion.effect.fall_of_the_void": "Splash Potion of Fall of the Void",
   "item.minecraft.lingering_potion.effect.fall_of_the_void": "Lingering Potion of Fall of the Void",
   "item.minecraft.tipped_arrow.effect.fall_of_the_void": "Arrow of Fall of the Void",
   "jei.potionsplus.fall_of_the_void.description": "Any entity that falls into the void below the world will be teleported to the top of the world.",
-
   "effect.potionsplus.haste": "Haste",
   "item.minecraft.potion.effect.haste": "Potion of Haste",
   "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",
