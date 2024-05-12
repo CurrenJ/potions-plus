@@ -12,7 +12,9 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -55,6 +57,13 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
         // Distribute items on perimeter of a circle
         final double radius = 0.32;
         final double angle = Math.PI * 2 / itemStacks.length;
+
+        List<Ingredient> ingredients;
+        if(activeRecipe.isPresent()) {
+            ingredients = activeRecipe.get().getIngredients();
+        } else {
+            ingredients = List.of();
+        }
         for (int i = 0; i < itemStacks.length; i++) {
             matrices.pushPose();
             double timeOrbitOffset = ticks / 400 * Math.PI * 2;
@@ -64,7 +73,13 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
 
             float scale = 0.5f;
             if (activeRecipe.isPresent()) {
-                scale *= 1 - blockEntity.getBrewTime() / (float) activeRecipe.get().getProcessingTime();
+                for (Ingredient ingredient : ingredients) {
+                    if (grill24.potionsplus.utility.PUtil.isSameItemOrPotion(ingredient.getItems()[0], itemStacks[i])) {
+                        ingredients.remove(ingredient);
+                        scale *= 1 - blockEntity.getBrewTime() / (float) activeRecipe.get().getProcessingTime();
+                        break;
+                    }
+                }
             }
             matrices.scale(scale, scale, scale);
 

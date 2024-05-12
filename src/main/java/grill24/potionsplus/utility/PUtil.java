@@ -61,17 +61,26 @@ public class PUtil {
 
     public static int getProcessingTime(int baseTime, ItemStack input, ItemStack output, int numNonPotionIngredients) {
         int processingTime = baseTime;
+
         if (isPotion(output)) {
             Potion potion = PotionUtils.getPotion(output);
+
             if (potion == Potions.AWKWARD || potion == Potions.THICK || potion == Potions.MUNDANE) {
                 processingTime = (int) (processingTime * 0.5);
+                if(potion == Potions.THICK || potion == Potions.MUNDANE) {
+                    // Brewing Cauldron uses processing time as priority for recipe selection
+                    // Thick and mundane potions are rarely made and should not take priority over awkward potion crafting
+                    processingTime -= 1;
+                }
             }
+
             if (input.getItem().equals(Items.SPLASH_POTION)) {
                 processingTime = (int) (processingTime * 1.5);
             } else if (input.getItem().equals(Items.LINGERING_POTION)) {
                 processingTime = processingTime * 2;
             }
         }
+
         processingTime += (int) (processingTime * (numNonPotionIngredients - 1) * 0.25f);
         return processingTime;
     }
