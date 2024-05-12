@@ -36,10 +36,12 @@ public class ParticleEmitterBlock extends Block {
     public static class Minecraft {
         private static final RegistryObject<SimpleParticleType> SOUL = getVanillaParticle("soul");
         private static final RegistryObject<SimpleParticleType> ENCHANT = getVanillaParticle("enchant");
-        private static final RegistryObject<SimpleParticleType> PORTAL = getVanillaParticle("portal");
-        private static final RegistryObject<SimpleParticleType> BUBBLE_POP = getVanillaParticle("bubble_pop");
-        private static final RegistryObject<SimpleParticleType> CAMPFIRE_COSY_SMOKE = getVanillaParticle("campfire_cosy_smoke");
-        private static final RegistryObject<SimpleParticleType> ASH = getVanillaParticle("ash");
+        public static final RegistryObject<SimpleParticleType> PORTAL = getVanillaParticle("portal");
+        public static final RegistryObject<SimpleParticleType> BUBBLE_POP = getVanillaParticle("bubble_pop");
+        public static final RegistryObject<SimpleParticleType> SPLASH = getVanillaParticle("splash");
+        public static final RegistryObject<SimpleParticleType> BUBBLE_COLUMN_UP = getVanillaParticle("bubble_column_up");
+        public static final RegistryObject<SimpleParticleType> CAMPFIRE_COSY_SMOKE = getVanillaParticle("campfire_cosy_smoke");
+        public static final RegistryObject<SimpleParticleType> ASH = getVanillaParticle("ash");
         private static final RegistryObject<SimpleParticleType> SMALL_FLAME = getVanillaParticle("small_flame");
         private static final RegistryObject<SimpleParticleType> FALLING_LAVA = getVanillaParticle("falling_lava");
         private static final RegistryObject<SimpleParticleType> WHITE_ASH = getVanillaParticle("white_ash");

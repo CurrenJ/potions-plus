@@ -15,8 +15,12 @@ public class PotionsPlus {
 
     public PotionsPlus() {
         Blocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Blocks.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         Items.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         Particles.PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
+
+        Recipes.RECIPE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Recipes.RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         MobEffects.EFFECTS.register(FMLJavaModLoadingContext.get().getModEventBus());
         Potions.POTIONS.register(FMLJavaModLoadingContext.get().getModEventBus());

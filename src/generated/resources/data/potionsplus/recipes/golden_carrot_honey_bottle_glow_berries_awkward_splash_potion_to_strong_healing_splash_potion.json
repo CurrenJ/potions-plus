@@ -1,0 +1,12 @@
+{
+  "type": "potionsplus:brewing_cauldron_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"minecraft:golden_carrot\"}",
+    "{Count:1b,id:\"minecraft:honey_bottle\"}",
+    "{Count:1b,id:\"minecraft:glow_berries\"}",
+    "{Count:1b,id:\"minecraft:splash_potion\",tag:{Potion:\"minecraft:awkward\"}}"
+  ],
+  "result": "{Count:1b,id:\"minecraft:splash_potion\",tag:{Potion:\"minecraft:strong_healing\"}}",
+  "experience": 0.1,
+  "cookingtime": 300
+}

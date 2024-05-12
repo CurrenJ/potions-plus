@@ -35,15 +35,23 @@ public class Potions {
     public static final RegistryObject<Potion> EXPLODING = POTIONS.register("exploding", () ->
             new Potion(new MobEffectInstance(MobEffects.EXPLODING.get(), 80)));
 
+    public static final RegistryObject<Potion> MAGNETIC = POTIONS.register("magnetic", () ->
+            new Potion(new MobEffectInstance(MobEffects.MAGNETIC.get(), 12000)));
+
+    public static final RegistryObject<Potion> TELEPORTATION = POTIONS.register("teleportation", () ->
+            new Potion(new MobEffectInstance(MobEffects.TELEPORTATION.get(), 60)));
+
     @SubscribeEvent
     public static void onRegisterPotions(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.AMETHYST_CLUSTER, Potions.GEODE_GRACE.get()));
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.CHORUS_FRUIT, Potions.FALL_OF_THE_VOID.get()));
+            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.ENDER_PEARL, Potions.FALL_OF_THE_VOID.get()));
             BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.GOLDEN_CARROT, Potions.HASTE.get()));
             BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.SLOW_FALLING, Items.FERMENTED_SPIDER_EYE, Potions.LEVITATION.get()));
             BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.LONG_SLOW_FALLING, Items.FERMENTED_SPIDER_EYE, Potions.LONG_LEVITATION.get()));
             BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.TNT, Potions.EXPLODING.get()));
+            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.HONEY_BLOCK, Potions.MAGNETIC.get()));
+            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.CHORUS_FRUIT, Potions.TELEPORTATION.get()));
         });
     }
 }

@@ -56,7 +56,7 @@ public class GeodeGraceEffect extends MobEffect {
             WeightedEntry.wrap(4, 1)
     );
 
-    private static final float ACTIVATION_CHANCE = 0.05f;
+    private static final float ACTIVATION_CHANCE = 0.03f;
 
     public GeodeGraceEffect(MobEffectCategory mobEffectCategory, int i) {
         super(mobEffectCategory, i);

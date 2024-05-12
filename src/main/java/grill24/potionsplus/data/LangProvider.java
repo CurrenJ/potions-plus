@@ -3,7 +3,7 @@ package grill24.potionsplus.data;
 import grill24.potionsplus.core.Potions;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.Utility;
+import grill24.potionsplus.utility.PUtil;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
@@ -13,7 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
-import static grill24.potionsplus.utility.Utility.*;
+import static grill24.potionsplus.utility.Utility.snakeToTitle;
 
 public class LangProvider extends LanguageProvider {
     public LangProvider(DataGenerator gen, String modid, String locale) {
@@ -46,9 +46,9 @@ public class LangProvider extends LanguageProvider {
         String titleText = snakeToTitle(id);
 
         add("effect." + ModInfo.MOD_ID + "." + id, titleText);
-        add(createPotionItemStack(potion, Utility.PotionType.POTION), getPotionName(PotionType.POTION, titleText));
-        add(createPotionItemStack(potion, Utility.PotionType.SPLASH_POTION), getPotionName(PotionType.SPLASH_POTION, titleText));
-        add(createPotionItemStack(potion, Utility.PotionType.LINGERING_POTION), getPotionName(PotionType.LINGERING_POTION, titleText));
-        add(createPotionItemStack(potion, Utility.PotionType.TIPPED_ARROW), getPotionName(PotionType.TIPPED_ARROW, titleText));
+        add(PUtil.createPotionItemStack(potion, PUtil.PotionType.POTION), PUtil.getPotionName(PUtil.PotionType.POTION, titleText));
+        add(PUtil.createPotionItemStack(potion, PUtil.PotionType.SPLASH_POTION), PUtil.getPotionName(PUtil.PotionType.SPLASH_POTION, titleText));
+        add(PUtil.createPotionItemStack(potion, PUtil.PotionType.LINGERING_POTION), PUtil.getPotionName(PUtil.PotionType.LINGERING_POTION, titleText));
+        add(PUtil.createPotionItemStack(potion, PUtil.PotionType.TIPPED_ARROW), PUtil.getPotionName(PUtil.PotionType.TIPPED_ARROW, titleText));
     }
 }

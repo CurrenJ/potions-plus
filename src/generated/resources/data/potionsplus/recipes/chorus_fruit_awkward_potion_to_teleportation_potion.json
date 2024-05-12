@@ -1,0 +1,10 @@
+{
+  "type": "potionsplus:brewing_cauldron_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"minecraft:chorus_fruit\"}",
+    "{Count:1b,id:\"minecraft:potion\",tag:{Potion:\"minecraft:awkward\"}}"
+  ],
+  "result": "{Count:1b,id:\"minecraft:potion\",tag:{Potion:\"potionsplus:teleportation\"}}",
+  "experience": 0.1,
+  "cookingtime": 200
+}

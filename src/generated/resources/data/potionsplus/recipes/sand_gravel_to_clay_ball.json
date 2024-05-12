@@ -1,0 +1,10 @@
+{
+  "type": "potionsplus:brewing_cauldron_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"minecraft:sand\"}",
+    "{Count:1b,id:\"minecraft:gravel\"}"
+  ],
+  "result": "{Count:1b,id:\"minecraft:clay_ball\"}",
+  "experience": 0.1,
+  "cookingtime": 50
+}

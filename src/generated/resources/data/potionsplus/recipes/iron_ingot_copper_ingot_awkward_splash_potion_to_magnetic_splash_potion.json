@@ -1,0 +1,11 @@
+{
+  "type": "potionsplus:brewing_cauldron_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"minecraft:iron_ingot\"}",
+    "{Count:1b,id:\"minecraft:copper_ingot\"}",
+    "{Count:1b,id:\"minecraft:splash_potion\",tag:{Potion:\"minecraft:awkward\"}}"
+  ],
+  "result": "{Count:1b,id:\"minecraft:splash_potion\",tag:{Potion:\"potionsplus:magnetic\"}}",
+  "experience": 0.1,
+  "cookingtime": 250
+}

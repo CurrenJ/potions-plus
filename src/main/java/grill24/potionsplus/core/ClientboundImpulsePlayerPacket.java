@@ -30,7 +30,7 @@ public record ClientboundImpulsePlayerPacket(double dx, double dy, double dz) im
                     new Runnable() {
                         @Override
                         public void run() {
-                            if(Minecraft.getInstance().player != null) {
+                            if (Minecraft.getInstance().player != null) {
                                 Minecraft.getInstance().player.push(packet.dx, packet.dy, packet.dz);
                             }
                         }

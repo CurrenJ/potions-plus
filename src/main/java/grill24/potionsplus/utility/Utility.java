@@ -1,10 +1,15 @@
 package grill24.potionsplus.utility;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
@@ -26,55 +31,6 @@ public class Utility {
                 })
                 .filter(Objects::nonNull)
                 .toArray(size -> (T[]) new Object[size]);
-    }
-
-    // Potions
-    public enum PotionType {
-        POTION,
-        SPLASH_POTION,
-        LINGERING_POTION,
-        TIPPED_ARROW
-    }
-
-    public static ItemStack createPotionItemStack(Potion potion, PotionType type, int count) {
-        ItemStack potionItem;
-        switch (type) {
-            case POTION:
-                potionItem = PotionUtils.setPotion(new ItemStack(Items.POTION), potion);
-                break;
-            case SPLASH_POTION:
-                potionItem = PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), potion);
-                break;
-            case LINGERING_POTION:
-                potionItem = PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), potion);
-                break;
-            case TIPPED_ARROW:
-                potionItem = PotionUtils.setPotion(new ItemStack(Items.TIPPED_ARROW), potion);
-                break;
-            default:
-                potionItem = new ItemStack(Items.POTION);
-                break;
-        }
-        potionItem.setCount(count);
-        return potionItem;
-    }
-
-    public static ItemStack createPotionItemStack(Potion potion, PotionType type) {
-        return createPotionItemStack(potion, type, 1);
-    }
-
-    public static final String POTION_PREFIX = "Potion of ";
-    public static final String SPLASH_POTION_PREFIX = "Splash Potion of ";
-    public static final String LINGERING_POTION_PREFIX = "Lingering Potion of ";
-    public static final String TIPPED_ARROW_PREFIX = "Arrow of ";
-
-    public static String getPotionName(PotionType type, String potionName) {
-        return switch (type) {
-            case POTION -> POTION_PREFIX + potionName;
-            case SPLASH_POTION -> SPLASH_POTION_PREFIX + potionName;
-            case LINGERING_POTION -> LINGERING_POTION_PREFIX + potionName;
-            case TIPPED_ARROW -> TIPPED_ARROW_PREFIX + potionName;
-        };
     }
 
 
@@ -113,4 +69,30 @@ public class Utility {
         return snakeToTitle(snakeCase, UNCAPITALIZED_WORDS);
     }
 
+    // ItemStack and NBT Utils
+    public static ItemStack itemStackFromTagString(String tagString) {
+        try {
+            CompoundTag tag = TagParser.parseTag(tagString);
+            return ItemStack.of(tag);
+        } catch (CommandSyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Ingredient ingredientFromTagString(String tagString) {
+        return Ingredient.of(itemStackFromTagString(tagString));
+    }
+
+    // Block Entity
+    // From vanilla
+    @Nullable
+    @SuppressWarnings("unchecked")
+    public static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> candidate, BlockEntityType<E> desired, BlockEntityTicker<? super E> ticker) {
+        return desired == candidate ? (BlockEntityTicker<A>) ticker : null;
+    }
+
+    // Math
+    public static int lerp(int a, int b, float t) {
+        return (int) (a + (b - a) * t);
+    }
 }

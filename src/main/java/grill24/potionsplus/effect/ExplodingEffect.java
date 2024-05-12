@@ -4,25 +4,17 @@ import grill24.potionsplus.core.ClientboundImpulsePlayerPacket;
 import grill24.potionsplus.core.MobEffects;
 import grill24.potionsplus.core.PotionsPlusPacketHandler;
 import grill24.potionsplus.utility.ModInfo;
-import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.game.ClientboundExplodePacket;
-import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
-import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
@@ -45,8 +37,8 @@ public class ExplodingEffect extends MobEffect {
             Explosion.BlockInteraction blockInteraction = isPlayer ? Explosion.BlockInteraction.NONE : Explosion.BlockInteraction.BREAK;
             entity.level.explode(null, entity.getRandomX(0.1), entity.getY() + 0.5, entity.getRandomZ(0.1), 5.0F, blockInteraction);
 
-            if(isPlayer) {
-                Vec3 velocity = entity.getLookAngle().scale(4);
+            if (isPlayer) {
+                Vec3 velocity = entity.getLookAngle().scale(3).multiply(2, 0.5, 2);
                 PotionsPlusPacketHandler.CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> entity.level.getChunkAt(entity.blockPosition())), new ClientboundImpulsePlayerPacket(velocity.x, velocity.y, velocity.z));
             }
         }
@@ -64,7 +56,7 @@ public class ExplodingEffect extends MobEffect {
     }
 
     @SubscribeEvent
-    public static void onUsePotion ( final PotionEvent.PotionAddedEvent potionAddedEvent) {
+    public static void onUsePotion(final PotionEvent.PotionAddedEvent potionAddedEvent) {
         if (Objects.requireNonNull(potionAddedEvent.getPotionEffect()).getEffect() == MobEffects.EXPLODING.get()) {
             LivingEntity entity = potionAddedEvent.getEntityLiving();
             Vec3 pos = entity.position();

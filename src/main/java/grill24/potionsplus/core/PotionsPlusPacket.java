@@ -1,10 +1,8 @@
 package grill24.potionsplus.core;
 
+import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-
-
-import io.netty.buffer.Unpooled;
 
 public interface PotionsPlusPacket {
     default FriendlyByteBuf toBuf() {

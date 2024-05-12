@@ -27,10 +27,23 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
 
         // Particle Emitter description
         MutableComponent particleEmitterDescription = new TranslatableComponent("jei.potionsplus.particle_emitter.description");
+        registration.addIngredientInfo(new ItemStack(grill24.potionsplus.core.Items.PARTICLE_EMITTER.get()), VanillaTypes.ITEM, particleEmitterDescription);
 
         // Geode's Grace potion descriptions
         MutableComponent geodeGraceDescription = new TranslatableComponent("jei.potionsplus.geode_grace.description");
         registerPotionInfo(registration, Potions.GEODE_GRACE.get(), geodeGraceDescription);
+
+        MutableComponent fallOfTheVoideDescription = new TranslatableComponent("jei.potionsplus.fall_of_the_void.description");
+        registerPotionInfo(registration, Potions.FALL_OF_THE_VOID.get(), fallOfTheVoideDescription);
+
+        MutableComponent explodingDescription = new TranslatableComponent("jei.potionsplus.exploding.description");
+        registerPotionInfo(registration, Potions.EXPLODING.get(), explodingDescription);
+
+        MutableComponent magneticDescription = new TranslatableComponent("jei.potionsplus.magnetic.description");
+        registerPotionInfo(registration, Potions.MAGNETIC.get(), magneticDescription);
+
+        MutableComponent teleportationDescription = new TranslatableComponent("jei.potionsplus.teleportation.description");
+        registerPotionInfo(registration, Potions.TELEPORTATION.get(), teleportationDescription);
     }
 
     private static void registerPotionInfo(IRecipeRegistration registration, Potion potion, Component... descriptionComponents) {

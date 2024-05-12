@@ -7,7 +7,7 @@
   "item.minecraft.splash_potion.effect.geode_grace": "Splash Potion of Geode Grace",
   "item.minecraft.lingering_potion.effect.geode_grace": "Lingering Potion of Geode Grace",
   "item.minecraft.tipped_arrow.effect.geode_grace": "Arrow of Geode Grace",
-  "jei.potionsplus.geode_grace.description": "When a player kills an experience-dropping mob that has Geode Grace, there is a 5% chance to replace nearby stone with a random ore.",
+  "jei.potionsplus.geode_grace.description": "When a player kills an experience-dropping mob that has Geode Grace, there is a 3% chance to replace nearby stone with a random ore.",
   "effect.potionsplus.fall_of_the_void": "Fall of the Void",
   "item.minecraft.potion.effect.fall_of_the_void": "Potion of Fall of the Void",
   "item.minecraft.splash_potion.effect.fall_of_the_void": "Splash Potion of Fall of the Void",
@@ -31,5 +31,18 @@
   "item.minecraft.potion.effect.exploding": "Potion of Exploding",
   "item.minecraft.splash_potion.effect.exploding": "Splash Potion of Exploding",
   "item.minecraft.lingering_potion.effect.exploding": "Lingering Potion of Exploding",
-  "item.minecraft.tipped_arrow.effect.exploding": "Arrow of Exploding"
+  "item.minecraft.tipped_arrow.effect.exploding": "Arrow of Exploding",
+  "jei.potionsplus.exploding.description": "Mobs with this effect will explode shortly. Players with this effect will explode shortly, without breaking blocks, and accelerate dramatically in the direction they are looking.",
+  "effect.potionsplus.magnetic": "Magnetic",
+  "item.minecraft.potion.effect.magnetic": "Potion of Magnetizing",
+  "item.minecraft.splash_potion.effect.magnetic": "Splash Potion of Magnetizing",
+  "item.minecraft.lingering_potion.effect.magnetic": "Lingering Potion of Magnetizing",
+  "item.minecraft.tipped_arrow.effect.magnetic": "Arrow of Magnetizing",
+  "jei.potionsplus.magnetic.description": "Nearby items are pulled towards mobs with the magnetic effect.",
+  "effect.potionsplus.teleportation": "Teleportation",
+  "item.minecraft.potion.effect.teleportation": "Potion of Teleportation",
+  "item.minecraft.splash_potion.effect.teleportation": "Splash Potion of Teleportation",
+  "item.minecraft.lingering_potion.effect.teleportation": "Lingering Potion of Teleportation",
+  "item.minecraft.tipped_arrow.effect.teleportation": "Arrow of Teleportation",
+  "jei.potionsplus.teleportation.description": "Randomly teleports the afflicted mob to a nearby location."
 }
