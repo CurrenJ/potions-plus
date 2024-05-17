@@ -51,6 +51,15 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
     public void setChanged() {
         super.setChanged();
         updateActiveRecipe();
+
+        if(level == null)
+            return;
+
+        // Send block update to clients
+        // Hack to force the block to re-render and thus pick up any change in the water color
+        // Should improve this to only update when the water color changes
+        level.setBlock(getBlockPos(), getBlockState(), 3);
+        level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
     }
 
     private void updateActiveRecipe() {

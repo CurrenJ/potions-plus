@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:glowstone_dust",
+    "minecraft:redstone",
+    "minecraft:honeycomb",
+    "minecraft:mushroom_stew",
+    "minecraft:golden_carrot",
+    "minecraft:beetroot_soup",
+    "minecraft:spider_eye",
+    "minecraft:pufferfish",
+    "minecraft:apple"
+  ]
+}

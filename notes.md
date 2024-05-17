@@ -41,7 +41,43 @@
 - `ParticleTypes.java` defines ParticleType instances'
 - `HugeExplosionSeedParticle.java` is a no-render particle that acts as an emitter with a lifetime
 
+
+
+- Clock item model can help us with the "effect" icon
+
 # To Do
 
-- Investigate blaze3d rendering API (see botania for example)
-- How to add forge mod dependencies
+9- BUG: Failed recipe ingredient sampling adds empty recipe like so:
+`- [BCR] levitation_a3_d3_splash_potion=> levitation_a4_d3_splash_potion
+  [BCR] levitation_a3_d3_lingering_potion=> levitation_a4_d3_lingering_potion
+  [BCR] totem_of_undying + nautilus_shell + levitation_a4_d2_potion=> levitation_a4_d3_potion
+  [BCR] totem_of_undying + nautilus_shell + levitation_a4_d2_splash_potion=> levitation_a4_d3_splash_potion
+  [BCR] totem_of_undying + nautilus_shell + levitation_a4_d2_lingering_potion=> levitation_a4_d3_lingering_potion
+  [BCR] levitation_a4_d0_potion=> levitation_a5_d0_potion
+  [BCR] levitation_a4_d0_splash_potion=> levitation_a5_d0_splash_potion
+  [BCR] levitation_a4_d0_lingering_potion=> levitation_a5_d0_lingering_potion
+  [BCR] levitation_a4_d1_potion=> levitation_a5_d1_potion
+  [BCR] levitation_a4_d1_splash_potion=> levitation_a5_d1_splash_potion
+  [BCR] levitation_a4_d1_lingering_potion=> levitation_a5_d1_lingering_pot`
+- - Make it not add that recipe
+
+- Fix jei integration for cauldron recipes
+- design and add knowledge system
+- Visual?? Block entity with custom renderer again?
+
+
+- Uniqueness not working????
+  `[BCR] stick + awkward_potion=> teleportation_a0_d0_potion
+  [BCR] stick + awkward_splash_potion=> teleportation_a0_d0_splash_potion
+  [BCR] stick + awkward_lingering_potion=> teleportation_a0_d0_lingering_potion
+  [BCR] redstone + pufferfish + teleportation_a0_d0_potion=> teleportation_a1_d0_potion
+  [BCR] redstone + pufferfish + teleportation_a0_d0_splash_potion=> teleportation_a1_d0_splash_potion
+  [BCR] redstone + pufferfish + teleportation_a0_d0_lingering_potion=> teleportation_a1_d0_lingering_potion
+  [BCR] amethyst_cluster + magma_cream + teleportation_a1_d0_potion=> teleportation_a2_d0_potion
+  [BCR] amethyst_cluster + magma_cream + teleportation_a1_d0_splash_potion=> teleportation_a2_d0_splash_potion
+  [BCR] amethyst_cluster + magma_cream + teleportation_a1_d0_lingering_potion=> teleportation_a2_d0_lingering_potion
+  [BCR] nautilus_shell + heart_of_the_sea + wither_rose + teleportation_a2_d0_potion=> teleportation_a3_d0_potion
+  [BCR] nautilus_shell + heart_of_the_sea + wither_rose + teleportation_a2_d0_splash_potion=> teleportation_a3_d0_splash_potion
+  [BCR] nautilus_shell + heart_of_the_sea + wither_rose + teleportation_a2_d0_lingering_potion=> teleportation_a3_d0_lingering_potion
+  [BCR] stick + awkward_potion=> magnetic_a0_d0_potion
+  [BCR] stick + awkward_splash_potion=> magnetic_a0_d0_splash_potion`

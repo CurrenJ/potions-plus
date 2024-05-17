@@ -6,6 +6,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -55,6 +56,8 @@ public class EmitterParticle extends NoRenderParticle {
         private int spawnCount = 2;
         private int range = 16;
 
+        private Vec3 offset = Vec3.ZERO;
+
         public Provider(Function<Random, ParticleOptions> particleTypeSupplier) {
             this.particleTypeSupplier = particleTypeSupplier;
         }
@@ -67,8 +70,17 @@ public class EmitterParticle extends NoRenderParticle {
             this.range = range;
         }
 
+        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, int range, Vec3 offset) {
+            this.particleTypeSupplier = particleTypeSupplier;
+            this.lifeTime = lifeTime;
+            this.ticksPerSpawn = ticksPerSpawn;
+            this.spawnCount = spawnCount;
+            this.range = range;
+            this.offset = offset;
+        }
+
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double x, double y, double z, double p_106974_, double p_106975_, double p_106976_) {
-            return new EmitterParticle(clientLevel, x, y, z, particleTypeSupplier, lifeTime, ticksPerSpawn, spawnCount, range);
+            return new EmitterParticle(clientLevel, x + offset.x, y + offset.y, z + offset.z, particleTypeSupplier, lifeTime, ticksPerSpawn, spawnCount, range);
         }
     }
 }

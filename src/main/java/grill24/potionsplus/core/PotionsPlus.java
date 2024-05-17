@@ -13,6 +13,8 @@ public class PotionsPlus {
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
 
+    public static long worldSeed = -1;
+
     public PotionsPlus() {
         Blocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         Blocks.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());

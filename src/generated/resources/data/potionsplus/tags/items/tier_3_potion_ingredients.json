@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:nether_star",
+    "minecraft:totem_of_undying",
+    "minecraft:wither_rose",
+    "minecraft:shulker_shell",
+    "minecraft:nautilus_shell",
+    "minecraft:heart_of_the_sea"
+  ]
+}

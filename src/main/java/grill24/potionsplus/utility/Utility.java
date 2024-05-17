@@ -1,18 +1,21 @@
 package grill24.potionsplus.utility;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.math.Vector3d;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
 
 public class Utility {
 
@@ -94,5 +97,53 @@ public class Utility {
     // Math
     public static int lerp(int a, int b, float t) {
         return (int) (a + (b - a) * t);
+    }
+
+    private static Item sampleItemFromTag(TagKey<Item> tagKey, Random random) {
+        Optional<Item> item = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).getRandomElement(random);
+        if(item.isEmpty()) {
+            throw new IllegalStateException("No item found in tag " + tagKey.registry().getRegistryName().toString());
+        }
+        return item.get();
+    }
+
+    public static Item[] sampleItemsFromTag(TagKey<Item> tagKey, Random random, int count) {
+        Item[] items = new Item[count];
+        for(int i = 0; i < count; i++) {
+            items[i] = sampleItemFromTag(tagKey, random);
+        }
+        return items;
+    }
+
+    public static Ingredient[] sampleIngredientsFromTag(TagKey<Item> tagKey, Random random, int count) {
+        Ingredient[] items = new Ingredient[count];
+        for(int i = 0; i < count; i++) {
+            items[i] = Ingredient.of(sampleItemFromTag(tagKey, random));
+        }
+        return items;
+    }
+
+    public static Vector3d lerp3d(Vector3d a, Vector3d b, float t, Function<Float, Float> easingFunction) {
+        t = easingFunction.apply(t);
+        return new Vector3d(lerp(a.x, b.x, t), lerp(a.y, b.y, t), lerp(a.z, b.z, t));
+    }
+
+    public static Vector3d lerp3d(Vector3d a, Vector3d b, float t) {
+        return lerp3d(a, b, t, x -> x);
+    }
+
+    public static double lerp(double a, double b, float t) {
+        return a + (b - a) * t;
+    }
+
+    public static float easeOutBack(float x) {
+        final double c1 = 1.70158;
+        final double c3 = c1 + 1;
+
+        return (float) (1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2));
+    }
+
+    public static float easeOutExpo(float x) {
+        return x == 1 ? 1 : (float) (1 - Math.pow(2, -10 * x));
     }
 }

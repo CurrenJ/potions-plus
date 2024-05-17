@@ -36,14 +36,14 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         MutableComponent fallOfTheVoideDescription = new TranslatableComponent("jei.potionsplus.fall_of_the_void.description");
         registerPotionInfo(registration, Potions.FALL_OF_THE_VOID.get(), fallOfTheVoideDescription);
 
-        MutableComponent explodingDescription = new TranslatableComponent("jei.potionsplus.exploding.description");
-        registerPotionInfo(registration, Potions.EXPLODING.get(), explodingDescription);
+//        MutableComponent explodingDescription = new TranslatableComponent("jei.potionsplus.exploding.description");
+//        registerPotionInfo(registration, Potions.EXPLODING.get(), explodingDescription);
 
-        MutableComponent magneticDescription = new TranslatableComponent("jei.potionsplus.magnetic.description");
-        registerPotionInfo(registration, Potions.MAGNETIC.get(), magneticDescription);
+//        MutableComponent magneticDescription = new TranslatableComponent("jei.potionsplus.magnetic.description");
+//        registerPotionInfo(registration, Potions.MAGNETIC.get(), magneticDescription);
 
-        MutableComponent teleportationDescription = new TranslatableComponent("jei.potionsplus.teleportation.description");
-        registerPotionInfo(registration, Potions.TELEPORTATION.get(), teleportationDescription);
+//        MutableComponent teleportationDescription = new TranslatableComponent("jei.potionsplus.teleportation.description");
+//        registerPotionInfo(registration, Potions.TELEPORTATION.get(), teleportationDescription);
     }
 
     private static void registerPotionInfo(IRecipeRegistration registration, Potion potion, Component... descriptionComponents) {

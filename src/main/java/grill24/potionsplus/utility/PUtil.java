@@ -1,10 +1,19 @@
 package grill24.potionsplus.utility;
 
+import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
+import grill24.potionsplus.recipe.BrewingCauldronRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistryEntry;
+
+import java.util.*;
 
 public class PUtil {
 
@@ -94,6 +103,72 @@ public class PUtil {
         };
     }
 
+    public static BrewingCauldronRecipe brewingCauldronRecipe(float experience, int processingTime, String advancementNameIngredient, ItemStack result, Ingredient... ingredients) {
+        StringBuilder name = new StringBuilder();
+        for (Ingredient ingredient : ingredients) {
+            name.append(getNameOrVerbosePotionName(ingredient.getItems()[0])).append("_");
+        }
+        name.append("to_");
+        name.append(getNameOrVerbosePotionName(result));
+
+        return new BrewingCauldronRecipe(new ResourceLocation(ModInfo.MOD_ID, name.toString()), advancementNameIngredient, ingredients, result, experience, processingTime);
+    }
+
+    public static BrewingCauldronRecipe brewingCauldronRecipe(float experience, int processingTime, String advancementNameIngredient, Potion potion, PotionType potionType, Ingredient... ingredients) {
+        return brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, createPotionItemStack(potion, potionType), ingredients);
+    }
+
+    public static BrewingCauldronRecipe brewingCauldronRecipe(float experience, int baseProcessingTime, String advancementNameIngredient, Potion inputPotion, Potion outputPotion, PotionType potionType, Ingredient... nonPotionIngredients) {
+        ItemStack inputPotionItemStack = createPotionItemStack(inputPotion, potionType);
+        Ingredient[] allIngredients = new Ingredient[nonPotionIngredients.length + 1];
+        System.arraycopy(nonPotionIngredients, 0, allIngredients, 0, nonPotionIngredients.length);
+        allIngredients[allIngredients.length - 1] = Ingredient.of(inputPotionItemStack);
+
+        int processingTime = getProcessingTime(baseProcessingTime, inputPotionItemStack, createPotionItemStack(outputPotion, potionType), nonPotionIngredients.length);
+        return brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, outputPotion, potionType, allIngredients);
+    }
+
+    /*
+     * This method creates a recipe for a potion modifier that applies to all potion containers. This includes potion, splash potion, and lingering potion.
+     */
+    public static List<BrewingCauldronRecipe> brewingCauldronPotionModifierForAllContainers(float experience, int processingTime, String advancementNameIngredient, Potion inputPotion, Potion outputPotion, Ingredient... nonPotionIngredients) {
+        // The below calls handle all (container -> same container type) potion recipes
+        // Container transformation recipes (potion -> splash... etc) are handled in the runtime recipe generation in RecipeManagerMixin.java
+        List<BrewingCauldronRecipe> recipes = new ArrayList<>();
+        recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.POTION, nonPotionIngredients));
+        recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.SPLASH_POTION, nonPotionIngredients));
+        recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.LINGERING_POTION, nonPotionIngredients));
+        return recipes;
+    }
+
+    public static List<BrewingCauldronRecipe> brewingCauldronPotionUpgrades(float experience, int baseProcessingTime, String advancementNameIngredient, grill24.potionsplus.core.Potions.PotionsAmpDurMatrix potions, PotionUpgradeIngredients potionUpgradeIngredients) {
+        // Iterate through all potions
+        List<BrewingCauldronRecipe> allRecipes = new ArrayList<>();
+        for (int a = 0; a < potions.getAmplificationLevels(); a++) {
+            for (int d = 0; d < potions.getDurationLevels(); d++) {
+                Potion toCraft = potions.get(a, d);
+                if(a > 0) {
+                    Potion ampTierBelow = potions.get(a - 1, d);
+                    Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeAmpUpIngredients(a - 1);
+                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, ampTierBelow, toCraft, ingredients));
+                }
+                if(d > 0) {
+                    Potion durTierBelow = potions.get(a, d - 1);
+                    Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeDurUpIngredients(d - 1);
+                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, durTierBelow, toCraft, ingredients));
+                }
+                if(a > 0 && d > 0) {
+                    // THIS WOULD BE BOTH UPGRADED. BUT NOT USING THIS RN. CAN ADD LATER. ADD FIELD TO POTIONUPGRADEINGREDIENTS
+//                    Potion bothTiersBelow = potions[a - 1][d - 1].get();
+//                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, bothTiersBelow, toCraft, ingredients));
+                } else if(a == 0 && d == 0) {
+                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, Potions.AWKWARD, toCraft, potionUpgradeIngredients.getBasePotionIngredients()));
+                }
+            }
+        }
+        return allRecipes;
+    }
+
     // Potions
     public enum PotionType {
         POTION,
@@ -101,4 +176,30 @@ public class PUtil {
         LINGERING_POTION,
         TIPPED_ARROW
     }
+
+    public static List<MobEffect> getAllMobEffects() {
+        List<MobEffect> effects = new ArrayList<>();
+        for (MobEffect value : ForgeRegistries.MOB_EFFECTS.getValues()) {
+            if(value.getRegistryName().getNamespace().equals("minecraft") || value.getRegistryName().getNamespace().equals(ModInfo.MOD_ID)) {
+                effects.add(value);
+            }
+        }
+
+        // Sort by name for consistency
+        // We use this list to map from overrides in the Potion Effect Icon model
+        // Funky logic, ik
+        effects.sort(Comparator.comparing(ForgeRegistryEntry::getRegistryName));
+        return effects;
+    }
+
+    public static Map<ResourceLocation, Integer> getAllMobEffectsIconStackSizeMap() {
+        Map<ResourceLocation, Integer> effects = new HashMap<>();
+        int i = 0;
+        for (MobEffect value : getAllMobEffects()) {;
+            i++;
+            effects.put(value.getRegistryName(), i);
+        }
+        return effects;
+    }
+
 }

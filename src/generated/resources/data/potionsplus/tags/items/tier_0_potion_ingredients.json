@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:stick",
+    "minecraft:egg",
+    "minecraft:sugar",
+    "minecraft:carrot",
+    "minecraft:potato",
+    "minecraft:beetroot",
+    "minecraft:sweet_berries",
+    "minecraft:charcoal",
+    "minecraft:rotten_flesh"
+  ]
+}

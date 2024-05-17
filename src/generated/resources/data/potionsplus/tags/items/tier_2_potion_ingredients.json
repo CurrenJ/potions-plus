@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:ender_pearl",
+    "minecraft:ghast_tear",
+    "minecraft:blaze_powder",
+    "minecraft:magma_cream",
+    "minecraft:diamond",
+    "minecraft:amethyst_cluster",
+    "minecraft:rabbit_foot",
+    "minecraft:golden_apple"
+  ]
+}

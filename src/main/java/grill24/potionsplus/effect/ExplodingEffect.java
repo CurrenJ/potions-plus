@@ -23,8 +23,8 @@ import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ExplodingEffect extends MobEffect {
-    public ExplodingEffect(MobEffectCategory mobEffectCategory, int i) {
-        super(mobEffectCategory, i);
+    public ExplodingEffect(MobEffectCategory mobEffectCategory, int amplifier) {
+        super(mobEffectCategory, amplifier);
     }
 
     @SubscribeEvent
@@ -33,27 +33,32 @@ public class ExplodingEffect extends MobEffect {
 
         if (!entity.level.isClientSide && Objects.requireNonNull(potionExpiryEvent.getPotionEffect()).getEffect() == MobEffects.EXPLODING.get()) {
             boolean isPlayer = entity instanceof Player;
+            int amplifier = potionExpiryEvent.getPotionEffect().getAmplifier()+1;
 
             Explosion.BlockInteraction blockInteraction = isPlayer ? Explosion.BlockInteraction.NONE : Explosion.BlockInteraction.BREAK;
-            entity.level.explode(null, entity.getRandomX(0.1), entity.getY() + 0.5, entity.getRandomZ(0.1), 5.0F, blockInteraction);
+            entity.level.explode(isPlayer ? entity : null, entity.getRandomX(0.1), entity.getY() + 0.5, entity.getRandomZ(0.1), 5.0F * amplifier, blockInteraction);
 
             if (isPlayer) {
-                Vec3 velocity = entity.getLookAngle().scale(3).multiply(2, 0.5, 2);
+                entity.setHealth(entity.getHealth() - 1.5F * amplifier);
+                entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.PLAYER_HURT, SoundSource.PLAYERS, 1.0F, 1.0F);
+
+                Vec3 velocity = entity.getLookAngle().scale(3).multiply(2, 0.5, 2).multiply(amplifier, amplifier, amplifier);
                 PotionsPlusPacketHandler.CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> entity.level.getChunkAt(entity.blockPosition())), new ClientboundImpulsePlayerPacket(velocity.x, velocity.y, velocity.z));
             }
         }
     }
 
-    @SubscribeEvent
-    public static void onLivingEntityDamage(final LivingDamageEvent livingDamageEvent) {
-        LivingEntity entity = livingDamageEvent.getEntityLiving();
-        if (entity instanceof Player && livingDamageEvent.getSource().isExplosion()) {
-            if (entity.hasEffect(MobEffects.EXPLODING.get())) {
-                livingDamageEvent.setCanceled(true);
-                entity.hurt(DamageSource.explosion(entity), 4.0F);
-            }
-        }
-    }
+//    @SubscribeEvent
+//    public static void onLivingEntityDamage(final LivingDamageEvent livingDamageEvent) {
+//        LivingEntity entity = livingDamageEvent.getEntityLiving();
+//        if (entity instanceof Player && livingDamageEvent.getSource().isExplosion()) {
+//            if (entity.hasEffect(MobEffects.EXPLODING.get())) {
+//                livingDamageEvent.setCanceled(true);
+//                entity.setHealth(entity.getHealth() - 4.0F);
+//                entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.PLAYER_HURT, SoundSource.PLAYERS, 1.0F, 1.0F);
+//            }
+//        }
+//    }
 
     @SubscribeEvent
     public static void onUsePotion(final PotionEvent.PotionAddedEvent potionAddedEvent) {

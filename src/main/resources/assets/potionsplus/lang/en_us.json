@@ -2,6 +2,7 @@
   "block.potionsplus.particle_emitter": "Particle Emitter",
   "jei.potionsplus.particle_emitter.description": "Emits particles in an area around itself when powered by redstone. Interact with an empty hand to cycle through different particles. Interact with a dirt block, iron ingot, gold ingot, or diamond to set the particle spawn rate to 1x (default), 2x, 3x, 4x, respectively.",
   "block.potionsplus.brewing_cauldron": "Brewing Cauldron",
+  "block.potionsplus.herbalists_lectern": "Herbalist's Lectern",
   "effect.potionsplus.geode_grace": "Geode Grace",
   "item.minecraft.potion.effect.geode_grace": "Potion of Geode Grace",
   "item.minecraft.splash_potion.effect.geode_grace": "Splash Potion of Geode Grace",
@@ -44,5 +45,9 @@
   "item.minecraft.splash_potion.effect.teleportation": "Splash Potion of Teleportation",
   "item.minecraft.lingering_potion.effect.teleportation": "Lingering Potion of Teleportation",
   "item.minecraft.tipped_arrow.effect.teleportation": "Arrow of Teleportation",
-  "jei.potionsplus.teleportation.description": "Randomly teleports the afflicted mob to a nearby location."
+  "jei.potionsplus.teleportation.description": "Randomly teleports the afflicted mob to a nearby location.",
+  "chat.potionsplus.acquired_ingredient_knowledge_1": "You tingle with alchemical knowledge of the %s you possess...",
+  "chat.potionsplus.acquired_ingredient_knowledge_2": "The %s you possess reminds you of something wet and warm...",
+  "chat.potionsplus.acquired_ingredient_knowledge_3": "The %s you possess fills you with alchemical determination.",
+
 }

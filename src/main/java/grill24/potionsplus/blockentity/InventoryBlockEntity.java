@@ -226,12 +226,6 @@ public abstract class InventoryBlockEntity extends BlockEntity implements Worldl
             if (!level.isClientSide) {
                 updateTileEntityForNearbyPlayers(this);
             }
-
-            // Send block update to clients
-            // Hack to force the block to re-render and thus pick up any change in the water color
-            // Should improve this to only update when the water color changes
-            level.setBlock(getBlockPos(), getBlockState(), 3);
-            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
         }
 
     }

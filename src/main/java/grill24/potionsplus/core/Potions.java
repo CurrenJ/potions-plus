@@ -13,6 +13,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.function.Function;
+
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Potions {
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, ModInfo.MOD_ID);
@@ -26,20 +28,44 @@ public class Potions {
     public static final RegistryObject<Potion> HASTE = POTIONS.register("haste", () ->
             new Potion(new MobEffectInstance(net.minecraft.world.effect.MobEffects.DIG_SPEED, 12000)));
 
-    public static final RegistryObject<Potion> LEVITATION = POTIONS.register("levitation", () ->
-            new Potion(new MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION, 600)));
+    public static final PotionsAmpDurMatrix LEVITATION_POTIONS = new PotionsAmpDurMatrix("levitation",
+            6, 4,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION, 20 * (levels[1] + 1), levels[0])});
 
-    public static final RegistryObject<Potion> LONG_LEVITATION = POTIONS.register("long_levitation", () ->
-            new Potion(new MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION, 1200)));
+    public static final PotionsAmpDurMatrix MAGNETIC_POTIONS = new PotionsAmpDurMatrix("magnetic",
+            3, 4,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.MAGNETIC.get(), 60 * (levels[1] + 1), levels[0])});
 
-    public static final RegistryObject<Potion> EXPLODING = POTIONS.register("exploding", () ->
-            new Potion(new MobEffectInstance(MobEffects.EXPLODING.get(), 80)));
+    public static final PotionsAmpDurMatrix EXPLODING_POTIONS = new PotionsAmpDurMatrix("exploding",
+            3, 1,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.EXPLODING.get(), 60, levels[0])});
 
-    public static final RegistryObject<Potion> MAGNETIC = POTIONS.register("magnetic", () ->
-            new Potion(new MobEffectInstance(MobEffects.MAGNETIC.get(), 12000)));
+    public static final PotionsAmpDurMatrix TELEPORTATION_POTIONS = new PotionsAmpDurMatrix("teleportation",
+            4, 1,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.TELEPORTATION.get(), 60, levels[0])});
 
-    public static final RegistryObject<Potion> TELEPORTATION = POTIONS.register("teleportation", () ->
-            new Potion(new MobEffectInstance(MobEffects.TELEPORTATION.get(), 60)));
+    public static class PotionsAmpDurMatrix {
+        public final RegistryObject<Potion>[][] potions;
+        public PotionsAmpDurMatrix(RegistryObject<Potion>[][] potions) {
+            this.potions = potions;
+        }
+
+        public PotionsAmpDurMatrix(String name, int amplificationLevels, int durationLevels, Function<int[], MobEffectInstance[]> effectFunction) {
+            this.potions = registerNewPotion(name, amplificationLevels, durationLevels, effectFunction);
+        }
+
+        public Potion get(int a, int d) {
+            return potions[a][d].get();
+        }
+
+        public int getAmplificationLevels() {
+            return potions.length;
+        }
+
+        public int getDurationLevels() {
+            return potions[0].length;
+        }
+    }
 
     @SubscribeEvent
     public static void onRegisterPotions(final FMLCommonSetupEvent event) {
@@ -47,11 +73,30 @@ public class Potions {
             BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.AMETHYST_CLUSTER, Potions.GEODE_GRACE.get()));
             BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.ENDER_PEARL, Potions.FALL_OF_THE_VOID.get()));
             BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.GOLDEN_CARROT, Potions.HASTE.get()));
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.SLOW_FALLING, Items.FERMENTED_SPIDER_EYE, Potions.LEVITATION.get()));
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.LONG_SLOW_FALLING, Items.FERMENTED_SPIDER_EYE, Potions.LONG_LEVITATION.get()));
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.TNT, Potions.EXPLODING.get()));
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.HONEY_BLOCK, Potions.MAGNETIC.get()));
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.CHORUS_FRUIT, Potions.TELEPORTATION.get()));
+//            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.SLOW_FALLING, Items.FERMENTED_SPIDER_EYE, Potions.LEVITATION.get()));
+//            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.LONG_SLOW_FALLING, Items.FERMENTED_SPIDER_EYE, Potions.LONG_LEVITATION.get()));
+//            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.TNT, Potions.EXPLODING.get()));
+//            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.HONEY_BLOCK, Potions.MAGNETIC.get()));
+//            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.CHORUS_FRUIT, Potions.TELEPORTATION.get()));
         });
+    }
+
+    public static RegistryObject<Potion>[][] registerNewPotion(String name, int amplificationLevels, int durationLevels, Function<int[], MobEffectInstance[]> effectFunction) {
+        if(amplificationLevels < 1 || durationLevels < 1)
+            throw new IllegalArgumentException("Amplification and duration levels must be at least 1");
+
+        RegistryObject<Potion>[][] potions = new RegistryObject[amplificationLevels][durationLevels];
+        for (int i = 0; i < amplificationLevels; i++) {
+
+            for (int j = 0; j < durationLevels; j++) {
+                int finalI = i;
+                int finalJ = j;
+
+                potions[i][j] = POTIONS.register(name + "_a" + i + "_d" + j, () ->
+                        new Potion(name, effectFunction.apply(new int[]{finalI, finalJ}))
+                );
+            }
+        }
+        return potions;
     }
 }

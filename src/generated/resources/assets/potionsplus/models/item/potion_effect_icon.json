@@ -1,0 +1,230 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:mob_effect/absorption"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.0
+      },
+      "model": "potionsplus:item/potion_effect_icon_absorption"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.015625
+      },
+      "model": "potionsplus:item/potion_effect_icon_bad_omen"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.03125
+      },
+      "model": "potionsplus:item/potion_effect_icon_blindness"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.046875
+      },
+      "model": "potionsplus:item/potion_effect_icon_conduit_power"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.0625
+      },
+      "model": "potionsplus:item/potion_effect_icon_dolphins_grace"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.078125
+      },
+      "model": "potionsplus:item/potion_effect_icon_exploding"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.09375
+      },
+      "model": "potionsplus:item/potion_effect_icon_fall_of_the_void"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.109375
+      },
+      "model": "potionsplus:item/potion_effect_icon_fire_resistance"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.125
+      },
+      "model": "potionsplus:item/potion_effect_icon_geode_grace"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.140625
+      },
+      "model": "potionsplus:item/potion_effect_icon_glowing"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.15625
+      },
+      "model": "potionsplus:item/potion_effect_icon_haste"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.171875
+      },
+      "model": "potionsplus:item/potion_effect_icon_health_boost"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.1875
+      },
+      "model": "potionsplus:item/potion_effect_icon_hero_of_the_village"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.203125
+      },
+      "model": "potionsplus:item/potion_effect_icon_hunger"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.21875
+      },
+      "model": "potionsplus:item/potion_effect_icon_instant_damage"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.234375
+      },
+      "model": "potionsplus:item/potion_effect_icon_instant_health"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.25
+      },
+      "model": "potionsplus:item/potion_effect_icon_invisibility"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.265625
+      },
+      "model": "potionsplus:item/potion_effect_icon_jump_boost"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.28125
+      },
+      "model": "potionsplus:item/potion_effect_icon_levitation"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.296875
+      },
+      "model": "potionsplus:item/potion_effect_icon_luck"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.3125
+      },
+      "model": "potionsplus:item/potion_effect_icon_magnetic"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.328125
+      },
+      "model": "potionsplus:item/potion_effect_icon_mining_fatigue"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.34375
+      },
+      "model": "potionsplus:item/potion_effect_icon_nausea"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.359375
+      },
+      "model": "potionsplus:item/potion_effect_icon_night_vision"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.375
+      },
+      "model": "potionsplus:item/potion_effect_icon_poison"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.390625
+      },
+      "model": "potionsplus:item/potion_effect_icon_regeneration"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.40625
+      },
+      "model": "potionsplus:item/potion_effect_icon_resistance"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.421875
+      },
+      "model": "potionsplus:item/potion_effect_icon_saturation"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.4375
+      },
+      "model": "potionsplus:item/potion_effect_icon_slow_falling"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.453125
+      },
+      "model": "potionsplus:item/potion_effect_icon_slowness"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.46875
+      },
+      "model": "potionsplus:item/potion_effect_icon_speed"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.484375
+      },
+      "model": "potionsplus:item/potion_effect_icon_strength"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.5
+      },
+      "model": "potionsplus:item/potion_effect_icon_teleportation"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.515625
+      },
+      "model": "potionsplus:item/potion_effect_icon_unluck"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.53125
+      },
+      "model": "potionsplus:item/potion_effect_icon_water_breathing"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.546875
+      },
+      "model": "potionsplus:item/potion_effect_icon_weakness"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.5625
+      },
+      "model": "potionsplus:item/potion_effect_icon_wither"
+    }
+  ]
+}

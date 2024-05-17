@@ -1,19 +1,27 @@
 package grill24.potionsplus.recipe;
 
+import grill24.potionsplus.core.MobEffects;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import oshi.util.tuples.Pair;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 
 public class BrewingCauldronRecipe implements Recipe<Container> {
@@ -62,6 +70,51 @@ public class BrewingCauldronRecipe implements Recipe<Container> {
         return hasAllIngredients;
     }
 
+    public boolean isIngredient(ItemStack itemStack) {
+        for (Ingredient ingredient : this.ingredients) {
+            if (PUtil.isSameItemOrPotion(itemStack, ingredient.getItems()[0])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isAmpUpgrade() {
+        return this.isTrueInIngredients((pair) -> pair.getA().getAmplifier() < pair.getB().getAmplifier());
+    }
+
+    public boolean isDurationUpgrade() {
+        return this.isTrueInIngredients((pair) -> pair.getA().getDuration() < pair.getB().getDuration());
+    }
+
+    public int getOutputTier() {
+            if (PUtil.isPotion(this.result)) {
+                Potion potion = PotionUtils.getPotion(this.result);
+                if (isAmpUpgrade())
+                    return potion.getEffects().get(0).getAmplifier();
+                else if (isDurationUpgrade())
+                    return potion.getEffects().get(0).getDuration();
+                else
+                    return 0;
+            }
+            return -1;
+    }
+
+    public boolean isTrueInIngredients(Function<Pair<MobEffectInstance, MobEffectInstance>, Boolean> function) {
+        for (Ingredient ingredient : this.ingredients) {
+            ItemStack itemStack = ingredient.getItems()[0];
+            if (PUtil.isPotion(itemStack)) {
+                Potion inputPotion = PotionUtils.getPotion(itemStack);
+                Potion outputPotion = PotionUtils.getPotion(this.result);
+                if (!inputPotion.getEffects().isEmpty() && !outputPotion.getEffects().isEmpty() &&
+                        function.apply(new Pair<>(inputPotion.getEffects().get(0), outputPotion.getEffects().get(0)))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public @NotNull ItemStack assemble(@NotNull Container container) {
         return this.result.copy();
@@ -78,6 +131,10 @@ public class BrewingCauldronRecipe implements Recipe<Container> {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.addAll(List.of(this.ingredients));
         return nonnulllist;
+    }
+
+    public ItemStack[] getIngredientsAsItemStacks() {
+        return Arrays.stream(this.ingredients).map((ingredient) -> ingredient.getItems()[0]).toArray(ItemStack[]::new);
     }
 
     public float getExperience() {
@@ -112,5 +169,20 @@ public class BrewingCauldronRecipe implements Recipe<Container> {
     @Override
     public @NotNull RecipeType<?> getType() {
         return Recipes.BREWING_CAULDRON_RECIPE.get();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder recipeString = new StringBuilder("[BCR] ");
+        for (int i = 0; i < ingredients.length; i++) {
+            Ingredient ingredient = ingredients[i];
+            recipeString.append(PUtil.getNameOrVerbosePotionName(ingredient.getItems()[0]));
+            if (i < ingredients.length - 1) {
+                recipeString.append(" + ");
+            }
+        }
+        recipeString.append(" => ").append(PUtil.getNameOrVerbosePotionName(result));
+
+        return recipeString.toString();
     }
 }

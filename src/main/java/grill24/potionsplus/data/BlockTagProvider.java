@@ -2,14 +2,17 @@ package grill24.potionsplus.data;
 
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
-public class BlockTagProvider extends TagsProvider<Block> {
-    protected BlockTagProvider(DataGenerator dataGenerator, Registry<Block> blockRegistry, String modId, @Nullable ExistingFileHelper existingFileHelper) {
-        super(dataGenerator, blockRegistry, modId, existingFileHelper);
+public class BlockTagProvider extends BlockTagsProvider {
+
+
+    public BlockTagProvider(DataGenerator generator, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+        super(generator, modId, existingFileHelper);
     }
 
     @Override

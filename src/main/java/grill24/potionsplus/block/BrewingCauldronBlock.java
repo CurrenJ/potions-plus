@@ -3,17 +3,14 @@ package grill24.potionsplus.block;
 import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CauldronBlock;
 import net.minecraft.world.level.block.EntityBlock;
@@ -60,43 +57,7 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
 
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult p_151974_) {
-        ItemStack hand = player.getItemInHand(interactionHand);
-        if (!hand.isEmpty()) {
-            Optional<BrewingCauldronBlockEntity> blockEntity = level.getBlockEntity(blockPos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get());
-            if (blockEntity.isPresent()) {
-                Container itemHandler = blockEntity.get().getItemHandler();
-                for (int i = 0; i < itemHandler.getContainerSize(); i++) {
-                    ItemStack toInsert = hand.copy();
-                    toInsert.setCount(1);
-                    if (blockEntity.get().canPlaceItem(i, toInsert)) {
-                        hand.shrink(toInsert.getCount());
-                        toInsert.grow(itemHandler.getItem(i).getCount());
-                        itemHandler.setItem(i, toInsert);
-
-                        level.playSound(null, blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1.0F, 1.0F);
-
-                        return InteractionResult.SUCCESS;
-                    }
-                }
-            }
-        } else {
-            Optional<BrewingCauldronBlockEntity> blockEntity = level.getBlockEntity(blockPos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get());
-            if (blockEntity.isPresent()) {
-                Container itemHandler = blockEntity.get().getItemHandler();
-                for (int i = 0; i < itemHandler.getContainerSize(); i++) {
-                    ItemStack stack = itemHandler.getItem(i);
-                    if (!stack.isEmpty() && player.canTakeItem(stack)) {
-                        player.addItem(stack);
-                        itemHandler.setItem(i, ItemStack.EMPTY);
-
-                        level.playSound(null, blockPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1.0F, 1.0F);
-
-                        return InteractionResult.SUCCESS;
-                    }
-                }
-            }
-        }
-        return InteractionResult.PASS;
+        return InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand);
     }
 
     @Override
