@@ -9,8 +9,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;

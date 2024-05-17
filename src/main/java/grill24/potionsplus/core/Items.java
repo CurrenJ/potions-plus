@@ -42,6 +42,7 @@ public class Items {
     }};
 
     public static final String DYNAMIC_ICON_INDEX_PROPERTY_NAME = "dynamic_icon_index";
+
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent event) {
         // Register item models

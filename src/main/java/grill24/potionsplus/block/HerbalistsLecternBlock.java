@@ -1,17 +1,16 @@
 package grill24.potionsplus.block;
 
-import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
 import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntity;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -80,14 +79,14 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
         // Cache items before interaction
         Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
         ItemStack slotStack = ItemStack.EMPTY;
-        if(blockEntity.isPresent())
+        if (blockEntity.isPresent())
             slotStack = blockEntity.get().getItemHandler().getItem(0);
 
         // Do interaction
-        InteractionResult result = InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand);
+        InteractionResult result = InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
 
         // If an item was inserted by a player, update the animation state
-        if(slotStack.isEmpty() && !blockEntity.get().getItemHandler().getItem(0).isEmpty()) {
+        if (slotStack.isEmpty() && !blockEntity.get().getItemHandler().getItem(0).isEmpty()) {
             blockEntity.get().setChanged();
             level.updateNeighborsAt(blockPos, this);
             blockEntity.get().onPlayerInsertItem(player);

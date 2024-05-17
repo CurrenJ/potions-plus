@@ -101,7 +101,7 @@ public class Utility {
 
     private static Item sampleItemFromTag(TagKey<Item> tagKey, Random random) {
         Optional<Item> item = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).getRandomElement(random);
-        if(item.isEmpty()) {
+        if (item.isEmpty()) {
             throw new IllegalStateException("No item found in tag " + tagKey.registry().getRegistryName().toString());
         }
         return item.get();
@@ -109,7 +109,7 @@ public class Utility {
 
     public static Item[] sampleItemsFromTag(TagKey<Item> tagKey, Random random, int count) {
         Item[] items = new Item[count];
-        for(int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             items[i] = sampleItemFromTag(tagKey, random);
         }
         return items;
@@ -117,7 +117,7 @@ public class Utility {
 
     public static Ingredient[] sampleIngredientsFromTag(TagKey<Item> tagKey, Random random, int count) {
         Ingredient[] items = new Ingredient[count];
-        for(int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             items[i] = Ingredient.of(sampleItemFromTag(tagKey, random));
         }
         return items;

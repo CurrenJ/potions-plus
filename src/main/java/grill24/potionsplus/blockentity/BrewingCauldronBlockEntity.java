@@ -52,7 +52,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
         super.setChanged();
         updateActiveRecipe();
 
-        if(level == null)
+        if (level == null)
             return;
 
         // Send block update to clients

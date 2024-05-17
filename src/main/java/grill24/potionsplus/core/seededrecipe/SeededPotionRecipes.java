@@ -1,15 +1,11 @@
 package grill24.potionsplus.core.seededrecipe;
 
-import cpw.mods.util.Lazy;
 import grill24.potionsplus.core.Potions;
-import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.recipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 
 import java.util.*;

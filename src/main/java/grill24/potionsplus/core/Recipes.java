@@ -105,7 +105,7 @@ public class Recipes {
 
     public static void computeUniqueIngredientsList() {
         Set<PpIngredients> unique = new HashSet<>();
-        if(Minecraft.getInstance().level != null) {
+        if (Minecraft.getInstance().level != null) {
             Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()).forEach(recipe -> {
                 for (ItemStack itemStack : recipe.getIngredientsAsItemStacks()) {
                     unique.add(new PpIngredients(itemStack));

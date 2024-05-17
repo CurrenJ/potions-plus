@@ -76,7 +76,7 @@ public class PUtil {
 
             if (potion == Potions.AWKWARD || potion == Potions.THICK || potion == Potions.MUNDANE) {
                 processingTime = (int) (processingTime * 0.5);
-                if(potion == Potions.THICK || potion == Potions.MUNDANE) {
+                if (potion == Potions.THICK || potion == Potions.MUNDANE) {
                     // Brewing Cauldron uses processing time as priority for recipe selection
                     // Thick and mundane potions are rarely made and should not take priority over awkward potion crafting
                     processingTime -= 1;
@@ -147,21 +147,21 @@ public class PUtil {
         for (int a = 0; a < potions.getAmplificationLevels(); a++) {
             for (int d = 0; d < potions.getDurationLevels(); d++) {
                 Potion toCraft = potions.get(a, d);
-                if(a > 0) {
+                if (a > 0) {
                     Potion ampTierBelow = potions.get(a - 1, d);
                     Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeAmpUpIngredients(a - 1);
                     allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, ampTierBelow, toCraft, ingredients));
                 }
-                if(d > 0) {
+                if (d > 0) {
                     Potion durTierBelow = potions.get(a, d - 1);
                     Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeDurUpIngredients(d - 1);
                     allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, durTierBelow, toCraft, ingredients));
                 }
-                if(a > 0 && d > 0) {
+                if (a > 0 && d > 0) {
                     // THIS WOULD BE BOTH UPGRADED. BUT NOT USING THIS RN. CAN ADD LATER. ADD FIELD TO POTIONUPGRADEINGREDIENTS
 //                    Potion bothTiersBelow = potions[a - 1][d - 1].get();
 //                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, bothTiersBelow, toCraft, ingredients));
-                } else if(a == 0 && d == 0) {
+                } else if (a == 0 && d == 0) {
                     allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, Potions.AWKWARD, toCraft, potionUpgradeIngredients.getBasePotionIngredients()));
                 }
             }
@@ -180,7 +180,7 @@ public class PUtil {
     public static List<MobEffect> getAllMobEffects() {
         List<MobEffect> effects = new ArrayList<>();
         for (MobEffect value : ForgeRegistries.MOB_EFFECTS.getValues()) {
-            if(value.getRegistryName().getNamespace().equals("minecraft") || value.getRegistryName().getNamespace().equals(ModInfo.MOD_ID)) {
+            if (value.getRegistryName().getNamespace().equals("minecraft") || value.getRegistryName().getNamespace().equals(ModInfo.MOD_ID)) {
                 effects.add(value);
             }
         }
@@ -195,7 +195,8 @@ public class PUtil {
     public static Map<ResourceLocation, Integer> getAllMobEffectsIconStackSizeMap() {
         Map<ResourceLocation, Integer> effects = new HashMap<>();
         int i = 0;
-        for (MobEffect value : getAllMobEffects()) {;
+        for (MobEffect value : getAllMobEffects()) {
+            ;
             i++;
             effects.put(value.getRegistryName(), i);
         }

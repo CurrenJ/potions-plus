@@ -46,6 +46,7 @@ public class Potions {
 
     public static class PotionsAmpDurMatrix {
         public final RegistryObject<Potion>[][] potions;
+
         public PotionsAmpDurMatrix(RegistryObject<Potion>[][] potions) {
             this.potions = potions;
         }
@@ -82,7 +83,7 @@ public class Potions {
     }
 
     public static RegistryObject<Potion>[][] registerNewPotion(String name, int amplificationLevels, int durationLevels, Function<int[], MobEffectInstance[]> effectFunction) {
-        if(amplificationLevels < 1 || durationLevels < 1)
+        if (amplificationLevels < 1 || durationLevels < 1)
             throw new IllegalArgumentException("Amplification and duration levels must be at least 1");
 
         RegistryObject<Potion>[][] potions = new RegistryObject[amplificationLevels][durationLevels];

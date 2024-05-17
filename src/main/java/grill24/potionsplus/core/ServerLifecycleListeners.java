@@ -19,7 +19,7 @@ public class ServerLifecycleListeners {
 
         // Setup saved data
         ServerLevel level = event.getServer().getLevel(Level.OVERWORLD);
-        if(level != null) {
+        if (level != null) {
             DimensionDataStorage dataStorage = level.getDataStorage();
             SavedData.instance = dataStorage.computeIfAbsent(SavedData::load, SavedData::create, SavedData.SAVED_DATA_ID);
         }

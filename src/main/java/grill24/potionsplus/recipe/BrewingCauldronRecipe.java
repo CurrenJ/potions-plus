@@ -1,12 +1,11 @@
 package grill24.potionsplus.recipe;
 
-import grill24.potionsplus.core.MobEffects;
 import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
@@ -21,6 +20,7 @@ import oshi.util.tuples.Pair;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 
@@ -88,16 +88,34 @@ public class BrewingCauldronRecipe implements Recipe<Container> {
     }
 
     public int getOutputTier() {
-            if (PUtil.isPotion(this.result)) {
-                Potion potion = PotionUtils.getPotion(this.result);
-                if (isAmpUpgrade())
-                    return potion.getEffects().get(0).getAmplifier();
-                else if (isDurationUpgrade())
-                    return potion.getEffects().get(0).getDuration();
-                else
-                    return 0;
+        if (PUtil.isPotion(this.result)) {
+            Potion outputPotion = PotionUtils.getPotion(this.result);
+            if (isAmpUpgrade()) {
+                return outputPotion.getEffects().get(0).getAmplifier();
             }
-            return -1;
+//                if (isDurationUpgrade()) {
+//                    for (Ingredient ingredient : this.ingredients) {
+//                        ItemStack itemStack = ingredient.getItems()[0];
+//                        if (PUtil.isPotion(itemStack)) {
+//                            Potion inputPotion = PotionUtils.getPotion(itemStack);
+//                            int durA = inputPotion.getEffects().get(0).getDuration();
+//                            int durB = outputPotion.getEffects().get(0).getDuration();
+//                            return durB / (durB - durA);
+//                        }
+//                    }
+//                }
+            else
+                return 0;
+        }
+        return -1;
+    }
+
+    public boolean isPotionsPlusPotion() {
+        if (PUtil.isPotion(this.result)) {
+            Potion potion = PotionUtils.getPotion(this.result);
+            return Objects.requireNonNull(potion.getRegistryName()).getNamespace().equals(ModInfo.MOD_ID);
+        }
+        return false;
     }
 
     public boolean isTrueInIngredients(Function<Pair<MobEffectInstance, MobEffectInstance>, Boolean> function) {

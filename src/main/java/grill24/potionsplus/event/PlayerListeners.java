@@ -1,9 +1,9 @@
 package grill24.potionsplus.event;
 
 import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.BrewingCauldronRecipe;
-import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -26,7 +26,7 @@ public class PlayerListeners {
             PlayerBrewingKnowledge playerBrewingKnowledge = SavedData.instance.playerDataMap.getOrDefault(uuid, new PlayerBrewingKnowledge());
 
             List<BrewingCauldronRecipe> recipes = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get());
-            if(!playerBrewingKnowledge.contains(stack)) {
+            if (!playerBrewingKnowledge.contains(stack)) {
                 for (BrewingCauldronRecipe recipe : recipes) {
                     if (recipe.isIngredient(stack)) {
                         playerBrewingKnowledge.addIngredient(stack);

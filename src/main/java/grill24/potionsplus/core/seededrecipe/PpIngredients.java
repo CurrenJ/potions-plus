@@ -5,6 +5,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class PpIngredients {
     public Ingredient[] ingredients;
+
     public PpIngredients(Ingredient[] ingredients) {
         this.ingredients = ingredients;
     }

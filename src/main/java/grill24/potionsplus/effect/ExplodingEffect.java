@@ -6,14 +6,12 @@ import grill24.potionsplus.core.PotionsPlusPacketHandler;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -33,7 +31,7 @@ public class ExplodingEffect extends MobEffect {
 
         if (!entity.level.isClientSide && Objects.requireNonNull(potionExpiryEvent.getPotionEffect()).getEffect() == MobEffects.EXPLODING.get()) {
             boolean isPlayer = entity instanceof Player;
-            int amplifier = potionExpiryEvent.getPotionEffect().getAmplifier()+1;
+            int amplifier = potionExpiryEvent.getPotionEffect().getAmplifier() + 1;
 
             Explosion.BlockInteraction blockInteraction = isPlayer ? Explosion.BlockInteraction.NONE : Explosion.BlockInteraction.BREAK;
             entity.level.explode(isPlayer ? entity : null, entity.getRandomX(0.1), entity.getY() + 0.5, entity.getRandomZ(0.1), 5.0F * amplifier, blockInteraction);

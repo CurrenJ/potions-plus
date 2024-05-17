@@ -51,10 +51,10 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     private void registerPotionEffectIcons(MobEffect... mobEffects) {
         ItemModelBuilder imb = null;
         for (MobEffect mobEffect : PUtil.getAllMobEffects()) {
-            if(imb == null) {
+            if (imb == null) {
                 imb = itemModels().getBuilder("potion_effect_icon")
                         .parent(models().getExistingFile(mcLoc("item/generated")))
-                        .texture("layer0",  mobEffect.getRegistryName().getNamespace() + ":mob_effect/" + mobEffect.getRegistryName().getPath());
+                        .texture("layer0", mobEffect.getRegistryName().getNamespace() + ":mob_effect/" + mobEffect.getRegistryName().getPath());
             }
 
             // Each potion effect icon is a separate item model
@@ -71,8 +71,8 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     private void registerGenericIcons() {
         ItemModelBuilder imb = null;
 
-        for(ResourceLocation rl : grill24.potionsplus.core.Items.GENERIC_ICON_RESOURCE_LOCATIONS) {
-            if(imb == null) {
+        for (ResourceLocation rl : grill24.potionsplus.core.Items.GENERIC_ICON_RESOURCE_LOCATIONS) {
+            if (imb == null) {
                 imb = itemModels().getBuilder("generic_icon")
                         .parent(models().getExistingFile(mcLoc("item/generated")))
                         .texture("layer0", rl.getNamespace() + ":item/" + rl.getPath());

@@ -45,7 +45,7 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.SPIDER_EYE,
                 Items.PUFFERFISH,
                 Items.APPLE
-                );
+        );
 
         tag(Tags.Items.TIER_2_POTION_INGREDIENTS).add(
                 Items.ENDER_PEARL,
@@ -56,7 +56,7 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.AMETHYST_CLUSTER,
                 Items.RABBIT_FOOT,
                 Items.GOLDEN_APPLE
-                );
+        );
 
         tag(Tags.Items.TIER_3_POTION_INGREDIENTS).add(
                 Items.NETHER_STAR,

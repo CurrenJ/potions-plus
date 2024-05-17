@@ -1,20 +1,17 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.MobEffects;
-import grill24.potionsplus.core.Potions;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 import static grill24.potionsplus.utility.Utility.snakeToTitle;

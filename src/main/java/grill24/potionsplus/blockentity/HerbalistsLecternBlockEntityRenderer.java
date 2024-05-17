@@ -13,15 +13,8 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.Potions;
-import org.antlr.runtime.debug.Profiler;
-
-import java.util.Set;
 
 public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
 
@@ -55,7 +48,7 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
             int rotationDegreesEnd = 90;
             Quaternion rotation = Vector3f.XP.rotationDegrees(rotationDegreesEnd);
 
-            if(lerpFactor < 1) {
+            if (lerpFactor < 1) {
                 Vector3d startAnimationTranslation = blockEntity.getStartAnimationWorldPos();
 
                 Vector3d lerped = Utility.lerp3d(startAnimationTranslation, HerbalistsLecternBlockEntity.RendererData.itemRestingPositionTranslation, lerpFactor, Utility::easeOutExpo);
@@ -79,7 +72,7 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
             Vector3f offset = new Vector3f(0.5f, 1.75F, 0.5f);
             Vector3f axis = new Vector3f(1f, 0, 0);
             float radius = 0.4F * Utility.easeOutExpo(lerpFactor);
-            if(infoStacks.length > 10)
+            if (infoStacks.length > 10)
                 radius *= 1.5F;
             Vector3f[] points = distributePointsOnCircle(infoStacks.length, axis, offset, (float) Math.toRadians(ticks), radius, (float) Math.toDegrees(Math.atan2(blockEntity.getNearbyPlayer().z(), blockEntity.getNearbyPlayer().x())));
             for (int p = 0; p < points.length; p++) {
@@ -108,14 +101,14 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
                         light, overlay, matrices, vertexConsumers, 0);
 
                 matrices.scale(0.35F, 0.35F, 0.35F);
-                if(blockEntity.rendererData.isAmpUpgrade[p]) {
+                if (blockEntity.rendererData.isAmpUpgrade[p]) {
                     matrices.pushPose();
                     matrices.translate(-0.75F, 1F, 0);
                     Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Items.GENERIC_ICON.get(), 1), ItemTransforms.TransformType.GROUND,
                             light, overlay, matrices, vertexConsumers, 0);
                     matrices.popPose();
                 }
-                if(blockEntity.rendererData.isDurationUpgrade[p]) {
+                if (blockEntity.rendererData.isDurationUpgrade[p]) {
                     matrices.pushPose();
                     matrices.translate(0.75F, 1F, 0);
                     Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Items.GENERIC_ICON.get(), 2), ItemTransforms.TransformType.GROUND,
@@ -127,7 +120,7 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
             }
 
             // Roman numerals for tier
-            if(blockEntity.rendererData.ingredientTier > -1) {
+            if (blockEntity.rendererData.ingredientTier > -1) {
                 matrices.pushPose();
                 Vector3f numeralsOffset = new Vector3f(0.5f, 1.75F, 0.5f);
                 matrices.translate(numeralsOffset.x(), numeralsOffset.y(), numeralsOffset.z());
@@ -219,12 +212,12 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
         }
 
         // Since dot is in range [0, DOT_THRESHOLD], acos is safe
-        float theta_0 = (float)Math.acos(dot);  // theta_0 = angle between input vectors
+        float theta_0 = (float) Math.acos(dot);  // theta_0 = angle between input vectors
         float theta = theta_0 * t;    // theta = angle between v0 and result
-        float sin_theta = (float)Math.sin(theta);  // compute this value only once
-        float sin_theta_0 = (float)Math.sin(theta_0); // compute this value only once
+        float sin_theta = (float) Math.sin(theta);  // compute this value only once
+        float sin_theta_0 = (float) Math.sin(theta_0); // compute this value only once
 
-        float s0 = (float)Math.cos(theta) - dot * sin_theta / sin_theta_0;  // == sin(theta_0 - theta) / sin(theta_0)
+        float s0 = (float) Math.cos(theta) - dot * sin_theta / sin_theta_0;  // == sin(theta_0 - theta) / sin(theta_0)
         float s1 = sin_theta / sin_theta_0;
 
         // Perform the slerp

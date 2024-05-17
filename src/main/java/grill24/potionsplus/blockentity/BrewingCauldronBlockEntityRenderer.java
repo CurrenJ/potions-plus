@@ -2,7 +2,6 @@ package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
 import grill24.potionsplus.recipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
 import net.minecraft.client.Minecraft;
@@ -64,7 +63,7 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
         final double angle = Math.PI * 2 / itemStacks.length;
 
         List<Ingredient> ingredients;
-        if(activeRecipe.isPresent()) {
+        if (activeRecipe.isPresent()) {
             ingredients = activeRecipe.get().getIngredients();
         } else {
             ingredients = List.of();

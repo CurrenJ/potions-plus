@@ -1,10 +1,8 @@
 package grill24.potionsplus.utility;
 
-import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
-import grill24.potionsplus.core.Blocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -15,11 +13,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Optional;
-
 public class InvUtil {
     @NotNull
-    public static InteractionResult giveAndTakeFromPlayerOnUseBlock(Level level, BlockPos blockPos, Player player, InteractionHand interactionHand) {
+    public static InteractionResult giveAndTakeFromPlayerOnUseBlock(Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, SoundEvent insert, SoundEvent remove) {
         ItemStack hand = player.getItemInHand(interactionHand);
         if (!hand.isEmpty()) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
@@ -33,7 +29,7 @@ public class InvUtil {
                         toInsert.grow(itemHandler.getItem(i).getCount());
                         itemHandler.setItem(i, toInsert);
 
-                        level.playSound(null, blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        level.playSound(null, blockPos, insert, SoundSource.BLOCKS, 1.0F, 1.0F);
 
                         return InteractionResult.SUCCESS;
                     }
@@ -49,7 +45,7 @@ public class InvUtil {
                         player.addItem(stack);
                         itemHandler.setItem(i, ItemStack.EMPTY);
 
-                        level.playSound(null, blockPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        level.playSound(null, blockPos, remove, SoundSource.BLOCKS, 1.0F, 1.0F);
 
                         return InteractionResult.SUCCESS;
                     }

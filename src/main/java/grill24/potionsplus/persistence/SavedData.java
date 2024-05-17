@@ -27,11 +27,13 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     }
 
     public static SavedData load(CompoundTag compoundTag) {
+        Gson gson = createGson();
         SavedData data = create();
+
         byte[] testMapBytes = compoundTag.getByteArray(SAVED_DATA_ID);
         String json = new String(testMapBytes, StandardCharsets.UTF_8);
-        Gson gson = new Gson();
-        Type type = new TypeToken<HashMap<UUID, PlayerBrewingKnowledge>>(){}.getType();
+        Type type = new TypeToken<HashMap<UUID, PlayerBrewingKnowledge>>() {
+        }.getType();
         data.playerDataMap = gson.fromJson(json, type);
 
         return data;
@@ -39,11 +41,18 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
 
     @Override
     public @NotNull CompoundTag save(@NotNull CompoundTag compoundTag) {
-        Gson gson = new GsonBuilder().excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT).create();
+        Gson gson = createGson();
         String json = gson.toJson(playerDataMap);
-        byte[] testMapBytes = json.getBytes(StandardCharsets.UTF_8);
-        compoundTag.putByteArray(SAVED_DATA_ID, testMapBytes);
+        byte[] dataBytes = json.getBytes(StandardCharsets.UTF_8);
+        compoundTag.putByteArray(SAVED_DATA_ID, dataBytes);
 
         return compoundTag;
+    }
+
+    private static Gson createGson() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT);
+        gsonBuilder.registerTypeAdapter(net.minecraft.world.item.ItemStack.class, new grill24.potionsplus.persistence.adapter.ItemStackTypeAdapter());
+        return gsonBuilder.create();
     }
 }
