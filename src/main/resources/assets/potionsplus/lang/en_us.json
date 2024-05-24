@@ -1,25 +1,35 @@
 {
   "block.potionsplus.particle_emitter": "Particle Emitter",
   "jei.potionsplus.particle_emitter.description": "Emits particles in an area around itself when powered by redstone. Interact with an empty hand to cycle through different particles. Interact with a dirt block, iron ingot, gold ingot, or diamond to set the particle spawn rate to 1x (default), 2x, 3x, 4x, respectively.",
+  "block.potionsplus.precision_dispenser": "Precision Dispenser",
   "block.potionsplus.brewing_cauldron": "Brewing Cauldron",
   "block.potionsplus.herbalists_lectern": "Herbalist's Lectern",
+  "block.potionsplus.sanguine_altar": "Sanguine Altar",
+  "block.potionsplus.abyssal_trove": "Abyssal Trove",
+
+  "item.potionsplus.generic_icon": "Generic Icon",
+  "item.potionsplus.potion_effect_icon": "Potion Effect Icon",
+
   "effect.potionsplus.geode_grace": "Geode Grace",
   "item.minecraft.potion.effect.geode_grace": "Potion of Geode Grace",
   "item.minecraft.splash_potion.effect.geode_grace": "Splash Potion of Geode Grace",
   "item.minecraft.lingering_potion.effect.geode_grace": "Lingering Potion of Geode Grace",
   "item.minecraft.tipped_arrow.effect.geode_grace": "Arrow of Geode Grace",
   "jei.potionsplus.geode_grace.description": "When a player kills an experience-dropping mob that has Geode Grace, there is a 3% chance to replace nearby stone with a random ore.",
+
   "effect.potionsplus.fall_of_the_void": "Fall of the Void",
   "item.minecraft.potion.effect.fall_of_the_void": "Potion of Fall of the Void",
   "item.minecraft.splash_potion.effect.fall_of_the_void": "Splash Potion of Fall of the Void",
   "item.minecraft.lingering_potion.effect.fall_of_the_void": "Lingering Potion of Fall of the Void",
   "item.minecraft.tipped_arrow.effect.fall_of_the_void": "Arrow of Fall of the Void",
   "jei.potionsplus.fall_of_the_void.description": "Any entity that falls into the void below the world will be teleported to the top of the world.",
+
   "effect.potionsplus.haste": "Haste",
   "item.minecraft.potion.effect.haste": "Potion of Haste",
   "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",
   "item.minecraft.lingering_potion.effect.haste": "Lingering Potion of Haste",
   "item.minecraft.tipped_arrow.effect.haste": "Arrow of Haste",
+
   "item.minecraft.potion.effect.levitation": "Potion of Levitation",
   "item.minecraft.splash_potion.effect.levitation": "Splash Potion of Levitation",
   "item.minecraft.lingering_potion.effect.levitation": "Lingering Potion of Levitation",
@@ -28,25 +38,65 @@
   "item.minecraft.splash_potion.effect.long_levitation": "Splash Potion of Levitation",
   "item.minecraft.lingering_potion.effect.long_levitation": "Lingering Potion of Levitation",
   "item.minecraft.tipped_arrow.effect.long_levitation": "Arrow of Levitation",
+
   "effect.potionsplus.exploding": "Exploding (Soon!)",
   "item.minecraft.potion.effect.exploding": "Potion of Exploding",
   "item.minecraft.splash_potion.effect.exploding": "Splash Potion of Exploding",
   "item.minecraft.lingering_potion.effect.exploding": "Lingering Potion of Exploding",
   "item.minecraft.tipped_arrow.effect.exploding": "Arrow of Exploding",
   "jei.potionsplus.exploding.description": "Mobs with this effect will explode shortly. Players with this effect will explode shortly, without breaking blocks, and accelerate dramatically in the direction they are looking.",
+
   "effect.potionsplus.magnetic": "Magnetic",
   "item.minecraft.potion.effect.magnetic": "Potion of Magnetizing",
   "item.minecraft.splash_potion.effect.magnetic": "Splash Potion of Magnetizing",
   "item.minecraft.lingering_potion.effect.magnetic": "Lingering Potion of Magnetizing",
   "item.minecraft.tipped_arrow.effect.magnetic": "Arrow of Magnetizing",
   "jei.potionsplus.magnetic.description": "Nearby items are pulled towards mobs with the magnetic effect.",
+
   "effect.potionsplus.teleportation": "Teleportation",
   "item.minecraft.potion.effect.teleportation": "Potion of Teleportation",
   "item.minecraft.splash_potion.effect.teleportation": "Splash Potion of Teleportation",
   "item.minecraft.lingering_potion.effect.teleportation": "Lingering Potion of Teleportation",
   "item.minecraft.tipped_arrow.effect.teleportation": "Arrow of Teleportation",
   "jei.potionsplus.teleportation.description": "Randomly teleports the afflicted mob to a nearby location.",
+
+  "effect.potionsplus.looting": "Looting",
+  "item.minecraft.potion.effect.looting": "Potion of Looting",
+  "item.minecraft.splash_potion.effect.looting": "Splash Potion of Looting",
+  "item.minecraft.lingering_potion.effect.looting": "Lingering Potion of Looting",
+  "item.minecraft.tipped_arrow.effect.looting": "Arrow of Looting",
+  "jei.potionsplus.looting.description": "Adds to the effective looting level. Stacks with the Looting enchantment.",
+
+  "effect.potionsplus.fortuitous_fate": "Fortuitous Fate",
+  "item.minecraft.potion.effect.fortuitous_fate": "Potion of Fortuitous Fate",
+  "item.minecraft.splash_potion.effect.fortuitous_fate": "Splash Potion of Fortuitous Fate",
+  "item.minecraft.lingering_potion.effect.fortuitous_fate": "Lingering Potion of Fortuitous Fate",
+  "item.minecraft.tipped_arrow.effect.fortuitous_fate": "Arrow of Fortuitous Fate",
+  "jei.potionsplus.fortuitous_fate.description": "Adds to the effective fortune level. Stacks with the Fortune enchantment.",
+
+  "effect.potionsplus.metal_detecting": "Metal Detecting",
+  "item.minecraft.potion.effect.metal_detecting": "Potion of Metal Detecting",
+  "item.minecraft.splash_potion.effect.metal_detecting": "Splash Potion of Metal Detecting",
+  "item.minecraft.lingering_potion.effect.metal_detecting": "Lingering Potion of Metal Detecting",
+  "item.minecraft.tipped_arrow.effect.metal_detecting": "Arrow of Metal Detecting",
+  "jei.potionsplus.metal_detecting.description": "Pings nearby ores. The higher the level, the more frequent the pings, and the greater the range. Detects copper, iron, gold, and ancient debris.",
+
+  "effect.potionsplus.giant_steps": "Giant Steps",
+  "item.minecraft.potion.effect.giant_steps": "Potion of Giant Steps",
+  "item.minecraft.splash_potion.effect.giant_steps": "Splash Potion of Giant Steps",
+  "item.minecraft.lingering_potion.effect.giant_steps": "Lingering Potion of Giant Steps",
+  "item.minecraft.tipped_arrow.effect.giant_steps": "Arrow of Giant Steps",
+  "jei.potionsplus.giant_steps.description": "Increases the afflicted mob's step height.",
+
+  "effect.potionsplus.reach_for_the_stars": "Reach for the Stars",
+  "item.minecraft.potion.effect.reach_for_the_stars": "Potion of Reach for the Stars",
+  "item.minecraft.splash_potion.effect.reach_for_the_stars": "Splash Potion of Reach for the Stars",
+  "item.minecraft.lingering_potion.effect.reach_for_the_stars": "Lingering Potion of Reach for the Stars",
+  "item.minecraft.tipped_arrow.effect.reach_for_the_stars": "Arrow of Reach for the Stars",
+  "jei.potionsplus.reach_for_the_stars.description": "Increases the afflicted mob's jump height.",
+
   "chat.potionsplus.acquired_ingredient_knowledge_1": "You tingle with alchemical knowledge of the %s you possess...",
   "chat.potionsplus.acquired_ingredient_knowledge_2": "The %s you possess reminds you of something wet and warm...",
-  "chat.potionsplus.acquired_ingredient_knowledge_3": "The %s you possess fills you with alchemical determination."
+  "chat.potionsplus.acquired_ingredient_knowledge_3": "The %s you possess fills you with alchemical determination.",
+  "tooltip.potionsplus.ingredient": "This ingredient seems befitting of a trove..."
 }

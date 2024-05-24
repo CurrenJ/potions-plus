@@ -27,6 +27,8 @@ public class PotionsPlus {
         MobEffects.EFFECTS.register(FMLJavaModLoadingContext.get().getModEventBus());
         Potions.POTIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
+        Sounds.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
+
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }

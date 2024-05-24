@@ -3,7 +3,13 @@ package grill24.potionsplus.persistence;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import grill24.potionsplus.persistence.adapter.BlockPosTypeAdapter;
+import grill24.potionsplus.persistence.adapter.ItemStackTypeAdapter;
+import grill24.potionsplus.persistence.adapter.MutableBlockPosTypeAdapter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
@@ -11,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     public static SavedData instance;
@@ -52,7 +59,19 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     private static Gson createGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT);
-        gsonBuilder.registerTypeAdapter(net.minecraft.world.item.ItemStack.class, new grill24.potionsplus.persistence.adapter.ItemStackTypeAdapter());
+        gsonBuilder.registerTypeAdapter(ItemStack.class, new ItemStackTypeAdapter());
+        gsonBuilder.registerTypeAdapter(BlockPos.class, new BlockPosTypeAdapter());
+        gsonBuilder.registerTypeAdapter(BlockPos.MutableBlockPos.class, new MutableBlockPosTypeAdapter());
         return gsonBuilder.create();
+    }
+
+    public void updateDataForPlayer(Player player, Consumer<PlayerBrewingKnowledge> consumer) {
+        PlayerBrewingKnowledge playerBrewingKnowledgeData = playerDataMap.computeIfAbsent(player.getUUID(), uuid -> new PlayerBrewingKnowledge());
+        consumer.accept(playerBrewingKnowledgeData);
+        setDirty();
+    }
+
+    public PlayerBrewingKnowledge getData(Player player) {
+        return playerDataMap.getOrDefault(player.getUUID(), new PlayerBrewingKnowledge());
     }
 }

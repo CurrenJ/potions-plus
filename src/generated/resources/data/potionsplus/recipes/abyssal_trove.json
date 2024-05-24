@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OSO",
+    "SAS",
+    "OSO"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:soul_soil"
+    },
+    "A": {
+      "item": "minecraft:amethyst_block"
+    },
+    "S": {
+      "item": "minecraft:soul_sand"
+    }
+  },
+  "result": {
+    "item": "potionsplus:abyssal_trove"
+  }
+}

@@ -12,8 +12,8 @@ import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.player.Player;
 
 public class TeleportationEffect extends InstantenousMobEffect {
-    public TeleportationEffect(MobEffectCategory p_19440_, int p_19441_) {
-        super(p_19440_, p_19441_);
+    public TeleportationEffect(MobEffectCategory mobEffectCategory, int color) {
+        super(mobEffectCategory, color);
     }
 
     @Override

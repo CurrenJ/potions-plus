@@ -4,6 +4,9 @@
   "compatibilityLevel": "JAVA_17",
   "package": "grill24.potionsplus.mixin",
   "mixins": [
+    "AbstractProjectileDispenseBehaviorMixin",
+    "ApplyBonusCount",
+    "BootstrapMixin",
     "PotionItemMixin"
   ],
   "client": [

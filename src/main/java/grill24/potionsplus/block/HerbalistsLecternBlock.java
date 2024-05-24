@@ -78,18 +78,27 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult p_151974_) {
         // Cache items before interaction
         Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
-        ItemStack slotStack = ItemStack.EMPTY;
+        ItemStack stackInLecternBeforeInteraction = ItemStack.EMPTY;
         if (blockEntity.isPresent())
-            slotStack = blockEntity.get().getItemHandler().getItem(0);
+            stackInLecternBeforeInteraction = blockEntity.get().getItemHandler().getItem(0).copy();
 
         // Do interaction
-        InteractionResult result = InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
+        InteractionResult result = InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand, true, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
+
+        ItemStack stackInLecternAfterInteraction = blockEntity.get().getItemHandler().getItem(0);
+
 
         // If an item was inserted by a player, update the animation state
-        if (slotStack.isEmpty() && !blockEntity.get().getItemHandler().getItem(0).isEmpty()) {
+        if (stackInLecternBeforeInteraction.isEmpty() && !stackInLecternAfterInteraction.isEmpty()) {
             blockEntity.get().setChanged();
             level.updateNeighborsAt(blockPos, this);
             blockEntity.get().onPlayerInsertItem(player);
+
+            blockEntity.get().playSoundAppear();
+        }
+
+        if (!stackInLecternBeforeInteraction.isEmpty() && stackInLecternAfterInteraction.isEmpty()) {
+            blockEntity.get().playSoundDisappear();
         }
 
         return result;

@@ -6,6 +6,8 @@ import grill24.potionsplus.utility.PUtil;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -32,55 +34,41 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_iron_ingot", has(net.minecraft.world.item.Items.SPORE_BLOSSOM))
                 .save(recipeConsumer);
 
-        // Exploding
-//        brewingCauldronPotionModifierForAllContainers(recipeConsumer, 0.1F, 100, "has_potion",
-//                net.minecraft.world.item.alchemy.Potions.AWKWARD,
-//                Potions.ALL_EXPLODING_POTIONS[0][0].get(),
-//                Ingredient.of(net.minecraft.world.item.Items.GUNPOWDER),
-//                Ingredient.of(net.minecraft.world.item.Items.SUGAR));
+        ShapedRecipeBuilder.shaped(Items.HERBALISTS_LECTERN.get())
+                .pattern("WWW")
+                .pattern("S S")
+                .pattern("DDD")
+                .define('W', ItemTags.PLANKS)
+                .define('S', net.minecraft.world.item.Items.STICK)
+                .define('D', net.minecraft.world.item.Items.DEEPSLATE_BRICK_SLAB)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer);
 
-//        brewingCauldronPotionUpgrades(recipeConsumer, 0.1F, 100, "has_potion", Potions.ALL_EXPLODING_POTIONS,
-//                new Ingredient[]{Ingredient.of(net.minecraft.world.item.Items.GUNPOWDER), Ingredient.of(net.minecraft.world.item.Items.SUGAR)},
-//                new Ingredient[]{Ingredient.of(net.minecraft.world.item.Items.GLOWSTONE_DUST)},
-//                new Ingredient[]{Ingredient.of(net.minecraft.world.item.Items.REDSTONE)},
-//                new Ingredient[]{Ingredient.of(net.minecraft.world.item.Items.GLOWSTONE_DUST), Ingredient.of(net.minecraft.world.item.Items.REDSTONE)
-//        });
+        ShapedRecipeBuilder.shaped(Items.SANGUINE_ALTAR.get())
+                .pattern("AEA")
+                .pattern("ESE")
+                .pattern("AEA")
+                .define('E', net.minecraft.world.item.Items.END_ROD)
+                .define('A', net.minecraft.world.item.Items.AMETHYST_SHARD)
+                .define('S', net.minecraft.world.item.Items.SOUL_SAND)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer);
 
-        // Geode Grace
-//        brewingCauldronPotionModifierForAllContainers(recipeConsumer, 0.1F, 100, "has_potion",
-//                net.minecraft.world.item.alchemy.Potions.AWKWARD,
-//                Potions.GEODE_GRACE.get(),
-//                Ingredient.of(net.minecraft.world.item.Items.GOLDEN_APPLE),
-//                Ingredient.of(net.minecraft.world.item.Items.TUFF));
+        ShapedRecipeBuilder.shaped(Items.ABYSSAL_TROVE.get())
+                .pattern("OSO")
+                .pattern("SAS")
+                .pattern("OSO")
+                .define('O', net.minecraft.world.item.Items.SOUL_SOIL)
+                .define('A', net.minecraft.world.item.Items.AMETHYST_BLOCK)
+                .define('S', net.minecraft.world.item.Items.SOUL_SAND)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer);
 
-        // Fall of the Void
-//        brewingCauldronPotionModifierForAllContainers(recipeConsumer, 0.1F, 100, "has_potion",
-//                net.minecraft.world.item.alchemy.Potions.AWKWARD,
-//                Potions.FALL_OF_THE_VOID.get(),
-//                Ingredient.of(net.minecraft.world.item.Items.ENDER_PEARL),
-//                Ingredient.of(net.minecraft.world.item.Items.PHANTOM_MEMBRANE),
-//                Ingredient.of(net.minecraft.world.item.Items.FEATHER));
-
-        // Magnetic
-//        brewingCauldronPotionModifierForAllContainers(recipeConsumer, 0.1F, 100, "has_potion",
-//                net.minecraft.world.item.alchemy.Potions.AWKWARD,
-//                Potions.MAGNETIC.get(),
-//                Ingredient.of(net.minecraft.world.item.Items.IRON_INGOT),
-//                Ingredient.of(net.minecraft.world.item.Items.COPPER_INGOT));
-
-        // Teleportation
-//        brewingCauldronPotionModifierForAllContainers(recipeConsumer, 0.1F, 100, "has_potion",
-//                net.minecraft.world.item.alchemy.Potions.AWKWARD,
-//                Potions.TELEPORTATION.get(),
-//                Ingredient.of(net.minecraft.world.item.Items.CHORUS_FRUIT));
-
-        // Levitation
-//        brewingCauldronPotionModifierForAllContainers(recipeConsumer, 0.1F, 100, "has_potion", net.minecraft.world.item.alchemy.Potions.SLOW_FALLING,
-//                Potions.LEVITATION.get(), Ingredient.of(net.minecraft.world.item.Items.FERMENTED_SPIDER_EYE));
-//        brewingCauldronPotionModifierForAllContainers(recipeConsumer, 0.1F, 100, "has_potion", net.minecraft.world.item.alchemy.Potions.LONG_SLOW_FALLING,
-//                Potions.LONG_LEVITATION.get(), Ingredient.of(net.minecraft.world.item.Items.FERMENTED_SPIDER_EYE));
-//        brewingCauldronPotionModifierForAllContainers(recipeConsumer, 0.1F, 100, "has_potion", Potions.LEVITATION.get(),
-//                Potions.LONG_LEVITATION.get(), Ingredient.of(net.minecraft.world.item.Items.REDSTONE));
+        ShapelessRecipeBuilder.shapeless(Items.PRECISION_DISPENSER.get())
+                .requires(net.minecraft.world.item.Items.DISPENSER)
+                .requires(net.minecraft.world.item.Items.SPYGLASS)
+                .unlockedBy("has_dispenser", has(net.minecraft.world.item.Items.DISPENSER))
+                .save(recipeConsumer);
 
         // Water Bottle
         buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 30, "has_potion",
@@ -116,14 +104,6 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 Ingredient.of(net.minecraft.world.item.Items.DIRT),
                 Ingredient.of(net.minecraft.world.item.Items.MOSS_BLOCK))
         );
-
-        // Instant Health
-//        brewingCauldronPotionModifierForAllContainers(recipeConsumer, 0.1F, 200, "has_potion",
-//                net.minecraft.world.item.alchemy.Potions.AWKWARD,
-//                net.minecraft.world.item.alchemy.Potions.STRONG_HEALING,
-//                Ingredient.of(net.minecraft.world.item.Items.GOLDEN_CARROT),
-//                Ingredient.of(net.minecraft.world.item.Items.HONEY_BOTTLE),
-//                Ingredient.of(net.minecraft.world.item.Items.GLOW_BERRIES));
     }
 
     private void buildBrewingCauldronRecipes(Consumer<FinishedRecipe> recipeConsumer, List<BrewingCauldronRecipe> recipes) {

@@ -58,8 +58,8 @@ public class GeodeGraceEffect extends MobEffect {
 
     private static final float ACTIVATION_CHANCE = 0.03f;
 
-    public GeodeGraceEffect(MobEffectCategory mobEffectCategory, int i) {
-        super(mobEffectCategory, i);
+    public GeodeGraceEffect(MobEffectCategory mobEffectCategory, int color) {
+        super(mobEffectCategory, color);
     }
 
     @SubscribeEvent

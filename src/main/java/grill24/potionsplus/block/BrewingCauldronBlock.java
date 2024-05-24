@@ -58,7 +58,7 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
 
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult p_151974_) {
-        return InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand, SoundEvents.GENERIC_SPLASH, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
+        return InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand, true, SoundEvents.GENERIC_SPLASH, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
     }
 
     @Override

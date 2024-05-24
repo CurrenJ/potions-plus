@@ -30,7 +30,7 @@ public class Potions {
 
     public static final PotionsAmpDurMatrix LEVITATION_POTIONS = new PotionsAmpDurMatrix("levitation",
             6, 4,
-            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION, 20 * (levels[1] + 1), levels[0])});
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION, 32 * (levels[1] + 1), levels[0])});
 
     public static final PotionsAmpDurMatrix MAGNETIC_POTIONS = new PotionsAmpDurMatrix("magnetic",
             3, 4,
@@ -43,6 +43,26 @@ public class Potions {
     public static final PotionsAmpDurMatrix TELEPORTATION_POTIONS = new PotionsAmpDurMatrix("teleportation",
             4, 1,
             (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.TELEPORTATION.get(), 60, levels[0])});
+
+    public static final PotionsAmpDurMatrix LOOTING_POTIONS = new PotionsAmpDurMatrix("looting",
+            4, 1,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.LOOTING.get(), 3600 + levels[1] * 3600, levels[0])});
+
+    public static final PotionsAmpDurMatrix FORTUITOUS_FATE_POTIONS = new PotionsAmpDurMatrix("fortuitous_fate",
+            4, 1,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.FORTUITOUS_FATE.get(), 3600 + levels[1] * 3600, levels[0])});
+
+    public static final PotionsAmpDurMatrix METAL_DETECTING_POTIONS = new PotionsAmpDurMatrix("metal_detecting",
+            3, 2,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.METAL_DETECTING.get(), 3600 + levels[1] * 3600, levels[0])});
+
+    public static final PotionsAmpDurMatrix GIANT_STEPS_POTIONS = new PotionsAmpDurMatrix("giant_steps",
+            3, 2,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.GIANT_STEPS.get(), 3600 + levels[1] * 3600, levels[0])});
+
+    public static final PotionsAmpDurMatrix REACH_FOR_THE_STARS_POTIONS = new PotionsAmpDurMatrix("reach_for_the_stars",
+            3, 2,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.REACH_FOR_THE_STARS.get(), 3600 + levels[1] * 3600, levels[0])});
 
     public static class PotionsAmpDurMatrix {
         public final RegistryObject<Potion>[][] potions;

@@ -66,18 +66,26 @@
 - Visual?? Block entity with custom renderer again?
 
 
-- Uniqueness not working????
-  `[BCR] stick + awkward_potion=> teleportation_a0_d0_potion
-  [BCR] stick + awkward_splash_potion=> teleportation_a0_d0_splash_potion
-  [BCR] stick + awkward_lingering_potion=> teleportation_a0_d0_lingering_potion
-  [BCR] redstone + pufferfish + teleportation_a0_d0_potion=> teleportation_a1_d0_potion
-  [BCR] redstone + pufferfish + teleportation_a0_d0_splash_potion=> teleportation_a1_d0_splash_potion
-  [BCR] redstone + pufferfish + teleportation_a0_d0_lingering_potion=> teleportation_a1_d0_lingering_potion
-  [BCR] amethyst_cluster + magma_cream + teleportation_a1_d0_potion=> teleportation_a2_d0_potion
-  [BCR] amethyst_cluster + magma_cream + teleportation_a1_d0_splash_potion=> teleportation_a2_d0_splash_potion
-  [BCR] amethyst_cluster + magma_cream + teleportation_a1_d0_lingering_potion=> teleportation_a2_d0_lingering_potion
-  [BCR] nautilus_shell + heart_of_the_sea + wither_rose + teleportation_a2_d0_potion=> teleportation_a3_d0_potion
-  [BCR] nautilus_shell + heart_of_the_sea + wither_rose + teleportation_a2_d0_splash_potion=> teleportation_a3_d0_splash_potion
-  [BCR] nautilus_shell + heart_of_the_sea + wither_rose + teleportation_a2_d0_lingering_potion=> teleportation_a3_d0_lingering_potion
-  [BCR] stick + awkward_potion=> magnetic_a0_d0_potion
-  [BCR] stick + awkward_splash_potion=> magnetic_a0_d0_splash_potion`
+
+
+
+- Potions stack to 16
+- Dispensers fire with no projectile variation
+
+- Brewing Cauldron
+  - Per-world recipes (Seed-instanced recipes)
+- Herbalists Lectern
+- Sanguine Altar
+- Abyssal Trove
+
+- Magnetizing
+- Exploding
+- Geode Grace
+- Fall of the Void
+- Teleportation
+- Levitation
+- Haste
+
+
+
+

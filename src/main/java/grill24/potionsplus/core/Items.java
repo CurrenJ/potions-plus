@@ -23,8 +23,12 @@ public class Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ModInfo.MOD_ID);
     public static final RegistryObject<Item> BREWING_CAULDRON = ITEMS.register(Blocks.BREWING_CAULDRON.getId().getPath(), () -> new BlockItem(Blocks.BREWING_CAULDRON.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
     public static final RegistryObject<Item> PARTICLE_EMITTER = ITEMS.register(Blocks.PARTICLE_EMITTER.getId().getPath(), () -> new BlockItem(Blocks.PARTICLE_EMITTER.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> PRECISION_DISPENSER = ITEMS.register(Blocks.PRECISION_DISPENSER.getId().getPath(), () -> new BlockItem(Blocks.PRECISION_DISPENSER.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
 
     public static final RegistryObject<Item> HERBALISTS_LECTERN = ITEMS.register(Blocks.HERBALISTS_LECTERN.getId().getPath(), () -> new BlockItem(Blocks.HERBALISTS_LECTERN.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> SANGUINE_ALTAR = ITEMS.register(Blocks.SANGUINE_ALTAR.getId().getPath(), () -> new BlockItem(Blocks.SANGUINE_ALTAR.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> ABYSSAL_TROVE = ITEMS.register(Blocks.ABYSSAL_TROVE.getId().getPath(), () -> new BlockItem(Blocks.ABYSSAL_TROVE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+
     public static final RegistryObject<Item> POTION_EFFECT_ICON = ITEMS.register("potion_effect_icon", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
 
     public static final RegistryObject<Item> GENERIC_ICON = ITEMS.register("generic_icon", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
@@ -39,6 +43,8 @@ public class Items {
         add(new ResourceLocation(ModInfo.MOD_ID, "vi"));
         add(new ResourceLocation(ModInfo.MOD_ID, "vii"));
         add(new ResourceLocation(ModInfo.MOD_ID, "viii"));
+        add(new ResourceLocation(ModInfo.MOD_ID, "arrow"));
+        add(new ResourceLocation(ModInfo.MOD_ID, "unknown"));
     }};
 
     public static final String DYNAMIC_ICON_INDEX_PROPERTY_NAME = "dynamic_icon_index";

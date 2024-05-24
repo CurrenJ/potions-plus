@@ -1,10 +1,10 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.block.BrewingCauldronBlock;
-import grill24.potionsplus.block.HerbalistsLecternBlock;
-import grill24.potionsplus.block.ParticleEmitterBlock;
+import grill24.potionsplus.block.*;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
 import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntity;
+import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.level.block.Block;
@@ -33,12 +33,25 @@ public class Blocks {
     public static final RegistryObject<Block> HERBALISTS_LECTERN = BLOCKS.register("herbalists_lectern", () ->
             new HerbalistsLecternBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
 
+    public static final RegistryObject<Block> SANGUINE_ALTAR = BLOCKS.register("sanguine_altar", () ->
+            new SanguineAltarBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2.5F).sound(SoundType.STONE)));
+
+    public static final RegistryObject<Block> ABYSSAL_TROVE = BLOCKS.register("abyssal_trove", () ->
+            new AbyssalTroveBlock(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.SAND).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL)));
+
+    public static final RegistryObject<Block> PRECISION_DISPENSER = BLOCKS.register("precision_dispenser", () ->
+            new PrecisionDispenserBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.METAL).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.METAL)));
+
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, ModInfo.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<BrewingCauldronBlockEntity>> BREWING_CAULDRON_BLOCK_ENTITY = BLOCK_ENTITIES.register("brewing_cauldron_block_entity", () -> BlockEntityType.Builder.of(BrewingCauldronBlockEntity::new, BREWING_CAULDRON.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<HerbalistsLecternBlockEntity>> HERBALISTS_LECTERN_BLOCK_ENTITY = BLOCK_ENTITIES.register("herbalists_lectern_block_entity", () -> BlockEntityType.Builder.of(HerbalistsLecternBlockEntity::new, HERBALISTS_LECTERN.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SanguineAltarBlockEntity>> SANGUINE_ALTAR_BLOCK_ENTITY = BLOCK_ENTITIES.register("sanguine_altar_block_entity", () -> BlockEntityType.Builder.of(SanguineAltarBlockEntity::new, SANGUINE_ALTAR.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<AbyssalTroveBlockEntity>> ABYSSAL_TROVE_BLOCK_ENTITY = BLOCK_ENTITIES.register("abyssal_trove_block_entity", () -> BlockEntityType.Builder.of(AbyssalTroveBlockEntity::new, ABYSSAL_TROVE.get()).build(null));
 
     @SubscribeEvent
     public static void registerBlockColors(ColorHandlerEvent.Block event) {

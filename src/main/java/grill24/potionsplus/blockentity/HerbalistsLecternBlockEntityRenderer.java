@@ -2,11 +2,10 @@ package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3d;
 import com.mojang.math.Vector3f;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.utility.ClientTickHandler;
-import grill24.potionsplus.utility.Utility;
+import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
@@ -19,9 +18,11 @@ import net.minecraft.world.item.ItemStack;
 public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
 
     public final BlockRenderDispatcher blockRenderDispatcher;
+    private ProfilerFiller profiler;
 
     public HerbalistsLecternBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         blockRenderDispatcher = context.getBlockRenderDispatcher();
+        profiler = Minecraft.getInstance().getProfiler();
     }
 
 
@@ -30,48 +31,24 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
         double ticks = ClientTickHandler.total();
 
         //  Profiler
-        ProfilerFiller profiler = Minecraft.getInstance().getProfiler();
         profiler.push("herbalists_lectern_render");
 
         // Render
         ItemStack stack = blockEntity.getItemHandler().getItem(0);
         if (!stack.isEmpty()) {
-            // Item on lectern
-            matrices.pushPose();
-
             // Lerp the item from the player's hand to the resting position
             final float animationDuration = 20F;
             float lerpFactor = (float) (ticks - blockEntity.getTimeItemPlaced()) / animationDuration;
             lerpFactor = Math.max(0, Math.min(lerpFactor, 1));
 
-            int rotationDegreesStart = 0;
-            int rotationDegreesEnd = 90;
-            Quaternion rotation = Vector3f.XP.rotationDegrees(rotationDegreesEnd);
-
-            if (lerpFactor < 1) {
-                Vector3d startAnimationTranslation = blockEntity.getStartAnimationWorldPos();
-
-                Vector3d lerped = Utility.lerp3d(startAnimationTranslation, HerbalistsLecternBlockEntity.RendererData.itemRestingPositionTranslation, lerpFactor, Utility::easeOutExpo);
-                rotation = Vector3f.XP.rotationDegrees(Utility.lerp(rotationDegreesStart, rotationDegreesEnd, Utility.easeOutExpo(lerpFactor)));
-
-                matrices.translate(lerped.x, lerped.y, lerped.z);
-            } else {
-                matrices.translate(HerbalistsLecternBlockEntity.RendererData.itemRestingPositionTranslation.x, HerbalistsLecternBlockEntity.RendererData.itemRestingPositionTranslation.y, HerbalistsLecternBlockEntity.RendererData.itemRestingPositionTranslation.z);
-            }
-
-            matrices.mulPose(rotation);
-            matrices.scale(1.25F, 1.25F, 1.25F);
-
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
-                    light, overlay, matrices, vertexConsumers, 0);
-            matrices.popPose();
+            RUtil.renderInputItemAnimation(stack, 90, 1.25F, 0, 20, false, tickDelta, blockEntity, matrices, vertexConsumers, light, overlay);
 
 
             // Circle of Items
             ItemStack[] infoStacks = blockEntity.getItemStacksToDisplay();
             Vector3f offset = new Vector3f(0.5f, 1.75F, 0.5f);
             Vector3f axis = new Vector3f(1f, 0, 0);
-            float radius = 0.4F * Utility.easeOutExpo(lerpFactor);
+            float radius = 0.4F * RUtil.easeOutExpo(lerpFactor);
             if (infoStacks.length > 10)
                 radius *= 1.5F;
             Vector3f[] points = distributePointsOnCircle(infoStacks.length, axis, offset, (float) Math.toRadians(ticks), radius, (float) Math.toDegrees(Math.atan2(blockEntity.getNearbyPlayer().z(), blockEntity.getNearbyPlayer().x())));

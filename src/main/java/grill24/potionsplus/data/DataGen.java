@@ -1,6 +1,7 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -29,7 +30,9 @@ public class DataGen {
 
         BlockTagsProvider blockTagsProvider = new BlockTagProvider(generator, ModInfo.MOD_ID, existingFileHelper);
         ItemTagProvider itemTagProvider = new ItemTagProvider(generator, blockTagsProvider, ModInfo.MOD_ID, existingFileHelper);
+        Sounds soundsProvider = new Sounds(generator, ModInfo.MOD_ID, existingFileHelper);
         generator.addProvider(blockTagsProvider);
         generator.addProvider(itemTagProvider);
+        generator.addProvider(soundsProvider);
     }
 }

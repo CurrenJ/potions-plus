@@ -4,16 +4,16 @@ import com.google.common.primitives.Booleans;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3d;
 import com.mojang.math.Vector3f;
-import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.Items;
-import grill24.potionsplus.core.MobEffects;
-import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.*;
 import grill24.potionsplus.core.seededrecipe.PpIngredients;
 import grill24.potionsplus.recipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.utility.Utility;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -31,9 +31,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class HerbalistsLecternBlockEntity extends InventoryBlockEntity {
+public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implements ISingleStackDisplayer {
 
     public RendererData rendererData = new RendererData();
+    private SoundInstance appearSound;
+    private SoundInstance disappearSound;
 
     public static class RendererData {
 
@@ -142,6 +144,11 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity {
         return new Vector3d(rendererData.itemAnimationStartingPosRelativeToBlockOrigin.x, rendererData.itemAnimationStartingPosRelativeToBlockOrigin.y, rendererData.itemAnimationStartingPosRelativeToBlockOrigin.z);
     }
 
+    @Override
+    public Vector3d getRestingPosition() {
+        return HerbalistsLecternBlockEntity.RendererData.itemRestingPositionTranslation;
+    }
+
     public Vector3f getNearbyPlayer() {
         return new Vector3f((float) rendererData.nearbyPlayer.x, (float) rendererData.nearbyPlayer.y, (float) rendererData.nearbyPlayer.z);
     }
@@ -178,8 +185,8 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity {
 
     private void spawnParticlesIfPlayerIsHoldingIngredient(Player player, BlockPos pos) {
         ItemStack heldItem = player.getMainHandItem();
-        if (Recipes.ALL_UNIQUE_INGREDIENTS != null && level != null && !heldItem.isEmpty()) {
-            boolean hasEligibleIngredient = Recipes.ALL_UNIQUE_INGREDIENTS.contains(new PpIngredients(player.getMainHandItem()));
+        if (Recipes.ALL_UNIQUE_RECIPE_INPUTS != null && level != null && !heldItem.isEmpty()) {
+            boolean hasEligibleIngredient = Recipes.ALL_UNIQUE_RECIPE_INPUTS.contains(new PpIngredients(player.getMainHandItem()));
 
             if (hasEligibleIngredient) {
                 if (level.random.nextInt(12) == 0)
@@ -193,4 +200,29 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity {
         super.setChanged();
         rendererData.updateItemStacksToDisplay(this);
     }
+
+    public void playSoundAppear() {
+        this.appearSound = Utility.createSoundInstance(
+                Sounds.HERBALISTS_LECTERN_APPEAR.get(),
+                SoundSource.BLOCKS,
+                0.25F, 1.0F,
+                false, 0,
+                SoundInstance.Attenuation.LINEAR,
+                this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(), true);
+
+        Utility.playSoundStopOther(this.appearSound, this.disappearSound);
+    }
+
+    public void playSoundDisappear() {
+        this.disappearSound = Utility.createSoundInstance(
+                Sounds.HERBALISTS_LECTERN_DISAPPEAR.get(),
+                SoundSource.BLOCKS,
+                0.25F, 1.0F,
+                false, 0,
+                SoundInstance.Attenuation.LINEAR,
+                this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(), true);
+
+        Utility.playSoundStopOther(this.disappearSound, this.appearSound);
+    }
+
 }

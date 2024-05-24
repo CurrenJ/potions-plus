@@ -10,6 +10,8 @@ import grill24.potionsplus.utility.PUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -33,7 +35,8 @@ public class Recipes {
     });
 
     public static SeededPotionRecipes seededPotionRecipes;
-    public static Set<PpIngredients> ALL_UNIQUE_INGREDIENTS;
+    public static Set<PpIngredients> ALL_UNIQUE_RECIPE_INPUTS = new HashSet<>(); // All unique recipe inputs. Used to avoid duplicate recipes. E.x. [1 water bottle, 1 nether wart]
+    public static Set<PpIngredients> ALL_UNIQUE_POTIONS_PLUS_INGREDIENTS_NO_POTIONS = new HashSet<>(); // All ingredients as defined by the tiered tags. 1 item per ingredient.
 
     public static Map<ResourceLocation, Recipe<?>> getAdditionalRuntimeRecipes(RecipeType<?> recipeType) {
         if (recipeType == BREWING_CAULDRON_RECIPE.get()) {
@@ -98,8 +101,13 @@ public class Recipes {
         mutableRecipes.putAll(additionalRecipes);
 
         allMutableRecipes.put(recipeType, mutableRecipes);
-
         recipeManager.recipes = ImmutableMap.copyOf(allMutableRecipes);
+
+        if (recipeType == BREWING_CAULDRON_RECIPE.get()) {
+            List<BrewingCauldronRecipe> allRecipes = recipeManager.getAllRecipesFor(BREWING_CAULDRON_RECIPE.get());
+            seededPotionRecipes.createRecipeTree(allRecipes);
+        }
+
         return additionalRecipes.size();
     }
 
@@ -111,7 +119,26 @@ public class Recipes {
                     unique.add(new PpIngredients(itemStack));
                 }
             });
-            Recipes.ALL_UNIQUE_INGREDIENTS = unique;
+            Recipes.ALL_UNIQUE_RECIPE_INPUTS = unique;
+
+            Set<PpIngredients> uniqueIngredients = new HashSet<>();
+            for (PpIngredients ppIngredients : unique) {
+                for (Ingredient ingredient : ppIngredients.ingredients) {
+                    ItemStack stack = ingredient.getItems()[0];
+                    PpIngredients ingredientPp = new PpIngredients(stack);
+
+                    if (!uniqueIngredients.contains(ingredientPp)) {
+
+                        for (TagKey<Item> tagKey : SeededPotionRecipes.POTION_INGREDIENT_TAGS) {
+                            if (stack.getTags().anyMatch(tagKey::equals)) {
+                                uniqueIngredients.add(ingredientPp);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            Recipes.ALL_UNIQUE_POTIONS_PLUS_INGREDIENTS_NO_POTIONS = uniqueIngredients;
         }
     }
 }

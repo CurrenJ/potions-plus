@@ -1,10 +1,22 @@
 package grill24.potionsplus.utility;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.math.Vector3d;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.seededrecipe.PpIngredients;
+import grill24.potionsplus.persistence.SavedData;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -15,7 +27,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.*;
-import java.util.function.Function;
 
 public class Utility {
 
@@ -99,6 +110,10 @@ public class Utility {
         return (int) (a + (b - a) * t);
     }
 
+    public static float lerp(float a, float b, float t) {
+        return a + (b - a) * t;
+    }
+
     private static Item sampleItemFromTag(TagKey<Item> tagKey, Random random) {
         Optional<Item> item = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).getRandomElement(random);
         if (item.isEmpty()) {
@@ -123,27 +138,31 @@ public class Utility {
         return items;
     }
 
-    public static Vector3d lerp3d(Vector3d a, Vector3d b, float t, Function<Float, Float> easingFunction) {
-        t = easingFunction.apply(t);
-        return new Vector3d(lerp(a.x, b.x, t), lerp(a.y, b.y, t), lerp(a.z, b.z, t));
+    public static boolean isItemInLinkedAbyssalTrove(Player player, ItemStack stack) {
+        BlockPos pos = SavedData.instance.getData(player).getLastAbyssalTroveUsedPos();
+        Optional<AbyssalTroveBlockEntity> abyssalTrove = player.level.getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
+        return abyssalTrove.map(abyssalTroveBlockEntity -> abyssalTroveBlockEntity.getStoredIngredients().contains(new PpIngredients(stack))).orElse(false);
     }
 
-    public static Vector3d lerp3d(Vector3d a, Vector3d b, float t) {
-        return lerp3d(a, b, t, x -> x);
+    public static boolean isItemPotionsPlusIngredient(ItemStack stack) {
+        return Recipes.ALL_UNIQUE_POTIONS_PLUS_INGREDIENTS_NO_POTIONS.contains(new PpIngredients(stack));
     }
 
-    public static double lerp(double a, double b, float t) {
-        return a + (b - a) * t;
+    public static void playSoundStopOther(SoundInstance play, SoundInstance stop) {
+        SoundManager soundManager = Minecraft.getInstance().getSoundManager();
+
+        // Stop the other sound if it's playing
+        if (stop != null) {
+            soundManager.stop(stop);
+        }
+
+        // Play the sound
+        if (play != null) {
+            soundManager.play(play);
+        }
     }
 
-    public static float easeOutBack(float x) {
-        final double c1 = 1.70158;
-        final double c3 = c1 + 1;
-
-        return (float) (1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2));
-    }
-
-    public static float easeOutExpo(float x) {
-        return x == 1 ? 1 : (float) (1 - Math.pow(2, -10 * x));
+    public static SimpleSoundInstance createSoundInstance(SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, boolean looping, int delay, SoundInstance.Attenuation attenuation, double x, double y, double z, boolean relative) {
+        return new SimpleSoundInstance(soundEvent.getLocation(), soundSource, volume, pitch, looping, delay, attenuation, x, y, z, relative);
     }
 }

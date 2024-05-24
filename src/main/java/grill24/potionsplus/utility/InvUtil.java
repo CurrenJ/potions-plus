@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class InvUtil {
     @NotNull
-    public static InteractionResult giveAndTakeFromPlayerOnUseBlock(Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, SoundEvent insert, SoundEvent remove) {
+    public static InteractionResult giveAndTakeFromPlayerOnUseBlock(Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, boolean allowTaking, SoundEvent insert, SoundEvent remove) {
         ItemStack hand = player.getItemInHand(interactionHand);
         if (!hand.isEmpty()) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
@@ -35,7 +35,7 @@ public class InvUtil {
                     }
                 }
             }
-        } else {
+        } else if (allowTaking) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof InventoryBlockEntity inventoryBlockEntity) {
                 Container itemHandler = inventoryBlockEntity.getItemHandler();

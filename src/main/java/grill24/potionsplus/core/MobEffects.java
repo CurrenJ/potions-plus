@@ -30,7 +30,22 @@ public class MobEffects {
             new MagneticEffect(MobEffectCategory.BENEFICIAL, 0x556096));
 
     public static final RegistryObject<MobEffect> TELEPORTATION = EFFECTS.register("teleportation", () ->
-            new TeleportationEffect(MobEffectCategory.NEUTRAL, 0x556096));
+            new TeleportationEffect(MobEffectCategory.NEUTRAL, 0xab3f3f));
+
+    public static final RegistryObject<MobEffect> LOOTING = EFFECTS.register("looting", () ->
+            new LootingEffect(MobEffectCategory.BENEFICIAL, 0x12A0A0));
+
+    public static final RegistryObject<MobEffect> FORTUITOUS_FATE = EFFECTS.register("fortuitous_fate", () ->
+            new FortuitousFateEffect(MobEffectCategory.BENEFICIAL, 0x43A047));
+
+    public static final RegistryObject<MobEffect> METAL_DETECTING = EFFECTS.register("metal_detecting", () ->
+            new MetalDetectingEffect(MobEffectCategory.BENEFICIAL, 0x7A7A7A));
+
+    public static final RegistryObject<MobEffect> GIANT_STEPS = EFFECTS.register("giant_steps", () ->
+            new GiantStepsEffect(MobEffectCategory.BENEFICIAL, 0x5ac8f8));
+
+    public static final RegistryObject<MobEffect> REACH_FOR_THE_STARS = EFFECTS.register("reach_for_the_stars", () ->
+            new ReachForTheStarsEffect(MobEffectCategory.BENEFICIAL, 0xa8e048));
 
     public static final Lazy<Map<ResourceLocation, Integer>> POTION_ICON_INDEX_MAP = Lazy.of(PUtil::getAllMobEffectsIconStackSizeMap);
     public static final int POTION_EFFECT_INDEX_PROPERTY_DIVIDEND = 64;

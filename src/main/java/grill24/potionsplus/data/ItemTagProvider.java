@@ -32,7 +32,11 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.BEETROOT,
                 Items.SWEET_BERRIES,
                 Items.CHARCOAL,
-                Items.ROTTEN_FLESH
+                Items.ROTTEN_FLESH,
+                Items.BONE,
+                Items.STRING,
+                Items.FEATHER,
+                Items.LEATHER
         );
 
         tag(Tags.Items.TIER_1_POTION_INGREDIENTS).add(
@@ -44,7 +48,10 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.BEETROOT_SOUP,
                 Items.SPIDER_EYE,
                 Items.PUFFERFISH,
-                Items.APPLE
+                Items.APPLE,
+                Items.SALMON,
+                Items.HONEY_BOTTLE,
+                Items.GLOW_BERRIES
         );
 
         tag(Tags.Items.TIER_2_POTION_INGREDIENTS).add(
@@ -55,7 +62,9 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.DIAMOND,
                 Items.AMETHYST_CLUSTER,
                 Items.RABBIT_FOOT,
-                Items.GOLDEN_APPLE
+                Items.GOLDEN_APPLE,
+                Items.TROPICAL_FISH,
+                Items.TURTLE_EGG
         );
 
         tag(Tags.Items.TIER_3_POTION_INGREDIENTS).add(
@@ -64,7 +73,9 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.WITHER_ROSE,
                 Items.SHULKER_SHELL,
                 Items.NAUTILUS_SHELL,
-                Items.HEART_OF_THE_SEA
+                Items.HEART_OF_THE_SEA,
+                Items.END_CRYSTAL,
+                Items.DRAGON_HEAD
         );
     }
 

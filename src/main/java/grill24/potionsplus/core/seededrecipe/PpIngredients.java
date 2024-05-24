@@ -1,5 +1,6 @@
 package grill24.potionsplus.core.seededrecipe;
 
+import grill24.potionsplus.utility.PUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -23,7 +24,7 @@ public class PpIngredients {
     public int hashCode() {
         StringBuilder result = new StringBuilder();
         for (Ingredient ingredient : ingredients) {
-            result.append(ingredient.toJson().toString());
+            result.append(PUtil.getNameOrVerbosePotionName(ingredient.getItems()[0]));
         }
         return result.toString().hashCode();
     }
@@ -54,7 +55,7 @@ public class PpIngredients {
         result.append("[");
         for (Ingredient ingredient : ingredients) {
             result.append(" ");
-            result.append(ingredient.getItems()[0]);
+            result.append(PUtil.getNameOrVerbosePotionName(ingredient.getItems()[0]));
         }
         result.append(" ]");
         return result.toString();
@@ -67,5 +68,14 @@ public class PpIngredients {
             }
         }
         return false;
+    }
+
+    public int getIngredientTier() {
+        for (int i = 0; i < SeededPotionRecipes.POTION_INGREDIENT_TAGS.length; i++) {
+            if (ingredients[0].getItems()[0].is(SeededPotionRecipes.POTION_INGREDIENT_TAGS[i])) {
+                return i;
+            }
+        }
+        return 0;
     }
 }

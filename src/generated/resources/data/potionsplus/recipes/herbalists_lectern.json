@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "S S",
+    "DDD"
+  ],
+  "key": {
+    "W": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "D": {
+      "item": "minecraft:deepslate_brick_slab"
+    }
+  },
+  "result": {
+    "item": "potionsplus:herbalists_lectern"
+  }
+}

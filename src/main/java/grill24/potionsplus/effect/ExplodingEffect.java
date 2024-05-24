@@ -21,8 +21,8 @@ import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ExplodingEffect extends MobEffect {
-    public ExplodingEffect(MobEffectCategory mobEffectCategory, int amplifier) {
-        super(mobEffectCategory, amplifier);
+    public ExplodingEffect(MobEffectCategory mobEffectCategory, int color) {
+        super(mobEffectCategory, color);
     }
 
     @SubscribeEvent

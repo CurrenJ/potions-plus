@@ -7,6 +7,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.vanilla.IVanillaRecipeFactory;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -36,6 +37,8 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         MutableComponent fallOfTheVoideDescription = new TranslatableComponent("jei.potionsplus.fall_of_the_void.description");
         registerPotionInfo(registration, Potions.FALL_OF_THE_VOID.get(), fallOfTheVoideDescription);
 
+        // TODO Add recipe category for brewing cauldron
+
 //        MutableComponent explodingDescription = new TranslatableComponent("jei.potionsplus.exploding.description");
 //        registerPotionInfo(registration, Potions.EXPLODING.get(), explodingDescription);
 
@@ -44,6 +47,11 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
 
 //        MutableComponent teleportationDescription = new TranslatableComponent("jei.potionsplus.teleportation.description");
 //        registerPotionInfo(registration, Potions.TELEPORTATION.get(), teleportationDescription);
+    }
+
+    @Override
+    public void onRuntimeAvailable(@NotNull IJeiRuntime jeiRuntime) {
+        // TODO Support seeded brewing cauldron recipes and show/hide based on BrewingKnowledge
     }
 
     private static void registerPotionInfo(IRecipeRegistration registration, Potion potion, Component... descriptionComponents) {

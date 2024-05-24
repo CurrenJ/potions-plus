@@ -14,8 +14,8 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FallOfTheVoidEffect extends MobEffect {
-    public FallOfTheVoidEffect(MobEffectCategory mobEffectCategory, int i) {
-        super(mobEffectCategory, i);
+    public FallOfTheVoidEffect(MobEffectCategory mobEffectCategory, int color) {
+        super(mobEffectCategory, color);
     }
 
     @SubscribeEvent

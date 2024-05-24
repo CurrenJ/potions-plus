@@ -9,6 +9,10 @@
     "minecraft:beetroot",
     "minecraft:sweet_berries",
     "minecraft:charcoal",
-    "minecraft:rotten_flesh"
+    "minecraft:rotten_flesh",
+    "minecraft:bone",
+    "minecraft:string",
+    "minecraft:feather",
+    "minecraft:leather"
   ]
 }

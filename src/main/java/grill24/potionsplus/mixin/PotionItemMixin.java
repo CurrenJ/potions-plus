@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PotionItem.class)
 public abstract class PotionItemMixin extends Item {
@@ -17,5 +18,10 @@ public abstract class PotionItemMixin extends Item {
     @Inject(method = "<init>", at = @At("RETURN"))
     private void init(CallbackInfo info) {
         this.maxStackSize = 16;
+    }
+
+    @Inject(method = "getUseDuration", at = @At("RETURN"), cancellable = true)
+    private void getUseDuration(CallbackInfoReturnable<Integer> info) {
+        info.setReturnValue(16);
     }
 }

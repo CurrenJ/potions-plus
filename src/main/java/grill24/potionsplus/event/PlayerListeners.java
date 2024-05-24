@@ -5,6 +5,7 @@ import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -23,19 +24,22 @@ public class PlayerListeners {
         if (!level.isClientSide()) {
             ItemStack stack = event.getStack();
             UUID uuid = event.getPlayer().getUUID();
-            PlayerBrewingKnowledge playerBrewingKnowledge = SavedData.instance.playerDataMap.getOrDefault(uuid, new PlayerBrewingKnowledge());
+            if (!Utility.isItemInLinkedAbyssalTrove(event.getPlayer(), stack)) {
 
-            List<BrewingCauldronRecipe> recipes = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get());
-            if (!playerBrewingKnowledge.contains(stack)) {
-                for (BrewingCauldronRecipe recipe : recipes) {
-                    if (recipe.isIngredient(stack)) {
-                        playerBrewingKnowledge.addIngredient(stack);
-                        PlayerBrewingKnowledge.onAcquiredNewIngredientKnowledge(level, event.getPlayer(), stack);
-                        SavedData.instance.playerDataMap.put(uuid, playerBrewingKnowledge);
-                        SavedData.instance.setDirty();
-                        return;
+                PlayerBrewingKnowledge playerBrewingKnowledge = SavedData.instance.playerDataMap.getOrDefault(uuid, new PlayerBrewingKnowledge());
+                List<BrewingCauldronRecipe> recipes = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get());
+                if (!playerBrewingKnowledge.contains(stack)) {
+                    for (BrewingCauldronRecipe recipe : recipes) {
+                        if (recipe.isIngredient(stack)) {
+                            playerBrewingKnowledge.addIngredient(stack);
+                            PlayerBrewingKnowledge.onAcquiredNewIngredientKnowledge(level, event.getPlayer(), stack);
+                            SavedData.instance.playerDataMap.put(uuid, playerBrewingKnowledge);
+                            SavedData.instance.setDirty();
+                            return;
+                        }
                     }
                 }
+
             }
         }
     }

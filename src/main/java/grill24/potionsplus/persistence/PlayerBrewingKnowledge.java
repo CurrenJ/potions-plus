@@ -1,6 +1,7 @@
 package grill24.potionsplus.persistence;
 
 import grill24.potionsplus.core.seededrecipe.PpIngredients;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
@@ -15,8 +16,12 @@ import java.util.Set;
 
 public class PlayerBrewingKnowledge {
     private final List<ItemStack> serializableData = new ArrayList<>();
+    private BlockPos lastAbyssalTroveUsedPos = BlockPos.ZERO;
 
     private final transient Lazy<Set<PpIngredients>> uniqueIngredients = Lazy.of(this::getUniqueIngredients);
+
+    public PlayerBrewingKnowledge() {
+    }
 
     public void addIngredient(ItemStack ingredient) {
         serializableData.add(ingredient);
@@ -41,5 +46,13 @@ public class PlayerBrewingKnowledge {
             player.displayClientMessage(text, true);
             level.playSound(null, player.blockPosition(), SoundEvents.PLAYER_LEVELUP, player.getSoundSource(), 1.0F, 1.0F);
         }
+    }
+
+    public void onAbyssalTroveInsert(BlockPos pos) {
+        lastAbyssalTroveUsedPos = pos;
+    }
+
+    public BlockPos getLastAbyssalTroveUsedPos() {
+        return lastAbyssalTroveUsedPos;
     }
 }

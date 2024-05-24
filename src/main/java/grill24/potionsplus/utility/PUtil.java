@@ -50,10 +50,12 @@ public class PUtil {
     }
 
     public static boolean isSameItemOrPotion(ItemStack itemStack, ItemStack other) {
-        if (isPotion(itemStack) && isPotion(other) && itemStack.sameItem(other))
-            return PotionUtils.getPotion(itemStack).equals(PotionUtils.getPotion(other));
+//        if (isPotion(itemStack) && isPotion(other) && itemStack.sameItem(other))
+//            return PotionUtils.getPotion(itemStack).equals(PotionUtils.getPotion(other));
 
-        return itemStack.is(other.getItem());
+//        return itemStack.is(other.getItem());
+
+        return getNameOrVerbosePotionName(itemStack).equals(getNameOrVerbosePotionName(other));
     }
 
     public static boolean isPotion(ItemStack itemStack) {
