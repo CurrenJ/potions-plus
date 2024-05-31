@@ -1,11 +1,8 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.utility.BetterBrewingRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -13,20 +10,29 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Potions {
+    private static final Function<Integer, Integer> DEFAULT_DURATION_FUNCTION = (Integer durationLevel) -> (durationLevel+1) * 3600;
+    private static final Function<Integer, Integer> LONGER_DURATION_FUNCTION = (Integer durationLevel) -> (durationLevel+1) * 5000;
+
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, ModInfo.MOD_ID);
+    public static final List<PotionsAmpDurMatrix> ALL_POTION_AMPLIFICATION_DURATION_MATRICES = new ArrayList<>();
 
-    public static final RegistryObject<Potion> GEODE_GRACE = POTIONS.register("geode_grace", () ->
-            new Potion(new MobEffectInstance(MobEffects.GEODE_GRACE.get(), 6000), new MobEffectInstance(net.minecraft.world.effect.MobEffects.GLOWING, 600)));
+    public static final PotionsAmpDurMatrix GEODE_GRACE_POTIONS = new PotionsAmpDurMatrix("geode_grace",
+            1, 2,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.GEODE_GRACE.get(), DEFAULT_DURATION_FUNCTION.apply(levels[1]), levels[0])});
 
-    public static final RegistryObject<Potion> FALL_OF_THE_VOID = POTIONS.register("fall_of_the_void", () ->
-            new Potion(new MobEffectInstance(MobEffects.FALL_OF_THE_VOID.get(), 7200)));
+    public static final PotionsAmpDurMatrix FALL_OF_THE_VOID_POTIONS = new PotionsAmpDurMatrix("fall_of_the_void",
+            1, 2,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.FALL_OF_THE_VOID.get(), DEFAULT_DURATION_FUNCTION.apply(levels[1]), levels[0])});
 
-    public static final RegistryObject<Potion> HASTE = POTIONS.register("haste", () ->
-            new Potion(new MobEffectInstance(net.minecraft.world.effect.MobEffects.DIG_SPEED, 12000)));
+    public static final PotionsAmpDurMatrix HASTE_POTIONS = new PotionsAmpDurMatrix("haste",
+            3, 2,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(net.minecraft.world.effect.MobEffects.DIG_SPEED, DEFAULT_DURATION_FUNCTION.apply(levels[1]), levels[0])});
 
     public static final PotionsAmpDurMatrix LEVITATION_POTIONS = new PotionsAmpDurMatrix("levitation",
             6, 4,
@@ -46,23 +52,27 @@ public class Potions {
 
     public static final PotionsAmpDurMatrix LOOTING_POTIONS = new PotionsAmpDurMatrix("looting",
             4, 1,
-            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.LOOTING.get(), 3600 + levels[1] * 3600, levels[0])});
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.LOOTING.get(), DEFAULT_DURATION_FUNCTION.apply(levels[1]), levels[0])});
 
     public static final PotionsAmpDurMatrix FORTUITOUS_FATE_POTIONS = new PotionsAmpDurMatrix("fortuitous_fate",
             4, 1,
-            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.FORTUITOUS_FATE.get(), 3600 + levels[1] * 3600, levels[0])});
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.FORTUITOUS_FATE.get(), DEFAULT_DURATION_FUNCTION.apply(levels[1]), levels[0])});
 
     public static final PotionsAmpDurMatrix METAL_DETECTING_POTIONS = new PotionsAmpDurMatrix("metal_detecting",
             3, 2,
-            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.METAL_DETECTING.get(), 3600 + levels[1] * 3600, levels[0])});
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.METAL_DETECTING.get(), DEFAULT_DURATION_FUNCTION.apply(levels[1]), levels[0])});
 
     public static final PotionsAmpDurMatrix GIANT_STEPS_POTIONS = new PotionsAmpDurMatrix("giant_steps",
             3, 2,
-            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.GIANT_STEPS.get(), 3600 + levels[1] * 3600, levels[0])});
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.GIANT_STEPS.get(), DEFAULT_DURATION_FUNCTION.apply(levels[1]), levels[0])});
 
     public static final PotionsAmpDurMatrix REACH_FOR_THE_STARS_POTIONS = new PotionsAmpDurMatrix("reach_for_the_stars",
             3, 2,
-            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.REACH_FOR_THE_STARS.get(), 3600 + levels[1] * 3600, levels[0])});
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.REACH_FOR_THE_STARS.get(), LONGER_DURATION_FUNCTION.apply(levels[1]), levels[0])});
+
+    public static final PotionsAmpDurMatrix NAUTICAL_NITRO_POTIONS = new PotionsAmpDurMatrix("nautical_nitro",
+            3, 2,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.NAUTICAL_NITRO.get(), LONGER_DURATION_FUNCTION.apply(levels[1]), levels[0])});
 
     public static class PotionsAmpDurMatrix {
         public final RegistryObject<Potion>[][] potions;
@@ -73,6 +83,7 @@ public class Potions {
 
         public PotionsAmpDurMatrix(String name, int amplificationLevels, int durationLevels, Function<int[], MobEffectInstance[]> effectFunction) {
             this.potions = registerNewPotion(name, amplificationLevels, durationLevels, effectFunction);
+            ALL_POTION_AMPLIFICATION_DURATION_MATRICES.add(this);
         }
 
         public Potion get(int a, int d) {
@@ -86,19 +97,20 @@ public class Potions {
         public int getDurationLevels() {
             return potions[0].length;
         }
+
+        public String getEffectName() {
+            try {
+                return potions[0][0].get().getEffects().get(0).getEffect().getRegistryName().getPath();
+            } catch (NullPointerException e) {
+                return "";
+            }
+        }
     }
 
     @SubscribeEvent
     public static void onRegisterPotions(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.AMETHYST_CLUSTER, Potions.GEODE_GRACE.get()));
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.ENDER_PEARL, Potions.FALL_OF_THE_VOID.get()));
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.GOLDEN_CARROT, Potions.HASTE.get()));
-//            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.SLOW_FALLING, Items.FERMENTED_SPIDER_EYE, Potions.LEVITATION.get()));
-//            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.LONG_SLOW_FALLING, Items.FERMENTED_SPIDER_EYE, Potions.LONG_LEVITATION.get()));
-//            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.TNT, Potions.EXPLODING.get()));
-//            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.HONEY_BLOCK, Potions.MAGNETIC.get()));
-//            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.CHORUS_FRUIT, Potions.TELEPORTATION.get()));
+//            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(net.minecraft.world.item.alchemy.Potions.AWKWARD, Items.AMETHYST_CLUSTER, Potions.GEODE_GRACE.get()));
         });
     }
 
@@ -118,6 +130,11 @@ public class Potions {
                 );
             }
         }
+
         return potions;
+    }
+
+    public static PotionsAmpDurMatrix[] getAllPotionAmpDurMatrices() {
+        return ALL_POTION_AMPLIFICATION_DURATION_MATRICES.toArray(new PotionsAmpDurMatrix[0]);
     }
 }

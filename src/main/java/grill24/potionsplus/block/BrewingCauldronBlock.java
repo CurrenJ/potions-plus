@@ -12,6 +12,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CauldronBlock;
 import net.minecraft.world.level.block.EntityBlock;
@@ -58,7 +59,15 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
 
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult p_151974_) {
-        return InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand, true, SoundEvents.GENERIC_SPLASH, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
+        ItemStack itemStack = player.getItemInHand(interactionHand).copy();
+        InteractionResult result = InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand, true, SoundEvents.GENERIC_SPLASH, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
+        ItemStack itemStackAfter = player.getItemInHand(interactionHand);
+
+        if (itemStackAfter.isEmpty() || itemStackAfter.getCount() != itemStack.getCount()) {
+            level.getBlockEntity(blockPos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get()).ifPresent(cauldronBlockEntity -> cauldronBlockEntity.onPlayerInsertItem(player));
+        }
+
+        return result;
     }
 
     @Override

@@ -28,7 +28,7 @@ public class PlayerListeners {
 
                 PlayerBrewingKnowledge playerBrewingKnowledge = SavedData.instance.playerDataMap.getOrDefault(uuid, new PlayerBrewingKnowledge());
                 List<BrewingCauldronRecipe> recipes = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get());
-                if (!playerBrewingKnowledge.contains(stack)) {
+                if (!playerBrewingKnowledge.uniqueIngredientsContains(stack)) {
                     for (BrewingCauldronRecipe recipe : recipes) {
                         if (recipe.isIngredient(stack)) {
                             playerBrewingKnowledge.addIngredient(stack);

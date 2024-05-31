@@ -62,5 +62,13 @@
     "sounds": [
       "potionsplus:potion/giant_steps"
     ]
+  },
+  "recipe_unlocked": {
+    "subtitle": "sound.potionsplus.recipe_unlocked",
+    "sounds": [
+      "potionsplus:block/recipe_unlocked_0",
+      "potionsplus:block/recipe_unlocked_1",
+      "potionsplus:block/recipe_unlocked_2"
+    ]
   }
 }

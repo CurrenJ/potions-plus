@@ -47,6 +47,11 @@ public class MobEffects {
     public static final RegistryObject<MobEffect> REACH_FOR_THE_STARS = EFFECTS.register("reach_for_the_stars", () ->
             new ReachForTheStarsEffect(MobEffectCategory.BENEFICIAL, 0xa8e048));
 
+    public static final RegistryObject<MobEffect> NAUTICAL_NITRO = EFFECTS.register("nautical_nitro", () ->
+            new NauticalNitroEffect(MobEffectCategory.BENEFICIAL, 0x0077b6));
+
+
+
     public static final Lazy<Map<ResourceLocation, Integer>> POTION_ICON_INDEX_MAP = Lazy.of(PUtil::getAllMobEffectsIconStackSizeMap);
     public static final int POTION_EFFECT_INDEX_PROPERTY_DIVIDEND = 64;
 }

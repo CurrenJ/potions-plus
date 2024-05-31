@@ -36,12 +36,24 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.BONE,
                 Items.STRING,
                 Items.FEATHER,
-                Items.LEATHER
+                Items.LEATHER,
+                Items.ALLIUM,
+                Items.AZURE_BLUET,
+                Items.BLUE_ORCHID,
+                Items.CORNFLOWER,
+                Items.DANDELION,
+                Items.LILAC,
+                Items.LILY_OF_THE_VALLEY,
+                Items.ORANGE_TULIP,
+                Items.OXEYE_DAISY,
+                Items.WARPED_FUNGUS,
+                Items.CRIMSON_FUNGUS,
+                Items.BAMBOO,
+                Items.CACTUS
         );
 
+
         tag(Tags.Items.TIER_1_POTION_INGREDIENTS).add(
-                Items.GLOWSTONE_DUST,
-                Items.REDSTONE,
                 Items.HONEYCOMB,
                 Items.MUSHROOM_STEW,
                 Items.GOLDEN_CARROT,
@@ -51,7 +63,10 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.APPLE,
                 Items.SALMON,
                 Items.HONEY_BOTTLE,
-                Items.GLOW_BERRIES
+                Items.GLOW_BERRIES,
+                Items.SEA_PICKLE,
+                Items.AMETHYST_SHARD,
+                Items.SLIME_BALL
         );
 
         tag(Tags.Items.TIER_2_POTION_INGREDIENTS).add(
@@ -64,7 +79,13 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.RABBIT_FOOT,
                 Items.GOLDEN_APPLE,
                 Items.TROPICAL_FISH,
-                Items.TURTLE_EGG
+                Items.TURTLE_EGG,
+                Items.CHORUS_FLOWER,
+                Items.SCUTE,
+                Items.FIRE_CORAL,
+                Items.TUBE_CORAL,
+                Items.POISONOUS_POTATO,
+                Items.CAKE
         );
 
         tag(Tags.Items.TIER_3_POTION_INGREDIENTS).add(
@@ -75,7 +96,8 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.NAUTILUS_SHELL,
                 Items.HEART_OF_THE_SEA,
                 Items.END_CRYSTAL,
-                Items.DRAGON_HEAD
+                Items.DRAGON_HEAD,
+                Items.CREEPER_HEAD
         );
     }
 

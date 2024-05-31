@@ -20,6 +20,8 @@ public class Sounds extends SoundDefinitionsProvider {
     public static RegistryObject<SoundEvent> PING_2 = SOUNDS.register("ping_2", () -> new SoundEvent(new ResourceLocation(ModInfo.MOD_ID, "ping_2")));
     public static RegistryObject<SoundEvent> PING_3 = SOUNDS.register("ping_3", () -> new SoundEvent(new ResourceLocation(ModInfo.MOD_ID, "ping_3")));
     public static RegistryObject<SoundEvent> GIANT_STEPS = SOUNDS.register("giant_steps", () -> new SoundEvent(new ResourceLocation(ModInfo.MOD_ID, "giant_steps")));
+    public static RegistryObject<SoundEvent> RECIPE_UNLOCKED = SOUNDS.register("recipe_unlocked", () -> new SoundEvent(new ResourceLocation(ModInfo.MOD_ID, "recipe_unlocked")));
+
 
     public Sounds(DataGenerator generator, String modId, ExistingFileHelper helper) {
         super(generator, modId, helper);
@@ -84,6 +86,15 @@ public class Sounds extends SoundDefinitionsProvider {
                 .subtitle("sound." + GIANT_STEPS.get().getRegistryName().getNamespace() + "." + GIANT_STEPS.get().getRegistryName().getPath()) // Set translation key
                 .with(
                         sound(new ResourceLocation(ModInfo.MOD_ID, "potion/giant_steps")).weight(1)
+                )
+        );
+
+        this.add(RECIPE_UNLOCKED.get(), definition()
+                .subtitle("sound." + RECIPE_UNLOCKED.get().getRegistryName().getNamespace() + "." + RECIPE_UNLOCKED.get().getRegistryName().getPath()) // Set translation key
+                .with(
+                        sound(new ResourceLocation(ModInfo.MOD_ID, "block/recipe_unlocked_0")).weight(1),
+                        sound(new ResourceLocation(ModInfo.MOD_ID, "block/recipe_unlocked_1")).weight(1),
+                        sound(new ResourceLocation(ModInfo.MOD_ID, "block/recipe_unlocked_2")).weight(1)
                 )
         );
     }

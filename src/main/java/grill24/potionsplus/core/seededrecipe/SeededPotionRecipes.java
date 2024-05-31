@@ -40,16 +40,7 @@ public class SeededPotionRecipes {
     }
 
     private void generateRecipes() {
-        addAllPotionRecipes(
-                Potions.EXPLODING_POTIONS,
-                Potions.TELEPORTATION_POTIONS,
-                Potions.MAGNETIC_POTIONS,
-                Potions.LEVITATION_POTIONS,
-                Potions.LOOTING_POTIONS,
-                Potions.FORTUITOUS_FATE_POTIONS,
-                Potions.METAL_DETECTING_POTIONS,
-                Potions.GIANT_STEPS_POTIONS,
-                Potions.REACH_FOR_THE_STARS_POTIONS);
+        addAllPotionRecipes(Potions.getAllPotionAmpDurMatrices());
     }
 
     private void addAllPotionRecipes(Potions.PotionsAmpDurMatrix... potions) {

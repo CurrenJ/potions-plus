@@ -4,16 +4,20 @@ import grill24.potionsplus.block.ParticleEmitterBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.Sounds;
+import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -23,15 +27,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.awt.*;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
-
+    public static final int CONTAINER_SIZE = 6;
     private Optional<BrewingCauldronRecipe> activeRecipe = Optional.empty();
     private int brewTime = 0;
+    private UUID playerLastInteractedUuid = null;
 
     public BrewingCauldronBlockEntity(BlockPos pos, BlockState state) {
         super(Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get(), pos, state);
@@ -39,7 +41,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
 
     @Override
     protected SimpleContainer createItemHandler() {
-        return new SimpleContainer(6) {
+        return new SimpleContainer(CONTAINER_SIZE) {
             @Override
             public int getMaxStackSize() {
                 return 1;
@@ -139,6 +141,18 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
                                 newCount <= itemHandler.getMaxStackSize() &&
                                 newCount <= result.getMaxStackSize()) {
                             itemHandler.setItem(i, result.copy());
+
+                            // Try add new recipe knowledge to saved data
+                            // If the recipe was not already known, schedule a JEI update and play a sound
+                            boolean isNewRecipe = SavedData.instance.getData(playerLastInteractedUuid).addKnownRecipe(recipe.getId().toString());
+                            if(isNewRecipe) {
+                                Player player = level.getPlayerByUUID(playerLastInteractedUuid);
+                                if(player != null) {
+                                    TranslatableComponent text = new TranslatableComponent("chat.potionsplus.brewing_cauldron_recipe_unlocked", result.getHoverName());
+                                    player.displayClientMessage(text, true);
+                                    level.playSound(null, worldPosition, Sounds.RECIPE_UNLOCKED.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                                }
+                            }
                             return true;
                         }
                     }
@@ -161,14 +175,15 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, BrewingCauldronBlockEntity blockEntity) {
         boolean isClientSide = level.isClientSide;
         BlockPos below = pos.below();
-        boolean hasFire = level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.FIRE)
+        boolean hasHeatSource = level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.FIRE)
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.LAVA)
+                || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.MAGMA_BLOCK)
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.LAVA_CAULDRON)
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.CAMPFIRE)
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.SOUL_CAMPFIRE)
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.SOUL_FIRE);
 
-        if (hasFire) {
+        if (hasHeatSource) {
             if (blockEntity.getActiveRecipe().isPresent()) {
                 blockEntity.brewTime++;
                 if (blockEntity.brewTime >= blockEntity.getActiveRecipe().get().getProcessingTime()) {
@@ -223,5 +238,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
                         0, 0.1, 0);
             }
         }
+    }
+
+    public void onPlayerInsertItem(Player player) {
+        playerLastInteractedUuid = player.getUUID();
     }
 }

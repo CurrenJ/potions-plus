@@ -72,6 +72,10 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     }
 
     public PlayerBrewingKnowledge getData(Player player) {
-        return playerDataMap.getOrDefault(player.getUUID(), new PlayerBrewingKnowledge());
+        return playerDataMap.computeIfAbsent(player.getUUID(), uuid -> new PlayerBrewingKnowledge());
+    }
+
+    public PlayerBrewingKnowledge getData(UUID uuid) {
+        return playerDataMap.computeIfAbsent(uuid, (key) -> new PlayerBrewingKnowledge());
     }
 }

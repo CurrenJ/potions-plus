@@ -61,8 +61,8 @@ public class AbyssalTroveBlock extends Block implements EntityBlock {
         // Sneak clicking with an empty hand manually pairs you to the abyssal trove
         // Pairing used for showing ingredient tooltips and onitempickup notifications
         if (player.getMainHandItem().isEmpty() && player.isCrouching()) {
-            if (!SavedData.instance.getData(player).getLastAbyssalTroveUsedPos().equals(blockPos)) {
-                SavedData.instance.updateDataForPlayer(player, (data) -> data.onAbyssalTroveInsert(blockPos));
+            if (!SavedData.instance.getData(player).getPairedAbyssalTrovePos().equals(blockPos)) {
+                SavedData.instance.updateDataForPlayer(player, (data) -> data.pairAbyssalTroveAtPos(blockPos));
 
                 Vec3 posVec = new Vec3(blockPos.getX() + 0.5, blockPos.getY(), blockPos.getZ() + 0.5);
                 for (int i = 0; i < 20; i++) {
@@ -91,7 +91,7 @@ public class AbyssalTroveBlock extends Block implements EntityBlock {
                 }
 
                 // Pair to this abyssal trove if we just inserted an item
-                SavedData.instance.getData(player).onAbyssalTroveInsert(blockPos);
+                SavedData.instance.getData(player).pairAbyssalTroveAtPos(blockPos);
             }
         }
 

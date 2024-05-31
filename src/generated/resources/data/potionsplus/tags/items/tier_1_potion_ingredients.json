@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:glowstone_dust",
-    "minecraft:redstone",
     "minecraft:honeycomb",
     "minecraft:mushroom_stew",
     "minecraft:golden_carrot",

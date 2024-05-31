@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.*;
 
 public class Utility {
@@ -139,7 +140,7 @@ public class Utility {
     }
 
     public static boolean isItemInLinkedAbyssalTrove(Player player, ItemStack stack) {
-        BlockPos pos = SavedData.instance.getData(player).getLastAbyssalTroveUsedPos();
+        BlockPos pos = SavedData.instance.getData(player).getPairedAbyssalTrovePos();
         Optional<AbyssalTroveBlockEntity> abyssalTrove = player.level.getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
         return abyssalTrove.map(abyssalTroveBlockEntity -> abyssalTroveBlockEntity.getStoredIngredients().contains(new PpIngredients(stack))).orElse(false);
     }
@@ -164,5 +165,16 @@ public class Utility {
 
     public static SimpleSoundInstance createSoundInstance(SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, boolean looping, int delay, SoundInstance.Attenuation attenuation, double x, double y, double z, boolean relative) {
         return new SimpleSoundInstance(soundEvent.getLocation(), soundSource, volume, pitch, looping, delay, attenuation, x, y, z, relative);
+    }
+
+    public static Point[] getPointsOnACircle(int numPoints, double radius, double centerX, double centerY) {
+        Point[] points = new Point[numPoints];
+        for (int i = 0; i < numPoints; i++) {
+            double angle = 2 * Math.PI * i / numPoints;
+            double x = centerX + radius * Math.cos(angle);
+            double y = centerY + radius * Math.sin(angle);
+            points[i] = new Point((int) x, (int) y);
+        }
+        return points;
     }
 }

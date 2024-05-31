@@ -13,8 +13,14 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
 
+// Generate seed-instanced recipes for a given potion type
 public class PotionUpgradeIngredients {
-    // Generate seed-instanced recipes
+    private static final WeightedRandomList<WeightedEntry.Wrapper<Integer>> BASE_POTION_INGREDIENT_COUNT_DISTRIBUTION = WeightedRandomList.create(
+            WeightedEntry.wrap(1, 2),
+            WeightedEntry.wrap(2, 6),
+            WeightedEntry.wrap(3, 1)
+    );
+
     private static final WeightedRandomList<WeightedEntry.Wrapper<Integer>> TIER_1_INGREDIENT_COUNT_DISTRIBUTION = WeightedRandomList.create(
             WeightedEntry.wrap(2, 4),
             WeightedEntry.wrap(3, 1)
@@ -50,7 +56,7 @@ public class PotionUpgradeIngredients {
             sampleUniqueIngredientsFromTag(potionUpgradeTierTags[x], random, ingredientCountDistributions[x].getRandom(random).get().getData(), allUpgradeIngredients, (ingredients) -> setUpgradeAmpUpIngredients(finalX, ingredients));
             sampleUniqueIngredientsFromTag(potionUpgradeTierTags[x], random, ingredientCountDistributions[x].getRandom(random).get().getData(), allUpgradeIngredients, (ingredients) -> setUpgradeDurUpIngredients(finalX, ingredients));
         }
-        sampleUniqueIngredientsFromTag(basePotionIngredientTags, random, 1, allBasePotionIngredients, this::setBasePotionIngredients);
+        sampleUniqueIngredientsFromTag(basePotionIngredientTags, random, BASE_POTION_INGREDIENT_COUNT_DISTRIBUTION.getRandom(random).get().getData(), allBasePotionIngredients, this::setBasePotionIngredients);
     }
 
     private void sampleUniqueIngredientsFromTag(TagKey<Item> tagKey, Random random, int count, Set<PpIngredients> allPreviouslyGeneratedIngredients, Consumer<Ingredient[]> setter) {

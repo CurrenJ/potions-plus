@@ -1,5 +1,6 @@
 package grill24.potionsplus.core;
 
+import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 public class ServerLifecycleListeners {
     @SubscribeEvent
     public static void onServerStarted(final ServerStartedEvent event) {
+        // Inject runtime recipes
         PotionsPlus.worldSeed = event.getServer().getWorldData().worldGenSettings().seed();
         int numInjected = Recipes.injectRuntimeRecipes(Recipes.BREWING_CAULDRON_RECIPE.get(), event.getServer().getRecipeManager());
         PotionsPlus.LOGGER.info("[PotionsPlus] Injected " + numInjected + " runtime recipes");
