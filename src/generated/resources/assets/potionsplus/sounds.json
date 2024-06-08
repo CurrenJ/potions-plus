@@ -70,5 +70,23 @@
       "potionsplus:block/recipe_unlocked_1",
       "potionsplus:block/recipe_unlocked_2"
     ]
+  },
+  "muted_plucks_0": {
+    "subtitle": "sound.potionsplus.muted_plucks_0",
+    "sounds": [
+      "potionsplus:block/muted_plucks_0"
+    ]
+  },
+  "muted_plucks_1": {
+    "subtitle": "sound.potionsplus.muted_plucks_1",
+    "sounds": [
+      "potionsplus:block/muted_plucks_1"
+    ]
+  },
+  "sanguine_altar_conversion": {
+    "subtitle": "sound.potionsplus.sanguine_altar_conversion",
+    "sounds": [
+      "potionsplus:block/conversion"
+    ]
   }
 }

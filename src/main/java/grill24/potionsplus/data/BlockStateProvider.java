@@ -81,7 +81,13 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
             // Each generic icon is a separate item model
             // That is referenced in the overrides of the item we make in "imb"
             String name = "generic_icon_" + rl.getPath();
-            itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(rl.getNamespace() + ":item/" + rl.getPath()));
+            try {
+                itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(rl.getNamespace() + ":item/" + rl.getPath()));
+            } catch (IllegalArgumentException e) {
+                // If the texture doesn't exist, try looking for a particle texture
+                // Hacky
+                itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(rl.getNamespace() + ":particle/" + rl.getPath()));
+            }
 
             // Add override to main model
             float f = Items.GENERIC_ICON_RESOURCE_LOCATIONS.indexOf(rl) / 64F;

@@ -45,7 +45,7 @@ public class PotionUpgradeIngredients {
     private MobEffect effect;
     private Potion basePotion;
 
-    public PotionUpgradeIngredients(Potion basePotion, TagKey<Item> basePotionIngredientTags, TagKey<Item>[] potionUpgradeTierTags, Random random, Set<PpIngredients> allBasePotionIngredients, Set<PpIngredients> allUpgradeIngredients) {
+    public PotionUpgradeIngredients(Potion basePotion, TagKey<Item> basePotionIngredientTags, TagKey<Item>[] potionUpgradeTierTags, Random random, Set<PpIngredient> allBasePotionIngredients, Set<PpIngredient> allUpgradeIngredients) {
         this.basePotion = basePotion;
         this.effect = basePotion.getEffects().get(0).getEffect();
         this.upgradeAmpUpIngredients = new Ingredient[potionUpgradeTierTags.length][];
@@ -59,16 +59,16 @@ public class PotionUpgradeIngredients {
         sampleUniqueIngredientsFromTag(basePotionIngredientTags, random, BASE_POTION_INGREDIENT_COUNT_DISTRIBUTION.getRandom(random).get().getData(), allBasePotionIngredients, this::setBasePotionIngredients);
     }
 
-    private void sampleUniqueIngredientsFromTag(TagKey<Item> tagKey, Random random, int count, Set<PpIngredients> allPreviouslyGeneratedIngredients, Consumer<Ingredient[]> setter) {
+    private void sampleUniqueIngredientsFromTag(TagKey<Item> tagKey, Random random, int count, Set<PpIngredient> allPreviouslyGeneratedIngredients, Consumer<Ingredient[]> setter) {
         for (int i = 0; i < count; i++) {
             Ingredient[] ingredients;
-            PpIngredients items;
+            PpMultiIngredient items;
 
             int iterations = 0;
             final int MAX_ITERATIONS = 100;
             do {
                 ingredients = Utility.sampleIngredientsFromTag(tagKey, random, count);
-                items = new PpIngredients(ingredients);
+                items = PpMultiIngredient.of(ingredients);
 
                 iterations++;
                 if (iterations > 1) {

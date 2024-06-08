@@ -5,7 +5,7 @@ import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3d;
 import com.mojang.math.Vector3f;
 import grill24.potionsplus.core.*;
-import grill24.potionsplus.core.seededrecipe.PpIngredients;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.PUtil;
@@ -149,6 +149,11 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
         return HerbalistsLecternBlockEntity.RendererData.itemRestingPositionTranslation;
     }
 
+    @Override
+    public int getInputAnimationDuration() {
+        return 20;
+    }
+
     public Vector3f getNearbyPlayer() {
         return new Vector3f((float) rendererData.nearbyPlayer.x, (float) rendererData.nearbyPlayer.y, (float) rendererData.nearbyPlayer.z);
     }
@@ -185,8 +190,8 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
 
     private void spawnParticlesIfPlayerIsHoldingIngredient(Player player, BlockPos pos) {
         ItemStack heldItem = player.getMainHandItem();
-        if (Recipes.ALL_UNIQUE_RECIPE_INPUTS != null && level != null && !heldItem.isEmpty()) {
-            boolean hasEligibleIngredient = Recipes.ALL_UNIQUE_RECIPE_INPUTS.contains(new PpIngredients(player.getMainHandItem()));
+        if (Recipes.seededPotionRecipes.allUniqueRecipeInputs != null && level != null && !heldItem.isEmpty()) {
+            boolean hasEligibleIngredient = Recipes.seededPotionRecipes.allUniqueRecipeInputs.contains(PpIngredient.of(player.getMainHandItem()));
 
             if (hasEligibleIngredient) {
                 if (level.random.nextInt(12) == 0)

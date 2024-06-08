@@ -1,26 +1,23 @@
 package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.util.Pair;
-import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.core.seededrecipe.PpIngredients;
+import com.mojang.math.Vector3d;
+import com.mojang.math.Vector3f;
+import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.seededrecipe.TreeNode;
+import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
-import grill24.potionsplus.utility.TreeLayout;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<SanguineAltarBlockEntity> {
     private final BlockRenderDispatcher blockRenderDispatcher;
+    private static final int CONVERTED_ITEM_DESCENT_TICKS = 20;
+    private static final int CONVERTED_ITEM_SHRINK_DELAY_TICKS = 200;
 
     public SanguineAltarBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         blockRenderDispatcher = context.getBlockRenderDispatcher();
@@ -28,56 +25,57 @@ public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<San
 
     @Override
     public void render(@NotNull SanguineAltarBlockEntity blockEntity, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-        ItemStack stack = blockEntity.getItem(0);
+        ItemStack stack = blockEntity.state == SanguineAltarBlockEntity.State.CONVERTED ? blockEntity.chainedIngredientToDisplay : blockEntity.getItem(0);
         if (stack.isEmpty()) {
             return;
         }
 
-        RUtil.renderInputItemAnimation(stack, 0, 1.25F, 0, 20, true, tickDelta, blockEntity, matrices, vertexConsumers, light, overlay);
+        RUtil.renderInputItemAnimation(stack, 0, 1.25F, 0, true, blockEntity, matrices, vertexConsumers, light, overlay);
+        switch (blockEntity.state) {
+            case CONVERTING -> {
+                float yOffset = RUtil.ease(blockEntity, 0, 1F, blockEntity.getInputAnimationDuration(), SanguineAltarBlockEntity.CONVERSION_DURATION_HERTZ, RUtil::easeOutExpo);
+                RUtil.renderItemWithYaw(blockEntity, stack, new Vector3d(blockEntity.getRestingPosition().x, blockEntity.getRestingPosition().y + yOffset, blockEntity.getRestingPosition().z), 20, 0, 0, 1.25F, matrices, vertexConsumers, light, overlay);
 
-        float spin = RUtil.doSpin(blockEntity, blockEntity.getNextSpinTickDelay(), blockEntity.getNextSpinHertz(), blockEntity.getNextSpinTotalRevolutions());
-        RUtil.renderBobbingItem(stack, blockEntity.getRestingPosition(), spin, 1.25F, 0.25f, 0.2F, 20, tickDelta, blockEntity, matrices, vertexConsumers, light, overlay);
+                Vector3f offset = new Vector3f(0, yOffset, 0);
+                offset.add((float) blockEntity.getRestingPosition().x, (float) blockEntity.getRestingPosition().y + 0.1f, (float) blockEntity.getRestingPosition().z);
+                Vector3f axis = new Vector3f(1f, 0, 0);
 
-
-        if (!stack.isEmpty()) {
-            TreeNode<ItemStack> tree = Recipes.seededPotionRecipes.getItemStackTree(new PpIngredients(stack));
-            if (tree != null) {
-                TreeNode<TreeLayout.TreeLayoutNode> layout = TreeLayout.layout(tree);
-
-                // Variables to keep track of depth and breadth index
-                int breadthIndex = 0;
-                int lastDepthIndex = 0; // Keep track of the last depth index processed
-
-                Queue<Pair<TreeNode<TreeLayout.TreeLayoutNode>, Integer>> queue = new LinkedList<>();
-                queue.add(Pair.of(layout, 0));
-
-
-                while (!queue.isEmpty()) {
-                    Pair<TreeNode<TreeLayout.TreeLayoutNode>, Integer> pair = queue.poll();
-                    TreeNode<TreeLayout.TreeLayoutNode> node = pair.getFirst();
-                    int depthIndex = pair.getSecond();
-
-                    // Reset breadthIndex if we're at a new depth level
-                    if (depthIndex != lastDepthIndex) {
-                        breadthIndex = 0;
-                        lastDepthIndex = depthIndex;
-                    }
-
-                    matrices.pushPose();
-                    matrices.translate(0.5, 1.75, 0.5);
-                    matrices.scale(0.5F, 0.5F, 0.5F);
-//                    matrices.translate((double) (breadthIndex) / 2, (double) depthIndex / 2, 0);
-                    matrices.translate(node.getData().x * 0.5, node.getData().y * 0.5, 0);
-                    Minecraft.getInstance().getItemRenderer().renderStatic(node.getData().itemStack, ItemTransforms.TransformType.GROUND, light, overlay, matrices, vertexConsumers, 0);
-                    matrices.popPose();
-
-                    for (TreeNode<TreeLayout.TreeLayoutNode> child : node.getChildren()) {
-                        queue.add(Pair.of(child, depthIndex + 1));
-                    }
-
-                    breadthIndex++; // Increment breadthIndex after processing a node
-                }
+                float expansion = RUtil.ease(blockEntity, 0, 1, blockEntity.getInputAnimationDuration(), SanguineAltarBlockEntity.CONVERSION_DURATION_HERTZ, RUtil::easeOutBack);
+                float spin = RUtil.ease(blockEntity, 0, 1080, blockEntity.getInputAnimationDuration(), SanguineAltarBlockEntity.CONVERSION_DURATION_HERTZ, RUtil::easeInExpo);
+                drawRuneCircle(blockEntity, offset, axis, matrices, vertexConsumers, light, overlay, 0.1f, 0.2F, 0.3f * expansion, 0 + spin);
+                drawRuneCircle(blockEntity, offset, axis, matrices, vertexConsumers, light, overlay, 0.2f, 0.16F, 0.33f * expansion, 90 - spin * 2);
+                drawRuneCircle(blockEntity, offset, axis, matrices, vertexConsumers, light, overlay, 0.08f, 0.24F, 0.36f * expansion, 45 + spin * 3);
             }
+            case CONVERTED -> {
+                float spin = RUtil.doSpin(blockEntity, blockEntity.getNextSpinTickDelay(), blockEntity.getNextSpinHertz(), blockEntity.getNextSpinTotalRevolutions());
+                float bobbingOffset = RUtil.getBobbingOffset(blockEntity, 0.25f, 0.2F, blockEntity.getInputAnimationDuration() + SanguineAltarBlockEntity.CONVERSION_TICKS + CONVERTED_ITEM_DESCENT_TICKS);
+
+                // Fall back down to the resting position
+                float yOffset = RUtil.ease(blockEntity, 1F, 0, blockEntity.getInputAnimationDuration() + SanguineAltarBlockEntity.CONVERSION_TICKS, CONVERTED_ITEM_DESCENT_TICKS / 20F, RUtil::easeOutBack);
+
+                // Linear shrink sloooowly
+                float size = RUtil.ease(blockEntity, 1F, 0, blockEntity.getInputAnimationDuration() + SanguineAltarBlockEntity.CONVERSION_TICKS + CONVERTED_ITEM_DESCENT_TICKS + CONVERTED_ITEM_SHRINK_DELAY_TICKS, 0.033F, RUtil::easeInSine);
+
+                Vector3d pos = new Vector3d(blockEntity.getRestingPosition().x, blockEntity.getRestingPosition().y + bobbingOffset + yOffset, blockEntity.getRestingPosition().z);
+                RUtil.renderItemWithYaw(blockEntity, stack, pos, 20, 0, spin, 1.25F * size, matrices, vertexConsumers, light, overlay);
+            }
+        }
+
+    }
+
+    private static void drawRuneCircle(SanguineAltarBlockEntity blockEntity, Vector3f offset, Vector3f axis, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, float rollHertz, float itemScale, float radius, float spinDegrees) {
+        // Get radians of rotation from spinHertz and total ticks (time)
+
+        float healthDrain = blockEntity.getHealthDrainProgress();
+        Vector3f[] points = RUtil.distributePointsOnCircle(8, axis, offset, ((float)Math.PI * 2) * ClientTickHandler.total() / 20 * rollHertz, radius, spinDegrees);
+        for (int p = 0; p < points.length; p++) {
+            if((float) p / (float) points.length > healthDrain)
+                break;
+
+            Vector3f point = points[p];
+            // Added 4 runes to the generic icon, so pick a different one for each point.
+            ItemStack runeStack = new ItemStack(Items.GENERIC_ICON.get(), 13 + p % 4);
+            RUtil.renderItemWithYaw(blockEntity, runeStack, new Vector3d(point.x(), point.y(), point.z()), 20, 0, p*10, itemScale, matrices, vertexConsumers, light, overlay);
         }
     }
 

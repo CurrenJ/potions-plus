@@ -13,6 +13,19 @@
     "minecraft:bone",
     "minecraft:string",
     "minecraft:feather",
-    "minecraft:leather"
+    "minecraft:leather",
+    "minecraft:allium",
+    "minecraft:azure_bluet",
+    "minecraft:blue_orchid",
+    "minecraft:cornflower",
+    "minecraft:dandelion",
+    "minecraft:lilac",
+    "minecraft:lily_of_the_valley",
+    "minecraft:orange_tulip",
+    "minecraft:oxeye_daisy",
+    "minecraft:warped_fungus",
+    "minecraft:crimson_fungus",
+    "minecraft:bamboo",
+    "minecraft:cactus"
   ]
 }

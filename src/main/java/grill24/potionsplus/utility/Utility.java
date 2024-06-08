@@ -4,7 +4,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.core.seededrecipe.PpIngredients;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -142,11 +142,11 @@ public class Utility {
     public static boolean isItemInLinkedAbyssalTrove(Player player, ItemStack stack) {
         BlockPos pos = SavedData.instance.getData(player).getPairedAbyssalTrovePos();
         Optional<AbyssalTroveBlockEntity> abyssalTrove = player.level.getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
-        return abyssalTrove.map(abyssalTroveBlockEntity -> abyssalTroveBlockEntity.getStoredIngredients().contains(new PpIngredients(stack))).orElse(false);
+        return abyssalTrove.map(abyssalTroveBlockEntity -> abyssalTroveBlockEntity.getStoredIngredients().contains(PpIngredient.of(stack))).orElse(false);
     }
 
     public static boolean isItemPotionsPlusIngredient(ItemStack stack) {
-        return Recipes.ALL_UNIQUE_POTIONS_PLUS_INGREDIENTS_NO_POTIONS.contains(new PpIngredients(stack));
+        return Recipes.seededPotionRecipes.allPotionsPlusIngredientsNoPotions.contains(PpIngredient.of(stack));
     }
 
     public static void playSoundStopOther(SoundInstance play, SoundInstance stop) {

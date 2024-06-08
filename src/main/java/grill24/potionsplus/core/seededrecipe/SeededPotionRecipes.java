@@ -14,16 +14,19 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.*;
 
 public class SeededPotionRecipes {
+    public Set<PpIngredient> allUniqueRecipeInputs = new HashSet<>(); // All unique recipe inputs. Used to avoid duplicate recipes. E.x. [1 water bottle, 1 nether wart]
+    public Set<PpIngredient> allPotionsPlusIngredientsNoPotions = new HashSet<>(); // All ingredients as defined by the tiered tags. 1 item per ingredient.
+    public Map<Integer, Set<PpIngredient>> allPotionsPlusIngredientsByTier = new HashMap<>(); // All ingredients as defined by the tiered tags. 1 item per ingredient.
 
     private final Random random;
     private final List<BrewingCauldronRecipe> recipes;
 
     private final Map<Potion, PotionUpgradeIngredients> potionEffectUpgradeIngredients;
 
-    private Set<PpIngredients> allBasePotionRecipeInputs;
-    private Set<PpIngredients> allUpgradeRecipeInputs;
+    private final Set<PpIngredient> allBasePotionRecipeInputs;
+    private final Set<PpIngredient> allUpgradeRecipeInputs;
 
-    private Map<PpIngredients, TreeNode<List<BrewingCauldronRecipe>>> outputToInput = new HashMap<>();
+    private final Map<PpIngredient, TreeNode<List<BrewingCauldronRecipe>>> outputToInput = new HashMap<>();
 
     public static TagKey<Item>[] POTION_INGREDIENT_TAGS = new TagKey[]{Tags.Items.BASE_TIER_POTION_INGREDIENTS, Tags.Items.TIER_1_POTION_INGREDIENTS, Tags.Items.TIER_2_POTION_INGREDIENTS, Tags.Items.TIER_3_POTION_INGREDIENTS};
 
@@ -64,7 +67,7 @@ public class SeededPotionRecipes {
 
     public void createRecipeTree(List<BrewingCauldronRecipe> recipes) {
         for (BrewingCauldronRecipe recipe : recipes) {
-            PpIngredients output = new PpIngredients(recipe.getResultItem());
+            PpIngredient output = PpIngredient.of(recipe.getResultItem());
 
             TreeNode<List<BrewingCauldronRecipe>> childRecipes = outputToInput.computeIfAbsent(output, k -> new TreeNode<>(new ArrayList<>()));
             childRecipes.getData().add(recipe);
@@ -72,13 +75,13 @@ public class SeededPotionRecipes {
         }
 
         for (BrewingCauldronRecipe recipe : recipes) {
-            PpIngredients output = new PpIngredients(recipe.getResultItem());
+            PpIngredient output = PpIngredient.of(recipe.getResultItem());
 
             if (outputToInput.containsKey(output)) {
                 TreeNode<List<BrewingCauldronRecipe>> outputIngredientNode = outputToInput.computeIfAbsent(output, k -> new TreeNode<>(new ArrayList<>()));
 
                 for (Ingredient ingredient : recipe.getIngredients()) {
-                    PpIngredients input = new PpIngredients(ingredient.getItems()[0]);
+                    PpIngredient input = PpIngredient.of(ingredient.getItems()[0]);
 
                     if (outputToInput.containsKey(input)) {
                         TreeNode<List<BrewingCauldronRecipe>> inputChildRecipes = outputToInput.get(input);
@@ -89,10 +92,12 @@ public class SeededPotionRecipes {
         }
     }
 
-    public TreeNode<ItemStack> getItemStackTree(PpIngredients output) {
+    @Deprecated
+    public TreeNode<ItemStack> getItemStackTree(PpIngredient output) {
         return getItemStackTree(Recipes.seededPotionRecipes.getRecipeSubTree(output));
     }
 
+    @Deprecated
     public TreeNode<ItemStack> getItemStackTree(TreeNode<List<BrewingCauldronRecipe>> branch) {
         if (branch == null) {
             return null;
@@ -104,6 +109,7 @@ public class SeededPotionRecipes {
         return getItemStackTree(itemStackTree, branch);
     }
 
+    @Deprecated
     public TreeNode<ItemStack> getItemStackTree(TreeNode<ItemStack> itemStackTree, TreeNode<List<BrewingCauldronRecipe>> branch) {
         if (branch == null) {
             return null;
@@ -131,8 +137,8 @@ public class SeededPotionRecipes {
         return itemStackTree;
     }
 
-
-    public TreeNode<List<BrewingCauldronRecipe>> getRecipeSubTree(PpIngredients output) {
+    @Deprecated
+    public TreeNode<List<BrewingCauldronRecipe>> getRecipeSubTree(PpIngredient output) {
         return outputToInput.get(output);
     }
 
@@ -147,11 +153,11 @@ public class SeededPotionRecipes {
         }
     }
 
-    public Set<PpIngredients> getAllBasePotionRecipeInputs() {
+    public Set<PpIngredient> getAllBasePotionRecipeInputs() {
         return allBasePotionRecipeInputs;
     }
 
-    public Set<PpIngredients> getAllUpgradeRecipeInputs() {
+    public Set<PpIngredient> getAllUpgradeRecipeInputs() {
         return allUpgradeRecipeInputs;
     }
 }

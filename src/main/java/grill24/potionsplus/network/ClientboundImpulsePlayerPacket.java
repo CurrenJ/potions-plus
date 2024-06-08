@@ -1,4 +1,4 @@
-package grill24.potionsplus.core;
+package grill24.potionsplus.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;

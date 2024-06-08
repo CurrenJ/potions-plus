@@ -30,12 +30,15 @@ public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<Abys
         profiler.push("abyssal_trove_render");
 
         for (Map.Entry<Integer, List<AbyssalTroveBlockEntity.RendererData.AbyssalTroveRenderedItem>> items : blockEntity.rendererData.renderedItemTiers.entrySet()) {
-            float widthPadding = RUtil.ease(blockEntity, 0.1F, 0.2F, items.getKey() * 15, 0.5F);
+            int tier = items.getKey();
+
+            float widthPadding = RUtil.ease(blockEntity, 0.1F, 0.2F, tier * 8, 1F);
             float heightPadding = 0.2F;
-            float heightOffset = RUtil.ease(blockEntity, 1F, 1.25F, items.getKey() * 10, 0.5F);
-            float scale = RUtil.ease(blockEntity, 0, 0.25F, items.getKey() * 10, 0.5F);
-            final int hideDelay = 240;
-            scale = RUtil.ease(blockEntity, scale, 0, items.getKey() * 10 + hideDelay, 0.5F);
+            float heightOffset = RUtil.ease(blockEntity, 1F, 1.25F, tier * 5, 1F);
+            float scale = RUtil.ease(blockEntity, 0, 0.25F, tier * 5, 1F);
+            final int hideDelay = 200;
+
+            scale = RUtil.ease(blockEntity, scale, 0, tier * 5 + hideDelay, 1F);
             for (AbyssalTroveBlockEntity.RendererData.AbyssalTroveRenderedItem item : items.getValue()) {
                 matrices.pushPose();
 

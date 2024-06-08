@@ -14,6 +14,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class InvUtil {
+    public enum InteractionResult {
+        INSERT,
+        EXTRACT,
+        INTERACT,
+        PASS
+    }
+
     @NotNull
     public static InteractionResult giveAndTakeFromPlayerOnUseBlock(Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, boolean allowTaking, SoundEvent insert, SoundEvent remove) {
         ItemStack hand = player.getItemInHand(interactionHand);
@@ -31,7 +38,7 @@ public class InvUtil {
 
                         level.playSound(null, blockPos, insert, SoundSource.BLOCKS, 1.0F, 1.0F);
 
-                        return InteractionResult.SUCCESS;
+                        return InteractionResult.INSERT;
                     }
                 }
             }
@@ -47,11 +54,19 @@ public class InvUtil {
 
                         level.playSound(null, blockPos, remove, SoundSource.BLOCKS, 1.0F, 1.0F);
 
-                        return InteractionResult.SUCCESS;
+                        return InteractionResult.EXTRACT;
                     }
                 }
             }
         }
         return InteractionResult.PASS;
+    }
+
+    public static net.minecraft.world.InteractionResult getMinecraftInteractionResult(InteractionResult result) {
+        if(result == InteractionResult.PASS) {
+            return net.minecraft.world.InteractionResult.PASS;
+        } else {
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        }
     }
 }

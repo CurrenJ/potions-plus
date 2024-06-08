@@ -1,7 +1,7 @@
 package grill24.potionsplus.core;
 
 import com.google.common.collect.ImmutableMap;
-import grill24.potionsplus.core.seededrecipe.PpIngredients;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.SeededPotionRecipes;
 import grill24.potionsplus.recipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.BrewingCauldronRecipeSerializer;
@@ -35,8 +35,6 @@ public class Recipes {
     });
 
     public static SeededPotionRecipes seededPotionRecipes;
-    public static Set<PpIngredients> ALL_UNIQUE_RECIPE_INPUTS = new HashSet<>(); // All unique recipe inputs. Used to avoid duplicate recipes. E.x. [1 water bottle, 1 nether wart]
-    public static Set<PpIngredients> ALL_UNIQUE_POTIONS_PLUS_INGREDIENTS_NO_POTIONS = new HashSet<>(); // All ingredients as defined by the tiered tags. 1 item per ingredient.
 
     public static Map<ResourceLocation, Recipe<?>> getAdditionalRuntimeRecipes(RecipeType<?> recipeType) {
         if (recipeType == BREWING_CAULDRON_RECIPE.get()) {
@@ -111,21 +109,25 @@ public class Recipes {
         return additionalRecipes.size();
     }
 
+    /**
+     * Compute the unique ingredients list for the brewing cauldron
+     * Called when recipes are synced
+     */
     public static void computeUniqueIngredientsList() {
-        Set<PpIngredients> unique = new HashSet<>();
         if (Minecraft.getInstance().level != null) {
+            Set<PpIngredient> uniqueRecipeInputs = new HashSet<>();
             Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()).forEach(recipe -> {
                 for (ItemStack itemStack : recipe.getIngredientsAsItemStacks()) {
-                    unique.add(new PpIngredients(itemStack));
+                    uniqueRecipeInputs.add(PpIngredient.of(itemStack));
                 }
             });
-            Recipes.ALL_UNIQUE_RECIPE_INPUTS = unique;
+            seededPotionRecipes.allUniqueRecipeInputs = uniqueRecipeInputs;
 
-            Set<PpIngredients> uniqueIngredients = new HashSet<>();
-            for (PpIngredients ppIngredients : unique) {
-                for (Ingredient ingredient : ppIngredients.ingredients) {
+            Set<PpIngredient> uniqueIngredients = new HashSet<>();
+            for (PpIngredient ppIngredient : uniqueRecipeInputs) {
+                for (Ingredient ingredient : ppIngredient.ingredients) {
                     ItemStack stack = ingredient.getItems()[0];
-                    PpIngredients ingredientPp = new PpIngredients(stack);
+                    PpIngredient ingredientPp = PpIngredient.of(stack);
 
                     if (!uniqueIngredients.contains(ingredientPp)) {
 
@@ -138,7 +140,15 @@ public class Recipes {
                     }
                 }
             }
-            Recipes.ALL_UNIQUE_POTIONS_PLUS_INGREDIENTS_NO_POTIONS = uniqueIngredients;
+            seededPotionRecipes.allPotionsPlusIngredientsNoPotions = uniqueIngredients;
+
+            Map<Integer, Set<PpIngredient>> tieredIngredients = new HashMap<>();
+            uniqueIngredients.forEach(ingredient -> {
+                int tier = ingredient.getIngredientTier();
+                Set<PpIngredient> ingredients = tieredIngredients.computeIfAbsent(tier, k -> new HashSet<>());
+                ingredients.add(ingredient);
+            });
+            seededPotionRecipes.allPotionsPlusIngredientsByTier = tieredIngredients;
         }
     }
 }

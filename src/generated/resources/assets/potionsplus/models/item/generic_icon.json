@@ -75,6 +75,30 @@
         "potionsplus:dynamic_icon_index": 0.171875
       },
       "model": "potionsplus:item/generic_icon_unknown"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.1875
+      },
+      "model": "potionsplus:item/generic_icon_sga_a"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.203125
+      },
+      "model": "potionsplus:item/generic_icon_sga_b"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.21875
+      },
+      "model": "potionsplus:item/generic_icon_sga_c"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.234375
+      },
+      "model": "potionsplus:item/generic_icon_sga_d"
     }
   ]
 }

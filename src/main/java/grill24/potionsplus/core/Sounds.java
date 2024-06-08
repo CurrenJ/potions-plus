@@ -21,6 +21,9 @@ public class Sounds extends SoundDefinitionsProvider {
     public static RegistryObject<SoundEvent> PING_3 = SOUNDS.register("ping_3", () -> new SoundEvent(new ResourceLocation(ModInfo.MOD_ID, "ping_3")));
     public static RegistryObject<SoundEvent> GIANT_STEPS = SOUNDS.register("giant_steps", () -> new SoundEvent(new ResourceLocation(ModInfo.MOD_ID, "giant_steps")));
     public static RegistryObject<SoundEvent> RECIPE_UNLOCKED = SOUNDS.register("recipe_unlocked", () -> new SoundEvent(new ResourceLocation(ModInfo.MOD_ID, "recipe_unlocked")));
+    public static RegistryObject<SoundEvent> MUTED_PLUCKS_0 = SOUNDS.register("muted_plucks_0", () -> new SoundEvent(new ResourceLocation(ModInfo.MOD_ID, "muted_plucks_0")));
+    public static RegistryObject<SoundEvent> MUTED_PLUCKS_1 = SOUNDS.register("muted_plucks_1", () -> new SoundEvent(new ResourceLocation(ModInfo.MOD_ID, "muted_plucks_1")));
+    public static RegistryObject<SoundEvent> SANGUINE_ALTAR_CONVERSION = SOUNDS.register("sanguine_altar_conversion", () -> new SoundEvent(new ResourceLocation(ModInfo.MOD_ID, "sanguine_altar_conversion")));
 
 
     public Sounds(DataGenerator generator, String modId, ExistingFileHelper helper) {
@@ -95,6 +98,27 @@ public class Sounds extends SoundDefinitionsProvider {
                         sound(new ResourceLocation(ModInfo.MOD_ID, "block/recipe_unlocked_0")).weight(1),
                         sound(new ResourceLocation(ModInfo.MOD_ID, "block/recipe_unlocked_1")).weight(1),
                         sound(new ResourceLocation(ModInfo.MOD_ID, "block/recipe_unlocked_2")).weight(1)
+                )
+        );
+
+        this.add(MUTED_PLUCKS_0.get(), definition()
+                .subtitle("sound." + MUTED_PLUCKS_0.get().getRegistryName().getNamespace() + "." + MUTED_PLUCKS_0.get().getRegistryName().getPath()) // Set translation key
+                .with(
+                        sound(new ResourceLocation(ModInfo.MOD_ID, "block/muted_plucks_0")).weight(1)
+                )
+        );
+
+        this.add(MUTED_PLUCKS_1.get(), definition()
+                .subtitle("sound." + MUTED_PLUCKS_1.get().getRegistryName().getNamespace() + "." + MUTED_PLUCKS_1.get().getRegistryName().getPath()) // Set translation key
+                .with(
+                        sound(new ResourceLocation(ModInfo.MOD_ID, "block/muted_plucks_1")).weight(1)
+                )
+        );
+
+        this.add(SANGUINE_ALTAR_CONVERSION.get(), definition()
+                .subtitle("sound." + SANGUINE_ALTAR_CONVERSION.get().getRegistryName().getNamespace() + "." + SANGUINE_ALTAR_CONVERSION.get().getRegistryName().getPath()) // Set translation key
+                .with(
+                        sound(new ResourceLocation(ModInfo.MOD_ID, "block/conversion")).weight(1)
                 )
         );
     }

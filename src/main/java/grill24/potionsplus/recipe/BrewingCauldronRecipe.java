@@ -1,7 +1,7 @@
 package grill24.potionsplus.recipe;
 
 import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.core.seededrecipe.PpIngredients;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.NonNullList;
@@ -152,8 +152,8 @@ public class BrewingCauldronRecipe implements Recipe<Container> {
         return nonnulllist;
     }
 
-    public List<PpIngredients> getPpIngredientsIngredients() {
-        return Arrays.stream(this.ingredients).map((ingredient) -> new PpIngredients(ingredient.getItems()[0])).toList();
+    public List<PpIngredient> getPpIngredientsIngredients() {
+        return Arrays.stream(this.ingredients).map((ingredient) -> PpIngredient.of(ingredient.getItems()[0])).toList();
     }
 
     public ItemStack[] getIngredientsAsItemStacks() {

@@ -1,5 +1,6 @@
 package grill24.potionsplus.core;
 
+import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
 import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.server.level.ServerLevel;
@@ -30,5 +31,6 @@ public class ServerLifecycleListeners {
     @SubscribeEvent
     public static void onRecipesSynced(final RecipesUpdatedEvent event) {
         Recipes.computeUniqueIngredientsList();
+        SanguineAltarBlockEntity.computeChainedIngredients();
     }
 }

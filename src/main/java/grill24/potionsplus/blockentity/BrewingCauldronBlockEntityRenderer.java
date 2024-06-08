@@ -29,7 +29,7 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
 
     @Override
     public void render(BrewingCauldronBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
-        double ticks = ClientTickHandler.total();
+        double ticks = ClientTickHandler.total() * 2;
 
         // Profiler
         ProfilerFiller profiler = Minecraft.getInstance().getProfiler();

@@ -1,5 +1,6 @@
 package grill24.potionsplus.particle;
 
+import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;
@@ -15,36 +16,50 @@ import java.util.function.Function;
 
 @OnlyIn(Dist.CLIENT)
 public class EmitterParticle extends NoRenderParticle {
-    private int life;
     private final Function<Random, ParticleOptions> PARTICLE_TYPE_SUPPLIER;
-    protected final int LIFE_TIME;
     protected final int TICKS_PER_SPAWN;
     protected final int SPAWN_COUNT;
-    protected final int RANGE;
+    protected final float RANGE;
+    protected final Vec3 VELOCITY;
+    protected final boolean SHRINK_WITH_TIME;
 
-    EmitterParticle(ClientLevel clientLevel, double x, double y, double z, Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, int range) {
-        super(clientLevel, x, y, z, 0.0D, 0.0D, 0.0D);
+    EmitterParticle(ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, Function<Random, ParticleOptions> particleTypeSupplier, int lifetime, int ticksPerSpawn, int spawnCount, float range, Vec3 velocity, boolean shrinkWithTime) {
+        super(clientLevel, x, y, z, xd, yd, zd);
+        this.xd = xd;
+        this.yd = yd;
+        this.zd = zd;
+        this.lifetime = lifetime;
+
         this.PARTICLE_TYPE_SUPPLIER = particleTypeSupplier;
-        this.LIFE_TIME = lifeTime;
         this.TICKS_PER_SPAWN = ticksPerSpawn;
         this.SPAWN_COUNT = spawnCount;
         this.RANGE = range;
+        this.VELOCITY = velocity;
+        this.SHRINK_WITH_TIME = shrinkWithTime;
     }
 
+    @Override
     public void tick() {
-        for (int i = 0; i < SPAWN_COUNT; ++i) {
-            if (life % TICKS_PER_SPAWN == 0) {
-                double d0 = this.x + (this.random.nextDouble() - this.random.nextDouble()) * RANGE;
-                double d1 = this.y + (this.random.nextDouble() - this.random.nextDouble()) * RANGE;
-                double d2 = this.z + (this.random.nextDouble() - this.random.nextDouble()) * RANGE;
-                if (this.PARTICLE_TYPE_SUPPLIER != null)
-                    this.level.addParticle(PARTICLE_TYPE_SUPPLIER.apply(this.random), d0, d1, d2, 0.0D, 0.0D, 0.0D);
-            }
+        super.tick();
+
+        float effectiveRange = this.RANGE;
+        float effectiveSpawnCount = this.SPAWN_COUNT;
+        float effectiveTicksPerSpawn = this.TICKS_PER_SPAWN;
+
+        float lifeFactor = 1 - RUtil.easeInSine((float)this.age / (float)this.lifetime);
+        if(SHRINK_WITH_TIME) {
+            effectiveRange *= lifeFactor;
+            effectiveSpawnCount *= lifeFactor;
         }
 
-        ++this.life;
-        if (this.life == this.LIFE_TIME) {
-            this.remove();
+        for (int i = 0; i < effectiveSpawnCount; ++i) {
+            if (this.age % effectiveTicksPerSpawn == 0) {
+                double pX = this.x + (this.random.nextDouble() - this.random.nextDouble()) * effectiveRange;
+                double pY = this.y + (this.random.nextDouble() - this.random.nextDouble()) * effectiveRange;
+                double pZ = this.z + (this.random.nextDouble() - this.random.nextDouble()) * effectiveRange;
+                if (this.PARTICLE_TYPE_SUPPLIER != null)
+                    this.level.addParticle(PARTICLE_TYPE_SUPPLIER.apply(this.random), pX, pY, pZ, VELOCITY.x, VELOCITY.y, VELOCITY.z);
+            }
         }
     }
 
@@ -54,15 +69,17 @@ public class EmitterParticle extends NoRenderParticle {
         private int lifeTime = 100;
         private int ticksPerSpawn = 5;
         private int spawnCount = 2;
-        private int range = 16;
+        private float range = 16;
+        private boolean shrinkWithTime = false;
 
         private Vec3 offset = Vec3.ZERO;
+        private Vec3 velocity = Vec3.ZERO;
 
         public Provider(Function<Random, ParticleOptions> particleTypeSupplier) {
             this.particleTypeSupplier = particleTypeSupplier;
         }
 
-        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, int range) {
+        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range) {
             this.particleTypeSupplier = particleTypeSupplier;
             this.lifeTime = lifeTime;
             this.ticksPerSpawn = ticksPerSpawn;
@@ -70,7 +87,7 @@ public class EmitterParticle extends NoRenderParticle {
             this.range = range;
         }
 
-        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, int range, Vec3 offset) {
+        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range, Vec3 offset) {
             this.particleTypeSupplier = particleTypeSupplier;
             this.lifeTime = lifeTime;
             this.ticksPerSpawn = ticksPerSpawn;
@@ -79,8 +96,29 @@ public class EmitterParticle extends NoRenderParticle {
             this.offset = offset;
         }
 
-        public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double x, double y, double z, double p_106974_, double p_106975_, double p_106976_) {
-            return new EmitterParticle(clientLevel, x + offset.x, y + offset.y, z + offset.z, particleTypeSupplier, lifeTime, ticksPerSpawn, spawnCount, range);
+        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range, Vec3 offset, Vec3 velocity) {
+            this.particleTypeSupplier = particleTypeSupplier;
+            this.lifeTime = lifeTime;
+            this.ticksPerSpawn = ticksPerSpawn;
+            this.spawnCount = spawnCount;
+            this.range = range;
+            this.offset = offset;
+            this.velocity = velocity;
+        }
+
+        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range, Vec3 offset, Vec3 velocity, boolean shrinkWithTime) {
+            this.particleTypeSupplier = particleTypeSupplier;
+            this.lifeTime = lifeTime;
+            this.ticksPerSpawn = ticksPerSpawn;
+            this.spawnCount = spawnCount;
+            this.range = range;
+            this.offset = offset;
+            this.velocity = velocity;
+            this.shrinkWithTime = shrinkWithTime;
+        }
+
+        public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd) {
+            return new EmitterParticle(clientLevel, x + offset.x, y + offset.y, z + offset.z, xd, yd, zd, particleTypeSupplier, lifeTime, ticksPerSpawn, spawnCount, range, velocity, shrinkWithTime);
         }
     }
 }

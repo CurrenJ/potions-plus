@@ -1,4 +1,4 @@
-package grill24.potionsplus.core;
+package grill24.potionsplus.network;
 
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.resources.ResourceLocation;
@@ -32,8 +32,15 @@ public class PotionsPlusPacketHandler {
         int id = 0;
 
         // Clientbound packets
+
         CHANNEL.registerMessage(id++, ClientboundImpulsePlayerPacket.class, ClientboundImpulsePlayerPacket::encode, ClientboundImpulsePlayerPacket::decode,
                 makeClientBoundHandler(ClientboundImpulsePlayerPacket.Handler::handle));
+
+        CHANNEL.registerMessage(id++, SanguineAltarConversionStatePacket.class, SanguineAltarConversionStatePacket::encode, SanguineAltarConversionStatePacket::decode,
+                makeClientBoundHandler(SanguineAltarConversionStatePacket.Handler::handle));
+
+        CHANNEL.registerMessage(id++, SanguineAltarConversionProgressPacket.class, SanguineAltarConversionProgressPacket::encode, SanguineAltarConversionProgressPacket::decode,
+                makeClientBoundHandler(SanguineAltarConversionProgressPacket.Handler::handle));
     }
 
     private static <T> BiConsumer<T, Supplier<Context>> makeServerBoundHandler(TriConsumer<T, MinecraftServer, ServerPlayer> handler) {

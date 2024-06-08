@@ -35,7 +35,7 @@ public final class ClientTickHandler {
 
     @SubscribeEvent
     public static void clientTickEnd(final TickEvent.ClientTickEvent event) {
-        if (!Minecraft.getInstance().isPaused()) {
+        if (event.phase == TickEvent.Phase.END && !Minecraft.getInstance().isPaused()) {
             ticksInGame++;
             partialTicks = 0;
         }

@@ -1,9 +1,8 @@
 package grill24.potionsplus.block;
 
-import grill24.potionsplus.core.Particles;
+import grill24.potionsplus.particle.ParticleConfigurations;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -17,14 +16,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,55 +30,17 @@ import java.util.Map;
 import java.util.Random;
 
 public class ParticleEmitterBlock extends Block {
-    public static class Minecraft {
-        private static final RegistryObject<SimpleParticleType> SOUL = getVanillaParticle("soul");
-        private static final RegistryObject<SimpleParticleType> ENCHANT = getVanillaParticle("enchant");
-        public static final RegistryObject<SimpleParticleType> PORTAL = getVanillaParticle("portal");
-        public static final RegistryObject<SimpleParticleType> BUBBLE_POP = getVanillaParticle("bubble_pop");
-        public static final RegistryObject<SimpleParticleType> SPLASH = getVanillaParticle("splash");
-        public static final RegistryObject<SimpleParticleType> BUBBLE_COLUMN_UP = getVanillaParticle("bubble_column_up");
-        public static final RegistryObject<SimpleParticleType> CAMPFIRE_COSY_SMOKE = getVanillaParticle("campfire_cosy_smoke");
-        public static final RegistryObject<SimpleParticleType> ASH = getVanillaParticle("ash");
-        private static final RegistryObject<SimpleParticleType> SMALL_FLAME = getVanillaParticle("small_flame");
-        private static final RegistryObject<SimpleParticleType> FALLING_LAVA = getVanillaParticle("falling_lava");
-        private static final RegistryObject<SimpleParticleType> WHITE_ASH = getVanillaParticle("white_ash");
-        public static final RegistryObject<SimpleParticleType> SOUL_FIRE_FLAME = getVanillaParticle("soul_fire_flame");
-    }
-
-    public static class Configurations {
-        public static final ParticleEmitterConfiguration END_ROD_RAIN = new ParticleEmitterConfiguration(Blocks.END_STONE_BRICKS, 32, new ParticleEmitterConfiguration.WeightedParticleType(Particles.END_ROD_RAIN, 1));
-        public static final ParticleEmitterConfiguration BLUE_FIREY =
-                new ParticleEmitterConfiguration(Blocks.SOUL_SAND, 40,
-                        new ParticleEmitterConfiguration.WeightedParticleType(Minecraft.SOUL, 1),
-                        new ParticleEmitterConfiguration.WeightedParticleType(Minecraft.WHITE_ASH, 3),
-                        new ParticleEmitterConfiguration.WeightedParticleType(Minecraft.SOUL_FIRE_FLAME, 1));
-        public static final ParticleEmitterConfiguration RUNES = new ParticleEmitterConfiguration(Blocks.CRYING_OBSIDIAN, 30, new ParticleEmitterConfiguration.WeightedParticleType(Minecraft.ENCHANT, 1));
-        public static final ParticleEmitterConfiguration PORTAL = new ParticleEmitterConfiguration(Blocks.AMETHYST_BLOCK, 20, new ParticleEmitterConfiguration.WeightedParticleType(Minecraft.PORTAL, 1));
-        public static final ParticleEmitterConfiguration BUBBLES = new ParticleEmitterConfiguration(Blocks.PRISMARINE, 12, new ParticleEmitterConfiguration.WeightedParticleType(Minecraft.BUBBLE_POP, 1));
-        public static final ParticleEmitterConfiguration WANDERING_HEARTS = new ParticleEmitterConfiguration(Blocks.FIRE_CORAL_BLOCK, 6, new ParticleEmitterConfiguration.WeightedParticleType(Particles.WANDERING_HEART, 1));
-        public static final ParticleEmitterConfiguration FIREY = new ParticleEmitterConfiguration(Blocks.MAGMA_BLOCK, 80,
-                new ParticleEmitterConfiguration.WeightedParticleType(Minecraft.CAMPFIRE_COSY_SMOKE, 1),
-                new ParticleEmitterConfiguration.WeightedParticleType(Minecraft.ASH, 6),
-                new ParticleEmitterConfiguration.WeightedParticleType(Minecraft.SMALL_FLAME, 2),
-                new ParticleEmitterConfiguration.WeightedParticleType(Minecraft.FALLING_LAVA, 2));
-        public static final ParticleEmitterConfiguration MUSICAL = new ParticleEmitterConfiguration(Blocks.NOTE_BLOCK, 14, new ParticleEmitterConfiguration.WeightedParticleType(Particles.RANDOM_NOTE, 1));
-
-        // Emitter for particles that are not particles themselves, but rather emitters themselves. This is used for particles that are not directly rendered, but rather spawn other particles.
-        public static final ParticleEmitterConfiguration END_ROD_RAIN_EMITTER = new ParticleEmitterConfiguration(Blocks.TARGET, 1, new ParticleEmitterConfiguration.WeightedParticleType(Particles.END_ROD_RAIN_EMITTER, 1));
-        public static final ParticleEmitterConfiguration FIREY_EMITTER = new ParticleEmitterConfiguration(Blocks.NETHERRACK, 1, new ParticleEmitterConfiguration.WeightedParticleType(Particles.FIREY_EMITTER, 1));
-    }
-
     public static final ParticleEmitterConfiguration[] PARTICLE_EMITTER_CONFIGURATIONS = new ParticleEmitterConfiguration[]{
-            Configurations.END_ROD_RAIN,
-            Configurations.BLUE_FIREY,
-            Configurations.RUNES,
-            Configurations.PORTAL,
-            Configurations.BUBBLES,
-            Configurations.WANDERING_HEARTS,
-            Configurations.FIREY,
-            Configurations.MUSICAL,
-            Configurations.END_ROD_RAIN_EMITTER,
-            Configurations.FIREY_EMITTER,
+            ParticleConfigurations.END_ROD_RAIN,
+            ParticleConfigurations.BLUE_FIREY,
+            ParticleConfigurations.RUNES,
+            ParticleConfigurations.PORTAL,
+            ParticleConfigurations.BUBBLES,
+            ParticleConfigurations.WANDERING_HEARTS,
+            ParticleConfigurations.FIREY,
+            ParticleConfigurations.MUSICAL,
+            ParticleConfigurations.END_ROD_RAIN_EMITTER,
+            ParticleConfigurations.FIREY_EMITTER,
     };
     public static final IntegerProperty PARTICLE_TYPE = IntegerProperty.create("particle_type", 0, PARTICLE_EMITTER_CONFIGURATIONS.length - 1);
 
@@ -247,7 +206,4 @@ public class ParticleEmitterBlock extends Block {
         return PARTICLE_EMITTER_CONFIGURATIONS[blockState.getValue(PARTICLE_TYPE)];
     }
 
-    private static RegistryObject<SimpleParticleType> getVanillaParticle(String name) {
-        return RegistryObject.create(new ResourceLocation("minecraft", name), ForgeRegistries.PARTICLE_TYPES);
-    }
 }

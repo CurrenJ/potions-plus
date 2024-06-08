@@ -55,6 +55,10 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         MutableComponent abyssalTroveDescription = new TranslatableComponent("jei.potionsplus.abyssal_trove.description");
         registration.addIngredientInfo(new ItemStack(grill24.potionsplus.core.Blocks.ABYSSAL_TROVE.get()), VanillaTypes.ITEM, abyssalTroveDescription);
 
+        // Sanguine Altar description
+        MutableComponent sanguineAltarDescription = new TranslatableComponent("jei.potionsplus.sanguine_altar.description");
+        registration.addIngredientInfo(new ItemStack(grill24.potionsplus.core.Blocks.SANGUINE_ALTAR.get()), VanillaTypes.ITEM, sanguineAltarDescription);
+
         // Potion descriptions
         registerAllPotionsInfo(registration, Potions.getAllPotionAmpDurMatrices());
 

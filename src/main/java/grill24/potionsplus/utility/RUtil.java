@@ -13,9 +13,9 @@ import net.minecraft.world.item.ItemStack;
 import java.util.function.Function;
 
 public class RUtil {
-    public static void renderInputItemAnimation(ItemStack stack, int degreesRotation, float scale, int ticksDelay, int ticksDuration, boolean hideOnFinish, float tickDelta, ISingleStackDisplayer iSingleStackDisplayer, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+    public static void renderInputItemAnimation(ItemStack stack, int degreesRotation, float scale, int ticksDelay, boolean hideOnFinish, ISingleStackDisplayer iSingleStackDisplayer, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         float ticks = ClientTickHandler.total();
-        float lerpFactor = (ticks - iSingleStackDisplayer.getTimeItemPlaced() - ticksDelay) / ticksDuration;
+        float lerpFactor = (ticks - iSingleStackDisplayer.getTimeItemPlaced() - ticksDelay) / iSingleStackDisplayer.getInputAnimationDuration();
 
         if (!stack.isEmpty() && (!hideOnFinish || lerpFactor <= 1)) {
             matrices.pushPose();
@@ -47,7 +47,7 @@ public class RUtil {
 
     public static void renderBobbingItem(ItemStack stack, Vector3d restingPosition, float yawDegrees, float scale, float bobbingHeight, float bobbingHertz, float tickDelay, float tickDelta, ISingleStackDisplayer singleStackDisplayer, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         float ticks = ClientTickHandler.total();
-        if (!stack.isEmpty() && ticks - singleStackDisplayer.getTimeItemPlaced() - tickDelay > 0) {
+        if (!stack.isEmpty() && isAnimationActive(singleStackDisplayer, (int) tickDelay, (int) tickDelta)){
             matrices.pushPose();
             float bobbing = (float) Math.sin((ticks - singleStackDisplayer.getTimeItemPlaced() - tickDelay) / 20 * bobbingHertz * Math.PI * 2) * bobbingHeight;
             Quaternion rotation = Vector3f.YP.rotationDegrees(yawDegrees);
@@ -61,6 +61,35 @@ public class RUtil {
                     light, overlay, matrices, vertexConsumers, 0);
             matrices.popPose();
         }
+    }
+
+    public static float getBobbingOffset(ISingleStackDisplayer singleStackDisplayer, float bobbingHeight, float bobbingHertz, int tickDelay) {
+        float ticks = ClientTickHandler.total();
+        float elapsedTimeSinceItemPlaced = ticks - singleStackDisplayer.getTimeItemPlaced();
+        if(isAnimationActive(singleStackDisplayer, tickDelay, 0)) {
+            return (float) Math.sin((elapsedTimeSinceItemPlaced - tickDelay) / 20 * bobbingHertz * Math.PI * 2) * bobbingHeight;
+        }
+        return 0;
+    }
+
+    public static void renderItemWithYaw(ISingleStackDisplayer singleStackDisplayer, ItemStack stack, Vector3d position, int tickDelay, int tickDuration, float yawDegrees, float scale, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+        if(isAnimationActive(singleStackDisplayer, tickDelay, tickDuration)){
+            matrices.pushPose();
+            Quaternion rotation = Vector3f.YP.rotationDegrees(yawDegrees);
+            matrices.translate(position.x, position.y, position.z);
+            matrices.mulPose(rotation);
+            matrices.scale(scale, scale, scale);
+
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
+                    light, overlay, matrices, vertexConsumers, 0);
+            matrices.popPose();
+        }
+    }
+
+    public static boolean isAnimationActive(ISingleStackDisplayer singleStackDisplayer, float tickDelay, float tickDuration) {
+        float ticks = ClientTickHandler.total();
+        float elapsedTicksSinceItemPlaced = ticks - singleStackDisplayer.getTimeItemPlaced();
+        return elapsedTicksSinceItemPlaced > tickDelay && (tickDuration <= 0 || elapsedTicksSinceItemPlaced <= tickDuration + tickDelay);
     }
 
     /**
@@ -84,15 +113,15 @@ public class RUtil {
     }
 
     public static float ease(ISingleStackDisplayer singleStackDisplayer, float a, float b, int tickDelay, float hertz) {
-        float ticks = ClientTickHandler.total();
-        float duration = 20 / hertz;
-        float lerpFactor = (ticks - singleStackDisplayer.getTimeItemPlaced() - tickDelay) / duration;
-        if (lerpFactor <= 1) {
-            lerpFactor = Math.max(0, Math.min(lerpFactor, 1));
-            return Utility.lerp(a, b, easeInOutQuint(lerpFactor));
-        } else {
-            return b;
-        }
+        float elapsedTicks = ClientTickHandler.total() - singleStackDisplayer.getTimeItemPlaced() - tickDelay;
+        float lerpFactor = Math.max(0, Math.min(elapsedTicks / (20 / hertz), 1));
+        return lerpFactor <= 1 ? Utility.lerp(a, b, easeInOutQuint(lerpFactor)) : b;
+    }
+
+    public static float ease(ISingleStackDisplayer displayer, float a, float b, int delay, float hertz, Function<Float, Float> easing) {
+        float elapsedTicks = ClientTickHandler.total() - displayer.getTimeItemPlaced() - delay;
+        float lerpFactor = Math.max(0, Math.min(elapsedTicks / (20 / hertz), 1));
+        return Utility.lerp(a, b, easing.apply(lerpFactor));
     }
 
     public static Vector3d lerp3d(Vector3d a, Vector3d b, float t, Function<Float, Float> easingFunction) {
@@ -115,8 +144,16 @@ public class RUtil {
         return (float) (1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2));
     }
 
+    public static float easeInSine(float x) {
+        return (float) (1 - Math.cos((x * Math.PI) / 2));
+    }
+
     public static float easeOutExpo(float x) {
         return x == 1 ? 1 : (float) (1 - Math.pow(2, -10 * x));
+    }
+
+    public static float easeInExpo(float x) {
+        return x == 0 ? 0 : (float) Math.pow(2, 10 * x - 10);
     }
 
     public static float easeInOutQuint(float x) {
@@ -141,5 +178,44 @@ public class RUtil {
         rotatedPoint.add(origin);
 
         return rotatedPoint;
+    }
+
+    public static Vector3f[] distributePointsOnCircle(int numPoints, Vector3f axis, Vector3f offset, float radiansOffset, float radius, float spinDegrees) {
+        Vector3f[] points = new Vector3f[numPoints];
+
+        // Normalize the axis of rotation
+        axis.normalize();
+
+        // Find a vector perpendicular to the axis
+        Vector3f perp;
+        if (Math.abs(axis.x()) > Math.abs(axis.y())) {
+            perp = new Vector3f(-axis.z(), 0, axis.x());
+        } else {
+            perp = new Vector3f(0, -axis.z(), axis.y());
+        }
+        perp.normalize();
+
+        // Find a vector that is perpendicular to both the axis and the perp
+        Vector3f spinAxis = axis.copy();
+        spinAxis.cross(perp);
+        spinAxis.normalize();
+
+        // Rotate the perpendicular vector around the axis to generate the points
+        for (int i = 0; i < numPoints; i++) {
+            float angle = (float) (2 * Math.PI * i / numPoints) + radiansOffset;
+            Quaternion rotation = axis.rotationDegrees(angle * 180 / (float) Math.PI);
+            Vector3f point = new Vector3f(perp.x() * radius, perp.y() * radius, perp.z() * radius);
+            point.transform(rotation);
+
+            // Apply the spin rotation
+            Quaternion spinRotation = spinAxis.rotationDegrees(spinDegrees);
+            point.transform(spinRotation);
+
+            point.add(offset);
+
+            points[i] = point;
+        }
+
+        return points;
     }
 }

@@ -45,6 +45,10 @@ public class Items {
         add(new ResourceLocation(ModInfo.MOD_ID, "viii"));
         add(new ResourceLocation(ModInfo.MOD_ID, "arrow"));
         add(new ResourceLocation(ModInfo.MOD_ID, "unknown"));
+        add(new ResourceLocation("sga_a"));
+        add(new ResourceLocation("sga_b"));
+        add(new ResourceLocation("sga_c"));
+        add(new ResourceLocation("sga_d"));
     }};
 
     public static final String DYNAMIC_ICON_INDEX_PROPERTY_NAME = "dynamic_icon_index";

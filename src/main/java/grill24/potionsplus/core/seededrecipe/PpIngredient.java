@@ -4,19 +4,13 @@ import grill24.potionsplus.utility.PUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class PpIngredients {
+import java.util.Arrays;
+
+public class PpIngredient {
     public Ingredient[] ingredients;
 
-    public PpIngredients(Ingredient[] ingredients) {
+    protected PpIngredient(Ingredient[] ingredients) {
         this.ingredients = ingredients;
-    }
-
-    public PpIngredients(Ingredient ingredient) {
-        this.ingredients = new Ingredient[]{ingredient};
-    }
-
-    public PpIngredients(ItemStack itemStack) {
-        this.ingredients = new Ingredient[]{Ingredient.of(itemStack)};
     }
 
     // Hashcode and equals methods
@@ -34,10 +28,10 @@ public class PpIngredients {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof PpIngredients)) {
+        if (!(obj instanceof PpIngredient)) {
             return false;
         }
-        PpIngredients other = (PpIngredients) obj;
+        PpIngredient other = (PpIngredient) obj;
         if (ingredients.length != other.ingredients.length) {
             return false;
         }
@@ -77,5 +71,18 @@ public class PpIngredients {
             }
         }
         return 0;
+    }
+
+    public ItemStack getItemStack() {
+        assert ingredients.length == 1 : "Tried to get item stack, but there are multiple.";
+        return ingredients[0].getItems()[0];
+    }
+
+    public static PpIngredient of(ItemStack... stacks) {
+        return new PpIngredient(Arrays.stream(stacks).map(Ingredient::of).toArray(Ingredient[]::new));
+    }
+
+    public static PpIngredient of(Ingredient... ingredients) {
+        return new PpIngredient(ingredients);
     }
 }

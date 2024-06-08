@@ -1,7 +1,7 @@
 package grill24.potionsplus.effect;
 
-import grill24.potionsplus.block.ParticleEmitterBlock;
 import grill24.potionsplus.core.MobEffects;
+import grill24.potionsplus.particle.ParticleConfigurations;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -112,7 +112,7 @@ public class GeodeGraceEffect extends MobEffect {
     private static boolean tryReplaceBlockWithBlock(Block block, ITag<Block> replaceableBlock, BlockPos pos, Level level) {
         if (replaceableBlock.contains(level.getBlockState(pos).getBlock())) {
             level.setBlock(pos, block.defaultBlockState(), 3);
-            level.addParticle(ParticleEmitterBlock.Minecraft.SOUL_FIRE_FLAME.get(), pos.getX(), pos.above().getY(), pos.getZ(), 0, 0, 0);
+            level.addParticle(ParticleConfigurations.Minecraft.SOUL_FIRE_FLAME.get(), pos.getX(), pos.above().getY(), pos.getZ(), 0, 0, 0);
 
             return true;
         }

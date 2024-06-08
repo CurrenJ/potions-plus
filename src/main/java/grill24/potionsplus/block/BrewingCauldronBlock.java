@@ -59,15 +59,13 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
 
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult p_151974_) {
-        ItemStack itemStack = player.getItemInHand(interactionHand).copy();
-        InteractionResult result = InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand, true, SoundEvents.GENERIC_SPLASH, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
-        ItemStack itemStackAfter = player.getItemInHand(interactionHand);
+        InvUtil.InteractionResult result = InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand, true, SoundEvents.GENERIC_SPLASH, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
 
-        if (itemStackAfter.isEmpty() || itemStackAfter.getCount() != itemStack.getCount()) {
+        if (result == InvUtil.InteractionResult.INSERT) {
             level.getBlockEntity(blockPos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get()).ifPresent(cauldronBlockEntity -> cauldronBlockEntity.onPlayerInsertItem(player));
         }
 
-        return result;
+        return InvUtil.getMinecraftInteractionResult(result);
     }
 
     @Override

@@ -41,7 +41,7 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
             float lerpFactor = (float) (ticks - blockEntity.getTimeItemPlaced()) / animationDuration;
             lerpFactor = Math.max(0, Math.min(lerpFactor, 1));
 
-            RUtil.renderInputItemAnimation(stack, 90, 1.25F, 0, 20, false, tickDelta, blockEntity, matrices, vertexConsumers, light, overlay);
+            RUtil.renderInputItemAnimation(stack, 90, 1.25F, 0, false, blockEntity, matrices, vertexConsumers, light, overlay);
 
 
             // Circle of Items
@@ -51,7 +51,7 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
             float radius = 0.4F * RUtil.easeOutExpo(lerpFactor);
             if (infoStacks.length > 10)
                 radius *= 1.5F;
-            Vector3f[] points = distributePointsOnCircle(infoStacks.length, axis, offset, (float) Math.toRadians(ticks), radius, (float) Math.toDegrees(Math.atan2(blockEntity.getNearbyPlayer().z(), blockEntity.getNearbyPlayer().x())));
+            Vector3f[] points = RUtil.distributePointsOnCircle(infoStacks.length, axis, offset, (float) Math.toRadians(ticks), radius, (float) Math.toDegrees(Math.atan2(blockEntity.getNearbyPlayer().z(), blockEntity.getNearbyPlayer().x())));
             for (int p = 0; p < points.length; p++) {
                 Vector3f point = points[p];
                 matrices.pushPose();
@@ -120,45 +120,6 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
             }
         }
         profiler.pop();
-    }
-
-    public Vector3f[] distributePointsOnCircle(int numPoints, Vector3f axis, Vector3f offset, float radiansOffset, float radius, float spinDegrees) {
-        Vector3f[] points = new Vector3f[numPoints];
-
-        // Normalize the axis of rotation
-        axis.normalize();
-
-        // Find a vector perpendicular to the axis
-        Vector3f perp;
-        if (Math.abs(axis.x()) > Math.abs(axis.y())) {
-            perp = new Vector3f(-axis.z(), 0, axis.x());
-        } else {
-            perp = new Vector3f(0, -axis.z(), axis.y());
-        }
-        perp.normalize();
-
-        // Find a vector that is perpendicular to both the axis and the perp
-        Vector3f spinAxis = axis.copy();
-        spinAxis.cross(perp);
-        spinAxis.normalize();
-
-        // Rotate the perpendicular vector around the axis to generate the points
-        for (int i = 0; i < numPoints; i++) {
-            float angle = (float) (2 * Math.PI * i / numPoints) + radiansOffset;
-            Quaternion rotation = axis.rotationDegrees(angle * 180 / (float) Math.PI);
-            Vector3f point = new Vector3f(perp.x() * radius, perp.y() * radius, perp.z() * radius);
-            point.transform(rotation);
-
-            // Apply the spin rotation
-            Quaternion spinRotation = spinAxis.rotationDegrees(spinDegrees);
-            point.transform(spinRotation);
-
-            point.add(offset);
-
-            points[i] = point;
-        }
-
-        return points;
     }
 
     public Quaternion slerp(Quaternion q1, Quaternion q2, float t) {

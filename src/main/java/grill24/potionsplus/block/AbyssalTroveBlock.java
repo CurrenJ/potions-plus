@@ -3,7 +3,7 @@ package grill24.potionsplus.block;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Sounds;
-import grill24.potionsplus.core.seededrecipe.PpIngredients;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
@@ -57,6 +57,10 @@ public class AbyssalTroveBlock extends Block implements EntityBlock {
     public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult p_151974_) {
         // Cache items before interaction
         Optional<AbyssalTroveBlockEntity> blockEntity = level.getBlockEntity(blockPos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
+        if(blockEntity.isEmpty()) {
+            return InteractionResult.FAIL;
+        }
+        AbyssalTroveBlockEntity abyssalTroveBlockEntity = blockEntity.get();
 
         // Sneak clicking with an empty hand manually pairs you to the abyssal trove
         // Pairing used for showing ingredient tooltips and onitempickup notifications
@@ -77,10 +81,10 @@ public class AbyssalTroveBlock extends Block implements EntityBlock {
         }
 
         // Do interaction
-        InteractionResult result = InteractionResult.PASS;
-        if (!player.getMainHandItem().isEmpty() && !blockEntity.get().getStoredIngredients().contains(new PpIngredients(player.getMainHandItem()))) {
+        InvUtil.InteractionResult result = InvUtil.InteractionResult.PASS;
+        if (!player.getMainHandItem().isEmpty() && !blockEntity.get().getStoredIngredients().contains(PpIngredient.of(player.getMainHandItem()))) {
             result = InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand, false, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
-            if (result == InteractionResult.SUCCESS) {
+            if (result == InvUtil.InteractionResult.INSERT) {
                 if (level.isClientSide) {
                     Vec3 posVec = new Vec3(blockPos.getX() + 0.5, blockPos.getY(), blockPos.getZ() + 0.5);
                     for (int i = 0; i < 10; i++) {
@@ -95,16 +99,19 @@ public class AbyssalTroveBlock extends Block implements EntityBlock {
             }
         }
 
-        // If an item was inserted by a player, update the animation state
         if (!blockEntity.get().getItemHandler().getItem(0).isEmpty()) {
+            if(abyssalTroveBlockEntity.rendererData.renderedItemTiers.isEmpty()) {
+                abyssalTroveBlockEntity.updateRendererData();
+            }
+
             blockEntity.get().setChanged();
             level.updateNeighborsAt(blockPos, this);
             level.sendBlockUpdated(blockPos, blockState, blockState, 3);
             blockEntity.get().onPlayerInsertItem(player);
-            result = InteractionResult.SUCCESS;
+            result = InvUtil.InteractionResult.INTERACT;
         }
 
-        return result;
+        return InvUtil.getMinecraftInteractionResult(result);
     }
 
     @Nullable

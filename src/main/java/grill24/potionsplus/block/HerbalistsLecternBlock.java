@@ -78,30 +78,28 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult p_151974_) {
         // Cache items before interaction
         Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
-        ItemStack stackInLecternBeforeInteraction = ItemStack.EMPTY;
-        if (blockEntity.isPresent())
-            stackInLecternBeforeInteraction = blockEntity.get().getItemHandler().getItem(0).copy();
+        if(blockEntity.isEmpty()) {
+            return InteractionResult.FAIL;
+        }
+        HerbalistsLecternBlockEntity herbalistsLecternBlockEntity = blockEntity.get();
 
         // Do interaction
-        InteractionResult result = InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand, true, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
-
-        ItemStack stackInLecternAfterInteraction = blockEntity.get().getItemHandler().getItem(0);
-
+        InvUtil.InteractionResult result = InvUtil.giveAndTakeFromPlayerOnUseBlock(level, blockPos, player, interactionHand, true, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
 
         // If an item was inserted by a player, update the animation state
-        if (stackInLecternBeforeInteraction.isEmpty() && !stackInLecternAfterInteraction.isEmpty()) {
-            blockEntity.get().setChanged();
+        if (result == InvUtil.InteractionResult.INSERT) {
+            herbalistsLecternBlockEntity.setChanged();
             level.updateNeighborsAt(blockPos, this);
-            blockEntity.get().onPlayerInsertItem(player);
+            herbalistsLecternBlockEntity.onPlayerInsertItem(player);
 
-            blockEntity.get().playSoundAppear();
+            herbalistsLecternBlockEntity.playSoundAppear();
         }
 
-        if (!stackInLecternBeforeInteraction.isEmpty() && stackInLecternAfterInteraction.isEmpty()) {
-            blockEntity.get().playSoundDisappear();
+        if (result == InvUtil.InteractionResult.EXTRACT) {
+            herbalistsLecternBlockEntity.playSoundDisappear();
         }
 
-        return result;
+        return InvUtil.getMinecraftInteractionResult(result);
     }
 
     @Nullable

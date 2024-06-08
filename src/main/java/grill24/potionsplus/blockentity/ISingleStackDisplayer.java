@@ -8,4 +8,6 @@ public interface ISingleStackDisplayer {
     public Vector3d getStartAnimationWorldPos();
 
     public Vector3d getRestingPosition();
+
+    public int getInputAnimationDuration();
 }

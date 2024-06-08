@@ -1,10 +1,10 @@
 package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.block.ParticleEmitterBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Sounds;
+import grill24.potionsplus.particle.ParticleConfigurations;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
@@ -220,13 +220,13 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
                 SimpleParticleType particle = null;
                 switch (level.random.nextInt(3)) {
                     case 0:
-                        particle = ParticleEmitterBlock.Minecraft.BUBBLE_COLUMN_UP.get();
+                        particle = ParticleConfigurations.Minecraft.BUBBLE_COLUMN_UP.get();
                         break;
                     case 1:
-                        particle = ParticleEmitterBlock.Minecraft.BUBBLE_POP.get();
+                        particle = ParticleConfigurations.Minecraft.BUBBLE_POP.get();
                         break;
                     case 2:
-                        particle = ParticleEmitterBlock.Minecraft.SPLASH.get();
+                        particle = ParticleConfigurations.Minecraft.SPLASH.get();
                         break;
                 }
 

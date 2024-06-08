@@ -4,7 +4,7 @@ import com.mojang.math.Vector3d;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.core.seededrecipe.PpIngredients;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.utility.ClientTickHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.SimpleContainer;
@@ -23,7 +23,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     private Vector3d itemAnimationStartingPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
     public Vector3d playerPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
     public float degreesTowardsPlayer = 0;
-    private Set<PpIngredients> storedIngredients;
+    private Set<PpIngredient> storedIngredients;
 
     public RendererData rendererData = new RendererData();
 
@@ -55,10 +55,8 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
 
     public AbyssalTroveBlockEntity(BlockPos pos, BlockState state) {
         super(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), pos, state);
-        storedIngredients = new HashSet<>();
 
-        this.updateRendererData();
-        this.computeStoredIngredients();
+        storedIngredients = new HashSet<>();
     }
 
     @Override
@@ -95,6 +93,11 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         return itemRestingPositionTranslation;
     }
 
+    @Override
+    public int getInputAnimationDuration() {
+        return 20;
+    }
+
     public void onPlayerInsertItem(Player player) {
 //        Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();
 //        playerPosRelativeToBlockOrigin = playerPosRelativeToBlockOrigin.subtract(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ());
@@ -106,12 +109,18 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         timeItemPlaced = ((int) ClientTickHandler.total());
     }
 
-    private void updateRendererData() {
+    public void updateRendererData() {
         RendererData data = new RendererData();
         data.renderedItemTiers = new HashMap<>();
 
+        if(Recipes.seededPotionRecipes == null) {
+            return;
+        }
+
+        this.computeStoredIngredients();
+
         // Add items in tiers
-        Recipes.ALL_UNIQUE_POTIONS_PLUS_INGREDIENTS_NO_POTIONS.forEach(ingredient -> {
+        Recipes.seededPotionRecipes.allPotionsPlusIngredientsNoPotions.forEach(ingredient -> {
             ItemStack stack = ingredient.ingredients[0].getItems()[0];
             if (!this.storedIngredients.contains(ingredient))
                 stack = new ItemStack(Items.GENERIC_ICON.get(), 12);
@@ -146,7 +155,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     @Override
     public boolean canPlaceItem(int index, ItemStack stack) {
         boolean canPlace = super.canPlaceItem(index, stack);
-        boolean isIngredient = Recipes.ALL_UNIQUE_POTIONS_PLUS_INGREDIENTS_NO_POTIONS.contains(new PpIngredients(stack));
+        boolean isIngredient = Recipes.seededPotionRecipes.allPotionsPlusIngredientsNoPotions.contains(PpIngredient.of(stack));
         return canPlace && isIngredient;
     }
 
@@ -154,8 +163,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     public void setChanged() {
         super.setChanged();
 
-        updateRendererData();
-        computeStoredIngredients();
+        this.updateRendererData();
     }
 
     private void computeStoredIngredients() {
@@ -163,12 +171,12 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         for (int i = 0; i < this.getItemHandler().getContainerSize(); i++) {
             ItemStack stack = this.getItemHandler().getItem(i);
             if (!stack.isEmpty()) {
-                storedIngredients.add(new PpIngredients(stack));
+                storedIngredients.add(PpIngredient.of(stack));
             }
         }
     }
 
-    public Set<PpIngredients> getStoredIngredients() {
+    public Set<PpIngredient> getStoredIngredients() {
         return storedIngredients;
     }
 }
