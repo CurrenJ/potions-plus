@@ -177,4 +177,27 @@ public class Utility {
         }
         return points;
     }
+
+    @FunctionalInterface
+    public interface BlockPosConsumer {
+        void accept(BlockPos blockPos);
+    }
+
+    public static void forBlockPosInManhattanRadius(BlockPos origin, int radius, BlockPosConsumer blockPosConsumer) {
+        for (int x = -radius; x <= radius; x++) {
+            for (int y = -radius; y <= radius; y++) {
+                for (int z = -radius; z <= radius; z++) {
+                    blockPosConsumer.accept(origin.offset(x, y, z));
+                }
+            }
+        }
+    }
+
+    public static BlockPos randomBlockPosInManhattanRadius(BlockPos origin, int radius, Random random) {
+        return origin.offset(random.nextInt(radius * 2 + 1) - radius, random.nextInt(radius * 2 + 1) - radius, random.nextInt(radius * 2 + 1) - radius);
+    }
+
+    public static BlockPos randomBlockPosInBox(BlockPos origin, int xRadius, int yRadius, int zRadius, Random random) {
+        return origin.offset(random.nextInt(xRadius * 2 + 1) - xRadius, random.nextInt(yRadius * 2 + 1) - yRadius, random.nextInt(zRadius * 2 + 1) - zRadius);
+    }
 }

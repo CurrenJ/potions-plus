@@ -108,6 +108,13 @@
   "item.minecraft.tipped_arrow.effect.nautical_nitro": "Arrow of Nautical Nitro",
   "jei.potionsplus.nautical_nitro.description": "Afflicted mobs controlling boats receive a +20% speed boost per level.",
 
+  "effect.potionsplus.crop_collector": "Crop Collector",
+  "item.minecraft.potion.effect.crop_collector": "Potion of Crop Collector",
+  "item.minecraft.splash_potion.effect.crop_collector": "Splash Potion of Crop Collector",
+  "item.minecraft.lingering_potion.effect.crop_collector": "Lingering Potion of Crop Collector",
+  "item.minecraft.tipped_arrow.effect.crop_collector": "Arrow of Crop Collector",
+  "jei.potionsplus.crop_collector.description": "Afflicted mobs will automatically nearby crops. Higher levels increase the range and speed of collection.",
+
   "chat.potionsplus.acquired_ingredient_knowledge_1": "You tingle with alchemical knowledge of the %s you possess...",
   "chat.potionsplus.acquired_ingredient_knowledge_2": "The %s you possess reminds you of something wet and warm...",
   "chat.potionsplus.acquired_ingredient_knowledge_3": "The %s you possess fills you with alchemical determination.",

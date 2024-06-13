@@ -40,7 +40,7 @@ public class Potions {
 
     public static final PotionsAmpDurMatrix MAGNETIC_POTIONS = new PotionsAmpDurMatrix("magnetic",
             3, 4,
-            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.MAGNETIC.get(), 60 * (levels[1] + 1), levels[0])});
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.MAGNETIC.get(), LONGER_DURATION_FUNCTION.apply(levels[1]), levels[0])});
 
     public static final PotionsAmpDurMatrix EXPLODING_POTIONS = new PotionsAmpDurMatrix("exploding",
             3, 1,
@@ -73,6 +73,14 @@ public class Potions {
     public static final PotionsAmpDurMatrix NAUTICAL_NITRO_POTIONS = new PotionsAmpDurMatrix("nautical_nitro",
             3, 2,
             (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.NAUTICAL_NITRO.get(), LONGER_DURATION_FUNCTION.apply(levels[1]), levels[0])});
+
+    public static final PotionsAmpDurMatrix CROP_COLLECTOR_POTIONS = new PotionsAmpDurMatrix("crop_collector",
+            3, 2,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.CROP_COLLECTOR.get(), LONGER_DURATION_FUNCTION.apply(levels[1]), levels[0])});
+
+    public static final PotionsAmpDurMatrix BOTANICAL_BOOST_POTIONS = new PotionsAmpDurMatrix("botanical_boost",
+            3, 2,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(MobEffects.BOTANICAL_BOOST.get(), LONGER_DURATION_FUNCTION.apply(levels[1]), levels[0])});
 
     public static class PotionsAmpDurMatrix {
         public final RegistryObject<Potion>[][] potions;

@@ -18,7 +18,7 @@ public class MagneticEffect extends MobEffect {
 
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        // 50 / 2^amplifier
+        // 20 / 2^amplifier
         int j = 20 >> amplifier;
         if (j > 0) {
             return duration % j == 0;
@@ -28,7 +28,7 @@ public class MagneticEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity livingEntity, int i) {
+    public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         final int range = 6;
         List<ItemEntity> entities = livingEntity.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(livingEntity.blockPosition()).inflate(range, range, range));
         if (!livingEntity.level.isClientSide) {

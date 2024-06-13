@@ -50,6 +50,11 @@ public class MobEffects {
     public static final RegistryObject<MobEffect> NAUTICAL_NITRO = EFFECTS.register("nautical_nitro", () ->
             new NauticalNitroEffect(MobEffectCategory.BENEFICIAL, 0x0077b6));
 
+    public static final RegistryObject<MobEffect> CROP_COLLECTOR = EFFECTS.register("crop_collector", () ->
+            new CropCollectorEffect(MobEffectCategory.BENEFICIAL, 0x00a86b));
+
+    public static final RegistryObject<MobEffect> BOTANICAL_BOOST = EFFECTS.register("botanical_boost", () ->
+            new BotanicalBoostEffect(MobEffectCategory.BENEFICIAL, 0x00a86b));
 
 
     public static final Lazy<Map<ResourceLocation, Integer>> POTION_ICON_INDEX_MAP = Lazy.of(PUtil::getAllMobEffectsIconStackSizeMap);
