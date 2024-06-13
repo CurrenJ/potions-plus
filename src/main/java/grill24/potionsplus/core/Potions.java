@@ -35,8 +35,8 @@ public class Potions {
             (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(net.minecraft.world.effect.MobEffects.DIG_SPEED, DEFAULT_DURATION_FUNCTION.apply(levels[1]), levels[0])});
 
     public static final PotionsAmpDurMatrix LEVITATION_POTIONS = new PotionsAmpDurMatrix("levitation",
-            6, 4,
-            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION, 32 * (levels[1] + 1), levels[0])});
+            3, 2,
+            (int[] levels) -> new MobEffectInstance[]{new MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION, 200 * (levels[1] + 1), levels[0])});
 
     public static final PotionsAmpDurMatrix MAGNETIC_POTIONS = new PotionsAmpDurMatrix("magnetic",
             3, 4,
