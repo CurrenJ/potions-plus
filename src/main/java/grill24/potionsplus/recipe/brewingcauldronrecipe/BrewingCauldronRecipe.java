@@ -1,4 +1,4 @@
-package grill24.potionsplus.recipe;
+package grill24.potionsplus.recipe.brewingcauldronrecipe;
 
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -28,6 +28,7 @@ import java.util.function.Function;
 public class BrewingCauldronRecipe implements Recipe<Container> {
     protected final ResourceLocation id;
     protected final String group;
+    protected final int tier;
     protected final Ingredient[] ingredients;
     protected final ItemStack result;
     protected final float experience;
@@ -36,15 +37,17 @@ public class BrewingCauldronRecipe implements Recipe<Container> {
     public BrewingCauldronRecipe(BrewingCauldronRecipe recipe) {
         this.id = recipe.id;
         this.group = recipe.group;
+        this.tier = recipe.tier;
         this.ingredients = recipe.ingredients;
         this.result = recipe.result;
         this.experience = recipe.experience;
         this.processingTime = recipe.processingTime;
     }
 
-    public BrewingCauldronRecipe(ResourceLocation resourceLocation, String group, Ingredient[] ingredients, ItemStack itemStack, float experience, int processingTime) {
+    public BrewingCauldronRecipe(ResourceLocation resourceLocation, String group, int tier, Ingredient[] ingredients, ItemStack itemStack, float experience, int processingTime) {
         this.id = resourceLocation;
         this.group = group;
+        this.tier = tier;
         this.ingredients = ingredients;
         this.result = itemStack;
         this.experience = experience;
@@ -89,26 +92,7 @@ public class BrewingCauldronRecipe implements Recipe<Container> {
     }
 
     public int getOutputTier() {
-        if (PUtil.isPotion(this.result)) {
-            Potion outputPotion = PotionUtils.getPotion(this.result);
-            if (isAmpUpgrade()) {
-                return outputPotion.getEffects().get(0).getAmplifier();
-            }
-//                if (isDurationUpgrade()) {
-//                    for (Ingredient ingredient : this.ingredients) {
-//                        ItemStack itemStack = ingredient.getItems()[0];
-//                        if (PUtil.isPotion(itemStack)) {
-//                            Potion inputPotion = PotionUtils.getPotion(itemStack);
-//                            int durA = inputPotion.getEffects().get(0).getDuration();
-//                            int durB = outputPotion.getEffects().get(0).getDuration();
-//                            return durB / (durB - durA);
-//                        }
-//                    }
-//                }
-            else
-                return 0;
-        }
-        return -1;
+        return tier;
     }
 
     public boolean isPotionsPlusPotion() {

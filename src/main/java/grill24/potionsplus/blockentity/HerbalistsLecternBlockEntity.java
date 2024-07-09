@@ -6,12 +6,13 @@ import com.mojang.math.Vector3d;
 import com.mojang.math.Vector3f;
 import grill24.potionsplus.core.*;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.recipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
@@ -23,6 +24,7 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
@@ -40,7 +42,8 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
     public static class RendererData {
 
         private int timeItemPlaced;
-        public static final Vector3d itemRestingPositionTranslation = new Vector3d(0.5, 1 - (1 / 64.0), 0.5 - (1 / 8.0));
+        public Vector3f rotation = new Vector3f(90, 0, 0);
+        public static final Vector3d itemRestingPositionTranslation = new Vector3d(0.5, 1 - (1 / 64.0), 0.5);
         private Vector3d itemAnimationStartingPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
         public Vector3d nearbyPlayer = new Vector3d(0, 0, 0);
         private ItemStack[] itemStacksToDisplay;
@@ -103,10 +106,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 // Check our modded ones first. If none, check vanilla
                 // Bc turtle master potion is confusing in our display otherwise
                 ingredientTier = -1;
-                allValidRecipes.stream().filter(BrewingCauldronRecipe::isPotionsPlusPotion).map(BrewingCauldronRecipe::getOutputTier).max(Integer::compareTo).ifPresent(tier -> ingredientTier = tier);
-                if (ingredientTier < 0) {
-                    allValidRecipes.stream().map(BrewingCauldronRecipe::getOutputTier).max(Integer::compareTo).ifPresent(tier -> ingredientTier = tier);
-                }
+                allValidRecipes.stream().map(BrewingCauldronRecipe::getOutputTier).max(Integer::compareTo).ifPresent(tier -> ingredientTier = tier);
 
                 allShownItems.removeAll(itemsToRemove);
 
@@ -146,7 +146,12 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
 
     @Override
     public Vector3d getRestingPosition() {
-        return HerbalistsLecternBlockEntity.RendererData.itemRestingPositionTranslation;
+        return RendererData.itemRestingPositionTranslation;
+    }
+
+    @Override
+    public Vector3f getRestingRotation() {
+        return rendererData.rotation;
     }
 
     @Override
@@ -173,6 +178,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
         playerPosRelativeToBlockOrigin = playerPosRelativeToBlockOrigin.subtract(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ());
         rendererData.itemAnimationStartingPosRelativeToBlockOrigin = new Vector3d(playerPosRelativeToBlockOrigin.x, playerPosRelativeToBlockOrigin.y, playerPosRelativeToBlockOrigin.z);
         rendererData.timeItemPlaced = ((int) ClientTickHandler.total());
+        rendererData.rotation = new Vector3f(90, 0, Utility.getHorizontalDirectionTowardsBlock(player.blockPosition(), this.getBlockPos()).toYRot());
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, HerbalistsLecternBlockEntity blockEntity) {

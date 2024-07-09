@@ -3,7 +3,7 @@ package grill24.potionsplus.client.integration.jei;
 import grill24.potionsplus.core.Potions;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.persistence.SavedData;
-import grill24.potionsplus.recipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;

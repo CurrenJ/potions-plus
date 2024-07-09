@@ -6,7 +6,7 @@ import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.particle.ParticleConfigurations;
 import grill24.potionsplus.persistence.SavedData;
-import grill24.potionsplus.recipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.renderer.BiomeColors;

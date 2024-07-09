@@ -13,23 +13,25 @@ import net.minecraft.world.item.ItemStack;
 import java.util.function.Function;
 
 public class RUtil {
-    public static void renderInputItemAnimation(ItemStack stack, int degreesRotation, float scale, int ticksDelay, boolean hideOnFinish, ISingleStackDisplayer iSingleStackDisplayer, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+    public static void renderInputItemAnimation(ItemStack stack, float scale, int ticksDelay, boolean hideOnFinish, ISingleStackDisplayer iSingleStackDisplayer, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         float ticks = ClientTickHandler.total();
         float lerpFactor = (ticks - iSingleStackDisplayer.getTimeItemPlaced() - ticksDelay) / iSingleStackDisplayer.getInputAnimationDuration();
 
         if (!stack.isEmpty() && (!hideOnFinish || lerpFactor <= 1)) {
             matrices.pushPose();
 
+//            matrices.scale(scale, scale, scale);
+
             // Lerp the item from the player's hand to the resting position
             lerpFactor = Math.max(0, Math.min(lerpFactor, 1));
-            int rotationDegreesStart = 0;
-            Quaternion rotation = Vector3f.XP.rotationDegrees(degreesRotation);
+            Quaternion rotationStart = Quaternion.fromXYZDegrees(new Vector3f(0, 0, 0));
+            Quaternion rotation = Quaternion.fromXYZDegrees(iSingleStackDisplayer.getRestingRotation());
 
             if (lerpFactor < 1) {
                 Vector3d startAnimationTranslation = iSingleStackDisplayer.getStartAnimationWorldPos();
 
                 Vector3d lerped = lerp3d(startAnimationTranslation, iSingleStackDisplayer.getRestingPosition(), lerpFactor, RUtil::easeOutExpo);
-                rotation = Vector3f.XP.rotationDegrees(Utility.lerp(rotationDegreesStart, degreesRotation, easeOutExpo(lerpFactor)));
+                rotation = slerp(rotationStart, rotation, easeOutExpo(lerpFactor));
 
                 matrices.translate(lerped.x, lerped.y, lerped.z);
             } else {
@@ -39,8 +41,9 @@ public class RUtil {
             matrices.mulPose(rotation);
             matrices.scale(scale, scale, scale);
 
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.FIXED,
                     light, overlay, matrices, vertexConsumers, 0);
+
             matrices.popPose();
         }
     }
@@ -80,7 +83,7 @@ public class RUtil {
             matrices.mulPose(rotation);
             matrices.scale(scale, scale, scale);
 
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.FIXED,
                     light, overlay, matrices, vertexConsumers, 0);
             matrices.popPose();
         }
@@ -217,5 +220,51 @@ public class RUtil {
         }
 
         return points;
+    }
+
+    public static Quaternion slerp(Quaternion q1, Quaternion q2, float t) {
+        // Calculate the cosine of the angle between the two vectors.
+        float dot = q1.i() * q2.i() + q1.j() * q2.j() + q1.k() * q2.k() + q1.r() * q2.r();
+
+        // If the dot product is negative, slerp won't take the shorter path.
+        // Note that v1 and -v1 are equivalent when the negation is applied to all four components.
+        // Fix by reversing one quaternion.
+        if (dot < 0.0f) {
+            q2 = new Quaternion(-q2.i(), -q2.j(), -q2.k(), -q2.r());
+            dot = -dot;
+        }
+
+        final float DOT_THRESHOLD = 0.9995f;
+        if (dot > DOT_THRESHOLD) {
+            // If the inputs are too close for comfort, linearly interpolate
+            // and normalize the result.
+
+            Quaternion result = new Quaternion(
+                    q1.i() + t * (q2.i() - q1.i()),
+                    q1.j() + t * (q2.j() - q1.j()),
+                    q1.k() + t * (q2.k() - q1.k()),
+                    q1.r() + t * (q2.r() - q1.r())
+            );
+            result.normalize();
+            return result;
+        }
+
+        // Since dot is in range [0, DOT_THRESHOLD], acos is safe
+        float theta_0 = (float) Math.acos(dot);  // theta_0 = angle between input vectors
+        float theta = theta_0 * t;    // theta = angle between v0 and result
+        float sin_theta = (float) Math.sin(theta);  // compute this value only once
+        float sin_theta_0 = (float) Math.sin(theta_0); // compute this value only once
+
+        float s0 = (float) Math.cos(theta) - dot * sin_theta / sin_theta_0;  // == sin(theta_0 - theta) / sin(theta_0)
+        float s1 = sin_theta / sin_theta_0;
+
+        // Perform the slerp
+        Quaternion result = new Quaternion(
+                s0 * q1.i() + s1 * q2.i(),
+                s0 * q1.j() + s1 * q2.j(),
+                s0 * q1.k() + s1 * q2.k(),
+                s0 * q1.r() + s1 * q2.r()
+        );
+        return result;
     }
 }

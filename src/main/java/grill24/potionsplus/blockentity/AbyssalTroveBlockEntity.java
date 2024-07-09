@@ -1,6 +1,7 @@
 package grill24.potionsplus.blockentity;
 
 import com.mojang.math.Vector3d;
+import com.mojang.math.Vector3f;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.Recipes;
@@ -20,6 +21,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
 
     private int timeItemPlaced;
     public static final Vector3d itemRestingPositionTranslation = new Vector3d(0.5, 1 - (1 / 64.0), 0.5);
+    private static final Vector3f itemRestingRotation = new Vector3f(0, 0, 0);
     private Vector3d itemAnimationStartingPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
     public Vector3d playerPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
     public float degreesTowardsPlayer = 0;
@@ -91,6 +93,11 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     @Override
     public Vector3d getRestingPosition() {
         return itemRestingPositionTranslation;
+    }
+
+    @Override
+    public Vector3f getRestingRotation() {
+        return itemRestingRotation;
     }
 
     @Override

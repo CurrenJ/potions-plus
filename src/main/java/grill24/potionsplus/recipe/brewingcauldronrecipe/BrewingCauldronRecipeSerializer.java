@@ -1,4 +1,4 @@
-package grill24.potionsplus.recipe;
+package grill24.potionsplus.recipe.brewingcauldronrecipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -25,6 +25,11 @@ public class BrewingCauldronRecipeSerializer<T extends BrewingCauldronRecipe> ex
     public @NotNull T fromJson(@NotNull ResourceLocation resourceLocation, @NotNull JsonObject jsonObject) {
         String s = GsonHelper.getAsString(jsonObject, "group", "");
         JsonElement jsonelement = GsonHelper.isArrayNode(jsonObject, "ingredient") ? GsonHelper.getAsJsonArray(jsonObject, "ingredient") : GsonHelper.getAsJsonObject(jsonObject, "ingredient");
+
+        // Read tier
+        int tier = GsonHelper.getAsInt(jsonObject, "tier", -1);
+
+        // Read ingredients
         Ingredient[] ingredients;
         if (jsonelement.isJsonArray()) {
             JsonArray jsonArray = jsonelement.getAsJsonArray();
@@ -36,46 +41,67 @@ public class BrewingCauldronRecipeSerializer<T extends BrewingCauldronRecipe> ex
             ingredients = new Ingredient[]{Ingredient.fromJson(jsonelement)};
         }
 
-        //Forge: Check if primitive string to keep vanilla or a object which can contain a count field.
+        // Read result
         if (!jsonObject.has("result"))
             throw new com.google.gson.JsonSyntaxException("Missing result, expected to find a string or object");
-        ItemStack itemstack;
+        ItemStack result;
         if (jsonObject.get("result").isJsonObject())
-            itemstack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "result"));
+            result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "result"));
         else {
-            itemstack = Utility.itemStackFromTagString(jsonObject.get("result").getAsString());
+            result = Utility.itemStackFromTagString(jsonObject.get("result").getAsString());
         }
-        float f = GsonHelper.getAsFloat(jsonObject, "experience", 0.0F);
-        int i = GsonHelper.getAsInt(jsonObject, "cookingtime", this.defaultProcessingTime);
-        return this.factory.create(resourceLocation, s, ingredients, itemstack, f, i);
+
+        // Read experience and processing time
+        float experience = GsonHelper.getAsFloat(jsonObject, "experience", 0.0F);
+        int processingTime = GsonHelper.getAsInt(jsonObject, "cookingtime", this.defaultProcessingTime);
+
+        return this.factory.create(resourceLocation, s, tier, ingredients, result, experience, processingTime);
     }
 
     public T fromNetwork(@NotNull ResourceLocation resourceLocation, FriendlyByteBuf buf) {
-        String s = buf.readUtf();
+        // Read group
+        String group = buf.readUtf();
+
+        // Read tier
+        int tier = buf.readVarInt();
+
+        // Read ingredients
         int ingredientCount = buf.readVarInt();
         Ingredient[] ingredients = new Ingredient[ingredientCount];
         for (int i = 0; i < ingredientCount; i++) {
             ingredients[i] = Ingredient.fromNetwork(buf);
         }
-        ItemStack itemstack = buf.readItem();
-        float f = buf.readFloat();
-        int i = buf.readVarInt();
-        return this.factory.create(resourceLocation, s, ingredients, itemstack, f, i);
+
+        // Read result, experience, and processing time
+        ItemStack result = buf.readItem();
+        float experience = buf.readFloat();
+        int processingTime = buf.readVarInt();
+
+        // Create the recipe
+        return this.factory.create(resourceLocation, group, tier, ingredients, result, experience, processingTime);
     }
 
     public void toNetwork(FriendlyByteBuf buf, T obj) {
+        // Write group
         buf.writeUtf(obj.group);
+
+        // Write tier
+        buf.writeVarInt(obj.tier);
+
+        // Write ingredients
         buf.writeVarInt(obj.ingredients.length);
         for (Ingredient ingredient : obj.ingredients) {
             ingredient.toNetwork(buf);
         }
+
+        // Write result, experience, and processing time
         buf.writeItem(obj.result);
         buf.writeFloat(obj.experience);
         buf.writeVarInt(obj.processingTime);
     }
 
     public interface Factory<T extends BrewingCauldronRecipe> {
-        T create(ResourceLocation resourceLocation, String group, Ingredient[] ingredients, ItemStack itemStack, float v, int i);
+        T create(ResourceLocation resourceLocation, String group, int tier, Ingredient[] ingredients, ItemStack itemStack, float v, int i);
     }
 }
 

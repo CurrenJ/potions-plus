@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "potionsplus:block/abyssal_trove",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "potionsplus:block/abyssal_trove"
+    },
+    "facing=west": {
+      "model": "potionsplus:block/abyssal_trove",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "potionsplus:block/abyssal_trove",
+      "y": 270
+    }
+  }
+}

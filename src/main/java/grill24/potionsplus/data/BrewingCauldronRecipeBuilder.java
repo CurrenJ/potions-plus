@@ -4,7 +4,7 @@ package grill24.potionsplus.data;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.recipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;

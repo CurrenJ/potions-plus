@@ -11,8 +11,11 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.IGeneratedBlockstate;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
+import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.Objects;
@@ -32,6 +35,11 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
         // Particle Emitter
         registerParticleEmitter();
+
+        // Herbalist's Lectern
+        registerBlockWithModel(Blocks.HERBALISTS_LECTERN.get());
+        registerHorizontalDirectionalBlock(Blocks.ABYSSAL_TROVE.get());
+        registerHorizontalDirectionalBlock(Blocks.SANGUINE_ALTAR.get());
 
         registerPotionEffectIcons(MobEffects.ABSORPTION, MobEffects.BAD_OMEN, MobEffects.BLINDNESS, MobEffects.CONDUIT_POWER, MobEffects.DOLPHINS_GRACE, MobEffects.FIRE_RESISTANCE, MobEffects.GLOWING, MobEffects.HEALTH_BOOST, MobEffects.HERO_OF_THE_VILLAGE, MobEffects.HUNGER, MobEffects.INVISIBILITY, MobEffects.JUMP, MobEffects.LEVITATION, MobEffects.LUCK, MobEffects.NIGHT_VISION, MobEffects.POISON, MobEffects.REGENERATION, MobEffects.SATURATION, MobEffects.SLOW_FALLING, MobEffects.UNLUCK, MobEffects.WATER_BREATHING, MobEffects.WEAKNESS, MobEffects.WITHER);
         registerGenericIcons();
@@ -113,6 +121,36 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         }
 
         simpleBlockItem(Blocks.PARTICLE_EMITTER.get(), models().getExistingFile(mcLoc("block/iron_block")));
+    }
+
+    private void registerHorizontalDirectionalBlock(Block block) {
+        registerHorizontalDirectionalBlock(block, block.getRegistryName());
+    }
+
+    private void registerHorizontalDirectionalBlock(Block block, ResourceLocation model) {
+        getVariantBuilder(block).forAllStates(state -> {
+            int yRot = switch (state.getValue(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING)) {
+                case NORTH -> 180;
+                case EAST -> 270;
+                case SOUTH -> 0;
+                case WEST -> 90;
+                default -> 0;
+            };
+            return ConfiguredModel.builder()
+                    .modelFile(models().getExistingFile(model))
+                    .rotationY(yRot)
+                    .build();
+        });
+    }
+
+    private void registerBlockWithModel(Block block, ResourceLocation resourceLocation) {
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(models().getExistingFile(resourceLocation))
+                .build());
+    }
+
+    private void registerBlockWithModel(Block block) {
+        registerBlockWithModel(block, block.getRegistryName());
     }
 
     private void fromParent(Block block, Block parent, boolean doBlockModels, boolean doItemModels, boolean doBlockStates) {

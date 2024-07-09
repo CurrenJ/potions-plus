@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class AbyssalTroveBlock extends Block implements EntityBlock {
+public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements EntityBlock {
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 14, 16);
 
     public AbyssalTroveBlock(Properties properties) {

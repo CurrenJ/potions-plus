@@ -3,7 +3,7 @@ package grill24.potionsplus.event;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
-import grill24.potionsplus.recipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.world.item.ItemStack;

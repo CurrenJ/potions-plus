@@ -1,6 +1,7 @@
 package grill24.potionsplus.blockentity;
 
 import com.mojang.math.Vector3d;
+import com.mojang.math.Vector3f;
 import grill24.potionsplus.core.*;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.PotionsPlusPacketHandler;
@@ -8,6 +9,7 @@ import grill24.potionsplus.network.SanguineAltarConversionProgressPacket;
 import grill24.potionsplus.network.SanguineAltarConversionStatePacket;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.utility.ClientTickHandler;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -40,6 +42,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
 
     private int timeItemPlaced;
     public static final Vector3d itemRestingPositionTranslation = new Vector3d(0.5, 1 - (1 / 64.0), 0.5);
+    public Vector3f itemRestingRotation = new Vector3f(0, 0, 0);
     private Vector3d itemAnimationStartingPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
 
     private int nextSpinStartTick = -1;
@@ -189,6 +192,11 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
     }
 
     @Override
+    public Vector3f getRestingRotation() {
+        return itemRestingRotation;
+    }
+
+    @Override
     public int getInputAnimationDuration() {
         return 20;
     }
@@ -205,6 +213,8 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         } else {
             chainedIngredientToDisplay = ItemStack.EMPTY;
         }
+
+        itemRestingRotation = new Vector3f(0, Utility.getHorizontalDirectionTowardsBlock(player.blockPosition(), this.getBlockPos()).toYRot(), 0);
 
         resetConversionProgress();
     }

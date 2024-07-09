@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class SanguineAltarBlock extends Block implements EntityBlock {
+public class SanguineAltarBlock extends HorizontalDirectionalBlock implements EntityBlock {
 
     private static final VoxelShape BASE0 = Block.box(0, 0, 0, 16, 1, 16);
     private static final VoxelShape BASE1 = Block.box(1, 1, 1, 15, 2, 15);

@@ -1,7 +1,7 @@
 package grill24.potionsplus.utility;
 
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
-import grill24.potionsplus.recipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.ItemStack;
@@ -105,7 +105,7 @@ public class PUtil {
         };
     }
 
-    public static BrewingCauldronRecipe brewingCauldronRecipe(float experience, int processingTime, String advancementNameIngredient, ItemStack result, Ingredient... ingredients) {
+    public static BrewingCauldronRecipe brewingCauldronRecipe(float experience, int processingTime, String group, ItemStack result, int tier, Ingredient... ingredients) {
         StringBuilder name = new StringBuilder();
         for (Ingredient ingredient : ingredients) {
             name.append(getNameOrVerbosePotionName(ingredient.getItems()[0])).append("_");
@@ -113,33 +113,33 @@ public class PUtil {
         name.append("to_");
         name.append(getNameOrVerbosePotionName(result));
 
-        return new BrewingCauldronRecipe(new ResourceLocation(ModInfo.MOD_ID, name.toString()), advancementNameIngredient, ingredients, result, experience, processingTime);
+        return new BrewingCauldronRecipe(new ResourceLocation(ModInfo.MOD_ID, name.toString()), group, tier, ingredients, result, experience, processingTime);
     }
 
-    public static BrewingCauldronRecipe brewingCauldronRecipe(float experience, int processingTime, String advancementNameIngredient, Potion potion, PotionType potionType, Ingredient... ingredients) {
-        return brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, createPotionItemStack(potion, potionType), ingredients);
+    public static BrewingCauldronRecipe brewingCauldronRecipe(float experience, int processingTime, String group, Potion potion, PotionType potionType, int tier, Ingredient... ingredients) {
+        return brewingCauldronRecipe(experience, processingTime, group, createPotionItemStack(potion, potionType), tier, ingredients);
     }
 
-    public static BrewingCauldronRecipe brewingCauldronRecipe(float experience, int baseProcessingTime, String advancementNameIngredient, Potion inputPotion, Potion outputPotion, PotionType potionType, Ingredient... nonPotionIngredients) {
+    public static BrewingCauldronRecipe brewingCauldronRecipe(float experience, int baseProcessingTime, String advancementNameIngredient, Potion inputPotion, Potion outputPotion, PotionType potionType, int tier, Ingredient... nonPotionIngredients) {
         ItemStack inputPotionItemStack = createPotionItemStack(inputPotion, potionType);
         Ingredient[] allIngredients = new Ingredient[nonPotionIngredients.length + 1];
         System.arraycopy(nonPotionIngredients, 0, allIngredients, 0, nonPotionIngredients.length);
         allIngredients[allIngredients.length - 1] = Ingredient.of(inputPotionItemStack);
 
         int processingTime = getProcessingTime(baseProcessingTime, inputPotionItemStack, createPotionItemStack(outputPotion, potionType), nonPotionIngredients.length);
-        return brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, outputPotion, potionType, allIngredients);
+        return brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, outputPotion, potionType, tier, allIngredients);
     }
 
     /*
      * This method creates a recipe for a potion modifier that applies to all potion containers. This includes potion, splash potion, and lingering potion.
      */
-    public static List<BrewingCauldronRecipe> brewingCauldronPotionModifierForAllContainers(float experience, int processingTime, String advancementNameIngredient, Potion inputPotion, Potion outputPotion, Ingredient... nonPotionIngredients) {
+    public static List<BrewingCauldronRecipe> brewingCauldronPotionModifierForAllContainers(float experience, int processingTime, String advancementNameIngredient, Potion inputPotion, Potion outputPotion, int tier, Ingredient... nonPotionIngredients) {
         // The below calls handle all (container -> same container type) potion recipes
         // Container transformation recipes (potion -> splash... etc) are handled in the runtime recipe generation in RecipeManagerMixin.java
         List<BrewingCauldronRecipe> recipes = new ArrayList<>();
-        recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.POTION, nonPotionIngredients));
-        recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.SPLASH_POTION, nonPotionIngredients));
-        recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.LINGERING_POTION, nonPotionIngredients));
+        recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.POTION, tier, nonPotionIngredients));
+        recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.SPLASH_POTION, tier, nonPotionIngredients));
+        recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.LINGERING_POTION, tier, nonPotionIngredients));
         return recipes;
     }
 
@@ -152,19 +152,19 @@ public class PUtil {
                 if (a > 0) {
                     Potion ampTierBelow = potions.get(a - 1, d);
                     Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeAmpUpIngredients(a - 1);
-                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, ampTierBelow, toCraft, ingredients));
+                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, ampTierBelow, toCraft, a, ingredients));
                 }
                 if (d > 0) {
                     Potion durTierBelow = potions.get(a, d - 1);
                     Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeDurUpIngredients(d - 1);
-                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, durTierBelow, toCraft, ingredients));
+                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, durTierBelow, toCraft, d, ingredients));
                 }
                 if (a > 0 && d > 0) {
                     // THIS WOULD BE BOTH UPGRADED. BUT NOT USING THIS RN. CAN ADD LATER. ADD FIELD TO POTIONUPGRADEINGREDIENTS
 //                    Potion bothTiersBelow = potions[a - 1][d - 1].get();
 //                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, bothTiersBelow, toCraft, ingredients));
                 } else if (a == 0 && d == 0) {
-                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, Potions.AWKWARD, toCraft, potionUpgradeIngredients.getBasePotionIngredients()));
+                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, Potions.AWKWARD, toCraft, 0, potionUpgradeIngredients.getBasePotionIngredients()));
                 }
             }
         }

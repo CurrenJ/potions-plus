@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.ChestBlock;
 
 public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
 
@@ -41,7 +42,8 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
             float lerpFactor = (float) (ticks - blockEntity.getTimeItemPlaced()) / animationDuration;
             lerpFactor = Math.max(0, Math.min(lerpFactor, 1));
 
-            RUtil.renderInputItemAnimation(stack, 90, 1.25F, 0, false, blockEntity, matrices, vertexConsumers, light, overlay);
+
+            RUtil.renderInputItemAnimation(stack, 0.75F, 0, false, blockEntity, matrices, vertexConsumers, light, overlay);
 
 
             // Circle of Items
@@ -109,7 +111,7 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
                 // Calculate yaw and pitch to face the player
                 Quaternion numeralsRotation = Vector3f.YP.rotationDegrees(90 - (float) Math.toDegrees(Math.atan2(direction.z(), direction.x())));
                 // Lerp quaternion rotation from blockEntity.rendererData.ingredientTierNumeralsRotation to numeralsQuaternion
-                blockEntity.rendererData.ingredientTierNumeralsRotation = slerp(blockEntity.rendererData.ingredientTierNumeralsRotation, numeralsRotation, tickDelta * 0.02f);
+                blockEntity.rendererData.ingredientTierNumeralsRotation = RUtil.slerp(blockEntity.rendererData.ingredientTierNumeralsRotation, numeralsRotation, tickDelta * 0.02f);
                 matrices.mulPose(blockEntity.rendererData.ingredientTierNumeralsRotation);
 
                 matrices.scale(0.5F, 0.5F, 0.5F);
@@ -122,49 +124,4 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
         profiler.pop();
     }
 
-    public Quaternion slerp(Quaternion q1, Quaternion q2, float t) {
-        // Calculate the cosine of the angle between the two vectors.
-        float dot = q1.i() * q2.i() + q1.j() * q2.j() + q1.k() * q2.k() + q1.r() * q2.r();
-
-        // If the dot product is negative, slerp won't take the shorter path.
-        // Note that v1 and -v1 are equivalent when the negation is applied to all four components.
-        // Fix by reversing one quaternion.
-        if (dot < 0.0f) {
-            q2 = new Quaternion(-q2.i(), -q2.j(), -q2.k(), -q2.r());
-            dot = -dot;
-        }
-
-        final float DOT_THRESHOLD = 0.9995f;
-        if (dot > DOT_THRESHOLD) {
-            // If the inputs are too close for comfort, linearly interpolate
-            // and normalize the result.
-
-            Quaternion result = new Quaternion(
-                    q1.i() + t * (q2.i() - q1.i()),
-                    q1.j() + t * (q2.j() - q1.j()),
-                    q1.k() + t * (q2.k() - q1.k()),
-                    q1.r() + t * (q2.r() - q1.r())
-            );
-            result.normalize();
-            return result;
-        }
-
-        // Since dot is in range [0, DOT_THRESHOLD], acos is safe
-        float theta_0 = (float) Math.acos(dot);  // theta_0 = angle between input vectors
-        float theta = theta_0 * t;    // theta = angle between v0 and result
-        float sin_theta = (float) Math.sin(theta);  // compute this value only once
-        float sin_theta_0 = (float) Math.sin(theta_0); // compute this value only once
-
-        float s0 = (float) Math.cos(theta) - dot * sin_theta / sin_theta_0;  // == sin(theta_0 - theta) / sin(theta_0)
-        float s1 = sin_theta / sin_theta_0;
-
-        // Perform the slerp
-        Quaternion result = new Quaternion(
-                s0 * q1.i() + s1 * q2.i(),
-                s0 * q1.j() + s1 * q2.j(),
-                s0 * q1.k() + s1 * q2.k(),
-                s0 * q1.r() + s1 * q2.r()
-        );
-        return result;
-    }
 }

@@ -3,8 +3,9 @@ package grill24.potionsplus.core;
 import com.google.common.collect.ImmutableMap;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.SeededPotionRecipes;
-import grill24.potionsplus.recipe.BrewingCauldronRecipe;
-import grill24.potionsplus.recipe.BrewingCauldronRecipeSerializer;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeSerializer;
+import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.client.Minecraft;
@@ -13,6 +14,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.crafting.*;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -31,7 +34,7 @@ public class Recipes {
 
     // Recipe Types
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registry.RECIPE_TYPE_REGISTRY, ModInfo.MOD_ID);
-    public static final RegistryObject<RecipeType<grill24.potionsplus.recipe.BrewingCauldronRecipe>> BREWING_CAULDRON_RECIPE = RECIPE_TYPES.register("brewing_cauldron_recipe", () -> new RecipeType<>() {
+    public static final RegistryObject<RecipeType<BrewingCauldronRecipe>> BREWING_CAULDRON_RECIPE = RECIPE_TYPES.register("brewing_cauldron_recipe", () -> new RecipeType<>() {
     });
 
     public static SeededPotionRecipes seededPotionRecipes;
@@ -72,21 +75,33 @@ public class Recipes {
                     ItemStack ingredient = new ItemStack(item);
                     ItemStack output = BrewingRecipeRegistry.getOutput(input, ingredient);
 
+                    // Determine the "tier", as defined by potions plus, of this potion recipe from a vanilla brewing stand recipe
+                    int tier = -1;
+                    if(!potion.getEffects().isEmpty()) {
+                        if (ingredient.is(Items.GLOWSTONE_DUST) || ingredient.is(Items.REDSTONE)) {
+                            // Vanilla potions only have one duration upgrade, so any potion recipe with a redstone or glowstone ingredient is tier 1 (II) recipe
+                            tier = 1;
+                        } else {
+                            // If the potion has an effect and the ingredient is not redstone or glowstone, it is tier 0 (I), aka a base level potion
+                            tier = 0;
+                        }
+                    }
+
                     if (!output.isEmpty()) {
-                        addRuntimeBrewingRecipes(recipes, input, output, ingredient);
+                        addVanillaBrewingRecipes(recipes, input, output, ingredient, tier);
                     }
                 });
             });
         }
     }
 
-    private static void addRuntimeBrewingRecipes(Map<ResourceLocation, Recipe<?>> recipes, ItemStack input, ItemStack output, ItemStack ingredient) {
+    private static void addVanillaBrewingRecipes(Map<ResourceLocation, Recipe<?>> recipes, ItemStack input, ItemStack output, ItemStack ingredient, int tier) {
         Ingredient[] ingredients = new Ingredient[]{Ingredient.of(input), Ingredient.of(ingredient)};
         String resourceName = PUtil.getNameOrVerbosePotionName(input);
         resourceName += "_" + PUtil.getNameOrVerbosePotionName(ingredient);
         resourceName += "_" + PUtil.getNameOrVerbosePotionName(output);
 
-        BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(new ResourceLocation(ModInfo.MOD_ID, resourceName), "", ingredients, output, 0.1F, PUtil.getProcessingTime(100, input, output, 1));
+        BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(new ResourceLocation(ModInfo.MOD_ID, resourceName), "", tier, ingredients, output, 0.1F, PUtil.getProcessingTime(100, input, output, 1));
 
         recipes.put(recipe.getId(), recipe);
     }

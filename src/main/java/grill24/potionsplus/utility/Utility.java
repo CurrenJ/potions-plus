@@ -11,6 +11,7 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.sounds.SoundEvent;
@@ -199,5 +200,28 @@ public class Utility {
 
     public static BlockPos randomBlockPosInBox(BlockPos origin, int xRadius, int yRadius, int zRadius, Random random) {
         return origin.offset(random.nextInt(xRadius * 2 + 1) - xRadius, random.nextInt(yRadius * 2 + 1) - yRadius, random.nextInt(zRadius * 2 + 1) - zRadius);
+    }
+
+    public static Direction getDirectionTowardsBlock(BlockPos from, BlockPos to) {
+        int x = to.getX() - from.getX();
+        int y = to.getY() - from.getY();
+        int z = to.getZ() - from.getZ();
+        if (Math.abs(x) > Math.abs(y) && Math.abs(x) > Math.abs(z)) {
+            return x > 0 ? Direction.EAST : Direction.WEST;
+        } else if (Math.abs(y) > Math.abs(x) && Math.abs(y) > Math.abs(z)) {
+            return y > 0 ? Direction.UP : Direction.DOWN;
+        } else {
+            return z > 0 ? Direction.SOUTH : Direction.NORTH;
+        }
+    }
+
+    public static Direction getHorizontalDirectionTowardsBlock(BlockPos from, BlockPos to) {
+        int x = to.getX() - from.getX();
+        int z = to.getZ() - from.getZ();
+        if (Math.abs(x) > Math.abs(z)) {
+            return x > 0 ? Direction.EAST : Direction.WEST;
+        } else {
+            return z > 0 ? Direction.SOUTH : Direction.NORTH;
+        }
     }
 }

@@ -3,7 +3,7 @@ package grill24.potionsplus.core.seededrecipe;
 import grill24.potionsplus.core.Potions;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Tags;
-import grill24.potionsplus.recipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;

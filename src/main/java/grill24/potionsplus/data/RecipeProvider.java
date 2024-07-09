@@ -1,7 +1,7 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.Items;
-import grill24.potionsplus.recipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -73,27 +73,32 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
         // Water Bottle
         buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 30, "has_potion",
                 net.minecraft.world.item.alchemy.Potions.WATER, PUtil.PotionType.POTION,
+                -1,
                 Ingredient.of(net.minecraft.world.item.Items.GLASS_BOTTLE)));
 
         // Water Bucket
         buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 40, "has_potion",
                 new ItemStack(net.minecraft.world.item.Items.WATER_BUCKET),
+                -1,
                 Ingredient.of(net.minecraft.world.item.Items.BUCKET)));
 
         // Clay
         buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 50, "has_potion",
                 new ItemStack(net.minecraft.world.item.Items.CLAY_BALL),
+                -1,
                 Ingredient.of(net.minecraft.world.item.Items.SAND),
                 Ingredient.of(net.minecraft.world.item.Items.GRAVEL)));
 
         // Mushroom Conversions
         buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 80, "has_potion",
                 new ItemStack(net.minecraft.world.item.Items.BROWN_MUSHROOM),
+                -1,
                 Ingredient.of(net.minecraft.world.item.Items.RED_MUSHROOM),
                 Ingredient.of(net.minecraft.world.item.Items.FERMENTED_SPIDER_EYE)));
 
         buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 80, "has_potion",
                 new ItemStack(net.minecraft.world.item.Items.RED_MUSHROOM),
+                -1,
                 Ingredient.of(net.minecraft.world.item.Items.BROWN_MUSHROOM),
                 Ingredient.of(net.minecraft.world.item.Items.FERMENTED_SPIDER_EYE))
         );
@@ -101,6 +106,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
         // Grass
         buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 40, "has_potion",
                 new ItemStack(net.minecraft.world.item.Items.GRASS_BLOCK),
+                -1,
                 Ingredient.of(net.minecraft.world.item.Items.DIRT),
                 Ingredient.of(net.minecraft.world.item.Items.MOSS_BLOCK))
         );
