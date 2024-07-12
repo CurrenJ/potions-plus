@@ -120,6 +120,13 @@ public class Potions {
             .maxDur(2)
             .effects(PotionBuilder.LONGER_DURATION_FUNCTION, MobEffects.BOTANICAL_BOOST::get)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+    
+    public static final PotionBuilder.PotionsAmpDurMatrix SATURATION_POTIONS = new PotionBuilder()
+            .name("saturation")
+            .maxAmp(3)
+            .maxDur(2)
+            .effects(PotionBuilder.LONGER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.SATURATION)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
     @SubscribeEvent
     public static void onRegisterPotions(final FMLCommonSetupEvent event) {
