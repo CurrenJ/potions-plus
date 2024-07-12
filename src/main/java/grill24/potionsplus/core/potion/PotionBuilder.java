@@ -1,6 +1,5 @@
 package grill24.potionsplus.core.potion;
 
-import grill24.potionsplus.core.Potions;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
@@ -8,7 +7,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class PotionBuilder {
     private String name = "";

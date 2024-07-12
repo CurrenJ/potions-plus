@@ -1,6 +1,6 @@
 package grill24.potionsplus.client.integration.jei;
 
-import grill24.potionsplus.core.Potions;
+import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.persistence.SavedData;

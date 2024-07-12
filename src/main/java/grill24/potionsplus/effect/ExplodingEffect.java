@@ -1,7 +1,7 @@
 package grill24.potionsplus.effect;
 
 import grill24.potionsplus.network.ClientboundImpulsePlayerPacket;
-import grill24.potionsplus.core.MobEffects;
+import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.network.PotionsPlusPacketHandler;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.sounds.SoundEvents;

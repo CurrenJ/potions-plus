@@ -11,11 +11,8 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.IGeneratedBlockstate;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.Objects;
@@ -71,7 +68,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
             itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(mobEffect.getRegistryName().getNamespace() + ":mob_effect/" + mobEffect.getRegistryName().getPath()));
 
             // Add override to main model
-            float f = (grill24.potionsplus.core.MobEffects.POTION_ICON_INDEX_MAP.get().get(mobEffect.getRegistryName()) - 1) / 64F;
+            float f = (grill24.potionsplus.core.potion.MobEffects.POTION_ICON_INDEX_MAP.get().get(mobEffect.getRegistryName()) - 1) / 64F;
             imb = imb.override().predicate(new ResourceLocation(ModInfo.MOD_ID, DYNAMIC_ICON_INDEX_PROPERTY_NAME), f).model(itemModels().getExistingFile(new ResourceLocation(ModInfo.MOD_ID, name))).end();
         }
     }

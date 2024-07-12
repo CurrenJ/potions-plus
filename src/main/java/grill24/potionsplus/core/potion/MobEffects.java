@@ -1,4 +1,4 @@
-package grill24.potionsplus.core;
+package grill24.potionsplus.core.potion;
 
 
 import grill24.potionsplus.effect.*;

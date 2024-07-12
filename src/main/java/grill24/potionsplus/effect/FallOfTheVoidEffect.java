@@ -1,6 +1,6 @@
 package grill24.potionsplus.effect;
 
-import grill24.potionsplus.core.MobEffects;
+import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Direction;
 import net.minecraft.world.damagesource.DamageSource;

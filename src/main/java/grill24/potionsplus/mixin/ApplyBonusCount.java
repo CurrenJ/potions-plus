@@ -1,5 +1,6 @@
 package grill24.potionsplus.mixin;
 
+import grill24.potionsplus.core.potion.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -35,9 +36,9 @@ public abstract class ApplyBonusCount extends LootItemConditionalFunction {
         if (enchantment == Enchantments.BLOCK_FORTUNE) {
             Entity entity = lootContext.getParamOrNull(LootContextParams.THIS_ENTITY);
             if (entity instanceof LivingEntity livingEntity) {
-                boolean hasFortuitousFateEffect = livingEntity.hasEffect(grill24.potionsplus.core.MobEffects.FORTUITOUS_FATE.get());
+                boolean hasFortuitousFateEffect = livingEntity.hasEffect(MobEffects.FORTUITOUS_FATE.get());
                 if (hasFortuitousFateEffect) {
-                    int fortuitousFateEffectLevel = livingEntity.getEffect(grill24.potionsplus.core.MobEffects.FORTUITOUS_FATE.get()).getAmplifier();
+                    int fortuitousFateEffectLevel = livingEntity.getEffect(MobEffects.FORTUITOUS_FATE.get()).getAmplifier();
                     additionalLevels = fortuitousFateEffectLevel + 1;
                 }
             }

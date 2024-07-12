@@ -1,6 +1,6 @@
 package grill24.potionsplus.data;
 
-import grill24.potionsplus.core.MobEffects;
+import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;

@@ -1,6 +1,5 @@
-package grill24.potionsplus.core;
+package grill24.potionsplus.core.potion;
 
-import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

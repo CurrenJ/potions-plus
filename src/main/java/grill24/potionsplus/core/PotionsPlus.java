@@ -1,6 +1,8 @@
 package grill24.potionsplus.core;
 
 import com.mojang.logging.LogUtils;
+import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
