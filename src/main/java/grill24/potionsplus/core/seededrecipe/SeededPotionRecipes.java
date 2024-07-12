@@ -3,6 +3,7 @@ package grill24.potionsplus.core.seededrecipe;
 import grill24.potionsplus.core.Potions;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Tags;
+import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.tags.TagKey;
@@ -46,8 +47,8 @@ public class SeededPotionRecipes {
         addAllPotionRecipes(Potions.getAllPotionAmpDurMatrices());
     }
 
-    private void addAllPotionRecipes(Potions.PotionsAmpDurMatrix... potions) {
-        for (Potions.PotionsAmpDurMatrix potionAmpDurMatrix : potions) {
+    private void addAllPotionRecipes(PotionBuilder.PotionsAmpDurMatrix... potions) {
+        for (PotionBuilder.PotionsAmpDurMatrix potionAmpDurMatrix : potions) {
             TagKey<Item>[] potionUpgradeTierTags = new TagKey[]{Tags.Items.TIER_1_POTION_INGREDIENTS, Tags.Items.TIER_2_POTION_INGREDIENTS, Tags.Items.TIER_3_POTION_INGREDIENTS};
             TagKey<Item> basePotionIngredientTags = Tags.Items.BASE_TIER_POTION_INGREDIENTS;
             Potion basePotion = potionAmpDurMatrix.get(0, 0);

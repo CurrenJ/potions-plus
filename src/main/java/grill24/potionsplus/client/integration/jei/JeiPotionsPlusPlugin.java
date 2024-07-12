@@ -2,6 +2,7 @@ package grill24.potionsplus.client.integration.jei;
 
 import grill24.potionsplus.core.Potions;
 import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
@@ -106,8 +107,8 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(grill24.potionsplus.core.Blocks.BREWING_CAULDRON.get()), BrewingCauldronRecipeCategory.BREWING_CAULDRON_CATEGORY);
     }
 
-    private static void registerAllPotionsInfo(IRecipeRegistration registration, Potions.PotionsAmpDurMatrix... potionsAmpDurMatrix) {
-        for(Potions.PotionsAmpDurMatrix matrix : potionsAmpDurMatrix) {
+    private static void registerAllPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsAmpDurMatrix... potionsAmpDurMatrix) {
+        for(PotionBuilder.PotionsAmpDurMatrix matrix : potionsAmpDurMatrix) {
             String effectName = matrix.getEffectName();
             if(!effectName.isBlank()) {
                 String descriptionKey = "jei.potionsplus." + effectName + ".description";
@@ -117,7 +118,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         }
     }
 
-    private static void registerPotionsInfo(IRecipeRegistration registration, Potions.PotionsAmpDurMatrix potionsAmpDurMatrix, Component... descriptionComponents) {
+    private static void registerPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsAmpDurMatrix potionsAmpDurMatrix, Component... descriptionComponents) {
         for(int a = 0; a < potionsAmpDurMatrix.potions.length; a++) {
             for(int d = 0; d < potionsAmpDurMatrix.potions[a].length; d++) {
                 RegistryObject<Potion> potion = potionsAmpDurMatrix.potions[a][d];

@@ -1,5 +1,6 @@
 package grill24.potionsplus.utility;
 
+import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -143,7 +144,7 @@ public class PUtil {
         return recipes;
     }
 
-    public static List<BrewingCauldronRecipe> brewingCauldronPotionUpgrades(float experience, int baseProcessingTime, String advancementNameIngredient, grill24.potionsplus.core.Potions.PotionsAmpDurMatrix potions, PotionUpgradeIngredients potionUpgradeIngredients) {
+    public static List<BrewingCauldronRecipe> brewingCauldronPotionUpgrades(float experience, int baseProcessingTime, String advancementNameIngredient, PotionBuilder.PotionsAmpDurMatrix potions, PotionUpgradeIngredients potionUpgradeIngredients) {
         // Iterate through all potions
         List<BrewingCauldronRecipe> allRecipes = new ArrayList<>();
         for (int a = 0; a < potions.getAmplificationLevels(); a++) {
