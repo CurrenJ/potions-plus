@@ -50,7 +50,7 @@ public class RUtil {
 
     public static void renderBobbingItem(ItemStack stack, Vector3d restingPosition, float yawDegrees, float scale, float bobbingHeight, float bobbingHertz, float tickDelay, float tickDelta, ISingleStackDisplayer singleStackDisplayer, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         float ticks = ClientTickHandler.total();
-        if (!stack.isEmpty() && isAnimationActive(singleStackDisplayer, (int) tickDelay, (int) tickDelta)){
+        if (!stack.isEmpty() && isAnimationActive(singleStackDisplayer, (int) tickDelay, (int) tickDelta)) {
             matrices.pushPose();
             float bobbing = (float) Math.sin((ticks - singleStackDisplayer.getTimeItemPlaced() - tickDelay) / 20 * bobbingHertz * Math.PI * 2) * bobbingHeight;
             Quaternion rotation = Vector3f.YP.rotationDegrees(yawDegrees);
@@ -69,14 +69,14 @@ public class RUtil {
     public static float getBobbingOffset(ISingleStackDisplayer singleStackDisplayer, float bobbingHeight, float bobbingHertz, int tickDelay) {
         float ticks = ClientTickHandler.total();
         float elapsedTimeSinceItemPlaced = ticks - singleStackDisplayer.getTimeItemPlaced();
-        if(isAnimationActive(singleStackDisplayer, tickDelay, 0)) {
+        if (isAnimationActive(singleStackDisplayer, tickDelay, 0)) {
             return (float) Math.sin((elapsedTimeSinceItemPlaced - tickDelay) / 20 * bobbingHertz * Math.PI * 2) * bobbingHeight;
         }
         return 0;
     }
 
     public static void renderItemWithYaw(ISingleStackDisplayer singleStackDisplayer, ItemStack stack, Vector3d position, int tickDelay, int tickDuration, float yawDegrees, float scale, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
-        if(isAnimationActive(singleStackDisplayer, tickDelay, tickDuration)){
+        if (isAnimationActive(singleStackDisplayer, tickDelay, tickDuration)) {
             matrices.pushPose();
             Quaternion rotation = Vector3f.YP.rotationDegrees(yawDegrees);
             matrices.translate(position.x, position.y, position.z);

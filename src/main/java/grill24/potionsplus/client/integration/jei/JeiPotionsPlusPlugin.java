@@ -1,8 +1,8 @@
 package grill24.potionsplus.client.integration.jei;
 
-import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.potion.PotionBuilder;
+import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
@@ -64,7 +64,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         registerAllPotionsInfo(registration, Potions.getAllPotionAmpDurMatrices());
 
         // Register all known recipes
-        if(Minecraft.getInstance().level != null) {
+        if (Minecraft.getInstance().level != null) {
             registration.addRecipes(Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()), BrewingCauldronRecipeCategory.BREWING_CAULDRON_CATEGORY);
         }
     }
@@ -84,7 +84,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
     public static void tryUpdateJeiHiddenBrewingCauldronRecipes() {
         Level level = Minecraft.getInstance().level;
         Player player = Minecraft.getInstance().player;
-        if(JEI_RUNTIME != null && level != null && level.isClientSide && player != null) {
+        if (JEI_RUNTIME != null && level != null && level.isClientSide && player != null) {
             List<BrewingCauldronRecipe> brewingCauldronRecipeList = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get());
             brewingCauldronRecipeList.forEach(recipe -> JEI_RUNTIME.getRecipeManager().hideRecipe(recipe, BrewingCauldronRecipeCategory.BREWING_CAULDRON_CATEGORY));
 
@@ -108,9 +108,9 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
     }
 
     private static void registerAllPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsAmpDurMatrix... potionsAmpDurMatrix) {
-        for(PotionBuilder.PotionsAmpDurMatrix matrix : potionsAmpDurMatrix) {
+        for (PotionBuilder.PotionsAmpDurMatrix matrix : potionsAmpDurMatrix) {
             String effectName = matrix.getEffectName();
-            if(!effectName.isBlank()) {
+            if (!effectName.isBlank()) {
                 String descriptionKey = "jei.potionsplus." + effectName + ".description";
                 MutableComponent descriptionComponent = new TranslatableComponent(descriptionKey);
                 registerPotionsInfo(registration, matrix, descriptionComponent);
@@ -119,10 +119,10 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
     }
 
     private static void registerPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsAmpDurMatrix potionsAmpDurMatrix, Component... descriptionComponents) {
-        for(int a = 0; a < potionsAmpDurMatrix.potions.length; a++) {
-            for(int d = 0; d < potionsAmpDurMatrix.potions[a].length; d++) {
+        for (int a = 0; a < potionsAmpDurMatrix.potions.length; a++) {
+            for (int d = 0; d < potionsAmpDurMatrix.potions[a].length; d++) {
                 RegistryObject<Potion> potion = potionsAmpDurMatrix.potions[a][d];
-                if(potion.isPresent()) {
+                if (potion.isPresent()) {
                     registerPotionInfo(registration, potion.get(), descriptionComponents);
                 }
             }

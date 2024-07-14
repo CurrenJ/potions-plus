@@ -1,9 +1,9 @@
 package grill24.potionsplus.core.seededrecipe;
 
-import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.potion.PotionBuilder;
+import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.tags.TagKey;

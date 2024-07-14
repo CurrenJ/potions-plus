@@ -120,7 +120,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         RendererData data = new RendererData();
         data.renderedItemTiers = new HashMap<>();
 
-        if(Recipes.seededPotionRecipes == null) {
+        if (Recipes.seededPotionRecipes == null) {
             return;
         }
 
