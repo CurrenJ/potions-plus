@@ -116,26 +116,26 @@ public class Utility {
         return a + (b - a) * t;
     }
 
-    private static Item sampleItemFromTag(TagKey<Item> tagKey, Random random) {
-        Optional<Item> item = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).getRandomElement(random);
-        if (item.isEmpty()) {
-            throw new IllegalStateException("No item found in tag " + tagKey.registry().getRegistryName().toString());
+    private static Item sampleItemFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random) {
+        Item[] items = new Item[0];
+        if(additionalTags.length != 0) {
+            items = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).stream().filter(i -> Arrays.stream(additionalTags).anyMatch(new ItemStack(i)::is)).toArray(Item[]::new);
         }
-        return item.get();
+        if(items.length == 0) {
+            items = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).stream().toArray(Item[]::new);
+        }
+
+        if(items.length == 0) {
+            throw new IllegalStateException("No items found in tags matching additional tags" + tagKey.registry().getRegistryName().toString());
+        }
+
+        return items[random.nextInt(items.length)];
     }
 
-    public static Item[] sampleItemsFromTag(TagKey<Item> tagKey, Random random, int count) {
-        Item[] items = new Item[count];
-        for (int i = 0; i < count; i++) {
-            items[i] = sampleItemFromTag(tagKey, random);
-        }
-        return items;
-    }
-
-    public static Ingredient[] sampleIngredientsFromTag(TagKey<Item> tagKey, Random random, int count) {
+    public static Ingredient[] sampleIngredientsFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random, int count) {
         Ingredient[] items = new Ingredient[count];
         for (int i = 0; i < count; i++) {
-            items[i] = Ingredient.of(sampleItemFromTag(tagKey, random));
+            items[i] = Ingredient.of(sampleItemFromTag(tagKey, additionalTags, random));
         }
         return items;
     }

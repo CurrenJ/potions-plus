@@ -1,10 +1,20 @@
 package grill24.potionsplus.core.potion;
 
+import grill24.potionsplus.core.Tags;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.core.seededrecipe.SeededPotionRecipeGenerator;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -13,9 +23,13 @@ public class PotionBuilder {
     private int amplificationLevels = 0;
     private int durationLevels = 0;
     private Function<int[], MobEffectInstance[]> effectFunction = null;
+    private SeededPotionRecipeGenerator potionRecipeGenerator = DEFAULT_POTION_RECIPE_GENERATOR;
 
     public static final DurationFunction DEFAULT_DURATION_FUNCTION = (int durationLevel) -> (durationLevel+1) * 3600;
     public static final DurationFunction LONGER_DURATION_FUNCTION = (int durationLevel) -> (durationLevel+1) * 5000;
+
+    private static final TagKey<Item>[] DEFAULT_TIERED_INGREDIENT_TAGS = new TagKey[]{Tags.Items.BASE_TIER_POTION_INGREDIENTS, Tags.Items.TIER_1_POTION_INGREDIENTS, Tags.Items.TIER_2_POTION_INGREDIENTS, Tags.Items.TIER_3_POTION_INGREDIENTS};
+    public static final SeededPotionRecipeGenerator DEFAULT_POTION_RECIPE_GENERATOR = new SeededPotionRecipeGenerator().withTieredIngredientTags(DEFAULT_TIERED_INGREDIENT_TAGS);
 
     public PotionBuilder() {}
 
@@ -61,6 +75,17 @@ public class PotionBuilder {
         return this;
     }
 
+    public PotionBuilder recipeGenerator(SeededPotionRecipeGenerator potionRecipeGenerator) {
+        this.potionRecipeGenerator = potionRecipeGenerator;
+        return this;
+    }
+
+    @SafeVarargs
+    public final PotionBuilder additionalTags(TagKey<Item>... additionalTags) {
+        this.potionRecipeGenerator = new SeededPotionRecipeGenerator(DEFAULT_POTION_RECIPE_GENERATOR).withAdditionalTags(additionalTags);
+        return this;
+    }
+
     public PotionsAmpDurMatrix build() {
         if(amplificationLevels < 1 || durationLevels < 1)
             throw new IllegalArgumentException("Amplification and duration levels must be at least 1");
@@ -69,9 +94,7 @@ public class PotionBuilder {
         else if (effectFunction == null)
             throw new IllegalArgumentException("Effect function must be set");
 
-        PotionsAmpDurMatrix potions = new PotionsAmpDurMatrix(name, amplificationLevels, durationLevels, effectFunction);
-
-        return potions;
+        return new PotionsAmpDurMatrix(name, amplificationLevels, durationLevels, effectFunction, potionRecipeGenerator);
     }
 
     public PotionsAmpDurMatrix build(Consumer<PotionsAmpDurMatrix> consumer) {
@@ -93,13 +116,11 @@ public class PotionBuilder {
 
     public static class PotionsAmpDurMatrix {
         public final RegistryObject<Potion>[][] potions;
+        private final SeededPotionRecipeGenerator potionRecipeGenerator;
 
-        public PotionsAmpDurMatrix(RegistryObject<Potion>[][] potions) {
-            this.potions = potions;
-        }
-
-        public PotionsAmpDurMatrix(String name, int amplificationLevels, int durationLevels, Function<int[], MobEffectInstance[]> effectFunction) {
+        public PotionsAmpDurMatrix(String name, int amplificationLevels, int durationLevels, Function<int[], MobEffectInstance[]> effectFunction, SeededPotionRecipeGenerator potionRecipeGenerator) {
             this.potions = registerNewPotion(name, amplificationLevels, durationLevels, effectFunction);
+            this.potionRecipeGenerator = potionRecipeGenerator;
         }
 
         public static RegistryObject<Potion>[][] registerNewPotion(String name, int amplificationLevels, int durationLevels, Function<int[], MobEffectInstance[]> effectFunction) {
@@ -140,6 +161,10 @@ public class PotionBuilder {
             } catch (NullPointerException e) {
                 return "";
             }
+        }
+
+        public List<BrewingCauldronRecipe> generateRecipes(Set<PpIngredient> allRecipes, Random random) {
+            return potionRecipeGenerator.generateRecipes(this, allRecipes, random);
         }
     }
 }

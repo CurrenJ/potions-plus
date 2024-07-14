@@ -37,7 +37,7 @@ public class PotionUpgradeIngredients {
             WeightedEntry.wrap(2, 8),
             WeightedEntry.wrap(3, 4)
     );
-    private static final WeightedRandomList<WeightedEntry.Wrapper<Integer>>[] ingredientCountDistributions = new WeightedRandomList[]{TIER_1_INGREDIENT_COUNT_DISTRIBUTION, TIER_2_INGREDIENT_COUNT_DISTRIBUTION, TIER_3_INGREDIENT_COUNT_DISTRIBUTION};
+    private static final WeightedRandomList<WeightedEntry.Wrapper<Integer>>[] ingredientCountDistributions = new WeightedRandomList[]{BASE_POTION_INGREDIENT_COUNT_DISTRIBUTION, TIER_1_INGREDIENT_COUNT_DISTRIBUTION, TIER_2_INGREDIENT_COUNT_DISTRIBUTION, TIER_3_INGREDIENT_COUNT_DISTRIBUTION};
 
     private final Ingredient[][] upgradeAmpUpIngredients;
     private final Ingredient[][] upgradeDurUpIngredients;
@@ -45,21 +45,36 @@ public class PotionUpgradeIngredients {
     private MobEffect effect;
     private Potion basePotion;
 
-    public PotionUpgradeIngredients(Potion basePotion, TagKey<Item> basePotionIngredientTags, TagKey<Item>[] potionUpgradeTierTags, Random random, Set<PpIngredient> allBasePotionIngredients, Set<PpIngredient> allUpgradeIngredients) {
+    /*
+        * @param basePotion The base potion to upgrade
+        * @param basePotionIngredientTags The tag key for the base-level (from awkward potion) potion ingredients
+        * @param potionUpgradeTierTags The tag keys for the upgrade ingredients by tier
+        * @param additionalTags Additional tags to sample from. If additional tags are present, items sampled from the upgrade ingredients and base ingredients must be present in at least one additional tag.
+        * @param random The random instance to use for sampling
+        * @param allBasePotionIngredients A set of all base potion ingredients generated so far. Used to ensure uniqueness.
+        * @param allUpgradeIngredients A set of all upgrade ingredients generated so far. Used to ensure uniqueness.
+     */
+    public PotionUpgradeIngredients(Potion basePotion, int maxAmp, int maxDur, TagKey<Item>[] tieredIngredientTags, TagKey<Item>[] additionalTags, Random random, Set<PpIngredient> allRecipes) {
         this.basePotion = basePotion;
         this.effect = basePotion.getEffects().get(0).getEffect();
-        this.upgradeAmpUpIngredients = new Ingredient[potionUpgradeTierTags.length][];
-        this.upgradeDurUpIngredients = new Ingredient[potionUpgradeTierTags.length][];
+        this.upgradeAmpUpIngredients = new Ingredient[tieredIngredientTags.length][];
+        this.upgradeDurUpIngredients = new Ingredient[tieredIngredientTags.length][];
 
-        for (int x = 0; x < potionUpgradeTierTags.length; x++) {
-            int finalX = x;
-            sampleUniqueIngredientsFromTag(potionUpgradeTierTags[x], random, ingredientCountDistributions[x].getRandom(random).get().getData(), allUpgradeIngredients, (ingredients) -> setUpgradeAmpUpIngredients(finalX, ingredients));
-            sampleUniqueIngredientsFromTag(potionUpgradeTierTags[x], random, ingredientCountDistributions[x].getRandom(random).get().getData(), allUpgradeIngredients, (ingredients) -> setUpgradeDurUpIngredients(finalX, ingredients));
+        for (int t = 0; t < tieredIngredientTags.length; t++) {
+            final int tier = t;
+            if(t == 0) {
+                sampleUniqueIngredientsFromTag(tieredIngredientTags[tier], additionalTags, random, ingredientCountDistributions[tier].getRandom(random).get().getData(), allRecipes, this::setBasePotionIngredients);
+            }
+            else {
+                if(t < maxAmp)
+                    sampleUniqueIngredientsFromTag(tieredIngredientTags[tier], additionalTags, random, ingredientCountDistributions[tier].getRandom(random).get().getData(), allRecipes, (ingredients) -> setUpgradeAmpUpIngredients(tier - 1, ingredients));
+                if(t < maxDur)
+                    sampleUniqueIngredientsFromTag(tieredIngredientTags[tier], additionalTags, random, ingredientCountDistributions[tier].getRandom(random).get().getData(), allRecipes, (ingredients) -> setUpgradeDurUpIngredients(tier - 1, ingredients));
+            }
         }
-        sampleUniqueIngredientsFromTag(basePotionIngredientTags, random, BASE_POTION_INGREDIENT_COUNT_DISTRIBUTION.getRandom(random).get().getData(), allBasePotionIngredients, this::setBasePotionIngredients);
     }
 
-    private void sampleUniqueIngredientsFromTag(TagKey<Item> tagKey, Random random, int count, Set<PpIngredient> allPreviouslyGeneratedIngredients, Consumer<Ingredient[]> setter) {
+    private void sampleUniqueIngredientsFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random, int count, Set<PpIngredient> allPreviouslyGeneratedIngredients, Consumer<Ingredient[]> setter) {
         for (int i = 0; i < count; i++) {
             Ingredient[] ingredients;
             PpMultiIngredient items;
@@ -67,7 +82,7 @@ public class PotionUpgradeIngredients {
             int iterations = 0;
             final int MAX_ITERATIONS = 100;
             do {
-                ingredients = Utility.sampleIngredientsFromTag(tagKey, random, count);
+                ingredients = Utility.sampleIngredientsFromTag(tagKey, additionalTags, random, count);
                 items = PpMultiIngredient.of(ingredients);
 
                 iterations++;

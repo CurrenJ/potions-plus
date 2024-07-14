@@ -1,7 +1,9 @@
 package grill24.potionsplus.core.potion;
 
 import grill24.potionsplus.utility.ModInfo;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -28,6 +30,7 @@ public class Potions {
             .maxAmp(1)
             .maxDur(2)
             .effects(MobEffects.FALL_OF_THE_VOID::get)
+            .additionalTags(ItemTags.FLOWERS)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
     public static final PotionBuilder.PotionsAmpDurMatrix HASTE_POTIONS = new PotionBuilder()
@@ -120,7 +123,7 @@ public class Potions {
             .maxDur(2)
             .effects(PotionBuilder.LONGER_DURATION_FUNCTION, MobEffects.BOTANICAL_BOOST::get)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
-    
+
     public static final PotionBuilder.PotionsAmpDurMatrix SATURATION_POTIONS = new PotionBuilder()
             .name("saturation")
             .maxAmp(3)

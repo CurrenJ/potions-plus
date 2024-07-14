@@ -1,7 +1,5 @@
 package grill24.potionsplus.utility;
 
-import grill24.potionsplus.core.potion.PotionBuilder;
-import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
@@ -142,34 +140,6 @@ public class PUtil {
         recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.SPLASH_POTION, tier, nonPotionIngredients));
         recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.LINGERING_POTION, tier, nonPotionIngredients));
         return recipes;
-    }
-
-    public static List<BrewingCauldronRecipe> brewingCauldronPotionUpgrades(float experience, int baseProcessingTime, String advancementNameIngredient, PotionBuilder.PotionsAmpDurMatrix potions, PotionUpgradeIngredients potionUpgradeIngredients) {
-        // Iterate through all potions
-        List<BrewingCauldronRecipe> allRecipes = new ArrayList<>();
-        for (int a = 0; a < potions.getAmplificationLevels(); a++) {
-            for (int d = 0; d < potions.getDurationLevels(); d++) {
-                Potion toCraft = potions.get(a, d);
-                if (a > 0) {
-                    Potion ampTierBelow = potions.get(a - 1, d);
-                    Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeAmpUpIngredients(a - 1);
-                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, ampTierBelow, toCraft, a, ingredients));
-                }
-                if (d > 0) {
-                    Potion durTierBelow = potions.get(a, d - 1);
-                    Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeDurUpIngredients(d - 1);
-                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, durTierBelow, toCraft, d, ingredients));
-                }
-                if (a > 0 && d > 0) {
-                    // THIS WOULD BE BOTH UPGRADED. BUT NOT USING THIS RN. CAN ADD LATER. ADD FIELD TO POTIONUPGRADEINGREDIENTS
-//                    Potion bothTiersBelow = potions[a - 1][d - 1].get();
-//                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, bothTiersBelow, toCraft, ingredients));
-                } else if (a == 0 && d == 0) {
-                    allRecipes.addAll(brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, Potions.AWKWARD, toCraft, 0, potionUpgradeIngredients.getBasePotionIngredients()));
-                }
-            }
-        }
-        return allRecipes;
     }
 
     // Potions
