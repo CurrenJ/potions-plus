@@ -32,11 +32,11 @@ public class CropCollectorEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         final int radius = 1 + amplifier;
-        if(livingEntity.level instanceof ServerLevel serverLevel) {
+        if (livingEntity.level instanceof ServerLevel serverLevel) {
             Random random = livingEntity.getRandom();
             BlockPos origin = livingEntity.blockPosition();
             // If on farm-land or soul sand, origin is the block above
-            if(livingEntity.level.getBlockState(origin).getBlock() instanceof FarmBlock || livingEntity.level.getBlockState(origin).getBlock() instanceof SoulSandBlock) {
+            if (livingEntity.level.getBlockState(origin).getBlock() instanceof FarmBlock || livingEntity.level.getBlockState(origin).getBlock() instanceof SoulSandBlock) {
                 origin = origin.above();
             }
 

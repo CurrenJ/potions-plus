@@ -46,8 +46,8 @@ public class EmitterParticle extends NoRenderParticle {
         float effectiveSpawnCount = this.SPAWN_COUNT;
         float effectiveTicksPerSpawn = this.TICKS_PER_SPAWN;
 
-        float lifeFactor = 1 - RUtil.easeInSine((float)this.age / (float)this.lifetime);
-        if(SHRINK_WITH_TIME) {
+        float lifeFactor = 1 - RUtil.easeInSine((float) this.age / (float) this.lifetime);
+        if (SHRINK_WITH_TIME) {
             effectiveRange *= lifeFactor;
             effectiveSpawnCount *= lifeFactor;
         }

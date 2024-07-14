@@ -6,7 +6,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -63,7 +62,7 @@ public class InvUtil {
     }
 
     public static net.minecraft.world.InteractionResult getMinecraftInteractionResult(InteractionResult result) {
-        if(result == InteractionResult.PASS) {
+        if (result == InteractionResult.PASS) {
             return net.minecraft.world.InteractionResult.PASS;
         } else {
             return net.minecraft.world.InteractionResult.SUCCESS;

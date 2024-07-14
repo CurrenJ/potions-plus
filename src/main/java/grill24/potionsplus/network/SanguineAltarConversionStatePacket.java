@@ -11,7 +11,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 
-public record SanguineAltarConversionStatePacket(BlockPos pos, SanguineAltarBlockEntity.State state) implements PotionsPlusPacket {
+public record SanguineAltarConversionStatePacket(BlockPos pos,
+                                                 SanguineAltarBlockEntity.State state) implements PotionsPlusPacket {
     public static final ResourceLocation ID = new ResourceLocation("potionsplus:sanguine_altar_conversion_state");
 
     @Override
@@ -42,22 +43,22 @@ public record SanguineAltarConversionStatePacket(BlockPos pos, SanguineAltarBloc
                             }
 
                             mc.level.getBlockEntity(packet.pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get()).ifPresent(
-                                blockEntity -> {
-                                    blockEntity.state = packet.state;
+                                    blockEntity -> {
+                                        blockEntity.state = packet.state;
 
-                                    switch (packet.state) {
-                                        case CONVERTED -> {
-                                            mc.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, packet.pos.getX() + 0.5, packet.pos.getY() + 1, packet.pos.getZ() + 0.5, 0, 0, 0);
-                                            mc.level.playLocalSound(packet.pos, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 1, 1, false);
-                                            mc.level.playLocalSound(packet.pos, Sounds.MUTED_PLUCKS_0.get(), SoundSource.BLOCKS, 1, 1, false);
-                                        }
-                                        case FAILED -> {
-                                            mc.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, packet.pos.getX() + 0.5, packet.pos.getY() + 1, packet.pos.getZ() + 0.5, 0, 0, 0);
-                                            mc.level.playLocalSound(packet.pos, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 1, 1, false);
-                                            mc.level.playLocalSound(packet.pos, Sounds.MUTED_PLUCKS_1.get(), SoundSource.BLOCKS, 1, 1, false);
+                                        switch (packet.state) {
+                                            case CONVERTED -> {
+                                                mc.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, packet.pos.getX() + 0.5, packet.pos.getY() + 1, packet.pos.getZ() + 0.5, 0, 0, 0);
+                                                mc.level.playLocalSound(packet.pos, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 1, 1, false);
+                                                mc.level.playLocalSound(packet.pos, Sounds.MUTED_PLUCKS_0.get(), SoundSource.BLOCKS, 1, 1, false);
+                                            }
+                                            case FAILED -> {
+                                                mc.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, packet.pos.getX() + 0.5, packet.pos.getY() + 1, packet.pos.getZ() + 0.5, 0, 0, 0);
+                                                mc.level.playLocalSound(packet.pos, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 1, 1, false);
+                                                mc.level.playLocalSound(packet.pos, Sounds.MUTED_PLUCKS_1.get(), SoundSource.BLOCKS, 1, 1, false);
+                                            }
                                         }
                                     }
-                                }
                             );
                         }
                     }

@@ -13,7 +13,6 @@ import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -58,6 +57,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         CONVERTED,
         FAILED
     }
+
     public State state = State.IDLE;
 
     public SanguineAltarBlockEntity(BlockPos pos, BlockState state) {
@@ -76,72 +76,72 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
     }
 
     private static void updateConversionProgress(Level level, BlockPos pos, SanguineAltarBlockEntity sanguineAltarBlockEntity) {
-        if(sanguineAltarBlockEntity.state == State.IDLE) {
-            if(sanguineAltarBlockEntity.getItem(0).isEmpty() || sanguineAltarBlockEntity.chainedIngredientToDisplay.isEmpty()) {
+        if (sanguineAltarBlockEntity.state == State.IDLE) {
+            if (sanguineAltarBlockEntity.getItem(0).isEmpty() || sanguineAltarBlockEntity.chainedIngredientToDisplay.isEmpty()) {
                 return;
             }
 
             sanguineAltarBlockEntity.state = State.CONVERTING;
             level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), Sounds.SANGUINE_ALTAR_CONVERSION.get(), SoundSource.BLOCKS, 0.5F, 1, false);
-        } else if(sanguineAltarBlockEntity.state == State.CONVERTING) {
-                if (sanguineAltarBlockEntity.conversionProgressTicks >= CONVERSION_TICKS) {
-                    if(!level.isClientSide) {
-                        // Server side, finish conversion and send packet
-                        if (sanguineAltarBlockEntity.healthDrained >= HEALTH_DRAIN_REQUIRED_FOR_CONVERSION) {
-                            changeState(level, pos, sanguineAltarBlockEntity, State.CONVERTED, true);
-                        } else {
-                            changeState(level, pos, sanguineAltarBlockEntity, State.FAILED, true);
-                        }
-                    }
-                } else {
-                    if (sanguineAltarBlockEntity.conversionProgressTicks % TICKS_PER_HEALTH_DRAIN == 0) {
-                        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos).inflate(HEALTH_DRAIN_RADIUS, HEALTH_DRAIN_RADIUS, HEALTH_DRAIN_RADIUS));
-
-                        Vec3 blockPos = new Vec3(pos.getX(), pos.getY(), pos.getZ()).add(0.5, 0.5, 0.5);
-                        for (LivingEntity entity : entities) {
-                            if (sanguineAltarBlockEntity.healthDrained < HEALTH_DRAIN_REQUIRED_FOR_CONVERSION) {
-                                // Common side, drain health of entities
-                                // TODO: Custom damage source
-                                if (entity.hurt(DamageSource.GENERIC, HEALTH_DRAIN_AMOUNT)) {
-                                    sanguineAltarBlockEntity.healthDrained += HEALTH_DRAIN_AMOUNT;
-                                    if (entity.isDeadOrDying()) {
-                                        sanguineAltarBlockEntity.didEntityDie = true;
-                                    }
-                                }
-
-                                if(level.isClientSide && sanguineAltarBlockEntity.getHealthDrainProgress() < 1.0f) {
-                                    if(!(entity instanceof LocalPlayer player) || (!player.isInvulnerable() && !player.isCreative() && !player.isSpectator())) {
-                                        // Client side, spawn particles
-                                        Vec3 towardsBlock = blockPos.subtract(entity.position()).normalize();
-                                        // spawn particles
-                                        for (int p = 0; p < level.random.nextInt(5); p++) {
-                                            double velocity = level.random.nextDouble(0.1, 0.25);
-                                            Vec3 vector = towardsBlock.multiply(velocity, velocity, velocity);
-                                            Vec3 center = entity.getBoundingBox().getCenter();
-                                            level.addParticle(Particles.BLOOD_EMITTER.get(), center.x, center.y, center.z, vector.x, vector.y, vector.z);
-                                        }
-                                    }
-                                }
-                            } else if(!level.isClientSide) {
-                                // If we have enough health drained, convert and send packet
-                                // Disabled for now, animation is better without this
-//                                changeState(level, pos, sanguineAltarBlockEntity, State.CONVERTED, true);
-                                break;
-                            }
-                        }
-
-                        if(!level.isClientSide) {
-                            PotionsPlusPacketHandler.CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new SanguineAltarConversionProgressPacket(pos, sanguineAltarBlockEntity.healthDrained));
-                        }
+        } else if (sanguineAltarBlockEntity.state == State.CONVERTING) {
+            if (sanguineAltarBlockEntity.conversionProgressTicks >= CONVERSION_TICKS) {
+                if (!level.isClientSide) {
+                    // Server side, finish conversion and send packet
+                    if (sanguineAltarBlockEntity.healthDrained >= HEALTH_DRAIN_REQUIRED_FOR_CONVERSION) {
+                        changeState(level, pos, sanguineAltarBlockEntity, State.CONVERTED, true);
+                    } else {
+                        changeState(level, pos, sanguineAltarBlockEntity, State.FAILED, true);
                     }
                 }
+            } else {
+                if (sanguineAltarBlockEntity.conversionProgressTicks % TICKS_PER_HEALTH_DRAIN == 0) {
+                    List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos).inflate(HEALTH_DRAIN_RADIUS, HEALTH_DRAIN_RADIUS, HEALTH_DRAIN_RADIUS));
+
+                    Vec3 blockPos = new Vec3(pos.getX(), pos.getY(), pos.getZ()).add(0.5, 0.5, 0.5);
+                    for (LivingEntity entity : entities) {
+                        if (sanguineAltarBlockEntity.healthDrained < HEALTH_DRAIN_REQUIRED_FOR_CONVERSION) {
+                            // Common side, drain health of entities
+                            // TODO: Custom damage source
+                            if (entity.hurt(DamageSource.GENERIC, HEALTH_DRAIN_AMOUNT)) {
+                                sanguineAltarBlockEntity.healthDrained += HEALTH_DRAIN_AMOUNT;
+                                if (entity.isDeadOrDying()) {
+                                    sanguineAltarBlockEntity.didEntityDie = true;
+                                }
+                            }
+
+                            if (level.isClientSide && sanguineAltarBlockEntity.getHealthDrainProgress() < 1.0f) {
+                                if (!(entity instanceof LocalPlayer player) || (!player.isInvulnerable() && !player.isCreative() && !player.isSpectator())) {
+                                    // Client side, spawn particles
+                                    Vec3 towardsBlock = blockPos.subtract(entity.position()).normalize();
+                                    // spawn particles
+                                    for (int p = 0; p < level.random.nextInt(5); p++) {
+                                        double velocity = level.random.nextDouble(0.1, 0.25);
+                                        Vec3 vector = towardsBlock.multiply(velocity, velocity, velocity);
+                                        Vec3 center = entity.getBoundingBox().getCenter();
+                                        level.addParticle(Particles.BLOOD_EMITTER.get(), center.x, center.y, center.z, vector.x, vector.y, vector.z);
+                                    }
+                                }
+                            }
+                        } else if (!level.isClientSide) {
+                            // If we have enough health drained, convert and send packet
+                            // Disabled for now, animation is better without this
+//                                changeState(level, pos, sanguineAltarBlockEntity, State.CONVERTED, true);
+                            break;
+                        }
+                    }
+
+                    if (!level.isClientSide) {
+                        PotionsPlusPacketHandler.CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new SanguineAltarConversionProgressPacket(pos, sanguineAltarBlockEntity.healthDrained));
+                    }
+                }
+            }
 
             sanguineAltarBlockEntity.conversionProgressTicks++;
         }
     }
 
     private static void changeState(Level level, BlockPos pos, SanguineAltarBlockEntity sanguineAltarBlockEntity, State state, boolean clearItems) {
-        if(clearItems) {
+        if (clearItems) {
             sanguineAltarBlockEntity.clearContent();
         }
 
@@ -208,7 +208,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         timeItemPlaced = ((int) ClientTickHandler.total());
 
         PpIngredient input = PpIngredient.of(getItem(0));
-        if(chainedIngredients.containsKey(input)) {
+        if (chainedIngredients.containsKey(input)) {
             chainedIngredientToDisplay = chainedIngredients.get(input).getItemStack();
         } else {
             chainedIngredientToDisplay = ItemStack.EMPTY;
@@ -228,7 +228,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
 
     public static Optional<ItemStack> tryGetUnknownIngredientOfSameTier(Player player, ItemStack itemStack) {
         int tier = PpIngredient.of(itemStack).getIngredientTier();
-        if(Recipes.seededPotionRecipes.allPotionsPlusIngredientsByTier.containsKey(tier)) {
+        if (Recipes.seededPotionRecipes.allPotionsPlusIngredientsByTier.containsKey(tier)) {
             List<PpIngredient> tierIngredients = new ArrayList<>(Recipes.seededPotionRecipes.allPotionsPlusIngredientsByTier.get(tier));
 
             // Get random
@@ -239,7 +239,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
                 tierIngredients.remove(randomIndex);
             } while (!tierIngredients.isEmpty() && SavedData.instance.getData(player).abyssalTroveContainsIngredient(player.level, randomIngredient));
 
-            if(randomIngredient != null) {
+            if (randomIngredient != null) {
                 return Optional.of(randomIngredient.getItemStack());
             }
         }
@@ -251,14 +251,14 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         chainedIngredients.clear();
 
         Random random = new Random(PotionsPlus.worldSeed);
-        for(Set<PpIngredient> ingredients : Recipes.seededPotionRecipes.allPotionsPlusIngredientsByTier.values()) {
+        for (Set<PpIngredient> ingredients : Recipes.seededPotionRecipes.allPotionsPlusIngredientsByTier.values()) {
             List<PpIngredient> tierIngredients = new ArrayList<>(ingredients);
             PpIngredient firstIngredient = null;
             PpIngredient lastIngredient = null;
 
-            while(!tierIngredients.isEmpty()) {
+            while (!tierIngredients.isEmpty()) {
                 PpIngredient nextIngredient = tierIngredients.remove(random.nextInt(tierIngredients.size()));
-                if(lastIngredient != null) {
+                if (lastIngredient != null) {
                     chainedIngredients.put(lastIngredient, nextIngredient);
                 } else {
                     firstIngredient = nextIngredient;
@@ -266,7 +266,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
                 lastIngredient = nextIngredient;
             }
 
-            if(firstIngredient != null) {
+            if (firstIngredient != null) {
                 chainedIngredients.put(lastIngredient, firstIngredient);
             }
         }

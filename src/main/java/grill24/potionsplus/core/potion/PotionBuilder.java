@@ -11,7 +11,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -25,13 +24,14 @@ public class PotionBuilder {
     private Function<int[], MobEffectInstance[]> effectFunction = null;
     private SeededPotionRecipeGenerator potionRecipeGenerator = DEFAULT_POTION_RECIPE_GENERATOR;
 
-    public static final DurationFunction DEFAULT_DURATION_FUNCTION = (int durationLevel) -> (durationLevel+1) * 3600;
-    public static final DurationFunction LONGER_DURATION_FUNCTION = (int durationLevel) -> (durationLevel+1) * 5000;
+    public static final DurationFunction DEFAULT_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 3600;
+    public static final DurationFunction LONGER_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 5000;
 
     private static final TagKey<Item>[] DEFAULT_TIERED_INGREDIENT_TAGS = new TagKey[]{Tags.Items.BASE_TIER_POTION_INGREDIENTS, Tags.Items.TIER_1_POTION_INGREDIENTS, Tags.Items.TIER_2_POTION_INGREDIENTS, Tags.Items.TIER_3_POTION_INGREDIENTS};
     public static final SeededPotionRecipeGenerator DEFAULT_POTION_RECIPE_GENERATOR = new SeededPotionRecipeGenerator().withTieredIngredientTags(DEFAULT_TIERED_INGREDIENT_TAGS);
 
-    public PotionBuilder() {}
+    public PotionBuilder() {
+    }
 
     public PotionBuilder name(String name) {
         this.name = name;
@@ -87,7 +87,7 @@ public class PotionBuilder {
     }
 
     public PotionsAmpDurMatrix build() {
-        if(amplificationLevels < 1 || durationLevels < 1)
+        if (amplificationLevels < 1 || durationLevels < 1)
             throw new IllegalArgumentException("Amplification and duration levels must be at least 1");
         else if (name.isBlank())
             throw new IllegalArgumentException("Name must be set");

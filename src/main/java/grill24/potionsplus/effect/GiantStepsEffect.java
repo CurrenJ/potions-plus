@@ -1,7 +1,7 @@
 package grill24.potionsplus.effect;
 
-import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.Sounds;
+import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;

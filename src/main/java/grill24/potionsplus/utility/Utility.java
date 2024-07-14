@@ -118,14 +118,14 @@ public class Utility {
 
     private static Item sampleItemFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random) {
         Item[] items = new Item[0];
-        if(additionalTags.length != 0) {
+        if (additionalTags.length != 0) {
             items = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).stream().filter(i -> Arrays.stream(additionalTags).anyMatch(new ItemStack(i)::is)).toArray(Item[]::new);
         }
-        if(items.length == 0) {
+        if (items.length == 0) {
             items = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).stream().toArray(Item[]::new);
         }
 
-        if(items.length == 0) {
+        if (items.length == 0) {
             throw new IllegalStateException("No items found in tags matching additional tags" + tagKey.registry().getRegistryName().toString());
         }
 

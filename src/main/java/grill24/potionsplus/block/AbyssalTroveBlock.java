@@ -57,7 +57,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
     public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult p_151974_) {
         // Cache items before interaction
         Optional<AbyssalTroveBlockEntity> blockEntity = level.getBlockEntity(blockPos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
-        if(blockEntity.isEmpty()) {
+        if (blockEntity.isEmpty()) {
             return InteractionResult.FAIL;
         }
         AbyssalTroveBlockEntity abyssalTroveBlockEntity = blockEntity.get();
@@ -100,7 +100,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
         }
 
         if (!blockEntity.get().getItemHandler().getItem(0).isEmpty()) {
-            if(abyssalTroveBlockEntity.rendererData.renderedItemTiers.isEmpty()) {
+            if (abyssalTroveBlockEntity.rendererData.renderedItemTiers.isEmpty()) {
                 abyssalTroveBlockEntity.updateRendererData();
             }
 

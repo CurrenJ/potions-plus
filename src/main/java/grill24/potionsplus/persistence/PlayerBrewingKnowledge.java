@@ -38,7 +38,7 @@ public class PlayerBrewingKnowledge {
     }
 
     public boolean addKnownRecipe(String recipeId) {
-        if(!knownRecipesContains(recipeId)) {
+        if (!knownRecipesContains(recipeId)) {
             knownRecipesSerializableData.add(recipeId);
             knownRecipes.get().add(recipeId);
 

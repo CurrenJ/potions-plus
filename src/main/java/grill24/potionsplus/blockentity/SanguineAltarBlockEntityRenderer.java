@@ -69,15 +69,15 @@ public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<San
         // Get radians of rotation from spinHertz and total ticks (time)
 
         float healthDrain = blockEntity.getHealthDrainProgress();
-        Vector3f[] points = RUtil.distributePointsOnCircle(8, axis, offset, ((float)Math.PI * 2) * ClientTickHandler.total() / 20 * rollHertz, radius, spinDegrees);
+        Vector3f[] points = RUtil.distributePointsOnCircle(8, axis, offset, ((float) Math.PI * 2) * ClientTickHandler.total() / 20 * rollHertz, radius, spinDegrees);
         for (int p = 0; p < points.length; p++) {
-            if((float) p / (float) points.length > healthDrain)
+            if ((float) p / (float) points.length > healthDrain)
                 break;
 
             Vector3f point = points[p];
             // Added 4 runes to the generic icon, so pick a different one for each point.
             ItemStack runeStack = new ItemStack(Items.GENERIC_ICON.get(), 13 + p % 4);
-            RUtil.renderItemWithYaw(blockEntity, runeStack, new Vector3d(point.x(), point.y(), point.z()), 20, 0, p*10, itemScale, matrices, vertexConsumers, light, overlay);
+            RUtil.renderItemWithYaw(blockEntity, runeStack, new Vector3d(point.x(), point.y(), point.z()), 20, 0, p * 10, itemScale, matrices, vertexConsumers, light, overlay);
         }
     }
 

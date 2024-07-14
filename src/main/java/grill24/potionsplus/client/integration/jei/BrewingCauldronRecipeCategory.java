@@ -33,8 +33,9 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     private static final ResourceLocation RECIPE_GUI = new ResourceLocation(ModInfo.MOD_ID, "textures/gui/brewing_cauldron_recipe.png");
 
     private static final Map<Integer, Point[]> INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT = new HashMap<>();
+
     static {
-        for(int i = 0; i < BrewingCauldronBlockEntity.CONTAINER_SIZE; i++) {
+        for (int i = 0; i < BrewingCauldronBlockEntity.CONTAINER_SIZE; i++) {
             INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT.put(i, Utility.getPointsOnACircle(i, 20, 38 - 8, 31 - 8));
         }
     }
@@ -91,16 +92,15 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     public void draw(BrewingCauldronRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
         int mainColor = 0xFF80FF20;
         String text = "";
-        if(recipe.isAmpUpgrade()) {
+        if (recipe.isAmpUpgrade()) {
             text = new TranslatableComponent("jei.potionsplus.amp_upgrade").getString();
             mainColor = 0xFFfe70e2;
-        }
-        else if(recipe.isDurationUpgrade()) {
+        } else if (recipe.isDurationUpgrade()) {
             text = new TranslatableComponent("jei.potionsplus.dur_upgrade").getString();
             mainColor = 0xFF5bb6ef;
         }
 
-        if(!text.isBlank()) {
+        if (!text.isBlank()) {
             Minecraft minecraft = Minecraft.getInstance();
 
             // ARGB

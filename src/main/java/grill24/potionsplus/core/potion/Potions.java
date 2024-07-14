@@ -3,7 +3,6 @@ package grill24.potionsplus.core.potion;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

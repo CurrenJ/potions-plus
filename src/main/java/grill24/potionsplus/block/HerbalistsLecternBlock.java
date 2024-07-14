@@ -11,7 +11,6 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -78,7 +77,7 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult p_151974_) {
         // Cache items before interaction
         Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
-        if(blockEntity.isEmpty()) {
+        if (blockEntity.isEmpty()) {
             return InteractionResult.FAIL;
         }
         HerbalistsLecternBlockEntity herbalistsLecternBlockEntity = blockEntity.get();

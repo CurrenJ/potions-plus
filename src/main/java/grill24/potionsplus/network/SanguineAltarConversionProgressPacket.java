@@ -1,15 +1,10 @@
 package grill24.potionsplus.network;
 
-import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
 import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.Sounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 
 public record SanguineAltarConversionProgressPacket(BlockPos pos, int healthDrained) implements PotionsPlusPacket {
     public static final ResourceLocation ID = new ResourceLocation("potionsplus:sanguine_altar_conversion_progress");

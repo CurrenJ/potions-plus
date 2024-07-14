@@ -5,7 +5,6 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.SeededPotionRecipes;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeSerializer;
-import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.client.Minecraft;
@@ -15,7 +14,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.crafting.*;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -77,7 +75,7 @@ public class Recipes {
 
                     // Determine the "tier", as defined by potions plus, of this potion recipe from a vanilla brewing stand recipe
                     int tier = -1;
-                    if(!potion.getEffects().isEmpty()) {
+                    if (!potion.getEffects().isEmpty()) {
                         if (ingredient.is(Items.GLOWSTONE_DUST) || ingredient.is(Items.REDSTONE)) {
                             // Vanilla potions only have one duration upgrade, so any potion recipe with a redstone or glowstone ingredient is tier 1 (II) recipe
                             tier = 1;

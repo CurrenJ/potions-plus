@@ -145,9 +145,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
                             // Try add new recipe knowledge to saved data
                             // If the recipe was not already known, schedule a JEI update and play a sound
                             boolean isNewRecipe = SavedData.instance.getData(playerLastInteractedUuid).addKnownRecipe(recipe.getId().toString());
-                            if(isNewRecipe) {
+                            if (isNewRecipe) {
                                 Player player = level.getPlayerByUUID(playerLastInteractedUuid);
-                                if(player != null) {
+                                if (player != null) {
                                     TranslatableComponent text = new TranslatableComponent("chat.potionsplus.brewing_cauldron_recipe_unlocked", result.getHoverName());
                                     player.displayClientMessage(text, true);
                                     level.playSound(null, worldPosition, Sounds.RECIPE_UNLOCKED.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
