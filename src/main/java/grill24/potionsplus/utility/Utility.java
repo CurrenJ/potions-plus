@@ -16,15 +16,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -114,30 +111,6 @@ public class Utility {
 
     public static float lerp(float a, float b, float t) {
         return a + (b - a) * t;
-    }
-
-    private static Item sampleItemFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random) {
-        Item[] items = new Item[0];
-        if (additionalTags.length != 0) {
-            items = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).stream().filter(i -> Arrays.stream(additionalTags).anyMatch(new ItemStack(i)::is)).toArray(Item[]::new);
-        }
-        if (items.length == 0) {
-            items = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).stream().toArray(Item[]::new);
-        }
-
-        if (items.length == 0) {
-            throw new IllegalStateException("No items found in tags matching additional tags" + tagKey.registry().getRegistryName().toString());
-        }
-
-        return items[random.nextInt(items.length)];
-    }
-
-    public static Ingredient[] sampleIngredientsFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random, int count) {
-        Ingredient[] items = new Ingredient[count];
-        for (int i = 0; i < count; i++) {
-            items[i] = Ingredient.of(sampleItemFromTag(tagKey, additionalTags, random));
-        }
-        return items;
     }
 
     public static boolean isItemInLinkedAbyssalTrove(Player player, ItemStack stack) {

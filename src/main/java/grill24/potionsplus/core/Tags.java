@@ -25,6 +25,9 @@ public class Tags {
         public static final TagKey<Item> TIER_2_POTION_INGREDIENTS = tag("tier_2_potion_ingredients");
         public static final TagKey<Item> TIER_3_POTION_INGREDIENTS = tag("tier_3_potion_ingredients");
 
+        public static final TagKey<Item> GEODE_GRACE_BASE_TIER_INGREDIENTS = tag("tier_0_geode_grace_ingredients");
+        public static final TagKey<Item> GEODE_GRACE_TIER_1_INGREDIENTS = tag("tier_1_geode_grace_ingredients");
+
         private static TagKey<Item> tag(String id) {
             return ItemTags.create(new ResourceLocation(ModInfo.MOD_ID, id));
         }

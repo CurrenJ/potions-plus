@@ -99,6 +99,23 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.DRAGON_HEAD,
                 Items.CREEPER_HEAD
         );
+
+        tag(Tags.Items.GEODE_GRACE_BASE_TIER_INGREDIENTS).addTag(Tags.Items.BASE_TIER_POTION_INGREDIENTS).add(
+                Items.NETHER_GOLD_ORE,
+                Items.GOLD_ORE,
+                Items.IRON_ORE,
+                Items.COAL_ORE,
+                Items.LAPIS_ORE,
+                Items.NETHER_QUARTZ_ORE,
+                Items.COPPER_ORE
+        );
+
+        tag(Tags.Items.GEODE_GRACE_TIER_1_INGREDIENTS).addTag(Tags.Items.TIER_1_POTION_INGREDIENTS).add(
+                Items.LAPIS_LAZULI,
+                Items.REDSTONE_ORE,
+                Items.NETHER_GOLD_ORE,
+                Items.COPPER_ORE
+        );
     }
 
     @Override

@@ -86,6 +86,12 @@ public class PotionBuilder {
         return this;
     }
 
+    @SafeVarargs
+    public final PotionBuilder tieredIngredientTags(TagKey<Item>... tieredIngredientTags) {
+        this.potionRecipeGenerator = new SeededPotionRecipeGenerator(DEFAULT_POTION_RECIPE_GENERATOR).withTieredIngredientTags(tieredIngredientTags);
+        return this;
+    }
+
     public PotionsAmpDurMatrix build() {
         if (amplificationLevels < 1 || durationLevels < 1)
             throw new IllegalArgumentException("Amplification and duration levels must be at least 1");

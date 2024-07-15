@@ -1,5 +1,6 @@
 package grill24.potionsplus.core.potion;
 
+import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.alchemy.Potion;
@@ -22,6 +23,7 @@ public class Potions {
             .maxAmp(1)
             .maxDur(2)
             .effects(MobEffects.GEODE_GRACE::get)
+            .tieredIngredientTags(Tags.Items.GEODE_GRACE_BASE_TIER_INGREDIENTS, Tags.Items.GEODE_GRACE_TIER_1_INGREDIENTS)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
     public static final PotionBuilder.PotionsAmpDurMatrix FALL_OF_THE_VOID_POTIONS = new PotionBuilder()

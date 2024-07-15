@@ -6,9 +6,13 @@ import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -42,8 +46,8 @@ public class PotionUpgradeIngredients {
     private final Ingredient[][] upgradeAmpUpIngredients;
     private final Ingredient[][] upgradeDurUpIngredients;
     private Ingredient[] basePotionIngredients;
-    private MobEffect effect;
-    private Potion basePotion;
+    private final MobEffect effect;
+    private final Potion basePotion;
 
     /*
      * @param basePotion The base potion to upgrade
@@ -73,7 +77,7 @@ public class PotionUpgradeIngredients {
         }
     }
 
-    private void sampleUniqueIngredientsFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random, int count, Set<PpIngredient> allPreviouslyGeneratedIngredients, Consumer<Ingredient[]> setter) {
+    private static void sampleUniqueIngredientsFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random, int count, Set<PpIngredient> allPreviouslyGeneratedIngredients, Consumer<Ingredient[]> setter) {
         for (int i = 0; i < count; i++) {
             Ingredient[] ingredients;
             PpMultiIngredient items;
@@ -81,7 +85,7 @@ public class PotionUpgradeIngredients {
             int iterations = 0;
             final int MAX_ITERATIONS = 100;
             do {
-                ingredients = Utility.sampleIngredientsFromTag(tagKey, additionalTags, random, count);
+                ingredients = sampleIngredientsFromTag(tagKey, additionalTags, random, count);
                 items = PpMultiIngredient.of(ingredients);
 
                 iterations++;
@@ -99,6 +103,30 @@ public class PotionUpgradeIngredients {
                 throw new IllegalStateException("Could not generate unique ingredients for recipe from tag " + tagKey.location() + ". Please check the tag contents.");
             }
         }
+    }
+
+    public static Ingredient[] sampleIngredientsFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random, int count) {
+        Ingredient[] items = new Ingredient[count];
+        for (int i = 0; i < count; i++) {
+            items[i] = Ingredient.of(sampleItemFromTag(tagKey, additionalTags, random));
+        }
+        return items;
+    }
+
+    private static Item sampleItemFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random) {
+        Item[] items = new Item[0];
+        if (additionalTags.length != 0) {
+            items = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).stream().filter(i -> Arrays.stream(additionalTags).anyMatch(new ItemStack(i)::is)).toArray(Item[]::new);
+        }
+        if (items.length == 0) {
+            items = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).stream().toArray(Item[]::new);
+        }
+
+        if (items.length == 0) {
+            throw new IllegalStateException("No items found in tags matching additional tags" + tagKey.registry().getRegistryName().toString());
+        }
+
+        return items[random.nextInt(items.length)];
     }
 
     public void setUpgradeAmpUpIngredients(int a, Ingredient[] ingredients) {

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#potionsplus:tier_1_potion_ingredients",
+    "minecraft:lapis_lazuli",
+    "minecraft:redstone_ore",
+    "minecraft:nether_gold_ore",
+    "minecraft:copper_ore"
+  ]
+}
