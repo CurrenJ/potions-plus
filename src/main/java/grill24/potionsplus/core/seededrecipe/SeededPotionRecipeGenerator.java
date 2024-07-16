@@ -122,8 +122,7 @@ public class SeededPotionRecipeGenerator {
                     } else {
                         allRecipes.addAll(PUtil.brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, durTierBelow, toCraft, d, ingredients));
                     }
-                }
-                else if (a == 0 && d == 0) {
+                } else if (a == 0 && d == 0) {
                     Ingredient[] ingredients = potionUpgradeIngredients.getBasePotionIngredients();
                     if (ingredients == null) {
                         PotionsPlus.LOGGER.error("[BCR] Ingredients for base potion are null: " + toCraft.getRegistryName());

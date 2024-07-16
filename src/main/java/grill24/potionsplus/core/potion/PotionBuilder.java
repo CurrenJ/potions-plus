@@ -36,7 +36,8 @@ public class PotionBuilder {
             SeededIngredientsLootTables.TIER_3_INGREDIENTS
     );
 
-    public PotionBuilder() {}
+    public PotionBuilder() {
+    }
 
     public PotionBuilder name(String name) {
         this.name = name;
