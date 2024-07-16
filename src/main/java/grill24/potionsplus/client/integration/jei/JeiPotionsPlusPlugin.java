@@ -1,5 +1,6 @@
 package grill24.potionsplus.client.integration.jei;
 
+import grill24.potionsplus.core.ClientCommands;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
@@ -81,7 +82,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         tryUpdateJeiHiddenBrewingCauldronRecipes();
     }
 
-    public static void tryUpdateJeiHiddenBrewingCauldronRecipes() {
+    private static void tryUpdateJeiHiddenBrewingCauldronRecipes() {
         Level level = Minecraft.getInstance().level;
         Player player = Minecraft.getInstance().player;
         if (JEI_RUNTIME != null && level != null && level.isClientSide && player != null) {
@@ -90,7 +91,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
 
             // Filter recipes to those that match known recipes and unhide them
             Stream<BrewingCauldronRecipe> stream = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()).stream()
-                    .filter(recipe -> SavedData.instance.getData(player).knownRecipesContains(recipe.getId().toString()));
+                    .filter(recipe -> SavedData.instance.getData(player).knownRecipesContains(recipe.getId().toString()) || ClientCommands.shouldRevealAllRecipes);
 
             stream.forEach(recipe -> {
                 JEI_RUNTIME.getRecipeManager().unhideRecipe(recipe, BrewingCauldronRecipeCategory.BREWING_CAULDRON_CATEGORY);
