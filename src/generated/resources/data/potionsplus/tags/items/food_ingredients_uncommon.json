@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:beetroot",
+    "minecraft:cooked_cod",
+    "minecraft:cooked_salmon",
+    "minecraft:golden_apple",
+    "minecraft:golden_carrot",
+    "minecraft:honeycomb",
+    "minecraft:milk_bucket",
+    "minecraft:spider_eye",
+    "minecraft:suspicious_stew",
+    "minecraft:tropical_fish",
+    "minecraft:honey_bottle",
+    "minecraft:cookie"
+  ]
+}

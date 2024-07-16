@@ -28,6 +28,10 @@ public class Tags {
         public static final TagKey<Item> GEODE_GRACE_BASE_TIER_INGREDIENTS = tag("tier_0_geode_grace_ingredients");
         public static final TagKey<Item> GEODE_GRACE_TIER_1_INGREDIENTS = tag("tier_1_geode_grace_ingredients");
 
+        public static final TagKey<Item> FOOD_INGREDIENTS_COMMON = tag("food_ingredients_common");
+        public static final TagKey<Item> FOOD_INGREDIENTS_UNCOMMON = tag("food_ingredients_uncommon");
+        public static final TagKey<Item> FOOD_INGREDIENTS_RARE = tag("food_ingredients_rare");
+
         private static TagKey<Item> tag(String id) {
             return ItemTags.create(new ResourceLocation(ModInfo.MOD_ID, id));
         }

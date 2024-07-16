@@ -20,15 +20,16 @@ public class SeededPotionRecipeGenerator {
     private List<LootPoolSupplier> tieredIngredientPools;
 
     public SeededPotionRecipeGenerator(SeededPotionRecipeGenerator seededPotionRecipeGenerator) {
-        withTieredIngredientPools(seededPotionRecipeGenerator.tieredIngredientPools);
+        this.tieredIngredientPools = new ArrayList<>(seededPotionRecipeGenerator.tieredIngredientPools);
     }
 
     public SeededPotionRecipeGenerator() {
         this.tieredIngredientPools = new ArrayList<>();
     }
 
-    public SeededPotionRecipeGenerator withTieredIngredientPools(List<LootPoolSupplier> tieredIngredientPools) {
-        this.tieredIngredientPools = new ArrayList<>(tieredIngredientPools);
+    public SeededPotionRecipeGenerator withTieredIngredientPools(LootPoolSupplier... tieredIngredientPools) {
+        this.tieredIngredientPools.clear();
+        Collections.addAll(this.tieredIngredientPools, tieredIngredientPools);
         return this;
     }
 

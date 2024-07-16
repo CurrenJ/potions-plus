@@ -133,6 +133,10 @@ public class Potions {
             .maxAmp(3)
             .maxDur(2)
             .effects(PotionBuilder.LONGER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.SATURATION)
+            .clearAllTierPools()
+            .addTagToTierPool(0, SeededIngredientsLootTables.WeightingMode.DISTRIBUTED, 1, grill24.potionsplus.core.Tags.Items.FOOD_INGREDIENTS_COMMON)
+            .addTagToTierPool(1, SeededIngredientsLootTables.WeightingMode.DISTRIBUTED, 1, grill24.potionsplus.core.Tags.Items.FOOD_INGREDIENTS_UNCOMMON)
+            .addTagToTierPool(2, SeededIngredientsLootTables.WeightingMode.DISTRIBUTED, 1, grill24.potionsplus.core.Tags.Items.FOOD_INGREDIENTS_RARE)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
     @SubscribeEvent

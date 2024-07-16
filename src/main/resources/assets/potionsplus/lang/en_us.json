@@ -113,14 +113,21 @@
   "item.minecraft.splash_potion.effect.crop_collector": "Splash Potion of Crop Collector",
   "item.minecraft.lingering_potion.effect.crop_collector": "Lingering Potion of Crop Collector",
   "item.minecraft.tipped_arrow.effect.crop_collector": "Arrow of Crop Collector",
-  "jei.potionsplus.crop_collector.description": "Afflicted mobs will automatically nearby crops. Higher levels increase the range and speed of collection.",
+  "jei.potionsplus.crop_collector.description": "Afflicted mobs automatically nearby crops. Higher levels increase the range and speed of collection.",
 
   "effect.potionsplus.botanical_boost": "Botanical Boost",
   "item.minecraft.potion.effect.botanical_boost": "Potion of Botanical Boost",
   "item.minecraft.splash_potion.effect.botanical_boost": "Splash Potion of Botanical Boost",
   "item.minecraft.lingering_potion.effect.botanical_boost": "Lingering Potion of Botanical Boost",
   "item.minecraft.tipped_arrow.effect.botanical_boost": "Arrow of Botanical Boost",
-  "jei.potionsplus.botanical_boost.description": "Afflicted mobs will automatically grow nearby crops. Higher levels increase the range and speed of growth.",
+  "jei.potionsplus.botanical_boost.description": "Afflicted mobs automatically grow nearby crops. Higher levels increase the range and speed of growth.",
+
+  "effect.potionsplus.saturation": "Saturation",
+  "item.minecraft.potion.effect.saturation": "Potion of Saturation",
+  "item.minecraft.splash_potion.effect.saturation": "Splash Potion of Saturation",
+  "item.minecraft.lingering_potion.effect.saturation": "Lingering Potion of Saturation",
+  "item.minecraft.tipped_arrow.effect.saturation": "Arrow of Saturation",
+  "jei.potionsplus.saturation.description": "Afflicted mobs receives saturation.",
 
   "chat.potionsplus.acquired_ingredient_knowledge_1": "You tingle with alchemical knowledge of the %s you possess...",
   "chat.potionsplus.acquired_ingredient_knowledge_2": "The %s you possess reminds you of something wet and warm...",

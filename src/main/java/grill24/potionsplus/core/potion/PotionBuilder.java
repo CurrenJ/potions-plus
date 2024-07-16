@@ -10,6 +10,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
@@ -28,13 +29,12 @@ public class PotionBuilder {
     public static final DurationFunction DEFAULT_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 3600;
     public static final DurationFunction LONGER_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 5000;
 
-    private static final List<LootPoolSupplier> DEFAULT_TIERED_INGREDIENT_TAGS = List.of(
+    public static final SeededPotionRecipeGenerator DEFAULT_POTION_RECIPE_GENERATOR = new SeededPotionRecipeGenerator().withTieredIngredientPools(
             SeededIngredientsLootTables.TIER_0_INGREDIENTS,
             SeededIngredientsLootTables.TIER_1_INGREDIENTS,
             SeededIngredientsLootTables.TIER_2_INGREDIENTS,
             SeededIngredientsLootTables.TIER_3_INGREDIENTS
     );
-    public static final SeededPotionRecipeGenerator DEFAULT_POTION_RECIPE_GENERATOR = new SeededPotionRecipeGenerator().withTieredIngredientPools(DEFAULT_TIERED_INGREDIENT_TAGS);
 
     public PotionBuilder() {}
 
@@ -85,12 +85,18 @@ public class PotionBuilder {
         return this;
     }
 
-    public PotionBuilder addTagToTierPool(int tier, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, TagKey<Item>... tags) {
+    public PotionBuilder withTieredIngredientPools(LootPoolSupplier... tieredIngredientPools) {
+        this.potionRecipeGenerator.withTieredIngredientPools(tieredIngredientPools);
+        return this;
+    }
+
+    @SafeVarargs
+    public final PotionBuilder addTagToTierPool(int tier, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, TagKey<Item>... tags) {
         this.potionRecipeGenerator.addItemsInTagsToTierPool(tier, weightingMode, weight, tags);
         return this;
     }
 
-    public PotionBuilder addItemsToTierPool(int tier, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, Item... items) {
+    public PotionBuilder addItemsToTierPool(int tier, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, ItemLike... items) {
         this.potionRecipeGenerator.addItemsToTierPool(tier, weightingMode, weight, items);
         return this;
     }

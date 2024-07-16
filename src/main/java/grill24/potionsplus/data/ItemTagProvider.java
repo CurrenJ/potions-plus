@@ -116,6 +116,52 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.NETHER_GOLD_ORE,
                 Items.COPPER_ORE
         );
+
+        tag(Tags.Items.FOOD_INGREDIENTS_COMMON).add(
+                Items.APPLE,
+                Items.BAKED_POTATO,
+                Items.BREAD,
+                Items.CARROT,
+                Items.COOKED_BEEF,
+                Items.COOKED_CHICKEN,
+                Items.COOKED_COD,
+                Items.COOKED_MUTTON,
+                Items.COOKED_PORKCHOP,
+                Items.COOKED_RABBIT,
+                Items.COOKED_SALMON,
+                Items.MELON_SLICE,
+                Items.MUSHROOM_STEW,
+                Items.PUMPKIN_PIE,
+                Items.RABBIT_STEW,
+                Items.SWEET_BERRIES,
+                Items.BEETROOT_SOUP,
+                Items.DRIED_KELP
+        );
+
+        tag(Tags.Items.FOOD_INGREDIENTS_UNCOMMON).add(
+                Items.BEETROOT,
+                Items.COOKED_COD,
+                Items.COOKED_SALMON,
+                Items.GOLDEN_APPLE,
+                Items.GOLDEN_CARROT,
+                Items.HONEYCOMB,
+                Items.MILK_BUCKET,
+                Items.SPIDER_EYE,
+                Items.SUSPICIOUS_STEW,
+                Items.TROPICAL_FISH,
+                Items.HONEY_BOTTLE,
+                Items.COOKIE
+        );
+
+        tag(Tags.Items.FOOD_INGREDIENTS_RARE).add(
+                Items.GLOW_BERRIES,
+                Items.PUFFERFISH,
+                Items.TROPICAL_FISH,
+                Items.GOLDEN_APPLE,
+                Items.GOLDEN_CARROT,
+                Items.CAKE,
+                Items.POPPED_CHORUS_FRUIT
+        );
     }
 
     @Override
