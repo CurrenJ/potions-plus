@@ -4,14 +4,17 @@ import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
+import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 
 import java.util.*;
 
@@ -30,11 +33,12 @@ public class SeededPotionRecipes {
     public static TagKey<Item>[] POTION_INGREDIENT_TAGS = new TagKey[]{Tags.Items.BASE_TIER_POTION_INGREDIENTS, Tags.Items.TIER_1_POTION_INGREDIENTS, Tags.Items.TIER_2_POTION_INGREDIENTS, Tags.Items.TIER_3_POTION_INGREDIENTS};
 
 
-    public SeededPotionRecipes(long seed) {
-        this.random = new Random(seed);
+    public SeededPotionRecipes(MinecraftServer server) {
+        this.random = new Random(server.getWorldData().worldGenSettings().seed());
         this.recipes = new ArrayList<>();
         this.allRecipeInputs = new HashSet<>();
 
+        SeededIngredientsLootTables.initializeLootTables(server.overworld(), random);
         generateRecipes();
     }
 

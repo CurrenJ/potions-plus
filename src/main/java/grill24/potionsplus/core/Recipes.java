@@ -10,6 +10,8 @@ import grill24.potionsplus.utility.PUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,21 +39,21 @@ public class Recipes {
 
     public static SeededPotionRecipes seededPotionRecipes;
 
-    public static Map<ResourceLocation, Recipe<?>> getAdditionalRuntimeRecipes(RecipeType<?> recipeType) {
+    public static Map<ResourceLocation, Recipe<?>> getAdditionalRuntimeRecipes(MinecraftServer server, RecipeType<?> recipeType) {
         if (recipeType == BREWING_CAULDRON_RECIPE.get()) {
-            return getRuntimeBrewingRecipes();
+            return getRuntimeBrewingRecipes(server);
         }
         return new HashMap<>();
     }
 
-    private static Map<ResourceLocation, Recipe<?>> getRuntimeBrewingRecipes() {
+    private static Map<ResourceLocation, Recipe<?>> getRuntimeBrewingRecipes(MinecraftServer server) {
         Map<ResourceLocation, Recipe<?>> recipes = new HashMap<>();
 
         // Add all possible vanilla brewing recipes
         addVanillaBrewingRecipes(recipes);
 
         // Generate seed-instanced recipes
-        seededPotionRecipes = new SeededPotionRecipes(PotionsPlus.worldSeed);
+        seededPotionRecipes = new SeededPotionRecipes(server);
         addBrewingCauldronRecipes(recipes, seededPotionRecipes.getRecipes());
 
         return recipes;
@@ -104,10 +106,10 @@ public class Recipes {
         recipes.put(recipe.getId(), recipe);
     }
 
-    public static int injectRuntimeRecipes(RecipeType<?> recipeType, RecipeManager recipeManager) {
+    public static int injectRuntimeRecipes(MinecraftServer server, RecipeType<?> recipeType, RecipeManager recipeManager) {
         Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> allMutableRecipes = new HashMap<>(recipeManager.recipes);
 
-        Map<ResourceLocation, Recipe<?>> additionalRecipes = Recipes.getAdditionalRuntimeRecipes(recipeType);
+        Map<ResourceLocation, Recipe<?>> additionalRecipes = Recipes.getAdditionalRuntimeRecipes(server, recipeType);
         Map<ResourceLocation, Recipe<?>> mutableRecipes = new HashMap<>(recipeManager.recipes.get(recipeType));
         mutableRecipes.putAll(additionalRecipes);
 

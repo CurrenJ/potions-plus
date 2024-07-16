@@ -1,24 +1,18 @@
 package grill24.potionsplus.core.seededrecipe;
 
-import grill24.potionsplus.utility.Utility;
-import net.minecraft.tags.TagKey;
+import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.level.storage.loot.LootTable;
 
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
 
-// Generate seed-instanced recipes for a given potion type
-public class PotionUpgradeIngredients {
+public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
     private static final WeightedRandomList<WeightedEntry.Wrapper<Integer>> BASE_POTION_INGREDIENT_COUNT_DISTRIBUTION = WeightedRandomList.create(
             WeightedEntry.wrap(1, 2),
             WeightedEntry.wrap(2, 6),
@@ -43,6 +37,7 @@ public class PotionUpgradeIngredients {
     );
     private static final WeightedRandomList<WeightedEntry.Wrapper<Integer>>[] ingredientCountDistributions = new WeightedRandomList[]{BASE_POTION_INGREDIENT_COUNT_DISTRIBUTION, TIER_1_INGREDIENT_COUNT_DISTRIBUTION, TIER_2_INGREDIENT_COUNT_DISTRIBUTION, TIER_3_INGREDIENT_COUNT_DISTRIBUTION};
 
+
     private final Ingredient[][] upgradeAmpUpIngredients;
     private final Ingredient[][] upgradeDurUpIngredients;
     private Ingredient[] basePotionIngredients;
@@ -58,86 +53,58 @@ public class PotionUpgradeIngredients {
      * @param allBasePotionIngredients A set of all base potion ingredients generated so far. Used to ensure uniqueness.
      * @param allUpgradeIngredients A set of all upgrade ingredients generated so far. Used to ensure uniqueness.
      */
-    public PotionUpgradeIngredients(Potion basePotion, int maxAmp, int maxDur, TagKey<Item>[] tieredIngredientTags, TagKey<Item>[] additionalTags, Random random, Set<PpIngredient> allRecipes) {
+    public PotionUpgradeIngredients(Potion basePotion, int maxAmp, int maxDur, LootTable[] tieredIngredients, Random random, Set<PpIngredient> allRecipes) {
         this.basePotion = basePotion;
         this.effect = basePotion.getEffects().get(0).getEffect();
-        this.upgradeAmpUpIngredients = new Ingredient[tieredIngredientTags.length][];
-        this.upgradeDurUpIngredients = new Ingredient[tieredIngredientTags.length][];
+        this.upgradeAmpUpIngredients = new Ingredient[tieredIngredients.length][];
+        this.upgradeDurUpIngredients = new Ingredient[tieredIngredients.length][];
 
-        for (int t = 0; t < tieredIngredientTags.length; t++) {
+        for (int t = 0; t < tieredIngredients.length; t++) {
             final int tier = t;
             if (t == 0) {
-                sampleUniqueIngredientsFromTag(tieredIngredientTags[tier], additionalTags, random, ingredientCountDistributions[tier].getRandom(random).get().getData(), allRecipes, this::setBasePotionIngredients);
+                sampleUniqueIngredientsFromLootTable(tieredIngredients[tier], ingredientCountDistributions[tier].getRandom(random).get().getData(), allRecipes, this::setBasePotionIngredients);
             } else {
                 if (t < maxAmp)
-                    sampleUniqueIngredientsFromTag(tieredIngredientTags[tier], additionalTags, random, ingredientCountDistributions[tier].getRandom(random).get().getData(), allRecipes, (ingredients) -> setUpgradeAmpUpIngredients(tier - 1, ingredients));
+                    sampleUniqueIngredientsFromLootTable(tieredIngredients[tier], ingredientCountDistributions[tier].getRandom(random).get().getData(), allRecipes, (ingredients) -> setUpgradeAmpUpIngredients(tier - 1, ingredients));
                 if (t < maxDur)
-                    sampleUniqueIngredientsFromTag(tieredIngredientTags[tier], additionalTags, random, ingredientCountDistributions[tier].getRandom(random).get().getData(), allRecipes, (ingredients) -> setUpgradeDurUpIngredients(tier - 1, ingredients));
+                    sampleUniqueIngredientsFromLootTable(tieredIngredients[tier], ingredientCountDistributions[tier].getRandom(random).get().getData(), allRecipes, (ingredients) -> setUpgradeDurUpIngredients(tier - 1, ingredients));
             }
         }
     }
 
-    private static void sampleUniqueIngredientsFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random, int count, Set<PpIngredient> allPreviouslyGeneratedIngredients, Consumer<Ingredient[]> setter) {
-        for (int i = 0; i < count; i++) {
-            Ingredient[] ingredients;
-            PpMultiIngredient items;
+    private static void sampleUniqueIngredientsFromLootTable(LootTable lootTable, int count, Set<PpIngredient> allPreviouslyGeneratedIngredients, Consumer<Ingredient[]> consumer) {
+        Ingredient[] ingredients;
+        PpMultiIngredient ppMultiIngredient;
 
-            int iterations = 0;
-            final int MAX_ITERATIONS = 100;
-            do {
-                ingredients = sampleIngredientsFromTag(tagKey, additionalTags, random, count);
-                items = PpMultiIngredient.of(ingredients);
+        int iterations = 0;
+        final int MAX_ITERATIONS = 100;
+        do {
+            ingredients = SeededIngredientsLootTables.sampleIngredients(lootTable, count);
+            ppMultiIngredient = PpMultiIngredient.of(ingredients);
 
-                iterations++;
-                if (iterations > 1) {
-                    System.out.println("[BCR] Regenerating ingredients for recipe from " + tagKey.location() + " due to collision: " + items);
-                }
-            } while (allPreviouslyGeneratedIngredients.contains(items) && iterations < MAX_ITERATIONS);
-
-            setter.accept(ingredients);
-            allPreviouslyGeneratedIngredients.add(items);
-            // We need a List<Item> to check for uniqueness. We can't use Ingredient[] because it doesn't override equals/hashCode. Would like to use a mixin to add these methods, but don't want to have side-effects elsewhere in the game code.
-            // Maybe make an encapsulating class that has an Ingredient[] and overrides equals/hashCode?
-
-            if (iterations >= MAX_ITERATIONS) {
-                throw new IllegalStateException("Could not generate unique ingredients for recipe from tag " + tagKey.location() + ". Please check the tag contents.");
+            iterations++;
+            if (iterations > 1) {
+                System.out.println("[BCR] Regenerating ingredients for recipe due to collision: " + ppMultiIngredient);
             }
+        } while (allPreviouslyGeneratedIngredients.contains(ppMultiIngredient) && iterations < MAX_ITERATIONS);
+
+        if (iterations >= MAX_ITERATIONS) {
+            throw new IllegalStateException("Could not generate unique ingredients for recipe from tag " + lootTable.getLootTableId() + ". Please check the tag contents.");
         }
+
+        consumer.accept(ingredients);
+        allPreviouslyGeneratedIngredients.add(ppMultiIngredient);
     }
 
-    public static Ingredient[] sampleIngredientsFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random, int count) {
-        Ingredient[] items = new Ingredient[count];
-        for (int i = 0; i < count; i++) {
-            items[i] = Ingredient.of(sampleItemFromTag(tagKey, additionalTags, random));
-        }
-        return items;
-    }
-
-    private static Item sampleItemFromTag(TagKey<Item> tagKey, TagKey<Item>[] additionalTags, Random random) {
-        Item[] items = new Item[0];
-        if (additionalTags.length != 0) {
-            items = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).stream().filter(i -> Arrays.stream(additionalTags).anyMatch(new ItemStack(i)::is)).toArray(Item[]::new);
-        }
-        if (items.length == 0) {
-            items = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tagKey).stream().toArray(Item[]::new);
-        }
-
-        if (items.length == 0) {
-            throw new IllegalStateException("No items found in tags matching additional tags" + tagKey.registry().getRegistryName().toString());
-        }
-
-        return items[random.nextInt(items.length)];
-    }
-
-    public void setUpgradeAmpUpIngredients(int a, Ingredient[] ingredients) {
+    private void setUpgradeAmpUpIngredients(int a, Ingredient[] ingredients) {
         this.upgradeAmpUpIngredients[a] = ingredients;
     }
 
-    public void setUpgradeDurUpIngredients(int d, Ingredient[] ingredients) {
+    private void setUpgradeDurUpIngredients(int d, Ingredient[] ingredients) {
         this.upgradeDurUpIngredients[d] = ingredients;
     }
 
-    public void setBasePotionIngredients(Ingredient[] ingredients) {
+    private void setBasePotionIngredients(Ingredient[] ingredients) {
         this.basePotionIngredients = ingredients;
     }
 

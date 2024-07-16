@@ -1,8 +1,9 @@
 package grill24.potionsplus.core.potion;
 
-import grill24.potionsplus.core.Tags;
+import grill24.potionsplus.core.seededrecipe.LootPoolSupplier;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.SeededPotionRecipeGenerator;
+import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
@@ -27,11 +28,15 @@ public class PotionBuilder {
     public static final DurationFunction DEFAULT_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 3600;
     public static final DurationFunction LONGER_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 5000;
 
-    private static final TagKey<Item>[] DEFAULT_TIERED_INGREDIENT_TAGS = new TagKey[]{Tags.Items.BASE_TIER_POTION_INGREDIENTS, Tags.Items.TIER_1_POTION_INGREDIENTS, Tags.Items.TIER_2_POTION_INGREDIENTS, Tags.Items.TIER_3_POTION_INGREDIENTS};
-    public static final SeededPotionRecipeGenerator DEFAULT_POTION_RECIPE_GENERATOR = new SeededPotionRecipeGenerator().withTieredIngredientTags(DEFAULT_TIERED_INGREDIENT_TAGS);
+    private static final List<LootPoolSupplier> DEFAULT_TIERED_INGREDIENT_TAGS = List.of(
+            SeededIngredientsLootTables.TIER_0_INGREDIENTS,
+            SeededIngredientsLootTables.TIER_1_INGREDIENTS,
+            SeededIngredientsLootTables.TIER_2_INGREDIENTS,
+            SeededIngredientsLootTables.TIER_3_INGREDIENTS
+    );
+    public static final SeededPotionRecipeGenerator DEFAULT_POTION_RECIPE_GENERATOR = new SeededPotionRecipeGenerator().withTieredIngredientPools(DEFAULT_TIERED_INGREDIENT_TAGS);
 
-    public PotionBuilder() {
-    }
+    public PotionBuilder() {}
 
     public PotionBuilder name(String name) {
         this.name = name;
@@ -80,15 +85,23 @@ public class PotionBuilder {
         return this;
     }
 
-    @SafeVarargs
-    public final PotionBuilder additionalTags(TagKey<Item>... additionalTags) {
-        this.potionRecipeGenerator = new SeededPotionRecipeGenerator(DEFAULT_POTION_RECIPE_GENERATOR).withAdditionalTags(additionalTags);
+    public PotionBuilder addTagToTierPool(int tier, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, TagKey<Item>... tags) {
+        this.potionRecipeGenerator.addItemsInTagsToTierPool(tier, weightingMode, weight, tags);
         return this;
     }
 
-    @SafeVarargs
-    public final PotionBuilder tieredIngredientTags(TagKey<Item>... tieredIngredientTags) {
-        this.potionRecipeGenerator = new SeededPotionRecipeGenerator(DEFAULT_POTION_RECIPE_GENERATOR).withTieredIngredientTags(tieredIngredientTags);
+    public PotionBuilder addItemsToTierPool(int tier, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, Item... items) {
+        this.potionRecipeGenerator.addItemsToTierPool(tier, weightingMode, weight, items);
+        return this;
+    }
+
+    public PotionBuilder clearTierPool(int tier) {
+        this.potionRecipeGenerator.clearTierPool(tier);
+        return this;
+    }
+
+    public PotionBuilder clearAllTierPools() {
+        this.potionRecipeGenerator.clearAllTierPools();
         return this;
     }
 

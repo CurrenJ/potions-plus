@@ -1,9 +1,10 @@
 package grill24.potionsplus.core.potion;
 
-import grill24.potionsplus.core.Tags;
+import grill24.potionsplus.core.seededrecipe.SeededPotionRecipeGenerator;
+import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.utility.ModInfo;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -18,12 +19,15 @@ public class Potions {
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, ModInfo.MOD_ID);
     public static final List<PotionBuilder.PotionsAmpDurMatrix> ALL_POTION_AMPLIFICATION_DURATION_MATRICES = new ArrayList<>();
 
+
+    public static final SeededPotionRecipeGenerator GEODE_GRACE_RECIPE_GENERATOR = new SeededPotionRecipeGenerator()
+            .addItemsInTagsToTierPool(0, SeededIngredientsLootTables.WeightingMode.DISTRIBUTED, 1, Tags.Items.ORES);
     public static final PotionBuilder.PotionsAmpDurMatrix GEODE_GRACE_POTION = new PotionBuilder()
             .name("geode_grace")
             .maxAmp(1)
             .maxDur(2)
             .effects(MobEffects.GEODE_GRACE::get)
-            .tieredIngredientTags(Tags.Items.GEODE_GRACE_BASE_TIER_INGREDIENTS, Tags.Items.GEODE_GRACE_TIER_1_INGREDIENTS)
+            .recipeGenerator(GEODE_GRACE_RECIPE_GENERATOR)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
     public static final PotionBuilder.PotionsAmpDurMatrix FALL_OF_THE_VOID_POTIONS = new PotionBuilder()
@@ -31,7 +35,6 @@ public class Potions {
             .maxAmp(1)
             .maxDur(2)
             .effects(MobEffects.FALL_OF_THE_VOID::get)
-            .additionalTags(ItemTags.FLOWERS)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
     public static final PotionBuilder.PotionsAmpDurMatrix HASTE_POTIONS = new PotionBuilder()
