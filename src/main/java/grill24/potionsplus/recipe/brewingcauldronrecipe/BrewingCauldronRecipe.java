@@ -1,7 +1,9 @@
 package grill24.potionsplus.recipe.brewingcauldronrecipe;
 
+import com.google.gson.JsonObject;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.data.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.NonNullList;
@@ -191,5 +193,18 @@ public class BrewingCauldronRecipe implements Recipe<Container> {
         recipeString.append(" => ").append(PUtil.getNameOrVerbosePotionName(result));
 
         return recipeString.toString();
+    }
+
+    public JsonObject toJson() {
+        return BrewingCauldronRecipeBuilder
+                .brewing(ingredients, result, experience, processingTime)
+                .group(group)
+                .tier(tier)
+                .getFinishedRecipe(id)
+                .serializeRecipe();
+    }
+
+    public static BrewingCauldronRecipe fromJson(ResourceLocation id, JsonObject jsonObject) {
+        return Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.get().fromJson(id, jsonObject);
     }
 }

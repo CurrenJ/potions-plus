@@ -34,4 +34,11 @@ public class PotionsPlus {
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
+
+    public static class Debug {
+        public static final boolean DEBUG = true;
+
+        public static final boolean DEBUG_POTION_INGREDIENTS_GENERATION = false;
+        public static final boolean DEBUG_POTION_RECIPE_GENERATION = true;
+    }
 }

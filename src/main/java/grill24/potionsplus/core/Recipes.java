@@ -11,8 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
@@ -22,7 +20,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Recipes {
@@ -105,7 +106,8 @@ public class Recipes {
         recipes.put(recipe.getId(), recipe);
     }
 
-    public static int injectRuntimeRecipes(MinecraftServer server, RecipeType<?> recipeType, RecipeManager recipeManager) {
+    public static int injectRuntimeRecipes(MinecraftServer server, RecipeType<?> recipeType) {
+        RecipeManager recipeManager = server.getRecipeManager();
         Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> allMutableRecipes = new HashMap<>(recipeManager.recipes);
 
         Map<ResourceLocation, Recipe<?>> additionalRecipes = Recipes.getAdditionalRuntimeRecipes(server, recipeType);
@@ -115,6 +117,7 @@ public class Recipes {
         allMutableRecipes.put(recipeType, mutableRecipes);
         recipeManager.recipes = ImmutableMap.copyOf(allMutableRecipes);
 
+        // TODO: Remove when removing recipe tree alg
         if (recipeType == BREWING_CAULDRON_RECIPE.get()) {
             List<BrewingCauldronRecipe> allRecipes = recipeManager.getAllRecipesFor(BREWING_CAULDRON_RECIPE.get());
             seededPotionRecipes.createRecipeTree(allRecipes);
@@ -129,40 +132,21 @@ public class Recipes {
      */
     public static void computeUniqueIngredientsList() {
         if (Minecraft.getInstance().level != null) {
-            Set<PpIngredient> uniqueRecipeInputs = new HashSet<>();
+            seededPotionRecipes.allPotionsBrewingIngredientsByTierNoPotions = new HashMap<>();
+            seededPotionRecipes.allUniqueRecipeInputs = new HashSet<>();
+
             Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()).forEach(recipe -> {
                 for (ItemStack itemStack : recipe.getIngredientsAsItemStacks()) {
-                    uniqueRecipeInputs.add(PpIngredient.of(itemStack));
-                }
-            });
-            seededPotionRecipes.allUniqueRecipeInputs = uniqueRecipeInputs;
-
-            Set<PpIngredient> uniqueIngredients = new HashSet<>();
-            for (PpIngredient ppIngredient : uniqueRecipeInputs) {
-                for (Ingredient ingredient : ppIngredient.ingredients) {
-                    ItemStack stack = ingredient.getItems()[0];
-                    PpIngredient ingredientPp = PpIngredient.of(stack);
-
-                    if (!uniqueIngredients.contains(ingredientPp)) {
-
-                        for (TagKey<Item> tagKey : SeededPotionRecipes.POTION_INGREDIENT_TAGS) {
-                            if (stack.getTags().anyMatch(tagKey::equals)) {
-                                uniqueIngredients.add(ingredientPp);
-                                break;
-                            }
+                    seededPotionRecipes.allUniqueRecipeInputs.add(PpIngredient.of(itemStack));
+                    if (!PUtil.isPotion(itemStack)) {
+                        if (PUtil.isPotion(recipe.getResultItem())) {
+                            seededPotionRecipes.allPotionsBrewingIngredientsByTierNoPotions.computeIfAbsent(recipe.getOutputTier(), k -> new HashSet<>()).add(PpIngredient.of(itemStack));
+                            seededPotionRecipes.allPotionBrewingIngredientsNoPotions.add(PpIngredient.of(itemStack));
                         }
+                        seededPotionRecipes.allPotionsPlusIngredientsNoPotions.add(PpIngredient.of(itemStack));
                     }
                 }
-            }
-            seededPotionRecipes.allPotionsPlusIngredientsNoPotions = uniqueIngredients;
-
-            Map<Integer, Set<PpIngredient>> tieredIngredients = new HashMap<>();
-            uniqueIngredients.forEach(ingredient -> {
-                int tier = ingredient.getIngredientTier();
-                Set<PpIngredient> ingredients = tieredIngredients.computeIfAbsent(tier, k -> new HashSet<>());
-                ingredients.add(ingredient);
             });
-            seededPotionRecipes.allPotionsPlusIngredientsByTier = tieredIngredients;
         }
     }
 }

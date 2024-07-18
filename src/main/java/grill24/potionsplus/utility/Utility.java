@@ -119,8 +119,8 @@ public class Utility {
         return abyssalTrove.map(abyssalTroveBlockEntity -> abyssalTroveBlockEntity.getStoredIngredients().contains(PpIngredient.of(stack))).orElse(false);
     }
 
-    public static boolean isItemPotionsPlusIngredient(ItemStack stack) {
-        return Recipes.seededPotionRecipes.allPotionsPlusIngredientsNoPotions.contains(PpIngredient.of(stack));
+    public static boolean isPotionBrewingIngredientNoPotions(ItemStack stack) {
+        return Recipes.seededPotionRecipes.allPotionBrewingIngredientsNoPotions.contains(PpIngredient.of(stack));
     }
 
     public static void playSoundStopOther(SoundInstance play, SoundInstance stop) {

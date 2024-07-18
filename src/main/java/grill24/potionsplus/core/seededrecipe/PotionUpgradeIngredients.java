@@ -1,5 +1,6 @@
 package grill24.potionsplus.core.seededrecipe;
 
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
@@ -83,7 +84,7 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
             ppMultiIngredient = PpMultiIngredient.of(ingredients);
 
             iterations++;
-            if (iterations > 1) {
+            if (iterations > 1 && PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
                 System.out.println("[BCR] Regenerating ingredients for recipe due to collision: " + ppMultiIngredient);
             }
         } while (allPreviouslyGeneratedIngredients.contains(ppMultiIngredient) && iterations < MAX_ITERATIONS);

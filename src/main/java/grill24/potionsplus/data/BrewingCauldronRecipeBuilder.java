@@ -31,6 +31,7 @@ public class BrewingCauldronRecipeBuilder implements RecipeBuilder {
     private final Advancement.Builder advancement = Advancement.Builder.advancement();
     @Nullable
     private String group;
+    private int tier;
 
     private BrewingCauldronRecipeBuilder(ItemStack itemLike, Ingredient[] ingredients, float experience, int processingTime) {
         this.result = itemLike;
@@ -53,14 +54,32 @@ public class BrewingCauldronRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
+    public @NotNull BrewingCauldronRecipeBuilder tier(int tier) {
+        this.tier = tier;
+        return this;
+    }
+
     public @NotNull Item getResult() {
         return this.result.getItem();
+    }
+
+    public Result getFinishedRecipe(ResourceLocation resourceLocation) {
+        return new BrewingCauldronRecipeBuilder.Result(
+                resourceLocation,
+                this.group == null ? "" : this.group,
+                this.tier, this.ingredients,
+                this.result,
+                this.experience,
+                this.cookingTime,
+                this.advancement,
+                new ResourceLocation(resourceLocation.getNamespace(), "recipes/" + this.result.getItem().getItemCategory().getRecipeFolderName() + "/" + resourceLocation.getPath()), Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.get()
+        );
     }
 
     public void save(Consumer<FinishedRecipe> recipeConsumer, @NotNull ResourceLocation resourceLocation) {
         this.ensureValid(resourceLocation);
         this.advancement.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceLocation)).rewards(AdvancementRewards.Builder.recipe(resourceLocation)).requirements(RequirementsStrategy.OR);
-        recipeConsumer.accept(new BrewingCauldronRecipeBuilder.Result(resourceLocation, this.group == null ? "" : this.group, this.ingredients, this.result, this.experience, this.cookingTime, this.advancement, new ResourceLocation(resourceLocation.getNamespace(), "recipes/" + this.result.getItem().getItemCategory().getRecipeFolderName() + "/" + resourceLocation.getPath()), Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.get()));
+        recipeConsumer.accept(getFinishedRecipe(resourceLocation));
     }
 
     private void ensureValid(ResourceLocation p_126266_) {
@@ -72,6 +91,7 @@ public class BrewingCauldronRecipeBuilder implements RecipeBuilder {
     public static class Result implements FinishedRecipe {
         private final ResourceLocation id;
         private final String group;
+        private final int tier;
         private final Ingredient[] ingredients;
         private final ItemStack result;
         private final float experience;
@@ -80,9 +100,10 @@ public class BrewingCauldronRecipeBuilder implements RecipeBuilder {
         private final ResourceLocation advancementId;
         private final RecipeSerializer<BrewingCauldronRecipe> serializer;
 
-        public Result(ResourceLocation resourceLocation, String group, Ingredient[] ingredients, ItemStack result, float experience, int cookingTime, Advancement.Builder builder, ResourceLocation advancementId, RecipeSerializer<BrewingCauldronRecipe> serializer) {
+        public Result(ResourceLocation resourceLocation, String group, int tier, Ingredient[] ingredients, ItemStack result, float experience, int cookingTime, Advancement.Builder builder, ResourceLocation advancementId, RecipeSerializer<BrewingCauldronRecipe> serializer) {
             this.id = resourceLocation;
             this.group = group;
+            this.tier = tier;
             this.ingredients = ingredients;
             this.result = result;
             this.experience = experience;
@@ -97,6 +118,7 @@ public class BrewingCauldronRecipeBuilder implements RecipeBuilder {
                 jsonObject.addProperty("group", this.group);
             }
 
+            jsonObject.addProperty("tier", this.tier);
 
             JsonArray jsonArray = new JsonArray();
             ItemStack[] stacks = new ItemStack[this.ingredients.length];

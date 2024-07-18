@@ -47,45 +47,6 @@
 
 # To Do
 
-9- BUG: Failed recipe ingredient sampling adds empty recipe like so:
-`- [BCR] levitation_a3_d3_splash_potion=> levitation_a4_d3_splash_potion
-  [BCR] levitation_a3_d3_lingering_potion=> levitation_a4_d3_lingering_potion
-  [BCR] totem_of_undying + nautilus_shell + levitation_a4_d2_potion=> levitation_a4_d3_potion
-  [BCR] totem_of_undying + nautilus_shell + levitation_a4_d2_splash_potion=> levitation_a4_d3_splash_potion
-  [BCR] totem_of_undying + nautilus_shell + levitation_a4_d2_lingering_potion=> levitation_a4_d3_lingering_potion
-  [BCR] levitation_a4_d0_potion=> levitation_a5_d0_potion
-  [BCR] levitation_a4_d0_splash_potion=> levitation_a5_d0_splash_potion
-  [BCR] levitation_a4_d0_lingering_potion=> levitation_a5_d0_lingering_potion
-  [BCR] levitation_a4_d1_potion=> levitation_a5_d1_potion
-  [BCR] levitation_a4_d1_splash_potion=> levitation_a5_d1_splash_potion
-  [BCR] levitation_a4_d1_lingering_potion=> levitation_a5_d1_lingering_pot`
-- - Make it not add that recipe
-
-- Fix jei integration for cauldron recipes
-- design and add knowledge system
-- Visual?? Block entity with custom renderer again?
-
-
-
-
-
-- Potions stack to 16
-- Dispensers fire with no projectile variation
-
-- Brewing Cauldron
-  - Per-world recipes (Seed-instanced recipes)
-- Herbalists Lectern
-- Sanguine Altar
-- Abyssal Trove
-
-- Magnetizing
-- Exploding
-- Geode Grace
-- Fall of the Void
-- Teleportation
-- Levitation
-- Haste
-
-
-
+- Exclude vanilla brewing recipes that have been added to the BC from being incidentally generated as SPRs
+- Mechanism for forcing specific saved recipes to re-gen/remove
 

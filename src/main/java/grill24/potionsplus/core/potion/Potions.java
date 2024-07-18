@@ -45,7 +45,7 @@ public class Potions {
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
     public static final PotionBuilder.PotionsAmpDurMatrix LEVITATION_POTIONS = new PotionBuilder()
-            .name("leviathan")
+            .name("levitation")
             .maxAmp(3)
             .maxDur(2)
             .effects(() -> net.minecraft.world.effect.MobEffects.LEVITATION)

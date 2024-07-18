@@ -1,10 +1,12 @@
 package grill24.potionsplus.core.seededrecipe;
 
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
+import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.server.MinecraftServer;
@@ -17,8 +19,10 @@ import java.util.*;
 
 public class SeededPotionRecipes {
     public Set<PpIngredient> allUniqueRecipeInputs = new HashSet<>(); // All unique recipe inputs. Used to avoid duplicate recipes. E.x. [1 water bottle, 1 nether wart]
-    public Set<PpIngredient> allPotionsPlusIngredientsNoPotions = new HashSet<>(); // All ingredients as defined by the tiered tags. 1 item per ingredient.
-    public Map<Integer, Set<PpIngredient>> allPotionsPlusIngredientsByTier = new HashMap<>(); // All ingredients as defined by the tiered tags. 1 item per ingredient.
+    public Set<PpIngredient> allPotionsPlusIngredientsNoPotions = new HashSet<>(); // 1 item per ingredient.
+
+    public Set<PpIngredient> allPotionBrewingIngredientsNoPotions = new HashSet<>(); // 1 item per ingredient.
+    public Map<Integer, Set<PpIngredient>> allPotionsBrewingIngredientsByTierNoPotions = new HashMap<>(); // 1 item per ingredient.
 
     private final Random random;
     private final List<BrewingCauldronRecipe> recipes;
@@ -37,6 +41,8 @@ public class SeededPotionRecipes {
 
         SeededIngredientsLootTables.initializeLootTables(server.overworld(), random);
         generateRecipes();
+
+        SavedData.instance.setSeededPotionRecipes(recipes);
     }
 
     private void generateRecipes() {
@@ -44,12 +50,28 @@ public class SeededPotionRecipes {
     }
 
     private void addAllPotionRecipes(PotionBuilder.PotionsAmpDurMatrix... potions) {
+        int newlyGeneratedRecipes = 0;
         for (PotionBuilder.PotionsAmpDurMatrix potionsAmpDurMatrix : potions) {
-            List<BrewingCauldronRecipe> recipesToAdd = potionsAmpDurMatrix.generateRecipes(allRecipeInputs, random);
-            recipes.addAll(recipesToAdd);
+            // Generate all recipes
+            List<BrewingCauldronRecipe> allGeneratedRecipes = potionsAmpDurMatrix.generateRecipes(allRecipeInputs, random);
+            // Take out the recipes that we've loaded from saved data
+            List<BrewingCauldronRecipe> newRecipesToAdd = allGeneratedRecipes.stream().filter(recipe -> !SavedData.instance.itemsWithRecipesInSavedData.contains(PUtil.getNameOrVerbosePotionName(recipe.getResultItem()))).toList();
+            newlyGeneratedRecipes += newRecipesToAdd.size();
+
+            if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_RECIPE_GENERATION) {
+                for (BrewingCauldronRecipe recipe : newRecipesToAdd) {
+                    PotionsPlus.LOGGER.info("[SPR] Generated recipe: {}", recipe);
+                }
+            }
+            recipes.addAll(newRecipesToAdd);
         }
+
+        recipes.addAll(SavedData.instance.seededPotionRecipes);
+        PotionsPlus.LOGGER.info("[SPR] Generated {} new brewing cauldron potion recipes.", newlyGeneratedRecipes);
+        PotionsPlus.LOGGER.info("[SPR] Loaded {} brewing cauldron potion recipes from saved data.", SavedData.instance.seededPotionRecipes.size());
     }
 
+    @Deprecated
     public void createRecipeTree(List<BrewingCauldronRecipe> recipes) {
         for (BrewingCauldronRecipe recipe : recipes) {
             PpIngredient output = PpIngredient.of(recipe.getResultItem());

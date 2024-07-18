@@ -7,7 +7,6 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.PotionsPlusPacketHandler;
 import grill24.potionsplus.network.SanguineAltarConversionProgressPacket;
 import grill24.potionsplus.network.SanguineAltarConversionStatePacket;
-import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.player.LocalPlayer;
@@ -226,32 +225,11 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         resetConversionProgress();
     }
 
-    public static Optional<ItemStack> tryGetUnknownIngredientOfSameTier(Player player, ItemStack itemStack) {
-        int tier = PpIngredient.of(itemStack).getIngredientTier();
-        if (Recipes.seededPotionRecipes.allPotionsPlusIngredientsByTier.containsKey(tier)) {
-            List<PpIngredient> tierIngredients = new ArrayList<>(Recipes.seededPotionRecipes.allPotionsPlusIngredientsByTier.get(tier));
-
-            // Get random
-            PpIngredient randomIngredient;
-            do {
-                int randomIndex = player.level.getRandom().nextInt(tierIngredients.size());
-                randomIngredient = tierIngredients.get(randomIndex);
-                tierIngredients.remove(randomIndex);
-            } while (!tierIngredients.isEmpty() && SavedData.instance.getData(player).abyssalTroveContainsIngredient(player.level, randomIngredient));
-
-            if (randomIngredient != null) {
-                return Optional.of(randomIngredient.getItemStack());
-            }
-        }
-
-        return Optional.empty();
-    }
-
     public static void computeChainedIngredients() {
         chainedIngredients.clear();
 
         Random random = new Random(PotionsPlus.worldSeed);
-        for (Set<PpIngredient> ingredients : Recipes.seededPotionRecipes.allPotionsPlusIngredientsByTier.values()) {
+        for (Set<PpIngredient> ingredients : Recipes.seededPotionRecipes.allPotionsBrewingIngredientsByTierNoPotions.values()) {
             List<PpIngredient> tierIngredients = new ArrayList<>(ingredients);
             PpIngredient firstIngredient = null;
             PpIngredient lastIngredient = null;

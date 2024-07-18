@@ -3,6 +3,7 @@ package grill24.potionsplus.blockentity;
 import com.mojang.math.Vector3d;
 import com.mojang.math.Vector3f;
 import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.ClientCommands;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -118,7 +119,6 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
 
     public void updateRendererData() {
         RendererData data = new RendererData();
-        data.renderedItemTiers = new HashMap<>();
 
         if (Recipes.seededPotionRecipes == null) {
             return;
@@ -127,14 +127,18 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         this.computeStoredIngredients();
 
         // Add items in tiers
-        Recipes.seededPotionRecipes.allPotionsPlusIngredientsNoPotions.forEach(ingredient -> {
-            ItemStack stack = ingredient.ingredients[0].getItems()[0];
-            if (!this.storedIngredients.contains(ingredient))
-                stack = new ItemStack(Items.GENERIC_ICON.get(), 12);
-            int tier = ingredient.getIngredientTier();
-
+        data.renderedItemTiers = new HashMap<>();
+        Recipes.seededPotionRecipes.allPotionsBrewingIngredientsByTierNoPotions.forEach((tier, ingredients) -> {
             List<RendererData.AbyssalTroveRenderedItem> itemsInTier = data.renderedItemTiers.computeIfAbsent(tier, k -> new ArrayList<>());
-            itemsInTier.add(new RendererData.AbyssalTroveRenderedItem(stack, tier));
+
+            ingredients.forEach(ingredient -> {
+                ItemStack stack = ingredient.getItemStack();
+                if (!ClientCommands.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
+                    stack = new ItemStack(Items.GENERIC_ICON.get(), 12);
+                }
+
+                itemsInTier.add(new RendererData.AbyssalTroveRenderedItem(stack, tier));
+            });
         });
 
         // Set positions
@@ -162,7 +166,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     @Override
     public boolean canPlaceItem(int index, ItemStack stack) {
         boolean canPlace = super.canPlaceItem(index, stack);
-        boolean isIngredient = Recipes.seededPotionRecipes.allPotionsPlusIngredientsNoPotions.contains(PpIngredient.of(stack));
+        boolean isIngredient = Recipes.seededPotionRecipes.allPotionBrewingIngredientsNoPotions.contains(PpIngredient.of(stack));
         return canPlace && isIngredient;
     }
 

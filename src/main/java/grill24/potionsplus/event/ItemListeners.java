@@ -16,7 +16,7 @@ public class ItemListeners {
     @SubscribeEvent
     public static void onToolTipEvent(final ItemTooltipEvent event) {
         if (event.getPlayer() != null) {
-            if (Utility.isItemPotionsPlusIngredient(event.getItemStack()) && !Utility.isItemInLinkedAbyssalTrove(event.getPlayer(), event.getItemStack())) {
+            if (Utility.isPotionBrewingIngredientNoPotions(event.getItemStack()) && !Utility.isItemInLinkedAbyssalTrove(event.getPlayer(), event.getItemStack())) {
                 // JEI shall not reveal my secrets!!!
                 if (Minecraft.getInstance().screen instanceof AbstractContainerScreen) {
                     TranslatableComponent text = new TranslatableComponent("tooltip.potionsplus.ingredient");

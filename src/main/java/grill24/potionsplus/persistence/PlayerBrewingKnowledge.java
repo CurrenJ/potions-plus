@@ -50,6 +50,7 @@ public class PlayerBrewingKnowledge {
 
     private void onNewRecipeKnowledgeAcquired() {
         JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
+        SavedData.instance.setDirty();
     }
 
     private Set<String> buildKnownRecipesFromSerializableData() {

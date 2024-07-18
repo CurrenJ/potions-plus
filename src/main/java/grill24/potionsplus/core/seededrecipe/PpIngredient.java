@@ -64,15 +64,6 @@ public class PpIngredient {
         return false;
     }
 
-    public int getIngredientTier() {
-        for (int i = 0; i < SeededPotionRecipes.POTION_INGREDIENT_TAGS.length; i++) {
-            if (ingredients[0].getItems()[0].is(SeededPotionRecipes.POTION_INGREDIENT_TAGS[i])) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
     public ItemStack getItemStack() {
         assert ingredients.length == 1 : "Tried to get item stack, but there are multiple.";
         return ingredients[0].getItems()[0];

@@ -16,7 +16,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.util.*;
 
-public class SeededPotionRecipeGenerator {
+public class SeededPotionRecipeGenerator implements ISeededPotionRecipeGenerator {
     private List<LootPoolSupplier> tieredIngredientPools;
 
     public SeededPotionRecipeGenerator(SeededPotionRecipeGenerator seededPotionRecipeGenerator) {
@@ -27,12 +27,14 @@ public class SeededPotionRecipeGenerator {
         this.tieredIngredientPools = new ArrayList<>();
     }
 
+    @Override
     public SeededPotionRecipeGenerator withTieredIngredientPools(LootPoolSupplier... tieredIngredientPools) {
         this.tieredIngredientPools.clear();
         Collections.addAll(this.tieredIngredientPools, tieredIngredientPools);
         return this;
     }
 
+    @Override
     public SeededPotionRecipeGenerator withTieredIngredientPool(int tier, LootPoolSupplier pool) {
         ensureCapacity(this.tieredIngredientPools, tier, SeededIngredientsLootTables.EMPTY);
 
@@ -41,6 +43,7 @@ public class SeededPotionRecipeGenerator {
     }
 
     @SafeVarargs
+    @Override
     public final SeededPotionRecipeGenerator addItemsInTagsToTierPool(int tier, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, TagKey<Item>... tags) {
         ensureCapacity(this.tieredIngredientPools, tier, SeededIngredientsLootTables.EMPTY);
 
@@ -53,17 +56,20 @@ public class SeededPotionRecipeGenerator {
         return this;
     }
 
+    @Override
     public SeededPotionRecipeGenerator addItemsToTierPool(int tier, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, ItemLike... items) {
         ensureCapacity(this.tieredIngredientPools, tier, SeededIngredientsLootTables.EMPTY);
 
+        final LootPoolSupplier existingPool = tieredIngredientPools.get(tier);
         this.tieredIngredientPools.set(tier, () -> {
-            LootPool.Builder pool = tieredIngredientPools.get(tier).getLootPool();
+            LootPool.Builder pool = existingPool.getLootPool();
             SeededIngredientsLootTables.addItems(pool, weightingMode, weight, items);
             return pool;
         });
         return this;
     }
 
+    @Override
     public SeededPotionRecipeGenerator clearTierPool(int tier) {
         ensureCapacity(this.tieredIngredientPools, tier, SeededIngredientsLootTables.EMPTY);
 
@@ -71,12 +77,13 @@ public class SeededPotionRecipeGenerator {
         return this;
     }
 
+    @Override
     public SeededPotionRecipeGenerator clearAllTierPools() {
         this.tieredIngredientPools.clear();
         return this;
     }
 
-    private static <T> void ensureCapacity(List<T> list, int index, T defaultValue) {
+    protected static <T> void ensureCapacity(List<T> list, int index, T defaultValue) {
         while (list.size() <= index) {
             list.add(defaultValue);
         }
@@ -92,14 +99,18 @@ public class SeededPotionRecipeGenerator {
                 random,
                 allRecipes);
 
-        List<BrewingCauldronRecipe> recipesToAdd = brewingCauldronPotionUpgrades(0.1F, 100, "has_potion", potionAmpDurMatrix, potionUpgradeIngredients);
+        return generateRecipe(potionAmpDurMatrix, potionUpgradeIngredients);
+    }
+
+    protected List<BrewingCauldronRecipe> generateRecipe(PotionBuilder.PotionsAmpDurMatrix potionsAmpDurMatrix, IPotionUpgradeIngredients ingredients) {
+        List<BrewingCauldronRecipe> recipesToAdd = brewingCauldronPotionUpgrades(0.1F, 100, "has_potion", potionsAmpDurMatrix, ingredients);
         for (BrewingCauldronRecipe recipe : recipesToAdd) {
             System.out.println(recipe.toString());
         }
         return recipesToAdd;
     }
 
-    private static List<BrewingCauldronRecipe> brewingCauldronPotionUpgrades(float experience, int baseProcessingTime, String advancementNameIngredient, PotionBuilder.PotionsAmpDurMatrix potions, IPotionUpgradeIngredients potionUpgradeIngredients) {
+    protected static List<BrewingCauldronRecipe> brewingCauldronPotionUpgrades(float experience, int baseProcessingTime, String advancementNameIngredient, PotionBuilder.PotionsAmpDurMatrix potions, IPotionUpgradeIngredients potionUpgradeIngredients) {
         // Iterate through all potions
         List<BrewingCauldronRecipe> allRecipes = new ArrayList<>();
         for (int a = 0; a < potions.getAmplificationLevels(); a++) {
@@ -109,7 +120,9 @@ public class SeededPotionRecipeGenerator {
                     Potion ampTierBelow = potions.get(a - 1, d);
                     Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeAmpUpIngredients(a - 1);
                     if (ingredients == null) {
-                        PotionsPlus.LOGGER.error("[BCR] Ingredients for amplification upgrade are null: " + ampTierBelow.getRegistryName());
+                        if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
+                            PotionsPlus.LOGGER.error("[BCR] Ingredients for amplification upgrade are null: " + ampTierBelow.getRegistryName());
+                        }
                     } else {
                         allRecipes.addAll(PUtil.brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, ampTierBelow, toCraft, a, ingredients));
                     }
@@ -118,14 +131,18 @@ public class SeededPotionRecipeGenerator {
                     Potion durTierBelow = potions.get(a, d - 1);
                     Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeDurUpIngredients(d - 1);
                     if (ingredients == null) {
-                        PotionsPlus.LOGGER.error("[BCR] Ingredients for duration upgrade are null: " + durTierBelow.getRegistryName());
+                        if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
+                            PotionsPlus.LOGGER.error("[BCR] Ingredients for duration upgrade are null: " + durTierBelow.getRegistryName());
+                        }
                     } else {
                         allRecipes.addAll(PUtil.brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, durTierBelow, toCraft, d, ingredients));
                     }
                 } else if (a == 0 && d == 0) {
                     Ingredient[] ingredients = potionUpgradeIngredients.getBasePotionIngredients();
                     if (ingredients == null) {
-                        PotionsPlus.LOGGER.error("[BCR] Ingredients for base potion are null: " + toCraft.getRegistryName());
+                        if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
+                            PotionsPlus.LOGGER.error("[BCR] Ingredients for base potion are null: " + toCraft.getRegistryName());
+                        }
                     } else {
                         allRecipes.addAll(PUtil.brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, Potions.AWKWARD, toCraft, 0, ingredients));
                     }

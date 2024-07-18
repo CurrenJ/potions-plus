@@ -1,5 +1,6 @@
 package grill24.potionsplus.core.potion;
 
+import grill24.potionsplus.core.seededrecipe.ISeededPotionRecipeGenerator;
 import grill24.potionsplus.core.seededrecipe.LootPoolSupplier;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.SeededPotionRecipeGenerator;
@@ -24,7 +25,7 @@ public class PotionBuilder {
     private int amplificationLevels = 0;
     private int durationLevels = 0;
     private Function<int[], MobEffectInstance[]> effectFunction = null;
-    private SeededPotionRecipeGenerator potionRecipeGenerator = DEFAULT_POTION_RECIPE_GENERATOR;
+    private ISeededPotionRecipeGenerator potionRecipeGenerator = new SeededPotionRecipeGenerator(DEFAULT_POTION_RECIPE_GENERATOR);
 
     public static final DurationFunction DEFAULT_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 3600;
     public static final DurationFunction LONGER_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 5000;
@@ -142,9 +143,9 @@ public class PotionBuilder {
 
     public static class PotionsAmpDurMatrix {
         public final RegistryObject<Potion>[][] potions;
-        private final SeededPotionRecipeGenerator potionRecipeGenerator;
+        private final ISeededPotionRecipeGenerator potionRecipeGenerator;
 
-        public PotionsAmpDurMatrix(String name, int amplificationLevels, int durationLevels, Function<int[], MobEffectInstance[]> effectFunction, SeededPotionRecipeGenerator potionRecipeGenerator) {
+        public PotionsAmpDurMatrix(String name, int amplificationLevels, int durationLevels, Function<int[], MobEffectInstance[]> effectFunction, ISeededPotionRecipeGenerator potionRecipeGenerator) {
             this.potions = registerNewPotion(name, amplificationLevels, durationLevels, effectFunction);
             this.potionRecipeGenerator = potionRecipeGenerator;
         }
