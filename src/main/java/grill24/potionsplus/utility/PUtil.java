@@ -69,6 +69,10 @@ public class PUtil {
         }
     }
 
+    public static boolean isPotionsPlusPotion(ItemStack itemStack) {
+        return isPotion(itemStack) && Objects.requireNonNull(PotionUtils.getPotion(itemStack).getRegistryName()).getNamespace().equals(ModInfo.MOD_ID);
+    }
+
     public static int getProcessingTime(int baseTime, ItemStack input, ItemStack output, int numNonPotionIngredients) {
         int processingTime = baseTime;
 

@@ -49,4 +49,5 @@
 
 - Exclude vanilla brewing recipes that have been added to the BC from being incidentally generated as SPRs
 - Mechanism for forcing specific saved recipes to re-gen/remove
+- Remove recipe if reuslt no longer exists
 

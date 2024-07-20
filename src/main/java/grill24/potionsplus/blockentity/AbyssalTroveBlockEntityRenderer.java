@@ -39,16 +39,18 @@ public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<Abys
             final int hideDelay = 200;
 
             scale = RUtil.ease(blockEntity, scale, 0, tier * 5 + hideDelay, 1F);
+            blockEntity.currentDisplayRotation = RUtil.lerpAngle(blockEntity.currentDisplayRotation, blockEntity.degreesTowardsPlayer, tickDelta * 0.02f);
+
             for (AbyssalTroveBlockEntity.RendererData.AbyssalTroveRenderedItem item : items.getValue()) {
                 matrices.pushPose();
 
 
                 Vector3d position = new Vector3d(item.position.x * widthPadding, item.position.y * heightPadding, item.position.z * widthPadding);
                 position.add(new Vector3d(0.5, heightOffset, 0.5));
-                position = RUtil.rotateAroundY(position, blockEntity.degreesTowardsPlayer + 90, new Vector3d(0.5, 0.5, 0.5));
+                position = RUtil.rotateAroundY(position, blockEntity.currentDisplayRotation + 90, new Vector3d(0.5, 0.5, 0.5));
                 matrices.translate(position.x, position.y, position.z);
 
-                matrices.mulPose(Vector3f.YP.rotationDegrees(90 - blockEntity.degreesTowardsPlayer));
+                matrices.mulPose(Vector3f.YP.rotationDegrees(90 - blockEntity.currentDisplayRotation));
 
 
                 matrices.scale(scale, scale, scale);

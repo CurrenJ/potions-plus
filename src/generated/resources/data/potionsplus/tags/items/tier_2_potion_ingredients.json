@@ -1,21 +1,20 @@
 {
   "replace": false,
   "values": [
-    "minecraft:ender_pearl",
-    "minecraft:ghast_tear",
-    "minecraft:blaze_powder",
-    "minecraft:magma_cream",
-    "minecraft:diamond",
-    "minecraft:amethyst_cluster",
-    "minecraft:rabbit_foot",
-    "minecraft:golden_apple",
-    "minecraft:tropical_fish",
-    "minecraft:turtle_egg",
+    "minecraft:cobweb",
+    "minecraft:pufferfish",
     "minecraft:chorus_flower",
+    "minecraft:melon",
+    "minecraft:spore_blossom",
     "minecraft:scute",
-    "minecraft:fire_coral",
-    "minecraft:tube_coral",
+    "minecraft:turtle_egg",
+    "minecraft:amethyst_shard",
+    "minecraft:cake",
+    "minecraft:honey_bottle",
     "minecraft:poisonous_potato",
-    "minecraft:cake"
+    "minecraft:phantom_membrane",
+    "minecraft:sponge",
+    "minecraft:brown_mushroom_block",
+    "minecraft:red_mushroom_block"
   ]
 }

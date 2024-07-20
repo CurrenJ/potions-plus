@@ -20,10 +20,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Recipes {
@@ -139,7 +136,7 @@ public class Recipes {
                 for (ItemStack itemStack : recipe.getIngredientsAsItemStacks()) {
                     seededPotionRecipes.allUniqueRecipeInputs.add(PpIngredient.of(itemStack));
                     if (!PUtil.isPotion(itemStack)) {
-                        if (PUtil.isPotion(recipe.getResultItem())) {
+                        if (PUtil.isPotion(recipe.getResultItem()) && PUtil.isPotionsPlusPotion(recipe.getResultItem())) {
                             seededPotionRecipes.allPotionsBrewingIngredientsByTierNoPotions.computeIfAbsent(recipe.getOutputTier(), k -> new HashSet<>()).add(PpIngredient.of(itemStack));
                             seededPotionRecipes.allPotionBrewingIngredientsNoPotions.add(PpIngredient.of(itemStack));
                         }

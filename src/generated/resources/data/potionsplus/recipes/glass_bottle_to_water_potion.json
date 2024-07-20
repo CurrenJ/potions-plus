@@ -1,5 +1,6 @@
 {
   "type": "potionsplus:brewing_cauldron_recipe",
+  "tier": 0,
   "ingredient": [
     "{Count:1b,id:\"minecraft:glass_bottle\"}"
   ],

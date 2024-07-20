@@ -1,5 +1,6 @@
 {
   "type": "potionsplus:brewing_cauldron_recipe",
+  "tier": 0,
   "ingredient": [
     "{Count:1b,id:\"minecraft:brown_mushroom\"}",
     "{Count:1b,id:\"minecraft:fermented_spider_eye\"}"

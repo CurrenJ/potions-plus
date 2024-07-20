@@ -1,14 +1,10 @@
 {
   "replace": false,
   "values": [
-    "minecraft:nether_star",
-    "minecraft:totem_of_undying",
-    "minecraft:wither_rose",
+    "minecraft:golden_apple",
+    "minecraft:amethyst_cluster",
     "minecraft:shulker_shell",
     "minecraft:nautilus_shell",
-    "minecraft:heart_of_the_sea",
-    "minecraft:end_crystal",
-    "minecraft:dragon_head",
-    "minecraft:creeper_head"
+    "minecraft:totem_of_undying"
   ]
 }

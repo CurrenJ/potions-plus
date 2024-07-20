@@ -140,6 +140,39 @@ public class RUtil {
         return a + (b - a) * t;
     }
 
+    public static float lerpAngle(float startAngle, float endAngle, float t) {
+        // Normalize angles to be within 0 to 360 degrees
+        startAngle = normalizeAngle(startAngle);
+        endAngle = normalizeAngle(endAngle);
+
+        // Determine the difference and adjust angles if necessary
+        float difference = endAngle - startAngle;
+
+        if (Math.abs(difference) > 180) {
+            // If the difference is greater than 180 degrees, adjust to take the shorter path
+            if (difference > 0) {
+                startAngle += 360;
+            } else {
+                endAngle += 360;
+            }
+        }
+
+        // Perform the linear interpolation
+        float result = startAngle + (endAngle - startAngle) * t;
+
+        // Normalize the result
+        return normalizeAngle(result);
+    }
+
+    public static float normalizeAngle(float angle) {
+        // Normalize the angle to be within 0 to 360 degrees
+        angle = angle % 360;
+        if (angle < 0) {
+            angle += 360;
+        }
+        return angle;
+    }
+
     public static float easeOutBack(float x) {
         final double c1 = 1.70158;
         final double c3 = c1 + 1;

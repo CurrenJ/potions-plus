@@ -23,73 +23,10 @@ public class ItemTagProvider extends ItemTagsProvider {
                 net.minecraft.world.item.Items.SUGAR,
                 net.minecraft.world.item.Items.GUNPOWDER);
 
-        tag(Tags.Items.BASE_TIER_POTION_INGREDIENTS).add(
-                Items.STICK,
-                Items.EGG,
-                Items.SUGAR,
-                Items.CARROT,
-                Items.POTATO,
-                Items.BEETROOT,
-                Items.SWEET_BERRIES,
-                Items.CHARCOAL,
-                Items.ROTTEN_FLESH,
-                Items.BONE,
-                Items.STRING,
-                Items.FEATHER,
-                Items.LEATHER,
-                Items.WARPED_FUNGUS,
-                Items.CRIMSON_FUNGUS,
-                Items.BAMBOO,
-                Items.CACTUS
-        );
-
-
-        tag(Tags.Items.TIER_1_POTION_INGREDIENTS).add(
-                Items.HONEYCOMB,
-                Items.MUSHROOM_STEW,
-                Items.GOLDEN_CARROT,
-                Items.BEETROOT_SOUP,
-                Items.SPIDER_EYE,
-                Items.PUFFERFISH,
-                Items.APPLE,
-                Items.SALMON,
-                Items.HONEY_BOTTLE,
-                Items.GLOW_BERRIES,
-                Items.SEA_PICKLE,
-                Items.AMETHYST_SHARD,
-                Items.SLIME_BALL
-        );
-
-        tag(Tags.Items.TIER_2_POTION_INGREDIENTS).add(
-                Items.ENDER_PEARL,
-                Items.GHAST_TEAR,
-                Items.BLAZE_POWDER,
-                Items.MAGMA_CREAM,
-                Items.DIAMOND,
-                Items.AMETHYST_CLUSTER,
-                Items.RABBIT_FOOT,
-                Items.GOLDEN_APPLE,
-                Items.TROPICAL_FISH,
-                Items.TURTLE_EGG,
-                Items.CHORUS_FLOWER,
-                Items.SCUTE,
-                Items.FIRE_CORAL,
-                Items.TUBE_CORAL,
-                Items.POISONOUS_POTATO,
-                Items.CAKE
-        );
-
-        tag(Tags.Items.TIER_3_POTION_INGREDIENTS).add(
-                Items.NETHER_STAR,
-                Items.TOTEM_OF_UNDYING,
-                Items.WITHER_ROSE,
-                Items.SHULKER_SHELL,
-                Items.NAUTILUS_SHELL,
-                Items.HEART_OF_THE_SEA,
-                Items.END_CRYSTAL,
-                Items.DRAGON_HEAD,
-                Items.CREEPER_HEAD
-        );
+        tier0();
+        tier1();
+        tier2();
+        tier3();
 
         tag(Tags.Items.GEODE_GRACE_BASE_TIER_INGREDIENTS).addTag(Tags.Items.BASE_TIER_POTION_INGREDIENTS).add(
                 Items.NETHER_GOLD_ORE,
@@ -158,5 +95,86 @@ public class ItemTagProvider extends ItemTagsProvider {
     @Override
     public String getName() {
         return "Potions Plus item tags";
+    }
+
+    public void tier0() {
+        tag(Tags.Items.BASE_TIER_POTION_INGREDIENTS).add(
+                Items.KELP,
+                Items.BAMBOO,
+                Items.CACTUS,
+                Items.PUMPKIN,
+                Items.LILY_PAD,
+                Items.GLOW_LICHEN,
+                Items.LARGE_FERN,
+                Items.WHEAT_SEEDS,
+                Items.MELON_SEEDS,
+                Items.PUMPKIN_SEEDS,
+                Items.CHARCOAL,
+                Items.SWEET_BERRIES,
+                Items.GLOW_BERRIES,
+                Items.RED_MUSHROOM,
+                Items.BROWN_MUSHROOM,
+                Items.SUGAR_CANE,
+                Items.COD,
+                Items.SALMON,
+                Items.ROTTEN_FLESH,
+                Items.BONE,
+                Items.PORKCHOP,
+                Items.CHICKEN,
+                Items.BEEF
+        );
+    }
+
+    public void tier1() {
+        tag(Tags.Items.TIER_1_POTION_INGREDIENTS).add(
+                Items.DEAD_BUSH,
+                Items.FLOWERING_AZALEA,
+                Items.HANGING_ROOTS,
+                Items.VINE,
+                Items.MUSHROOM_STEM,
+                Items.TROPICAL_FISH,
+                Items.FEATHER,
+                Items.LILY_PAD,
+                Items.APPLE,
+                Items.MUSHROOM_STEM,
+                Items.EGG,
+                Items.SLIME_BALL,
+                Items.HONEYCOMB,
+                Items.BEETROOT_SEEDS,
+                Items.SEA_PICKLE,
+                Items.CHICKEN,
+                Items.WARPED_FUNGUS,
+                Items.CRIMSON_FUNGUS
+        );
+    }
+
+    public void tier2() {
+        tag(Tags.Items.TIER_2_POTION_INGREDIENTS).add(
+                Items.COBWEB,
+                Items.PUFFERFISH,
+                Items.CHORUS_FLOWER,
+                Items.MELON,
+                Items.SPORE_BLOSSOM,
+                Items.SCUTE,
+                Items.TURTLE_EGG,
+                Items.AMETHYST_SHARD,
+                Items.CAKE,
+                Items.HONEY_BOTTLE,
+                Items.POISONOUS_POTATO,
+                Items.PHANTOM_MEMBRANE,
+                Items.SPONGE,
+                Items.BROWN_MUSHROOM_BLOCK,
+                Items.RED_MUSHROOM_BLOCK
+        );
+    }
+
+    public void tier3() {
+        tag(Tags.Items.TIER_3_POTION_INGREDIENTS).add(
+                Items.GOLDEN_APPLE,
+                Items.AMETHYST_CLUSTER,
+                Items.SHULKER_SHELL,
+                Items.NAUTILUS_SHELL,
+                Items.TOTEM_OF_UNDYING
+        );
     }
 }

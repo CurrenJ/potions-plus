@@ -51,6 +51,10 @@ public class SeededIngredientsLootTables {
 
     private static LootPool.Builder generateTier1IngredientsPool(LootPool.Builder pool) {
         addItemsInTags(pool, WeightingMode.INDIVIDUAL, 1, grill24.potionsplus.core.Tags.Items.TIER_1_POTION_INGREDIENTS);
+
+        addItemsInTags(pool, WeightingMode.DISTRIBUTED, 1, ItemTags.SAPLINGS);
+        addItemsInTags(pool, WeightingMode.DISTRIBUTED, 1, ItemTags.LEAVES);
+
         return pool;
     }
 

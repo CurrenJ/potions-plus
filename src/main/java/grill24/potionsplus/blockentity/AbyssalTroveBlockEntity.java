@@ -26,6 +26,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     private Vector3d itemAnimationStartingPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
     public Vector3d playerPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
     public float degreesTowardsPlayer = 0;
+    public float currentDisplayRotation = 0;
     private Set<PpIngredient> storedIngredients;
 
     public RendererData rendererData = new RendererData();
@@ -129,17 +130,22 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         // Add items in tiers
         data.renderedItemTiers = new HashMap<>();
         Recipes.seededPotionRecipes.allPotionsBrewingIngredientsByTierNoPotions.forEach((tier, ingredients) -> {
-            List<RendererData.AbyssalTroveRenderedItem> itemsInTier = data.renderedItemTiers.computeIfAbsent(tier, k -> new ArrayList<>());
+            if(tier >= 0) {
+                List<RendererData.AbyssalTroveRenderedItem> itemsInTier = data.renderedItemTiers.computeIfAbsent(tier, k -> new ArrayList<>());
 
-            ingredients.forEach(ingredient -> {
-                ItemStack stack = ingredient.getItemStack();
-                if (!ClientCommands.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
-                    stack = new ItemStack(Items.GENERIC_ICON.get(), 12);
-                }
+                ingredients.forEach(ingredient -> {
+                    ItemStack stack = ingredient.getItemStack();
+                    if (!ClientCommands.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
+                        stack = new ItemStack(Items.GENERIC_ICON.get(), 12);
+                    }
 
-                itemsInTier.add(new RendererData.AbyssalTroveRenderedItem(stack, tier));
-            });
+                    itemsInTier.add(new RendererData.AbyssalTroveRenderedItem(stack, tier));
+                });
+            }
         });
+
+        final double tierSpacing = 1;
+        final double itemSpacing = 0.5;
 
         // Set positions
         for (Map.Entry<Integer, List<RendererData.AbyssalTroveRenderedItem>> entry : data.renderedItemTiers.entrySet()) {
@@ -147,7 +153,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
             int tier = entry.getKey();
             for (int indexInTier = 0; indexInTier < items.size(); indexInTier++) {
                 RendererData.AbyssalTroveRenderedItem item = items.get(indexInTier);
-                item.position = new Vector3d(indexInTier, tier, 0);
+                item.position = new Vector3d(indexInTier * itemSpacing, tier * tierSpacing, 0);
             }
         }
 
@@ -156,7 +162,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
             List<RendererData.AbyssalTroveRenderedItem> items = entry.getValue();
             for (int indexInTier = 0; indexInTier < items.size(); indexInTier++) {
                 RendererData.AbyssalTroveRenderedItem item = items.get(indexInTier);
-                item.position.x = item.position.x - (items.size() / 2.0);
+                item.position.x = item.position.x - (items.size() * itemSpacing / 2.0);
             }
         }
 
