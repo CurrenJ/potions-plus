@@ -51,3 +51,6 @@
 - Mechanism for forcing specific saved recipes to re-gen/remove
 - Remove recipe if reuslt no longer exists
 
+- Heat level for cauldrons and recipes
+- Other intermediary crafting potions aside from awkward
+

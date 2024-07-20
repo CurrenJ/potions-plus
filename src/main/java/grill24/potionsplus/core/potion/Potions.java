@@ -139,6 +139,34 @@ public class Potions {
             .addTagToTierPool(2, SeededIngredientsLootTables.WeightingMode.DISTRIBUTED, 1, grill24.potionsplus.core.Tags.Items.FOOD_INGREDIENTS_RARE)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
+    public static final PotionBuilder.PotionsAmpDurMatrix BLINDNESS_POTIONS = new PotionBuilder()
+            .name("blindness")
+            .maxAmp(1)
+            .maxDur(3)
+            .effects(PotionBuilder.SHORTER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.BLINDNESS)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
+    public static final PotionBuilder.PotionsAmpDurMatrix CONFUSION_POTIONS = new PotionBuilder()
+            .name("confusion")
+            .maxAmp(1)
+            .maxDur(3)
+            .effects(PotionBuilder.SHORTER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.CONFUSION)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
+    public static final PotionBuilder.PotionsAmpDurMatrix HUNGER_POTIONS = new PotionBuilder()
+            .name("hunger")
+            .maxAmp(2)
+            .maxDur(1)
+            .effects(PotionBuilder.SHORTER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.HUNGER)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
+    public static final PotionBuilder.PotionsAmpDurMatrix WITHER_POTIONS = new PotionBuilder()
+            .name("wither")
+            .maxAmp(2)
+            .maxDur(1)
+            .effects(PotionBuilder.SHORTER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.WITHER)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
     @SubscribeEvent
     public static void onRegisterPotions(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {

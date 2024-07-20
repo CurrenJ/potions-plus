@@ -27,8 +27,9 @@ public class PotionBuilder {
     private Function<int[], MobEffectInstance[]> effectFunction = null;
     private ISeededPotionRecipeGenerator potionRecipeGenerator = new SeededPotionRecipeGenerator(DEFAULT_POTION_RECIPE_GENERATOR);
 
-    public static final DurationFunction DEFAULT_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 3600;
-    public static final DurationFunction LONGER_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 5000;
+    public static final DurationFunction SHORTER_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 200; // 10 seconds per level
+    public static final DurationFunction DEFAULT_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 3600; // 3 minutes per level
+    public static final DurationFunction LONGER_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 5000; // 4 minutes 10 seconds per level
 
     public static final SeededPotionRecipeGenerator DEFAULT_POTION_RECIPE_GENERATOR = new SeededPotionRecipeGenerator().withTieredIngredientPools(
             SeededIngredientsLootTables.TIER_0_INGREDIENTS,

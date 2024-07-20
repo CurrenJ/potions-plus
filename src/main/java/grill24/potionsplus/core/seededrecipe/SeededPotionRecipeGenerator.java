@@ -103,11 +103,7 @@ public class SeededPotionRecipeGenerator implements ISeededPotionRecipeGenerator
     }
 
     protected List<BrewingCauldronRecipe> generateRecipe(PotionBuilder.PotionsAmpDurMatrix potionsAmpDurMatrix, IPotionUpgradeIngredients ingredients) {
-        List<BrewingCauldronRecipe> recipesToAdd = brewingCauldronPotionUpgrades(0.1F, 100, "has_potion", potionsAmpDurMatrix, ingredients);
-        for (BrewingCauldronRecipe recipe : recipesToAdd) {
-            System.out.println(recipe.toString());
-        }
-        return recipesToAdd;
+        return brewingCauldronPotionUpgrades(0.1F, 100, "has_potion", potionsAmpDurMatrix, ingredients);
     }
 
     protected static List<BrewingCauldronRecipe> brewingCauldronPotionUpgrades(float experience, int baseProcessingTime, String advancementNameIngredient, PotionBuilder.PotionsAmpDurMatrix potions, IPotionUpgradeIngredients potionUpgradeIngredients) {
