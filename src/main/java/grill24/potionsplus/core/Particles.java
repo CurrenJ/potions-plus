@@ -22,11 +22,13 @@ public class Particles {
     public static final RegistryObject<SimpleParticleType> END_ROD_RAIN = register("end_rod_rain", false);
     public static final RegistryObject<SimpleParticleType> RANDOM_NOTE = register("random_note", false);
     public static final RegistryObject<SimpleParticleType> BLOOD_GOB = register("blood_gob", false);
+    public static final RegistryObject<SimpleParticleType> LUNAR_BERRY_BUSH_AMBIENT = register("lunar_berry_bush_ambient", false);
 
     // Emitters
     public static final RegistryObject<SimpleParticleType> END_ROD_RAIN_EMITTER = register("end_rod_rain_emitter", false);
     public static final RegistryObject<SimpleParticleType> FIREY_EMITTER = register("firey_emitter", false);
     public static final RegistryObject<SimpleParticleType> BLOOD_EMITTER = register("blood_emitter", false);
+    public static final RegistryObject<SimpleParticleType> LUNAR_BERRY_BUSH_AMBIENT_EMITTER = register("lunar_berry_bush_ambient_emitter", false);
 
     private static RegistryObject<SimpleParticleType> register(String p_123825_, boolean p_123826_) {
         return PARTICLE_TYPES.register(p_123825_, () -> new SimpleParticleType(p_123826_));
@@ -38,6 +40,7 @@ public class Particles {
         Minecraft.getInstance().particleEngine.register(Particles.END_ROD_RAIN.get(), EndRodRainParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(Particles.RANDOM_NOTE.get(), RandomNoteParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(Particles.BLOOD_GOB.get(), BloodGobParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(Particles.LUNAR_BERRY_BUSH_AMBIENT.get(), LunarBerryBushAmbientParticle.Provider::new);
 
         Minecraft.getInstance().particleEngine.register(Particles.END_ROD_RAIN_EMITTER.get(),
                 new EmitterParticle.Provider((random) -> ParticleConfigurations.END_ROD_RAIN.sampleParticleType(random).get()));
@@ -45,5 +48,7 @@ public class Particles {
                 new EmitterParticle.Provider((random) -> ParticleConfigurations.FIREY.sampleParticleType(random).get(), 100, 2, 2, 16));
         Minecraft.getInstance().particleEngine.register(Particles.BLOOD_EMITTER.get(),
                 new EmitterParticle.Provider((random) -> ParticleConfigurations.BLOOD.sampleParticleType(random).get(), 20, 2, 2, 0.4F, Vec3.ZERO, Vec3.ZERO, true));
+        Minecraft.getInstance().particleEngine.register(Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.get(),
+                new EmitterParticle.Provider((random) -> ParticleConfigurations.LUNAR_BERRY_BUSH_AMBIENT.sampleParticleType(random).get(), 100, 20, 2, 0.5F, Vec3.ZERO, Vec3.ZERO, false, true));
     }
 }

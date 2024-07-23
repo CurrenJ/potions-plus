@@ -4,9 +4,14 @@ import com.mojang.logging.LogUtils;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.utility.ModInfo;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -30,6 +35,11 @@ public class PotionsPlus {
         Potions.POTIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         Sounds.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
+
+        LootModifiers.LOOT_MODIFIERS.register(FMLJavaModLoadingContext.get().getModEventBus());
+
+        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(ForgeRegistries.FEATURES.getRegistrySuperType(), Features::registerFeatures);
+
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

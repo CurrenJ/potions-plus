@@ -1,12 +1,15 @@
 package grill24.potionsplus.core;
 
+import grill24.potionsplus.item.WormrootItem;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,6 +24,9 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ModInfo.MOD_ID);
+
+    // ----- Block Items -----
+
     public static final RegistryObject<Item> BREWING_CAULDRON = ITEMS.register(Blocks.BREWING_CAULDRON.getId().getPath(), () -> new BlockItem(Blocks.BREWING_CAULDRON.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
     public static final RegistryObject<Item> PARTICLE_EMITTER = ITEMS.register(Blocks.PARTICLE_EMITTER.getId().getPath(), () -> new BlockItem(Blocks.PARTICLE_EMITTER.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
     public static final RegistryObject<Item> PRECISION_DISPENSER = ITEMS.register(Blocks.PRECISION_DISPENSER.getId().getPath(), () -> new BlockItem(Blocks.PRECISION_DISPENSER.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
@@ -28,6 +34,11 @@ public class Items {
     public static final RegistryObject<Item> HERBALISTS_LECTERN = ITEMS.register(Blocks.HERBALISTS_LECTERN.getId().getPath(), () -> new BlockItem(Blocks.HERBALISTS_LECTERN.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
     public static final RegistryObject<Item> SANGUINE_ALTAR = ITEMS.register(Blocks.SANGUINE_ALTAR.getId().getPath(), () -> new BlockItem(Blocks.SANGUINE_ALTAR.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
     public static final RegistryObject<Item> ABYSSAL_TROVE = ITEMS.register(Blocks.ABYSSAL_TROVE.getId().getPath(), () -> new BlockItem(Blocks.ABYSSAL_TROVE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+
+    public static final RegistryObject<Item> LUNAR_BERRY_BUSH = ITEMS.register(Blocks.LUNAR_BERRY_BUSH.getId().getPath(), () -> new BlockItem(Blocks.LUNAR_BERRY_BUSH.get(), new Item.Properties()));
+    public static final RegistryObject<Item> LUNAR_BERRIES = ITEMS.register("lunar_berries", () -> new ItemNameBlockItem(Blocks.LUNAR_BERRY_BUSH.get(), (new Item.Properties()).tab(CreativeModeTab.TAB_FOOD).food(Foods.SWEET_BERRIES)));
+
+    // ----- Dynamically Rendered Display Items -----
 
     public static final RegistryObject<Item> POTION_EFFECT_ICON = ITEMS.register("potion_effect_icon", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
 
@@ -52,6 +63,13 @@ public class Items {
     }};
 
     public static final String DYNAMIC_ICON_INDEX_PROPERTY_NAME = "dynamic_icon_index";
+
+    // ----- Items -----
+
+    public static final RegistryObject<Item> MOSS = ITEMS.register("moss", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> SALT = ITEMS.register("salt", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> WORMROOT = ITEMS.register("wormroot", () -> new WormrootItem(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> ROTTEN_WORMROOT = ITEMS.register("rotten_wormroot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
 
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent event) {

@@ -54,3 +54,7 @@
 - Heat level for cauldrons and recipes
 - Other intermediary crafting potions aside from awkward
 
+- Item pedestal
+- Silk touch potion effect (spawners)
+
+- Salt crafting mechanism

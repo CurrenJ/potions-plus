@@ -38,19 +38,14 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerHorizontalDirectionalBlock(Blocks.ABYSSAL_TROVE.get());
         registerHorizontalDirectionalBlock(Blocks.SANGUINE_ALTAR.get());
 
-        registerPotionEffectIcons(MobEffects.ABSORPTION, MobEffects.BAD_OMEN, MobEffects.BLINDNESS, MobEffects.CONDUIT_POWER, MobEffects.DOLPHINS_GRACE, MobEffects.FIRE_RESISTANCE, MobEffects.GLOWING, MobEffects.HEALTH_BOOST, MobEffects.HERO_OF_THE_VILLAGE, MobEffects.HUNGER, MobEffects.INVISIBILITY, MobEffects.JUMP, MobEffects.LEVITATION, MobEffects.LUCK, MobEffects.NIGHT_VISION, MobEffects.POISON, MobEffects.REGENERATION, MobEffects.SATURATION, MobEffects.SLOW_FALLING, MobEffects.UNLUCK, MobEffects.WATER_BREATHING, MobEffects.WEAKNESS, MobEffects.WITHER);
+        registerPotionEffectIcons();
         registerGenericIcons();
-    }
 
-    private static class ResourceLocationTrimNamespace extends ResourceLocation {
-        public ResourceLocationTrimNamespace(String path) {
-            super("", path);
-        }
-
-        @Override
-        public String toString() {
-            return path;
-        }
+        registerItem(Items.MOSS.get());
+        registerItem(Items.SALT.get());
+        registerItem(Items.WORMROOT.get());
+        registerItem(Items.ROTTEN_WORMROOT.get());
+        registerItem(Items.LUNAR_BERRIES.get());
     }
 
     private void registerPotionEffectIcons(MobEffect... mobEffects) {
@@ -103,7 +98,13 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     private void registerItem(Item item) {
         itemModels().getBuilder(Objects.requireNonNull(item.getRegistryName()).getPath())
                 .parent(models().getExistingFile(mcLoc("item/generated")))
-                .texture("layer0", "mob_effect/" + item.getRegistryName().getPath());
+                .texture("layer0", "item/" + item.getRegistryName().getPath());
+    }
+
+    private void registerItem(Item item, String... folders) {
+        itemModels().getBuilder(Objects.requireNonNull(item.getRegistryName()).getPath())
+                .parent(models().getExistingFile(mcLoc("item/generated")))
+                .texture("layer0", String.join("/", folders) + "/" + item.getRegistryName().getPath());
     }
 
     private void registerParticleEmitter() {

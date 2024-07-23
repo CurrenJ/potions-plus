@@ -1,10 +1,12 @@
 package grill24.potionsplus.core;
 
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -14,6 +16,7 @@ import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommonCommands {
+    public static int expiryTime = 6000;
 
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {
@@ -82,6 +85,18 @@ public class CommonCommands {
                                                 })
                                         )
                                 )
+                        )
+                )
+                // Takes in integer argument
+                .then(Commands.literal("quickItemExpiry")
+                        .requires((source) -> source.hasPermission(2))
+                        .then(Commands.argument("expiryTime", IntegerArgumentType.integer(-1))
+                                .executes(context -> {
+                                    expiryTime = IntegerArgumentType.getInteger(context, "expiryTime");
+                                    String seconds = String.format("%.2f", expiryTime / 20f);
+                                    context.getSource().sendSuccess(new TextComponent("Set item entity expiry time to " + expiryTime + " ticks. (" + seconds + " seconds)"), true);
+                                    return 1;
+                                })
                         )
                 )
         );

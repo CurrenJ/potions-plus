@@ -6,8 +6,10 @@
   "mixins": [
     "AbstractProjectileDispenseBehaviorMixin",
     "ApplyBonusCount",
+    "BiomeDefaultFeaturesMixin",
     "BoatMixin",
     "BootstrapMixin",
+    "ItemEntityMixin",
     "PotionItemMixin"
   ],
   "client": [

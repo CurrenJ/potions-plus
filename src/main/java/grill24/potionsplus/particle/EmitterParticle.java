@@ -22,8 +22,9 @@ public class EmitterParticle extends NoRenderParticle {
     protected final float RANGE;
     protected final Vec3 VELOCITY;
     protected final boolean SHRINK_WITH_TIME;
+    protected final boolean GAUSSIAN_RANGE;
 
-    EmitterParticle(ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, Function<Random, ParticleOptions> particleTypeSupplier, int lifetime, int ticksPerSpawn, int spawnCount, float range, Vec3 velocity, boolean shrinkWithTime) {
+    EmitterParticle(ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, Function<Random, ParticleOptions> particleTypeSupplier, int lifetime, int ticksPerSpawn, int spawnCount, float range, Vec3 velocity, boolean shrinkWithTime, boolean gaussianRange) {
         super(clientLevel, x, y, z, xd, yd, zd);
         this.xd = xd;
         this.yd = yd;
@@ -36,6 +37,7 @@ public class EmitterParticle extends NoRenderParticle {
         this.RANGE = range;
         this.VELOCITY = velocity;
         this.SHRINK_WITH_TIME = shrinkWithTime;
+        this.GAUSSIAN_RANGE = gaussianRange;
     }
 
     @Override
@@ -54,9 +56,19 @@ public class EmitterParticle extends NoRenderParticle {
 
         for (int i = 0; i < effectiveSpawnCount; ++i) {
             if (this.age % effectiveTicksPerSpawn == 0) {
-                double pX = this.x + (this.random.nextDouble() - this.random.nextDouble()) * effectiveRange;
-                double pY = this.y + (this.random.nextDouble() - this.random.nextDouble()) * effectiveRange;
-                double pZ = this.z + (this.random.nextDouble() - this.random.nextDouble()) * effectiveRange;
+                double pX = this.x;
+                double pY = this.y;
+                double pZ = this.z;
+                if (this.GAUSSIAN_RANGE) {
+                    pX += this.random.nextGaussian(0, effectiveRange);
+                    pY += this.random.nextGaussian(0, effectiveRange);
+                    pZ += this.random.nextGaussian(0, effectiveRange);
+                }
+                else {
+                    pX += (this.random.nextDouble() * 2 - 1) * effectiveRange;
+                    pY += (this.random.nextDouble() * 2 - 1) * effectiveRange;
+                    pZ += (this.random.nextDouble() * 2 - 1) * effectiveRange;
+                }
                 if (this.PARTICLE_TYPE_SUPPLIER != null)
                     this.level.addParticle(PARTICLE_TYPE_SUPPLIER.apply(this.random), pX, pY, pZ, VELOCITY.x, VELOCITY.y, VELOCITY.z);
             }
@@ -71,6 +83,7 @@ public class EmitterParticle extends NoRenderParticle {
         private int spawnCount = 2;
         private float range = 16;
         private boolean shrinkWithTime = false;
+        private boolean useGaussianRange = false;
 
         private Vec3 offset = Vec3.ZERO;
         private Vec3 velocity = Vec3.ZERO;
@@ -117,8 +130,21 @@ public class EmitterParticle extends NoRenderParticle {
             this.shrinkWithTime = shrinkWithTime;
         }
 
+        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range, Vec3 offset, Vec3 velocity, boolean shrinkWithTime, boolean useGaussianRange) {
+            this.particleTypeSupplier = particleTypeSupplier;
+            this.lifeTime = lifeTime;
+            this.ticksPerSpawn = ticksPerSpawn;
+            this.spawnCount = spawnCount;
+            this.range = range;
+            this.offset = offset;
+            this.velocity = velocity;
+            this.shrinkWithTime = shrinkWithTime;
+            this.useGaussianRange = useGaussianRange;
+
+        }
+
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd) {
-            return new EmitterParticle(clientLevel, x + offset.x, y + offset.y, z + offset.z, xd, yd, zd, particleTypeSupplier, lifeTime, ticksPerSpawn, spawnCount, range, velocity, shrinkWithTime);
+            return new EmitterParticle(clientLevel, x + offset.x, y + offset.y, z + offset.z, xd, yd, zd, particleTypeSupplier, lifeTime, ticksPerSpawn, spawnCount, range, velocity, shrinkWithTime, useGaussianRange);
         }
     }
 }

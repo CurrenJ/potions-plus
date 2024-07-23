@@ -1,14 +1,17 @@
 package grill24.potionsplus.event;
 
+import grill24.potionsplus.behaviour.MossBehaviour;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -42,5 +45,12 @@ public class PlayerListeners {
 
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void on(final PlayerInteractEvent.RightClickBlock event) {
+        BlockPos pos = event.getPos();
+
+        MossBehaviour.doMossInteractions(event, pos);
     }
 }
