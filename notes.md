@@ -58,3 +58,9 @@
 - Silk touch potion effect (spawners)
 
 - Salt crafting mechanism
+
+- Door as multiblock reference
+- Drops come from loot table targeting block state property (only bottom half drops item, top half does not drop anything)
+- canSurvive() breaks if block below is not solid or if the other half is missing
+- setPlacedBy() sets the other half of the door when placed
+- playerWillDestroy (in bed, this breaks the other half if one is broken)

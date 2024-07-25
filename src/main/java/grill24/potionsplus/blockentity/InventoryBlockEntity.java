@@ -87,7 +87,7 @@ public abstract class InventoryBlockEntity extends BlockEntity implements Worldl
         getItemHandler().clearContent();
     }
 
-    public final Container getItemHandler() {
+    public Container getItemHandler() {
         return itemHandler;
     }
 
@@ -190,6 +190,7 @@ public abstract class InventoryBlockEntity extends BlockEntity implements Worldl
 
     @Override
     public boolean canPlaceItem(int index, ItemStack stack) {
+        Container itemHandler = getItemHandler();
         boolean compatibleItems = ItemStack.isSameItemSameTags(itemHandler.getItem(index), stack) || itemHandler.getItem(index).isEmpty();
         int newCount = itemHandler.getItem(index).getCount() + stack.getCount();
         return itemHandler.canPlaceItem(index, stack) && compatibleItems &&

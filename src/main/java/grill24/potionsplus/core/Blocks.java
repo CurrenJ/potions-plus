@@ -1,10 +1,7 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.block.*;
-import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
-import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
-import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntity;
-import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
+import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -44,7 +41,8 @@ public class Blocks {
 
     public static final RegistryObject<Block> LUNAR_BERRY_BUSH = BLOCKS.register("lunar_berry_bush", () ->
             new LunarBerryBushBlock(BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.SWEET_BERRY_BUSH).noOcclusion().lightLevel(LunarBerryBushBlock.LIGHT_EMISSION)));
-
+    public static final RegistryObject<Block> CLOTHESLINE = BLOCKS.register("clothesline", () ->
+            new ClotheslineBlock(BlockBehaviour.Properties.of(Material.WOOD).noOcclusion().strength(0.8F).sound(SoundType.WOOD)));
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, ModInfo.MOD_ID);
 
@@ -52,6 +50,7 @@ public class Blocks {
     public static final RegistryObject<BlockEntityType<HerbalistsLecternBlockEntity>> HERBALISTS_LECTERN_BLOCK_ENTITY = BLOCK_ENTITIES.register("herbalists_lectern_block_entity", () -> BlockEntityType.Builder.of(HerbalistsLecternBlockEntity::new, HERBALISTS_LECTERN.get()).build(null));
     public static final RegistryObject<BlockEntityType<SanguineAltarBlockEntity>> SANGUINE_ALTAR_BLOCK_ENTITY = BLOCK_ENTITIES.register("sanguine_altar_block_entity", () -> BlockEntityType.Builder.of(SanguineAltarBlockEntity::new, SANGUINE_ALTAR.get()).build(null));
     public static final RegistryObject<BlockEntityType<AbyssalTroveBlockEntity>> ABYSSAL_TROVE_BLOCK_ENTITY = BLOCK_ENTITIES.register("abyssal_trove_block_entity", () -> BlockEntityType.Builder.of(AbyssalTroveBlockEntity::new, ABYSSAL_TROVE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ClotheslineBlockEntity>> CLOTHESLINE_BLOCK_ENTITY = BLOCK_ENTITIES.register("clothesline_block_entity", () -> BlockEntityType.Builder.of(ClotheslineBlockEntity::new, CLOTHESLINE.get()).build(null));
 
     @SubscribeEvent
     public static void registerBlockColors(ColorHandlerEvent.Block event) {

@@ -1,5 +1,7 @@
 package grill24.potionsplus.data;
 
+import grill24.potionsplus.block.ClotheslineBlock;
+import grill24.potionsplus.block.ClotheslinePart;
 import grill24.potionsplus.block.ParticleEmitterBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
@@ -26,9 +28,10 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
     @Override
     protected void registerStatesAndModels() {
+        // Blocks
+
         // Brewing Cauldron
 //        fromParent(grill24.potionsplus.core.Blocks.BREWING_CAULDRON.get(), net.minecraft.world.level.block.Blocks.CAULDRON);
-
 
         // Particle Emitter
         registerParticleEmitter();
@@ -37,6 +40,11 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerBlockWithModel(Blocks.HERBALISTS_LECTERN.get());
         registerHorizontalDirectionalBlock(Blocks.ABYSSAL_TROVE.get());
         registerHorizontalDirectionalBlock(Blocks.SANGUINE_ALTAR.get());
+
+        registerClothesline();
+
+
+        // Items
 
         registerPotionEffectIcons();
         registerGenericIcons();
@@ -119,6 +127,19 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         }
 
         simpleBlockItem(Blocks.PARTICLE_EMITTER.get(), models().getExistingFile(mcLoc("block/iron_block")));
+    }
+
+    private void registerClothesline() {
+        getVariantBuilder(Blocks.CLOTHESLINE.get())
+                .partialState().with(ClotheslineBlock.PART, ClotheslinePart.LEFT).modelForState()
+                .modelFile(models().getExistingFile(mcLoc("oak_fence_post")))
+                .addModel()
+                .partialState().with(ClotheslineBlock.PART, ClotheslinePart.RIGHT).modelForState()
+                .modelFile(models().getExistingFile(mcLoc("oak_fence_post")))
+                .addModel();
+
+        itemModels().getBuilder(Objects.requireNonNull(Items.CLOTHESLINE.get().getRegistryName()).getPath())
+                .parent(models().getExistingFile(mcLoc("block/oak_fence_post")));
     }
 
     private void registerHorizontalDirectionalBlock(Block block) {

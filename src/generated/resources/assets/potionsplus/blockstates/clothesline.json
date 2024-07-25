@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "part=left": {
+      "model": "minecraft:block/oak_fence_post"
+    },
+    "part=right": {
+      "model": "minecraft:block/oak_fence_post"
+    }
+  }
+}

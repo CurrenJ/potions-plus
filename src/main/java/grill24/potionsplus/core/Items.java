@@ -38,6 +38,8 @@ public class Items {
     public static final RegistryObject<Item> LUNAR_BERRY_BUSH = ITEMS.register(Blocks.LUNAR_BERRY_BUSH.getId().getPath(), () -> new BlockItem(Blocks.LUNAR_BERRY_BUSH.get(), new Item.Properties()));
     public static final RegistryObject<Item> LUNAR_BERRIES = ITEMS.register("lunar_berries", () -> new ItemNameBlockItem(Blocks.LUNAR_BERRY_BUSH.get(), (new Item.Properties()).tab(CreativeModeTab.TAB_FOOD).food(Foods.SWEET_BERRIES)));
 
+    public static final RegistryObject<Item> CLOTHESLINE = ITEMS.register(Blocks.CLOTHESLINE.getId().getPath(), () -> new BlockItem(Blocks.CLOTHESLINE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+
     // ----- Dynamically Rendered Display Items -----
 
     public static final RegistryObject<Item> POTION_EFFECT_ICON = ITEMS.register("potion_effect_icon", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
