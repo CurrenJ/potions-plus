@@ -1,11 +1,12 @@
 {
   "type": "potionsplus:brewing_cauldron_recipe",
-  "tier": 0,
+  "group": "has_potion",
   "ingredient": [
     "{Count:1b,id:\"minecraft:dirt\"}",
     "{Count:1b,id:\"minecraft:moss_block\"}"
   ],
   "result": "{Count:1b,id:\"minecraft:grass_block\"}",
+  "processingTime": 40,
   "experience": 0.1,
-  "cookingtime": 40
+  "tier": -1
 }

@@ -2,6 +2,7 @@ package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -119,8 +120,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
     }
 
     private void buildBrewingCauldronRecipe(Consumer<FinishedRecipe> recipeConsumer, BrewingCauldronRecipe recipe) {
-        Ingredient[] ingredients = recipe.getIngredients().toArray(new Ingredient[0]);
-        BrewingCauldronRecipeBuilder.brewing(ingredients, recipe.getResultItem(), recipe.getExperience(), recipe.getProcessingTime())
+        new BrewingCauldronRecipeBuilder(recipe)
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer, recipe.getId());
     }

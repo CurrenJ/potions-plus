@@ -1,11 +1,14 @@
 package grill24.potionsplus.persistence.adapter;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeSerializer;
 import net.minecraft.resources.ResourceLocation;
 
 import java.io.IOException;
@@ -13,8 +16,11 @@ import java.io.IOException;
 public class BrewingCauldronRecipeTypeAdapter extends TypeAdapter<BrewingCauldronRecipe> {
     @Override
     public void write(JsonWriter out, BrewingCauldronRecipe brewingCauldronRecipe) throws IOException {
+        JsonObject jsonObject = new JsonObject();
+        Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.get().toJson(brewingCauldronRecipe, jsonObject);
+
         out.beginObject();
-        out.name("recipe").value(brewingCauldronRecipe.toJson().toString());
+        out.name("recipe").value(jsonObject.toString());
         out.name("id").value(brewingCauldronRecipe.getId().toString());
         out.endObject();
     }
@@ -40,6 +46,6 @@ public class BrewingCauldronRecipeTypeAdapter extends TypeAdapter<BrewingCauldro
         if (recipe == null || id == null)
             throw new IOException("Invalid BrewingCauldronRecipe JSON");
 
-        return BrewingCauldronRecipe.fromJson(new ResourceLocation(id), recipe.getAsJsonObject());
+        return Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.get().fromJson(new ResourceLocation(id), recipe.getAsJsonObject());
     }
 }
