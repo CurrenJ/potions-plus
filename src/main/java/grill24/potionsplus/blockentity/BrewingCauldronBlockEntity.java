@@ -4,6 +4,8 @@ import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Sounds;
+import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
+import grill24.potionsplus.network.PotionsPlusPacketHandler;
 import grill24.potionsplus.particle.ParticleConfigurations;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -25,11 +27,12 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
 import java.util.*;
 
-public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
+public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity {
     public static final int CONTAINER_SIZE = 6;
     private Optional<BrewingCauldronRecipe> activeRecipe = Optional.empty();
     private int brewTime = 0;
@@ -105,69 +108,73 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
         return waterColor.getRGB();
     }
 
+    public void craft(int slot) {
+        craft();
+    }
+
     private void craft() {
-        if (activeRecipe.isPresent()) {
+        if(level == null) return;
+
+        if (!level.isClientSide) {
+            if(activeRecipe.isEmpty()) return;
             final BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(activeRecipe.get());
             ItemStack result = recipe.getResultItem();
-            if (result.isEmpty())
-                return;
+            if (result.isEmpty()) return;
 
-            if (level != null) {
-                spawnSuccessParticles();
+            // Remove ingredients and add result
+            // Iterate through recipe ingredients and remove correct amounts
+            for (int i = 0; i < recipe.getIngredients().size(); i++) {
+                ItemStack ingredient = recipe.getIngredients().get(i).getItems()[0];
 
-                if (!level.isClientSide) {
-                    // Remove ingredients and add result
-                    // Iterate through recipe ingredients and remove correct amounts
-                    for (int i = 0; i < recipe.getIngredients().size(); i++) {
-                        ItemStack ingredient = recipe.getIngredients().get(i).getItems()[0];
-
-                        // Look through container until we find
-                        // the correct item and remove the correct amount
-                        for (int j = 0; j < this.getContainerSize(); j++) {
-                            ItemStack stack = this.getItem(j);
-                            if (PUtil.isSameItemOrPotion(stack, ingredient)) {
-                                stack.shrink(ingredient.getCount());
-                                break;
-                            }
-                        }
+                // Look through container until we find
+                // the correct item and remove the correct amount
+                for (int j = 0; j < this.getContainerSize(); j++) {
+                    ItemStack stack = this.getItem(j);
+                    if (PUtil.isSameItemOrPotion(stack, ingredient)) {
+                        stack.shrink(ingredient.getCount());
+                        break;
                     }
-
-                    // Add result to container
-                    for (int i = 0; i < this.getContainerSize(); i++) {
-                        int newCount = this.getItem(i).getCount() + result.getCount();
-                        if (this.canPlaceItem(i, result) &&
-                                newCount <= this.getMaxStackSize() &&
-                                newCount <= result.getMaxStackSize()) {
-                            this.setItem(i, result.copy());
-
-                            // Try add new recipe knowledge to saved data
-                            // If the recipe was not already known, schedule a JEI update and play a sound
-                            boolean isNewRecipe = SavedData.instance.getData(playerLastInteractedUuid).addKnownRecipe(recipe.getId().toString());
-                            if (isNewRecipe) {
-                                Player player = level.getPlayerByUUID(playerLastInteractedUuid);
-                                if (player != null) {
-                                    TranslatableComponent text = new TranslatableComponent("chat.potionsplus.brewing_cauldron_recipe_unlocked", result.getHoverName());
-                                    player.displayClientMessage(text, true);
-                                    level.playSound(null, worldPosition, Sounds.RECIPE_UNLOCKED.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
-                                }
-                            }
-                            break;
-                        }
-                    }
-
-                    setChanged();
                 }
             }
+
+            // Add result to container
+            for (int i = 0; i < this.getContainerSize(); i++) {
+                int newCount = this.getItem(i).getCount() + result.getCount();
+                if (this.canPlaceItem(i, result) &&
+                        newCount <= this.getMaxStackSize() &&
+                        newCount <= result.getMaxStackSize()) {
+                    this.setItem(i, result.copy());
+
+                    // Try add new recipe knowledge to saved data
+                    // If the recipe was not already known, schedule a JEI update and play a sound
+                    boolean isNewRecipe = SavedData.instance.getData(playerLastInteractedUuid).addKnownRecipe(recipe.getId().toString());
+                    if (isNewRecipe) {
+                        Player player = level.getPlayerByUUID(playerLastInteractedUuid);
+                        if (player != null) {
+                            TranslatableComponent text = new TranslatableComponent("chat.potionsplus.brewing_cauldron_recipe_unlocked", result.getHoverName());
+                            player.displayClientMessage(text, true);
+                            level.playSound(null, worldPosition, Sounds.RECIPE_UNLOCKED.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                        }
+                    }
+                    break;
+                }
+            }
+            level.playSound(null, worldPosition, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0F, 1.0F);
+
+            PotionsPlusPacketHandler.CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new ClientboundBlockEntityCraftRecipePacket(worldPosition, -1));
+        } else {
+            spawnSuccessParticles();
         }
+
+        setChanged();
     }
 
     private void spawnSuccessParticles() {
-        if (level != null) {
-            level.playSound(null, worldPosition, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0F, 1.0F);
+        if (level == null)
+            return;
 
-            for (int i = 0; i < 10; i++) {
-                level.addParticle(Particles.END_ROD_RAIN.get(), worldPosition.getX() + level.random.nextDouble(0.2, 0.8), worldPosition.getY() + 2, worldPosition.getZ() + level.random.nextDouble(0.2, 0.8), 0, 0, 0);
-            }
+        for (int i = 0; i < 10; i++) {
+            level.addParticle(Particles.END_ROD_RAIN.get(), worldPosition.getX() + level.random.nextDouble(0.2, 0.8), worldPosition.getY() + 2, worldPosition.getZ() + level.random.nextDouble(0.2, 0.8), 0, 0, 0);
         }
     }
 

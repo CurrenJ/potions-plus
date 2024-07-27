@@ -5,11 +5,13 @@ import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.network.ClientboundClotheslineCraftPacket;
+import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.network.PotionsPlusPacketHandler;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,7 +19,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 
-public class ClotheslineBlockEntity extends InventoryBlockEntity {
+public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity {
     private int[] progress;
     private ClotheslineRecipe[] activeRecipes;
     private Vector3f[] leashPoints;
@@ -108,15 +110,18 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity {
 
     public void craft(int slot) {
         if(level != null) {
-            if(level.isClientSide)
+            if(level.isClientSide) {
                 spawnCraftingSuccessParticles(level, slot);
+            }
             else {
                 final ClotheslineRecipe activeRecipe = new ClotheslineRecipe(activeRecipes[slot]);
                 getItem(slot).shrink(1);
                 ItemStack result = activeRecipe.assemble(this);
                 setItem(slot, result);
 
-                PotionsPlusPacketHandler.CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new ClientboundClotheslineCraftPacket(worldPosition, slot));
+                level.playSound(null, worldPosition, SoundEvents.WEEPING_VINES_PLACE, SoundSource.BLOCKS, 1, 1);
+
+                PotionsPlusPacketHandler.CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new ClientboundBlockEntityCraftRecipePacket(worldPosition, slot));
             }
         }
 
@@ -139,12 +144,12 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity {
     private void spawnCraftingSuccessParticles(Level level, int slot) {
         Vector3f pos = getPointOnLeashForItem(slot);
         pos.add(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ());
-        final int count = level.random.nextInt(5, 8);
+        final int count = level.random.nextInt(3, 6);
         for (int i = 0; i < count; i++) {
             level.addParticle(Particles.END_ROD_RAIN.get(),
-                    pos.x() + level.random.nextGaussian(0, 0.15),
-                    pos.y() + level.random.nextGaussian(0, 0.15),
-                    pos.z() + level.random.nextGaussian(0, 0.15),
+                    pos.x() + level.random.nextGaussian(0, 0.1),
+                    pos.y() + level.random.nextGaussian(0, 0.1),
+                    pos.z() + level.random.nextGaussian(0, 0.1),
                     0, 0, 0);
         }
     }
