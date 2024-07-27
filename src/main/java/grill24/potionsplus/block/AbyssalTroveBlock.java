@@ -99,7 +99,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
             }
         }
 
-        if (!blockEntity.get().getItemHandler().getItem(0).isEmpty()) {
+        if (!blockEntity.get().getItem(0).isEmpty()) {
             if (abyssalTroveBlockEntity.rendererData.renderedItemTiers.isEmpty()) {
                 abyssalTroveBlockEntity.updateRendererData();
             }

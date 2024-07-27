@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import grill24.potionsplus.block.ClotheslineBlock;
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.render.LeashRenderer;
 import grill24.potionsplus.utility.ClientTickHandler;
 import net.minecraft.client.Minecraft;
@@ -20,6 +21,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Optional;
 
 public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<ClotheslineBlockEntity> {
     public final BlockRenderDispatcher blockRenderDispatcher;
@@ -55,18 +58,23 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
                     Vec3.atLowerCornerOf(left).add(OFFSET_IN_POST_BLOCKS.x(), OFFSET_IN_POST_BLOCKS.y(), OFFSET_IN_POST_BLOCKS.z()),
                     Vec3.atLowerCornerOf(right).add(OFFSET_IN_POST_BLOCKS.x(), OFFSET_IN_POST_BLOCKS.y(), OFFSET_IN_POST_BLOCKS.z()),
                     matrices, vertexConsumers, blockLightStart, blockLightEnd, skyLightStart, skyLightEnd);
+            blockEntity.setLeashPoints(leashPoints);
+
+
+            ClotheslineBlockEntity leftBlockEntity = level.getBlockEntity(left, Blocks.CLOTHESLINE_BLOCK_ENTITY.get()).orElse(null);
+            if(leftBlockEntity == null)
+                return;
 
             // Render items on the clothesline
-            float leashPointsPerItemRendered = (float) leashPoints.length / (blockEntity.getItemHandler().getContainerSize() + 1);
-            for(int i = 0; i < blockEntity.getItemHandler().getContainerSize(); i++) {
-                ItemStack stack = blockEntity.getItemHandler().getItem(i);
-                if(!stack.isEmpty()) {
+            for (int i = 0; i < leftBlockEntity.getContainerSize(); i++) {
+                ItemStack stack = leftBlockEntity.getItem(i);
+                if (!stack.isEmpty()) {
                     matrices.pushPose();
-                    Vector3f position = leashPoints[(int) (leashPointsPerItemRendered * (i+1))];
+                    Vector3f position = blockEntity.getPointOnLeashForItem(i);
                     position.add(OFFSET_IN_POST_BLOCKS);
 
                     // If this is the right end, adjust the position to the left end
-                    if(!ClotheslineBlock.isLeftEnd(blockEntity.getBlockState())) {
+                    if (!ClotheslineBlock.isLeftEnd(blockEntity.getBlockState())) {
                         BlockPos difference = ClotheslineBlock.getOtherEnd(blockEntity.getBlockPos(), blockEntity.getBlockState()).subtract(blockEntity.getBlockPos());
                         position.add(difference.getX(), difference.getY(), difference.getZ());
                     }
@@ -74,9 +82,13 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
                     // Render the item
                     matrices.translate(position.x(), position.y(), position.z());
                     matrices.scale(0.5f, 0.5f, 0.5f);
-                    // Swing the item a bit :)
                     matrices.mulPose(orientItemToClotheslineOrientation(blockEntity.getBlockState()));
-                    matrices.mulPose(Vector3f.XP.rotationDegrees((float) (Math.sin(ClientTickHandler.total() / 10 + i * 7) * 10)));
+                    // Swing the item a bit :)
+                    float amplitude = 15 * (1 - leftBlockEntity.getProgress(i));
+                    System.out.println(leftBlockEntity.getProgress(i));
+
+                    float swing = (float) (Math.sin(ClientTickHandler.total() / 10 + i * 7) * amplitude);
+                    matrices.mulPose(Vector3f.XP.rotationDegrees(swing));
                     matrices.translate(ITEM_OFFSET.x(), ITEM_OFFSET.y(), ITEM_OFFSET.z());
                     Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.FIXED,
                             light, overlay, matrices, vertexConsumers, 0);

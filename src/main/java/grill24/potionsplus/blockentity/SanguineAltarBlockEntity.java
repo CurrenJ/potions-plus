@@ -64,8 +64,13 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
     }
 
     @Override
-    protected SimpleContainer createItemHandler() {
-        return new SimpleContainer(1);
+    protected int getSlots() {
+        return 1;
+    }
+
+    @Override
+    public int getMaxStackSize() {
+        return 1;
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, SanguineAltarBlockEntity blockEntity) {

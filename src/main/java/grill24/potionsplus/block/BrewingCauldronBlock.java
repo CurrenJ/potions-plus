@@ -42,7 +42,7 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
         if (!blockState.is(newState.getBlock())) {
             BlockEntity blockentity = level.getBlockEntity(blockPos);
             if (blockentity instanceof InventoryBlockEntity inventoryBlockEntity) {
-                Containers.dropContents(level, blockPos, inventoryBlockEntity.getItemHandler());
+                Containers.dropContents(level, blockPos, inventoryBlockEntity);
                 level.updateNeighbourForOutputSignal(blockPos, this);
             }
 
@@ -75,6 +75,6 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
     @Override
     public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
         Optional<BrewingCauldronBlockEntity> brewingCauldronBlockEntity = level.getBlockEntity(blockPos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get());
-        return brewingCauldronBlockEntity.map(cauldronBlockEntity -> AbstractContainerMenu.getRedstoneSignalFromContainer(cauldronBlockEntity.getItemHandler())).orElse(0);
+        return brewingCauldronBlockEntity.map(AbstractContainerMenu::getRedstoneSignalFromContainer).orElse(0);
     }
 }

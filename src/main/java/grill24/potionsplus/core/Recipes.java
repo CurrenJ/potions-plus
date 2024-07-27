@@ -3,8 +3,12 @@ package grill24.potionsplus.core;
 import com.google.common.collect.ImmutableMap;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.SeededPotionRecipes;
+import grill24.potionsplus.recipe.ShapelessProcessingRecipeSerializer;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeSerializer;
+import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
+import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipeBuilder;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.client.Minecraft;
@@ -29,7 +33,12 @@ public class Recipes {
 
     // Brewing Cauldron Recipe
     public static final RegistryObject<RecipeType<BrewingCauldronRecipe>> BREWING_CAULDRON_RECIPE = RECIPE_TYPES.register("brewing_cauldron_recipe", () -> new RecipeType<>() {});
-    public static final RegistryObject<BrewingCauldronRecipeSerializer> BREWING_CAULDRON_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("brewing_cauldron_recipe", () -> new BrewingCauldronRecipeSerializer(200));
+    public static final RegistryObject<BrewingCauldronRecipeSerializer> BREWING_CAULDRON_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("brewing_cauldron_recipe", () -> new BrewingCauldronRecipeSerializer(BrewingCauldronRecipeBuilder::new, 200));
+
+    // Clothesline Recipe
+    public static final RegistryObject<RecipeType<ClotheslineRecipe>> CLOTHESLINE_RECIPE = RECIPE_TYPES.register("clothesline_recipe", () -> new RecipeType<>() {});
+    public static final RegistryObject<ShapelessProcessingRecipeSerializer<ClotheslineRecipe, ClotheslineRecipeBuilder>> CLOTHESLINE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("clothesline_recipe", () -> new ShapelessProcessingRecipeSerializer<>(ClotheslineRecipeBuilder::new, 200));
+
 
     public static SeededPotionRecipes seededPotionRecipes;
 

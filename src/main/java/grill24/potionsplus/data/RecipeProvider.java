@@ -3,11 +3,14 @@ package grill24.potionsplus.data;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
+import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipeBuilder;
+import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -111,6 +114,23 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 Ingredient.of(net.minecraft.world.item.Items.DIRT),
                 Ingredient.of(net.minecraft.world.item.Items.MOSS_BLOCK))
         );
+
+
+        // ----- Clothesline Recipes -----
+
+        new ClotheslineRecipeBuilder()
+                .ingredients(Ingredient.of(net.minecraft.world.item.Items.ROTTEN_FLESH))
+                .result(new ItemStack(net.minecraft.world.item.Items.LEATHER))
+                .processingTime(100)
+                .unlockedBy("has_rotten_flesh", has(net.minecraft.world.item.Items.ROTTEN_FLESH))
+                .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "rotten_flesh_to_leather"));
+
+        new ClotheslineRecipeBuilder()
+                .ingredients(Ingredient.of(net.minecraft.world.item.Items.BONE))
+                .result(new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 4))
+                .processingTime(600)
+                .unlockedBy("has_bone", has(net.minecraft.world.item.Items.BONE))
+                .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "bone_to_bone_meal"));
     }
 
     private void buildBrewingCauldronRecipes(Consumer<FinishedRecipe> recipeConsumer, List<BrewingCauldronRecipe> recipes) {

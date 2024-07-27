@@ -34,7 +34,7 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
         profiler.push("herbalists_lectern_render");
 
         // Render
-        ItemStack stack = blockEntity.getItemHandler().getItem(0);
+        ItemStack stack = blockEntity.getItem(0);
         if (!stack.isEmpty()) {
             // Lerp the item from the player's hand to the resting position
             final float animationDuration = 20F;

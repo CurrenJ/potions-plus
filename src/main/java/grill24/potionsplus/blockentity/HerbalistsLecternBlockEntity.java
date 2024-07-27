@@ -60,7 +60,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
 
         public void updateItemStacksToDisplay(HerbalistsLecternBlockEntity herbalistsLecternBlockEntity) {
             if (herbalistsLecternBlockEntity.level != null) {
-                ItemStack inputStack = herbalistsLecternBlockEntity.getItemHandler().getItem(0);
+                ItemStack inputStack = herbalistsLecternBlockEntity.getItem(0);
                 List<BrewingCauldronRecipe> allValidRecipes = new ArrayList<>(herbalistsLecternBlockEntity.level.getRecipeManager().getAllRecipesFor(
                                 Recipes.BREWING_CAULDRON_RECIPE.get()).stream()
                         .filter(recipe -> recipe.isIngredient(inputStack)).toList());
@@ -134,8 +134,13 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
     }
 
     @Override
-    protected SimpleContainer createItemHandler() {
-        return new SimpleContainer(1);
+    protected int getSlots() {
+        return 1;
+    }
+
+    @Override
+    public int getMaxStackSize() {
+        return 1;
     }
 
     public int getTimeItemPlaced() {

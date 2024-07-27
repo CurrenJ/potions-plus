@@ -64,8 +64,13 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     }
 
     @Override
-    protected SimpleContainer createItemHandler() {
-        return new PotionsPlusContainer(100, 1);
+    protected int getSlots() {
+        return 100;
+    }
+
+    @Override
+    public int getMaxStackSize() {
+        return 1;
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, AbyssalTroveBlockEntity blockEntity) {
@@ -185,8 +190,8 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
 
     private void computeStoredIngredients() {
         storedIngredients.clear();
-        for (int i = 0; i < this.getItemHandler().getContainerSize(); i++) {
-            ItemStack stack = this.getItemHandler().getItem(i);
+        for (int i = 0; i < this.getContainerSize(); i++) {
+            ItemStack stack = this.getItem(i);
             if (!stack.isEmpty()) {
                 storedIngredients.add(PpIngredient.of(stack));
             }

@@ -26,14 +26,13 @@ public class InvUtil {
         if (!hand.isEmpty()) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof InventoryBlockEntity inventoryBlockEntity) {
-                Container itemHandler = inventoryBlockEntity.getItemHandler();
-                for (int i = 0; i < itemHandler.getContainerSize(); i++) {
+                for (int i = 0; i < inventoryBlockEntity.getContainerSize(); i++) {
                     ItemStack toInsert = hand.copy();
                     toInsert.setCount(1);
                     if (inventoryBlockEntity.canPlaceItem(i, toInsert)) {
                         hand.shrink(toInsert.getCount());
-                        toInsert.grow(itemHandler.getItem(i).getCount());
-                        itemHandler.setItem(i, toInsert);
+                        toInsert.grow(inventoryBlockEntity.getItem(i).getCount());
+                        inventoryBlockEntity.setItem(i, toInsert);
 
                         level.playSound(null, blockPos, insert, SoundSource.BLOCKS, 1.0F, 1.0F);
 
@@ -44,12 +43,11 @@ public class InvUtil {
         } else if (allowTaking) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof InventoryBlockEntity inventoryBlockEntity) {
-                Container itemHandler = inventoryBlockEntity.getItemHandler();
-                for (int i = 0; i < itemHandler.getContainerSize(); i++) {
-                    ItemStack stack = itemHandler.getItem(i);
+                for (int i = 0; i < inventoryBlockEntity.getContainerSize(); i++) {
+                    ItemStack stack = inventoryBlockEntity.getItem(i);
                     if (!stack.isEmpty() && player.canTakeItem(stack)) {
                         player.addItem(stack);
-                        itemHandler.setItem(i, ItemStack.EMPTY);
+                        inventoryBlockEntity.setItem(i, ItemStack.EMPTY);
 
                         level.playSound(null, blockPos, remove, SoundSource.BLOCKS, 1.0F, 1.0F);
 

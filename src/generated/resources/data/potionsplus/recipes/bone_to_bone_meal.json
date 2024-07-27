@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"minecraft:bone\"}"
+  ],
+  "result": "{Count:4b,id:\"minecraft:bone_meal\"}",
+  "processingTime": 600
+}

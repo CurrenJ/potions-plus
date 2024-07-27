@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"minecraft:rotten_flesh\"}"
+  ],
+  "result": "{Count:1b,id:\"minecraft:leather\"}",
+  "processingTime": 100
+}

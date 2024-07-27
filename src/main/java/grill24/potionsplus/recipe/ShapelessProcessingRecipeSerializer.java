@@ -3,10 +3,11 @@ package grill24.potionsplus.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -14,14 +15,30 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class ShapelessProcessingRecipeSerializer<R extends ShapelessProcessingRecipe, T extends ShapelessProcessingRecipeBuilder<R, T>> extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<BrewingCauldronRecipe> {
+import java.util.function.Supplier;
+
+public class ShapelessProcessingRecipeSerializer<R extends ShapelessProcessingRecipe, B extends ShapelessProcessingRecipeBuilder<R, B>> extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<R> {
+    protected Supplier<B> builderSupplier;
     protected final int defaultProcessingTime;
 
-    public ShapelessProcessingRecipeSerializer(int defaultProcessingTime) {
+    public ShapelessProcessingRecipeSerializer(Supplier<B> builderSupplier, int defaultProcessingTime) {
+        this.builderSupplier = builderSupplier;
         this.defaultProcessingTime = defaultProcessingTime;
     }
 
-    public @NotNull T fromJson(T builder, @NotNull JsonObject jsonObject) {
+    @Override
+    public @NotNull R fromJson(@NotNull ResourceLocation resourceLocation, @NotNull JsonObject jsonObject) {
+        B builder = builderSupplier.get();
+        return fromJson(builder, jsonObject).build(resourceLocation);
+    }
+
+    @Override
+    public R fromNetwork(@NotNull ResourceLocation resourceLocation, FriendlyByteBuf buf) {
+        B builder = builderSupplier.get();
+        return fromNetwork(builder, buf).build(resourceLocation);
+    }
+
+    public @NotNull B fromJson(B builder, @NotNull JsonObject jsonObject) {
         String s = GsonHelper.getAsString(jsonObject, "group", "");
         JsonElement jsonelement = GsonHelper.isArrayNode(jsonObject, "ingredient") ? GsonHelper.getAsJsonArray(jsonObject, "ingredient") : GsonHelper.getAsJsonObject(jsonObject, "ingredient");
 
@@ -73,7 +90,7 @@ public abstract class ShapelessProcessingRecipeSerializer<R extends ShapelessPro
         jsonObject.addProperty("processingTime", recipe.processingTime);
     }
 
-    public T fromNetwork(T builder, FriendlyByteBuf buf) {
+    public B fromNetwork(B builder, FriendlyByteBuf buf) {
         // Read group
         String group = buf.readUtf();
 

@@ -188,6 +188,8 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
         return getShape(p_151955_, p_151956_, p_151957_, CollisionContext.empty());
     }
 
+    // ----- Block Entity -----
+
     @org.jetbrains.annotations.Nullable
     @Override
     public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {

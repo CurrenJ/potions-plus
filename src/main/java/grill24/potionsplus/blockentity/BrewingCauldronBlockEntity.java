@@ -40,13 +40,13 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
     }
 
     @Override
-    protected SimpleContainer createItemHandler() {
-        return new SimpleContainer(CONTAINER_SIZE) {
-            @Override
-            public int getMaxStackSize() {
-                return 1;
-            }
-        };
+    protected int getSlots() {
+        return CONTAINER_SIZE;
+    }
+
+    @Override
+    public int getMaxStackSize() {
+        return 1;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
         // Find the recipe we can craft with the current ingredients
         // Take the recipe with the longest processing time, as a pseudo-priority system
         this.activeRecipe = this.level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()).stream()
-                .filter(recipe -> recipe.matches(this.getItemHandler(), this.level))
+                .filter(recipe -> recipe.matches(this, this.level))
                 .max(Comparator.comparingInt(BrewingCauldronRecipe::getProcessingTime));
     }
 
@@ -105,28 +105,26 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
         return waterColor.getRGB();
     }
 
-    private boolean craft() {
+    private void craft() {
         if (activeRecipe.isPresent()) {
             final BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(activeRecipe.get());
             ItemStack result = recipe.getResultItem();
             if (result.isEmpty())
-                return false;
+                return;
 
             if (level != null) {
                 spawnSuccessParticles();
 
                 if (!level.isClientSide) {
-                    Container itemHandler = this.getItemHandler();
                     // Remove ingredients and add result
-
                     // Iterate through recipe ingredients and remove correct amounts
                     for (int i = 0; i < recipe.getIngredients().size(); i++) {
                         ItemStack ingredient = recipe.getIngredients().get(i).getItems()[0];
 
                         // Look through container until we find
                         // the correct item and remove the correct amount
-                        for (int j = 0; j < itemHandler.getContainerSize(); j++) {
-                            ItemStack stack = itemHandler.getItem(j);
+                        for (int j = 0; j < this.getContainerSize(); j++) {
+                            ItemStack stack = this.getItem(j);
                             if (PUtil.isSameItemOrPotion(stack, ingredient)) {
                                 stack.shrink(ingredient.getCount());
                                 break;
@@ -135,12 +133,12 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
                     }
 
                     // Add result to container
-                    for (int i = 0; i < itemHandler.getContainerSize(); i++) {
-                        int newCount = itemHandler.getItem(i).getCount() + result.getCount();
-                        if (itemHandler.canPlaceItem(i, result) &&
-                                newCount <= itemHandler.getMaxStackSize() &&
+                    for (int i = 0; i < this.getContainerSize(); i++) {
+                        int newCount = this.getItem(i).getCount() + result.getCount();
+                        if (this.canPlaceItem(i, result) &&
+                                newCount <= this.getMaxStackSize() &&
                                 newCount <= result.getMaxStackSize()) {
-                            itemHandler.setItem(i, result.copy());
+                            this.setItem(i, result.copy());
 
                             // Try add new recipe knowledge to saved data
                             // If the recipe was not already known, schedule a JEI update and play a sound
@@ -153,13 +151,14 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
                                     level.playSound(null, worldPosition, Sounds.RECIPE_UNLOCKED.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                                 }
                             }
-                            return true;
+                            break;
                         }
                     }
+
+                    setChanged();
                 }
             }
         }
-        return false;
     }
 
     private void spawnSuccessParticles() {
@@ -188,7 +187,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity {
                 blockEntity.brewTime++;
                 if (blockEntity.brewTime >= blockEntity.getActiveRecipe().get().getProcessingTime()) {
                     blockEntity.brewTime = 0;
-                    boolean succeeded = blockEntity.craft();
+                    blockEntity.craft();
                 }
 
                 level.setBlock(pos, state, 3);

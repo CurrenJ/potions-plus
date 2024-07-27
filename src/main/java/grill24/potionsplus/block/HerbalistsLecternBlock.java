@@ -119,7 +119,7 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
         if (!blockState.is(newState.getBlock())) {
             BlockEntity blockentity = level.getBlockEntity(blockPos);
             if (blockentity instanceof InventoryBlockEntity inventoryBlockEntity) {
-                Containers.dropContents(level, blockPos, inventoryBlockEntity.getItemHandler());
+                Containers.dropContents(level, blockPos, inventoryBlockEntity);
                 level.updateNeighbourForOutputSignal(blockPos, this);
             }
 
