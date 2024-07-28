@@ -34,10 +34,7 @@ public class ServerLifecycleListeners {
     }
 
     private static void injectRuntimeRecipes(MinecraftServer server) {
-        int numInjected = 0;
-        numInjected += Recipes.injectRuntimeRecipes(server, Recipes.BREWING_CAULDRON_RECIPE.get());
-        numInjected += Recipes.injectRuntimeRecipes(server, Recipes.CLOTHESLINE_RECIPE.get());
-        numInjected += Recipes.injectRuntimeRecipes(server, Recipes.SANGUINE_ALTAR_RECIPE.get());
+        int numInjected = Recipes.injectRuntimeRecipes(server);
         PotionsPlus.LOGGER.info("Injected {} runtime recipes", numInjected);
     }
 

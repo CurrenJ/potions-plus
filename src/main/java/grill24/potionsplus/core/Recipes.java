@@ -1,7 +1,7 @@
 package grill24.potionsplus.core;
 
 import com.google.common.collect.ImmutableMap;
-import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.core.seededrecipe.SeededPotionRecipes;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeSerializer;
 import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
@@ -13,7 +13,6 @@ import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipeBuilder;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -27,6 +26,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.*;
+import java.util.function.Function;
 
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Recipes {
@@ -45,17 +45,13 @@ public class Recipes {
     public static final RegistryObject<RecipeType<SanguineAltarRecipe>> SANGUINE_ALTAR_RECIPE = RECIPE_TYPES.register("sanguine_altar_recipe", () -> new RecipeType<>() {});
     public static final RegistryObject<ShapelessProcessingRecipeSerializer<SanguineAltarRecipe, SanguineAltarRecipeBuilder>> SANGUINE_ALTAR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("sanguine_altar_recipe", () -> new ShapelessProcessingRecipeSerializer<>(SanguineAltarRecipeBuilder::new, 200));
 
+    public static final List<Pair<RecipeType<?>, Function<MinecraftServer, Map<ResourceLocation, Recipe<?>>>>> RECIPE_INJECTION_FUNCTIONS = new ArrayList<>();
+
     public static SeededPotionRecipes seededPotionRecipes;
 
-    public static Map<ResourceLocation, Recipe<?>> getAdditionalRuntimeRecipes(MinecraftServer server, RecipeType<?> recipeType) {
-        if (recipeType == BREWING_CAULDRON_RECIPE.get()) {
-            return getRuntimeBrewingRecipes(server);
-        } else if (recipeType == CLOTHESLINE_RECIPE.get()) {
-            return new HashMap<>();
-        } else if (recipeType == SANGUINE_ALTAR_RECIPE.get()) {
-            return getRuntimeSanguineAltarRecipes(server);
-        }
-        return new HashMap<>();
+    private static void registerRecipeInjectionFunctions() {
+        RECIPE_INJECTION_FUNCTIONS.add(Pair.of(BREWING_CAULDRON_RECIPE.get(), Recipes::getRuntimeBrewingRecipes));
+        RECIPE_INJECTION_FUNCTIONS.add(Pair.of(SANGUINE_ALTAR_RECIPE.get(), Recipes::getRuntimeSanguineAltarRecipes));
     }
 
     private static Map<ResourceLocation, Recipe<?>> getRuntimeBrewingRecipes(MinecraftServer server) {
@@ -64,17 +60,10 @@ public class Recipes {
         // Add all possible vanilla brewing recipes
         addVanillaBrewingRecipes(recipes);
 
-        // Generate seed-instanced recipes
-        seededPotionRecipes = new SeededPotionRecipes(server);
+        // Add seed-instanced recipes
         addRecipes(recipes, seededPotionRecipes.getRecipes());
 
         return recipes;
-    }
-
-    private static void addRecipes(Map<ResourceLocation, Recipe<?>> generatedRecipes, List<? extends Recipe<?>> newRecipes) {
-        for (Recipe<?> recipe : newRecipes) {
-            generatedRecipes.put(recipe.getId(), recipe);
-        }
     }
 
     private static Map<ResourceLocation, Recipe<?>> getRuntimeSanguineAltarRecipes(MinecraftServer server) {
@@ -126,12 +115,29 @@ public class Recipes {
         recipes.put(recipe.getId(), recipe);
     }
 
-    public static int injectRuntimeRecipes(MinecraftServer server, RecipeType<?> recipeType) {
+    private static void addRecipes(Map<ResourceLocation, Recipe<?>> generatedRecipes, List<? extends Recipe<?>> newRecipes) {
+        for (Recipe<?> recipe : newRecipes) {
+            generatedRecipes.put(recipe.getId(), recipe);
+        }
+    }
+
+    public static int injectRuntimeRecipes(MinecraftServer server) {
+        registerRecipeInjectionFunctions();
+
+        // Generated seeded potion recipes
+        seededPotionRecipes = new SeededPotionRecipes(server);
+        int numInjected = 0;
+        for (Pair<RecipeType<?>, Function<MinecraftServer, Map<ResourceLocation, Recipe<?>>>> pair : RECIPE_INJECTION_FUNCTIONS) {
+            numInjected += injectRuntimeRecipes(server, pair.getFirst(), pair.getSecond().apply(server));
+        }
+        return numInjected;
+    }
+
+    private static int injectRuntimeRecipes(MinecraftServer server, RecipeType<?> recipeType, Map<ResourceLocation, Recipe<?>> additionalRecipes) {
         RecipeManager recipeManager = server.getRecipeManager();
         Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> allMutableRecipes = new HashMap<>(recipeManager.recipes);
 
-        Map<ResourceLocation, Recipe<?>> additionalRecipes = Recipes.getAdditionalRuntimeRecipes(server, recipeType);
-        Map<ResourceLocation, Recipe<?>> mutableRecipes = new HashMap<>(recipeManager.recipes.get(recipeType));
+        Map<ResourceLocation, Recipe<?>> mutableRecipes = new HashMap<>(recipeManager.recipes.getOrDefault(recipeType, Collections.emptyMap()));
         mutableRecipes.putAll(additionalRecipes);
 
         allMutableRecipes.put(recipeType, mutableRecipes);
