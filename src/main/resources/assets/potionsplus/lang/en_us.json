@@ -6,6 +6,7 @@
   "block.potionsplus.herbalists_lectern": "Herbalist's Lectern",
   "block.potionsplus.sanguine_altar": "Sanguine Altar",
   "block.potionsplus.abyssal_trove": "Abyssal Trove",
+  "block.potionsplus.clothesline": "Clothesline",
 
   "block.potionsplus.lunar_berry_bush": "Lunar Berry Bush",
 
@@ -14,7 +15,7 @@
   "jei.potionsplus.herbalists_lectern.description": "The Herbalist's Lectern is a block that can provide information about an inserted item's usage in brewing cauldron recipes.",
   "jei.potionsplus.sanguine_altar.description": "The Sanguine Altar will show the player another brewing cauldron ingredient of the same tier as the inserted ingredient. Missing an ingredient in the Trove? The Sanguine Altar will help identify it. Be warned, the Sanguine Altar hungers for blood and consumes all items it takes, permanently.",
   "jei.potionsplus.abyssal_trove.description": "The Abyssal Trove is an indispensable tool in any alchemist's journey. It holds the information of all known potion brewing ingredients. This block is purely informational, but one that a young brewer will surely rely on to unearth the secrets of potion-making.",
-
+  "jei.potionsplus.clothesline.description": "The Clothesline is a humble addition to any home. What is wet, shall become dry. What is unholy, will be purified.",
 
   "item.potionsplus.generic_icon": "Generic Icon",
   "item.potionsplus.potion_effect_icon": "Potion Effect Icon",
