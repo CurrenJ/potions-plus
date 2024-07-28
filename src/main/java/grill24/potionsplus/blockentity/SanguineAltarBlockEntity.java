@@ -7,6 +7,7 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.PotionsPlusPacketHandler;
 import grill24.potionsplus.network.SanguineAltarConversionProgressPacket;
 import grill24.potionsplus.network.SanguineAltarConversionStatePacket;
+import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.player.LocalPlayer;
@@ -205,6 +206,11 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         return 20;
     }
 
+    @Override
+    public boolean canPlaceItem(int slot, ItemStack stack) {
+        return chainedIngredients.containsKey(PpIngredient.of(stack));
+    }
+
     public void onPlayerInsertItem(Player player) {
         Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();
         playerPosRelativeToBlockOrigin = playerPosRelativeToBlockOrigin.subtract(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ());
@@ -230,31 +236,6 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         resetConversionProgress();
     }
 
-    public static void computeChainedIngredients() {
-        chainedIngredients.clear();
-
-        Random random = new Random(PotionsPlus.worldSeed);
-        for (Set<PpIngredient> ingredients : Recipes.seededPotionRecipes.allPotionsBrewingIngredientsByTierNoPotions.values()) {
-            List<PpIngredient> tierIngredients = new ArrayList<>(ingredients);
-            PpIngredient firstIngredient = null;
-            PpIngredient lastIngredient = null;
-
-            while (!tierIngredients.isEmpty()) {
-                PpIngredient nextIngredient = tierIngredients.remove(random.nextInt(tierIngredients.size()));
-                if (lastIngredient != null) {
-                    chainedIngredients.put(lastIngredient, nextIngredient);
-                } else {
-                    firstIngredient = nextIngredient;
-                }
-                lastIngredient = nextIngredient;
-            }
-
-            if (firstIngredient != null) {
-                chainedIngredients.put(lastIngredient, firstIngredient);
-            }
-        }
-    }
-
     public int getNextSpinTickDelay() {
         return nextSpinStartTick - timeItemPlaced;
     }
@@ -273,5 +254,12 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
 
     public float getHealthDrainProgress() {
         return (float) healthDrained / (float) HEALTH_DRAIN_REQUIRED_FOR_CONVERSION;
+    }
+
+    public static void setRecipes(List<SanguineAltarRecipe> recipes) {
+        chainedIngredients.clear();
+        for (SanguineAltarRecipe recipe : recipes) {
+            chainedIngredients.put(PpIngredient.of(recipe.getIngredients().get(0)), PpIngredient.of(recipe.getResultItem()));
+        }
     }
 }

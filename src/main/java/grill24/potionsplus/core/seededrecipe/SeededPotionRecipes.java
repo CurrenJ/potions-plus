@@ -7,8 +7,11 @@ import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.persistence.SavedData;
+import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
+import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipeBuilder;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -26,6 +29,7 @@ public class SeededPotionRecipes {
 
     private final Random random;
     private final List<BrewingCauldronRecipe> recipes;
+    private List<SanguineAltarRecipe> sanguineAltarRecipes;
 
     private final Set<PpIngredient> allRecipeInputs;
 
@@ -38,6 +42,7 @@ public class SeededPotionRecipes {
         this.random = new Random(server.getWorldData().worldGenSettings().seed());
         this.recipes = new ArrayList<>();
         this.allRecipeInputs = new HashSet<>();
+        this.sanguineAltarRecipes = new ArrayList<>();
 
         SeededIngredientsLootTables.initializeLootTables(server.overworld(), random);
         generateRecipes();
@@ -47,6 +52,9 @@ public class SeededPotionRecipes {
 
     private void generateRecipes() {
         addAllPotionRecipes(Potions.getAllPotionAmpDurMatrices());
+        computeUniqueIngredientsList(recipes);
+
+        addAllSanguineAltarRecipes();
     }
 
     private void addAllPotionRecipes(PotionBuilder.PotionsAmpDurMatrix... potions) {
@@ -69,6 +77,30 @@ public class SeededPotionRecipes {
         recipes.addAll(SavedData.instance.seededPotionRecipes);
         PotionsPlus.LOGGER.info("[SPR] Generated {} new brewing cauldron potion recipes.", newlyGeneratedRecipes);
         PotionsPlus.LOGGER.info("[SPR] Loaded {} brewing cauldron potion recipes from saved data.", SavedData.instance.seededPotionRecipes.size());
+    }
+
+    /**
+     * Compute the unique ingredients list for the brewing cauldron
+     * Called when recipes are synced
+     */
+    public void computeUniqueIngredientsList(List<BrewingCauldronRecipe> brewingCauldronRecipes) {
+        allPotionsBrewingIngredientsByTierNoPotions = new HashMap<>();
+        allPotionBrewingIngredientsNoPotions = new HashSet<>();
+        allPotionsPlusIngredientsNoPotions = new HashSet<>();
+        allUniqueRecipeInputs = new HashSet<>();
+
+        brewingCauldronRecipes.forEach(recipe -> {
+            for (ItemStack itemStack : recipe.getIngredientsAsItemStacks()) {
+                allUniqueRecipeInputs.add(PpIngredient.of(itemStack));
+                if (!PUtil.isPotion(itemStack)) {
+                    if (PUtil.isPotion(recipe.getResultItem()) && PUtil.isPotionsPlusPotion(recipe.getResultItem())) {
+                        allPotionsBrewingIngredientsByTierNoPotions.computeIfAbsent(recipe.getOutputTier(), k -> new HashSet<>()).add(PpIngredient.of(itemStack));
+                        allPotionBrewingIngredientsNoPotions.add(PpIngredient.of(itemStack));
+                    }
+                    allPotionsPlusIngredientsNoPotions.add(PpIngredient.of(itemStack));
+                }
+            }
+        });
     }
 
     @Deprecated
@@ -151,5 +183,39 @@ public class SeededPotionRecipes {
 
     public List<BrewingCauldronRecipe> getRecipes() {
         return recipes;
+    }
+
+    // ----- Sangune Altar Recipes -----
+
+    public void addAllSanguineAltarRecipes() {
+        sanguineAltarRecipes.clear();
+
+        Random random = new Random(PotionsPlus.worldSeed);
+        final int processingTime = 100;
+        for (Set<PpIngredient> ingredients : allPotionsBrewingIngredientsByTierNoPotions.values()) {
+            List<PpIngredient> tierIngredients = new ArrayList<>(ingredients);
+            PpIngredient firstIngredient = null;
+            PpIngredient lastIngredient = null;
+
+            while (!tierIngredients.isEmpty()) {
+                PpIngredient nextIngredient = tierIngredients.remove(random.nextInt(tierIngredients.size()));
+                if (lastIngredient != null) {
+                    SanguineAltarRecipeBuilder builder = new SanguineAltarRecipeBuilder().ingredients(lastIngredient).result(nextIngredient.getItemStack()).processingTime(processingTime);
+                    sanguineAltarRecipes.add(builder.build());
+                } else {
+                    firstIngredient = nextIngredient;
+                }
+                lastIngredient = nextIngredient;
+            }
+
+            if (firstIngredient != null) {
+                SanguineAltarRecipeBuilder builder = new SanguineAltarRecipeBuilder().ingredients(lastIngredient).result(firstIngredient.getItemStack()).processingTime(processingTime);
+                sanguineAltarRecipes.add(builder.build());
+            }
+        }
+    }
+
+    public List<SanguineAltarRecipe> getSanguineAltarRecipes() {
+        return sanguineAltarRecipes;
     }
 }

@@ -1,6 +1,7 @@
 package grill24.potionsplus.utility;
 
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.ItemStack;
@@ -116,7 +117,14 @@ public class PUtil {
         name.append("to_");
         name.append(getNameOrVerbosePotionName(result));
 
-        return new BrewingCauldronRecipe(new ResourceLocation(ModInfo.MOD_ID, name.toString()), group, tier, ingredients, result, experience, processingTime);
+        BrewingCauldronRecipeBuilder builder = new BrewingCauldronRecipeBuilder()
+                .ingredients(ingredients)
+                .experience(experience)
+                .processingTime(processingTime)
+                .group(group)
+                .tier(tier)
+                .result(result);
+        return builder.build(new ResourceLocation(ModInfo.MOD_ID, name.toString()));
     }
 
     public static BrewingCauldronRecipe brewingCauldronRecipe(float experience, int processingTime, String group, Potion potion, PotionType potionType, int tier, Ingredient... ingredients) {

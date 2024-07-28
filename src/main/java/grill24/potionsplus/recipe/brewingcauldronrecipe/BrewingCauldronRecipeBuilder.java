@@ -32,7 +32,7 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
 
 
     @Override
-    protected BrewingCauldronRecipe build(ResourceLocation resourceLocation) {
+    public BrewingCauldronRecipe build(ResourceLocation resourceLocation) {
         return new BrewingCauldronRecipe(resourceLocation, group, tier, ingredients, result, experience, processingTime);
     }
 

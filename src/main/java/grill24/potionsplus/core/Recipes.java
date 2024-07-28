@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.SeededPotionRecipes;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeSerializer;
+import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
+import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipeBuilder;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeSerializer;
@@ -39,12 +41,19 @@ public class Recipes {
     public static final RegistryObject<RecipeType<ClotheslineRecipe>> CLOTHESLINE_RECIPE = RECIPE_TYPES.register("clothesline_recipe", () -> new RecipeType<>() {});
     public static final RegistryObject<ShapelessProcessingRecipeSerializer<ClotheslineRecipe, ClotheslineRecipeBuilder>> CLOTHESLINE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("clothesline_recipe", () -> new ShapelessProcessingRecipeSerializer<>(ClotheslineRecipeBuilder::new, 200));
 
+    // Sanguine Altar Recipe
+    public static final RegistryObject<RecipeType<SanguineAltarRecipe>> SANGUINE_ALTAR_RECIPE = RECIPE_TYPES.register("sanguine_altar_recipe", () -> new RecipeType<>() {});
+    public static final RegistryObject<ShapelessProcessingRecipeSerializer<SanguineAltarRecipe, SanguineAltarRecipeBuilder>> SANGUINE_ALTAR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("sanguine_altar_recipe", () -> new ShapelessProcessingRecipeSerializer<>(SanguineAltarRecipeBuilder::new, 200));
 
     public static SeededPotionRecipes seededPotionRecipes;
 
     public static Map<ResourceLocation, Recipe<?>> getAdditionalRuntimeRecipes(MinecraftServer server, RecipeType<?> recipeType) {
         if (recipeType == BREWING_CAULDRON_RECIPE.get()) {
             return getRuntimeBrewingRecipes(server);
+        } else if (recipeType == CLOTHESLINE_RECIPE.get()) {
+            return new HashMap<>();
+        } else if (recipeType == SANGUINE_ALTAR_RECIPE.get()) {
+            return getRuntimeSanguineAltarRecipes(server);
         }
         return new HashMap<>();
     }
@@ -57,15 +66,23 @@ public class Recipes {
 
         // Generate seed-instanced recipes
         seededPotionRecipes = new SeededPotionRecipes(server);
-        addBrewingCauldronRecipes(recipes, seededPotionRecipes.getRecipes());
+        addRecipes(recipes, seededPotionRecipes.getRecipes());
 
         return recipes;
     }
 
-    private static void addBrewingCauldronRecipes(Map<ResourceLocation, Recipe<?>> generatedRecipes, List<BrewingCauldronRecipe> newRecipes) {
-        for (BrewingCauldronRecipe recipe : newRecipes) {
+    private static void addRecipes(Map<ResourceLocation, Recipe<?>> generatedRecipes, List<? extends Recipe<?>> newRecipes) {
+        for (Recipe<?> recipe : newRecipes) {
             generatedRecipes.put(recipe.getId(), recipe);
         }
+    }
+
+    private static Map<ResourceLocation, Recipe<?>> getRuntimeSanguineAltarRecipes(MinecraftServer server) {
+        Map<ResourceLocation, Recipe<?>> recipes = new HashMap<>();
+
+        addRecipes(recipes, seededPotionRecipes.getSanguineAltarRecipes());
+
+        return recipes;
     }
 
     // Below method is for parsing the vanilla brewing recipes and adding them to the runtime recipe list
@@ -127,29 +144,5 @@ public class Recipes {
         }
 
         return additionalRecipes.size();
-    }
-
-    /**
-     * Compute the unique ingredients list for the brewing cauldron
-     * Called when recipes are synced
-     */
-    public static void computeUniqueIngredientsList() {
-        if (Minecraft.getInstance().level != null) {
-            seededPotionRecipes.allPotionsBrewingIngredientsByTierNoPotions = new HashMap<>();
-            seededPotionRecipes.allUniqueRecipeInputs = new HashSet<>();
-
-            Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()).forEach(recipe -> {
-                for (ItemStack itemStack : recipe.getIngredientsAsItemStacks()) {
-                    seededPotionRecipes.allUniqueRecipeInputs.add(PpIngredient.of(itemStack));
-                    if (!PUtil.isPotion(itemStack)) {
-                        if (PUtil.isPotion(recipe.getResultItem()) && PUtil.isPotionsPlusPotion(recipe.getResultItem())) {
-                            seededPotionRecipes.allPotionsBrewingIngredientsByTierNoPotions.computeIfAbsent(recipe.getOutputTier(), k -> new HashSet<>()).add(PpIngredient.of(itemStack));
-                            seededPotionRecipes.allPotionBrewingIngredientsNoPotions.add(PpIngredient.of(itemStack));
-                        }
-                        seededPotionRecipes.allPotionsPlusIngredientsNoPotions.add(PpIngredient.of(itemStack));
-                    }
-                }
-            });
-        }
     }
 }

@@ -2,6 +2,7 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
 import grill24.potionsplus.persistence.SavedData;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.DimensionDataStorage;
@@ -28,12 +29,15 @@ public class ServerLifecycleListeners {
 
     @SubscribeEvent
     public static void onRecipesSynced(final RecipesUpdatedEvent event) {
-        Recipes.computeUniqueIngredientsList();
-        SanguineAltarBlockEntity.computeChainedIngredients();
+        Recipes.seededPotionRecipes.computeUniqueIngredientsList(event.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()));
+        SanguineAltarBlockEntity.setRecipes(event.getRecipeManager().getAllRecipesFor(Recipes.SANGUINE_ALTAR_RECIPE.get()));
     }
 
     private static void injectRuntimeRecipes(MinecraftServer server) {
-        int numInjected = Recipes.injectRuntimeRecipes(server, Recipes.BREWING_CAULDRON_RECIPE.get());
+        int numInjected = 0;
+        numInjected += Recipes.injectRuntimeRecipes(server, Recipes.BREWING_CAULDRON_RECIPE.get());
+        numInjected += Recipes.injectRuntimeRecipes(server, Recipes.CLOTHESLINE_RECIPE.get());
+        numInjected += Recipes.injectRuntimeRecipes(server, Recipes.SANGUINE_ALTAR_RECIPE.get());
         PotionsPlus.LOGGER.info("Injected {} runtime recipes", numInjected);
     }
 

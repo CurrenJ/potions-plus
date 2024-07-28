@@ -1,6 +1,7 @@
 package grill24.potionsplus.recipe;
 
 import com.google.gson.JsonObject;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -49,6 +50,22 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
     public T ingredients(Ingredient... ingredients) {
         this.ingredients = ingredients;
         return self();
+    }
+
+    public T ingredients(ItemStack... ingredients) {
+        Ingredient[] ingredientArray = new Ingredient[ingredients.length];
+        for (int i = 0; i < ingredients.length; i++) {
+            ingredientArray[i] = Ingredient.of(ingredients[i]);
+        }
+        return ingredients(ingredientArray);
+    }
+
+    public T ingredients(PpIngredient... ingredients) {
+        Ingredient[] ingredientArray = new Ingredient[ingredients.length];
+        for (int i = 0; i < ingredients.length; i++) {
+            ingredientArray[i] = Ingredient.of(ingredients[i].getItemStack());
+        }
+        return ingredients(ingredientArray);
     }
 
     public T processingTime(int processingTime) {

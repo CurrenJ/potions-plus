@@ -77,7 +77,7 @@ public class SanguineAltarBlock extends HorizontalDirectionalBlock implements En
 
         if (player.isShiftKeyDown()) {
             return InteractionResult.PASS;
-        } else if (!player.getMainHandItem().isEmpty() && !Recipes.seededPotionRecipes.allPotionBrewingIngredientsNoPotions.contains(PpIngredient.of(player.getMainHandItem()))) {
+        } else if (!player.getMainHandItem().isEmpty() && !sanguineAltarBlockEntity.canPlaceItem(0, player.getMainHandItem())) {
             return InteractionResult.FAIL;
         }
 

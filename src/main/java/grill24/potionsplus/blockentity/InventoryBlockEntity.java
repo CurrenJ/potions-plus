@@ -184,6 +184,7 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
     @Override
     public void clearContent() {
         this.items.clear();
+        setChanged();
     }
 
     @Nullable

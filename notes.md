@@ -66,5 +66,4 @@
 - playerWillDestroy (in bed, this breaks the other half if one is broken)
 
 - Speed of clothesline as a function of height
-- Itemstack count > 1 as result of recipe, but only 1 itemstack allowed as input
 - Dimensional recipes for clothesline!!
