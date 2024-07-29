@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -40,34 +41,38 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     private static final VoxelShape CENTER_POST = Block.box(6, 0, 6, 10, 16, 10);
 
     public static final EnumProperty<ClotheslinePart> PART = EnumProperty.create("part", ClotheslinePart.class);
+    public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 2, 6);
 
     public ClotheslineBlock(Properties properties) {
         super(properties);
-        registerDefaultState(this.stateDefinition.any().setValue(PART, ClotheslinePart.LEFT));
+        registerDefaultState(this.stateDefinition.any().setValue(PART, ClotheslinePart.LEFT).setValue(DISTANCE, 2));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> blockStateBuilder) {
         super.createBlockStateDefinition(blockStateBuilder);
         blockStateBuilder.add(PART);
+        blockStateBuilder.add(DISTANCE);
     }
 
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction direction = context.getHorizontalDirection();
-        BlockPos left = context.getClickedPos().relative(direction.getCounterClockWise());
-        BlockPos right = context.getClickedPos().relative(direction.getClockWise());
+        final int distance = 3;
+        BlockPos left = context.getClickedPos().relative(direction.getCounterClockWise(), distance / 2);
+        BlockPos right = context.getClickedPos().relative(direction.getClockWise(), (int) Math.ceil(distance / 2f));
         Level level = context.getLevel();
         boolean isValid = level.getBlockState(right).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(right) && level.getBlockState(left).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(left);
-        return isValid ? this.defaultBlockState().setValue(FACING, direction) : null;
+        return isValid ? this.defaultBlockState().setValue(FACING, direction).setValue(DISTANCE, 3) : null;
     }
 
     @Override
     public void setPlacedBy(Level level, BlockPos placedAt, BlockState blockState, @Nullable LivingEntity p_49502_, ItemStack itemStack) {
         super.setPlacedBy(level, placedAt, blockState, p_49502_, itemStack);
         if (!level.isClientSide) {
-            BlockPos left = placedAt.relative(blockState.getValue(FACING).getCounterClockWise());
-            BlockPos right = placedAt.relative(blockState.getValue(FACING).getClockWise());
+            int distance = getDistance(blockState);
+            BlockPos left = placedAt.relative(blockState.getValue(FACING).getCounterClockWise(), distance / 2);
+            BlockPos right = placedAt.relative(blockState.getValue(FACING).getClockWise(), (int) Math.ceil(distance / 2f));
 
             level.setBlock(left, blockState.setValue(PART, ClotheslinePart.LEFT), 3);
             level.setBlock(right, blockState.setValue(PART, ClotheslinePart.RIGHT), 3);
@@ -101,12 +106,20 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
         super.onRemove(before, level, blockPos, after, p_60519_);
         if(!level.isClientSide) {
             if(!this.areBothPartsValid(blockPos, level)) {
-                BlockPos middle = getMiddle(blockPos, before);
+                BlockPos middle = getOneTowardsMiddle(blockPos, before);
                 BlockState middleBlockState = level.getBlockState(middle);
 
+                BlockPos other = getOtherEnd(blockPos, before);
+                BlockState otherBlockState = level.getBlockState(other);
+                BlockPos otherMiddle = getOneTowardsMiddle(other, otherBlockState);
+                BlockState otherMiddleBlockState = level.getBlockState(otherMiddle);
+
                 // Force an update on the middle block to trigger updateShape on both ends
-                level.blockUpdated(blockPos, Blocks.AIR);
+                level.blockUpdated(middle, Blocks.AIR);
                 middleBlockState.updateNeighbourShapes(level, middle, 3);
+
+                level.blockUpdated(otherMiddle, Blocks.AIR);
+                otherMiddleBlockState.updateNeighbourShapes(level, otherMiddle, 3);
             }
         }
     }
@@ -140,10 +153,11 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
             return blockPos;
         }
 
+        int distance = getDistance(blockState);
         if(blockState.getValue(PART) == ClotheslinePart.LEFT)
-            return blockPos.relative(blockState.getValue(FACING).getClockWise(), 2);
+            return blockPos.relative(blockState.getValue(FACING).getClockWise(), distance);
         else
-            return blockPos.relative(blockState.getValue(FACING).getCounterClockWise(), 2);
+            return blockPos.relative(blockState.getValue(FACING).getCounterClockWise(), distance);
     }
 
     public static BlockPos getLeftEnd(BlockPos blockPos, BlockState blockState) {
@@ -167,16 +181,26 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
         return blockState.getValue(PART) == ClotheslinePart.LEFT;
     }
 
-    public static BlockPos getMiddle(BlockPos blockPos, BlockState blockState) {
+    public static BlockPos getOneTowardsMiddle(BlockPos blockPos, BlockState blockState) {
         if (!blockState.is(grill24.potionsplus.core.Blocks.CLOTHESLINE.get())) {
-            PotionsPlus.LOGGER.warn("getMiddle called on " + blockState.getBlock().getRegistryName() + ". Expected a clothesline block.");
+            PotionsPlus.LOGGER.warn("getOneTowardsMiddle called on " + blockState.getBlock().getRegistryName() + ". Expected a clothesline block.");
             return blockPos;
         }
 
         if(blockState.getValue(PART) == ClotheslinePart.LEFT)
             return blockPos.relative(blockState.getValue(FACING).getClockWise());
         else
-            return blockPos.relative(blockState.getValue(FACING).getCounterClockWise());    }
+            return blockPos.relative(blockState.getValue(FACING).getCounterClockWise());
+    }
+
+    public static int getDistance(BlockState blockState) {
+        if (!blockState.is(grill24.potionsplus.core.Blocks.CLOTHESLINE.get())) {
+            PotionsPlus.LOGGER.warn("getDistance called on " + blockState.getBlock().getRegistryName() + ". Expected a clothesline block.");
+            return -1;
+        }
+
+        return blockState.getValue(DISTANCE);
+    }
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {

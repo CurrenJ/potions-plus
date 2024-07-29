@@ -7,7 +7,9 @@ import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.render.LeashRenderer;
 import grill24.potionsplus.utility.ClientTickHandler;
+import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -15,15 +17,21 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
-import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
 
+@Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<ClotheslineBlockEntity> {
     public final BlockRenderDispatcher blockRenderDispatcher;
     private ProfilerFiller profiler;
@@ -43,6 +51,11 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
         if(blockEntity.getLevel() != null) {
             BlockPos left = ClotheslineBlock.getLeftEnd(blockEntity.getBlockPos(), blockEntity.getBlockState());
             BlockPos right = ClotheslineBlock.getOtherEnd(left, blockEntity.getLevel().getBlockState(left));
+
+            // Prevent rendering the same clothesline twice (once for each end)
+            if(clotheslinesRendered.contains(left) || clotheslinesRendered.contains(right))
+                return;
+            clotheslinesRendered.add(blockEntity.getBlockPos());
 
             // Render the "clothesline" (repurposed lead rendering code from vanilla) between the two posts
             Level level = blockEntity.getLevel();
@@ -90,8 +103,14 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
                     float swing = (float) (Math.sin(ClientTickHandler.total() / 10 + i * 7) * amplitude);
                     matrices.mulPose(Vector3f.XP.rotationDegrees(swing));
                     matrices.translate(ITEM_OFFSET.x(), ITEM_OFFSET.y(), ITEM_OFFSET.z());
+
+                    // TODO: Duplicate code from leashrenderer - optimize
+                    float stepFraction = (i + 1f) / (leftBlockEntity.getContainerSize() + 1);
+                    int mixedBlockLight = (int) Mth.lerp(stepFraction, blockLightStart, blockLightEnd);
+                    int mixedSkyLight = (int)Mth.lerp(stepFraction, skyLightStart, skyLightEnd);
+
                     Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.FIXED,
-                            light, overlay, matrices, vertexConsumers, 0);
+                            LightTexture.pack(mixedBlockLight, mixedSkyLight), overlay, matrices, vertexConsumers, 0);
                     matrices.popPose();
                 }
             }
@@ -106,5 +125,13 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
             return Vector3f.YP.rotationDegrees(90);
         }
         return Quaternion.ONE;
+    }
+
+    private static final Set<BlockPos> clotheslinesRendered = new HashSet<>();
+    @SubscribeEvent
+    public static void onRender(final RenderLevelStageEvent event) {
+        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS) {
+            clotheslinesRendered.clear();
+        }
     }
 }

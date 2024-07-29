@@ -8,6 +8,7 @@ import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.network.PotionsPlusPacketHandler;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
+import grill24.potionsplus.utility.RUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -34,7 +35,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
 
     @Override
     protected int getSlots() {
-        return 3;
+        return ClotheslineBlock.getDistance(getBlockState()) + 1;
     }
 
     @Override
@@ -138,7 +139,10 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
             return new Vector3f(0, 0, 0);
 
         float leashPointsPerItemRendered = (float) leashPoints.length / (getContainerSize() + 1);
-        return leashPoints[(int) (leashPointsPerItemRendered * (slot + 1))];
+        float index = leashPointsPerItemRendered * (slot + 1);
+        Vector3f a = leashPoints[(int) index];
+        Vector3f b = leashPoints[(int) index + 1];
+        return RUtil.lerp3f(a, b, index % 1);
     }
 
     private void spawnCraftingSuccessParticles(Level level, int slot) {

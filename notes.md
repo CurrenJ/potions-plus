@@ -67,3 +67,4 @@
 
 - Speed of clothesline as a function of height
 - Dimensional recipes for clothesline!!
+- PRE-CALCULATE CLOTHESLINE ITEM POSITIONS IN BLOCKENTITY, RETRIEVE IN RENDERER

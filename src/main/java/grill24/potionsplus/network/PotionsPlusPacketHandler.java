@@ -44,6 +44,11 @@ public class PotionsPlusPacketHandler {
 
         CHANNEL.registerMessage(id++, ClientboundBlockEntityCraftRecipePacket.class, ClientboundBlockEntityCraftRecipePacket::encode, ClientboundBlockEntityCraftRecipePacket::decode,
                 makeClientBoundHandler(ClientboundBlockEntityCraftRecipePacket.Handler::handle));
+
+        // Serverbound packets
+
+        CHANNEL.registerMessage(id++, ServerboundConstructClotheslinePacket.class, ServerboundConstructClotheslinePacket::encode, ServerboundConstructClotheslinePacket::decode,
+                makeServerBoundHandler(ServerboundConstructClotheslinePacket.Handler::handle));
     }
 
     private static <T> BiConsumer<T, Supplier<Context>> makeServerBoundHandler(TriConsumer<T, MinecraftServer, ServerPlayer> handler) {

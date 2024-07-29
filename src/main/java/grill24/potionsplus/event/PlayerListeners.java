@@ -1,5 +1,6 @@
 package grill24.potionsplus.event;
 
+import grill24.potionsplus.behaviour.ClotheslineBehaviour;
 import grill24.potionsplus.behaviour.MossBehaviour;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
@@ -52,5 +53,6 @@ public class PlayerListeners {
         BlockPos pos = event.getPos();
 
         MossBehaviour.doMossInteractions(event, pos);
+        ClotheslineBehaviour.doClotheslineInteractions(event);
     }
 }
