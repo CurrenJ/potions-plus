@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"minecraft:soul_sand\"}"
+  ],
+  "result": "{Count:1b,id:\"minecraft:sand\"}",
+  "processingTime": 200
+}

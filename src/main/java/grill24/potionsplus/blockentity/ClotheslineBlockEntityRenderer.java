@@ -36,8 +36,8 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
     public final BlockRenderDispatcher blockRenderDispatcher;
     private ProfilerFiller profiler;
 
-    private static final Vector3f OFFSET_IN_POST_BLOCKS = new Vector3f(0.5f, 0.9375f, 0.5f);
-    private static final Vector3f ITEM_OFFSET = new Vector3f(0, -0.2f, 0);
+    public static final Vector3f OFFSET_IN_POST_BLOCKS = new Vector3f(0.5f, 0.9375f, 0.5f);
+    public static final Vector3f ITEM_OFFSET = new Vector3f(0, -0.2f, 0);
 
     public ClotheslineBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         blockRenderDispatcher = context.getBlockRenderDispatcher();
@@ -67,12 +67,10 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
                 skyLightEnd = level.getBrightness(LightLayer.SKY, right);
             }
 
-            Vector3f[] leashPoints = LeashRenderer.renderLeashBetweenPoints(blockEntity.getBlockPos(),
+            LeashRenderer.renderLeashBetweenPoints(blockEntity.getBlockPos(),
                     Vec3.atLowerCornerOf(left).add(OFFSET_IN_POST_BLOCKS.x(), OFFSET_IN_POST_BLOCKS.y(), OFFSET_IN_POST_BLOCKS.z()),
                     Vec3.atLowerCornerOf(right).add(OFFSET_IN_POST_BLOCKS.x(), OFFSET_IN_POST_BLOCKS.y(), OFFSET_IN_POST_BLOCKS.z()),
                     matrices, vertexConsumers, blockLightStart, blockLightEnd, skyLightStart, skyLightEnd);
-            blockEntity.setLeashPoints(leashPoints);
-
 
             ClotheslineBlockEntity leftBlockEntity = level.getBlockEntity(left, Blocks.CLOTHESLINE_BLOCK_ENTITY.get()).orElse(null);
             if(leftBlockEntity == null)
@@ -83,8 +81,8 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
                 ItemStack stack = leftBlockEntity.getItem(i);
                 if (!stack.isEmpty()) {
                     matrices.pushPose();
-                    Vector3f position = blockEntity.getPointOnLeashForItem(i);
-                    position.add(OFFSET_IN_POST_BLOCKS);
+
+                    Vector3f position = ClotheslineBlockEntityBakedRenderData.getItemPoint(blockEntity.getBlockPos(), blockEntity.getBlockState(), i, false);
 
                     // If this is the right end, adjust the position to the left end
                     if (!ClotheslineBlock.isLeftEnd(blockEntity.getBlockState())) {

@@ -119,4 +119,11 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return Utility.createTickerHelper(type, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), AbyssalTroveBlockEntity::tick);
     }
+
+    @Override
+    @Deprecated
+    public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
+        Utility.dropContents(level, blockPos, blockState, newState);
+        super.onRemove(blockState, level, blockPos, newState, isMoving);
+    }
 }

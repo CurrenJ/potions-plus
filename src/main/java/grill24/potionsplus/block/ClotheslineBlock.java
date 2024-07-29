@@ -5,9 +5,12 @@ import grill24.potionsplus.blockentity.ClotheslineBlockEntity;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -103,7 +106,8 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
 
     @Override
     public void onRemove(BlockState before, Level level, BlockPos blockPos, BlockState after, boolean p_60519_) {
-        super.onRemove(before, level, blockPos, after, p_60519_);
+        Utility.dropContents(level, blockPos, before, after);
+
         if(!level.isClientSide) {
             if(!this.areBothPartsValid(blockPos, level)) {
                 BlockPos middle = getOneTowardsMiddle(blockPos, before);
@@ -122,6 +126,8 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
                 otherMiddleBlockState.updateNeighbourShapes(level, otherMiddle, 3);
             }
         }
+
+        super.onRemove(before, level, blockPos, after, p_60519_);
     }
 
     public PushReaction getPistonPushReaction(BlockState p_49556_) {

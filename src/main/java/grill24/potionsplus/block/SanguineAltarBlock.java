@@ -116,14 +116,7 @@ public class SanguineAltarBlock extends HorizontalDirectionalBlock implements En
     @Override
     @Deprecated
     public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
-        if (!blockState.is(newState.getBlock())) {
-            BlockEntity blockentity = level.getBlockEntity(blockPos);
-            if (blockentity instanceof InventoryBlockEntity inventoryBlockEntity) {
-                Containers.dropContents(level, blockPos, inventoryBlockEntity);
-                level.updateNeighbourForOutputSignal(blockPos, this);
-            }
-
-            super.onRemove(blockState, level, blockPos, newState, isMoving);
-        }
+        Utility.dropContents(level, blockPos, blockState, newState);
+        super.onRemove(blockState, level, blockPos, newState, isMoving);
     }
 }

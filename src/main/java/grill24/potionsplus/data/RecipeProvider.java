@@ -132,6 +132,41 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .processingTime(600)
                 .unlockedBy("has_bone", has(net.minecraft.world.item.Items.BONE))
                 .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "bone_to_bone_meal"));
+
+        new ClotheslineRecipeBuilder()
+                .ingredient(net.minecraft.world.item.Items.SOUL_SAND)
+                .result(net.minecraft.world.item.Items.SAND)
+                .processingTime(200)
+                .unlockedBy("has_soul_sand", has(net.minecraft.world.item.Items.SOUL_SAND))
+                .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "soul_sand_to_sand"));
+
+        new ClotheslineRecipeBuilder()
+                .ingredient(net.minecraft.world.item.Items.LAVA_BUCKET)
+                .result(net.minecraft.world.item.Items.OBSIDIAN)
+                .processingTime(2400)
+                .unlockedBy("has_lava_bucket", has(net.minecraft.world.item.Items.LAVA_BUCKET))
+                .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "lava_bucket_to_obsidian"));
+
+        new ClotheslineRecipeBuilder()
+                .ingredient(net.minecraft.world.item.Items.WET_SPONGE)
+                .result(net.minecraft.world.item.Items.SPONGE)
+                .processingTime(300)
+                .unlockedBy("has_wet_sponge", has(net.minecraft.world.item.Items.WET_SPONGE))
+                .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "wet_sponge_to_sponge"));
+
+        new ClotheslineRecipeBuilder()
+                .ingredient(net.minecraft.world.item.Items.POTION)
+                .result(net.minecraft.world.item.Items.GLASS_BOTTLE)
+                .processingTime(100)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "potion_to_glass_bottle"));
+
+        new ClotheslineRecipeBuilder()
+                .ingredient(net.minecraft.world.item.Items.WATER_BUCKET)
+                .result(net.minecraft.world.item.Items.BUCKET)
+                .processingTime(100)
+                .unlockedBy("has_water_bucket", has(net.minecraft.world.item.Items.WATER_BUCKET))
+                .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "water_bucket_to_bucket"));
     }
 
     private void buildBrewingCauldronRecipes(Consumer<FinishedRecipe> recipeConsumer, List<BrewingCauldronRecipe> recipes) {

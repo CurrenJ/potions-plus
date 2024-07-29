@@ -8,7 +8,6 @@ import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.network.PotionsPlusPacketHandler;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
-import grill24.potionsplus.utility.RUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -21,9 +20,11 @@ import net.minecraftforge.network.PacketDistributor;
 import javax.annotation.Nonnull;
 
 public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity {
-    private int[] progress;
-    private ClotheslineRecipe[] activeRecipes;
-    private Vector3f[] leashPoints;
+    private final int[] progress;
+    private final ClotheslineRecipe[] activeRecipes;
+
+    public static final int MIN_DISTANCE = 2;
+    public static final int MAX_DISTANCE = 6;
 
     private boolean recipeUpdateQueued = false;
 
@@ -33,9 +34,13 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
         activeRecipes = new ClotheslineRecipe[this.getContainerSize()];
     }
 
+    public static int getItemsForClotheslineDistance(int distance) {
+        return Math.min(Math.max(distance, MIN_DISTANCE), MAX_DISTANCE) + 1;
+    }
+
     @Override
     protected int getSlots() {
-        return ClotheslineBlock.getDistance(getBlockState()) + 1;
+        return getItemsForClotheslineDistance(ClotheslineBlock.getDistance(getBlockState()));
     }
 
     @Override
@@ -116,9 +121,16 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
             }
             else {
                 final ClotheslineRecipe activeRecipe = new ClotheslineRecipe(activeRecipes[slot]);
-                getItem(slot).shrink(1);
+                ItemStack container = getItem(slot).getContainerItem();
                 ItemStack result = activeRecipe.assemble(this);
+
+                getItem(slot).shrink(1);
                 setItem(slot, result);
+
+                if(!container.sameItem(result)) {
+                    Vector3f spotToPop = ClotheslineBlockEntityBakedRenderData.getItemPoint(getBlockPos(), getBlockState(), slot, true);
+                    ClotheslineBlock.popResource(level, new BlockPos(Math.round(spotToPop.x()), Math.round(spotToPop.y()), Math.round(spotToPop.z())), container);
+                }
 
                 level.playSound(null, worldPosition, SoundEvents.WEEPING_VINES_PLACE, SoundSource.BLOCKS, 1, 1);
 
@@ -130,24 +142,8 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
         activeRecipes[slot] = null;
     }
 
-    public void setLeashPoints(Vector3f[] leashPoints) {
-        this.leashPoints = leashPoints;
-    }
-
-    public Vector3f getPointOnLeashForItem(int slot) {
-        if (leashPoints == null || slot >= leashPoints.length)
-            return new Vector3f(0, 0, 0);
-
-        float leashPointsPerItemRendered = (float) leashPoints.length / (getContainerSize() + 1);
-        float index = leashPointsPerItemRendered * (slot + 1);
-        Vector3f a = leashPoints[(int) index];
-        Vector3f b = leashPoints[(int) index + 1];
-        return RUtil.lerp3f(a, b, index % 1);
-    }
-
     private void spawnCraftingSuccessParticles(Level level, int slot) {
-        Vector3f pos = getPointOnLeashForItem(slot);
-        pos.add(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ());
+        Vector3f pos = ClotheslineBlockEntityBakedRenderData.getItemPoint(getBlockPos(), getBlockState(), slot, true);
         final int count = level.random.nextInt(3, 6);
         for (int i = 0; i < count; i++) {
             level.addParticle(Particles.END_ROD_RAIN.get(),

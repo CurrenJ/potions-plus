@@ -47,6 +47,11 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
         return self();
     }
 
+    public T result(Item item) {
+        this.result = new ItemStack(item);
+        return self();
+    }
+
     public T ingredients(Ingredient... ingredients) {
         this.ingredients = ingredients;
         return self();

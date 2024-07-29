@@ -2,6 +2,7 @@ package grill24.potionsplus.utility;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -16,12 +17,15 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -195,6 +199,16 @@ public class Utility {
             return x > 0 ? Direction.EAST : Direction.WEST;
         } else {
             return z > 0 ? Direction.SOUTH : Direction.NORTH;
+        }
+    }
+
+    public static void dropContents(Level level, BlockPos blockPos, BlockState before, BlockState after) {
+        if (!before.is(after.getBlock())) {
+            BlockEntity blockentity = level.getBlockEntity(blockPos);
+            if (blockentity instanceof InventoryBlockEntity inventoryBlockEntity) {
+                Containers.dropContents(level, blockPos, inventoryBlockEntity);
+                level.updateNeighbourForOutputSignal(blockPos, level.getBlockState(blockPos).getBlock());
+            }
         }
     }
 }

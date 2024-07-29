@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"minecraft:potion\"}"
+  ],
+  "result": "{Count:1b,id:\"minecraft:glass_bottle\"}",
+  "processingTime": 100
+}
