@@ -6,7 +6,6 @@ import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

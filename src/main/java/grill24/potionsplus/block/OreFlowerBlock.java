@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class OreFlowerBlock extends PotionsPlusFlowerBlock{
+public class OreFlowerBlock extends PotionsPlusFlowerBlock {
     private final float generationChance;
 
     public OreFlowerBlock(Supplier<MobEffect> effectSupplier, int effectDuration, Properties properties, boolean spawnParticles, Supplier<ParticleOptions> particles, Function<BlockState, Boolean> mayPlaceOn, float generationChance) {

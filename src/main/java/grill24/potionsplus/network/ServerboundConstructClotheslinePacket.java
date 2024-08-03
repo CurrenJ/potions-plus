@@ -1,8 +1,6 @@
 package grill24.potionsplus.network;
 
 import grill24.potionsplus.behaviour.ClotheslineBehaviour;
-import grill24.potionsplus.blockentity.ICraftingBlockEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;

@@ -9,7 +9,6 @@ import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.utility.ClientTickHandler;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -135,7 +134,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         // Add items in tiers
         data.renderedItemTiers = new HashMap<>();
         Recipes.seededPotionRecipes.allPotionsBrewingIngredientsByTierNoPotions.forEach((tier, ingredients) -> {
-            if(tier >= 0) {
+            if (tier >= 0) {
                 List<RendererData.AbyssalTroveRenderedItem> itemsInTier = data.renderedItemTiers.computeIfAbsent(tier, k -> new ArrayList<>());
 
                 ingredients.forEach(ingredient -> {

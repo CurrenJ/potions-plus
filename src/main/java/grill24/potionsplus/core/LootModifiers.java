@@ -2,9 +2,7 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.behaviour.WormrootBehaviour;
 import grill24.potionsplus.utility.ModInfo;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;

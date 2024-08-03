@@ -2,7 +2,9 @@ package grill24.potionsplus.blockentity;
 
 import com.mojang.math.Vector3d;
 import com.mojang.math.Vector3f;
-import grill24.potionsplus.core.*;
+import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.Particles;
+import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.PotionsPlusPacketHandler;
 import grill24.potionsplus.network.SanguineAltarConversionProgressPacket;
@@ -14,7 +16,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +26,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SanguineAltarBlockEntity extends InventoryBlockEntity implements ISingleStackDisplayer {
     public static final int CONVERSION_TICKS = 200;

@@ -3,7 +3,6 @@ package grill24.potionsplus.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;

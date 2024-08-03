@@ -90,23 +90,23 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, ClotheslineBlockEntity blockEntity) {
-        if(blockEntity.recipeUpdateQueued) {
+        if (blockEntity.recipeUpdateQueued) {
             blockEntity.updateActiveRecipe();
             blockEntity.recipeUpdateQueued = false;
         }
 
         for (int i = 0; i < blockEntity.getContainerSize(); i++) {
-            if(blockEntity.activeRecipes[i] != null){
+            if (blockEntity.activeRecipes[i] != null) {
                 blockEntity.progress[i]++;
 
-                if(!level.isClientSide) {
+                if (!level.isClientSide) {
                     int processingTime = blockEntity.activeRecipes[i].getProcessingTime();
                     if (blockEntity.progress[i] >= processingTime) {
                         blockEntity.craft(i);
                     }
                 }
             } else {
-                if(i == 0 && blockEntity.progress[i] > 0) {
+                if (i == 0 && blockEntity.progress[i] > 0) {
                     blockEntity.progress[i] = 0;
                 }
                 blockEntity.progress[i] = 0;
@@ -115,11 +115,10 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
     }
 
     public void craft(int slot) {
-        if(level != null) {
-            if(level.isClientSide) {
+        if (level != null) {
+            if (level.isClientSide) {
                 spawnCraftingSuccessParticles(level, slot);
-            }
-            else {
+            } else {
                 final ClotheslineRecipe activeRecipe = new ClotheslineRecipe(activeRecipes[slot]);
                 ItemStack container = getItem(slot).getContainerItem();
                 ItemStack result = activeRecipe.assemble(this);
@@ -127,7 +126,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                 getItem(slot).shrink(1);
                 setItem(slot, result);
 
-                if(!container.sameItem(result)) {
+                if (!container.sameItem(result)) {
                     Vector3f spotToPop = ClotheslineBlockEntityBakedRenderData.getItemPoint(getBlockPos(), getBlockState(), slot, true);
                     ClotheslineBlock.popResource(level, new BlockPos(Math.round(spotToPop.x()), Math.round(spotToPop.y()), Math.round(spotToPop.z())), container);
                 }
@@ -155,14 +154,14 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
     }
 
     public float getProgress(int slot) {
-        if(activeRecipes[slot] == null) return 1;
+        if (activeRecipes[slot] == null) return 1;
 
         return (float) progress[slot] / (float) activeRecipes[slot].getProcessingTime();
     }
 
     @Override
     public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> cap, @javax.annotation.Nullable net.minecraft.core.Direction side) {
-        if(!ClotheslineBlock.isLeftEnd(getBlockState()) && level != null) {
+        if (!ClotheslineBlock.isLeftEnd(getBlockState()) && level != null) {
             level.getBlockEntity(ClotheslineBlock.getLeftEnd(worldPosition, getBlockState()), Blocks.CLOTHESLINE_BLOCK_ENTITY.get()).ifPresent(entity -> entity.getCapability(cap, side));
         }
 

@@ -1,6 +1,5 @@
 package grill24.potionsplus.recipe.brewingcauldronrecipe;
 
-import com.google.gson.JsonObject;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
 import grill24.potionsplus.utility.PUtil;

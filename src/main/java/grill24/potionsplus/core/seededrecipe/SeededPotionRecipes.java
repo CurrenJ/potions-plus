@@ -11,7 +11,6 @@ import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
 import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipeBuilder;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;

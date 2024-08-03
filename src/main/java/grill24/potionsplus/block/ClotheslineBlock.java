@@ -1,16 +1,12 @@
 package grill24.potionsplus.block;
 
-import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.ClotheslineBlockEntity;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -38,7 +34,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.logging.Logger;
 
 public class ClotheslineBlock extends HorizontalDirectionalBlock implements EntityBlock {
     private static final VoxelShape CENTER_POST = Block.box(6, 0, 6, 10, 16, 10);
@@ -108,8 +103,8 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     public void onRemove(BlockState before, Level level, BlockPos blockPos, BlockState after, boolean p_60519_) {
         Utility.dropContents(level, blockPos, before, after);
 
-        if(!level.isClientSide) {
-            if(!this.areBothPartsValid(blockPos, level)) {
+        if (!level.isClientSide) {
+            if (!this.areBothPartsValid(blockPos, level)) {
                 BlockPos middle = getOneTowardsMiddle(blockPos, before);
                 BlockState middleBlockState = level.getBlockState(middle);
 
@@ -135,7 +130,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     }
 
     public BlockState updateShape(BlockState me, Direction direction, BlockState other, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos mutableBlockPos) {
-        if(!this.areBothPartsValid(blockPos, levelAccessor)) {
+        if (!this.areBothPartsValid(blockPos, levelAccessor)) {
             return Blocks.AIR.defaultBlockState();
         }
 
@@ -144,7 +139,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
 
     public boolean areBothPartsValid(BlockPos pos, LevelReader levelAccessor) {
         BlockState blockState = levelAccessor.getBlockState(pos);
-        if(!blockState.is(this))
+        if (!blockState.is(this))
             return false;
 
         ClotheslinePart clotheslinePart = blockState.getValue(PART);
@@ -154,13 +149,13 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     }
 
     public static BlockPos getOtherEnd(BlockPos blockPos, BlockState blockState) {
-        if(!blockState.is(grill24.potionsplus.core.Blocks.CLOTHESLINE.get())) {
+        if (!blockState.is(grill24.potionsplus.core.Blocks.CLOTHESLINE.get())) {
             PotionsPlus.LOGGER.warn("getOtherEnd called on " + blockState.getBlock().getRegistryName() + ". Expected a clothesline block.");
             return blockPos;
         }
 
         int distance = getDistance(blockState);
-        if(blockState.getValue(PART) == ClotheslinePart.LEFT)
+        if (blockState.getValue(PART) == ClotheslinePart.LEFT)
             return blockPos.relative(blockState.getValue(FACING).getClockWise(), distance);
         else
             return blockPos.relative(blockState.getValue(FACING).getCounterClockWise(), distance);
@@ -172,7 +167,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
             return blockPos;
         }
 
-        if(blockState.getValue(PART) == ClotheslinePart.LEFT)
+        if (blockState.getValue(PART) == ClotheslinePart.LEFT)
             return blockPos;
         else
             return getOtherEnd(blockPos, blockState);
@@ -193,7 +188,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
             return blockPos;
         }
 
-        if(blockState.getValue(PART) == ClotheslinePart.LEFT)
+        if (blockState.getValue(PART) == ClotheslinePart.LEFT)
             return blockPos.relative(blockState.getValue(FACING).getClockWise());
         else
             return blockPos.relative(blockState.getValue(FACING).getCounterClockWise());
@@ -237,7 +232,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     @org.jetbrains.annotations.Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if(isLeftEnd(state))
+        if (isLeftEnd(state))
             return Utility.createTickerHelper(type, grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), ClotheslineBlockEntity::tick);
 
         return null;

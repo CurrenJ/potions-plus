@@ -26,7 +26,7 @@ public class ClotheslineBlockEntityBakedRenderData {
     }
 
     public static ClotheslineRendererData getBakedRenderData(BlockState state) {
-        if(!state.hasProperty(ClotheslineBlock.FACING)) {
+        if (!state.hasProperty(ClotheslineBlock.FACING)) {
             // warn
             PotionsPlus.LOGGER.warn("Tried to get baked render data for a clothesline block without a facing property");
             return null;
@@ -63,7 +63,7 @@ public class ClotheslineBlockEntityBakedRenderData {
             int distance = state.getValue(ClotheslineBlock.DISTANCE);
 
             Vector3f point = getItemPoints(distance)[slot].copy();
-            if(worldSpace) {
+            if (worldSpace) {
                 point.add(pos.getX(), pos.getY(), pos.getZ());
                 point.add(ClotheslineBlockEntityRenderer.ITEM_OFFSET);
                 return point;
@@ -83,7 +83,7 @@ public class ClotheslineBlockEntityBakedRenderData {
     }
 
     private static Vector3f[][] calculateAllLeashPoints(Direction direction) {
-        Vector3f[][] leashPoints = new Vector3f[ClotheslineBlockEntity.MAX_DISTANCE- ClotheslineBlockEntity.MIN_DISTANCE+1][];
+        Vector3f[][] leashPoints = new Vector3f[ClotheslineBlockEntity.MAX_DISTANCE - ClotheslineBlockEntity.MIN_DISTANCE + 1][];
 
         for (int distance = ClotheslineBlockEntity.MIN_DISTANCE; distance <= ClotheslineBlockEntity.MAX_DISTANCE; distance++) {
             BlockPos from = BlockPos.ZERO;
@@ -109,7 +109,7 @@ public class ClotheslineBlockEntityBakedRenderData {
             float leashPointsPerItemRendered = (float) leashPoints[index].length / (slots + 1);
 
             itemPoints[index] = new Vector3f[slots];
-            for(int slot = 0; slot < slots; slot++) {
+            for (int slot = 0; slot < slots; slot++) {
                 float i = leashPointsPerItemRendered * (slot + 1);
                 Vector3f a = leashPoints[index][(int) i];
                 Vector3f b = leashPoints[index][(int) i + 1];

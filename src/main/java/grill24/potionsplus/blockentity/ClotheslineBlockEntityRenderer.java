@@ -48,12 +48,12 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
     public void render(ClotheslineBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         profiler.push("clothesline_render");
 
-        if(blockEntity.getLevel() != null) {
+        if (blockEntity.getLevel() != null) {
             BlockPos left = ClotheslineBlock.getLeftEnd(blockEntity.getBlockPos(), blockEntity.getBlockState());
             BlockPos right = ClotheslineBlock.getOtherEnd(left, blockEntity.getLevel().getBlockState(left));
 
             // Prevent rendering the same clothesline twice (once for each end)
-            if(clotheslinesRendered.contains(left) || clotheslinesRendered.contains(right))
+            if (clotheslinesRendered.contains(left) || clotheslinesRendered.contains(right))
                 return;
             clotheslinesRendered.add(blockEntity.getBlockPos());
 
@@ -73,7 +73,7 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
                     matrices, vertexConsumers, blockLightStart, blockLightEnd, skyLightStart, skyLightEnd);
 
             ClotheslineBlockEntity leftBlockEntity = level.getBlockEntity(left, Blocks.CLOTHESLINE_BLOCK_ENTITY.get()).orElse(null);
-            if(leftBlockEntity == null)
+            if (leftBlockEntity == null)
                 return;
 
             // Render items on the clothesline
@@ -105,7 +105,7 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
                     // TODO: Duplicate code from leashrenderer - optimize
                     float stepFraction = (i + 1f) / (leftBlockEntity.getContainerSize() + 1);
                     int mixedBlockLight = (int) Mth.lerp(stepFraction, blockLightStart, blockLightEnd);
-                    int mixedSkyLight = (int)Mth.lerp(stepFraction, skyLightStart, skyLightEnd);
+                    int mixedSkyLight = (int) Mth.lerp(stepFraction, skyLightStart, skyLightEnd);
 
                     Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.FIXED,
                             LightTexture.pack(mixedBlockLight, mixedSkyLight), overlay, matrices, vertexConsumers, 0);
@@ -119,13 +119,14 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
 
     private Quaternion orientItemToClotheslineOrientation(BlockState clothesLine) {
         Direction property = clothesLine.getValue(ClotheslineBlock.FACING);
-        if(property.getAxis() == Direction.Axis.X) {
+        if (property.getAxis() == Direction.Axis.X) {
             return Vector3f.YP.rotationDegrees(90);
         }
         return Quaternion.ONE;
     }
 
     private static final Set<BlockPos> clotheslinesRendered = new HashSet<>();
+
     @SubscribeEvent
     public static void onRender(final RenderLevelStageEvent event) {
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS) {

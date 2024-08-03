@@ -58,10 +58,10 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
     public BlockState setBlockStateRedirect(LevelChunkSection instance, int p_62992_, int p_62993_, int p_62994_, BlockState blockState, boolean p_62996_) {
         grill24.potionsplus.core.Blocks.ORE_FLOWER_BLOCKS.forEach(
                 block -> {
-                    if(block.mayPlaceOn(blockState)) {
+                    if (block.mayPlaceOn(blockState)) {
                         BlockPos abovePos = new BlockPos(potions_plus$mutable.getX(), potions_plus$mutable.getY() + 1, potions_plus$mutable.getZ());
                         BlockState above = potions_plus$bulkSectionAccess.getBlockState(abovePos);
-                        if(above.isAir() && potions_plus$random.nextFloat() < block.getGenerationChance() && potions_plus$worldGenLevel.ensureCanWrite(abovePos)) {
+                        if (above.isAir() && potions_plus$random.nextFloat() < block.getGenerationChance() && potions_plus$worldGenLevel.ensureCanWrite(abovePos)) {
                             System.out.println("Placed " + block + " at " + abovePos);
 
                             int x = SectionPos.sectionRelative(potions_plus$mutable.getX());
@@ -69,7 +69,7 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
                             int z = SectionPos.sectionRelative(potions_plus$mutable.getZ());
                             LevelChunkSection section = potions_plus$bulkSectionAccess.getSection(potions_plus$mutable);
 
-                            if(section != null) {
+                            if (section != null) {
                                 section.setBlockState(x, y, z, block.defaultBlockState(), false);
                             }
                         }
@@ -77,7 +77,7 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
                 }
         );
 
-        if(blockState.is(Blocks.DENSE_DIAMOND_ORE.get())) {
+        if (blockState.is(Blocks.DENSE_DIAMOND_ORE.get())) {
             System.out.println("Placed dense diamond ore at " + potions_plus$mutable);
         }
 

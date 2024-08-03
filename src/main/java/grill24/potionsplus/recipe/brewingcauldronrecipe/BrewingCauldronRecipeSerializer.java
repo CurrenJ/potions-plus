@@ -3,7 +3,6 @@ package grill24.potionsplus.recipe.brewingcauldronrecipe;
 import com.google.gson.JsonObject;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeSerializer;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import org.jetbrains.annotations.NotNull;
 

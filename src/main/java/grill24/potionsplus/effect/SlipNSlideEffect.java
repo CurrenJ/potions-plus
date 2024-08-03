@@ -2,9 +2,6 @@ package grill24.potionsplus.effect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
 
 public class SlipNSlideEffect extends MobEffect {
     public SlipNSlideEffect(MobEffectCategory mobEffectCategory, int color) {

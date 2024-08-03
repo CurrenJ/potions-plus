@@ -34,15 +34,18 @@ public class Recipes {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registry.RECIPE_SERIALIZER_REGISTRY, ModInfo.MOD_ID);
 
     // Brewing Cauldron Recipe
-    public static final RegistryObject<RecipeType<BrewingCauldronRecipe>> BREWING_CAULDRON_RECIPE = RECIPE_TYPES.register("brewing_cauldron_recipe", () -> new RecipeType<>() {});
+    public static final RegistryObject<RecipeType<BrewingCauldronRecipe>> BREWING_CAULDRON_RECIPE = RECIPE_TYPES.register("brewing_cauldron_recipe", () -> new RecipeType<>() {
+    });
     public static final RegistryObject<BrewingCauldronRecipeSerializer> BREWING_CAULDRON_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("brewing_cauldron_recipe", () -> new BrewingCauldronRecipeSerializer(BrewingCauldronRecipeBuilder::new, 200));
 
     // Clothesline Recipe
-    public static final RegistryObject<RecipeType<ClotheslineRecipe>> CLOTHESLINE_RECIPE = RECIPE_TYPES.register("clothesline_recipe", () -> new RecipeType<>() {});
+    public static final RegistryObject<RecipeType<ClotheslineRecipe>> CLOTHESLINE_RECIPE = RECIPE_TYPES.register("clothesline_recipe", () -> new RecipeType<>() {
+    });
     public static final RegistryObject<ShapelessProcessingRecipeSerializer<ClotheslineRecipe, ClotheslineRecipeBuilder>> CLOTHESLINE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("clothesline_recipe", () -> new ShapelessProcessingRecipeSerializer<>(ClotheslineRecipeBuilder::new, 200));
 
     // Sanguine Altar Recipe
-    public static final RegistryObject<RecipeType<SanguineAltarRecipe>> SANGUINE_ALTAR_RECIPE = RECIPE_TYPES.register("sanguine_altar_recipe", () -> new RecipeType<>() {});
+    public static final RegistryObject<RecipeType<SanguineAltarRecipe>> SANGUINE_ALTAR_RECIPE = RECIPE_TYPES.register("sanguine_altar_recipe", () -> new RecipeType<>() {
+    });
     public static final RegistryObject<ShapelessProcessingRecipeSerializer<SanguineAltarRecipe, SanguineAltarRecipeBuilder>> SANGUINE_ALTAR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("sanguine_altar_recipe", () -> new ShapelessProcessingRecipeSerializer<>(SanguineAltarRecipeBuilder::new, 200));
 
     public static final List<Pair<RecipeType<?>, Function<MinecraftServer, Map<ResourceLocation, Recipe<?>>>>> RECIPE_INJECTION_FUNCTIONS = new ArrayList<>();

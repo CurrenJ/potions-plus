@@ -1,7 +1,6 @@
 package grill24.potionsplus.network;
 
 import grill24.potionsplus.blockentity.ICraftingBlockEntity;
-import grill24.potionsplus.core.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -37,7 +36,7 @@ public record ClientboundBlockEntityCraftRecipePacket(BlockPos pos, int slot) im
                                 return;
                             }
 
-                            if(mc.level.getBlockEntity(packet.pos) instanceof ICraftingBlockEntity blockEntity) {
+                            if (mc.level.getBlockEntity(packet.pos) instanceof ICraftingBlockEntity blockEntity) {
                                 blockEntity.craft(packet.slot);
                             }
                         }
