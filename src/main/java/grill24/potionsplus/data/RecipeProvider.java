@@ -1,7 +1,6 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.Items;
-import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipeBuilder;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipeBuilder;

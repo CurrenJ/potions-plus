@@ -29,7 +29,7 @@ public class BoneBuddyEffect extends MobEffect {
         if (potionAddedEvent.getPotionEffect().getEffect() != MobEffects.BONE_BUDDY.get())
             return;
 
-        if(potionAddedEvent.getEntityLiving() instanceof AbstractSkeleton skeleton) {
+        if (potionAddedEvent.getEntityLiving() instanceof AbstractSkeleton skeleton) {
             Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
                     .filter(goal -> goal.getGoal() instanceof NearestAttackableTargetGoal)
                     .map(goal -> (NearestAttackableTargetGoal<?>) goal.getGoal())
@@ -48,7 +48,7 @@ public class BoneBuddyEffect extends MobEffect {
         if (potionExpiryEvent.getPotionEffect() != null && potionExpiryEvent.getPotionEffect().getEffect() != MobEffects.BONE_BUDDY.get())
             return;
 
-        if(potionExpiryEvent.getEntityLiving() instanceof AbstractSkeleton skeleton) {
+        if (potionExpiryEvent.getEntityLiving() instanceof AbstractSkeleton skeleton) {
             removeEffect(skeleton);
         }
     }
@@ -58,7 +58,7 @@ public class BoneBuddyEffect extends MobEffect {
         if (potionExpiryEvent.getPotionEffect() != null && potionExpiryEvent.getPotionEffect().getEffect() != MobEffects.BONE_BUDDY.get())
             return;
 
-        if(potionExpiryEvent.getEntityLiving() instanceof AbstractSkeleton skeleton) {
+        if (potionExpiryEvent.getEntityLiving() instanceof AbstractSkeleton skeleton) {
             removeEffect(skeleton);
         }
     }

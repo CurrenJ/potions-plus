@@ -2,7 +2,6 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
 import grill24.potionsplus.persistence.SavedData;
-import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.DimensionDataStorage;

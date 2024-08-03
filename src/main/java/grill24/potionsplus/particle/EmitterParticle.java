@@ -63,8 +63,7 @@ public class EmitterParticle extends NoRenderParticle {
                     pX += this.random.nextGaussian(0, effectiveRange);
                     pY += this.random.nextGaussian(0, effectiveRange);
                     pZ += this.random.nextGaussian(0, effectiveRange);
-                }
-                else {
+                } else {
                     pX += (this.random.nextDouble() * 2 - 1) * effectiveRange;
                     pY += (this.random.nextDouble() * 2 - 1) * effectiveRange;
                     pZ += (this.random.nextDouble() * 2 - 1) * effectiveRange;

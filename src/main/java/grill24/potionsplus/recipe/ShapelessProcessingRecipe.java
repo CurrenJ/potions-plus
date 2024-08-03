@@ -1,8 +1,5 @@
 package grill24.potionsplus.recipe;
 
-import com.google.gson.JsonObject;
-import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;

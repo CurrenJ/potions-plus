@@ -3,7 +3,6 @@ package grill24.potionsplus.block;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.Particles;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,7 +26,7 @@ import java.util.function.ToIntFunction;
 public class LunarBerryBushBlock extends SweetBerryBushBlock {
     public static final BooleanProperty BLOOMING = BooleanProperty.create("blooming");
     public static final ToIntFunction<BlockState> LIGHT_EMISSION = (blockState) -> {
-        if(blockState.getValue(BLOOMING)) {
+        if (blockState.getValue(BLOOMING)) {
             if (blockState.getValue(AGE) == 3) {
                 return 5;
             } else if (blockState.getValue(AGE) == 2) {
@@ -64,7 +63,7 @@ public class LunarBerryBushBlock extends SweetBerryBushBlock {
         boolean isBlooming = serverLevel.getRawBrightness(blockPos.above(), 15) < 9 && !serverLevel.isDay();
         serverLevel.setBlock(blockPos, blockState.setValue(BLOOMING, isBlooming), 2);
 
-        if(isBlooming) {
+        if (isBlooming) {
             // spawn particles
             // particle, x, y, z, count, xSpeed, ySpeed, zSpeed, maxSpeed
             serverLevel.sendParticles(Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.get(), blockPos.getX() + 0.5D, blockPos.getY() + 1.1D, blockPos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0F);

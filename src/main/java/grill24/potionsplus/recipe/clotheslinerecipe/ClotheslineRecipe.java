@@ -6,7 +6,6 @@ import grill24.potionsplus.recipe.ShapelessProcessingRecipeSerializer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,7 +28,7 @@ public class ClotheslineRecipe extends ShapelessProcessingRecipe {
 
     @Override
     public @NotNull RecipeType<?> getType() {
-        return Recipes.CLOTHESLINE_RECIPE.get() ;
+        return Recipes.CLOTHESLINE_RECIPE.get();
     }
 
     public boolean matches(ItemStack itemStack) {

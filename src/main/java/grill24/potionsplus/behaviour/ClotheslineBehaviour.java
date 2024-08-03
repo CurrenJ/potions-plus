@@ -29,11 +29,11 @@ public class ClotheslineBehaviour {
         Item item = event.getItemStack().getItem();
         if (block == INTERACTION_BLOCK && item == INTERACTION_ITEM) {
             event.setCanceled(true);
-            if(!event.getWorld().isClientSide)
+            if (!event.getWorld().isClientSide)
                 return;
             event.getPlayer().swing(event.getHand());
 
-            if(!firstBlockClicked) {
+            if (!firstBlockClicked) {
                 firstBlockPos = pos;
                 firstBlockClicked = true;
 
@@ -59,7 +59,7 @@ public class ClotheslineBehaviour {
 
         // Lower coordinates are always the left block
         int distance = direction == Direction.EAST ? Math.abs(pos.getZ() - otherPos.getZ()) : Math.abs(pos.getX() - otherPos.getX());
-        if(distance < 2) return;
+        if (distance < 2) return;
         ClotheslinePart part = direction == Direction.NORTH ?
                 (pos.getX() < otherPos.getX() ? ClotheslinePart.LEFT : ClotheslinePart.RIGHT) :
                 (pos.getZ() < otherPos.getZ() ? ClotheslinePart.LEFT : ClotheslinePart.RIGHT);

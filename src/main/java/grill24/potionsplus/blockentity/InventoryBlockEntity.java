@@ -134,7 +134,7 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
 
     @Override
     public boolean isEmpty() {
-        for(ItemStack itemstack : this.items) {
+        for (ItemStack itemstack : this.items) {
             if (!itemstack.isEmpty()) {
                 return false;
             }
@@ -142,6 +142,7 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
 
         return true;
     }
+
     @Override
     public ItemStack getItem(int slot) {
         return this.items.get(slot);
@@ -166,7 +167,7 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
             stack.setCount(this.getMaxStackSize());
         }
 
-        if(!flag) {
+        if (!flag) {
             // Maybe have variation of stack changed that takes in the slot?
             this.setChanged();
         }
@@ -177,7 +178,7 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         } else {
-            return player.distanceToSqr((double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 0.5D, (double)this.worldPosition.getZ() + 0.5D) <= 64.0D;
+            return player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
         }
     }
 

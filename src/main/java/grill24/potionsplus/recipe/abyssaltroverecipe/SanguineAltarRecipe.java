@@ -28,7 +28,7 @@ public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
 
     @Override
     public @NotNull RecipeType<?> getType() {
-        return Recipes.SANGUINE_ALTAR_RECIPE.get() ;
+        return Recipes.SANGUINE_ALTAR_RECIPE.get();
     }
 
     public boolean matches(ItemStack itemStack) {
