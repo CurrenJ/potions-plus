@@ -28,8 +28,11 @@ public class PotionBuilder {
     private ISeededPotionRecipeGenerator potionRecipeGenerator = new SeededPotionRecipeGenerator(DEFAULT_POTION_RECIPE_GENERATOR);
 
     public static final DurationFunction SHORTER_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 200; // 10 seconds per level
+    public static final DurationFunction MEDIUM_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 600; // 30 seconds per level
     public static final DurationFunction DEFAULT_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 3600; // 3 minutes per level
     public static final DurationFunction LONGER_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 5000; // 4 minutes 10 seconds per level
+    public static final DurationFunction FIVE_MINUTES_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 6000; // 5 minutes per level
+    public static final DurationFunction TEN_MINUTES_DURATION_FUNCTION = (int durationLevel) -> (durationLevel + 1) * 12000; // 10 minutes per level
 
     public static final SeededPotionRecipeGenerator DEFAULT_POTION_RECIPE_GENERATOR = new SeededPotionRecipeGenerator().withTieredIngredientPools(
             SeededIngredientsLootTables.TIER_0_INGREDIENTS,

@@ -9,6 +9,12 @@
   "block.potionsplus.clothesline": "Clothesline",
 
   "block.potionsplus.lunar_berry_bush": "Lunar Berry Bush",
+  "block.potionsplus.iron_oxide_daisy": "Iron Oxide Daisy",
+  "block.potionsplus.copper_chrysanthemum": "Copper Chrysanthemum",
+  "block.potionsplus.lapis_lilac": "Lapis Lilac",
+
+  "block.potionsplus.dense_diamond_ore": "Dense Diamond Ore",
+  "block.potionsplus.dense_deepslate_diamond_ore": "Dense Deepslate Diamond Ore",
 
 
   "jei.potionsplus.brewing_cauldron.description": "Use blaze powder on a vanilla cauldron filled with water to transform it into a brewing cauldron. A heat source must be placed directly beneath in order to brew. The brewing cauldron is the heart of Potions Plus, and allows the player to craft all vanilla brewing stand recipes, in addition to being the exclusive way to craft Potions Plus potions. Recipes for all these potions are randomized per world. The Herbalist's Lectern, Abyssal Trove, and Sanguine Altar provide essential functions for deducing these recipes.",
@@ -30,6 +36,11 @@
   "item.potionsplus.rotten_wormroot.description": "A wormroot that has seen better days. It's still good for something, right? Get some wormroot wet to rot it.",
   "item.potionsplus.lunar_berries": "Lunar Berries",
   "item.potionsplus.lunar_berries.description": "A mystical berry that only blooms at night. A sweet berry's best friend! Maybe you can find them together after dark...",
+
+  "item.potionsplus.iron_oxide_daisy": "Iron Oxide Daisy",
+  "item.potionsplus.copper_chrysanthemum": "Copper Chrysanthemum",
+  "item.potionsplus.lapis_lilac": "Lapis Lilac",
+
 
   "effect.potionsplus.geode_grace": "Geode Grace",
   "item.minecraft.potion.effect.geode_grace": "Potion of Geode Grace",
@@ -171,6 +182,20 @@
   "item.minecraft.lingering_potion.effect.wither": "Lingering Potion of Wither",
   "item.minecraft.tipped_arrow.effect.wither": "Arrow of Wither",
   "jei.potionsplus.wither.description": "Affected mobs wither away.",
+
+  "effect.potionsplus.slip_n_slide": "Slip 'n Slide",
+  "item.minecraft.potion.effect.slip_n_slide": "Potion of Slip 'n Slide",
+  "item.minecraft.splash_potion.effect.slip_n_slide": "Splash Potion of Slip 'n Slide",
+  "item.minecraft.lingering_potion.effect.slip_n_slide": "Lingering Potion of Slip 'n Slide",
+  "item.minecraft.tipped_arrow.effect.slip_n_slide": "Arrow of Slip 'n Slide",
+  "jei.potionsplus.slip_n_slide.description": "Affected mobs slide around like they're on ice. What fun!",
+
+  "effect.potionsplus.harrowing_hands": "Harrowing Hands",
+  "item.minecraft.potion.effect.harrowing_hands": "Potion of Harrowing Hands",
+  "item.minecraft.splash_potion.effect.harrowing_hands": "Splash Potion of Harrowing Hands",
+  "item.minecraft.lingering_potion.effect.harrowing_hands": "Lingering Potion of Harrowing Hands",
+  "item.minecraft.tipped_arrow.effect.harrowing_hands": "Arrow of Harrowing Hands",
+  "jei.potionsplus.harrowing_hands.description": "Nearby skeletons become friendly and do not target players. Instead, they target other hostile mobs.",
 
   "chat.potionsplus.acquired_ingredient_knowledge_1": "You tingle with alchemical knowledge of the %s you possess...",
   "chat.potionsplus.acquired_ingredient_knowledge_2": "The %s you possess reminds you of something wet and warm...",

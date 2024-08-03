@@ -22,6 +22,7 @@ public class DataGen {
         if (event.includeServer()) {
             generator.addProvider(new BlockStateProvider(generator, ModInfo.MOD_ID, existingFileHelper));
             generator.addProvider(new RecipeProvider(generator, existingFileHelper));
+            generator.addProvider(new LootTableProvider(generator));
         }
 
         if (event.includeClient()) {

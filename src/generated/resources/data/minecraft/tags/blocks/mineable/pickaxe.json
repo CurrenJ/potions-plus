@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "potionsplus:brewing_cauldron",
+    "potionsplus:abyssal_trove",
+    "potionsplus:sanguine_altar",
+    "potionsplus:precision_dispenser",
+    "potionsplus:particle_emitter",
+    "potionsplus:dense_diamond_ore",
+    "potionsplus:deepslate_dense_diamond_ore"
+  ]
+}

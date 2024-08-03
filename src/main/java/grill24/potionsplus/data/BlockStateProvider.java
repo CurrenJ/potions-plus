@@ -7,8 +7,10 @@ import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
+import net.minecraft.client.ResourceLoadStateTracker;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
@@ -28,10 +30,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
     @Override
     protected void registerStatesAndModels() {
-        // Blocks
-
-        // Brewing Cauldron
-//        fromParent(grill24.potionsplus.core.Blocks.BREWING_CAULDRON.get(), net.minecraft.world.level.block.Blocks.CAULDRON);
+        // ----- Blocks -----
 
         // Particle Emitter
         registerParticleEmitter();
@@ -42,9 +41,27 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerHorizontalDirectionalBlock(Blocks.SANGUINE_ALTAR.get());
 
         registerClothesline();
+        registerFlowerBlock(Blocks.IRON_OXIDE_DAISY.get());
+        registerFlowerBlock(Blocks.COPPER_CHRYSANTHEMUM.get());
+        registerFlowerBlock(Blocks.LAPIS_LILAC.get());
 
+        // Dense Diamond Ore
+        ResourceLocation denseDiamondOre = new ResourceLocation(ModInfo.MOD_ID, "block/" + Blocks.DENSE_DIAMOND_ORE.get().getRegistryName().getPath());
+        models().cubeAll(Objects.requireNonNull(Blocks.DENSE_DIAMOND_ORE.get().getRegistryName()).getPath(), denseDiamondOre);
+        getVariantBuilder(Blocks.DENSE_DIAMOND_ORE.get()).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(models().getExistingFile(Blocks.DENSE_DIAMOND_ORE.get().getRegistryName()))
+                .build());
+        simpleBlockItem(Blocks.DENSE_DIAMOND_ORE.get(), models().getExistingFile(denseDiamondOre));
 
-        // Items
+        // Deepslate Dense Diamond Ore
+        ResourceLocation deepslateDenseDiamondOre = new ResourceLocation(ModInfo.MOD_ID, "block/" + Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get().getRegistryName().getPath());
+        models().cubeAll(Objects.requireNonNull(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get().getRegistryName()).getPath(), deepslateDenseDiamondOre);
+        getVariantBuilder(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get()).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(models().getExistingFile(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get().getRegistryName()))
+                .build());
+        simpleBlockItem(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get(), models().getExistingFile(deepslateDenseDiamondOre));
+
+        // ----- Items -----
 
         registerPotionEffectIcons();
         registerGenericIcons();
@@ -54,6 +71,9 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerItem(Items.WORMROOT.get());
         registerItem(Items.ROTTEN_WORMROOT.get());
         registerItem(Items.LUNAR_BERRIES.get());
+        registerItem(Items.IRON_OXIDE_DAISY.get(), "block");
+        registerItem(Items.COPPER_CHRYSANTHEMUM.get(), "block");
+        registerItem(Items.LAPIS_LILAC.get(), "block");
     }
 
     private void registerPotionEffectIcons(MobEffect... mobEffects) {
@@ -109,10 +129,10 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 .texture("layer0", "item/" + item.getRegistryName().getPath());
     }
 
-    private void registerItem(Item item, String... folders) {
+    private void registerItem(Item item, String... texturePath) {
         itemModels().getBuilder(Objects.requireNonNull(item.getRegistryName()).getPath())
                 .parent(models().getExistingFile(mcLoc("item/generated")))
-                .texture("layer0", String.join("/", folders) + "/" + item.getRegistryName().getPath());
+                .texture("layer0", String.join("/", texturePath) + "/" + item.getRegistryName().getPath());
     }
 
     private void registerParticleEmitter() {
@@ -160,6 +180,19 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                     .rotationY(yRot)
                     .build();
         });
+    }
+
+    private void registerFlowerBlock(Block block, String texture) {
+        models().withExistingParent(Objects.requireNonNull(block.getRegistryName()).getPath(), mcLoc("block/cross"))
+                .texture("cross", texture);
+
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(models().getExistingFile(block.getRegistryName()))
+                .build());
+    }
+
+    private void registerFlowerBlock(Block block) {
+        registerFlowerBlock(block, "block/" + Objects.requireNonNull(block.getRegistryName()).getPath());
     }
 
     private void registerBlockWithModel(Block block, ResourceLocation resourceLocation) {

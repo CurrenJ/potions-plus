@@ -167,6 +167,20 @@ public class Potions {
             .effects(PotionBuilder.SHORTER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.WITHER)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
+    public static final PotionBuilder.PotionsAmpDurMatrix SLIP_N_SLIDE_POTIONS = new PotionBuilder()
+            .name("slip_n_slide")
+            .maxAmp(3)
+            .maxDur(1)
+            .effects(PotionBuilder.MEDIUM_DURATION_FUNCTION, MobEffects.SLIP_N_SLIDE::get)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
+    public static final PotionBuilder.PotionsAmpDurMatrix HARROWING_HANDS_POTIONS = new PotionBuilder()
+            .name("harrowing_hands")
+            .maxAmp(1)
+            .maxDur(3)
+            .effects(PotionBuilder.TEN_MINUTES_DURATION_FUNCTION, MobEffects.HARROWING_HANDS::get)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
     @SubscribeEvent
     public static void onRegisterPotions(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {

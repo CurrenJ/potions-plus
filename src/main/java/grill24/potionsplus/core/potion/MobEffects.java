@@ -56,6 +56,15 @@ public class MobEffects {
     public static final RegistryObject<MobEffect> BOTANICAL_BOOST = EFFECTS.register("botanical_boost", () ->
             new BotanicalBoostEffect(MobEffectCategory.BENEFICIAL, 0x00a86b));
 
+    public static final RegistryObject<MobEffect> SLIP_N_SLIDE = EFFECTS.register("slip_n_slide", () ->
+            new SlipNSlideEffect(MobEffectCategory.BENEFICIAL, 0x20709e));
+
+    public static final RegistryObject<MobEffect> HARROWING_HANDS = EFFECTS.register("harrowing_hands", () ->
+            new HarrowingHandsEffect(MobEffectCategory.BENEFICIAL, 0x20709e));
+
+    public static final RegistryObject<MobEffect> BONE_BUDDY = EFFECTS.register("bone_buddy", () ->
+            new BoneBuddyEffect(MobEffectCategory.BENEFICIAL, 0xdddddd));
+
 
     public static final Lazy<Map<ResourceLocation, Integer>> POTION_ICON_INDEX_MAP = Lazy.of(PUtil::getAllMobEffectsIconStackSizeMap);
     public static final int POTION_EFFECT_INDEX_PROPERTY_DIVIDEND = 64;

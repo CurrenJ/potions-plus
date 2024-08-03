@@ -40,6 +40,13 @@ public class Items {
 
     public static final RegistryObject<Item> CLOTHESLINE = ITEMS.register(Blocks.CLOTHESLINE.getId().getPath(), () -> new BlockItem(Blocks.CLOTHESLINE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
 
+    public static final RegistryObject<Item> IRON_OXIDE_DAISY = ITEMS.register(Blocks.IRON_OXIDE_DAISY.getId().getPath(), () -> new BlockItem(Blocks.IRON_OXIDE_DAISY.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> COPPER_CHRYSANTHEMUM = ITEMS.register(Blocks.COPPER_CHRYSANTHEMUM.getId().getPath(), () -> new BlockItem(Blocks.COPPER_CHRYSANTHEMUM.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> LAPIS_LILAC = ITEMS.register(Blocks.LAPIS_LILAC.getId().getPath(), () -> new BlockItem(Blocks.LAPIS_LILAC.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+
+    public static final RegistryObject<Item> DENSE_DIAMOND_ORE = ITEMS.register(Blocks.DENSE_DIAMOND_ORE.getId().getPath(), () -> new BlockItem(Blocks.DENSE_DIAMOND_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> DEEPSLATE_DENSE_DIAMOND_ORE = ITEMS.register(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.getId().getPath(), () -> new BlockItem(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+
     // ----- Dynamically Rendered Display Items -----
 
     public static final RegistryObject<Item> POTION_EFFECT_ICON = ITEMS.register("potion_effect_icon", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));

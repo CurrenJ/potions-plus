@@ -10,6 +10,8 @@
     "BoatMixin",
     "BootstrapMixin",
     "ItemEntityMixin",
+    "LivingEntityMixin",
+    "OreFeatureMixin",
     "PotionItemMixin"
   ],
   "client": [
