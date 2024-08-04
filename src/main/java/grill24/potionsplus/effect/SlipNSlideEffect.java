@@ -11,8 +11,8 @@ public class SlipNSlideEffect extends MobEffect {
     public static float getFriction(int amplifier) {
         return switch (amplifier) {
             case 0 -> 0.91f;
-            case 1 -> 0.93f;
-            case 2 -> 0.95f;
+            case 1 -> 0.94f;
+            case 2 -> 0.97f;
             default -> 0.6f;
         };
     }

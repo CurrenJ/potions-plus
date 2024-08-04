@@ -74,6 +74,28 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_dispenser", has(net.minecraft.world.item.Items.DISPENSER))
                 .save(recipeConsumer);
 
+        ShapedRecipeBuilder.shaped(Items.WREATH.get())
+                .pattern("LBL")
+                .pattern("BTB")
+                .pattern("LBL")
+                .define('L', ItemTags.LEAVES)
+                .define('B', net.minecraft.world.item.Items.BONE)
+                .define('T', net.minecraft.world.item.Items.TOTEM_OF_UNDYING)
+                .unlockedBy("has_bone", has(net.minecraft.world.item.Items.BONE))
+                .save(recipeConsumer);
+
+        ShapedRecipeBuilder.shaped(Items.WREATH.get())
+                .pattern("BLB")
+                .pattern("LTL")
+                .pattern("BLB")
+                .define('L', ItemTags.LEAVES)
+                .define('B', net.minecraft.world.item.Items.BONE)
+                .define('T', net.minecraft.world.item.Items.TOTEM_OF_UNDYING)
+                .unlockedBy("has_bone", has(net.minecraft.world.item.Items.BONE))
+                .save(recipeConsumer, "wreath_alternate");
+
+        // ----- Static Brewing Cauldron Recipes -----
+
         // Water Bottle
         buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 30, "has_potion",
                 net.minecraft.world.item.alchemy.Potions.WATER, PUtil.PotionType.POTION,

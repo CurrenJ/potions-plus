@@ -5,11 +5,9 @@ import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.Foods;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -43,9 +41,15 @@ public class Items {
     public static final RegistryObject<Item> IRON_OXIDE_DAISY = ITEMS.register(Blocks.IRON_OXIDE_DAISY.getId().getPath(), () -> new BlockItem(Blocks.IRON_OXIDE_DAISY.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
     public static final RegistryObject<Item> COPPER_CHRYSANTHEMUM = ITEMS.register(Blocks.COPPER_CHRYSANTHEMUM.getId().getPath(), () -> new BlockItem(Blocks.COPPER_CHRYSANTHEMUM.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
     public static final RegistryObject<Item> LAPIS_LILAC = ITEMS.register(Blocks.LAPIS_LILAC.getId().getPath(), () -> new BlockItem(Blocks.LAPIS_LILAC.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> DIAMOUR = ITEMS.register(Blocks.DIAMOUR.getId().getPath(), () -> new BlockItem(Blocks.DIAMOUR.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> GOLDEN_CUBENSIS = ITEMS.register(Blocks.GOLDEN_CUBENSIS.getId().getPath(), () -> new BlockItem(Blocks.GOLDEN_CUBENSIS.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> REDSTONE_ROSE = ITEMS.register(Blocks.REDSTONE_ROSE.getId().getPath(), () -> new BlockItem(Blocks.REDSTONE_ROSE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> BLACK_COALLA_LILY = ITEMS.register(Blocks.BLACK_COALLA_LILY.getId().getPath(), () -> new BlockItem(Blocks.BLACK_COALLA_LILY.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
 
     public static final RegistryObject<Item> DENSE_DIAMOND_ORE = ITEMS.register(Blocks.DENSE_DIAMOND_ORE.getId().getPath(), () -> new BlockItem(Blocks.DENSE_DIAMOND_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
     public static final RegistryObject<Item> DEEPSLATE_DENSE_DIAMOND_ORE = ITEMS.register(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.getId().getPath(), () -> new BlockItem(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+
+    public static final RegistryObject<Item> WREATH = ITEMS.register("wreath", () ->  new ArmorItem(ArmorMaterials.WREATH, EquipmentSlot.HEAD, (new Item.Properties()).tab(CreativeModeTab.TAB_COMBAT)));
 
     // ----- Dynamically Rendered Display Items -----
 

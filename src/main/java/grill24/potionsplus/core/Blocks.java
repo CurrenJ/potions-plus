@@ -55,11 +55,27 @@ public class Blocks {
     public static final RegistryObject<Block> COPPER_CHRYSANTHEMUM = BLOCKS.register("copper_chrysanthemum", () ->
             new OreFlowerBlock(MobEffects.FORTUITOUS_FATE, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.COPPER_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE),
-                    0.05f));
+                    0.1f));
     public static final RegistryObject<Block> LAPIS_LILAC = BLOCKS.register("lapis_lilac", () ->
             new OreFlowerBlock(MobEffects.LOOTING, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.LAPIS_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_LAPIS_ORE),
+                    0.3f));
+    public static final RegistryObject<Block> DIAMOUR = BLOCKS.register("diamour", () ->
+            new OreFlowerBlock(MobEffects.TELEPORTATION, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
+                    state -> state.is(net.minecraft.world.level.block.Blocks.DIAMOND_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE),
                     0.2f));
+    public static final RegistryObject<Block> GOLDEN_CUBENSIS = BLOCKS.register("golden_cubensis", () ->
+            new OreFlowerBlock(MobEffects.GEODE_GRACE, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
+                    state -> state.is(net.minecraft.world.level.block.Blocks.GOLD_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE),
+                    0.25f));
+    public static final RegistryObject<Block> REDSTONE_ROSE = BLOCKS.register("redstone_rose", () ->
+            new OreFlowerBlock(MobEffects.REACH_FOR_THE_STARS, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
+                    state -> state.is(net.minecraft.world.level.block.Blocks.REDSTONE_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_REDSTONE_ORE),
+                    0.15f));
+    public static final RegistryObject<Block> BLACK_COALLA_LILY = BLOCKS.register("black_coalla_lily", () ->
+            new OreFlowerBlock(() -> net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
+                    state -> state.is(net.minecraft.world.level.block.Blocks.COAL_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE),
+                    0.1f));
 
     public static final RegistryObject<Block> DENSE_DIAMOND_ORE = BLOCKS.register("dense_diamond_ore", () ->
             new OreBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F)));

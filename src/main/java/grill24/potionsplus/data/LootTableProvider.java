@@ -2,6 +2,7 @@ package grill24.potionsplus.data;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import grill24.potionsplus.block.OreFlowerBlock;
 import grill24.potionsplus.core.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.BlockLoot;
@@ -50,9 +51,7 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
             dropSelf(consumer, Blocks.HERBALISTS_LECTERN.get());
             dropSelf(consumer, Blocks.PRECISION_DISPENSER.get());
 
-            dropSelf(consumer, Blocks.IRON_OXIDE_DAISY.get());
-            dropSelf(consumer, Blocks.COPPER_CHRYSANTHEMUM.get());
-            dropSelf(consumer, Blocks.LAPIS_LILAC.get());
+            Blocks.BLOCKS.getEntries().stream().filter((block) -> block.get() instanceof OreFlowerBlock).forEach((block) -> dropSelf(consumer, block.get()));
         }
 
         private void dropSelf(BiConsumer<ResourceLocation, LootTable.Builder> consumer, Block block) {

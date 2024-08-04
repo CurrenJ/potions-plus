@@ -44,6 +44,7 @@ public class PotionsPlusFlowerBlock extends FlowerBlock {
 
         // spawn particles
         // particle, x, y, z, count, xSpeed, ySpeed, zSpeed, maxSpeed
-        serverLevel.sendParticles(particles.get(), blockPos.getX() + 0.5D, blockPos.getY() + 1.1D, blockPos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0F);
+        if(spawnParticles)
+            serverLevel.sendParticles(particles.get(), blockPos.getX() + 0.5D, blockPos.getY() + 1.1D, blockPos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0F);
     }
 }

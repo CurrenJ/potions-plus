@@ -181,6 +181,13 @@ public class Potions {
             .effects(PotionBuilder.TEN_MINUTES_DURATION_FUNCTION, MobEffects.HARROWING_HANDS::get)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
+    public static final PotionBuilder.PotionsAmpDurMatrix SHEPHERDS_SERENADE = new PotionBuilder()
+            .name("shepherds_serenade")
+            .maxAmp(1)
+            .maxDur(2)
+            .effects(PotionBuilder.LONGER_DURATION_FUNCTION, MobEffects.SHEPHERDS_SERENADE::get)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
     @SubscribeEvent
     public static void onRegisterPotions(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {

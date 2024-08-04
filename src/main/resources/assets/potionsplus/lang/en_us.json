@@ -12,6 +12,8 @@
   "block.potionsplus.iron_oxide_daisy": "Iron Oxide Daisy",
   "block.potionsplus.copper_chrysanthemum": "Copper Chrysanthemum",
   "block.potionsplus.lapis_lilac": "Lapis Lilac",
+  "block.potionsplus.diamour": "Diamour",
+  "block.potionsplus.golden_cubensis": "Golden Cubensis",
 
   "block.potionsplus.dense_diamond_ore": "Dense Diamond Ore",
   "block.potionsplus.dense_deepslate_diamond_ore": "Dense Deepslate Diamond Ore",
@@ -36,10 +38,14 @@
   "item.potionsplus.rotten_wormroot.description": "A wormroot that has seen better days. It's still good for something, right? Get some wormroot wet to rot it.",
   "item.potionsplus.lunar_berries": "Lunar Berries",
   "item.potionsplus.lunar_berries.description": "A mystical berry that only blooms at night. A sweet berry's best friend! Maybe you can find them together after dark...",
+  "item.potionsplus.wreath": "Wreath",
+  "item.potionsplus.wreath.description": "A wreath of flowers strung together with metatarsals. Acts as a Totem of Undying while worn; a gift from God to you.",
 
   "item.potionsplus.iron_oxide_daisy": "Iron Oxide Daisy",
   "item.potionsplus.copper_chrysanthemum": "Copper Chrysanthemum",
   "item.potionsplus.lapis_lilac": "Lapis Lilac",
+  "item.potionsplus.diamour": "Diamour",
+  "item.potionsplus.golden_cubensis": "Golden Cubensis",
 
 
   "effect.potionsplus.geode_grace": "Geode Grace",
@@ -196,6 +202,13 @@
   "item.minecraft.lingering_potion.effect.harrowing_hands": "Lingering Potion of Harrowing Hands",
   "item.minecraft.tipped_arrow.effect.harrowing_hands": "Arrow of Harrowing Hands",
   "jei.potionsplus.harrowing_hands.description": "Nearby skeletons become friendly and do not target players. Instead, they target other hostile mobs.",
+
+  "effect.potionsplus.shepherds_serenade": "Shepherd's Serenade",
+  "item.minecraft.potion.effect.shepherds_serenade": "Potion of Shepherd's Serenade",
+  "item.minecraft.splash_potion.effect.shepherds_serenade": "Splash Potion of Shepherd's Serenade",
+  "item.minecraft.lingering_potion.effect.shepherds_serenade": "Lingering Potion of Shepherd's Serenade",
+  "item.minecraft.tipped_arrow.effect.shepherds_serenade": "Arrow of Shepherd's Serenade",
+  "jei.potionsplus.shepherds_serenade.description": "All nearby passive mobs follow the affected player.",
 
   "chat.potionsplus.acquired_ingredient_knowledge_1": "You tingle with alchemical knowledge of the %s you possess...",
   "chat.potionsplus.acquired_ingredient_knowledge_2": "The %s you possess reminds you of something wet and warm...",

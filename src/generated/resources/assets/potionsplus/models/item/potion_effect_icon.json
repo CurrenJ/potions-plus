@@ -236,59 +236,65 @@
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.59375
       },
-      "model": "potionsplus:item/potion_effect_icon_slip_n_slide"
+      "model": "potionsplus:item/potion_effect_icon_shepherds_serenade"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.609375
       },
-      "model": "potionsplus:item/potion_effect_icon_slow_falling"
+      "model": "potionsplus:item/potion_effect_icon_slip_n_slide"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.625
       },
-      "model": "potionsplus:item/potion_effect_icon_slowness"
+      "model": "potionsplus:item/potion_effect_icon_slow_falling"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.640625
       },
-      "model": "potionsplus:item/potion_effect_icon_speed"
+      "model": "potionsplus:item/potion_effect_icon_slowness"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.65625
       },
-      "model": "potionsplus:item/potion_effect_icon_strength"
+      "model": "potionsplus:item/potion_effect_icon_speed"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.671875
       },
-      "model": "potionsplus:item/potion_effect_icon_teleportation"
+      "model": "potionsplus:item/potion_effect_icon_strength"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.6875
       },
-      "model": "potionsplus:item/potion_effect_icon_unluck"
+      "model": "potionsplus:item/potion_effect_icon_teleportation"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.703125
       },
-      "model": "potionsplus:item/potion_effect_icon_water_breathing"
+      "model": "potionsplus:item/potion_effect_icon_unluck"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.71875
       },
-      "model": "potionsplus:item/potion_effect_icon_weakness"
+      "model": "potionsplus:item/potion_effect_icon_water_breathing"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.734375
+      },
+      "model": "potionsplus:item/potion_effect_icon_weakness"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.75
       },
       "model": "potionsplus:item/potion_effect_icon_wither"
     }

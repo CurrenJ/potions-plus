@@ -12,9 +12,11 @@
     "ItemEntityMixin",
     "LivingEntityMixin",
     "OreFeatureMixin",
-    "PotionItemMixin"
+    "PotionItemMixin",
+    "TemptGoalMixin"
   ],
   "client": [
+    "ClientPacketListenerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

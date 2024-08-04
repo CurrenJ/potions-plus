@@ -41,6 +41,10 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerFlowerBlock(Blocks.IRON_OXIDE_DAISY.get());
         registerFlowerBlock(Blocks.COPPER_CHRYSANTHEMUM.get());
         registerFlowerBlock(Blocks.LAPIS_LILAC.get());
+        registerFlowerBlock(Blocks.DIAMOUR.get());
+        registerFlowerBlock(Blocks.GOLDEN_CUBENSIS.get());
+        registerFlowerBlock(Blocks.REDSTONE_ROSE.get());
+        registerFlowerBlock(Blocks.BLACK_COALLA_LILY.get());
 
         // Dense Diamond Ore
         ResourceLocation denseDiamondOre = new ResourceLocation(ModInfo.MOD_ID, "block/" + Blocks.DENSE_DIAMOND_ORE.get().getRegistryName().getPath());
@@ -71,6 +75,11 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerItem(Items.IRON_OXIDE_DAISY.get(), "block");
         registerItem(Items.COPPER_CHRYSANTHEMUM.get(), "block");
         registerItem(Items.LAPIS_LILAC.get(), "block");
+        registerItem(Items.DIAMOUR.get(), "block");
+        registerItem(Items.GOLDEN_CUBENSIS.get(), "block");
+        registerItem(Items.REDSTONE_ROSE.get(), "block");
+        registerItem(Items.BLACK_COALLA_LILY.get(), "block");
+        registerItem(Items.WREATH.get());
     }
 
     private void registerPotionEffectIcons(MobEffect... mobEffects) {
