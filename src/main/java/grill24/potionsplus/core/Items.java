@@ -49,6 +49,8 @@ public class Items {
     public static final RegistryObject<Item> DENSE_DIAMOND_ORE = ITEMS.register(Blocks.DENSE_DIAMOND_ORE.getId().getPath(), () -> new BlockItem(Blocks.DENSE_DIAMOND_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
     public static final RegistryObject<Item> DEEPSLATE_DENSE_DIAMOND_ORE = ITEMS.register(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.getId().getPath(), () -> new BlockItem(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
 
+    public static final RegistryObject<Item> COOBLESTONE = ITEMS.register("cooblestone", () -> new BlockItem(Blocks.COOBLESTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+
     public static final RegistryObject<Item> WREATH = ITEMS.register("wreath", () ->  new ArmorItem(ArmorMaterials.WREATH, EquipmentSlot.HEAD, (new Item.Properties()).tab(CreativeModeTab.TAB_COMBAT)));
 
     // ----- Dynamically Rendered Display Items -----

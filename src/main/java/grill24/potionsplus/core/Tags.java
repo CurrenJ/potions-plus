@@ -13,8 +13,10 @@ public class Tags {
         public static final TagKey<Block> GEODE_GRACE_SPAWNABLE = tag("geode_grace_spawnable");
         public static final TagKey<Block> GEODE_GRACE_REPLACEABLE = tag("geode_grace_replaceable");
 
+        public static final TagKey<Block> FREEZABLE = tag("freezable");
+
         private static TagKey<Block> tag(String id) {
-            return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(ModInfo.MOD_ID + id));
+            return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(ModInfo.MOD_ID, id));
         }
     }
 

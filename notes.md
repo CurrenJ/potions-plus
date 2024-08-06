@@ -68,3 +68,9 @@
 - Speed of clothesline as a function of height
 - Dimensional recipes for clothesline!!
 - PRE-CALCULATE CLOTHESLINE ITEM POSITIONS IN BLOCKENTITY, RETRIEVE IN RENDERER
+
+
+- Frozen lake in ice cave (with snowflake!!)
+- Make ore flowers plantable on grass, but not spawnable
+- Make ore flowers spawnable on stone, but not plantable
+- Make ore flowers pottable

@@ -12,6 +12,7 @@
     "ItemEntityMixin",
     "LivingEntityMixin",
     "OreFeatureMixin",
+    "OverworldBiomeBuilderMixin",
     "PotionItemMixin",
     "TemptGoalMixin"
   ],

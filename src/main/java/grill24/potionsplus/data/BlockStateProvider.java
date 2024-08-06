@@ -46,21 +46,9 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerFlowerBlock(Blocks.REDSTONE_ROSE.get());
         registerFlowerBlock(Blocks.BLACK_COALLA_LILY.get());
 
-        // Dense Diamond Ore
-        ResourceLocation denseDiamondOre = new ResourceLocation(ModInfo.MOD_ID, "block/" + Blocks.DENSE_DIAMOND_ORE.get().getRegistryName().getPath());
-        models().cubeAll(Objects.requireNonNull(Blocks.DENSE_DIAMOND_ORE.get().getRegistryName()).getPath(), denseDiamondOre);
-        getVariantBuilder(Blocks.DENSE_DIAMOND_ORE.get()).forAllStates(state -> ConfiguredModel.builder()
-                .modelFile(models().getExistingFile(Blocks.DENSE_DIAMOND_ORE.get().getRegistryName()))
-                .build());
-        simpleBlockItem(Blocks.DENSE_DIAMOND_ORE.get(), models().getExistingFile(denseDiamondOre));
-
-        // Deepslate Dense Diamond Ore
-        ResourceLocation deepslateDenseDiamondOre = new ResourceLocation(ModInfo.MOD_ID, "block/" + Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get().getRegistryName().getPath());
-        models().cubeAll(Objects.requireNonNull(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get().getRegistryName()).getPath(), deepslateDenseDiamondOre);
-        getVariantBuilder(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get()).forAllStates(state -> ConfiguredModel.builder()
-                .modelFile(models().getExistingFile(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get().getRegistryName()))
-                .build());
-        simpleBlockItem(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get(), models().getExistingFile(deepslateDenseDiamondOre));
+        registerCubeAll(Blocks.DENSE_DIAMOND_ORE.get());
+        registerCubeAll(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get());
+        registerCubeAll(Blocks.COOBLESTONE.get());
 
         // ----- Items -----
 
@@ -80,6 +68,15 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerItem(Items.REDSTONE_ROSE.get(), "block");
         registerItem(Items.BLACK_COALLA_LILY.get(), "block");
         registerItem(Items.WREATH.get());
+    }
+
+    private void registerCubeAll(Block block) {
+        ResourceLocation blockTextureLocation = new ResourceLocation(ModInfo.MOD_ID, "block/" + Objects.requireNonNull(block.getRegistryName()).getPath());
+        models().cubeAll(Objects.requireNonNull(block.getRegistryName()).getPath(), blockTextureLocation);
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(models().getExistingFile(block.getRegistryName()))
+                .build());
+        simpleBlockItem(block, models().getExistingFile(block.getRegistryName()));
     }
 
     private void registerPotionEffectIcons(MobEffect... mobEffects) {

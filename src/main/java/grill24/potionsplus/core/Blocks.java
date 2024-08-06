@@ -82,6 +82,9 @@ public class Blocks {
     public static final RegistryObject<Block> DEEPSLATE_DENSE_DIAMOND_ORE = BLOCKS.register("deepslate_dense_diamond_ore", () ->
             new OreBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(4.5F, 3.0F)));
 
+    public static final RegistryObject<Block> COOBLESTONE = BLOCKS.register("cooblestone", () ->
+            new Block(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel(state -> 10)));
+
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, ModInfo.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<BrewingCauldronBlockEntity>> BREWING_CAULDRON_BLOCK_ENTITY = BLOCK_ENTITIES.register("brewing_cauldron_block_entity", () -> BlockEntityType.Builder.of(BrewingCauldronBlockEntity::new, BREWING_CAULDRON.get()).build(null));

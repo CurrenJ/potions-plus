@@ -28,6 +28,8 @@ public class BlockTagProvider extends BlockTagsProvider {
         tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(Blocks.DENSE_DIAMOND_ORE.get());
         tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get());
 
+        tag(grill24.potionsplus.core.Tags.Blocks.FREEZABLE).add(net.minecraft.world.level.block.Blocks.WATER);
+
 //        tag(Tags.Blocks.GEODE_GRACE_SPAWNABLE).add(Blocks.COAL_ORE);
 //        tag(Tags.Blocks.GEODE_GRACE_SPAWNABLE).add(Blocks.COPPER_ORE);
 //        tag(Tags.Blocks.GEODE_GRACE_SPAWNABLE).add(Blocks.IRON_ORE);

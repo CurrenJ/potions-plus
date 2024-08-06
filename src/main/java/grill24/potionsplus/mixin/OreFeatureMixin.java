@@ -62,8 +62,6 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
                         BlockPos abovePos = new BlockPos(potions_plus$mutable.getX(), potions_plus$mutable.getY() + 1, potions_plus$mutable.getZ());
                         BlockState above = potions_plus$bulkSectionAccess.getBlockState(abovePos);
                         if (above.isAir() && potions_plus$random.nextFloat() < block.getGenerationChance() && potions_plus$worldGenLevel.ensureCanWrite(abovePos)) {
-                            System.out.println("Placed " + block + " at " + abovePos);
-
                             int x = SectionPos.sectionRelative(potions_plus$mutable.getX());
                             int y = SectionPos.sectionRelative(potions_plus$mutable.getY() + 1);
                             int z = SectionPos.sectionRelative(potions_plus$mutable.getZ());
@@ -76,10 +74,6 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
                     }
                 }
         );
-
-        if (blockState.is(Blocks.DENSE_DIAMOND_ORE.get())) {
-            System.out.println("Placed dense diamond ore at " + potions_plus$mutable);
-        }
 
         return instance.setBlockState(p_62992_, p_62993_, p_62994_, blockState, false);
     }

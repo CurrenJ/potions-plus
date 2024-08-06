@@ -17,6 +17,7 @@
 
   "block.potionsplus.dense_diamond_ore": "Dense Diamond Ore",
   "block.potionsplus.dense_deepslate_diamond_ore": "Dense Deepslate Diamond Ore",
+  "block.potionsplus.cooblestone": "Cooblestone",
 
 
   "jei.potionsplus.brewing_cauldron.description": "Use blaze powder on a vanilla cauldron filled with water to transform it into a brewing cauldron. A heat source must be placed directly beneath in order to brew. The brewing cauldron is the heart of Potions Plus, and allows the player to craft all vanilla brewing stand recipes, in addition to being the exclusive way to craft Potions Plus potions. Recipes for all these potions are randomized per world. The Herbalist's Lectern, Abyssal Trove, and Sanguine Altar provide essential functions for deducing these recipes.",
@@ -46,6 +47,12 @@
   "item.potionsplus.lapis_lilac": "Lapis Lilac",
   "item.potionsplus.diamour": "Diamour",
   "item.potionsplus.golden_cubensis": "Golden Cubensis",
+  "item.potionsplus.black_coalla_lily": "Black Coalla Lily",
+  "item.potionsplus.redstone_rose": "Redstone Rose",
+
+  "item.potionsplus.dense_diamond_ore": "Dense Diamond Ore",
+  "item.potionsplus.dense_deepslate_diamond_ore": "Dense Deepslate Diamond Ore",
+  "item.potionsplus.cooblestone": "Cooblestone",
 
 
   "effect.potionsplus.geode_grace": "Geode Grace",
