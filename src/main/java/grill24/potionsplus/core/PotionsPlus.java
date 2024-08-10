@@ -36,6 +36,7 @@ public class PotionsPlus {
 
         LootModifiers.LOOT_MODIFIERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
+        Features.CONFIGURED_CARVERS.register(FMLJavaModLoadingContext.get().getModEventBus());
         Features.FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
         Biomes.BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
 

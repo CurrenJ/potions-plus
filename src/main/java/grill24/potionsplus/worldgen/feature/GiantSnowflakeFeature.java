@@ -1,4 +1,4 @@
-package grill24.potionsplus.core.feature;
+package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
@@ -74,9 +74,10 @@ public class GiantSnowflakeFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos snowflakeOrigin = context.origin();
         System.out.println("Placing SNOWFLAKE at " + snowflakeOrigin);
 
-        for(BlockPos snowflakePos : snowflake) {
-            if(context.level().getBlockState(snowflakePos).isAir())
-                context.level().setBlock(snowflakePos.offset(snowflakeOrigin), Blocks.SNOW.defaultBlockState(), 2);
+        for(BlockPos offset : snowflake) {
+            BlockPos pos = snowflakeOrigin.offset(offset);
+            if(context.level().getBlockState(pos).isAir())
+                context.level().setBlock(pos, Blocks.SNOW.defaultBlockState(), 2);
         }
 
         return false;

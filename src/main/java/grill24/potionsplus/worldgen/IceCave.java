@@ -1,26 +1,36 @@
 package grill24.potionsplus.worldgen;
 
 import grill24.potionsplus.core.Features;
-import grill24.potionsplus.core.feature.AquiferFreezeFeature;
-import grill24.potionsplus.core.feature.CampfireHuddleFeature;
-import grill24.potionsplus.core.feature.GiantSnowflakeFeature;
+import grill24.potionsplus.worldgen.feature.AquiferFreezeFeature;
+import grill24.potionsplus.worldgen.feature.CampfireHuddleFeature;
+import grill24.potionsplus.worldgen.feature.GiantSnowflakeFeature;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.*;
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.Music;
+import net.minecraft.sounds.Musics;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.util.valueproviders.WeightedListInt;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -29,7 +39,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.common.util.LazyOptional;
 
 import java.util.List;
 
@@ -108,5 +117,27 @@ public class IceCave {
         }
 
         return requireAll ? BlockPredicate.allOf(predicates) : BlockPredicate.anyOf(predicates);
+    }
+
+    public static Biome iceCave() {
+        MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();
+        mobspawnsettings$builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SNOW_GOLEM, 10, 4, 6));
+        mobspawnsettings$builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 10, 4, 6));
+        mobspawnsettings$builder.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 25, 8, 8));
+        BiomeDefaultFeatures.commonSpawns(mobspawnsettings$builder);
+        BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();
+        OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+        BiomeDefaultFeatures.addDefaultOres(biomegenerationsettings$builder);
+        BiomeDefaultFeatures.addLushCavesSpecialOres(biomegenerationsettings$builder);
+        BiomeDefaultFeatures.addDefaultSoftDisks(biomegenerationsettings$builder);
+        biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ICE_CAVE_VEGETATION);
+        biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ICE_CAVE_CEILING_VEGETATION);
+        biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AQUIFER_FREEZE_PLACED);
+        biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, COBBLESTONE_PILE_PLACED.get());
+        biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CAMPFIRE_HUDDLE_PLACED);
+        biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, GIANT_SNOWFLAKE_PLACED);
+
+        Music music = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_LUSH_CAVES);
+        return OverworldBiomes.biome(Biome.Precipitation.SNOW, Biome.BiomeCategory.UNDERGROUND, -0.5F, 0.5F, mobspawnsettings$builder, biomegenerationsettings$builder, music);
     }
 }

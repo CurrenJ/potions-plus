@@ -50,6 +50,12 @@ public class Items {
     public static final RegistryObject<Item> DEEPSLATE_DENSE_DIAMOND_ORE = ITEMS.register(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.getId().getPath(), () -> new BlockItem(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
 
     public static final RegistryObject<Item> COOBLESTONE = ITEMS.register("cooblestone", () -> new BlockItem(Blocks.COOBLESTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> UNSTABLE_BLOCK = ITEMS.register("unstable_block", () -> new BlockItem(Blocks.UNSTABLE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> UNSTABLE_MOLTEN_DEEPSLATE = ITEMS.register("unstable_molten_deepslate", () -> new BlockItem(Blocks.UNSTABLE_MOLTEN_DEEPSLATE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> UNSTABLE_DEEPSLATE = ITEMS.register("unstable_deepslate", () -> new BlockItem(Blocks.UNSTABLE_DEEPSLATE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> UNSTABLE_MOLTEN_BLACKSTONE = ITEMS.register("unstable_molten_blackstone", () -> new BlockItem(Blocks.UNSTABLE_MOLTEN_BLACKSTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> UNSTABLE_BLACKSTONE = ITEMS.register("unstable_blackstone", () -> new BlockItem(Blocks.UNSTABLE_BLACKSTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+
 
     public static final RegistryObject<Item> WREATH = ITEMS.register("wreath", () ->  new ArmorItem(ArmorMaterials.WREATH, EquipmentSlot.HEAD, (new Item.Properties()).tab(CreativeModeTab.TAB_COMBAT)));
 

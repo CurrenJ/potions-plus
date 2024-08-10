@@ -49,6 +49,11 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerCubeAll(Blocks.DENSE_DIAMOND_ORE.get());
         registerCubeAll(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get());
         registerCubeAll(Blocks.COOBLESTONE.get());
+        registerCubeAll(Blocks.UNSTABLE_BLOCK.get());
+        registerCubeAll(Blocks.UNSTABLE_DEEPSLATE.get(), new ResourceLocation("block/cobbled_deepslate"));
+        registerCubeAll(Blocks.UNSTABLE_MOLTEN_DEEPSLATE.get());
+        registerCubeAll(Blocks.UNSTABLE_BLACKSTONE.get(), new ResourceLocation("block/blackstone"));
+        registerCubeAll(Blocks.UNSTABLE_MOLTEN_BLACKSTONE.get());
 
         // ----- Items -----
 
@@ -73,6 +78,14 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     private void registerCubeAll(Block block) {
         ResourceLocation blockTextureLocation = new ResourceLocation(ModInfo.MOD_ID, "block/" + Objects.requireNonNull(block.getRegistryName()).getPath());
         models().cubeAll(Objects.requireNonNull(block.getRegistryName()).getPath(), blockTextureLocation);
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(models().getExistingFile(block.getRegistryName()))
+                .build());
+        simpleBlockItem(block, models().getExistingFile(block.getRegistryName()));
+    }
+
+    private void registerCubeAll(Block block, ResourceLocation texture) {
+        models().cubeAll(Objects.requireNonNull(block.getRegistryName()).getPath(), texture);
         getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
                 .modelFile(models().getExistingFile(block.getRegistryName()))
                 .build());

@@ -6,6 +6,11 @@ import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameType;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +24,8 @@ public class CommonCommands {
 
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {
+        if(!PotionsPlus.Debug.DEBUG) return;
+
         event.getDispatcher().register(Commands.literal("potionsplus")
                 .then(Commands.literal("savedData")
                         .requires((source) -> source.hasPermission(2))
@@ -98,6 +105,15 @@ public class CommonCommands {
                                 })
                         )
                 )
+                .then(Commands.literal("caveDiver")
+                        .executes(context -> {
+                            if(context.getSource().getEntity() instanceof ServerPlayer player) {
+                                player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 6000, 0, false, false, false));
+                                player.setGameMode(GameType.SPECTATOR);
+                            }
+
+                            return 1;
+                        }))
         );
     }
 }

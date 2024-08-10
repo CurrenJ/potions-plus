@@ -14,6 +14,7 @@ public class Tags {
         public static final TagKey<Block> GEODE_GRACE_REPLACEABLE = tag("geode_grace_replaceable");
 
         public static final TagKey<Block> FREEZABLE = tag("freezable");
+        public static final TagKey<Block> VOLCANIC_CAVE_REPLACEABLE = tag("volcanic_cave_replaceable");
 
         private static TagKey<Block> tag(String id) {
             return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(ModInfo.MOD_ID, id));

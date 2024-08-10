@@ -1,4 +1,4 @@
-package grill24.potionsplus.core.feature;
+package grill24.potionsplus.worldgen.feature;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;

@@ -46,6 +46,17 @@ public class Blocks {
     public static final RegistryObject<Block> LUNAR_BERRY_BUSH = BLOCKS.register("lunar_berry_bush", () ->
             new LunarBerryBushBlock(BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.SWEET_BERRY_BUSH).noOcclusion().lightLevel(LunarBerryBushBlock.LIGHT_EMISSION)));
 
+    public static final RegistryObject<Block> UNSTABLE_BLOCK = BLOCKS.register("unstable_block", () ->
+            new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+    public static final RegistryObject<Block> UNSTABLE_MOLTEN_DEEPSLATE = BLOCKS.register("unstable_molten_deepslate", () ->
+            new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+    public static final RegistryObject<Block> UNSTABLE_DEEPSLATE = BLOCKS.register("unstable_deepslate", () ->
+            new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+    public static final RegistryObject<Block> UNSTABLE_MOLTEN_BLACKSTONE = BLOCKS.register("unstable_molten_blackstone", () ->
+            new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+    public static final RegistryObject<Block> UNSTABLE_BLACKSTONE = BLOCKS.register("unstable_blackstone", () ->
+            new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+
 
     public static final List<OreFlowerBlock> ORE_FLOWER_BLOCKS = new ArrayList<>();
     public static final RegistryObject<Block> IRON_OXIDE_DAISY = BLOCKS.register("iron_oxide_daisy", () ->

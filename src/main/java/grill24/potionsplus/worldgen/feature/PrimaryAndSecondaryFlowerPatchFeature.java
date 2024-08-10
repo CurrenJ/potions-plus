@@ -1,4 +1,4 @@
-package grill24.potionsplus.core.feature;
+package grill24.potionsplus.worldgen.feature;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;

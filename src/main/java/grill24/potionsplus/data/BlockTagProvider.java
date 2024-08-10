@@ -30,6 +30,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 
         tag(grill24.potionsplus.core.Tags.Blocks.FREEZABLE).add(net.minecraft.world.level.block.Blocks.WATER);
 
+        tag(grill24.potionsplus.core.Tags.Blocks.VOLCANIC_CAVE_REPLACEABLE).addTag(BlockTags.MOSS_REPLACEABLE);
+
 //        tag(Tags.Blocks.GEODE_GRACE_SPAWNABLE).add(Blocks.COAL_ORE);
 //        tag(Tags.Blocks.GEODE_GRACE_SPAWNABLE).add(Blocks.COPPER_ORE);
 //        tag(Tags.Blocks.GEODE_GRACE_SPAWNABLE).add(Blocks.IRON_ORE);

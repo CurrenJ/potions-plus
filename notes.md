@@ -74,3 +74,6 @@
 - Make ore flowers plantable on grass, but not spawnable
 - Make ore flowers spawnable on stone, but not plantable
 - Make ore flowers pottable
+
+- Extend simple block feature to make it not check canSurvive so we can place things like snow on ice
+- Add lava canyons to volcanic caves - research how to do this. Maybe check nether biomes for custom carving/features?
