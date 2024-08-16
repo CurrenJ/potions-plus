@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "potionsplus:golden_cubensis_to_yellow_dye"
+    ]
+  },
+  "criteria": {
+    "has_golden_cubensis": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "potionsplus:golden_cubensis"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "potionsplus:golden_cubensis_to_yellow_dye"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_golden_cubensis",
+      "has_the_recipe"
+    ]
+  ]
+}

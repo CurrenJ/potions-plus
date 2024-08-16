@@ -9,6 +9,7 @@
     "BiomeDefaultFeaturesMixin",
     "BoatMixin",
     "BootstrapMixin",
+    "BucketItemMixin",
     "ItemEntityMixin",
     "LevelChunkMixin",
     "LivingEntityMixin",

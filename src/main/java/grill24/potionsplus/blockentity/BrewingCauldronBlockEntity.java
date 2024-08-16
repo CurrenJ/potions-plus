@@ -9,18 +9,24 @@ import grill24.potionsplus.network.PotionsPlusPacketHandler;
 import grill24.potionsplus.particle.ParticleConfigurations;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
+import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
@@ -29,6 +35,9 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
 import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity {
     public static final int CONTAINER_SIZE = 6;
@@ -73,6 +82,45 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
         this.activeRecipe = this.level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()).stream()
                 .filter(recipe -> recipe.matches(this, this.level))
                 .max(Comparator.comparingInt(BrewingCauldronRecipe::getProcessingTime));
+
+        if(this.activeRecipe.isEmpty()) {
+            // Get all mobeffectinstances from the potions
+            ItemStack[] potions = this.items.stream().filter(PUtil::isPotion).toArray(ItemStack[]::new);
+
+            Stream<MobEffectInstance> customEffects = this.items.stream().filter(PUtil::isPotion).map(PotionUtils::getCustomEffects).flatMap(Collection::stream);
+            Stream<MobEffectInstance> potionEffects = Arrays.stream(potions).map(PotionUtils::getPotion).map(Potion::getEffects).flatMap(Collection::stream);
+            List<MobEffectInstance> allEffects = Stream.concat(customEffects, potionEffects).toList();
+
+            final ItemStack catalyst = new ItemStack(Items.DIAMOND);
+            ItemStack hasCatalyst = this.items.stream().filter(stack -> stack.sameItem(catalyst)).findFirst().orElse(ItemStack.EMPTY);
+            if (potions.length > 1 && !hasCatalyst.isEmpty()) {
+                ItemStack potionStack = PotionUtils.setCustomEffects(new ItemStack(Items.POTION), allEffects);
+
+                if(allEffects.size() == 2) {
+                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_2_effects"));
+                } else if (allEffects.size() == 3) {
+                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_3_effects"));
+                } else if (allEffects.size() == 4) {
+                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_4_effects"));
+                } else if (allEffects.size() == 5) {
+                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_5_effects"));
+                } else if (allEffects.size() == 6) {
+                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_6_effects"));
+                } else if (allEffects.size() == 7) {
+                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_7_effects"));
+                } else if (allEffects.size() == 8) {
+                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_8_effects"));
+                } else {
+                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_max"));
+                }
+
+                ItemStack[] ingredients = new ItemStack[potions.length + 1];
+                System.arraycopy(potions, 0, ingredients, 0, potions.length);
+                ingredients[potions.length] = catalyst;
+
+                this.activeRecipe = Optional.of(new BrewingCauldronRecipeBuilder().result(potionStack).processingTime(200).ingredients(ingredients).build(new ResourceLocation(ModInfo.MOD_ID, "merged_potions")));
+            }
+        }
     }
 
     public Optional<BrewingCauldronRecipe> getActiveRecipe() {

@@ -6,6 +6,7 @@ import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -56,6 +57,9 @@ public class Blocks {
             new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
     public static final RegistryObject<Block> UNSTABLE_BLACKSTONE = BLOCKS.register("unstable_blackstone", () ->
             new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+
+    public static final RegistryObject<Block> DECORATIVE_FIRE = BLOCKS.register("decorative_fire", () ->
+            new DecorativeFireBlock(BlockBehaviour.Properties.of(Material.FIRE, MaterialColor.FIRE).noCollission().instabreak().lightLevel((p_152605_) -> 15).sound(SoundType.WOOL)));
 
 
     public static final List<OreFlowerBlock> ORE_FLOWER_BLOCKS = new ArrayList<>();

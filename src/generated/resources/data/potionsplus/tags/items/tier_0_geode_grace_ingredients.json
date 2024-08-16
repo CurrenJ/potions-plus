@@ -2,12 +2,9 @@
   "replace": false,
   "values": [
     "#potionsplus:tier_0_potion_ingredients",
-    "minecraft:nether_gold_ore",
-    "minecraft:gold_ore",
-    "minecraft:iron_ore",
-    "minecraft:coal_ore",
-    "minecraft:lapis_ore",
-    "minecraft:nether_quartz_ore",
-    "minecraft:copper_ore"
+    "potionsplus:iron_oxide_daisy",
+    "potionsplus:copper_chrysanthemum",
+    "potionsplus:lapis_lilac",
+    "potionsplus:redstone_rose"
   ]
 }

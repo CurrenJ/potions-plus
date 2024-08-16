@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"potionsplus:redstone_rose\"}"
+  ],
+  "result": "{Count:2b,id:\"minecraft:red_dye\"}",
+  "processingTime": 60
+}

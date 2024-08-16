@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "potionsplus:diamour_to_light_blue_dye"
+    ]
+  },
+  "criteria": {
+    "has_diamour": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "potionsplus:diamour"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "potionsplus:diamour_to_light_blue_dye"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_diamour",
+      "has_the_recipe"
+    ]
+  ]
+}

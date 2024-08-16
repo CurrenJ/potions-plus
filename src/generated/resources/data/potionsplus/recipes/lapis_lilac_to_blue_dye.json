@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"potionsplus:lapis_lilac\"}"
+  ],
+  "result": "{Count:2b,id:\"minecraft:blue_dye\"}",
+  "processingTime": 60
+}

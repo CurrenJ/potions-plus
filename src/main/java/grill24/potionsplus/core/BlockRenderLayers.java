@@ -18,6 +18,10 @@ import java.util.Map;
 public class BlockRenderLayers {
     private static final Map<RegistryObject<Block>, RenderType> renderLayers = new HashMap<>();
 
+    static {
+        registerBlock(Blocks.DECORATIVE_FIRE, RenderType.cutout());
+    }
+
     private static void registerBlock(RegistryObject<Block> block, RenderType renderType) {
         renderLayers.put(block, renderType);
     }

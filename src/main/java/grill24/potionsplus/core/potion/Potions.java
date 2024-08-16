@@ -188,6 +188,41 @@ public class Potions {
             .effects(PotionBuilder.LONGER_DURATION_FUNCTION, MobEffects.SHEPHERDS_SERENADE::get)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
+    public static final PotionBuilder.PotionsAmpDurMatrix STRENGTH = new PotionBuilder()
+            .name("strength")
+            .maxAmp(3)
+            .maxDur(3)
+            .effects(PotionBuilder.LONGER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.DAMAGE_BOOST)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
+    public static final PotionBuilder.PotionsAmpDurMatrix RESISTANCE = new PotionBuilder()
+            .name("resistance")
+            .maxAmp(3)
+            .maxDur(3)
+            .effects(PotionBuilder.LONGER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.DAMAGE_RESISTANCE)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
+    public static final PotionBuilder.PotionsAmpDurMatrix FIRE_RESISTANCE = new PotionBuilder()
+            .name("fire_resistance")
+            .maxAmp(1)
+            .maxDur(3)
+            .effects(PotionBuilder.TEN_MINUTES_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
+    public static final PotionBuilder.PotionsAmpDurMatrix WATER_BREATHING = new PotionBuilder()
+            .name("water_breathing")
+            .maxAmp(1)
+            .maxDur(3)
+            .effects(PotionBuilder.FIVE_MINUTES_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.WATER_BREATHING)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
+    public static final PotionBuilder.PotionsAmpDurMatrix INVISIBILITY = new PotionBuilder()
+            .name("invisibility")
+            .maxAmp(1)
+            .maxDur(3)
+            .effects(PotionBuilder.LONGER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.INVISIBILITY)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
     @SubscribeEvent
     public static void onRegisterPotions(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {

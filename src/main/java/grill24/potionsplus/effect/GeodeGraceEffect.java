@@ -3,7 +3,11 @@ package grill24.potionsplus.effect;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.particle.ParticleConfigurations;
 import grill24.potionsplus.utility.ModInfo;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
@@ -117,5 +121,15 @@ public class GeodeGraceEffect extends MobEffect {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Component getDisplayName() {
+        String name = Minecraft.getInstance().player.getName().getContents();
+        if(name.equals("Tulip58")) {
+            return new TextComponent("Gio's Grace");
+        }
+
+        return new TranslatableComponent(this.getDescriptionId());
     }
 }

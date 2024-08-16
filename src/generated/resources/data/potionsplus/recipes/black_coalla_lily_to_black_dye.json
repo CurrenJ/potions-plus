@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"potionsplus:black_coalla_lily\"}"
+  ],
+  "result": "{Count:2b,id:\"minecraft:black_dye\"}",
+  "processingTime": 60
+}

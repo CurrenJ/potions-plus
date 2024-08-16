@@ -29,20 +29,16 @@ public class ItemTagProvider extends ItemTagsProvider {
         tier3();
 
         tag(Tags.Items.GEODE_GRACE_BASE_TIER_INGREDIENTS).addTag(Tags.Items.BASE_TIER_POTION_INGREDIENTS).add(
-                Items.NETHER_GOLD_ORE,
-                Items.GOLD_ORE,
-                Items.IRON_ORE,
-                Items.COAL_ORE,
-                Items.LAPIS_ORE,
-                Items.NETHER_QUARTZ_ORE,
-                Items.COPPER_ORE
+                grill24.potionsplus.core.Items.IRON_OXIDE_DAISY.get(),
+                grill24.potionsplus.core.Items.COPPER_CHRYSANTHEMUM.get(),
+                grill24.potionsplus.core.Items.LAPIS_LILAC.get(),
+                grill24.potionsplus.core.Items.REDSTONE_ROSE.get()
         );
 
         tag(Tags.Items.GEODE_GRACE_TIER_1_INGREDIENTS).addTag(Tags.Items.TIER_1_POTION_INGREDIENTS).add(
-                Items.LAPIS_LAZULI,
-                Items.REDSTONE_ORE,
-                Items.NETHER_GOLD_ORE,
-                Items.COPPER_ORE
+                grill24.potionsplus.core.Items.DIAMOUR.get(),
+                grill24.potionsplus.core.Items.GOLDEN_CUBENSIS.get(),
+                grill24.potionsplus.core.Items.BLACK_COALLA_LILY.get()
         );
 
         tag(Tags.Items.FOOD_INGREDIENTS_COMMON).add(
@@ -63,7 +59,9 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.RABBIT_STEW,
                 Items.SWEET_BERRIES,
                 Items.BEETROOT_SOUP,
-                Items.DRIED_KELP
+                Items.DRIED_KELP,
+                grill24.potionsplus.core.Items.MOSS.get(),
+                grill24.potionsplus.core.Items.WORMROOT.get()
         );
 
         tag(Tags.Items.FOOD_INGREDIENTS_UNCOMMON).add(
@@ -78,7 +76,10 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.SUSPICIOUS_STEW,
                 Items.TROPICAL_FISH,
                 Items.HONEY_BOTTLE,
-                Items.COOKIE
+                Items.COOKIE,
+                grill24.potionsplus.core.Items.LUNAR_BERRIES.get(),
+                grill24.potionsplus.core.Items.SALT.get(),
+                grill24.potionsplus.core.Items.ROTTEN_WORMROOT.get()
         );
 
         tag(Tags.Items.FOOD_INGREDIENTS_RARE).add(

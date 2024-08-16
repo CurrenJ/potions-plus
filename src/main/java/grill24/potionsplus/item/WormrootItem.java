@@ -8,7 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 public class WormrootItem extends Item {
-    private static final int CONVERSION_TICKS = 100; // 5 seconds
+    private static final int CONVERSION_TICKS = 1200; // 1 minute
 
     public WormrootItem(Properties properties) {
         super(properties);

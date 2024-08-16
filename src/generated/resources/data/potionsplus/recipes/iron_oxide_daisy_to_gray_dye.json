@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"potionsplus:iron_oxide_daisy\"}"
+  ],
+  "result": "{Count:2b,id:\"minecraft:gray_dye\"}",
+  "processingTime": 60
+}

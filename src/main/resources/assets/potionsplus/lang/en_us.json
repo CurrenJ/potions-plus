@@ -19,6 +19,13 @@
   "block.potionsplus.dense_deepslate_diamond_ore": "Dense Deepslate Diamond Ore",
   "block.potionsplus.cooblestone": "Cooblestone",
 
+  "block.potionsplus.unstable_stone": "Unstable Stone",
+  "block.potionsplus.unstable_deepslate": "Unstable Deepslate",
+  "block.potionsplus.unstable_blackstone": "Unstable Blackstone",
+  "block.potionsplus.unstable_molten_deepslate": "Unstable Molten Deepslate",
+  "block.potionsplus.unstable_molten_blackstone": "Unstable Molten Blackstone",
+
+
 
   "jei.potionsplus.brewing_cauldron.description": "Use blaze powder on a vanilla cauldron filled with water to transform it into a brewing cauldron. A heat source must be placed directly beneath in order to brew. The brewing cauldron is the heart of Potions Plus, and allows the player to craft all vanilla brewing stand recipes, in addition to being the exclusive way to craft Potions Plus potions. Recipes for all these potions are randomized per world. The Herbalist's Lectern, Abyssal Trove, and Sanguine Altar provide essential functions for deducing these recipes.",
   "jei.potionsplus.herbalists_lectern.description": "The Herbalist's Lectern is a block that can provide information about an inserted item's usage in brewing cauldron recipes.",
@@ -224,5 +231,14 @@
 
   "jei.potionsplus.amp_upgrade": "Amplifier Upgrade",
   "jei.potionsplus.dur_upgrade": "Duration Upgrade",
-  "chat.potionsplus.brewing_cauldron_recipe_unlocked": "You have discovered the recipe for %s!"
+  "chat.potionsplus.brewing_cauldron_recipe_unlocked": "You have discovered the recipe for %s!",
+
+  "item.potionsplus.merged_potions_2_effects": "Big Potion",
+  "item.potionsplus.merged_potions_3_effects": "Bigger Potion",
+  "item.potionsplus.merged_potions_4_effects": "Biggest Potion",
+  "item.potionsplus.merged_potions_5_effects": "Biggest Potion Ever",
+  "item.potionsplus.merged_potions_6_effects": "Biggest Potion Ever (For Real)",
+  "item.potionsplus.merged_potions_7_effects": "100 Year Soup Potion",
+  "item.potionsplus.merged_potions_8_effects": "It's Time To Stop! Potion",
+  "item.potionsplus.merged_potions_max": "Potion of Potion Privileges Revoked"
 }

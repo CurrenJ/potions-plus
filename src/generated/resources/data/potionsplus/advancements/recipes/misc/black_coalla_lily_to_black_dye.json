@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "potionsplus:black_coalla_lily_to_black_dye"
+    ]
+  },
+  "criteria": {
+    "has_black_coalla_lily": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "potionsplus:black_coalla_lily"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "potionsplus:black_coalla_lily_to_black_dye"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_black_coalla_lily",
+      "has_the_recipe"
+    ]
+  ]
+}

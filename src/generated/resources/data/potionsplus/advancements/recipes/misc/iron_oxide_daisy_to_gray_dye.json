@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "potionsplus:iron_oxide_daisy_to_gray_dye"
+    ]
+  },
+  "criteria": {
+    "has_iron_oxide_daisy": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "potionsplus:iron_oxide_daisy"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "potionsplus:iron_oxide_daisy_to_gray_dye"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_iron_oxide_daisy",
+      "has_the_recipe"
+    ]
+  ]
+}

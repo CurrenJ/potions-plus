@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "ingredient": [
+    "{Count:1b,id:\"potionsplus:golden_cubensis\"}"
+  ],
+  "result": "{Count:2b,id:\"minecraft:yellow_dye\"}",
+  "processingTime": 60
+}

@@ -1,6 +1,10 @@
 package grill24.potionsplus.effect;
 
 import grill24.potionsplus.core.potion.MobEffects;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -43,5 +47,15 @@ public class HarrowingHandsEffect extends MobEffect {
 
             skeleton.addEffect(new MobEffectInstance(MobEffects.BONE_BUDDY.get(), duration, 0, false, false, true));
         }
+    }
+
+    @Override
+    public Component getDisplayName() {
+        String name = Minecraft.getInstance().player.getName().getContents();
+        if(name.equals("Harry4657")) {
+            return new TextComponent("Harry's Harrowing Hands");
+        }
+
+        return new TranslatableComponent(this.getDescriptionId());
     }
 }
