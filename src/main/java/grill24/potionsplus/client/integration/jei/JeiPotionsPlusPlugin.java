@@ -46,7 +46,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         IVanillaRecipeFactory factory = registration.getVanillaRecipeFactory();
 
         // Particle Emitter description
-        registerDescription(registration, grill24.potionsplus.core.Items.PARTICLE_EMITTER.get());
+        registerDescription(registration, grill24.potionsplus.core.Blocks.PARTICLE_EMITTER.get());
 
         // Brewing Cauldron description
         registerDescription(registration, grill24.potionsplus.core.Blocks.BREWING_CAULDRON.get());

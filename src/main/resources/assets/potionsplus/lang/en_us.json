@@ -54,6 +54,8 @@
   "item.potionsplus.wreath": "Wreath",
   "jei.potionsplus.wreath.description": "A wreath of flowers strung together with metatarsals. Acts as a Totem of Undying while worn; a gift from God to you.",
 
+  "itemGroup.potionsplus.potions_plus": "Potions Plus",
+
   "effect.potionsplus.geode_grace": "Geode Grace",
   "item.minecraft.potion.effect.geode_grace": "Potion of Geode Grace",
   "item.minecraft.splash_potion.effect.geode_grace": "Splash Potion of Geode Grace",

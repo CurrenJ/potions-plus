@@ -19,54 +19,28 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static grill24.potionsplus.core.CreativeModeTabs.POTIONS_PLUS_TAB;
+
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ModInfo.MOD_ID);
 
-    // ----- Block Items -----
+    // ----- Items -----
 
-    public static final RegistryObject<Item> BREWING_CAULDRON = ITEMS.register(Blocks.BREWING_CAULDRON.getId().getPath(), () -> new BlockItem(Blocks.BREWING_CAULDRON.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> PARTICLE_EMITTER = ITEMS.register(Blocks.PARTICLE_EMITTER.getId().getPath(), () -> new BlockItem(Blocks.PARTICLE_EMITTER.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> PRECISION_DISPENSER = ITEMS.register(Blocks.PRECISION_DISPENSER.getId().getPath(), () -> new BlockItem(Blocks.PRECISION_DISPENSER.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> WREATH = ITEMS.register("wreath", () ->  new ArmorItem(ArmorMaterials.WREATH, EquipmentSlot.HEAD, properties()));
 
-    public static final RegistryObject<Item> HERBALISTS_LECTERN = ITEMS.register(Blocks.HERBALISTS_LECTERN.getId().getPath(), () -> new BlockItem(Blocks.HERBALISTS_LECTERN.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> SANGUINE_ALTAR = ITEMS.register(Blocks.SANGUINE_ALTAR.getId().getPath(), () -> new BlockItem(Blocks.SANGUINE_ALTAR.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> ABYSSAL_TROVE = ITEMS.register(Blocks.ABYSSAL_TROVE.getId().getPath(), () -> new BlockItem(Blocks.ABYSSAL_TROVE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> LUNAR_BERRIES = ITEMS.register("lunar_berries", () -> new ItemNameBlockItem(Blocks.LUNAR_BERRY_BUSH.get(), properties().food(Foods.SWEET_BERRIES)));
+    public static final RegistryObject<Item> MOSS = ITEMS.register("moss", () -> new Item(properties()));
+    public static final RegistryObject<Item> SALT = ITEMS.register("salt", () -> new Item(properties()));
+    public static final RegistryObject<Item> WORMROOT = ITEMS.register("wormroot", () -> new WormrootItem(properties()));
+    public static final RegistryObject<Item> ROTTEN_WORMROOT = ITEMS.register("rotten_wormroot", () -> new Item(properties()));
 
-    public static final RegistryObject<Item> LUNAR_BERRY_BUSH = ITEMS.register(Blocks.LUNAR_BERRY_BUSH.getId().getPath(), () -> new BlockItem(Blocks.LUNAR_BERRY_BUSH.get(), new Item.Properties()));
-    public static final RegistryObject<Item> LUNAR_BERRIES = ITEMS.register("lunar_berries", () -> new ItemNameBlockItem(Blocks.LUNAR_BERRY_BUSH.get(), (new Item.Properties()).tab(CreativeModeTab.TAB_FOOD).food(Foods.SWEET_BERRIES)));
-
-    public static final RegistryObject<Item> CLOTHESLINE = ITEMS.register(Blocks.CLOTHESLINE.getId().getPath(), () -> new BlockItem(Blocks.CLOTHESLINE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-
-    public static final RegistryObject<Item> IRON_OXIDE_DAISY = ITEMS.register(Blocks.IRON_OXIDE_DAISY.getId().getPath(), () -> new BlockItem(Blocks.IRON_OXIDE_DAISY.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> COPPER_CHRYSANTHEMUM = ITEMS.register(Blocks.COPPER_CHRYSANTHEMUM.getId().getPath(), () -> new BlockItem(Blocks.COPPER_CHRYSANTHEMUM.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> LAPIS_LILAC = ITEMS.register(Blocks.LAPIS_LILAC.getId().getPath(), () -> new BlockItem(Blocks.LAPIS_LILAC.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> DIAMOUR = ITEMS.register(Blocks.DIAMOUR.getId().getPath(), () -> new BlockItem(Blocks.DIAMOUR.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> GOLDEN_CUBENSIS = ITEMS.register(Blocks.GOLDEN_CUBENSIS.getId().getPath(), () -> new BlockItem(Blocks.GOLDEN_CUBENSIS.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> REDSTONE_ROSE = ITEMS.register(Blocks.REDSTONE_ROSE.getId().getPath(), () -> new BlockItem(Blocks.REDSTONE_ROSE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> BLACK_COALLA_LILY = ITEMS.register(Blocks.BLACK_COALLA_LILY.getId().getPath(), () -> new BlockItem(Blocks.BLACK_COALLA_LILY.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-
-    public static final RegistryObject<Item> DENSE_DIAMOND_ORE = ITEMS.register(Blocks.DENSE_DIAMOND_ORE.getId().getPath(), () -> new BlockItem(Blocks.DENSE_DIAMOND_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> DEEPSLATE_DENSE_DIAMOND_ORE = ITEMS.register(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.getId().getPath(), () -> new BlockItem(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-
-    public static final RegistryObject<Item> COOBLESTONE = ITEMS.register("cooblestone", () -> new BlockItem(Blocks.COOBLESTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> UNSTABLE_BLOCK = ITEMS.register("unstable_block", () -> new BlockItem(Blocks.UNSTABLE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> UNSTABLE_MOLTEN_DEEPSLATE = ITEMS.register("unstable_molten_deepslate", () -> new BlockItem(Blocks.UNSTABLE_MOLTEN_DEEPSLATE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> UNSTABLE_DEEPSLATE = ITEMS.register("unstable_deepslate", () -> new BlockItem(Blocks.UNSTABLE_DEEPSLATE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> UNSTABLE_MOLTEN_BLACKSTONE = ITEMS.register("unstable_molten_blackstone", () -> new BlockItem(Blocks.UNSTABLE_MOLTEN_BLACKSTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> UNSTABLE_BLACKSTONE = ITEMS.register("unstable_blackstone", () -> new BlockItem(Blocks.UNSTABLE_BLACKSTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> LAVA_GEYSER = ITEMS.register("lava_geyser", () -> new BlockItem(Blocks.LAVA_GEYSER.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-
-    public static final RegistryObject<Item> DECORATIVE_FIRE = ITEMS.register("decorative_fire", () -> new BlockItem(Blocks.DECORATIVE_FIRE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-
-
-    public static final RegistryObject<Item> WREATH = ITEMS.register("wreath", () ->  new ArmorItem(ArmorMaterials.WREATH, EquipmentSlot.HEAD, (new Item.Properties()).tab(CreativeModeTab.TAB_COMBAT)));
 
     // ----- Dynamically Rendered Display Items -----
 
-    public static final RegistryObject<Item> POTION_EFFECT_ICON = ITEMS.register("potion_effect_icon", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> POTION_EFFECT_ICON = ITEMS.register("potion_effect_icon", () -> new Item(properties()));
 
-    public static final RegistryObject<Item> GENERIC_ICON = ITEMS.register("generic_icon", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> GENERIC_ICON = ITEMS.register("generic_icon", () -> new Item(properties()));
     public static final List<ResourceLocation> GENERIC_ICON_RESOURCE_LOCATIONS = new ArrayList<>() {{
         add(new ResourceLocation(ModInfo.MOD_ID, "amplifier_upgrade"));
         add(new ResourceLocation(ModInfo.MOD_ID, "duration_upgrade"));
@@ -88,13 +62,6 @@ public class Items {
 
     public static final String DYNAMIC_ICON_INDEX_PROPERTY_NAME = "dynamic_icon_index";
 
-    // ----- Items -----
-
-    public static final RegistryObject<Item> MOSS = ITEMS.register("moss", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> SALT = ITEMS.register("salt", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> WORMROOT = ITEMS.register("wormroot", () -> new WormrootItem(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-    public static final RegistryObject<Item> ROTTEN_WORMROOT = ITEMS.register("rotten_wormroot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
-
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent event) {
         // Register item models
@@ -108,5 +75,9 @@ public class Items {
 
             System.out.println(ItemProperties.PROPERTIES);
         });
+    }
+
+    public static Item.Properties properties() {
+        return new Item.Properties().tab(POTIONS_PLUS_TAB);
     }
 }

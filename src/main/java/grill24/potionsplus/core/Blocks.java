@@ -6,6 +6,12 @@ import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -22,82 +28,85 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
+
+import static grill24.potionsplus.core.CreativeModeTabs.POTIONS_PLUS_TAB;
 
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Blocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ModInfo.MOD_ID);
 
-    public static final RegistryObject<Block> BREWING_CAULDRON = BLOCKS.register("brewing_cauldron", () ->
+    public static final RegistryObject<Block> BREWING_CAULDRON = register("brewing_cauldron", () ->
             new BrewingCauldronBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.STONE).requiresCorrectToolForDrops().strength(1.0F).noOcclusion()));
-    public static final RegistryObject<Block> PARTICLE_EMITTER = BLOCKS.register("particle_emitter", () ->
+    public static final RegistryObject<Block> PARTICLE_EMITTER = register("particle_emitter", () ->
             new ParticleEmitterBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.METAL).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL)));
-    public static final RegistryObject<Block> HERBALISTS_LECTERN = BLOCKS.register("herbalists_lectern", () ->
+    public static final RegistryObject<Block> HERBALISTS_LECTERN = register("herbalists_lectern", () ->
             new HerbalistsLecternBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
-    public static final RegistryObject<Block> SANGUINE_ALTAR = BLOCKS.register("sanguine_altar", () ->
+    public static final RegistryObject<Block> SANGUINE_ALTAR = register("sanguine_altar", () ->
             new SanguineAltarBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2.5F).requiresCorrectToolForDrops().sound(SoundType.STONE)));
-    public static final RegistryObject<Block> ABYSSAL_TROVE = BLOCKS.register("abyssal_trove", () ->
+    public static final RegistryObject<Block> ABYSSAL_TROVE = register("abyssal_trove", () ->
             new AbyssalTroveBlock(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.SAND).strength(5.0F, 6.0F).sound(SoundType.SOUL_SAND)));
-    public static final RegistryObject<Block> PRECISION_DISPENSER = BLOCKS.register("precision_dispenser", () ->
+    public static final RegistryObject<Block> PRECISION_DISPENSER = register("precision_dispenser", () ->
             new PrecisionDispenserBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.METAL).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.METAL)));
-    public static final RegistryObject<Block> CLOTHESLINE = BLOCKS.register("clothesline", () ->
+    public static final RegistryObject<Block> CLOTHESLINE = register("clothesline", () ->
             new ClotheslineBlock(BlockBehaviour.Properties.of(Material.WOOD).noOcclusion().strength(0.8F).sound(SoundType.WOOD)));
 
-    public static final RegistryObject<Block> LUNAR_BERRY_BUSH = BLOCKS.register("lunar_berry_bush", () ->
-            new LunarBerryBushBlock(BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.SWEET_BERRY_BUSH).noOcclusion().lightLevel(LunarBerryBushBlock.LIGHT_EMISSION)));
+    public static final RegistryObject<Block> LUNAR_BERRY_BUSH = register("lunar_berry_bush", () ->
+            new LunarBerryBushBlock(BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.SWEET_BERRY_BUSH).noOcclusion().lightLevel(LunarBerryBushBlock.LIGHT_EMISSION)), false);
 
-    public static final RegistryObject<Block> UNSTABLE_BLOCK = BLOCKS.register("unstable_block", () ->
+    public static final RegistryObject<Block> UNSTABLE_BLOCK = register("unstable_block", () ->
             new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
-    public static final RegistryObject<Block> UNSTABLE_MOLTEN_DEEPSLATE = BLOCKS.register("unstable_molten_deepslate", () ->
+    public static final RegistryObject<Block> UNSTABLE_MOLTEN_DEEPSLATE = register("unstable_molten_deepslate", () ->
             new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
-    public static final RegistryObject<Block> UNSTABLE_DEEPSLATE = BLOCKS.register("unstable_deepslate", () ->
+    public static final RegistryObject<Block> UNSTABLE_DEEPSLATE = register("unstable_deepslate", () ->
             new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
-    public static final RegistryObject<Block> UNSTABLE_MOLTEN_BLACKSTONE = BLOCKS.register("unstable_molten_blackstone", () ->
+    public static final RegistryObject<Block> UNSTABLE_MOLTEN_BLACKSTONE = register("unstable_molten_blackstone", () ->
             new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
-    public static final RegistryObject<Block> UNSTABLE_BLACKSTONE = BLOCKS.register("unstable_blackstone", () ->
+    public static final RegistryObject<Block> UNSTABLE_BLACKSTONE = register("unstable_blackstone", () ->
             new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
-    public static final RegistryObject<Block> LAVA_GEYSER = BLOCKS.register("lava_geyser", () ->
+    public static final RegistryObject<Block> LAVA_GEYSER = register("lava_geyser", () ->
             new GeyserBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel((p_152605_) -> 7).sound(SoundType.WOOL).noOcclusion()));
 
-    public static final RegistryObject<Block> DECORATIVE_FIRE = BLOCKS.register("decorative_fire", () ->
+    public static final RegistryObject<Block> DECORATIVE_FIRE = register("decorative_fire", () ->
             new DecorativeFireBlock(BlockBehaviour.Properties.of(Material.FIRE, MaterialColor.FIRE).noCollission().instabreak().lightLevel((p_152605_) -> 15).sound(SoundType.WOOL)));
 
 
     public static final List<OreFlowerBlock> ORE_FLOWER_BLOCKS = new ArrayList<>();
-    public static final RegistryObject<Block> IRON_OXIDE_DAISY = BLOCKS.register("iron_oxide_daisy", () ->
+    public static final RegistryObject<Block> IRON_OXIDE_DAISY = register("iron_oxide_daisy", () ->
             new OreFlowerBlock(MobEffects.MAGNETIC, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.IRON_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE),
                     0.1f));
-    public static final RegistryObject<Block> COPPER_CHRYSANTHEMUM = BLOCKS.register("copper_chrysanthemum", () ->
+    public static final RegistryObject<Block> COPPER_CHRYSANTHEMUM = register("copper_chrysanthemum", () ->
             new OreFlowerBlock(MobEffects.FORTUITOUS_FATE, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.COPPER_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE),
                     0.1f));
-    public static final RegistryObject<Block> LAPIS_LILAC = BLOCKS.register("lapis_lilac", () ->
+    public static final RegistryObject<Block> LAPIS_LILAC = register("lapis_lilac", () ->
             new OreFlowerBlock(MobEffects.LOOTING, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.LAPIS_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_LAPIS_ORE),
                     0.3f));
-    public static final RegistryObject<Block> DIAMOUR = BLOCKS.register("diamour", () ->
+    public static final RegistryObject<Block> DIAMOUR = register("diamour", () ->
             new OreFlowerBlock(MobEffects.TELEPORTATION, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.DIAMOND_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE),
                     0.2f));
-    public static final RegistryObject<Block> GOLDEN_CUBENSIS = BLOCKS.register("golden_cubensis", () ->
+    public static final RegistryObject<Block> GOLDEN_CUBENSIS = register("golden_cubensis", () ->
             new OreFlowerBlock(MobEffects.GEODE_GRACE, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.GOLD_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE),
                     0.25f));
-    public static final RegistryObject<Block> REDSTONE_ROSE = BLOCKS.register("redstone_rose", () ->
+    public static final RegistryObject<Block> REDSTONE_ROSE = register("redstone_rose", () ->
             new OreFlowerBlock(MobEffects.REACH_FOR_THE_STARS, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.REDSTONE_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_REDSTONE_ORE),
                     0.15f));
-    public static final RegistryObject<Block> BLACK_COALLA_LILY = BLOCKS.register("black_coalla_lily", () ->
+    public static final RegistryObject<Block> BLACK_COALLA_LILY = register("black_coalla_lily", () ->
             new OreFlowerBlock(() -> net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, 200, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.COAL_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE),
                     0.1f));
 
-    public static final RegistryObject<Block> DENSE_DIAMOND_ORE = BLOCKS.register("dense_diamond_ore", () ->
+    public static final RegistryObject<Block> DENSE_DIAMOND_ORE = register("dense_diamond_ore", () ->
             new OreBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F)));
-    public static final RegistryObject<Block> DEEPSLATE_DENSE_DIAMOND_ORE = BLOCKS.register("deepslate_dense_diamond_ore", () ->
+    public static final RegistryObject<Block> DEEPSLATE_DENSE_DIAMOND_ORE = register("deepslate_dense_diamond_ore", () ->
             new OreBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(4.5F, 3.0F)));
 
-    public static final RegistryObject<Block> COOBLESTONE = BLOCKS.register("cooblestone", () ->
+    public static final RegistryObject<Block> COOBLESTONE = register("cooblestone", () ->
             new Block(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel(state -> 10)));
 
 
@@ -134,5 +143,22 @@ public class Blocks {
                 ORE_FLOWER_BLOCKS.add((OreFlowerBlock) block);
             }
         });
+    }
+
+    public static <I extends Block> RegistryObject<I> register(final String name, final Supplier<? extends I> sup, boolean registerBlockItem, Item.Properties properties) {
+        RegistryObject<I> block = BLOCKS.register(name, sup);
+        if (registerBlockItem) {
+            //     public static final RegistryObject<Item> BLACK_COALLA_LILY = ITEMS.register(Blocks.BLACK_COALLA_LILY.getId().getPath(), () -> new BlockItem(Blocks.BLACK_COALLA_LILY.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+            Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(POTIONS_PLUS_TAB)));
+        }
+        return block;
+    }
+
+    public static <I extends Block> RegistryObject<I> register(final String name, final Supplier<? extends I> sup, boolean registerBlockItem) {
+        return register(name, sup, registerBlockItem, Items.properties());
+    }
+
+    public static <I extends Block> RegistryObject<I> register(final String name, final Supplier<? extends I> sup) {
+        return register(name, sup, true, Items.properties());
     }
 }

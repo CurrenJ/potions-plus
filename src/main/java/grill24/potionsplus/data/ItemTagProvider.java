@@ -29,16 +29,16 @@ public class ItemTagProvider extends ItemTagsProvider {
         tier3();
 
         tag(Tags.Items.GEODE_GRACE_BASE_TIER_INGREDIENTS).addTag(Tags.Items.BASE_TIER_POTION_INGREDIENTS).add(
-                grill24.potionsplus.core.Items.IRON_OXIDE_DAISY.get(),
-                grill24.potionsplus.core.Items.COPPER_CHRYSANTHEMUM.get(),
-                grill24.potionsplus.core.Items.LAPIS_LILAC.get(),
-                grill24.potionsplus.core.Items.REDSTONE_ROSE.get()
+                grill24.potionsplus.core.Blocks.IRON_OXIDE_DAISY.get().asItem(),
+                grill24.potionsplus.core.Blocks.COPPER_CHRYSANTHEMUM.get().asItem(),
+                grill24.potionsplus.core.Blocks.LAPIS_LILAC.get().asItem(),
+                grill24.potionsplus.core.Blocks.REDSTONE_ROSE.get().asItem()
         );
 
         tag(Tags.Items.GEODE_GRACE_TIER_1_INGREDIENTS).addTag(Tags.Items.TIER_1_POTION_INGREDIENTS).add(
-                grill24.potionsplus.core.Items.DIAMOUR.get(),
-                grill24.potionsplus.core.Items.GOLDEN_CUBENSIS.get(),
-                grill24.potionsplus.core.Items.BLACK_COALLA_LILY.get()
+                grill24.potionsplus.core.Blocks.DIAMOUR.get().asItem(),
+                grill24.potionsplus.core.Blocks.GOLDEN_CUBENSIS.get().asItem(),
+                grill24.potionsplus.core.Blocks.BLACK_COALLA_LILY.get().asItem()
         );
 
         tag(Tags.Items.FOOD_INGREDIENTS_COMMON).add(

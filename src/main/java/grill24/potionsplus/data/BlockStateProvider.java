@@ -55,8 +55,8 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerCubeAll(Blocks.UNSTABLE_BLACKSTONE.get(), new ResourceLocation("block/blackstone"));
         registerCubeAll(Blocks.UNSTABLE_MOLTEN_BLACKSTONE.get());
         registerFaceAttachedHorizontalDirectionalBlock(Blocks.LAVA_GEYSER.get());
-        registerItemFromParent(Items.LAVA_GEYSER.get(), block(Blocks.LAVA_GEYSER.get().getRegistryName()));
-        registerItem(Items.DECORATIVE_FIRE.get(), mcLoc("block/fire_0"));
+        registerItemFromParent(Blocks.LAVA_GEYSER.get().asItem(), block(Blocks.LAVA_GEYSER.get().getRegistryName()));
+        registerItem(Blocks.DECORATIVE_FIRE.get().asItem(), mcLoc("block/fire_0"));
 
         // ----- Items -----
 
@@ -68,13 +68,13 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerItem(Items.WORMROOT.get());
         registerItem(Items.ROTTEN_WORMROOT.get());
         registerItem(Items.LUNAR_BERRIES.get());
-        registerItem(Items.IRON_OXIDE_DAISY.get(), "block");
-        registerItem(Items.COPPER_CHRYSANTHEMUM.get(), "block");
-        registerItem(Items.LAPIS_LILAC.get(), "block");
-        registerItem(Items.DIAMOUR.get(), "block");
-        registerItem(Items.GOLDEN_CUBENSIS.get(), "block");
-        registerItem(Items.REDSTONE_ROSE.get(), "block");
-        registerItem(Items.BLACK_COALLA_LILY.get(), "block");
+        registerItem(Blocks.IRON_OXIDE_DAISY.get().asItem(), "block");
+        registerItem(Blocks.COPPER_CHRYSANTHEMUM.get().asItem(), "block");
+        registerItem(Blocks.LAPIS_LILAC.get().asItem(), "block");
+        registerItem(Blocks.DIAMOUR.get().asItem(), "block");
+        registerItem(Blocks.GOLDEN_CUBENSIS.get().asItem(), "block");
+        registerItem(Blocks.REDSTONE_ROSE.get().asItem(), "block");
+        registerItem(Blocks.BLACK_COALLA_LILY.get().asItem(), "block");
         registerItem(Items.WREATH.get());
     }
 
@@ -188,7 +188,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 .modelFile(models().getExistingFile(mcLoc("oak_fence_post")))
                 .addModel();
 
-        itemModels().getBuilder(Objects.requireNonNull(Items.CLOTHESLINE.get().getRegistryName()).getPath())
+        itemModels().getBuilder(Objects.requireNonNull(Blocks.CLOTHESLINE.get().getRegistryName()).getPath())
                 .parent(models().getExistingFile(mcLoc("block/oak_fence_post")));
     }
 

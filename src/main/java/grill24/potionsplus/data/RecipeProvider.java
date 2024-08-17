@@ -1,5 +1,6 @@
 package grill24.potionsplus.data;
 
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
@@ -29,7 +30,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> recipeConsumer) {
-        ShapedRecipeBuilder.shaped(Items.PARTICLE_EMITTER.get())
+        ShapedRecipeBuilder.shaped(Blocks.PARTICLE_EMITTER.get())
                 .pattern("III")
                 .pattern("IXI")
                 .pattern("III")
@@ -38,7 +39,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_iron_ingot", has(net.minecraft.world.item.Items.SPORE_BLOSSOM))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(Items.HERBALISTS_LECTERN.get())
+        ShapedRecipeBuilder.shaped(Blocks.HERBALISTS_LECTERN.get())
                 .pattern("WWW")
                 .pattern("S S")
                 .pattern("DDD")
@@ -48,7 +49,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(Items.SANGUINE_ALTAR.get())
+        ShapedRecipeBuilder.shaped(Blocks.SANGUINE_ALTAR.get())
                 .pattern("AEA")
                 .pattern("ESE")
                 .pattern("AEA")
@@ -58,7 +59,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(Items.ABYSSAL_TROVE.get())
+        ShapedRecipeBuilder.shaped(Blocks.ABYSSAL_TROVE.get())
                 .pattern("OSO")
                 .pattern("SAS")
                 .pattern("OSO")
@@ -68,7 +69,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer);
 
-        ShapelessRecipeBuilder.shapeless(Items.PRECISION_DISPENSER.get())
+        ShapelessRecipeBuilder.shapeless(Blocks.PRECISION_DISPENSER.get())
                 .requires(net.minecraft.world.item.Items.DISPENSER)
                 .requires(net.minecraft.world.item.Items.SPYGLASS)
                 .unlockedBy("has_dispenser", has(net.minecraft.world.item.Items.DISPENSER))
@@ -190,52 +191,52 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "water_bucket_to_bucket"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Items.IRON_OXIDE_DAISY.get())
+                .ingredient(Blocks.IRON_OXIDE_DAISY.get())
                 .result(new ItemStack(net.minecraft.world.item.Items.GRAY_DYE, 2))
                 .processingTime(60)
-                .unlockedBy("has_iron_oxide_daisy", has(Items.IRON_OXIDE_DAISY.get()))
+                .unlockedBy("has_iron_oxide_daisy", has(Blocks.IRON_OXIDE_DAISY.get()))
                 .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "iron_oxide_daisy_to_gray_dye"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Items.COPPER_CHRYSANTHEMUM.get())
+                .ingredient(Blocks.COPPER_CHRYSANTHEMUM.get())
                 .result(new ItemStack(net.minecraft.world.item.Items.ORANGE_DYE, 2))
                 .processingTime(60)
-                .unlockedBy("has_copper_chrysanthemum", has(Items.COPPER_CHRYSANTHEMUM.get()))
+                .unlockedBy("has_copper_chrysanthemum", has(Blocks.COPPER_CHRYSANTHEMUM.get()))
                 .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "copper_chrysanthemum_to_orange_dye"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Items.GOLDEN_CUBENSIS.get())
+                .ingredient(Blocks.GOLDEN_CUBENSIS.get())
                 .result(new ItemStack(net.minecraft.world.item.Items.YELLOW_DYE, 2))
                 .processingTime(60)
-                .unlockedBy("has_golden_cubensis", has(Items.GOLDEN_CUBENSIS.get()))
+                .unlockedBy("has_golden_cubensis", has(Blocks.GOLDEN_CUBENSIS.get()))
                 .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "golden_cubensis_to_yellow_dye"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Items.LAPIS_LILAC.get())
+                .ingredient(Blocks.LAPIS_LILAC.get())
                 .result(new ItemStack(net.minecraft.world.item.Items.BLUE_DYE, 2))
                 .processingTime(60)
-                .unlockedBy("has_lapis_lilac", has(Items.LAPIS_LILAC.get()))
+                .unlockedBy("has_lapis_lilac", has(Blocks.LAPIS_LILAC.get()))
                 .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "lapis_lilac_to_blue_dye"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Items.DIAMOUR.get())
+                .ingredient(Blocks.DIAMOUR.get())
                 .result(new ItemStack(net.minecraft.world.item.Items.LIGHT_BLUE_DYE, 2))
                 .processingTime(60)
-                .unlockedBy("has_diamour", has(Items.DIAMOUR.get()))
+                .unlockedBy("has_diamour", has(Blocks.DIAMOUR.get()))
                 .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "diamour_to_light_blue_dye"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Items.BLACK_COALLA_LILY.get())
+                .ingredient(Blocks.BLACK_COALLA_LILY.get())
                 .result(new ItemStack(net.minecraft.world.item.Items.BLACK_DYE, 2))
                 .processingTime(60)
-                .unlockedBy("has_black_coalla_lily", has(Items.BLACK_COALLA_LILY.get()))
+                .unlockedBy("has_black_coalla_lily", has(Blocks.BLACK_COALLA_LILY.get()))
                 .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "black_coalla_lily_to_black_dye"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Items.REDSTONE_ROSE.get())
+                .ingredient(Blocks.REDSTONE_ROSE.get())
                 .result(new ItemStack(net.minecraft.world.item.Items.RED_DYE, 2))
                 .processingTime(60)
-                .unlockedBy("has_redstone_rose", has(Items.REDSTONE_ROSE.get()))
+                .unlockedBy("has_redstone_rose", has(Blocks.REDSTONE_ROSE.get()))
                 .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "redstone_rose_to_red_dye"));
     }
 
