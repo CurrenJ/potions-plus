@@ -1,10 +1,12 @@
 package grill24.potionsplus.particle;
 
+import grill24.potionsplus.block.IParticleEmitter;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.phys.Vec3;
@@ -23,6 +25,7 @@ public class EmitterParticle extends NoRenderParticle {
     protected final Vec3 VELOCITY;
     protected final boolean SHRINK_WITH_TIME;
     protected final boolean GAUSSIAN_RANGE;
+    protected final BlockPos SPAWN_POS;
 
     EmitterParticle(ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, Function<Random, ParticleOptions> particleTypeSupplier, int lifetime, int ticksPerSpawn, int spawnCount, float range, Vec3 velocity, boolean shrinkWithTime, boolean gaussianRange) {
         super(clientLevel, x, y, z, xd, yd, zd);
@@ -38,45 +41,55 @@ public class EmitterParticle extends NoRenderParticle {
         this.VELOCITY = velocity;
         this.SHRINK_WITH_TIME = shrinkWithTime;
         this.GAUSSIAN_RANGE = gaussianRange;
+        this.SPAWN_POS = new BlockPos(x, y, z);
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        float effectiveRange = this.RANGE;
-        float effectiveSpawnCount = this.SPAWN_COUNT;
-        float effectiveTicksPerSpawn = this.TICKS_PER_SPAWN;
+        spawnParticles(x, y, z, RANGE, SPAWN_COUNT, TICKS_PER_SPAWN, age, lifetime, random, VELOCITY, SHRINK_WITH_TIME, GAUSSIAN_RANGE, level, PARTICLE_TYPE_SUPPLIER);
+    }
 
-        float lifeFactor = 1 - RUtil.easeInSine((float) this.age / (float) this.lifetime);
-        if (SHRINK_WITH_TIME) {
+    public static void spawnParticles(double x, double y, double z, float range, float spawnCount, float ticksPerSpawn, float age, float lifetime, Random random, Vec3 velocity, boolean shrinkWithTime, boolean gaussianRange, ClientLevel level, Function<Random, ParticleOptions> particleTypeSupplier) {
+        float effectiveRange = range;
+        float effectiveSpawnCount = spawnCount;
+
+        float lifeFactor = 1 - RUtil.easeInSine((float) age / (float) lifetime);
+        if (shrinkWithTime) {
             effectiveRange *= lifeFactor;
             effectiveSpawnCount *= lifeFactor;
         }
 
         for (int i = 0; i < effectiveSpawnCount; ++i) {
-            if (this.age % effectiveTicksPerSpawn == 0) {
-                double pX = this.x;
-                double pY = this.y;
-                double pZ = this.z;
-                if (this.GAUSSIAN_RANGE) {
-                    pX += this.random.nextGaussian(0, effectiveRange);
-                    pY += this.random.nextGaussian(0, effectiveRange);
-                    pZ += this.random.nextGaussian(0, effectiveRange);
+            if (age % ticksPerSpawn == 0) {
+                double pX = x;
+                double pY = y;
+                double pZ = z;
+                if (gaussianRange) {
+                    pX += random.nextGaussian(0, effectiveRange);
+                    pY += random.nextGaussian(0, effectiveRange);
+                    pZ += random.nextGaussian(0, effectiveRange);
                 } else {
-                    pX += (this.random.nextDouble() * 2 - 1) * effectiveRange;
-                    pY += (this.random.nextDouble() * 2 - 1) * effectiveRange;
-                    pZ += (this.random.nextDouble() * 2 - 1) * effectiveRange;
+                    pX += (random.nextDouble() * 2 - 1) * effectiveRange;
+                    pY += (random.nextDouble() * 2 - 1) * effectiveRange;
+                    pZ += (random.nextDouble() * 2 - 1) * effectiveRange;
                 }
-                if (this.PARTICLE_TYPE_SUPPLIER != null)
-                    this.level.addParticle(PARTICLE_TYPE_SUPPLIER.apply(this.random), pX, pY, pZ, VELOCITY.x, VELOCITY.y, VELOCITY.z);
+                if (particleTypeSupplier != null) {
+                    ParticleOptions particleType = particleTypeSupplier.apply(random);
+                    addParticle(level, particleType, pX, pY, pZ, velocity.x, velocity.y, velocity.z);
+                }
             }
         }
     }
 
+    protected static void addParticle(ClientLevel level, ParticleOptions particleType, double x, double y, double z, double xd, double yd, double zd) {
+        level.addParticle(particleType, x, y, z, xd, yd, zd);
+    }
+
     @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
-        private final Function<Random, ParticleOptions> particleTypeSupplier;
+        public final Function<Random, ParticleOptions> particleTypeSupplier;
         private int lifeTime = 100;
         private int ticksPerSpawn = 5;
         private int spawnCount = 2;

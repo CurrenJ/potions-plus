@@ -1,0 +1,6 @@
+{
+  "parent": "potionsplus:block/geyser",
+  "textures": {
+      "texture": "potionsplus:block/unstable_molten_blackstone"
+  }
+}

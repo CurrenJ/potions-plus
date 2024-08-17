@@ -54,6 +54,9 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerCubeAll(Blocks.UNSTABLE_MOLTEN_DEEPSLATE.get());
         registerCubeAll(Blocks.UNSTABLE_BLACKSTONE.get(), new ResourceLocation("block/blackstone"));
         registerCubeAll(Blocks.UNSTABLE_MOLTEN_BLACKSTONE.get());
+        registerFaceAttachedHorizontalDirectionalBlock(Blocks.LAVA_GEYSER.get());
+        registerItemFromParent(Items.LAVA_GEYSER.get(), block(Blocks.LAVA_GEYSER.get().getRegistryName()));
+        registerItem(Items.DECORATIVE_FIRE.get(), mcLoc("block/fire_0"));
 
         // ----- Items -----
 
@@ -151,6 +154,17 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 .texture("layer0", String.join("/", texturePath) + "/" + item.getRegistryName().getPath());
     }
 
+    private void registerItem(Item item, ResourceLocation texture) {
+        itemModels().getBuilder(Objects.requireNonNull(item.getRegistryName()).getPath())
+                .parent(models().getExistingFile(mcLoc("item/generated")))
+                .texture("layer0", texture);
+    }
+
+    private void registerItemFromParent(Item item, ResourceLocation parent) {
+        itemModels().getBuilder(Objects.requireNonNull(item.getRegistryName()).getPath())
+                .parent(models().getExistingFile(parent));
+    }
+
     private void registerParticleEmitter() {
         for (int i = 0; i < ParticleEmitterBlock.PARTICLE_EMITTER_CONFIGURATIONS.length; i++) {
             Block blockForModel = ParticleEmitterBlock.PARTICLE_EMITTER_CONFIGURATIONS[i].blockModel;
@@ -176,6 +190,30 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
         itemModels().getBuilder(Objects.requireNonNull(Items.CLOTHESLINE.get().getRegistryName()).getPath())
                 .parent(models().getExistingFile(mcLoc("block/oak_fence_post")));
+    }
+
+    private void registerFaceAttachedHorizontalDirectionalBlock(Block block) {
+        getVariantBuilder(block).forAllStates(state -> {
+            int yRot = switch (state.getValue(net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock.FACING)) {
+                case NORTH -> 0;
+                case EAST -> 90;
+                case SOUTH -> 180;
+                case WEST -> 270;
+                default -> 0;
+            };
+            int xRot = switch (state.getValue(net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock.FACE)) {
+                case FLOOR -> 0;
+                case WALL -> 90;
+                case CEILING -> 180;
+                default -> 0;
+            };
+            return ConfiguredModel.builder()
+                    .modelFile(models().getExistingFile(block.getRegistryName()))
+                    .rotationY(yRot)
+                    .rotationX(xRot)
+                    .uvLock(true)
+                    .build();
+        });
     }
 
     private void registerHorizontalDirectionalBlock(Block block) {
@@ -243,5 +281,13 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
     private ResourceLocation mcBlock(Block block) {
         return mcLoc(Objects.requireNonNull(block.getRegistryName()).getPath());
+    }
+
+    private ResourceLocation block(ResourceLocation resourceLocation) {
+        return new ResourceLocation(ModInfo.MOD_ID, "block/" + resourceLocation.getPath());
+    }
+
+    private ResourceLocation item(ResourceLocation resourceLocation) {
+        return new ResourceLocation(ModInfo.MOD_ID, "item/" + resourceLocation.getPath());
     }
 }

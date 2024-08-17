@@ -19,7 +19,8 @@
     "TemptGoalMixin"
   ],
   "client": [
-    "ClientPacketListenerMixin"
+    "ClientPacketListenerMixin",
+    "ParticleEngineMixin"
   ],
   "injectors": {
     "defaultRequire": 1

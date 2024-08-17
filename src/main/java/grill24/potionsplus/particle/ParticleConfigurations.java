@@ -24,13 +24,16 @@ public class ParticleConfigurations {
             new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Minecraft.ASH, 6),
             new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Minecraft.SMALL_FLAME, 2),
             new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Minecraft.FALLING_LAVA, 2));
+    public static final ParticleEmitterBlock.ParticleEmitterConfiguration LAVA_GEYSER_PARTICLES = new ParticleEmitterBlock.ParticleEmitterConfiguration(Blocks.MAGMA_BLOCK, 80,
+            new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Minecraft.SMALL_FLAME, 2),
+            new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Minecraft.SMOKE, 1));
     public static final ParticleEmitterBlock.ParticleEmitterConfiguration MUSICAL = new ParticleEmitterBlock.ParticleEmitterConfiguration(Blocks.NOTE_BLOCK, 14, new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Particles.RANDOM_NOTE, 1));
     public static final ParticleEmitterBlock.ParticleEmitterConfiguration BLOOD = new ParticleEmitterBlock.ParticleEmitterConfiguration(Blocks.REDSTONE_BLOCK, 1, new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Particles.BLOOD_GOB, 1));
-    public static final ParticleEmitterBlock.ParticleEmitterConfiguration LUNAR_BERRY_BUSH_AMBIENT = new ParticleEmitterBlock.ParticleEmitterConfiguration(Blocks.MOSS_BLOCK, 1, new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Particles.LUNAR_BERRY_BUSH_AMBIENT, 1));
 
     // Emitter for particles that are not particles themselves, but rather emitters themselves. This is used for particles that are not directly rendered, but rather spawn other particles.
-    public static final ParticleEmitterBlock.ParticleEmitterConfiguration END_ROD_RAIN_EMITTER = new ParticleEmitterBlock.ParticleEmitterConfiguration(Blocks.TARGET, 1, new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Particles.END_ROD_RAIN_EMITTER, 1));
-    public static final ParticleEmitterBlock.ParticleEmitterConfiguration FIREY_EMITTER = new ParticleEmitterBlock.ParticleEmitterConfiguration(Blocks.NETHERRACK, 1, new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Particles.FIREY_EMITTER, 1));
+    public static final ParticleEmitterBlock.ParticleEmitterConfiguration END_ROD_RAIN_EMITTER = new ParticleEmitterBlock.ParticleEmitterConfiguration(Blocks.TARGET, 1, true, new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Particles.END_ROD_RAIN_EMITTER, 1));
+    public static final ParticleEmitterBlock.ParticleEmitterConfiguration FIREY_EMITTER = new ParticleEmitterBlock.ParticleEmitterConfiguration(Blocks.NETHERRACK, 1, true, new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Particles.FIREY_EMITTER, 1));
+    public static final ParticleEmitterBlock.ParticleEmitterConfiguration LUNAR_BERRY_BUSH_AMBIENT = new ParticleEmitterBlock.ParticleEmitterConfiguration(Blocks.MOSS_BLOCK, 1, true, new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Particles.LUNAR_BERRY_BUSH_AMBIENT, 1));
 
     private static RegistryObject<SimpleParticleType> getVanillaParticle(String name) {
         return RegistryObject.create(new ResourceLocation("minecraft", name), ForgeRegistries.PARTICLE_TYPES);
@@ -49,5 +52,6 @@ public class ParticleConfigurations {
         private static final RegistryObject<SimpleParticleType> FALLING_LAVA = getVanillaParticle("falling_lava");
         private static final RegistryObject<SimpleParticleType> WHITE_ASH = getVanillaParticle("white_ash");
         public static final RegistryObject<SimpleParticleType> SOUL_FIRE_FLAME = getVanillaParticle("soul_fire_flame");
+        public static final RegistryObject<SimpleParticleType> SMOKE = getVanillaParticle("smoke");
     }
 }

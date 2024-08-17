@@ -55,6 +55,7 @@ public class Items {
     public static final RegistryObject<Item> UNSTABLE_DEEPSLATE = ITEMS.register("unstable_deepslate", () -> new BlockItem(Blocks.UNSTABLE_DEEPSLATE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
     public static final RegistryObject<Item> UNSTABLE_MOLTEN_BLACKSTONE = ITEMS.register("unstable_molten_blackstone", () -> new BlockItem(Blocks.UNSTABLE_MOLTEN_BLACKSTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
     public static final RegistryObject<Item> UNSTABLE_BLACKSTONE = ITEMS.register("unstable_blackstone", () -> new BlockItem(Blocks.UNSTABLE_BLACKSTONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
+    public static final RegistryObject<Item> LAVA_GEYSER = ITEMS.register("lava_geyser", () -> new BlockItem(Blocks.LAVA_GEYSER.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
 
     public static final RegistryObject<Item> DECORATIVE_FIRE = ITEMS.register("decorative_fire", () -> new BlockItem(Blocks.DECORATIVE_FIRE.get(), new Item.Properties().tab(CreativeModeTab.TAB_SEARCH)));
 

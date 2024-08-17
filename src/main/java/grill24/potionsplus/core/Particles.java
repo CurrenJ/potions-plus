@@ -29,6 +29,7 @@ public class Particles {
     public static final RegistryObject<SimpleParticleType> FIREY_EMITTER = register("firey_emitter", false);
     public static final RegistryObject<SimpleParticleType> BLOOD_EMITTER = register("blood_emitter", false);
     public static final RegistryObject<SimpleParticleType> LUNAR_BERRY_BUSH_AMBIENT_EMITTER = register("lunar_berry_bush_ambient_emitter", false);
+    public static final RegistryObject<SimpleParticleType> LAVA_GEYSER_BLOCK_LINKED_EMITTER = register("lava_geyser_emitter", false);
 
     private static RegistryObject<SimpleParticleType> register(String p_123825_, boolean p_123826_) {
         return PARTICLE_TYPES.register(p_123825_, () -> new SimpleParticleType(p_123826_));
@@ -49,6 +50,8 @@ public class Particles {
         Minecraft.getInstance().particleEngine.register(Particles.BLOOD_EMITTER.get(),
                 new EmitterParticle.Provider((random) -> ParticleConfigurations.BLOOD.sampleParticleType(random).get(), 20, 2, 2, 0.4F, Vec3.ZERO, Vec3.ZERO, true));
         Minecraft.getInstance().particleEngine.register(Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.get(),
-                new EmitterParticle.Provider((random) -> ParticleConfigurations.LUNAR_BERRY_BUSH_AMBIENT.sampleParticleType(random).get(), 100, 20, 2, 0.5F, Vec3.ZERO, Vec3.ZERO, false, true));
+                new EmitterParticle.Provider((random) -> ParticleConfigurations.LUNAR_BERRY_BUSH_AMBIENT.sampleParticleType(random).get(), 20, 20, 2, 0.5F, Vec3.ZERO, Vec3.ZERO, false, true));
+        Minecraft.getInstance().particleEngine.register(Particles.LAVA_GEYSER_BLOCK_LINKED_EMITTER.get(),
+                new BlockLinkedEmitterParticle.Provider(20));
     }
 }

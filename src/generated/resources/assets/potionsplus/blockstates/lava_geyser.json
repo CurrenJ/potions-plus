@@ -1,0 +1,134 @@
+{
+  "variants": {
+    "active=false,face=floor,facing=north": {
+      "model": "potionsplus:block/lava_geyser",
+      "uvlock": true
+    },
+    "active=true,face=floor,facing=north": {
+      "model": "potionsplus:block/lava_geyser",
+      "uvlock": true
+    },
+    "active=false,face=wall,facing=north": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 90,
+      "uvlock": true
+    },
+    "active=true,face=wall,facing=north": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 90,
+      "uvlock": true
+    },
+    "active=false,face=ceiling,facing=north": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 180,
+      "uvlock": true
+    },
+    "active=true,face=ceiling,facing=north": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 180,
+      "uvlock": true
+    },
+    "active=false,face=floor,facing=south": {
+      "model": "potionsplus:block/lava_geyser",
+      "y": 180,
+      "uvlock": true
+    },
+    "active=true,face=floor,facing=south": {
+      "model": "potionsplus:block/lava_geyser",
+      "y": 180,
+      "uvlock": true
+    },
+    "active=false,face=wall,facing=south": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 90,
+      "y": 180,
+      "uvlock": true
+    },
+    "active=true,face=wall,facing=south": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 90,
+      "y": 180,
+      "uvlock": true
+    },
+    "active=false,face=ceiling,facing=south": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 180,
+      "y": 180,
+      "uvlock": true
+    },
+    "active=true,face=ceiling,facing=south": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 180,
+      "y": 180,
+      "uvlock": true
+    },
+    "active=false,face=floor,facing=west": {
+      "model": "potionsplus:block/lava_geyser",
+      "y": 270,
+      "uvlock": true
+    },
+    "active=true,face=floor,facing=west": {
+      "model": "potionsplus:block/lava_geyser",
+      "y": 270,
+      "uvlock": true
+    },
+    "active=false,face=wall,facing=west": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 90,
+      "y": 270,
+      "uvlock": true
+    },
+    "active=true,face=wall,facing=west": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 90,
+      "y": 270,
+      "uvlock": true
+    },
+    "active=false,face=ceiling,facing=west": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 180,
+      "y": 270,
+      "uvlock": true
+    },
+    "active=true,face=ceiling,facing=west": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 180,
+      "y": 270,
+      "uvlock": true
+    },
+    "active=false,face=floor,facing=east": {
+      "model": "potionsplus:block/lava_geyser",
+      "y": 90,
+      "uvlock": true
+    },
+    "active=true,face=floor,facing=east": {
+      "model": "potionsplus:block/lava_geyser",
+      "y": 90,
+      "uvlock": true
+    },
+    "active=false,face=wall,facing=east": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 90,
+      "y": 90,
+      "uvlock": true
+    },
+    "active=true,face=wall,facing=east": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 90,
+      "y": 90,
+      "uvlock": true
+    },
+    "active=false,face=ceiling,facing=east": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 180,
+      "y": 90,
+      "uvlock": true
+    },
+    "active=true,face=ceiling,facing=east": {
+      "model": "potionsplus:block/lava_geyser",
+      "x": 180,
+      "y": 90,
+      "uvlock": true
+    }
+  }
+}

@@ -1,14 +1,12 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.block.*;
+import grill24.potionsplus.block.FaceAttachedHorizontalDirectionalBlock;
 import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FireBlock;
-import net.minecraft.world.level.block.OreBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -57,6 +55,8 @@ public class Blocks {
             new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
     public static final RegistryObject<Block> UNSTABLE_BLACKSTONE = BLOCKS.register("unstable_blackstone", () ->
             new UnstableBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+    public static final RegistryObject<Block> LAVA_GEYSER = BLOCKS.register("lava_geyser", () ->
+            new GeyserBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel((p_152605_) -> 7).sound(SoundType.WOOL).noOcclusion()));
 
     public static final RegistryObject<Block> DECORATIVE_FIRE = BLOCKS.register("decorative_fire", () ->
             new DecorativeFireBlock(BlockBehaviour.Properties.of(Material.FIRE, MaterialColor.FIRE).noCollission().instabreak().lightLevel((p_152605_) -> 15).sound(SoundType.WOOL)));
@@ -100,6 +100,8 @@ public class Blocks {
     public static final RegistryObject<Block> COOBLESTONE = BLOCKS.register("cooblestone", () ->
             new Block(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel(state -> 10)));
 
+
+    // ----- Block Entities -----
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, ModInfo.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<BrewingCauldronBlockEntity>> BREWING_CAULDRON_BLOCK_ENTITY = BLOCK_ENTITIES.register("brewing_cauldron_block_entity", () -> BlockEntityType.Builder.of(BrewingCauldronBlockEntity::new, BREWING_CAULDRON.get()).build(null));

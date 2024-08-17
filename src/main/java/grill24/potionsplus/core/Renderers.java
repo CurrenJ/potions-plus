@@ -2,6 +2,7 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.utility.ModInfo;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -16,5 +17,7 @@ public class Renderers {
         event.registerBlockEntityRenderer(Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get(), SanguineAltarBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), AbyssalTroveBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), ClotheslineBlockEntityRenderer::new);
+
+        event.registerEntityRenderer(Entities.INVISIBLE_FIRE_DAMAGER.get(), NoopRenderer::new);
     }
 }

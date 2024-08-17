@@ -57,6 +57,7 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
             dropSelf(consumer, Blocks.UNSTABLE_MOLTEN_BLACKSTONE.get());
 
             dropSelf(consumer, Blocks.DECORATIVE_FIRE.get());
+            dropSelf(consumer, Blocks.LAVA_GEYSER.get());
 
             Blocks.BLOCKS.getEntries().stream().filter((block) -> block.get() instanceof OreFlowerBlock).forEach((block) -> dropSelf(consumer, block.get()));
         }

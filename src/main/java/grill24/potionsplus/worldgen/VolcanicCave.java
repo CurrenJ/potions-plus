@@ -1,6 +1,7 @@
 package grill24.potionsplus.worldgen;
 
 import grill24.potionsplus.core.Features;
+import grill24.potionsplus.worldgen.feature.LavaGeyserFeature;
 import grill24.potionsplus.worldgen.feature.VolcanicFissureFeature;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Direction;
@@ -103,6 +104,10 @@ public class VolcanicCave {
     public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> FISSURE_CONFIGURED = FeatureUtils.register(FISSURE_KEY.location().toString(), FISSURE);
     public static Holder<PlacedFeature> FISSURE_PLACED = PlacementUtils.register(FISSURE_KEY.location().toString(), FISSURE_CONFIGURED, CountPlacement.of(75), InSquarePlacement.spread(), HeightRangePlacement.of(UniformHeight.of(VerticalAnchor.aboveBottom(12), VerticalAnchor.absolute(48))), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
+    public static final ResourceKey<PlacedFeature> LAVA_GEYSER_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(ModInfo.MOD_ID, "lava_geyser"));
+    public static final Feature<NoneFeatureConfiguration> LAVA_GEYSER = Features.register(LAVA_GEYSER_KEY.location().getPath(), new LavaGeyserFeature(NoneFeatureConfiguration.CODEC));
+    public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> LAVA_GEYSER_CONFIGURED = FeatureUtils.register(LAVA_GEYSER_KEY.location().toString(), LAVA_GEYSER);
+    public static Holder<PlacedFeature> LAVA_GEYSER_PLACED = PlacementUtils.register(LAVA_GEYSER_KEY.location().toString(), LAVA_GEYSER_CONFIGURED, CountPlacement.of(128), InSquarePlacement.spread(), HeightRangePlacement.of(UniformHeight.of(VerticalAnchor.aboveBottom(12), VerticalAnchor.absolute(48))), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
     public static Biome volcanicCave() {
         MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();
@@ -113,6 +118,7 @@ public class VolcanicCave {
         BiomeDefaultFeatures.addDefaultOres(biomegenerationsettings$builder);
         BiomeDefaultFeatures.addExtraGold(biomegenerationsettings$builder);
         biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, FISSURE_PLACED);
+        biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, LAVA_GEYSER_PLACED);
         biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VOLCANIC_CAVE_VEGETATION_FLOOR);
         biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VOLCANIC_CAVE_VEGETATION_CEILING);
 

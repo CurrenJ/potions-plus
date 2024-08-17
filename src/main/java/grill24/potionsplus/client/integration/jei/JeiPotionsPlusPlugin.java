@@ -1,11 +1,13 @@
 package grill24.potionsplus.client.integration.jei;
 
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.ClientCommands;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -21,10 +23,12 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
@@ -42,24 +46,49 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         IVanillaRecipeFactory factory = registration.getVanillaRecipeFactory();
 
         // Particle Emitter description
-        MutableComponent particleEmitterDescription = new TranslatableComponent("jei.potionsplus.particle_emitter.description");
-        registration.addIngredientInfo(new ItemStack(grill24.potionsplus.core.Items.PARTICLE_EMITTER.get()), VanillaTypes.ITEM, particleEmitterDescription);
+        registerDescription(registration, grill24.potionsplus.core.Items.PARTICLE_EMITTER.get());
 
         // Brewing Cauldron description
-        MutableComponent brewingCauldronDescription = new TranslatableComponent("jei.potionsplus.brewing_cauldron.description");
-        registration.addIngredientInfo(new ItemStack(grill24.potionsplus.core.Blocks.BREWING_CAULDRON.get()), VanillaTypes.ITEM, brewingCauldronDescription);
+        registerDescription(registration, grill24.potionsplus.core.Blocks.BREWING_CAULDRON.get());
 
         // Herbalist's Lectern description
-        MutableComponent herbalistsLecternDescription = new TranslatableComponent("jei.potionsplus.herbalists_lectern.description");
-        registration.addIngredientInfo(new ItemStack(grill24.potionsplus.core.Blocks.HERBALISTS_LECTERN.get()), VanillaTypes.ITEM, herbalistsLecternDescription);
+        registerDescription(registration, grill24.potionsplus.core.Blocks.HERBALISTS_LECTERN.get());
 
         // Abyssal Trove description
-        MutableComponent abyssalTroveDescription = new TranslatableComponent("jei.potionsplus.abyssal_trove.description");
-        registration.addIngredientInfo(new ItemStack(grill24.potionsplus.core.Blocks.ABYSSAL_TROVE.get()), VanillaTypes.ITEM, abyssalTroveDescription);
+        registerDescription(registration, grill24.potionsplus.core.Blocks.ABYSSAL_TROVE.get());
 
         // Sanguine Altar description
-        MutableComponent sanguineAltarDescription = new TranslatableComponent("jei.potionsplus.sanguine_altar.description");
-        registration.addIngredientInfo(new ItemStack(grill24.potionsplus.core.Blocks.SANGUINE_ALTAR.get()), VanillaTypes.ITEM, sanguineAltarDescription);
+        registerDescription(registration, grill24.potionsplus.core.Blocks.SANGUINE_ALTAR.get());
+
+        // Clothesline description
+        registerDescription(registration, grill24.potionsplus.core.Blocks.CLOTHESLINE.get());
+
+        // Decorative Fire description
+        registerDescription(registration, grill24.potionsplus.core.Blocks.DECORATIVE_FIRE.get());
+
+        // Moss description
+        registerDescription(registration, grill24.potionsplus.core.Items.MOSS.get());
+
+        // Salt
+        registerDescription(registration, grill24.potionsplus.core.Items.SALT.get());
+
+        // Wormroot
+        registerDescription(registration, grill24.potionsplus.core.Items.WORMROOT.get());
+
+        // Rotten Wormroot
+        registerDescription(registration, grill24.potionsplus.core.Items.ROTTEN_WORMROOT.get());
+
+        // Lunar Berries
+        registerDescription(registration, grill24.potionsplus.core.Items.LUNAR_BERRIES.get());
+
+        // Wreath
+        registerDescription(registration, grill24.potionsplus.core.Items.WREATH.get());
+
+        // Cooblestone
+        registerDescription(registration, Blocks.COOBLESTONE.get());
+
+        // Lava Geyser
+        registerDescription(registration, grill24.potionsplus.core.Blocks.LAVA_GEYSER.get());
 
         // Potion descriptions
         registerAllPotionsInfo(registration, Potions.getAllPotionAmpDurMatrices());
@@ -106,6 +135,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(grill24.potionsplus.core.Blocks.BREWING_CAULDRON.get()), BrewingCauldronRecipeCategory.BREWING_CAULDRON_CATEGORY);
+        // TODO: Add clothesline recipes
     }
 
     private static void registerAllPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsAmpDurMatrix... potionsAmpDurMatrix) {
@@ -144,5 +174,10 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
     @Override
     public ResourceLocation getPluginUid() {
         return PLUGIN_UID;
+    }
+
+    private static void registerDescription(IRecipeRegistration registration, ItemLike item) {
+        TranslatableComponent description = new TranslatableComponent("jei.potionsplus." + item.asItem().getRegistryName().getPath() + ".description");
+        registration.addIngredientInfo(new ItemStack(item), VanillaTypes.ITEM, description);
     }
 }

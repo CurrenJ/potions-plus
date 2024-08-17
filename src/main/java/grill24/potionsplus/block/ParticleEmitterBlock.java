@@ -166,6 +166,7 @@ public class ParticleEmitterBlock extends Block {
         public Block blockModel;
         public WeightedParticleType[] weightedParticleTypes;
         public int particleCount;
+        public boolean isEmitter;
 
         public static class WeightedParticleType {
             public RegistryObject<SimpleParticleType> particleType;
@@ -181,6 +182,13 @@ public class ParticleEmitterBlock extends Block {
             this.blockModel = blockModel;
             this.weightedParticleTypes = weightedParticleTypes;
             this.particleCount = particleCount;
+        }
+
+        public ParticleEmitterConfiguration(Block blockModel, int particleCount, boolean isEmitter, WeightedParticleType... weightedParticleTypes) {
+            this.blockModel = blockModel;
+            this.weightedParticleTypes = weightedParticleTypes;
+            this.particleCount = particleCount;
+            this.isEmitter = isEmitter;
         }
 
         public RegistryObject<SimpleParticleType> sampleParticleType(Random random) {
@@ -202,7 +210,7 @@ public class ParticleEmitterBlock extends Block {
         }
     }
 
-    private ParticleEmitterConfiguration getParticleEmitterConfiguration(BlockState blockState) {
+    public static ParticleEmitterConfiguration getParticleEmitterConfiguration(BlockState blockState) {
         return PARTICLE_EMITTER_CONFIGURATIONS[blockState.getValue(PARTICLE_TYPE)];
     }
 
