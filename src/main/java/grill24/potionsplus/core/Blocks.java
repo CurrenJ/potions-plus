@@ -107,7 +107,9 @@ public class Blocks {
             new OreBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(4.5F, 3.0F)));
 
     public static final RegistryObject<Block> COOBLESTONE = register("cooblestone", () ->
-            new Block(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel(state -> 10)));
+            new CooblestoneBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel(state -> 10)));
+    public static final RegistryObject<Block> ICICLE = register("icicle", () ->
+            new IcicleBlock(BlockBehaviour.Properties.of(Material.ICE).requiresCorrectToolForDrops().strength(0.5F).noOcclusion().randomTicks().strength(1.5F, 3.0F).sound(SoundType.GLASS).dynamicShape()));
 
 
     // ----- Block Entities -----

@@ -5,6 +5,7 @@ import grill24.potionsplus.worldgen.feature.AquiferFreezeFeature;
 import grill24.potionsplus.worldgen.feature.CampfireHuddleFeature;
 import grill24.potionsplus.worldgen.feature.GiantSnowflakeFeature;
 import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.worldgen.feature.IcicleFeature;
 import net.minecraft.core.*;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.PointedDripstoneFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
@@ -58,6 +60,7 @@ public class IceCave {
                     .add(Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, 3), 2)
                     .add(Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, 4), 1)
             )));
+
     public static final Holder<ConfiguredFeature<BlockColumnConfiguration, ?>> ICE_CEILING_VEGETATION = FeatureUtils.register(
             "icicle_on_ceiling", Feature.BLOCK_COLUMN,
             new BlockColumnConfiguration(List.of(
@@ -66,6 +69,15 @@ public class IceCave {
                                     .add(UniformInt.of(0, 3), 5)
                                     .add(UniformInt.of(1, 7), 1).build()), BlockStateProvider.simple(Blocks.PACKED_ICE)),
                     BlockColumnConfiguration.layer(ConstantInt.of(1), BlockStateProvider.simple(Blocks.BLUE_ICE))), Direction.DOWN, BlockPredicate.ONLY_IN_AIR_PREDICATE, true));
+
+    public static final ResourceKey<PlacedFeature> ICICLE_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(ModInfo.MOD_ID, "icicle"));
+    public static Feature<PointedDripstoneConfiguration> ICICLE = Features.register(ICICLE_KEY.location().getPath(), new IcicleFeature(PointedDripstoneConfiguration.CODEC));
+    public static final Holder<ConfiguredFeature<PointedDripstoneConfiguration, ?>> ICICLE_CONFIGURED = FeatureUtils.register(ICICLE_KEY.location().toString(), ICICLE, new PointedDripstoneConfiguration(0.85F, 0.8F, 0.7F, 0.7F));
+
+    public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> ICICLE_SELECTOR = FeatureUtils.register(
+            "icicle_selector", Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(PlacementUtils.inlinePlaced(ICICLE_CONFIGURED), PlacementUtils.inlinePlaced(ICE_CEILING_VEGETATION))));
+
+
     public static final Holder<ConfiguredFeature<BlockPileConfiguration, ?>> COOBLESTONE_PILE = FeatureUtils.register(
             "cooblestone_pile", Feature.BLOCK_PILE,
             new BlockPileConfiguration(BlockStateProvider.simple(grill24.potionsplus.core.Blocks.COOBLESTONE.get())));
@@ -76,15 +88,15 @@ public class IceCave {
             new VegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, ICE_SAMPLER, PlacementUtils.inlinePlaced(ICE_FLOOR_VEGETATION), CaveSurface.FLOOR, UniformInt.of(2, 5), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F));
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> ICE_PATCH_CEILING = FeatureUtils.register(
             "ice_cave_ice_patch_ceiling", Feature.VEGETATION_PATCH,
-            new VegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, BlockStateProvider.simple(Blocks.ICE), PlacementUtils.inlinePlaced(ICE_CEILING_VEGETATION), CaveSurface.CEILING, UniformInt.of(1, 3), 0.0F, 5, 0.08F, UniformInt.of(4, 7), 0.3F));
+            new VegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, BlockStateProvider.simple(Blocks.ICE), PlacementUtils.inlinePlaced(ICICLE_SELECTOR), CaveSurface.CEILING, UniformInt.of(1, 3), 0.0F, 5, 0.08F, UniformInt.of(4, 7), 0.3F));
 
 
     public static final Holder<PlacedFeature> ICE_CAVE_VEGETATION = PlacementUtils.register(
             "ice_cave_vegetation", ICE_PATCH, CountPlacement.of(125), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
     public static final Holder<PlacedFeature> ICE_CAVE_CEILING_VEGETATION = PlacementUtils.register(
-            "ice_caves_ceiling_vegetation", ICE_PATCH_CEILING, CountPlacement.of(125), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(-1)), BiomeFilter.biome());
+            "ice_caves_ceiling_vegetation", ICE_PATCH_CEILING, CountPlacement.of(196), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(-1)), BiomeFilter.biome());
     public static final Lazy<Holder<PlacedFeature>> COBBLESTONE_PILE_PLACED = Lazy.of(() -> PlacementUtils.register(
-            "cobblestone_pile", COOBLESTONE_PILE, CountPlacement.of(15), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome()));
+            "cobblestone_pile", COOBLESTONE_PILE, CountPlacement.of(24), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome()));
 
     public static final ResourceKey<PlacedFeature> AQUIFER_FREEZE_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(ModInfo.MOD_ID, "aquifer_freeze"));
     public static Feature<NoneFeatureConfiguration> AQUIFER_FREEZE = Features.register(AQUIFER_FREEZE_KEY.location().getPath(), new AquiferFreezeFeature(NoneFeatureConfiguration.CODEC));

@@ -20,6 +20,7 @@ public class BlockRenderLayers {
 
     static {
         registerBlock(Blocks.DECORATIVE_FIRE, RenderType.cutout());
+        registerBlock(Blocks.ICICLE, RenderType.cutout());
     }
 
     private static void registerBlock(RegistryObject<Block> block, RenderType renderType) {
