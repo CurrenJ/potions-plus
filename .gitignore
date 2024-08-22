@@ -72,3 +72,7 @@ Temporary Items
 # Logs
 Xplat/logs/latest.log
 src/generated/resources/assets/potionsplus/lang/GENERATED_en_us.json
+/src/main/resources/script/output
+/src/main/resources/script/ore_edges
+/src/main/resources/script/input_ores
+/src/main/resources/script/*.png

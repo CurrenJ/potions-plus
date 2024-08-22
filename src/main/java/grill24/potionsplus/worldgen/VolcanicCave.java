@@ -2,6 +2,7 @@ package grill24.potionsplus.worldgen;
 
 import grill24.potionsplus.core.Features;
 import grill24.potionsplus.worldgen.feature.LavaGeyserFeature;
+import grill24.potionsplus.worldgen.feature.PotionsPlusVegetationPatchConfiguration;
 import grill24.potionsplus.worldgen.feature.VolcanicFissureFeature;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Direction;
@@ -32,6 +33,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
@@ -69,13 +71,13 @@ public class VolcanicCave {
             "ceiling_vegetation", Feature.SIMPLE_BLOCK,
             new SimpleBlockConfiguration(SimpleStateProvider.simple(Blocks.AIR)));
 
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> VOLCANIC_PATCH_FLOOR = FeatureUtils.register(
-            "volcanic_patch_floor", MiscFeatures.NO_UPDATE_VEGETATION_PATCH,
+    public static final Holder<ConfiguredFeature<PotionsPlusVegetationPatchConfiguration, ?>> VOLCANIC_PATCH_FLOOR = FeatureUtils.register(
+            "volcanic_patch_floor", MiscFeatures.POTIONS_PLUS_VEGETATION_PATCH,
             // replaceable, groundState, vegetationFeature, surface, depth, extraBottomBlockChance, verticalRange, vegetationChance, xzRadius, extraEdgeColumnChance
-            new VegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, BLOCK_SAMPLER_FLOOR, PlacementUtils.inlinePlaced(FLOOR_VEGETATION), CaveSurface.FLOOR, UniformInt.of(5, 8), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F));
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> VOLCANIC_PATCH_CEILING = FeatureUtils.register(
-            "volcanic_patch_ceiling", MiscFeatures.NO_UPDATE_VEGETATION_PATCH,
-            new VegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, BLOCK_SAMPLER_CEILING, PlacementUtils.inlinePlaced(CEILING_VEGETATION), CaveSurface.CEILING, UniformInt.of(1, 3), 0.0F, 5, 0.08F, UniformInt.of(4, 7), 0.3F));
+            new PotionsPlusVegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, BLOCK_SAMPLER_FLOOR, PlacementUtils.inlinePlaced(FLOOR_VEGETATION), CaveSurface.FLOOR, UniformInt.of(5, 8), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F, BlockStateProvider.simple(Blocks.AIR)));
+    public static final Holder<ConfiguredFeature<PotionsPlusVegetationPatchConfiguration, ?>> VOLCANIC_PATCH_CEILING = FeatureUtils.register(
+            "volcanic_patch_ceiling", MiscFeatures.POTIONS_PLUS_VEGETATION_PATCH,
+            new PotionsPlusVegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, BLOCK_SAMPLER_CEILING, PlacementUtils.inlinePlaced(CEILING_VEGETATION), CaveSurface.CEILING, UniformInt.of(1, 3), 0.0F, 5, 0.08F, UniformInt.of(4, 7), 0.3F, BlockStateProvider.simple(Blocks.AIR)));
 
     public static final BlockPredicate VOLCANIC_CAVE_END_SCAN = BlockPredicate.allOf(
             BlockPredicate.solid(),

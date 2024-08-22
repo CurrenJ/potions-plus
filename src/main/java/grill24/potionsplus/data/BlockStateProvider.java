@@ -58,6 +58,15 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerItemFromParent(Blocks.LAVA_GEYSER.get().asItem(), block(Blocks.LAVA_GEYSER.get().getRegistryName()));
         registerItem(Blocks.DECORATIVE_FIRE.get().asItem(), mcLoc("block/fire_0"));
 
+        registerCubeAll(Blocks.SANDY_COPPER_ORE.get());
+        registerCubeAll(Blocks.SANDY_IRON_ORE.get());
+        registerCubeAll(Blocks.SANDY_GOLD_ORE.get());
+        registerCubeAll(Blocks.SANDY_DIAMOND_ORE.get());
+        registerCubeAll(Blocks.SANDY_REDSTONE_ORE.get());
+        registerCubeAll(Blocks.SANDY_LAPIS_ORE.get());
+        registerCubeAll(Blocks.SANDY_COAL_ORE.get());
+        registerCubeAll(Blocks.SANDY_EMERALD_ORE.get());
+
         // ----- Items -----
 
         registerPotionEffectIcons();

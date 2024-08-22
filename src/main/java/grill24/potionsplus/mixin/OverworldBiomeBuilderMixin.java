@@ -27,10 +27,13 @@ public abstract class OverworldBiomeBuilderMixin {
 
     @Shadow @Final private Climate.Parameter UNFROZEN_RANGE;
 
+    @Shadow @Final private Climate.Parameter[] humidities;
+
     @Inject(method = "addUndergroundBiomes(Ljava/util/function/Consumer;)V", at = @At("HEAD"))
     private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
        // consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biome
         this.addUndergroundBiome(consumer, this.FROZEN_RANGE, this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, 0.0F, Biomes.ICE_CAVE.getKey());
         this.addUndergroundBiome(consumer, this.temperatures[4], this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, 0.0F, Biomes.VOLCANIC_CAVE.getKey());
+        this.addUndergroundBiome(consumer, Climate.Parameter.span(0.2F, 1.0F), this.humidities[0], this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, 0.0F, Biomes.ARID_CAVE.getKey());
     }
 }

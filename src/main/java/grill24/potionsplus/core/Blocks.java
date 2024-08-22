@@ -1,17 +1,12 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.block.*;
-import grill24.potionsplus.block.FaceAttachedHorizontalDirectionalBlock;
 import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -110,6 +105,23 @@ public class Blocks {
             new CooblestoneBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel(state -> 10)));
     public static final RegistryObject<Block> ICICLE = register("icicle", () ->
             new IcicleBlock(BlockBehaviour.Properties.of(Material.ICE).requiresCorrectToolForDrops().strength(0.5F).noOcclusion().randomTicks().strength(1.5F, 3.0F).sound(SoundType.GLASS).dynamicShape()));
+
+    public static final RegistryObject<Block> SANDY_COPPER_ORE = register("sandy_copper_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
+    public static final RegistryObject<Block> SANDY_IRON_ORE = register("sandy_iron_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
+    public static final RegistryObject<Block> SANDY_GOLD_ORE = register("sandy_gold_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
+    public static final RegistryObject<Block> SANDY_DIAMOND_ORE = register("sandy_diamond_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
+    public static final RegistryObject<Block> SANDY_REDSTONE_ORE = register("sandy_redstone_ore", () ->
+            new RedStoneOreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
+    public static final RegistryObject<Block> SANDY_LAPIS_ORE = register("sandy_lapis_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
+    public static final RegistryObject<Block> SANDY_COAL_ORE = register("sandy_coal_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
+    public static final RegistryObject<Block> SANDY_EMERALD_ORE = register("sandy_emerald_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
 
 
     // ----- Block Entities -----
