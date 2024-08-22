@@ -28,6 +28,7 @@ public class BlockTagProvider extends BlockTagsProvider {
         tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(Blocks.DENSE_DIAMOND_ORE.get());
         tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get());
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(Blocks.SANDY_COPPER_ORE.get(), Blocks.SANDY_IRON_ORE.get(), Blocks.SANDY_GOLD_ORE.get(), Blocks.SANDY_DIAMOND_ORE.get(), Blocks.SANDY_EMERALD_ORE.get(), Blocks.SANDY_LAPIS_ORE.get(), Blocks.SANDY_REDSTONE_ORE.get(), Blocks.SANDY_COAL_ORE.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.MOSSY_COPPER_ORE.get(), Blocks.MOSSY_IRON_ORE.get(), Blocks.MOSSY_GOLD_ORE.get(), Blocks.MOSSY_DIAMOND_ORE.get(), Blocks.MOSSY_EMERALD_ORE.get(), Blocks.MOSSY_LAPIS_ORE.get(), Blocks.MOSSY_REDSTONE_ORE.get(), Blocks.MOSSY_COAL_ORE.get());
 
         tag(grill24.potionsplus.core.Tags.Blocks.FREEZABLE).add(net.minecraft.world.level.block.Blocks.WATER);
 

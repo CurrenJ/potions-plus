@@ -123,6 +123,23 @@ public class Blocks {
     public static final RegistryObject<Block> SANDY_EMERALD_ORE = register("sandy_emerald_ore", () ->
             new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.SAND)));
 
+    public static final RegistryObject<Block> MOSSY_COPPER_ORE = register("mossy_copper_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.MOSSY_COBBLESTONE)));
+    public static final RegistryObject<Block> MOSSY_IRON_ORE = register("mossy_iron_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.MOSSY_COBBLESTONE)));
+    public static final RegistryObject<Block> MOSSY_GOLD_ORE = register("mossy_gold_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.MOSSY_COBBLESTONE)));
+    public static final RegistryObject<Block> MOSSY_DIAMOND_ORE = register("mossy_diamond_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.MOSSY_COBBLESTONE)));
+    public static final RegistryObject<Block> MOSSY_REDSTONE_ORE = register("mossy_redstone_ore", () ->
+            new RedStoneOreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.MOSSY_COBBLESTONE)));
+    public static final RegistryObject<Block> MOSSY_LAPIS_ORE = register("mossy_lapis_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.MOSSY_COBBLESTONE)));
+    public static final RegistryObject<Block> MOSSY_COAL_ORE = register("mossy_coal_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.MOSSY_COBBLESTONE)));
+    public static final RegistryObject<Block> MOSSY_EMERALD_ORE = register("mossy_emerald_ore", () ->
+            new OreBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.MOSSY_COBBLESTONE)));
+
 
     // ----- Block Entities -----
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, ModInfo.MOD_ID);

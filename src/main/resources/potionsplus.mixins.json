@@ -13,6 +13,7 @@
     "ItemEntityMixin",
     "LevelChunkMixin",
     "LivingEntityMixin",
+    "MonsterRoomFeatureMixin",
     "OreFeatureMixin",
     "OverworldBiomeBuilderMixin",
     "PotionItemMixin",

@@ -67,6 +67,15 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerCubeAll(Blocks.SANDY_COAL_ORE.get());
         registerCubeAll(Blocks.SANDY_EMERALD_ORE.get());
 
+        registerCubeAll(Blocks.MOSSY_COPPER_ORE.get());
+        registerCubeAll(Blocks.MOSSY_IRON_ORE.get());
+        registerCubeAll(Blocks.MOSSY_GOLD_ORE.get());
+        registerCubeAll(Blocks.MOSSY_DIAMOND_ORE.get());
+        registerCubeAll(Blocks.MOSSY_REDSTONE_ORE.get());
+        registerCubeAll(Blocks.MOSSY_LAPIS_ORE.get());
+        registerCubeAll(Blocks.MOSSY_COAL_ORE.get());
+        registerCubeAll(Blocks.MOSSY_EMERALD_ORE.get());
+
         // ----- Items -----
 
         registerPotionEffectIcons();
