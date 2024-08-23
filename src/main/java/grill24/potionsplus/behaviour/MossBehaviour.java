@@ -32,8 +32,8 @@ public class MossBehaviour {
 
     private static void tryMossifyBlock(PlayerInteractEvent.RightClickBlock event, BlockPos pos, Block nonMossyBlock, Block mossyBlock) {
         if (event.getWorld().getBlockState(pos).is(nonMossyBlock)) {
-            event.setCanceled(true);
             if (event.getItemStack().is(Items.MOSS.get())) {
+                event.setCanceled(true);
                 event.getWorld().setBlockAndUpdate(pos, mossyBlock.defaultBlockState());
                 if (!event.getPlayer().isCreative()) {
                     event.getItemStack().shrink(1);
@@ -46,8 +46,8 @@ public class MossBehaviour {
 
     private static void tryShearMossyBlock(PlayerInteractEvent.RightClickBlock event, BlockPos pos, Block mossyBlock, Block nonMossyBlock, float dropChance) {
         if (event.getWorld().getBlockState(pos).is(mossyBlock)) {
-            event.setCanceled(true);
             if (event.getItemStack().canPerformAction(net.minecraftforge.common.ToolActions.SHEARS_HARVEST)) {
+                event.setCanceled(true);
                 for (int i = 0; i < dropChance; i++) {
                     boolean dropped = false;
                     if (dropChance - i < 1) {
