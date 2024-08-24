@@ -72,8 +72,6 @@ public class Items {
             ResourceLocation propertyId = new ResourceLocation(ModInfo.MOD_ID, DYNAMIC_ICON_INDEX_PROPERTY_NAME);
             ItemProperties.register(POTION_EFFECT_ICON.get(), propertyId, clampedItemPropertyFunction);
             ItemProperties.register(GENERIC_ICON.get(), propertyId, clampedItemPropertyFunction);
-
-            System.out.println(ItemProperties.PROPERTIES);
         });
     }
 

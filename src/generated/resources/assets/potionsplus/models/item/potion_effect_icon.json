@@ -260,41 +260,47 @@
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.65625
       },
-      "model": "potionsplus:item/potion_effect_icon_speed"
+      "model": "potionsplus:item/potion_effect_icon_soul_mate"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.671875
       },
-      "model": "potionsplus:item/potion_effect_icon_strength"
+      "model": "potionsplus:item/potion_effect_icon_speed"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.6875
       },
-      "model": "potionsplus:item/potion_effect_icon_teleportation"
+      "model": "potionsplus:item/potion_effect_icon_strength"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.703125
       },
-      "model": "potionsplus:item/potion_effect_icon_unluck"
+      "model": "potionsplus:item/potion_effect_icon_teleportation"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.71875
       },
-      "model": "potionsplus:item/potion_effect_icon_water_breathing"
+      "model": "potionsplus:item/potion_effect_icon_unluck"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.734375
       },
-      "model": "potionsplus:item/potion_effect_icon_weakness"
+      "model": "potionsplus:item/potion_effect_icon_water_breathing"
     },
     {
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.75
+      },
+      "model": "potionsplus:item/potion_effect_icon_weakness"
+    },
+    {
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.765625
       },
       "model": "potionsplus:item/potion_effect_icon_wither"
     }

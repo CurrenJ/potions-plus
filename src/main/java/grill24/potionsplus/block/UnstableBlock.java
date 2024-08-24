@@ -53,7 +53,6 @@ public class UnstableBlock extends Block {
     }
 
     public BlockState updateShape(BlockState myState, Direction direction, BlockState otherState, LevelAccessor levelAccessor, BlockPos myPos, BlockPos otherPos) {
-        System.out.println("Updating shape " + otherState + direction);
         if(!levelAccessor.isClientSide()) {
             if (!(otherState.getBlock() instanceof UnstableBlock)) {
                 levelAccessor.scheduleTick(myPos, this, this.getDelayAfterPlace(myState));

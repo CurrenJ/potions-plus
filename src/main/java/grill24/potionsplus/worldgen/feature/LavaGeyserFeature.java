@@ -49,7 +49,9 @@ public class LavaGeyserFeature extends Feature<NoneFeatureConfiguration> {
                     context.level().setBlock(pos, Blocks.LAVA_GEYSER.get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, direction.getOpposite()), 2);
                     break;
             }
-            PotionsPlus.LOGGER.info("Placed Lava Geyser at " + pos + " facing " + direction);
+            if(PotionsPlus.Debug.DEBUG) {
+                PotionsPlus.LOGGER.info("Placed Lava Geyser at " + pos + " facing " + direction);
+            }
             return true;
         }
         return false;

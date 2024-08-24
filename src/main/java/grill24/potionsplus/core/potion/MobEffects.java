@@ -68,6 +68,9 @@ public class MobEffects {
     public static final RegistryObject<MobEffect> SHEPHERDS_SERENADE = EFFECTS.register("shepherds_serenade", () ->
             new ShepherdsSerenadeEffect(MobEffectCategory.BENEFICIAL, 0xa4582b));
 
+    public static final RegistryObject<MobEffect> SOUL_MATE = EFFECTS.register("soul_mate", () ->
+            new SoulMateEffect(MobEffectCategory.BENEFICIAL, 0x035690));
+
 
     public static final Lazy<Map<ResourceLocation, Integer>> POTION_ICON_INDEX_MAP = Lazy.of(PUtil::getAllMobEffectsIconStackSizeMap);
     public static final int POTION_EFFECT_INDEX_PROPERTY_DIVIDEND = 64;

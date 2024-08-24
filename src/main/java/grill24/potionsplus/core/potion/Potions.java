@@ -22,7 +22,7 @@ public class Potions {
 
     public static final SeededPotionRecipeGenerator GEODE_GRACE_RECIPE_GENERATOR = new SeededPotionRecipeGenerator()
             .addItemsInTagsToTierPool(0, SeededIngredientsLootTables.WeightingMode.DISTRIBUTED, 1, Tags.Items.ORES);
-    public static final PotionBuilder.PotionsAmpDurMatrix GEODE_GRACE_POTION = new PotionBuilder()
+    public static final PotionBuilder.PotionsAmpDurMatrix GEODE_GRACE_POTIONS = new PotionBuilder()
             .name("geode_grace")
             .maxAmp(1)
             .maxDur(2)
@@ -181,46 +181,53 @@ public class Potions {
             .effects(PotionBuilder.TEN_MINUTES_DURATION_FUNCTION, MobEffects.HARROWING_HANDS::get)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
-    public static final PotionBuilder.PotionsAmpDurMatrix SHEPHERDS_SERENADE = new PotionBuilder()
+    public static final PotionBuilder.PotionsAmpDurMatrix SHEPHERDS_SERENADE_POTIONS = new PotionBuilder()
             .name("shepherds_serenade")
             .maxAmp(1)
             .maxDur(2)
             .effects(PotionBuilder.LONGER_DURATION_FUNCTION, MobEffects.SHEPHERDS_SERENADE::get)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
-    public static final PotionBuilder.PotionsAmpDurMatrix STRENGTH = new PotionBuilder()
+    public static final PotionBuilder.PotionsAmpDurMatrix STRENGTH_POTIONS = new PotionBuilder()
             .name("strength")
             .maxAmp(3)
             .maxDur(3)
             .effects(PotionBuilder.LONGER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.DAMAGE_BOOST)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
-    public static final PotionBuilder.PotionsAmpDurMatrix RESISTANCE = new PotionBuilder()
+    public static final PotionBuilder.PotionsAmpDurMatrix RESISTANCE_POTIONS = new PotionBuilder()
             .name("resistance")
             .maxAmp(3)
             .maxDur(3)
             .effects(PotionBuilder.LONGER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.DAMAGE_RESISTANCE)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
-    public static final PotionBuilder.PotionsAmpDurMatrix FIRE_RESISTANCE = new PotionBuilder()
+    public static final PotionBuilder.PotionsAmpDurMatrix FIRE_RESISTANCE_POTIONS = new PotionBuilder()
             .name("fire_resistance")
             .maxAmp(1)
             .maxDur(3)
             .effects(PotionBuilder.TEN_MINUTES_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
-    public static final PotionBuilder.PotionsAmpDurMatrix WATER_BREATHING = new PotionBuilder()
+    public static final PotionBuilder.PotionsAmpDurMatrix WATER_BREATHING_POTIONS = new PotionBuilder()
             .name("water_breathing")
             .maxAmp(1)
             .maxDur(3)
             .effects(PotionBuilder.FIVE_MINUTES_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.WATER_BREATHING)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
-    public static final PotionBuilder.PotionsAmpDurMatrix INVISIBILITY = new PotionBuilder()
+    public static final PotionBuilder.PotionsAmpDurMatrix INVISIBILITY_POTIONS = new PotionBuilder()
             .name("invisibility")
             .maxAmp(1)
             .maxDur(3)
             .effects(PotionBuilder.LONGER_DURATION_FUNCTION, () -> net.minecraft.world.effect.MobEffects.INVISIBILITY)
+            .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
+
+    public static final PotionBuilder.PotionsAmpDurMatrix SOUL_MATE_POTIONS = new PotionBuilder()
+            .name("soul_mate")
+            .maxAmp(3)
+            .maxDur(2)
+            .effects(PotionBuilder.TEN_MINUTES_DURATION_FUNCTION, MobEffects.SOUL_MATE::get)
             .build(ALL_POTION_AMPLIFICATION_DURATION_MATRICES::add);
 
     @SubscribeEvent

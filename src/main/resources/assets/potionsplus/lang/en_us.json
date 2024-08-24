@@ -218,6 +218,13 @@
   "item.minecraft.tipped_arrow.effect.shepherds_serenade": "Arrow of Shepherd's Serenade",
   "jei.potionsplus.shepherds_serenade.description": "All nearby passive mobs follow the affected player.",
 
+  "effect.potionsplus.soul_mate": "Soul Mate",
+  "item.minecraft.potion.effect.soul_mate": "Potion of Soul Mate",
+  "item.minecraft.splash_potion.effect.soul_mate": "Splash Potion of Soul Mate",
+  "item.minecraft.lingering_potion.effect.soul_mate": "Lingering Potion of Soul Mate",
+  "item.minecraft.tipped_arrow.effect.soul_mate": "Arrow of Soul Mate",
+  "jei.potionsplus.soul_mate.description": "Entities with the soul mate effect redirect a portion of healing and damage received to each other. Level 1 redirects 25%, level 2 redirects 50%, and level 3 redirects 75%.",
+
   "chat.potionsplus.acquired_ingredient_knowledge_1": "You tingle with alchemical knowledge of the %s you possess...",
   "chat.potionsplus.acquired_ingredient_knowledge_2": "The %s you possess reminds you of something wet and warm...",
   "chat.potionsplus.acquired_ingredient_knowledge_3": "The %s you possess fills you with alchemical determination.",

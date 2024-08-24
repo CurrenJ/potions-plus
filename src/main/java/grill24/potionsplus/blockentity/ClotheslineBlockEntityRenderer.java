@@ -96,7 +96,6 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
                     matrices.mulPose(orientItemToClotheslineOrientation(blockEntity.getBlockState()));
                     // Swing the item a bit :)
                     float amplitude = 15 * (1 - leftBlockEntity.getProgress(i));
-                    System.out.println(leftBlockEntity.getProgress(i));
 
                     float swing = (float) (Math.sin(ClientTickHandler.total() / 10 + i * 7) * amplitude);
                     matrices.mulPose(Vector3f.XP.rotationDegrees(swing));

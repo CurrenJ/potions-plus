@@ -46,13 +46,6 @@ public class AquiferFreezeFeature extends Feature<NoneFeatureConfiguration> {
                     }
                 }
             }
-
-            if(iceBlocksWithAirAbove > maxSoFar) {
-                maxSoFar = iceBlocksWithAirAbove;
-                System.out.println("New max: " + maxSoFar);
-            }
-
-
         }
 
         return true;
