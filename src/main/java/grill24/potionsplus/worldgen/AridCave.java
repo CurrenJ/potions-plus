@@ -84,7 +84,7 @@ public class AridCave {
         biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, ARID_CAVE_CEILING_PLACED);
 
         Music music = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_LUSH_CAVES);
-        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.UNDERGROUND).temperature(0.5F).downfall(0F).specialEffects((new BiomeSpecialEffects.Builder()).waterColor(11809282).waterFogColor(11809282).fogColor(11809282).grassColorOverride(11809282).foliageColorOverride(11809282).skyColor(0).ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(music).build()).mobSpawnSettings(mobspawnsettings$builder.build()).generationSettings(biomegenerationsettings$builder.build()).build();
+        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.UNDERGROUND).temperature(0.5F).downfall(0F).specialEffects((new BiomeSpecialEffects.Builder()).waterColor(7982818).waterFogColor(7982818).fogColor(7982818).grassColorOverride(8444864).foliageColorOverride(8444864).skyColor(0).ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(music).build()).mobSpawnSettings(mobspawnsettings$builder.build()).generationSettings(biomegenerationsettings$builder.build()).build();
     }
 
 }
