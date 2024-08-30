@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -32,6 +33,7 @@ public class FallOfTheVoidEffect extends MobEffect {
 
                 // Remove effect
                 livingEntity.removeEffect(MobEffects.FALL_OF_THE_VOID.get());
+                livingEntity.addEffect(new MobEffectInstance(net.minecraft.world.effect.MobEffects.SLOW_FALLING, 900, 0));
             }
         }
     }
