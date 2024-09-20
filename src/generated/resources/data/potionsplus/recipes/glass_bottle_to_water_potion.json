@@ -1,11 +1,12 @@
 {
   "type": "potionsplus:brewing_cauldron_recipe",
+  "category": "BREWING",
+  "experience": 0.1,
   "group": "has_potion",
   "ingredient": [
     "{Count:1b,id:\"minecraft:glass_bottle\"}"
   ],
-  "result": "{Count:1b,id:\"minecraft:potion\",tag:{Potion:\"minecraft:water\"}}",
   "processingTime": 30,
-  "experience": 0.1,
+  "result": "{Count:1b,id:\"minecraft:potion\",tag:{Potion:\"minecraft:water\"}}",
   "tier": -1
 }

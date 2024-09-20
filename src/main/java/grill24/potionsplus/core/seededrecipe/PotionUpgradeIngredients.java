@@ -2,6 +2,7 @@ package grill24.potionsplus.core.seededrecipe;
 
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.effect.MobEffect;
@@ -54,7 +55,7 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
      * @param allBasePotionIngredients A set of all base potion ingredients generated so far. Used to ensure uniqueness.
      * @param allUpgradeIngredients A set of all upgrade ingredients generated so far. Used to ensure uniqueness.
      */
-    public PotionUpgradeIngredients(Potion basePotion, int maxAmp, int maxDur, LootTable[] tieredIngredients, Random random, Set<PpIngredient> allRecipes) {
+    public PotionUpgradeIngredients(Potion basePotion, int maxAmp, int maxDur, LootTable[] tieredIngredients, RandomSource random, Set<PpIngredient> allRecipes) {
         this.basePotion = basePotion;
         this.effect = basePotion.getEffects().get(0).getEffect();
         this.upgradeAmpUpIngredients = new Ingredient[tieredIngredients.length][];

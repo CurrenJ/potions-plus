@@ -4,7 +4,7 @@ import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,7 +26,7 @@ public class ClientCommands {
                             }
                             if (player.hasPermissions(2)) {
                                 shouldRevealAllRecipes = !shouldRevealAllRecipes;
-                                context.getSource().sendSuccess(new TextComponent(shouldRevealAllRecipes ? "true" : "false"), true);
+                                context.getSource().sendSuccess(() -> Component.literal(shouldRevealAllRecipes ? "true" : "false"), true);
                                 JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
                             }
                             return 1;

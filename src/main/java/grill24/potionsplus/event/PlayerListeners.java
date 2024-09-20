@@ -24,11 +24,11 @@ public class PlayerListeners {
 
     @SubscribeEvent
     public static void onItemPickedUp(final PlayerEvent.ItemPickupEvent event) {
-        Level level = event.getPlayer().getLevel();
+        Level level = event.getEntity().level();
         if (!level.isClientSide()) {
             ItemStack stack = event.getStack();
-            UUID uuid = event.getPlayer().getUUID();
-            if (!Utility.isItemInLinkedAbyssalTrove(event.getPlayer(), stack)) {
+            UUID uuid = event.getEntity().getUUID();
+            if (!Utility.isItemInLinkedAbyssalTrove(event.getEntity(), stack)) {
 
                 PlayerBrewingKnowledge playerBrewingKnowledge = SavedData.instance.playerDataMap.getOrDefault(uuid, new PlayerBrewingKnowledge());
                 List<BrewingCauldronRecipe> recipes = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get());
@@ -36,7 +36,7 @@ public class PlayerListeners {
                     for (BrewingCauldronRecipe recipe : recipes) {
                         if (recipe.isIngredient(stack)) {
                             playerBrewingKnowledge.addIngredient(stack);
-                            PlayerBrewingKnowledge.onAcquiredNewIngredientKnowledge(level, event.getPlayer(), stack);
+                            PlayerBrewingKnowledge.onAcquiredNewIngredientKnowledge(level, event.getEntity(), stack);
                             SavedData.instance.playerDataMap.put(uuid, playerBrewingKnowledge);
                             SavedData.instance.setDirty();
                             return;

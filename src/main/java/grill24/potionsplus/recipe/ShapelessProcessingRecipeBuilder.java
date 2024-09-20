@@ -9,6 +9,7 @@ import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +26,7 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
     protected Ingredient[] ingredients;
     protected int processingTime;
     protected String group;
+    protected RecipeCategory category;
 
     protected final Advancement.Builder advancement = Advancement.Builder.advancement();
 
@@ -33,6 +35,7 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
         this.ingredients = null;
         this.processingTime = 0;
         this.group = "";
+        this.category = RecipeCategory.MISC;
     }
 
     public ShapelessProcessingRecipeBuilder(ShapelessProcessingRecipe recipe) {
@@ -40,6 +43,7 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
         this.ingredients = recipe.ingredients;
         this.processingTime = recipe.processingTime;
         this.group = recipe.group;
+        this.category = recipe.category;
     }
 
     public T result(ItemStack result) {
@@ -80,6 +84,11 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
 
     public T group(String group) {
         this.group = group;
+        return self();
+    }
+
+    public T category(RecipeCategory category) {
+        this.category = category;
         return self();
     }
 

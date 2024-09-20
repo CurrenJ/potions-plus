@@ -13,8 +13,13 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -24,6 +29,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Random;
 
@@ -66,7 +72,7 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
     }
 
     @Override
-    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         super.randomTick(blockState, serverLevel, blockPos, random);
 
         boolean active = blockState.getValue(ACTIVE);
@@ -78,7 +84,7 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
     }
 
     @Override
-    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, Random random) {
+    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource random) {
         super.animateTick(blockState, level, blockPos, random);
 
         if (blockState.getValue(ACTIVE)) {
@@ -87,7 +93,7 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
     }
 
     @Override
-    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         super.tick(blockState, serverLevel, blockPos, random);
 
         if (blockState.getValue(ACTIVE)) {
@@ -113,7 +119,7 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
             if (!entity.fireImmune()) {
                 int i = entity.getRemainingFireTicks();
                 entity.setSecondsOnFire(5);
-                boolean flag = entity.hurt(DamageSource.HOT_FLOOR, 5.0F);
+                boolean flag = entity.hurt(level.damageSources().hotFloor(), 5.0F);
                 if (!flag) {
                     entity.setRemainingFireTicks(i);
                 }
@@ -135,8 +141,9 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
     public ParticleOptions sampleParticleType(ClientLevel level, BlockState state, BlockPos pos) {
         ParticleEmitterBlock.ParticleEmitterConfiguration particleSampler = getActiveParticleConfiguration(level, pos);
 
+        // This makes sure we don't spawn particle *spawners* with the geyser block if it is attached to the particle emitter. Instead, get that spawner's particle type and spawn it like usual.
         SimpleParticleType particleType = particleSampler.sampleParticleType(level.random).get();
-        ParticleProvider<?> particleprovider = ((IParticleEngineProviders) Minecraft.getInstance().particleEngine).potions_plus$getProviders().get(particleType.getRegistryName());
+        ParticleProvider<?> particleprovider = ((IParticleEngineProviders) Minecraft.getInstance().particleEngine).potions_plus$getProviders().get(ForgeRegistries.PARTICLE_TYPES.getKey(particleType));
         if(particleprovider instanceof EmitterParticle.Provider) {
             return ((EmitterParticle.Provider) particleprovider).particleTypeSupplier.apply(level.random);
         }

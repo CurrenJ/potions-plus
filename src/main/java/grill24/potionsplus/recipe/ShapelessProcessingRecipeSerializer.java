@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import grill24.potionsplus.utility.Utility;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class ShapelessProcessingRecipeSerializer<R extends ShapelessProcessingRecipe, B extends ShapelessProcessingRecipeBuilder<R, B>> extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<R> {
+public class ShapelessProcessingRecipeSerializer<R extends ShapelessProcessingRecipe, B extends ShapelessProcessingRecipeBuilder<R, B>> implements RecipeSerializer<R> {
     protected Supplier<B> builderSupplier;
     protected final int defaultProcessingTime;
 
@@ -38,6 +39,8 @@ public class ShapelessProcessingRecipeSerializer<R extends ShapelessProcessingRe
     }
 
     public @NotNull B fromJson(B builder, @NotNull JsonObject jsonObject) {
+        RecipeCategory category = RecipeCategory.valueOf(GsonHelper.getAsString(jsonObject, "category", RecipeCategory.MISC.name()));
+
         String s = GsonHelper.getAsString(jsonObject, "group", "");
         JsonElement jsonelement = GsonHelper.isArrayNode(jsonObject, "ingredient") ? GsonHelper.getAsJsonArray(jsonObject, "ingredient") : GsonHelper.getAsJsonObject(jsonObject, "ingredient");
 
@@ -65,10 +68,12 @@ public class ShapelessProcessingRecipeSerializer<R extends ShapelessProcessingRe
 
         int processingTime = GsonHelper.getAsInt(jsonObject, "processingTime", this.defaultProcessingTime);
 
-        return builder.result(result).ingredients(ingredients).processingTime(processingTime).group(s);
+        return builder.result(result).ingredients(ingredients).processingTime(processingTime).group(s).category(category);
     }
 
     public void toJson(R recipe, JsonObject jsonObject) {
+        jsonObject.addProperty("category", recipe.category == null ? RecipeCategory.MISC.name(): recipe.category.name());
+
         if (!recipe.group.isEmpty()) {
             jsonObject.addProperty("group", recipe.group);
         }
@@ -90,6 +95,9 @@ public class ShapelessProcessingRecipeSerializer<R extends ShapelessProcessingRe
     }
 
     public B fromNetwork(B builder, FriendlyByteBuf buf) {
+        // Read category
+        RecipeCategory category = RecipeCategory.valueOf(buf.readUtf());
+
         // Read group
         String group = buf.readUtf();
 
@@ -104,10 +112,13 @@ public class ShapelessProcessingRecipeSerializer<R extends ShapelessProcessingRe
         ItemStack result = buf.readItem();
         int processingTime = buf.readVarInt();
 
-        return builder.result(result).ingredients(ingredients).processingTime(processingTime).group(group);
+        return builder.result(result).ingredients(ingredients).processingTime(processingTime).group(group).category(category);
     }
 
     public void toNetwork(FriendlyByteBuf buf, R obj) {
+        // Read category
+        buf.writeUtf(obj.category == null ? RecipeCategory.MISC.name() : obj.category.name());
+
         // Write group
         buf.writeUtf(obj.group);
 

@@ -1,7 +1,5 @@
 package grill24.potionsplus.blockentity;
 
-import com.mojang.math.Vector3d;
-import com.mojang.math.Vector3f;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.ClientCommands;
 import grill24.potionsplus.core.Items;
@@ -14,6 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3d;
+import org.joml.Vector3f;
 
 import java.util.*;
 

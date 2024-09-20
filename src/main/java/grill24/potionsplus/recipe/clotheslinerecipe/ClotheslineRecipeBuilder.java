@@ -15,7 +15,7 @@ public class ClotheslineRecipeBuilder extends ShapelessProcessingRecipeBuilder<C
 
     @Override
     protected ClotheslineRecipe build(ResourceLocation resourceLocation) {
-        return new ClotheslineRecipe(resourceLocation, group, ingredients, result, processingTime);
+        return new ClotheslineRecipe(resourceLocation, category, group, ingredients, result, processingTime);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ClotheslineRecipeBuilder extends ShapelessProcessingRecipeBuilder<C
     protected FinishedRecipe getFinishedRecipe(ResourceLocation resourceLocation) {
         return new ShapelessProcessingRecipeBuilder.Result<>(
                 resourceLocation,
-                new ResourceLocation(resourceLocation.getNamespace(), "recipes/" + this.result.getItem().getItemCategory().getRecipeFolderName() + "/" + resourceLocation.getPath()),
+                resourceLocation.withPrefix("recipes/" + this.category.getFolderName() + "/"),
                 this,
                 Recipes.CLOTHESLINE_RECIPE_SERIALIZER.get()
         );

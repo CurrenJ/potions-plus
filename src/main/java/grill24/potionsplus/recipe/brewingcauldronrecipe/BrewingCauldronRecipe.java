@@ -3,6 +3,7 @@ package grill24.potionsplus.recipe.brewingcauldronrecipe;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
 import grill24.potionsplus.utility.PUtil;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
@@ -23,13 +24,13 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
     protected final float experience;
 
     public BrewingCauldronRecipe(BrewingCauldronRecipe recipe) {
-        super(recipe.id, recipe.group, recipe.ingredients, recipe.result, recipe.processingTime);
+        super(recipe.id, recipe.category, recipe.group, recipe.ingredients, recipe.result, recipe.processingTime);
         this.tier = recipe.tier;
         this.experience = recipe.experience;
     }
 
-    public BrewingCauldronRecipe(ResourceLocation resourceLocation, String group, int tier, Ingredient[] ingredients, ItemStack itemStack, float experience, int processingTime) {
-        super(resourceLocation, group, ingredients, itemStack, processingTime);
+    public BrewingCauldronRecipe(ResourceLocation resourceLocation, RecipeCategory category, String group, int tier, Ingredient[] ingredients, ItemStack itemStack, float experience, int processingTime) {
+        super(resourceLocation, category, group, ingredients, itemStack, processingTime);
         this.tier = tier;
         this.experience = experience;
     }

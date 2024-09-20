@@ -1,22 +1,25 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.utility.ModInfo;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.concurrent.CompletableFuture;
+
 public class BlockTagProvider extends BlockTagsProvider {
-
-
-    public BlockTagProvider(DataGenerator generator, String modId, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generator, modId, existingFileHelper);
+    public BlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(output, lookupProvider, ModInfo.MOD_ID, existingFileHelper);
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(HolderLookup.Provider provider) {
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.BREWING_CAULDRON.get(), Blocks.ABYSSAL_TROVE.get(), Blocks.SANGUINE_ALTAR.get(), Blocks.PRECISION_DISPENSER.get(), Blocks.PARTICLE_EMITTER.get());
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(Blocks.ABYSSAL_TROVE.get());
         tag(BlockTags.MINEABLE_WITH_AXE).add(Blocks.CLOTHESLINE.get(), Blocks.HERBALISTS_LECTERN.get());

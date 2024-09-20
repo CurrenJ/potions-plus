@@ -4,23 +4,28 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -119,7 +124,7 @@ public class Utility {
 
     public static boolean isItemInLinkedAbyssalTrove(Player player, ItemStack stack) {
         BlockPos pos = SavedData.instance.getData(player).getPairedAbyssalTrovePos();
-        Optional<AbyssalTroveBlockEntity> abyssalTrove = player.level.getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
+        Optional<AbyssalTroveBlockEntity> abyssalTrove = player.level().getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
         return abyssalTrove.map(abyssalTroveBlockEntity -> abyssalTroveBlockEntity.getStoredIngredients().contains(PpIngredient.of(stack))).orElse(false);
     }
 
@@ -142,7 +147,19 @@ public class Utility {
     }
 
     public static SimpleSoundInstance createSoundInstance(SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, boolean looping, int delay, SoundInstance.Attenuation attenuation, double x, double y, double z, boolean relative) {
-        return new SimpleSoundInstance(soundEvent.getLocation(), soundSource, volume, pitch, looping, delay, attenuation, x, y, z, relative);
+        return new SimpleSoundInstance(
+                soundEvent.getLocation(),
+                soundSource,
+                volume,
+                pitch,
+                RandomSource.create(PotionsPlus.worldSeed),
+                looping,
+                delay,
+                attenuation,
+                x,
+                y,
+                z,
+                relative);
     }
 
     public static Point[] getPointsOnACircle(int numPoints, double radius, double centerX, double centerY) {
@@ -175,7 +192,7 @@ public class Utility {
         return origin.offset(random.nextInt(radius * 2 + 1) - radius, random.nextInt(radius * 2 + 1) - radius, random.nextInt(radius * 2 + 1) - radius);
     }
 
-    public static BlockPos randomBlockPosInBox(BlockPos origin, int xRadius, int yRadius, int zRadius, Random random) {
+    public static BlockPos randomBlockPosInBox(BlockPos origin, int xRadius, int yRadius, int zRadius, RandomSource random) {
         return origin.offset(random.nextInt(xRadius * 2 + 1) - xRadius, random.nextInt(yRadius * 2 + 1) - yRadius, random.nextInt(zRadius * 2 + 1) - zRadius);
     }
 
@@ -210,5 +227,13 @@ public class Utility {
                 level.updateNeighbourForOutputSignal(blockPos, level.getBlockState(blockPos).getBlock());
             }
         }
+    }
+
+    public static double nextGaussian(double mean, double stdDev, RandomSource randomSource) {
+        return mean + stdDev * randomSource.nextGaussian();
+    }
+
+    public static double nextDouble(double lower, double upper, RandomSource randomSource) {
+        return lower + (upper - lower) * randomSource.nextDouble();
     }
 }

@@ -13,7 +13,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.entity.living.PotionEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -43,13 +43,13 @@ public class GiantStepsEffect extends MobEffect {
 
 
         BlockPos pos = livingEntity.blockPosition();
-        if (!livingEntity.isOnGround() && livingEntity.getDeltaMovement().y < 0.0D) {
+        if (!livingEntity.onGround() && livingEntity.getDeltaMovement().y < 0.0D) {
             float stepHeight = getStepHeight(amplifier);
             BlockPos belowPos = pos;
             boolean foundGround = false;
             for (int j = 0; j <= stepHeight; j++) {
                 belowPos = pos.below(j);
-                if (!livingEntity.level.isEmptyBlock(belowPos)) {
+                if (!livingEntity.level().isEmptyBlock(belowPos)) {
                     foundGround = true;
                     break;
                 }
@@ -68,23 +68,23 @@ public class GiantStepsEffect extends MobEffect {
     }
 
     @SubscribeEvent
-    public static void onUsePotion(final PotionEvent.PotionAddedEvent potionAddedEvent) {
-        if (potionAddedEvent.getPotionEffect().getEffect() == MobEffects.GIANT_STEPS.get()) {
-            tryAddStepHeightModifier(potionAddedEvent.getEntityLiving(), potionAddedEvent.getPotionEffect().getAmplifier() + 1);
+    public static void onUsePotion(final MobEffectEvent.Added potionAddedEvent) {
+        if (potionAddedEvent.getEffectInstance().getEffect() == MobEffects.GIANT_STEPS.get()) {
+            tryAddStepHeightModifier(potionAddedEvent.getEntity(), potionAddedEvent.getEffectInstance().getAmplifier() + 1);
 
-            LivingEntity entity = potionAddedEvent.getEntityLiving();
-            entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.GIANT_STEPS.get(), entity.getSoundSource(), 1.0F, 1.0F);
+            LivingEntity entity = potionAddedEvent.getEntity();
+            entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.GIANT_STEPS.get(), entity.getSoundSource(), 1.0F, 1.0F);
         }
     }
 
     @SubscribeEvent
-    public static void onRemovePotion(final PotionEvent.PotionRemoveEvent potionExpiryEvent) {
-        tryRemoveStepHeightModifier(potionExpiryEvent.getEntityLiving(), potionExpiryEvent.getPotionEffect());
+    public static void onRemovePotion(final MobEffectEvent.Remove potionRemoveEvent) {
+        tryRemoveStepHeightModifier(potionRemoveEvent.getEntity(), potionRemoveEvent.getEffectInstance());
     }
 
     @SubscribeEvent
-    public static void onPotionExpiry(final PotionEvent.PotionExpiryEvent potionExpiryEvent) {
-        tryRemoveStepHeightModifier(potionExpiryEvent.getEntityLiving(), potionExpiryEvent.getPotionEffect());
+    public static void onPotionExpiry(final MobEffectEvent.Expired potionExpiryEvent) {
+        tryRemoveStepHeightModifier(potionExpiryEvent.getEntity(), potionExpiryEvent.getEffectInstance());
     }
 
     private static void tryAddStepHeightModifier(LivingEntity entity, int amplifier) {

@@ -161,7 +161,7 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
     @Override
     public void setItem(int slot, ItemStack stack) {
         ItemStack itemstack = this.items.get(slot);
-        boolean flag = !stack.isEmpty() && stack.sameItem(itemstack) && ItemStack.tagMatches(stack, itemstack);
+        boolean flag = !stack.isEmpty() && ItemStack.isSameItemSameTags(stack, itemstack);
         this.items.set(slot, stack);
         if (stack.getCount() > this.getMaxStackSize()) {
             stack.setCount(this.getMaxStackSize());

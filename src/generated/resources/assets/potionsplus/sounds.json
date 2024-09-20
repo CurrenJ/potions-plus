@@ -1,6 +1,5 @@
 {
   "abyssal_trove_deposit": {
-    "subtitle": "sound.potionsplus.abyssal_trove_deposit",
     "sounds": [
       "potionsplus:block/abyssal_trove_long",
       {
@@ -19,74 +18,75 @@
         "name": "potionsplus:block/abyssal_trove_short_alt1",
         "weight": 8
       }
-    ]
-  },
-  "herbalists_lectern_appear": {
-    "subtitle": "sound.potionsplus.herbalists_lectern_appear",
-    "sounds": [
-      "potionsplus:block/herbalists_lectern_appear"
-    ]
-  },
-  "herbalists_lectern_disappear": {
-    "subtitle": "sound.potionsplus.herbalists_lectern_disappear",
-    "sounds": [
-      "potionsplus:block/herbalists_lectern_disappear"
-    ]
-  },
-  "ping_0": {
-    "subtitle": "sound.potionsplus.ping_0",
-    "sounds": [
-      "potionsplus:potion/ping_0"
-    ]
-  },
-  "ping_1": {
-    "subtitle": "sound.potionsplus.ping_1",
-    "sounds": [
-      "potionsplus:potion/ping_1"
-    ]
-  },
-  "ping_2": {
-    "subtitle": "sound.potionsplus.ping_2",
-    "sounds": [
-      "potionsplus:potion/ping_2"
-    ]
-  },
-  "ping_3": {
-    "subtitle": "sound.potionsplus.ping_3",
-    "sounds": [
-      "potionsplus:potion/ping_3"
-    ]
+    ],
+    "subtitle": "sound.potionsplus.abyssal_trove_deposit"
   },
   "giant_steps": {
-    "subtitle": "sound.potionsplus.giant_steps",
     "sounds": [
       "potionsplus:potion/giant_steps"
-    ]
+    ],
+    "subtitle": "sound.potionsplus.giant_steps"
+  },
+  "herbalists_lectern_appear": {
+    "sounds": [
+      "potionsplus:block/herbalists_lectern_appear"
+    ],
+    "subtitle": "sound.potionsplus.herbalists_lectern_appear"
+  },
+  "herbalists_lectern_disappear": {
+    "sounds": [
+      "potionsplus:block/herbalists_lectern_disappear"
+    ],
+    "subtitle": "sound.potionsplus.herbalists_lectern_disappear"
+  },
+  "muted_plucks_0": {
+    "sounds": [
+      "potionsplus:block/muted_plucks_0"
+    ],
+    "subtitle": "sound.potionsplus.muted_plucks_0"
+  },
+  "muted_plucks_1": {
+    "sounds": [
+      "potionsplus:block/muted_plucks_1"
+    ],
+    "subtitle": "sound.potionsplus.muted_plucks_1"
+  },
+  "ping_0": {
+    "sounds": [
+      "potionsplus:potion/ping_0"
+    ],
+    "subtitle": "sound.potionsplus.ping_0"
+  },
+  "ping_1": {
+    "sounds": [
+      "potionsplus:potion/ping_1"
+    ],
+    "subtitle": "sound.potionsplus.ping_1"
+  },
+  "ping_2": {
+    "sounds": [
+      "potionsplus:potion/ping_2"
+    ],
+    "subtitle": "sound.potionsplus.ping_2"
+  },
+  "ping_3": {
+    "sounds": [
+      "potionsplus:potion/ping_3"
+    ],
+    "subtitle": "sound.potionsplus.ping_3"
   },
   "recipe_unlocked": {
-    "subtitle": "sound.potionsplus.recipe_unlocked",
     "sounds": [
       "potionsplus:block/recipe_unlocked_0",
       "potionsplus:block/recipe_unlocked_1",
       "potionsplus:block/recipe_unlocked_2"
-    ]
-  },
-  "muted_plucks_0": {
-    "subtitle": "sound.potionsplus.muted_plucks_0",
-    "sounds": [
-      "potionsplus:block/muted_plucks_0"
-    ]
-  },
-  "muted_plucks_1": {
-    "subtitle": "sound.potionsplus.muted_plucks_1",
-    "sounds": [
-      "potionsplus:block/muted_plucks_1"
-    ]
+    ],
+    "subtitle": "sound.potionsplus.recipe_unlocked"
   },
   "sanguine_altar_conversion": {
-    "subtitle": "sound.potionsplus.sanguine_altar_conversion",
     "sounds": [
       "potionsplus:block/conversion"
-    ]
+    ],
+    "subtitle": "sound.potionsplus.sanguine_altar_conversion"
   }
 }

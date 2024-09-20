@@ -1,7 +1,9 @@
 package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import grill24.potionsplus.utility.RUtil;
+import net.minecraft.world.item.ItemDisplayContext;
+import org.joml.Vector3f;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
 import net.minecraft.client.Minecraft;
@@ -42,13 +44,13 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
         double yOffset = sin(ticks, distance, 0.25) + 1;
 
         matrices.translate(0.5, yOffset, 0.5);
-        matrices.mulPose(Vector3f.YP.rotationDegrees((float) ticks));
+        matrices.mulPose(RUtil.rotateY((float) ticks));
 
         Optional<BrewingCauldronRecipe> activeRecipe = blockEntity.getActiveRecipe();
         if (activeRecipe.isPresent()) {
             ItemStack stack = activeRecipe.get().getResultItem();
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
-                    light, overlay, matrices, vertexConsumers, 0);
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
+                    light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
         }
         matrices.popPose();
 
@@ -87,9 +89,9 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
             }
             matrices.scale(scale, scale, scale);
 
-            matrices.mulPose(Vector3f.YP.rotationDegrees((float) (ticks * 2 + i * 360 / itemStacks.length)));
-            Minecraft.getInstance().getItemRenderer().renderStatic(itemStacks[i], ItemTransforms.TransformType.GROUND,
-                    light, overlay, matrices, vertexConsumers, 0);
+            matrices.mulPose(RUtil.rotateY((float) (ticks * 2 + i * 360 / itemStacks.length)));
+            Minecraft.getInstance().getItemRenderer().renderStatic(itemStacks[i], ItemDisplayContext.GROUND,
+                    light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
             matrices.popPose();
         }
 

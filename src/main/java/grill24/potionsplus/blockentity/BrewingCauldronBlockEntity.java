@@ -16,11 +16,11 @@ import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -36,7 +36,6 @@ import net.minecraftforge.network.PacketDistributor;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity {
@@ -84,6 +83,8 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                 .max(Comparator.comparingInt(BrewingCauldronRecipe::getProcessingTime));
 
         if(this.activeRecipe.isEmpty()) {
+            // ----- Potion MERGE Logic -----
+
             // Get all mobeffectinstances from the potions
             ItemStack[] potions = this.items.stream().filter(PUtil::isPotion).toArray(ItemStack[]::new);
 
@@ -92,26 +93,26 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
             List<MobEffectInstance> allEffects = Stream.concat(customEffects, potionEffects).toList();
 
             final ItemStack catalyst = new ItemStack(Items.DIAMOND);
-            ItemStack hasCatalyst = this.items.stream().filter(stack -> stack.sameItem(catalyst)).findFirst().orElse(ItemStack.EMPTY);
+            ItemStack hasCatalyst = this.items.stream().filter(stack -> stack.is(catalyst.getItem())).findFirst().orElse(ItemStack.EMPTY);
             if (potions.length > 1 && !hasCatalyst.isEmpty()) {
                 ItemStack potionStack = PotionUtils.setCustomEffects(new ItemStack(Items.POTION), allEffects);
 
                 if(allEffects.size() == 2) {
-                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_2_effects"));
+                    potionStack.setHoverName(Component.translatable("item.potionsplus.merged_potions_2_effects"));
                 } else if (allEffects.size() == 3) {
-                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_3_effects"));
+                    potionStack.setHoverName(Component.translatable("item.potionsplus.merged_potions_3_effects"));
                 } else if (allEffects.size() == 4) {
-                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_4_effects"));
+                    potionStack.setHoverName(Component.translatable("item.potionsplus.merged_potions_4_effects"));
                 } else if (allEffects.size() == 5) {
-                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_5_effects"));
+                    potionStack.setHoverName(Component.translatable("item.potionsplus.merged_potions_5_effects"));
                 } else if (allEffects.size() == 6) {
-                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_6_effects"));
+                    potionStack.setHoverName(Component.translatable("item.potionsplus.merged_potions_6_effects"));
                 } else if (allEffects.size() == 7) {
-                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_7_effects"));
+                    potionStack.setHoverName(Component.translatable("item.potionsplus.merged_potions_7_effects"));
                 } else if (allEffects.size() == 8) {
-                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_8_effects"));
+                    potionStack.setHoverName(Component.translatable("item.potionsplus.merged_potions_8_effects"));
                 } else {
-                    potionStack.setHoverName(new TranslatableComponent("item.potionsplus.merged_potions_max"));
+                    potionStack.setHoverName(Component.translatable("item.potionsplus.merged_potions_max"));
                 }
 
                 ItemStack[] ingredients = new ItemStack[potions.length + 1];
@@ -197,7 +198,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                     if (isNewRecipe) {
                         Player player = level.getPlayerByUUID(playerLastInteractedUuid);
                         if (player != null) {
-                            TranslatableComponent text = new TranslatableComponent("chat.potionsplus.brewing_cauldron_recipe_unlocked", result.getHoverName());
+                            MutableComponent text = Component.translatable("chat.potionsplus.brewing_cauldron_recipe_unlocked", result.getHoverName());
                             player.displayClientMessage(text, true);
                             level.playSound(null, worldPosition, Sounds.RECIPE_UNLOCKED.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                         }
@@ -220,7 +221,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
             return;
 
         for (int i = 0; i < 10; i++) {
-            level.addParticle(Particles.END_ROD_RAIN.get(), worldPosition.getX() + level.random.nextDouble(0.2, 0.8), worldPosition.getY() + 2, worldPosition.getZ() + level.random.nextDouble(0.2, 0.8), 0, 0, 0);
+            level.addParticle(Particles.END_ROD_RAIN.get(), worldPosition.getX() + level.random.nextDouble() * 0.8 + 0.2, worldPosition.getY() + 2, worldPosition.getZ() + level.random.nextDouble() * 0.8 + 0.2, 0, 0, 0);
         }
     }
 
@@ -284,9 +285,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
                 level.addParticle(
                         particle,
-                        pos.getX() + level.random.nextDouble(0.2, 0.8),
-                        pos.getY() + 0.85 + level.random.nextDouble(0.2),
-                        pos.getZ() + level.random.nextDouble(0.2, 0.8),
+                        pos.getX() + level.random.nextDouble() * 0.8 + 0.2,
+                        pos.getY() + 0.85 + level.random.nextDouble() * 0.2,
+                        pos.getZ() + level.random.nextDouble() * 0.8 + 0.2,
                         0, 0.1, 0);
             }
         }

@@ -8,7 +8,9 @@ import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipeBuilder;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
@@ -21,16 +23,25 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
-    private final ExistingFileHelper existingFileHelper;
+    public RecipeProvider(PackOutput packOutput) {
+        super(packOutput);
+    }
 
-    public RecipeProvider(DataGenerator dataGenerator, ExistingFileHelper existingFileHelper) {
-        super(dataGenerator);
-        this.existingFileHelper = existingFileHelper;
+    private void buildBrewingCauldronRecipes(Consumer<FinishedRecipe> recipeConsumer, List<BrewingCauldronRecipe> recipes) {
+        for (BrewingCauldronRecipe recipe : recipes) {
+            buildBrewingCauldronRecipe(recipeConsumer, recipe);
+        }
+    }
+
+    private void buildBrewingCauldronRecipe(Consumer<FinishedRecipe> recipeConsumer, BrewingCauldronRecipe recipe) {
+        new BrewingCauldronRecipeBuilder(recipe)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer, recipe.getId());
     }
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> recipeConsumer) {
-        ShapedRecipeBuilder.shaped(Blocks.PARTICLE_EMITTER.get())
+    protected void buildRecipes(Consumer<FinishedRecipe> recipeConsumer) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Blocks.PARTICLE_EMITTER.get())
                 .pattern("III")
                 .pattern("IXI")
                 .pattern("III")
@@ -39,7 +50,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_iron_ingot", has(net.minecraft.world.item.Items.SPORE_BLOSSOM))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(Blocks.HERBALISTS_LECTERN.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, Blocks.HERBALISTS_LECTERN.get())
                 .pattern("WWW")
                 .pattern("S S")
                 .pattern("DDD")
@@ -49,7 +60,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(Blocks.SANGUINE_ALTAR.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, Blocks.SANGUINE_ALTAR.get())
                 .pattern("AEA")
                 .pattern("ESE")
                 .pattern("AEA")
@@ -59,7 +70,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(Blocks.ABYSSAL_TROVE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, Blocks.ABYSSAL_TROVE.get())
                 .pattern("OSO")
                 .pattern("SAS")
                 .pattern("OSO")
@@ -69,13 +80,13 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer);
 
-        ShapelessRecipeBuilder.shapeless(Blocks.PRECISION_DISPENSER.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Blocks.PRECISION_DISPENSER.get())
                 .requires(net.minecraft.world.item.Items.DISPENSER)
                 .requires(net.minecraft.world.item.Items.SPYGLASS)
                 .unlockedBy("has_dispenser", has(net.minecraft.world.item.Items.DISPENSER))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(Items.WREATH.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, Items.WREATH.get())
                 .pattern("LBL")
                 .pattern("BTB")
                 .pattern("LBL")
@@ -85,7 +96,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_bone", has(net.minecraft.world.item.Items.BONE))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(Items.WREATH.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, Items.WREATH.get())
                 .pattern("BLB")
                 .pattern("LTL")
                 .pattern("BLB")
@@ -238,17 +249,5 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .processingTime(60)
                 .unlockedBy("has_redstone_rose", has(Blocks.REDSTONE_ROSE.get()))
                 .save(recipeConsumer, new ResourceLocation(ModInfo.MOD_ID, "redstone_rose_to_red_dye"));
-    }
-
-    private void buildBrewingCauldronRecipes(Consumer<FinishedRecipe> recipeConsumer, List<BrewingCauldronRecipe> recipes) {
-        for (BrewingCauldronRecipe recipe : recipes) {
-            buildBrewingCauldronRecipe(recipeConsumer, recipe);
-        }
-    }
-
-    private void buildBrewingCauldronRecipe(Consumer<FinishedRecipe> recipeConsumer, BrewingCauldronRecipe recipe) {
-        new BrewingCauldronRecipeBuilder(recipe)
-                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
-                .save(recipeConsumer, recipe.getId());
     }
 }

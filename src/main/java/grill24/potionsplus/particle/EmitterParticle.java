@@ -2,6 +2,7 @@ package grill24.potionsplus.particle;
 
 import grill24.potionsplus.block.IParticleEmitter;
 import grill24.potionsplus.utility.RUtil;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;
@@ -9,6 +10,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -18,7 +20,7 @@ import java.util.function.Function;
 
 @OnlyIn(Dist.CLIENT)
 public class EmitterParticle extends NoRenderParticle {
-    private final Function<Random, ParticleOptions> PARTICLE_TYPE_SUPPLIER;
+    private final Function<RandomSource, ParticleOptions> PARTICLE_TYPE_SUPPLIER;
     protected final int TICKS_PER_SPAWN;
     protected final int SPAWN_COUNT;
     protected final float RANGE;
@@ -27,7 +29,7 @@ public class EmitterParticle extends NoRenderParticle {
     protected final boolean GAUSSIAN_RANGE;
     protected final BlockPos SPAWN_POS;
 
-    EmitterParticle(ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, Function<Random, ParticleOptions> particleTypeSupplier, int lifetime, int ticksPerSpawn, int spawnCount, float range, Vec3 velocity, boolean shrinkWithTime, boolean gaussianRange) {
+    EmitterParticle(ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, Function<RandomSource, ParticleOptions> particleTypeSupplier, int lifetime, int ticksPerSpawn, int spawnCount, float range, Vec3 velocity, boolean shrinkWithTime, boolean gaussianRange) {
         super(clientLevel, x, y, z, xd, yd, zd);
         this.xd = xd;
         this.yd = yd;
@@ -41,7 +43,7 @@ public class EmitterParticle extends NoRenderParticle {
         this.VELOCITY = velocity;
         this.SHRINK_WITH_TIME = shrinkWithTime;
         this.GAUSSIAN_RANGE = gaussianRange;
-        this.SPAWN_POS = new BlockPos(x, y, z);
+        this.SPAWN_POS = new BlockPos((int) x, (int) y, (int) z);
     }
 
     @Override
@@ -51,7 +53,7 @@ public class EmitterParticle extends NoRenderParticle {
         spawnParticles(x, y, z, RANGE, SPAWN_COUNT, TICKS_PER_SPAWN, age, lifetime, random, VELOCITY, SHRINK_WITH_TIME, GAUSSIAN_RANGE, level, PARTICLE_TYPE_SUPPLIER);
     }
 
-    public static void spawnParticles(double x, double y, double z, float range, float spawnCount, float ticksPerSpawn, float age, float lifetime, Random random, Vec3 velocity, boolean shrinkWithTime, boolean gaussianRange, ClientLevel level, Function<Random, ParticleOptions> particleTypeSupplier) {
+    public static void spawnParticles(double x, double y, double z, float range, float spawnCount, float ticksPerSpawn, float age, float lifetime, RandomSource random, Vec3 velocity, boolean shrinkWithTime, boolean gaussianRange, ClientLevel level, Function<RandomSource, ParticleOptions> particleTypeSupplier) {
         float effectiveRange = range;
         float effectiveSpawnCount = spawnCount;
 
@@ -67,9 +69,9 @@ public class EmitterParticle extends NoRenderParticle {
                 double pY = y;
                 double pZ = z;
                 if (gaussianRange) {
-                    pX += random.nextGaussian(0, effectiveRange);
-                    pY += random.nextGaussian(0, effectiveRange);
-                    pZ += random.nextGaussian(0, effectiveRange);
+                    pX += Utility.nextGaussian(0, effectiveRange, random);
+                    pY += Utility.nextGaussian(0, effectiveRange, random);
+                    pZ += Utility.nextGaussian(0, effectiveRange, random);
                 } else {
                     pX += (random.nextDouble() * 2 - 1) * effectiveRange;
                     pY += (random.nextDouble() * 2 - 1) * effectiveRange;
@@ -89,7 +91,7 @@ public class EmitterParticle extends NoRenderParticle {
 
     @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
-        public final Function<Random, ParticleOptions> particleTypeSupplier;
+        public final Function<RandomSource, ParticleOptions> particleTypeSupplier;
         private int lifeTime = 100;
         private int ticksPerSpawn = 5;
         private int spawnCount = 2;
@@ -100,11 +102,11 @@ public class EmitterParticle extends NoRenderParticle {
         private Vec3 offset = Vec3.ZERO;
         private Vec3 velocity = Vec3.ZERO;
 
-        public Provider(Function<Random, ParticleOptions> particleTypeSupplier) {
+        public Provider(Function<RandomSource, ParticleOptions> particleTypeSupplier) {
             this.particleTypeSupplier = particleTypeSupplier;
         }
 
-        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range) {
+        public Provider(Function<RandomSource, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range) {
             this.particleTypeSupplier = particleTypeSupplier;
             this.lifeTime = lifeTime;
             this.ticksPerSpawn = ticksPerSpawn;
@@ -112,7 +114,7 @@ public class EmitterParticle extends NoRenderParticle {
             this.range = range;
         }
 
-        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range, Vec3 offset) {
+        public Provider(Function<RandomSource, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range, Vec3 offset) {
             this.particleTypeSupplier = particleTypeSupplier;
             this.lifeTime = lifeTime;
             this.ticksPerSpawn = ticksPerSpawn;
@@ -121,7 +123,7 @@ public class EmitterParticle extends NoRenderParticle {
             this.offset = offset;
         }
 
-        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range, Vec3 offset, Vec3 velocity) {
+        public Provider(Function<RandomSource, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range, Vec3 offset, Vec3 velocity) {
             this.particleTypeSupplier = particleTypeSupplier;
             this.lifeTime = lifeTime;
             this.ticksPerSpawn = ticksPerSpawn;
@@ -131,7 +133,7 @@ public class EmitterParticle extends NoRenderParticle {
             this.velocity = velocity;
         }
 
-        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range, Vec3 offset, Vec3 velocity, boolean shrinkWithTime) {
+        public Provider(Function<RandomSource, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range, Vec3 offset, Vec3 velocity, boolean shrinkWithTime) {
             this.particleTypeSupplier = particleTypeSupplier;
             this.lifeTime = lifeTime;
             this.ticksPerSpawn = ticksPerSpawn;
@@ -142,7 +144,7 @@ public class EmitterParticle extends NoRenderParticle {
             this.shrinkWithTime = shrinkWithTime;
         }
 
-        public Provider(Function<Random, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range, Vec3 offset, Vec3 velocity, boolean shrinkWithTime, boolean useGaussianRange) {
+        public Provider(Function<RandomSource, ParticleOptions> particleTypeSupplier, int lifeTime, int ticksPerSpawn, int spawnCount, float range, Vec3 offset, Vec3 velocity, boolean shrinkWithTime, boolean useGaussianRange) {
             this.particleTypeSupplier = particleTypeSupplier;
             this.lifeTime = lifeTime;
             this.ticksPerSpawn = ticksPerSpawn;

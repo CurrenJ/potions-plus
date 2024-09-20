@@ -1,8 +1,9 @@
 package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3d;
-import com.mojang.math.Vector3f;
+import net.minecraft.world.item.ItemDisplayContext;
+import org.joml.Vector3d;
+import org.joml.Vector3f;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -50,12 +51,12 @@ public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<Abys
                 position = RUtil.rotateAroundY(position, blockEntity.currentDisplayRotation + 90, new Vector3d(0.5, 0.5, 0.5));
                 matrices.translate(position.x, position.y, position.z);
 
-                matrices.mulPose(Vector3f.YP.rotationDegrees(90 - blockEntity.currentDisplayRotation));
+                matrices.mulPose(RUtil.rotateY(90 - blockEntity.currentDisplayRotation));
 
 
                 matrices.scale(scale, scale, scale);
-                Minecraft.getInstance().getItemRenderer().renderStatic(item.itemStack, ItemTransforms.TransformType.GROUND,
-                        light, overlay, matrices, vertexConsumers, 0);
+                Minecraft.getInstance().getItemRenderer().renderStatic(item.itemStack, ItemDisplayContext.GROUND,
+                        light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
                 matrices.popPose();
             }
         }

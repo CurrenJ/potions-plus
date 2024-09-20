@@ -1,13 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
-  "rewards": {
-    "recipes": [
-      "potionsplus:copper_chrysanthemum_to_orange_dye"
-    ]
-  },
   "criteria": {
     "has_copper_chrysanthemum": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -16,13 +10,14 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "potionsplus:copper_chrysanthemum_to_orange_dye"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
@@ -30,5 +25,11 @@
       "has_copper_chrysanthemum",
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "potionsplus:copper_chrysanthemum_to_orange_dye"
+    ]
+  },
+  "sends_telemetry_event": true
 }

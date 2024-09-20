@@ -7,7 +7,6 @@ import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -20,16 +19,15 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
@@ -95,7 +93,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
 
         // Register all known recipes
         if (Minecraft.getInstance().level != null) {
-            registration.addRecipes(Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()), BrewingCauldronRecipeCategory.BREWING_CAULDRON_CATEGORY);
+            registration.addRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE, Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()));
         }
     }
 
@@ -116,15 +114,12 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         Player player = Minecraft.getInstance().player;
         if (JEI_RUNTIME != null && level != null && level.isClientSide && player != null) {
             List<BrewingCauldronRecipe> brewingCauldronRecipeList = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get());
-            brewingCauldronRecipeList.forEach(recipe -> JEI_RUNTIME.getRecipeManager().hideRecipe(recipe, BrewingCauldronRecipeCategory.BREWING_CAULDRON_CATEGORY));
+            JEI_RUNTIME.getRecipeManager().hideRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE, brewingCauldronRecipeList);
 
             // Filter recipes to those that match known recipes and unhide them
             Stream<BrewingCauldronRecipe> stream = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()).stream()
                     .filter(recipe -> SavedData.instance.getData(player).knownRecipesContains(recipe.getId().toString()) || ClientCommands.shouldRevealAllRecipes);
-
-            stream.forEach(recipe -> {
-                JEI_RUNTIME.getRecipeManager().unhideRecipe(recipe, BrewingCauldronRecipeCategory.BREWING_CAULDRON_CATEGORY);
-            });
+            JEI_RUNTIME.getRecipeManager().unhideRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE, stream.toList());
         }
     }
 
@@ -134,7 +129,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(grill24.potionsplus.core.Blocks.BREWING_CAULDRON.get()), BrewingCauldronRecipeCategory.BREWING_CAULDRON_CATEGORY);
+        registration.addRecipeCatalyst(new ItemStack(grill24.potionsplus.core.Blocks.BREWING_CAULDRON.get()), BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE);
         // TODO: Add clothesline recipes
     }
 
@@ -143,7 +138,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
             String effectName = matrix.getEffectName();
             if (!effectName.isBlank()) {
                 String descriptionKey = "jei.potionsplus." + effectName + ".description";
-                MutableComponent descriptionComponent = new TranslatableComponent(descriptionKey);
+                MutableComponent descriptionComponent = Component.translatable(descriptionKey);
                 registerPotionsInfo(registration, matrix, descriptionComponent);
             }
         }
@@ -165,9 +160,9 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         ItemStack splashPotionItem = PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), potion);
         ItemStack lingeringPotionItem = PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), potion);
 
-        registration.addIngredientInfo(potionItem, VanillaTypes.ITEM, descriptionComponents);
-        registration.addIngredientInfo(splashPotionItem, VanillaTypes.ITEM, descriptionComponents);
-        registration.addIngredientInfo(lingeringPotionItem, VanillaTypes.ITEM, descriptionComponents);
+        registration.addItemStackInfo(potionItem, descriptionComponents);
+        registration.addItemStackInfo(splashPotionItem, descriptionComponents);
+        registration.addItemStackInfo(lingeringPotionItem, descriptionComponents);
     }
 
     @NotNull
@@ -177,7 +172,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
     }
 
     private static void registerDescription(IRecipeRegistration registration, ItemLike item) {
-        TranslatableComponent description = new TranslatableComponent("jei.potionsplus." + item.asItem().getRegistryName().getPath() + ".description");
-        registration.addIngredientInfo(new ItemStack(item), VanillaTypes.ITEM, description);
+        MutableComponent description = Component.translatable("jei.potionsplus." + ForgeRegistries.ITEMS.getKey(item.asItem()).getPath() + ".description");
+        registration.addItemStackInfo(new ItemStack(item), description);
     }
 }

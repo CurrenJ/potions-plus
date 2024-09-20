@@ -2,6 +2,7 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -17,7 +18,7 @@ public class Tags {
         public static final TagKey<Block> CAVE_REPLACEABLE = tag("cave_replaceable");
 
         private static TagKey<Block> tag(String id) {
-            return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(ModInfo.MOD_ID, id));
+            return TagKey.create(Registries.BLOCK, new ResourceLocation(ModInfo.MOD_ID, id));
         }
     }
 

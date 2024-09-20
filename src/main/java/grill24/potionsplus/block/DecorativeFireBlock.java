@@ -3,6 +3,7 @@ package grill24.potionsplus.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -22,11 +23,11 @@ public class DecorativeFireBlock extends FireBlock {
     }
 
     @Override
-    public void tick(BlockState p_53449_, ServerLevel p_53450_, BlockPos p_53451_, Random p_53452_) {
+    public void tick(BlockState p_221160_, ServerLevel p_221161_, BlockPos p_221162_, RandomSource p_221163_) {
         // Do nothing
     }
 
-    @Override
+        @Override
     public void entityInside(BlockState p_49260_, Level p_49261_, BlockPos p_49262_, Entity p_49263_) {
         // Do nothing
     }

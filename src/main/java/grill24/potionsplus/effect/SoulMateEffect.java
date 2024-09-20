@@ -6,17 +6,14 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.PotionEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -43,26 +40,26 @@ public class SoulMateEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        if(!entity.level.isClientSide) {
+        if(!entity.level().isClientSide) {
             addEffect(entity);
         }
     }
 
     @SubscribeEvent
     public static void onEntityHurt(final LivingHurtEvent livingHurtEvent) {
-        if (livingHurtEvent.getEntityLiving() == null || soulMates.size() < 2) {
+        if (livingHurtEvent.getEntity() == null || soulMates.size() < 2) {
             return;
         }
 
 
-        if (livingHurtEvent.getEntityLiving().hasEffect(MobEffects.SOUL_MATE.get())) {
-            int amplifier = livingHurtEvent.getEntityLiving().getEffect(MobEffects.SOUL_MATE.get()).getAmplifier();
+        if (livingHurtEvent.getEntity().hasEffect(MobEffects.SOUL_MATE.get())) {
+            int amplifier = livingHurtEvent.getEntity().getEffect(MobEffects.SOUL_MATE.get()).getAmplifier();
             float totalDamageToRedirect = livingHurtEvent.getAmount() * getPercentToRedirect(amplifier);
             float damageToRedirectPerEntity = totalDamageToRedirect / ((float) soulMates.size() - 1);
             livingHurtEvent.setAmount(livingHurtEvent.getAmount() - totalDamageToRedirect);
 
             for (int soulMate : soulMates) {
-                Entity entity = livingHurtEvent.getEntity().level.getEntity(soulMate);
+                Entity entity = livingHurtEvent.getEntity().level().getEntity(soulMate);
                 if(entity != null) {
                     entity.hurt(livingHurtEvent.getSource(), damageToRedirectPerEntity);
                 }
@@ -72,19 +69,19 @@ public class SoulMateEffect extends MobEffect {
 
     @SubscribeEvent
     public static void onEntityHeal(final LivingHealEvent livingHealEvent) {
-        if(livingHealEvent.getEntityLiving() == null || soulMates.size() < 2) {
+        if(livingHealEvent.getEntity() == null || soulMates.size() < 2) {
             return;
         }
 
 
-        if (livingHealEvent.getEntityLiving().hasEffect(MobEffects.SOUL_MATE.get())) {
-            int amplifier = livingHealEvent.getEntityLiving().getEffect(MobEffects.SOUL_MATE.get()).getAmplifier();
+        if (livingHealEvent.getEntity().hasEffect(MobEffects.SOUL_MATE.get())) {
+            int amplifier = livingHealEvent.getEntity().getEffect(MobEffects.SOUL_MATE.get()).getAmplifier();
             float totalHealToRedirect = livingHealEvent.getAmount() * getPercentToRedirect(amplifier);
             float healToRedirectPerEntity = totalHealToRedirect / ((float) soulMates.size() - 1);
             livingHealEvent.setAmount(livingHealEvent.getAmount() - totalHealToRedirect);
 
             for (int soulMate : soulMates) {
-                Entity entity = livingHealEvent.getEntity().level.getEntity(soulMate);
+                Entity entity = livingHealEvent.getEntity().level().getEntity(soulMate);
                 if(entity instanceof LivingEntity livingEntity) {
                     if (healToRedirectPerEntity <= 0) return;
                     float health = livingEntity.getHealth();
@@ -97,33 +94,33 @@ public class SoulMateEffect extends MobEffect {
     }
 
     @SubscribeEvent
-    public static void onUsePotion(final PotionEvent.PotionAddedEvent potionAddedEvent) {
-        addEffect(potionAddedEvent.getEntityLiving());
+    public static void onUsePotion(final MobEffectEvent.Added potionAddedEvent) {
+        addEffect(potionAddedEvent.getEntity());
     }
 
     @SubscribeEvent
-    public static void onRemovePotion(final PotionEvent.PotionRemoveEvent potionExpiryEvent) {
-        removeEffect(potionExpiryEvent.getEntityLiving());
+    public static void onRemovePotion(final MobEffectEvent.Expired potionRemoveEvent) {
+        removeEffect(potionRemoveEvent.getEntity());
     }
 
     @SubscribeEvent
-    public static void onPotionExpiry(final PotionEvent.PotionExpiryEvent potionExpiryEvent) {
-        removeEffect(potionExpiryEvent.getEntityLiving());
+    public static void onPotionExpiry(final MobEffectEvent.Remove potionExpiryEvent) {
+        removeEffect(potionExpiryEvent.getEntity());
     }
 
     @SubscribeEvent
     public static void onEntityDeath(final LivingDeathEvent deathEvent) {
-        removeEffect(deathEvent.getEntityLiving());
+        removeEffect(deathEvent.getEntity());
     }
 
     private static void removeEffect(LivingEntity entity) {
-        if(!entity.level.isClientSide) {
+        if(!entity.level().isClientSide) {
             soulMates.remove(entity.getId());
         }
     }
 
     private static void addEffect(LivingEntity entity) {
-        if(!entity.level.isClientSide) {
+        if(!entity.level().isClientSide) {
             soulMates.add(entity.getId());
         }
     }

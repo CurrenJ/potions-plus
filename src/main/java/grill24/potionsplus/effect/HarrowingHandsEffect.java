@@ -3,8 +3,6 @@ package grill24.potionsplus.effect;
 import grill24.potionsplus.core.potion.MobEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -12,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 
+import java.awt.*;
 import java.util.List;
 
 public class HarrowingHandsEffect extends MobEffect {
@@ -20,7 +19,7 @@ public class HarrowingHandsEffect extends MobEffect {
     }
 
     private static List<AbstractSkeleton> getNearbySkeletons(LivingEntity entity) {
-        return entity.level.getNearbyEntities(AbstractSkeleton.class, TargetingConditions.DEFAULT, entity, entity.getBoundingBox().inflate(16));
+        return entity.level().getNearbyEntities(AbstractSkeleton.class, TargetingConditions.DEFAULT, entity, entity.getBoundingBox().inflate(16));
     }
 
     @Override
@@ -42,7 +41,7 @@ public class HarrowingHandsEffect extends MobEffect {
 
     public static void applyEffect(int duration, AbstractSkeleton... skeletons) {
         for (AbstractSkeleton skeleton : skeletons) {
-            if (skeleton.level.isClientSide || skeleton.hasEffect(MobEffects.BONE_BUDDY.get()))
+            if (skeleton.level().isClientSide || skeleton.hasEffect(MobEffects.BONE_BUDDY.get()))
                 return;
 
             skeleton.addEffect(new MobEffectInstance(MobEffects.BONE_BUDDY.get(), duration, 0, false, false, true));
@@ -51,11 +50,11 @@ public class HarrowingHandsEffect extends MobEffect {
 
     @Override
     public Component getDisplayName() {
-        String name = Minecraft.getInstance().player.getName().getContents();
+        String name = Minecraft.getInstance().player.getName().getContents().toString();
         if(name.equals("Harry4657")) {
-            return new TextComponent("Harry's Harrowing Hands");
+            return Component.literal("Harry's Harrowing Hands");
         }
 
-        return new TranslatableComponent(this.getDescriptionId());
+        return super.getDisplayName();
     }
 }

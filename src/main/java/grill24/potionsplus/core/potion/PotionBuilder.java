@@ -6,12 +6,15 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.SeededPotionRecipeGenerator;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
@@ -188,13 +191,13 @@ public class PotionBuilder {
 
         public String getEffectName() {
             try {
-                return potions[0][0].get().getEffects().get(0).getEffect().getRegistryName().getPath();
+                return ForgeRegistries.MOB_EFFECTS.getKey(potions[0][0].get().getEffects().get(0).getEffect()).getPath();
             } catch (NullPointerException e) {
                 return "";
             }
         }
 
-        public List<BrewingCauldronRecipe> generateRecipes(Set<PpIngredient> allRecipes, Random random) {
+        public List<BrewingCauldronRecipe> generateRecipes(Set<PpIngredient> allRecipes, RandomSource random) {
             return potionRecipeGenerator.generateRecipes(this, allRecipes, random);
         }
     }

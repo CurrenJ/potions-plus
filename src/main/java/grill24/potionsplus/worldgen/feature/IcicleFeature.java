@@ -3,8 +3,10 @@ package grill24.potionsplus.worldgen.feature;
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.block.IcicleBlock;
 import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -21,7 +23,7 @@ public class IcicleFeature extends Feature<PointedDripstoneConfiguration> {
     public boolean place(FeaturePlaceContext<PointedDripstoneConfiguration> p_191078_) {
         LevelAccessor levelaccessor = p_191078_.level();
         BlockPos blockpos = p_191078_.origin();
-        Random random = p_191078_.random();
+        RandomSource random = p_191078_.random();
 
         if (levelaccessor.getBlockState(blockpos).isAir()) {
             BlockPos above = blockpos.above();
@@ -42,7 +44,7 @@ public class IcicleFeature extends Feature<PointedDripstoneConfiguration> {
         } else {
 //            BlockPos blockpos1 = blockpos.relative(optional.get().getOpposite());
 //            createPatchOfDripstoneBlocks(levelaccessor, random, blockpos1, pointeddripstoneconfiguration);
-            int i = (int) Math.round(random.nextGaussian(3.0D, 1.5D));
+            int i = (int) Math.round(Utility.nextGaussian(3.0D, 1.5D, random));
 
 
             IcicleUtils.growPointedIcicle(levelaccessor, blockpos, optional.get(), i, false);
@@ -50,7 +52,7 @@ public class IcicleFeature extends Feature<PointedDripstoneConfiguration> {
         }
     }
 
-    private static Optional<Direction> getTipDirection(LevelAccessor p_191069_, BlockPos p_191070_, Random p_191071_) {
+    private static Optional<Direction> getTipDirection(LevelAccessor p_191069_, BlockPos p_191070_, RandomSource p_191071_) {
         boolean flag = IcicleUtils.isIcicleBase(p_191069_.getBlockState(p_191070_.above()));
         boolean flag1 = IcicleUtils.isIcicleBase(p_191069_.getBlockState(p_191070_.below()));
         if (flag && flag1) {
@@ -62,7 +64,7 @@ public class IcicleFeature extends Feature<PointedDripstoneConfiguration> {
         }
     }
 
-    private static void createPatchOfDripstoneBlocks(LevelAccessor p_191073_, Random p_191074_, BlockPos p_191075_, PointedDripstoneConfiguration p_191076_) {
+    private static void createPatchOfDripstoneBlocks(LevelAccessor p_191073_, RandomSource p_191074_, BlockPos p_191075_, PointedDripstoneConfiguration p_191076_) {
         IcicleUtils.placeIcicleBlockIfPossible(p_191073_, p_191075_);
 
         for(Direction direction : Direction.Plane.HORIZONTAL) {

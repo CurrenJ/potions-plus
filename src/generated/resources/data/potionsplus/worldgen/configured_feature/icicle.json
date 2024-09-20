@@ -1,0 +1,9 @@
+{
+  "type": "potionsplus:icicle",
+  "config": {
+    "chance_of_directional_spread": 0.8,
+    "chance_of_spread_radius2": 0.7,
+    "chance_of_spread_radius3": 0.7,
+    "chance_of_taller_dripstone": 0.85
+  }
+}

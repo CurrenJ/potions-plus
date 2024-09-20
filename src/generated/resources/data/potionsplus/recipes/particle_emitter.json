@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "III",
-    "IXI",
-    "III"
-  ],
+  "category": "redstone",
   "key": {
     "I": {
       "item": "minecraft:iron_ingot"
@@ -13,7 +9,13 @@
       "item": "minecraft:spore_blossom"
     }
   },
+  "pattern": [
+    "III",
+    "IXI",
+    "III"
+  ],
   "result": {
     "item": "potionsplus:particle_emitter"
-  }
+  },
+  "show_notification": true
 }

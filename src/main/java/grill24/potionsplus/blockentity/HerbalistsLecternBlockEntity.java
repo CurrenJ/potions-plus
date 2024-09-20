@@ -1,9 +1,11 @@
 package grill24.potionsplus.blockentity;
 
 import com.google.common.primitives.Booleans;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3d;
-import com.mojang.math.Vector3f;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.joml.Quaternionf;
+import org.joml.Vector3d;
+import org.joml.Vector3f;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.Recipes;
@@ -51,7 +53,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
         public boolean[] isAmpUpgrade;
         public boolean[] isDurationUpgrade;
         int ingredientTier = -1;
-        Quaternion ingredientTierNumeralsRotation = Vector3f.XP.rotationDegrees(0);
+        Quaternionf ingredientTierNumeralsRotation = new Quaternionf().identity();
 
         public RendererData() {
             itemStacksToDisplay = new ItemStack[0];
@@ -63,11 +65,11 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 List<BrewingCauldronRecipe> allValidRecipes = new ArrayList<>(herbalistsLecternBlockEntity.level.getRecipeManager().getAllRecipesFor(
                                 Recipes.BREWING_CAULDRON_RECIPE.get()).stream()
                         .filter(recipe -> recipe.isIngredient(inputStack)).toList());
-                List<ItemStack> allShownItems = new ArrayList<>(allValidRecipes.stream().map(BrewingCauldronRecipe::getResultItem).toList());
+                List<PpIngredient> allShownItems = new ArrayList<>(allValidRecipes.stream().map(recipe -> PpIngredient.of(recipe.getResultItem())).toList());
 
                 Set<MobEffect> uniquePotionTypes = new HashSet<>();
-                List<ItemStack> itemsToRemove = new ArrayList<>();
-                List<ItemStack> potionIconItemsToAdd = new ArrayList<>();
+                List<PpIngredient> itemsToRemove = new ArrayList<>();
+                List<PpIngredient> potionIconItemsToAdd = new ArrayList<>();
                 List<Boolean> isAmpUpgrade = new ArrayList<>();
                 List<Boolean> isDurationUpgrade = new ArrayList<>();
 
@@ -77,17 +79,19 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                     if (PUtil.isPotion(outputStack)) {
                         Potion outputPotion = PotionUtils.getPotion(outputStack);
                         if (HIDDEN_POTIONS.contains(outputPotion)) {
-                            itemsToRemove.add(outputStack);
+                            itemsToRemove.add(PpIngredient.of(recipe.getResultItem()));
                         }
 
                         List<MobEffectInstance> mobEffects = PotionUtils.getPotion(outputStack).getEffects();
                         if (!mobEffects.isEmpty()) {
                             MobEffect mobEffectType = mobEffects.get(0).getEffect();
-                            if (!uniquePotionTypes.contains(mobEffectType) && MobEffects.POTION_ICON_INDEX_MAP.get().containsKey(mobEffectType.getRegistryName())) {
+                            ResourceLocation mobEffectTypeRegistryName = ForgeRegistries.MOB_EFFECTS.getKey(mobEffectType);
+                            if (!uniquePotionTypes.contains(mobEffectType) && MobEffects.POTION_ICON_INDEX_MAP.get().containsKey(mobEffectTypeRegistryName)) {
                                 uniquePotionTypes.add(mobEffectType);
                                 isAmpUpgrade.add(false);
                                 isDurationUpgrade.add(false);
-                                potionIconItemsToAdd.add(new ItemStack(Items.POTION_EFFECT_ICON.get(), MobEffects.POTION_ICON_INDEX_MAP.get().get(mobEffectType.getRegistryName())));
+                                // TODO: Move all potion icon / generic icon to a separate class - encapsulate this itemstack creation as utility
+                                potionIconItemsToAdd.add(PpIngredient.of(new ItemStack(Items.POTION_EFFECT_ICON.get(), MobEffects.POTION_ICON_INDEX_MAP.get().get(mobEffectTypeRegistryName))));
                             }
 
                             if (uniquePotionTypes.contains(mobEffectType)) {
@@ -97,7 +101,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                                 if (recipe.isDurationUpgrade()) {
                                     isDurationUpgrade.set(potionIconItemsToAdd.size() - 1, true);
                                 }
-                                itemsToRemove.add(outputStack);
+                                itemsToRemove.add(PpIngredient.of(recipe.getResultItem()));
                             }
                         }
                     }
@@ -115,7 +119,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 isDurationUpgrade.addAll(0, allShownItems.stream().map(stack -> false).toList());
                 allShownItems.addAll(potionIconItemsToAdd);
 
-                itemStacksToDisplay = allShownItems.toArray(new ItemStack[0]);
+                itemStacksToDisplay = allShownItems.stream().map(PpIngredient::getItemStack).toArray(ItemStack[]::new);
                 this.isAmpUpgrade = Booleans.toArray(isAmpUpgrade);
                 this.isDurationUpgrade = Booleans.toArray(isDurationUpgrade);
             } else {
@@ -207,7 +211,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
 
             if (hasEligibleIngredient) {
                 if (level.random.nextInt(12) == 0)
-                    player.level.addParticle(ParticleTypes.END_ROD, pos.getX() + 0.5 + level.getRandom().nextDouble(-0.5, 0.5), pos.getY() + 1.25, pos.getZ() + 0.5 + level.getRandom().nextDouble(-0.5, 0.5), 0, 0, 0);
+                    player.level().addParticle(ParticleTypes.END_ROD, pos.getX() + 0.5 + level.getRandom().nextDouble() - 0.5, pos.getY() + 1.25, pos.getZ() + 0.5 + level.getRandom().nextDouble() - 0.5, 0, 0, 0);
             }
         }
     }

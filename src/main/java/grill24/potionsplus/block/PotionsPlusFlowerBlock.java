@@ -3,6 +3,7 @@ package grill24.potionsplus.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -39,7 +40,7 @@ public class PotionsPlusFlowerBlock extends FlowerBlock {
     }
 
     @Override
-    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         super.randomTick(blockState, serverLevel, blockPos, random);
 
         // spawn particles

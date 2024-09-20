@@ -1,8 +1,8 @@
 package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3d;
-import com.mojang.math.Vector3f;
+import org.joml.Vector3d;
+import org.joml.Vector3f;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.seededrecipe.TreeNode;
 import grill24.potionsplus.utility.ClientTickHandler;

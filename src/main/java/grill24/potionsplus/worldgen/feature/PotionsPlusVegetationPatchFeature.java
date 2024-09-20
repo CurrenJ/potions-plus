@@ -3,6 +3,7 @@ package grill24.potionsplus.worldgen.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -14,27 +15,28 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegetationPatchConfiguration> {
-    private static final Map<Block, Map<Block, BlockState>> oreReplacements = new HashMap<>();
+    private static final Map<Block, Map<Block, Supplier<BlockState>>> oreReplacements = new HashMap<>();
     static {
         var sandMap = oreReplacements.computeIfAbsent(Blocks.SAND, block -> new HashMap<>());
-        sandMap.put(Blocks.COAL_ORE, grill24.potionsplus.core.Blocks.SANDY_COAL_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_COAL_ORE, grill24.potionsplus.core.Blocks.SANDY_COAL_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.IRON_ORE, grill24.potionsplus.core.Blocks.SANDY_IRON_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_IRON_ORE, grill24.potionsplus.core.Blocks.SANDY_IRON_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.COPPER_ORE, grill24.potionsplus.core.Blocks.SANDY_COPPER_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_COPPER_ORE, grill24.potionsplus.core.Blocks.SANDY_COPPER_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.GOLD_ORE, grill24.potionsplus.core.Blocks.SANDY_GOLD_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_GOLD_ORE, grill24.potionsplus.core.Blocks.SANDY_GOLD_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.DIAMOND_ORE, grill24.potionsplus.core.Blocks.SANDY_DIAMOND_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_DIAMOND_ORE, grill24.potionsplus.core.Blocks.SANDY_DIAMOND_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.EMERALD_ORE, grill24.potionsplus.core.Blocks.SANDY_EMERALD_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_EMERALD_ORE, grill24.potionsplus.core.Blocks.SANDY_EMERALD_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.LAPIS_ORE, grill24.potionsplus.core.Blocks.SANDY_LAPIS_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_LAPIS_ORE, grill24.potionsplus.core.Blocks.SANDY_LAPIS_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.REDSTONE_ORE, grill24.potionsplus.core.Blocks.SANDY_REDSTONE_ORE.get().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_REDSTONE_ORE, grill24.potionsplus.core.Blocks.SANDY_REDSTONE_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.COAL_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_COAL_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.DEEPSLATE_COAL_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_COAL_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.IRON_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_IRON_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.DEEPSLATE_IRON_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_IRON_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.COPPER_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_COPPER_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.DEEPSLATE_COPPER_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_COPPER_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.GOLD_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_GOLD_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.DEEPSLATE_GOLD_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_GOLD_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.DIAMOND_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_DIAMOND_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.DEEPSLATE_DIAMOND_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_DIAMOND_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.EMERALD_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_EMERALD_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.DEEPSLATE_EMERALD_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_EMERALD_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.LAPIS_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_LAPIS_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.DEEPSLATE_LAPIS_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_LAPIS_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.REDSTONE_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_REDSTONE_ORE.get().defaultBlockState());
+        sandMap.put(Blocks.DEEPSLATE_REDSTONE_ORE, () -> grill24.potionsplus.core.Blocks.SANDY_REDSTONE_ORE.get().defaultBlockState());
     }
 
     public PotionsPlusVegetationPatchFeature(Codec<PotionsPlusVegetationPatchConfiguration> codec) {
@@ -44,7 +46,7 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
     public boolean place(FeaturePlaceContext<PotionsPlusVegetationPatchConfiguration> p_160612_) {
         WorldGenLevel worldgenlevel = p_160612_.level();
         PotionsPlusVegetationPatchConfiguration vegetationpatchconfiguration = p_160612_.config();
-        Random random = p_160612_.random();
+        RandomSource random = p_160612_.random();
         BlockPos blockpos = p_160612_.origin();
         Predicate<BlockState> predicate = (p_204782_) -> {
             return p_204782_.is(vegetationpatchconfiguration.replaceable);
@@ -56,7 +58,7 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
         return !set.isEmpty();
     }
 
-    protected Set<BlockPos> placeGroundPatch(WorldGenLevel p_160597_, PotionsPlusVegetationPatchConfiguration p_160598_, Random p_160599_, BlockPos p_160600_, Predicate<BlockState> p_160601_, int p_160602_, int p_160603_) {
+    protected Set<BlockPos> placeGroundPatch(WorldGenLevel p_160597_, PotionsPlusVegetationPatchConfiguration p_160598_, RandomSource p_160599_, BlockPos p_160600_, Predicate<BlockState> p_160601_, int p_160602_, int p_160603_) {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = p_160600_.mutable();
         BlockPos.MutableBlockPos blockpos$mutableblockpos1 = blockpos$mutableblockpos.mutable();
         Direction direction = p_160598_.surface.getDirection();
@@ -101,7 +103,7 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
         return set;
     }
 
-    protected void distributeVegetation(FeaturePlaceContext<PotionsPlusVegetationPatchConfiguration> p_160614_, WorldGenLevel p_160615_, PotionsPlusVegetationPatchConfiguration p_160616_, Random p_160617_, Set<BlockPos> p_160618_, int p_160619_, int p_160620_) {
+    protected void distributeVegetation(FeaturePlaceContext<PotionsPlusVegetationPatchConfiguration> p_160614_, WorldGenLevel p_160615_, PotionsPlusVegetationPatchConfiguration p_160616_, RandomSource p_160617_, Set<BlockPos> p_160618_, int p_160619_, int p_160620_) {
         for(BlockPos blockpos : p_160618_) {
             if (p_160616_.vegetationChance > 0.0F && p_160617_.nextFloat() < p_160616_.vegetationChance) {
                 this.placeVegetation(p_160615_, p_160616_, p_160614_.chunkGenerator(), p_160617_, blockpos);
@@ -110,11 +112,11 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
 
     }
 
-    protected boolean placeVegetation(WorldGenLevel p_160592_, PotionsPlusVegetationPatchConfiguration p_160593_, ChunkGenerator p_160594_, Random p_160595_, BlockPos p_160596_) {
+    protected boolean placeVegetation(WorldGenLevel p_160592_, PotionsPlusVegetationPatchConfiguration p_160593_, ChunkGenerator p_160594_, RandomSource p_160595_, BlockPos p_160596_) {
         return p_160593_.vegetationFeature.value().place(p_160592_, p_160594_, p_160595_, p_160596_.relative(p_160593_.surface.getDirection().getOpposite()));
     }
 
-    protected boolean placeGround(WorldGenLevel p_160605_, PotionsPlusVegetationPatchConfiguration p_160606_, Predicate<BlockState> p_160607_, Random p_160608_, BlockPos.MutableBlockPos p_160609_, int p_160610_) {
+    protected boolean placeGround(WorldGenLevel p_160605_, PotionsPlusVegetationPatchConfiguration p_160606_, Predicate<BlockState> p_160607_, RandomSource p_160608_, BlockPos.MutableBlockPos p_160609_, int p_160610_) {
         for(int i = 0; i < p_160610_; ++i) {
             BlockState blockstate = p_160606_.groundState.getState(p_160608_, p_160609_);
             BlockState blockstate1 = p_160605_.getBlockState(p_160609_);
@@ -131,7 +133,7 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
                 if (oreReplacements.containsKey(oreBaseBlock)) {
                     var replacementMap = oreReplacements.get(oreBaseBlock);
                     if (replacementMap.containsKey(blockstate1.getBlock())) {
-                        blockstate = replacementMap.get(blockstate1.getBlock());
+                        blockstate = replacementMap.get(blockstate1.getBlock()).get();
                     }
                 }
 

@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -87,7 +88,7 @@ public class ParticleEmitterBlock extends Block {
                     if (previousParticleIntensity < newParticleIntensity) {
                         level.playSound(null, blockPos, SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1.0F, 1.0F);
                     } else {
-                        level.playSound(null, blockPos, SoundEvents.RESPAWN_ANCHOR_DEPLETE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        level.playSound(null, blockPos, SoundEvents.RESPAWN_ANCHOR_DEPLETE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                     }
 
                     if (!player.getAbilities().instabuild) {
@@ -114,7 +115,7 @@ public class ParticleEmitterBlock extends Block {
      * @param random
      */
     @Override
-    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, Random random) {
+    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource random) {
         int i = blockPos.getX();
         int j = blockPos.getY();
         int k = blockPos.getZ();
@@ -156,7 +157,7 @@ public class ParticleEmitterBlock extends Block {
     }
 
     @Override
-    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         if (blockState.getValue(ENABLED) && !serverLevel.hasNeighborSignal(blockPos)) {
             serverLevel.setBlock(blockPos, blockState.cycle(ENABLED), 2);
         }
@@ -191,7 +192,7 @@ public class ParticleEmitterBlock extends Block {
             this.isEmitter = isEmitter;
         }
 
-        public RegistryObject<SimpleParticleType> sampleParticleType(Random random) {
+        public RegistryObject<SimpleParticleType> sampleParticleType(RandomSource random) {
             int totalWeight = 0;
             for (WeightedParticleType weightedParticleType : weightedParticleTypes) {
                 totalWeight += weightedParticleType.weight;

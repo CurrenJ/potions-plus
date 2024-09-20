@@ -7,7 +7,7 @@ import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
@@ -15,14 +15,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 
+import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
+import static net.minecraft.data.models.model.TextureMapping.getBlockTexture;
 import static grill24.potionsplus.core.Items.DYNAMIC_ICON_INDEX_PROPERTY_NAME;
 
 public class BlockStateProvider extends net.minecraftforge.client.model.generators.BlockStateProvider {
-    public BlockStateProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
-        super(gen, modid, exFileHelper);
+    public BlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
+        super(output, ModInfo.MOD_ID, exFileHelper);
     }
 
     @Override
@@ -55,7 +58,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         registerCubeAll(Blocks.UNSTABLE_BLACKSTONE.get(), new ResourceLocation("block/blackstone"));
         registerCubeAll(Blocks.UNSTABLE_MOLTEN_BLACKSTONE.get());
         registerFaceAttachedHorizontalDirectionalBlock(Blocks.LAVA_GEYSER.get());
-        registerItemFromParent(Blocks.LAVA_GEYSER.get().asItem(), block(Blocks.LAVA_GEYSER.get().getRegistryName()));
+        registerItemFromParent(Blocks.LAVA_GEYSER.get().asItem(), block(ForgeRegistries.BLOCKS.getKey(Blocks.LAVA_GEYSER.get())));
         registerItem(Blocks.DECORATIVE_FIRE.get().asItem(), mcLoc("block/fire_0"));
 
         registerCubeAll(Blocks.SANDY_COPPER_ORE.get());
@@ -97,38 +100,40 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     }
 
     private void registerCubeAll(Block block) {
-        ResourceLocation blockTextureLocation = new ResourceLocation(ModInfo.MOD_ID, "block/" + Objects.requireNonNull(block.getRegistryName()).getPath());
-        models().cubeAll(Objects.requireNonNull(block.getRegistryName()).getPath(), blockTextureLocation);
+        ResourceLocation modelLocation = getModelLocation(block);
+        models().cubeAll(modelLocation.getPath(), modelLocation);
         getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
-                .modelFile(models().getExistingFile(block.getRegistryName()))
+                .modelFile(models().getExistingFile(modelLocation))
                 .build());
-        simpleBlockItem(block, models().getExistingFile(block.getRegistryName()));
+        simpleBlockItem(block, models().getExistingFile(modelLocation));
     }
 
     private void registerCubeAll(Block block, ResourceLocation texture) {
-        models().cubeAll(Objects.requireNonNull(block.getRegistryName()).getPath(), texture);
+        ResourceLocation modelLocation = getModelLocation(block);
+        models().cubeAll(Objects.requireNonNull(modelLocation).getPath(), texture);
         getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
-                .modelFile(models().getExistingFile(block.getRegistryName()))
+                .modelFile(models().getExistingFile(modelLocation))
                 .build());
-        simpleBlockItem(block, models().getExistingFile(block.getRegistryName()));
+        simpleBlockItem(block, models().getExistingFile(modelLocation));
     }
 
-    private void registerPotionEffectIcons(MobEffect... mobEffects) {
+    private void registerPotionEffectIcons() {
         ItemModelBuilder imb = null;
         for (MobEffect mobEffect : PUtil.getAllMobEffects()) {
+            ResourceLocation registryName = ForgeRegistries.MOB_EFFECTS.getKey(mobEffect);
             if (imb == null) {
                 imb = itemModels().getBuilder("potion_effect_icon")
                         .parent(models().getExistingFile(mcLoc("item/generated")))
-                        .texture("layer0", mobEffect.getRegistryName().getNamespace() + ":mob_effect/" + mobEffect.getRegistryName().getPath());
+                        .texture("layer0", registryName.getNamespace() + ":mob_effect/" + registryName.getPath());
             }
 
             // Each potion effect icon is a separate item model
             // That is referenced in the overrides of the item we make in "imb"
-            String name = "potion_effect_icon_" + Objects.requireNonNull(mobEffect.getRegistryName()).getPath();
-            itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(mobEffect.getRegistryName().getNamespace() + ":mob_effect/" + mobEffect.getRegistryName().getPath()));
+            String name = "potion_effect_icon_" + registryName.getPath();
+            itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(registryName.getNamespace() + ":mob_effect/" + registryName.getPath()));
 
             // Add override to main model
-            float f = (grill24.potionsplus.core.potion.MobEffects.POTION_ICON_INDEX_MAP.get().get(mobEffect.getRegistryName()) - 1) / 64F;
+            float f = (grill24.potionsplus.core.potion.MobEffects.POTION_ICON_INDEX_MAP.get().get(registryName) - 1) / 64F;
             imb = imb.override().predicate(new ResourceLocation(ModInfo.MOD_ID, DYNAMIC_ICON_INDEX_PROPERTY_NAME), f).model(itemModels().getExistingFile(new ResourceLocation(ModInfo.MOD_ID, name))).end();
         }
     }
@@ -161,25 +166,29 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     }
 
     private void registerItem(Item item) {
-        itemModels().getBuilder(Objects.requireNonNull(item.getRegistryName()).getPath())
+        ResourceLocation modelLocation = getModelLocation(item);
+        itemModels().getBuilder(modelLocation.getPath())
                 .parent(models().getExistingFile(mcLoc("item/generated")))
-                .texture("layer0", "item/" + item.getRegistryName().getPath());
+                .texture("layer0", modelLocation);
     }
 
     private void registerItem(Item item, String... texturePath) {
-        itemModels().getBuilder(Objects.requireNonNull(item.getRegistryName()).getPath())
+        ResourceLocation resourceLocation = ForgeRegistries.ITEMS.getKey(item);
+        itemModels().getBuilder(resourceLocation.getPath())
                 .parent(models().getExistingFile(mcLoc("item/generated")))
-                .texture("layer0", String.join("/", texturePath) + "/" + item.getRegistryName().getPath());
+                .texture("layer0", String.join("/", texturePath) + "/" + resourceLocation.getPath());
     }
 
     private void registerItem(Item item, ResourceLocation texture) {
-        itemModels().getBuilder(Objects.requireNonNull(item.getRegistryName()).getPath())
+        ResourceLocation modelLocation = getModelLocation(item);
+        itemModels().getBuilder(modelLocation.getPath())
                 .parent(models().getExistingFile(mcLoc("item/generated")))
                 .texture("layer0", texture);
     }
 
     private void registerItemFromParent(Item item, ResourceLocation parent) {
-        itemModels().getBuilder(Objects.requireNonNull(item.getRegistryName()).getPath())
+        ResourceLocation modelLocation = getModelLocation(item);
+        itemModels().getBuilder(modelLocation.getPath())
                 .parent(models().getExistingFile(parent));
     }
 
@@ -206,7 +215,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 .modelFile(models().getExistingFile(mcLoc("oak_fence_post")))
                 .addModel();
 
-        itemModels().getBuilder(Objects.requireNonNull(Blocks.CLOTHESLINE.get().getRegistryName()).getPath())
+        itemModels().getBuilder(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(Blocks.CLOTHESLINE.get())).getPath())
                 .parent(models().getExistingFile(mcLoc("block/oak_fence_post")));
     }
 
@@ -226,7 +235,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 default -> 0;
             };
             return ConfiguredModel.builder()
-                    .modelFile(models().getExistingFile(block.getRegistryName()))
+                    .modelFile(models().getExistingFile(ForgeRegistries.BLOCKS.getKey(block)))
                     .rotationY(yRot)
                     .rotationX(xRot)
                     .uvLock(true)
@@ -235,7 +244,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     }
 
     private void registerHorizontalDirectionalBlock(Block block) {
-        registerHorizontalDirectionalBlock(block, block.getRegistryName());
+        registerHorizontalDirectionalBlock(block, ForgeRegistries.BLOCKS.getKey(block));
     }
 
     private void registerHorizontalDirectionalBlock(Block block, ResourceLocation model) {
@@ -255,16 +264,16 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     }
 
     private void registerFlowerBlock(Block block, String texture) {
-        models().withExistingParent(Objects.requireNonNull(block.getRegistryName()).getPath(), mcLoc("block/cross"))
+        models().withExistingParent(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath(), mcLoc("block/cross"))
                 .texture("cross", texture);
 
         getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
-                .modelFile(models().getExistingFile(block.getRegistryName()))
+                .modelFile(models().getExistingFile(ForgeRegistries.BLOCKS.getKey(block)))
                 .build());
     }
 
     private void registerFlowerBlock(Block block) {
-        registerFlowerBlock(block, "block/" + Objects.requireNonNull(block.getRegistryName()).getPath());
+        registerFlowerBlock(block, "block/" + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath());
     }
 
     private void registerBlockWithModel(Block block, ResourceLocation resourceLocation) {
@@ -274,20 +283,20 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     }
 
     private void registerBlockWithModel(Block block) {
-        registerBlockWithModel(block, block.getRegistryName());
+        registerBlockWithModel(block, ForgeRegistries.BLOCKS.getKey(block));
     }
 
     private void fromParent(Block block, Block parent, boolean doBlockModels, boolean doItemModels, boolean doBlockStates) {
         if (doBlockModels) {
-            models().withExistingParent(Objects.requireNonNull(block.getRegistryName()).getPath(), mcLoc(Objects.requireNonNull(parent.getRegistryName()).getPath()));
+            models().withExistingParent(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath(), mcLoc(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(parent)).getPath()));
         }
         if (doItemModels) {
-            itemModels().withExistingParent(Objects.requireNonNull(block.getRegistryName()).getPath(), mcLoc(Objects.requireNonNull(parent.getRegistryName()).getPath()));
+            itemModels().withExistingParent(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath(), mcLoc(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(parent)).getPath()));
         }
         if (doBlockStates) {
             getVariantBuilder(block).forAllStates(state -> {
                 return ConfiguredModel.builder()
-                        .modelFile(models().getExistingFile(mcLoc(Objects.requireNonNull(parent.getRegistryName()).getPath())))
+                        .modelFile(models().getExistingFile(mcLoc(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(parent)).getPath())))
                         .build();
             });
         }
@@ -298,7 +307,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     }
 
     private ResourceLocation mcBlock(Block block) {
-        return mcLoc(Objects.requireNonNull(block.getRegistryName()).getPath());
+        return mcLoc(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath());
     }
 
     private ResourceLocation block(ResourceLocation resourceLocation) {

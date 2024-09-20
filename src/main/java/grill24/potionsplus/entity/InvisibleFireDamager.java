@@ -39,13 +39,13 @@ public class InvisibleFireDamager extends Fireball {
     @Override
    protected void onHitEntity(EntityHitResult p_37386_) {
       super.onHitEntity(p_37386_);
-      if (!this.level.isClientSide) {
+      if (!this.level().isClientSide) {
          Entity entity = p_37386_.getEntity();
          if (!entity.fireImmune()) {
             Entity entity1 = this.getOwner();
             int i = entity.getRemainingFireTicks();
             entity.setSecondsOnFire(5);
-            boolean flag = entity.hurt(DamageSource.fireball(this, entity1), 5.0F);
+            boolean flag = entity.hurt(entity.damageSources().fireball(this, entity1), 5.0F);
             if (!flag) {
                entity.setRemainingFireTicks(i);
             } else if (entity1 instanceof LivingEntity) {
@@ -59,12 +59,12 @@ public class InvisibleFireDamager extends Fireball {
    @Override
    protected void onHitBlock(BlockHitResult p_37384_) {
       super.onHitBlock(p_37384_);
-      if (!this.level.isClientSide) {
+      if (!this.level().isClientSide) {
          Entity entity = this.getOwner();
-         if (!(entity instanceof Mob) || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+         if (!(entity instanceof Mob) || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this)) {
             BlockPos blockpos = p_37384_.getBlockPos().relative(p_37384_.getDirection());
-            if (this.level.isEmptyBlock(blockpos)) {
-               this.level.setBlockAndUpdate(blockpos, BaseFireBlock.getState(this.level, blockpos));
+            if (this.level().isEmptyBlock(blockpos)) {
+               this.level().setBlockAndUpdate(blockpos, BaseFireBlock.getState(this.level(), blockpos));
             }
          }
 
@@ -74,7 +74,7 @@ public class InvisibleFireDamager extends Fireball {
    @Override
    protected void onHit(HitResult p_37388_) {
       super.onHit(p_37388_);
-      if (!this.level.isClientSide) {
+      if (!this.level().isClientSide) {
          this.discard();
       }
 

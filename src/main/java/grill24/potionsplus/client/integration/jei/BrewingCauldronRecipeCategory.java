@@ -1,6 +1,5 @@
 package grill24.potionsplus.client.integration.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -13,12 +12,14 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -26,6 +27,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCauldronRecipe> {
+    public static final RecipeType<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE_TYPE = RecipeType.create(ModInfo.MOD_ID, "brewing_cauldron_recipe", BrewingCauldronRecipe.class);
+
     private final IDrawable background;
     private final IDrawable icon;
     public static final ResourceLocation BREWING_CAULDRON_CATEGORY = new ResourceLocation(ModInfo.MOD_ID, "brewing_cauldron");
@@ -43,22 +46,17 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     public BrewingCauldronRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.drawableBuilder(RECIPE_GUI, 0, 0, 128, 62)
                 .build();
-        icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(Blocks.BREWING_CAULDRON.get()));
+        icon = guiHelper.createDrawableItemStack(new ItemStack(Blocks.BREWING_CAULDRON.get()));
     }
 
     @Override
-    public @NotNull ResourceLocation getUid() {
-        return BREWING_CAULDRON_CATEGORY;
-    }
-
-    @Override
-    public @NotNull Class<? extends BrewingCauldronRecipe> getRecipeClass() {
-        return BrewingCauldronRecipe.class;
+    public RecipeType<BrewingCauldronRecipe> getRecipeType() {
+        return BREWING_CAULDRON_RECIPE_TYPE;
     }
 
     @Override
     public @NotNull Component getTitle() {
-        return new TranslatableComponent("block.potionsplus.brewing_cauldron");
+        return Component.translatable("block.potionsplus.brewing_cauldron");
     }
 
     @Override
@@ -89,14 +87,14 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     }
 
     @Override
-    public void draw(BrewingCauldronRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(BrewingCauldronRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         int mainColor = 0xFF80FF20;
         String text = "";
         if (recipe.isAmpUpgrade()) {
-            text = new TranslatableComponent("jei.potionsplus.amp_upgrade").getString();
+            text = Component.translatable("jei.potionsplus.amp_upgrade").getString();
             mainColor = 0xFFfe70e2;
         } else if (recipe.isDurationUpgrade()) {
-            text = new TranslatableComponent("jei.potionsplus.dur_upgrade").getString();
+            text = Component.translatable("jei.potionsplus.dur_upgrade").getString();
             mainColor = 0xFF5bb6ef;
         }
 
@@ -110,10 +108,11 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
             int y = 44;
 
             // TODO 1.13 match the new GuiRepair style
-            minecraft.font.draw(poseStack, text, x + 1, y, shadowColor);
-            minecraft.font.draw(poseStack, text, x, y + 1, shadowColor);
-            minecraft.font.draw(poseStack, text, x + 1, y + 1, shadowColor);
-            minecraft.font.draw(poseStack, text, x, y, mainColor);
+            guiGraphics.drawString(minecraft.font, text, x + 1, y, shadowColor);
+            guiGraphics.drawString(minecraft.font, text, x, y + 1, shadowColor);
+            guiGraphics.drawString(minecraft.font, text, x + 1, y + 1, shadowColor);
+            guiGraphics.drawString(minecraft.font, text, x, y, mainColor);
         }
     }
+
 }

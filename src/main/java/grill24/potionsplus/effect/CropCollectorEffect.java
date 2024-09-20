@@ -3,6 +3,7 @@ package grill24.potionsplus.effect;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,17 +33,17 @@ public class CropCollectorEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         final int radius = 1 + amplifier;
-        if (livingEntity.level instanceof ServerLevel serverLevel) {
-            Random random = livingEntity.getRandom();
+        if (livingEntity.level() instanceof ServerLevel serverLevel) {
+            RandomSource random = livingEntity.getRandom();
             BlockPos origin = livingEntity.blockPosition();
             // If on farm-land or soul sand, origin is the block above
-            if (livingEntity.level.getBlockState(origin).getBlock() instanceof FarmBlock || livingEntity.level.getBlockState(origin).getBlock() instanceof SoulSandBlock) {
+            if (livingEntity.level().getBlockState(origin).getBlock() instanceof FarmBlock || livingEntity.level().getBlockState(origin).getBlock() instanceof SoulSandBlock) {
                 origin = origin.above();
             }
 
             BlockPos pos = Utility.randomBlockPosInBox(origin, radius, 0, radius, random);
-            Block block = livingEntity.level.getBlockState(pos).getBlock();
-            if (block instanceof CropBlock cropBlock && cropBlock.isMaxAge(livingEntity.level.getBlockState(pos))) {
+            Block block = livingEntity.level().getBlockState(pos).getBlock();
+            if (block instanceof CropBlock cropBlock && cropBlock.isMaxAge(livingEntity.level().getBlockState(pos))) {
                 serverLevel.destroyBlock(pos, true, livingEntity);
             }
         }

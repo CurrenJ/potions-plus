@@ -77,3 +77,5 @@ script/output
 script/ore_edges
 script/input_ore
 script/*.png
+
+run-data/*

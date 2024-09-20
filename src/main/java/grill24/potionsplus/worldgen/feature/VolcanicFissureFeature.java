@@ -11,16 +11,17 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraftforge.common.util.Lazy;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class VolcanicFissureFeature extends Feature<NoneFeatureConfiguration> {
-    public static WeightedStateProvider FILL_SAMPLER = new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+    public static Lazy<WeightedStateProvider> FILL_SAMPLER = Lazy.of(() -> new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
             .add(grill24.potionsplus.core.Blocks.UNSTABLE_BLACKSTONE.get().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 2)
             .add(grill24.potionsplus.core.Blocks.UNSTABLE_DEEPSLATE.get().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 2)
             .add(grill24.potionsplus.core.Blocks.UNSTABLE_MOLTEN_BLACKSTONE.get().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 1)
             .add(grill24.potionsplus.core.Blocks.UNSTABLE_MOLTEN_DEEPSLATE.get().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 1)
-    );
+    ));
 
     public VolcanicFissureFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
@@ -29,7 +30,7 @@ public class VolcanicFissureFeature extends Feature<NoneFeatureConfiguration> {
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         double radiusX = context.random().nextDouble() * 10.0 + 5, radiusY = context.random().nextDouble() * 7.0D + 2.0D, radiusZ = context.random().nextDouble() * 1.5D + 1.0D;
-        double azimuthalAngle = context.random().nextDouble(Math.PI * 2);
+        double azimuthalAngle = context.random().nextDouble() * Math.PI * 2;
         boolean[] shape = WorldGenUtil.generateRotatedEllipsoid(context.random(), radiusX, radiusY, radiusZ, azimuthalAngle, 0);
 
 
@@ -41,7 +42,7 @@ public class VolcanicFissureFeature extends Feature<NoneFeatureConfiguration> {
         AtomicBoolean valid = new AtomicBoolean(true);
         WorldGenUtil.iterateEllipsoidShape(shape, width, height, depth, (blockPos -> {
             if(blockPos.getY() < height / 3) {
-                if(context.level().getBlockState(blockPos.offset(context.origin()).offset(-radiusX, -radiusY, -radiusY)).isAir()) {
+                if(context.level().getBlockState(blockPos.offset(context.origin()).offset((int) -radiusX, (int) -radiusY, (int) -radiusY)).isAir()) {
                     valid.set(false);
                 }
             }
@@ -52,15 +53,15 @@ public class VolcanicFissureFeature extends Feature<NoneFeatureConfiguration> {
 
         BlockState bottomLayer = Blocks.LAVA.defaultBlockState();
         WorldGenUtil.iterateEllipsoidShape(shape, width, height, depth, (p -> {
-            BlockPos pos = p.offset(context.origin()).offset(-radiusX, -radiusY, -radiusY);
-            BlockState cavity = FILL_SAMPLER.getState(context.random(), pos);
+            BlockPos pos = p.offset(context.origin()).offset((int) -radiusX, (int) -radiusY, (int) -radiusY);
+            BlockState cavity = FILL_SAMPLER.get().getState(context.random(), pos);
 
             if(!context.level().getBlockState(pos).isAir()) {
             if(p.getY() <= height / 2) {
                 if(p.getY() < height / 4) {
                     context.level().setBlock(pos, bottomLayer, 2 | 16);
                 } else {
-                    context.level().setBlock(p.offset(context.origin()).offset(-radiusX, -radiusY, -radiusY), cavity, 2 | 16);
+                    context.level().setBlock(p.offset(context.origin()).offset((int) -radiusX, (int) -radiusY, (int) -radiusY), cavity, 2 | 16);
                 }
             }
             }

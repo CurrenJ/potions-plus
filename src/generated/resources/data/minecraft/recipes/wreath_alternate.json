@@ -1,22 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "BLB",
-    "LTL",
-    "BLB"
-  ],
+  "category": "equipment",
   "key": {
-    "L": {
-      "tag": "minecraft:leaves"
-    },
     "B": {
       "item": "minecraft:bone"
+    },
+    "L": {
+      "tag": "minecraft:leaves"
     },
     "T": {
       "item": "minecraft:totem_of_undying"
     }
   },
+  "pattern": [
+    "BLB",
+    "LTL",
+    "BLB"
+  ],
   "result": {
     "item": "potionsplus:wreath"
-  }
+  },
+  "show_notification": true
 }

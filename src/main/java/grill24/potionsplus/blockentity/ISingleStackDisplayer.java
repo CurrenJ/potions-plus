@@ -1,7 +1,7 @@
 package grill24.potionsplus.blockentity;
 
-import com.mojang.math.Vector3d;
-import com.mojang.math.Vector3f;
+import org.joml.Vector3d;
+import org.joml.Vector3f;
 
 public interface ISingleStackDisplayer {
     int getTimeItemPlaced();

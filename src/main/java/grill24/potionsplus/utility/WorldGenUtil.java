@@ -1,13 +1,14 @@
 package grill24.potionsplus.utility;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 
 import java.util.Random;
 import java.util.function.Consumer;
 
 public class WorldGenUtil {
     public static boolean[] generateLakeShape(
-            Random random,
+            RandomSource random,
             int numEllipsoids,
             double minRadiusX, double maxRadiusX,
             double minRadiusY, double maxRadiusY,
@@ -47,7 +48,7 @@ public class WorldGenUtil {
     }
 
     public static boolean[] generateRotatedEllipsoid(
-            Random random,
+            RandomSource random,
             double radiusX, double radiusY, double radiusZ,
             double azimuthalAngle, double polarAngle) {
 

@@ -1,6 +1,6 @@
 package grill24.potionsplus.blockentity;
 
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
 import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.PotionsPlus;
@@ -62,7 +62,7 @@ public class ClotheslineBlockEntityBakedRenderData {
 
             int distance = state.getValue(ClotheslineBlock.DISTANCE);
 
-            Vector3f point = getItemPoints(distance)[slot].copy();
+            Vector3f point = new Vector3f(getItemPoints(distance)[slot]);
             if (worldSpace) {
                 point.add(pos.getX(), pos.getY(), pos.getZ());
                 point.add(ClotheslineBlockEntityRenderer.ITEM_OFFSET);

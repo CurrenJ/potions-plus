@@ -3,6 +3,7 @@ package grill24.potionsplus.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -52,6 +53,7 @@ public class UnstableBlock extends Block {
         }
     }
 
+    @Override
     public BlockState updateShape(BlockState myState, Direction direction, BlockState otherState, LevelAccessor levelAccessor, BlockPos myPos, BlockPos otherPos) {
         if(!levelAccessor.isClientSide()) {
             if (!(otherState.getBlock() instanceof UnstableBlock)) {
@@ -61,7 +63,8 @@ public class UnstableBlock extends Block {
         return super.updateShape(myState, direction, otherState, levelAccessor, myPos, otherPos);
     }
 
-    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+    @Override
+    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         if(blockState.getValue(PRIMED)) {
             serverLevel.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 3);
             serverLevel.levelEvent(2001, blockPos, Block.getId(defaultBlockState()));

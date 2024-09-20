@@ -27,7 +27,7 @@ public class TeleportationEffect extends InstantenousMobEffect {
         for (int i = 0; i < 16; ++i) {
             // Taken from ChorusFruitItem
             double d3 = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5D) * stepLength;
-            double d4 = Mth.clamp(livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(stepLength) - 8), (double) livingEntity.level.getMinBuildHeight(), (double) (livingEntity.level.getMinBuildHeight() + ((ServerLevel) livingEntity.level).getLogicalHeight() - 1));
+            double d4 = Mth.clamp(livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(stepLength) - 8), (double) livingEntity.level().getMinBuildHeight(), (double) (livingEntity.level().getMinBuildHeight() + ((ServerLevel) livingEntity.level()).getLogicalHeight() - 1));
             double d5 = livingEntity.getZ() + (livingEntity.getRandom().nextDouble() - 0.5D) * stepLength;
             if (livingEntity.isPassenger()) {
                 livingEntity.stopRiding();
@@ -36,7 +36,7 @@ public class TeleportationEffect extends InstantenousMobEffect {
             net.minecraftforge.event.entity.EntityTeleportEvent.ChorusFruit event = net.minecraftforge.event.ForgeEventFactory.onChorusFruitTeleport(livingEntity, d3, d4, d5);
             if (livingEntity.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true)) {
                 SoundEvent soundevent = livingEntity instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
-                livingEntity.level.playSound((Player) null, d0, d1, d2, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
+                livingEntity.level().playSound((Player) null, d0, d1, d2, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
                 livingEntity.playSound(soundevent, 1.0F, 1.0F);
                 break;
             }

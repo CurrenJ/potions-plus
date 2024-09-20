@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.block.Block;
@@ -14,7 +15,7 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class PotionsPlusVegetationPatchConfiguration extends VegetationPatchConfiguration {
     public static final Codec<PotionsPlusVegetationPatchConfiguration> CODEC = RecordCodecBuilder.create((p_161304_) -> {
-        return p_161304_.group(TagKey.hashedCodec(Registry.BLOCK_REGISTRY).fieldOf("replaceable").forGetter((p_204869_) -> {
+        return p_161304_.group(TagKey.hashedCodec(Registries.BLOCK).fieldOf("replaceable").forGetter((p_204869_) -> {
             return p_204869_.replaceable;
         }), BlockStateProvider.CODEC.fieldOf("ground_state").forGetter((p_161322_) -> {
             return p_161322_.groundState;

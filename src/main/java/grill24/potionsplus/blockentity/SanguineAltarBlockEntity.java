@@ -1,7 +1,9 @@
 package grill24.potionsplus.blockentity;
 
-import com.mojang.math.Vector3d;
-import com.mojang.math.Vector3f;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
+import org.joml.Vector3d;
+import org.joml.Vector3f;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.Sounds;
@@ -110,7 +112,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
                         if (sanguineAltarBlockEntity.healthDrained < HEALTH_DRAIN_REQUIRED_FOR_CONVERSION) {
                             // Common side, drain health of entities
                             // TODO: Custom damage source
-                            if (entity.hurt(DamageSource.GENERIC, HEALTH_DRAIN_AMOUNT)) {
+                            if (entity.hurt(level.damageSources().generic(), HEALTH_DRAIN_AMOUNT)) {
                                 sanguineAltarBlockEntity.healthDrained += HEALTH_DRAIN_AMOUNT;
                                 if (entity.isDeadOrDying()) {
                                     sanguineAltarBlockEntity.didEntityDie = true;
@@ -123,7 +125,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
                                     Vec3 towardsBlock = blockPos.subtract(entity.position()).normalize();
                                     // spawn particles
                                     for (int p = 0; p < level.random.nextInt(5); p++) {
-                                        double velocity = level.random.nextDouble(0.1, 0.25);
+                                        double velocity = level.random.nextDouble() * 0.15 + 0.1;
                                         Vec3 vector = towardsBlock.multiply(velocity, velocity, velocity);
                                         Vec3 center = entity.getBoundingBox().getCenter();
                                         level.addParticle(Particles.BLOOD_EMITTER.get(), center.x, center.y, center.z, vector.x, vector.y, vector.z);
@@ -168,7 +170,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         if (blockEntity.nextSpinStartTick < ClientTickHandler.total() - 100) {
             blockEntity.nextSpinStartTick = (int) ClientTickHandler.total() + level.getRandom().nextInt(0, 300);
             blockEntity.nextSpinTotalRevolutions = level.getRandom().nextInt(1, 3);
-            blockEntity.nextSpinHertz = level.getRandom().nextFloat(0.25F, 1F);
+            blockEntity.nextSpinHertz = level.getRandom().nextFloat() * 0.75f + 0.25f;
         }
     }
 
@@ -177,7 +179,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
             Vec3 posVec = new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
             for (int i = 0; i < 1; i++) {
                 if (level.random.nextDouble() < 0.1) {
-                    Vec3 particlePos = posVec.add(level.random.nextGaussian(0, 0.5), 0.25 + level.random.nextDouble(-0.125, 0.125), level.random.nextGaussian(0, 0.5));
+                    Vec3 particlePos = posVec.add(level.random.nextGaussian() * 0.5, 0.25 + level.random.nextDouble() * 0.25 - 0.125, level.random.nextGaussian() * 0.5);
                     level.addParticle(ParticleTypes.PORTAL, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
                 }
             }

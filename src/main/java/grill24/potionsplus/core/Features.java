@@ -1,66 +1,68 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.worldgen.LunarBerryBushPatch;
-import grill24.potionsplus.worldgen.OreGen;
+import grill24.potionsplus.worldgen.*;
+import grill24.potionsplus.worldgen.feature.*;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.util.valueproviders.ConstantFloat;
-import net.minecraft.util.valueproviders.TrapezoidFloat;
-import net.minecraft.util.valueproviders.UniformFloat;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.carver.CanyonCarverConfiguration;
-import net.minecraft.world.level.levelgen.carver.CarverDebugSettings;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
-import net.minecraft.world.level.levelgen.carver.WorldCarver;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
-import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+import java.util.Set;
+
+@Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Features {
-    public static DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registry.FEATURE_REGISTRY, ModInfo.MOD_ID);
-    public static DeferredRegister<ConfiguredWorldCarver<?>> CONFIGURED_CARVERS = DeferredRegister.create(Registry.CONFIGURED_CARVER_REGISTRY, ModInfo.MOD_ID);
+    public static DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, ModInfo.MOD_ID);
 
-    public static final RegistryObject<ConfiguredWorldCarver<CanyonCarverConfiguration>> SMALL_CANYON = CONFIGURED_CARVERS.register(
-            "small_canyon",
-            () -> {
-                return WorldCarver.CANYON.configured(
-                        new CanyonCarverConfiguration(
-                                0.2F, // probability
-                                UniformHeight.of(VerticalAnchor.aboveBottom(10), VerticalAnchor.absolute(48)), // y
-                                ConstantFloat.of(1.0F), // yScale
-                                VerticalAnchor.aboveBottom(8), // lavaLevel
-                                CarverDebugSettings.of(false, Blocks.WARPED_BUTTON.defaultBlockState()), // debugSettings
-                                UniformFloat.of(-0.125F, 0.125F), // verticalRotation
-                                new CanyonCarverConfiguration.CanyonShapeConfiguration(
-                                        UniformFloat.of(0.25F, 0.5F), // distanceFactor
-                                        TrapezoidFloat.of(0.0F, 6.0F, 2.0F), // thickness
-                                        3, // widthSmoothness
-                                        UniformFloat.of(0.25F, 0.5F), // horizontalRadiusFactor
-                                        1.0F, // verticalRadiusDefaultFactor
-                                        0.0F // verticalRadiusCenterFactor
-                                )
-                        )
-                );
-            }
-    );
+    public static final ResourceKey<PlacedFeature> POTIONS_PLUS_VEGETATION_PATCH_KEY = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(ModInfo.MOD_ID, "no_update_vegetation_patch"));
+    public static Feature<PotionsPlusVegetationPatchConfiguration> POTIONS_PLUS_VEGETATION_PATCH = Features.register(POTIONS_PLUS_VEGETATION_PATCH_KEY.location().getPath(), new PotionsPlusVegetationPatchFeature(PotionsPlusVegetationPatchConfiguration.CODEC));
+
+    // ----- Volcanic Cave -----
+    public static Feature<?> FISSURE = Features.register(ConfiguredFeatures.FISSURE_KEY.location().getPath(), new VolcanicFissureFeature(NoneFeatureConfiguration.CODEC));
+    public static Feature<?> LAVA_GEYSER = Features.register(ConfiguredFeatures.LAVA_GEYSER_KEY.location().getPath(), new LavaGeyserFeature(NoneFeatureConfiguration.CODEC));
+
+    // ----- Ice Cave -----
+    public static final ResourceKey<PlacedFeature> ICICLE_KEY = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(ModInfo.MOD_ID, "icicle"));
+    public static Feature<PointedDripstoneConfiguration> ICICLE = Features.register(ICICLE_KEY.location().getPath(), new IcicleFeature(PointedDripstoneConfiguration.CODEC));
+
+    public static final ResourceKey<PlacedFeature> AQUIFER_FREEZE_KEY = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(ModInfo.MOD_ID, "aquifer_freeze"));
+    public static Feature<NoneFeatureConfiguration> AQUIFER_FREEZE = Features.register(AQUIFER_FREEZE_KEY.location().getPath(), new AquiferFreezeFeature(NoneFeatureConfiguration.CODEC));
+
+    public static final ResourceKey<PlacedFeature> CAMPFIRE_HUDDLE_KEY = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(ModInfo.MOD_ID, "campfire_huddle"));
+    public static Feature<NoneFeatureConfiguration> CAMPFIRE_HUDDLE = Features.register(CAMPFIRE_HUDDLE_KEY.location().getPath(), new CampfireHuddleFeature(NoneFeatureConfiguration.CODEC));
+
+    public static final ResourceKey<PlacedFeature> GIANT_SNOWFLAKE_KEY = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(ModInfo.MOD_ID, "giant_snowflake"));
+    public static Feature<NoneFeatureConfiguration> GIANT_SNOWFLAKE = Features.register(GIANT_SNOWFLAKE_KEY.location().getPath(), new GiantSnowflakeFeature(NoneFeatureConfiguration.CODEC));
 
     @SubscribeEvent
-    public static void onBiomeLoadingEvent(BiomeLoadingEvent event) {
-        LunarBerryBushPatch.addLunarBerryBushes(event);
-        OreGen.addDenseDiamondOre(event.getGeneration());
+    public static void onGatherData(GatherDataEvent event)
+    {
+        DataGenerator generator = event.getGenerator();
+        PackOutput output = generator.getPackOutput();
+
     }
 
-    public static <C extends FeatureConfiguration, F extends Feature<C>> F register(String key, F value)
+    public static<C extends FeatureConfiguration, F extends Feature<C>> F register(String name, F feature)
     {
-        FEATURES.register(key, () -> value);
-        return value;
+        ForgeRegistries.FEATURES.register(name, feature);
+        return feature;
     }
 }

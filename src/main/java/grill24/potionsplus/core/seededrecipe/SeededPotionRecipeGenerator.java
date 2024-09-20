@@ -6,6 +6,7 @@ import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
@@ -89,7 +90,7 @@ public class SeededPotionRecipeGenerator implements ISeededPotionRecipeGenerator
         }
     }
 
-    public List<BrewingCauldronRecipe> generateRecipes(PotionBuilder.PotionsAmpDurMatrix potionAmpDurMatrix, Set<PpIngredient> allRecipes, Random random) {
+    public List<BrewingCauldronRecipe> generateRecipes(PotionBuilder.PotionsAmpDurMatrix potionAmpDurMatrix, Set<PpIngredient> allRecipes, RandomSource random) {
         Potion basePotion = potionAmpDurMatrix.get(0, 0);
         IPotionUpgradeIngredients potionUpgradeIngredients = new PotionUpgradeIngredients(
                 basePotion,
@@ -117,7 +118,7 @@ public class SeededPotionRecipeGenerator implements ISeededPotionRecipeGenerator
                     Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeAmpUpIngredients(a - 1);
                     if (ingredients == null) {
                         if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
-                            PotionsPlus.LOGGER.error("[BCR] Ingredients for amplification upgrade are null: " + ampTierBelow.getRegistryName());
+                            PotionsPlus.LOGGER.error("[BCR] Ingredients for amplification upgrade are null: " + ampTierBelow.toString());
                         }
                     } else {
                         allRecipes.addAll(PUtil.brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, ampTierBelow, toCraft, a, ingredients));
@@ -128,7 +129,7 @@ public class SeededPotionRecipeGenerator implements ISeededPotionRecipeGenerator
                     Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeDurUpIngredients(d - 1);
                     if (ingredients == null) {
                         if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
-                            PotionsPlus.LOGGER.error("[BCR] Ingredients for duration upgrade are null: " + durTierBelow.getRegistryName());
+                            PotionsPlus.LOGGER.error("[BCR] Ingredients for duration upgrade are null: " + durTierBelow.toString());
                         }
                     } else {
                         allRecipes.addAll(PUtil.brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, durTierBelow, toCraft, d, ingredients));
@@ -137,7 +138,7 @@ public class SeededPotionRecipeGenerator implements ISeededPotionRecipeGenerator
                     Ingredient[] ingredients = potionUpgradeIngredients.getBasePotionIngredients();
                     if (ingredients == null) {
                         if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
-                            PotionsPlus.LOGGER.error("[BCR] Ingredients for base potion are null: " + toCraft.getRegistryName());
+                            PotionsPlus.LOGGER.error("[BCR] Ingredients for base potion are null: " + toCraft.toString());
                         }
                     } else {
                         allRecipes.addAll(PUtil.brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, Potions.AWKWARD, toCraft, 0, ingredients));

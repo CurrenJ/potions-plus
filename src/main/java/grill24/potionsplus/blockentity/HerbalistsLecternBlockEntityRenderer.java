@@ -1,8 +1,9 @@
 package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+import net.minecraft.world.item.ItemDisplayContext;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
@@ -62,35 +63,35 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
                 direction.normalize();
 
                 // Calculate yaw and pitch to face the player
-                Quaternion itemRotation = Vector3f.YP.rotationDegrees(90 - (float) Math.toDegrees(Math.atan2(direction.z(), direction.x())));
-                itemRotation.mul(Vector3f.ZP.rotationDegrees((float) Math.toDegrees(Math.asin(direction.y()))));
+                Quaternionf itemRotation = RUtil.rotateY(90 - (float) Math.toDegrees(Math.atan2(direction.z(), direction.x())));
+                itemRotation.mul(RUtil.rotateZ((float) Math.toDegrees(Math.asin(direction.y()))));
                 matrices.mulPose(itemRotation);
 
                 // Rotate the translation vector by the negative of the initial rotation
-                Quaternion negativeRotation = itemRotation.copy();
-                negativeRotation.conj(); // conjugate (equivalent to inverse for unit quaternions) to get the negative rotation
-                point.transform(negativeRotation);
+                Quaternionf negativeRotation = new Quaternionf(itemRotation);
+                negativeRotation.conjugate(); // conjugate (equivalent to inverse for unit Quaternionfs) to get the negative rotation
+                point.rotate(negativeRotation);
 
                 // Apply the rotated translation to the pose
                 matrices.translate(point.x(), point.y(), point.z());
 
                 matrices.scale(0.5F, 0.5F, 0.5F);
-                Minecraft.getInstance().getItemRenderer().renderStatic(infoStacks[p], ItemTransforms.TransformType.GROUND,
-                        light, overlay, matrices, vertexConsumers, 0);
+                Minecraft.getInstance().getItemRenderer().renderStatic(infoStacks[p], ItemDisplayContext.GROUND,
+                        light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
 
                 matrices.scale(0.35F, 0.35F, 0.35F);
                 if (blockEntity.rendererData.isAmpUpgrade[p]) {
                     matrices.pushPose();
                     matrices.translate(-0.75F, 1F, 0);
-                    Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Items.GENERIC_ICON.get(), 1), ItemTransforms.TransformType.GROUND,
-                            light, overlay, matrices, vertexConsumers, 0);
+                    Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Items.GENERIC_ICON.get(), 1), ItemDisplayContext.GROUND,
+                            light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
                     matrices.popPose();
                 }
                 if (blockEntity.rendererData.isDurationUpgrade[p]) {
                     matrices.pushPose();
                     matrices.translate(0.75F, 1F, 0);
-                    Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Items.GENERIC_ICON.get(), 2), ItemTransforms.TransformType.GROUND,
-                            light, overlay, matrices, vertexConsumers, 0);
+                    Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Items.GENERIC_ICON.get(), 2), ItemDisplayContext.GROUND,
+                            light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
                     matrices.popPose();
                 }
 
@@ -108,15 +109,15 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
                 direction.normalize();
 
                 // Calculate yaw and pitch to face the player
-                Quaternion numeralsRotation = Vector3f.YP.rotationDegrees(90 - (float) Math.toDegrees(Math.atan2(direction.z(), direction.x())));
-                // Lerp quaternion rotation from blockEntity.rendererData.ingredientTierNumeralsRotation to numeralsQuaternion
+                Quaternionf numeralsRotation = RUtil.rotateY(90 - (float) Math.toDegrees(Math.atan2(direction.z(), direction.x())));
+                // Lerp Quaternionf rotation from blockEntity.rendererData.ingredientTierNumeralsRotation to numeralsQuaternionf
                 blockEntity.rendererData.ingredientTierNumeralsRotation = RUtil.slerp(blockEntity.rendererData.ingredientTierNumeralsRotation, numeralsRotation, tickDelta * 0.02f);
                 matrices.mulPose(blockEntity.rendererData.ingredientTierNumeralsRotation);
 
                 matrices.scale(0.5F, 0.5F, 0.5F);
 
-                Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Items.GENERIC_ICON.get(), blockEntity.rendererData.ingredientTier + 3), ItemTransforms.TransformType.GROUND,
-                        light, overlay, matrices, vertexConsumers, 0);
+                Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Items.GENERIC_ICON.get(), blockEntity.rendererData.ingredientTier + 3), ItemDisplayContext.GROUND,
+                        light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
                 matrices.popPose();
             }
         }

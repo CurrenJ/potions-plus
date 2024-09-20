@@ -1,5 +1,9 @@
 {
   "variants": {
+    "facing=east": {
+      "model": "potionsplus:block/sanguine_altar",
+      "y": 270
+    },
     "facing=north": {
       "model": "potionsplus:block/sanguine_altar",
       "y": 180
@@ -10,10 +14,6 @@
     "facing=west": {
       "model": "potionsplus:block/sanguine_altar",
       "y": 90
-    },
-    "facing=east": {
-      "model": "potionsplus:block/sanguine_altar",
-      "y": 270
     }
   }
 }

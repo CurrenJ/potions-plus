@@ -13,9 +13,11 @@ import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 
 import java.util.*;
 
@@ -26,7 +28,7 @@ public class SeededPotionRecipes {
     public Set<PpIngredient> allPotionBrewingIngredientsNoPotions = new HashSet<>(); // 1 item per ingredient.
     public Map<Integer, Set<PpIngredient>> allPotionsBrewingIngredientsByTierNoPotions = new HashMap<>(); // 1 item per ingredient.
 
-    private final Random random;
+    private final RandomSource random;
     private final List<BrewingCauldronRecipe> recipes;
     private List<SanguineAltarRecipe> sanguineAltarRecipes;
 
@@ -38,12 +40,13 @@ public class SeededPotionRecipes {
 
 
     public SeededPotionRecipes(MinecraftServer server) {
-        this.random = new Random(server.getWorldData().worldGenSettings().seed());
+        long seed = server.getWorldData().worldGenOptions().seed();
+        this.random = new XoroshiroRandomSource(seed);
         this.recipes = new ArrayList<>();
         this.allRecipeInputs = new HashSet<>();
         this.sanguineAltarRecipes = new ArrayList<>();
 
-        SeededIngredientsLootTables.initializeLootTables(server.overworld(), random);
+        SeededIngredientsLootTables.initializeLootTables(server.overworld(), seed);
         generateRecipes();
 
         SavedData.instance.setSeededPotionRecipes(recipes);

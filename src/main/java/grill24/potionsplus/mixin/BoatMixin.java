@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 public abstract class BoatMixin extends Entity {
     @Shadow
     @Nullable
-    public abstract Entity getControllingPassenger();
+    public abstract LivingEntity getControllingPassenger();
 
     public BoatMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
@@ -26,12 +26,11 @@ public abstract class BoatMixin extends Entity {
 
     @ModifyVariable(method = "controlBoat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/Boat;getDeltaMovement()Lnet/minecraft/world/phys/Vec3;"))
     private float controlBoat(float f) {
-        if (this.getControllingPassenger() instanceof LivingEntity livingEntity) {
-            if (livingEntity.hasEffect(MobEffects.NAUTICAL_NITRO.get())) {
-                MobEffectInstance effect = livingEntity.getEffect(MobEffects.NAUTICAL_NITRO.get());
-                if (effect != null) {
-                    return f * (effect.getAmplifier() + 1) * 1.2f;
-                }
+        LivingEntity livingEntity = this.getControllingPassenger();
+        if (livingEntity.hasEffect(MobEffects.NAUTICAL_NITRO.get())) {
+            MobEffectInstance effect = livingEntity.getEffect(MobEffects.NAUTICAL_NITRO.get());
+            if (effect != null) {
+                return f * (effect.getAmplifier() + 1) * 1.2f;
             }
         }
         return f;

@@ -5,6 +5,7 @@ import grill24.potionsplus.block.ClotheslinePart;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.network.PotionsPlusPacketHandler;
 import grill24.potionsplus.network.ServerboundConstructClotheslinePacket;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
@@ -25,29 +26,29 @@ public class ClotheslineBehaviour {
     public static void doClotheslineInteractions(PlayerInteractEvent.RightClickBlock event) {
 
         BlockPos pos = event.getPos();
-        Block block = event.getWorld().getBlockState(pos).getBlock();
+        Block block = event.getLevel().getBlockState(pos).getBlock();
         Item item = event.getItemStack().getItem();
         if (block == INTERACTION_BLOCK && item == INTERACTION_ITEM) {
             event.setCanceled(true);
-            if (!event.getWorld().isClientSide)
+            if (!event.getLevel().isClientSide)
                 return;
-            event.getPlayer().swing(event.getHand());
+            event.getEntity().swing(event.getHand());
 
             if (!firstBlockClicked) {
                 firstBlockPos = pos;
                 firstBlockClicked = true;
 
-                spawnParticles(event.getWorld(), firstBlockPos);
+                spawnParticles(event.getLevel(), firstBlockPos);
             } else {
                 // Check if the second block is in the same line as the first block
                 if (firstBlockPos.getX() == pos.getX() || firstBlockPos.getZ() == pos.getZ()) {
-                    spawnParticles(event.getWorld(), pos);
+                    spawnParticles(event.getLevel(), pos);
                     firstBlockClicked = false;
 
                     PotionsPlusPacketHandler.CHANNEL.sendToServer(new ServerboundConstructClotheslinePacket(firstBlockPos, pos));
                 } else {
                     firstBlockPos = pos;
-                    spawnParticles(event.getWorld(), firstBlockPos);
+                    spawnParticles(event.getLevel(), firstBlockPos);
                 }
             }
         }
@@ -71,9 +72,9 @@ public class ClotheslineBehaviour {
         Vec3 pos = Vec3.atCenterOf(blockPos);
         for (int i = 0; i < 5; i++) {
             level.addParticle(Particles.END_ROD_RAIN.get(),
-                    pos.x + level.random.nextGaussian(0, 0.1),
-                    pos.y + 0.5 + level.random.nextGaussian(0, 0.1),
-                    pos.z + level.random.nextGaussian(0, 0.1),
+                    pos.x + Utility.nextGaussian(0, 0.1, level.random),
+                    pos.y + 0.5 + Utility.nextGaussian(0, 0.1, level.random),
+                    pos.z + Utility.nextGaussian(0, 0.1, level.random),
                     0, 0, 0);
         }
     }

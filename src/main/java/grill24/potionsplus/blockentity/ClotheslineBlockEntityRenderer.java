@@ -1,8 +1,10 @@
 package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+import grill24.potionsplus.utility.RUtil;
+import net.minecraft.world.item.ItemDisplayContext;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.render.LeashRenderer;
@@ -12,7 +14,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
@@ -98,7 +99,7 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
                     float amplitude = 15 * (1 - leftBlockEntity.getProgress(i));
 
                     float swing = (float) (Math.sin(ClientTickHandler.total() / 10 + i * 7) * amplitude);
-                    matrices.mulPose(Vector3f.XP.rotationDegrees(swing));
+                    matrices.mulPose(RUtil.rotateX(swing));
                     matrices.translate(ITEM_OFFSET.x(), ITEM_OFFSET.y(), ITEM_OFFSET.z());
 
                     // TODO: Duplicate code from leashrenderer - optimize
@@ -106,8 +107,8 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
                     int mixedBlockLight = (int) Mth.lerp(stepFraction, blockLightStart, blockLightEnd);
                     int mixedSkyLight = (int) Mth.lerp(stepFraction, skyLightStart, skyLightEnd);
 
-                    Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.FIXED,
-                            LightTexture.pack(mixedBlockLight, mixedSkyLight), overlay, matrices, vertexConsumers, 0);
+                    Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                            LightTexture.pack(mixedBlockLight, mixedSkyLight), overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
                     matrices.popPose();
                 }
             }
@@ -116,12 +117,12 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
         profiler.pop();
     }
 
-    private Quaternion orientItemToClotheslineOrientation(BlockState clothesLine) {
+    private Quaternionf orientItemToClotheslineOrientation(BlockState clothesLine) {
         Direction property = clothesLine.getValue(ClotheslineBlock.FACING);
         if (property.getAxis() == Direction.Axis.X) {
-            return Vector3f.YP.rotationDegrees(90);
+            return RUtil.rotateY(90);
         }
-        return Quaternion.ONE;
+        return new Quaternionf().identity();
     }
 
     private static final Set<BlockPos> clotheslinesRendered = new HashSet<>();

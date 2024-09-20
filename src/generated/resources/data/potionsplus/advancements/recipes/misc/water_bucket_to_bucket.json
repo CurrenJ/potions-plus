@@ -1,13 +1,13 @@
 {
   "parent": "minecraft:recipes/root",
-  "rewards": {
-    "recipes": [
-      "potionsplus:water_bucket_to_bucket"
-    ]
-  },
   "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "potionsplus:water_bucket_to_bucket"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
     "has_water_bucket": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -16,13 +16,8 @@
             ]
           }
         ]
-      }
-    },
-    "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
-      "conditions": {
-        "recipe": "potionsplus:water_bucket_to_bucket"
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "requirements": [
@@ -30,5 +25,11 @@
       "has_water_bucket",
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "potionsplus:water_bucket_to_bucket"
+    ]
+  },
+  "sends_telemetry_event": true
 }

@@ -1,8 +1,9 @@
 {
   "type": "potionsplus:clothesline_recipe",
+  "category": "MISC",
   "ingredient": [
     "{Count:1b,id:\"minecraft:water_bucket\"}"
   ],
-  "result": "{Count:1b,id:\"minecraft:bucket\"}",
-  "processingTime": 100
+  "processingTime": 100,
+  "result": "{Count:1b,id:\"minecraft:bucket\"}"
 }

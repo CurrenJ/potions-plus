@@ -2,8 +2,10 @@ package grill24.potionsplus.mixin;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.PotionsPlus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.BulkSectionAccess;
@@ -30,14 +32,14 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
     @Unique
     private static WorldGenLevel potions_plus$worldGenLevel;
     @Unique
-    private static Random potions_plus$random;
+    private static RandomSource potions_plus$random;
     @Unique
     private static BulkSectionAccess potions_plus$bulkSectionAccess;
     @Unique
     private static BlockPos.MutableBlockPos potions_plus$mutable;
 
     @Inject(method = "doPlace", at = @At("HEAD"))
-    public void doPlaceInject(WorldGenLevel worldGenLevel, Random random, OreConfiguration p_66535_, double p_66536_, double p_66537_, double p_66538_, double p_66539_, double p_66540_, double p_66541_, int p_66542_, int p_66543_, int p_66544_, int p_66545_, int p_66546_, CallbackInfoReturnable<Boolean> cir) {
+    public void doPlaceInject(WorldGenLevel worldGenLevel, RandomSource random, OreConfiguration p_66535_, double p_66536_, double p_66537_, double p_66538_, double p_66539_, double p_66540_, double p_66541_, int p_66542_, int p_66543_, int p_66544_, int p_66545_, int p_66546_, CallbackInfoReturnable<Boolean> cir) {
         potions_plus$worldGenLevel = worldGenLevel;
         potions_plus$random = random;
     }
@@ -48,8 +50,8 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
         return potions_plus$bulkSectionAccess.getSection(blockPos);
     }
 
-    @Redirect(method = "doPlace", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/feature/OreFeature;canPlaceOre(Lnet/minecraft/world/level/block/state/BlockState;Ljava/util/function/Function;Ljava/util/Random;Lnet/minecraft/world/level/levelgen/feature/configurations/OreConfiguration;Lnet/minecraft/world/level/levelgen/feature/configurations/OreConfiguration$TargetBlockState;Lnet/minecraft/core/BlockPos$MutableBlockPos;)Z"))
-    public boolean canPlaceOreRedirect(BlockState p_160170_, Function<BlockPos, BlockState> p_160171_, Random p_160172_, OreConfiguration p_160173_, OreConfiguration.TargetBlockState p_160174_, BlockPos.MutableBlockPos mutableBlockPos) {
+    @Redirect(method = "doPlace", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/feature/OreFeature;canPlaceOre(Lnet/minecraft/world/level/block/state/BlockState;Ljava/util/function/Function;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/level/levelgen/feature/configurations/OreConfiguration;Lnet/minecraft/world/level/levelgen/feature/configurations/OreConfiguration$TargetBlockState;Lnet/minecraft/core/BlockPos$MutableBlockPos;)Z"))
+    public boolean canPlaceOreRedirect(BlockState p_160170_, Function<BlockPos, BlockState> p_160171_, RandomSource p_160172_, OreConfiguration p_160173_, OreConfiguration.TargetBlockState p_160174_, BlockPos.MutableBlockPos mutableBlockPos) {
         potions_plus$mutable = mutableBlockPos;
         return OreFeature.canPlaceOre(p_160170_, p_160171_, p_160172_, p_160173_, p_160174_, mutableBlockPos);
     }
@@ -74,6 +76,9 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
                     }
                 }
         );
+
+        if (PotionsPlus.Debug.DEBUG && (blockState.is(Blocks.DENSE_DIAMOND_ORE.get()) || blockState.is(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.get())))
+            PotionsPlus.LOGGER.info("Dense diamond ore generated at " + potions_plus$mutable);
 
         return instance.setBlockState(p_62992_, p_62993_, p_62994_, blockState, false);
     }

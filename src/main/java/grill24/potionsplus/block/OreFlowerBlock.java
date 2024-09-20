@@ -4,10 +4,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -30,13 +32,13 @@ public class OreFlowerBlock extends PotionsPlusFlowerBlock implements Bonemealab
     }
 
     @Override
-    public boolean isValidBonemealTarget(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, boolean b) {
+    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean b) {
         BlockPos down = blockPos.below();
         // Iterate horizontal
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockPos offset = down.relative(direction);
-            BlockState state = blockGetter.getBlockState(offset);
-            if (mayPlaceOn(state) && blockGetter.getBlockState(offset.above()).isAir()) {
+            BlockState state = levelReader.getBlockState(offset);
+            if (mayPlaceOn(state) && levelReader.getBlockState(offset.above()).isAir()) {
                 return true;
             }
         }
@@ -45,16 +47,16 @@ public class OreFlowerBlock extends PotionsPlusFlowerBlock implements Bonemealab
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, Random random, BlockPos blockPos, BlockState blockState) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos blockPos, BlockState blockState) {
         return isValidBonemealTarget(level, blockPos, blockState, true);
     }
 
     @Override
-    public void performBonemeal(ServerLevel serverLevel, Random random, BlockPos blockPos, BlockState blockState) {
+    public void performBonemeal(ServerLevel serverLevel, RandomSource random, BlockPos blockPos, BlockState blockState) {
         grow(serverLevel, random, blockPos, blockState, true);
     }
 
-    public void grow(ServerLevel serverLevel, Random random, BlockPos blockPos, BlockState blockState, boolean consumeOre) {
+    public void grow(ServerLevel serverLevel, RandomSource random, BlockPos blockPos, BlockState blockState, boolean consumeOre) {
         BlockPos down = blockPos.below();
         // Iterate horizontal
         for (Direction direction : Direction.Plane.HORIZONTAL) {
@@ -62,7 +64,7 @@ public class OreFlowerBlock extends PotionsPlusFlowerBlock implements Bonemealab
             BlockState state = serverLevel.getBlockState(offset);
             if(mayPlaceOn(state) && serverLevel.getBlockState(offset.above()).isAir()) {
                 if(consumeOre) {
-                    Block stoneBlock = state.getBlock().getRegistryName().getPath().contains("deepslate") ? Blocks.DEEPSLATE : Blocks.STONE;
+                    Block stoneBlock = state.getBlock().toString().contains("deepslate") ? Blocks.DEEPSLATE : Blocks.STONE;
                     serverLevel.setBlock(offset, stoneBlock.defaultBlockState(), 3);
                     serverLevel.levelEvent(2001, offset, Block.getId(stoneBlock.defaultBlockState()));
                     popResource(serverLevel, offset.above(), new ItemStack(this));
@@ -76,7 +78,7 @@ public class OreFlowerBlock extends PotionsPlusFlowerBlock implements Bonemealab
     }
 
     @Override
-    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         super.tick(blockState, serverLevel, blockPos, random);
 
         if (serverLevel.random.nextFloat() < generationChance) {

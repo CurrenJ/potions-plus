@@ -1,14 +1,16 @@
 package grill24.potionsplus.utility;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3d;
-import com.mojang.math.Vector3f;
+import net.minecraft.world.item.ItemDisplayContext;
+import org.joml.Quaternionf;
+import org.joml.Vector3d;
+import org.joml.Vector3f;
 import grill24.potionsplus.blockentity.ISingleStackDisplayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.world.item.ItemStack;
+import org.joml.Vector3fc;
 
 import java.util.function.Function;
 
@@ -24,8 +26,8 @@ public class RUtil {
 
             // Lerp the item from the player's hand to the resting position
             lerpFactor = Math.max(0, Math.min(lerpFactor, 1));
-            Quaternion rotationStart = Quaternion.fromXYZDegrees(new Vector3f(0, 0, 0));
-            Quaternion rotation = Quaternion.fromXYZDegrees(iSingleStackDisplayer.getRestingRotation());
+            Quaternionf rotationStart = new Quaternionf().identity();
+            Quaternionf rotation = fromXYZDegrees(iSingleStackDisplayer.getRestingRotation());
 
             if (lerpFactor < 1) {
                 Vector3d startAnimationTranslation = iSingleStackDisplayer.getStartAnimationWorldPos();
@@ -41,8 +43,8 @@ public class RUtil {
             matrices.mulPose(rotation);
             matrices.scale(scale, scale, scale);
 
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.FIXED,
-                    light, overlay, matrices, vertexConsumers, 0);
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                    light, overlay, matrices, vertexConsumers, null, 0);
 
             matrices.popPose();
         }
@@ -53,15 +55,15 @@ public class RUtil {
         if (!stack.isEmpty() && isAnimationActive(singleStackDisplayer, (int) tickDelay, (int) tickDelta)) {
             matrices.pushPose();
             float bobbing = (float) Math.sin((ticks - singleStackDisplayer.getTimeItemPlaced() - tickDelay) / 20 * bobbingHertz * Math.PI * 2) * bobbingHeight;
-            Quaternion rotation = Vector3f.YP.rotationDegrees(yawDegrees);
+            Quaternionf rotation = RUtil.rotateY(yawDegrees);
 
             matrices.translate(restingPosition.x, restingPosition.y + bobbing, restingPosition.z);
             matrices.mulPose(rotation);
             matrices.scale(scale, scale, scale);
 
 
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
-                    light, overlay, matrices, vertexConsumers, 0);
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
+                    light, overlay, matrices, vertexConsumers, null, 0);
             matrices.popPose();
         }
     }
@@ -78,13 +80,13 @@ public class RUtil {
     public static void renderItemWithYaw(ISingleStackDisplayer singleStackDisplayer, ItemStack stack, Vector3d position, int tickDelay, int tickDuration, float yawDegrees, float scale, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         if (isAnimationActive(singleStackDisplayer, tickDelay, tickDuration)) {
             matrices.pushPose();
-            Quaternion rotation = Vector3f.YP.rotationDegrees(yawDegrees);
+            Quaternionf rotation = RUtil.rotateY(yawDegrees);
             matrices.translate(position.x, position.y, position.z);
             matrices.mulPose(rotation);
             matrices.scale(scale, scale, scale);
 
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.FIXED,
-                    light, overlay, matrices, vertexConsumers, 0);
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                    light, overlay, matrices, vertexConsumers, null, 0);
             matrices.popPose();
         }
     }
@@ -240,20 +242,20 @@ public class RUtil {
         perp.normalize();
 
         // Find a vector that is perpendicular to both the axis and the perp
-        Vector3f spinAxis = axis.copy();
+        Vector3f spinAxis = new Vector3f(axis);
         spinAxis.cross(perp);
         spinAxis.normalize();
 
         // Rotate the perpendicular vector around the axis to generate the points
         for (int i = 0; i < numPoints; i++) {
             float angle = (float) (2 * Math.PI * i / numPoints) + radiansOffset;
-            Quaternion rotation = axis.rotationDegrees(angle * 180 / (float) Math.PI);
+            Quaternionf rotation = new Quaternionf().rotateAxis(angle, axis);
             Vector3f point = new Vector3f(perp.x() * radius, perp.y() * radius, perp.z() * radius);
-            point.transform(rotation);
+            point.rotate(rotation);
 
             // Apply the spin rotation
-            Quaternion spinRotation = spinAxis.rotationDegrees(spinDegrees);
-            point.transform(spinRotation);
+            Quaternionf spinRotation = new Quaternionf().rotateAxis(toRadians(spinDegrees), spinAxis);
+            point.rotate(spinRotation);
 
             point.add(offset);
 
@@ -263,15 +265,15 @@ public class RUtil {
         return points;
     }
 
-    public static Quaternion slerp(Quaternion q1, Quaternion q2, float t) {
+    public static Quaternionf slerp(Quaternionf q1, Quaternionf q2, float t) {
         // Calculate the cosine of the angle between the two vectors.
-        float dot = q1.i() * q2.i() + q1.j() * q2.j() + q1.k() * q2.k() + q1.r() * q2.r();
+        float dot = q1.x() * q2.x() + q1.y() * q2.y() + q1.z() * q2.z() + q1.w() * q2.w();
 
         // If the dot product is negative, slerp won't take the shorter path.
         // Note that v1 and -v1 are equivalent when the negation is applied to all four components.
-        // Fix by reversing one quaternion.
+        // Fix by reversing one Quaternionf.
         if (dot < 0.0f) {
-            q2 = new Quaternion(-q2.i(), -q2.j(), -q2.k(), -q2.r());
+            q2 = new Quaternionf(-q2.x(), -q2.y(), -q2.z(), -q2.w());
             dot = -dot;
         }
 
@@ -280,11 +282,11 @@ public class RUtil {
             // If the inputs are too close for comfort, linearly interpolate
             // and normalize the result.
 
-            Quaternion result = new Quaternion(
-                    q1.i() + t * (q2.i() - q1.i()),
-                    q1.j() + t * (q2.j() - q1.j()),
-                    q1.k() + t * (q2.k() - q1.k()),
-                    q1.r() + t * (q2.r() - q1.r())
+            Quaternionf result = new Quaternionf(
+                    q1.x() + t * (q2.x() - q1.x()),
+                    q1.y() + t * (q2.y() - q1.y()),
+                    q1.z() + t * (q2.z() - q1.z()),
+                    q1.w() + t * (q2.w() - q1.w())
             );
             result.normalize();
             return result;
@@ -300,12 +302,41 @@ public class RUtil {
         float s1 = sin_theta / sin_theta_0;
 
         // Perform the slerp
-        Quaternion result = new Quaternion(
-                s0 * q1.i() + s1 * q2.i(),
-                s0 * q1.j() + s1 * q2.j(),
-                s0 * q1.k() + s1 * q2.k(),
-                s0 * q1.r() + s1 * q2.r()
+        Quaternionf result = new Quaternionf(
+                s0 * q1.x() + s1 * q2.x(),
+                s0 * q1.y() + s1 * q2.y(),
+                s0 * q1.z() + s1 * q2.z(),
+                s0 * q1.w() + s1 * q2.w()
         );
         return result;
+    }
+
+
+    public static float toRadians(float degrees) {
+        return (float) (degrees / 180F * Math.PI);
+    }
+
+    public static Quaternionf rotateX(float degrees) {
+        return new Quaternionf().rotateX(toRadians(degrees));
+    }
+
+    public static Quaternionf rotateY(float degrees) {
+        return new Quaternionf().rotateY(toRadians(degrees));
+    }
+
+    public static Quaternionf rotateZ(float degrees) {
+        return new Quaternionf().rotateZ(toRadians(degrees));
+    }
+
+    public static Quaternionf fromXYZDegrees(Vector3fc degrees) {
+        // Convert degrees to radians
+        float radX = toRadians(degrees.x());
+        float radY = toRadians(degrees.y());
+        float radZ = toRadians(degrees.z());
+
+        // Create a quaternion from the radians
+        Quaternionf q = new Quaternionf();
+        q.rotateX(radX).rotateY(radY).rotateZ(radZ);
+        return q;
     }
 }

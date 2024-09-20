@@ -1,7 +1,10 @@
 package grill24.potionsplus.recipe;
 
 import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -14,13 +17,15 @@ import java.util.List;
 
 public abstract class ShapelessProcessingRecipe implements Recipe<Container> {
     protected final ResourceLocation id;
+    protected final RecipeCategory category;
     protected final String group;
     protected final ItemStack result;
     protected final Ingredient[] ingredients;
     protected final int processingTime;
 
-    public ShapelessProcessingRecipe(ResourceLocation resourceLocation, String group, Ingredient[] ingredients, ItemStack itemStack, int processingTime) {
+    public ShapelessProcessingRecipe(ResourceLocation resourceLocation, RecipeCategory category, String group, Ingredient[] ingredients, ItemStack itemStack, int processingTime) {
         this.id = resourceLocation;
+        this.category = category;
         this.group = group;
         this.ingredients = ingredients;
         this.result = itemStack;
@@ -48,7 +53,7 @@ public abstract class ShapelessProcessingRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container container) {
+    public ItemStack assemble(Container container, RegistryAccess registryAccess) {
         return this.result.copy();
     }
 
@@ -58,8 +63,12 @@ public abstract class ShapelessProcessingRecipe implements Recipe<Container> {
     }
 
     @Override
+    public ItemStack getResultItem(RegistryAccess access) {
+        return this.result.copy();
+    }
+
     public ItemStack getResultItem() {
-        return this.result;
+        return this.result.copy();
     }
 
     @Override

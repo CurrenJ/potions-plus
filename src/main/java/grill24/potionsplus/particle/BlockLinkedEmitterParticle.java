@@ -16,7 +16,7 @@ public class BlockLinkedEmitterParticle extends NoRenderParticle {
 
     protected BlockLinkedEmitterParticle(ClientLevel level, double x, double y, double z, int lifetime) {
         super(level, x, y, z);
-        this.SPAWN_POS = new BlockPos(x, y, z);
+        this.SPAWN_POS = new BlockPos((int) x, (int) y, (int) z);
         this.lifetime = lifetime;
     }
 

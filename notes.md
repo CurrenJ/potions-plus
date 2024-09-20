@@ -54,10 +54,7 @@
 - Heat level for cauldrons and recipes
 - Other intermediary crafting potions aside from awkward
 
-- Item pedestal
-- Silk touch potion effect (spawners)
-
-- Salt crafting mechanism
+- Salt crafting mechanism xx
 
 - Door as multiblock reference
 - Drops come from loot table targeting block state property (only bottom half drops item, top half does not drop anything)
@@ -66,14 +63,39 @@
 - playerWillDestroy (in bed, this breaks the other half if one is broken)
 
 - Speed of clothesline as a function of height
-- Dimensional recipes for clothesline!!
-- PRE-CALCULATE CLOTHESLINE ITEM POSITIONS IN BLOCKENTITY, RETRIEVE IN RENDERER
+- Dimensional recipes for clothesline!! (editors note: why?)
+- PRE-CALCULATE CLOTHESLINE ITEM POSITIONS IN BLOCKENTITY, RETRIEVE IN RENDERER xx
 
 
-- Frozen lake in ice cave (with snowflake!!)
+- Frozen lake in ice cave (with snowflake!!) xx 
 - Make ore flowers plantable on grass, but not spawnable
 - Make ore flowers spawnable on stone, but not plantable
-- Make ore flowers pottable
+- Make ore flowers pottable 
 
 - Extend simple block feature to make it not check canSurvive so we can place things like snow on ice
-- Add lava canyons to volcanic caves - research how to do this. Maybe check nether biomes for custom carving/features?
+- Add lava canyons to volcanic caves - research how to do this. Maybe check nether biomes for custom carving/features? xx
+
+
+- ARID CAVE, ICE CAVE xx
+- LUNARBERRYBUSHPATCH, OREGEN !!! XX
+- unstable blocks not working xx
+- lava geyuser data gen not working xx
+- recipe category xx
+- blockitems not registering / showing up in creative menu (or jei?) xx
+- potion effect icon xx
+- CLOTHESLINES crafting bug xx
+- Clean Biome classes and gen code after refac xx
+- Herbalists Lectern showing potions xx
+- Loot modifiers (wormroot) (low prio) xx
+- looping scary cave sounds ! xx
+
+- Recharge sanguine altar with amethysts crystals + change block model accordingly!
+- Inheritable plant type that can be waterlogged (like usual) as well as can be filled with layers of snow like a snow layer. Could be cool to randomize the y of each instance so some plants look sunken in snow
+- We should explore more ways to make plants more visually appealing / overhaul rendering / try new models so we can fill caves and biomes with them and its not boring
+- Flowers on cactus bloom after rain
+- Add a literal rain dance. Could be a DDR like minigame lol (use custom renderer for this - could be cool lol. Maybe attach custom renderer to an invis entity that follows player location)
+- Volcanic cave has loot/ plant/ore that lets you multiply netherite production frm scrap. This way the volcanic cave has netherite rewards, but does not allow you to bypass collecting ancient debris in the nether
+- Clothesline Recipe support JEI
+- Item pedestal
+- Silk touch potion effect (spawners)
+- Dungeons that spawn in volcanic cave / ice cave/ arid cave have a chance to replace the entity in the spawner with their bioems variants!! this would be rlly cool detail

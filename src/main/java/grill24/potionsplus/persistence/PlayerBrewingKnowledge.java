@@ -5,7 +5,8 @@ import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -67,7 +68,7 @@ public class PlayerBrewingKnowledge {
 
     public static void onAcquiredNewIngredientKnowledge(Level level, Player player, ItemStack ingredient) {
         if (level != null) {
-            TranslatableComponent text = new TranslatableComponent("chat.potionsplus.acquired_ingredient_knowledge_" + level.getRandom().nextInt(1, 4), ingredient.getHoverName());
+            MutableComponent text = Component.translatable("chat.potionsplus.acquired_ingredient_knowledge_" + level.getRandom().nextInt(1, 4), ingredient.getHoverName());
             player.displayClientMessage(text, true);
             level.playSound(null, player.blockPosition(), SoundEvents.PLAYER_LEVELUP, player.getSoundSource(), 1.0F, 1.0F);
         }

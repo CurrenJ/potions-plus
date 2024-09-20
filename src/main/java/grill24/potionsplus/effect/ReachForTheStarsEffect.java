@@ -4,8 +4,6 @@ import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -13,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.entity.living.PotionEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -28,24 +26,24 @@ public class ReachForTheStarsEffect extends MobEffect {
     }
 
     @SubscribeEvent
-    public static void onUsePotion(final PotionEvent.PotionAddedEvent potionAddedEvent) {
-        if (potionAddedEvent.getPotionEffect().getEffect() == MobEffects.REACH_FOR_THE_STARS.get()) {
-            tryAddReachForTheStars(potionAddedEvent.getEntityLiving(), potionAddedEvent.getPotionEffect().getAmplifier());
+    public static void onUsePotion(final MobEffectEvent.Added potionAddedEvent) {
+        if (potionAddedEvent.getEffectInstance().getEffect() == MobEffects.REACH_FOR_THE_STARS.get()) {
+            tryAddReachForTheStars(potionAddedEvent.getEntity(), potionAddedEvent.getEffectInstance().getAmplifier());
         }
     }
 
     @SubscribeEvent
-    public static void onRemovePotion(final PotionEvent.PotionRemoveEvent potionExpiryEvent) {
-        tryRemoveReachForTheStars(potionExpiryEvent.getEntityLiving(), potionExpiryEvent.getPotionEffect());
+    public static void onRemovePotion(final MobEffectEvent.Remove potionRemoveEvent) {
+        tryRemoveReachForTheStars(potionRemoveEvent.getEntity(), potionRemoveEvent.getEffectInstance());
     }
 
     @SubscribeEvent
-    public static void onPotionExpiry(final PotionEvent.PotionExpiryEvent potionExpiryEvent) {
-        tryRemoveReachForTheStars(potionExpiryEvent.getEntityLiving(), potionExpiryEvent.getPotionEffect());
+    public static void onPotionExpiry(final MobEffectEvent.Expired potionExpiryEvent) {
+        tryRemoveReachForTheStars(potionExpiryEvent.getEntity(), potionExpiryEvent.getEffectInstance());
     }
 
     private static void tryAddReachForTheStars(LivingEntity entity, int amplifier) {
-        AttributeInstance attributeInstance = entity.getAttribute(ForgeMod.REACH_DISTANCE.get());
+        AttributeInstance attributeInstance = entity.getAttribute(ForgeMod.ENTITY_REACH.get());
         if (attributeInstance != null) {
             final AttributeModifier REACH_MODIFIER = new AttributeModifier(ReachForTheStarsEffect.REACH_MODIFIER, "Reach modifier a la Potions Plus", getReach(amplifier), AttributeModifier.Operation.ADDITION);
             attributeInstance.removeModifier(REACH_MODIFIER);
@@ -55,7 +53,7 @@ public class ReachForTheStarsEffect extends MobEffect {
 
     private static void tryRemoveReachForTheStars(LivingEntity entity, MobEffectInstance potionEffect) {
         if (potionEffect != null && potionEffect.getEffect() == MobEffects.REACH_FOR_THE_STARS.get()) {
-            AttributeInstance attributeInstance = entity.getAttribute(ForgeMod.REACH_DISTANCE.get());
+            AttributeInstance attributeInstance = entity.getAttribute(ForgeMod.ENTITY_REACH.get());
             if (attributeInstance != null) {
                 attributeInstance.removeModifier(ReachForTheStarsEffect.REACH_MODIFIER);
             }
@@ -68,12 +66,11 @@ public class ReachForTheStarsEffect extends MobEffect {
 
     @Override
     public Component getDisplayName() {
-        String name = Minecraft.getInstance().player.getName().getContents();
+        String name = Minecraft.getInstance().player.getName().getContents().toString();
         if(name.equals("ohriiiiiiita")) {
-            return new TextComponent("Rita for the Stars");
+            return Component.literal("Rita for the Stars");
         }
 
-
-        return new TranslatableComponent(this.getDescriptionId());
+        return super.getDisplayName();
     }
 }

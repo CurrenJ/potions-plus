@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -58,7 +59,7 @@ public class LunarBerryBushBlock extends SweetBerryBushBlock {
     }
 
     @Override
-    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         super.randomTick(blockState, serverLevel, blockPos, random);
         boolean isBlooming = serverLevel.getRawBrightness(blockPos.above(), 15) < 9 && !serverLevel.isDay();
         serverLevel.setBlock(blockPos, blockState.setValue(BLOOMING, isBlooming), 2);

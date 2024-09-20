@@ -11,7 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 public class SanguineAltarRecipeBuilder extends ShapelessProcessingRecipeBuilder<SanguineAltarRecipe, SanguineAltarRecipeBuilder> {
     @Override
     public SanguineAltarRecipe build(ResourceLocation resourceLocation) {
-        return new SanguineAltarRecipe(resourceLocation, group, ingredients, result, processingTime);
+        return new SanguineAltarRecipe(resourceLocation, category, group, ingredients, result, processingTime);
     }
 
     public SanguineAltarRecipe build() {
@@ -22,7 +22,7 @@ public class SanguineAltarRecipeBuilder extends ShapelessProcessingRecipeBuilder
         name.append("to_");
         name.append(PUtil.getNameOrVerbosePotionName(result));
 
-        return new SanguineAltarRecipe(new ResourceLocation(ModInfo.MOD_ID, name.toString()), group, ingredients, result, processingTime);
+        return new SanguineAltarRecipe(new ResourceLocation(ModInfo.MOD_ID, name.toString()), category, group, ingredients, result, processingTime);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class SanguineAltarRecipeBuilder extends ShapelessProcessingRecipeBuilder
     protected FinishedRecipe getFinishedRecipe(ResourceLocation resourceLocation) {
         return new Result<>(
                 resourceLocation,
-                new ResourceLocation(resourceLocation.getNamespace(), "recipes/" + this.result.getItem().getItemCategory().getRecipeFolderName() + "/" + resourceLocation.getPath()),
+                resourceLocation.withPrefix("recipes/" + this.category.getFolderName() + "/"),
                 this,
                 Recipes.SANGUINE_ALTAR_RECIPE_SERIALIZER.get()
         );

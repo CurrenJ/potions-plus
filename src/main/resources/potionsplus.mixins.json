@@ -6,10 +6,10 @@
   "mixins": [
     "AbstractProjectileDispenseBehaviorMixin",
     "ApplyBonusCount",
-    "BiomeDefaultFeaturesMixin",
     "BoatMixin",
     "BootstrapMixin",
     "BucketItemMixin",
+    "FeatureSorterMixin",
     "ItemEntityMixin",
     "LevelChunkMixin",
     "LivingEntityMixin",
@@ -21,7 +21,8 @@
   ],
   "client": [
     "ClientPacketListenerMixin",
-    "ParticleEngineMixin"
+    "ParticleEngineMixin",
+    "SpriteResourceLoaderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

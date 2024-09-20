@@ -14,6 +14,7 @@ import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipeBuilder;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.Registry;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemStack;
@@ -30,8 +31,8 @@ import java.util.function.Function;
 
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Recipes {
-    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registry.RECIPE_TYPE_REGISTRY, ModInfo.MOD_ID);
-    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registry.RECIPE_SERIALIZER_REGISTRY, ModInfo.MOD_ID);
+    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, ModInfo.MOD_ID);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, ModInfo.MOD_ID);
 
     // Brewing Cauldron Recipe
     public static final RegistryObject<RecipeType<BrewingCauldronRecipe>> BREWING_CAULDRON_RECIPE = RECIPE_TYPES.register("brewing_cauldron_recipe", () -> new RecipeType<>() {
@@ -113,7 +114,7 @@ public class Recipes {
         resourceName += "_" + PUtil.getNameOrVerbosePotionName(ingredient);
         resourceName += "_" + PUtil.getNameOrVerbosePotionName(output);
 
-        BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(new ResourceLocation(ModInfo.MOD_ID, resourceName), "", tier, ingredients, output, 0.1F, PUtil.getProcessingTime(100, input, output, 1));
+        BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(new ResourceLocation(ModInfo.MOD_ID, resourceName), RecipeCategory.BREWING, "", tier, ingredients, output, 0.1F, PUtil.getProcessingTime(100, input, output, 1));
 
         recipes.put(recipe.getId(), recipe);
     }

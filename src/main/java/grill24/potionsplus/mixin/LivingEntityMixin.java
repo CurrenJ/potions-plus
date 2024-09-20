@@ -64,7 +64,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(DDD)V", ordinal = 3))
     public void setDeltaMovement(LivingEntity livingEntity, double x, double y, double z) {
-        if (hasEffect(MobEffects.SLIP_N_SLIDE.get()) && livingEntity.isOnGround()) {
+        if (hasEffect(MobEffects.SLIP_N_SLIDE.get()) && livingEntity.onGround()) {
             double d = 0.91D;
             livingEntity.setDeltaMovement(x / d, y, z / d);
         } else {
@@ -96,7 +96,7 @@ public abstract class LivingEntityMixin extends Entity {
             this.addEffect(new MobEffectInstance(net.minecraft.world.effect.MobEffects.REGENERATION, 900, 1));
             this.addEffect(new MobEffectInstance(net.minecraft.world.effect.MobEffects.ABSORPTION, 100, 1));
             this.addEffect(new MobEffectInstance(net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, 800, 0));
-            this.level.broadcastEntityEvent(this, (byte)35);
+            this.level().broadcastEntityEvent(this, (byte)35);
         }
 
         if(wreathe != null) {

@@ -1,17 +1,23 @@
 package grill24.potionsplus.data.loot;
 
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.seededrecipe.LootPoolSupplier;
+import grill24.potionsplus.utility.ModInfo;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -27,6 +33,7 @@ import java.util.stream.Collectors;
 public class SeededIngredientsLootTables {
     private static final float DEFAULT_WEIGHT = 1000f;
     public static LootContext LOOT_CONTEXT;
+    public static LootParams LOOT_PARAMS;
 
     public static LootPoolSupplier EMPTY = () -> emptyIngredientPool("empty");
     public static LootPoolSupplier TIER_0_INGREDIENTS = () -> generateTier0IngredientsPool(emptyIngredientPool("tier_0_ingredients"));
@@ -34,10 +41,11 @@ public class SeededIngredientsLootTables {
     public static LootPoolSupplier TIER_2_INGREDIENTS = () -> generateTier2IngredientsPool(emptyIngredientPool("tier_2_ingredients"));
     public static LootPoolSupplier TIER_3_INGREDIENTS = () -> generateTier3IngredientsPool(emptyIngredientPool("tier_3_ingredients"));
 
-    public static void initializeLootTables(ServerLevel level, Random random) {
-        LOOT_CONTEXT = new LootContext.Builder(Objects.requireNonNull(level))
-                .withRandom(random)
-                .create(LootContextParamSets.EMPTY);
+    public static void initializeLootTables(ServerLevel level, long seed) {
+        LOOT_PARAMS = new LootParams.Builder(level).create(LootContextParamSets.EMPTY);
+        LOOT_CONTEXT = new LootContext.Builder(LOOT_PARAMS)
+                .withOptionalRandomSeed(PotionsPlus.worldSeed)
+                .create(new ResourceLocation(ModInfo.MOD_ID, "seeded_ingredients"));
     }
 
     private static LootPool.Builder generateTier0IngredientsPool(LootPool.Builder pool) {
@@ -69,11 +77,11 @@ public class SeededIngredientsLootTables {
     }
 
     public static List<ItemStack> samples(LootTable table) {
-        return table.getRandomItems(SeededIngredientsLootTables.LOOT_CONTEXT);
+        return table.getRandomItems(LOOT_PARAMS);
     }
 
     public static ItemStack sample(LootTable table) {
-        return table.getRandomItems(SeededIngredientsLootTables.LOOT_CONTEXT).get(0);
+        return table.getRandomItems(LOOT_PARAMS).get(0);
     }
 
     public static Ingredient[] sampleIngredients(LootTable table, int count) {

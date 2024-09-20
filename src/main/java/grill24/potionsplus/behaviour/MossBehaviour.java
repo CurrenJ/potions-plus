@@ -31,27 +31,27 @@ public class MossBehaviour {
     }
 
     private static void tryMossifyBlock(PlayerInteractEvent.RightClickBlock event, BlockPos pos, Block nonMossyBlock, Block mossyBlock) {
-        if (event.getWorld().getBlockState(pos).is(nonMossyBlock)) {
+        if (event.getLevel().getBlockState(pos).is(nonMossyBlock)) {
             if (event.getItemStack().is(Items.MOSS.get())) {
                 event.setCanceled(true);
-                event.getWorld().setBlockAndUpdate(pos, mossyBlock.defaultBlockState());
-                if (!event.getPlayer().isCreative()) {
+                event.getLevel().setBlockAndUpdate(pos, mossyBlock.defaultBlockState());
+                if (!event.getEntity().isCreative()) {
                     event.getItemStack().shrink(1);
                 }
-                event.getPlayer().swing(event.getHand());
-                event.getWorld().playSound(event.getPlayer(), pos.getX(), pos.getY(), pos.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                event.getEntity().swing(event.getHand());
+                event.getLevel().playSound(event.getEntity(), pos.getX(), pos.getY(), pos.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.NEUTRAL, 1.0F, 1.0F);
             }
         }
     }
 
     private static void tryShearMossyBlock(PlayerInteractEvent.RightClickBlock event, BlockPos pos, Block mossyBlock, Block nonMossyBlock, float dropChance) {
-        if (event.getWorld().getBlockState(pos).is(mossyBlock)) {
+        if (event.getLevel().getBlockState(pos).is(mossyBlock)) {
             if (event.getItemStack().canPerformAction(net.minecraftforge.common.ToolActions.SHEARS_HARVEST)) {
                 event.setCanceled(true);
                 for (int i = 0; i < dropChance; i++) {
                     boolean dropped = false;
                     if (dropChance - i < 1) {
-                        if (event.getWorld().getRandom().nextFloat() < dropChance - i) {
+                        if (event.getLevel().getRandom().nextFloat() < dropChance - i) {
                             dropped = true;
                         }
                     } else {
@@ -59,14 +59,14 @@ public class MossBehaviour {
                     }
 
                     if (dropped) {
-                        Block.popResource(event.getWorld(), pos, new ItemStack(Items.MOSS.get(), 1));
-                        event.getItemStack().hurtAndBreak(1, event.getPlayer(), (p_49571_) -> p_49571_.broadcastBreakEvent(event.getPlayer().getUsedItemHand()));
+                        Block.popResource(event.getLevel(), pos, new ItemStack(Items.MOSS.get(), 1));
+                        event.getItemStack().hurtAndBreak(1, event.getEntity(), (p_49571_) -> p_49571_.broadcastBreakEvent(event.getEntity().getUsedItemHand()));
                     }
                 }
-                event.getWorld().setBlockAndUpdate(pos, nonMossyBlock.defaultBlockState());
+                event.getLevel().setBlockAndUpdate(pos, nonMossyBlock.defaultBlockState());
 
-                event.getPlayer().swing(event.getHand());
-                event.getWorld().playSound(event.getPlayer(), pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BEEHIVE_SHEAR, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                event.getEntity().swing(event.getHand());
+                event.getLevel().playSound(event.getEntity(), pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BEEHIVE_SHEAR, SoundSource.NEUTRAL, 1.0F, 1.0F);
             }
         }
     }

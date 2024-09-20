@@ -33,7 +33,7 @@ public record ServerboundConstructClotheslinePacket(BlockPos pos, BlockPos other
                     new Runnable() {
                         @Override
                         public void run() {
-                            Level level = player.level;
+                            Level level = player.level();
 
                             ClotheslineBehaviour.replaceWithClothelines(level, packet.pos, packet.otherPos);
                         }

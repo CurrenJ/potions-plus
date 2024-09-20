@@ -9,7 +9,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.living.PotionEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -25,11 +25,11 @@ public class BoneBuddyEffect extends MobEffect {
     }
 
     @SubscribeEvent
-    public static void onUsePotion(final PotionEvent.PotionAddedEvent potionAddedEvent) {
-        if (potionAddedEvent.getPotionEffect().getEffect() != MobEffects.BONE_BUDDY.get())
+    public static void onUsePotion(final MobEffectEvent.Added potionAddedEvent) {
+        if (potionAddedEvent.getEffectInstance().getEffect() != MobEffects.BONE_BUDDY.get())
             return;
 
-        if (potionAddedEvent.getEntityLiving() instanceof AbstractSkeleton skeleton) {
+        if (potionAddedEvent.getEntity() instanceof AbstractSkeleton skeleton) {
             Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
                     .filter(goal -> goal.getGoal() instanceof NearestAttackableTargetGoal)
                     .map(goal -> (NearestAttackableTargetGoal<?>) goal.getGoal())
@@ -44,21 +44,21 @@ public class BoneBuddyEffect extends MobEffect {
     }
 
     @SubscribeEvent
-    public static void onRemovePotion(final PotionEvent.PotionRemoveEvent potionExpiryEvent) {
-        if (potionExpiryEvent.getPotionEffect() != null && potionExpiryEvent.getPotionEffect().getEffect() != MobEffects.BONE_BUDDY.get())
+    public static void onRemovePotion(final MobEffectEvent.Expired potionRemoveEvent) {
+        if (potionRemoveEvent.getEffectInstance() != null && potionRemoveEvent.getEffectInstance().getEffect() != MobEffects.BONE_BUDDY.get())
             return;
 
-        if (potionExpiryEvent.getEntityLiving() instanceof AbstractSkeleton skeleton) {
+        if (potionRemoveEvent.getEntity() instanceof AbstractSkeleton skeleton) {
             removeEffect(skeleton);
         }
     }
 
     @SubscribeEvent
-    public static void onPotionExpiry(final PotionEvent.PotionExpiryEvent potionExpiryEvent) {
-        if (potionExpiryEvent.getPotionEffect() != null && potionExpiryEvent.getPotionEffect().getEffect() != MobEffects.BONE_BUDDY.get())
+    public static void onPotionExpiry(final MobEffectEvent.Expired potionExpiryEvent) {
+        if (potionExpiryEvent.getEffectInstance() != null && potionExpiryEvent.getEffectInstance().getEffect() != MobEffects.BONE_BUDDY.get())
             return;
 
-        if (potionExpiryEvent.getEntityLiving() instanceof AbstractSkeleton skeleton) {
+        if (potionExpiryEvent.getEntity() instanceof AbstractSkeleton skeleton) {
             removeEffect(skeleton);
         }
     }

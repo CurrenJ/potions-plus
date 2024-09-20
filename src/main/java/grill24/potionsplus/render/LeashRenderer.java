@@ -2,8 +2,8 @@ package grill24.potionsplus.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -28,7 +28,7 @@ public class LeashRenderer {
         float deltaX = (float) (end.x - start.x);
         float deltaY = (float) (end.y - start.y);
         float deltaZ = (float) (end.z - start.z);
-        float invDistance = Mth.fastInvSqrt(deltaX * deltaX + deltaZ * deltaZ) * 0.025F / 2.0F;
+        float invDistance = (float) (Mth.fastInvSqrt(deltaX * deltaX + deltaZ * deltaZ) * 0.025F / 2.0F);
         float deltaZInvDistance = deltaZ * invDistance;
         float deltaXInvDistance = deltaX * invDistance;
         VertexConsumer vertexConsumer = bufferSource != null ? bufferSource.getBuffer(RenderType.leash()) : null;

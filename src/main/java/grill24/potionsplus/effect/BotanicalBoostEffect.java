@@ -3,6 +3,7 @@ package grill24.potionsplus.effect;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,12 +31,12 @@ public class BotanicalBoostEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        if (livingEntity.level instanceof ServerLevel serverLevel) {
+        if (livingEntity.level() instanceof ServerLevel serverLevel) {
             final int radius = 1 + 2 * amplifier;
-            Random random = livingEntity.getRandom();
+            RandomSource random = livingEntity.getRandom();
             BlockPos origin = livingEntity.blockPosition();
             // If on farm-land or soul sand, origin is the block above
-            if (livingEntity.level.getBlockState(origin).getBlock() instanceof FarmBlock || livingEntity.level.getBlockState(origin).getBlock() instanceof SoulSandBlock) {
+            if (livingEntity.level().getBlockState(origin).getBlock() instanceof FarmBlock || livingEntity.level().getBlockState(origin).getBlock() instanceof SoulSandBlock) {
                 origin = origin.above();
             }
 

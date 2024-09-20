@@ -17,7 +17,7 @@ public class WormrootItem extends Item {
     @Override
     public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
         if (entity.getAge() > CONVERSION_TICKS) {
-            Level level = entity.getLevel();
+            Level level = entity.level();
             boolean isInWater = level.isWaterAt(entity.blockPosition());
             if (isInWater) {
                 for (int i = 0; i < entity.getItem().getCount(); i++) {

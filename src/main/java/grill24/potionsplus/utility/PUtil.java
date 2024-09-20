@@ -2,6 +2,7 @@ package grill24.potionsplus.utility;
 
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.ItemStack;
@@ -11,7 +12,6 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.*;
 
@@ -64,14 +64,14 @@ public class PUtil {
 
     public static String getNameOrVerbosePotionName(ItemStack itemStack) {
         if (isPotion(itemStack)) {
-            return PotionUtils.getPotion(itemStack).getRegistryName().getPath() + "_" + itemStack.getItem().getRegistryName().getPath();
+            return ForgeRegistries.POTIONS.getKey(PotionUtils.getPotion(itemStack)).getPath() + "_" + ForgeRegistries.ITEMS.getKey(itemStack.getItem()).getPath();
         } else {
-            return itemStack.getItem().getRegistryName().getPath();
+            return ForgeRegistries.ITEMS.getKey(itemStack.getItem()).getPath();
         }
     }
 
     public static boolean isPotionsPlusPotion(ItemStack itemStack) {
-        return isPotion(itemStack) && Objects.requireNonNull(PotionUtils.getPotion(itemStack).getRegistryName()).getNamespace().equals(ModInfo.MOD_ID);
+        return isPotion(itemStack) && ForgeRegistries.POTIONS.getKey(PotionUtils.getPotion(itemStack)).getNamespace().equals(ModInfo.MOD_ID);
     }
 
     public static int getProcessingTime(int baseTime, ItemStack input, ItemStack output, int numNonPotionIngredients) {
@@ -164,16 +164,16 @@ public class PUtil {
 
     public static List<MobEffect> getAllMobEffects() {
         List<MobEffect> effects = new ArrayList<>();
-        for (MobEffect value : ForgeRegistries.MOB_EFFECTS.getValues()) {
-            if (value.getRegistryName().getNamespace().equals("minecraft") || value.getRegistryName().getNamespace().equals(ModInfo.MOD_ID)) {
-                effects.add(value);
+        for (Map.Entry<ResourceKey<MobEffect>, MobEffect> value : ForgeRegistries.MOB_EFFECTS.getEntries()) {
+            if (value.getKey().location().getNamespace().equals("minecraft") || value.getKey().location().getNamespace().equals(ModInfo.MOD_ID)) {
+                effects.add(value.getValue());
             }
         }
 
         // Sort by name for consistency
         // We use this list to map from overrides in the Potion Effect Icon model
         // Funky logic, ik
-        effects.sort(Comparator.comparing(ForgeRegistryEntry::getRegistryName));
+        effects.sort(Comparator.comparing(ForgeRegistries.MOB_EFFECTS::getKey));
         return effects;
     }
 
@@ -183,7 +183,7 @@ public class PUtil {
         for (MobEffect value : getAllMobEffects()) {
             ;
             i++;
-            effects.put(value.getRegistryName(), i);
+            effects.put(ForgeRegistries.MOB_EFFECTS.getKey(value), i);
         }
         return effects;
     }

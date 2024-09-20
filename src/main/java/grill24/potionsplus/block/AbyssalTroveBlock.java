@@ -70,7 +70,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
 
                 Vec3 posVec = new Vec3(blockPos.getX() + 0.5, blockPos.getY(), blockPos.getZ() + 0.5);
                 for (int i = 0; i < 20; i++) {
-                    Vec3 particlePos = posVec.add(level.random.nextGaussian(0, 0.5), 0.8 + level.random.nextDouble(-0.125, 0.125), level.random.nextGaussian(0, 0.5));
+                    Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
                     Vec3 away = particlePos.subtract(posVec).normalize().scale(0.5);
                     level.addParticle(ParticleTypes.ENCHANT, particlePos.x, particlePos.y, particlePos.z, away.x, away.y, away.z);
                 }
@@ -88,7 +88,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
                 if (level.isClientSide) {
                     Vec3 posVec = new Vec3(blockPos.getX() + 0.5, blockPos.getY(), blockPos.getZ() + 0.5);
                     for (int i = 0; i < 10; i++) {
-                        Vec3 particlePos = posVec.add(level.random.nextGaussian(0, 0.5), 0.8 + level.random.nextDouble(-0.125, 0.125), level.random.nextGaussian(0, 0.5));
+                        Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
                         level.addParticle(ParticleTypes.HAPPY_VILLAGER, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
                     }
                     level.playSound(player, blockPos, Sounds.ABYSSAL_TROVE_DEPOSIT.get(), player.getSoundSource(), 1.0F, 1.0F);

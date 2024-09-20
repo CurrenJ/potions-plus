@@ -6,8 +6,6 @@ import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
@@ -68,9 +66,9 @@ public class GeodeGraceEffect extends MobEffect {
 
     @SubscribeEvent
     public static void onLivingEntityDeath(final LivingDeathEvent livingDeathEvent) {
-        if (evaluateActivationConditions(livingDeathEvent.getEntityLiving(), livingDeathEvent.getSource().getEntity())) {
-            BlockPos pos = livingDeathEvent.getEntityLiving().blockPosition();
-            Level level = livingDeathEvent.getEntityLiving().level;
+        if (evaluateActivationConditions(livingDeathEvent.getEntity(), livingDeathEvent.getSource().getEntity())) {
+            BlockPos pos = livingDeathEvent.getEntity().blockPosition();
+            Level level = livingDeathEvent.getEntity().level();
 
             boolean doTrySpawnOres = level.random.nextFloat() < ACTIVATION_CHANCE;
             if (doTrySpawnOres) {
@@ -125,11 +123,11 @@ public class GeodeGraceEffect extends MobEffect {
 
     @Override
     public Component getDisplayName() {
-        String name = Minecraft.getInstance().player.getName().getContents();
+        String name = Minecraft.getInstance().player.getName().getContents().toString();
         if(name.equals("Tulip58")) {
-            return new TextComponent("Gio's Grace");
+            return Component.literal("Gio's Grace");
         }
 
-        return new TranslatableComponent(this.getDescriptionId());
+        return Component.translatable(this.getDescriptionId());
     }
 }

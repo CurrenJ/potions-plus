@@ -27,7 +27,7 @@ public class Items {
 
     // ----- Items -----
 
-    public static final RegistryObject<Item> WREATH = ITEMS.register("wreath", () ->  new ArmorItem(ArmorMaterials.WREATH, EquipmentSlot.HEAD, properties()));
+    public static final RegistryObject<Item> WREATH = ITEMS.register("wreath", () ->  new ArmorItem(ArmorMaterials.WREATH, ArmorItem.Type.HELMET, properties()));
 
     public static final RegistryObject<Item> LUNAR_BERRIES = ITEMS.register("lunar_berries", () -> new ItemNameBlockItem(Blocks.LUNAR_BERRY_BUSH.get(), properties().food(Foods.SWEET_BERRIES)));
     public static final RegistryObject<Item> MOSS = ITEMS.register("moss", () -> new Item(properties()));
@@ -76,6 +76,6 @@ public class Items {
     }
 
     public static Item.Properties properties() {
-        return new Item.Properties().tab(POTIONS_PLUS_TAB);
+        return new Item.Properties();
     }
 }

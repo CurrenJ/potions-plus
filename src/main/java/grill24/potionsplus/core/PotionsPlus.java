@@ -6,7 +6,6 @@ import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -37,9 +36,10 @@ public class PotionsPlus {
 
         LootModifiers.LOOT_MODIFIERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
-        Features.CONFIGURED_CARVERS.register(FMLJavaModLoadingContext.get().getModEventBus());
         Features.FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
         Biomes.BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
+
+        CreativeModeTabs.CREATIVE_MODE_TABS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
 
         // Register ourselves for server and other game events we are interested in

@@ -21,14 +21,14 @@ public class FallOfTheVoidEffect extends MobEffect {
 
     @SubscribeEvent
     public static void onLivingEntityDamage(final LivingDamageEvent livingDamageEvent) {
-        if (livingDamageEvent.getSource() == DamageSource.OUT_OF_WORLD) {
-            LivingEntity livingEntity = livingDamageEvent.getEntityLiving();
+        if (livingDamageEvent.getSource() == livingDamageEvent.getEntity().damageSources().fellOutOfWorld()) {
+            LivingEntity livingEntity = livingDamageEvent.getEntity();
             if (livingEntity.hasEffect(MobEffects.FALL_OF_THE_VOID.get())) {
                 // Cancel void damage
                 livingDamageEvent.setCanceled(true);
 
                 // Teleport to top of world
-                Vec3 blockPos = livingEntity.position().with(Direction.Axis.Y, livingDamageEvent.getEntityLiving().getLevel().getMaxBuildHeight());
+                Vec3 blockPos = livingEntity.position().with(Direction.Axis.Y, livingDamageEvent.getEntity().level().getMaxBuildHeight());
                 livingEntity.teleportTo(blockPos.x, blockPos.y, blockPos.z);
 
                 // Remove effect

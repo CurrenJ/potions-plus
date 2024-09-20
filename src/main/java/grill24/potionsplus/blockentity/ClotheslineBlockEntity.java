@@ -1,6 +1,7 @@
 package grill24.potionsplus.blockentity;
 
-import com.mojang.math.Vector3f;
+import grill24.potionsplus.utility.Utility;
+import org.joml.Vector3f;
 import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
@@ -120,13 +121,13 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                 spawnCraftingSuccessParticles(level, slot);
             } else {
                 final ClotheslineRecipe activeRecipe = new ClotheslineRecipe(activeRecipes[slot]);
-                ItemStack container = getItem(slot).getContainerItem();
-                ItemStack result = activeRecipe.assemble(this);
+                ItemStack container = getItem(slot).getCraftingRemainingItem();
+                ItemStack result = activeRecipe.getResultItem();
 
                 getItem(slot).shrink(1);
                 setItem(slot, result);
 
-                if (!container.sameItem(result)) {
+                if (!container.isEmpty()) {
                     Vector3f spotToPop = ClotheslineBlockEntityBakedRenderData.getItemPoint(getBlockPos(), getBlockState(), slot, true);
                     ClotheslineBlock.popResource(level, new BlockPos(Math.round(spotToPop.x()), Math.round(spotToPop.y()), Math.round(spotToPop.z())), container);
                 }
@@ -146,9 +147,9 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
         final int count = level.random.nextInt(3, 6);
         for (int i = 0; i < count; i++) {
             level.addParticle(Particles.END_ROD_RAIN.get(),
-                    pos.x() + level.random.nextGaussian(0, 0.1),
-                    pos.y() + level.random.nextGaussian(0, 0.1),
-                    pos.z() + level.random.nextGaussian(0, 0.1),
+                    pos.x() + Utility.nextGaussian(0, 0.1, level.random),
+                    pos.y() + Utility.nextGaussian(0, 0.1, level.random),
+                    pos.z() + Utility.nextGaussian(0, 0.1, level.random),
                     0, 0, 0);
         }
     }
