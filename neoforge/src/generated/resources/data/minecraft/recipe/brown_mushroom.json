@@ -1,0 +1,19 @@
+{
+  "type": "potionsplus:brewing_cauldron_recipe",
+  "category": "BREWING",
+  "experience": 0.1,
+  "ingredients": [
+    {
+      "item": "minecraft:red_mushroom"
+    },
+    {
+      "item": "minecraft:fermented_spider_eye"
+    }
+  ],
+  "processingTime": 80,
+  "result": {
+    "count": 1,
+    "id": "minecraft:brown_mushroom"
+  },
+  "tier": -1
+}

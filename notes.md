@@ -76,6 +76,8 @@
 - Add lava canyons to volcanic caves - research how to do this. Maybe check nether biomes for custom carving/features? xx
 
 
+1.20
+
 - ARID CAVE, ICE CAVE xx
 - LUNARBERRYBUSHPATCH, OREGEN !!! XX
 - unstable blocks not working xx
@@ -89,13 +91,36 @@
 - Loot modifiers (wormroot) (low prio) xx
 - looping scary cave sounds ! xx
 
+
+NEOFORGE 1.21
+
+
+- access transform names xx
+- NeoForge networking changes a bit - see NF networking docs xx
+- Adapt serializer fromNetwork to use builders so we don't have to declare the method in each recipe serializer class (low prio)
+- Refactor use methods in blocks xx
+- Aquifer freeze biome check error ! (low prio)
+- Something weird with recipe book making many many recipes - see game log xx
+- Generic potion icon - atlas ! xx
+- Hopper on right side of clothesline xx
+- All translations present xx
+
 - Recharge sanguine altar with amethysts crystals + change block model accordingly!
 - Inheritable plant type that can be waterlogged (like usual) as well as can be filled with layers of snow like a snow layer. Could be cool to randomize the y of each instance so some plants look sunken in snow
 - We should explore more ways to make plants more visually appealing / overhaul rendering / try new models so we can fill caves and biomes with them and its not boring
 - Flowers on cactus bloom after rain
 - Add a literal rain dance. Could be a DDR like minigame lol (use custom renderer for this - could be cool lol. Maybe attach custom renderer to an invis entity that follows player location)
-- Volcanic cave has loot/ plant/ore that lets you multiply netherite production frm scrap. This way the volcanic cave has netherite rewards, but does not allow you to bypass collecting ancient debris in the nether
-- Clothesline Recipe support JEI
+- Volcanic cave has loot/ plant/ore that lets you multiply netherite production frm scrap. This way the volcanic cave has netherite rewards, but does not allow you to bypass collecting ancient debris in the nether xx
+- Clothesline Recipe support JEI!!
 - Item pedestal
-- Silk touch potion effect (spawners)
-- Dungeons that spawn in volcanic cave / ice cave/ arid cave have a chance to replace the entity in the spawner with their bioems variants!! this would be rlly cool detail
+- Silk touch potion effect (spawners) 
+- Dungeons that spawn in volcanic cave / ice cave/ arid cave have a chance to replace the entity in the spawner with their bioems variants!! this would be rlly cool detail xx
+- Add buried treasure to arid cave! xx
+- Add berried treasure to arid cave !
+- Achievement for berried treasure
+- Achievements!
+- Add tea brewing :)
+- Implement neoforge config system
+- Enchantable / quicker more durable brush
+- Make decorative fire obtainable 
+- Fix herbalists lectern sounds

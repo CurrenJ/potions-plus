@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#forge:is_coniferous",
-  "features": "potionsplus:patch_lunar_berry_bush",
-  "step": "vegetal_decoration"
-}

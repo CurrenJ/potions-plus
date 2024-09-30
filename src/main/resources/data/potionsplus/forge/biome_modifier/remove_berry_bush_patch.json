@@ -1,5 +1,0 @@
-{
-  "type": "forge:remove_features",
-  "biomes": "#forge:is_coniferous",
-  "features": ["minecraft:patch_berry_common","minecraft:patch_berry_rare"]
-}

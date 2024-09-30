@@ -1,0 +1,14 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "category": "MISC",
+  "ingredients": [
+    {
+      "item": "potionsplus:diamour"
+    }
+  ],
+  "processingTime": 60,
+  "result": {
+    "count": 2,
+    "id": "minecraft:light_blue_dye"
+  }
+}

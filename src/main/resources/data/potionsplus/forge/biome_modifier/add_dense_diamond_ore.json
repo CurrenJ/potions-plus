@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#forge:is_underground",
-  "features": "potionsplus:ore_dense_diamond_small",
-  "step": "underground_ores"
-}
