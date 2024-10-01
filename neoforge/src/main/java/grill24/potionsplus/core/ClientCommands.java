@@ -15,8 +15,6 @@ import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 @OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class ClientCommands {
-    public static boolean shouldRevealAllRecipes = false;
-
     @SubscribeEvent
     public static void registerCommands(RegisterClientCommandsEvent event) {
         event.getDispatcher().register(Commands.literal("potionsplus")
@@ -28,8 +26,8 @@ public class ClientCommands {
                                 return 0;
                             }
                             if (player.hasPermissions(2)) {
-                                shouldRevealAllRecipes = !shouldRevealAllRecipes;
-                                context.getSource().sendSuccess(() -> Component.literal(shouldRevealAllRecipes ? "true" : "false"), true);
+                                PotionsPlus.Debug.shouldRevealAllRecipes = !PotionsPlus.Debug.shouldRevealAllRecipes;
+                                context.getSource().sendSuccess(() -> Component.literal(PotionsPlus.Debug.shouldRevealAllRecipes ? "true" : "false"), true);
                                 JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
                             }
                             return 1;

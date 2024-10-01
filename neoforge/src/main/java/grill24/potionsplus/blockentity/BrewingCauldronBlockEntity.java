@@ -19,6 +19,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -196,15 +197,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
                     // Try add new recipe knowledge to saved data
                     // If the recipe was not already known, schedule a JEI update and play a sound
-                    boolean isNewRecipe = SavedData.instance.getData(playerLastInteractedUuid).addKnownRecipe(recipeId.toString());
-                    if (isNewRecipe) {
-                        Player player = level.getPlayerByUUID(playerLastInteractedUuid);
-                        if (player != null) {
-                            MutableComponent text = Component.translatable("chat.potionsplus.brewing_cauldron_recipe_unlocked", result.getHoverName());
-                            player.displayClientMessage(text, true);
-                            level.playSound(null, worldPosition, Sounds.RECIPE_UNLOCKED.value(), SoundSource.BLOCKS, 1.0F, 1.0F);
-                        }
-                    }
+                    SavedData.instance.getData(playerLastInteractedUuid).addKnownRecipe((ServerPlayer) level.getPlayerByUUID(playerLastInteractedUuid), recipeId.toString());
                     break;
                 }
             }

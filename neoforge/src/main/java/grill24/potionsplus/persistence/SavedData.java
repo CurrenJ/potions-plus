@@ -8,12 +8,11 @@ import grill24.potionsplus.persistence.adapter.*;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.raid.Raids;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
@@ -58,10 +57,11 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
         Type playerDataMapType = new TypeToken<HashMap<UUID, PlayerBrewingKnowledge>>() {
         }.getType();
         data.playerDataMap = gson.fromJson(json, playerDataMapType);
+
         PotionsPlus.LOGGER.info("{} Loaded {} player data entries from saved data.", LOGGER_HEADER, data.playerDataMap.size());
 
         json = getJoinedString(compoundTag, SEEDED_POTION_RECIPES_KEY);
-        Type seededPotionRecipesType = new TypeToken<List<BrewingCauldronRecipe>>() {
+        Type seededPotionRecipesType = new TypeToken<List<RecipeHolder>>() {
         }.getType();
         data.setSeededPotionRecipes(gson.fromJson(json, seededPotionRecipesType));
         PotionsPlus.LOGGER.info("{} Loaded {} seeded potion recipes from saved data.", LOGGER_HEADER, data.seededPotionRecipes.size());

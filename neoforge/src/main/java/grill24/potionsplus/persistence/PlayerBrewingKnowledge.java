@@ -1,17 +1,16 @@
 package grill24.potionsplus.persistence;
 
+import grill24.potionsplus.network.ClientboundBrewingIngredientKnowledgePacket;
+import grill24.potionsplus.network.ClientboundBrewingRecipeKnowledgePacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.common.util.Lazy;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
-import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,6 +22,7 @@ public class PlayerBrewingKnowledge {
 
     private final transient Lazy<Set<PpIngredient>> uniqueIngredients = Lazy.of(this::buildUniqueIngredientsFromSerializableData);
     private final transient Lazy<Set<String>> knownRecipes = Lazy.of(this::buildKnownRecipesFromSerializableData);
+
 
     public PlayerBrewingKnowledge() {
     }
@@ -38,19 +38,19 @@ public class PlayerBrewingKnowledge {
                 .collect(Collectors.toSet());
     }
 
-    public boolean addKnownRecipe(String recipeId) {
+    public boolean addKnownRecipe(ServerPlayer player, String recipeId) {
         if (!knownRecipesContains(recipeId)) {
             knownRecipesSerializableData.add(recipeId);
             knownRecipes.get().add(recipeId);
 
-            onNewRecipeKnowledgeAcquired();
+            onNewRecipeKnowledgeAcquired(player, recipeId);
             return true;
         }
         return false;
     }
 
-    private void onNewRecipeKnowledgeAcquired() {
-        JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
+    private void onNewRecipeKnowledgeAcquired(ServerPlayer player, String recipeId) {
+        PacketDistributor.sendToPlayer(player, new ClientboundBrewingRecipeKnowledgePacket(recipeId));
         SavedData.instance.setDirty();
     }
 
@@ -66,12 +66,8 @@ public class PlayerBrewingKnowledge {
         return knownRecipes.get().contains(recipeId);
     }
 
-    public static void onAcquiredNewIngredientKnowledge(Level level, Player player, ItemStack ingredient) {
-        if (level != null) {
-            MutableComponent text = Component.translatable("chat.potionsplus.acquired_ingredient_knowledge_" + level.getRandom().nextInt(1, 4), ingredient.getHoverName());
-            player.displayClientMessage(text, true);
-            level.playSound(null, player.blockPosition(), SoundEvents.PLAYER_LEVELUP, player.getSoundSource(), 1.0F, 1.0F);
-        }
+    public static void onAcquiredNewIngredientKnowledge(Level level, ServerPlayer player, ItemStack ingredient) {
+        PacketDistributor.sendToPlayer(player, new ClientboundBrewingIngredientKnowledgePacket(ingredient));
     }
 
     // Abyssal Trove

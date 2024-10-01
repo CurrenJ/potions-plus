@@ -25,9 +25,23 @@ public class BrewingCauldronRecipeHolderTypeAdapter extends TypeAdapter<RecipeHo
     @Override
     public void write(JsonWriter out, RecipeHolder<BrewingCauldronRecipe> brewingCauldronRecipeHolder) throws IOException {
         JsonObject jsonObject = new JsonObject();
+
         out.beginObject();
-        BrewingCauldronRecipe.CODEC.encodeStart(JsonOps.INSTANCE, brewingCauldronRecipeHolder.value()).result().ifPresent(jsonElement -> jsonObject.add("recipe", jsonElement));
-        Codec.STRING.encodeStart(JsonOps.INSTANCE, brewingCauldronRecipeHolder.id().toString()).result().ifPresent(jsonElement -> jsonObject.add("id", jsonElement));
+        BrewingCauldronRecipe.CODEC.encodeStart(JsonOps.INSTANCE, brewingCauldronRecipeHolder.value()).result().ifPresent(jsonElement -> {
+            try {
+                out.name("recipe").value(jsonElement.toString());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Codec.STRING.encodeStart(JsonOps.INSTANCE, brewingCauldronRecipeHolder.id().toString()).result().ifPresent(jsonElement -> {
+            try {
+                out.name("id").value(jsonElement.toString());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         out.endObject();
     }
 
@@ -43,14 +57,14 @@ public class BrewingCauldronRecipeHolderTypeAdapter extends TypeAdapter<RecipeHo
                     recipeJson = JsonParser.parseString(in.nextString());
                     break;
                 case "id":
-                    id = in.nextString();
+                    id = JsonParser.parseString(in.nextString()).getAsString();
                     break;
             }
         }
         in.endObject();
 
         if (recipeJson == null || id == null)
-            throw new IOException("Invalid BrewingCauldronRecipe JSON");
+            throw new IOException("Invalid RecipeHolder<BrewingCauldronRecipe> JSON");
 
         String finalId = id;
         return BrewingCauldronRecipe.CODEC.decode(JsonOps.INSTANCE, recipeJson).result().map(brewingCauldronRecipe ->

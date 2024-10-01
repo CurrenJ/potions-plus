@@ -22,8 +22,10 @@ public class BrewingCauldronRecipeTypeAdapter extends TypeAdapter<BrewingCauldro
     @Override
     public void write(JsonWriter out, BrewingCauldronRecipe brewingCauldronRecipe) throws IOException {
         JsonObject jsonObject = new JsonObject();
-        out.beginObject();
         BrewingCauldronRecipe.CODEC.encodeStart(JsonOps.INSTANCE, brewingCauldronRecipe).result().ifPresent(jsonElement -> jsonObject.add("recipe", jsonElement));
+
+        out.beginObject();
+        out.jsonValue(jsonObject.toString());
         out.endObject();
     }
 
@@ -34,18 +36,13 @@ public class BrewingCauldronRecipeTypeAdapter extends TypeAdapter<BrewingCauldro
 
         in.beginObject();
         while (in.hasNext()) {
-            switch (in.nextName()) {
-                case "recipe":
-                    recipe = JsonParser.parseString(in.nextString());
-                    break;
-                case "id":
-                    id = in.nextString();
-                    break;
+            if (in.nextName().equals("recipe")) {
+                recipe = JsonParser.parseString(in.nextString());
             }
         }
         in.endObject();
 
-        if (recipe == null || id == null)
+        if (recipe == null)
             throw new IOException("Invalid BrewingCauldronRecipe JSON");
 
         return (BrewingCauldronRecipe) BrewingCauldronRecipe.CODEC.decode(JsonOps.INSTANCE, recipe)

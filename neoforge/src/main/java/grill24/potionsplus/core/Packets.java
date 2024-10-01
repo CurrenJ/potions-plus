@@ -44,10 +44,27 @@ public class Packets {
                 ClientboundSanguineAltarConversionProgressPacket.ClientPayloadHandler::handleDataOnMain
         );
 
+        // Player Impulse Packet
         registrar.playToClient(
                 ClientboundImpulsePlayerPacket.TYPE,
                 ClientboundImpulsePlayerPacket.STREAM_CODEC,
                 ClientboundImpulsePlayerPacket.ClientPayloadHandler::handleDataOnMain
         );
+
+        // Brewing Ingredient Knowledge Packet
+        registrar.playToClient(
+                ClientboundBrewingIngredientKnowledgePacket.TYPE,
+                ClientboundBrewingIngredientKnowledgePacket.STREAM_CODEC,
+                ClientboundBrewingIngredientKnowledgePacket.ClientPayloadHandler::handleDataOnMain
+        );
+
+        // Brewing Recipe Knowledge Packet
+        registrar.playToClient(
+                ClientboundBrewingRecipeKnowledgePacket.TYPE,
+                ClientboundBrewingRecipeKnowledgePacket.STREAM_CODEC,
+                ClientboundBrewingRecipeKnowledgePacket.ClientPayloadHandler::handleDataOnMain
+        );
+
+
     }
 }

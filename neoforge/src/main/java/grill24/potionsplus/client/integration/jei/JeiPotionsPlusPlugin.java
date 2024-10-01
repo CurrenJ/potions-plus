@@ -1,7 +1,7 @@
 package grill24.potionsplus.client.integration.jei;
 
 import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.ClientCommands;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
@@ -122,7 +122,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
 
             // Filter recipes to those that match known recipes and unhide them
             Stream<BrewingCauldronRecipe> stream = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.value()).stream()
-                    .filter(recipe -> SavedData.instance.getData(player).knownRecipesContains(recipe.id().toString()) || ClientCommands.shouldRevealAllRecipes).map(RecipeHolder::value);
+                    .filter(recipe -> SavedData.instance.getData(player).knownRecipesContains(recipe.id().toString()) || PotionsPlus.Debug.shouldRevealAllRecipes).map(RecipeHolder::value);
             JEI_RUNTIME.getRecipeManager().unhideRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE, stream.toList());
         }
     }

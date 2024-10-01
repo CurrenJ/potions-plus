@@ -6,6 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import grill24.potionsplus.core.PotionsPlus;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.world.item.ItemStack;
 
@@ -20,15 +21,19 @@ public class ItemStackTypeAdapter extends com.google.gson.TypeAdapter<net.minecr
 
     @Override
     public void write(JsonWriter out, ItemStack value) throws IOException {
-        CompoundTag tag = new CompoundTag();
-        value.save(registries, tag);
-        out.value(tag.toString());
+        if (value.isEmpty())
+            return;
+
+        CompoundTag blankTag = new CompoundTag();
+        Tag result = value.save(registries, blankTag);
+        out.value(result.toString());
     }
 
     @Override
     public ItemStack read(JsonReader in) throws IOException {
         try {
-            CompoundTag compoundTag = TagParser.parseTag(in.nextString());
+            String s = in.nextString();
+            CompoundTag compoundTag = TagParser.parseTag(s);
             Optional<ItemStack> itemStack = ItemStack.parse(registries, compoundTag);
             if (itemStack.isEmpty()) {
                 PotionsPlus.LOGGER.warn("Failed to parse ItemStack from JSON: " + compoundTag);

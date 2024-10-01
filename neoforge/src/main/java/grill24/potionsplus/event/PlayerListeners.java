@@ -9,13 +9,13 @@ import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.List;
@@ -28,7 +28,9 @@ public class PlayerListeners {
     public static void onItemPickedUp(final ItemEntityPickupEvent.Post event) {
         Level level = event.getPlayer().level();
         if (!level.isClientSide()) {
-            ItemStack stack = event.getItemEntity().getItem();
+            ItemStack stack = event.getOriginalStack().copy();
+            // For some reason when I made the saved data I decided to use itemstacks, but we only really care about the item id. So set count to 1 for consistency.
+            stack.setCount(1);
             UUID uuid = event.getPlayer().getUUID();
             if (!Utility.isItemInLinkedAbyssalTrove(event.getPlayer(), stack)) {
 
@@ -38,7 +40,7 @@ public class PlayerListeners {
                     for (RecipeHolder<BrewingCauldronRecipe> recipe : recipes) {
                         if (recipe.value().isIngredient(stack)) {
                             playerBrewingKnowledge.addIngredient(stack);
-                            PlayerBrewingKnowledge.onAcquiredNewIngredientKnowledge(level, event.getPlayer(), stack);
+                            PlayerBrewingKnowledge.onAcquiredNewIngredientKnowledge(level, (ServerPlayer) event.getPlayer(), stack);
                             SavedData.instance.playerDataMap.put(uuid, playerBrewingKnowledge);
                             SavedData.instance.setDirty();
                             return;

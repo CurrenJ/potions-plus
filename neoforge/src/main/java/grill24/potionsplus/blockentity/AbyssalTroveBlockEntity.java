@@ -1,9 +1,6 @@
 package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.ClientCommands;
-import grill24.potionsplus.core.Items;
-import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.*;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.utility.ClientTickHandler;
 import net.minecraft.core.BlockPos;
@@ -139,7 +136,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
 
                 ingredients.forEach(ingredient -> {
                     ItemStack stack = ingredient.getItemStack();
-                    if (!ClientCommands.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
+                    if (!PotionsPlus.Debug.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
                         stack = new ItemStack(Items.GENERIC_ICON.value(), 12);
                     }
 

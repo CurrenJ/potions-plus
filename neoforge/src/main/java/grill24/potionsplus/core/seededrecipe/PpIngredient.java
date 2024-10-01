@@ -21,7 +21,9 @@ public class PpIngredient {
     public int hashCode() {
         StringBuilder result = new StringBuilder();
         for (Ingredient ingredient : ingredients) {
-            result.append(PUtil.getNameOrVerbosePotionName(ingredient.getItems()[0]));
+            for (ItemStack stack : ingredient.getItems()) {
+                result.append(PUtil.getNameOrVerbosePotionName(stack));
+            }
         }
         return result.toString().hashCode();
     }
