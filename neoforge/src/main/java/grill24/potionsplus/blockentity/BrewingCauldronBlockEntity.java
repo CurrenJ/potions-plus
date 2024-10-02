@@ -3,7 +3,6 @@ package grill24.potionsplus.blockentity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -16,7 +15,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -197,7 +195,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
                     // Try add new recipe knowledge to saved data
                     // If the recipe was not already known, schedule a JEI update and play a sound
-                    SavedData.instance.getData(playerLastInteractedUuid).addKnownRecipe((ServerPlayer) level.getPlayerByUUID(playerLastInteractedUuid), recipeId.toString());
+                    SavedData.instance.getData(playerLastInteractedUuid).tryAddKnownRecipeServer((ServerPlayer) level.getPlayerByUUID(playerLastInteractedUuid), recipeId.toString(), result);
                     break;
                 }
             }

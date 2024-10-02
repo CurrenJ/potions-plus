@@ -44,7 +44,7 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
     private final Ingredient[][] upgradeDurUpIngredients;
     private Ingredient[] basePotionIngredients;
     private final Holder<MobEffect> effect;
-    private final Potion basePotion;
+    private final Holder<Potion> basePotion;
 
     /*
      * @param basePotion The base potion to upgrade
@@ -55,9 +55,9 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
      * @param allBasePotionIngredients A set of all base potion ingredients generated so far. Used to ensure uniqueness.
      * @param allUpgradeIngredients A set of all upgrade ingredients generated so far. Used to ensure uniqueness.
      */
-    public PotionUpgradeIngredients(Potion basePotion, int maxAmp, int maxDur, LootTable[] tieredIngredients, RandomSource random, Set<PpIngredient> allRecipes) {
+    public PotionUpgradeIngredients(Holder<Potion> basePotion, int maxAmp, int maxDur, LootTable[] tieredIngredients, RandomSource random, Set<PpIngredient> allRecipes) {
         this.basePotion = basePotion;
-        this.effect = basePotion.getEffects().get(0).getEffect();
+        this.effect = basePotion.value().getEffects().get(0).getEffect();
         this.upgradeAmpUpIngredients = new Ingredient[tieredIngredients.length][];
         this.upgradeDurUpIngredients = new Ingredient[tieredIngredients.length][];
 
@@ -110,7 +110,7 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
         this.basePotionIngredients = ingredients;
     }
 
-    public Potion getBasePotion() {
+    public Holder<Potion> getBasePotion() {
         return basePotion;
     }
 

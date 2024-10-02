@@ -73,16 +73,16 @@ public class Recipes {
         List<RecipeHolder<?>> vanillaBrewingRecipes = new ArrayList<>();
 
         // Add all possible vanilla brewing recipes
+        List<ItemStack> INGREDIENTS = BuiltInRegistries.ITEM.stream().map(ItemStack::new).filter((item) -> server.potionBrewing().isIngredient(item)).toList();
         for (PUtil.PotionType inputPotionContainer : PUtil.PotionType.values()) {
-            BuiltInRegistries.POTION.forEach(potion -> {
-                BuiltInRegistries.ITEM.forEach(item -> {
-                    ItemStack input = PUtil.createPotionItemStack(potion, inputPotionContainer);
-                    ItemStack ingredient = new ItemStack(item);
-                    ItemStack output = server.potionBrewing().mix(input, ingredient);
+            List<ItemStack> POTIONS = BuiltInRegistries.POTION.holders().map((potionHolder) -> PUtil.createPotionItemStack(potionHolder, inputPotionContainer)).filter((item) -> server.potionBrewing().isInput(item)).toList();
+            POTIONS.forEach(potion -> {
+                INGREDIENTS.forEach(ingredient -> {
+                    ItemStack output = server.potionBrewing().mix(ingredient, potion);
 
                     // Determine the "tier", as defined by potions plus, of this potion recipe from a vanilla brewing stand recipe
                     int tier = -1;
-                    if (!potion.getEffects().isEmpty()) {
+                    if (!PUtil.getPotion(potion).getEffects().isEmpty()) {
                         if (ingredient.is(Items.GLOWSTONE_DUST) || ingredient.is(Items.REDSTONE)) {
                             // Vanilla potions only have one duration upgrade, so any potion recipe with a redstone or glowstone ingredient is tier 1 (II) recipe
                             tier = 1;
@@ -92,8 +92,8 @@ public class Recipes {
                         }
                     }
 
-                    if (!output.isEmpty() && !ItemStack.isSameItemSameComponents(output, ingredient)) {
-                        vanillaBrewingRecipes.add(getVanillaBrewingRecipe(input, output, ingredient, tier));
+                    if (!output.isEmpty() && !ItemStack.isSameItemSameComponents(output, potion)) {
+                        vanillaBrewingRecipes.add(getVanillaBrewingRecipeAsBrewingCauldronRecipe(potion, output, ingredient, tier));
                     }
                 });
             });
@@ -102,7 +102,7 @@ public class Recipes {
         return vanillaBrewingRecipes;
     }
 
-    private static RecipeHolder<?> getVanillaBrewingRecipe(ItemStack input, ItemStack output, ItemStack ingredient, int tier) {
+    private static RecipeHolder<?> getVanillaBrewingRecipeAsBrewingCauldronRecipe(ItemStack input, ItemStack output, ItemStack ingredient, int tier) {
         Ingredient[] ingredients = new Ingredient[]{Ingredient.of(input), Ingredient.of(ingredient)};
         String resourceName = PUtil.getNameOrVerbosePotionName(input);
         resourceName += "_" + PUtil.getNameOrVerbosePotionName(ingredient);

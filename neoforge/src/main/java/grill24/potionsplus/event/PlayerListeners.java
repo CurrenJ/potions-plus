@@ -3,6 +3,7 @@ package grill24.potionsplus.event;
 import grill24.potionsplus.behaviour.ClotheslineBehaviour;
 import grill24.potionsplus.behaviour.MossBehaviour;
 import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.network.ClientboundSyncKnownBrewingRecipesPacket;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -15,8 +16,11 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.List;
 import java.util.UUID;
@@ -40,7 +44,7 @@ public class PlayerListeners {
                     for (RecipeHolder<BrewingCauldronRecipe> recipe : recipes) {
                         if (recipe.value().isIngredient(stack)) {
                             playerBrewingKnowledge.addIngredient(stack);
-                            PlayerBrewingKnowledge.onAcquiredNewIngredientKnowledge(level, (ServerPlayer) event.getPlayer(), stack);
+                            PlayerBrewingKnowledge.syncNewRecipeWithClient(level, (ServerPlayer) event.getPlayer(), stack);
                             SavedData.instance.playerDataMap.put(uuid, playerBrewingKnowledge);
                             SavedData.instance.setDirty();
                             return;
@@ -58,5 +62,12 @@ public class PlayerListeners {
 
         MossBehaviour.doMossInteractions(event, pos);
         ClotheslineBehaviour.doClotheslineInteractions(event);
+    }
+
+    @SubscribeEvent
+    public static void onPlayerJoin(final EntityJoinLevelEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            PacketDistributor.sendToPlayer(player, ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()));
+        }
     }
 }

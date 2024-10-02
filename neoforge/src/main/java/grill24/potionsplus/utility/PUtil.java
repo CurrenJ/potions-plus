@@ -29,19 +29,18 @@ public class PUtil {
     public static final String LINGERING_POTION_PREFIX = "Lingering Potion of ";
     public static final String TIPPED_ARROW_PREFIX = "Arrow of ";
 
-    public static ItemStack createPotionItemStack(Potion potion, PotionType type, int count) {
-        Holder<Potion> holder = getPotionHolder(potion);
+    public static ItemStack createPotionItemStack(Holder<Potion> potionHolder, PotionType type, int count) {
         ItemStack potionItem = switch (type) {
-            case POTION -> PotionContents.createItemStack(Items.POTION, holder);
-            case SPLASH_POTION -> PotionContents.createItemStack(Items.SPLASH_POTION, holder);
-            case LINGERING_POTION -> PotionContents.createItemStack(Items.LINGERING_POTION, holder);
-            case TIPPED_ARROW -> PotionContents.createItemStack(Items.TIPPED_ARROW, holder);
+            case POTION -> PotionContents.createItemStack(Items.POTION, potionHolder);
+            case SPLASH_POTION -> PotionContents.createItemStack(Items.SPLASH_POTION, potionHolder);
+            case LINGERING_POTION -> PotionContents.createItemStack(Items.LINGERING_POTION, potionHolder);
+            case TIPPED_ARROW -> PotionContents.createItemStack(Items.TIPPED_ARROW, potionHolder);
         };
         potionItem.setCount(count);
         return potionItem;
     }
 
-    public static ItemStack createPotionItemStack(Potion potion, PotionType type) {
+    public static ItemStack createPotionItemStack(Holder<Potion> potion, PotionType type) {
         return createPotionItemStack(potion, type, 1);
     }
 
@@ -123,11 +122,11 @@ public class PUtil {
         return builder.build();
     }
 
-    public static RecipeHolder<BrewingCauldronRecipe> brewingCauldronRecipe(float experience, int processingTime, String group, Potion potion, PotionType potionType, int tier, Ingredient... ingredients) {
+    public static RecipeHolder<BrewingCauldronRecipe> brewingCauldronRecipe(float experience, int processingTime, String group, Holder<Potion> potion, PotionType potionType, int tier, Ingredient... ingredients) {
         return brewingCauldronRecipe(experience, processingTime, group, createPotionItemStack(potion, potionType), tier, ingredients);
     }
 
-    public static RecipeHolder<BrewingCauldronRecipe> brewingCauldronRecipe(float experience, int baseProcessingTime, String advancementNameIngredient, Potion inputPotion, Potion outputPotion, PotionType potionType, int tier, Ingredient... nonPotionIngredients) {
+    public static RecipeHolder<BrewingCauldronRecipe> brewingCauldronRecipe(float experience, int baseProcessingTime, String advancementNameIngredient, Holder<Potion> inputPotion, Holder<Potion> outputPotion, PotionType potionType, int tier, Ingredient... nonPotionIngredients) {
         ItemStack inputPotionItemStack = createPotionItemStack(inputPotion, potionType);
         Ingredient[] allIngredients = new Ingredient[nonPotionIngredients.length + 1];
         System.arraycopy(nonPotionIngredients, 0, allIngredients, 0, nonPotionIngredients.length);
@@ -140,7 +139,7 @@ public class PUtil {
     /*
      * This method creates a recipe for a potion modifier that applies to all potion containers. This includes potion, splash potion, and lingering potion.
      */
-    public static List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronPotionModifierForAllContainers(float experience, int processingTime, String advancementNameIngredient, Potion inputPotion, Potion outputPotion, int tier, Ingredient... nonPotionIngredients) {
+    public static List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronPotionModifierForAllContainers(float experience, int processingTime, String advancementNameIngredient, Holder<Potion> inputPotion, Holder<Potion> outputPotion, int tier, Ingredient... nonPotionIngredients) {
         // The below calls handle all (container -> same container type) potion recipes
         // Container transformation recipes (potion -> splash... etc) are handled in the runtime recipe generation in RecipeManagerMixin.java
         List<RecipeHolder<BrewingCauldronRecipe>> recipes = new ArrayList<>();

@@ -6,7 +6,7 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public interface IPotionUpgradeIngredients {
-    public Potion getBasePotion();
+    public Holder<Potion> getBasePotion();
 
     public Holder<MobEffect> getEffect();
 

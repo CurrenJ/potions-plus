@@ -104,6 +104,8 @@ NEOFORGE 1.21
 - Generic potion icon - atlas ! xx
 - Hopper on right side of clothesline xx
 - All translations present xx
+- Fix choppy animations (partial ticks? in client tickhandler)
+- Known recipes don't sync to client on join server xx
 
 - Recharge sanguine altar with amethysts crystals + change block model accordingly!
 - Inheritable plant type that can be waterlogged (like usual) as well as can be filled with layers of snow like a snow layer. Could be cool to randomize the y of each instance so some plants look sunken in snow

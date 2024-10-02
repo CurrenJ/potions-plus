@@ -5,6 +5,7 @@ import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
@@ -92,7 +93,7 @@ public class SeededPotionRecipeGenerator implements ISeededPotionRecipeGenerator
     }
 
     public List<RecipeHolder<BrewingCauldronRecipe>> generateRecipes(PotionBuilder.PotionsAmpDurMatrix potionAmpDurMatrix, Set<PpIngredient> allRecipes, RandomSource random) {
-        Potion basePotion = potionAmpDurMatrix.get(0, 0);
+        Holder<Potion> basePotion = potionAmpDurMatrix.get(0, 0);
         IPotionUpgradeIngredients potionUpgradeIngredients = new PotionUpgradeIngredients(
                 basePotion,
                 potionAmpDurMatrix.getAmplificationLevels(),
@@ -113,9 +114,9 @@ public class SeededPotionRecipeGenerator implements ISeededPotionRecipeGenerator
         List<RecipeHolder<BrewingCauldronRecipe>> allRecipes = new ArrayList<>();
         for (int a = 0; a < potions.getAmplificationLevels(); a++) {
             for (int d = 0; d < potions.getDurationLevels(); d++) {
-                Potion toCraft = potions.get(a, d);
+                Holder<Potion> toCraft = potions.get(a, d);
                 if (a > 0) {
-                    Potion ampTierBelow = potions.get(a - 1, d);
+                    Holder<Potion> ampTierBelow = potions.get(a - 1, d);
                     Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeAmpUpIngredients(a - 1);
                     if (ingredients == null) {
                         if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
@@ -126,7 +127,7 @@ public class SeededPotionRecipeGenerator implements ISeededPotionRecipeGenerator
                     }
                 }
                 if (d > 0) {
-                    Potion durTierBelow = potions.get(a, d - 1);
+                    Holder<Potion> durTierBelow = potions.get(a, d - 1);
                     Ingredient[] ingredients = potionUpgradeIngredients.getUpgradeDurUpIngredients(d - 1);
                     if (ingredients == null) {
                         if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
@@ -142,7 +143,7 @@ public class SeededPotionRecipeGenerator implements ISeededPotionRecipeGenerator
                             PotionsPlus.LOGGER.error("[BCR] Ingredients for base potion are null: " + toCraft.toString());
                         }
                     } else {
-                        allRecipes.addAll(PUtil.brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, Potions.AWKWARD.value(), toCraft, 0, ingredients));
+                        allRecipes.addAll(PUtil.brewingCauldronPotionModifierForAllContainers(experience, baseProcessingTime, advancementNameIngredient, Potions.AWKWARD, toCraft, 0, ingredients));
                     }
                 }
             }

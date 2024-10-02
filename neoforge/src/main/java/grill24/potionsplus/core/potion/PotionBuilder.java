@@ -173,8 +173,8 @@ public class PotionBuilder {
             return potions;
         }
 
-        public Potion get(int a, int d) {
-            return potions[a][d].value();
+        public Holder<Potion> get(int a, int d) {
+            return potions[a][d];
         }
 
         public int getAmplificationLevels() {

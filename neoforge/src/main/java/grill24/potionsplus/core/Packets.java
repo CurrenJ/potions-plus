@@ -58,13 +58,18 @@ public class Packets {
                 ClientboundBrewingIngredientKnowledgePacket.ClientPayloadHandler::handleDataOnMain
         );
 
-        // Brewing Recipe Knowledge Packet
+        // Acquired Brewing Recipe Knowledge Packet
         registrar.playToClient(
-                ClientboundBrewingRecipeKnowledgePacket.TYPE,
-                ClientboundBrewingRecipeKnowledgePacket.STREAM_CODEC,
-                ClientboundBrewingRecipeKnowledgePacket.ClientPayloadHandler::handleDataOnMain
+                ClientboundAcquiredBrewingRecipeKnowledgePacket.TYPE,
+                ClientboundAcquiredBrewingRecipeKnowledgePacket.STREAM_CODEC,
+                ClientboundAcquiredBrewingRecipeKnowledgePacket.ClientPayloadHandler::handleDataOnMain
         );
 
-
+        // Sync Known Brewing Recipes Packet
+        registrar.playToClient(
+                ClientboundSyncKnownBrewingRecipesPacket.TYPE,
+                ClientboundSyncKnownBrewingRecipesPacket.STREAM_CODEC,
+                ClientboundSyncKnownBrewingRecipesPacket.ClientPayloadHandler::handleDataOnMain
+        );
     }
 }

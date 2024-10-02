@@ -31,7 +31,7 @@ public final class ClientTickHandler {
 
     @SubscribeEvent
     public static void renderTick(final RenderFrameEvent.Post event) {
-        partialTicks = event.getPartialTick().getRealtimeDeltaTicks();
+        partialTicks = event.getPartialTick().getGameTimeDeltaPartialTick(true);
     }
 
     @SubscribeEvent

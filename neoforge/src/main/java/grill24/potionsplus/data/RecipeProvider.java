@@ -111,7 +111,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
         // Water Bottle
         buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 30, "has_potion",
-                net.minecraft.world.item.alchemy.Potions.WATER.value(), PUtil.PotionType.POTION,
+                net.minecraft.world.item.alchemy.Potions.WATER, PUtil.PotionType.POTION,
                 -1,
                 Ingredient.of(net.minecraft.world.item.Items.GLASS_BOTTLE)));
 
