@@ -128,7 +128,7 @@ NEOFORGE 1.21
 - Fix herbalists lectern sounds
 
 - Broadcast recipe unlock to all nearby players xx
-- Sync brewing cauldron + herbalist lecetern animations in other clients
+- Sync brewing cauldron + herbalist lecetern animations in other clients xx
 - Trove pairing
 
 - Make upgrades not randomized

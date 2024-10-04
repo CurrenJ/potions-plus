@@ -1,14 +1,11 @@
 package grill24.potionsplus.blockentity;
 
 import com.google.common.primitives.Booleans;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
+import grill24.potionsplus.utility.ClientUtility;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Quaternionf;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
@@ -54,7 +51,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
         public Vector3f rotation = new Vector3f(90, 0, 0);
         public static final Vector3d itemRestingPositionTranslation = new Vector3d(0.5, 1 - (1 / 64.0), 0.5);
         private Vector3d itemAnimationStartingPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
-        public Vector3d nearbyPlayer = new Vector3d(0, 0, 0);
+        public Vector3d localPlayerPositionRelativeToBlockEntity = new Vector3d(0, 0, 0);
         private ItemStack[] itemStacksToDisplay;
         public boolean[] isAmpUpgrade;
         public boolean[] isDurationUpgrade;
@@ -175,10 +172,8 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
         return 20;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public Vector3f getLocalPlayer() {
-        LocalPlayer player = Minecraft.getInstance().player;
-        return new Vector3f((float) player.getX(), (float) player.getY(), (float) player.getZ());
+    public Vector3f getLocalPlayerRelativePosition() {
+        return new Vector3f((float) rendererData.localPlayerPositionRelativeToBlockEntity.x, (float) rendererData.localPlayerPositionRelativeToBlockEntity.y, (float) rendererData.localPlayerPositionRelativeToBlockEntity.z);
     }
 
     public ItemStack[] getItemStacksToDisplay() {
@@ -200,15 +195,17 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, HerbalistsLecternBlockEntity blockEntity) {
-        Player player = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 8, false);
-        if (player != null) {
-            Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();
-            playerPosRelativeToBlockOrigin = playerPosRelativeToBlockOrigin.subtract(pos.getX(), pos.getY(), pos.getZ());
-            blockEntity.rendererData.nearbyPlayer = new Vector3d(playerPosRelativeToBlockOrigin.x, playerPosRelativeToBlockOrigin.y, playerPosRelativeToBlockOrigin.z);
+        if(level.isClientSide) {
+            Player player = ClientUtility.getLocalPlayer();
+            if (player != null) {
+                Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();
+                playerPosRelativeToBlockOrigin = playerPosRelativeToBlockOrigin.subtract(pos.getX(), pos.getY(), pos.getZ());
+                blockEntity.rendererData.localPlayerPositionRelativeToBlockEntity = new Vector3d(playerPosRelativeToBlockOrigin.x, playerPosRelativeToBlockOrigin.y, playerPosRelativeToBlockOrigin.z);
 
-            blockEntity.spawnParticlesIfPlayerIsHoldingIngredient(player, pos);
-        } else {
-            blockEntity.rendererData.nearbyPlayer = new Vector3d(0, 0, 0);
+                blockEntity.spawnParticlesIfPlayerIsHoldingIngredient(player, pos);
+            } else {
+                blockEntity.rendererData.localPlayerPositionRelativeToBlockEntity = new Vector3d(0, 0, 0);
+            }
         }
     }
 

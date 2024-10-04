@@ -3,6 +3,7 @@ package grill24.potionsplus.blockentity;
 import grill24.potionsplus.core.*;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.utility.ClientTickHandler;
+import grill24.potionsplus.utility.ClientUtility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -70,16 +71,18 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, AbyssalTroveBlockEntity blockEntity) {
-        Player player = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 8, false);
-        if (player != null) {
-            Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();
-            playerPosRelativeToBlockOrigin = playerPosRelativeToBlockOrigin.subtract(pos.getX(), pos.getY(), pos.getZ());
-            blockEntity.playerPosRelativeToBlockOrigin = new Vector3d(playerPosRelativeToBlockOrigin.x, playerPosRelativeToBlockOrigin.y, playerPosRelativeToBlockOrigin.z);
-            blockEntity.degreesTowardsPlayer = (float) Math.toDegrees(Math.atan2(playerPosRelativeToBlockOrigin.z - 0.5, playerPosRelativeToBlockOrigin.x - 0.5));
+        if (level.isClientSide) {
+            Player player = ClientUtility.getLocalPlayer();
+            if (player != null) {
+                Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();
+                playerPosRelativeToBlockOrigin = playerPosRelativeToBlockOrigin.subtract(pos.getX(), pos.getY(), pos.getZ());
+                blockEntity.playerPosRelativeToBlockOrigin = new Vector3d(playerPosRelativeToBlockOrigin.x, playerPosRelativeToBlockOrigin.y, playerPosRelativeToBlockOrigin.z);
+                blockEntity.degreesTowardsPlayer = (float) Math.toDegrees(Math.atan2(playerPosRelativeToBlockOrigin.z - 0.5, playerPosRelativeToBlockOrigin.x - 0.5));
 
-        } else {
-            blockEntity.playerPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
-            blockEntity.degreesTowardsPlayer = 0;
+            } else {
+                blockEntity.playerPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
+                blockEntity.degreesTowardsPlayer = 0;
+            }
         }
     }
 
