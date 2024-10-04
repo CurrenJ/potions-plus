@@ -3,7 +3,10 @@
   "category": "MISC",
   "ingredients": [
     {
-      "item": "potionsplus:copper_chrysanthemum"
+      "ppIngredient": {
+        "count": 1,
+        "id": "potionsplus:copper_chrysanthemum"
+      }
     }
   ],
   "processingTime": 60,

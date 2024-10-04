@@ -1,22 +1,17 @@
 package grill24.potionsplus.recipe;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
     protected final RecipeCategory category;
@@ -80,6 +75,14 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.addAll(List.of(this.ingredients));
         return nonnulllist;
+    }
+
+    public @NotNull List<PpIngredient> getPpIngredients() {
+        List<PpIngredient> ppIngredients = new ArrayList<>();
+        for (Ingredient ingredient : this.ingredients) {
+            ppIngredients.add(PpIngredient.of(ingredient));
+        }
+        return ppIngredients;
     }
 
     public RecipeCategory getCategory() {

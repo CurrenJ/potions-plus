@@ -4,10 +4,16 @@
   "experience": 0.1,
   "ingredients": [
     {
-      "item": "minecraft:sand"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:sand"
+      }
     },
     {
-      "item": "minecraft:gravel"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:gravel"
+      }
     }
   ],
   "processingTime": 50,

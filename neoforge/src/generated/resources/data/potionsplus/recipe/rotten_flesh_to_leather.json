@@ -3,7 +3,10 @@
   "category": "MISC",
   "ingredients": [
     {
-      "item": "minecraft:rotten_flesh"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:rotten_flesh"
+      }
     }
   ],
   "processingTime": 100,

@@ -18,7 +18,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -44,7 +43,7 @@ public class PlayerListeners {
                     for (RecipeHolder<BrewingCauldronRecipe> recipe : recipes) {
                         if (recipe.value().isIngredient(stack)) {
                             playerBrewingKnowledge.addIngredient(stack);
-                            PlayerBrewingKnowledge.syncNewRecipeWithClient(level, (ServerPlayer) event.getPlayer(), stack);
+                            PlayerBrewingKnowledge.alertClientOfNewIngredient(level, (ServerPlayer) event.getPlayer(), stack);
                             SavedData.instance.playerDataMap.put(uuid, playerBrewingKnowledge);
                             SavedData.instance.setDirty();
                             return;

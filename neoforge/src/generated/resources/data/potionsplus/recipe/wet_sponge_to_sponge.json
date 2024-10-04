@@ -3,7 +3,10 @@
   "category": "MISC",
   "ingredients": [
     {
-      "item": "minecraft:wet_sponge"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:wet_sponge"
+      }
     }
   ],
   "processingTime": 300,

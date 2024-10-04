@@ -31,18 +31,19 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity {
     public static final int CONTAINER_SIZE = 6;
     private Optional<RecipeHolder<BrewingCauldronRecipe>> activeRecipe = Optional.empty();
     private int brewTime = 0;
-    private UUID playerLastInteractedUuid = null;
 
     public BrewingCauldronBlockEntity(BlockPos pos, BlockState state) {
         super(Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get(), pos, state);
@@ -195,7 +196,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
                     // Try add new recipe knowledge to saved data
                     // If the recipe was not already known, schedule a JEI update and play a sound
-                    SavedData.instance.getData(playerLastInteractedUuid).tryAddKnownRecipeServer((ServerPlayer) level.getPlayerByUUID(playerLastInteractedUuid), recipeId.toString(), result);
+                    level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
+                        SavedData.instance.getData(player.getUUID()).tryAddKnownRecipeServer((ServerPlayer) player, recipeId.toString(), result);
+                    });
                     break;
                 }
             }
@@ -287,6 +290,6 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
     }
 
     public void onPlayerInsertItem(Player player) {
-        playerLastInteractedUuid = player.getUUID();
+        // Do nothing.
     }
 }

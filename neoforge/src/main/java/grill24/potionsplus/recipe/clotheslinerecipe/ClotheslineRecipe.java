@@ -3,6 +3,7 @@ package grill24.potionsplus.recipe.clotheslinerecipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeSerializerHelper;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -25,8 +26,8 @@ public class ClotheslineRecipe extends ShapelessProcessingRecipe {
         super(category, group, ingredients, itemStack, processingTime);
     }
 
-    public ClotheslineRecipe(RecipeCategory category, String group, List<Ingredient> ingredients, ItemStack itemStack, int processingTime) {
-        super(category, group, ingredients.toArray(new Ingredient[0]), itemStack, processingTime);
+    public ClotheslineRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack itemStack, int processingTime) {
+        super(category, group, ingredients.stream().map((pp) -> pp.ingredients[0]).toArray(Ingredient[]::new), itemStack, processingTime);
     }
 
     @Override
@@ -57,14 +58,14 @@ public class ClotheslineRecipe extends ShapelessProcessingRecipe {
             RecipeCategory category = RecipeCategory.valueOf(buffer.readUtf());
             String group = buffer.readUtf();
             int ingredientCount = buffer.readVarInt();
-            Ingredient[] ingredients = new Ingredient[ingredientCount];
+            PpIngredient[] ingredients = new PpIngredient[ingredientCount];
             for (int i = 0; i < ingredientCount; i++) {
-                ingredients[i] = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+                ingredients[i] = PpIngredient.STREAM_CODEC.decode(buffer);
             }
             ItemStack result = ItemStack.STREAM_CODEC.decode(buffer);
             int processingTime = buffer.readVarInt();
 
-            return new ClotheslineRecipe(category, group, ingredients, result, processingTime);
+            return new ClotheslineRecipe(category, group, List.of(ingredients), result, processingTime);
         }
 
             @Override

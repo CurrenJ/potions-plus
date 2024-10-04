@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeSerializerHelper;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
@@ -47,11 +48,13 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
         this.tier = tier;
     }
 
-    public BrewingCauldronRecipe(RecipeCategory category, String group, List<Ingredient> ingredients, ItemStack result, int processingTime, float experience, int tier) {
-        super(category, group, ingredients.toArray(new Ingredient[0]), result, processingTime);
+    @Deprecated
+    public BrewingCauldronRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack result, int processingTime, float experience, int tier) {
+        super(category, group, ingredients.stream().map((pp) -> pp.ingredients[0]).toArray(Ingredient[]::new), result, processingTime);
         this.experience = experience;
         this.tier = tier;
     }
+
 
     public boolean isIngredient(ItemStack itemStack) {
         for (Ingredient ingredient : this.ingredients) {
@@ -130,7 +133,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
                 codecBuilder -> codecBuilder.group(
                         ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
                         Codec.STRING.optionalFieldOf("group", "").forGetter(Recipe::getGroup),
-                        Ingredient.LIST_CODEC_NONEMPTY.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getIngredients),
+                        PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
                         ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResultItem),
                         Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
                         Codec.FLOAT.fieldOf("experience").forGetter(BrewingCauldronRecipe::getExperience),
@@ -152,9 +155,9 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             RecipeCategory category = RecipeCategory.valueOf(buffer.readUtf());
             String group = buffer.readUtf();
             int ingredientCount = buffer.readVarInt();
-            Ingredient[] ingredients = new Ingredient[ingredientCount];
+            PpIngredient[] ingredients = new PpIngredient[ingredientCount];
             for (int i = 0; i < ingredientCount; i++) {
-                ingredients[i] = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+                ingredients[i] = PpIngredient.STREAM_CODEC.decode(buffer);
             }
             ItemStack result = ItemStack.STREAM_CODEC.decode(buffer);
             int processingTime = buffer.readVarInt();

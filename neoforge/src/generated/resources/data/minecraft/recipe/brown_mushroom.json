@@ -4,10 +4,16 @@
   "experience": 0.1,
   "ingredients": [
     {
-      "item": "minecraft:red_mushroom"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:red_mushroom"
+      }
     },
     {
-      "item": "minecraft:fermented_spider_eye"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:fermented_spider_eye"
+      }
     }
   ],
   "processingTime": 80,

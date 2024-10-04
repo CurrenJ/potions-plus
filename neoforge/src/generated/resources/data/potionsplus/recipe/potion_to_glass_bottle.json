@@ -3,7 +3,10 @@
   "category": "MISC",
   "ingredients": [
     {
-      "item": "minecraft:potion"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:potion"
+      }
     }
   ],
   "processingTime": 100,

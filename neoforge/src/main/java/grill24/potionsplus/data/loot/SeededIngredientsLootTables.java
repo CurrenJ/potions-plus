@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -80,14 +81,14 @@ public class SeededIngredientsLootTables {
         return table.getRandomItems(LOOT_PARAMS);
     }
 
-    public static ItemStack sample(LootTable table) {
-        return table.getRandomItems(LOOT_PARAMS).get(0);
+    public static ItemStack sample(LootTable table, RandomSource random) {
+        return table.getRandomItems(LOOT_PARAMS, random).get(0);
     }
 
-    public static Ingredient[] sampleIngredients(LootTable table, int count) {
+    public static Ingredient[] sampleIngredients(LootTable table, int count, RandomSource random) {
         Ingredient[] items = new Ingredient[count];
         for (int i = 0; i < count; i++) {
-            items[i] = Ingredient.of(sample(table));
+            items[i] = Ingredient.of(sample(table, random));
         }
         return items;
     }

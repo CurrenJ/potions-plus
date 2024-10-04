@@ -4,7 +4,10 @@
   "experience": 0.1,
   "ingredients": [
     {
-      "item": "minecraft:glass_bottle"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:glass_bottle"
+      }
     }
   ],
   "processingTime": 30,

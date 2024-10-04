@@ -3,7 +3,10 @@
   "category": "MISC",
   "ingredients": [
     {
-      "item": "potionsplus:diamour"
+      "ppIngredient": {
+        "count": 1,
+        "id": "potionsplus:diamour"
+      }
     }
   ],
   "processingTime": 60,

@@ -3,7 +3,10 @@
   "category": "MISC",
   "ingredients": [
     {
-      "item": "minecraft:water_bucket"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:water_bucket"
+      }
     }
   ],
   "processingTime": 100,

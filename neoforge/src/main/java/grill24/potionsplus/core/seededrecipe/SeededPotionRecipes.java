@@ -41,7 +41,7 @@ public class SeededPotionRecipes {
     public static TagKey<Item>[] POTION_INGREDIENT_TAGS = new TagKey[]{Tags.Items.BASE_TIER_POTION_INGREDIENTS, Tags.Items.TIER_1_POTION_INGREDIENTS, Tags.Items.TIER_2_POTION_INGREDIENTS, Tags.Items.TIER_3_POTION_INGREDIENTS};
 
     public SeededPotionRecipes() {
-        this.random = new XoroshiroRandomSource(0);
+        this.random = RandomSource.create(0);
         this.recipes = new ArrayList<>();
         this.allRecipeInputs = new HashSet<>();
         this.sanguineAltarRecipes = new ArrayList<>();
@@ -49,7 +49,8 @@ public class SeededPotionRecipes {
 
     public SeededPotionRecipes(MinecraftServer server) {
         long seed = server.getWorldData().worldGenOptions().seed();
-        this.random = new XoroshiroRandomSource(seed);
+        this.random = RandomSource.create(seed);
+
         this.recipes = new ArrayList<>();
         this.allRecipeInputs = new HashSet<>();
         this.sanguineAltarRecipes = new ArrayList<>();

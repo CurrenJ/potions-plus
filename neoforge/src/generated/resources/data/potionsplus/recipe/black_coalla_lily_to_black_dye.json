@@ -3,7 +3,10 @@
   "category": "MISC",
   "ingredients": [
     {
-      "item": "potionsplus:black_coalla_lily"
+      "ppIngredient": {
+        "count": 1,
+        "id": "potionsplus:black_coalla_lily"
+      }
     }
   ],
   "processingTime": 60,

@@ -10,7 +10,6 @@
     "BootstrapMixin",
     "BucketItemMixin",
     "EnchantedCountIncreaseFunctionMixin",
-    "FeatureSorterMixin",
     "ItemEntityMixin",
     "LevelChunkMixin",
     "LivingEntityMixin",

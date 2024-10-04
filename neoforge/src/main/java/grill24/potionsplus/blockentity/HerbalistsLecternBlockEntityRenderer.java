@@ -12,7 +12,6 @@ import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -56,12 +55,12 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
             float radius = 0.4F * RUtil.easeOutExpo(lerpFactor);
             if (infoStacks.length > 10)
                 radius *= 1.5F;
-            Vector3f[] points = RUtil.distributePointsOnCircle(infoStacks.length, axis, offset, (float) Math.toRadians(ticks), radius, (float) Math.toDegrees(Math.atan2(blockEntity.getNearbyPlayer().z(), blockEntity.getNearbyPlayer().x())));
+            Vector3f[] points = RUtil.distributePointsOnCircle(infoStacks.length, axis, offset, (float) Math.toRadians(ticks), radius, (float) Math.toDegrees(Math.atan2(blockEntity.getLocalPlayer().z(), blockEntity.getLocalPlayer().x())));
             for (int p = 0; p < points.length; p++) {
                 Vector3f point = points[p];
                 matrices.pushPose();
 
-                Vector3f direction = blockEntity.getNearbyPlayer();
+                Vector3f direction = blockEntity.getLocalPlayer();
                 direction.sub(point);
                 direction.normalize();
 
@@ -107,7 +106,7 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
                 Vector3f numeralsOffset = new Vector3f(0.5f, 1.75F, 0.5f);
                 matrices.translate(numeralsOffset.x(), numeralsOffset.y(), numeralsOffset.z());
 
-                Vector3f direction = blockEntity.getNearbyPlayer();
+                Vector3f direction = blockEntity.getLocalPlayer();
                 direction.sub(numeralsOffset);
                 direction.normalize();
 

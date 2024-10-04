@@ -2,6 +2,7 @@ package grill24.potionsplus.persistence;
 
 import grill24.potionsplus.network.ClientboundBrewingIngredientKnowledgePacket;
 import grill24.potionsplus.network.ClientboundAcquiredBrewingRecipeKnowledgePacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.common.util.Lazy;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
@@ -50,7 +51,6 @@ public class PlayerBrewingKnowledge {
 
     private void onNewRecipeKnowledgeAcquiredServer(ServerPlayer player, String recipeId, ItemStack result) {
         addKnownRecipe(recipeId);
-
         PacketDistributor.sendToPlayer(player, new ClientboundAcquiredBrewingRecipeKnowledgePacket(recipeId, result));
         SavedData.instance.setDirty();
     }
@@ -72,7 +72,7 @@ public class PlayerBrewingKnowledge {
         return knownRecipes.get().contains(recipeId);
     }
 
-    public static void syncNewRecipeWithClient(Level level, ServerPlayer player, ItemStack ingredient) {
+    public static void alertClientOfNewIngredient(Level level, ServerPlayer player, ItemStack ingredient) {
         PacketDistributor.sendToPlayer(player, new ClientboundBrewingIngredientKnowledgePacket(ingredient));
     }
 

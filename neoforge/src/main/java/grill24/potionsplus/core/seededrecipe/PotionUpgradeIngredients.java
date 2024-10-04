@@ -64,24 +64,24 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
         for (int t = 0; t < tieredIngredients.length; t++) {
             final int tier = t;
             if (t == 0) {
-                sampleUniqueIngredientsFromLootTable(tieredIngredients[tier], ingredientCountDistributions[tier].getRandom(random).get().data(), allRecipes, this::setBasePotionIngredients);
+                sampleUniqueIngredientsFromLootTable(tieredIngredients[tier], ingredientCountDistributions[tier].getRandom(random).get().data(), allRecipes, this::setBasePotionIngredients, random);
             } else {
                 if (t < maxAmp)
-                    sampleUniqueIngredientsFromLootTable(tieredIngredients[tier], ingredientCountDistributions[tier].getRandom(random).get().data(), allRecipes, (ingredients) -> setUpgradeAmpUpIngredients(tier - 1, ingredients));
+                    sampleUniqueIngredientsFromLootTable(tieredIngredients[tier], ingredientCountDistributions[tier].getRandom(random).get().data(), allRecipes, (ingredients) -> setUpgradeAmpUpIngredients(tier - 1, ingredients), random);
                 if (t < maxDur)
-                    sampleUniqueIngredientsFromLootTable(tieredIngredients[tier], ingredientCountDistributions[tier].getRandom(random).get().data(), allRecipes, (ingredients) -> setUpgradeDurUpIngredients(tier - 1, ingredients));
+                    sampleUniqueIngredientsFromLootTable(tieredIngredients[tier], ingredientCountDistributions[tier].getRandom(random).get().data(), allRecipes, (ingredients) -> setUpgradeDurUpIngredients(tier - 1, ingredients), random);
             }
         }
     }
 
-    private static void sampleUniqueIngredientsFromLootTable(LootTable lootTable, int count, Set<PpIngredient> allPreviouslyGeneratedIngredients, Consumer<Ingredient[]> consumer) {
+    private static void sampleUniqueIngredientsFromLootTable(LootTable lootTable, int count, Set<PpIngredient> allPreviouslyGeneratedIngredients, Consumer<Ingredient[]> consumer, RandomSource randomSource) {
         Ingredient[] ingredients;
         PpMultiIngredient ppMultiIngredient;
 
         int iterations = 0;
         final int MAX_ITERATIONS = 100;
         do {
-            ingredients = SeededIngredientsLootTables.sampleIngredients(lootTable, count);
+            ingredients = SeededIngredientsLootTables.sampleIngredients(lootTable, count, randomSource);
             ppMultiIngredient = PpMultiIngredient.of(ingredients);
 
             iterations++;

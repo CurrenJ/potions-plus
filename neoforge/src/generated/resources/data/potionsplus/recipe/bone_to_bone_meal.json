@@ -3,7 +3,10 @@
   "category": "MISC",
   "ingredients": [
     {
-      "item": "minecraft:bone"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:bone"
+      }
     }
   ],
   "processingTime": 600,

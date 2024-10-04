@@ -3,7 +3,10 @@
   "category": "MISC",
   "ingredients": [
     {
-      "item": "minecraft:lava_bucket"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:lava_bucket"
+      }
     }
   ],
   "processingTime": 2400,

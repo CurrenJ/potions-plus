@@ -3,7 +3,10 @@
   "category": "MISC",
   "ingredients": [
     {
-      "item": "potionsplus:lapis_lilac"
+      "ppIngredient": {
+        "count": 1,
+        "id": "potionsplus:lapis_lilac"
+      }
     }
   ],
   "processingTime": 60,

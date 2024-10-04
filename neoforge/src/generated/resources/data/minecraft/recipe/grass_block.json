@@ -4,10 +4,16 @@
   "experience": 0.1,
   "ingredients": [
     {
-      "item": "minecraft:dirt"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:dirt"
+      }
     },
     {
-      "item": "minecraft:moss_block"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:moss_block"
+      }
     }
   ],
   "processingTime": 40,

@@ -1,10 +1,14 @@
 package grill24.potionsplus.blockentity;
 
 import com.google.common.primitives.Booleans;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Quaternionf;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
@@ -171,8 +175,10 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
         return 20;
     }
 
-    public Vector3f getNearbyPlayer() {
-        return new Vector3f((float) rendererData.nearbyPlayer.x, (float) rendererData.nearbyPlayer.y, (float) rendererData.nearbyPlayer.z);
+    @OnlyIn(Dist.CLIENT)
+    public Vector3f getLocalPlayer() {
+        LocalPlayer player = Minecraft.getInstance().player;
+        return new Vector3f((float) player.getX(), (float) player.getY(), (float) player.getZ());
     }
 
     public ItemStack[] getItemStacksToDisplay() {

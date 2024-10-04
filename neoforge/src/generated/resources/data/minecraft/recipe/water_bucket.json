@@ -4,7 +4,10 @@
   "experience": 0.1,
   "ingredients": [
     {
-      "item": "minecraft:bucket"
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:bucket"
+      }
     }
   ],
   "processingTime": 40,

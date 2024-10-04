@@ -1,16 +1,42 @@
 package grill24.potionsplus.core.seededrecipe;
 
 import com.google.gson.JsonElement;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.Contract;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class PpIngredient {
     public Ingredient[] ingredients;
+
+    public static final MapCodec<PpIngredient> CODEC = RecordCodecBuilder.mapCodec(
+            codecBuilder -> codecBuilder.group(
+                            ItemStack.STRICT_CODEC.fieldOf("ppIngredient").forGetter(PpIngredient::getItemStack)
+            ).apply(codecBuilder, PpIngredient::of)
+    );
+    public static final Codec<List<PpIngredient>> LIST_CODEC = CODEC.codec().listOf();
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, PpIngredient> STREAM_CODEC = StreamCodec.of(
+            (byteBuf, ppIngredient) -> {
+                ItemStack.STREAM_CODEC.encode(byteBuf, ppIngredient.getItemStack());
+            },
+            (byteBuf) -> {
+                ItemStack itemStack = ItemStack.STREAM_CODEC.decode(byteBuf);
+                return PpIngredient.of(itemStack);
+            }
+    );
 
     protected PpIngredient(Ingredient[] ingredients) {
         this.ingredients = ingredients;

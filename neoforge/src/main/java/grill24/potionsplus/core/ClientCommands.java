@@ -17,6 +17,8 @@ import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 public class ClientCommands {
     @SubscribeEvent
     public static void registerCommands(RegisterClientCommandsEvent event) {
+        if (!PotionsPlus.Debug.DEBUG) { return; }
+
         event.getDispatcher().register(Commands.literal("potionsplus")
                 .then(Commands.literal("reveal")
                         .executes(context -> {

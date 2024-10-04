@@ -3,7 +3,10 @@
   "category": "MISC",
   "ingredients": [
     {
-      "item": "potionsplus:iron_oxide_daisy"
+      "ppIngredient": {
+        "count": 1,
+        "id": "potionsplus:iron_oxide_daisy"
+      }
     }
   ],
   "processingTime": 60,

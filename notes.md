@@ -104,7 +104,7 @@ NEOFORGE 1.21
 - Generic potion icon - atlas ! xx
 - Hopper on right side of clothesline xx
 - All translations present xx
-- Fix choppy animations (partial ticks? in client tickhandler)
+- Fix choppy animations (partial ticks? in client tickhandler) xx
 - Known recipes don't sync to client on join server xx
 
 - Recharge sanguine altar with amethysts crystals + change block model accordingly!
@@ -126,3 +126,10 @@ NEOFORGE 1.21
 - Enchantable / quicker more durable brush
 - Make decorative fire obtainable 
 - Fix herbalists lectern sounds
+
+- Broadcast recipe unlock to all nearby players xx
+- Sync brewing cauldron + herbalist lecetern animations in other clients
+- Trove pairing
+
+- Make upgrades not randomized
+- 
