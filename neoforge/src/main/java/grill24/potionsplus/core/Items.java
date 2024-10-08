@@ -3,10 +3,12 @@ package grill24.potionsplus.core;
 import grill24.potionsplus.item.WormrootItem;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
+import static net.minecraft.world.item.Items.registerItem;
 
 public class Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, ModInfo.MOD_ID);
@@ -38,22 +41,24 @@ public class Items {
 
     public static final Holder<Item> GENERIC_ICON = ITEMS.register("generic_icon", () -> new Item(properties()));
     public static final List<ResourceLocation> GENERIC_ICON_RESOURCE_LOCATIONS = new ArrayList<>() {{
-        add(ppId("amplifier_upgrade"));
-        add(ppId("duration_upgrade"));
-        add(ppId("i"));
-        add(ppId("ii"));
-        add(ppId("iii"));
-        add(ppId("iv"));
-        add(ppId("v"));
-        add(ppId("vi"));
-        add(ppId("vii"));
-        add(ppId("viii"));
-        add(ppId("arrow"));
-        add(ppId("unknown"));
-        add(mc("sga_a"));
-        add(mc("sga_b"));
-        add(mc("sga_c"));
-        add(mc("sga_d"));
+        add(ppId("amplifier_upgrade")); // ItemStack count: 1
+        add(ppId("duration_upgrade")); // ItemStack count: 2
+        add(ppId("i")); // ItemStack count: 3
+        add(ppId("ii")); // ItemStack count: 4
+        add(ppId("iii")); // ItemStack count: 5
+        add(ppId("iv")); // ItemStack count: 6
+        add(ppId("v")); // ItemStack count: 7
+        add(ppId("vi")); // ItemStack count: 8
+        add(ppId("vii")); // ItemStack count: 9
+        add(ppId("viii")); // ItemStack count: 10
+        add(ppId("arrow")); // ItemStack count: 11
+        add(ppId("unknown")); // ItemStack count: 12
+        add(mc("sga_a")); // ItemStack count: 13
+        add(mc("sga_b")); // ItemStack count: 14
+        add(mc("sga_c")); // ItemStack count: 15
+        add(mc("sga_d")); // ItemStack count: 16
+        add(ppId("common")); // ItemStack count: 17
+        add(ppId("rare")); // ItemStack count: 18
     }};
 
     public static final String DYNAMIC_ICON_INDEX_PROPERTY_NAME = "dynamic_icon_index";

@@ -16,7 +16,7 @@ public class SanguineAltarRecipeBuilder extends ShapelessProcessingRecipeBuilder
         // TODO: Move recipe naming to relevant spot
 
         ResourceLocation recipeId = ppId(PUtil.getUniqueRecipeName(ingredients, result));
-        SanguineAltarRecipe recipe = new SanguineAltarRecipe(category, group, ingredients, result, processingTime);
+        SanguineAltarRecipe recipe = new SanguineAltarRecipe(category, group, ingredients, result, processingTime, canShowInJei);
         return new RecipeHolder<>(recipeId, recipe);
     }
 

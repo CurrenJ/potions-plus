@@ -13,6 +13,7 @@
     "ItemEntityMixin",
     "LevelChunkMixin",
     "LivingEntityMixin",
+    "MobEffectInstanceMixin",
     "MonsterRoomFeatureMixin",
     "OreFeatureMixin",
     "PotionItemMixin",

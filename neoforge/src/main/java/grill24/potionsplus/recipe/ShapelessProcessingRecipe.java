@@ -1,6 +1,8 @@
 package grill24.potionsplus.recipe;
 
+import com.google.common.collect.ImmutableList;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -11,31 +13,46 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
     protected final RecipeCategory category;
     protected final String group;
     protected final ItemStack result;
-    protected final Ingredient[] ingredients;
+    protected final List<PpIngredient> ingredients;
     protected final int processingTime;
+    protected final boolean canShowInJei;
 
-    public ShapelessProcessingRecipe(RecipeCategory category, String group, Ingredient[] ingredients, ItemStack result, int processingTime) {
+    private final NonNullList<Ingredient> nonNullIngredientList;
+
+    public ShapelessProcessingRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei) {
         this.category = category;
         this.group = group;
-        this.ingredients = ingredients;
+        this.ingredients = ImmutableList.copyOf(ingredients);
         this.result = result;
         this.processingTime = processingTime;
+        this.canShowInJei = canShowInJei;
+
+        NonNullList<Ingredient> nonNullIngredientsList = NonNullList.create();
+        for (PpIngredient ppIngredient : ingredients) {
+            nonNullIngredientsList.add(Ingredient.of(ppIngredient.getItemStack()));
+        }
+        this.nonNullIngredientList = nonNullIngredientsList;
+    }
+
+    public List<ItemStack> getIngredientsAsItemStacks() {
+        return this.ingredients.stream().map(PpIngredient::getItemStack).toList();
     }
 
     @Override
     public boolean matches(RecipeInput recipeInput, Level level) {
         boolean hasAllIngredients = true;
-        for (Ingredient ingredient : this.ingredients) {
+        for (PpIngredient ingredient : this.ingredients) {
             boolean hasIngredient = false;
             for (int i = 0; i < recipeInput.size(); i++) {
                 ItemStack itemStack = recipeInput.getItem(i);
-                if (PUtil.isSameItemOrPotion(itemStack, ingredient.getItems()[0])) {
+                if (PUtil.isSameItemOrPotion(itemStack, ingredient.getItemStack(), Collections.singletonList(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH))) {
                     hasIngredient = true;
                     break;
                 }
@@ -50,7 +67,7 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
 
     @Override
     public ItemStack assemble(RecipeInput container, HolderLookup.Provider registryAccess) {
-        return this.result.copy();
+        return getResult();
     }
 
     @Override
@@ -60,10 +77,10 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider access) {
-        return this.result.copy();
+        return getResult();
     }
 
-    public ItemStack getResultItem() {
+    public ItemStack getResult() {
         return this.result.copy();
     }
 
@@ -71,21 +88,20 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
         return this.processingTime;
     }
 
+    @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> nonnulllist = NonNullList.create();
-        nonnulllist.addAll(List.of(this.ingredients));
-        return nonnulllist;
+        return this.nonNullIngredientList;
     }
 
     public @NotNull List<PpIngredient> getPpIngredients() {
-        List<PpIngredient> ppIngredients = new ArrayList<>();
-        for (Ingredient ingredient : this.ingredients) {
-            ppIngredients.add(PpIngredient.of(ingredient));
-        }
-        return ppIngredients;
+        return this.ingredients;
     }
 
     public RecipeCategory getCategory() {
         return this.category;
+    }
+
+    public boolean canShowInJei() {
+        return this.canShowInJei;
     }
 }

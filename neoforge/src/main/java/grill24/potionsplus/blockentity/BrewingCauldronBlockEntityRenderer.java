@@ -1,24 +1,23 @@
 package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.joml.Vector3f;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -52,7 +51,8 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
 
         Optional<RecipeHolder<BrewingCauldronRecipe>> activeRecipe = blockEntity.getActiveRecipe();
         if (activeRecipe.isPresent()) {
-            ItemStack stack = activeRecipe.get().value().getResultItem();
+            // TODO: Calculate display stack in BlocKEntity on update and store it in a field. Needs this fix for durative upgrades
+            ItemStack stack = activeRecipe.get().value().getResult();
             Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
                     light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
         }
@@ -68,11 +68,11 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
         final double radius = 0.32;
         final double angle = Math.PI * 2 / itemStacks.length;
 
-        List<Ingredient> ingredients;
-        if (activeRecipe.isPresent()) {
-            ingredients = activeRecipe.get().value().getIngredients();
-        } else {
+        List<PpIngredient> ingredients;
+        if (activeRecipe.isEmpty()) {
             ingredients = List.of();
+        } else {
+            ingredients = new ArrayList<>(activeRecipe.get().value().getPpIngredients());
         }
         for (int i = 0; i < itemStacks.length; i++) {
             matrices.pushPose();
@@ -83,8 +83,8 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
 
             float scale = 0.5f;
             if (activeRecipe.isPresent()) {
-                for (Ingredient ingredient : ingredients) {
-                    if (grill24.potionsplus.utility.PUtil.isSameItemOrPotion(ingredient.getItems()[0], itemStacks[i])) {
+                for (PpIngredient ingredient : ingredients) {
+                    if (grill24.potionsplus.utility.PUtil.isSameItemOrPotion(ingredient.getItemStack(), itemStacks[i], activeRecipe.get().value().getMatchingCriteria())) {
                         ingredients.remove(ingredient);
                         scale *= 1 - blockEntity.getBrewTime() / (float) activeRecipe.get().value().getProcessingTime();
                         break;

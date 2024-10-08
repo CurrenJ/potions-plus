@@ -1,7 +1,7 @@
 package grill24.potionsplus.utility;
 
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,13 +14,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.*;
-
-import static grill24.potionsplus.utility.Utility.ppId;
 
 public class PUtil {
 
@@ -44,13 +39,62 @@ public class PUtil {
         return createPotionItemStack(potion, type, 1);
     }
 
-    public static boolean isSameItemOrPotion(ItemStack itemStack, ItemStack other) {
-//        if (isPotion(itemStack) && isPotion(other) && itemStack.sameItem(other))
-//            return PotionUtils.getPotion(itemStack).equals(PotionUtils.getPotion(other));
+    public static boolean isSameItemOrPotion(ItemStack itemStack, ItemStack other, List<BrewingCauldronRecipe.PotionMatchingCriteria> matchingCriteria) {
+        boolean shouldIgnorePotionContainer = matchingCriteria.contains(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER);
+        boolean requiresExactMatch = matchingCriteria.contains(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH);
+        boolean shouldIgnorePotionEffects = matchingCriteria.contains(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS);
+        boolean requiresMinimumOneEffect = matchingCriteria.contains(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT);
+        boolean shouldIgnorePotionEffectAmplifier = matchingCriteria.contains(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECT_AMPLIFIER);
+        boolean shouldIgnorePotionEffectDuration = matchingCriteria.contains(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECT_DURATION);
 
-//        return itemStack.is(other.getItem());
+        boolean isSameContainer = shouldIgnorePotionContainer || ItemStack.isSameItem(itemStack, other);
+        if (PUtil.isPotion(itemStack) && PUtil.isPotion(other) && isSameContainer) {
+            PotionContents potionContents = getPotionContents(itemStack);
+            PotionContents otherPotionContents = getPotionContents(other);
 
-        return getNameOrVerbosePotionName(itemStack).equals(getNameOrVerbosePotionName(other));
+            // Exact match ez
+            if (requiresExactMatch) {
+                return ItemStack.isSameItemSameComponents(itemStack, other);
+            }
+
+            // Ignore potion effects but require at least one effect of any type
+            if (requiresMinimumOneEffect) {
+                return potionContents.hasEffects() && otherPotionContents.hasEffects();
+            }
+
+            // Ignore potion effects - only check the potion container
+            if (shouldIgnorePotionEffects) {
+                return true;
+            }
+
+            // Check potion effects for matching duration and/or amplifier depending on the matching criteria
+            List<MobEffectInstance> effects = PUtil.getAllEffects(potionContents);
+            List<MobEffectInstance> otherEffects = PUtil.getAllEffects(otherPotionContents);
+            if (effects.size() != otherEffects.size()) {
+                return false;
+            }
+            for (int i = 0; i < effects.size(); i++) {
+                MobEffectInstance effect = effects.get(i);
+                MobEffectInstance otherEffect = otherEffects.get(i);
+                if (!effect.getEffect().equals(otherEffect.getEffect())
+                        || (effect.getAmplifier() != otherEffect.getAmplifier() && shouldIgnorePotionEffectAmplifier)
+                        || (effect.getDuration() != otherEffect.getDuration() && shouldIgnorePotionEffectDuration)) {
+                    return false;
+                }
+            }
+            // If we reach here, the potion effects are the same
+            return true;
+        } else {
+            return ItemStack.isSameItemSameComponents(itemStack, other);
+        }
+    }
+
+    public static List<MobEffectInstance> getAllEffects(PotionContents potionContents) {
+        List<MobEffectInstance> allEffects = new ArrayList<>();
+        for (MobEffectInstance mobEffectInstance : potionContents.getAllEffects()) {
+            allEffects.add(mobEffectInstance);
+        }
+        return allEffects;
     }
 
     public static boolean isPotion(ItemStack itemStack) {
@@ -69,6 +113,8 @@ public class PUtil {
         return isPotion(itemStack) && BuiltInRegistries.POTION.getKey(getPotion(itemStack)).getNamespace().equals(ModInfo.MOD_ID);
     }
 
+    // TODO: Not rely on potion.
+    @Deprecated
     public static int getProcessingTime(int baseTime, ItemStack input, ItemStack output, int numNonPotionIngredients) {
         int processingTime = baseTime;
 
@@ -102,51 +148,6 @@ public class PUtil {
             case LINGERING_POTION -> LINGERING_POTION_PREFIX + potionName;
             case TIPPED_ARROW -> TIPPED_ARROW_PREFIX + potionName;
         };
-    }
-
-    public static RecipeHolder<BrewingCauldronRecipe> brewingCauldronRecipe(float experience, int processingTime, String group, ItemStack result, int tier, Ingredient... ingredients) {
-        StringBuilder name = new StringBuilder();
-        for (Ingredient ingredient : ingredients) {
-            name.append(getNameOrVerbosePotionName(ingredient.getItems()[0])).append("_");
-        }
-        name.append("to_");
-        name.append(getNameOrVerbosePotionName(result));
-
-        BrewingCauldronRecipeBuilder builder = new BrewingCauldronRecipeBuilder()
-                .ingredients(ingredients)
-                .experience(experience)
-                .processingTime(processingTime)
-                .group(group)
-                .tier(tier)
-                .result(result);
-        return builder.build();
-    }
-
-    public static RecipeHolder<BrewingCauldronRecipe> brewingCauldronRecipe(float experience, int processingTime, String group, Holder<Potion> potion, PotionType potionType, int tier, Ingredient... ingredients) {
-        return brewingCauldronRecipe(experience, processingTime, group, createPotionItemStack(potion, potionType), tier, ingredients);
-    }
-
-    public static RecipeHolder<BrewingCauldronRecipe> brewingCauldronRecipe(float experience, int baseProcessingTime, String advancementNameIngredient, Holder<Potion> inputPotion, Holder<Potion> outputPotion, PotionType potionType, int tier, Ingredient... nonPotionIngredients) {
-        ItemStack inputPotionItemStack = createPotionItemStack(inputPotion, potionType);
-        Ingredient[] allIngredients = new Ingredient[nonPotionIngredients.length + 1];
-        System.arraycopy(nonPotionIngredients, 0, allIngredients, 0, nonPotionIngredients.length);
-        allIngredients[allIngredients.length - 1] = Ingredient.of(inputPotionItemStack);
-
-        int processingTime = getProcessingTime(baseProcessingTime, inputPotionItemStack, createPotionItemStack(outputPotion, potionType), nonPotionIngredients.length);
-        return brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, outputPotion, potionType, tier, allIngredients);
-    }
-
-    /*
-     * This method creates a recipe for a potion modifier that applies to all potion containers. This includes potion, splash potion, and lingering potion.
-     */
-    public static List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronPotionModifierForAllContainers(float experience, int processingTime, String advancementNameIngredient, Holder<Potion> inputPotion, Holder<Potion> outputPotion, int tier, Ingredient... nonPotionIngredients) {
-        // The below calls handle all (container -> same container type) potion recipes
-        // Container transformation recipes (potion -> splash... etc) are handled in the runtime recipe generation in RecipeManagerMixin.java
-        List<RecipeHolder<BrewingCauldronRecipe>> recipes = new ArrayList<>();
-        recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.POTION, tier, nonPotionIngredients));
-        recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.SPLASH_POTION, tier, nonPotionIngredients));
-        recipes.add(brewingCauldronRecipe(experience, processingTime, advancementNameIngredient, inputPotion, outputPotion, PotionType.LINGERING_POTION, tier, nonPotionIngredients));
-        return recipes;
     }
 
     // Potions
@@ -188,7 +189,7 @@ public class PUtil {
 
     public static Potion getPotion(ItemStack itemStack) {
         if(itemStack.has(DataComponents.POTION_CONTENTS)) {
-            Optional<Holder<Potion>> potion = itemStack.get(DataComponents.POTION_CONTENTS).potion();
+            Optional<Holder<Potion>> potion = getPotionContents(itemStack).potion();
 
             return potion.map(Holder::value).orElse(Potions.WATER.value());
         }
@@ -223,10 +224,10 @@ public class PUtil {
         return itemStack;
     }
 
-    public static String getUniqueRecipeName(Ingredient[] ingredients, ItemStack result) {
+    public static String getUniqueRecipeName(List<PpIngredient> ingredients, ItemStack result) {
         StringBuilder name = new StringBuilder();
-        for (Ingredient ingredient : ingredients) {
-            name.append(getNameOrVerbosePotionName(ingredient.getItems()[0])).append("_");
+        for (PpIngredient ingredient : ingredients) {
+            name.append(getNameOrVerbosePotionName(ingredient.getItemStack())).append("_");
         }
         name.append("to_");
         name.append(getNameOrVerbosePotionName(result));

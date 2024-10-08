@@ -1,9 +1,6 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.utility.ModInfo;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -25,9 +22,8 @@ public class Tags {
     }
 
     public static final class Items {
-        public static final TagKey<Item> POTION_AMPLIFIER_UP_INGREDIENT_POOL = tag("potion_amplifier_up_ingredient_pool");
-        public static final TagKey<Item> BASE_TIER_POTION_INGREDIENTS = tag("tier_0_potion_ingredients");
-        public static final TagKey<Item> TIER_1_POTION_INGREDIENTS = tag("tier_1_potion_ingredients");
+        public static final TagKey<Item> COMMON_INGREDIENTS = tag("tier_0_potion_ingredients");
+        public static final TagKey<Item> RARE_INGREDIENTS = tag("tier_1_potion_ingredients");
         public static final TagKey<Item> TIER_2_POTION_INGREDIENTS = tag("tier_2_potion_ingredients");
         public static final TagKey<Item> TIER_3_POTION_INGREDIENTS = tag("tier_3_potion_ingredients");
 
@@ -37,6 +33,13 @@ public class Tags {
         public static final TagKey<Item> FOOD_INGREDIENTS_COMMON = tag("food_ingredients_common");
         public static final TagKey<Item> FOOD_INGREDIENTS_UNCOMMON = tag("food_ingredients_uncommon");
         public static final TagKey<Item> FOOD_INGREDIENTS_RARE = tag("food_ingredients_rare");
+
+
+        public static final TagKey<Item> POTION_AMPLIFIER_UP_INGREDIENTS = tag("potion_amplifier_up_ingredients");
+        public static final TagKey<Item> POTION_DURATION_UP_INGREDIENTS = tag("potion_duration_up_ingredients");
+
+        public static final TagKey<Item> ORE_FLOWERS_COMMON = tag("ore_flowers_common");
+        public static final TagKey<Item> ORE_FLOWERS_RARE = tag("ore_flowers_rare");
 
         private static TagKey<Item> tag(String id) {
             return ItemTags.create(ppId(id));

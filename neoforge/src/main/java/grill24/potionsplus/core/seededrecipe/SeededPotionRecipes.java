@@ -1,5 +1,6 @@
 package grill24.potionsplus.core.seededrecipe;
 
+import com.google.common.collect.Sets;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Tags;
@@ -7,74 +8,142 @@ import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.persistence.SavedData;
-import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
-import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipeBuilder;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.utility.PUtil;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SeededPotionRecipes {
-    public Set<PpIngredient> allUniqueRecipeInputs = new HashSet<>(); // All unique recipe inputs. Used to avoid duplicate recipes. E.x. [1 water bottle, 1 nether wart]
-    public Set<PpIngredient> allPotionsPlusIngredientsNoPotions = new HashSet<>(); // 1 item per ingredient.
-
-    public Set<PpIngredient> allPotionBrewingIngredientsNoPotions = new HashSet<>(); // 1 item per ingredient.
-    public Map<Integer, Set<PpIngredient>> allPotionsBrewingIngredientsByTierNoPotions = new HashMap<>(); // 1 item per ingredient.
-
     private final RandomSource random;
     private final List<RecipeHolder<BrewingCauldronRecipe>> recipes;
-    private List<RecipeHolder<SanguineAltarRecipe>> sanguineAltarRecipes;
 
-    private final Set<PpIngredient> allRecipeInputs;
-
-    private final Map<PpIngredient, TreeNode<List<BrewingCauldronRecipe>>> outputToInput = new HashMap<>();
-
-    public static TagKey<Item>[] POTION_INGREDIENT_TAGS = new TagKey[]{Tags.Items.BASE_TIER_POTION_INGREDIENTS, Tags.Items.TIER_1_POTION_INGREDIENTS, Tags.Items.TIER_2_POTION_INGREDIENTS, Tags.Items.TIER_3_POTION_INGREDIENTS};
+    public static TagKey<Item>[] POTION_INGREDIENT_TAGS = new TagKey[]{Tags.Items.COMMON_INGREDIENTS, Tags.Items.RARE_INGREDIENTS, Tags.Items.TIER_2_POTION_INGREDIENTS, Tags.Items.TIER_3_POTION_INGREDIENTS};
 
     public SeededPotionRecipes() {
         this.random = RandomSource.create(0);
         this.recipes = new ArrayList<>();
-        this.allRecipeInputs = new HashSet<>();
-        this.sanguineAltarRecipes = new ArrayList<>();
     }
 
     public SeededPotionRecipes(MinecraftServer server) {
         long seed = server.getWorldData().worldGenOptions().seed();
         this.random = RandomSource.create(seed);
-
         this.recipes = new ArrayList<>();
-        this.allRecipeInputs = new HashSet<>();
-        this.sanguineAltarRecipes = new ArrayList<>();
 
         SeededIngredientsLootTables.initializeLootTables(server.overworld(), seed);
         generateRecipes();
-
-        SavedData.instance.setSeededPotionRecipes(recipes);
+        SavedData.instance.setSeededPotionRecipesFromSavedData(recipes);
     }
 
     private void generateRecipes() {
-        addAllPotionRecipes(Potions.getAllPotionAmpDurMatrices());
-        computeUniqueIngredientsList(recipes);
-
-        addAllSanguineAltarRecipes();
+        Set<PpMultiIngredient> allRecipeInputs = new HashSet<>();
+        generateRecipesFromGenerationData(allRecipeInputs, Potions.getAllPotionAmpDurMatrices());
+        generateDurationAndAmplificationUpgradeRecipes(allRecipeInputs);
     }
 
-    private void addAllPotionRecipes(PotionBuilder.PotionsAmpDurMatrix... potions) {
+    public void generateDurationAndAmplificationUpgradeRecipes(Set<PpMultiIngredient> usedRecipeInputs) {
+        RandomSource randomSource = RandomSource.create(PotionsPlus.worldSeed);
+
+        // Sample half of the ingredients in the tag
+        int durSize = (int) Math.ceil(BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_DURATION_UP_INGREDIENTS).get().size() / 2F);
+        List<PpIngredient> durationSamples = BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_DURATION_UP_INGREDIENTS).get().stream().map(ItemStack::new).map(PpIngredient::of).collect(Collectors.toCollection(ArrayList::new));
+        for(int d = 0; d < durSize && !durationSamples.isEmpty(); d++) {
+            int randomIndex = randomSource.nextInt(0, durationSamples.size());
+            durationSamples.remove(randomIndex);
+        }
+
+        // Sample half of the ingredients in the tag
+        int ampSize = (int) Math.ceil(BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).get().size() / 2F);
+        List<PpIngredient> amplifierSamples = BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).get().stream().map(ItemStack::new).map(PpIngredient::of).collect(Collectors.toCollection(ArrayList::new));
+        for(int a = 0; a < ampSize && !amplifierSamples.isEmpty(); a++) {
+            int randomIndex = randomSource.nextInt(0, amplifierSamples.size());
+            amplifierSamples.remove(randomIndex);
+        }
+
+        // Builds sets to figure out which ingredients are only duration, only amplifier, or both
+        Set<PpIngredient> durationTagItems = new HashSet<>(durationSamples);
+        Set<PpIngredient> amplifierTagItems = new HashSet<>(amplifierSamples);
+        Set<PpIngredient> durationAndAmplifierTagItems = Sets.intersection(durationTagItems, amplifierTagItems);
+        durationTagItems = Sets.difference(durationTagItems, durationAndAmplifierTagItems);
+        amplifierTagItems = Sets.difference(amplifierTagItems, durationAndAmplifierTagItems);
+
+
+
+        // Only duration upgrades
+        List<RecipeHolder<BrewingCauldronRecipe>> durationUpgradeRecipes = new ArrayList<>();
+        for (PpIngredient ingredient : durationTagItems) {
+            durationUpgradeRecipes.add(
+                    new BrewingCauldronRecipeBuilder()
+                    .result(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION))
+                    .ingredients(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION), ingredient.getItemStack())
+                    .processingTime(30)
+                    .durationToAdd(randomSource.nextInt(100, 1800))
+                    .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT)
+                    .build()
+            );
+        }
+        Recipes.DURATION_UPGRADE_ANALYSIS.compute(durationUpgradeRecipes);
+
+        if (PotionsPlus.Debug.DEBUG) {
+            PotionsPlus.LOGGER.info("[SPR] Injected {} seeded potion duration upgrade recipes:", durationUpgradeRecipes.size());
+        }
+
+        // Only amplifier upgrades
+        List<RecipeHolder<BrewingCauldronRecipe>> amplifierUpgradeRecipes = new ArrayList<>();
+        for (PpIngredient ingredient : amplifierTagItems) {
+            amplifierUpgradeRecipes.add(
+                    new BrewingCauldronRecipeBuilder()
+                            .result(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION))
+                            .ingredients(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION), ingredient.getItemStack())
+                            .processingTime(30)
+                            .amplifierToAdd(1)
+                            .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT)
+                            .build()
+            );
+        }
+        Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.compute(amplifierUpgradeRecipes);
+
+        if (PotionsPlus.Debug.DEBUG) {
+            PotionsPlus.LOGGER.info("[SPR] Injected {} seeded potion amplifier upgrade recipes:", amplifierUpgradeRecipes.size());
+        }
+
+        // Duration and amplifier upgrades
+        List<RecipeHolder<BrewingCauldronRecipe>> bothUpgradeRecipes = new ArrayList<>();
+        for (PpIngredient ingredient : durationAndAmplifierTagItems) {
+            bothUpgradeRecipes.add(
+                    new BrewingCauldronRecipeBuilder()
+                            .result(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION))
+                            .ingredients(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION), ingredient.getItemStack())
+                            .processingTime(30)
+                            .durationToAdd(randomSource.nextInt(400, 1200))
+                            .amplifierToAdd(1)
+                            .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT)
+                            .build()
+            );
+        }
+
+        // Add all new recipes to the list
+        recipes.addAll(durationUpgradeRecipes);
+        recipes.addAll(amplifierUpgradeRecipes);
+        recipes.addAll(bothUpgradeRecipes);
+    }
+
+    private void generateRecipesFromGenerationData(Set<PpMultiIngredient> usedRecipeInputs, PotionBuilder.PotionsPlusPotionGenerationData... potions) {
         int newlyGeneratedRecipes = 0;
-        for (PotionBuilder.PotionsAmpDurMatrix potionsAmpDurMatrix : potions) {
+        for (PotionBuilder.PotionsPlusPotionGenerationData potionsAmpDurMatrix : potions) {
             // Generate all recipes
-            List<RecipeHolder<BrewingCauldronRecipe>> allGeneratedRecipes = potionsAmpDurMatrix.generateRecipes(allRecipeInputs, random);
+            List<RecipeHolder<BrewingCauldronRecipe>> allGeneratedRecipes = potionsAmpDurMatrix.generateRecipes(usedRecipeInputs, random);
             // Take out the recipes that we've loaded from saved data
-            List<RecipeHolder<BrewingCauldronRecipe>> newRecipesToAdd = allGeneratedRecipes.stream().filter(recipe -> !SavedData.instance.itemsWithRecipesInSavedData.contains(PUtil.getNameOrVerbosePotionName(recipe.value().getResultItem()))).toList();
+            List<RecipeHolder<BrewingCauldronRecipe>> newRecipesToAdd = allGeneratedRecipes.stream().filter(recipe -> !SavedData.instance.itemsWithRecipesInSavedData.contains(PpIngredient.of(recipe.value().getResultItemWithTransformations(recipe.value().getIngredientsAsItemStacks())))).toList();
             newlyGeneratedRecipes += newRecipesToAdd.size();
 
             if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_RECIPE_GENERATION) {
@@ -90,144 +159,7 @@ public class SeededPotionRecipes {
         PotionsPlus.LOGGER.info("[SPR] Loaded {} brewing cauldron potion recipes from saved data.", SavedData.instance.seededPotionRecipes.size());
     }
 
-    /**
-     * Compute the unique ingredients list for the brewing cauldron
-     * Called when recipes are synced
-     */
-    public void computeUniqueIngredientsList(List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronRecipes) {
-        allPotionsBrewingIngredientsByTierNoPotions = new HashMap<>();
-        allPotionBrewingIngredientsNoPotions = new HashSet<>();
-        allPotionsPlusIngredientsNoPotions = new HashSet<>();
-        allUniqueRecipeInputs = new HashSet<>();
-
-        brewingCauldronRecipes.forEach(recipeHolder -> {
-            BrewingCauldronRecipe recipe = recipeHolder.value();
-            for (ItemStack itemStack : recipe.getIngredientsAsItemStacks()) {
-                allUniqueRecipeInputs.add(PpIngredient.of(itemStack));
-                if (!PUtil.isPotion(itemStack)) {
-                    if (PUtil.isPotion(recipe.getResultItem()) && PUtil.isPotionsPlusPotion(recipe.getResultItem())) {
-                        allPotionsBrewingIngredientsByTierNoPotions.computeIfAbsent(recipe.getOutputTier(), k -> new HashSet<>()).add(PpIngredient.of(itemStack));
-                        allPotionBrewingIngredientsNoPotions.add(PpIngredient.of(itemStack));
-                    }
-                    allPotionsPlusIngredientsNoPotions.add(PpIngredient.of(itemStack));
-                }
-            }
-        });
-    }
-
-    @Deprecated
-    public void createRecipeTree(List<BrewingCauldronRecipe> recipes) {
-        for (BrewingCauldronRecipe recipe : recipes) {
-            PpIngredient output = PpIngredient.of(recipe.getResultItem());
-
-            TreeNode<List<BrewingCauldronRecipe>> childRecipes = outputToInput.computeIfAbsent(output, k -> new TreeNode<>(new ArrayList<>()));
-            childRecipes.getData().add(recipe);
-            outputToInput.put(output, childRecipes);
-        }
-
-        for (BrewingCauldronRecipe recipe : recipes) {
-            PpIngredient output = PpIngredient.of(recipe.getResultItem());
-
-            if (outputToInput.containsKey(output)) {
-                TreeNode<List<BrewingCauldronRecipe>> outputIngredientNode = outputToInput.computeIfAbsent(output, k -> new TreeNode<>(new ArrayList<>()));
-
-                for (Ingredient ingredient : recipe.getIngredients()) {
-                    PpIngredient input = PpIngredient.of(ingredient.getItems()[0]);
-
-                    if (outputToInput.containsKey(input)) {
-                        TreeNode<List<BrewingCauldronRecipe>> inputChildRecipes = outputToInput.get(input);
-                        outputIngredientNode.addChild(inputChildRecipes);
-                    }
-                }
-            }
-        }
-    }
-
-    @Deprecated
-    public TreeNode<ItemStack> getItemStackTree(PpIngredient output) {
-        return getItemStackTree(Recipes.seededPotionRecipes.getRecipeSubTree(output));
-    }
-
-    @Deprecated
-    public TreeNode<ItemStack> getItemStackTree(TreeNode<List<BrewingCauldronRecipe>> branch) {
-        if (branch == null) {
-            return null;
-        }
-
-        ItemStack outputStack = branch.getData().get(0).getResultItem();
-        TreeNode<ItemStack> itemStackTree = new TreeNode<>(outputStack, null);
-
-        return getItemStackTree(itemStackTree, branch);
-    }
-
-    @Deprecated
-    public TreeNode<ItemStack> getItemStackTree(TreeNode<ItemStack> itemStackTree, TreeNode<List<BrewingCauldronRecipe>> branch) {
-        if (branch == null) {
-            return null;
-        }
-
-        // Process each recipe in the branch
-        for (BrewingCauldronRecipe recipe : branch.getData()) {
-            // Process each ingredient in the recipe
-            for (Ingredient ingredient : recipe.getIngredients()) {
-                // Create a child node for each ingredient
-                ItemStack ingredientStack = ingredient.getItems()[0];
-                TreeNode<ItemStack> ingredientNode = new TreeNode<>(ingredientStack, itemStackTree);
-                itemStackTree.addChild(ingredientNode);
-
-                // Recursively add children for the ingredient
-                for (TreeNode<List<BrewingCauldronRecipe>> child : branch.getChildren()) {
-                    ItemStack childOutputStack = child.getData().get(0).getResultItem();
-                    if (PUtil.isSameItemOrPotion(childOutputStack, ingredientStack)) {
-                        getItemStackTree(ingredientNode, child);
-                    }
-                }
-            }
-        }
-
-        return itemStackTree;
-    }
-
-    @Deprecated
-    public TreeNode<List<BrewingCauldronRecipe>> getRecipeSubTree(PpIngredient output) {
-        return outputToInput.get(output);
-    }
-
     public List<RecipeHolder<BrewingCauldronRecipe>> getRecipes() {
         return recipes;
-    }
-
-    // ----- Sangune Altar Recipes -----
-
-    public void addAllSanguineAltarRecipes() {
-        sanguineAltarRecipes.clear();
-
-        Random random = new Random(PotionsPlus.worldSeed);
-        final int processingTime = 100;
-        for (Set<PpIngredient> ingredients : allPotionsBrewingIngredientsByTierNoPotions.values()) {
-            List<PpIngredient> tierIngredients = new ArrayList<>(ingredients);
-            PpIngredient firstIngredient = null;
-            PpIngredient lastIngredient = null;
-
-            while (!tierIngredients.isEmpty()) {
-                PpIngredient nextIngredient = tierIngredients.remove(random.nextInt(tierIngredients.size()));
-                if (lastIngredient != null) {
-                    SanguineAltarRecipeBuilder builder = new SanguineAltarRecipeBuilder().ingredients(lastIngredient).result(nextIngredient.getItemStack()).processingTime(processingTime);
-                    sanguineAltarRecipes.add(builder.build());
-                } else {
-                    firstIngredient = nextIngredient;
-                }
-                lastIngredient = nextIngredient;
-            }
-
-            if (firstIngredient != null) {
-                SanguineAltarRecipeBuilder builder = new SanguineAltarRecipeBuilder().ingredients(lastIngredient).result(firstIngredient.getItemStack()).processingTime(processingTime);
-                sanguineAltarRecipes.add(builder.build());
-            }
-        }
-    }
-
-    public List<RecipeHolder<SanguineAltarRecipe>> getSanguineAltarRecipes() {
-        return sanguineAltarRecipes;
     }
 }

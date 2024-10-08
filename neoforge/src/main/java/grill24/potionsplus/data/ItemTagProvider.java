@@ -1,5 +1,6 @@
 package grill24.potionsplus.data;
 
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.HolderLookup;
@@ -19,29 +20,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(grill24.potionsplus.core.Tags.Items.POTION_AMPLIFIER_UP_INGREDIENT_POOL).add(
-                net.minecraft.world.item.Items.GLOWSTONE_DUST,
-                net.minecraft.world.item.Items.REDSTONE,
-                net.minecraft.world.item.Items.SUGAR,
-                net.minecraft.world.item.Items.GUNPOWDER);
-
-        tier0();
-        tier1();
-        tier2();
-        tier3();
-
-        tag(Tags.Items.GEODE_GRACE_BASE_TIER_INGREDIENTS).addTag(Tags.Items.BASE_TIER_POTION_INGREDIENTS).add(
-                grill24.potionsplus.core.Blocks.IRON_OXIDE_DAISY.value().asItem(),
-                grill24.potionsplus.core.Blocks.COPPER_CHRYSANTHEMUM.value().asItem(),
-                grill24.potionsplus.core.Blocks.LAPIS_LILAC.value().asItem(),
-                grill24.potionsplus.core.Blocks.REDSTONE_ROSE.value().asItem()
-        );
-
-        tag(Tags.Items.GEODE_GRACE_TIER_1_INGREDIENTS).addTag(Tags.Items.TIER_1_POTION_INGREDIENTS).add(
-                grill24.potionsplus.core.Blocks.DIAMOUR.value().asItem(),
-                grill24.potionsplus.core.Blocks.GOLDEN_CUBENSIS.value().asItem(),
-                grill24.potionsplus.core.Blocks.BLACK_COALLA_LILY.value().asItem()
-        );
+        common();
+        rare();
 
         tag(Tags.Items.FOOD_INGREDIENTS_COMMON).add(
                 Items.APPLE,
@@ -61,9 +41,7 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.RABBIT_STEW,
                 Items.SWEET_BERRIES,
                 Items.BEETROOT_SOUP,
-                Items.DRIED_KELP,
-                grill24.potionsplus.core.Items.MOSS.value(),
-                grill24.potionsplus.core.Items.WORMROOT.value()
+                Items.DRIED_KELP
         );
 
         tag(Tags.Items.FOOD_INGREDIENTS_UNCOMMON).add(
@@ -78,10 +56,7 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.SUSPICIOUS_STEW,
                 Items.TROPICAL_FISH,
                 Items.HONEY_BOTTLE,
-                Items.COOKIE,
-                grill24.potionsplus.core.Items.LUNAR_BERRIES.value(),
-                grill24.potionsplus.core.Items.SALT.value(),
-                grill24.potionsplus.core.Items.ROTTEN_WORMROOT.value()
+                Items.COOKIE
         );
 
         tag(Tags.Items.FOOD_INGREDIENTS_RARE).add(
@@ -93,6 +68,43 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.CAKE,
                 Items.POPPED_CHORUS_FRUIT
         );
+
+        tag(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).add(
+                Items.SADDLE,
+                Items.ARMADILLO_SCUTE,
+                grill24.potionsplus.core.Items.MOSS.value(),
+                grill24.potionsplus.core.Items.WORMROOT.value(),
+                grill24.potionsplus.core.Items.ROTTEN_WORMROOT.value(),
+                grill24.potionsplus.core.Items.LUNAR_BERRIES.value(),
+                grill24.potionsplus.core.Items.SALT.value(),
+                Items.GOLD_BLOCK,
+                Items.DIAMOND,
+                Items.GHAST_TEAR
+        );
+
+        tag(Tags.Items.POTION_DURATION_UP_INGREDIENTS).add(
+                grill24.potionsplus.core.Items.MOSS.value(),
+                grill24.potionsplus.core.Items.LUNAR_BERRIES.value(),
+                grill24.potionsplus.core.Items.SALT.value(),
+                grill24.potionsplus.core.Items.ROTTEN_WORMROOT.value(),
+                Items.AMETHYST_BLOCK,
+                Items.REDSTONE_BLOCK,
+                Items.LAPIS_BLOCK,
+                Items.GHAST_TEAR
+        );
+
+        tag(Tags.Items.ORE_FLOWERS_COMMON).add(
+                Blocks.IRON_OXIDE_DAISY.value().asItem(),
+                Blocks.COPPER_CHRYSANTHEMUM.value().asItem(),
+                Blocks.BLACK_COALLA_LILY.value().asItem(),
+                Blocks.REDSTONE_ROSE.value().asItem()
+        );
+
+        tag(Tags.Items.ORE_FLOWERS_RARE).add(
+                Blocks.DIAMOUR.value().asItem(),
+                Blocks.GOLDEN_CUBENSIS.value().asItem(),
+                Blocks.LAPIS_LILAC.value().asItem()
+        );
     }
 
     @Override
@@ -100,8 +112,8 @@ public class ItemTagProvider extends ItemTagsProvider {
         return "Potions Plus item tags";
     }
 
-    public void tier0() {
-        tag(Tags.Items.BASE_TIER_POTION_INGREDIENTS).add(
+    public void common() {
+        tag(Tags.Items.COMMON_INGREDIENTS).add(
                 Items.KELP,
                 Items.BAMBOO,
                 Items.CACTUS,
@@ -124,35 +136,26 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.BONE,
                 Items.PORKCHOP,
                 Items.CHICKEN,
-                Items.BEEF
-        );
-    }
-
-    public void tier1() {
-        tag(Tags.Items.TIER_1_POTION_INGREDIENTS).add(
+                Items.BEEF,
                 Items.DEAD_BUSH,
                 Items.FLOWERING_AZALEA,
                 Items.HANGING_ROOTS,
                 Items.VINE,
-                Items.MUSHROOM_STEM,
                 Items.TROPICAL_FISH,
                 Items.FEATHER,
-                Items.LILY_PAD,
                 Items.APPLE,
-                Items.MUSHROOM_STEM,
                 Items.EGG,
                 Items.SLIME_BALL,
                 Items.HONEYCOMB,
                 Items.BEETROOT_SEEDS,
                 Items.SEA_PICKLE,
-                Items.CHICKEN,
                 Items.WARPED_FUNGUS,
                 Items.CRIMSON_FUNGUS
         );
     }
 
-    public void tier2() {
-        tag(Tags.Items.TIER_2_POTION_INGREDIENTS).add(
+    public void rare() {
+        tag(Tags.Items.RARE_INGREDIENTS).add(
                 Items.COBWEB,
                 Items.PUFFERFISH,
                 Items.CHORUS_FLOWER,
@@ -167,12 +170,7 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.PHANTOM_MEMBRANE,
                 Items.SPONGE,
                 Items.BROWN_MUSHROOM_BLOCK,
-                Items.RED_MUSHROOM_BLOCK
-        );
-    }
-
-    public void tier3() {
-        tag(Tags.Items.TIER_3_POTION_INGREDIENTS).add(
+                Items.RED_MUSHROOM_BLOCK,
                 Items.GOLDEN_APPLE,
                 Items.AMETHYST_CLUSTER,
                 Items.SHULKER_SHELL,

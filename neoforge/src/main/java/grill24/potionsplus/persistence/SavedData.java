@@ -4,11 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.persistence.adapter.*;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -32,7 +32,7 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     public Map<UUID, PlayerBrewingKnowledge> playerDataMap;
 
     public List<RecipeHolder<BrewingCauldronRecipe>> seededPotionRecipes;
-    public Set<String> itemsWithRecipesInSavedData;
+    public Set<PpIngredient> itemsWithRecipesInSavedData;
 
     public SavedData() {
         playerDataMap = new java.util.HashMap<>();
@@ -63,17 +63,17 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
         json = getJoinedString(compoundTag, SEEDED_POTION_RECIPES_KEY);
         Type seededPotionRecipesType = new TypeToken<List<RecipeHolder>>() {
         }.getType();
-        data.setSeededPotionRecipes(gson.fromJson(json, seededPotionRecipesType));
+        data.setSeededPotionRecipesFromSavedData(gson.fromJson(json, seededPotionRecipesType));
         PotionsPlus.LOGGER.info("{} Loaded {} seeded potion recipes from saved data.", LOGGER_HEADER, data.seededPotionRecipes.size());
 
         return data;
     }
 
-    public void setSeededPotionRecipes(List<RecipeHolder<BrewingCauldronRecipe>> recipes) {
+    public void setSeededPotionRecipesFromSavedData(List<RecipeHolder<BrewingCauldronRecipe>> recipes) {
         this.seededPotionRecipes = new ArrayList<>(recipes);
         this.itemsWithRecipesInSavedData = new HashSet<>();
-        this.seededPotionRecipes.stream().map(RecipeHolder::value).map(BrewingCauldronRecipe::getResultItem)
-                .forEach(itemStack -> this.itemsWithRecipesInSavedData.add(PUtil.getNameOrVerbosePotionName(itemStack)));
+        this.seededPotionRecipes.stream().map(RecipeHolder::value).map(BrewingCauldronRecipe::getResult)
+                .forEach(itemStack -> this.itemsWithRecipesInSavedData.add(PpIngredient.of(itemStack)));
         setDirty();
     }
 

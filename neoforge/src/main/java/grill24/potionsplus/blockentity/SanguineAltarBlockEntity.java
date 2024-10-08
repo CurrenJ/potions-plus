@@ -1,5 +1,6 @@
 package grill24.potionsplus.blockentity;
 
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.network.ClientboundSanguineAltarConversionProgressPacket;
 import grill24.potionsplus.network.ClientboundSanguineAltarConversionStatePacket;
 import net.minecraft.server.level.ServerLevel;
@@ -261,10 +262,13 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         return (float) healthDrained / (float) HEALTH_DRAIN_REQUIRED_FOR_CONVERSION;
     }
 
-    public static void setRecipes(List<RecipeHolder<SanguineAltarRecipe>> recipes) {
+    public static void computeRecipeMap(List<RecipeHolder<SanguineAltarRecipe>> recipes) {
         chainedIngredients.clear();
         for (RecipeHolder<SanguineAltarRecipe> recipe : recipes) {
-            chainedIngredients.put(PpIngredient.of(recipe.value().getIngredients().get(0)), PpIngredient.of(recipe.value().getResultItem()));
+            if (recipe.value().getPpIngredients().size() != 1) {
+                PotionsPlus.LOGGER.error("Sanguine Altar recipe must have exactly one ingredient: {}", recipe.id());
+            }
+            chainedIngredients.put(recipe.value().getPpIngredients().get(0), PpIngredient.of(recipe.value().getResult()));
         }
     }
 }

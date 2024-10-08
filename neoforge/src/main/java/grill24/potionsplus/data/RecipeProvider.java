@@ -13,10 +13,8 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -110,58 +108,84 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
         // ----- Static Brewing Cauldron Recipes -----
 
         // Water Bottle
-        buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 30, "has_potion",
-                net.minecraft.world.item.alchemy.Potions.WATER, PUtil.PotionType.POTION,
-                -1,
-                Ingredient.of(net.minecraft.world.item.Items.GLASS_BOTTLE)));
+        new BrewingCauldronRecipeBuilder()
+                .result(PUtil.createPotionItemStack(net.minecraft.world.item.alchemy.Potions.WATER, PUtil.PotionType.POTION))
+                .ingredients(net.minecraft.world.item.Items.GLASS_BOTTLE)
+                .processingTime(30)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer);
 
         // Water Bucket
-        buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 40, "has_potion",
-                new ItemStack(net.minecraft.world.item.Items.WATER_BUCKET),
-                -1,
-                Ingredient.of(net.minecraft.world.item.Items.BUCKET)));
+        new BrewingCauldronRecipeBuilder()
+                .result(new ItemStack(net.minecraft.world.item.Items.WATER_BUCKET))
+                .ingredients(net.minecraft.world.item.Items.WATER_BUCKET)
+                .processingTime(40)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer);
 
         // Clay
-        buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 50, "has_potion",
-                new ItemStack(net.minecraft.world.item.Items.CLAY_BALL),
-                -1,
-                Ingredient.of(net.minecraft.world.item.Items.SAND),
-                Ingredient.of(net.minecraft.world.item.Items.GRAVEL)));
+        new BrewingCauldronRecipeBuilder()
+                .result(new ItemStack(net.minecraft.world.item.Items.CLAY_BALL))
+                .ingredients(net.minecraft.world.item.Items.SAND, net.minecraft.world.item.Items.GRAVEL)
+                .processingTime(50)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer);
 
         // Mushroom Conversions
-        buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 80, "has_potion",
-                new ItemStack(net.minecraft.world.item.Items.BROWN_MUSHROOM),
-                -1,
-                Ingredient.of(net.minecraft.world.item.Items.RED_MUSHROOM),
-                Ingredient.of(net.minecraft.world.item.Items.FERMENTED_SPIDER_EYE)));
-
-        buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 80, "has_potion",
-                new ItemStack(net.minecraft.world.item.Items.RED_MUSHROOM),
-                -1,
-                Ingredient.of(net.minecraft.world.item.Items.BROWN_MUSHROOM),
-                Ingredient.of(net.minecraft.world.item.Items.FERMENTED_SPIDER_EYE))
-        );
+        new BrewingCauldronRecipeBuilder()
+                .result(new ItemStack(net.minecraft.world.item.Items.BROWN_MUSHROOM))
+                .ingredients(net.minecraft.world.item.Items.RED_MUSHROOM, net.minecraft.world.item.Items.FERMENTED_SPIDER_EYE)
+                .processingTime(20)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer);
+        new BrewingCauldronRecipeBuilder()
+                .result(new ItemStack(net.minecraft.world.item.Items.RED_MUSHROOM))
+                .ingredients(net.minecraft.world.item.Items.BROWN_MUSHROOM, net.minecraft.world.item.Items.FERMENTED_SPIDER_EYE)
+                .processingTime(20)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer);
 
         // Grass
-        buildBrewingCauldronRecipe(recipeConsumer, PUtil.brewingCauldronRecipe(0.1F, 40, "has_potion",
-                new ItemStack(net.minecraft.world.item.Items.GRASS_BLOCK),
-                -1,
-                Ingredient.of(net.minecraft.world.item.Items.DIRT),
-                Ingredient.of(net.minecraft.world.item.Items.MOSS_BLOCK))
-        );
+        new BrewingCauldronRecipeBuilder()
+                .result(new ItemStack(net.minecraft.world.item.Items.GRASS_BLOCK))
+                .ingredients(net.minecraft.world.item.Items.DIRT, net.minecraft.world.item.Items.MOSS_BLOCK)
+                .processingTime(40)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer);
+
+        // All Potions Duration Increase [5 Seconds] Fixed Recipe
+        List<BrewingCauldronRecipe.PotionMatchingCriteria> upgradePotionMatchingCriteria = List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT);
+        new BrewingCauldronRecipeBuilder()
+                .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION))
+                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), new ItemStack(net.minecraft.world.item.Items.QUARTZ))
+                .processingTime(30)
+                .durationToAdd(100)
+                .potionMatchingCriteria(upgradePotionMatchingCriteria)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer, "all_potions_duration_increase");
+
+        // Amplification Testing Recipe
+        new BrewingCauldronRecipeBuilder()
+                .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION))
+                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), new ItemStack(net.minecraft.world.item.Items.HONEY_BOTTLE))
+                .processingTime(30)
+                .amplifierToAdd(1)
+                .potionMatchingCriteria(upgradePotionMatchingCriteria)
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer, "amplification_testing");
 
 
         // ----- Clothesline Recipes -----
 
         new ClotheslineRecipeBuilder()
-                .ingredients(Ingredient.of(net.minecraft.world.item.Items.ROTTEN_FLESH))
+                .ingredients(net.minecraft.world.item.Items.ROTTEN_FLESH)
                 .result(new ItemStack(net.minecraft.world.item.Items.LEATHER))
                 .processingTime(100)
                 .unlockedBy("has_rotten_flesh", has(net.minecraft.world.item.Items.ROTTEN_FLESH))
                 .save(recipeConsumer, ResourceLocation.fromNamespaceAndPath(ModInfo.MOD_ID, "rotten_flesh_to_leather"));
 
         new ClotheslineRecipeBuilder()
-                .ingredients(Ingredient.of(net.minecraft.world.item.Items.BONE))
+                .ingredients(net.minecraft.world.item.Items.BONE)
                 .result(new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 4))
                 .processingTime(600)
                 .unlockedBy("has_bone", has(net.minecraft.world.item.Items.BONE))

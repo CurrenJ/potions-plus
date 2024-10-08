@@ -1,6 +1,7 @@
 package grill24.potionsplus.utility;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.datafixers.util.Function6;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.core.Blocks;
@@ -17,6 +18,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -34,6 +36,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.*;
+import java.util.function.Function;
 
 public class Utility {
     // String utils
@@ -106,10 +109,6 @@ public class Utility {
         BlockPos pos = SavedData.instance.getData(player).getPairedAbyssalTrovePos();
         Optional<AbyssalTroveBlockEntity> abyssalTrove = player.level().getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
         return abyssalTrove.map(abyssalTroveBlockEntity -> abyssalTroveBlockEntity.getStoredIngredients().contains(PpIngredient.of(stack))).orElse(false);
-    }
-
-    public static boolean isPotionBrewingIngredientNoPotions(ItemStack stack) {
-        return Recipes.seededPotionRecipes != null && Recipes.seededPotionRecipes.allPotionBrewingIngredientsNoPotions.contains(PpIngredient.of(stack));
     }
 
     public static void playSoundStopOther(SoundInstance play, SoundInstance stop) {
@@ -223,5 +222,9 @@ public class Utility {
 
     public static ResourceLocation mc(String path) {
         return ResourceLocation.withDefaultNamespace(path);
+    }
+
+    public static String formatTicksAsSeconds(int ticks) {
+        return (int) (ticks / 20F) + " seconds";
     }
 }

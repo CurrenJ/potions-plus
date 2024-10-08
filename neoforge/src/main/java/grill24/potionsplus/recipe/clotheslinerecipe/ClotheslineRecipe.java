@@ -1,13 +1,18 @@
 package grill24.potionsplus.recipe.clotheslinerecipe;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeSerializerHelper;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.utility.StreamCodecUtility;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -19,15 +24,11 @@ import java.util.List;
 public class ClotheslineRecipe extends ShapelessProcessingRecipe {
 
     public ClotheslineRecipe(ClotheslineRecipe recipe) {
-        super(recipe.category, recipe.group, recipe.ingredients, recipe.result, recipe.processingTime);
+        super(recipe.category, recipe.group, recipe.ingredients, recipe.result, recipe.processingTime, recipe.canShowInJei);
     }
 
-    public ClotheslineRecipe(RecipeCategory category, String group, Ingredient[] ingredients, ItemStack itemStack, int processingTime) {
-        super(category, group, ingredients, itemStack, processingTime);
-    }
-
-    public ClotheslineRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack itemStack, int processingTime) {
-        super(category, group, ingredients.stream().map((pp) -> pp.ingredients[0]).toArray(Ingredient[]::new), itemStack, processingTime);
+    public ClotheslineRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack itemStack, int processingTime, boolean canShowInJei) {
+        super(category, group, ingredients, itemStack, processingTime, canShowInJei);
     }
 
     @Override
@@ -41,32 +42,29 @@ public class ClotheslineRecipe extends ShapelessProcessingRecipe {
     }
 
     public boolean matches(ItemStack itemStack) {
-        return Arrays.stream(this.ingredients).anyMatch(ingredient -> ingredient.test(itemStack));
+        return this.ingredients.stream().anyMatch(ingredient -> PUtil.isSameItemOrPotion(itemStack, ingredient.getItemStack(), List.of(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH)));
     }
 
     public static class Serializer implements RecipeSerializer<ClotheslineRecipe> {
         public static final MapCodec<ClotheslineRecipe> CODEC = RecordCodecBuilder.mapCodec(
-                codecBuilder -> ShapelessProcessingRecipeSerializerHelper.getDefaultCodecBuilder(codecBuilder)
-                        .apply(codecBuilder, ClotheslineRecipe::new)
+                codecBuilder -> codecBuilder.group(
+                        ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
+                        Codec.STRING.optionalFieldOf("group", "").forGetter(Recipe::getGroup),
+                        PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
+                        ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
+                        Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
+                        Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei)
+                ).apply(codecBuilder, ClotheslineRecipe::new)
         );
-        public static StreamCodec<RegistryFriendlyByteBuf, ClotheslineRecipe> STREAM_CODEC = StreamCodec.of(
-                ShapelessProcessingRecipeSerializerHelper::toNetwork, ClotheslineRecipe.Serializer::fromNetwork
+        public static StreamCodec<RegistryFriendlyByteBuf, ClotheslineRecipe> STREAM_CODEC = StreamCodec.composite(
+                ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_STREAM_CODEC, ShapelessProcessingRecipe::getCategory,
+                ByteBufCodecs.STRING_UTF8, ShapelessProcessingRecipe::getGroup,
+                PpIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()), ShapelessProcessingRecipe::getPpIngredients,
+                ItemStack.STREAM_CODEC, ShapelessProcessingRecipe::getResult,
+                ByteBufCodecs.INT, ShapelessProcessingRecipe::getProcessingTime,
+                ByteBufCodecs.BOOL, ShapelessProcessingRecipe::canShowInJei,
+                ClotheslineRecipe::new
         );
-
-        public static ClotheslineRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-            // Base shapeless processing recipe data
-            RecipeCategory category = RecipeCategory.valueOf(buffer.readUtf());
-            String group = buffer.readUtf();
-            int ingredientCount = buffer.readVarInt();
-            PpIngredient[] ingredients = new PpIngredient[ingredientCount];
-            for (int i = 0; i < ingredientCount; i++) {
-                ingredients[i] = PpIngredient.STREAM_CODEC.decode(buffer);
-            }
-            ItemStack result = ItemStack.STREAM_CODEC.decode(buffer);
-            int processingTime = buffer.readVarInt();
-
-            return new ClotheslineRecipe(category, group, List.of(ingredients), result, processingTime);
-        }
 
             @Override
         public MapCodec<ClotheslineRecipe> codec() {

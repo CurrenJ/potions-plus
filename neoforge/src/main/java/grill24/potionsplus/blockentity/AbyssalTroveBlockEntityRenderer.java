@@ -36,29 +36,34 @@ public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<Abys
         for (Map.Entry<Integer, List<AbyssalTroveBlockEntity.RendererData.AbyssalTroveRenderedItem>> items : blockEntity.rendererData.renderedItemTiers.entrySet()) {
             int tier = items.getKey();
 
-            float widthPadding = RUtil.ease(blockEntity, 0.1F, 0.2F, tier * 8, 1F);
-            float heightPadding = 0.2F;
-            float heightOffset = RUtil.ease(blockEntity, 1F, 1.25F, tier * 5, 1F);
-            float scale = RUtil.ease(blockEntity, 0, 0.25F, tier * 5, 1F);
-            final int hideDelay = 200;
+            float size = 0.125F;
 
-            scale = RUtil.ease(blockEntity, scale, 0, tier * 5 + hideDelay, 1F);
+            final int hideDelay = 200;
+            float localScale = RUtil.ease(blockEntity, 0, size, tier * 5, 1F);
+            localScale = RUtil.ease(blockEntity, localScale, 0, tier * 5 + hideDelay, 1F);
+
+            float horizontalPaddingScalar = RUtil.ease(blockEntity, 0.5F, 1F, tier * 7, 1F) * size;
+            float verticalPaddingScalar = 1F * size;
+
+            float verticalOffset = RUtil.ease(blockEntity, 1F, 1.25F, tier * 5, 1F);
+
+
             blockEntity.currentDisplayRotation = RUtil.lerpAngle(blockEntity.currentDisplayRotation, blockEntity.degreesTowardsPlayer, tickDelta * 0.02f);
 
             for (AbyssalTroveBlockEntity.RendererData.AbyssalTroveRenderedItem item : items.getValue()) {
                 matrices.pushPose();
 
 
-                Vector3d position = new Vector3d(item.position.x * widthPadding, item.position.y * heightPadding, item.position.z * widthPadding);
-                position.add(new Vector3d(0.5, heightOffset, 0.5));
+                Vector3d position = new Vector3d(item.position.x * horizontalPaddingScalar, item.position.y * verticalPaddingScalar, item.position.z * horizontalPaddingScalar);
+                position.add(new Vector3d(0.5, verticalOffset, 0.5));
                 position = RUtil.rotateAroundY(position, blockEntity.currentDisplayRotation + 90, new Vector3d(0.5, 0.5, 0.5));
                 matrices.translate(position.x, position.y, position.z);
 
-                matrices.mulPose(RUtil.rotateY(90 - blockEntity.currentDisplayRotation));
+                matrices.mulPose(RUtil.rotateY(-90 - blockEntity.currentDisplayRotation));
 
 
-                matrices.scale(scale, scale, scale);
-                Minecraft.getInstance().getItemRenderer().renderStatic(item.itemStack, ItemDisplayContext.GROUND,
+                matrices.scale(localScale, localScale, localScale);
+                Minecraft.getInstance().getItemRenderer().renderStatic(item.itemStack, ItemDisplayContext.FIXED,
                         light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
                 matrices.popPose();
             }

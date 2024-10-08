@@ -1,6 +1,9 @@
 package grill24.potionsplus.blockentity;
 
 import com.google.common.primitives.Booleans;
+import com.mojang.datafixers.util.Pair;
+import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
+import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.utility.ClientUtility;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -30,10 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implements ISingleStackDisplayer {
 
@@ -55,8 +55,9 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
         private ItemStack[] itemStacksToDisplay;
         public boolean[] isAmpUpgrade;
         public boolean[] isDurationUpgrade;
-        int ingredientTier = -1;
+        public ItemStack[][] subIconsOnPotionIcons;
         Quaternionf ingredientTierNumeralsRotation = new Quaternionf().identity();
+        ItemStack centerDisplayStack = ItemStack.EMPTY;
 
         public RendererData() {
             itemStacksToDisplay = new ItemStack[0];
@@ -68,21 +69,22 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 List<BrewingCauldronRecipe> allValidRecipes = new ArrayList<>(herbalistsLecternBlockEntity.level.getRecipeManager().getAllRecipesFor(
                                 Recipes.BREWING_CAULDRON_RECIPE.value()).stream().map(RecipeHolder::value)
                         .filter(recipe -> recipe.isIngredient(inputStack)).toList());
-                List<PpIngredient> allShownItems = new ArrayList<>(allValidRecipes.stream().map(recipe -> PpIngredient.of(recipe.getResultItem())).toList());
+                List<PpIngredient> allShownItems = new ArrayList<>(allValidRecipes.stream().map(recipe -> PpIngredient.of(recipe.getResult())).toList());
 
                 Set<MobEffect> uniquePotionTypes = new HashSet<>();
                 List<PpIngredient> itemsToRemove = new ArrayList<>();
                 List<PpIngredient> potionIconItemsToAdd = new ArrayList<>();
                 List<Boolean> isAmpUpgrade = new ArrayList<>();
                 List<Boolean> isDurationUpgrade = new ArrayList<>();
+                List<List<ItemStack>> subIconsOnPotionIcons = new ArrayList<>();
 
                 for (BrewingCauldronRecipe recipe : allValidRecipes) {
-                    ItemStack outputStack = recipe.getResultItem();
+                    ItemStack outputStack = recipe.getResult();
 
                     if (PUtil.isPotion(outputStack)) {
                         Potion outputPotion = PUtil.getPotion(outputStack);
                         if (HIDDEN_POTIONS.contains(outputPotion)) {
-                            itemsToRemove.add(PpIngredient.of(recipe.getResultItem()));
+                            itemsToRemove.add(PpIngredient.of(recipe.getResult()));
                         }
 
                         List<MobEffectInstance> mobEffects = PUtil.getPotion(outputStack).getEffects();
@@ -104,7 +106,24 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                                 if (recipe.isDurationUpgrade()) {
                                     isDurationUpgrade.set(potionIconItemsToAdd.size() - 1, true);
                                 }
-                                itemsToRemove.add(PpIngredient.of(recipe.getResultItem()));
+
+                                // TODO: FIXXX
+//                                Map<PotionUpgradeIngredients.Rarity, Integer> rarityMap = recipe.getRaritiesOfInputs();
+//                                List<ItemStack> subIcons = new ArrayList<>();
+//                                for (PotionUpgradeIngredients.Rarity rarity : rarityMap.keySet()) {
+//                                    ItemStack rarityIcon = new ItemStack(Items.GENERIC_ICON.value(), 1);
+//                                    switch (rarity) {
+//                                        case COMMON:
+//                                            rarityIcon.setCount(17);
+//                                            subIcons
+//                                            break;
+//                                        case RARE:
+//                                            rarityIcon.setCount(18);
+//                                            break;
+//                                    }
+//                                    subIcons.add(rarityIcon);
+//                                }
+                                itemsToRemove.add(PpIngredient.of(recipe.getResult()));
                             }
                         }
                     }
@@ -113,13 +132,26 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 // Get max tier of all valid recipes, we display this
                 // Check our modded ones first. If none, check vanilla
                 // Bc turtle master potion is confusing in our display otherwise
-                ingredientTier = -1;
-                allValidRecipes.stream().map(BrewingCauldronRecipe::getOutputTier).max(Integer::compareTo).ifPresent(tier -> ingredientTier = tier);
+                ItemStack centerDisplayStack = new ItemStack(Items.GENERIC_ICON.value(), 1);
+                PpIngredient ingredient = PpIngredient.of(inputStack);
+                if(Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
+                    centerDisplayStack.setCount(2);
+                } else if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
+                    centerDisplayStack.setCount(1);
+                } else if (SeededIngredientsLootTables.COMMON_INGREDIENTS_SET.get().contains(ingredient)) {
+                    centerDisplayStack.setCount(17);
+                } else if (SeededIngredientsLootTables.RARE_INGREDIENTS_SET.get().contains(ingredient)) {
+                    centerDisplayStack.setCount(18);
+                } else {
+                    centerDisplayStack = ItemStack.EMPTY;
+                }
+                this.centerDisplayStack = centerDisplayStack;
 
                 allShownItems.removeAll(itemsToRemove);
 
                 isAmpUpgrade.addAll(0, allShownItems.stream().map(stack -> false).toList());
                 isDurationUpgrade.addAll(0, allShownItems.stream().map(stack -> false).toList());
+
                 allShownItems.addAll(potionIconItemsToAdd);
 
                 itemStacksToDisplay = allShownItems.stream().map(PpIngredient::getItemStack).toArray(ItemStack[]::new);
@@ -211,8 +243,8 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
 
     private void spawnParticlesIfPlayerIsHoldingIngredient(Player player, BlockPos pos) {
         ItemStack heldItem = player.getMainHandItem();
-        if (Recipes.seededPotionRecipes.allUniqueRecipeInputs != null && level != null && !heldItem.isEmpty()) {
-            boolean hasEligibleIngredient = Recipes.seededPotionRecipes.allUniqueRecipeInputs.contains(PpIngredient.of(player.getMainHandItem()));
+        if (level != null && !heldItem.isEmpty()) {
+            boolean hasEligibleIngredient = Recipes.ALL_BCR_RECIPES_ANALYSIS.isIngredientUsed(PpIngredient.of(heldItem));
 
             if (hasEligibleIngredient) {
                 if (level.random.nextInt(12) == 0)

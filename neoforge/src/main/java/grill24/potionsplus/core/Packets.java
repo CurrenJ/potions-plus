@@ -5,7 +5,6 @@ import grill24.potionsplus.utility.ModInfo;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
@@ -54,9 +53,9 @@ public class Packets {
 
         // Brewing Ingredient Knowledge Packet
         registrar.playToClient(
-                ClientboundBrewingIngredientKnowledgePacket.TYPE,
-                ClientboundBrewingIngredientKnowledgePacket.STREAM_CODEC,
-                ClientboundBrewingIngredientKnowledgePacket.ClientPayloadHandler::handleDataOnMain
+                ClientboundDisplayAlertWithItemStackName.TYPE,
+                ClientboundDisplayAlertWithItemStackName.STREAM_CODEC,
+                ClientboundDisplayAlertWithItemStackName.ClientPayloadHandler::handleDataOnMain
                 );
 
         // Acquired Brewing Recipe Knowledge Packet

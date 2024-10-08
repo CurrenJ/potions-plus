@@ -5,7 +5,6 @@ import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -19,10 +18,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipe;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,15 +72,15 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, BrewingCauldronRecipe recipe, @NotNull IFocusGroup focuses) {
-        final Point[] inputSlotPositions = INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT.get(recipe.getIngredients().size());
+        final Point[] inputSlotPositions = INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT.get(recipe.getPpIngredients().size());
         for (int i = 0; i < inputSlotPositions.length; i++) {
             builder.addSlot(RecipeIngredientRole.INPUT, inputSlotPositions[i].x, inputSlotPositions[i].y)
                     .setSlotName("input_" + i)
-                    .addItemStack(recipe.getIngredients().size() <= i ? ItemStack.EMPTY : recipe.getIngredients().get(i).getItems()[0]);
+                    .addItemStack(recipe.getPpIngredients().size() <= i ? ItemStack.EMPTY : recipe.getPpIngredients().get(i).getItemStack());
         }
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 111, 23)
-                .addItemStack(recipe.getResultItem());
+                .addItemStack(recipe.getResultItemWithTransformations(recipe.getIngredientsAsItemStacks()));
 
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 38 - 8, 31 - 8)
                 .setSlotName("cauldron")

@@ -1,112 +1,81 @@
 package grill24.potionsplus.core.seededrecipe;
 
+import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.random.WeightedEntry;
-import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 
-import java.util.Set;
-import java.util.function.Consumer;
+import java.util.*;
 
 public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
-    private static final WeightedRandomList<WeightedEntry.Wrapper<Integer>> BASE_POTION_INGREDIENT_COUNT_DISTRIBUTION = WeightedRandomList.create(
-            WeightedEntry.wrap(1, 2),
-            WeightedEntry.wrap(2, 6),
-            WeightedEntry.wrap(3, 1)
-    );
+    public enum Rarity {
+        COMMON,
+        RARE
+    }
+    public record IngredientSamplingConfig(LootPoolSupplier pool, int count) {
+        public LootTable simpleLootTable() {
+            return LootTable.lootTable().withPool(pool.getLootPool()).build();
+        }
 
-    private static final WeightedRandomList<WeightedEntry.Wrapper<Integer>> TIER_1_INGREDIENT_COUNT_DISTRIBUTION = WeightedRandomList.create(
-            WeightedEntry.wrap(2, 4),
-            WeightedEntry.wrap(3, 1)
-    );
+        public static IngredientSamplingConfig empty() {
+            return new IngredientSamplingConfig(SeededIngredientsLootTables.EMPTY, 1);
+        }
+    }
 
-    private static final WeightedRandomList<WeightedEntry.Wrapper<Integer>> TIER_2_INGREDIENT_COUNT_DISTRIBUTION = WeightedRandomList.create(
-            WeightedEntry.wrap(1, 1),
-            WeightedEntry.wrap(2, 4),
-            WeightedEntry.wrap(3, 2)
-    );
-
-    private static final WeightedRandomList<WeightedEntry.Wrapper<Integer>> TIER_3_INGREDIENT_COUNT_DISTRIBUTION = WeightedRandomList.create(
-            WeightedEntry.wrap(1, 1),
-            WeightedEntry.wrap(2, 8),
-            WeightedEntry.wrap(3, 4)
-    );
-    private static final WeightedRandomList<WeightedEntry.Wrapper<Integer>>[] ingredientCountDistributions = new WeightedRandomList[]{BASE_POTION_INGREDIENT_COUNT_DISTRIBUTION, TIER_1_INGREDIENT_COUNT_DISTRIBUTION, TIER_2_INGREDIENT_COUNT_DISTRIBUTION, TIER_3_INGREDIENT_COUNT_DISTRIBUTION};
-
-
-    private final Ingredient[][] upgradeAmpUpIngredients;
-    private final Ingredient[][] upgradeDurUpIngredients;
-    private Ingredient[] basePotionIngredients;
+    private PpMultiIngredient basePotionIngredients;
     private final Holder<MobEffect> effect;
     private final Holder<Potion> basePotion;
 
-    /*
-     * @param basePotion The base potion to upgrade
-     * @param basePotionIngredientTags The tag key for the base-level (from awkward potion) potion ingredients
-     * @param potionUpgradeTierTags The tag keys for the upgrade ingredients by tier
-     * @param additionalTags Additional tags to sample from. If additional tags are present, items sampled from the upgrade ingredients and base ingredients must be present in at least one additional tag.
-     * @param random The random instance to use for sampling
-     * @param allBasePotionIngredients A set of all base potion ingredients generated so far. Used to ensure uniqueness.
-     * @param allUpgradeIngredients A set of all upgrade ingredients generated so far. Used to ensure uniqueness.
-     */
-    public PotionUpgradeIngredients(Holder<Potion> basePotion, int maxAmp, int maxDur, LootTable[] tieredIngredients, RandomSource random, Set<PpIngredient> allRecipes) {
+
+    public PotionUpgradeIngredients(Holder<Potion> basePotion, Map<Rarity, IngredientSamplingConfig> config, RandomSource random, Set<PpMultiIngredient> usedRecipeInputs) {
         this.basePotion = basePotion;
         this.effect = basePotion.value().getEffects().get(0).getEffect();
-        this.upgradeAmpUpIngredients = new Ingredient[tieredIngredients.length][];
-        this.upgradeDurUpIngredients = new Ingredient[tieredIngredients.length][];
 
-        for (int t = 0; t < tieredIngredients.length; t++) {
-            final int tier = t;
-            if (t == 0) {
-                sampleUniqueIngredientsFromLootTable(tieredIngredients[tier], ingredientCountDistributions[tier].getRandom(random).get().data(), allRecipes, this::setBasePotionIngredients, random);
-            } else {
-                if (t < maxAmp)
-                    sampleUniqueIngredientsFromLootTable(tieredIngredients[tier], ingredientCountDistributions[tier].getRandom(random).get().data(), allRecipes, (ingredients) -> setUpgradeAmpUpIngredients(tier - 1, ingredients), random);
-                if (t < maxDur)
-                    sampleUniqueIngredientsFromLootTable(tieredIngredients[tier], ingredientCountDistributions[tier].getRandom(random).get().data(), allRecipes, (ingredients) -> setUpgradeDurUpIngredients(tier - 1, ingredients), random);
-            }
-        }
+        PpMultiIngredient input = sampleUniqueIngredientsFromSamplingConfig(config, usedRecipeInputs, random);
+        setBasePotionIngredients(input);
     }
 
-    private static void sampleUniqueIngredientsFromLootTable(LootTable lootTable, int count, Set<PpIngredient> allPreviouslyGeneratedIngredients, Consumer<Ingredient[]> consumer, RandomSource randomSource) {
-        Ingredient[] ingredients;
+    private static PpMultiIngredient sampleUniqueIngredientsFromSamplingConfig(Map<Rarity, IngredientSamplingConfig> config, Set<PpMultiIngredient> allPreviouslyGeneratedRecipeInputs, RandomSource randomSource) {
         PpMultiIngredient ppMultiIngredient;
 
-        int iterations = 0;
-        final int MAX_ITERATIONS = 100;
+        int attempts = 0;
+        final int MAX_ATTEMPTS = 100;
         do {
-            ingredients = SeededIngredientsLootTables.sampleIngredients(lootTable, count, randomSource);
+            List<ItemStack> ingredients = new ArrayList<>();
+            for (IngredientSamplingConfig rarityConfig : config.values()) {
+                List<ItemStack> stacks = SeededIngredientsLootTables.sampleStacks(rarityConfig, randomSource);
+                ingredients.addAll(stacks);
+            }
             ppMultiIngredient = PpMultiIngredient.of(ingredients);
 
-            iterations++;
-            if (iterations > 1 && PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
+            attempts++;
+            if (attempts > 1 && PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
                 System.out.println("[BCR] Regenerating ingredients for recipe due to collision: " + ppMultiIngredient);
             }
-        } while (allPreviouslyGeneratedIngredients.contains(ppMultiIngredient) && iterations < MAX_ITERATIONS);
+        } while (allPreviouslyGeneratedRecipeInputs.contains(ppMultiIngredient) && attempts < MAX_ATTEMPTS);
 
-        if (iterations >= MAX_ITERATIONS) {
-            throw new IllegalStateException("Could not generate unique ingredients for recipe from tag " + lootTable.getLootTableId() + ". Please check the tag contents.");
+        // If we've tried too many times, throw an exception. Usually this means there are not enough unique ingredients to generate a recipe.
+        // In theory, this could happen even if there are enough unique ingredients, but the chances are very low.
+        if (attempts >= MAX_ATTEMPTS) {
+            List<LootTable> allPools = config.values().stream().map(IngredientSamplingConfig::simpleLootTable).toList();
+            StringBuilder sb = new StringBuilder();
+            for (LootTable table : allPools) {
+                sb.append(LootTable.DIRECT_CODEC.encodeStart(JsonOps.INSTANCE, table)).append(", ");
+            }
+            throw new IllegalStateException("Could not generate unique ingredients for recipe of rarity " + sb);
         }
 
-        consumer.accept(ingredients);
-        allPreviouslyGeneratedIngredients.add(ppMultiIngredient);
+        allPreviouslyGeneratedRecipeInputs.add(ppMultiIngredient);
+        return ppMultiIngredient;
     }
 
-    private void setUpgradeAmpUpIngredients(int a, Ingredient[] ingredients) {
-        this.upgradeAmpUpIngredients[a] = ingredients;
-    }
-
-    private void setUpgradeDurUpIngredients(int d, Ingredient[] ingredients) {
-        this.upgradeDurUpIngredients[d] = ingredients;
-    }
-
-    private void setBasePotionIngredients(Ingredient[] ingredients) {
+    private void setBasePotionIngredients(PpMultiIngredient ingredients) {
         this.basePotionIngredients = ingredients;
     }
 
@@ -118,19 +87,7 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
         return effect;
     }
 
-    public Ingredient[] getUpgradeAmpUpIngredients(int a) {
-        if (a < upgradeAmpUpIngredients.length)
-            return upgradeAmpUpIngredients[a];
-        return new Ingredient[0];
-    }
-
-    public Ingredient[] getUpgradeDurUpIngredients(int d) {
-        if (d < upgradeDurUpIngredients.length)
-            return upgradeDurUpIngredients[d];
-        return new Ingredient[0];
-    }
-
-    public Ingredient[] getBasePotionIngredients() {
+    public PpMultiIngredient getBasePotionIngredients() {
         return basePotionIngredients;
     }
 }

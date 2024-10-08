@@ -194,6 +194,10 @@ public class RUtil {
         return (float) (1 - Math.cos((x * Math.PI) / 2));
     }
 
+    public static float easeOutSine(float x) {
+        return (float) Math.sin((x * Math.PI) / 2);
+    }
+
     public static float easeOutExpo(float x) {
         return x == 1 ? 1 : (float) (1 - Math.pow(2, -10 * x));
     }

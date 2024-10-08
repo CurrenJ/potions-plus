@@ -17,8 +17,6 @@
     "minecraft:rabbit_stew",
     "minecraft:sweet_berries",
     "minecraft:beetroot_soup",
-    "minecraft:dried_kelp",
-    "potionsplus:moss",
-    "potionsplus:wormroot"
+    "minecraft:dried_kelp"
   ]
 }

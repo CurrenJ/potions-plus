@@ -14,7 +14,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -64,16 +63,13 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
         }
         AbyssalTroveBlockEntity abyssalTroveBlockEntity = blockEntity.get();
 
-        if (player.isCrouching()) {
-            return ItemInteractionResult.FAIL;
-        }
-
         // Do interaction
         InvUtil.InteractionResult result = InvUtil.InteractionResult.PASS;
-        if (!player.getMainHandItem().isEmpty() && !blockEntity.get().getStoredIngredients().contains(PpIngredient.of(player.getMainHandItem()))) {
+        if (!blockEntity.get().getStoredIngredients().contains(PpIngredient.of(player.getMainHandItem()))) {
             result = InvUtil.insertOnPlayerUseItem(level, pos, player, hand, SoundEvents.ITEM_FRAME_ADD_ITEM);
             if (result == InvUtil.InteractionResult.INSERT) {
                 if (level.isClientSide) {
+                    // Spawn success particles, and play sound
                     Vec3 posVec = new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
                     for (int i = 0; i < 10; i++) {
                         Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
@@ -87,16 +83,22 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
             }
         }
 
+        // Update renderer data if there is at least an item in the abyssal trove and update the block state
         if (!blockEntity.get().getItem(0).isEmpty()) {
             if (abyssalTroveBlockEntity.rendererData.renderedItemTiers.isEmpty()) {
                 abyssalTroveBlockEntity.updateRendererData();
             }
 
-            blockEntity.get().setChanged();
-            level.updateNeighborsAt(pos, this);
-            level.sendBlockUpdated(pos, state, state, 3);
-            blockEntity.get().onPlayerInsertItem(player);
+            if(result == InvUtil.InteractionResult.INSERT) {
+                blockEntity.get().setChanged();
+                level.updateNeighborsAt(pos, this);
+                level.sendBlockUpdated(pos, state, state, 3);
+            }
+        }
+
+        if(!player.isCrouching()) {
             result = InvUtil.InteractionResult.INTERACT;
+            blockEntity.get().showGui();
         }
 
         return InvUtil.getMinecraftItemInteractionResult(result);
@@ -106,7 +108,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         // Sneak clicking with an empty hand manually pairs you to the abyssal trove
         // Pairing used for showing ingredient tooltips and onitempickup notifications
-        if (player.getMainHandItem().isEmpty() && player.isCrouching()) {
+        if (player.isCrouching()) {
             if (!SavedData.instance.getData(player).getPairedAbyssalTrovePos().equals(pos)) {
                 SavedData.instance.updateDataForPlayer(player, (data) -> data.pairAbyssalTroveAtPos(pos));
 
@@ -118,11 +120,11 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
                 }
                 level.playSound(player, pos, SoundEvents.HONEYCOMB_WAX_ON, player.getSoundSource(), 1.0F, 1.0F);
 
+                return InteractionResult.SUCCESS_NO_ITEM_USED;
             }
-            return InteractionResult.SUCCESS;
         }
 
-        return InteractionResult.SUCCESS_NO_ITEM_USED;
+        return InteractionResult.PASS;
     }
 
     @Nullable

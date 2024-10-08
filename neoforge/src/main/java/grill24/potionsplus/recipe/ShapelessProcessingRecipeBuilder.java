@@ -1,6 +1,7 @@
 package grill24.potionsplus.recipe;
 
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.utility.PUtil;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -13,15 +14,20 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+import java.util.List;
+
 public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T extends ShapelessProcessingRecipeBuilder<R, T>> implements RecipeBuilder {
     protected ItemStack result;
-    protected Ingredient[] ingredients;
+    protected List<PpIngredient> ingredients;
     protected int processingTime;
     protected String group;
     protected RecipeCategory category;
+    protected boolean canShowInJei;
 
     protected final Advancement.Builder advancement = Advancement.Builder.advancement();
 
@@ -31,6 +37,7 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
         this.processingTime = 0;
         this.group = "";
         this.category = RecipeCategory.MISC;
+        this.canShowInJei = true;
     }
 
     public ShapelessProcessingRecipeBuilder(ShapelessProcessingRecipe recipe) {
@@ -51,25 +58,17 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
         return self();
     }
 
-    public T ingredients(Ingredient... ingredients) {
-        this.ingredients = ingredients;
-        return self();
+    public T ingredients(ItemStack... ingredients) {
+        return ingredients(Arrays.stream(ingredients).map(PpIngredient::of).toArray(PpIngredient[]::new));
     }
 
-    public T ingredients(ItemStack... ingredients) {
-        Ingredient[] ingredientArray = new Ingredient[ingredients.length];
-        for (int i = 0; i < ingredients.length; i++) {
-            ingredientArray[i] = Ingredient.of(ingredients[i]);
-        }
-        return ingredients(ingredientArray);
+    public T ingredients(ItemLike... ingredients) {
+        return ingredients(Arrays.stream(ingredients).map(ItemStack::new).toArray(ItemStack[]::new));
     }
 
     public T ingredients(PpIngredient... ingredients) {
-        Ingredient[] ingredientArray = new Ingredient[ingredients.length];
-        for (int i = 0; i < ingredients.length; i++) {
-            ingredientArray[i] = Ingredient.of(ingredients[i].getItemStack());
-        }
-        return ingredients(ingredientArray);
+        this.ingredients = Arrays.asList(ingredients);
+        return self();
     }
 
     public T processingTime(int processingTime) {
@@ -85,6 +84,11 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
 
     public T category(RecipeCategory category) {
         this.category = category;
+        return self();
+    }
+
+    public T canShowInJei(boolean canShowInJei) {
+        this.canShowInJei = canShowInJei;
         return self();
     }
 
@@ -122,5 +126,10 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
         RecipeHolder<R> recipeHolder = build();
         this.advancement.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceLocation)).rewards(AdvancementRewards.Builder.recipe(resourceLocation)).requirements(AdvancementRequirements.Strategy.OR);
         recipeOutput.accept(resourceLocation, recipeHolder.value(), advancement.build(resourceLocation));
+    }
+
+    @Override
+    public void save(RecipeOutput recipeOutput) {
+        this.save(recipeOutput, PUtil.getUniqueRecipeName(ingredients, result));
     }
 }

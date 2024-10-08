@@ -122,7 +122,9 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
 
             // Filter recipes to those that match known recipes and unhide them
             Stream<BrewingCauldronRecipe> stream = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.value()).stream()
-                    .filter(recipe -> SavedData.instance.getData(player).knownRecipesContains(recipe.id().toString()) || PotionsPlus.Debug.shouldRevealAllRecipes).map(RecipeHolder::value);
+                    .filter(recipe ->
+                            (SavedData.instance.getData(player).isRecipeKnown(recipe.id().toString()) || PotionsPlus.Debug.shouldRevealAllRecipes) && recipe.value().canShowInJei()
+                    ).map(RecipeHolder::value);
             JEI_RUNTIME.getRecipeManager().unhideRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE, stream.toList());
         }
     }
@@ -137,25 +139,21 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         // TODO: Add clothesline recipes
     }
 
-    private static void registerAllPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsAmpDurMatrix... potionsAmpDurMatrix) {
-        for (PotionBuilder.PotionsAmpDurMatrix matrix : potionsAmpDurMatrix) {
-            String effectName = matrix.getEffectName();
+    private static void registerAllPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsPlusPotionGenerationData... potionData) {
+        for (PotionBuilder.PotionsPlusPotionGenerationData data : potionData) {
+            String effectName = data.getEffectName();
             if (!effectName.isBlank()) {
                 String descriptionKey = "jei.potionsplus." + effectName + ".description";
                 MutableComponent descriptionComponent = Component.translatable(descriptionKey);
-                registerPotionsInfo(registration, matrix, descriptionComponent);
+                registerPotionsInfo(registration, data, descriptionComponent);
             }
         }
     }
 
-    private static void registerPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsAmpDurMatrix potionsAmpDurMatrix, Component... descriptionComponents) {
-        for (int a = 0; a < potionsAmpDurMatrix.potions.length; a++) {
-            for (int d = 0; d < potionsAmpDurMatrix.potions[a].length; d++) {
-                Holder<Potion> potion = potionsAmpDurMatrix.potions[a][d];
-                if (potion.isBound()) {
-                    registerPotionInfo(registration, potion.value(), descriptionComponents);
-                }
-            }
+    private static void registerPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsPlusPotionGenerationData potionData, Component... descriptionComponents) {
+        Holder<Potion> potion = potionData.potion;
+        if (potion.isBound()) {
+            registerPotionInfo(registration, potion.value(), descriptionComponents);
         }
     }
 

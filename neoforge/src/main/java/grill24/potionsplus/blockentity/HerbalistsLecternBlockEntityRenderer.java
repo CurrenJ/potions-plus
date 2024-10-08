@@ -100,8 +100,8 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
                 matrices.popPose();
             }
 
-            // Roman numerals for tier
-            if (blockEntity.rendererData.ingredientTier > -1) {
+
+            if (!blockEntity.rendererData.centerDisplayStack.isEmpty()) {
                 matrices.pushPose();
                 Vector3f numeralsOffset = new Vector3f(0.5f, 1.75F, 0.5f);
                 matrices.translate(numeralsOffset.x(), numeralsOffset.y(), numeralsOffset.z());
@@ -118,10 +118,12 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
 
                 matrices.scale(0.5F, 0.5F, 0.5F);
 
-                Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Items.GENERIC_ICON.value(), blockEntity.rendererData.ingredientTier + 3), ItemDisplayContext.GROUND,
+                Minecraft.getInstance().getItemRenderer().renderStatic(blockEntity.rendererData.centerDisplayStack, ItemDisplayContext.GROUND,
                         light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
                 matrices.popPose();
             }
+
+
         }
         profiler.pop();
     }

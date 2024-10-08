@@ -1,0 +1,40 @@
+{
+  "type": "potionsplus:brewing_cauldron_recipe",
+  "amplifierToAdd": 1,
+  "category": "BREWING",
+  "durationToAdd": 0,
+  "experience": 0.0,
+  "ingredients": [
+    {
+      "ppIngredient": {
+        "components": {
+          "minecraft:potion_contents": {
+            "potion": "potionsplus:any_potion"
+          }
+        },
+        "count": 1,
+        "id": "minecraft:potion"
+      }
+    },
+    {
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:honey_bottle"
+      }
+    }
+  ],
+  "matchingCriteria": [
+    "ignore_potion_container",
+    "ignore_potion_effects_min_1_effect"
+  ],
+  "processingTime": 30,
+  "result": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "potionsplus:any_potion"
+      }
+    },
+    "count": 1,
+    "id": "minecraft:potion"
+  }
+}
