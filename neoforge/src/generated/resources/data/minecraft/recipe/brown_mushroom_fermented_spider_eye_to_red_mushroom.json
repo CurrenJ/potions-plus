@@ -1,7 +1,9 @@
 {
   "type": "potionsplus:brewing_cauldron_recipe",
+  "amplifierToAdd": 0,
   "category": "BREWING",
-  "experience": 0.1,
+  "durationToAdd": 0,
+  "experience": 0.0,
   "ingredients": [
     {
       "ppIngredient": {
@@ -16,10 +18,12 @@
       }
     }
   ],
-  "processingTime": 80,
+  "matchingCriteria": [
+    "exact_match"
+  ],
+  "processingTime": 20,
   "result": {
     "count": 1,
     "id": "minecraft:red_mushroom"
-  },
-  "tier": -1
+  }
 }

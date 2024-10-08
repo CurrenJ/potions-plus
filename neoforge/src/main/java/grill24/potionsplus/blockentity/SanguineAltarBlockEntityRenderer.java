@@ -6,7 +6,6 @@ import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
 import grill24.potionsplus.core.Items;
-import grill24.potionsplus.core.seededrecipe.TreeNode;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -82,17 +81,5 @@ public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<San
             ItemStack runeStack = new ItemStack(Items.GENERIC_ICON.value(), 13 + p % 4);
             RUtil.renderItemWithYaw(blockEntity, runeStack, new Vector3d(point.x(), point.y(), point.z()), 20, 0, p * 10, itemScale, matrices, vertexConsumers, light, overlay);
         }
-    }
-
-    private static int getWidthOfNode(TreeNode<ItemStack> t, int numSiblings) {
-
-        int width = 1;
-        if (t.getChildren().isEmpty())
-            return width;
-
-        for (TreeNode<ItemStack> child : t.getChildren()) {
-            width += getWidthOfNode(child, t.getChildren().size());
-        }
-        return width;
     }
 }

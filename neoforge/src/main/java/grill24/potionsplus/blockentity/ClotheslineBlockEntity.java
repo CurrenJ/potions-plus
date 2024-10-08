@@ -124,7 +124,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
             } else {
                 final ClotheslineRecipe activeRecipe = new ClotheslineRecipe(activeRecipes[slot].value());
                 ItemStack container = getItem(slot).getCraftingRemainingItem();
-                ItemStack result = activeRecipe.getResultItem();
+                ItemStack result = activeRecipe.getResult();
 
                 getItem(slot).shrink(1);
                 setItem(slot, result);

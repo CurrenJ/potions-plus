@@ -22,7 +22,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
@@ -37,7 +36,6 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity {
@@ -136,13 +134,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
     public int getWaterColor(BlockAndTintGetter world, BlockPos pos) {
         Color waterColor = new Color(BiomeColors.getAverageWaterColor(world, pos));
 
-        Set<Item> itemsWithColor = new HashSet<>();
-        itemsWithColor.add(Items.POTION);
-        itemsWithColor.add(Items.LINGERING_POTION);
-        itemsWithColor.add(Items.SPLASH_POTION);
-        itemsWithColor.add(Items.TIPPED_ARROW);
-        if (activeRecipe.isPresent() && itemsWithColor.contains(activeRecipe.get().value().getResultItem().getItem())) {
-            Color potionColor = new Color(PotionContents.getColor(PUtil.getPotionHolder(activeRecipe.get().value().getResultItem())));
+        if (activeRecipe.isPresent() && PUtil.isPotion(activeRecipe.get().value().getResult())) {
+            List<MobEffectInstance> effects = PUtil.getAllEffects(PUtil.getPotionContents(activeRecipe.get().value().getResult()));
+            Color potionColor = new Color(PotionContents.getColor(effects));
 
             // Lerp water and potions
             float lerp = (float) brewTime / activeRecipe.get().value().getProcessingTime();
@@ -167,24 +161,29 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
             if (activeRecipe.isEmpty()) return;
             final ResourceLocation recipeId = activeRecipe.get().id();
             final BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(activeRecipe.get().value());
-            ItemStack result = recipe.getResultItem();
-            if (result.isEmpty()) return;
 
             // Remove ingredients and add result
             // Iterate through recipe ingredients and remove correct amounts
-            for (int i = 0; i < recipe.getIngredients().size(); i++) {
-                ItemStack ingredient = recipe.getIngredients().get(i).getItems()[0];
+            List<ItemStack> consumedInputs = new ArrayList<>();
+            for (int i = 0; i < recipe.getPpIngredients().size(); i++) {
+                ItemStack ingredient = recipe.getPpIngredients().get(i).getItemStack();
 
                 // Look through container until we find
                 // the correct item and remove the correct amount
                 for (int j = 0; j < this.getContainerSize(); j++) {
                     ItemStack stack = this.getItem(j);
-                    if (PUtil.isSameItemOrPotion(stack, ingredient)) {
+                    if (PUtil.isSameItemOrPotion(stack, ingredient, recipe.getMatchingCriteria())) {
+                        consumedInputs.add(stack.copy());
                         stack.shrink(ingredient.getCount());
                         break;
                     }
                 }
             }
+
+            // Modify duration if necessary
+            ItemStack result = recipe.getResultItemWithTransformations(consumedInputs);
+            if (result.isEmpty()) return;
+
 
             // Add result to container
             for (int i = 0; i < this.getContainerSize(); i++) {

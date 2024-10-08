@@ -12,7 +12,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:grass_block"
+        "recipe": "minecraft:brown_mushroom_fermented_spider_eye_to_red_mushroom"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -25,7 +25,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:grass_block"
+      "minecraft:brown_mushroom_fermented_spider_eye_to_red_mushroom"
     ]
   },
   "sends_telemetry_event": true

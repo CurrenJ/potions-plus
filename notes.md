@@ -126,10 +126,12 @@ NEOFORGE 1.21
 - Enchantable / quicker more durable brush
 - Make decorative fire obtainable 
 - Fix herbalists lectern sounds
+- Fix descritions of potions
 
 - Broadcast recipe unlock to all nearby players xx
 - Sync brewing cauldron + herbalist lecetern animations in other clients xx
 - Trove pairing
+- HL sparkle criteria incorrect - see red and brown mushroom behaviour across HL/AT/Tooltip - make consistent
 
-- Make upgrades not randomized
-- 
+- Update herbalists lectern
+- Maybe make vanilla base lvl 1 potion brewing recipes visible on learned brew? 

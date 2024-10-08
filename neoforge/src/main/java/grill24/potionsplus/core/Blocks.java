@@ -3,15 +3,22 @@ package grill24.potionsplus.core;
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.PUtil;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -181,6 +188,32 @@ public class Blocks {
             return BiomeColors.getAverageWaterColor(world, pos);
         };
         event.register(cauldronWater, BREWING_CAULDRON.value());
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+        event.register((stack, i) -> {
+            PotionContents potionContents = PUtil.getPotionContents(stack);
+
+            boolean isAnyPotion = false;
+            for (MobEffectInstance effect : potionContents.getAllEffects()) {
+                isAnyPotion = effect.getEffect().is(MobEffects.ANY_POTION);
+                if (isAnyPotion) {
+                    break;
+                }
+            }
+            if (!isAnyPotion) {
+                return i > 0 ? -1 : FastColor.ARGB32.opaque(stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).getColor());
+            }
+
+            float ticks = ClientTickHandler.total();
+            // returning int rgb int value - rainbow over time
+            int r = (int) (Math.sin(ticks * 0.01f) * 127 + 128);
+            int g = (int) (Math.sin(ticks * 0.01f + 2.0943951023931953) * 127 + 128);
+            int b = (int) (Math.sin(ticks * 0.01f + 4.1887902047863905) * 127 + 128);
+            return i > 0 ? -1 : FastColor.ARGB32.color(r, g, b);
+        }, net.minecraft.world.item.Items.POTION);
     }
 
     @SubscribeEvent

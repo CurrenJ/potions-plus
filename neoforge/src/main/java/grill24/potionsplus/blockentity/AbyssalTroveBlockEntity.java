@@ -111,10 +111,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         return 20;
     }
 
-    public void onPlayerInsertItem(Player player) {
-//        Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();
-//        playerPosRelativeToBlockOrigin = playerPosRelativeToBlockOrigin.subtract(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ());
-//        itemAnimationStartingPosRelativeToBlockOrigin = new Vector3d(playerPosRelativeToBlockOrigin.x, playerPosRelativeToBlockOrigin.y, playerPosRelativeToBlockOrigin.z);
+    public void showGui() {
         timeItemPlaced = ((int) ClientTickHandler.total());
     }
 
@@ -131,25 +128,27 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
 
         this.computeStoredIngredients();
 
-        // Add items in tiers
+        // Add items in tiers - adapted to square display in v1.3.0
         data.renderedItemTiers = new HashMap<>();
-        Recipes.seededPotionRecipes.allPotionsBrewingIngredientsByTierNoPotions.forEach((tier, ingredients) -> {
-            if (tier >= 0) {
-                List<RendererData.AbyssalTroveRenderedItem> itemsInTier = data.renderedItemTiers.computeIfAbsent(tier, k -> new ArrayList<>());
+        int index = 0;
+        Set<PpIngredient> allIngredients = Recipes.ALL_BCR_RECIPES_ANALYSIS.getAllPotionBrewingIngredientsNoPotions();
+        int sideLength = (int) Math.max(Math.round(Math.sqrt(allIngredients.size())), 1);
+        for(PpIngredient ingredient : allIngredients) {
+            // TODO: Remove tier
+            int tier = index / sideLength;
 
-                ingredients.forEach(ingredient -> {
-                    ItemStack stack = ingredient.getItemStack();
-                    if (!PotionsPlus.Debug.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
-                        stack = new ItemStack(Items.GENERIC_ICON.value(), 12);
-                    }
-
-                    itemsInTier.add(new RendererData.AbyssalTroveRenderedItem(stack, tier));
-                });
+            List<RendererData.AbyssalTroveRenderedItem> itemsInTier = data.renderedItemTiers.computeIfAbsent(tier, k -> new ArrayList<>());
+            ItemStack stack = ingredient.getItemStack();
+            if (!PotionsPlus.Debug.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
+                stack = new ItemStack(Items.GENERIC_ICON.value(), 12);
             }
-        });
+            itemsInTier.add(new RendererData.AbyssalTroveRenderedItem(stack, tier));
+
+            index++;
+        }
 
         final double tierSpacing = 1;
-        final double itemSpacing = 0.5;
+        final double itemSpacing = 1;
 
         // Set positions
         for (Map.Entry<Integer, List<RendererData.AbyssalTroveRenderedItem>> entry : data.renderedItemTiers.entrySet()) {
@@ -167,6 +166,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
             for (int indexInTier = 0; indexInTier < items.size(); indexInTier++) {
                 RendererData.AbyssalTroveRenderedItem item = items.get(indexInTier);
                 item.position.x = item.position.x - (items.size() * itemSpacing / 2.0);
+                item.position.x += itemSpacing / 2.0;
             }
         }
 
@@ -176,7 +176,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     @Override
     public boolean canPlaceItem(int index, ItemStack stack) {
         boolean canPlace = super.canPlaceItem(index, stack);
-        boolean isIngredient = Recipes.seededPotionRecipes.allPotionBrewingIngredientsNoPotions.contains(PpIngredient.of(stack));
+        boolean isIngredient = Recipes.ALL_BCR_RECIPES_ANALYSIS.isIngredientUsed(PpIngredient.of(stack));
         return canPlace && isIngredient;
     }
 

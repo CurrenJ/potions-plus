@@ -1,11 +1,11 @@
 package grill24.potionsplus.core;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
 import grill24.potionsplus.persistence.SavedData;
+import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
-import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -13,11 +13,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeSource;
-import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
-import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -26,6 +25,7 @@ import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
+import java.util.List;
 import java.util.Map;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
@@ -45,6 +45,7 @@ public class ServerLifecycleListeners {
 
         // Inject runtime recipes
         injectRuntimeRecipes(server);
+        postProcessRecipes(server.getRecipeManager());
 
         serverStarted = true;
     }
@@ -57,8 +58,18 @@ public class ServerLifecycleListeners {
 
     @SubscribeEvent
     public static void onRecipesSynced(final RecipesUpdatedEvent event) {
-        Recipes.seededPotionRecipes.computeUniqueIngredientsList(event.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()));
-        SanguineAltarBlockEntity.setRecipes(event.getRecipeManager().getAllRecipesFor(Recipes.SANGUINE_ALTAR_RECIPE.get()));
+        postProcessRecipes(event.getRecipeManager());
+    }
+
+    public static void postProcessRecipes(RecipeManager recipeManager) {
+        List<RecipeHolder<SanguineAltarRecipe>> sanguineAltarRecipes = recipeManager.getAllRecipesFor(Recipes.SANGUINE_ALTAR_RECIPE.get());
+        Recipes.SANGUINE_ALTAR_ANALYSIS.compute(sanguineAltarRecipes);
+        SanguineAltarBlockEntity.computeRecipeMap(Recipes.SANGUINE_ALTAR_ANALYSIS.getRecipes());
+
+        List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronRecipes = recipeManager.getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get());
+        Recipes.DURATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isDurationUpgrade()).toList());
+        Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isAmpUpgrade()).toList());
+        Recipes.ALL_BCR_RECIPES_ANALYSIS.compute(brewingCauldronRecipes);
     }
 
     private static void injectRuntimeRecipes(MinecraftServer server) {

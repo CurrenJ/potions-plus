@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.sounds.SoundEvents;
@@ -13,13 +14,15 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundBrewingIngredientKnowledgePacket(ItemStack stack) implements CustomPacketPayload {
-    public static final Type<ClientboundBrewingIngredientKnowledgePacket> TYPE = new Type<>(ppId("brewing_ingredient_knowledge"));
+public record ClientboundDisplayAlertWithItemStackName(String localizationKey, ItemStack param) implements CustomPacketPayload {
+    public static final Type<ClientboundDisplayAlertWithItemStackName> TYPE = new Type<>(ppId("brewing_ingredient_knowledge"));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundBrewingIngredientKnowledgePacket> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundDisplayAlertWithItemStackName> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.STRING_UTF8,
+            ClientboundDisplayAlertWithItemStackName::localizationKey,
             ItemStack.STREAM_CODEC,
-            ClientboundBrewingIngredientKnowledgePacket::stack,
-            ClientboundBrewingIngredientKnowledgePacket::new
+            ClientboundDisplayAlertWithItemStackName::param,
+            ClientboundDisplayAlertWithItemStackName::new
     );
 
     @Override
@@ -28,7 +31,7 @@ public record ClientboundBrewingIngredientKnowledgePacket(ItemStack stack) imple
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundBrewingIngredientKnowledgePacket packet, final IPayloadContext context){
+        public static void handleDataOnMain (final ClientboundDisplayAlertWithItemStackName packet, final IPayloadContext context){
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();
@@ -37,7 +40,7 @@ public record ClientboundBrewingIngredientKnowledgePacket(ItemStack stack) imple
                         }
 
                         Player clientPlayer = context.player();
-                        MutableComponent text = Component.translatable("chat.potionsplus.acquired_ingredient_knowledge_" + mc.level.getRandom().nextInt(1, 4), packet.stack.getHoverName());
+                        MutableComponent text = Component.translatable(packet.localizationKey, packet.param.getHoverName());
                         clientPlayer.displayClientMessage(text, true);
                         clientPlayer.playSound(SoundEvents.PLAYER_LEVELUP, 1.0F, 1.0F);
                     }

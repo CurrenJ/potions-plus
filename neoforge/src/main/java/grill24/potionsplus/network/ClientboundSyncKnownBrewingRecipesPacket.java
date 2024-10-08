@@ -38,6 +38,11 @@ public record ClientboundSyncKnownBrewingRecipesPacket(String recipeId) implemen
                             return;
                         }
 
+                        if(packet.recipeId().isBlank()) {
+                            PotionsPlus.LOGGER.warn("Received empty brewing recipes knowledge from server :(");
+                            return;
+                        }
+
                         Player clientPlayer = context.player();
                         // Split string into array of recipe ids by comma
                         String[] recipeIds = packet.recipeId().split(",");

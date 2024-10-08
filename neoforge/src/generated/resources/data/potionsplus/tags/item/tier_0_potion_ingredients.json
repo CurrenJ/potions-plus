@@ -22,6 +22,20 @@
     "minecraft:bone",
     "minecraft:porkchop",
     "minecraft:chicken",
-    "minecraft:beef"
+    "minecraft:beef",
+    "minecraft:dead_bush",
+    "minecraft:flowering_azalea",
+    "minecraft:hanging_roots",
+    "minecraft:vine",
+    "minecraft:tropical_fish",
+    "minecraft:feather",
+    "minecraft:apple",
+    "minecraft:egg",
+    "minecraft:slime_ball",
+    "minecraft:honeycomb",
+    "minecraft:beetroot_seeds",
+    "minecraft:sea_pickle",
+    "minecraft:warped_fungus",
+    "minecraft:crimson_fungus"
   ]
 }

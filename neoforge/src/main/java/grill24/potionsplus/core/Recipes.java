@@ -2,27 +2,28 @@ package grill24.potionsplus.core;
 
 import com.google.common.collect.*;
 import com.mojang.datafixers.util.Pair;
+import grill24.potionsplus.core.seededrecipe.IRuntimeRecipeProvider;
+import grill24.potionsplus.core.seededrecipe.SanguineAltarRecipes;
 import grill24.potionsplus.core.seededrecipe.SeededPotionRecipes;
+import grill24.potionsplus.recipe.BrewingCauldronRecipeAnalysis;
+import grill24.potionsplus.recipe.RecipeAnalysis;
 import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.*;
 import java.util.function.Function;
-
-import static grill24.potionsplus.utility.Utility.ppId;
 
 public class Recipes {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, ModInfo.MOD_ID);
@@ -43,57 +44,57 @@ public class Recipes {
     });
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<SanguineAltarRecipe>> SANGUINE_ALTAR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("sanguine_altar_recipe", SanguineAltarRecipe.Serializer::new);
 
-    public static final List<Pair<RecipeType<?>, Function<MinecraftServer, List<RecipeHolder<?>>>>> RECIPE_INJECTION_FUNCTIONS = new ArrayList<>();
+    public static final List<Pair<RecipeType<?>, IRuntimeRecipeProvider>> RECIPE_INJECTION_FUNCTIONS = new ArrayList<>();
 
     public static SeededPotionRecipes seededPotionRecipes = new SeededPotionRecipes();
 
     private static void registerRecipeInjectionFunctions() {
-        RECIPE_INJECTION_FUNCTIONS.add(Pair.of(BREWING_CAULDRON_RECIPE.get(), Recipes::getRuntimeBrewingRecipes));
-        RECIPE_INJECTION_FUNCTIONS.add(Pair.of(SANGUINE_ALTAR_RECIPE.get(), Recipes::getRuntimeSanguineAltarRecipes));
+        RECIPE_INJECTION_FUNCTIONS.add(Pair.of(BREWING_CAULDRON_RECIPE.get(), Recipes::generateRuntimeBrewingCauldronRecipes));
+        RECIPE_INJECTION_FUNCTIONS.add(Pair.of(SANGUINE_ALTAR_RECIPE.get(), (server) -> SanguineAltarRecipes.generateAllSanguineAltarRecipes(PotionsPlus.worldSeed)));
     }
 
-    private static List<RecipeHolder<?>> getRuntimeBrewingRecipes(MinecraftServer server) {
+    // ----- Computed Info -----
+    public static final BrewingCauldronRecipeAnalysis DURATION_UPGRADE_ANALYSIS = new BrewingCauldronRecipeAnalysis();
+    public static final BrewingCauldronRecipeAnalysis AMPLIFICATION_UPGRADE_ANALYSIS = new BrewingCauldronRecipeAnalysis();
+    public static final BrewingCauldronRecipeAnalysis ALL_BCR_RECIPES_ANALYSIS = new BrewingCauldronRecipeAnalysis();
+
+    public static final RecipeAnalysis<SanguineAltarRecipe> SANGUINE_ALTAR_ANALYSIS = new RecipeAnalysis<>();
+
+    private static List<RecipeHolder<?>> generateRuntimeBrewingCauldronRecipes(MinecraftServer server) {
         List<RecipeHolder<?>> recipes = new ArrayList<>();
 
         // Add all possible vanilla brewing recipes
         recipes.addAll(getVanillaBrewingRecipes(server));
 
-        // Add seed-instanced recipes
+        // Generated seeded potion recipes and inject them
+        seededPotionRecipes = new SeededPotionRecipes(server);
         recipes.addAll(seededPotionRecipes.getRecipes());
 
         return recipes;
     }
 
-    private static List<RecipeHolder<?>> getRuntimeSanguineAltarRecipes(MinecraftServer server) {
-        return new ArrayList<>(seededPotionRecipes.getSanguineAltarRecipes());
-    }
+    // ----- Vanilla Brewing Recipes to Brewing Cauldron Recipes -----
 
     // Below method is for parsing the vanilla brewing recipes and adding them to the runtime recipe list
     private static List<RecipeHolder<?>> getVanillaBrewingRecipes(MinecraftServer server) {
         List<RecipeHolder<?>> vanillaBrewingRecipes = new ArrayList<>();
 
-        // Add all possible vanilla brewing recipes
+        // Add all possible vanilla brewing recipes. Don't show them in JEI because too many recipes. Players already have the vanilla brewing stand recipe viewer.
         List<ItemStack> INGREDIENTS = BuiltInRegistries.ITEM.stream().map(ItemStack::new).filter((item) -> server.potionBrewing().isIngredient(item)).toList();
         for (PUtil.PotionType inputPotionContainer : PUtil.PotionType.values()) {
             List<ItemStack> POTIONS = BuiltInRegistries.POTION.holders().map((potionHolder) -> PUtil.createPotionItemStack(potionHolder, inputPotionContainer)).filter((item) -> server.potionBrewing().isInput(item)).toList();
             POTIONS.forEach(potion -> {
                 INGREDIENTS.forEach(ingredient -> {
                     ItemStack output = server.potionBrewing().mix(ingredient, potion);
-
-                    // Determine the "tier", as defined by potions plus, of this potion recipe from a vanilla brewing stand recipe
-                    int tier = -1;
-                    if (!PUtil.getPotion(potion).getEffects().isEmpty()) {
-                        if (ingredient.is(Items.GLOWSTONE_DUST) || ingredient.is(Items.REDSTONE)) {
-                            // Vanilla potions only have one duration upgrade, so any potion recipe with a redstone or glowstone ingredient is tier 1 (II) recipe
-                            tier = 1;
-                        } else {
-                            // If the potion has an effect and the ingredient is not redstone or glowstone, it is tier 0 (I), aka a base level potion
-                            tier = 0;
-                        }
-                    }
-
                     if (!output.isEmpty() && !ItemStack.isSameItemSameComponents(output, potion)) {
-                        vanillaBrewingRecipes.add(getVanillaBrewingRecipeAsBrewingCauldronRecipe(potion, output, ingredient, tier));
+                        RecipeHolder<BrewingCauldronRecipe> recipe = new BrewingCauldronRecipeBuilder()
+                                .result(output)
+                                .ingredients(potion, ingredient)
+                                .processingTime(100)
+                                .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH)
+                                .canShowInJei(false)
+                                .build();
+                        vanillaBrewingRecipes.add(recipe);
                     }
                 });
             });
@@ -102,26 +103,14 @@ public class Recipes {
         return vanillaBrewingRecipes;
     }
 
-    private static RecipeHolder<?> getVanillaBrewingRecipeAsBrewingCauldronRecipe(ItemStack input, ItemStack output, ItemStack ingredient, int tier) {
-        Ingredient[] ingredients = new Ingredient[]{Ingredient.of(input), Ingredient.of(ingredient)};
-        String resourceName = PUtil.getNameOrVerbosePotionName(input);
-        resourceName += "_" + PUtil.getNameOrVerbosePotionName(ingredient);
-        resourceName += "_" + PUtil.getNameOrVerbosePotionName(output);
-
-        BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(RecipeCategory.BREWING, "", tier, ingredients, output, 0.1F, PUtil.getProcessingTime(100, input, output, 1));
-        ResourceLocation id = ppId(resourceName);
-
-        return new RecipeHolder<>(id, recipe);
-    }
+    // ----- Injection Stuff -----
 
     public static int injectRuntimeRecipes(MinecraftServer server) {
         registerRecipeInjectionFunctions();
 
-        // Generated seeded potion recipes
-        seededPotionRecipes = new SeededPotionRecipes(server);
         int numInjected = 0;
-        for (Pair<RecipeType<?>, Function<MinecraftServer, List<RecipeHolder<?>>>> pair : RECIPE_INJECTION_FUNCTIONS) {
-            numInjected += injectRuntimeRecipes(server, pair.getFirst(), pair.getSecond().apply(server));
+        for (Pair<RecipeType<?>, IRuntimeRecipeProvider> pair : RECIPE_INJECTION_FUNCTIONS) {
+            numInjected += injectRuntimeRecipes(server, pair.getFirst(), pair.getSecond().getRuntimeRecipesToInject(server));
         }
         return numInjected;
     }

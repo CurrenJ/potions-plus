@@ -6,16 +6,24 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuilder<BrewingCauldronRecipe, BrewingCauldronRecipeBuilder> {
-    protected int tier;
+    protected int durationToAdd;
+    protected int amplifierToAdd;
     protected float experience;
+    protected List<BrewingCauldronRecipe.PotionMatchingCriteria> potionMatchingCriteria;
 
     public BrewingCauldronRecipeBuilder() {
         super();
-        this.tier = -1;
+        this.durationToAdd = 0;
+        this.amplifierToAdd = 0;
         this.experience = 0.0F;
+        this.potionMatchingCriteria = Collections.singletonList(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH);
 
         // All brewing cauldron recipes are in the BREWING category. You have no say in the matter.
         this.category = RecipeCategory.BREWING;
@@ -23,12 +31,18 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
 
     public BrewingCauldronRecipeBuilder(BrewingCauldronRecipe recipe) {
         super(recipe);
-        this.tier = recipe.tier;
+        this.durationToAdd = recipe.durationToAdd;
         this.experience = recipe.experience;
+        this.potionMatchingCriteria = recipe.matchingCriteria;
     }
 
-    public BrewingCauldronRecipeBuilder tier(int tier) {
-        this.tier = tier;
+    public BrewingCauldronRecipeBuilder durationToAdd(int durationToAdd) {
+        this.durationToAdd = durationToAdd;
+        return self();
+    }
+
+    public BrewingCauldronRecipeBuilder amplifierToAdd(int amplifierToAdd) {
+        this.amplifierToAdd = amplifierToAdd;
         return self();
     }
 
@@ -37,12 +51,37 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
         return self();
     }
 
+    public BrewingCauldronRecipeBuilder potionMatchingCriteria(List<BrewingCauldronRecipe.PotionMatchingCriteria> potionMatchingCriteria) {
+        this.potionMatchingCriteria = potionMatchingCriteria;
+        return self();
+    }
+
+    public BrewingCauldronRecipeBuilder potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria potionMatchingCriteria) {
+        this.potionMatchingCriteria = new ArrayList<>();
+        this.potionMatchingCriteria.add(potionMatchingCriteria);
+        return self();
+    }
 
     @Override
-    public RecipeHolder<BrewingCauldronRecipe> build() {
+    protected void ensureValid() {
+        super.ensureValid();
 
-        ResourceLocation recipeId = ppId(PUtil.getUniqueRecipeName(ingredients, result));
-        BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(category, group, tier, ingredients, result, experience, processingTime);
+        if (potionMatchingCriteria == null) {
+            throw new IllegalStateException("Potion matching criteria must be set.");
+        }
+    }
+
+        @Override
+    public RecipeHolder<BrewingCauldronRecipe> build() {
+        BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(category, group, ingredients, result, processingTime, canShowInJei, experience, durationToAdd, amplifierToAdd, potionMatchingCriteria);
+        String id = PUtil.getUniqueRecipeName(ingredients, result);
+        if (recipe.isAmpUpgrade()) {
+            id += "_a" + amplifierToAdd;
+        }
+        if (recipe.isDurationUpgrade()) {
+            id += "_d" + durationToAdd;
+        }
+        ResourceLocation recipeId = ppId(id);
         return new RecipeHolder<>(recipeId, recipe);
     }
 

@@ -1,7 +1,9 @@
 {
   "type": "potionsplus:brewing_cauldron_recipe",
+  "amplifierToAdd": 0,
   "category": "BREWING",
-  "experience": 0.1,
+  "durationToAdd": 0,
+  "experience": 0.0,
   "ingredients": [
     {
       "ppIngredient": {
@@ -9,6 +11,9 @@
         "id": "minecraft:glass_bottle"
       }
     }
+  ],
+  "matchingCriteria": [
+    "exact_match"
   ],
   "processingTime": 30,
   "result": {
@@ -19,6 +24,5 @@
     },
     "count": 1,
     "id": "minecraft:potion"
-  },
-  "tier": -1
+  }
 }

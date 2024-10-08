@@ -38,6 +38,10 @@ public class PpIngredient {
             }
     );
 
+    protected PpIngredient(Ingredient ingredient) {
+        this.ingredients = new Ingredient[]{ingredient};
+    }
+
     protected PpIngredient(Ingredient[] ingredients) {
         this.ingredients = ingredients;
     }
@@ -105,11 +109,11 @@ public class PpIngredient {
         return ingredients[0].getItems()[0];
     }
 
-    public static PpIngredient of(ItemStack... stacks) {
-        return new PpIngredient(Arrays.stream(stacks).map(Ingredient::of).toArray(Ingredient[]::new));
+    public static PpIngredient of(ItemStack stack) {
+        return new PpIngredient(Ingredient.of(stack));
     }
 
-    public static PpIngredient of(Ingredient... ingredients) {
-        return new PpIngredient(ingredients);
+    public static PpIngredient of(Ingredient ingredient) {
+        return new PpIngredient(ingredient);
     }
 }

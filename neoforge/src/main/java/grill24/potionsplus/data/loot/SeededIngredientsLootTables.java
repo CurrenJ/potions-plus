@@ -2,17 +2,17 @@ package grill24.potionsplus.data.loot;
 
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.seededrecipe.LootPoolSupplier;
-import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -21,11 +21,10 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.neoforged.neoforge.common.util.Lazy;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -37,10 +36,21 @@ public class SeededIngredientsLootTables {
     public static LootParams LOOT_PARAMS;
 
     public static LootPoolSupplier EMPTY = () -> emptyIngredientPool("empty");
-    public static LootPoolSupplier TIER_0_INGREDIENTS = () -> generateTier0IngredientsPool(emptyIngredientPool("tier_0_ingredients"));
-    public static LootPoolSupplier TIER_1_INGREDIENTS = () -> generateTier1IngredientsPool(emptyIngredientPool("tier_1_ingredients"));
-    public static LootPoolSupplier TIER_2_INGREDIENTS = () -> generateTier2IngredientsPool(emptyIngredientPool("tier_2_ingredients"));
-    public static LootPoolSupplier TIER_3_INGREDIENTS = () -> generateTier3IngredientsPool(emptyIngredientPool("tier_3_ingredients"));
+
+    public static LootPoolSupplier COMMON_INGREDIENTS = () -> generateTier0IngredientsPool(emptyIngredientPool("tier_0_ingredients"), i -> {});
+    public static Lazy<Set<PpIngredient>> COMMON_INGREDIENTS_SET = Lazy.of(() -> {
+       HashSet<PpIngredient> set = new HashSet<>();
+       generateTier0IngredientsPool(emptyIngredientPool("tier_0_ingredients"), set::addAll);
+       return set;
+    });
+
+    public static LootPoolSupplier RARE_INGREDIENTS = () -> generateTier1IngredientsPool(emptyIngredientPool("tier_1_ingredients"), i -> {});
+    public static Lazy<Set<PpIngredient>> RARE_INGREDIENTS_SET = Lazy.of(() -> {
+        HashSet<PpIngredient> set = new HashSet<>();
+        generateTier1IngredientsPool(emptyIngredientPool("tier_1_ingredients"), set::addAll);
+        return set;
+    });
+
 
     public static void initializeLootTables(ServerLevel level, long seed) {
         LOOT_PARAMS = new LootParams.Builder(level).create(LootContextParamSets.EMPTY);
@@ -49,20 +59,20 @@ public class SeededIngredientsLootTables {
                 .create(Optional.of(ppId("seeded_ingredients")));
     }
 
-    private static LootPool.Builder generateTier0IngredientsPool(LootPool.Builder pool) {
+    private static LootPool.Builder generateTier0IngredientsPool(LootPool.Builder pool, Consumer<List<PpIngredient>> setBuilder) {
         // Read from potions plus tag - this way the loot table can be updated by adding/removing items from the tag
-        addItemsInTags(pool, WeightingMode.INDIVIDUAL, 1, grill24.potionsplus.core.Tags.Items.BASE_TIER_POTION_INGREDIENTS);
+        setBuilder.accept(addItemsInTags(pool, WeightingMode.INDIVIDUAL, 1, grill24.potionsplus.core.Tags.Items.COMMON_INGREDIENTS));
         // Add all flowers to the loot table
-        addItemsInTags(pool, WeightingMode.DISTRIBUTED, 1, ItemTags.FLOWERS);
+        setBuilder.accept(addItemsInTags(pool, WeightingMode.DISTRIBUTED, 2, ItemTags.FLOWERS));
 
         return pool;
     }
 
-    private static LootPool.Builder generateTier1IngredientsPool(LootPool.Builder pool) {
-        addItemsInTags(pool, WeightingMode.INDIVIDUAL, 1, grill24.potionsplus.core.Tags.Items.TIER_1_POTION_INGREDIENTS);
+    private static LootPool.Builder generateTier1IngredientsPool(LootPool.Builder pool, Consumer<List<PpIngredient>> setBuilder) {
+        setBuilder.accept(addItemsInTags(pool, WeightingMode.INDIVIDUAL, 1, grill24.potionsplus.core.Tags.Items.RARE_INGREDIENTS));
 
-        addItemsInTags(pool, WeightingMode.DISTRIBUTED, 1, ItemTags.SAPLINGS);
-        addItemsInTags(pool, WeightingMode.DISTRIBUTED, 1, ItemTags.LEAVES);
+        setBuilder.accept(addItemsInTags(pool, WeightingMode.DISTRIBUTED, 1, ItemTags.SAPLINGS));
+        setBuilder.accept(addItemsInTags(pool, WeightingMode.DISTRIBUTED, 1, ItemTags.LEAVES));
 
         return pool;
     }
@@ -77,18 +87,24 @@ public class SeededIngredientsLootTables {
         return pool;
     }
 
-    public static List<ItemStack> samples(LootTable table) {
-        return table.getRandomItems(LOOT_PARAMS);
+    private static ItemStack sample(LootTable table, RandomSource random) {
+        ObjectArrayList<ItemStack> items = table.getRandomItems(LOOT_PARAMS, random);
+        if (items.isEmpty()) {
+            PotionsPlus.LOGGER.warn("Loot table returned no items: " + table);
+            return ItemStack.EMPTY;
+        }
+        return items.getFirst();
     }
 
-    public static ItemStack sample(LootTable table, RandomSource random) {
-        return table.getRandomItems(LOOT_PARAMS, random).get(0);
+    public static List<ItemStack> sampleStacks(PotionUpgradeIngredients.IngredientSamplingConfig config, RandomSource random) {
+        return sampleStacks(config.simpleLootTable(), config.count(), random);
     }
 
-    public static Ingredient[] sampleIngredients(LootTable table, int count, RandomSource random) {
-        Ingredient[] items = new Ingredient[count];
+    private static List<ItemStack> sampleStacks(LootTable table, int count, RandomSource random) {
+        List<ItemStack> items = new ArrayList<>();
+
         for (int i = 0; i < count; i++) {
-            items[i] = Ingredient.of(sample(table, random));
+            items.add(sample(table, random));
         }
         return items;
     }
@@ -115,11 +131,11 @@ public class SeededIngredientsLootTables {
     }
 
     @SafeVarargs
-    public static void addItemsInTags(LootPool.Builder pool, WeightingMode weightingMode, int weight, TagKey<Item>... tags) {
+    public static List<PpIngredient> addItemsInTags(LootPool.Builder pool, WeightingMode weightingMode, int weight, TagKey<Item>... tags) {
         // Get all items in each tag in one list
         List<ItemLike> items = Arrays.stream(tags)
                 .map((tag) -> Objects.requireNonNull(BuiltInRegistries.ITEM.getTag(tag)))
-                .flatMap((tag) -> tag.get().stream())
+                .flatMap((tag) -> tag.orElseThrow().stream())
                 .map(Holder::value)
                 .collect(Collectors.toList());
 
@@ -127,13 +143,17 @@ public class SeededIngredientsLootTables {
                 .lootTableItem(item)
                 .setWeight(getWeight(weightingMode, weight, items.size()))
         ));
+
+        return items.stream().map(ItemStack::new).map(PpIngredient::of).toList();
     }
 
-    public static void addItems(LootPool.Builder pool, WeightingMode weightingMode, int weight, ItemLike... items) {
+    public static List<ItemLike> addItems(LootPool.Builder pool, WeightingMode weightingMode, int weight, ItemLike... items) {
         Arrays.stream(items).forEach(item -> pool.add(LootItem
                 .lootTableItem(item)
                 .setWeight(getWeight(weightingMode, weight, items.length))
         ));
+
+        return Arrays.asList(items);
     }
 
     private static int getWeight(WeightingMode mode, int weight, int count) {
