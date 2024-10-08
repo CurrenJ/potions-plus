@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "potionsplus:block/lunar_berry_bush_stage2"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "category": "MISC",
+  "ingredients": [
+    {
+      "ppIngredient": {
+        "count": 1,
+        "id": "potionsplus:redstone_rose"
+      }
+    }
+  ],
+  "processingTime": 60,
+  "result": {
+    "count": 2,
+    "id": "minecraft:red_dye"
+  }
+}

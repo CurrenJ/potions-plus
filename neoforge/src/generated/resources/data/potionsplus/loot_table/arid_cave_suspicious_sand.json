@@ -1,0 +1,767 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_nugget",
+          "weight": 20000
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:quartz",
+          "weight": 6000
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot",
+          "weight": 4000
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald",
+          "weight": 3000
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:water"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:mundane"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:thick"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:awkward"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:night_vision"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_night_vision"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:invisibility"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_invisibility"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:leaping"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_leaping"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_leaping"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:fire_resistance"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_fire_resistance"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:swiftness"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_swiftness"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_swiftness"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:slowness"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_slowness"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_slowness"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:turtle_master"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_turtle_master"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_turtle_master"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:water_breathing"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_water_breathing"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:healing"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_healing"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:harming"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_harming"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:poison"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_poison"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_poison"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:regeneration"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_regeneration"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_regeneration"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strength"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_strength"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_strength"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:weakness"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_weakness"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:luck"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:slow_falling"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_slow_falling"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:wind_charged"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:weaving"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:oozing"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:infested"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:geode_grace_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:geode_grace_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:fall_of_the_void_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:fall_of_the_void_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:haste_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:haste_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:haste_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:haste_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:haste_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:haste_a2_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:levitation_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:levitation_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:levitation_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:levitation_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:levitation_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:levitation_a2_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:magnetic_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:magnetic_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:magnetic_a0_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:magnetic_a0_d3"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:magnetic_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:magnetic_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:magnetic_a1_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:magnetic_a1_d3"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:magnetic_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:magnetic_a2_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:magnetic_a2_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:magnetic_a2_d3"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:exploding_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:exploding_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:exploding_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:teleportation_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:teleportation_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:teleportation_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:teleportation_a3_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:looting_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:looting_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:looting_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:looting_a3_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:fortuitous_fate_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:fortuitous_fate_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:fortuitous_fate_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:fortuitous_fate_a3_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:metal_detecting_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:metal_detecting_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:metal_detecting_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:metal_detecting_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:metal_detecting_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:metal_detecting_a2_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:giant_steps_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:giant_steps_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:giant_steps_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:giant_steps_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:giant_steps_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:giant_steps_a2_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:reach_for_the_stars_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:reach_for_the_stars_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:reach_for_the_stars_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:reach_for_the_stars_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:reach_for_the_stars_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:reach_for_the_stars_a2_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:nautical_nitro_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:nautical_nitro_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:nautical_nitro_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:nautical_nitro_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:nautical_nitro_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:nautical_nitro_a2_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:crop_collector_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:crop_collector_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:crop_collector_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:crop_collector_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:crop_collector_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:crop_collector_a2_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:botanical_boost_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:botanical_boost_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:botanical_boost_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:botanical_boost_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:botanical_boost_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:botanical_boost_a2_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:saturation_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:saturation_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:saturation_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:saturation_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:saturation_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:saturation_a2_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:blindness_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:blindness_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:blindness_a0_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:confusion_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:confusion_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:confusion_a0_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:hunger_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:hunger_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:wither_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:wither_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:slip_n_slide_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:slip_n_slide_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:slip_n_slide_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:harrowing_hands_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:harrowing_hands_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:harrowing_hands_a0_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:shepherds_serenade_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:shepherds_serenade_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:strength_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:strength_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:strength_a0_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:strength_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:strength_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:strength_a1_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:strength_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:strength_a2_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:strength_a2_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:resistance_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:resistance_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:resistance_a0_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:resistance_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:resistance_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:resistance_a1_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:resistance_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:resistance_a2_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:resistance_a2_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:fire_resistance_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:fire_resistance_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:fire_resistance_a0_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:water_breathing_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:water_breathing_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:water_breathing_a0_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:invisibility_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:invisibility_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:invisibility_a0_d2"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:soul_mate_a0_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:soul_mate_a0_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:soul_mate_a1_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:soul_mate_a1_d1"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:soul_mate_a2_d0"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:soul_mate_a2_d1"
+            }
+          ],
+          "name": "minecraft:potion",
+          "weight": 1000
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "potionsplus:arid_cave_suspicious_sand"
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "minecraft:dead_bush"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "minecraft:cactus",
+            "Properties": {
+              "age": "0"
+            }
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}

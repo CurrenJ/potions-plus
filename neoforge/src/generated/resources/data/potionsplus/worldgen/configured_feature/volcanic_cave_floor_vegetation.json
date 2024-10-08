@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "minecraft:crimson_roots"
+          },
+          "weight": 12
+        },
+        {
+          "data": {
+            "Name": "minecraft:crimson_fungus"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "minecraft:red_mushroom"
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}
