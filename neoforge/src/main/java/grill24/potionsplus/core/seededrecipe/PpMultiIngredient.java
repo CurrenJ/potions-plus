@@ -1,14 +1,17 @@
 package grill24.potionsplus.core.seededrecipe;
 
+import grill24.potionsplus.utility.PUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class PpMultiIngredient extends PpIngredient {
     protected PpMultiIngredient(Ingredient[] ingredients) {
-        super(ingredients);
+        // Sort the ingredients by their name for consistent ordering
+        super(Arrays.stream(ingredients).sorted(Comparator.comparing(a -> PUtil.getNameOrVerbosePotionName(a.getItems()[0]))).toArray(Ingredient[]::new));
     }
 
     public static PpMultiIngredient of(ItemStack... stacks) {

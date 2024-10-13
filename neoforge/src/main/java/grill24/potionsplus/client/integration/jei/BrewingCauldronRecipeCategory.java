@@ -21,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,7 +90,7 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     public void draw(BrewingCauldronRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         int mainColor = 0xFF80FF20;
         String text = "";
-        if (recipe.isAmpUpgrade()) {
+        if (recipe.isAmplifierUpgrade()) {
             text = Component.translatable("jei.potionsplus.amp_upgrade").getString();
             mainColor = 0xFFfe70e2;
         } else if (recipe.isDurationUpgrade()) {

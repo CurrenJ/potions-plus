@@ -46,6 +46,6 @@ public class BotanicalBoostEffect extends MobEffect {
                 }
             }
         }
-        return false;
+        return true;
     }
 }

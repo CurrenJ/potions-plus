@@ -1,14 +1,11 @@
 package grill24.potionsplus.blockentity;
 
-import com.google.common.primitives.Booleans;
-import com.mojang.datafixers.util.Pair;
-import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.utility.ClientUtility;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.neoforged.neoforge.common.util.Lazy;
 import org.joml.Quaternionf;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
@@ -23,7 +20,6 @@ import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -37,101 +33,80 @@ import java.util.*;
 
 public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implements ISingleStackDisplayer {
 
+    public HerbalistsLecternSounds sounds;
     public RendererData rendererData = new RendererData();
 
-    // TODO: Implement properly client-sided sound playing here.
-//    @OnlyIn(Dist.CLIENT)
-//    private SoundInstance appearSound;
-//    @OnlyIn(Dist.CLIENT)
-//    private SoundInstance disappearSound;
-
     public static class RendererData {
+        public record IconData(PpIngredient displayStack, List<PpIngredient> subIcons) {}
 
         private int timeItemPlaced;
         public Vector3f rotation = new Vector3f(90, 0, 0);
         public static final Vector3d itemRestingPositionTranslation = new Vector3d(0.5, 1 - (1 / 64.0), 0.5);
         private Vector3d itemAnimationStartingPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
         public Vector3d localPlayerPositionRelativeToBlockEntity = new Vector3d(0, 0, 0);
-        private ItemStack[] itemStacksToDisplay;
-        public boolean[] isAmpUpgrade;
-        public boolean[] isDurationUpgrade;
-        public ItemStack[][] subIconsOnPotionIcons;
         Quaternionf ingredientTierNumeralsRotation = new Quaternionf().identity();
+
+        public List<IconData> allIcons = new ArrayList<>();
         ItemStack centerDisplayStack = ItemStack.EMPTY;
 
-        public RendererData() {
-            itemStacksToDisplay = new ItemStack[0];
-        }
+        public RendererData() {}
 
         public void updateItemStacksToDisplay(HerbalistsLecternBlockEntity herbalistsLecternBlockEntity) {
             if (herbalistsLecternBlockEntity.level != null) {
                 ItemStack inputStack = herbalistsLecternBlockEntity.getItem(0);
-                List<BrewingCauldronRecipe> allValidRecipes = new ArrayList<>(herbalistsLecternBlockEntity.level.getRecipeManager().getAllRecipesFor(
-                                Recipes.BREWING_CAULDRON_RECIPE.value()).stream().map(RecipeHolder::value)
-                        .filter(recipe -> recipe.isIngredient(inputStack)).toList());
-                List<PpIngredient> allShownItems = new ArrayList<>(allValidRecipes.stream().map(recipe -> PpIngredient.of(recipe.getResult())).toList());
+                PpIngredient inputIngredient = PpIngredient.of(inputStack);
 
-                Set<MobEffect> uniquePotionTypes = new HashSet<>();
-                List<PpIngredient> itemsToRemove = new ArrayList<>();
-                List<PpIngredient> potionIconItemsToAdd = new ArrayList<>();
-                List<Boolean> isAmpUpgrade = new ArrayList<>();
-                List<Boolean> isDurationUpgrade = new ArrayList<>();
-                List<List<ItemStack>> subIconsOnPotionIcons = new ArrayList<>();
+                List<RecipeHolder<BrewingCauldronRecipe>> recipesWithInputIngredient = Recipes.ALL_BCR_RECIPES_ANALYSIS.getRecipesForIngredient(inputIngredient);
+                Map<ResourceLocation, IconData> potionIcons = new HashMap<>();
+                List<IconData> additionalIcons = new ArrayList<>();
 
-                for (BrewingCauldronRecipe recipe : allValidRecipes) {
+                allIcons.clear();
+
+                // Iterate all the recipes that the input ingredient is used in and collect the potion icons, as well as the sub-icons to display on each potion icon.
+                for (RecipeHolder<BrewingCauldronRecipe> recipeHolder : recipesWithInputIngredient) {
+                    BrewingCauldronRecipe recipe = recipeHolder.value();
                     ItemStack outputStack = recipe.getResult();
+                    List<MobEffectInstance> outputEffects = PUtil.getAllEffects(outputStack);
 
-                    if (PUtil.isPotion(outputStack)) {
-                        Potion outputPotion = PUtil.getPotion(outputStack);
-                        if (HIDDEN_POTIONS.contains(outputPotion)) {
-                            itemsToRemove.add(PpIngredient.of(recipe.getResult()));
-                        }
+                    // If the recipe has no potion effects on its output, just display the result item.
+                    if (outputEffects.isEmpty()) {
+                        additionalIcons.add(new IconData(PpIngredient.of(outputStack), new ArrayList<>()));
+                    }
+                    // If the potion has effects, display the potion icon. No duplicates.
+                    for (MobEffectInstance mobEffectInstance : outputEffects) {
+                        ResourceLocation mobEffectId = mobEffectInstance.getEffect().getKey().location();
 
-                        List<MobEffectInstance> mobEffects = PUtil.getPotion(outputStack).getEffects();
-                        if (!mobEffects.isEmpty()) {
-                            MobEffect mobEffectType = mobEffects.get(0).getEffect().value();
-                            ResourceLocation mobEffectTypeRegistryName = BuiltInRegistries.MOB_EFFECT.getKey(mobEffectType);
-                            if (!uniquePotionTypes.contains(mobEffectType) && MobEffects.POTION_ICON_INDEX_MAP.get().containsKey(mobEffectTypeRegistryName)) {
-                                uniquePotionTypes.add(mobEffectType);
-                                isAmpUpgrade.add(false);
-                                isDurationUpgrade.add(false);
-                                // TODO: Move all potion icon / generic icon to a separate class - encapsulate this itemstack creation as utility
-                                potionIconItemsToAdd.add(PpIngredient.of(new ItemStack(Items.POTION_EFFECT_ICON.value(), MobEffects.POTION_ICON_INDEX_MAP.get().get(mobEffectTypeRegistryName))));
-                            }
+                        boolean isMobEffectInIconDataAlready = potionIcons.containsKey(mobEffectId);
+                        boolean doesIconExistForMobEffect = MobEffects.POTION_ICON_INDEX_MAP.get().containsKey(mobEffectId);
+                        // If we haven't seen this MobEffect type yet and it has an icon, add it to the map of potion icons
+                        if (!isMobEffectInIconDataAlready && doesIconExistForMobEffect) {
+                            ItemStack displayStack = new ItemStack(Items.POTION_EFFECT_ICON.value(), 1);
+                            displayStack.setCount(MobEffects.POTION_ICON_INDEX_MAP.get().get(mobEffectId));
+                            potionIcons.put(mobEffectId, new IconData(PpIngredient.of(displayStack), new ArrayList<>()));
 
-                            if (uniquePotionTypes.contains(mobEffectType)) {
-                                if (recipe.isAmpUpgrade()) {
-                                    isAmpUpgrade.set(potionIconItemsToAdd.size() - 1, true);
+                            // Add the sub-icons to the potion icon.
+                            List<PpIngredient> subIcons = potionIcons.get(mobEffectId).subIcons;
+                            // Check if any ingredients are part of the "common" or "rare" ingredient sets.
+                            // If so, add the appropriate sub-icon to the potion icon.
+                            List<PpIngredient> recipeIngredients = recipe.getPpIngredients();
+                            for (PpIngredient recipeIngredient : recipeIngredients) {
+                                if (SeededIngredientsLootTables.COMMON_INGREDIENTS_SET.get().contains(recipeIngredient)) {
+                                    ItemStack common = new ItemStack(Items.GENERIC_ICON.value(), 17);
+                                    subIcons.add(PpIngredient.of(common));
                                 }
-                                if (recipe.isDurationUpgrade()) {
-                                    isDurationUpgrade.set(potionIconItemsToAdd.size() - 1, true);
+                                if (SeededIngredientsLootTables.RARE_INGREDIENTS_SET.get().contains(recipeIngredient)) {
+                                    ItemStack rare = new ItemStack(Items.GENERIC_ICON.value(), 18);
+                                    subIcons.add(PpIngredient.of(rare));
                                 }
-
-                                // TODO: FIXXX
-//                                Map<PotionUpgradeIngredients.Rarity, Integer> rarityMap = recipe.getRaritiesOfInputs();
-//                                List<ItemStack> subIcons = new ArrayList<>();
-//                                for (PotionUpgradeIngredients.Rarity rarity : rarityMap.keySet()) {
-//                                    ItemStack rarityIcon = new ItemStack(Items.GENERIC_ICON.value(), 1);
-//                                    switch (rarity) {
-//                                        case COMMON:
-//                                            rarityIcon.setCount(17);
-//                                            subIcons
-//                                            break;
-//                                        case RARE:
-//                                            rarityIcon.setCount(18);
-//                                            break;
-//                                    }
-//                                    subIcons.add(rarityIcon);
-//                                }
-                                itemsToRemove.add(PpIngredient.of(recipe.getResult()));
                             }
                         }
                     }
                 }
+                // Add all the potion icons and additional icons to the list of all icons to display.
+                allIcons.addAll(potionIcons.values());
+                allIcons.addAll(additionalIcons);
 
-                // Get max tier of all valid recipes, we display this
-                // Check our modded ones first. If none, check vanilla
-                // Bc turtle master potion is confusing in our display otherwise
+                // Update the center display stack - either common, rare, or N/A ingredient.
                 ItemStack centerDisplayStack = new ItemStack(Items.GENERIC_ICON.value(), 1);
                 PpIngredient ingredient = PpIngredient.of(inputStack);
                 if(Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
@@ -146,21 +121,6 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                     centerDisplayStack = ItemStack.EMPTY;
                 }
                 this.centerDisplayStack = centerDisplayStack;
-
-                allShownItems.removeAll(itemsToRemove);
-
-                isAmpUpgrade.addAll(0, allShownItems.stream().map(stack -> false).toList());
-                isDurationUpgrade.addAll(0, allShownItems.stream().map(stack -> false).toList());
-
-                allShownItems.addAll(potionIconItemsToAdd);
-
-                itemStacksToDisplay = allShownItems.stream().map(PpIngredient::getItemStack).toArray(ItemStack[]::new);
-                this.isAmpUpgrade = Booleans.toArray(isAmpUpgrade);
-                this.isDurationUpgrade = Booleans.toArray(isDurationUpgrade);
-            } else {
-                itemStacksToDisplay = new ItemStack[0];
-                isAmpUpgrade = new boolean[0];
-                isDurationUpgrade = new boolean[0];
             }
 
 
@@ -208,11 +168,6 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
         return new Vector3f((float) rendererData.localPlayerPositionRelativeToBlockEntity.x, (float) rendererData.localPlayerPositionRelativeToBlockEntity.y, (float) rendererData.localPlayerPositionRelativeToBlockEntity.z);
     }
 
-    public ItemStack[] getItemStacksToDisplay() {
-        return rendererData.itemStacksToDisplay;
-    }
-
-
     private static final Set<Holder<Potion>> HIDDEN_POTIONS = Set.of(
             Potions.THICK,
             Potions.MUNDANE
@@ -256,34 +211,11 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
     @Override
     public void setChanged() {
         super.setChanged();
-        rendererData.updateItemStacksToDisplay(this);
+
+        // Pre-process the renderer data for the client so we don't have to do it every frame.
+        if (level != null && level.isClientSide) {
+            rendererData.updateItemStacksToDisplay(this);
+        }
     }
-
-    // TODO: Implement properly client-sided sound playing here.
-/**
-    public void playSoundAppear() {
-        this.appearSound = Utility.createSoundInstance(
-                Sounds.HERBALISTS_LECTERN_APPEAR.value(),
-                SoundSource.BLOCKS,
-                0.25F, 1.0F,
-                false, 0,
-                SoundInstance.Attenuation.LINEAR,
-                this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(), true);
-
-        Utility.playSoundStopOther(this.appearSound, this.disappearSound);
-    }
-
-    public void playSoundDisappear() {
-        this.disappearSound = Utility.createSoundInstance(
-                Sounds.HERBALISTS_LECTERN_DISAPPEAR.value(),
-                SoundSource.BLOCKS,
-                0.25F, 1.0F,
-                false, 0,
-                SoundInstance.Attenuation.LINEAR,
-                this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(), true);
-
-        Utility.playSoundStopOther(this.disappearSound, this.appearSound);
-    }
- */
 
 }

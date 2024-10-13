@@ -68,7 +68,7 @@ public class ServerLifecycleListeners {
 
         List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronRecipes = recipeManager.getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get());
         Recipes.DURATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isDurationUpgrade()).toList());
-        Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isAmpUpgrade()).toList());
+        Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isAmplifierUpgrade()).toList());
         Recipes.ALL_BCR_RECIPES_ANALYSIS.compute(brewingCauldronRecipes);
     }
 

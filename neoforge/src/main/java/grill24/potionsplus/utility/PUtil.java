@@ -1,6 +1,8 @@
 package grill24.potionsplus.utility;
 
+import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 public class PUtil {
@@ -89,12 +92,18 @@ public class PUtil {
         }
     }
 
-    public static List<MobEffectInstance> getAllEffects(PotionContents potionContents) {
+    public static List<MobEffectInstance> getAllEffects(@Nonnull PotionContents potionContents) {
         List<MobEffectInstance> allEffects = new ArrayList<>();
-        for (MobEffectInstance mobEffectInstance : potionContents.getAllEffects()) {
-            allEffects.add(mobEffectInstance);
-        }
+        potionContents.getAllEffects().forEach(allEffects::add);
         return allEffects;
+    }
+
+    public static List<MobEffectInstance> getAllEffects(@Nonnull ItemStack itemStack) {
+        if (itemStack.has(DataComponents.POTION_CONTENTS)) {
+            return getAllEffects(getPotionContents(itemStack));
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     public static boolean isPotion(ItemStack itemStack) {
@@ -103,7 +112,17 @@ public class PUtil {
 
     public static String getNameOrVerbosePotionName(ItemStack itemStack) {
         if (isPotion(itemStack)) {
-            return BuiltInRegistries.POTION.getKey(getPotion(itemStack)).getPath() + "_" + BuiltInRegistries.ITEM.getKey(itemStack.getItem()).getPath();
+            StringBuilder name = new StringBuilder();
+            if(PUtil.hasPotion(itemStack)) {
+                name.append(PUtil.getPotionHolder(itemStack).getKey().location().getPath()).append("_");
+            }
+            for (MobEffectInstance mobEffectInstance : PUtil.getAllEffects(itemStack)) {
+                name.append(mobEffectInstance.getEffect().getKey().location().getPath()).append("_")
+                        .append("a").append(mobEffectInstance.getAmplifier()).append("_")
+                        .append("d").append(mobEffectInstance.getDuration()).append("_");
+            }
+            name.append(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).getPath());
+            return name.toString();
         } else {
             return BuiltInRegistries.ITEM.getKey(itemStack.getItem()).getPath();
         }
@@ -187,6 +206,13 @@ public class PUtil {
 
     // ----- 1.21 -----
 
+    public static boolean hasPotion(ItemStack itemStack) {
+        if (itemStack.has(DataComponents.POTION_CONTENTS)) {
+            return itemStack.get(DataComponents.POTION_CONTENTS).potion().isPresent();
+        }
+        return false;
+    }
+
     public static Potion getPotion(ItemStack itemStack) {
         if(itemStack.has(DataComponents.POTION_CONTENTS)) {
             Optional<Holder<Potion>> potion = getPotionContents(itemStack).potion();
@@ -218,19 +244,27 @@ public class PUtil {
     }
 
     public static ItemStack setCustomEffects(ItemStack itemStack, List<MobEffectInstance> customEffects) {
-        PotionContents potionContents = itemStack.get(DataComponents.POTION_CONTENTS);
+        PotionContents potionContents = itemStack.getOrDefault(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.empty(), Collections.emptyList()));
         PotionContents newPotionContents = new PotionContents(potionContents.potion(), potionContents.customColor(), customEffects);
         itemStack.set(DataComponents.POTION_CONTENTS, newPotionContents);
         return itemStack;
     }
 
-    public static String getUniqueRecipeName(List<PpIngredient> ingredients, ItemStack result) {
-        StringBuilder name = new StringBuilder();
-        for (PpIngredient ingredient : ingredients) {
-            name.append(getNameOrVerbosePotionName(ingredient.getItemStack())).append("_");
+    public static PotionUpgradeIngredients.Rarity getRarity(PpIngredient ingredient) {
+        if (SeededIngredientsLootTables.COMMON_INGREDIENTS_SET.get().contains(ingredient)) {
+            return PotionUpgradeIngredients.Rarity.COMMON;
+        } else if (SeededIngredientsLootTables.RARE_INGREDIENTS_SET.get().contains(ingredient)) {
+            return PotionUpgradeIngredients.Rarity.RARE;
         }
-        name.append("to_");
-        name.append(getNameOrVerbosePotionName(result));
-        return name.toString();
+
+        return PotionUpgradeIngredients.Rarity.NONE;
+    }
+
+    public static boolean isPassivePotionEffectItem(ItemStack itemStack) {
+        return itemStack.isDamageableItem() && itemStack.has(DataComponents.POTION_CONTENTS) && !PUtil.isPotion(itemStack);
+    }
+
+    public static boolean isItemEligibleForPassivePotionEffects(ItemStack itemStack) {
+        return itemStack.isDamageableItem() && !PUtil.isPotion(itemStack);
     }
 }

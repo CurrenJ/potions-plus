@@ -74,6 +74,9 @@ public class MobEffects {
     public static final Holder<MobEffect> SOUL_MATE = EFFECTS.register("soul_mate", () ->
             new SoulMateEffect(MobEffectCategory.BENEFICIAL, 0x035690));
 
+    public static final Holder<MobEffect> FLYING_TIME = EFFECTS.register("flying_time", () ->
+            new FlyingTimeEffect(MobEffectCategory.BENEFICIAL, 0x035690));
+
 
     public static final Lazy<Map<ResourceLocation, Integer>> POTION_ICON_INDEX_MAP = Lazy.of(PUtil::getAllMobEffectsIconStackSizeMap);
     public static final int POTION_EFFECT_INDEX_PROPERTY_DIVIDEND = 64;

@@ -3,13 +3,13 @@ package grill24.potionsplus.core.seededrecipe;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
+import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -109,6 +109,14 @@ public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
 
     @Deprecated
     public List<RecipeHolder<BrewingCauldronRecipe>> generateRecipes(PotionBuilder.PotionsPlusPotionGenerationData generationData, Set<PpMultiIngredient> alreadyUsedRecipeInputs, RandomSource random) {
+        // Don't try to generate recipes for potions that already exist in saved data.
+        if(SavedData.instance.isResultInRecipeSavedData(PUtil.createPotionItemStack(generationData.potion, PUtil.PotionType.POTION))) {
+            if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
+                PotionsPlus.LOGGER.info("[SPR] Skipping recipe generation for potion that already exists in saved data: {}", generationData.potion.getKey().location());
+            }
+            return Collections.emptyList();
+        }
+
         IPotionUpgradeIngredients potionUpgradeIngredients = new PotionUpgradeIngredients(
                 generationData.potion,
                 ingredientSamplingConfig,
@@ -142,7 +150,6 @@ public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
         } else {
             List<PpIngredient> allIngredients = new ArrayList<>();
             allIngredients.addAll(nonPotionIngredients.split());
-            allIngredients.add(PpIngredient.of(PUtil.createPotionItemStack(Potions.AWKWARD, PUtil.PotionType.POTION)));
 
             RecipeHolder<BrewingCauldronRecipe> recipe = new BrewingCauldronRecipeBuilder()
                     .result(PUtil.createPotionItemStack(potionsPlusPotionGenerationData.potion, PUtil.PotionType.POTION))
@@ -150,6 +157,7 @@ public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
                     .processingTime(baseProcessingTime)
                     .group(advancementNameIngredient)
                     .experience(experience)
+                    .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER)
                     .build();
             allRecipes.add(recipe);
         }

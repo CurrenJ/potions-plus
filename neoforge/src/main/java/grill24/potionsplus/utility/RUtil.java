@@ -1,6 +1,7 @@
 package grill24.potionsplus.utility;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import grill24.potionsplus.blockentity.ITimestampSupplier;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Quaternionf;
 import org.joml.Vector3d;
@@ -117,17 +118,31 @@ public class RUtil {
         }
     }
 
+    // ----- Easing Utility -----
+
+    public static float ease(ITimestampSupplier startTimeSupplier, float a, float b, int tickDelay, float hertz, Function<Float, Float> easing) {
+        return ease(startTimeSupplier.getTimestamp(), a, b, tickDelay, hertz, easing);
+    }
+
+    public static float ease(ITimestampSupplier startTimeSupplier, float a, float b, int tickDelay, float hertz) {
+        return ease(startTimeSupplier, a, b, tickDelay, hertz, x -> x);
+    }
+
     public static float ease(ISingleStackDisplayer singleStackDisplayer, float a, float b, int tickDelay, float hertz) {
-        float elapsedTicks = ClientTickHandler.total() - singleStackDisplayer.getTimeItemPlaced() - tickDelay;
-        float lerpFactor = Math.max(0, Math.min(elapsedTicks / (20 / hertz), 1));
-        return lerpFactor <= 1 ? Utility.lerp(a, b, easeInOutQuint(lerpFactor)) : b;
+        return ease(singleStackDisplayer, a, b, tickDelay, hertz, RUtil::easeInOutQuint);
     }
 
     public static float ease(ISingleStackDisplayer displayer, float a, float b, int delay, float hertz, Function<Float, Float> easing) {
-        float elapsedTicks = ClientTickHandler.total() - displayer.getTimeItemPlaced() - delay;
-        float lerpFactor = Math.max(0, Math.min(elapsedTicks / (20 / hertz), 1));
+        return ease(displayer.getTimeItemPlaced(), a, b, delay, hertz, easing);
+    }
+
+    public static float ease(float timeStamp, float a, float b, int delay, float hertz, Function<Float, Float> easing) {
+        float elapsedTicks = ClientTickHandler.total() - timeStamp - delay;
+        float lerpFactor = Math.clamp(elapsedTicks / (20 / hertz), 0, 1);
         return Utility.lerp(a, b, easing.apply(lerpFactor));
     }
+
+    // ----- Lerp Utility -----
 
     public static Vector3d lerp3d(Vector3d a, Vector3d b, float t, Function<Float, Float> easingFunction) {
         t = easingFunction.apply(t);
@@ -183,6 +198,8 @@ public class RUtil {
         return angle;
     }
 
+    // ----- Easing Functions -----
+
     public static float easeOutBack(float x) {
         final double c1 = 1.70158;
         final double c3 = c1 + 1;
@@ -208,6 +225,14 @@ public class RUtil {
 
     public static float easeInOutQuint(float x) {
         return (float) (x < 0.5 ? 16 * Math.pow(x, 5) : 1 - Math.pow(-2 * x + 2, 5) / 2);
+    }
+
+    public static float easeOutElastic(float x) {
+        final double c4 = (2 * Math.PI) / 3;
+
+        return x == 0 ? 0 :
+                x == 1 ? 1 :
+                        (float) (Math.pow(2, -12 * x) * Math.sin((x * 6 - 0.75) * c4) + 1);
     }
 
     public static Vector3d rotateAroundY(Vector3d point, float degrees, Vector3d origin) {

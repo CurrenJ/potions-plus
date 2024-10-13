@@ -1,14 +1,17 @@
 package grill24.potionsplus.core;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.GameType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -114,7 +117,17 @@ public class CommonCommands {
                             }
 
                             return 1;
-                        }))
+                        })
+                )
+                .then(Commands.literal("potionHand")
+                    .executes(context -> {
+                        if(context.getSource().getEntity() instanceof ServerPlayer player) {
+                            player.getMainHandItem().set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.FLYING_TIME_POTIONS.potion));
+                        }
+
+                        return 1;
+                    })
+                )
         );
     }
 }

@@ -40,7 +40,7 @@ public class MetalDetectingEffect extends MobEffect {
         if (j > 0) {
             return duration % j == 0;
         } else {
-            return true;
+            return false;
         }
     }
 
@@ -90,6 +90,6 @@ public class MetalDetectingEffect extends MobEffect {
 
             }
         }
-        return false;
+        return true;
     }
 }

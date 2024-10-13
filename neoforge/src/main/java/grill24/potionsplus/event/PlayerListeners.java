@@ -9,11 +9,16 @@ import grill24.potionsplus.network.ClientboundSyncKnownBrewingRecipesPacket;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -21,6 +26,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import oshi.util.tuples.Pair;
 
@@ -55,11 +61,10 @@ public class PlayerListeners {
                 alerts.add(new Pair<>(new ClientboundDisplayAlertWithItemStackName("chat.potionsplus.amplification_ingredient", stack), 2));
             }
 
-
             // Add the *ingredient* to the player's knowledge if it is unknown
             // For some reason when I made the saved data I decided to use itemstacks, but we only really care about the item id. So set count to 1 for consistency.
             stack.setCount(1);
-            if (playerBrewingKnowledge.isIngredientUnknown(stack)) {
+            if (playerBrewingKnowledge.isIngredientUnknown(stack) && Recipes.ALL_BCR_RECIPES_ANALYSIS.isIngredientUsed(ppIngredient)) {
                 // At the time of writing this, *ingredient* knowledge is not synced to the client, because it is only used for server-side checks. If this changes, we should sync it here.
                 playerBrewingKnowledge.addIngredient(stack);
                 // Alert the player that they have picked up this brewing ingredient for the first time.
@@ -91,9 +96,51 @@ public class PlayerListeners {
         }
     }
 
-    private enum KnowledgeType {
-        RECIPE,
-        INGREDIENT
+    private static final int EFFECT_DURATION = 20 * 15; // Every 15 seconds
+    private static int lastEffectActivation;
+    @SubscribeEvent
+    public static void onTick(final ServerTickEvent.Pre event) {
+        if(ServerTickHandler.ticksInGame > lastEffectActivation + EFFECT_DURATION) {
+            lastEffectActivation = ServerTickHandler.ticksInGame;
+            for(ServerPlayer player : event.getServer().getPlayerList().getPlayers()) {
+                tryApplyPassiveItemPotionEffects(player, EquipmentSlot.MAINHAND);
+                tryApplyPassiveItemPotionEffects(player, EquipmentSlot.OFFHAND);
+
+                tryApplyPassiveItemPotionEffects(player, EquipmentSlot.HEAD);
+                tryApplyPassiveItemPotionEffects(player, EquipmentSlot.CHEST);
+                tryApplyPassiveItemPotionEffects(player, EquipmentSlot.LEGS);
+                tryApplyPassiveItemPotionEffects(player, EquipmentSlot.FEET);
+            }
+        }
+    }
+
+    private static void tryApplyPassiveItemPotionEffects(Player player, EquipmentSlot slot) {
+        ItemStack stack = player.getItemBySlot(slot);
+        if (PUtil.isPassivePotionEffectItem(stack)) {
+            PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
+            if (potionContents != null) {
+                List<MobEffectInstance> customEffects = new ArrayList<>();
+                for (MobEffectInstance effect : PUtil.getAllEffects(potionContents)) {
+                    MobEffectInstance e = new MobEffectInstance(effect.getEffect(), EFFECT_DURATION, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false);
+
+                    // Damage the item, but don't break it.
+                    int maxDamage = stack.getOrDefault(DataComponents.MAX_DAMAGE, 0);
+                    int damage = stack.getOrDefault(DataComponents.DAMAGE, 0);
+                    int damageToApply = (e.getAmplifier() + 1) * 2;
+                    if(damage + damageToApply < maxDamage) {
+                        player.addEffect(e);
+                        stack.hurtAndBreak(e.getAmplifier() + 1, player, slot);
+                    }
+
+                    // Update the potion effects data on the item with the new duration
+                    int remainingDuration = effect.getDuration() - EFFECT_DURATION;
+                    if(remainingDuration > 0) {
+                        customEffects.add(new MobEffectInstance(effect.getEffect(), remainingDuration, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false));
+                    }
+                }
+                stack.set(DataComponents.POTION_CONTENTS, new PotionContents(potionContents.potion(), potionContents.customColor(), customEffects));
+            }
+        }
     }
 
     @SubscribeEvent

@@ -141,7 +141,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
 
     private static void registerAllPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsPlusPotionGenerationData... potionData) {
         for (PotionBuilder.PotionsPlusPotionGenerationData data : potionData) {
-            String effectName = data.getEffectName();
+            String effectName = data.getName();
             if (!effectName.isBlank()) {
                 String descriptionKey = "jei.potionsplus." + effectName + ".description";
                 MutableComponent descriptionComponent = Component.translatable(descriptionKey);

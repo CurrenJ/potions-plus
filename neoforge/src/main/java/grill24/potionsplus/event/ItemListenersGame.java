@@ -1,30 +1,29 @@
 package grill24.potionsplus.event;
 
 import com.mojang.datafixers.util.Pair;
-import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
+import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.*;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
-import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
@@ -68,16 +67,14 @@ public class ItemListenersGame {
                     }
 
 
-                    List<Component> textComponents = new ArrayList<>();
-
                     // Item rarity text
+                    List<Component> textComponents = new ArrayList<>();
                     if (SeededIngredientsLootTables.COMMON_INGREDIENTS_SET.get().contains(ppIngredient)) {
                         textComponents.add(Component.translatable("tooltip.potionsplus.common").withStyle(ChatFormatting.WHITE));
                     } else if (SeededIngredientsLootTables.RARE_INGREDIENTS_SET.get().contains(ppIngredient)) {
                         textComponents.add(Component.translatable("tooltip.potionsplus.rare").withStyle(ChatFormatting.LIGHT_PURPLE));
                     }
-
-                    // Flavor text
+                    // Build text components around the ingredient rarity
                     if (textComponents.isEmpty()) {
                         textComponents.add(Component.translatable("tooltip.potionsplus.ingredient").withStyle(ChatFormatting.GOLD));
                     } else {
@@ -85,7 +82,61 @@ public class ItemListenersGame {
                         textComponents.addLast(Component.translatable("tooltip.potionsplus.ingredient_b").withStyle(ChatFormatting.GOLD));
                     }
 
-                    tooltipMessages.add(textComponents);
+                    if (!textComponents.isEmpty()) {
+                        tooltipMessages.add(textComponents);
+                    }
+
+
+                    // Recipe text
+                    if (Recipes.ALL_BCR_RECIPES_ANALYSIS.isIngredientUsed(ppIngredient)) {
+                        // Look at all the recipes that this ingredient is used in
+                        for (RecipeHolder<BrewingCauldronRecipe> recipeHolder : Recipes.ALL_BCR_RECIPES_ANALYSIS.getRecipesForIngredient(ppIngredient)) {
+                            if (SavedData.instance.getData(event.getEntity()).isRecipeUnknown(recipeHolder.id().toString()))
+                                continue;
+
+                            BrewingCauldronRecipe recipe = recipeHolder.value();
+                            ItemStack recipeResult = recipe.getResult();
+                            if (!PUtil.isPotion(recipeResult) || !PUtil.hasPotion(recipeResult) || Potions.ANY_POTION.is(PUtil.getPotionHolder(recipeResult).getKey()) || !recipe.canShowInJei())
+                                continue;
+                            List<MobEffectInstance> potionEffects = PUtil.getPotion(recipeResult).getEffects();
+                            String effectName = !potionEffects.isEmpty() ? PUtil.getPotion(recipeResult).getEffects().get(0).getDescriptionId() : "";
+
+                            if (!effectName.isEmpty()) {
+                                long totalNonPotionIngredients = recipe.getIngredientsAsItemStacks().stream().filter(i -> !PUtil.isPotion(i)).count();
+                                List<Component> recipeTextComponents = new ArrayList<>();
+                                recipeTextComponents.add(Component.literal("1").withStyle(ChatFormatting.GREEN));
+                                recipeTextComponents.add(Component.literal(" / ").withStyle(ChatFormatting.GRAY));
+                                recipeTextComponents.add(Component.literal(String.valueOf(totalNonPotionIngredients)).withStyle(ChatFormatting.DARK_GREEN));
+                                recipeTextComponents.add(Component.literal(" "));
+                                recipeTextComponents.add(Component.translatable("tooltip.potionsplus.of").withStyle(ChatFormatting.GRAY));
+                                recipeTextComponents.add(Component.literal(" "));
+                                recipeTextComponents.add(Component.translatable(effectName).withStyle(ChatFormatting.LIGHT_PURPLE));
+                                tooltipMessages.add(recipeTextComponents);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Passive Item Potion Effects Tooltip
+            ItemStack stack = event.getItemStack();
+            if (PUtil.isPassivePotionEffectItem(stack)) {
+                PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
+                List<MobEffectInstance> potionEffectTextComponents = PUtil.getAllEffects(potionContents);
+                for (MobEffectInstance effect : potionEffectTextComponents) {
+                    int ticksLeft = effect.getDuration();
+                    if (ticksLeft > 0) {
+                        int minutesLeft = (int) Math.floor(ticksLeft / 1200F);
+                        int secondsLeft = (int) Math.floor(ticksLeft / 20F) % 60;
+                        String timeString = String.format("%02d:%02d", minutesLeft, secondsLeft);
+
+                        List<Component> text = new ArrayList<>();
+                        text.add(Component.translatable("tooltip.potionsplus.imbued_with").withStyle(ChatFormatting.GOLD));
+                        text.add(Component.translatable(effect.getEffect().value().getDescriptionId()).withStyle(ChatFormatting.LIGHT_PURPLE));
+                        text.add(Component.literal(" (" + timeString + ")").withStyle(ChatFormatting.GRAY));
+
+                        tooltipMessages.add(text);
+                    }
                 }
             }
         }

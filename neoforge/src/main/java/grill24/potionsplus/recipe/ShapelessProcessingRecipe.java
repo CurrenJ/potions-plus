@@ -104,4 +104,24 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
     public boolean canShowInJei() {
         return this.canShowInJei;
     }
+
+    public String getUniqueRecipeName() {
+        return getUniqueRecipeName(this.ingredients, this.result);
+    }
+
+    public static String getUniqueRecipeName(List<PpIngredient> ingredients, ItemStack result) {
+        List<String> ingredientNames = new ArrayList<>();
+        for (PpIngredient ingredient : ingredients) {
+            ingredientNames.add(PUtil.getNameOrVerbosePotionName(ingredient.getItemStack()));
+        }
+        ingredientNames.sort(String::compareTo);
+
+        StringBuilder name = new StringBuilder();
+        for (String ingredientName : ingredientNames) {
+            name.append(ingredientName).append("_");
+        }
+        name.append("to_");
+        name.append(PUtil.getNameOrVerbosePotionName(result));
+        return name.toString();
+    }
 }

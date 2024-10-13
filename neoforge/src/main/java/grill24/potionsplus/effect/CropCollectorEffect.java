@@ -24,7 +24,7 @@ public class CropCollectorEffect extends MobEffect {
         if (j > 0) {
             return duration % j == 0;
         } else {
-            return true;
+            return false;
         }
     }
 
@@ -45,6 +45,6 @@ public class CropCollectorEffect extends MobEffect {
                 serverLevel.destroyBlock(pos, true, livingEntity);
             }
         }
-        return false;
+        return true;
     }
 }

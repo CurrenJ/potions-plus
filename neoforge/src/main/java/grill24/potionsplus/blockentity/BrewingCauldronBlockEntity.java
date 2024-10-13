@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import javax.swing.text.html.Option;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -79,7 +80,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
         // Take the recipe with the longest processing time, as a pseudo-priority system
         this.activeRecipe = this.level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()).stream()
                 .filter(recipe -> recipe.value().matches(this, this.level))
-                .max(Comparator.comparingInt((recipe) -> recipe.value().getProcessingTime()));
+                .max(Comparator.comparingInt((recipe) -> recipe.value().getIngredientsAsItemStacks().size()));
 
         if(this.activeRecipe.isEmpty()) {
             // ----- Potion MERGE Logic -----
@@ -119,6 +120,26 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                 ingredients[potions.length] = catalyst;
 
                 this.activeRecipe = Optional.of(new BrewingCauldronRecipeBuilder().result(potionStack).processingTime(200).ingredients(ingredients).build());
+            }
+        }
+
+        if (this.activeRecipe.isEmpty()) {
+            Optional<ItemStack> item = this.items.stream().filter(PUtil::isItemEligibleForPassivePotionEffects).findAny();
+            Optional<ItemStack> potion = this.items.stream().filter(PUtil::isPotion).findAny();
+
+            if (item.isPresent() && potion.isPresent()) {
+                List<MobEffectInstance> customEffects = PUtil.getAllEffects(potion.get());
+                customEffects.addAll(PUtil.getAllEffects(item.get()));
+                ItemStack result = PUtil.setCustomEffects(item.get(), customEffects).copy();
+
+                ItemStack[] ingredients = new ItemStack[] { item.get(), potion.get() };
+                this.activeRecipe = Optional.of(
+                        new BrewingCauldronRecipeBuilder()
+                                .result(result)
+                                .processingTime(200)
+                                .ingredients(ingredients)
+                                .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
+                                .build());
             }
         }
     }

@@ -1,6 +1,7 @@
 package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -16,6 +17,11 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.Vector;
 
 @OnlyIn(Dist.CLIENT)
 public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
@@ -47,52 +53,53 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
 
             RUtil.renderInputItemAnimation(stack, 0.75F, 0, false, blockEntity, matrices, vertexConsumers, light, overlay);
 
+            // ----- Render Circle of Items -----
+            List<HerbalistsLecternBlockEntity.RendererData.IconData> iconsToDisplay = blockEntity.rendererData.allIcons;
 
-            // Circle of Items
-            ItemStack[] infoStacks = blockEntity.getItemStacksToDisplay();
             Vector3f offset = new Vector3f(0.5f, 1.75F, 0.5f);
             Vector3f axis = new Vector3f(1f, 0, 0);
             float radius = 0.4F * RUtil.easeOutExpo(lerpFactor);
-            if (infoStacks.length > 10)
-                radius *= 1.5F;
-            Vector3f[] points = RUtil.distributePointsOnCircle(infoStacks.length, axis, offset, (float) Math.toRadians(ticks), radius, (float) Math.toDegrees(Math.atan2(blockEntity.getLocalPlayerRelativePosition().z(), blockEntity.getLocalPlayerRelativePosition().x())));
-            for (int p = 0; p < points.length; p++) {
-                Vector3f point = points[p];
-                matrices.pushPose();
 
+            // Increase radius if there are more than 10 icons to display
+            if (iconsToDisplay.size() > 10)
+                radius *= 1.5F;
+
+            // Distribute the icons on a circle around the lectern
+            Vector3f[] points = RUtil.distributePointsOnCircle(iconsToDisplay.size(), axis, offset, (float) Math.toRadians(ticks), radius, (float) Math.toDegrees(Math.atan2(blockEntity.getLocalPlayerRelativePosition().z(), blockEntity.getLocalPlayerRelativePosition().x())));
+            for (int p = 0; p < points.length; p++) {
+                matrices.pushPose();
+                Vector3f point = points[p];
+
+                // Calculate direction to local player
                 Vector3f direction = blockEntity.getLocalPlayerRelativePosition();
                 direction.sub(point);
                 direction.normalize();
-
                 // Calculate yaw and pitch to face the player
                 Quaternionf itemRotation = RUtil.rotateY(90 - (float) Math.toDegrees(Math.atan2(direction.z(), direction.x())));
                 itemRotation.mul(RUtil.rotateZ((float) Math.toDegrees(Math.asin(direction.y()))));
                 matrices.mulPose(itemRotation);
-
                 // Rotate the translation vector by the negative of the initial rotation
                 Quaternionf negativeRotation = new Quaternionf(itemRotation);
                 negativeRotation.conjugate(); // conjugate (equivalent to inverse for unit Quaternionfs) to get the negative rotation
                 point.rotate(negativeRotation);
-
                 // Apply the rotated translation to the pose
                 matrices.translate(point.x(), point.y(), point.z());
 
+                // Render icon
                 matrices.scale(0.5F, 0.5F, 0.5F);
-                Minecraft.getInstance().getItemRenderer().renderStatic(infoStacks[p], ItemDisplayContext.GROUND,
+                Minecraft.getInstance().getItemRenderer().renderStatic(iconsToDisplay.get(p).displayStack().getItemStack(), ItemDisplayContext.GROUND,
                         light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
 
-                matrices.scale(0.35F, 0.35F, 0.35F);
-                if (blockEntity.rendererData.isAmpUpgrade[p]) {
+
+                // Render sub-icons
+                matrices.scale(0.2F, 0.2F, 0.2F);
+                Vector3f[] positions = new Vector3f[] {new Vector3f(1F, 1.25F, 0.25F), new Vector3f(1F, 0.7F, 0.25F), new Vector3f(1F, 0.15F, 0.25F)};
+                List<PpIngredient> subIcons = iconsToDisplay.get(p).subIcons();
+                for (int s = 0;  s < subIcons.size() && s < positions.length; s++) {
                     matrices.pushPose();
-                    matrices.translate(-0.75F, 1F, 0);
-                    Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Items.GENERIC_ICON.value(), 1), ItemDisplayContext.GROUND,
-                            light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
-                    matrices.popPose();
-                }
-                if (blockEntity.rendererData.isDurationUpgrade[p]) {
-                    matrices.pushPose();
-                    matrices.translate(0.75F, 1F, 0);
-                    Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Items.GENERIC_ICON.value(), 2), ItemDisplayContext.GROUND,
+                    Vector3f subIconPosition = positions[s];
+                    matrices.translate(subIconPosition.x(), subIconPosition.y(), subIconPosition.z());
+                    Minecraft.getInstance().getItemRenderer().renderStatic(subIcons.get(s).getItemStack(), ItemDisplayContext.GROUND,
                             light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
                     matrices.popPose();
                 }

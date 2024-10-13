@@ -75,7 +75,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
         ItemStack transformedResult = this.getResult();
 
         // In order to upgrade the amplifier or duration of a potion arbitrarily, we need to have an input potion to work with.
-        if (inputPotionOptional.isPresent() && (isDurationUpgrade() || isAmpUpgrade())) {
+        if (inputPotionOptional.isPresent() && (isDurationUpgrade() || isAmplifierUpgrade())) {
             transformedResult = inputPotionOptional.get().copy();
 
             // Get all effects from all input potions
@@ -124,7 +124,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
         return false;
     }
 
-    public boolean isAmpUpgrade() {
+    public boolean isAmplifierUpgrade() {
         // TODO: Fix me
         return amplifierToAdd > 0;
 //        return this.isTrueInIngredients((pair) -> pair.getA().getAmplifier() < pair.getB().getAmplifier());
@@ -201,7 +201,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
                 recipeString.append(" + ");
             }
         }
-        recipeString.append(" => ").append(PUtil.getNameOrVerbosePotionName(result));
+        recipeString.append(" => ").append(PUtil.getNameOrVerbosePotionName(getResultItemWithTransformations(getIngredientsAsItemStacks())));
 
         return recipeString.toString();
     }
@@ -225,6 +225,11 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             }
         }
         return hasAllIngredients;
+    }
+
+    @Override
+    public String getUniqueRecipeName() {
+        return ShapelessProcessingRecipe.getUniqueRecipeName(this.ingredients, getResultItemWithTransformations(getIngredientsAsItemStacks()));
     }
 
     public enum PotionMatchingCriteria implements StringRepresentable {

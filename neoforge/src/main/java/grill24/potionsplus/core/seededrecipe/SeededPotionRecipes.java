@@ -11,7 +11,6 @@ import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.utility.PUtil;
-import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.TagKey;
@@ -41,17 +40,37 @@ public class SeededPotionRecipes {
 
         SeededIngredientsLootTables.initializeLootTables(server.overworld(), seed);
         generateRecipes();
-        SavedData.instance.setSeededPotionRecipesFromSavedData(recipes);
     }
 
     private void generateRecipes() {
+        // Keeps track of unique potion recipe inputs, so we don't clashing recipes.
         Set<PpMultiIngredient> allRecipeInputs = new HashSet<>();
+
+        // Don't want to generate recipes with the same ingredients as what we've loaded from saved data, so add their inputs to the set.
+        SavedData.instance.seededPotionRecipes.forEach(recipe -> allRecipeInputs.add(PpMultiIngredient.of(recipe.value().getIngredientsAsItemStacks())));
+
+        // Generate base potion recipes and amplification/duration upgrade recipes.
         generateRecipesFromGenerationData(allRecipeInputs, Potions.getAllPotionAmpDurMatrices());
         generateDurationAndAmplificationUpgradeRecipes(allRecipeInputs);
+
+        // Remove recipes that already exist in saved data; we don't want to overwrite them with new generations.
+        // Add recipes from saved data to the list.
+        recipes.removeIf(SavedData.instance::isRecipeResultInSavedData);
+        int generatedRecipeCount = recipes.size();
+        recipes.addAll(SavedData.instance.seededPotionRecipes);
+
+        // Log recipe generation information
+        PotionsPlus.LOGGER.info("[SPR] Generated {} new seeded potion recipes.", generatedRecipeCount);
+        PotionsPlus.LOGGER.info("[SPR] Loaded {} brewing cauldron potion recipes from saved data.", SavedData.instance.seededPotionRecipes.size());
+
+        // Save the new recipes to saved data
+        SavedData.instance.setBrewingCauldronRecipes(recipes);
     }
 
     public void generateDurationAndAmplificationUpgradeRecipes(Set<PpMultiIngredient> usedRecipeInputs) {
         RandomSource randomSource = RandomSource.create(PotionsPlus.worldSeed);
+
+        // ----- Prepare ingredients for duration and amplifier upgrades -----
 
         // Sample half of the ingredients in the tag
         int durSize = (int) Math.ceil(BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_DURATION_UP_INGREDIENTS).get().size() / 2F);
@@ -76,7 +95,7 @@ public class SeededPotionRecipes {
         durationTagItems = Sets.difference(durationTagItems, durationAndAmplifierTagItems);
         amplifierTagItems = Sets.difference(amplifierTagItems, durationAndAmplifierTagItems);
 
-
+        // ----- Generate recipes -----
 
         // Only duration upgrades
         List<RecipeHolder<BrewingCauldronRecipe>> durationUpgradeRecipes = new ArrayList<>();
@@ -93,10 +112,6 @@ public class SeededPotionRecipes {
         }
         Recipes.DURATION_UPGRADE_ANALYSIS.compute(durationUpgradeRecipes);
 
-        if (PotionsPlus.Debug.DEBUG) {
-            PotionsPlus.LOGGER.info("[SPR] Injected {} seeded potion duration upgrade recipes:", durationUpgradeRecipes.size());
-        }
-
         // Only amplifier upgrades
         List<RecipeHolder<BrewingCauldronRecipe>> amplifierUpgradeRecipes = new ArrayList<>();
         for (PpIngredient ingredient : amplifierTagItems) {
@@ -111,10 +126,6 @@ public class SeededPotionRecipes {
             );
         }
         Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.compute(amplifierUpgradeRecipes);
-
-        if (PotionsPlus.Debug.DEBUG) {
-            PotionsPlus.LOGGER.info("[SPR] Injected {} seeded potion amplifier upgrade recipes:", amplifierUpgradeRecipes.size());
-        }
 
         // Duration and amplifier upgrades
         List<RecipeHolder<BrewingCauldronRecipe>> bothUpgradeRecipes = new ArrayList<>();
@@ -138,25 +149,19 @@ public class SeededPotionRecipes {
     }
 
     private void generateRecipesFromGenerationData(Set<PpMultiIngredient> usedRecipeInputs, PotionBuilder.PotionsPlusPotionGenerationData... potions) {
-        int newlyGeneratedRecipes = 0;
         for (PotionBuilder.PotionsPlusPotionGenerationData potionsAmpDurMatrix : potions) {
             // Generate all recipes
-            List<RecipeHolder<BrewingCauldronRecipe>> allGeneratedRecipes = potionsAmpDurMatrix.generateRecipes(usedRecipeInputs, random);
-            // Take out the recipes that we've loaded from saved data
-            List<RecipeHolder<BrewingCauldronRecipe>> newRecipesToAdd = allGeneratedRecipes.stream().filter(recipe -> !SavedData.instance.itemsWithRecipesInSavedData.contains(PpIngredient.of(recipe.value().getResultItemWithTransformations(recipe.value().getIngredientsAsItemStacks())))).toList();
-            newlyGeneratedRecipes += newRecipesToAdd.size();
+            List<RecipeHolder<BrewingCauldronRecipe>> generatedRecipes = potionsAmpDurMatrix.generateRecipes(usedRecipeInputs, random);
 
             if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_RECIPE_GENERATION) {
-                for (RecipeHolder<BrewingCauldronRecipe> recipe : newRecipesToAdd) {
-                    PotionsPlus.LOGGER.info("[SPR] Generated recipe: {}", recipe);
+                for (RecipeHolder<BrewingCauldronRecipe> recipe : generatedRecipes) {
+                    if (!SavedData.instance.isRecipeResultInSavedData(recipe)) {
+                        PotionsPlus.LOGGER.info("[SPR] Generated new recipe: {}", recipe);
+                    }
                 }
             }
-            recipes.addAll(newRecipesToAdd);
+            recipes.addAll(generatedRecipes);
         }
-
-        recipes.addAll(SavedData.instance.seededPotionRecipes);
-        PotionsPlus.LOGGER.info("[SPR] Generated {} new brewing cauldron potion recipes.", newlyGeneratedRecipes);
-        PotionsPlus.LOGGER.info("[SPR] Loaded {} brewing cauldron potion recipes from saved data.", SavedData.instance.seededPotionRecipes.size());
     }
 
     public List<RecipeHolder<BrewingCauldronRecipe>> getRecipes() {

@@ -124,14 +124,24 @@ NEOFORGE 1.21
 - Add tea brewing :)
 - Implement neoforge config system
 - Enchantable / quicker more durable brush
-- Make decorative fire obtainable 
+- Make decorative fire obtainable
+
 - Fix herbalists lectern sounds
-- Fix descritions of potions
+- Fix descritions of potions-
+- Fix giants steps not removing modifier on expire + maybe reach for the stars too. 
+- Fix new recipe gen replacing saved data
+- Max potion level limit , default and per potion recipe
 
 - Broadcast recipe unlock to all nearby players xx
 - Sync brewing cauldron + herbalist lecetern animations in other clients xx
-- Trove pairing
+- Trove pairing xx
 - HL sparkle criteria incorrect - see red and brown mushroom behaviour across HL/AT/Tooltip - make consistent
 
-- Update herbalists lectern
+- Awkward splash potion container recipe
+- Magnetizing doesn't work
+
+- Notifications trigger for all items FIX xx
+- NEW IDEA: Item tooltip - 1 / 2 - Water Breathing. xx
+
+- Update herbalists lectern xx
 - Maybe make vanilla base lvl 1 potion brewing recipes visible on learned brew? 

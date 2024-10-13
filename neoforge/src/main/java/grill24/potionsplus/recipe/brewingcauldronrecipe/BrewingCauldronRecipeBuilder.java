@@ -74,13 +74,7 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
         @Override
     public RecipeHolder<BrewingCauldronRecipe> build() {
         BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(category, group, ingredients, result, processingTime, canShowInJei, experience, durationToAdd, amplifierToAdd, potionMatchingCriteria);
-        String id = PUtil.getUniqueRecipeName(ingredients, result);
-        if (recipe.isAmpUpgrade()) {
-            id += "_a" + amplifierToAdd;
-        }
-        if (recipe.isDurationUpgrade()) {
-            id += "_d" + durationToAdd;
-        }
+        String id = recipe.getUniqueRecipeName();
         ResourceLocation recipeId = ppId(id);
         return new RecipeHolder<>(recipeId, recipe);
     }

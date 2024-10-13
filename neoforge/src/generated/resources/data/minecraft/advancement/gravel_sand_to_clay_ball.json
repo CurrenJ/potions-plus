@@ -12,7 +12,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:sand_gravel_to_clay_ball"
+        "recipe": "minecraft:gravel_sand_to_clay_ball"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -25,7 +25,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:sand_gravel_to_clay_ball"
+      "minecraft:gravel_sand_to_clay_ball"
     ]
   },
   "sends_telemetry_event": true

@@ -42,6 +42,6 @@ public class MagneticEffect extends MobEffect {
                 }
             }
         }
-        return false;
+        return true;
     }
 }

@@ -156,7 +156,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     public void rare() {
         tag(Tags.Items.RARE_INGREDIENTS).add(
-                Items.COBWEB,
                 Items.PUFFERFISH,
                 Items.CHORUS_FLOWER,
                 Items.MELON,

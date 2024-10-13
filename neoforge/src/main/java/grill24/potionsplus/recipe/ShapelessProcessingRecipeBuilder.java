@@ -130,6 +130,6 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
 
     @Override
     public void save(RecipeOutput recipeOutput) {
-        this.save(recipeOutput, PUtil.getUniqueRecipeName(ingredients, result));
+        this.save(recipeOutput, ShapelessProcessingRecipe.getUniqueRecipeName(ingredients, result));
     }
 }

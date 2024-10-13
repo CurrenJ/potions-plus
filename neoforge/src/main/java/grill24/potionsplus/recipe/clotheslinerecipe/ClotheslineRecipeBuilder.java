@@ -17,8 +17,8 @@ public class ClotheslineRecipeBuilder extends ShapelessProcessingRecipeBuilder<C
 
     @Override
     protected RecipeHolder<ClotheslineRecipe> build() {
-        ResourceLocation recipeId = ppId(PUtil.getUniqueRecipeName(ingredients, result));
         ClotheslineRecipe recipe = new ClotheslineRecipe(category, group, ingredients, result, processingTime, canShowInJei);
+        ResourceLocation recipeId = ppId(recipe.getUniqueRecipeName());
         return new RecipeHolder<>(recipeId, recipe);
     }
 

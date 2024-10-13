@@ -24,7 +24,7 @@ public class PotionBuilder {
     private Supplier<MobEffectInstance> effectSupplier = null;
     private ISeededPotionRecipeBuilder potionRecipeGenerator;
 
-    public static final int DEFAULT_DURATION = 3600; // 3 minutes
+    public static final int DEFAULT_DURATION = 1200; // 3 minutes
 
     public PotionBuilder() {
          this.potionRecipeGenerator = SeededPotionRecipeBuilder.defaultPools();
@@ -124,8 +124,8 @@ public class PotionBuilder {
             return potionRecipeGenerator.generateRecipes(this, usedRecipeInputs, random);
         }
 
-        public String getEffectName() {
-            return potion.getRegisteredName();
+        public String getName() {
+            return potion.getKey().location().getPath();
         }
     }
 }

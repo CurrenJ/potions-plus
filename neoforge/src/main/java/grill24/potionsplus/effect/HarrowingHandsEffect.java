@@ -36,7 +36,7 @@ public class HarrowingHandsEffect extends MobEffect {
 
         getNearbySkeletons(entity)
                 .forEach(skeleton -> applyEffect(duration, skeleton));
-        return false;
+        return true;
     }
 
     public static void applyEffect(int duration, AbstractSkeleton... skeletons) {

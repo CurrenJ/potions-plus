@@ -193,6 +193,12 @@ public class Potions {
             .withRarityCount(PotionUpgradeIngredients.Rarity.RARE, 1)
             .build(ALL_POTION_GENERATION_DATA::add);
 
+    public static final PotionBuilder.PotionsPlusPotionGenerationData FLYING_TIME_POTIONS = new PotionBuilder()
+            .name("flying_time")
+            .effect(MobEffects.FLYING_TIME)
+            .withRarityCount(PotionUpgradeIngredients.Rarity.RARE, 1)
+            .build(ALL_POTION_GENERATION_DATA::add);
+
     @SubscribeEvent
     public static void onRegisterPotions(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {

@@ -330,6 +330,10 @@
             {
               "function": "minecraft:set_potion",
               "id": "potionsplus:soul_mate"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:flying_time"
             }
           ],
           "name": "minecraft:potion",

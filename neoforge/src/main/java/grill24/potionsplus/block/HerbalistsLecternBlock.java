@@ -1,6 +1,7 @@
 package grill24.potionsplus.block;
 
 import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntity;
+import grill24.potionsplus.blockentity.HerbalistsLecternSounds;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.utility.InvUtil;
@@ -93,8 +94,12 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
             level.updateNeighborsAt(pos, this);
             herbalistsLecternBlockEntity.onPlayerInsertItem(player);
 
-            // TODO: Implement properly client-sided sound playing here.
-//            herbalistsLecternBlockEntity.playSoundAppear();
+            if (level.isClientSide) {
+                if (herbalistsLecternBlockEntity.sounds == null) {
+                    herbalistsLecternBlockEntity.sounds = new HerbalistsLecternSounds();
+                }
+                herbalistsLecternBlockEntity.sounds.playSoundAppear(pos);
+            }
         }
 
         return InvUtil.getMinecraftItemInteractionResult(result);
@@ -112,9 +117,11 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
 
         // Do interaction
         InvUtil.InteractionResult result = InvUtil.extractOnPlayerUseWithoutItem(level, pos, player, true, SoundEvents.ITEM_FRAME_ADD_ITEM);
-        if (result == InvUtil.InteractionResult.EXTRACT) {
-            // TODO: Implement properly client-sided sound playing here.
-//            herbalistsLecternBlockEntity.playSoundDisappear();
+        if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide) {
+            if (herbalistsLecternBlockEntity.sounds == null) {
+                herbalistsLecternBlockEntity.sounds = new HerbalistsLecternSounds();
+            }
+            herbalistsLecternBlockEntity.sounds.playSoundDisappear(pos);
         }
 
         return InvUtil.getMinecraftInteractionResult(result);
@@ -129,7 +136,7 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     @Override
     public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
         Optional<HerbalistsLecternBlockEntity> herbalistsLecternBlockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
-        return Math.min(herbalistsLecternBlockEntity.get().getItemStacksToDisplay().length, 15);
+        return Math.min(herbalistsLecternBlockEntity.get().rendererData.allIcons.size(), 15);
     }
 
     @Override

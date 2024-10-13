@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.core.seededrecipe.PpMultiIngredient;
 import grill24.potionsplus.persistence.adapter.*;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
@@ -32,12 +34,12 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     public Map<UUID, PlayerBrewingKnowledge> playerDataMap;
 
     public List<RecipeHolder<BrewingCauldronRecipe>> seededPotionRecipes;
-    public Set<PpIngredient> itemsWithRecipesInSavedData;
+    public Map<PpIngredient, List<BrewingCauldronRecipe>> recipeResultsInSavedData;
 
     public SavedData() {
         playerDataMap = new java.util.HashMap<>();
         seededPotionRecipes = new java.util.ArrayList<>();
-        itemsWithRecipesInSavedData = new java.util.HashSet<>();
+        recipeResultsInSavedData = new java.util.HashMap<>();
     }
 
     public static net.minecraft.world.level.saveddata.SavedData.Factory<SavedData> factory(ServerLevel level) {
@@ -63,18 +65,51 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
         json = getJoinedString(compoundTag, SEEDED_POTION_RECIPES_KEY);
         Type seededPotionRecipesType = new TypeToken<List<RecipeHolder>>() {
         }.getType();
-        data.setSeededPotionRecipesFromSavedData(gson.fromJson(json, seededPotionRecipesType));
+        data.setBrewingCauldronRecipes(gson.fromJson(json, seededPotionRecipesType));
         PotionsPlus.LOGGER.info("{} Loaded {} seeded potion recipes from saved data.", LOGGER_HEADER, data.seededPotionRecipes.size());
 
         return data;
     }
 
-    public void setSeededPotionRecipesFromSavedData(List<RecipeHolder<BrewingCauldronRecipe>> recipes) {
+    public void setBrewingCauldronRecipes(List<RecipeHolder<BrewingCauldronRecipe>> recipes) {
         this.seededPotionRecipes = new ArrayList<>(recipes);
-        this.itemsWithRecipesInSavedData = new HashSet<>();
-        this.seededPotionRecipes.stream().map(RecipeHolder::value).map(BrewingCauldronRecipe::getResult)
-                .forEach(itemStack -> this.itemsWithRecipesInSavedData.add(PpIngredient.of(itemStack)));
+        this.recipeResultsInSavedData = new HashMap<>();
+        this.seededPotionRecipes.stream().map(RecipeHolder::value)
+                .forEach(recipe -> {
+                    PpIngredient result = PpIngredient.of(recipe.getResultItemWithTransformations(recipe.getIngredientsAsItemStacks()));
+
+                    List<BrewingCauldronRecipe> recipesForResult = this.recipeResultsInSavedData.computeIfAbsent(result, key -> new ArrayList<>());
+                    recipesForResult.add(recipe);
+                });
         setDirty();
+    }
+
+    public boolean isRecipeResultInSavedData(RecipeHolder<BrewingCauldronRecipe> recipeHolder) {
+        BrewingCauldronRecipe recipe = recipeHolder.value();
+        PpIngredient result = PpIngredient.of(recipe.getResultItemWithTransformations(recipe.getIngredientsAsItemStacks()));
+
+        // Maybe should check potionMatchingCriteria from recipe here instead. This relies on the recipe using the Any Potion, which is just a visual indicator.
+        boolean isAnyPotionEffect = PUtil.getAllEffects(recipe.getResult()).stream().anyMatch(effect -> effect.getEffect().is(MobEffects.ANY_POTION));
+        boolean isAmpOrDurUpgrade = recipe.isAmplifierUpgrade() || recipe.isDurationUpgrade();
+        if (isAnyPotionEffect && isAmpOrDurUpgrade) {
+            // If the recipe is an amplifier or duration upgrade, we care that the result AND the ingredients match. Otherwise, this is a different recipe in saved data.
+            List<BrewingCauldronRecipe> savedDataRecipes = recipeResultsInSavedData.getOrDefault(result, new ArrayList<>());
+
+            // Check if their are any recipes that match the ingredients (and the result) in saved data.
+            return savedDataRecipes.stream().anyMatch(savedDataRecipe -> {
+                PpMultiIngredient savedDataIngredients = PpMultiIngredient.of(savedDataRecipe.getIngredientsAsItemStacks());
+                PpMultiIngredient newRecipeIngredients = PpMultiIngredient.of(recipe.getIngredientsAsItemStacks());
+                return savedDataIngredients.equals(newRecipeIngredients);
+            });
+        }
+        // For the regular seeded potion recipes, we only care that the result matches. The input ingredients may be different, but we don't want more than one recipe for the same result potion.
+        else {
+            return recipeResultsInSavedData.containsKey(PpIngredient.of(recipe.getResultItemWithTransformations(recipe.getIngredientsAsItemStacks())));
+        }
+    }
+
+    public boolean isResultInRecipeSavedData(ItemStack result) {
+        return recipeResultsInSavedData.containsKey(PpIngredient.of(result));
     }
 
     @Override
@@ -93,7 +128,7 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     public void clear() {
         playerDataMap.clear();
         seededPotionRecipes.clear();
-        itemsWithRecipesInSavedData.clear();
+        recipeResultsInSavedData.clear();
         setDirty();
     }
 
