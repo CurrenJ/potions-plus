@@ -1,11 +1,11 @@
 package grill24.potionsplus.blockentity;
 
+import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.utility.ClientUtility;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.neoforged.neoforge.common.util.Lazy;
 import org.joml.Quaternionf;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
@@ -56,7 +56,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 ItemStack inputStack = herbalistsLecternBlockEntity.getItem(0);
                 PpIngredient inputIngredient = PpIngredient.of(inputStack);
 
-                List<RecipeHolder<BrewingCauldronRecipe>> recipesWithInputIngredient = Recipes.ALL_BCR_RECIPES_ANALYSIS.getRecipesForIngredient(inputIngredient);
+                List<RecipeHolder<BrewingCauldronRecipe>> recipesWithInputIngredient = Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getRecipesForIngredient(inputIngredient);
                 Map<ResourceLocation, IconData> potionIcons = new HashMap<>();
                 List<IconData> additionalIcons = new ArrayList<>();
 
@@ -90,11 +90,11 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                             // If so, add the appropriate sub-icon to the potion icon.
                             List<PpIngredient> recipeIngredients = recipe.getPpIngredients();
                             for (PpIngredient recipeIngredient : recipeIngredients) {
-                                if (SeededIngredientsLootTables.COMMON_INGREDIENTS_SET.get().contains(recipeIngredient)) {
+                                if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, recipeIngredient)) {
                                     ItemStack common = new ItemStack(Items.GENERIC_ICON.value(), 17);
                                     subIcons.add(PpIngredient.of(common));
                                 }
-                                if (SeededIngredientsLootTables.RARE_INGREDIENTS_SET.get().contains(recipeIngredient)) {
+                                if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, recipeIngredient)) {
                                     ItemStack rare = new ItemStack(Items.GENERIC_ICON.value(), 18);
                                     subIcons.add(PpIngredient.of(rare));
                                 }
@@ -113,9 +113,9 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                     centerDisplayStack.setCount(2);
                 } else if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
                     centerDisplayStack.setCount(1);
-                } else if (SeededIngredientsLootTables.COMMON_INGREDIENTS_SET.get().contains(ingredient)) {
+                } else if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, ingredient)) {
                     centerDisplayStack.setCount(17);
-                } else if (SeededIngredientsLootTables.RARE_INGREDIENTS_SET.get().contains(ingredient)) {
+                } else if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, ingredient)) {
                     centerDisplayStack.setCount(18);
                 } else {
                     centerDisplayStack = ItemStack.EMPTY;

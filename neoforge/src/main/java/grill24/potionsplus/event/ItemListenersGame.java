@@ -1,8 +1,10 @@
 package grill24.potionsplus.event;
 
 import com.mojang.datafixers.util.Pair;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.potion.Potions;
+import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.persistence.SavedData;
@@ -45,7 +47,7 @@ public class ItemListenersGame {
         List<List<Component>> tooltipMessages = new ArrayList<>();
         if (event.getEntity() != null) {
             PpIngredient ppIngredient = PpIngredient.of(event.getItemStack().copyWithCount(1));
-            if(Recipes.ALL_BCR_RECIPES_ANALYSIS.isAnyBrewingIngredientNotPotion(PpIngredient.of(event.getItemStack())))
+            if(AbyssalTroveBlockEntity.ABYSSAL_TROVE_INGREDIENTS.contains(PpIngredient.of(event.getItemStack())))
             {
                 // If the item is not in the abyssal trove, display a message indicating that the ingredient is unknown
                 if (!Utility.isItemInLinkedAbyssalTrove(event.getEntity(), event.getItemStack())) {
@@ -69,9 +71,9 @@ public class ItemListenersGame {
 
                     // Item rarity text
                     List<Component> textComponents = new ArrayList<>();
-                    if (SeededIngredientsLootTables.COMMON_INGREDIENTS_SET.get().contains(ppIngredient)) {
+                    if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, ppIngredient)) {
                         textComponents.add(Component.translatable("tooltip.potionsplus.common").withStyle(ChatFormatting.WHITE));
-                    } else if (SeededIngredientsLootTables.RARE_INGREDIENTS_SET.get().contains(ppIngredient)) {
+                    } else if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, ppIngredient)) {
                         textComponents.add(Component.translatable("tooltip.potionsplus.rare").withStyle(ChatFormatting.LIGHT_PURPLE));
                     }
                     // Build text components around the ingredient rarity

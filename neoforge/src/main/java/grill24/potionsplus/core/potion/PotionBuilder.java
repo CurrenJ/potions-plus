@@ -60,12 +60,6 @@ public class PotionBuilder {
         return this;
     }
 
-    @SafeVarargs
-    public final PotionBuilder addItemsInTagsToRarityPool(PotionUpgradeIngredients.Rarity rarity, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, TagKey<Item>... tags) {
-        this.potionRecipeGenerator.addItemsInTagsToRaritySamplingPool(rarity, weightingMode, weight, tags);
-        return this;
-    }
-
     public PotionBuilder addItemsToRarityPool(PotionUpgradeIngredients.Rarity rarity, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, ItemLike... items) {
         this.potionRecipeGenerator.addItemsToRaritySamplingPool(rarity, weightingMode, weight, items);
         return this;
@@ -73,11 +67,6 @@ public class PotionBuilder {
 
     public PotionBuilder clearRaritySamplingConfig(PotionUpgradeIngredients.Rarity rarity) {
         this.potionRecipeGenerator.clearRaritySamplingConfig(rarity);
-        return this;
-    }
-
-    public PotionBuilder clearAllRaritySamplingConfigs() {
-        this.potionRecipeGenerator.clearAllRaritySamplingConfigs();
         return this;
     }
 

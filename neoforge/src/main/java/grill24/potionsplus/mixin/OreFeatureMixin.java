@@ -64,9 +64,9 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
                         BlockPos abovePos = new BlockPos(potions_plus$mutable.getX(), potions_plus$mutable.getY() + 1, potions_plus$mutable.getZ());
                         BlockState above = potions_plus$bulkSectionAccess.getBlockState(abovePos);
                         if (above.isAir() && potions_plus$random.nextFloat() < block.getGenerationChance() && potions_plus$worldGenLevel.ensureCanWrite(abovePos)) {
-                            int x = SectionPos.sectionRelative(potions_plus$mutable.getX());
-                            int y = SectionPos.sectionRelative(potions_plus$mutable.getY() + 1);
-                            int z = SectionPos.sectionRelative(potions_plus$mutable.getZ());
+                            int x = SectionPos.sectionRelative(abovePos.getX());
+                            int y = SectionPos.sectionRelative(abovePos.getY());
+                            int z = SectionPos.sectionRelative(abovePos.getZ());
                             LevelChunkSection section = potions_plus$bulkSectionAccess.getSection(potions_plus$mutable);
 
                             if (section != null) {

@@ -71,5 +71,12 @@ public class Packets {
                 ClientboundSyncKnownBrewingRecipesPacket.STREAM_CODEC,
                 ClientboundSyncKnownBrewingRecipesPacket.ClientPayloadHandler::handleDataOnMain
                 );
+
+        // Sync Paired Abyssal Trove Packet
+        registrar.playToClient(
+                ClientboundSyncPairedAbyssalTrove.TYPE,
+                ClientboundSyncPairedAbyssalTrove.STREAM_CODEC,
+                ClientboundSyncPairedAbyssalTrove.ClientPayloadHandler::handleDataOnMain
+        );
     }
 }

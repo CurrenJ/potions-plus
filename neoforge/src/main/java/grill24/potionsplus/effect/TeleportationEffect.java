@@ -7,11 +7,14 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.InstantenousMobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
+
+import javax.annotation.Nullable;
 
 public class TeleportationEffect extends InstantenousMobEffect {
     public TeleportationEffect(MobEffectCategory mobEffectCategory, int color) {
@@ -20,6 +23,20 @@ public class TeleportationEffect extends InstantenousMobEffect {
 
     @Override
     public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        teleport(livingEntity, amplifier);
+        return true;
+    }
+
+    @Override
+    public void applyInstantenousEffect(@Nullable Entity source, @Nullable Entity indirectSource, LivingEntity livingEntity, int amplifier, double health) {
+        teleport(livingEntity, amplifier);
+    }
+
+    private static void teleport(LivingEntity livingEntity, int amplifier) {
+        if(livingEntity.level().isClientSide) {
+            return;
+        }
+
         // Teleport to top of world
         double d0 = livingEntity.getX();
         double d1 = livingEntity.getY();
@@ -43,6 +60,5 @@ public class TeleportationEffect extends InstantenousMobEffect {
                 break;
             }
         }
-        return false;
     }
 }

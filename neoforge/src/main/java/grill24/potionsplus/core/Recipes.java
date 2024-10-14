@@ -56,6 +56,7 @@ public class Recipes {
     // ----- Computed Info -----
     public static final BrewingCauldronRecipeAnalysis DURATION_UPGRADE_ANALYSIS = new BrewingCauldronRecipeAnalysis();
     public static final BrewingCauldronRecipeAnalysis AMPLIFICATION_UPGRADE_ANALYSIS = new BrewingCauldronRecipeAnalysis();
+    public static final BrewingCauldronRecipeAnalysis ALL_SEEDED_POTION_RECIPES_ANALYSIS = new BrewingCauldronRecipeAnalysis();
     public static final BrewingCauldronRecipeAnalysis ALL_BCR_RECIPES_ANALYSIS = new BrewingCauldronRecipeAnalysis();
 
     public static final RecipeAnalysis<SanguineAltarRecipe> SANGUINE_ALTAR_ANALYSIS = new RecipeAnalysis<>();
@@ -93,7 +94,7 @@ public class Recipes {
                                 .processingTime(100)
                                 .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH)
                                 .canShowInJei(false)
-                                .build();
+                                .build("minecraft");
                         vanillaBrewingRecipes.add(recipe);
                     }
                 });
@@ -111,6 +112,7 @@ public class Recipes {
         int numInjected = 0;
         for (Pair<RecipeType<?>, IRuntimeRecipeProvider> pair : RECIPE_INJECTION_FUNCTIONS) {
             numInjected += injectRuntimeRecipes(server, pair.getFirst(), pair.getSecond().getRuntimeRecipesToInject(server));
+            ServerLifecycleListeners.postProcessRecipes(server.getRecipeManager());
         }
         return numInjected;
     }

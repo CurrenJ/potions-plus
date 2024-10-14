@@ -17,7 +17,6 @@
     "minecraft:golden_apple",
     "minecraft:amethyst_cluster",
     "minecraft:shulker_shell",
-    "minecraft:nautilus_shell",
-    "minecraft:totem_of_undying"
+    "minecraft:nautilus_shell"
   ]
 }

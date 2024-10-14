@@ -1,10 +1,10 @@
 {
   "criteria": {
-    "has_potion": {
+    "has_lava_bucket": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:potion"
+            "items": "minecraft:lava_bucket"
           }
         ]
       },
@@ -12,20 +12,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:water_bucket_to_water_bucket"
+        "recipe": "minecraft:lava_bucket_to_obsidian"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_potion",
+      "has_lava_bucket",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:water_bucket_to_water_bucket"
+      "minecraft:lava_bucket_to_obsidian"
     ]
   },
   "sends_telemetry_event": true

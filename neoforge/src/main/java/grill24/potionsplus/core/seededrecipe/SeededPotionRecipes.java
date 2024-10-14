@@ -64,7 +64,7 @@ public class SeededPotionRecipes {
         PotionsPlus.LOGGER.info("[SPR] Loaded {} brewing cauldron potion recipes from saved data.", SavedData.instance.seededPotionRecipes.size());
 
         // Save the new recipes to saved data
-        SavedData.instance.setBrewingCauldronRecipes(recipes);
+        SavedData.instance.setBrewingCauldronRecipes(recipes.stream().filter(recipeHolder -> recipeHolder.value().isSeededRuntimeRecipe()).toList());
     }
 
     public void generateDurationAndAmplificationUpgradeRecipes(Set<PpMultiIngredient> usedRecipeInputs) {
@@ -106,7 +106,8 @@ public class SeededPotionRecipes {
                     .ingredients(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION), ingredient.getItemStack())
                     .processingTime(30)
                     .durationToAdd(randomSource.nextInt(100, 1800))
-                    .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT)
+                    .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
+                    .isSeededRuntimeRecipe()
                     .build()
             );
         }
@@ -121,7 +122,8 @@ public class SeededPotionRecipes {
                             .ingredients(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION), ingredient.getItemStack())
                             .processingTime(30)
                             .amplifierToAdd(1)
-                            .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT)
+                            .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
+                            .isSeededRuntimeRecipe()
                             .build()
             );
         }
@@ -137,7 +139,8 @@ public class SeededPotionRecipes {
                             .processingTime(30)
                             .durationToAdd(randomSource.nextInt(400, 1200))
                             .amplifierToAdd(1)
-                            .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT)
+                            .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
+                            .isSeededRuntimeRecipe()
                             .build()
             );
         }

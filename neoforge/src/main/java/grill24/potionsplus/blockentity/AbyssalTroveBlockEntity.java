@@ -18,12 +18,11 @@ import org.joml.Vector3f;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISingleStackDisplayer {
 
     private int timeItemPlaced;
-    private int timeRarityIconsShown;
-    public int extendHideDelayBy = 0;
     public static final Vector3d itemRestingPositionTranslation = new Vector3d(0.5, 1 - (1 / 64.0), 0.5);
     private static final Vector3f itemRestingRotation = new Vector3f(0, 0, 0);
     private Vector3d itemAnimationStartingPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
@@ -37,6 +36,18 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     public static class RendererData {
         public RendererData() {
             this.renderedItemTiers = new HashMap<>();
+            this.state = State.HIDDEN;
+            this.lastStateEntryTimes = new HashMap<>();
+        }
+
+        public enum State {
+            HIDDEN,
+            ALL_INGREDIENTS,
+            ALL_LABELED_INGREDIENTS,
+            ONLY_COMMON_INGREDIENTS,
+            ONLY_RARE_INGREDIENTS,
+            ONLY_DURATION_UPGRADES,
+            ONLY_AMPLIFICATION_UPGRADES
         }
 
         public static class AbyssalTroveRenderedItem{
@@ -44,12 +55,16 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
             public List<ItemStack> subIcon;
             public Vector3d position;
             public PotionUpgradeIngredients.Rarity rarity;
+            public float scale;
+            public float subIconScale;
 
             public AbyssalTroveRenderedItem(ItemStack icon, List<ItemStack> subIcon, Vector3d position, PotionUpgradeIngredients.Rarity rarity) {
                 this.icon = icon;
                 this.subIcon = subIcon;
                 this.position = position;
                 this.rarity = rarity;
+                this.scale = 0;
+                this.subIconScale = 0;
             }
 
             public AbyssalTroveRenderedItem(ItemStack icon, List<ItemStack> subIcon, PotionUpgradeIngredients.Rarity rarity) {
@@ -57,7 +72,23 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
             }
         }
 
+        public State getState() {
+            return state;
+        }
+
+        public void nextState() {
+            state = State.values()[(state.ordinal() + 1) % State.values().length];
+            lastStateEntryTimes.put(state, (int) ClientTickHandler.total());
+        }
+
+        public void hide() {
+            state = State.HIDDEN;
+            lastStateEntryTimes.put(state, (int) ClientTickHandler.total());
+        }
+
         public Map<Integer, List<AbyssalTroveRenderedItem>> renderedItemTiers;
+        private State state;
+        public Map<State, Integer> lastStateEntryTimes;
     }
 
     public AbyssalTroveBlockEntity(BlockPos pos, BlockState state) {
@@ -89,6 +120,11 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
                 blockEntity.playerPosRelativeToBlockOrigin = new Vector3d(0, 0, 0);
                 blockEntity.degreesTowardsPlayer = 0;
             }
+
+            int lastStateChangeTime = blockEntity.getTimeLastStateChange(blockEntity.rendererData.getState());
+            if (lastStateChangeTime > 0 && ClientTickHandler.total() - lastStateChangeTime > 300) { // 15 second timeout
+                blockEntity.rendererData.hide();
+            }
         }
     }
 
@@ -97,8 +133,8 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         return timeItemPlaced;
     }
 
-    public int getTimeRarityIconsShown() {
-        return timeRarityIconsShown;
+    public int getTimeLastStateChange(RendererData.State state) {
+        return rendererData.lastStateEntryTimes.getOrDefault(state, -1);
     }
 
     @Override
@@ -122,12 +158,11 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     }
 
     public void showGui() {
-        if(timeRarityIconsShown < timeItemPlaced) {
-            timeRarityIconsShown = (int) ClientTickHandler.total();
-            extendHideDelayBy = timeRarityIconsShown > timeItemPlaced ? timeRarityIconsShown - timeItemPlaced : 0;
-        } else {
+        if(rendererData.state == RendererData.State.HIDDEN) {
             timeItemPlaced = (int) ClientTickHandler.total();
         }
+
+        rendererData.nextState();
     }
 
     public void updateRendererData() {
@@ -142,23 +177,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         // Add items in tiers - adapted to square display in v1.3.0
         data.renderedItemTiers = new HashMap<>();
         int index = 0;
-        List<PpIngredient> allIngredients = Recipes.ALL_BCR_RECIPES_ANALYSIS.getAllPotionBrewingIngredientsNoPotions().stream().sorted((a, b) -> {
-            Function<PpIngredient, Integer> value = (ingredient) -> {
-                if (Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
-                    return 0;
-                } else if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
-                    return 1;
-                } else {
-                    return PUtil.getRarity(ingredient).ordinal() + 2;
-                }
-            };
-
-            int comparison = Integer.compare(value.apply(a), value.apply(b));
-            if (comparison != 0) {
-                return comparison;
-            }
-            return a.getItemStack().getDisplayName().getString().compareTo(b.getItemStack().getDisplayName().getString());
-        }).toList();
+        Set<PpIngredient> allIngredients = getAcceptedIngredients();
         int sideLength = (int) Math.max(Math.round(Math.sqrt(allIngredients.size())), 1);
         for(PpIngredient ingredient : allIngredients) {
             int rowIndex = index / sideLength;
@@ -179,12 +198,12 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
                     sub.setCount(1);
                     subIcon.add(sub);
                 }
-                if (SeededIngredientsLootTables.COMMON_INGREDIENTS_SET.get().contains(ingredient)) {
+                if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, ingredient)) {
                     ItemStack sub = new ItemStack(Items.GENERIC_ICON.value());
                     sub.setCount(17);
                     subIcon.add(sub);
                 }
-                if (SeededIngredientsLootTables.RARE_INGREDIENTS_SET.get().contains(ingredient)) {
+                if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, ingredient)) {
                     ItemStack sub = new ItemStack(Items.GENERIC_ICON.value());
                     sub.setCount(18);
                     subIcon.add(sub);
@@ -225,8 +244,32 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     @Override
     public boolean canPlaceItem(int index, ItemStack stack) {
         boolean canPlace = super.canPlaceItem(index, stack);
-        boolean isIngredient = Recipes.ALL_BCR_RECIPES_ANALYSIS.isIngredientUsed(PpIngredient.of(stack));
+        boolean isIngredient = Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.isIngredientUsed(PpIngredient.of(stack));
         return canPlace && isIngredient;
+    }
+
+    public static Set<PpIngredient> ABYSSAL_TROVE_INGREDIENTS = new HashSet<>();
+    public static Set<PpIngredient> getAcceptedIngredients() {
+        return ABYSSAL_TROVE_INGREDIENTS;
+    }
+    public static void computeAbyssalTroveIngredients() {
+        ABYSSAL_TROVE_INGREDIENTS = Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getAllPotionBrewingIngredientsNoPotions().stream().sorted((a, b) -> {
+            Function<PpIngredient, Integer> value = (ingredient) -> {
+                if (Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
+                    return 0;
+                } else if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
+                    return 1;
+                } else {
+                    return PUtil.getRarity(ingredient).ordinal() + 2;
+                }
+            };
+
+            int comparison = Integer.compare(value.apply(a), value.apply(b));
+            if (comparison != 0) {
+                return comparison;
+            }
+            return a.getItemStack().getDisplayName().getString().compareTo(b.getItemStack().getDisplayName().getString());
+        }).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     @Override

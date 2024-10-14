@@ -251,9 +251,9 @@ public class PUtil {
     }
 
     public static PotionUpgradeIngredients.Rarity getRarity(PpIngredient ingredient) {
-        if (SeededIngredientsLootTables.COMMON_INGREDIENTS_SET.get().contains(ingredient)) {
+        if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, ingredient)) {
             return PotionUpgradeIngredients.Rarity.COMMON;
-        } else if (SeededIngredientsLootTables.RARE_INGREDIENTS_SET.get().contains(ingredient)) {
+        } else if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, ingredient)) {
             return PotionUpgradeIngredients.Rarity.RARE;
         }
 

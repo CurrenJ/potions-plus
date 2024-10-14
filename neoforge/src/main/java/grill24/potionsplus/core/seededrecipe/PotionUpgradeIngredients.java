@@ -40,11 +40,11 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
         this.basePotion = basePotion;
         this.effect = basePotion.value().getEffects().get(0).getEffect();
 
-        PpMultiIngredient input = sampleUniqueIngredientsFromSamplingConfig(config, alreadyUsedRecipeInputs, PpIngredient.of(PUtil.createPotionItemStack(Potions.AWKWARD, PUtil.PotionType.POTION)), random);
+        PpMultiIngredient input = sampleUniqueIngredientsFromSamplingConfig(config, alreadyUsedRecipeInputs, PpIngredient.of(PUtil.createPotionItemStack(Potions.AWKWARD, PUtil.PotionType.POTION)), basePotion, random);
         setBasePotionIngredients(input);
     }
 
-    private static PpMultiIngredient sampleUniqueIngredientsFromSamplingConfig(Map<Rarity, IngredientSamplingConfig> config, Set<PpMultiIngredient> allPreviouslyGeneratedRecipeInputs, PpIngredient inputPotion, RandomSource randomSource) {
+    private static PpMultiIngredient sampleUniqueIngredientsFromSamplingConfig(Map<Rarity, IngredientSamplingConfig> config, Set<PpMultiIngredient> allPreviouslyGeneratedRecipeInputs, PpIngredient inputPotion, Holder<Potion> outputPotion, RandomSource randomSource) {
         PpMultiIngredient ppMultiIngredient = null;
 
         int attempts = 0;
@@ -58,10 +58,19 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
             // Add the input potion to the list of ingredients.
             ingredients.add(inputPotion.getItemStack());
             // Sample ingredients from each rarity config.
-            for (IngredientSamplingConfig rarityConfig : config.values()) {
-                List<ItemStack> stacks = SeededIngredientsLootTables.sampleStacks(rarityConfig, randomSource);
+            for (Map.Entry<Rarity, IngredientSamplingConfig> rarityConfig : config.entrySet()) {
+                if (rarityConfig.getValue().count() == 0) {
+                    continue;
+                }
+                List<ItemStack> stacks = SeededIngredientsLootTables.sampleStacks(rarityConfig.getValue(), randomSource);
                 ingredients.addAll(stacks);
             }
+
+            if (ingredients.isEmpty()) {
+                PotionsPlus.LOGGER.warn("No ingredients were sampled for potion " + outputPotion.getKey().location());
+                throw new IllegalStateException("No ingredients were sampled for potion " + outputPotion.getKey().location());
+            }
+
             ppMultiIngredient = PpMultiIngredient.of(ingredients);
 
             attempts++;

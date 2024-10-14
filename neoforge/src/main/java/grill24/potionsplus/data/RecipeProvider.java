@@ -117,10 +117,18 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
         // Water Bucket
         new BrewingCauldronRecipeBuilder()
-                .result(new ItemStack(net.minecraft.world.item.Items.WATER_BUCKET))
+                .result(new ItemStack(net.minecraft.world.item.Items.BUCKET))
                 .ingredients(net.minecraft.world.item.Items.WATER_BUCKET)
                 .processingTime(40)
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer);
+
+        // Obsidian
+        new BrewingCauldronRecipeBuilder()
+                .result(new ItemStack(net.minecraft.world.item.Items.OBSIDIAN))
+                .ingredients(net.minecraft.world.item.Items.LAVA_BUCKET)
+                .processingTime(200)
+                .unlockedBy("has_lava_bucket", has(net.minecraft.world.item.Items.LAVA_BUCKET))
                 .save(recipeConsumer);
 
         // Clay
@@ -153,7 +161,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer);
 
-        // All Potions Duration Increase [5 Seconds] Fixed Recipe
+        // All Potions Duration Increase [5 Seconds] [Recipe is constant in all worlds]
         List<BrewingCauldronRecipe.PotionMatchingCriteria> upgradePotionMatchingCriteria = List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT);
         new BrewingCauldronRecipeBuilder()
                 .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION))
@@ -164,10 +172,10 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer, "all_potions_duration_increase");
 
-        // Amplification Testing Recipe
+        // Amplification Increase [1 level] [Recipe is constant in all worlds]
         new BrewingCauldronRecipeBuilder()
                 .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION))
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), new ItemStack(net.minecraft.world.item.Items.HONEY_BOTTLE))
+                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), new ItemStack(net.minecraft.world.item.Items.DIAMOND))
                 .processingTime(30)
                 .amplifierToAdd(1)
                 .potionMatchingCriteria(upgradePotionMatchingCriteria)

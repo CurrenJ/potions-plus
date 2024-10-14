@@ -1,9 +1,7 @@
 {
   "type": "potionsplus:brewing_cauldron_recipe",
-  "amplifierToAdd": 0,
   "category": "BREWING",
   "durationToAdd": 100,
-  "experience": 0.0,
   "ingredients": [
     {
       "ppIngredient": {

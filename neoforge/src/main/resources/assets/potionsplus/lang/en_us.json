@@ -284,11 +284,12 @@
   "item.potionsplus.merged_potions_max": "Potion of Potion Privileges Revoked",
   "tooltip.potionsplus.duration_ingredient": "+%s to potion duration",
   "tooltip.potionsplus.amplification_ingredient": "+%s to potion level",
-  "chat.potionsplus.duration_ingredient_knowledge": "This %s seems to stretch time... and potions.",
+  "chat.potionsplus.duration_ingredient": "This %s seems to stretch time... and potions.",
   "chat.potionsplus.amplification_ingredient": "The %s radiates alchemical power...",
   "tooltip.potionsplus.common": "common",
   "tooltip.potionsplus.rare": "rare",
   "tooltip.potionsplus.unknown_ingredient": "The Abyssal Trove whispers...",
   "tooltip.potionsplus.of": "of",
-  "tooltip.potionsplus.imbued_with": "Imbued with "
+  "tooltip.potionsplus.imbued_with": "Imbued with ",
+  "sanguine_altar.converted": "%s may be useful..."
 }

@@ -23,13 +23,10 @@ public class Potions {
 
     public static final Holder<Potion> ANY_POTION = POTIONS.register("any_potion", () -> new Potion(new net.minecraft.world.effect.MobEffectInstance(MobEffects.ANY_POTION, 1200, 0)));
 
-    public static final SeededPotionRecipeBuilder GEODE_GRACE_RECIPE_GENERATOR = SeededPotionRecipeBuilder.defaultPools()
-            .addItemsInTagsToRaritySamplingPool(PotionUpgradeIngredients.Rarity.COMMON, SeededIngredientsLootTables.WeightingMode.DISTRIBUTED, 1, Tags.Items.ORE_FLOWERS_COMMON)
-            .addItemsInTagsToRaritySamplingPool(PotionUpgradeIngredients.Rarity.RARE, SeededIngredientsLootTables.WeightingMode.DISTRIBUTED, 1, Tags.Items.ORE_FLOWERS_RARE);
     public static final PotionBuilder.PotionsPlusPotionGenerationData GEODE_GRACE_POTIONS = new PotionBuilder()
             .name("geode_grace")
             .effect(MobEffects.GEODE_GRACE)
-            .recipeGenerator(GEODE_GRACE_RECIPE_GENERATOR)
+            .withRarityCount(PotionUpgradeIngredients.Rarity.COMMON, 2)
             .build(ALL_POTION_GENERATION_DATA::add);
 
     public static final PotionBuilder.PotionsPlusPotionGenerationData FALL_OF_THE_VOID_POTIONS = new PotionBuilder()
@@ -114,9 +111,6 @@ public class Potions {
     public static final PotionBuilder.PotionsPlusPotionGenerationData SATURATION_POTIONS = new PotionBuilder()
             .name("saturation")
             .effect(net.minecraft.world.effect.MobEffects.SATURATION)
-            .clearAllRaritySamplingConfigs()
-            .addItemsInTagsToRarityPool(PotionUpgradeIngredients.Rarity.RARE, SeededIngredientsLootTables.WeightingMode.DISTRIBUTED, 1, grill24.potionsplus.core.Tags.Items.FOOD_INGREDIENTS_UNCOMMON)
-            .addItemsInTagsToRarityPool(PotionUpgradeIngredients.Rarity.RARE, SeededIngredientsLootTables.WeightingMode.DISTRIBUTED, 1, grill24.potionsplus.core.Tags.Items.FOOD_INGREDIENTS_RARE)
             .withRarityCount(PotionUpgradeIngredients.Rarity.RARE, 2)
             .build(ALL_POTION_GENERATION_DATA::add);
 

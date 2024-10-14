@@ -19,8 +19,8 @@ import java.util.*;
 public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
     // TODO: New Brewing Cauldron Recipes Rarity System
     public static final SeededPotionRecipeBuilder DEFAULT_POTION_RECIPE_GENERATOR = emptyPools().withRaritySamplingConfigs(new HashMap<>() {{
-        put(PotionUpgradeIngredients.Rarity.COMMON, new PotionUpgradeIngredients.IngredientSamplingConfig(SeededIngredientsLootTables.COMMON_INGREDIENTS, 1));
-        put(PotionUpgradeIngredients.Rarity.RARE, new PotionUpgradeIngredients.IngredientSamplingConfig(SeededIngredientsLootTables.RARE_INGREDIENTS, 0));
+        put(PotionUpgradeIngredients.Rarity.COMMON, new PotionUpgradeIngredients.IngredientSamplingConfig(SeededIngredientsLootTables.COMMON_INGREDIENTS_POOL, 1));
+        put(PotionUpgradeIngredients.Rarity.RARE, new PotionUpgradeIngredients.IngredientSamplingConfig(SeededIngredientsLootTables.RARE_INGREDIENTS_POOL, 0));
     }});
     private Map<PotionUpgradeIngredients.Rarity, PotionUpgradeIngredients.IngredientSamplingConfig> ingredientSamplingConfig;
 
@@ -52,23 +52,6 @@ public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
         PotionUpgradeIngredients.IngredientSamplingConfig existingConfig = this.ingredientSamplingConfig.getOrDefault(rarity, PotionUpgradeIngredients.IngredientSamplingConfig.empty());
         PotionUpgradeIngredients.IngredientSamplingConfig newConfig = new PotionUpgradeIngredients.IngredientSamplingConfig(pool, existingConfig.count());
 
-        this.ingredientSamplingConfig.put(rarity, newConfig);
-        return this;
-    }
-
-    @SafeVarargs
-    @Override
-    public final SeededPotionRecipeBuilder addItemsInTagsToRaritySamplingPool(PotionUpgradeIngredients.Rarity rarity, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, TagKey<Item>... tags) {
-        PotionUpgradeIngredients.IngredientSamplingConfig existingConfig = this.ingredientSamplingConfig.getOrDefault(rarity, PotionUpgradeIngredients.IngredientSamplingConfig.empty());
-
-        final LootPoolSupplier existingPoolSupplier = existingConfig.pool();
-        LootPoolSupplier newPoolSupplier = () -> {
-            LootPool.Builder pool = existingPoolSupplier.getLootPool();
-            SeededIngredientsLootTables.addItemsInTags(pool, weightingMode, weight, tags);
-            return pool;
-        };
-
-        PotionUpgradeIngredients.IngredientSamplingConfig newConfig = new PotionUpgradeIngredients.IngredientSamplingConfig(newPoolSupplier, existingConfig.count());
         this.ingredientSamplingConfig.put(rarity, newConfig);
         return this;
     }
@@ -158,6 +141,7 @@ public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
                     .group(advancementNameIngredient)
                     .experience(experience)
                     .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER)
+                    .isSeededRuntimeRecipe()
                     .build();
             allRecipes.add(recipe);
         }

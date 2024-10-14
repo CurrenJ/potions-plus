@@ -2,10 +2,12 @@ package grill24.potionsplus.event;
 
 import grill24.potionsplus.behaviour.ClotheslineBehaviour;
 import grill24.potionsplus.behaviour.MossBehaviour;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
 import grill24.potionsplus.network.ClientboundSyncKnownBrewingRecipesPacket;
+import grill24.potionsplus.network.ClientboundSyncPairedAbyssalTrove;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -64,7 +66,7 @@ public class PlayerListeners {
             // Add the *ingredient* to the player's knowledge if it is unknown
             // For some reason when I made the saved data I decided to use itemstacks, but we only really care about the item id. So set count to 1 for consistency.
             stack.setCount(1);
-            if (playerBrewingKnowledge.isIngredientUnknown(stack) && Recipes.ALL_BCR_RECIPES_ANALYSIS.isIngredientUsed(ppIngredient)) {
+            if (playerBrewingKnowledge.isIngredientUnknown(stack) && AbyssalTroveBlockEntity.getAcceptedIngredients().contains(ppIngredient)) {
                 // At the time of writing this, *ingredient* knowledge is not synced to the client, because it is only used for server-side checks. If this changes, we should sync it here.
                 playerBrewingKnowledge.addIngredient(stack);
                 // Alert the player that they have picked up this brewing ingredient for the first time.
@@ -121,7 +123,8 @@ public class PlayerListeners {
             if (potionContents != null) {
                 List<MobEffectInstance> customEffects = new ArrayList<>();
                 for (MobEffectInstance effect : PUtil.getAllEffects(potionContents)) {
-                    MobEffectInstance e = new MobEffectInstance(effect.getEffect(), EFFECT_DURATION, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false);
+                    int durationApplied = Math.min(EFFECT_DURATION, effect.getDuration());
+                    MobEffectInstance e = new MobEffectInstance(effect.getEffect(), durationApplied, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false);
 
                     // Damage the item, but don't break it.
                     int maxDamage = stack.getOrDefault(DataComponents.MAX_DAMAGE, 0);
@@ -133,7 +136,7 @@ public class PlayerListeners {
                     }
 
                     // Update the potion effects data on the item with the new duration
-                    int remainingDuration = effect.getDuration() - EFFECT_DURATION;
+                    int remainingDuration = effect.getDuration() - durationApplied;
                     if(remainingDuration > 0) {
                         customEffects.add(new MobEffectInstance(effect.getEffect(), remainingDuration, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false));
                     }
@@ -155,6 +158,7 @@ public class PlayerListeners {
     public static void onPlayerJoin(final EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             PacketDistributor.sendToPlayer(player, ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()));
+            PacketDistributor.sendToPlayer(player, new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()));
         }
     }
 }

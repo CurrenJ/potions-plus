@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-11T01:10:56.2346553	Potions Plus item tags
+// 1.21.1	2024-10-14T20:11:02.8503044	Potions Plus item tags
 71df0d2d89dfbeaa0211e65f5c247c52ffd9763f data/potionsplus/tags/item/food_ingredients_common.json
 a708c20dadf7739b7104a7bb74daf153f52496c0 data/potionsplus/tags/item/food_ingredients_rare.json
 3bb061b6312297ca069227fd75f258fe891c158a data/potionsplus/tags/item/food_ingredients_uncommon.json
@@ -7,4 +7,4 @@ f73764533c03fb353e422ecd46b9aad3f88aab24 data/potionsplus/tags/item/ore_flowers_
 7ffbb2d1476391c9978b15e6a33b12417d1bfaf8 data/potionsplus/tags/item/potion_amplifier_up_ingredients.json
 c39e9b524c83b8a4f688f1994644bd5f7615a0b4 data/potionsplus/tags/item/potion_duration_up_ingredients.json
 3e5116462b35750f484c0043429bbecd3056813c data/potionsplus/tags/item/tier_0_potion_ingredients.json
-9ed8a3d5ce4d0193f321977d1a83e4bbed6df6b3 data/potionsplus/tags/item/tier_1_potion_ingredients.json
+bdbf4e6ab866b050900e65cc682b1f5e91ad0352 data/potionsplus/tags/item/tier_1_potion_ingredients.json

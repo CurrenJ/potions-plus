@@ -123,7 +123,8 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
             // Filter recipes to those that match known recipes and unhide them
             Stream<BrewingCauldronRecipe> stream = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.value()).stream()
                     .filter(recipe ->
-                            (SavedData.instance.getData(player).isRecipeKnown(recipe.id().toString()) || PotionsPlus.Debug.shouldRevealAllRecipes) && recipe.value().canShowInJei()
+                            (SavedData.instance.getData(player).isRecipeKnown(recipe.id().toString()) || !recipe.value().isSeededRuntimeRecipe() || PotionsPlus.Debug.shouldRevealAllRecipes)
+                                    && recipe.value().canShowInJei()
                     ).map(RecipeHolder::value);
             JEI_RUNTIME.getRecipeManager().unhideRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE, stream.toList());
         }

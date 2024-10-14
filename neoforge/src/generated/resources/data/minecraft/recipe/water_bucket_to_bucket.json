@@ -5,21 +5,16 @@
     {
       "ppIngredient": {
         "count": 1,
-        "id": "minecraft:glass_bottle"
+        "id": "minecraft:water_bucket"
       }
     }
   ],
   "matchingCriteria": [
     "exact_match"
   ],
-  "processingTime": 30,
+  "processingTime": 40,
   "result": {
-    "components": {
-      "minecraft:potion_contents": {
-        "potion": "minecraft:water"
-      }
-    },
     "count": 1,
-    "id": "minecraft:potion"
+    "id": "minecraft:bucket"
   }
 }

@@ -1,7 +1,9 @@
 package grill24.potionsplus.core;
 
 import com.google.common.collect.ImmutableList;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
+import grill24.potionsplus.core.seededrecipe.SeededPotionRecipes;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -9,6 +11,7 @@ import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
@@ -69,7 +72,10 @@ public class ServerLifecycleListeners {
         List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronRecipes = recipeManager.getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get());
         Recipes.DURATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isDurationUpgrade()).toList());
         Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isAmplifierUpgrade()).toList());
+        Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isSeededRuntimeRecipe()).toList());
         Recipes.ALL_BCR_RECIPES_ANALYSIS.compute(brewingCauldronRecipes);
+
+        AbyssalTroveBlockEntity.computeAbyssalTroveIngredients();
     }
 
     private static void injectRuntimeRecipes(MinecraftServer server) {

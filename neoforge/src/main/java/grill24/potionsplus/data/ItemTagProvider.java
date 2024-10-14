@@ -173,8 +173,7 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.GOLDEN_APPLE,
                 Items.AMETHYST_CLUSTER,
                 Items.SHULKER_SHELL,
-                Items.NAUTILUS_SHELL,
-                Items.TOTEM_OF_UNDYING
+                Items.NAUTILUS_SHELL
         );
     }
 }

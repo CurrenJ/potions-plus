@@ -1,6 +1,7 @@
 package grill24.potionsplus.recipe.brewingcauldronrecipe;
 
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeBuilder;
+import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
@@ -17,6 +18,7 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
     protected int amplifierToAdd;
     protected float experience;
     protected List<BrewingCauldronRecipe.PotionMatchingCriteria> potionMatchingCriteria;
+    protected boolean isSeededRuntimeRecipe = false;
 
     public BrewingCauldronRecipeBuilder() {
         super();
@@ -62,6 +64,11 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
         return self();
     }
 
+    public BrewingCauldronRecipeBuilder isSeededRuntimeRecipe() {
+        this.isSeededRuntimeRecipe = true;
+        return self();
+    }
+
     @Override
     protected void ensureValid() {
         super.ensureValid();
@@ -71,11 +78,15 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
         }
     }
 
-        @Override
+    @Override
     public RecipeHolder<BrewingCauldronRecipe> build() {
-        BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(category, group, ingredients, result, processingTime, canShowInJei, experience, durationToAdd, amplifierToAdd, potionMatchingCriteria);
+        return build(ModInfo.MOD_ID);
+    }
+
+    public RecipeHolder<BrewingCauldronRecipe> build(String namespace) {
+        BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(category, group, ingredients, result, processingTime, canShowInJei, experience, durationToAdd, amplifierToAdd, potionMatchingCriteria, isSeededRuntimeRecipe);
         String id = recipe.getUniqueRecipeName();
-        ResourceLocation recipeId = ppId(id);
+        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(namespace, id);
         return new RecipeHolder<>(recipeId, recipe);
     }
 

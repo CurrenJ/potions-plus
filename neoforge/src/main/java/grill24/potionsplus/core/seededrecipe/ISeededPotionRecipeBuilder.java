@@ -24,8 +24,6 @@ public interface ISeededPotionRecipeBuilder {
 
     ISeededPotionRecipeBuilder withIngredientPoolForRarity(Rarity rarity, LootPoolSupplier pool);
 
-    ISeededPotionRecipeBuilder addItemsInTagsToRaritySamplingPool(PotionUpgradeIngredients.Rarity rarity, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, TagKey<Item>... tags);
-
     ISeededPotionRecipeBuilder addItemsToRaritySamplingPool(PotionUpgradeIngredients.Rarity rarity, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, ItemLike... items);
 
     ISeededPotionRecipeBuilder clearRaritySamplingConfig(PotionUpgradeIngredients.Rarity rarity);

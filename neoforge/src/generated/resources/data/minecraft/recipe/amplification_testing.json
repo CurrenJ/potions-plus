@@ -2,8 +2,6 @@
   "type": "potionsplus:brewing_cauldron_recipe",
   "amplifierToAdd": 1,
   "category": "BREWING",
-  "durationToAdd": 0,
-  "experience": 0.0,
   "ingredients": [
     {
       "ppIngredient": {
@@ -19,7 +17,7 @@
     {
       "ppIngredient": {
         "count": 1,
-        "id": "minecraft:honey_bottle"
+        "id": "minecraft:diamond"
       }
     }
   ],

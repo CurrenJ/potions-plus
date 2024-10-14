@@ -1,23 +1,20 @@
 {
   "type": "potionsplus:brewing_cauldron_recipe",
-  "amplifierToAdd": 0,
   "category": "BREWING",
-  "durationToAdd": 0,
-  "experience": 0.0,
   "ingredients": [
     {
       "ppIngredient": {
         "count": 1,
-        "id": "minecraft:water_bucket"
+        "id": "minecraft:lava_bucket"
       }
     }
   ],
   "matchingCriteria": [
     "exact_match"
   ],
-  "processingTime": 40,
+  "processingTime": 200,
   "result": {
     "count": 1,
-    "id": "minecraft:water_bucket"
+    "id": "minecraft:obsidian"
   }
 }

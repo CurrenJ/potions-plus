@@ -20,7 +20,7 @@ public class SanguineAltarRecipes {
 
         // TODO: Remove tier
         Set<PpIngredient>[] tieredIngredients = new Set[1];
-        tieredIngredients[0] = new HashSet<>(Recipes.ALL_BCR_RECIPES_ANALYSIS.getUniqueIngredients());
+        tieredIngredients[0] = new HashSet<>(Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getUniqueIngredients());
 
         for (Set<PpIngredient> ingredients : tieredIngredients) {
             List<PpIngredient> tierIngredients = new ArrayList<>(ingredients);
