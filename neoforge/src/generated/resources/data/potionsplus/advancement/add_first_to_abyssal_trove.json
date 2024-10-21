@@ -1,0 +1,32 @@
+{
+  "parent": "potionsplus:create_abyssal_trove",
+  "criteria": {
+    "add_first_ingredient_to_abyssal_trove": {
+      "conditions": {
+        "fill_percentage": 0.001
+      },
+      "trigger": "potionsplus:abyssal_trove_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.add_first_ingredient_to_abyssal_trove.description"
+    },
+    "icon": {
+      "count": 12,
+      "id": "potionsplus:generic_icon"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.add_first_ingredient_to_abyssal_trove.title"
+    }
+  },
+  "requirements": [
+    [
+      "add_first_ingredient_to_abyssal_trove"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

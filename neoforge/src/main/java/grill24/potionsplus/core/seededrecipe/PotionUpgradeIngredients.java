@@ -1,5 +1,7 @@
 package grill24.potionsplus.core.seededrecipe;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
@@ -10,7 +12,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.util.*;
@@ -19,8 +20,23 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
     public enum Rarity {
         NONE,
         COMMON,
-        RARE
+        RARE;
+
+        public static final Codec<Rarity> CODEC = Codec.STRING.comapFlatMap(
+                (p_340780_) -> {
+                    Optional<Rarity> optional;
+                    try {
+                        optional = Optional.of(Rarity.valueOf(p_340780_));
+                    } catch (IllegalArgumentException illegalargumentexception) {
+                        optional = Optional.empty();
+                    }
+                    return optional.map(DataResult::success).orElseGet(() -> DataResult.error(() -> "Unknown rarity: " + p_340780_));
+                },
+                Rarity::toString
+        );
     }
+
+
     public record IngredientSamplingConfig(LootPoolSupplier pool, int count) {
         public LootTable simpleLootTable() {
             return LootTable.lootTable().withPool(pool.getLootPool()).build();

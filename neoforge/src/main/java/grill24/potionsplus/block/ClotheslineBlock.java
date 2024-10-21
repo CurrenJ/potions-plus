@@ -1,11 +1,13 @@
 package grill24.potionsplus.block;
 
+import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
 import grill24.potionsplus.blockentity.ClotheslineBlockEntity;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.LivingEntity;
@@ -64,8 +66,8 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     }
 
     @Override
-    public void setPlacedBy(Level level, BlockPos placedAt, BlockState blockState, @Nullable LivingEntity p_49502_, ItemStack itemStack) {
-        super.setPlacedBy(level, placedAt, blockState, p_49502_, itemStack);
+    public void setPlacedBy(Level level, BlockPos placedAt, BlockState blockState, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.setPlacedBy(level, placedAt, blockState, placer, itemStack);
         if (!level.isClientSide) {
             int distance = getDistance(blockState);
             BlockPos left = placedAt.relative(blockState.getValue(FACING).getCounterClockWise(), distance / 2);
@@ -77,6 +79,10 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
 
             blockState.updateNeighbourShapes(level, left, 3);
             blockState.updateNeighbourShapes(level, right, 3);
+
+            if(placer instanceof ServerPlayer serverPlayer) {
+                CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverPlayer, grill24.potionsplus.core.Blocks.CLOTHESLINE.value().defaultBlockState());
+            }
         }
     }
 

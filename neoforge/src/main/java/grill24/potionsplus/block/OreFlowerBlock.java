@@ -57,7 +57,7 @@ public class OreFlowerBlock extends PotionsPlusFlowerBlock implements Bonemealab
         grow(serverLevel, random, blockPos, blockState, true);
     }
 
-    public void grow(ServerLevel serverLevel, RandomSource random, BlockPos blockPos, BlockState blockState, boolean consumeOre) {
+    public boolean grow(ServerLevel serverLevel, RandomSource random, BlockPos blockPos, BlockState blockState, boolean consumeOre) {
         BlockPos down = blockPos.below();
         // Iterate horizontal
         for (Direction direction : Direction.Plane.HORIZONTAL) {
@@ -73,9 +73,10 @@ public class OreFlowerBlock extends PotionsPlusFlowerBlock implements Bonemealab
                     serverLevel.setBlock(offset.above(), this.defaultBlockState(), 3);
                 }
 
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     @Override

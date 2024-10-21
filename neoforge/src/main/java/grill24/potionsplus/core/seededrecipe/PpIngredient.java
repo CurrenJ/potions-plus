@@ -6,16 +6,12 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import org.jetbrains.annotations.Contract;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class PpIngredient {
@@ -71,7 +67,7 @@ public class PpIngredient {
             return false;
         }
         for (int i = 0; i < ingredients.length; i++) {
-            if (!toJsonOrThrow(ingredients[i]).equals(toJsonOrThrow(other.ingredients[i]))) {
+            if (!toJson(ingredients[i]).equals(toJson(other.ingredients[i]))) {
                 return false;
             }
         }
@@ -92,16 +88,16 @@ public class PpIngredient {
 
     public boolean contains(Ingredient ingredient) {
         for (Ingredient i : ingredients) {
-            if (toJsonOrThrow(i).equals(toJsonOrThrow(ingredient))) {
+            if (toJson(i).equals(toJson(ingredient))) {
                 return true;
             }
         }
         return false;
     }
 
-    private static JsonElement toJsonOrThrow(Ingredient ingredient) {
+    private static JsonElement toJson(Ingredient ingredient) {
         DataResult<JsonElement> result = Ingredient.CODEC.encodeStart(JsonOps.INSTANCE, ingredient);
-        return result.result().orElseThrow();
+        return result.result().orElse(JsonOps.INSTANCE.empty());
     }
 
     public ItemStack getItemStack() {

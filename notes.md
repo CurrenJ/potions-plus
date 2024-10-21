@@ -95,53 +95,59 @@
 NEOFORGE 1.21
 
 
-- access transform names xx
-- NeoForge networking changes a bit - see NF networking docs xx
-- Adapt serializer fromNetwork to use builders so we don't have to declare the method in each recipe serializer class (low prio)
-- Refactor use methods in blocks xx
-- Aquifer freeze biome check error ! (low prio)
-- Something weird with recipe book making many many recipes - see game log xx
-- Generic potion icon - atlas ! xx
-- Hopper on right side of clothesline xx
-- All translations present xx
-- Fix choppy animations (partial ticks? in client tickhandler) xx
-- Known recipes don't sync to client on join server xx
+- [x] access transform names xx
+- [x] NeoForge networking changes a bit - see NF networking docs xx
+- [x] Adapt serializer fromNetwork to use builders so we don't have to declare the method in each recipe serializer class (low prio)
+- [x] Refactor use methods in blocks xx
+- [x] Aquifer freeze biome check error ! (low prio)
+- [x] Something weird with recipe book making many many recipes - see game log xx
+- [x] Generic potion icon - atlas ! xx
+- [x] Hopper on right side of clothesline xx
+- [x] All translations present xx
+- [x] Fix choppy animations (partial ticks? in client tickhandler) xx
+- [x] Known recipes don't sync to client on join server xx
 
-- Recharge sanguine altar with amethysts crystals + change block model accordingly!
-- Inheritable plant type that can be waterlogged (like usual) as well as can be filled with layers of snow like a snow layer. Could be cool to randomize the y of each instance so some plants look sunken in snow
-- We should explore more ways to make plants more visually appealing / overhaul rendering / try new models so we can fill caves and biomes with them and its not boring
-- Flowers on cactus bloom after rain
-- Add a literal rain dance. Could be a DDR like minigame lol (use custom renderer for this - could be cool lol. Maybe attach custom renderer to an invis entity that follows player location)
-- Volcanic cave has loot/ plant/ore that lets you multiply netherite production frm scrap. This way the volcanic cave has netherite rewards, but does not allow you to bypass collecting ancient debris in the nether xx
-- Clothesline Recipe support JEI!!
-- Item pedestal
-- Silk touch potion effect (spawners) 
-- Dungeons that spawn in volcanic cave / ice cave/ arid cave have a chance to replace the entity in the spawner with their bioems variants!! this would be rlly cool detail xx
-- Add buried treasure to arid cave! xx
-- Add berried treasure to arid cave !
-- Achievement for berried treasure
-- Achievements!
-- Add tea brewing :)
-- Implement neoforge config system
-- Enchantable / quicker more durable brush
-- Make decorative fire obtainable
+- [ ] Recharge sanguine altar with amethysts crystals + change block model accordingly!
+- [ ] Inheritable plant type that can be waterlogged (like usual) as well as can be filled with layers of snow like a snow layer. Could be cool to randomize the y of each triggerInstance so some plants look sunken in snow
+- [ ] We should explore more ways to make plants more visually appealing / overhaul rendering / try new models so we can fill caves and biomes with them and its not boring
+- [ ] Flowers on cactus bloom after rain
+- [ ] Add a literal rain dance. Could be a DDR like minigame lol (use custom renderer for this - could be cool lol. Maybe attach custom renderer to an invis entity that follows player location)
+- [x] Volcanic cave has loot/ plant/ore that lets you multiply netherite production frm scrap. This way the volcanic cave has netherite rewards, but does not allow you to bypass collecting ancient debris in the nether xx
+- [ ] Clothesline Recipe support JEI!!
+- [ ] Item pedestal
+- [ ] Silk touch potion effect (spawners) 
+- [x] Dungeons that spawn in volcanic cave / ice cave/ arid cave have a chance to replace the entity in the spawner with their bioems variants!! this would be rlly cool detail xx
+- [x] Add buried treasure to arid cave! xx
+- [ ] Add berried treasure to arid cave !
+- [ ] Achievement for berried treasure
+- [ ] Achievements!
+- [ ] Add tea brewing :)
+- [ ] Implement neoforge config system
+- [ ] Enchantable / quicker more durable brush
+- [ ] Make decorative fire obtainable
 
-- Fix herbalists lectern sounds
-- Fix descritions of potions-
-- Fix giants steps not removing modifier on expire + maybe reach for the stars too. 
-- Fix new recipe gen replacing saved data
-- Max potion level limit , default and per potion recipe
+- [x] Fix herbalists lectern sounds xx
+- [x] Fix descritions of potions- xx
+- [ ] Fix giants steps not removing modifier on expire + maybe reach for the stars too. 
+- [x] Fix new recipe gen replacing saved data xx
+- [ ] Max potion level limit , default and per potion recipe !!
 
-- Broadcast recipe unlock to all nearby players xx
-- Sync brewing cauldron + herbalist lecetern animations in other clients xx
-- Trove pairing xx
-- HL sparkle criteria incorrect - see red and brown mushroom behaviour across HL/AT/Tooltip - make consistent
+- [x] Broadcast recipe unlock to all nearby players xx
+- [x] Sync brewing cauldron + herbalist lecetern animations in other clients xx
+- [x] Trove pairing xx
+- [ ] HL sparkle criteria incorrect - see red and brown mushroom behaviour across HL/AT/Tooltip - make consistent
 
-- Awkward splash potion container recipe
-- Magnetizing doesn't work
+- [x] Awkward splash potion container recipe
+- [x] Magnetizing doesn't work
 
-- Notifications trigger for all items FIX xx
-- NEW IDEA: Item tooltip - 1 / 2 - Water Breathing. xx
+- [x] Notifications trigger for all items FIX xx
+- [x] NEW IDEA: Item tooltip - 1 / 2 - Water Breathing. xx
 
-- Update herbalists lectern xx
-- Maybe make vanilla base lvl 1 potion brewing recipes visible on learned brew? 
+- [ ] Sanguine altar rework: ingredient converts into another ingredient in one of the ingredients associated recipe. still chained together but can help reveal potions easier
+- [ ] Mending effect
+- [ ] Use moss on dirt for grass
+- [ ] Merge potion using xp - player has to stand in cauldron to drain xp
+- [ ] Add random potion effects to items/armor in dungeon chests
+
+- [x] Update herbalists lectern xx
+- [ ] Maybe make vanilla base lvl 1 potion brewing recipes visible on learned brew? 

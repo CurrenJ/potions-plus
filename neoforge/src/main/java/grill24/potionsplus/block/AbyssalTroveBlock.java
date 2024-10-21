@@ -1,5 +1,7 @@
 package grill24.potionsplus.block;
 
+import grill24.potionsplus.advancement.AbyssalTroveTrigger;
+import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Sounds;
@@ -9,10 +11,12 @@ import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -66,6 +70,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
         // Do interaction
         InvUtil.InteractionResult result = InvUtil.InteractionResult.PASS;
         if (!blockEntity.get().getStoredIngredients().contains(PpIngredient.of(player.getMainHandItem()))) {
+            ItemStack itemInHand = player.getItemInHand(hand).copy();
             result = InvUtil.insertOnPlayerUseItem(level, pos, player, hand, SoundEvents.ITEM_FRAME_ADD_ITEM);
             if (result == InvUtil.InteractionResult.INSERT) {
                 if (level.isClientSide) {
@@ -76,6 +81,9 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
                         level.addParticle(ParticleTypes.HAPPY_VILLAGER, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
                     }
                     level.playSound(player, pos, Sounds.ABYSSAL_TROVE_DEPOSIT.value(), player.getSoundSource(), 1.0F, 1.0F);
+                } else {
+                    // Trigger advancement
+                    AbyssalTroveTrigger.INSTANCE.trigger((ServerPlayer) player, abyssalTroveBlockEntity.getFillPercentage(), PpIngredient.of(itemInHand));
                 }
 
                 // Pair to this abyssal trove if we just inserted an item
@@ -138,5 +146,12 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
     public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
         Utility.dropContents(level, blockPos, blockState, newState);
         super.onRemove(blockState, level, blockPos, newState, isMoving);
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @javax.annotation.Nullable LivingEntity placer, ItemStack stack) {
+        if(placer instanceof ServerPlayer serverPlayer) {
+            CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverPlayer, state);
+        }
     }
 }

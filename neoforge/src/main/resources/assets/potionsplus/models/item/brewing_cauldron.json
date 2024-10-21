@@ -1,3 +1,6 @@
 {
-  "parent": "minecraft:item/cauldron"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "potionsplus:item/brewing_cauldron"
+  }
 }

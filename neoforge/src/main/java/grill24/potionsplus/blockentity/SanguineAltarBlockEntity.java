@@ -1,16 +1,16 @@
 package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.advancement.CraftRecipeTrigger;
+import grill24.potionsplus.core.*;
 import grill24.potionsplus.network.ClientboundSanguineAltarConversionProgressPacket;
 import grill24.potionsplus.network.ClientboundSanguineAltarConversionStatePacket;
+import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
-import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.Particles;
-import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
@@ -154,6 +154,13 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         }
 
         sanguineAltarBlockEntity.state = state;
+        if (state == State.CONVERTED) {
+            level.getEntitiesOfClass(Player.class, new AABB(pos).inflate(16.0)).forEach(player -> {
+                if (player instanceof ServerPlayer serverPlayer) {
+                    Advancements.CRAFT_RECIPE.get().trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE.value(), PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
+                }
+            });
+        }
 
         if(!level.isClientSide()) {
             PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(), new ClientboundSanguineAltarConversionStatePacket(pos, state.ordinal()));

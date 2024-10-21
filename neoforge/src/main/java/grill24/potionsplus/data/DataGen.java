@@ -43,6 +43,7 @@ public class DataGen {
         generator.addProvider(event.includeServer(), new LootTableProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, BUILDER, Set.of(ModInfo.MOD_ID)));
         generator.addProvider(event.includeServer(), new BiomeTagProvider(output, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new AdvancementProvider(output, lookupProvider, existingFileHelper, null));
 
         if (event.includeClient()) {
 //            generator.addProvider(true, new LangProvider(output, ModInfo.MOD_ID, "en_us"));

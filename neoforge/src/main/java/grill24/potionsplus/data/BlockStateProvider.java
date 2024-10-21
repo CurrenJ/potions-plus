@@ -22,7 +22,6 @@ import java.util.Objects;
 import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
 import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
-import static net.minecraft.data.models.model.TextureMapping.getBlockTexture;
 import static grill24.potionsplus.core.Items.DYNAMIC_ICON_INDEX_PROPERTY_NAME;
 
 public class BlockStateProvider extends net.neoforged.neoforge.client.model.generators.BlockStateProvider {
@@ -225,7 +224,7 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
                 .addModel();
 
         itemModels().getBuilder(Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(Blocks.CLOTHESLINE.value())).getPath())
-                .parent(models().getExistingFile(mcLoc("block/oak_fence_post")));
+                .parent(models().getExistingFile(ppId("block/clothesline_inventory")));
     }
 
     private void registerFaceAttachedHorizontalDirectionalBlock(Block block) {

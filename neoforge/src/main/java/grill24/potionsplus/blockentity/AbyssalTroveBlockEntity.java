@@ -292,4 +292,8 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     public Set<PpIngredient> getStoredIngredients() {
         return storedIngredients;
     }
+
+    public float getFillPercentage() {
+        return (float) storedIngredients.size() / getAcceptedIngredients().size();
+    }
 }

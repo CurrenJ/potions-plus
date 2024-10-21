@@ -1,6 +1,8 @@
 package grill24.potionsplus.network;
 
+import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
 import grill24.potionsplus.behaviour.ClotheslineBehaviour;
+import grill24.potionsplus.core.Blocks;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -38,6 +40,7 @@ public record ServerboundConstructClotheslinePacket(BlockPos pos, BlockPos other
                             Level level = serverContext.player().level();
 
                             ClotheslineBehaviour.replaceWithClothelines(level, packet.pos, packet.otherPos);
+                            CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverContext.player(), Blocks.CLOTHESLINE.value().defaultBlockState());
             }) .exceptionally(e -> {
                 // Handle exception
                 context.disconnect(Component.translatable("my_mod.configuration.failed", e.getMessage()));

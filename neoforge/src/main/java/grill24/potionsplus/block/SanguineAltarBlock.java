@@ -1,15 +1,18 @@
 package grill24.potionsplus.block;
 
+import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -133,5 +136,12 @@ public class SanguineAltarBlock extends HorizontalDirectionalBlock implements En
     public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
         Utility.dropContents(level, blockPos, blockState, newState);
         super.onRemove(blockState, level, blockPos, newState, isMoving);
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @javax.annotation.Nullable LivingEntity placer, ItemStack stack) {
+        if(placer instanceof ServerPlayer serverPlayer) {
+            CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverPlayer, state);
+        }
     }
 }

@@ -28,18 +28,14 @@ public class PotionsPlus {
         Items.ITEMS.register(bus);
         Entities.ENTITIES.register(bus);
         Particles.PARTICLE_TYPES.register(bus);
-
         AttachmentTypes.ATTACHMENT_TYPES.register(bus);
-
         Recipes.RECIPE_TYPES.register(bus);
         Recipes.RECIPE_SERIALIZERS.register(bus);
-
         MobEffects.EFFECTS.register(bus);
         Potions.POTIONS.register(bus);
-
         Sounds.SOUNDS.register(bus);
-
         LootModifiers.LOOT_MODIFIERS.register(bus);
+        Advancements.TRIGGERS.register(bus);
 
         Features.FEATURES.register(bus);
 

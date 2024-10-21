@@ -7,6 +7,9 @@ import grill24.potionsplus.network.ServerboundConstructClotheslinePacket;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -16,9 +19,10 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import java.util.List;
+
 public class ClotheslineBehaviour {
     private static final Item INTERACTION_ITEM = Items.STRING;
-    private static final Block INTERACTION_BLOCK = Blocks.OAK_FENCE;
 
     private static boolean firstBlockClicked = false;
     private static BlockPos firstBlockPos = BlockPos.ZERO;
@@ -28,7 +32,7 @@ public class ClotheslineBehaviour {
         BlockPos pos = event.getPos();
         Block block = event.getLevel().getBlockState(pos).getBlock();
         Item item = event.getItemStack().getItem();
-        if (block == INTERACTION_BLOCK && item == INTERACTION_ITEM) {
+        if (block.defaultBlockState().is(BlockTags.FENCES) && item == INTERACTION_ITEM) {
             event.setCanceled(true);
             if (!event.getLevel().isClientSide)
                 return;

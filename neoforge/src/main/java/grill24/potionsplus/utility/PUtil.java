@@ -70,6 +70,11 @@ public class PUtil {
                 return true;
             }
 
+            // Check linked Potion in PotionContents
+            if (!potionContents.potion().equals(otherPotionContents.potion())) {
+                return false;
+            }
+
             // Check potion effects for matching duration and/or amplifier depending on the matching criteria
             List<MobEffectInstance> effects = PUtil.getAllEffects(potionContents);
             List<MobEffectInstance> otherEffects = PUtil.getAllEffects(otherPotionContents);
