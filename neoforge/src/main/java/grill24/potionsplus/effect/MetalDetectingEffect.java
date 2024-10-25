@@ -1,11 +1,15 @@
 package grill24.potionsplus.effect;
 
 import grill24.potionsplus.core.Sounds;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -15,7 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class MetalDetectingEffect extends MobEffect {
+public class MetalDetectingEffect extends MobEffect implements ITickingAreaTooltipDetails {
     private static final Set<Block> DETECTED_BLOCKS = Set.of(
             Blocks.COPPER_ORE,
             Blocks.IRON_ORE,
@@ -36,12 +40,26 @@ public class MetalDetectingEffect extends MobEffect {
     @Override
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         // 50 / 2^amplifier
-        int j = 400 >> amplifier;
+        int j = getTickInterval(amplifier);
         if (j > 0) {
             return duration % j == 0;
         } else {
             return false;
         }
+    }
+
+    public int getRadius(int amplifier) {
+        return (amplifier + 1) * 4;
+    }
+
+    @Override
+    public int getTickInterval(int amplifier) {
+        return 400 >> amplifier;
+    }
+
+    @Override
+    public Component getVerb() {
+        return null;
     }
 
     @Override
@@ -50,11 +68,11 @@ public class MetalDetectingEffect extends MobEffect {
 
         List<BlockPos> detectedBlockPos = new ArrayList<>();
         Set<Block> detectedBlocks = new HashSet<>();
-        final int range = (amplifier + 1) * 4;
+        final int radius = getRadius(amplifier);
         // x, y, z
-        for (int x = -range; x <= range; x++) {
-            for (int y = -range; y <= range; y++) {
-                for (int z = -range; z <= range; z++) {
+        for (int x = -radius; x <= radius; x++) {
+            for (int y = -radius; y <= radius; y++) {
+                for (int z = -radius; z <= radius; z++) {
                     final BlockPos blockPos = pos.offset(x, y, z);
                     final Block block = livingEntity.level().getBlockState(blockPos).getBlock();
                     if (DETECTED_BLOCKS.contains(block)) {
@@ -91,5 +109,19 @@ public class MetalDetectingEffect extends MobEffect {
             }
         }
         return true;
+    }
+
+    @Override
+    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+        int range = getRadius(effectInstance.getAmplifier()) * 2 + 1;
+        MutableComponent area = Component.literal(range + "x" + range).withStyle(ChatFormatting.GREEN);
+        Component tickInterval = Component.literal(String.valueOf(getTickInterval(effectInstance.getAmplifier()))).withStyle(ChatFormatting.GREEN);
+
+        return List.of(
+                Component.translatable("effect.potionsplus.metal_detecting.tooltip_1").withStyle(ChatFormatting.LIGHT_PURPLE),
+                area,
+                Component.translatable("effect.potionsplus.metal_detecting.tooltip_2").withStyle(ChatFormatting.LIGHT_PURPLE),
+                tickInterval,
+                Component.translatable("effect.potionsplus.metal_detecting.tooltip_3").withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 }

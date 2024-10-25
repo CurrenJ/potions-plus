@@ -16,14 +16,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -36,16 +38,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import javax.swing.text.html.Option;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity {
+public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity, IExperienceContainer {
     public static final int CONTAINER_SIZE = 6;
     private Optional<RecipeHolder<BrewingCauldronRecipe>> activeRecipe = Optional.empty();
     private int brewTime = 0;
+    @BlockEntitySerializableData
+    protected float storedExperience = 0;
 
     public BrewingCauldronBlockEntity(BlockPos pos, BlockState state) {
         super(Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get(), pos, state);
@@ -95,37 +98,49 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
             Stream<MobEffectInstance> potionEffects = Arrays.stream(potions).map(PUtil::getPotion).map(Potion::getEffects).flatMap(Collection::stream);
             List<MobEffectInstance> allEffects = Stream.concat(customEffects, potionEffects).toList();
 
-            final ItemStack catalyst = new ItemStack(Items.DIAMOND);
-            ItemStack hasCatalyst = this.items.stream().filter(stack -> stack.is(catalyst.getItem())).findFirst().orElse(ItemStack.EMPTY);
-            if (potions.length > 1 && !hasCatalyst.isEmpty()) {
-                ItemStack potionStack = PUtil.setCustomEffects(new ItemStack(Items.POTION), allEffects);
+            Map<ResourceKey<MobEffect>, MobEffectInstance> effectMap = new HashMap<>();
+            for (MobEffectInstance effect : allEffects) {
+                ResourceKey<MobEffect> key = effect.getEffect().getKey();
+                if (!effectMap.containsKey(key) || effect.getAmplifier() > effectMap.get(key).getAmplifier()) {
+                    effectMap.put(key, effect);
+                }
+            }
 
-                if(allEffects.size() == 2) {
+            int effectCount = effectMap.size();
+            if (potions.length > 1 && effectCount > 1) {
+                ItemStack potionStack = PUtil.setCustomEffects(new ItemStack(potions[0].getItem()), new ArrayList<>(effectMap.values()));
+
+                if(effectCount == 2) {
                     potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_2_effects"));
-                } else if (allEffects.size() == 3) {
+                } else if (effectCount == 3) {
                     potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_3_effects"));
-                } else if (allEffects.size() == 4) {
+                } else if (effectCount == 4) {
                     potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_4_effects"));
-                } else if (allEffects.size() == 5) {
+                } else if (effectCount == 5) {
                     potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_5_effects"));
-                } else if (allEffects.size() == 6) {
+                } else if (effectCount == 6) {
                     potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_6_effects"));
-                } else if (allEffects.size() == 7) {
+                } else if (effectCount == 7) {
                     potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_7_effects"));
-                } else if (allEffects.size() == 8) {
+                } else if (effectCount == 8) {
                     potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_8_effects"));
                 } else {
                     potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_max"));
                 }
 
-                ItemStack[] ingredients = new ItemStack[potions.length + 1];
+                ItemStack[] ingredients = new ItemStack[potions.length];
                 System.arraycopy(potions, 0, ingredients, 0, potions.length);
-                ingredients[potions.length] = catalyst;
 
-                this.activeRecipe = Optional.of(new BrewingCauldronRecipeBuilder().result(potionStack).processingTime(200).ingredients(ingredients).build());
+                this.activeRecipe = Optional.of(new BrewingCauldronRecipeBuilder()
+                        .result(potionStack)
+                        .processingTime(200)
+                        .ingredients(ingredients)
+                        .experienceRequired(50)
+                        .build());
             }
         }
 
+        // ----- Passive Potion Effects on Items Logic -----
         if (this.activeRecipe.isEmpty()) {
             Optional<ItemStack> item = this.items.stream().filter(PUtil::isItemEligibleForPassivePotionEffects).findAny();
             Optional<ItemStack> potion = this.items.stream().filter(PUtil::isPotion).findAny();
@@ -181,7 +196,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
     private void craft() {
         if (level == null) return;
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
             if (activeRecipe.isEmpty()) return;
             final ResourceLocation recipeId = activeRecipe.get().id();
             final BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(activeRecipe.get().value());
@@ -228,6 +243,16 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                     break;
                 }
             }
+
+            // Add experience
+            if (recipe.getExperienceReward() > 0) {
+                this.storedExperience += recipe.getExperienceReward();
+            }
+
+            if (recipe.getExperienceRequired() > 0) {
+                this.storedExperience -= recipe.getExperienceRequired();
+            }
+
             level.playSound(null, worldPosition, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0F, 1.0F);
 
             PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(worldPosition, -1));
@@ -260,10 +285,26 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
         if (hasHeatSource) {
             if (blockEntity.getActiveRecipe().isPresent()) {
-                blockEntity.brewTime++;
-                if (blockEntity.brewTime >= blockEntity.getActiveRecipe().get().value().getProcessingTime()) {
-                    blockEntity.brewTime = 0;
-                    blockEntity.craft();
+                Optional<Player> playerInCauldron = Optional.empty();
+                float experienceRequiredForRecipe = blockEntity.getActiveRecipe().get().value().getExperienceRequired();
+                if (experienceRequiredForRecipe > 0 && blockEntity.storedExperience < experienceRequiredForRecipe) {
+                    List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(pos));
+                    if (!players.isEmpty()) {
+                        playerInCauldron = Optional.of(players.getFirst());
+                        if (!playerInCauldron.get().isCreative()) {
+                            playerInCauldron.get().giveExperiencePoints(-1);
+                        }
+                        blockEntity.storedExperience += 1;
+                    }
+                }
+                boolean isExperienceRequirementMet = blockEntity.storedExperience >= experienceRequiredForRecipe;
+
+                if (isExperienceRequirementMet) {
+                    blockEntity.brewTime++;
+                    if (blockEntity.brewTime >= blockEntity.getActiveRecipe().get().value().getProcessingTime()) {
+                        blockEntity.brewTime = 0;
+                        blockEntity.craft();
+                    }
                 }
 
                 level.setBlock(pos, state, 3);
@@ -272,6 +313,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                 blockEntity.brewTime = 0;
             }
 
+            // Client-side visual effects
             if (isClientSide) {
                 // spawn bubbles particles
 
@@ -290,7 +332,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
     private static void spawnBoilingParticles(Level level, BlockPos pos, double particles) {
         if (level.random.nextDouble() < particles) {
-            final int particleCount = level.random.nextInt(1, 3);
+            final int particleCount = level.random.nextInt(1, 5);
             for (int i = 0; i < particleCount; i++) {
                 SimpleParticleType particle = null;
                 switch (level.random.nextInt(3)) {
@@ -317,5 +359,14 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
     public void onPlayerInsertItem(Player player) {
         // Do nothing.
+    }
+
+    @Override
+    public float getStoredExperience() {
+        return storedExperience;
+    }
+
+    public boolean isAbleToBrew() {
+        return activeRecipe.filter(recipeHolder -> storedExperience >= recipeHolder.value().getExperienceRequired()).isPresent();
     }
 }

@@ -151,3 +151,5 @@ NEOFORGE 1.21
 
 - [x] Update herbalists lectern xx
 - [ ] Maybe make vanilla base lvl 1 potion brewing recipes visible on learned brew? 
+
+- [ ] New metal detecting sounds

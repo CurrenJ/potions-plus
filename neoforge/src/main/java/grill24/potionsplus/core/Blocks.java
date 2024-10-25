@@ -198,7 +198,7 @@ public class Blocks {
 
             boolean isAnyPotion = false;
             for (MobEffectInstance effect : potionContents.getAllEffects()) {
-                isAnyPotion = effect.getEffect().is(MobEffects.ANY_POTION);
+                isAnyPotion = effect.getEffect().is(MobEffects.ANY_POTION) || effect.getEffect().is(MobEffects.ANY_OTHER_POTION);
                 if (isAnyPotion) {
                     break;
                 }

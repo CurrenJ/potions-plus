@@ -22,6 +22,7 @@ public class Potions {
     public static final List<PotionBuilder.PotionsPlusPotionGenerationData> ALL_POTION_GENERATION_DATA = new ArrayList<>();
 
     public static final Holder<Potion> ANY_POTION = POTIONS.register("any_potion", () -> new Potion(new net.minecraft.world.effect.MobEffectInstance(MobEffects.ANY_POTION, 1200, 0)));
+    public static final Holder<Potion> ANY_OTHER_POTION = POTIONS.register("any_other_potion", () -> new Potion(new net.minecraft.world.effect.MobEffectInstance(MobEffects.ANY_OTHER_POTION, 1200, 0)));
 
     public static final PotionBuilder.PotionsPlusPotionGenerationData GEODE_GRACE_POTIONS = new PotionBuilder()
             .name("geode_grace")

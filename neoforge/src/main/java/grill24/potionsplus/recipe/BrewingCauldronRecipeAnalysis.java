@@ -3,25 +3,29 @@ package grill24.potionsplus.recipe;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class BrewingCauldronRecipeAnalysis extends RecipeAnalysis<BrewingCauldronRecipe> {
     // Any recipe input ingredient that is not a potion
-    protected Set<PpIngredient> allPotionsPlusIngredientsNoPotions; // 1 item per ingredient.
+    protected Set<PpIngredient> allPotionsPlusIngredientsNoPotions;
     // Any recipe input ingredient that is not a potion, but the result is a potion
-    protected Set<PpIngredient> allPotionBrewingIngredientsNoPotions; // 1 item per ingredient.
+    protected Set<PpIngredient> allPotionBrewingIngredientsNoPotions;
+    protected Map<ResourceKey<MobEffect>, List<RecipeHolder<BrewingCauldronRecipe>>> mobEffectToBasePotionRecipes;
 
     public BrewingCauldronRecipeAnalysis() {
         super();
 
         allPotionBrewingIngredientsNoPotions = new HashSet<>();
         allPotionsPlusIngredientsNoPotions = new HashSet<>();
+        mobEffectToBasePotionRecipes = new HashMap<>();
     }
 
     public BrewingCauldronRecipeAnalysis(List<RecipeHolder<BrewingCauldronRecipe>> recipes) {
@@ -47,8 +51,14 @@ public class BrewingCauldronRecipeAnalysis extends RecipeAnalysis<BrewingCauldro
                         allPotionBrewingIngredientsNoPotions.add(ingredient);
                     }
                 }
-            }
 
+                if (recipe.value().getDurationToAdd() == 0 && recipe.value().getAmplifierToAdd() == 0 && recipe.value().getResult().is(Items.POTION)) {
+                    List<MobEffectInstance> effects = PUtil.getAllEffects(result);
+                    if (effects.size() == 1) {
+                        mobEffectToBasePotionRecipes.computeIfAbsent(effects.get(0).getEffect().getKey(), k -> new ArrayList<>()).add(recipe);
+                    }
+                }
+            }
         });
     }
 
@@ -66,5 +76,9 @@ public class BrewingCauldronRecipeAnalysis extends RecipeAnalysis<BrewingCauldro
 
     public Set<PpIngredient> getAllPotionBrewingIngredientsNoPotions() {
         return Set.copyOf(allPotionBrewingIngredientsNoPotions);
+    }
+
+    public List<RecipeHolder<BrewingCauldronRecipe>> getRecipesForMobEffect(ResourceKey<MobEffect> mobEffect) {
+        return mobEffectToBasePotionRecipes.getOrDefault(mobEffect, Collections.emptyList());
     }
 }

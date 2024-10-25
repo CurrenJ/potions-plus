@@ -3,17 +3,21 @@ package grill24.potionsplus.effect;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.particle.ParticleConfigurations;
 import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.Utility;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -25,10 +29,11 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
-public class GeodeGraceEffect extends MobEffect {
+public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails {
     private static final WeightedRandomList<WeightedEntry.Wrapper<Block>> STONE_ORE_WEIGHTS = WeightedRandomList.create(
             WeightedEntry.wrap(Blocks.COAL_ORE, 7),
             WeightedEntry.wrap(Blocks.COPPER_ORE, 8),
@@ -91,11 +96,11 @@ public class GeodeGraceEffect extends MobEffect {
         final int maxAttempts = 64;
         final int backToOrigin = 16;
 
-        boolean success = false;
         while (attempt < maxAttempts) {
-            success = tryReplaceBlockWithBlock(stoneOreToSpawn, BuiltInRegistries.BLOCK.getTag(BlockTags.STONE_ORE_REPLACEABLES).get(), mutableBlockPos, level);
-            success = tryReplaceBlockWithBlock(STONE_TO_DEEPSLATE.get(stoneOreToSpawn), BuiltInRegistries.BLOCK.getTag(BlockTags.DEEPSLATE_ORE_REPLACEABLES).get(), mutableBlockPos, level);
-            if (success) {
+            if(tryReplaceBlockWithBlock(stoneOreToSpawn, BuiltInRegistries.BLOCK.getTag(BlockTags.STONE_ORE_REPLACEABLES).get(), mutableBlockPos, level)) {
+                return true;
+            }
+            if(tryReplaceBlockWithBlock(STONE_TO_DEEPSLATE.get(stoneOreToSpawn), BuiltInRegistries.BLOCK.getTag(BlockTags.DEEPSLATE_ORE_REPLACEABLES).get(), mutableBlockPos, level)) {
                 return true;
             }
 
@@ -130,5 +135,12 @@ public class GeodeGraceEffect extends MobEffect {
         }
 
         return Component.translatable(this.getDescriptionId());
+    }
+
+    @Override
+    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+        int percentChance = (int) (ACTIVATION_CHANCE * 100);
+        Component percentage = Utility.formatEffectNumber(percentChance, 0, "%");
+        return List.of(percentage, Component.translatable("effect.minecraft.geode_grace.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 }

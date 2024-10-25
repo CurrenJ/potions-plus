@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Modifier;
 import java.util.stream.IntStream;
 
 public abstract class InventoryBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, RecipeInput {
@@ -94,11 +95,60 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
 
     public void writePacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
         ContainerHelper.saveAllItems(tag, this.items, registryAccess);
+
+        try {
+            for (var field : getClass().getDeclaredFields()) {
+                if (!Modifier.isStatic(field.getModifiers()) && field.isAnnotationPresent(BlockEntitySerializableData.class)) {
+                    String fieldName = field.getName();
+                    Object fieldValue = field.get(this);
+
+                    if (fieldValue instanceof Integer) {
+                        tag.putInt(fieldName, (int) fieldValue);
+                    } else if (fieldValue instanceof Float) {
+                        tag.putFloat(fieldName, (float) fieldValue);
+                    } else if (fieldValue instanceof Double) {
+                        tag.putDouble(fieldName, (double) fieldValue);
+                    } else if (fieldValue instanceof Long) {
+                        tag.putLong(fieldName, (long) fieldValue);
+                    } else if (fieldValue instanceof Boolean) {
+                        tag.putBoolean(fieldName, (boolean) fieldValue);
+                    } else if (fieldValue instanceof String) {
+                        tag.putString(fieldName, (String) fieldValue);
+                    }
+                }
+            }
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void readPacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
         this.items = NonNullList.withSize(getSlots(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, this.items, registryAccess);
+
+        try {
+            for (var field : getClass().getDeclaredFields()) {
+                if (!Modifier.isStatic(field.getModifiers()) && field.isAnnotationPresent(BlockEntitySerializableData.class)) {
+                    String fieldName = field.getName();
+
+                    if (field.getType() == int.class) {
+                        field.setInt(this, tag.getInt(fieldName));
+                    } else if (field.getType() == float.class) {
+                        field.setFloat(this, tag.getFloat(fieldName));
+                    } else if (field.getType() == double.class) {
+                        field.setDouble(this, tag.getDouble(fieldName));
+                    } else if (field.getType() == long.class) {
+                        field.setLong(this, tag.getLong(fieldName));
+                    } else if (field.getType() == boolean.class) {
+                        field.setBoolean(this, tag.getBoolean(fieldName));
+                    } else if (field.getType() == String.class) {
+                        field.set(this, tag.getString(fieldName));
+                    }
+                }
+            }
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

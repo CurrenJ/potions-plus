@@ -19,6 +19,8 @@ public class MobEffects {
 
     public static final Holder<MobEffect> ANY_POTION = EFFECTS.register("any_potion", () ->
             new AnyPotionEffect(MobEffectCategory.BENEFICIAL, 0x000000));
+    public static final Holder<MobEffect> ANY_OTHER_POTION = EFFECTS.register("any_other_potion", () ->
+            new AnyOtherPotionEffect(MobEffectCategory.BENEFICIAL, 0x000000));
 
     public static final Holder<MobEffect> GEODE_GRACE = EFFECTS.register("geode_grace", () ->
             new GeodeGraceEffect(MobEffectCategory.NEUTRAL, 0xECD350));

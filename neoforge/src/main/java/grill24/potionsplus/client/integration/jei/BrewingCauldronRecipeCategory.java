@@ -4,6 +4,7 @@ import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.Utility;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -18,10 +19,12 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static grill24.potionsplus.utility.Utility.ppId;
@@ -72,14 +75,31 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, BrewingCauldronRecipe recipe, @NotNull IFocusGroup focuses) {
         final Point[] inputSlotPositions = INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT.get(recipe.getPpIngredients().size());
-        for (int i = 0; i < inputSlotPositions.length; i++) {
+        int ingredientCount = recipe.getPpIngredients().size();
+        for (int i = 0; i < inputSlotPositions.length && i < ingredientCount; i++) {
+            ItemStack itemStack = recipe.getPpIngredients().get(i).getItemStack();
+            List<ItemStack> itemStacksToDisplay = List.of(itemStack);
+            if (recipe.getDurationToAdd() != 0 || recipe.getAmplifierToAdd() != 0) {
+                itemStacksToDisplay = PUtil.getDisplayStacksForJeiRecipe(itemStack);
+            }
+
             builder.addSlot(RecipeIngredientRole.INPUT, inputSlotPositions[i].x, inputSlotPositions[i].y)
                     .setSlotName("input_" + i)
-                    .addItemStack(recipe.getPpIngredients().size() <= i ? ItemStack.EMPTY : recipe.getPpIngredients().get(i).getItemStack());
+                    .addItemStacks(itemStacksToDisplay);
         }
 
+        List<ItemStack> resultItemStacks = List.of(recipe.getResult());
+        if (recipe.getDurationToAdd() != 0 || recipe.getAmplifierToAdd() != 0) {
+            resultItemStacks = PUtil.getDisplayStacksForJeiRecipe(recipe.getResult());
+        }
         builder.addSlot(RecipeIngredientRole.OUTPUT, 111, 23)
-                .addItemStack(recipe.getResultItemWithTransformations(recipe.getIngredientsAsItemStacks()));
+                .addItemStacks(resultItemStacks);
+
+        if (recipe.getExperienceRequired() > 0) {
+            builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 111, 0)
+                    .setSlotName("experience")
+                    .addItemStack(new ItemStack(Items.EXPERIENCE_BOTTLE));
+        }
 
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 38 - 8, 31 - 8)
                 .setSlotName("cauldron")
@@ -89,29 +109,43 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     @Override
     public void draw(BrewingCauldronRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         int mainColor = 0xFF80FF20;
-        String text = "";
+        String amplifierOrDurationText = "";
         if (recipe.isAmplifierUpgrade()) {
-            text = Component.translatable("jei.potionsplus.amp_upgrade").getString();
+            amplifierOrDurationText = Component.translatable("jei.potionsplus.amp_upgrade").getString();
             mainColor = 0xFFfe70e2;
         } else if (recipe.isDurationUpgrade()) {
-            text = Component.translatable("jei.potionsplus.dur_upgrade").getString();
+            amplifierOrDurationText = Component.translatable("jei.potionsplus.dur_upgrade").getString();
             mainColor = 0xFF5bb6ef;
         }
 
-        if (!text.isBlank()) {
-            Minecraft minecraft = Minecraft.getInstance();
+        Minecraft minecraft = Minecraft.getInstance();
+        if (!amplifierOrDurationText.isBlank()) {
 
             // ARGB
             int shadowColor = 0xFF000000 | (mainColor & 0xFCFCFC) >> 2;
-            int width = minecraft.font.width(text);
+            int width = minecraft.font.width(amplifierOrDurationText);
             int x = background.getWidth() - 2 - width;
             int y = 44;
 
             // TODO 1.13 match the new GuiRepair style
-            guiGraphics.drawString(minecraft.font, text, x + 1, y, shadowColor);
-            guiGraphics.drawString(minecraft.font, text, x, y + 1, shadowColor);
-            guiGraphics.drawString(minecraft.font, text, x + 1, y + 1, shadowColor);
-            guiGraphics.drawString(minecraft.font, text, x, y, mainColor);
+            guiGraphics.drawString(minecraft.font, amplifierOrDurationText, x + 1, y, shadowColor);
+            guiGraphics.drawString(minecraft.font, amplifierOrDurationText, x, y + 1, shadowColor);
+            guiGraphics.drawString(minecraft.font, amplifierOrDurationText, x + 1, y + 1, shadowColor);
+            guiGraphics.drawString(minecraft.font, amplifierOrDurationText, x, y, mainColor);
+        }
+
+        if (recipe.getExperienceRequired() > 0) {
+            String xpText = Component.translatable("jei.potionsplus.requires_xp", String.format("%.1f", recipe.getExperienceRequired())).getString();
+            int width = minecraft.font.width(xpText);
+            int xpTextColour = 0xddaa44cc;
+            int shadowColor = 0xFF000000 | (xpTextColour & 0xFCFCFC) >> 2;
+            int x = 111 - 2 - width;
+            int y = 4;
+
+            guiGraphics.drawString(minecraft.font, xpText, x + 1, y, shadowColor);
+            guiGraphics.drawString(minecraft.font, xpText, x, y + 1, shadowColor);
+            guiGraphics.drawString(minecraft.font, xpText, x + 1, y + 1, shadowColor);
+            guiGraphics.drawString(minecraft.font, xpText, x, y, xpTextColour);
         }
     }
 

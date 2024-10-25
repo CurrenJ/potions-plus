@@ -2,8 +2,13 @@ package grill24.potionsplus.effect;
 
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.Utility;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -14,10 +19,11 @@ import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
-public class SoulMateEffect extends MobEffect {
+public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails{
     public static Set<Integer> soulMates = new HashSet<>();
 
     public SoulMateEffect(MobEffectCategory mobEffectCategory, int color) {
@@ -125,5 +131,15 @@ public class SoulMateEffect extends MobEffect {
         if(!entity.level().isClientSide) {
             soulMates.add(entity.getId());
         }
+    }
+
+    @Override
+    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+        Component percentageComponent = Utility.formatEffectNumber(getPercentToRedirect(effectInstance.getAmplifier()) * 100F, 0, "%");
+
+        return List.of(
+                Component.translatable("effect.potionsplus.soul_mate.tooltip_1").withStyle(ChatFormatting.LIGHT_PURPLE),
+                percentageComponent,
+                Component.translatable("effect.potionsplus.soul_mate.tooltip_2").withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 }

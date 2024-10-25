@@ -8,351 +8,357 @@
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_any_potion",
+      "model": "potionsplus:item/potion_effect_icon_any_other_potion",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.015625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_bad_omen",
+      "model": "potionsplus:item/potion_effect_icon_any_potion",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.03125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_blindness",
+      "model": "potionsplus:item/potion_effect_icon_bad_omen",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.046875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_bone_buddy",
+      "model": "potionsplus:item/potion_effect_icon_blindness",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.0625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_botanical_boost",
+      "model": "potionsplus:item/potion_effect_icon_bone_buddy",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.078125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_conduit_power",
+      "model": "potionsplus:item/potion_effect_icon_botanical_boost",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.09375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_crop_collector",
+      "model": "potionsplus:item/potion_effect_icon_conduit_power",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.109375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_darkness",
+      "model": "potionsplus:item/potion_effect_icon_crop_collector",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_dolphins_grace",
+      "model": "potionsplus:item/potion_effect_icon_darkness",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.140625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_exploding",
+      "model": "potionsplus:item/potion_effect_icon_dolphins_grace",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.15625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_fall_of_the_void",
+      "model": "potionsplus:item/potion_effect_icon_exploding",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.171875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_fire_resistance",
+      "model": "potionsplus:item/potion_effect_icon_fall_of_the_void",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.1875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_flying_time",
+      "model": "potionsplus:item/potion_effect_icon_fire_resistance",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.203125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_fortuitous_fate",
+      "model": "potionsplus:item/potion_effect_icon_flying_time",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.21875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_geode_grace",
+      "model": "potionsplus:item/potion_effect_icon_fortuitous_fate",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.234375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_giant_steps",
+      "model": "potionsplus:item/potion_effect_icon_geode_grace",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.25
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_glowing",
+      "model": "potionsplus:item/potion_effect_icon_giant_steps",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.265625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_harrowing_hands",
+      "model": "potionsplus:item/potion_effect_icon_glowing",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.28125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_haste",
+      "model": "potionsplus:item/potion_effect_icon_harrowing_hands",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.296875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_health_boost",
+      "model": "potionsplus:item/potion_effect_icon_haste",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.3125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_hero_of_the_village",
+      "model": "potionsplus:item/potion_effect_icon_health_boost",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.328125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_hunger",
+      "model": "potionsplus:item/potion_effect_icon_hero_of_the_village",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.34375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_infested",
+      "model": "potionsplus:item/potion_effect_icon_hunger",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.359375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_instant_damage",
+      "model": "potionsplus:item/potion_effect_icon_infested",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_instant_health",
+      "model": "potionsplus:item/potion_effect_icon_instant_damage",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.390625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_invisibility",
+      "model": "potionsplus:item/potion_effect_icon_instant_health",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.40625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_jump_boost",
+      "model": "potionsplus:item/potion_effect_icon_invisibility",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.421875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_levitation",
+      "model": "potionsplus:item/potion_effect_icon_jump_boost",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.4375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_looting",
+      "model": "potionsplus:item/potion_effect_icon_levitation",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.453125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_luck",
+      "model": "potionsplus:item/potion_effect_icon_looting",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.46875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_magnetic",
+      "model": "potionsplus:item/potion_effect_icon_luck",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.484375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_metal_detecting",
+      "model": "potionsplus:item/potion_effect_icon_magnetic",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.5
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_mining_fatigue",
+      "model": "potionsplus:item/potion_effect_icon_metal_detecting",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.515625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_nausea",
+      "model": "potionsplus:item/potion_effect_icon_mining_fatigue",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.53125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_nautical_nitro",
+      "model": "potionsplus:item/potion_effect_icon_nausea",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.546875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_night_vision",
+      "model": "potionsplus:item/potion_effect_icon_nautical_nitro",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.5625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_oozing",
+      "model": "potionsplus:item/potion_effect_icon_night_vision",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.578125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_poison",
+      "model": "potionsplus:item/potion_effect_icon_oozing",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.59375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_raid_omen",
+      "model": "potionsplus:item/potion_effect_icon_poison",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.609375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_reach_for_the_stars",
+      "model": "potionsplus:item/potion_effect_icon_raid_omen",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_regeneration",
+      "model": "potionsplus:item/potion_effect_icon_reach_for_the_stars",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.640625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_resistance",
+      "model": "potionsplus:item/potion_effect_icon_regeneration",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.65625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_saturation",
+      "model": "potionsplus:item/potion_effect_icon_resistance",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.671875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_shepherds_serenade",
+      "model": "potionsplus:item/potion_effect_icon_saturation",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.6875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_slip_n_slide",
+      "model": "potionsplus:item/potion_effect_icon_shepherds_serenade",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.703125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_slow_falling",
+      "model": "potionsplus:item/potion_effect_icon_slip_n_slide",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.71875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_slowness",
+      "model": "potionsplus:item/potion_effect_icon_slow_falling",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.734375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_soul_mate",
+      "model": "potionsplus:item/potion_effect_icon_slowness",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.75
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_speed",
+      "model": "potionsplus:item/potion_effect_icon_soul_mate",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.765625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_strength",
+      "model": "potionsplus:item/potion_effect_icon_speed",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.78125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_teleportation",
+      "model": "potionsplus:item/potion_effect_icon_strength",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.796875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_trial_omen",
+      "model": "potionsplus:item/potion_effect_icon_teleportation",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.8125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_unluck",
+      "model": "potionsplus:item/potion_effect_icon_trial_omen",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.828125
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_water_breathing",
+      "model": "potionsplus:item/potion_effect_icon_unluck",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.84375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_weakness",
+      "model": "potionsplus:item/potion_effect_icon_water_breathing",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.859375
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_weaving",
+      "model": "potionsplus:item/potion_effect_icon_weakness",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.875
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_wind_charged",
+      "model": "potionsplus:item/potion_effect_icon_weaving",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.890625
       }
     },
     {
-      "model": "potionsplus:item/potion_effect_icon_wither",
+      "model": "potionsplus:item/potion_effect_icon_wind_charged",
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.90625
+      }
+    },
+    {
+      "model": "potionsplus:item/potion_effect_icon_wither",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.921875
       }
     }
   ],

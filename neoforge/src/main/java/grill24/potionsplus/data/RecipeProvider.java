@@ -2,6 +2,7 @@ package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipeBuilder;
@@ -12,6 +13,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -169,6 +172,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .processingTime(30)
                 .durationToAdd(100)
                 .potionMatchingCriteria(upgradePotionMatchingCriteria)
+                .isSeededRuntimeRecipe()
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer, "all_potions_duration_increase");
 
@@ -179,8 +183,20 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .processingTime(30)
                 .amplifierToAdd(1)
                 .potionMatchingCriteria(upgradePotionMatchingCriteria)
+                .isSeededRuntimeRecipe()
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer, "amplification_testing");
+
+        ItemStack mergedPotionResult = new ItemStack(net.minecraft.world.item.Items.POTION);
+        PUtil.setCustomEffects(mergedPotionResult, List.of(new MobEffectInstance(MobEffects.ANY_POTION), new MobEffectInstance(MobEffects.ANY_OTHER_POTION)));
+        new BrewingCauldronRecipeBuilder()
+                .result(mergedPotionResult)
+                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_OTHER_POTION, PUtil.PotionType.POTION))
+                .processingTime(30)
+                .experienceRequired(10F)
+                .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.NEVER_MATCH))
+                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
+                .save(recipeConsumer, "merge_potions");
 
 
         // ----- Clothesline Recipes -----

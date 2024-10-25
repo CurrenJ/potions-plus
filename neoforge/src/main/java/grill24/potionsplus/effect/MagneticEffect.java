@@ -1,8 +1,12 @@
 package grill24.potionsplus.effect;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -11,7 +15,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public class MagneticEffect extends MobEffect {
+public class MagneticEffect extends MobEffect implements ITickingTooltipDetails {
     public MagneticEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
     }
@@ -19,7 +23,7 @@ public class MagneticEffect extends MobEffect {
     @Override
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         // 20 / 2^amplifier
-        int j = 20 >> amplifier;
+        int j = getTickInterval(amplifier); // lv 0 = 20, lv 1 = 10, lv 2 = 5, lv 3 = 2
         if (j > 0) {
             return duration % j == 0;
         } else {
@@ -43,5 +47,20 @@ public class MagneticEffect extends MobEffect {
             }
         }
         return true;
+    }
+
+    @Override
+    public int getTickInterval(int amplifier) {
+        return 20 >> amplifier;
+    }
+
+    @Override
+    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+        String tickInterval = String.valueOf(getTickInterval(effectInstance.getAmplifier()));
+        MutableComponent ticks = Component.translatable("tooltip.potionsplus.ticks", tickInterval).withStyle(ChatFormatting.GREEN);
+
+        return List.of(Component.translatable("effect.potionsplus.magnetic.tooltip_1").withStyle(ChatFormatting.LIGHT_PURPLE),
+                ticks,
+                Component.translatable("effect.potionsplus.magnetic.tooltip_2").withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 }

@@ -7,9 +7,7 @@ import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.utility.PUtil;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -139,7 +137,7 @@ public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
                     .ingredients(allIngredients.toArray(new PpIngredient[0]))
                     .processingTime(baseProcessingTime)
                     .group(advancementNameIngredient)
-                    .experience(experience)
+                    .experienceReward(experience)
                     .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER)
                     .isSeededRuntimeRecipe()
                     .build();

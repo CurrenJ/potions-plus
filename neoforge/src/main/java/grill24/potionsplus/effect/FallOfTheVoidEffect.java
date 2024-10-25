@@ -2,7 +2,10 @@ package grill24.potionsplus.effect;
 
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ModInfo;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -12,8 +15,10 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 
+import java.util.List;
+
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
-public class FallOfTheVoidEffect extends MobEffect {
+public class FallOfTheVoidEffect extends MobEffect implements IEffectTooltipDetails {
     public FallOfTheVoidEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
     }
@@ -35,5 +40,11 @@ public class FallOfTheVoidEffect extends MobEffect {
                 livingEntity.addEffect(new MobEffectInstance(net.minecraft.world.effect.MobEffects.SLOW_FALLING, 900, 0));
             }
         }
+    }
+
+    @Override
+    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+        MutableComponent tooltip = Component.translatable("effect.potionsplus.fall_of_the_void.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE);
+        return List.of(tooltip);
     }
 }

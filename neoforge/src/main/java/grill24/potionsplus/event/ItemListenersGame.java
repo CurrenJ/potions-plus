@@ -7,6 +7,7 @@ import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
+import grill24.potionsplus.effect.IEffectTooltipDetails;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.*;
@@ -98,7 +99,9 @@ public class ItemListenersGame {
 
                             BrewingCauldronRecipe recipe = recipeHolder.value();
                             ItemStack recipeResult = recipe.getResult();
-                            if (!PUtil.isPotion(recipeResult) || !PUtil.hasPotion(recipeResult) || Potions.ANY_POTION.is(PUtil.getPotionHolder(recipeResult).getKey()) || !recipe.canShowInJei())
+                            if (!PUtil.isPotion(recipeResult) || !PUtil.hasPotion(recipeResult)
+                                    || Potions.ANY_POTION.is(PUtil.getPotionHolder(recipeResult).getKey()) || Potions.ANY_OTHER_POTION.is(PUtil.getPotionHolder(recipeResult).getKey())
+                                    || !recipe.canShowInJei())
                                 continue;
                             List<MobEffectInstance> potionEffects = PUtil.getPotion(recipeResult).getEffects();
                             String effectName = !potionEffects.isEmpty() ? PUtil.getPotion(recipeResult).getEffects().get(0).getDescriptionId() : "";
@@ -116,6 +119,17 @@ public class ItemListenersGame {
                                 tooltipMessages.add(recipeTextComponents);
                             }
                         }
+                    }
+                }
+            }
+
+            // Potion Effect Details Tooltip
+            if (ppIngredient.getItemStack().has(DataComponents.POTION_CONTENTS)) {
+                PotionContents potionContents = ppIngredient.getItemStack().get(DataComponents.POTION_CONTENTS);
+                List<MobEffectInstance> potionEffectTextComponents = PUtil.getAllEffects(potionContents);
+                for (MobEffectInstance effect : potionEffectTextComponents) {
+                    if(effect.getEffect().value() instanceof IEffectTooltipDetails effectTooltipDetails) {
+                        tooltipMessages.add(effectTooltipDetails.getTooltipDetails(effect));
                     }
                 }
             }

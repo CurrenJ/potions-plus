@@ -3,12 +3,14 @@ package grill24.potionsplus.utility;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.datafixers.util.Function6;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.blockentity.IExperienceContainer;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.persistence.SavedData;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -18,8 +20,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -199,11 +204,15 @@ public class Utility {
     }
 
     public static void dropContents(Level level, BlockPos blockPos, BlockState before, BlockState after) {
-        if (!before.is(after.getBlock())) {
+        if (!before.is(after.getBlock()) && !level.isClientSide && level instanceof ServerLevel serverLevel) {
             BlockEntity blockentity = level.getBlockEntity(blockPos);
             if (blockentity instanceof InventoryBlockEntity inventoryBlockEntity) {
                 Containers.dropContents(level, blockPos, inventoryBlockEntity);
                 level.updateNeighbourForOutputSignal(blockPos, level.getBlockState(blockPos).getBlock());
+            }
+
+            if (blockentity instanceof IExperienceContainer experienceContainer) {
+                after.getBlock().popExperience(serverLevel, blockPos, (int) experienceContainer.getStoredExperience());
             }
         }
     }
@@ -226,5 +235,21 @@ public class Utility {
 
     public static String formatTicksAsSeconds(int ticks) {
         return (int) (ticks / 20F) + " seconds";
+    }
+
+    public static Component formatEffectNumber(float number, int decimalPlaces, String suffix) {
+        String numberString = "";
+        if (number >= 0) {
+            numberString += "+";
+        } else {
+            numberString += "-";
+        }
+        numberString += String.format("%." + decimalPlaces + "f", number);
+        numberString += suffix;
+        return Component.literal(numberString).withStyle(ChatFormatting.GREEN);
+    }
+
+    public static Component formatEffectNumber(int number, String suffix) {
+        return formatEffectNumber(number, 0, suffix);
     }
 }

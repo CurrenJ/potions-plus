@@ -2,7 +2,6 @@ package grill24.potionsplus.recipe.brewingcauldronrecipe;
 
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeBuilder;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.PUtil;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -11,12 +10,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static grill24.potionsplus.utility.Utility.ppId;
-
 public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuilder<BrewingCauldronRecipe, BrewingCauldronRecipeBuilder> {
     protected int durationToAdd;
     protected int amplifierToAdd;
-    protected float experience;
+    protected float experienceReward;
+    protected float experienceRequired;
     protected List<BrewingCauldronRecipe.PotionMatchingCriteria> potionMatchingCriteria;
     protected boolean isSeededRuntimeRecipe = false;
 
@@ -24,7 +22,7 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
         super();
         this.durationToAdd = 0;
         this.amplifierToAdd = 0;
-        this.experience = 0.0F;
+        this.experienceReward = 0.0F;
         this.potionMatchingCriteria = Collections.singletonList(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH);
 
         // All brewing cauldron recipes are in the BREWING category. You have no say in the matter.
@@ -34,7 +32,7 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
     public BrewingCauldronRecipeBuilder(BrewingCauldronRecipe recipe) {
         super(recipe);
         this.durationToAdd = recipe.durationToAdd;
-        this.experience = recipe.experience;
+        this.experienceReward = recipe.experienceReward;
         this.potionMatchingCriteria = recipe.matchingCriteria;
     }
 
@@ -48,8 +46,13 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
         return self();
     }
 
-    public BrewingCauldronRecipeBuilder experience(float experience) {
-        this.experience = experience;
+    public BrewingCauldronRecipeBuilder experienceReward(float experienceReward) {
+        this.experienceReward = experienceReward;
+        return self();
+    }
+
+    public BrewingCauldronRecipeBuilder experienceRequired(float experienceRequired) {
+        this.experienceRequired = experienceRequired;
         return self();
     }
 
@@ -84,7 +87,7 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
     }
 
     public RecipeHolder<BrewingCauldronRecipe> build(String namespace) {
-        BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(category, group, ingredients, result, processingTime, canShowInJei, experience, durationToAdd, amplifierToAdd, potionMatchingCriteria, isSeededRuntimeRecipe);
+        BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(category, group, ingredients, result, processingTime, canShowInJei, experienceReward, experienceRequired, durationToAdd, amplifierToAdd, potionMatchingCriteria, isSeededRuntimeRecipe);
         String id = recipe.getUniqueRecipeName();
         ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(namespace, id);
         return new RecipeHolder<>(recipeId, recipe);

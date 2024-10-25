@@ -50,7 +50,7 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
         matrices.mulPose(RUtil.rotateY((float) ticks));
 
         Optional<RecipeHolder<BrewingCauldronRecipe>> activeRecipe = blockEntity.getActiveRecipe();
-        if (activeRecipe.isPresent()) {
+        if (activeRecipe.isPresent() && blockEntity.isAbleToBrew()) {
             // TODO: Calculate display stack in BlocKEntity on update and store it in a field. Needs this fix for durative upgrades
             ItemStack stack = activeRecipe.get().value().getResult();
             Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,

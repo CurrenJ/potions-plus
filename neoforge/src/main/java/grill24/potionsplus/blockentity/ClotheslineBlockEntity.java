@@ -136,8 +136,8 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                 getItem(slot).shrink(1);
                 setItem(slot, result);
 
-                if (!container.isEmpty()) {
-                    Vector3f spotToPop = ClotheslineBlockEntityBakedRenderData.getItemPoint(getBlockPos(), getBlockState(), slot, true);
+                if (!container.isEmpty() && !result.is(container.getItem())) {
+                    Vector3f spotToPop = new Vector3f(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()); // TODO: FIX ME -> ClotheslineBlockEntityBakedRenderData.getItemPoint(getBlockPos(), getBlockState(), slot, true);
                     ClotheslineBlock.popResource(level, new BlockPos(Math.round(spotToPop.x()), Math.round(spotToPop.y()), Math.round(spotToPop.z())), container);
                 }
 

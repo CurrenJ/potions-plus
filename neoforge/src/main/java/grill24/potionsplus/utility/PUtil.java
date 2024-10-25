@@ -1,5 +1,6 @@
 package grill24.potionsplus.utility;
 
+import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
@@ -43,6 +44,10 @@ public class PUtil {
     }
 
     public static boolean isSameItemOrPotion(ItemStack itemStack, ItemStack other, List<BrewingCauldronRecipe.PotionMatchingCriteria> matchingCriteria) {
+        boolean shouldNeverMatch = matchingCriteria.contains(BrewingCauldronRecipe.PotionMatchingCriteria.NEVER_MATCH);
+        if (shouldNeverMatch) {
+            return false;
+        }
         boolean shouldIgnorePotionContainer = matchingCriteria.contains(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER);
         boolean requiresExactMatch = matchingCriteria.contains(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH);
         boolean shouldIgnorePotionEffects = matchingCriteria.contains(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS);
@@ -271,5 +276,17 @@ public class PUtil {
 
     public static boolean isItemEligibleForPassivePotionEffects(ItemStack itemStack) {
         return itemStack.isDamageableItem() && !PUtil.isPotion(itemStack);
+    }
+
+    public static List<ItemStack> getDisplayStacksForJeiRecipe(ItemStack itemStack) {
+        if (PUtil.isPotion(itemStack)) {
+            // TODO: Add potions HERE
+            boolean isAnyPotion = PUtil.getAllEffects(itemStack).stream().anyMatch(instance -> instance.getEffect().is(MobEffects.ANY_POTION) || instance.getEffect().is(MobEffects.ANY_OTHER_POTION));
+            if(isAnyPotion) {
+                return new ArrayList<>(BuiltInRegistries.POTION.holders().map(potion -> PUtil.createPotionItemStack(potion, PotionType.POTION)).toList());
+            }
+        }
+
+        return Collections.singletonList(itemStack);
     }
 }

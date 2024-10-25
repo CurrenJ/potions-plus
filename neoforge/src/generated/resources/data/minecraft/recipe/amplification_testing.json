@@ -21,6 +21,7 @@
       }
     }
   ],
+  "isSeededRuntimeRecipe": true,
   "matchingCriteria": [
     "ignore_potion_container",
     "ignore_potion_effects_min_1_effect"

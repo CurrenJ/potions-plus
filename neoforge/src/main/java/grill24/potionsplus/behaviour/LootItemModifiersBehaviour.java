@@ -1,8 +1,10 @@
 package grill24.potionsplus.behaviour;
 
+import grill24.potionsplus.effect.IEnchantmentBonusTooltipDetails;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -15,11 +17,12 @@ public class LootItemModifiersBehaviour {
     private static int potions_plus$addBonusLevelsFromMobEffect(int levelIn, Holder<Enchantment> input, ResourceKey<Enchantment> targetEnchantment, Holder<MobEffect> mobEffect, Entity entitySource) {
         int enchantmentLevel = levelIn;
         if (input.is(targetEnchantment)) {
-            if (entitySource instanceof LivingEntity livingEntity) {
-                boolean hasEffect = livingEntity.hasEffect(mobEffect);
-                if (hasEffect) {
-                    int lootingEffectLevel = livingEntity.getEffect(mobEffect).getAmplifier();
-                    enchantmentLevel += lootingEffectLevel + 1;
+            if (entitySource instanceof LivingEntity livingEntity ) {
+                if (livingEntity.hasEffect(mobEffect)) {
+                    MobEffectInstance effect = livingEntity.getEffect(mobEffect);
+                    if (effect.getEffect() instanceof IEnchantmentBonusTooltipDetails enchantmentBonus) {
+                        enchantmentLevel += enchantmentBonus.getEnchantmentBonus(effect);
+                    }
                 }
             }
         }

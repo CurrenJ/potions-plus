@@ -1,6 +1,7 @@
 package grill24.potionsplus.mixin;
 
 import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.effect.NauticalNitroEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -29,8 +30,8 @@ public abstract class BoatMixin extends Entity {
         LivingEntity livingEntity = this.getControllingPassenger();
         if (livingEntity.hasEffect(MobEffects.NAUTICAL_NITRO)) {
             MobEffectInstance effect = livingEntity.getEffect(MobEffects.NAUTICAL_NITRO);
-            if (effect != null) {
-                return f * (effect.getAmplifier() + 1) * 1.2f;
+            if (effect != null && effect.getEffect() instanceof NauticalNitroEffect nauticalNitroEffect) {
+                return f * nauticalNitroEffect.getSpeedMultiplier(effect);
             }
         }
         return f;

@@ -217,6 +217,10 @@
             },
             {
               "function": "minecraft:set_potion",
+              "id": "potionsplus:any_other_potion"
+            },
+            {
+              "function": "minecraft:set_potion",
               "id": "potionsplus:geode_grace"
             },
             {

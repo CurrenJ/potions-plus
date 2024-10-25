@@ -40,22 +40,25 @@ import java.util.function.IntFunction;
 public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
     protected final int durationToAdd;
     protected final int amplifierToAdd;
-    protected final float experience;
+    protected final float experienceReward;
+    protected final float experienceRequired;
     protected final List<PotionMatchingCriteria> matchingCriteria;
     protected final boolean isSeededRuntimeRecipe;
 
     public BrewingCauldronRecipe(BrewingCauldronRecipe recipe) {
         super(recipe.category, recipe.group, recipe.ingredients, recipe.result, recipe.processingTime, recipe.canShowInJei);
-        this.experience = recipe.experience;
+        this.experienceReward = recipe.experienceReward;
+        this.experienceRequired = recipe.experienceRequired;
         this.durationToAdd = recipe.durationToAdd;
         this.amplifierToAdd = recipe.amplifierToAdd;
         this.matchingCriteria = recipe.matchingCriteria;
         this.isSeededRuntimeRecipe = recipe.isSeededRuntimeRecipe;
     }
 
-    public BrewingCauldronRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei, float experience, int durationToAdd, int amplifierToAdd, List<PotionMatchingCriteria> matchingCriteria, boolean isSeededRuntimeRecipe) {
+    public BrewingCauldronRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei, float experienceReward, float experienceRequired, int durationToAdd, int amplifierToAdd, List<PotionMatchingCriteria> matchingCriteria, boolean isSeededRuntimeRecipe) {
         super(category, group, ingredients, result, processingTime, canShowInJei);
-        this.experience = experience;
+        this.experienceReward = experienceReward;
+        this.experienceRequired = experienceRequired;
         this.durationToAdd = durationToAdd;
         this.amplifierToAdd = amplifierToAdd;
         this.matchingCriteria = matchingCriteria;
@@ -128,15 +131,12 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
     }
 
     public boolean isAmplifierUpgrade() {
-        // TODO: Fix me
         return amplifierToAdd > 0;
-//        return this.isTrueInIngredients((pair) -> pair.getA().getAmplifier() < pair.getB().getAmplifier());
     }
 
     public boolean isDurationUpgrade() {
         // TODO: Fix me
         return durationToAdd > 10;
-//        return this.isTrueInIngredients((pair) -> pair.getA().getDuration() < pair.getB().getDuration());
     }
 
     public int getDurationToAdd() {
@@ -178,8 +178,12 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
         return rarities;
     }
 
-    public float getExperience() {
-        return this.experience;
+    public float getExperienceReward() {
+        return this.experienceReward;
+    }
+
+    public float getExperienceRequired() {
+        return this.experienceRequired;
     }
 
     public List<PotionMatchingCriteria> getMatchingCriteria() {
@@ -245,7 +249,8 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
         IGNORE_POTION_EFFECT_AMPLIFIER("ignore_effect_amplifier", 2),
         IGNORE_POTION_EFFECTS("ignore_potion_effects", 3),
         IGNORE_POTION_EFFECTS_MIN_1_EFFECT("ignore_potion_effects_min_1_effect", 4),
-        IGNORE_POTION_CONTAINER("ignore_potion_container", 5);
+        IGNORE_POTION_CONTAINER("ignore_potion_container", 5),
+        NEVER_MATCH("never_match", 6); // Used for recipes that we only want to display in JEI, but not actually match in the brewing cauldron
 
         public static final Codec<PotionMatchingCriteria> CODEC = StringRepresentable.fromEnum(PotionMatchingCriteria::values);
         public static final IntFunction<PotionMatchingCriteria> BY_ID = ByIdMap.continuous(PotionMatchingCriteria::id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
@@ -278,7 +283,8 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
                         ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
                         Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
                         Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei),
-                        Codec.FLOAT.optionalFieldOf("experience", 0F).forGetter(BrewingCauldronRecipe::getExperience),
+                        Codec.FLOAT.optionalFieldOf("experienceReward", 0F).forGetter(BrewingCauldronRecipe::getExperienceReward),
+                        Codec.FLOAT.optionalFieldOf("experienceRequired", 0F).forGetter(BrewingCauldronRecipe::getExperienceRequired),
                         Codec.INT.optionalFieldOf("durationToAdd", 0).forGetter(BrewingCauldronRecipe::getDurationToAdd),
                         Codec.INT.optionalFieldOf("amplifierToAdd", 0).forGetter(BrewingCauldronRecipe::getAmplifierToAdd),
                         PotionMatchingCriteria.CODEC.listOf().fieldOf("matchingCriteria").forGetter(BrewingCauldronRecipe::getMatchingCriteria),
@@ -292,7 +298,8 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
                 ItemStack.STREAM_CODEC, ShapelessProcessingRecipe::getResult,
                 ByteBufCodecs.INT, ShapelessProcessingRecipe::getProcessingTime,
                 ByteBufCodecs.BOOL, ShapelessProcessingRecipe::canShowInJei,
-                ByteBufCodecs.FLOAT, BrewingCauldronRecipe::getExperience,
+                ByteBufCodecs.FLOAT, BrewingCauldronRecipe::getExperienceReward,
+                ByteBufCodecs.FLOAT, BrewingCauldronRecipe::getExperienceRequired,
                 ByteBufCodecs.INT, BrewingCauldronRecipe::getDurationToAdd,
                 ByteBufCodecs.INT, BrewingCauldronRecipe::getAmplifierToAdd,
                 PotionMatchingCriteria.STREAM_CODEC.apply(ByteBufCodecs.list()), BrewingCauldronRecipe::getMatchingCriteria,
