@@ -1,7 +1,6 @@
 package grill24.potionsplus.effect;
 
 import grill24.potionsplus.core.potion.MobEffects;
-import grill24.potionsplus.particle.ParticleConfigurations;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
@@ -11,7 +10,6 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
@@ -70,13 +68,19 @@ public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails
         super(mobEffectCategory, color);
     }
 
+    public static float getActivationChance(int amplifier) {
+        return Math.min(0.1F, ACTIVATION_CHANCE * (amplifier+1));
+    }
+
     @SubscribeEvent
     public static void onLivingEntityDeath(final LivingDeathEvent livingDeathEvent) {
         if (evaluateActivationConditions(livingDeathEvent.getEntity(), livingDeathEvent.getSource().getEntity())) {
             BlockPos pos = livingDeathEvent.getEntity().blockPosition();
             Level level = livingDeathEvent.getEntity().level();
+            MobEffectInstance geodeGraceInstance = livingDeathEvent.getEntity().getEffect(MobEffects.GEODE_GRACE);
+            int amplifier = geodeGraceInstance != null ? geodeGraceInstance.getAmplifier() : 0;
 
-            boolean doTrySpawnOres = level.random.nextFloat() < ACTIVATION_CHANCE;
+            boolean doTrySpawnOres = level.random.nextFloat() < getActivationChance(amplifier);
             if (doTrySpawnOres) {
                 Block stoneOreToSpawn = STONE_ORE_WEIGHTS.getRandom(level.random).get().data();
 
@@ -139,7 +143,7 @@ public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails
 
     @Override
     public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
-        int percentChance = (int) (ACTIVATION_CHANCE * 100);
+        int percentChance = (int) (getActivationChance(effectInstance.getAmplifier()) * 100);
         Component percentage = Utility.formatEffectNumber(percentChance, 0, "%");
         return List.of(percentage, Component.translatable("effect.minecraft.geode_grace.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
     }

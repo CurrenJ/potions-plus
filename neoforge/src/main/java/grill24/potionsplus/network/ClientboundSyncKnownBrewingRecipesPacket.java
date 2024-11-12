@@ -44,6 +44,8 @@ public record ClientboundSyncKnownBrewingRecipesPacket(String recipeId) implemen
                         }
 
                         Player clientPlayer = context.player();
+                        SavedData.instance.getData(clientPlayer).clearKnownRecipes();
+
                         // Split string into array of recipe ids by comma
                         String[] recipeIds = packet.recipeId().split(",");
                         for (String recipeId : recipeIds) {

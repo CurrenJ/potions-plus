@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_deepslate_remnant_debris": {
+    "has_raw_uranium": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:deepslate_remnant_debris"
+            "items": "potionsplus:raw_uranium"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:deepslate_remnant_debris_to_netherite_remnant_blasting"
+        "recipe": "minecraft:raw_uranium_to_uranium_ingot_blasting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_deepslate_remnant_debris"
+      "has_raw_uranium"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:deepslate_remnant_debris_to_netherite_remnant_blasting"
+      "minecraft:raw_uranium_to_uranium_ingot_blasting"
     ]
   }
 }

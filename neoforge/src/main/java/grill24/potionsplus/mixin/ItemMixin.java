@@ -1,5 +1,6 @@
 package grill24.potionsplus.mixin;
 
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ItemStacksTooltip;
@@ -34,6 +35,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, net.neoforg
                 if(!recipes.isEmpty()) {
                     RecipeHolder<BrewingCauldronRecipe> recipe = recipes.getFirst();
                     List<ItemStack> displayStacks = new ArrayList<>(recipe.value().getIngredientsAsItemStacks().stream().filter(ingredient -> !PUtil.isPotion(ingredient)).toList());
+                    displayStacks.addFirst(new ItemStack(Blocks.BREWING_CAULDRON.value()));
                     cir.setReturnValue(Optional.of(new ItemStacksTooltip(displayStacks, recipe.id().toString())));
                 }
             }

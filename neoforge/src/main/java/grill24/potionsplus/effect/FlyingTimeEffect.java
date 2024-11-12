@@ -2,10 +2,10 @@ package grill24.potionsplus.effect;
 
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
@@ -63,8 +63,8 @@ public class FlyingTimeEffect extends MobEffect implements IEffectTooltipDetails
     }
 
     private static float getAdditionalTickRate(float amplifier) {
-        float additionalTicksPerAmplifierLevel = 2f;
-        return additionalTicksPerAmplifierLevel * amplifier;
+        final float additionalTicksPerAmplifierLevel = 2f;
+        return additionalTicksPerAmplifierLevel * PUtil.diminishingReturnsLn(amplifier);
     }
 
     private static float getTickRate(float amplifier) {
@@ -75,7 +75,7 @@ public class FlyingTimeEffect extends MobEffect implements IEffectTooltipDetails
         int playerCount = server.getPlayerList().getPlayerCount();
         if (playerCount > 0 && !FlyingTimeEffect.FLYING_TIME_EFFECT_PLAYERS.isEmpty()) {
             // Base potion effect amplifier is 0, so add 1 for our maths.
-            float averageAmplifier = (float) FlyingTimeEffect.FLYING_TIME_EFFECT_PLAYERS.values().stream().mapToInt(Integer::intValue).sum() / FlyingTimeEffect.FLYING_TIME_EFFECT_PLAYERS.size() + 1;
+            float averageAmplifier = (float) FlyingTimeEffect.FLYING_TIME_EFFECT_PLAYERS.values().stream().mapToInt(Integer::intValue).sum() / FlyingTimeEffect.FLYING_TIME_EFFECT_PLAYERS.size();
             float additionalTicksPerSecond = getAdditionalTickRate((averageAmplifier) * ((float) FlyingTimeEffect.FLYING_TIME_EFFECT_PLAYERS.size() / playerCount));
             server.tickRateManager().setTickRate(getTickRate(additionalTicksPerSecond));
         } else {
@@ -85,7 +85,7 @@ public class FlyingTimeEffect extends MobEffect implements IEffectTooltipDetails
 
     @Override
     public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
-        Component percentageIncrease = Utility.formatEffectNumber(getAdditionalTickRate(effectInstance.getAmplifier() + 1) / 20f * 100f, 0, "%");
+        Component percentageIncrease = Utility.formatEffectNumber(getAdditionalTickRate(effectInstance.getAmplifier()) / 20f * 100f, 0, "%");
         return List.of(percentageIncrease, Component.translatable("effect.potionsplus.flying_time.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 }

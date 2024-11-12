@@ -26,8 +26,7 @@ public class PlayerBrewingKnowledge {
     private final transient Lazy<Set<String>> knownRecipes = Lazy.of(this::buildKnownRecipesFromSerializableData);
 
 
-    public PlayerBrewingKnowledge() {
-    }
+    public PlayerBrewingKnowledge() {}
 
     public static List<RecipeHolder<BrewingCauldronRecipe>> getUnknownRecipesWithIngredient(RecipeAnalysis<BrewingCauldronRecipe> recipeAnalysis, PpIngredient ingredient, PlayerBrewingKnowledge playerBrewingKnowledge) {
         return recipeAnalysis.getRecipesForIngredient(ingredient).stream()
@@ -104,5 +103,15 @@ public class PlayerBrewingKnowledge {
 
     public List<String> getKnownRecipesSerializableData() {
         return knownRecipesSerializableData;
+    }
+
+    public void clearKnownRecipes() {
+        knownRecipesSerializableData.clear();
+        knownRecipes.get().clear();
+    }
+
+    public void clearKnownIngredients() {
+        knownIngredientsSerializableData.clear();
+        knownIngredients.get().clear();
     }
 }

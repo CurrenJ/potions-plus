@@ -6,3 +6,7 @@ py .\ore_isolator_sat.py input_ore/lapis_ore.png 0 1 0 6 1
 py .\ore_isolator_sat.py input_ore/redstone_ore.png 0 1 0 6 4
 py .\ore_isolator_sat.py input_ore/iron_ore.png 0 1 0 6 1
 py .\ore_isolator_sat.py input_ore/coal_ore.png 0 1 1 6 -4
+py .\ore_isolator_sat.py input_ore/uranium_ore_obscured.png 0 0 1 5 4
+py .\ore_isolator_sat.py input_ore/uranium_ore_slightly_exposed.png 0 0 1 5 4
+py .\ore_isolator_sat.py input_ore/uranium_ore_mostly_exposed.png 0 0 1 5 4
+py .\ore_isolator_sat.py input_ore/uranium_ore_fully_exposed.png 0 0 1 5 4

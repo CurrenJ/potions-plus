@@ -6,7 +6,6 @@ import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
 import grill24.potionsplus.block.OreFlowerBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -28,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -111,6 +109,71 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
 
         acquire_ore_flower.requirements(AdvancementRequirements.anyOf(oreFlowerIds))
                 .save(saver, ppId("acquire_ore_flower"), existingFileHelper);
+
+
+        AdvancementHolder sulfurShard = Advancement.Builder.advancement()
+                .parent(createBrewingCauldron)
+                .display(
+                        new ItemStack(grill24.potionsplus.core.Items.SULFUR_SHARD),
+                        Component.translatable("advancements.potionsplus.acquire_sulfur_shard.title"),
+                        Component.translatable("advancements.potionsplus.acquire_sulfur_shard.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false)
+                .rewards(AdvancementRewards.Builder.experience(100))
+                .addCriterion("acquire_sulfur_shard", InventoryChangeTrigger.TriggerInstance.hasItems(grill24.potionsplus.core.Items.SULFUR_SHARD.value()))
+                .requirements(AdvancementRequirements.allOf(List.of("acquire_sulfur_shard")))
+                .save(saver, ppId("acquire_sulfur_shard"), existingFileHelper);
+
+        AdvancementHolder sulfuricAcid = Advancement.Builder.advancement()
+                .parent(sulfurShard)
+                .display(
+                        new ItemStack(grill24.potionsplus.core.Items.SULFURIC_ACID),
+                        Component.translatable("advancements.potionsplus.acquire_sulfuric_acid.title"),
+                        Component.translatable("advancements.potionsplus.acquire_sulfuric_acid.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false)
+                .rewards(AdvancementRewards.Builder.experience(100))
+                .addCriterion("acquire_sulfuric_acid", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(new ItemStack(grill24.potionsplus.core.Items.SULFURIC_ACID))))
+                .requirements(AdvancementRequirements.allOf(List.of("acquire_sulfuric_acid")))
+                .save(saver, ppId("acquire_sulfuric_acid"), existingFileHelper);
+
+        AdvancementHolder acquireUraniumOre = Advancement.Builder.advancement()
+                .parent(sulfurShard)
+                .display(
+                        new ItemStack(grill24.potionsplus.core.Items.RAW_URANIUM),
+                        Component.translatable("advancements.potionsplus.acquire_uranium_ore.title"),
+                        Component.translatable("advancements.potionsplus.acquire_uranium_ore.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false)
+                .rewards(AdvancementRewards.Builder.experience(100))
+                .addCriterion("acquire_raw_uranium", InventoryChangeTrigger.TriggerInstance.hasItems(grill24.potionsplus.core.Items.RAW_URANIUM.value()))
+                .requirements(AdvancementRequirements.allOf(List.of("acquire_raw_uranium")))
+                .save(saver, ppId("acquire_raw_uranium"), existingFileHelper);
+
+        AdvancementHolder acquireUraniumIngot = Advancement.Builder.advancement()
+                .parent(acquireUraniumOre)
+                .display(
+                        new ItemStack(grill24.potionsplus.core.Items.URANIUM_INGOT),
+                        Component.translatable("advancements.potionsplus.acquire_uranium_ingot.title"),
+                        Component.translatable("advancements.potionsplus.acquire_uranium_ingot.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false)
+                .rewards(AdvancementRewards.Builder.experience(100))
+                .addCriterion("acquire_uranium_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(grill24.potionsplus.core.Items.URANIUM_INGOT.value()))
+                .requirements(AdvancementRequirements.allOf(List.of("acquire_uranium_ingot")))
+                .save(saver, ppId("acquire_uranium_ingot"), existingFileHelper);
     }
 
     private static void createSanguineAltarAdvancements(Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper, AdvancementHolder create_brewing_cauldron) {

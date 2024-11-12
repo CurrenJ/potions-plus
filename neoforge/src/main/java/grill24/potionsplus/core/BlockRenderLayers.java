@@ -21,6 +21,8 @@ public class BlockRenderLayers {
     static {
         registerBlock(Blocks.DECORATIVE_FIRE, RenderType.cutout());
         registerBlock(Blocks.ICICLE, RenderType.cutout());
+        registerBlock(Blocks.URANIUM_GLASS, RenderType.cutout());
+        registerBlock(Blocks.POTION_BEACON, RenderType.cutout());
     }
 
     private static void registerBlock(Holder<Block> block, RenderType renderType) {

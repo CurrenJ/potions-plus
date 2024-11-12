@@ -3,6 +3,7 @@ package grill24.potionsplus.data;
 import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.block.ClotheslinePart;
 import grill24.potionsplus.block.ParticleEmitterBlock;
+import grill24.potionsplus.block.UraniumOreBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.utility.ModInfo;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
+import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.Objects;
@@ -40,6 +42,9 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         registerBlockWithModel(Blocks.HERBALISTS_LECTERN.value());
         registerHorizontalDirectionalBlock(Blocks.ABYSSAL_TROVE.value());
         registerHorizontalDirectionalBlock(Blocks.SANGUINE_ALTAR.value());
+
+        // Potion Beacon
+        registerBlockWithModel(Blocks.POTION_BEACON.value());
 
         registerClothesline();
         registerFlowerBlock(Blocks.IRON_OXIDE_DAISY.value());
@@ -83,6 +88,15 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         registerCubeAll(Blocks.DEEPSLATE_REMNANT_DEBRIS.value());
         registerCubeAll(Blocks.REMNANT_DEBRIS.value());
 
+        registerUraniumOre(Blocks.URANIUM_ORE.value());
+        registerUraniumOre(Blocks.DEEPSLATE_URANIUM_ORE.value());
+        registerUraniumOre(Blocks.SANDY_URANIUM_ORE.value());
+        registerUraniumOre(Blocks.MOSSY_URANIUM_ORE.value());
+        registerCubeAll(Blocks.URANIUM_BLOCK.value());
+        registerCubeAll(Blocks.URANIUM_GLASS.value());
+
+        registerCubeAll(Blocks.SULFURIC_NETHER_QUARTZ_ORE.value());
+
         // ----- Items -----
 
         registerPotionEffectIcons();
@@ -105,6 +119,10 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         registerItem(Items.WREATH.value());
 
         registerItem(Items.NETHERITE_REMNANT.value());
+        registerItem(Items.RAW_URANIUM.value());
+        registerItem(Items.URANIUM_INGOT.value());
+        registerItem(Items.SULFUR_SHARD.value());
+        registerItem(Items.SULFURIC_ACID.value());
     }
 
     private void registerCubeAll(Block block) {
@@ -212,6 +230,21 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         }
 
         simpleBlockItem(Blocks.PARTICLE_EMITTER.value(), models().getExistingFile(mcLoc("block/iron_block")));
+    }
+
+    private void registerUraniumOre(Block block) {
+        VariantBlockStateBuilder builder = getVariantBuilder(block);
+        for (UraniumOreBlock.UraniumState state : UraniumOreBlock.UraniumState.values()) {
+            ResourceLocation textureLocation = ppId("block/" + BuiltInRegistries.BLOCK.getKey(block).getPath() + "_"+ state.getSerializedName());
+            ResourceLocation model = ppId(Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block)).getPath() + "_"+ state.getSerializedName());
+            models().cubeAll(model.getPath(), textureLocation);
+
+            builder.partialState().with(UraniumOreBlock.URANIUM_STATE, state).modelForState()
+                    .modelFile(models().getExistingFile(model))
+                    .addModel();
+
+            simpleBlockItem(block, models().getExistingFile(model));
+        }
     }
 
     private void registerClothesline() {

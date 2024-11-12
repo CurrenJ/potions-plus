@@ -32,6 +32,11 @@ public class Items {
     public static final Holder<Item> DEEPSLATE_REMNANT_DEBRIS = ITEMS.register("deepslate_remnant_debris", () -> new BlockItem(Blocks.DEEPSLATE_REMNANT_DEBRIS.value(), properties().fireResistant().rarity(Rarity.UNCOMMON)));
     public static final Holder<Item> NETHERITE_REMNANT = ITEMS.register("netherite_remnant", () -> new Item(properties().rarity(Rarity.UNCOMMON)));
 
+    public static final Holder<Item> RAW_URANIUM = ITEMS.register("raw_uranium", () -> new Item(properties().rarity(Rarity.UNCOMMON)));
+    public static final Holder<Item> URANIUM_INGOT = ITEMS.register("uranium_ingot", () -> new Item(properties().rarity(Rarity.UNCOMMON)));
+    public static final Holder<Item> SULFUR_SHARD = ITEMS.register("sulfur_shard", () -> new Item(properties()));
+    public static final Holder<Item> SULFURIC_ACID = ITEMS.register("sulfuric_acid", () -> new Item(properties()));
+
     // ----- Dynamically Rendered Display Items -----
 
     public static final Holder<Item> POTION_EFFECT_ICON = ITEMS.register("potion_effect_icon", () -> new Item(properties()));

@@ -1,5 +1,6 @@
 package grill24.potionsplus.utility;
 
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -39,24 +40,24 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     private int backgroundWidth() {
-        return isShowing() ? this.gridSizeX() * 18 + 2 : 0;
+        return isShowing() ? this.gridSizeX() * SLOT_SIZE_X + 2 : 0;
     }
 
     private int backgroundHeight() {
-        return isShowing() ? this.gridSizeY() * 20 + 2 : 0;
+        return isShowing() ? this.gridSizeY() * SLOT_SIZE_Y + 2 : 0;
     }
 
     @Override
     public void renderImage(Font font, int x, int y, GuiGraphics guiGraphics) {
         if(isShowing()) {
-            int i = this.gridSizeX();
-            int j = this.gridSizeY();
+            int xMax = this.gridSizeX();
+            int yMax = this.gridSizeY();
             int k = 0;
 
-            for (int l = 0; l < j; l++) {
-                for (int i1 = 0; i1 < i; i1++) {
-                    int j1 = x + i1 * 18 + 1;
-                    int k1 = y + l * 20 + 1;
+            for (int yIndex = 0; yIndex < yMax; yIndex++) {
+                for (int xIndex = 0; xIndex < xMax; xIndex++) {
+                    int j1 = x + xIndex * SLOT_SIZE_X + BORDER_WIDTH;
+                    int k1 = y + yIndex * SLOT_SIZE_Y + BORDER_WIDTH;
                     this.renderSlot(j1, k1, k++, guiGraphics, font);
                 }
             }
@@ -69,11 +70,12 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     private void renderSlot(int x, int y, int itemIndex, GuiGraphics guiGraphics, Font font) {
-        if (itemIndex >= this.items.size()) {
-            this.blit(guiGraphics, x, y, ClientItemStacksTooltip.Texture.SLOT);
-        } else {
+        if (itemIndex < this.items.size()) {
             ItemStack itemstack = this.items.get(itemIndex);
-            this.blit(guiGraphics, x, y, ClientItemStacksTooltip.Texture.SLOT);
+            if (!itemstack.is(Blocks.BREWING_CAULDRON.value().asItem())) {
+                this.blit(guiGraphics, x, y, ClientItemStacksTooltip.Texture.SLOT);
+            }
+
             guiGraphics.renderItem(itemstack, x + 1, y + 1, itemIndex);
             guiGraphics.renderItemDecorations(font, itemstack, x + 1, y + 1);
         }

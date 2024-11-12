@@ -9,10 +9,12 @@ import grill24.potionsplus.core.PotionsPlus;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
@@ -29,9 +31,7 @@ import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.minecraft.world.level.storage.loot.functions.SetPotionFunction;
-import net.minecraft.world.level.storage.loot.functions.SetStewEffectFunction;
+import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -77,6 +77,11 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
 
             Blocks.BLOCKS.getEntries().stream().filter((block) -> block.value() instanceof OreFlowerBlock).forEach((block) -> dropSelf(consumer, block.value()));
 
+            consumer.accept(Blocks.URANIUM_ORE.value().getLootTable(), createOreDrop(Blocks.URANIUM_ORE.value(), grill24.potionsplus.core.Items.RAW_URANIUM.value()));
+            consumer.accept(Blocks.DEEPSLATE_URANIUM_ORE.value().getLootTable(), createOreDrop(Blocks.DEEPSLATE_URANIUM_ORE.value(), grill24.potionsplus.core.Items.RAW_URANIUM.value()));
+            consumer.accept(Blocks.SANDY_URANIUM_ORE.value().getLootTable(), createOreDrop(Blocks.SANDY_URANIUM_ORE.value(), grill24.potionsplus.core.Items.RAW_URANIUM.value()));
+            consumer.accept(Blocks.MOSSY_URANIUM_ORE.value().getLootTable(), createOreDrop(Blocks.MOSSY_URANIUM_ORE.value(), grill24.potionsplus.core.Items.RAW_URANIUM.value()));
+
             consumer.accept(Blocks.SANDY_COPPER_ORE.value().getLootTable(), createCopperOreDrops(Blocks.SANDY_COPPER_ORE.value()));
             consumer.accept(Blocks.SANDY_IRON_ORE.value().getLootTable(), createOreDrop(Blocks.SANDY_IRON_ORE.value(), Items.RAW_IRON));
             consumer.accept(Blocks.SANDY_GOLD_ORE.value().getLootTable(), createOreDrop(Blocks.SANDY_GOLD_ORE.value(), Items.RAW_GOLD));
@@ -113,6 +118,23 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
 
             dropSelf(consumer, Blocks.REMNANT_DEBRIS.value());
             dropSelf(consumer, Blocks.DEEPSLATE_REMNANT_DEBRIS.value());
+
+            consumer.accept(
+                    Blocks.SULFURIC_NETHER_QUARTZ_ORE.value().getLootTable(),
+                    LootTable.lootTable()
+                            .withPool(
+                                    LootPool.lootPool()
+                                            .setRolls(ConstantValue.exactly(1.0F))
+                                            .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(1))
+                                            .apply(ApplyBonusCount.addOreBonusCount(registries.asGetterLookup().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE)))
+                            ).withPool(
+                            LootPool.lootPool()
+                                    .setRolls(ConstantValue.exactly(1.0F))
+                                    .add(LootItem.lootTableItem(grill24.potionsplus.core.Items.SULFUR_SHARD.value()).setWeight(1))
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addOreBonusCount(registries.asGetterLookup().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE)))
+                            )
+            );
         }
 
         private void dropSelf(BiConsumer<net.minecraft.resources.ResourceKey<LootTable>, LootTable.Builder> consumer, Block block) {

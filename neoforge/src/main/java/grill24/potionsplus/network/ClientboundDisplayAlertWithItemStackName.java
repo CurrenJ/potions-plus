@@ -14,14 +14,20 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundDisplayAlertWithItemStackName(String localizationKey, ItemStack param) implements CustomPacketPayload {
+public record ClientboundDisplayAlertWithItemStackName(String localizationKey, ItemStack param, Boolean playSound) implements CustomPacketPayload {
+    public ClientboundDisplayAlertWithItemStackName(String localizationKey) {
+        this(localizationKey, ItemStack.EMPTY, false);
+    }
+
     public static final Type<ClientboundDisplayAlertWithItemStackName> TYPE = new Type<>(ppId("brewing_ingredient_knowledge"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundDisplayAlertWithItemStackName> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.STRING_UTF8,
             ClientboundDisplayAlertWithItemStackName::localizationKey,
-            ItemStack.STREAM_CODEC,
+            ItemStack.OPTIONAL_STREAM_CODEC,
             ClientboundDisplayAlertWithItemStackName::param,
+            ByteBufCodecs.BOOL,
+            ClientboundDisplayAlertWithItemStackName::playSound,
             ClientboundDisplayAlertWithItemStackName::new
     );
 
@@ -40,9 +46,16 @@ public record ClientboundDisplayAlertWithItemStackName(String localizationKey, I
                         }
 
                         Player clientPlayer = context.player();
-                        MutableComponent text = Component.translatable(packet.localizationKey, packet.param.getHoverName());
+                        MutableComponent text;
+                        if (packet.param.isEmpty()) {
+                            text = Component.translatable(packet.localizationKey);
+                        } else {
+                            text = Component.translatable(packet.localizationKey, packet.param.getHoverName());
+                        }
                         clientPlayer.displayClientMessage(text, true);
-                        clientPlayer.playSound(SoundEvents.PLAYER_LEVELUP, 1.0F, 1.0F);
+                        if(packet.playSound) {
+                            clientPlayer.playSound(SoundEvents.PLAYER_LEVELUP, 0.75F, 1.0F);
+                        }
                     }
             );
         }

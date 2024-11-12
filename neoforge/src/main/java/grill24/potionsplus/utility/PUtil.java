@@ -289,4 +289,15 @@ public class PUtil {
 
         return Collections.singletonList(itemStack);
     }
+
+    public static float diminishingReturnsLn(float amplifier) {
+        return (float) Math.log(amplifier + 1) + 1;
+    }
+
+    public static float diminishingReturns(float amplifier, float horizontalAsymptote) {
+        if(horizontalAsymptote < 0) {
+            throw new IllegalArgumentException("Horizontal asymptote must be greater than or equal to 0");
+        }
+        return 2 * (horizontalAsymptote * amplifier) / (horizontalAsymptote + amplifier);
+    }
 }

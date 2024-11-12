@@ -16,7 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +27,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -45,7 +43,10 @@ import java.util.stream.Stream;
 
 public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity, IExperienceContainer {
     public static final int CONTAINER_SIZE = 6;
+
     private Optional<RecipeHolder<BrewingCauldronRecipe>> activeRecipe = Optional.empty();
+    private ItemStack resultWithTransformations = ItemStack.EMPTY;
+
     private int brewTime = 0;
     @BlockEntitySerializableData
     protected float storedExperience = 0;
@@ -160,6 +161,14 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                                 .build());
             }
         }
+
+
+        // Always at end
+        if (this.activeRecipe.isPresent()) {
+            this.resultWithTransformations = this.activeRecipe.get().value().getResultItemWithTransformations(this.items);
+        } else {
+            this.resultWithTransformations = ItemStack.EMPTY;
+        }
     }
 
     public Optional<RecipeHolder<BrewingCauldronRecipe>> getActiveRecipe() {
@@ -173,17 +182,20 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
     public int getWaterColor(BlockAndTintGetter world, BlockPos pos) {
         Color waterColor = new Color(BiomeColors.getAverageWaterColor(world, pos));
 
-        if (activeRecipe.isPresent() && PUtil.isPotion(activeRecipe.get().value().getResult())) {
-            List<MobEffectInstance> effects = PUtil.getAllEffects(PUtil.getPotionContents(activeRecipe.get().value().getResult()));
-            Color potionColor = new Color(PotionContents.getColor(effects));
+        if (activeRecipe.isPresent()) {
+            ItemStack result = activeRecipe.get().value().getResultItemWithTransformations(this.items);
+            if (result.has(DataComponents.POTION_CONTENTS)) {
+                List<MobEffectInstance> effects = PUtil.getAllEffects(PUtil.getPotionContents(result));
+                Color potionColor = new Color(PotionContents.getColor(effects));
 
-            // Lerp water and potions
-            float lerp = (float) brewTime / activeRecipe.get().value().getProcessingTime();
-            return new Color(
-                    Utility.lerp(waterColor.getRed(), potionColor.getRed(), lerp),
-                    Utility.lerp(waterColor.getGreen(), potionColor.getGreen(), lerp),
-                    Utility.lerp(waterColor.getBlue(), potionColor.getBlue(), lerp)
-            ).getRGB();
+                // Lerp water and potions
+                float lerp = (float) brewTime / activeRecipe.get().value().getProcessingTime();
+                return new Color(
+                        Utility.lerp(waterColor.getRed(), potionColor.getRed(), lerp),
+                        Utility.lerp(waterColor.getGreen(), potionColor.getGreen(), lerp),
+                        Utility.lerp(waterColor.getBlue(), potionColor.getBlue(), lerp)
+                ).getRGB();
+            }
         }
 
         return waterColor.getRGB();
@@ -368,5 +380,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
     public boolean isAbleToBrew() {
         return activeRecipe.filter(recipeHolder -> storedExperience >= recipeHolder.value().getExperienceRequired()).isPresent();
+    }
+
+    public ItemStack getResultWithTransformations() {
+        return resultWithTransformations;
     }
 }

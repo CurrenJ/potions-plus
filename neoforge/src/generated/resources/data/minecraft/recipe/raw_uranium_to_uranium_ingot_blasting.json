@@ -4,10 +4,10 @@
   "cookingtime": 50,
   "experience": 2.0,
   "ingredient": {
-    "item": "potionsplus:deepslate_remnant_debris"
+    "item": "potionsplus:raw_uranium"
   },
   "result": {
     "count": 1,
-    "id": "potionsplus:netherite_remnant"
+    "id": "potionsplus:uranium_ingot"
   }
 }

@@ -77,12 +77,14 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
      */
     public ItemStack getResultWithTransformations(List<ItemStack> suppliedIngredients, Function<Integer, Integer> transformDuration, Function<Integer, Integer> transformAmplifier) {
         Optional<ItemStack> inputPotionOptional = suppliedIngredients.stream()
-                .filter(PUtil::isPotion).findFirst();
+                .filter(PUtil::isPotion).filter((stack) -> stack.has(DataComponents.POTION_CONTENTS)).findFirst();
         ItemStack transformedResult = this.getResult();
 
         // In order to upgrade the amplifier or duration of a potion arbitrarily, we need to have an input potion to work with.
-        if (inputPotionOptional.isPresent() && (isDurationUpgrade() || isAmplifierUpgrade())) {
-            transformedResult = inputPotionOptional.get().copy();
+        // Also, to brew splash potions / lingering potions, we transform the input potion accordingly.
+        if (inputPotionOptional.isPresent() && (isDurationUpgrade() || isAmplifierUpgrade() || (PUtil.isPotion(this.getResult()) && !inputPotionOptional.get().is(transformedResult.getItem())))) {
+            transformedResult = new ItemStack(transformedResult.getItem());
+            transformedResult.set(DataComponents.POTION_CONTENTS, PUtil.getPotionContents(inputPotionOptional.get()));
 
             // Get all effects from all input potions
             List<MobEffectInstance> allInputEffects = suppliedIngredients.stream()
@@ -109,7 +111,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             }
 
             // Get the name of the input potion
-            Component name = transformedResult.getOrDefault(DataComponents.ITEM_NAME, Component.translatable(transformedResult.getDescriptionId()));
+            Component name = inputPotionOptional.get().getOrDefault(DataComponents.ITEM_NAME, Component.translatable(inputPotionOptional.get().getDescriptionId()));
 
             // Update data components of the transformed result
             transformedResult.set(DataComponents.ITEM_NAME, name);

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 2.0,
+  "ingredient": {
+    "tag": "potionsplus:uranium_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "potionsplus:uranium_ingot"
+  }
+}

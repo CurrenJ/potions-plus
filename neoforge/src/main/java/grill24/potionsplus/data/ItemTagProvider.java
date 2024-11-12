@@ -105,6 +105,18 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Blocks.GOLDEN_CUBENSIS.value().asItem(),
                 Blocks.LAPIS_LILAC.value().asItem()
         );
+
+        tag(Tags.Items.REMNANT_DEBRIS).add(
+                grill24.potionsplus.core.Items.REMNANT_DEBRIS.value(),
+                grill24.potionsplus.core.Items.DEEPSLATE_REMNANT_DEBRIS.value()
+        );
+
+        tag(Tags.Items.URANIUM_ORE).add(
+                Blocks.URANIUM_ORE.value().asItem(),
+                Blocks.DEEPSLATE_URANIUM_ORE.value().asItem(),
+                Blocks.SANDY_URANIUM_ORE.value().asItem(),
+                Blocks.MOSSY_URANIUM_ORE.value().asItem()
+        );
     }
 
     @Override

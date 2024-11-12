@@ -16,6 +16,8 @@
     "minecraft:lapis_ore",
     "minecraft:deepslate_lapis_ore",
     "minecraft:redstone_ore",
-    "minecraft:deepslate_redstone_ore"
+    "minecraft:deepslate_redstone_ore",
+    "potionsplus:uranium_ore",
+    "potionsplus:deepslate_uranium_ore"
   ]
 }

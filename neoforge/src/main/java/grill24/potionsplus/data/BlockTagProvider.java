@@ -25,13 +25,15 @@ public class BlockTagProvider extends BlockTagsProvider {
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.DENSE_DIAMOND_ORE.value(), Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), Blocks.REMNANT_DEBRIS.value(), Blocks.DEEPSLATE_REMNANT_DEBRIS.value());
         tag(BlockTags.DIAMOND_ORES).add(Blocks.DENSE_DIAMOND_ORE.value(), Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.value());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.URANIUM_ORE.value(), Blocks.DEEPSLATE_URANIUM_ORE.value());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.SULFURIC_NETHER_QUARTZ_ORE.value());
         tag(Tags.Blocks.ORES).add(Blocks.DENSE_DIAMOND_ORE.value(), Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), Blocks.DEEPSLATE_REMNANT_DEBRIS.value(), Blocks.REMNANT_DEBRIS.value());
         tag(Tags.Blocks.ORES_DIAMOND).add(Blocks.DENSE_DIAMOND_ORE.value(), Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.value());
         tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(Blocks.DENSE_DIAMOND_ORE.value(), Blocks.REMNANT_DEBRIS.value());
         tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), Blocks.DEEPSLATE_REMNANT_DEBRIS.value());
 
-        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(Blocks.SANDY_COPPER_ORE.value(), Blocks.SANDY_IRON_ORE.value(), Blocks.SANDY_GOLD_ORE.value(), Blocks.SANDY_DIAMOND_ORE.value(), Blocks.SANDY_EMERALD_ORE.value(), Blocks.SANDY_LAPIS_ORE.value(), Blocks.SANDY_REDSTONE_ORE.value(), Blocks.SANDY_COAL_ORE.value());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.MOSSY_COPPER_ORE.value(), Blocks.MOSSY_IRON_ORE.value(), Blocks.MOSSY_GOLD_ORE.value(), Blocks.MOSSY_DIAMOND_ORE.value(), Blocks.MOSSY_EMERALD_ORE.value(), Blocks.MOSSY_LAPIS_ORE.value(), Blocks.MOSSY_REDSTONE_ORE.value(), Blocks.MOSSY_COAL_ORE.value());
+        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(Blocks.SANDY_COPPER_ORE.value(), Blocks.SANDY_IRON_ORE.value(), Blocks.SANDY_GOLD_ORE.value(), Blocks.SANDY_DIAMOND_ORE.value(), Blocks.SANDY_EMERALD_ORE.value(), Blocks.SANDY_LAPIS_ORE.value(), Blocks.SANDY_REDSTONE_ORE.value(), Blocks.SANDY_COAL_ORE.value(), Blocks.SANDY_URANIUM_ORE.value());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.MOSSY_COPPER_ORE.value(), Blocks.MOSSY_IRON_ORE.value(), Blocks.MOSSY_GOLD_ORE.value(), Blocks.MOSSY_DIAMOND_ORE.value(), Blocks.MOSSY_EMERALD_ORE.value(), Blocks.MOSSY_LAPIS_ORE.value(), Blocks.MOSSY_REDSTONE_ORE.value(), Blocks.MOSSY_COAL_ORE.value(), Blocks.MOSSY_URANIUM_ORE.value());
 
         tag(grill24.potionsplus.core.Tags.Blocks.FREEZABLE).add(net.minecraft.world.level.block.Blocks.WATER);
 
@@ -52,7 +54,9 @@ public class BlockTagProvider extends BlockTagsProvider {
                         net.minecraft.world.level.block.Blocks.LAPIS_ORE,
                         net.minecraft.world.level.block.Blocks.DEEPSLATE_LAPIS_ORE,
                         net.minecraft.world.level.block.Blocks.REDSTONE_ORE,
-                        net.minecraft.world.level.block.Blocks.DEEPSLATE_REDSTONE_ORE
+                        net.minecraft.world.level.block.Blocks.DEEPSLATE_REDSTONE_ORE,
+                        Blocks.URANIUM_ORE.value(),
+                        Blocks.DEEPSLATE_URANIUM_ORE.value()
                         );
     }
 

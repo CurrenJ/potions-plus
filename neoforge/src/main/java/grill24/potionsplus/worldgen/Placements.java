@@ -24,6 +24,7 @@ public class Placements {
     // Misc.
     public static final ResourceKey<PlacedFeature> ORE_DENSE_DIAMOND_SMALL_PLACED_KEY = createKey("ore_dense_diamond_small");
     public static final ResourceKey<PlacedFeature> ORE_REMNANT_DEBRIS_KEY = createKey("ore_remnant_debris");
+    public static final ResourceKey<PlacedFeature> ORE_URANIUM_KEY = createKey("ore_uranium");
 
     public static final ResourceKey<PlacedFeature> LUNAR_BERRY_BUSH_KEY = createKey("patch_lunar_berry_bush");
     public static final ResourceKey<PlacedFeature> LUNAR_BERRY_BUSH_RARE_KEY = createKey("patch_lunar_berry_bush_rare");
@@ -56,6 +57,8 @@ public class Placements {
                 ORE_DENSE_DIAMOND_SMALL, OrePlacements.commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))).toArray(new PlacementModifier[0]));
         final Holder<ConfiguredFeature<?, ?>> ORE_REMNANT_DEBRIS = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.ORE_REMNANT_DEBRIS_KEY);
         final Holder<PlacedFeature> ORE_REMNANT_DEBRIS_PLACED = register(context, ORE_REMNANT_DEBRIS_KEY, ORE_REMNANT_DEBRIS, OrePlacements.commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))).toArray(new PlacementModifier[0]));
+        final Holder<PlacedFeature> ORE_URANIUM = register(context, ORE_URANIUM_KEY, configuredFeatureGetter.getOrThrow(ConfiguredFeatures.ORE_URANIUM_KEY),
+                OrePlacements.commonOrePlacement(6, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))).toArray(new PlacementModifier[0]));
 
         final Holder<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.LUNAR_BERRY_BUSH_KEY);
         final Holder<PlacedFeature> LUNAR_BERRY_BUSH_PLACED = register(context, LUNAR_BERRY_BUSH_KEY,

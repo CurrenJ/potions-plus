@@ -9,6 +9,9 @@
     "potionsplus:deepslate_dense_diamond_ore",
     "potionsplus:remnant_debris",
     "potionsplus:deepslate_remnant_debris",
+    "potionsplus:uranium_ore",
+    "potionsplus:deepslate_uranium_ore",
+    "potionsplus:sulfuric_nether_quartz_ore",
     "potionsplus:mossy_copper_ore",
     "potionsplus:mossy_iron_ore",
     "potionsplus:mossy_gold_ore",
@@ -16,6 +19,7 @@
     "potionsplus:mossy_emerald_ore",
     "potionsplus:mossy_lapis_ore",
     "potionsplus:mossy_redstone_ore",
-    "potionsplus:mossy_coal_ore"
+    "potionsplus:mossy_coal_ore",
+    "potionsplus:mossy_uranium_ore"
   ]
 }

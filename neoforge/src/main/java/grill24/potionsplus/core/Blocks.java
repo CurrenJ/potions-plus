@@ -17,7 +17,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -55,6 +54,8 @@ public class Blocks {
             new PrecisionDispenserBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.METAL)));
     public static final Holder<Block> CLOTHESLINE = register("clothesline", () ->
             new ClotheslineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion().strength(0.8F).sound(SoundType.WOOD)));
+    public static final Holder<Block> POTION_BEACON = register("potion_beacon", () ->
+            new PotionBeaconBlock(BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.BEACON).mapColor(MapColor.WOOD).requiresCorrectToolForDrops().strength(2.5F).sound(SoundType.WOOD)));
 
     public static final Holder<Block> LUNAR_BERRY_BUSH = register("lunar_berry_bush", () ->
             new LunarBerryBushBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.SWEET_BERRY_BUSH).noOcclusion().lightLevel(LunarBerryBushBlock.LIGHT_EMISSION)), false);
@@ -110,6 +111,22 @@ public class Blocks {
             new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F)));
     public static final Holder<Block> DEEPSLATE_DENSE_DIAMOND_ORE = register("deepslate_dense_diamond_ore", () ->
             new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(4.5F, 3.0F)));
+
+    public static final Holder<Block> URANIUM_ORE = register("uranium_ore", () ->
+            new UraniumOreBlock(UniformInt.of(4, 9), BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.STONE)));
+    public static final Holder<Block> DEEPSLATE_URANIUM_ORE = register("deepslate_uranium_ore", () ->
+            new UraniumOreBlock(UniformInt.of(4, 9), BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.DEEPSLATE)));
+    public static final Holder<Block> SANDY_URANIUM_ORE = register("sandy_uranium_ore", () ->
+            new UraniumOreBlock(UniformInt.of(4, 9), BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.SAND)));
+    public static final Holder<Block> MOSSY_URANIUM_ORE = register("mossy_uranium_ore", () ->
+            new UraniumOreBlock(UniformInt.of(4, 9), BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.MOSSY_COBBLESTONE)));
+    public static final Holder<Block> URANIUM_BLOCK = register("uranium_block", () ->
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL).lightLevel((state) -> 10)));
+    public static final Holder<Block> URANIUM_GLASS = register("uranium_glass", () ->
+            new TransparentBlock(BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.GLASS).mapColor(MapColor.COLOR_GREEN).requiresCorrectToolForDrops().strength(0.3F).sound(SoundType.GLASS).lightLevel((state) -> 10)));
+
+    public static final Holder<Block> SULFURIC_NETHER_QUARTZ_ORE = register("sulfuric_nether_quartz_ore", () ->
+            new DropExperienceBlock(UniformInt.of(2, 5), BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.NETHER_QUARTZ_ORE)));
 
     public static final Holder<Block> COOBLESTONE = register("cooblestone", () ->
             new CooblestoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel(state -> 10)));
@@ -173,6 +190,7 @@ public class Blocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SanguineAltarBlockEntity>> SANGUINE_ALTAR_BLOCK_ENTITY = BLOCK_ENTITIES.register("sanguine_altar_block_entity", () -> BlockEntityType.Builder.of(SanguineAltarBlockEntity::new, SANGUINE_ALTAR.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AbyssalTroveBlockEntity>> ABYSSAL_TROVE_BLOCK_ENTITY = BLOCK_ENTITIES.register("abyssal_trove_block_entity", () -> BlockEntityType.Builder.of(AbyssalTroveBlockEntity::new, ABYSSAL_TROVE.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ClotheslineBlockEntity>> CLOTHESLINE_BLOCK_ENTITY = BLOCK_ENTITIES.register("clothesline_block_entity", () -> BlockEntityType.Builder.of(ClotheslineBlockEntity::new, CLOTHESLINE.value()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PotionBeaconBlockEntity>> POTION_BEACON_BLOCK_ENTITY = BLOCK_ENTITIES.register("potion_beacon_block_entity", () -> BlockEntityType.Builder.of(PotionBeaconBlockEntity::new, POTION_BEACON.value()).build(null));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent

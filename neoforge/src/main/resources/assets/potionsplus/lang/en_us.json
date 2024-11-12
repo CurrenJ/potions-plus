@@ -35,6 +35,16 @@
   "block.potionsplus.remnant_debris": "Remnant Debris",
   "block.potionsplus.deepslate_remnant_debris": "Deepslate Remnant Debris",
 
+  "block.potionsplus.uranium_ore.not_exposed": "Some sulfuric acid might loosen this up...",
+  "block.potionsplus.uranium_ore": "Uranium Ore",
+  "block.potionsplus.deepslate_uranium_ore": "Deepslate Uranium Ore",
+  "block.potionsplus.sulfuric_nether_quartz_ore": "Sulfuric Nether Quartz Ore",
+
+  "block.potionsplus.uranium_block": "Uranium Block",
+
+  "block.potionsplus.potion_beacon": "Potion Beacon",
+  "block.potionsplus.potion_beacon.hint": "Try a potion...",
+
   "block.potionsplus.sandy_copper_ore": "Sandy Copper Ore",
   "block.potionsplus.sandy_iron_ore": "Sandy Iron Ore",
   "block.potionsplus.sandy_gold_ore": "Sandy Gold Ore",
@@ -43,6 +53,7 @@
   "block.potionsplus.sandy_lapis_ore": "Sandy Lapis Ore",
   "block.potionsplus.sandy_redstone_ore": "Sandy Redstone Ore",
   "block.potionsplus.sandy_emerald_ore": "Sandy Emerald Ore",
+  "block.potionsplus.sandy_uranium_ore": "Sandy Uranium Ore",
 
   "block.potionsplus.mossy_copper_ore": "Mossy Copper Ore",
   "block.potionsplus.mossy_iron_ore": "Mossy Iron Ore",
@@ -52,6 +63,8 @@
   "block.potionsplus.mossy_lapis_ore": "Mossy Lapis Ore",
   "block.potionsplus.mossy_redstone_ore": "Mossy Redstone Ore",
   "block.potionsplus.mossy_emerald_ore": "Mossy Emerald Ore",
+  "block.potionsplus.mossy_uranium_ore": "Mossy Uranium Ore",
+
 
   "jei.potionsplus.brewing_cauldron.description": "Use blaze powder on a vanilla cauldron filled with water to transform it into a brewing cauldron. A heat source must be placed directly beneath in order to brew. The brewing cauldron is the heart of Potions Plus, and allows the player to craft all vanilla brewing stand recipes, in addition to being the exclusive way to craft Potions Plus potions. Recipes for all these potions are randomized per world. The Herbalist's Lectern, Abyssal Trove, and Sanguine Altar provide essential functions for deducing these recipes.",
   "jei.potionsplus.herbalists_lectern.description": "The Herbalist's Lectern is a block that can provide information about an inserted item's usage in brewing cauldron recipes.",
@@ -76,7 +89,14 @@
   "jei.potionsplus.wreath.description": "A wreath of flowers strung together with metatarsals. Acts as a Totem of Undying while worn; a gift from God to you.",
   "item.potionsplus.netherite_remnant": "Netherite Remnant",
   "jei.potionsplus.netherite_remnant.description": "Amongst volcanic activity and crushing tectonic pressure, this netherite has been compacted into a dense chunk.",
-
+  "item.potionsplus.raw_uranium": "Raw Uranium",
+  "jei.potionsplus.raw_uranium.description": "A chunk of raw uranium. It's a little warm to the touch, but it's not like it's going to explode or anything.",
+  "item.potionsplus.uranium_ingot": "Uranium Ingot",
+  "jei.potionsplus.uranium_ingot.description": "A refined ingot of uranium. It makes your hands tingle. Curious...",
+  "item.potionsplus.sulfur_shard": "Sulfur Shard",
+  "jei.potionsplus.sulfur_shard.description": "A shard of sulfur. It stinks.",
+  "item.potionsplus.sulfuric_acid": "Sulfuric Acid",
+  "jei.potionsplus.sulfuric_acid.description": "A vile liquid that burns the skin. It's a little bit like lemon juice, but don't drink it.",
 
   "itemGroup.potionsplus": "Potions Plus",
 
@@ -364,5 +384,13 @@
   "effect.potionsplus.metal_detecting.tooltip_1": "Pings metallic ores within a ",
   "effect.potionsplus.metal_detecting.tooltip_2": " range every ",
   "effect.potionsplus.metal_detecting.tooltip_3": " ticks.",
-  "jei.potionsplus.requires_xp": "Consumes %s XP"
+  "jei.potionsplus.requires_xp": "Consumes %s XP",
+  "advancements.potionsplus.acquire_sulfur_shard.title": "It Was All Yellow",
+  "advancements.potionsplus.acquire_sulfur_shard.description": "Find a Sulfur Shard.",
+  "advancements.potionsplus.acquire_uranium_ore.title": "Feeling Fuzzy",
+  "advancements.potionsplus.acquire_uranium_ore.description": "Mine Uranium Ore.",
+  "advancements.potionsplus.acquire_uranium_ingot.title": "Radioactive",
+  "advancements.potionsplus.acquire_uranium_ingot.description": "Feel it in your bones!",
+  "advancements.potionsplus.acquire_sulfuric_acid.title": "It Burns",
+  "advancements.potionsplus.acquire_sulfuric_acid.description": "Brew Sulfuric Acid."
 }

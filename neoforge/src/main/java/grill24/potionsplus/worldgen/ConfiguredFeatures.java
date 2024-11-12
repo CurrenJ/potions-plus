@@ -42,6 +42,7 @@ public class ConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DENSE_DIAMOND_SMALL_KEY = createKey("ore_dense_diamond_small");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_REMNANT_DEBRIS_KEY = createKey("ore_remnant_debris");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_URANIUM_KEY = createKey("ore_uranium");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH_KEY = createKey("lunar_berry_bush");
 
@@ -88,6 +89,11 @@ public class ConfiguredFeatures {
                 new OreConfiguration(List.of(
                         OreConfiguration.target(stoneOreReplaceables, grill24.potionsplus.core.Blocks.REMNANT_DEBRIS.value().defaultBlockState()),
                         OreConfiguration.target(deepslateOreReplaceables, grill24.potionsplus.core.Blocks.DEEPSLATE_REMNANT_DEBRIS.value().defaultBlockState())
+                ), 4, 0.5F));
+        final Holder<ConfiguredFeature<?, ?>> ORE_URANIUM = register(context, ORE_URANIUM_KEY, Feature.ORE,
+                new OreConfiguration(List.of(
+                        OreConfiguration.target(stoneOreReplaceables, grill24.potionsplus.core.Blocks.URANIUM_ORE.value().defaultBlockState()),
+                        OreConfiguration.target(deepslateOreReplaceables, grill24.potionsplus.core.Blocks.DEEPSLATE_URANIUM_ORE.value().defaultBlockState())
                 ), 4, 0.5F));
 
         // ----- Lunar Berry Bush -----

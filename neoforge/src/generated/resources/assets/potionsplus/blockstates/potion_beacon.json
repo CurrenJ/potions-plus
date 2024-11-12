@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "potionsplus:block/potion_beacon"
+    },
+    "lit=true": {
+      "model": "potionsplus:block/potion_beacon"
+    }
+  }
+}
