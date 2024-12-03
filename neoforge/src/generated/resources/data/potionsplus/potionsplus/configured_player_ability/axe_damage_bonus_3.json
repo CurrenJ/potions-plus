@@ -1,0 +1,16 @@
+{
+  "type": "potionsplus:modifiers_while_axe_held",
+  "config": {
+    "attribute": "minecraft:generic.attack_damage",
+    "baseConfig": {
+      "translationKey": "description.potionsplus.ability.axe_damage_bonus"
+    },
+    "modifiers": [
+      {
+        "amount": 0.1,
+        "id": "potionsplus:axe_damage_bonus_3_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

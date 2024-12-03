@@ -10,6 +10,7 @@
     "BootstrapMixin",
     "BucketItemMixin",
     "EnchantedCountIncreaseFunctionMixin",
+    "ItemAttributeModifiersMixin",
     "ItemEntityMixin",
     "ItemMixin",
     "LevelChunkMixin",
@@ -17,11 +18,13 @@
     "MobEffectInstanceMixin",
     "MonsterRoomFeatureMixin",
     "OreFeatureMixin",
+    "PlayerMixin",
     "PotionItemMixin",
     "TemptGoalMixin"
   ],
   "client": [
     "ClientPacketListenerMixin",
+    "GameRendererMixin",
     "ParticleEngineMixin"
   ],
   "injectors": {

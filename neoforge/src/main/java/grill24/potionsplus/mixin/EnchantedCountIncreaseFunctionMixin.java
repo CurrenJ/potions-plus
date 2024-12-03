@@ -9,6 +9,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,11 +24,12 @@ public abstract class EnchantedCountIncreaseFunctionMixin extends LootItemCondit
     }
 
     @Redirect(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getEnchantmentLevel(Lnet/minecraft/core/Holder;Lnet/minecraft/world/entity/LivingEntity;)I"))
-    private int run(Holder<Enchantment> j, LivingEntity stack, ItemStack runParamStack, LootContext runParamContext) {
+    private int run(Holder<Enchantment> enchantment, LivingEntity entity, ItemStack runParamStack, LootContext runParamContext) {
         int enchantmentLevel = 0;
-        enchantmentLevel += LootItemModifiersBehaviour.potions_plus$addBonusLevelsFromMobEffect(stack, j, Enchantments.LOOTING, MobEffects.LOOTING, runParamContext);
+
+        // Potion effect bonus
+        enchantmentLevel += LootItemModifiersBehaviour.potions_plus$addBonusLevelsFromMobEffect(entity, enchantment, Enchantments.LOOTING, MobEffects.LOOTING, runParamContext);
 
         return enchantmentLevel;
     }
-
 }

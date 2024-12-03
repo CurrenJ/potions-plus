@@ -45,6 +45,77 @@
   "block.potionsplus.potion_beacon": "Potion Beacon",
   "block.potionsplus.potion_beacon.hint": "Try a potion...",
 
+  "tooltip.potionsplus.skill.level_up": "You reached level %s!",
+  "tooltip.potionsplus.skill.max_points": "You reached max skill points.",
+  "tooltip.potionsplus.skill.max_level": "You reached max level.",
+  "tooltip.potionsplus.skill.level": "[Lvl %s] ",
+  "tooltip.potionsplus.skill.points_earned": "points earned",
+
+  "description.potionsplus.ability.pickaxe_efficiency_bonus": "%s Pickaxe Mining Speed",
+  "description.potionsplus.ability.pickaxe_fortune_bonus": "%s Pickaxe Fortune Level",
+  "description.potionsplus.attribute.fortune_level_bonus": "Fortune",
+  "description.potionsplus.ability.submerged_pickaxe_efficiency_bonus": "%s Underwater Pickaxe Mining Speed",
+  "description.potionsplus.ability.copper_ore_additional_loot_iron_nuggets": "+Copper Ore May Drop Iron",
+  "description.potionsplus.ability.iron_ore_additional_loot_gold_nuggets": "+Iron Ore May Drop Gold",
+  "description.potionsplus.ability.diamond_ore_additional_loot_emeralds": "+Diamond Ore May Drop Emeralds",
+
+
+  "description.potionsplus.ability.axe_efficiency_bonus": "%s Axe Mining Speed",
+  "description.potionsplus.ability.shovel_efficiency_bonus": "%s Shovel Mining Speed",
+  "description.potionsplus.ability.hoe_efficiency_bonus": "%s Hoe Mining Speed",
+
+  "description.potionsplus.ability.sword_sharpness_bonus": "%s Sword Sharpness Level",
+  "description.potionsplus.attribute.sharpness_level_bonus": "Sharpness",
+  "description.potionsplus.ability.sword_looting_bonus": "%s Sword Looting Level",
+  "description.potionsplus.attribute.looting_level_bonus": "Looting",
+  "description.potionsplus.ability.creeper_additional_loot_sand": "+Creepers May Drop Sand",
+  "description.potionsplus.ability.skeleton_bone_meal_bonus_drops": "+Skeletons May Drop Bone Meal",
+  "description.potionsplus.ability.skeleton_bone_block_bonus_drops": "+Skeletons May Drop Bone Blocks",
+
+
+
+  "description.potionsplus.ability.bow_power_bonus": "%s Bow Power Level",
+  "description.potionsplus.attribute.power_level_bonus": "Power",
+
+  "description.potionsplus.ability.axe_damage_bonus": "%s Axe Damage",
+  "description.potionsplus.ability.bow_damage_bonus": "%s Bow Damage",
+  "description.potionsplus.ability.crossbow_damage_bonus": "%s Crossbow Damage",
+  "description.potionsplus.ability.trident_damage_bonus": "%s Trident Damage",
+
+  "description.potionsplus.ability.movement_speed_bonus": "%s Movement Speed",
+  "description.potionsplus.ability.sprint_speed_bonus": "%s Sprint Speed",
+  "description.potionsplus.ability.sneak_speed_bonus": "%s Sneak Speed",
+  "description.potionsplus.ability.jump_strength_bonus": "%s Jump Height",
+
+  "tooltip.potionsplus.skill.mining": "Mining",
+  "tooltip.potionsplus.skill.mining.reward.level_5": "Dungeon Loot",
+  "tooltip.potionsplus.skill.mining.reward.level_10": "Abandoned Mineshaft Loot",
+  "tooltip.potionsplus.skill.mining.reward.level_15": "Stronghold Library Loot",
+  "tooltip.potionsplus.skill.mining.reward.level_20": "Desert Pyramid Loot",
+  "tooltip.potionsplus.skill.mining.reward.level_25": "Jungle Temple Loot",
+
+  "tooltip.potionsplus.skill.reward.basic": "Basic Loot",
+  "tooltip.potionsplus.skill.reward.intermediate": "Intermediate Loot",
+  "tooltip.potionsplus.skill.reward.advanced": "Advanced Loot",
+  "tooltip.potionsplus.skill.reward.expert": "Expert Loot",
+  "tooltip.potionsplus.skill.reward.master": "Master Loot",
+
+  "tooltip.potionsplus.skill.woodcutting": "Woodcutting",
+
+  "tooltip.potionsplus.skill.swordsmanship": "Swordsmanship",
+
+  "tooltip.potionsplus.skill.archery": "Archery",
+  "tooltip.potionsplus.skill.chopping": "Chopping",
+
+  "tooltip.potionsplus.skill.walking": "Wandering",
+  "tooltip.potionsplus.skill.sprinting": "Sprinting",
+  "tooltip.potionsplus.skill.sneaking": "Sneaking",
+  "tooltip.potionsplus.skill.jumping": "Jumping",
+
+  "generic.potionsplus.enabled" : "Enabled",
+  "generic.potionsplus.disabled" : "Disabled",
+  "generic.potionsplus.toggle" : "[Toggle]",
+
   "block.potionsplus.sandy_copper_ore": "Sandy Copper Ore",
   "block.potionsplus.sandy_iron_ore": "Sandy Iron Ore",
   "block.potionsplus.sandy_gold_ore": "Sandy Gold Ore",

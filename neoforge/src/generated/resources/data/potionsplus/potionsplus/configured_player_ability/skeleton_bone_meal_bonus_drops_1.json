@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:simple",
+  "config": {
+    "baseConfig": {
+      "translationKey": "description.potionsplus.ability.skeleton_bone_meal_bonus_drops"
+    }
+  }
+}

@@ -9,6 +9,7 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.PpMultiIngredient;
 import grill24.potionsplus.persistence.adapter.*;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.skill.SkillInstance;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.function.Consumer;
@@ -134,13 +136,15 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
 
     private static Gson createGson(HolderLookup.Provider registries) {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT);
+        gsonBuilder.excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT, Modifier.STATIC);
         gsonBuilder.registerTypeAdapter(ItemStack.class, new ItemStackTypeAdapter(registries));
         gsonBuilder.registerTypeAdapter(BlockPos.class, new BlockPosTypeAdapter());
         gsonBuilder.registerTypeAdapter(BlockPos.MutableBlockPos.class, new MutableBlockPosTypeAdapter());
         gsonBuilder.registerTypeAdapter(BrewingCauldronRecipe.class, new BrewingCauldronRecipeTypeAdapter(registries));
         gsonBuilder.registerTypeAdapter(RecipeHolder.class, new BrewingCauldronRecipeHolderTypeAdapter(registries));
         gsonBuilder.registerTypeAdapter(String.class, new LargeStringTypeAdapter());
+        gsonBuilder.registerTypeHierarchyAdapter(SkillInstance.class, new SkillInstanceTypeAdapter());
+        gsonBuilder.enableComplexMapKeySerialization();
         return gsonBuilder.create();
     }
 

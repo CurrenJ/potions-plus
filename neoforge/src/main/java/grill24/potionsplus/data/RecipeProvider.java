@@ -127,9 +127,14 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_uranium_glass", has(Blocks.URANIUM_GLASS.value()))
                 .save(recipeConsumer);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, Blocks.POTION_BEACON.value())
-                .requires(Blocks.URANIUM_GLASS.value(), 5)
-                .requires(net.minecraft.world.item.Items.BEACON)
+        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, Blocks.POTION_BEACON.value())
+                .pattern("GGG")
+                .pattern("GBG")
+                .pattern("OOO")
+                .define('G', Blocks.URANIUM_GLASS.value())
+                .define('B', net.minecraft.world.item.Items.BEACON)
+                .define('O', net.minecraft.world.item.Items.OBSIDIAN)
+                .unlockedBy("has_uranium_glass", has(Blocks.URANIUM_GLASS.value()))
                 .save(recipeConsumer, "potion_beacon_alternate");
 
         // ----- Static Brewing Cauldron Recipes -----

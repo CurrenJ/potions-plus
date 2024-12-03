@@ -10,8 +10,7 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 public class Tags {
     public static final class Blocks {
-        public static final TagKey<Block> GEODE_GRACE_SPAWNABLE = tag("geode_grace_spawnable");
-        public static final TagKey<Block> GEODE_GRACE_REPLACEABLE = tag("geode_grace_replaceable");
+        public static final TagKey<Block> ORES_URANIUM = tag("ores/uranium");
 
         public static final TagKey<Block> FREEZABLE = tag("freezable");
         public static final TagKey<Block> CAVE_REPLACEABLE = tag("cave_replaceable");

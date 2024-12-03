@@ -1,0 +1,16 @@
+{
+  "type": "potionsplus:modifiers_while_trident_held",
+  "config": {
+    "attribute": "minecraft:generic.attack_damage",
+    "baseConfig": {
+      "translationKey": "description.potionsplus.ability.trident_damage_bonus"
+    },
+    "modifiers": [
+      {
+        "amount": 0.1,
+        "id": "potionsplus:trident_damage_bonus_5_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

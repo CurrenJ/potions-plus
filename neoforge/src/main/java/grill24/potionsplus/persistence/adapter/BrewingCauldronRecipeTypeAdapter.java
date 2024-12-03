@@ -32,7 +32,6 @@ public class BrewingCauldronRecipeTypeAdapter extends TypeAdapter<BrewingCauldro
     @Override
     public BrewingCauldronRecipe read(JsonReader in) throws IOException {
         JsonElement recipe = null;
-        String id = null;
 
         in.beginObject();
         while (in.hasNext()) {

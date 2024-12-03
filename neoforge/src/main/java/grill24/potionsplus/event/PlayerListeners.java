@@ -4,7 +4,6 @@ import grill24.potionsplus.behaviour.ClotheslineBehaviour;
 import grill24.potionsplus.behaviour.MossBehaviour;
 import grill24.potionsplus.block.UraniumOreBlock;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
-import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
@@ -13,8 +12,9 @@ import grill24.potionsplus.network.ClientboundSyncPairedAbyssalTrove;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.skill.SkillsData;
+import grill24.potionsplus.skill.ability.AttributeModifiersWhileHeldAbility;
 import grill24.potionsplus.utility.*;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -26,11 +26,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -105,11 +103,20 @@ public class PlayerListeners {
 
     private static final int EFFECT_DURATION = 20 * 15; // Every 15 seconds
     private static int lastEffectActivation;
+
     @SubscribeEvent
     public static void onTick(final ServerTickEvent.Pre event) {
-        if(ServerTickHandler.ticksInGame > lastEffectActivation + EFFECT_DURATION) {
+        applyAllPassiveItemPotionEffects(event.getServer().getPlayerList().getPlayers());
+
+        AttributeModifiersWhileHeldAbility.onTick(event);
+        SkillsData.tickPointEarningHistory(event);
+    }
+
+    private static void applyAllPassiveItemPotionEffects(List<ServerPlayer> players) {
+        // Apply passive item potion effects every interval of time
+        if (ServerTickHandler.ticksInGame > lastEffectActivation + EFFECT_DURATION) {
             lastEffectActivation = ServerTickHandler.ticksInGame;
-            for(ServerPlayer player : event.getServer().getPlayerList().getPlayers()) {
+            for (ServerPlayer player : players) {
                 tryApplyPassiveItemPotionEffects(player, EquipmentSlot.MAINHAND);
                 tryApplyPassiveItemPotionEffects(player, EquipmentSlot.OFFHAND);
 
@@ -135,14 +142,14 @@ public class PlayerListeners {
                     int maxDamage = stack.getOrDefault(DataComponents.MAX_DAMAGE, 0);
                     int damage = stack.getOrDefault(DataComponents.DAMAGE, 0);
                     int damageToApply = (e.getAmplifier() + 1) * 2;
-                    if(damage + damageToApply < maxDamage) {
+                    if (damage + damageToApply < maxDamage) {
                         player.addEffect(e);
                         stack.hurtAndBreak(e.getAmplifier() + 1, player, slot);
                     }
 
                     // Update the potion effects data on the item with the new duration
                     int remainingDuration = effect.getDuration() - durationApplied;
-                    if(remainingDuration > 0) {
+                    if (remainingDuration > 0) {
                         customEffects.add(new MobEffectInstance(effect.getEffect(), remainingDuration, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false));
                     }
                 }

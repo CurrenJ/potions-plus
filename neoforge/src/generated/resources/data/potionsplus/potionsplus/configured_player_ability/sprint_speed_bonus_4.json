@@ -1,0 +1,16 @@
+{
+  "type": "potionsplus:permanent_attribute_modifiers",
+  "config": {
+    "attribute": "potionsplus:player.sprint_speed_bonus",
+    "baseConfig": {
+      "translationKey": "description.potionsplus.ability.sprint_speed_bonus"
+    },
+    "modifiers": [
+      {
+        "amount": 0.02,
+        "id": "potionsplus:sprint_speed_bonus_4_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

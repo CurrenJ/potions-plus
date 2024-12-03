@@ -25,7 +25,6 @@ public class PlayerBrewingKnowledge {
     private final transient Lazy<Set<PpIngredient>> knownIngredients = Lazy.of(this::buildUniqueIngredientsFromSerializableData);
     private final transient Lazy<Set<String>> knownRecipes = Lazy.of(this::buildKnownRecipesFromSerializableData);
 
-
     public PlayerBrewingKnowledge() {}
 
     public static List<RecipeHolder<BrewingCauldronRecipe>> getUnknownRecipesWithIngredient(RecipeAnalysis<BrewingCauldronRecipe> recipeAnalysis, PpIngredient ingredient, PlayerBrewingKnowledge playerBrewingKnowledge) {

@@ -230,10 +230,24 @@ public class RUtil {
     public static float easeOutElastic(float x) {
         final double c4 = (2 * Math.PI) / 3;
 
-        return x == 0 ? 0 :
-                x == 1 ? 1 :
+        return x <= 0 ? 0 :
+                x >= 1 ? 1 :
                         (float) (Math.pow(2, -12 * x) * Math.sin((x * 6 - 0.75) * c4) + 1);
     }
+
+    public static float easeOutElastic2(float x) {
+        final double c4 = (2 * Math.PI) / 3;
+
+        return x <= 0 ? 0 :
+                x >= 1 ? 1 :
+                        (float) (Math.pow(2, -10 * x) * Math.sin((x * 10 - 0.75) * c4) + 1);
+    }
+
+    public static float getProgress(float tickDelay, float tickDuration, float startTime, float currentTime) {
+        float elapsedTicks = currentTime - startTime - tickDelay;
+        return Math.max(0, Math.min(elapsedTicks / tickDuration, 1));
+    }
+
 
     public static Vector3d rotateAroundY(Vector3d point, float degrees, Vector3d origin) {
         // Convert degrees to radians for the Math functions

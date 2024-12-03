@@ -24,8 +24,6 @@ public class BrewingCauldronRecipeHolderTypeAdapter extends TypeAdapter<RecipeHo
 
     @Override
     public void write(JsonWriter out, RecipeHolder<BrewingCauldronRecipe> brewingCauldronRecipeHolder) throws IOException {
-        JsonObject jsonObject = new JsonObject();
-
         out.beginObject();
         BrewingCauldronRecipe.CODEC.encodeStart(JsonOps.INSTANCE, brewingCauldronRecipeHolder.value()).result().ifPresent(jsonElement -> {
             try {

@@ -1,8 +1,7 @@
 package grill24.potionsplus.data;
 
-import grill24.potionsplus.core.Biomes;
-import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.core.Sounds;
+import grill24.potionsplus.core.*;
+import grill24.potionsplus.data.loot.GlobalLootModifierProvider;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.worldgen.ConfiguredFeatures;
 import grill24.potionsplus.worldgen.Placements;
@@ -24,9 +23,14 @@ import java.util.concurrent.CompletableFuture;
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class DataGen {
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
+            // World Gen
             .add(Registries.CONFIGURED_FEATURE, ConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, Placements::bootstrap)
-            .add(Registries.BIOME, Biomes::bootstrap);
+            .add(Registries.BIOME, Biomes::bootstrap)
+            // Custom Datapack Registries
+            .add(PotionsPlusRegistries.CONFIGURED_SKILL, ConfiguredSkills::generate)
+            .add(PotionsPlusRegistries.CONFIGURED_SKILL_POINT_SOURCE, ConfiguredSkillPointSources::generate)
+            .add(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ConfiguredPlayerAbilities::generate);
 
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent event) {
@@ -44,6 +48,7 @@ public class DataGen {
         generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, BUILDER, Set.of(ModInfo.MOD_ID)));
         generator.addProvider(event.includeServer(), new BiomeTagProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new AdvancementProvider(output, lookupProvider, existingFileHelper, null));
+        generator.addProvider(event.includeServer(), new GlobalLootModifierProvider(output, lookupProvider));
 
         if (event.includeClient()) {
 //            generator.addProvider(true, new LangProvider(output, ModInfo.MOD_ID, "en_us"));

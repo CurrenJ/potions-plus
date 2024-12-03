@@ -1,0 +1,320 @@
+{
+  "type": "potionsplus:generic",
+  "config": {
+    "baseConfig": {
+      "pointsLevelingScale": {
+        "a": 0.003,
+        "b": 20.0,
+        "levelMax": 25,
+        "scale": "LOG"
+      },
+      "rewardsConfig": {
+        "levelRewards": {
+          "1": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "10": {
+            "abilities": "potionsplus:sword_sharpness_bonus_2",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "animatedItemRewards": [
+              {
+                "displayItem": {
+                  "count": 1,
+                  "id": "minecraft:stone_sword"
+                }
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "11": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "12": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "13": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "14": {
+            "abilities": "potionsplus:skeleton_bone_block_bonus_drops_1",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "15": {
+            "abilities": "potionsplus:sword_sharpness_bonus_3",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "animatedItemRewards": [
+              {
+                "displayItem": {
+                  "count": 1,
+                  "id": "minecraft:iron_sword"
+                }
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "16": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "17": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "18": {
+            "abilities": "potionsplus:creeper_sand_bonus_drops_1",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "19": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "2": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "20": {
+            "abilities": "potionsplus:sword_sharpness_bonus_4",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "animatedItemRewards": [
+              {
+                "displayItem": {
+                  "count": 1,
+                  "id": "minecraft:golden_sword"
+                }
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "21": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "22": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "23": {
+            "abilities": "potionsplus:sword_looting_bonus_1",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "24": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "25": {
+            "abilities": "potionsplus:sword_sharpness_bonus_5",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:master_skill_rewards"
+                ]
+              }
+            ],
+            "animatedItemRewards": [
+              {
+                "displayItem": {
+                  "count": 1,
+                  "id": "minecraft:diamond_sword"
+                }
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.master"
+          },
+          "3": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "4": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "5": {
+            "abilities": "potionsplus:sword_sharpness_bonus_1",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "animatedItemRewards": [
+              {
+                "displayItem": {
+                  "count": 1,
+                  "id": "minecraft:wooden_sword"
+                }
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "6": {
+            "abilities": "potionsplus:skeleton_bone_meal_bonus_drops_1",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "7": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "8": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "9": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          }
+        }
+      },
+      "skillPointSources": [
+        "potionsplus:kill_entity_with_sword"
+      ],
+      "translationKey": "tooltip.potionsplus.skill.swordsmanship"
+    }
+  }
+}

@@ -6,6 +6,7 @@ import net.minecraft.network.codec.StreamCodec;
 import java.util.function.Function;
 
 public class StreamCodecUtility {
+
     // StreamCodec for classes with 7 fields
     public static <B, C, T1, T2, T3, T4, T5, T6, T7> StreamCodec<B, C> composite(
             final StreamCodec<? super B, T1> codec1,

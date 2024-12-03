@@ -28,7 +28,6 @@ public class PotionsPlus {
         Items.ITEMS.register(bus);
         Entities.ENTITIES.register(bus);
         Particles.PARTICLE_TYPES.register(bus);
-        AttachmentTypes.ATTACHMENT_TYPES.register(bus);
         Recipes.RECIPE_TYPES.register(bus);
         Recipes.RECIPE_SERIALIZERS.register(bus);
         MobEffects.EFFECTS.register(bus);
@@ -38,12 +37,19 @@ public class PotionsPlus {
         Advancements.TRIGGERS.register(bus);
 
         Features.FEATURES.register(bus);
+        DataAttachments.ATTACHMENT_TYPES.register(bus);
+        Skills.SKILLS.register(bus);
+        SkillPointSources.SKILL_POINT_SOURCES.register(bus);
+        PlayerAbilities.PLAYER_ABILITIES.register(bus);
+        CommandArgumentTypes.COMMAND_ARGUMENT_TYPES.register(bus);
+        Attributes.ATTRIBUTES.register(bus);
+        LootItemConditions.LOOT_ITEM_CONDITIONS.register(bus);
 
         CreativeModeTabs.CREATIVE_MODE_TABS.register(bus);
     }
 
     public static class Debug {
-        public static final boolean DEBUG = false;
+        public static final boolean DEBUG = true;
 
         public static final boolean DEBUG_POTION_INGREDIENTS_GENERATION = true;
         public static final boolean DEBUG_POTION_RECIPE_GENERATION = true;

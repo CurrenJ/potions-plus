@@ -1,0 +1,276 @@
+{
+  "type": "potionsplus:generic",
+  "config": {
+    "baseConfig": {
+      "pointsLevelingScale": {
+        "a": 0.001,
+        "b": 20.0,
+        "levelMax": 25,
+        "scale": "LOG"
+      },
+      "rewardsConfig": {
+        "levelRewards": {
+          "1": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "10": {
+            "abilities": "potionsplus:jump_height_bonus_2",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "11": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "12": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "13": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "14": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "15": {
+            "abilities": "potionsplus:jump_height_bonus_3",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "16": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "17": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "18": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "19": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "2": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "20": {
+            "abilities": "potionsplus:jump_height_bonus_4",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "21": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "22": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "23": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "24": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "25": {
+            "abilities": "potionsplus:jump_height_bonus_5",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:master_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.master"
+          },
+          "3": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "4": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "5": {
+            "abilities": "potionsplus:jump_height_bonus_1",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "6": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "7": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "8": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "9": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          }
+        }
+      },
+      "skillPointSources": [
+        "potionsplus:jump"
+      ],
+      "translationKey": "tooltip.potionsplus.skill.jumping"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "potionsplus:modifiers_while_sword_held",
+  "config": {
+    "attribute": "potionsplus:player.sharpness_bonus",
+    "baseConfig": {
+      "translationKey": "description.potionsplus.ability.sword_sharpness_bonus"
+    },
+    "modifiers": [
+      {
+        "amount": 1.0,
+        "id": "potionsplus:sword_sharpness_bonus_1_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

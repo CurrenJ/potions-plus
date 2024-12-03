@@ -1,0 +1,16 @@
+{
+  "type": "potionsplus:modifiers_while_pickaxe_held",
+  "config": {
+    "attribute": "potionsplus:player.fortune_bonus",
+    "baseConfig": {
+      "translationKey": "description.potionsplus.ability.pickaxe_fortune_bonus"
+    },
+    "modifiers": [
+      {
+        "amount": 1.0,
+        "id": "potionsplus:fortune_bonus_4_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

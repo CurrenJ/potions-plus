@@ -51,12 +51,19 @@ public class Packets {
                 ClientboundImpulsePlayerPacket.ClientPayloadHandler::handleDataOnMain
         );
 
-        // Brewing Ingredient Knowledge Packet
+        // Alert w ItemStack
         registrar.playToClient(
                 ClientboundDisplayAlertWithItemStackName.TYPE,
                 ClientboundDisplayAlertWithItemStackName.STREAM_CODEC,
                 ClientboundDisplayAlertWithItemStackName.ClientPayloadHandler::handleDataOnMain
                 );
+
+        // Alert
+        registrar.playToClient(
+                ClientboundDisplayAlertWithParameter.TYPE,
+                ClientboundDisplayAlertWithParameter.STREAM_CODEC,
+                ClientboundDisplayAlertWithParameter.ClientPayloadHandler::handleDataOnMain
+        );
 
         // Acquired Brewing Recipe Knowledge Packet
         registrar.playToClient(
@@ -77,6 +84,27 @@ public class Packets {
                 ClientboundSyncPairedAbyssalTrove.TYPE,
                 ClientboundSyncPairedAbyssalTrove.STREAM_CODEC,
                 ClientboundSyncPairedAbyssalTrove.ClientPayloadHandler::handleDataOnMain
+        );
+
+        // Sync Player Skill Data Packet
+        registrar.playToClient(
+                ClientboundSyncPlayerSkillData.TYPE,
+                ClientboundSyncPlayerSkillData.STREAM_CODEC,
+                ClientboundSyncPlayerSkillData.ClientPayloadHandler::handleDataOnMain
+        );
+
+        // Display Item Activation Packet
+        registrar.playToClient(
+                ClientboundDisplayItemActivation.TYPE,
+                ClientboundDisplayItemActivation.STREAM_CODEC,
+                ClientboundDisplayItemActivation.ClientPayloadHandler::handleDataOnMain
+        );
+
+        // Display Alert Packet
+        registrar.playToClient(
+                ClientboundDisplayAlert.TYPE,
+                ClientboundDisplayAlert.STREAM_CODEC,
+                ClientboundDisplayAlert.ClientPayloadHandler::handleDataOnMain
         );
     }
 }

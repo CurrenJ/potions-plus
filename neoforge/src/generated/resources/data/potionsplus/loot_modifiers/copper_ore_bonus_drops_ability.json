@@ -1,0 +1,14 @@
+{
+  "type": "neoforge:add_table",
+  "conditions": [
+    {
+      "blockTag": "minecraft:copper_ores",
+      "condition": "potionsplus:loot_item_block_tag"
+    },
+    {
+      "condition": "potionsplus:has_player_ability",
+      "configuredPlayerAbility": "potionsplus:copper_bonus_drops_1"
+    }
+  ],
+  "table": "potionsplus:copper_ore_iron_nugget_bonus_drops"
+}

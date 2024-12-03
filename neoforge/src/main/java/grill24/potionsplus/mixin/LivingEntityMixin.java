@@ -5,6 +5,7 @@ import grill24.potionsplus.effect.SlipNSlideEffect;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.damagesource.DamageSource;
@@ -13,6 +14,10 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -20,12 +25,16 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -49,6 +58,10 @@ public abstract class LivingEntityMixin extends Entity {
     @Shadow @Nullable public abstract MobEffectInstance getEffect(Holder<MobEffect> effect);
 
     @Shadow public abstract boolean hasEffect(Holder<MobEffect> effect);
+
+    @Shadow @Nullable public abstract AttributeInstance getAttribute(Holder<Attribute> attribute);
+
+    @Shadow public abstract double getAttributeValue(Holder<Attribute> attribute);
 
     @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getFriction(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;)F"))
     public float getFriction(BlockState instance, LevelReader levelReader, BlockPos blockPos, Entity entity) {
@@ -98,6 +111,30 @@ public abstract class LivingEntityMixin extends Entity {
 
         if(wreathe != null) {
             cir.setReturnValue(true);
+        }
+    }
+
+    // ----- Entity Speed Attributes -----
+
+    /**
+     * Create attribute modifiers from our custom attributes so that we can add them as modifiers on the entity movement speed attribute.
+     */
+    @Unique
+    private static final List<Holder<Attribute>> SPRINT_SPEED_ATTRIBUTES = new ArrayList<>() {{ add(grill24.potionsplus.core.Attributes.SPRINTING_SPEED); }};
+    @Inject(method = "setSprinting", at = @At("TAIL"))
+    public void setSprinting(boolean sprinting, CallbackInfo ci) {
+        Holder<Attribute> movementSpeed = Attributes.MOVEMENT_SPEED;
+        AttributeInstance movementSpeedAttributeInstance = this.getAttribute(movementSpeed);
+        for (Holder<Attribute> attribute : SPRINT_SPEED_ATTRIBUTES) {
+            if (movementSpeedAttributeInstance != null) {
+                if (attribute.getKey() != null) {
+                    ResourceLocation key = attribute.getKey().location();
+                    movementSpeedAttributeInstance.removeModifier(key);
+                    if (sprinting) {
+                        movementSpeedAttributeInstance.addTransientModifier(new AttributeModifier(key, this.getAttributeValue(attribute), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+                    }
+                }
+            }
         }
     }
 }

@@ -1,0 +1,1 @@
+python update_translations.py D:/GitHub/potions-plus/neoforge/src/main/java/grill24/potionsplus/core/Translations.java D:/GitHub/potions-plus/neoforge/src/main/resources/assets/potionsplus/lang/en_us.json

@@ -1,13 +1,11 @@
 package grill24.potionsplus.utility;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.datafixers.util.Function6;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.IExperienceContainer;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.ChatFormatting;
@@ -15,14 +13,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -41,7 +37,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.*;
-import java.util.function.Function;
 
 public class Utility {
     // String utils
@@ -251,5 +246,9 @@ public class Utility {
 
     public static Component formatEffectNumber(int number, String suffix) {
         return formatEffectNumber(number, 0, suffix);
+    }
+
+    public static <T> Registry<T> getRegistry(ResourceKey<Registry<T>> resourceKey) {
+        return (Registry<T>) BuiltInRegistries.REGISTRY.get(resourceKey.location());
     }
 }

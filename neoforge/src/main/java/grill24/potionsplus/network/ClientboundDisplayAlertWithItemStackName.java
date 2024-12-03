@@ -19,7 +19,7 @@ public record ClientboundDisplayAlertWithItemStackName(String localizationKey, I
         this(localizationKey, ItemStack.EMPTY, false);
     }
 
-    public static final Type<ClientboundDisplayAlertWithItemStackName> TYPE = new Type<>(ppId("brewing_ingredient_knowledge"));
+    public static final Type<ClientboundDisplayAlertWithItemStackName> TYPE = new Type<>(ppId("display_alert_with_itemstack_param"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundDisplayAlertWithItemStackName> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.STRING_UTF8,

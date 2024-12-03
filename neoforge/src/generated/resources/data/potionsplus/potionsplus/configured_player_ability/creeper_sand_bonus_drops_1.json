@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:simple",
+  "config": {
+    "baseConfig": {
+      "translationKey": "description.potionsplus.ability.creeper_additional_loot_sand"
+    }
+  }
+}
