@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -106,6 +107,50 @@ public class Blocks {
             new OreFlowerBlock(net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.COAL_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE),
                     0.1f));
+
+    public static final DeferredHolder<Block, BloomingPlantBlock> HANGING_FERN = register("hanging_fern", () ->
+            new BloomingPlantBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY),
+                    new VersatilePlantBlock.VersatilePlantConfig(true, false, 1, 5,
+                            new VersatilePlantBlockTexturePattern(List.of(0), List.of(1), List.of(2), false)), 1));
+
+    public static final DeferredHolder<Block, VersatilePlantBlock> COWLICK_VINE = register("cowlick_vine", () ->
+            new VersatilePlantBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY),
+                    new VersatilePlantBlock.VersatilePlantConfig(true, false, 0, 9,
+                            new VersatilePlantBlockTexturePattern(List.of(0, 1), List.of(2, 3), List.of(4), true))));
+
+    public static final DeferredHolder<Block, BloomingPlantBlock> DROOPY_VINE = register("droopy_vine", () ->
+            new BloomingPlantBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY),
+                    new VersatilePlantBlock.VersatilePlantConfig(true, false, 0, 7,
+                            new VersatilePlantBlockTexturePattern(List.of(), List.of(0, 1), List.of(2), false)), 1));
+
+    public static final DeferredHolder<Block, BloomingPlantBlock> SURVIVOR_STICK = register("survivor_stick", () ->
+            new BloomingPlantBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY),
+                    new VersatilePlantBlock.VersatilePlantConfig(true, false, 1, 6,
+                            new VersatilePlantBlockTexturePattern(List.of(), List.of(0), List.of(1), false)), 1));
 
     public static final Holder<Block> DENSE_DIAMOND_ORE = register("dense_diamond_ore", () ->
             new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F)));
@@ -245,19 +290,19 @@ public class Blocks {
         });
     }
 
-    public static Holder<Block> register(final String name, final Supplier<Block> sup, boolean registerBlockItem, Item.Properties properties) {
-        Holder<Block> block = BLOCKS.register(name, sup);
+    public static <T extends Block> DeferredHolder<Block, T> register(final String name, final Supplier<T> sup, boolean registerBlockItem, Item.Properties properties) {
+        DeferredHolder<Block, T> block = BLOCKS.register(name, sup);
         if (registerBlockItem) {
             Items.ITEMS.register(name, () -> new BlockItem(block.value(), new Item.Properties()));
         }
         return block;
     }
 
-    public static Holder<Block> register(final String name, final Supplier<Block> sup, boolean registerBlockItem) {
+    public static <T extends Block> DeferredHolder<Block, T> register(final String name, final Supplier<T> sup, boolean registerBlockItem) {
         return register(name, sup, registerBlockItem, Items.properties());
     }
 
-    public static Holder<Block> register(final String name, final Supplier<Block> sup) {
+    public static <T extends Block> DeferredHolder<Block, T> register(final String name, final Supplier<T> sup) {
         return register(name, sup, true, Items.properties());
     }
 }

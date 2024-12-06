@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "potionsplus:block/hanging_fern_middle_blooming"
+  }
+}

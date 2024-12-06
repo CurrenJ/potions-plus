@@ -1,8 +1,10 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.block.OreFlowerBlock;
+import grill24.potionsplus.block.VersatilePlantBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.LootTables;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -10,8 +12,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -24,11 +24,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -72,6 +73,18 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
             dropSelf(consumer, Blocks.ICICLE.value());
 
             Blocks.BLOCKS.getEntries().stream().filter((block) -> block.value() instanceof OreFlowerBlock).forEach((block) -> dropSelf(consumer, block.value()));
+            dropSelf(consumer, Blocks.HANGING_FERN.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.HANGING_FERN.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.COWLICK_VINE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.COWLICK_VINE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.DROOPY_VINE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.DROOPY_VINE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.SURVIVOR_STICK.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SURVIVOR_STICK.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
 
             consumer.accept(Blocks.URANIUM_ORE.value().getLootTable(), createOreDrop(Blocks.URANIUM_ORE.value(), grill24.potionsplus.core.Items.RAW_URANIUM.value()));
             consumer.accept(Blocks.DEEPSLATE_URANIUM_ORE.value().getLootTable(), createOreDrop(Blocks.DEEPSLATE_URANIUM_ORE.value(), grill24.potionsplus.core.Items.RAW_URANIUM.value()));
@@ -231,6 +244,10 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
         private void dropSelf(BiConsumer<net.minecraft.resources.ResourceKey<LootTable>, LootTable.Builder> consumer, Block block) {
             LootTable.Builder builder = createSingleItemTable(block);
             consumer.accept(block.getLootTable(), builder);
+        }
+
+        private void dropSelf(BiConsumer<net.minecraft.resources.ResourceKey<LootTable>, LootTable.Builder> consumer, Block block, LootItemCondition.Builder condition) {
+            consumer.accept(block.getLootTable(), LootTable.lootTable().withPool(LootPool.lootPool().when(condition).add(LootItem.lootTableItem(block))));
         }
 
         public static LootPoolSingletonContainer.Builder<?> potions(List<Holder.Reference<Potion>> potions, int totalWeight) {

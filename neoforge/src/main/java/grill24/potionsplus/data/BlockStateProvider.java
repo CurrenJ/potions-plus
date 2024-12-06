@@ -1,13 +1,11 @@
 package grill24.potionsplus.data;
 
-import grill24.potionsplus.block.ClotheslineBlock;
-import grill24.potionsplus.block.ClotheslinePart;
-import grill24.potionsplus.block.ParticleEmitterBlock;
-import grill24.potionsplus.block.UraniumOreBlock;
+import grill24.potionsplus.block.*;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -18,8 +16,13 @@ import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import oshi.util.tuples.Pair;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import java.util.function.Function;
 
 import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
@@ -108,13 +111,54 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         registerItem(Items.ROTTEN_WORMROOT.value());
         registerItem(Items.LUNAR_BERRIES.value());
 
-        registerItem(Blocks.IRON_OXIDE_DAISY.value().asItem(), "block");
-        registerItem(Blocks.COPPER_CHRYSANTHEMUM.value().asItem(), "block");
-        registerItem(Blocks.LAPIS_LILAC.value().asItem(), "block");
-        registerItem(Blocks.DIAMOUR.value().asItem(), "block");
-        registerItem(Blocks.GOLDEN_CUBENSIS.value().asItem(), "block");
-        registerItem(Blocks.REDSTONE_ROSE.value().asItem(), "block");
-        registerItem(Blocks.BLACK_COALLA_LILY.value().asItem(), "block");
+        registerItem(Blocks.IRON_OXIDE_DAISY.value().asItem(), "block/iron_oxide_daisy");
+        registerItem(Blocks.COPPER_CHRYSANTHEMUM.value().asItem(), "block/copper_chrysanthemum");
+        registerItem(Blocks.LAPIS_LILAC.value().asItem(), "block/lapis_lilac");
+        registerItem(Blocks.DIAMOUR.value().asItem(), "block/diamour");
+        registerItem(Blocks.GOLDEN_CUBENSIS.value().asItem(), "block/golden_cubensis");
+        registerItem(Blocks.REDSTONE_ROSE.value().asItem(), "block/redstone_rose");
+        registerItem(Blocks.BLACK_COALLA_LILY.value().asItem(), "block/black_coalla_lily");
+
+        Function<Direction, Pair<Integer, Integer>> hangingPlantTextureOrientation = (facing) -> {
+            int xRotOffset = switch (facing) {
+                case UP -> 180;
+                case DOWN -> 0;
+                default -> 90;
+            };
+            int yRotOffset = switch (facing) {
+                case NORTH -> 180;
+                case EAST -> 270;
+                case SOUTH -> 0;
+                case WEST -> 90;
+                default -> 0;
+            };
+            return new Pair<>(xRotOffset, yRotOffset);
+        };
+        registerBloomingPlantBlock(Blocks.HANGING_FERN,
+                new String[][]{
+                        new String[]{"block/hanging_fern_upper", "block/hanging_fern_middle", "block/hanging_fern_lower"},
+                        new String[]{"block/hanging_fern_upper_blooming", "block/hanging_fern_middle_blooming", "block/hanging_fern_lower_blooming"},
+                },
+                hangingPlantTextureOrientation,
+                "block/hanging_fern_upper_blooming");
+        registerVersatilePlantBlock(Blocks.COWLICK_VINE,
+                new String[]{"block/cowlick_vine_0", "block/cowlick_vine_1", "block/cowlick_vine_2", "block/cowlick_vine_3", "block/cowlick_vine_tail"},
+                hangingPlantTextureOrientation,
+                "block/cowlick_vine_tail");
+        registerBloomingPlantBlock(Blocks.DROOPY_VINE,
+                new String[][]{
+                        new String[]{"block/droopy_vine_0", "block/droopy_vine_1", "block/droopy_vine_2"},
+                        new String[]{"block/droopy_vine_blooming_0", "block/droopy_vine_blooming_1", "block/droopy_vine_blooming_2"},
+                },
+                hangingPlantTextureOrientation,
+                "block/droopy_vine_blooming_2");
+        registerBloomingPlantBlock(Blocks.SURVIVOR_STICK,
+                new String[][]{
+                        new String[]{"block/survivor_stick_0", "block/survivor_stick_1"},
+                        new String[]{"block/survivor_stick_blooming_0", "block/survivor_stick_blooming_1"},
+                },
+                hangingPlantTextureOrientation,
+                "block/survivor_stick_blooming_1");
 
         registerItem(Items.WREATH.value());
 
@@ -198,11 +242,11 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
                 .texture("layer0", modelLocation);
     }
 
-    private void registerItem(Item item, String... texturePath) {
+    private void registerItem(Item item, String texture) {
         ResourceLocation resourceLocation = BuiltInRegistries.ITEM.getKey(item);
         itemModels().getBuilder(resourceLocation.getPath())
                 .parent(models().getExistingFile(mcLoc("item/generated")))
-                .texture("layer0", String.join("/", texturePath) + "/" + resourceLocation.getPath());
+                .texture("layer0", texture);
     }
 
     private void registerItem(Item item, ResourceLocation texture) {
@@ -315,6 +359,119 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
 
     private void registerFlowerBlock(Block block) {
         registerFlowerBlock(block, "block/" + Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block)).getPath());
+    }
+
+    private void registerVersatilePlantBlock(DeferredHolder<Block, VersatilePlantBlock> holder, String[] textures, Function<Direction, Pair<Integer, Integer>> texRotationFunction, String itemTexture) {
+        VersatilePlantBlock block = holder.value();
+
+        String name = holder.getKey().location().getPath();
+
+        // This loop generates a model for every texture used in the pattern
+        Set<String> usedModels = new HashSet<>();
+        for (Integer textureIndex : block.getUsedTextures()) {
+            String modelName = getVersatilePlantModelName(name, textureIndex);
+
+            // Ensure we don't duplicate textures, since textures can be repeated in the pattern. Only need one model per texture.
+            if (!usedModels.contains(modelName)) {
+                usedModels.add(modelName);
+
+                String tex = textures[textureIndex];
+                models().withExistingParent(modelName, mcLoc("block/cross"))
+                        .texture("cross", tex);
+            }
+        }
+
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+            Direction facing = state.getValue(VersatilePlantBlock.FACING);
+            int textureIndex = state.getValue(VersatilePlantBlock.TEXTURE_INDEX);
+            String modelName = getVersatilePlantModelName(name, textureIndex);
+
+            if (usedModels.contains(modelName)) {
+                Pair<Integer, Integer> texRot = texRotationFunction.apply(facing);
+                int xRotOffset = texRot.getA();
+                int yRotOffset = texRot.getB();
+
+                return ConfiguredModel.builder()
+                        .rotationX(xRotOffset)
+                        .rotationY(yRotOffset)
+                        .modelFile(models().getExistingFile(ppId(modelName)))
+                        .build();
+            }
+            return ConfiguredModel.builder().modelFile(models().getExistingFile(mc("block/air"))).build();
+        }, VersatilePlantBlock.SEGMENT);
+
+        registerItem(block.asItem(), itemTexture);
+    }
+
+    private String getVersatilePlantModelName(String name, int textureIndex) {
+        if (textureIndex >= 0) {
+            return name + "_t" + textureIndex;
+        }
+
+        return name + "_t0";
+    }
+
+    private String getBloomingPlantModelName(String name, int blooming, int textureIndex) {
+        if (blooming >= 0 && textureIndex >= 0) {
+            return name + "_b" + blooming + "_t" + textureIndex;
+        }
+
+        return name + "_b0_t0";
+    }
+
+    /***
+     *
+     * @param holder
+     * @param textures Textures like this: ({"block/hanging_fern_base", "block/hanging_fern_tip"}, {"block/hanging_fern_base_blooming", "block/hanging_fern_tip_blooming"})
+     * @param texRotationFunction
+     * @param itemTexture
+     */
+    private void registerBloomingPlantBlock(DeferredHolder<Block, BloomingPlantBlock> holder, String[][] textures, Function<Direction, Pair<Integer, Integer>> texRotationFunction, String itemTexture) {
+        BloomingPlantBlock block = holder.value();
+
+        String name = holder.getKey().location().getPath();
+
+        // This loop generates a model for every texture used in the pattern
+        Set<String> usedModels = new HashSet<>();
+        for (int blooming = 0; blooming <= block.getMaxBlooming(); blooming++) {
+            for (Integer textureIndex : block.getUsedTextures()) {
+                String modelName = getBloomingPlantModelName(name, blooming, textureIndex);
+
+                // Ensure we don't duplicate textures, since textures can be repeated in the pattern. Only need one model per texture.
+                if (!usedModels.contains(modelName)) {
+                    usedModels.add(modelName);
+
+                    String tex = textures[blooming][textureIndex];
+                    models().withExistingParent(modelName, mcLoc("block/cross"))
+                            .texture("cross", tex);
+                }
+            }
+        }
+
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+            int blooming = state.getValue(BloomingPlantBlock.BLOOMING);
+            if (blooming <= block.getMaxBlooming()) {
+                Direction facing = state.getValue(VersatilePlantBlock.FACING);
+                int textureIndex = state.getValue(VersatilePlantBlock.TEXTURE_INDEX);
+                String modelName = getBloomingPlantModelName(name, blooming, textureIndex);
+
+                if (usedModels.contains(modelName)) {
+                    Pair<Integer, Integer> texRot = texRotationFunction.apply(facing);
+                    int xRotOffset = texRot.getA();
+                    int yRotOffset = texRot.getB();
+
+                    return ConfiguredModel.builder()
+                            .rotationX(xRotOffset)
+                            .rotationY(yRotOffset)
+                            .modelFile(models().getExistingFile(ppId(modelName)))
+                            .build();
+                }
+            }
+
+            return ConfiguredModel.builder().modelFile(models().getExistingFile(mc("block/air"))).build();
+        },  VersatilePlantBlock.SEGMENT);
+
+        registerItem(block.asItem(), itemTexture);
     }
 
     private void registerBlockWithModel(Block block, ResourceLocation resourceLocation) {
