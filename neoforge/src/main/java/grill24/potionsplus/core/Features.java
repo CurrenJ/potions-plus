@@ -7,7 +7,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -29,22 +28,16 @@ public class Features {
     public static Feature<?> FISSURE = Features.register(ConfiguredFeatures.FISSURE_KEY.location().getPath(), new VolcanicFissureFeature(NoneFeatureConfiguration.CODEC));
     public static Feature<?> LAVA_GEYSER = Features.register(ConfiguredFeatures.LAVA_GEYSER_KEY.location().getPath(), new LavaGeyserFeature(NoneFeatureConfiguration.CODEC));
 
-    // ----- Ice Cave -----
-    public static final ResourceKey<PlacedFeature> ICICLE_KEY = ResourceKey.create(Registries.PLACED_FEATURE, ppId("icicle"));
-    public static Feature<PointedDripstoneConfiguration> ICICLE = Features.register(ICICLE_KEY.location().getPath(), new IcicleFeature(PointedDripstoneConfiguration.CODEC));
-
-    public static final ResourceKey<PlacedFeature> AQUIFER_FREEZE_KEY = ResourceKey.create(Registries.PLACED_FEATURE, ppId("aquifer_freeze"));
-    public static Feature<NoneFeatureConfiguration> AQUIFER_FREEZE = Features.register(AQUIFER_FREEZE_KEY.location().getPath(), new AquiferFreezeFeature(NoneFeatureConfiguration.CODEC));
-
-    public static final ResourceKey<PlacedFeature> CAMPFIRE_HUDDLE_KEY = ResourceKey.create(Registries.PLACED_FEATURE, ppId("campfire_huddle"));
-    public static Feature<NoneFeatureConfiguration> CAMPFIRE_HUDDLE = Features.register(CAMPFIRE_HUDDLE_KEY.location().getPath(), new CampfireHuddleFeature(NoneFeatureConfiguration.CODEC));
-
-    public static final ResourceKey<PlacedFeature> GIANT_SNOWFLAKE_KEY = ResourceKey.create(Registries.PLACED_FEATURE, ppId("giant_snowflake"));
-    public static Feature<NoneFeatureConfiguration> GIANT_SNOWFLAKE = Features.register(GIANT_SNOWFLAKE_KEY.location().getPath(), new GiantSnowflakeFeature(NoneFeatureConfiguration.CODEC));
+    public static Feature<PointedDripstoneConfiguration> ICICLE = Features.register("icicle", new IcicleFeature(PointedDripstoneConfiguration.CODEC));
+    public static Feature<NoneFeatureConfiguration> AQUIFER_FREEZE = Features.register("aquifer_freeze", new AquiferFreezeFeature(NoneFeatureConfiguration.CODEC));
+    public static Feature<NoneFeatureConfiguration> CAMPFIRE_HUDDLE = Features.register("campfire_huddle", new CampfireHuddleFeature(NoneFeatureConfiguration.CODEC));
+    public static Feature<NoneFeatureConfiguration> GIANT_SNOWFLAKE = Features.register("giant_snowflake", new GiantSnowflakeFeature(NoneFeatureConfiguration.CODEC));
 
     // ----- Arid Cave -----
-    public static final ResourceKey<PlacedFeature> ARID_CAVE_SUSPICIOUS_SAND_KEY = ResourceKey.create(Registries.PLACED_FEATURE, ppId("arid_cave_suspicious_sand"));
-    public static Feature<NoneFeatureConfiguration> ARID_CAVE_SUSPICIOUS_SAND = Features.register(ARID_CAVE_SUSPICIOUS_SAND_KEY.location().getPath(), new SuspiciousSandFeature(NoneFeatureConfiguration.CODEC));
+    public static Feature<NoneFeatureConfiguration> ARID_CAVE_SUSPICIOUS_SAND = Features.register("arid_cave_suspicious_sand", new SuspiciousSandFeature(NoneFeatureConfiguration.CODEC));
+
+    // ----- Misc. -----
+    public static final Feature<VersatilePlantBlockFeatureConfiguration> VERSATILE_PLANT = Features.register("versatile_plant", new VersatilePlantBlockFeature());
 
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent event)

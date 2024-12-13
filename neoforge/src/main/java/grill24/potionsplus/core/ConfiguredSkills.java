@@ -4,12 +4,10 @@ import grill24.potionsplus.skill.*;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.reward.AnimatedItemRewardData;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
-import grill24.potionsplus.skill.reward.SkillLevelUpRewardsData;
 import grill24.potionsplus.skill.source.ConfiguredSkillPointSource;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
@@ -298,23 +296,23 @@ public class ConfiguredSkills {
                         new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.003F, 20F),
                         createDefaultRewards()
                                 .addRewardForLevel(5, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.BOW_DAMAGE_BONUS_KEYS[0])
+                                        .addAbility(ConfiguredPlayerAbilities.BOW_POWER_BONUS_KEYS[0])
                                         .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.BOW)))
                                 )
                                 .addRewardForLevel(10, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.BOW_DAMAGE_BONUS_KEYS[1])
+                                        .addAbility(ConfiguredPlayerAbilities.BOW_POWER_BONUS_KEYS[1])
                                         .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.BOW)))
                                 )
                                 .addRewardForLevel(15, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.BOW_DAMAGE_BONUS_KEYS[2])
+                                        .addAbility(ConfiguredPlayerAbilities.BOW_POWER_BONUS_KEYS[2])
                                         .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.BOW)))
                                 )
                                 .addRewardForLevel(20, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.BOW_DAMAGE_BONUS_KEYS[3])
+                                        .addAbility(ConfiguredPlayerAbilities.BOW_POWER_BONUS_KEYS[3])
                                         .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.BOW)))
                                 )
                                 .addRewardForLevel(25, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.BOW_DAMAGE_BONUS_KEYS[4])
+                                        .addAbility(ConfiguredPlayerAbilities.BOW_POWER_BONUS_KEYS[4])
                                         .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.BOW)))
                                 )
                                 .build(abilityLookup)

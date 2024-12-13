@@ -1,5 +1,7 @@
 package grill24.potionsplus.worldgen;
 
+import grill24.potionsplus.worldgen.biome.IceCave;
+import grill24.potionsplus.worldgen.biome.VolcanicCave;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -16,6 +18,7 @@ import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;
+import java.util.Map;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -117,13 +120,19 @@ public class Placements {
         final Holder<ConfiguredFeature<?, ?>> ARID_CAVE_SUSPICIOUS_SAND = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.ARID_CAVE_SUSPICOUS_SAND_KEY);
         final Holder<PlacedFeature> ARID_CAVE_SUSPICIOUS_SAND_PLACED = register(context, ARID_CAVE_SUSPICIOUS_SAND_KEY,
                 ARID_CAVE_SUSPICIOUS_SAND, CountPlacement.of(48), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.not(BlockPredicate.solid()), 12), BiomeFilter.biome());
+
+        // ----- Misc. Vegetation -----
+        /**
+         * Register all multi-directional versatile plant features (placed features stage) - see {@link VersatilePlantsWorldGenData} and {@link MultiDirectionalVersatilePlantFeatureData}
+         */
+        VersatilePlantsWorldGenData.registerAllPlacedFeatures(context);
     }
 
     private static ResourceKey<PlacedFeature> createKey(String key) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ppId(key));
     }
 
-    private static Holder<PlacedFeature> register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuredFeature, PlacementModifier... modifiers) {
+    public static Holder<PlacedFeature> register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuredFeature, PlacementModifier... modifiers) {
         return context.register(key, new PlacedFeature(configuredFeature, List.of(modifiers)));
     }
 }

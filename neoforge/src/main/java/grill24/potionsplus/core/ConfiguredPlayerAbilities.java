@@ -39,7 +39,7 @@ public class ConfiguredPlayerAbilities {
 
     public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] AXE_DAMAGE_BONUS_KEYS = generateKeys(register("axe_damage_bonus"), 5);
 
-    public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] BOW_DAMAGE_BONUS_KEYS = generateKeys(register("bow_damage_bonus"), 5);
+    public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] BOW_POWER_BONUS_KEYS = generateKeys(register("bow_power_bonus"), 5);
 
     public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] CROSSBOW_DAMAGE_BONUS_KEYS = generateKeys(register("crossbow_damage_bonus"), 5);
 
@@ -102,7 +102,7 @@ public class ConfiguredPlayerAbilities {
 
         // Bow Damage
         generateAttributeBonuses(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BOW_POWER_BONUS, PlayerAbilities.MODIFIERS_WHILE_BOW_HELD.get(), grill24.potionsplus.core.Attributes.POWER_BONUS,
-                AttributeModifier.Operation.ADD_VALUE, BOW_DAMAGE_BONUS_KEYS, 1, 1, 1, 1, 1);
+                AttributeModifier.Operation.ADD_VALUE, BOW_POWER_BONUS_KEYS, 1, 1, 1, 1, 1);
 
         // Crossbow Damage
         generateAttributeBonuses(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_CROSSBOW_DAMAGE_BONUS, PlayerAbilities.MODIFIERS_WHILE_CROSSBOW_HELD.get(), Attributes.ATTACK_DAMAGE,

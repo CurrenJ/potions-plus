@@ -18,9 +18,11 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.api.distmarker.Dist;
@@ -152,6 +154,44 @@ public class Blocks {
                     new VersatilePlantBlock.VersatilePlantConfig(true, false, 1, 6,
                             new VersatilePlantBlockTexturePattern(List.of(), List.of(0), List.of(1), false)), 1));
 
+    public static final DeferredHolder<Block, BloomingPlantBlock> LUMOSEED_SACKS = register("lumoseed_sacks", () ->
+            new BloomingPlantBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY)
+                    .lightLevel((state) -> state.getValue(BloomingPlantBlock.BLOOMING) == 0 ? 0 : 10),
+                    new VersatilePlantBlock.VersatilePlantConfig(true, false, 0, 6,
+                            new VersatilePlantBlockTexturePattern(List.of(), List.of(0), List.of(1), false)), 1));
+
+    public static final DeferredHolder<Block, VersatilePlantBlock> DANDELION_VERSATILE = registerFlowerAsVersatilePlant("dandelion_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> TORCHFLOWER_VERSATILE = registerFlowerAsVersatilePlant("torchflower_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> POPPY_VERSATILE = registerFlowerAsVersatilePlant("poppy_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> BLUE_ORCHID_VERSATILE = registerFlowerAsVersatilePlant("blue_orchid_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> ALLIUM_VERSATILE = registerFlowerAsVersatilePlant("allium_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> AZURE_BLUET_VERSATILE = registerFlowerAsVersatilePlant("azure_bluet_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> RED_TULIP_VERSATILE = registerFlowerAsVersatilePlant("red_tulip_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> ORANGE_TULIP_VERSATILE = registerFlowerAsVersatilePlant("orange_tulip_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> WHITE_TULIP_VERSATILE = registerFlowerAsVersatilePlant("white_tulip_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> PINK_TULIP_VERSATILE = registerFlowerAsVersatilePlant("pink_tulip_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> OXEYE_DAISY_VERSATILE = registerFlowerAsVersatilePlant("oxeye_daisy_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> CORNFLOWER_VERSATILE = registerFlowerAsVersatilePlant("cornflower_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> WITHER_ROSE_VERSATILE = registerFlowerAsVersatilePlant("wither_rose_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> LILY_OF_THE_VALLEY_VERSATILE = registerFlowerAsVersatilePlant("lily_of_the_valley_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> BROWN_MUSHROOM_VERSATILE = registerFlowerAsVersatilePlant("brown_mushroom_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> RED_MUSHROOM_VERSATILE = registerFlowerAsVersatilePlant("red_mushroom_versatile");
+
+    public static final DeferredHolder<Block, VersatilePlantBlock> SUNFLOWER_VERSATILE = registerTallFlowerAsVersatilePlant("sunflower_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> LILAC_VERSATILE = registerTallFlowerAsVersatilePlant("lilac_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> ROSE_BUSH_VERSATILE = registerTallFlowerAsVersatilePlant("rose_bush_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> PEONY_VERSATILE = registerTallFlowerAsVersatilePlant("peony_versatile");
+
+    public static final DeferredHolder<Block, VersatilePlantBlock> TALL_GRASS_VERSATILE = registerTallFlowerAsVersatilePlant("tall_grass_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> LARGE_FERN_VERSATILE = registerTallFlowerAsVersatilePlant("large_fern_versatile");
+    public static final DeferredHolder<Block, VersatilePlantBlock> PITCHER_PLANT_VERSATILE = registerTallFlowerAsVersatilePlant("pitcher_plant_versatile", false);
+
     public static final Holder<Block> DENSE_DIAMOND_ORE = register("dense_diamond_ore", () ->
             new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F)));
     public static final Holder<Block> DEEPSLATE_DENSE_DIAMOND_ORE = register("deepslate_dense_diamond_ore", () ->
@@ -213,18 +253,18 @@ public class Blocks {
             new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.MOSSY_COBBLESTONE)));
 
     public static final Holder<Block> DEEPSLATE_REMNANT_DEBRIS = register("deepslate_remnant_debris", () ->
-            new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_BLACK)
-                    .requiresCorrectToolForDrops()
-                    .strength(15.0F, 1200.0F)
-                    .sound(SoundType.ANCIENT_DEBRIS)),
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_BLACK)
+                            .requiresCorrectToolForDrops()
+                            .strength(15.0F, 1200.0F)
+                            .sound(SoundType.ANCIENT_DEBRIS)),
             false);
     public static final Holder<Block> REMNANT_DEBRIS = register("remnant_debris", () ->
-            new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_GRAY)
-                    .requiresCorrectToolForDrops()
-                    .strength(15.0F, 1200.0F)
-                    .sound(SoundType.ANCIENT_DEBRIS)),
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_GRAY)
+                            .requiresCorrectToolForDrops()
+                            .strength(15.0F, 1200.0F)
+                            .sound(SoundType.ANCIENT_DEBRIS)),
             false);
 
     // ----- Block Entities -----
@@ -251,6 +291,12 @@ public class Blocks {
             return BiomeColors.getAverageWaterColor(world, pos);
         };
         event.register(cauldronWater, BREWING_CAULDRON.value());
+
+        // Register grass color for versatile plants that require it
+        event.register((state, blockAndTintGetter, blockPos, i) -> blockAndTintGetter != null && blockPos != null ?
+                BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos)
+                : GrassColor.getDefaultColor(), Blocks.TALL_GRASS_VERSATILE.value(), Blocks.LARGE_FERN_VERSATILE.value());
+
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -304,5 +350,39 @@ public class Blocks {
 
     public static <T extends Block> DeferredHolder<Block, T> register(final String name, final Supplier<T> sup) {
         return register(name, sup, true, Items.properties());
+    }
+
+    private static DeferredHolder<Block, VersatilePlantBlock> registerFlowerAsVersatilePlant(final String name) {
+        return register(name, () ->
+                new VersatilePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT)
+                        .noCollission()
+                        .instabreak()
+                        .sound(SoundType.GRASS)
+                        .ignitedByLava()
+                        .pushReaction(PushReaction.DESTROY),
+                        new VersatilePlantBlock.VersatilePlantConfig(
+                                true,
+                                false,
+                                0, 0,
+                                new VersatilePlantBlockTexturePattern(List.of(0), List.of(), List.of(), false))));
+    }
+
+    private static DeferredHolder<Block, VersatilePlantBlock> registerTallFlowerAsVersatilePlant(final String name, boolean extendable) {
+        return register(name, () ->
+                new VersatilePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT)
+                        .noCollission()
+                        .instabreak()
+                        .sound(SoundType.GRASS)
+                        .ignitedByLava()
+                        .pushReaction(PushReaction.DESTROY),
+                        new VersatilePlantBlock.VersatilePlantConfig(
+                                true,
+                                false,
+                                1, extendable ? 5 : 1,
+                                new VersatilePlantBlockTexturePattern(List.of(0), List.of(0), List.of(1), false))));
+    }
+
+    private static DeferredHolder<Block, VersatilePlantBlock> registerTallFlowerAsVersatilePlant(final String name) {
+        return registerTallFlowerAsVersatilePlant(name, true);
     }
 }

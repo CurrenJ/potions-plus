@@ -1,8 +1,13 @@
 package grill24.potionsplus.worldgen;
 
+import grill24.potionsplus.block.VersatilePlantBlock;
 import grill24.potionsplus.core.Features;
 import grill24.potionsplus.core.Tags;
+import grill24.potionsplus.worldgen.biome.AridCave;
+import grill24.potionsplus.worldgen.biome.IceCave;
+import grill24.potionsplus.worldgen.biome.VolcanicCave;
 import grill24.potionsplus.worldgen.feature.PotionsPlusVegetationPatchConfiguration;
+import grill24.potionsplus.worldgen.feature.VersatilePlantBlockFeatureConfiguration;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -13,10 +18,7 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.util.valueproviders.WeightedListInt;
+import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
@@ -34,6 +36,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 import java.util.List;
+import java.util.Map;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -115,13 +118,13 @@ public class ConfiguredFeatures {
                 context, VOLCANIC_PATCH_FLOOR_KEY, Features.POTIONS_PLUS_VEGETATION_PATCH,
                 new PotionsPlusVegetationPatchConfiguration(
                         // replaceable, groundState, vegetationFeature, surface, depth, extraBottomBlockChance, verticalRange, vegetationChance, xzRadius, extraEdgeColumnChance
-                        BlockTags.MOSS_REPLACEABLE, VolcanicCave.VOLCANIC_CAVE_BLOCK_SAMPLER_FLOOR, PlacementUtils.inlinePlaced(FLOOR_VEGETATION), CaveSurface.FLOOR, UniformInt.of(5, 8), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F, BlockStateProvider.simple(Blocks.AIR))
+                        BlockTags.MOSS_REPLACEABLE, VolcanicCave.VOLCANIC_CAVE_BLOCK_SAMPLER_FLOOR, PlacementUtils.inlinePlaced(FLOOR_VEGETATION), Direction.UP, UniformInt.of(5, 8), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F, BlockStateProvider.simple(Blocks.AIR))
         );
         final Holder<ConfiguredFeature<?, ?>> CEILING_VEGETATION = register(context, CEILING_VEGETATION_KEY, Feature.SIMPLE_BLOCK,
                 new SimpleBlockConfiguration(SimpleStateProvider.simple(Blocks.AIR)));
         final Holder<ConfiguredFeature<?, ?>> VOLCANIC_PATCH_CEILING = register(
                 context, VOLCANIC_PATCH_CEILING_KEY, Features.POTIONS_PLUS_VEGETATION_PATCH,
-                new PotionsPlusVegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, VolcanicCave.VOLCANIC_CAVE_BLOCK_SAMPLER_CEILING, PlacementUtils.inlinePlaced(CEILING_VEGETATION), CaveSurface.CEILING, UniformInt.of(1, 3), 0.0F, 5, 0.08F, UniformInt.of(4, 7), 0.3F, BlockStateProvider.simple(Blocks.AIR)));
+                new PotionsPlusVegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, VolcanicCave.VOLCANIC_CAVE_BLOCK_SAMPLER_CEILING, PlacementUtils.inlinePlaced(CEILING_VEGETATION), Direction.DOWN, UniformInt.of(1, 3), 0.0F, 5, 0.08F, UniformInt.of(4, 7), 0.3F, BlockStateProvider.simple(Blocks.AIR)));
 
         final Holder<ConfiguredFeature<?, ?>> FISSURE = register(context, FISSURE_KEY, Features.FISSURE);
         final Holder<ConfiguredFeature<?, ?>> LAVA_GEYSER = register(context, LAVA_GEYSER_KEY, Features.LAVA_GEYSER);
@@ -162,21 +165,24 @@ public class ConfiguredFeatures {
                 ))
         );
         final Holder<ConfiguredFeature<?, ?>> ARID_CAVE_FLOOR = register(context, ARID_CAVE_FLOOR_KEY, Features.POTIONS_PLUS_VEGETATION_PATCH,
-                new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, AridCave.BLOCK_SAMPLER_FLOOR, PlacementUtils.inlinePlaced(ARID_CAVE_FLOOR_VEGETATION), CaveSurface.FLOOR, UniformInt.of(5, 8), 0.0F, 5, 0.02F, UniformInt.of(4, 7), 0.3F, BlockStateProvider.simple(Blocks.SAND)));
+                new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, AridCave.BLOCK_SAMPLER_FLOOR, PlacementUtils.inlinePlaced(ARID_CAVE_FLOOR_VEGETATION), Direction.UP, UniformInt.of(5, 8), 0.0F, 5, 0.02F, UniformInt.of(4, 7), 0.3F, BlockStateProvider.simple(Blocks.SAND)));
 
         final Holder<ConfiguredFeature<?, ?>> ARID_CAVE_CEILING_VEGETATION = register(context, ARID_CAVE_CEILING_VEGETATION_KEY, Feature.SIMPLE_BLOCK,
                 new SimpleBlockConfiguration(SimpleStateProvider.simple(Blocks.AIR))
         );
         final Holder<ConfiguredFeature<?, ?>> ARID_CAVE_CEILING = register(context, ARID_CAVE_CEILING_KEY, Features.POTIONS_PLUS_VEGETATION_PATCH,
-                new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, AridCave.BLOCK_SAMPLER_CEILING, PlacementUtils.inlinePlaced(ARID_CAVE_CEILING_VEGETATION), CaveSurface.CEILING, UniformInt.of(5, 8), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F, BlockStateProvider.simple(Blocks.SAND)));
+                new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, AridCave.BLOCK_SAMPLER_CEILING, PlacementUtils.inlinePlaced(ARID_CAVE_CEILING_VEGETATION), Direction.DOWN, UniformInt.of(5, 8), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F, BlockStateProvider.simple(Blocks.SAND)));
         final Holder<ConfiguredFeature<?, ?>> ARID_CAVE_SUSPICOUS_SAND = register(context, ARID_CAVE_SUSPICOUS_SAND_KEY, Features.ARID_CAVE_SUSPICIOUS_SAND);
+
+        // Registers all multi directional versatile plant features (configured features stage)
+        VersatilePlantsWorldGenData.registerAllConfiguredFeatures(context);
     }
 
     private static ResourceKey<ConfiguredFeature<?,?>> createKey(String key) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ppId(key));
     }
 
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC config) {
+    public static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC config) {
         return context.register(key, new ConfiguredFeature<>(feature, config));
     }
 

@@ -1,8 +1,8 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.worldgen.AridCave;
-import grill24.potionsplus.worldgen.IceCave;
-import grill24.potionsplus.worldgen.VolcanicCave;
+import grill24.potionsplus.worldgen.biome.AridCave;
+import grill24.potionsplus.worldgen.biome.IceCave;
+import grill24.potionsplus.worldgen.biome.VolcanicCave;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;

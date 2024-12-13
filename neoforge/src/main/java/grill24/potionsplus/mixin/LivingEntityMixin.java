@@ -14,10 +14,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -62,6 +59,8 @@ public abstract class LivingEntityMixin extends Entity {
     @Shadow @Nullable public abstract AttributeInstance getAttribute(Holder<Attribute> attribute);
 
     @Shadow public abstract double getAttributeValue(Holder<Attribute> attribute);
+
+    @Shadow public abstract AttributeMap getAttributes();
 
     @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getFriction(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;)F"))
     public float getFriction(BlockState instance, LevelReader levelReader, BlockPos blockPos, Entity entity) {
@@ -130,7 +129,7 @@ public abstract class LivingEntityMixin extends Entity {
                 if (attribute.getKey() != null) {
                     ResourceLocation key = attribute.getKey().location();
                     movementSpeedAttributeInstance.removeModifier(key);
-                    if (sprinting) {
+                    if (sprinting && this.getAttributes().hasAttribute(attribute)) {
                         movementSpeedAttributeInstance.addTransientModifier(new AttributeModifier(key, this.getAttributeValue(attribute), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
                     }
                 }

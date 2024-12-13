@@ -1,5 +1,6 @@
 package grill24.potionsplus.data;
 
+import com.mojang.datafixers.types.Func;
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
@@ -12,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BushBlock;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder;
@@ -22,6 +24,7 @@ import oshi.util.tuples.Pair;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 import static grill24.potionsplus.utility.Utility.mc;
@@ -119,6 +122,8 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         registerItem(Blocks.REDSTONE_ROSE.value().asItem(), "block/redstone_rose");
         registerItem(Blocks.BLACK_COALLA_LILY.value().asItem(), "block/black_coalla_lily");
 
+        BiConsumer<String, ResourceLocation> crossModelGenerator = (modelName, resource) ->
+                models().withExistingParent(modelName, mcLoc("block/cross")).texture("cross", resource);
         Function<Direction, Pair<Integer, Integer>> hangingPlantTextureOrientation = (facing) -> {
             int xRotOffset = switch (facing) {
                 case UP -> 180;
@@ -135,30 +140,183 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
             return new Pair<>(xRotOffset, yRotOffset);
         };
         registerBloomingPlantBlock(Blocks.HANGING_FERN,
-                new String[][]{
-                        new String[]{"block/hanging_fern_upper", "block/hanging_fern_middle", "block/hanging_fern_lower"},
-                        new String[]{"block/hanging_fern_upper_blooming", "block/hanging_fern_middle_blooming", "block/hanging_fern_lower_blooming"},
+                new ResourceLocation[][]{
+                        new ResourceLocation[]{ppId("block/hanging_fern_upper"), ppId("block/hanging_fern_middle"), ppId("block/hanging_fern_lower")},
+                        new ResourceLocation[]{ppId("block/hanging_fern_upper_blooming"), ppId("block/hanging_fern_middle_blooming"), ppId("block/hanging_fern_lower_blooming")},
                 },
                 hangingPlantTextureOrientation,
-                "block/hanging_fern_upper_blooming");
+                ppId("block/hanging_fern_upper_blooming"),
+                crossModelGenerator);
         registerVersatilePlantBlock(Blocks.COWLICK_VINE,
-                new String[]{"block/cowlick_vine_0", "block/cowlick_vine_1", "block/cowlick_vine_2", "block/cowlick_vine_3", "block/cowlick_vine_tail"},
+                new ResourceLocation[]{ppId("block/cowlick_vine_0"), ppId("block/cowlick_vine_1"), ppId("block/cowlick_vine_2"), ppId("block/cowlick_vine_3"), ppId("block/cowlick_vine_tail")},
                 hangingPlantTextureOrientation,
-                "block/cowlick_vine_tail");
+                ppId("block/cowlick_vine_tail"),
+                crossModelGenerator);
         registerBloomingPlantBlock(Blocks.DROOPY_VINE,
-                new String[][]{
-                        new String[]{"block/droopy_vine_0", "block/droopy_vine_1", "block/droopy_vine_2"},
-                        new String[]{"block/droopy_vine_blooming_0", "block/droopy_vine_blooming_1", "block/droopy_vine_blooming_2"},
+                new ResourceLocation[][]{
+                        new ResourceLocation[]{ppId("block/droopy_vine_0"), ppId("block/droopy_vine_1"), ppId("block/droopy_vine_2")},
+                        new ResourceLocation[]{ppId("block/droopy_vine_blooming_0"), ppId("block/droopy_vine_blooming_1"), ppId("block/droopy_vine_blooming_2")},
                 },
                 hangingPlantTextureOrientation,
-                "block/droopy_vine_blooming_2");
+                ppId("block/droopy_vine_blooming_2"),
+                crossModelGenerator);
         registerBloomingPlantBlock(Blocks.SURVIVOR_STICK,
-                new String[][]{
-                        new String[]{"block/survivor_stick_0", "block/survivor_stick_1"},
-                        new String[]{"block/survivor_stick_blooming_0", "block/survivor_stick_blooming_1"},
+                new ResourceLocation[][]{
+                        new ResourceLocation[]{ppId("block/survivor_stick_0"), ppId("block/survivor_stick_1")},
+                        new ResourceLocation[]{ppId("block/survivor_stick_blooming_0"), ppId("block/survivor_stick_blooming_1")},
                 },
                 hangingPlantTextureOrientation,
-                "block/survivor_stick_blooming_1");
+                ppId("block/survivor_stick_blooming_1"),
+                crossModelGenerator);
+
+        // Pair<Parent Model, Pair<Texture Location Vine, Texture Location >>
+        BiConsumer<String, Pair<ResourceLocation, Pair<ResourceLocation, ResourceLocation>>> lumoseedModelGenerator = (modelName, resources) ->
+                models().withExistingParent(modelName, resources.getA()).texture("vine", resources.getB().getA()).texture("sack", resources.getB().getB());
+        this.<Pair<ResourceLocation, Pair<ResourceLocation, ResourceLocation>>>registerBloomingPlantBlock(Blocks.LUMOSEED_SACKS,
+                new Pair[][] {
+                        new Pair[]{new Pair<>(ppId("block/lumoseed_sack"), new Pair<>(mc("block/moss_block"), mc("block/moss_block"))), new Pair(ppId("block/lumoseed_sack_tail"), new Pair<>(mc("block/moss_block"), mc("block/moss_block")))},
+                        new Pair[]{new Pair<>(ppId("block/lumoseed_sack"), new Pair<>(mc("block/moss_block"), mc("block/glowstone"))), new Pair(ppId("block/lumoseed_sack_tail"), new Pair<>(mc("block/moss_block"), mc("block/glowstone")))}
+                },
+                hangingPlantTextureOrientation,
+                mc("item/coal"),
+                lumoseedModelGenerator);
+
+        Function<Direction, Pair<Integer, Integer>> uprightPlantTextureOrientation = (facing) -> {
+            int xRotOffset = switch (facing) {
+                case UP -> 0;
+                case DOWN -> 180;
+                default -> 90;
+            };
+            int yRotOffset = switch (facing) {
+                case NORTH -> 0;
+                case EAST -> 90;
+                case SOUTH -> 180;
+                case WEST -> 270;
+                default -> 0;
+            };
+            return new Pair<>(xRotOffset, yRotOffset);
+        };
+        registerVersatilePlantBlock(Blocks.DANDELION_VERSATILE,
+                new ResourceLocation[] {mc("block/dandelion")},
+                uprightPlantTextureOrientation,
+                mc("block/dandelion"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.TORCHFLOWER_VERSATILE,
+                new ResourceLocation[] {mc("block/torchflower")},
+                uprightPlantTextureOrientation,
+                mc("block/torchflower"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.POPPY_VERSATILE,
+                new ResourceLocation[] {mc("block/poppy")},
+                uprightPlantTextureOrientation,
+                mc("block/poppy"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.BLUE_ORCHID_VERSATILE,
+                new ResourceLocation[] {mc("block/blue_orchid")},
+                uprightPlantTextureOrientation,
+                mc("block/blue_orchid"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.ALLIUM_VERSATILE,
+                new ResourceLocation[] {mc("block/allium")},
+                uprightPlantTextureOrientation,
+                mc("block/allium"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.AZURE_BLUET_VERSATILE,
+                new ResourceLocation[] {mc("block/azure_bluet")},
+                uprightPlantTextureOrientation,
+                mc("block/azure_bluet"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.RED_TULIP_VERSATILE,
+                new ResourceLocation[] {mc("block/red_tulip")},
+                uprightPlantTextureOrientation,
+                mc("block/red_tulip"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.ORANGE_TULIP_VERSATILE,
+                new ResourceLocation[] {mc("block/orange_tulip")},
+                uprightPlantTextureOrientation,
+                mc("block/orange_tulip"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.WHITE_TULIP_VERSATILE,
+                new ResourceLocation[] {mc("block/white_tulip")},
+                uprightPlantTextureOrientation,
+                mc("block/white_tulip"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.PINK_TULIP_VERSATILE,
+                new ResourceLocation[] {mc("block/pink_tulip")},
+                uprightPlantTextureOrientation,
+                mc("block/pink_tulip"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.OXEYE_DAISY_VERSATILE,
+                new ResourceLocation[] {mc("block/oxeye_daisy")},
+                uprightPlantTextureOrientation,
+                mc("block/oxeye_daisy"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.CORNFLOWER_VERSATILE,
+                new ResourceLocation[] {mc("block/cornflower")},
+                uprightPlantTextureOrientation,
+                mc("block/cornflower"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.WITHER_ROSE_VERSATILE,
+                new ResourceLocation[] {mc("block/wither_rose")},
+                uprightPlantTextureOrientation,
+                mc("block/wither_rose"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.LILY_OF_THE_VALLEY_VERSATILE,
+                new ResourceLocation[] {mc("block/lily_of_the_valley")},
+                uprightPlantTextureOrientation,
+                mc("block/lily_of_the_valley"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.BROWN_MUSHROOM_VERSATILE,
+                new ResourceLocation[] {mc("block/brown_mushroom")},
+                uprightPlantTextureOrientation,
+                mc("block/brown_mushroom"),
+                crossModelGenerator);
+        registerVersatilePlantBlock(Blocks.RED_MUSHROOM_VERSATILE,
+                new ResourceLocation[] {mc("block/red_mushroom")},
+                uprightPlantTextureOrientation,
+                mc("block/red_mushroom"),
+                crossModelGenerator);
+
+        BiConsumer<String, ResourceLocation> parentedModelGenerator = (modelName, parentModel) ->
+                models().withExistingParent(modelName, parentModel);
+        registerVersatilePlantBlock(Blocks.SUNFLOWER_VERSATILE,
+                new ResourceLocation[] {mc("block/sunflower_bottom"), mc("block/sunflower_top")},
+                uprightPlantTextureOrientation,
+                mc("block/sunflower_front"),
+                parentedModelGenerator);
+        registerVersatilePlantBlock(Blocks.LILAC_VERSATILE,
+                new ResourceLocation[] {mc("block/lilac_bottom"), mc("block/lilac_top")},
+                uprightPlantTextureOrientation,
+                mc("block/lilac_top"),
+                parentedModelGenerator);
+        registerVersatilePlantBlock(Blocks.ROSE_BUSH_VERSATILE,
+                new ResourceLocation[] {mc("block/rose_bush_bottom"), mc("block/rose_bush_top")},
+                uprightPlantTextureOrientation,
+                mc("block/rose_bush_top"),
+                parentedModelGenerator);
+        registerVersatilePlantBlock(Blocks.PEONY_VERSATILE,
+                new ResourceLocation[] {mc("block/peony_bottom"), mc("block/peony_top")},
+                uprightPlantTextureOrientation,
+                mc("block/peony_top"),
+                parentedModelGenerator);
+
+        registerVersatilePlantBlock(Blocks.TALL_GRASS_VERSATILE,
+                new ResourceLocation[] {mc("block/tall_grass_bottom"), mc("block/tall_grass_top")},
+                uprightPlantTextureOrientation,
+                mc("block/tall_grass_top"),
+                parentedModelGenerator);
+        registerVersatilePlantBlock(Blocks.LARGE_FERN_VERSATILE,
+                new ResourceLocation[] {mc("block/large_fern_bottom"), mc("block/large_fern_top")},
+                uprightPlantTextureOrientation,
+                mc("block/large_fern_top"),
+                parentedModelGenerator);
+        registerVersatilePlantBlock(Blocks.PITCHER_PLANT_VERSATILE,
+                new ResourceLocation[] {mc("block/pitcher_plant_bottom"), mc("block/pitcher_plant_top")},
+                uprightPlantTextureOrientation,
+                mc("item/pitcher_plant"),
+                parentedModelGenerator);
+
+
 
         registerItem(Items.WREATH.value());
 
@@ -361,7 +519,7 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         registerFlowerBlock(block, "block/" + Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block)).getPath());
     }
 
-    private void registerVersatilePlantBlock(DeferredHolder<Block, VersatilePlantBlock> holder, String[] textures, Function<Direction, Pair<Integer, Integer>> texRotationFunction, String itemTexture) {
+    private <T> void registerVersatilePlantBlock(DeferredHolder<Block, VersatilePlantBlock> holder, T[] resources, Function<Direction, Pair<Integer, Integer>> texRotationFunction, ResourceLocation itemTexture, BiConsumer<String, T> modelRegisterer) {
         VersatilePlantBlock block = holder.value();
 
         String name = holder.getKey().location().getPath();
@@ -375,9 +533,8 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
             if (!usedModels.contains(modelName)) {
                 usedModels.add(modelName);
 
-                String tex = textures[textureIndex];
-                models().withExistingParent(modelName, mcLoc("block/cross"))
-                        .texture("cross", tex);
+                T resource = resources[textureIndex];
+                modelRegisterer.accept(modelName, resource);
             }
         }
 
@@ -426,7 +583,7 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
      * @param texRotationFunction
      * @param itemTexture
      */
-    private void registerBloomingPlantBlock(DeferredHolder<Block, BloomingPlantBlock> holder, String[][] textures, Function<Direction, Pair<Integer, Integer>> texRotationFunction, String itemTexture) {
+    private <T> void registerBloomingPlantBlock(DeferredHolder<Block, BloomingPlantBlock> holder, T[][] textures, Function<Direction, Pair<Integer, Integer>> texRotationFunction, ResourceLocation itemTexture, BiConsumer<String, T> modelGenerator) {
         BloomingPlantBlock block = holder.value();
 
         String name = holder.getKey().location().getPath();
@@ -441,9 +598,8 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
                 if (!usedModels.contains(modelName)) {
                     usedModels.add(modelName);
 
-                    String tex = textures[blooming][textureIndex];
-                    models().withExistingParent(modelName, mcLoc("block/cross"))
-                            .texture("cross", tex);
+                    T tex = textures[blooming][textureIndex];
+                    modelGenerator.accept(modelName, tex);
                 }
             }
         }

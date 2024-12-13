@@ -44,6 +44,7 @@ public class PotionsPlus {
         CommandArgumentTypes.COMMAND_ARGUMENT_TYPES.register(bus);
         Attributes.ATTRIBUTES.register(bus);
         LootItemConditions.LOOT_ITEM_CONDITIONS.register(bus);
+        PlacementModifierTypes.PLACEMENT_MODIFIER_TYPES.register(bus);
 
         CreativeModeTabs.CREATIVE_MODE_TABS.register(bus);
     }

@@ -151,7 +151,7 @@ public class VersatilePlantBlock extends BushBlock {
      * @param facing The direction the plant is facing (towards sky = up, towards ground = down, other directions are for wall mounted plants)
      * @return Whether the plant can survive in the given position
      */
-    protected boolean canSurviveFacing(BlockState state, LevelReader level, BlockPos pos, Direction facing) {
+    public boolean canSurviveFacing(BlockState state, LevelReader level, BlockPos pos, Direction facing) {
         BlockPos blockpos = pos.relative(facing.getOpposite());
         BlockState belowBlockState = level.getBlockState(blockpos);
         net.neoforged.neoforge.common.util.TriState soilDecision = belowBlockState.canSustainPlant(level, blockpos, facing.getOpposite(), state);
@@ -159,7 +159,7 @@ public class VersatilePlantBlock extends BushBlock {
         return this.mayPlaceOn(belowBlockState, level, blockpos);
     }
 
-    protected void placeAt(LevelAccessor level, BlockState state, BlockPos basePos, int length, int flags) {
+    public void placeAt(LevelAccessor level, BlockState state, BlockPos basePos, int length, int flags) {
         int segmentsToPlace = Math.min(length, getMaxSegmentIndex() + 1);
         for (int i = 0; i < segmentsToPlace; i++) {
             BlockPos currentPos = basePos.relative(state.getValue(FACING), i);
@@ -168,8 +168,10 @@ public class VersatilePlantBlock extends BushBlock {
             BlockState placedState = copyWaterloggedFrom(level, currentPos, state);
             placedState = setPropertiesOnPlacement(level, placedState, currentPos, i, segmentsToPlace);
 
-            if (!existingState.is(this) || !placedState.equals(existingState)) {
+            if (existingState.canBeReplaced() || existingState.is(this)) {
                 level.setBlock(currentPos, placedState, flags);
+            } else {
+                break;
             }
         }
     }

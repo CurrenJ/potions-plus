@@ -23,10 +23,15 @@ public class BlockRenderLayers {
         registerBlock(Blocks.ICICLE, RenderType.cutout());
         registerBlock(Blocks.URANIUM_GLASS, RenderType.cutout());
         registerBlock(Blocks.POTION_BEACON, RenderType.cutout());
+        registerBlock(Blocks.LUMOSEED_SACKS, RenderType.solid());
     }
 
     private static void registerBlock(Holder<Block> block, RenderType renderType) {
-        renderLayers.put(block, renderType);
+        if (!renderLayers.containsKey(block)) {
+            renderLayers.put(block, renderType);
+        } else {
+            PotionsPlus.LOGGER.info("Block {} already has a render layer {} registered. Will not apply {}. ", block, renderLayers.get(block), renderType);
+        }
     }
 
     @SubscribeEvent

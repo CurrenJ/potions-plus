@@ -59,40 +59,49 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
         return !set.isEmpty();
     }
 
-    protected Set<BlockPos> placeGroundPatch(WorldGenLevel p_160597_, PotionsPlusVegetationPatchConfiguration p_160598_, RandomSource p_160599_, BlockPos p_160600_, Predicate<BlockState> p_160601_, int p_160602_, int p_160603_) {
+    protected Set<BlockPos> placeGroundPatch(WorldGenLevel p_160597_, PotionsPlusVegetationPatchConfiguration configuration, RandomSource p_160599_, BlockPos p_160600_, Predicate<BlockState> p_160601_, int xRadius, int zRadius) {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = p_160600_.mutable();
         BlockPos.MutableBlockPos blockpos$mutableblockpos1 = blockpos$mutableblockpos.mutable();
-        Direction direction = p_160598_.surface.getDirection();
-        Direction direction1 = direction.getOpposite();
+        Direction facingOpposite = configuration.facing.getOpposite();
+        Direction facing = configuration.facing;
         Set<BlockPos> set = new HashSet<>();
 
-        for(int i = -p_160602_; i <= p_160602_; ++i) {
-            boolean flag = i == -p_160602_ || i == p_160602_;
+        for(int i = -xRadius; i <= xRadius; ++i) {
+            boolean flag = i == -xRadius || i == xRadius;
 
-            for(int j = -p_160603_; j <= p_160603_; ++j) {
-                boolean flag1 = j == -p_160603_ || j == p_160603_;
+            for(int j = -zRadius; j <= zRadius; ++j) {
+                boolean flag1 = j == -zRadius || j == zRadius;
                 boolean flag2 = flag || flag1;
                 boolean flag3 = flag && flag1;
                 boolean flag4 = flag2 && !flag3;
-                if (!flag3 && (!flag4 || p_160598_.extraEdgeColumnChance != 0.0F && !(p_160599_.nextFloat() > p_160598_.extraEdgeColumnChance))) {
-                    blockpos$mutableblockpos.setWithOffset(p_160600_, i, 0, j);
+                if (!flag3 && (!flag4 || configuration.extraEdgeColumnChance != 0.0F && !(p_160599_.nextFloat() > configuration.extraEdgeColumnChance))) {
+//                    blockpos$mutableblockpos.setWithOffset(p_160600_, i, 0, j);
+                    // UP = (i, 0, j) AXISY
+                    // DOWN = (i, 0, j) AXISY
+                    // NORTH = (i, j, 0) AXISZ
+                    // SOUTH = (i, j, 0) AXISZ
+                    // EAST = (0, i, j) AXISX
+                    // WEST = (0, i, j) AXISX
+                    Direction.Axis axis = configuration.facing.getAxis();
+                    blockpos$mutableblockpos.setWithOffset(p_160600_,
+                            axis == Direction.Axis.X ? 0 : i,
+                            axis == Direction.Axis.Y ? 0 : (axis == Direction.Axis.Z ? j : i),
+                            axis == Direction.Axis.Z ? 0 : j);
 
-                    for(int k = 0; p_160597_.isStateAtPosition(blockpos$mutableblockpos, (state) -> !state.isCollisionShapeFullBlock(p_160597_, blockpos$mutableblockpos)) && k < p_160598_.verticalRange; ++k) {
-                        blockpos$mutableblockpos.move(direction);
+                    for(int k = 0; p_160597_.isStateAtPosition(blockpos$mutableblockpos, (state) -> !state.isCollisionShapeFullBlock(p_160597_, blockpos$mutableblockpos)) && k < configuration.verticalRange; ++k) {
+                        blockpos$mutableblockpos.move(facingOpposite);
                     }
 
-                    for(int i1 = 0; p_160597_.isStateAtPosition(blockpos$mutableblockpos, (p_204784_) -> {
-                        return p_204784_.isCollisionShapeFullBlock(p_160597_, blockpos$mutableblockpos);
-                    }) && i1 < p_160598_.verticalRange; ++i1) {
-                        blockpos$mutableblockpos.move(direction1);
+                    for(int i1 = 0; p_160597_.isStateAtPosition(blockpos$mutableblockpos, (p_204784_) -> p_204784_.isCollisionShapeFullBlock(p_160597_, blockpos$mutableblockpos)) && i1 < configuration.verticalRange; ++i1) {
+                        blockpos$mutableblockpos.move(facing);
                     }
 
-                    blockpos$mutableblockpos1.setWithOffset(blockpos$mutableblockpos, p_160598_.surface.getDirection());
+                    blockpos$mutableblockpos1.setWithOffset(blockpos$mutableblockpos, facingOpposite);
                     BlockState blockstate = p_160597_.getBlockState(blockpos$mutableblockpos1);
-                    if (!p_160597_.getBlockState(blockpos$mutableblockpos).isCollisionShapeFullBlock(p_160597_, blockpos$mutableblockpos) && blockstate.isFaceSturdy(p_160597_, blockpos$mutableblockpos1, p_160598_.surface.getDirection().getOpposite())) {
-                        int l = p_160598_.depth.sample(p_160599_) + (p_160598_.extraBottomBlockChance > 0.0F && p_160599_.nextFloat() < p_160598_.extraBottomBlockChance ? 1 : 0);
+                    if (!p_160597_.getBlockState(blockpos$mutableblockpos).isCollisionShapeFullBlock(p_160597_, blockpos$mutableblockpos) && blockstate.isFaceSturdy(p_160597_, blockpos$mutableblockpos1, facing)) {
+                        int l = configuration.depth.sample(p_160599_) + (configuration.extraBottomBlockChance > 0.0F && p_160599_.nextFloat() < configuration.extraBottomBlockChance ? 1 : 0);
                         BlockPos blockpos = blockpos$mutableblockpos1.immutable();
-                        boolean flag5 = this.placeGround(p_160597_, p_160598_, p_160601_, p_160599_, blockpos$mutableblockpos1, l);
+                        boolean flag5 = this.placeGround(p_160597_, configuration, p_160601_, p_160599_, blockpos$mutableblockpos1, l);
                         if (flag5) {
                             set.add(blockpos);
                         }
@@ -114,7 +123,7 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
     }
 
     protected boolean placeVegetation(WorldGenLevel p_160592_, PotionsPlusVegetationPatchConfiguration p_160593_, ChunkGenerator p_160594_, RandomSource p_160595_, BlockPos p_160596_) {
-        return p_160593_.vegetationFeature.value().place(p_160592_, p_160594_, p_160595_, p_160596_.relative(p_160593_.surface.getDirection().getOpposite()));
+        return p_160593_.vegetationFeature.value().place(p_160592_, p_160594_, p_160595_, p_160596_.relative(p_160593_.facing));
     }
 
     protected boolean placeGround(WorldGenLevel p_160605_, PotionsPlusVegetationPatchConfiguration p_160606_, Predicate<BlockState> p_160607_, RandomSource p_160608_, BlockPos.MutableBlockPos p_160609_, int p_160610_) {
@@ -143,7 +152,7 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
                 }
 
                 p_160605_.setBlock(p_160609_, blockstate, 2 | 16);
-                p_160609_.move(p_160606_.surface.getDirection());
+                p_160609_.move(p_160606_.facing.getOpposite());
             }
         }
 

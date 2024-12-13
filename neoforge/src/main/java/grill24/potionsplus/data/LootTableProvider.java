@@ -85,6 +85,81 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
             dropSelf(consumer, Blocks.SURVIVOR_STICK.value(),
                     LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SURVIVOR_STICK.value())
                             .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.LUMOSEED_SACKS.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.LUMOSEED_SACKS.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+
+            dropSelf(consumer, Blocks.DANDELION_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.DANDELION_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.TORCHFLOWER_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TORCHFLOWER_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.POPPY_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.POPPY_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.BLUE_ORCHID_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.BLUE_ORCHID_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.ALLIUM_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.ALLIUM_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.AZURE_BLUET_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.AZURE_BLUET_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.RED_TULIP_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.RED_TULIP_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.ORANGE_TULIP_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.ORANGE_TULIP_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.WHITE_TULIP_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.WHITE_TULIP_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.PINK_TULIP_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.PINK_TULIP_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.OXEYE_DAISY_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.OXEYE_DAISY_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.CORNFLOWER_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.CORNFLOWER_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.WITHER_ROSE_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.WITHER_ROSE_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.LILY_OF_THE_VALLEY_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.LILY_OF_THE_VALLEY_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.BROWN_MUSHROOM_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.BROWN_MUSHROOM_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.RED_MUSHROOM_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.RED_MUSHROOM_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+
+            dropSelf(consumer, Blocks.SUNFLOWER_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SUNFLOWER_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.LILAC_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.LILAC_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.ROSE_BUSH_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.ROSE_BUSH_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.PEONY_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.PEONY_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+
+            dropSelf(consumer, Blocks.TALL_GRASS_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.LARGE_FERN_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.LARGE_FERN_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
+            dropSelf(consumer, Blocks.PITCHER_PLANT_VERSATILE.value(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.PITCHER_PLANT_VERSATILE.value())
+                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VersatilePlantBlock.SEGMENT, 0)));
 
             consumer.accept(Blocks.URANIUM_ORE.value().getLootTable(), createOreDrop(Blocks.URANIUM_ORE.value(), grill24.potionsplus.core.Items.RAW_URANIUM.value()));
             consumer.accept(Blocks.DEEPSLATE_URANIUM_ORE.value().getLootTable(), createOreDrop(Blocks.DEEPSLATE_URANIUM_ORE.value(), grill24.potionsplus.core.Items.RAW_URANIUM.value()));

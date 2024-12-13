@@ -21,7 +21,7 @@
             "translationKey": "tooltip.potionsplus.skill.reward.basic"
           },
           "10": {
-            "abilities": "potionsplus:bow_damage_bonus_2",
+            "abilities": "potionsplus:bow_power_bonus_2",
             "advancementRewards": [
               {
                 "loot": [
@@ -80,7 +80,7 @@
             "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
           },
           "15": {
-            "abilities": "potionsplus:bow_damage_bonus_3",
+            "abilities": "potionsplus:bow_power_bonus_3",
             "advancementRewards": [
               {
                 "loot": [
@@ -149,7 +149,7 @@
             "translationKey": "tooltip.potionsplus.skill.reward.basic"
           },
           "20": {
-            "abilities": "potionsplus:bow_damage_bonus_4",
+            "abilities": "potionsplus:bow_power_bonus_4",
             "advancementRewards": [
               {
                 "loot": [
@@ -208,7 +208,7 @@
             "translationKey": "tooltip.potionsplus.skill.reward.advanced"
           },
           "25": {
-            "abilities": "potionsplus:bow_damage_bonus_5",
+            "abilities": "potionsplus:bow_power_bonus_5",
             "advancementRewards": [
               {
                 "loot": [
@@ -247,7 +247,7 @@
             "translationKey": "tooltip.potionsplus.skill.reward.basic"
           },
           "5": {
-            "abilities": "potionsplus:bow_damage_bonus_1",
+            "abilities": "potionsplus:bow_power_bonus_1",
             "advancementRewards": [
               {
                 "loot": [
