@@ -41,7 +41,115 @@
 - `ParticleTypes.java` defines ParticleType instances'
 - `HugeExplosionSeedParticle.java` is a no-render particle that acts as an emitter with a lifetime
 
+
+
+- Clock item model can help us with the "effect" icon
+
 # To Do
 
-- Investigate blaze3d rendering API (see botania for example)
-- How to add forge mod dependencies
+- Exclude vanilla brewing recipes that have been added to the BC from being incidentally generated as SPRs
+- Mechanism for forcing specific saved recipes to re-gen/remove
+- Remove recipe if reuslt no longer exists
+
+- Heat level for cauldrons and recipes
+- Other intermediary crafting potions aside from awkward
+
+- Salt crafting mechanism xx
+
+- Door as multiblock reference
+- Drops come from loot table targeting block state property (only bottom half drops item, top half does not drop anything)
+- canSurvive() breaks if block below is not solid or if the other half is missing
+- setPlacedBy() sets the other half of the door when placed
+- playerWillDestroy (in bed, this breaks the other half if one is broken)
+
+- Speed of clothesline as a function of height
+- Dimensional recipes for clothesline!! (editors note: why?)
+- PRE-CALCULATE CLOTHESLINE ITEM POSITIONS IN BLOCKENTITY, RETRIEVE IN RENDERER xx
+
+
+- Frozen lake in ice cave (with snowflake!!) xx 
+- Make ore flowers plantable on grass, but not spawnable
+- Make ore flowers spawnable on stone, but not plantable
+- Make ore flowers pottable 
+
+- Extend simple block feature to make it not check canSurvive so we can place things like snow on ice
+- Add lava canyons to volcanic caves - research how to do this. Maybe check nether biomes for custom carving/features? xx
+
+
+1.20
+
+- ARID CAVE, ICE CAVE xx
+- LUNARBERRYBUSHPATCH, OREGEN !!! XX
+- unstable blocks not working xx
+- lava geyuser data gen not working xx
+- recipe category xx
+- blockitems not registering / showing up in creative menu (or jei?) xx
+- potion effect icon xx
+- CLOTHESLINES crafting bug xx
+- Clean Biome classes and gen code after refac xx
+- Herbalists Lectern showing potions xx
+- Loot modifiers (wormroot) (low prio) xx
+- looping scary cave sounds ! xx
+
+
+NEOFORGE 1.21
+
+
+- [x] access transform names xx
+- [x] NeoForge networking changes a bit - see NF networking docs xx
+- [x] Adapt serializer fromNetwork to use builders so we don't have to declare the method in each recipe serializer class (low prio)
+- [x] Refactor use methods in blocks xx
+- [x] Aquifer freeze biome check error ! (low prio)
+- [x] Something weird with recipe book making many many recipes - see game log xx
+- [x] Generic potion icon - atlas ! xx
+- [x] Hopper on right side of clothesline xx
+- [x] All translations present xx
+- [x] Fix choppy animations (partial ticks? in client tickhandler) xx
+- [x] Known recipes don't sync to client on join server xx
+
+- [ ] Recharge sanguine altar with amethysts crystals + change block model accordingly!
+- [ ] Inheritable plant type that can be waterlogged (like usual) as well as can be filled with layers of snow like a snow layer. Could be cool to randomize the y of each triggerInstance so some plants look sunken in snow
+- [ ] We should explore more ways to make plants more visually appealing / overhaul rendering / try new models so we can fill caves and biomes with them and its not boring
+- [ ] Flowers on cactus bloom after rain
+- [ ] Add a literal rain dance. Could be a DDR like minigame lol (use custom renderer for this - could be cool lol. Maybe attach custom renderer to an invis entity that follows player location)
+- [x] Volcanic cave has loot/ plant/ore that lets you multiply netherite production frm scrap. This way the volcanic cave has netherite rewards, but does not allow you to bypass collecting ancient debris in the nether xx
+- [ ] Clothesline Recipe support JEI!!
+- [ ] Item pedestal
+- [ ] Silk touch potion effect (spawners) 
+- [x] Dungeons that spawn in volcanic cave / ice cave/ arid cave have a chance to replace the entity in the spawner with their bioems variants!! this would be rlly cool detail xx
+- [x] Add buried treasure to arid cave! xx
+- [ ] Add berried treasure to arid cave !
+- [ ] Achievement for berried treasure
+- [ ] Achievements!
+- [ ] Add tea brewing :)
+- [ ] Implement neoforge config system
+- [ ] Enchantable / quicker more durable brush
+- [ ] Make decorative fire obtainable
+
+- [x] Fix herbalists lectern sounds xx
+- [x] Fix descritions of potions- xx
+- [ ] Fix giants steps not removing modifier on expire + maybe reach for the stars too. 
+- [x] Fix new recipe gen replacing saved data xx
+- [ ] Max potion level limit , default and per potion recipe !!
+
+- [x] Broadcast recipe unlock to all nearby players xx
+- [x] Sync brewing cauldron + herbalist lecetern animations in other clients xx
+- [x] Trove pairing xx
+- [ ] HL sparkle criteria incorrect - see red and brown mushroom behaviour across HL/AT/Tooltip - make consistent
+
+- [x] Awkward splash potion container recipe
+- [x] Magnetizing doesn't work
+
+- [x] Notifications trigger for all items FIX xx
+- [x] NEW IDEA: Item tooltip - 1 / 2 - Water Breathing. xx
+
+- [ ] Sanguine altar rework: ingredient converts into another ingredient in one of the ingredients associated recipe. still chained together but can help reveal potions easier
+- [ ] Mending effect
+- [ ] Use moss on dirt for grass
+- [ ] Merge potion using xp - player has to stand in cauldron to drain xp
+- [ ] Add random potion effects to items/armor in dungeon chests
+
+- [x] Update herbalists lectern xx
+- [ ] Maybe make vanilla base lvl 1 potion brewing recipes visible on learned brew? 
+
+- [ ] New metal detecting sounds

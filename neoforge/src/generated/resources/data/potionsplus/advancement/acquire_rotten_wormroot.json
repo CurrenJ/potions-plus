@@ -1,0 +1,36 @@
+{
+  "parent": "potionsplus:acquire_wormroot",
+  "criteria": {
+    "acquire_rotten_wormroot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "potionsplus:rotten_wormroot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.acquire_rotten_wormroot.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "potionsplus:rotten_wormroot"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.acquire_rotten_wormroot.title"
+    }
+  },
+  "requirements": [
+    [
+      "acquire_rotten_wormroot"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": true
+}

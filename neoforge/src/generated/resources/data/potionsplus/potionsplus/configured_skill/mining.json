@@ -1,0 +1,348 @@
+{
+  "type": "potionsplus:generic",
+  "config": {
+    "baseConfig": {
+      "pointsLevelingScale": {
+        "a": 0.005,
+        "b": 20.0,
+        "levelMax": 25,
+        "scale": "LOG"
+      },
+      "rewardsConfig": {
+        "levelRewards": {
+          "1": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "10": {
+            "abilities": "potionsplus:pickaxe_efficiency_bonus_2",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              },
+              {
+                "loot": [
+                  "minecraft:chests/abandoned_mineshaft"
+                ]
+              }
+            ],
+            "animatedItemRewards": [
+              {
+                "displayItem": {
+                  "count": 1,
+                  "id": "minecraft:stone_pickaxe"
+                }
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.mining.reward.level_10"
+          },
+          "11": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "12": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "13": {
+            "abilities": "potionsplus:submerged_pickaxe_efficiency_bonus_2",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "animatedItemRewards": [
+              {
+                "displayItem": {
+                  "count": 1,
+                  "id": "minecraft:diamond_pickaxe"
+                }
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "14": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "15": {
+            "abilities": "potionsplus:pickaxe_efficiency_bonus_3",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              },
+              {
+                "loot": [
+                  "minecraft:chests/stronghold_library"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.mining.reward.level_15"
+          },
+          "16": {
+            "abilities": "potionsplus:iron_bonus_drops_1",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "17": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "18": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "19": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:intermediate_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.intermediate"
+          },
+          "2": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "20": {
+            "abilities": "potionsplus:pickaxe_efficiency_bonus_4",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              },
+              {
+                "loot": [
+                  "minecraft:chests/desert_pyramid"
+                ]
+              }
+            ],
+            "animatedItemRewards": [
+              {
+                "displayItem": {
+                  "count": 1,
+                  "id": "minecraft:iron_pickaxe"
+                }
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.mining.reward.level_20"
+          },
+          "21": {
+            "abilities": "potionsplus:submerged_pickaxe_efficiency_bonus_3",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "22": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "23": {
+            "abilities": "potionsplus:diamond_bonus_drops_1",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "24": {
+            "abilities": "potionsplus:fortune_bonus_2",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:advanced_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.advanced"
+          },
+          "25": {
+            "abilities": "potionsplus:pickaxe_efficiency_bonus_5",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:master_skill_rewards"
+                ]
+              },
+              {
+                "loot": [
+                  "minecraft:chests/jungle_temple"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.mining.reward.level_25"
+          },
+          "3": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "4": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "5": {
+            "abilities": "potionsplus:pickaxe_efficiency_bonus_1",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              },
+              {
+                "loot": [
+                  "minecraft:chests/simple_dungeon"
+                ]
+              }
+            ],
+            "animatedItemRewards": [
+              {
+                "displayItem": {
+                  "count": 1,
+                  "id": "minecraft:wooden_pickaxe"
+                }
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.mining.reward.level_5"
+          },
+          "6": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "7": {
+            "abilities": "potionsplus:submerged_pickaxe_efficiency_bonus_1",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "animatedItemRewards": [
+              {
+                "displayItem": {
+                  "count": 1,
+                  "id": "minecraft:stone_pickaxe"
+                }
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "8": {
+            "abilities": "potionsplus:copper_bonus_drops_1",
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          },
+          "9": {
+            "advancementRewards": [
+              {
+                "loot": [
+                  "potionsplus:basic_skill_rewards"
+                ]
+              }
+            ],
+            "translationKey": "tooltip.potionsplus.skill.reward.basic"
+          }
+        }
+      },
+      "skillPointSources": [
+        "potionsplus:mine_ore"
+      ],
+      "translationKey": "tooltip.potionsplus.skill.mining"
+    }
+  }
+}

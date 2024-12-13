@@ -1,0 +1,14 @@
+{
+  "type": "neoforge:add_table",
+  "conditions": [
+    {
+      "blockTag": "minecraft:iron_ores",
+      "condition": "potionsplus:loot_item_block_tag"
+    },
+    {
+      "condition": "potionsplus:has_player_ability",
+      "configuredPlayerAbility": "potionsplus:iron_bonus_drops_1"
+    }
+  ],
+  "table": "potionsplus:iron_ore_gold_nugget_bonus_drops"
+}

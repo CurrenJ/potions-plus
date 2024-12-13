@@ -1,0 +1,16 @@
+{
+  "type": "potionsplus:modifiers_while_shovel_held",
+  "config": {
+    "attribute": "minecraft:player.mining_efficiency",
+    "baseConfig": {
+      "translationKey": "description.potionsplus.ability.shovel_efficiency_bonus"
+    },
+    "modifiers": [
+      {
+        "amount": 0.1,
+        "id": "potionsplus:shovel_efficiency_bonus_1_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

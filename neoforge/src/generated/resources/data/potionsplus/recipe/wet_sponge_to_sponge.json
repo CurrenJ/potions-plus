@@ -1,0 +1,17 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "category": "MISC",
+  "ingredients": [
+    {
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:wet_sponge"
+      }
+    }
+  ],
+  "processingTime": 300,
+  "result": {
+    "count": 1,
+    "id": "minecraft:sponge"
+  }
+}

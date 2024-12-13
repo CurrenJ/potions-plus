@@ -1,0 +1,51 @@
+{
+  "parent": "potionsplus:brew_awkward_potion",
+  "criteria": {
+    "brew_any_potion": {
+      "conditions": {
+        "potion_matching_criteria": [
+          "ignore_potion_effects_min_1_effect"
+        ],
+        "recipe": "potionsplus:brewing_cauldron_recipe",
+        "recipe_id": {
+          "ppIngredient": {
+            "components": {
+              "minecraft:potion_contents": {
+                "potion": "potionsplus:any_potion"
+              }
+            },
+            "count": 1,
+            "id": "minecraft:potion"
+          }
+        }
+      },
+      "trigger": "potionsplus:craft_recipe"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.brew_any_potion.description"
+    },
+    "icon": {
+      "components": {
+        "minecraft:potion_contents": {
+          "potion": "potionsplus:any_potion"
+        }
+      },
+      "count": 1,
+      "id": "minecraft:potion"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.brew_any_potion.title"
+    }
+  },
+  "requirements": [
+    [
+      "brew_any_potion"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

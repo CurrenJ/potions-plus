@@ -1,0 +1,36 @@
+{
+  "parent": "potionsplus:acquire_moss",
+  "criteria": {
+    "acquire_salt": {
+      "conditions": {
+        "items": [
+          {
+            "items": "potionsplus:salt"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.acquire_salt.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "potionsplus:salt"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.acquire_salt.title"
+    }
+  },
+  "requirements": [
+    [
+      "acquire_salt"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": true
+}

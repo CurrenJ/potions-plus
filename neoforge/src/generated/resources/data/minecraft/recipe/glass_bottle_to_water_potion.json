@@ -1,0 +1,25 @@
+{
+  "type": "potionsplus:brewing_cauldron_recipe",
+  "category": "BREWING",
+  "ingredients": [
+    {
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:glass_bottle"
+      }
+    }
+  ],
+  "matchingCriteria": [
+    "exact_match"
+  ],
+  "processingTime": 30,
+  "result": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "minecraft:water"
+      }
+    },
+    "count": 1,
+    "id": "minecraft:potion"
+  }
+}

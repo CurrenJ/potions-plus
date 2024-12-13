@@ -1,0 +1,16 @@
+{
+  "type": "potionsplus:modifiers_while_bow_held",
+  "config": {
+    "attribute": "potionsplus:player.power_bonus",
+    "baseConfig": {
+      "translationKey": "description.potionsplus.ability.bow_power_bonus"
+    },
+    "modifiers": [
+      {
+        "amount": 1.0,
+        "id": "potionsplus:bow_power_bonus_2_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

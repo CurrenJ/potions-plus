@@ -1,0 +1,34 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_17",
+  "package": "grill24.potionsplus.mixin",
+  "mixins": [
+    "AbstractProjectileDispenseBehaviorMixin",
+    "ApplyBonusCountMixin",
+    "BoatMixin",
+    "BootstrapMixin",
+    "BucketItemMixin",
+    "EnchantedCountIncreaseFunctionMixin",
+    "ItemAttributeModifiersMixin",
+    "ItemEntityMixin",
+    "ItemMixin",
+    "LevelChunkMixin",
+    "LivingEntityMixin",
+    "MobEffectInstanceMixin",
+    "MonsterRoomFeatureMixin",
+    "OreFeatureMixin",
+    "PlayerMixin",
+    "PotionItemMixin",
+    "TemptGoalMixin"
+  ],
+  "client": [
+    "ClientPacketListenerMixin",
+    "GameRendererMixin",
+    "ParticleEngineMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "potionsplus.refmap.json"
+}

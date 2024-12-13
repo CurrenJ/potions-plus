@@ -1,0 +1,16 @@
+{
+  "type": "potionsplus:permanent_attribute_modifiers",
+  "config": {
+    "attribute": "minecraft:generic.movement_speed",
+    "baseConfig": {
+      "translationKey": "description.potionsplus.ability.movement_speed_bonus"
+    },
+    "modifiers": [
+      {
+        "amount": 0.015,
+        "id": "potionsplus:movement_speed_bonus_3_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

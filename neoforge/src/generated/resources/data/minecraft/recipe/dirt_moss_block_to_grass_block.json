@@ -1,0 +1,26 @@
+{
+  "type": "potionsplus:brewing_cauldron_recipe",
+  "category": "BREWING",
+  "ingredients": [
+    {
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:dirt"
+      }
+    },
+    {
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:moss_block"
+      }
+    }
+  ],
+  "matchingCriteria": [
+    "exact_match"
+  ],
+  "processingTime": 40,
+  "result": {
+    "count": 1,
+    "id": "minecraft:grass_block"
+  }
+}

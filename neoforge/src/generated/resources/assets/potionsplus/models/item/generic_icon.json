@@ -1,0 +1,116 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "potionsplus:item/generic_icon_amplifier_upgrade",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.0
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_duration_upgrade",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.015625
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_i",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.03125
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_ii",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.046875
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_iii",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.0625
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_iv",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.078125
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_v",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.09375
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_vi",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.109375
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_vii",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.125
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_viii",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.140625
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_arrow",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.15625
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_unknown",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.171875
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_sga_a",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.1875
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_sga_b",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.203125
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_sga_c",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.21875
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_sga_d",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.234375
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_common",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.25
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_rare",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.265625
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "potionsplus:item/amplifier_upgrade"
+  }
+}

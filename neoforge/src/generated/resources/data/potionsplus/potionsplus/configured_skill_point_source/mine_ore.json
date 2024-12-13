@@ -1,0 +1,70 @@
+{
+  "type": "potionsplus:break_block",
+  "config": {
+    "pointsPerBlock": [
+      {
+        "entityPredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/copper"
+        },
+        "points": 0.25
+      },
+      {
+        "entityPredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/coal"
+        },
+        "points": 0.4
+      },
+      {
+        "entityPredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/iron"
+        },
+        "points": 1.0
+      },
+      {
+        "entityPredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/lapis"
+        },
+        "points": 3.0
+      },
+      {
+        "entityPredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/redstone"
+        },
+        "points": 1.5
+      },
+      {
+        "entityPredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/gold"
+        },
+        "points": 2.0
+      },
+      {
+        "entityPredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/diamond"
+        },
+        "points": 6.0
+      },
+      {
+        "entityPredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/emerald"
+        },
+        "points": 8.0
+      },
+      {
+        "entityPredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "potionsplus:ores/uranium"
+        },
+        "points": 16.0
+      }
+    ]
+  }
+}

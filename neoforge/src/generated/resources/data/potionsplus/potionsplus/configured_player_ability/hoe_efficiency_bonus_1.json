@@ -1,0 +1,16 @@
+{
+  "type": "potionsplus:modifiers_while_hoe_held",
+  "config": {
+    "attribute": "minecraft:player.mining_efficiency",
+    "baseConfig": {
+      "translationKey": "description.potionsplus.ability.hoe_efficiency_bonus"
+    },
+    "modifiers": [
+      {
+        "amount": 0.1,
+        "id": "potionsplus:hoe_efficiency_bonus_1_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

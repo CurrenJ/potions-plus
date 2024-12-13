@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 50,
+  "experience": 2.0,
+  "ingredient": {
+    "tag": "potionsplus:remnant_debris"
+  },
+  "result": {
+    "count": 1,
+    "id": "potionsplus:netherite_remnant"
+  }
+}

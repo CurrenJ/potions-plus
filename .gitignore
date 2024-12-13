@@ -71,3 +71,38 @@ Temporary Items
 
 # Logs
 Xplat/logs/latest.log
+src/generated/resources/assets/potionsplus/lang/GENERATED_en_us.json
+
+script/output
+script/ore_edges
+script/input_ore
+script/*.png
+
+run-data/*
+
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
+runs
+run-data
+
+repo

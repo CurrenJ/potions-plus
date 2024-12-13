@@ -1,0 +1,32 @@
+{
+  "criteria": {
+    "has_potion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:potion"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:any_potion_any_potion_a0_d1200_potion_arrow_to_any_potion_any_potion_a0_d1200_tipped_arrow"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_potion",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:any_potion_any_potion_a0_d1200_potion_arrow_to_any_potion_any_potion_a0_d1200_tipped_arrow"
+    ]
+  },
+  "sends_telemetry_event": true
+}

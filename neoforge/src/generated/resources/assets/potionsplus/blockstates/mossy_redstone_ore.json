@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "potionsplus:block/mossy_redstone_ore"
+    },
+    "lit=true": {
+      "model": "potionsplus:block/mossy_redstone_ore"
+    }
+  }
+}

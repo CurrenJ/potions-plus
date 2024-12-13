@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "create_brewing_cauldron": {
+      "conditions": {
+        "block": {
+          "Name": "potionsplus:brewing_cauldron"
+        }
+      },
+      "trigger": "potionsplus:create_pp_block"
+    }
+  },
+  "display": {
+    "background": "potionsplus:textures/block/cooblestone.png",
+    "description": {
+      "translate": "advancements.potionsplus.brewing_cauldron.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "potionsplus:brewing_cauldron"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.brewing_cauldron.title"
+    }
+  },
+  "requirements": [
+    [
+      "create_brewing_cauldron"
+    ]
+  ],
+  "rewards": {
+    "experience": 100,
+    "loot": [
+      "minecraft:chests/igloo"
+    ]
+  },
+  "sends_telemetry_event": true
+}

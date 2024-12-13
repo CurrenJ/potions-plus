@@ -1,0 +1,36 @@
+{
+  "parent": "potionsplus:acquire_sulfur_shard",
+  "criteria": {
+    "acquire_raw_uranium": {
+      "conditions": {
+        "items": [
+          {
+            "items": "potionsplus:raw_uranium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.acquire_uranium_ore.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "potionsplus:raw_uranium"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.acquire_uranium_ore.title"
+    }
+  },
+  "requirements": [
+    [
+      "acquire_raw_uranium"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

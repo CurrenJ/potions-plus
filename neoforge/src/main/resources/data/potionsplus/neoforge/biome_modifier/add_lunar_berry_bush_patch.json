@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#c:is_tree/coniferous",
+  "features": "potionsplus:patch_lunar_berry_bush",
+  "step": "vegetal_decoration"
+}

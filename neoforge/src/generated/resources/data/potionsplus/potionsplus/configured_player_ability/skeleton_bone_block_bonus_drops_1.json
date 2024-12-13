@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:simple",
+  "config": {
+    "baseConfig": {
+      "translationKey": "description.potionsplus.ability.skeleton_bone_block_bonus_drops"
+    }
+  }
+}
