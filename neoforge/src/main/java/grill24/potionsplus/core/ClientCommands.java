@@ -21,6 +21,7 @@ public class ClientCommands {
 
         event.getDispatcher().register(Commands.literal("potionsplus")
                 .then(Commands.literal("reveal")
+                        .requires(source -> source.hasPermission(2))
                         .executes(context -> {
                             PotionsPlus.LOGGER.info("Reloading PotionsPlus data");
                             Player player = Minecraft.getInstance().player;

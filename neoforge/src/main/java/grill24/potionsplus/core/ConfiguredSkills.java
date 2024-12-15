@@ -209,7 +209,7 @@ public class ConfiguredSkills {
         context.register(JUMPING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_JUMPING,
                         tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.JUMP),
-                        new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.001F, 20F),
+                        new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.0002F, 20F),
                         createDefaultRewards()
                                 .addRewardForLevel(5, builder -> builder.addAbility(ConfiguredPlayerAbilities.JUMP_HEIGHT_BONUS_KEYS[0]))
                                 .addRewardForLevel(10, builder -> builder.addAbility(ConfiguredPlayerAbilities.JUMP_HEIGHT_BONUS_KEYS[1]))

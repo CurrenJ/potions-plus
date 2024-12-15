@@ -3,6 +3,7 @@
   "config": {
     "attribute": "minecraft:player.sneaking_speed",
     "baseConfig": {
+      "enabledByDefault": true,
       "translationKey": "description.potionsplus.ability.sneak_speed_bonus"
     },
     "modifiers": [

@@ -126,7 +126,7 @@ public class ConfiguredPlayerAbilities {
 
         // Jump Height Permanent
         generateAttributeBonuses(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_JUMP_STRENGTH_BONUS, PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get(), Attributes.JUMP_STRENGTH,
-                AttributeModifier.Operation.ADD_VALUE, JUMP_HEIGHT_BONUS_KEYS, 0.1, 0.2, 0.3, 0.4, 0.5);
+                AttributeModifier.Operation.ADD_VALUE, JUMP_HEIGHT_BONUS_KEYS, false, 0.1, 0.1, 0.1, 0.1, 0.1);
     }
 
     /**
@@ -141,7 +141,7 @@ public class ConfiguredPlayerAbilities {
         context.register(key,
                 new ConfiguredPlayerAbility<>(PlayerAbilities.SIMPLE.value(),
                         new PlayerAbilityConfiguration(
-                                new PlayerAbilityConfiguration.PlayerAbilityConfigurationData(translationKey)
+                                new PlayerAbilityConfiguration.PlayerAbilityConfigurationData(translationKey, true)
                         )
                 )
         );
@@ -160,12 +160,12 @@ public class ConfiguredPlayerAbilities {
      * @return Array of keys registered.
      * @param <A> Ability type
      */
-    private static <A extends PermanentAttributeModifiersAbility<?, AttributeModifiersAbilityConfiguration>> ResourceKey<ConfiguredPlayerAbility<?, ?>>[] generateAttributeBonuses(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context, String translationKey, A ability, Holder<Attribute> attribute, AttributeModifier.Operation operation, ResourceKey<ConfiguredPlayerAbility<?, ?>>[] keys, double... amounts) {
+    private static <A extends PermanentAttributeModifiersAbility<?, AttributeModifiersAbilityConfiguration>> ResourceKey<ConfiguredPlayerAbility<?, ?>>[] generateAttributeBonuses(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context, String translationKey, A ability, Holder<Attribute> attribute, AttributeModifier.Operation operation, ResourceKey<ConfiguredPlayerAbility<?, ?>>[] keys, boolean enabledByDefault, double... amounts) {
         for (int i = 0; i < amounts.length; i++) {
             context.register(keys[i],
                     new ConfiguredPlayerAbility<>(ability,
                             new AttributeModifiersAbilityConfiguration(
-                                    new PlayerAbilityConfiguration.PlayerAbilityConfigurationData(translationKey),
+                                    new PlayerAbilityConfiguration.PlayerAbilityConfigurationData(translationKey, enabledByDefault),
                                     attribute,
                                     List.of(new AttributeModifier(modifierId(keys[i]), amounts[i], operation))
                             )));
@@ -173,7 +173,11 @@ public class ConfiguredPlayerAbilities {
         return keys;
     }
 
-    private static ResourceKey<ConfiguredPlayerAbility<?, ?>> register(String name) {
+    private static <A extends PermanentAttributeModifiersAbility<?, AttributeModifiersAbilityConfiguration>> ResourceKey<ConfiguredPlayerAbility<?, ?>>[] generateAttributeBonuses(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context, String translationKey, A ability, Holder<Attribute> attribute, AttributeModifier.Operation operation, ResourceKey<ConfiguredPlayerAbility<?, ?>>[] keys, double... amounts) {
+        return generateAttributeBonuses(context, translationKey, ability, attribute, operation, keys, true, amounts);
+    }
+
+        private static ResourceKey<ConfiguredPlayerAbility<?, ?>> register(String name) {
         return ResourceKey.create(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ppId(name));
     }
 

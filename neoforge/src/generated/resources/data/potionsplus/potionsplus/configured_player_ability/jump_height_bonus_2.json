@@ -3,11 +3,12 @@
   "config": {
     "attribute": "minecraft:generic.jump_strength",
     "baseConfig": {
+      "enabledByDefault": false,
       "translationKey": "description.potionsplus.ability.jump_strength_bonus"
     },
     "modifiers": [
       {
-        "amount": 0.2,
+        "amount": 0.1,
         "id": "potionsplus:jump_height_bonus_2_modifier",
         "operation": "add_value"
       }

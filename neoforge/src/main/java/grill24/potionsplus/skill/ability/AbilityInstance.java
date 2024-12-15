@@ -36,7 +36,7 @@ public class AbilityInstance {
     public AbilityInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled) {
         this.ability = ability;
 
-        if (isEnabled) {
+        if (isEnabled && getConfiguredAbility().config().getData().enabledByDefault()) {
             tryEnable(player);
         } else {
             tryDisable(player);

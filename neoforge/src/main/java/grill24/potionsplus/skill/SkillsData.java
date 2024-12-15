@@ -186,7 +186,9 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
                     .computeIfAbsent(abilityLookup.getResourceKey(configuredAbility.value().ability()).get(), (key) -> new ArrayList<>())
                     .add(configuredAbility.value().ability().createInstance(player, configuredAbility));
 
-            configuredAbility.value().onAbilityGranted(player);
+            if (configuredAbility.value().config().getData().enabledByDefault()) {
+                configuredAbility.value().onAbilityGranted(player);
+            }
         });
     }
 

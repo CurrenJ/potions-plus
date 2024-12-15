@@ -18,13 +18,14 @@ public class PlayerAbilityConfiguration {
         return this.data;
     }
 
-    public record PlayerAbilityConfigurationData(String translationKey) {
+    public record PlayerAbilityConfigurationData(String translationKey, boolean enabledByDefault) {
         public static final Codec<PlayerAbilityConfigurationData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.STRING.fieldOf("translationKey").forGetter(PlayerAbilityConfigurationData::translationKey)
+            Codec.STRING.fieldOf("translationKey").forGetter(PlayerAbilityConfigurationData::translationKey),
+            Codec.BOOL.fieldOf("enabledByDefault").forGetter(PlayerAbilityConfigurationData::enabledByDefault)
         ).apply(instance, PlayerAbilityConfigurationData::new));
 
         public PlayerAbilityConfigurationData() {
-            this("");
+            this("", true);
         }
     }
 }

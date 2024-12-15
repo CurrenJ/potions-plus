@@ -323,6 +323,8 @@ public class Blocks {
             int b = (int) (Math.sin(ticks * 0.01f + 4.1887902047863905) * 127 + 128);
             return i > 0 ? -1 : FastColor.ARGB32.color(r, g, b);
         }, net.minecraft.world.item.Items.POTION);
+
+        event.register((stack, i) -> GrassColor.get(0.5, 1.0), Blocks.TALL_GRASS_VERSATILE.value().asItem(), Blocks.LARGE_FERN_VERSATILE.value().asItem());
     }
 
     @SubscribeEvent

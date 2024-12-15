@@ -3,7 +3,7 @@
   "config": {
     "baseConfig": {
       "pointsLevelingScale": {
-        "a": 0.001,
+        "a": 2.0E-4,
         "b": 20.0,
         "levelMax": 25,
         "scale": "LOG"

@@ -3,6 +3,7 @@
   "config": {
     "attribute": "potionsplus:player.looting_bonus",
     "baseConfig": {
+      "enabledByDefault": true,
       "translationKey": "description.potionsplus.ability.sword_looting_bonus"
     },
     "modifiers": [

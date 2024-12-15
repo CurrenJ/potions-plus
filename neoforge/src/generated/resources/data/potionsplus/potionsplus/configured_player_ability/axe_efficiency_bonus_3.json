@@ -3,6 +3,7 @@
   "config": {
     "attribute": "minecraft:player.mining_efficiency",
     "baseConfig": {
+      "enabledByDefault": true,
       "translationKey": "description.potionsplus.ability.axe_efficiency_bonus"
     },
     "modifiers": [

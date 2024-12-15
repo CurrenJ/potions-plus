@@ -121,6 +121,7 @@ public class CommonCommands {
                         )
                 )
                 .then(Commands.literal("caveDiver")
+                        .requires((source) -> source.hasPermission(2))
                         .executes(context -> {
                             if(context.getSource().getEntity() instanceof ServerPlayer player) {
                                 player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 6000, 0, false, false, false));
@@ -131,6 +132,7 @@ public class CommonCommands {
                         })
                 )
                 .then(Commands.literal("potionHand")
+                    .requires((source) -> source.hasPermission(2))
                     .executes(context -> {
                         if(context.getSource().getEntity() instanceof ServerPlayer player) {
                             player.getMainHandItem().set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.FLYING_TIME_POTIONS.potion));
@@ -140,7 +142,6 @@ public class CommonCommands {
                     })
                 )
                 .then(Commands.literal("skill")
-                        .requires((source) -> source.hasPermission(2))
                         .executes(context -> {
                             if (context.getSource().getPlayer() == null) {
                                 return 0;
@@ -157,6 +158,7 @@ public class CommonCommands {
                             return 1;
                         })
                         .then(Commands.literal("clear")
+                                .requires((source) -> source.hasPermission(2))
                                 .executes(context -> {
                                     if (context.getSource().getPlayer() == null) {
                                         return 0;
@@ -251,6 +253,7 @@ public class CommonCommands {
 
                                         return 1;
                                     })
+                                    .requires((source) -> source.hasPermission(2))
                                     .then(Commands.literal("add")
                                             .then(Commands.argument("points", IntegerArgumentType.integer())
                                                     .executes(context -> {
@@ -268,6 +271,7 @@ public class CommonCommands {
                                                     })
                                             )
                                     )
+                                    .requires((source) -> source.hasPermission(2))
                                     .then(Commands.literal("set")
                                             .then(Commands.argument("points", IntegerArgumentType.integer())
                                                     .executes(context -> {

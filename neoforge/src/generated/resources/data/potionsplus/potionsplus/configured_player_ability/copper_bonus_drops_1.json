@@ -2,6 +2,7 @@
   "type": "potionsplus:simple",
   "config": {
     "baseConfig": {
+      "enabledByDefault": true,
       "translationKey": "description.potionsplus.ability.copper_ore_additional_loot_iron_nuggets"
     }
   }

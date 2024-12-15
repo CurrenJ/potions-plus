@@ -3,6 +3,7 @@
   "config": {
     "attribute": "potionsplus:player.sharpness_bonus",
     "baseConfig": {
+      "enabledByDefault": true,
       "translationKey": "description.potionsplus.ability.sword_sharpness_bonus"
     },
     "modifiers": [

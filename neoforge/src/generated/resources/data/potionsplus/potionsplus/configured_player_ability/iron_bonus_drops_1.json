@@ -2,6 +2,7 @@
   "type": "potionsplus:simple",
   "config": {
     "baseConfig": {
+      "enabledByDefault": true,
       "translationKey": "description.potionsplus.ability.iron_ore_additional_loot_gold_nuggets"
     }
   }
