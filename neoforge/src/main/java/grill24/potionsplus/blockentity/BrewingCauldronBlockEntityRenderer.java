@@ -1,6 +1,7 @@
 package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -95,6 +96,17 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
 
             matrices.mulPose(RUtil.rotateY((float) (ticks * 2 + i * 360 / itemStacks.length)));
             Minecraft.getInstance().getItemRenderer().renderStatic(itemStacks[i], ItemDisplayContext.GROUND,
+                    light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
+            matrices.popPose();
+        }
+
+        // Render not enough xp icon if needed
+        if (!blockEntity.getStatusIcon().isEmpty()) {
+            matrices.pushPose();
+            matrices.translate(0.5, 1.4, 0.5);
+            matrices.scale(0.25f, 0.25f, 0.25f);
+            matrices.mulPose(RUtil.rotateY((float) ticks));
+            Minecraft.getInstance().getItemRenderer().renderStatic(blockEntity.getStatusIcon(), ItemDisplayContext.FIXED,
                     light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
             matrices.popPose();
         }

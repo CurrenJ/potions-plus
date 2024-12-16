@@ -24,7 +24,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -188,6 +187,18 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
 
             if (configuredAbility.value().config().getData().enabledByDefault()) {
                 configuredAbility.value().onAbilityGranted(player);
+            }
+        });
+    }
+
+    public void syncAbilitiesEnablement(ServerPlayer player) {
+        activeAbilities.forEach((key, value) -> {
+            for (AbilityInstance abilityInstance : value) {
+                if (abilityInstance.isEnabled()) {
+                    abilityInstance.tryEnable(player);
+                } else {
+                    abilityInstance.tryDisable(player);
+                }
             }
         });
     }

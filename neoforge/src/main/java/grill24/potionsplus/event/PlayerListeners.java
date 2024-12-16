@@ -171,6 +171,7 @@ public class PlayerListeners {
         if (event.getEntity() instanceof ServerPlayer player) {
             PacketDistributor.sendToPlayer(player, ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()));
             PacketDistributor.sendToPlayer(player, new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()));
+            SkillsData.updatePlayerData(player, (skillsData -> skillsData.syncAbilitiesEnablement(player)));
         }
     }
 

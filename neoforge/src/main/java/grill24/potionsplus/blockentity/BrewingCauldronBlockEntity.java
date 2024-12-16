@@ -1,9 +1,6 @@
 package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.core.Advancements;
-import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.Particles;
-import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.*;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.persistence.SavedData;
@@ -50,6 +47,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
     private int brewTime = 0;
     @BlockEntitySerializableData
     protected float storedExperience = 0;
+
+    // Rendering Only
+    private ItemStack statusIcon = ItemStack.EMPTY;
 
     public BrewingCauldronBlockEntity(BlockPos pos, BlockState state) {
         super(Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get(), pos, state);
@@ -294,6 +294,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.CAMPFIRE)
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.SOUL_CAMPFIRE)
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.SOUL_FIRE);
+        blockEntity.statusIcon = hasHeatSource ? ItemStack.EMPTY : new ItemStack(Items.GENERIC_ICON, 20);
 
         if (hasHeatSource) {
             if (blockEntity.getActiveRecipe().isPresent()) {
@@ -302,11 +303,18 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                 if (experienceRequiredForRecipe > 0 && blockEntity.storedExperience < experienceRequiredForRecipe) {
                     List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(pos));
                     if (!players.isEmpty()) {
+                        // Take xp from player that is standing in the cauldron and add to internal xp buffer
                         playerInCauldron = Optional.of(players.getFirst());
-                        if (!playerInCauldron.get().isCreative()) {
-                            playerInCauldron.get().giveExperiencePoints(-1);
+                        if(playerInCauldron.get().experienceProgress > 0 || playerInCauldron.get().experienceLevel > 0 || playerInCauldron.get().isCreative()) {
+                            if (!playerInCauldron.get().isCreative()) {
+                                playerInCauldron.get().giveExperiencePoints(-1);
+                            }
+                            blockEntity.storedExperience += 1;
+                        } else {
+                            blockEntity.statusIcon = new ItemStack(Items.GENERIC_ICON, 19);
                         }
-                        blockEntity.storedExperience += 1;
+                    } else {
+                        blockEntity.statusIcon = new ItemStack(Items.GENERIC_ICON, 19);
                     }
                 }
                 boolean isExperienceRequirementMet = blockEntity.storedExperience >= experienceRequiredForRecipe;
@@ -384,5 +392,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
     public ItemStack getResultWithTransformations() {
         return resultWithTransformations;
+    }
+
+    public ItemStack getStatusIcon() {
+        return statusIcon;
     }
 }

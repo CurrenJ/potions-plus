@@ -61,6 +61,8 @@ public class Items {
         add(mc("sga_d")); // ItemStack count: 16
         add(ppId("common")); // ItemStack count: 17
         add(ppId("rare")); // ItemStack count: 18
+        add(ppId("no_experience")); // ItemStack count: 19
+        add(ppId("no_heat")); // ItemStack count: 20
     }};
 
     public static final String DYNAMIC_ICON_INDEX_PROPERTY_NAME = "dynamic_icon_index";
