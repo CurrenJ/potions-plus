@@ -1,0 +1,15 @@
+{
+  "type": "potionsplus:choice",
+  "config": {
+    "rewards": [
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:chocolate_book"
+        },
+        "linkedChoiceParent": "potionsplus:stronghold_library_loot_edible_15",
+        "linkedOption": "potionsplus:stronghold_library_loot"
+      }
+    ]
+  }
+}

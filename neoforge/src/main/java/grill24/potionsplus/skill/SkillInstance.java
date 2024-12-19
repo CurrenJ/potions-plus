@@ -6,6 +6,8 @@ import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.network.ClientboundDisplayAlert;
 import grill24.potionsplus.network.ClientboundDisplayAlertWithParameter;
+import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
+import grill24.potionsplus.skill.reward.GrantableReward;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsData;
 import io.netty.buffer.ByteBuf;
@@ -114,7 +116,7 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
                 for (int i = levelBefore + 1; i <= levelAfter; i++) {
                     // Grant rewards
                     SkillLevelUpRewardsConfiguration rewardsConfiguration = configuredSkill.config().getData().rewardsConfiguration();
-                    rewardsConfiguration.tryGetRewardForLevel(i).ifPresent(rewardsData -> rewardsData.grant(serverPlayer));
+                    rewardsConfiguration.tryGetRewardForLevel(i).ifPresent(reward -> reward.grant(serverPlayer));
 
                     // Send chat message with reward description
                     if (getConfiguredSkill(registryAccess).config().getData().rewardsConfiguration().hasRewardForLevel(i)) {

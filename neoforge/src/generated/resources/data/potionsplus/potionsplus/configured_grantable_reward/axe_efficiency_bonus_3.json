@@ -1,0 +1,6 @@
+{
+  "type": "potionsplus:ability",
+  "config": {
+    "configuredPlayerAbility": "potionsplus:axe_efficiency_bonus_3"
+  }
+}

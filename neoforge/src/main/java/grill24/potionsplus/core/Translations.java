@@ -52,6 +52,7 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_COPPER_ORE_ADDITIONAL_LOOT_IRON_NUGGETS = "description.potionsplus.ability.copper_ore_additional_loot_iron_nuggets";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_IRON_ORE_ADDITIONAL_LOOT_GOLD_NUGGETS = "description.potionsplus.ability.iron_ore_additional_loot_gold_nuggets";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS = "description.potionsplus.ability.diamond_ore_additional_loot_emeralds";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS = "description.potionsplus.ability.diamond_ore_additional_loot_lapis";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_AXE_EFFICIENCY_BONUS = "description.potionsplus.ability.axe_efficiency_bonus";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SHOVEL_EFFICIENCY_BONUS = "description.potionsplus.ability.shovel_efficiency_bonus";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_HOE_EFFICIENCY_BONUS = "description.potionsplus.ability.hoe_efficiency_bonus";
@@ -194,6 +195,19 @@ public class Translations {
     public static final String JEI_POTIONSPLUS_SULFUR_SHARD_DESCRIPTION = "jei.potionsplus.sulfur_shard.description";
     public static final String ITEM_POTIONSPLUS_SULFURIC_ACID = "item.potionsplus.sulfuric_acid";
     public static final String JEI_POTIONSPLUS_SULFURIC_ACID_DESCRIPTION = "jei.potionsplus.sulfuric_acid.description";
+    public static final String TOOLTIP_POTIONSPLUS_CHOICE = "tooltip.potionsplus.choice";
+    public static final String TOOLTIP_POTIONSPLUS_CHOOSE_ONE = "tooltip.potionsplus.choose_one";
+    public static final String ITEM_POTIONSPLUS_SPARKLING_SQUASH = "item.potionsplus.sparkling_squash";
+    public static final String ITEM_POTIONSPLUS_BLUEB_BERRIES = "item.potionsplus.blueb_berries";
+    public static final String ITEM_POTIONSPLUS_FORTIFYING_FUDGE = "item.potionsplus.fortifying_fudge";
+    public static final String ITEM_POTIONSPLUS_GRASS_CLIPPINGS = "item.potionsplus.grass_clippings";
+    public static final String ITEM_POTIONSPLUS_STONE_FRUIT = "item.potionsplus.stone_fruit";
+    public static final String ITEM_POTIONSPLUS_ROASTED_BAMBOO = "item.potionsplus.roasted_bamboo";
+    public static final String ITEM_POTIONSPLUS_CHOCOLATE_BOOK = "item.potionsplus.chocolate_book";
+    public static final String ITEM_POTIONSPLUS_MOSSASHIMI = "item.potionsplus.mossashimi";
+    public static final String ITEM_POTIONSPLUS_PYRAMIDS_OF_SALT = "item.potionsplus.pyramids_of_salt";
+    public static final String ITEM_POTIONSPLUS_BASIC_LOOT = "item.potionsplus.basic_loot";
+    public static final String ITEM_POTIONSPLUS_INTERMEDIATE_LOOT = "item.potionsplus.intermediate_loot";
     public static final String ITEMGROUP_POTIONSPLUS = "itemGroup.potionsplus";
     public static final String EFFECT_POTIONSPLUS_ANY_POTION = "effect.potionsplus.any_potion";
     public static final String ITEM_MINECRAFT_POTION_EFFECT_ANY_POTION = "item.minecraft.potion.effect.any_potion";

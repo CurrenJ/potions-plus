@@ -1,0 +1,6 @@
+{
+  "type": "potionsplus:ability",
+  "config": {
+    "configuredPlayerAbility": "potionsplus:sword_looting_bonus_5"
+  }
+}

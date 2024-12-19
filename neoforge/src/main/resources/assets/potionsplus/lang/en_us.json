@@ -58,6 +58,7 @@
   "description.potionsplus.ability.copper_ore_additional_loot_iron_nuggets": "+Copper Ore May Drop Iron",
   "description.potionsplus.ability.iron_ore_additional_loot_gold_nuggets": "+Iron Ore May Drop Gold",
   "description.potionsplus.ability.diamond_ore_additional_loot_emeralds": "+Diamond Ore May Drop Emeralds",
+  "description.potionsplus.ability.diamond_ore_additional_loot_lapis": "+Diamond Ore May Drop Lapis",
 
 
   "description.potionsplus.ability.axe_efficiency_bonus": "%s Axe Mining Speed",
@@ -225,6 +226,21 @@
   "jei.potionsplus.sulfur_shard.description": "A shard of sulfur. It stinks.",
   "item.potionsplus.sulfuric_acid": "Sulfuric Acid",
   "jei.potionsplus.sulfuric_acid.description": "A vile liquid that burns the skin. It's a little bit like lemon juice, but don't drink it.",
+
+  "tooltip.potionsplus.choice": "When eaten grants:",
+  "tooltip.potionsplus.choose_one": "(Choose only one)",
+
+  "item.potionsplus.sparkling_squash": "Sparkling Squash",
+  "item.potionsplus.blueb_berries": "Blueb Berries",
+  "item.potionsplus.fortifying_fudge": "Fortifying Fudge",
+  "item.potionsplus.grass_clippings": "Grass Clippings",
+  "item.potionsplus.stone_fruit": "Stone Fruit",
+  "item.potionsplus.roasted_bamboo": "Roasted Bamboo",
+  "item.potionsplus.chocolate_book": "Chocolate Book",
+  "item.potionsplus.mossashimi": "Mossashimi",
+  "item.potionsplus.pyramids_of_salt": "Pyramids of Salt",
+  "item.potionsplus.basic_loot": "Basic",
+  "item.potionsplus.intermediate_loot": "Intermediate",
 
   "itemGroup.potionsplus": "Potions Plus",
 

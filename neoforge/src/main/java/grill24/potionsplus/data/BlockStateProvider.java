@@ -1,9 +1,9 @@
 package grill24.potionsplus.data;
 
-import com.mojang.datafixers.types.Func;
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
+import grill24.potionsplus.item.ItemOverrideUtility;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.Direction;
@@ -13,7 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BushBlock;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder;
@@ -30,7 +29,6 @@ import java.util.function.Function;
 import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
 import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
-import static grill24.potionsplus.core.Items.DYNAMIC_ICON_INDEX_PROPERTY_NAME;
 
 public class BlockStateProvider extends net.neoforged.neoforge.client.model.generators.BlockStateProvider {
     public BlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -105,8 +103,9 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
 
         // ----- Items -----
 
-        registerPotionEffectIcons();
-        registerGenericIcons();
+        for (ItemOverrideUtility.ItemOverrideModelGenerator modelGenerator : Items.ITEM_OVERRIDE_MODEL_GENERATORS) {
+            modelGenerator.generate(this);
+        }
 
         registerItem(Items.MOSS.value());
         registerItem(Items.SALT.value());
@@ -345,54 +344,6 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         simpleBlockItem(block, models().getExistingFile(modelLocation));
     }
 
-    private void registerPotionEffectIcons() {
-        ItemModelBuilder imb = null;
-        for (MobEffect mobEffect : PUtil.getAllMobEffects()) {
-            ResourceLocation registryName = BuiltInRegistries.MOB_EFFECT.getKey(mobEffect);
-            if (imb == null) {
-                imb = itemModels().getBuilder("potion_effect_icon")
-                        .parent(models().getExistingFile(mcLoc("item/generated")))
-                        .texture("layer0", registryName.getNamespace() + ":mob_effect/" + registryName.getPath());
-            }
-
-            // Each potion effect icon is a separate item model
-            // That is referenced in the overrides of the item we make in "imb"
-            String name = "potion_effect_icon_" + registryName.getPath();
-            itemModels().singleTexture(name, mc("item/generated"), "layer0", ResourceLocation.fromNamespaceAndPath(registryName.getNamespace(), "mob_effect/" + registryName.getPath()));
-
-            // Add override to main model
-            float f = (grill24.potionsplus.core.potion.MobEffects.POTION_ICON_INDEX_MAP.get().get(registryName) - 1) / 64F;
-            imb = imb.override().predicate(ppId(DYNAMIC_ICON_INDEX_PROPERTY_NAME), f).model(itemModels().getExistingFile(ppId(name))).end();
-        }
-    }
-
-    private void registerGenericIcons() {
-        ItemModelBuilder imb = null;
-
-        for (ResourceLocation rl : grill24.potionsplus.core.Items.GENERIC_ICON_RESOURCE_LOCATIONS) {
-            if (imb == null) {
-                imb = itemModels().getBuilder("generic_icon")
-                        .parent(models().getExistingFile(mcLoc("item/generated")))
-                        .texture("layer0", rl.getNamespace() + ":item/" + rl.getPath());
-            }
-
-            // Each generic icon is a separate item model
-            // That is referenced in the overrides of the item we make in "imb"
-            String name = "generic_icon_" + rl.getPath();
-            try {
-                itemModels().singleTexture(name, mc("item/generated"), "layer0", ResourceLocation.fromNamespaceAndPath(rl.getNamespace(), "item/" + rl.getPath()));
-            } catch (IllegalArgumentException e) {
-                // If the texture doesn't exist, try looking for a particle texture
-                // Hacky
-                itemModels().singleTexture(name, mc("item/generated"), "layer0", ResourceLocation.fromNamespaceAndPath(rl.getNamespace(), "particle/" + rl.getPath()));
-            }
-
-            // Add override to main model
-            float f = Items.GENERIC_ICON_RESOURCE_LOCATIONS.indexOf(rl) / 64F;
-            imb = imb.override().predicate(ppId(DYNAMIC_ICON_INDEX_PROPERTY_NAME), f).model(itemModels().getExistingFile(ppId(name))).end();
-        }
-    }
-
     private void registerItem(Item item) {
         ResourceLocation modelLocation = getModelLocation(item);
         itemModels().getBuilder(modelLocation.getPath())
@@ -412,6 +363,14 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         itemModels().getBuilder(modelLocation.getPath())
                 .parent(models().getExistingFile(mcLoc("item/generated")))
                 .texture("layer0", texture);
+    }
+
+    private void registerItem(Item item, ResourceLocation textureLayer0, ResourceLocation textureLayer1) {
+        ResourceLocation modelLocation = getModelLocation(item);
+        itemModels().getBuilder(modelLocation.getPath())
+                .parent(models().getExistingFile(mcLoc("item/generated")))
+                .texture("layer0", textureLayer0)
+                .texture("layer1", textureLayer1);
     }
 
     private void registerItemFromParent(Item item, ResourceLocation parent) {

@@ -18,6 +18,7 @@ public class LootTables {
     public static final ResourceKey<LootTable> IRON_ORE_GOLD_NUGGET_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("iron_ore_gold_nugget_bonus_drops"));
     public static final ResourceKey<LootTable> COPPER_ORE_IRON_NUGGET_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("copper_ore_iron_nugget_bonus_drops"));
     public static final ResourceKey<LootTable> DIAMOND_ORE_EMERALD_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("diamond_ore_emerald_bonus_drops"));
+    public static final ResourceKey<LootTable> DIAMOND_ORE_LAPIS_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("diamond_ore_lapis_bonus_drops"));
 
     public static final ResourceKey<LootTable> CREEPER_SAND_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("creeper_sand_bonus_drops"));
     public static final ResourceKey<LootTable> SKELETON_BONE_MEAL_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("skeleton_bone_meal_bonus_drops"));

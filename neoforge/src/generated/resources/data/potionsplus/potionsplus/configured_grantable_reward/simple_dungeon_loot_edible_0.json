@@ -1,0 +1,15 @@
+{
+  "type": "potionsplus:choice",
+  "config": {
+    "rewards": [
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:mossashimi"
+        },
+        "linkedChoiceParent": "potionsplus:simple_dungeon_loot_edible_0",
+        "linkedOption": "potionsplus:simple_dungeon_loot"
+      }
+    ]
+  }
+}

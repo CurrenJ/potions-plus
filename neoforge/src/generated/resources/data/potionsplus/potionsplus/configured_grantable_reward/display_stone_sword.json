@@ -1,0 +1,9 @@
+{
+  "type": "potionsplus:animated_item_display",
+  "config": {
+    "displayItem": {
+      "count": 1,
+      "id": "minecraft:stone_sword"
+    }
+  }
+}

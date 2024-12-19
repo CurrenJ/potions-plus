@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "potionsplus:item/chocolate_book_chocolate_book",
+      "predicate": {
+        "potionsplus:edible_choice_flag": 0.0
+      }
+    },
+    {
+      "model": "potionsplus:item/chocolate_book_red_flag",
+      "predicate": {
+        "potionsplus:edible_choice_flag": 0.015625
+      }
+    },
+    {
+      "model": "potionsplus:item/chocolate_book_green_flag",
+      "predicate": {
+        "potionsplus:edible_choice_flag": 0.03125
+      }
+    },
+    {
+      "model": "potionsplus:item/chocolate_book_blue_flag",
+      "predicate": {
+        "potionsplus:edible_choice_flag": 0.046875
+      }
+    },
+    {
+      "model": "potionsplus:item/chocolate_book_yellow_flag",
+      "predicate": {
+        "potionsplus:edible_choice_flag": 0.0625
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "potionsplus:item/chocolate_book"
+  }
+}

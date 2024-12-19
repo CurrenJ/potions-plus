@@ -2,12 +2,15 @@ package grill24.potionsplus.skill;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.core.ConfiguredGrantableRewards;
 import grill24.potionsplus.core.DataAttachments;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.skill.ability.AbilityInstance;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbilityConfiguration;
+import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
 import grill24.potionsplus.skill.source.ConfiguredSkillPointSource;
 import grill24.potionsplus.skill.source.SkillPointSource;
 import grill24.potionsplus.skill.source.SkillPointSourceConfiguration;
@@ -29,11 +32,12 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?, ?>>, List<AbilityInstance>> activeAbilities) {
+public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?, ?>>, List<AbilityInstance>> activeAbilities, List<ResourceKey<ConfiguredGrantableReward<?, ?>>> pendingChoices) {
     public static final Codec<SkillsData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             Codec.unboundedMap(HolderCodecs.resourceKey(PotionsPlusRegistries.CONFIGURED_SKILL), SkillInstance.CODEC).optionalFieldOf("skillInstances", new HashMap<>()).forGetter(instance -> instance.skillData),
             PointEarningHistory.CODEC.optionalFieldOf("pointEarningHistory", new PointEarningHistory(1000)).forGetter(instance -> instance.pointEarningHistory),
-            Codec.unboundedMap(HolderCodecs.resourceKey(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY), AbilityInstance.CODEC.listOf()).optionalFieldOf("activeAbilities", new HashMap<>()).forGetter(instance -> instance.activeAbilities)
+            Codec.unboundedMap(HolderCodecs.resourceKey(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY), AbilityInstance.CODEC.listOf()).optionalFieldOf("activeAbilities", new HashMap<>()).forGetter(instance -> instance.activeAbilities),
+            ResourceKey.codec(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD).listOf().optionalFieldOf("pendingChoices", new ArrayList<>()).forGetter(instance -> instance.pendingChoices)
     ).apply(codecBuilder, SkillsData::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SkillsData> STREAM_CODEC = StreamCodec.composite(
@@ -43,18 +47,21 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
             (instance) -> instance.pointEarningHistory,
             ByteBufCodecs.map(Object2ObjectOpenHashMap::new, HolderCodecs.resourceKeyStream(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY), AbilityInstance.STREAM_CODEC.apply(ByteBufCodecs.list())),
             (instance) -> instance.activeAbilities,
+            ResourceKey.streamCodec(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD).apply(ByteBufCodecs.list()),
+            (instance) -> instance.pendingChoices,
             SkillsData::new
     );
 
     public SkillsData() {
-        this(new HashMap<>(), new PointEarningHistory(1000), new HashMap<>());
+        this(new HashMap<>(), new PointEarningHistory(1000), new HashMap<>(), new ArrayList<>());
     }
 
-    public SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?, ?>>, List<AbilityInstance>> activeAbilities) {
+    public SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?, ?>>, List<AbilityInstance>> activeAbilities, List<ResourceKey<ConfiguredGrantableReward<?, ?>>> pendingChoices) {
         this.skillData = new HashMap<>(skillData);
         this.activeAbilities = new HashMap<>();
         activeAbilities.forEach((key, value) -> this.activeAbilities.put(key, new ArrayList<>(value)));        // Deep copy, make sure lists are mutable
         this.pointEarningHistory = pointEarningHistory;
+        this.pendingChoices = new ArrayList<>(pendingChoices);
     }
 
     public void clear(ServerPlayer player) {
@@ -68,6 +75,8 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         activeAbilities.clear();
 
         pointEarningHistory.clear();
+
+        pendingChoices.clear();
     }
 
     // ----- Helper Methods Skill Instances -----
@@ -96,7 +105,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         SkillsData skillsData = player.getData(DataAttachments.SKILL_PLAYER_DATA);
         Registry<ConfiguredSkill<?, ?>> configuredSkillsLookup = player.registryAccess().registryOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL);
 
-        // For each skill, check if this source is a point source for it. If so, calculate earned points and add them.
+        // For each reward, check if this source is a point source for it. If so, calculate earned points and add them.
         for (Iterator<Holder.Reference<ConfiguredSkill<?, ?>>> it = configuredSkillsLookup.holders().iterator(); it.hasNext(); ) {
             Holder.Reference<ConfiguredSkill<?, ?>> configuredSkill = it.next();
             ResourceKey<ConfiguredSkill<?, ?>> configuredSkillResourceKey = configuredSkill.getKey();
@@ -115,7 +124,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
                 if (pointsToAdd > 0) {
                     Optional<SkillInstance<?, ?>> skillInstance = skillsData.getOrCreate(player.registryAccess(), configuredSkillResourceKey);
                     if (skillInstance.isPresent()) {
-                        // Add points to skill instance
+                        // Add points to reward instance
                         skillInstance.get().addPointsWithGrindingPenalty(player, pointsToAdd, skillsData.pointEarningHistory());
 
                         // Add points to point earning history
@@ -132,6 +141,10 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         SkillsData skillsData = player.getData(DataAttachments.SKILL_PLAYER_DATA);
         consumer.accept(skillsData);
         player.setData(DataAttachments.SKILL_PLAYER_DATA, skillsData);
+    }
+
+    public static SkillsData getPlayerData(Player player) {
+        return player.getData(DataAttachments.SKILL_PLAYER_DATA);
     }
 
     public Optional<SkillInstance<?, ?>> getOrCreate(RegistryAccess registryAccess, ResourceLocation resourceLocation) {
@@ -181,14 +194,24 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         Registry<PlayerAbility<?, ?>> abilityLookup = player.registryAccess().registryOrThrow(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY);
 
         configuredAbilities.forEach(configuredAbility -> {
+            ResourceKey<PlayerAbility<?, ?>> abilityKey = abilityLookup.getResourceKey(configuredAbility.value().ability()).get();
             activeAbilities
-                    .computeIfAbsent(abilityLookup.getResourceKey(configuredAbility.value().ability()).get(), (key) -> new ArrayList<>())
+                    .computeIfAbsent(abilityKey, (key) -> new ArrayList<>())
                     .add(configuredAbility.value().ability().createInstance(player, configuredAbility));
 
             if (configuredAbility.value().config().getData().enabledByDefault()) {
                 configuredAbility.value().onAbilityGranted(player);
             }
         });
+    }
+
+    public void activateAbility(ServerPlayer player, ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredPlayerAbility) {
+        Registry<ConfiguredPlayerAbility<?, ?>> abilityLookup = player.registryAccess().registryOrThrow(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY);
+        if (abilityLookup.containsKey(configuredPlayerAbility)) {
+            activateAbilities(player, HolderSet.direct(abilityLookup.getHolderOrThrow(configuredPlayerAbility)));
+        } else {
+            PotionsPlus.LOGGER.error("Failed to activate ability: " + configuredPlayerAbility);
+        }
     }
 
     public void syncAbilitiesEnablement(ServerPlayer player) {
@@ -223,5 +246,17 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
 
         event.getServer().getPlayerList().getPlayers().forEach(
                 player -> SkillsData.updatePlayerData(player, data -> data.pointEarningHistory().popOldestEntry()));
+    }
+
+    public void addPendingChoice(ResourceKey<ConfiguredGrantableReward<?, ?>> choice) {
+        this.pendingChoices.add(choice);
+    }
+
+    public void removePendingChoice(ResourceKey<ConfiguredGrantableReward<?, ?>> choice) {
+        this.pendingChoices.remove(choice);
+    }
+
+    public boolean hasPendingChoice(ResourceKey<ConfiguredGrantableReward<?, ?>> choice) {
+        return this.pendingChoices.stream().anyMatch(pendingChoice -> pendingChoice.equals(choice));
     }
 }

@@ -2,7 +2,9 @@ package grill24.potionsplus.event;
 
 import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -10,6 +12,7 @@ import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.effect.IEffectTooltipDetails;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
 import grill24.potionsplus.utility.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -153,6 +156,21 @@ public class ItemListenersGame {
 
                         tooltipMessages.add(text);
                     }
+                }
+            }
+
+            // Choice Reward Item Tooltip
+            if (stack.has(grill24.potionsplus.core.DataComponents.CHOICE_ITEM_DATA)) {
+                EdibleRewardGranterDataComponent choiceItemData = stack.get(grill24.potionsplus.core.DataComponents.CHOICE_ITEM_DATA);
+                grill24.potionsplus.skill.reward.ConfiguredGrantableReward<?, ?> linkedOption = choiceItemData.linkedOption().value();
+
+                tooltipMessages.add(List.of(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_CHOICE).withStyle(ChatFormatting.GOLD)));
+                if (Items.BASIC_LOOT_MODEL.getOverrideValue(choiceItemData.flag()) > 0) {
+                    tooltipMessages.add(List.of(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_CHOOSE_ONE).withStyle(ChatFormatting.GRAY)));
+                }
+                Component component = linkedOption.getDescription();
+                if (component != null) {
+                    tooltipMessages.add(List.of(component));
                 }
             }
         }

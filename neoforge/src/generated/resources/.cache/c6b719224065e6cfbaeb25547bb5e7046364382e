@@ -1,8 +1,8 @@
-// 1.21.1	2024-12-03T17:04:57.4217486	Global Loot Modifiers : potionsplus
+// 1.21.1	2024-12-18T18:42:33.796773	Global Loot Modifiers : potionsplus
 ac2f1c2d1daf9547a3a6e774fd71dbddf02b64f9 data/neoforge/loot_modifiers/global_loot_modifiers.json
 9a1ac22222afedb2098996bd96272faaab07aac5 data/potionsplus/loot_modifiers/copper_ore_bonus_drops_ability.json
 8d4816bbb1d7f90d595f0dc0cc88268ef10bcdc0 data/potionsplus/loot_modifiers/creeper_loot_modifier.json
-dd2868d89f61f3e6beb5be03a3fccf3db322bfa0 data/potionsplus/loot_modifiers/diamond_ore_bonus_drops_ability.json
+94a25ceaf60477552c8cf47425b577006d603e22 data/potionsplus/loot_modifiers/diamond_ore_bonus_drops_ability.json
 3e3a572d47f8f1b50a32034764e30df1641d5a94 data/potionsplus/loot_modifiers/iron_ore_bonus_drops_ability.json
 9139a2fc6fb0926ccaa5d610092cf01094f1f572 data/potionsplus/loot_modifiers/skeleton_bone_block_loot_modifier.json
 470a72b5334e8ac4e7400275a1874538beec281b data/potionsplus/loot_modifiers/skeleton_bone_meal_loot_modifier.json

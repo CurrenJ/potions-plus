@@ -2,17 +2,15 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.skill.*;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
-import grill24.potionsplus.skill.reward.AnimatedItemRewardData;
+import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
 import grill24.potionsplus.skill.source.ConfiguredSkillPointSource;
-import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,64 +38,69 @@ public class ConfiguredSkills {
     public static void generate(BootstrapContext<ConfiguredSkill<?, ?>> context) {
         HolderGetter<ConfiguredSkillPointSource<?, ?>> sourceLookup = context.lookup(PotionsPlusRegistries.CONFIGURED_SKILL_POINT_SOURCE);
         HolderGetter<ConfiguredPlayerAbility<?, ?>> abilityLookup = context.lookup(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY);
+        HolderGetter<ConfiguredGrantableReward<?, ?>> rewardLookup = context.lookup(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD);
 
+        // Mining
         context.register(MINING_CONFIGURED_KEY, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration(
                 Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING,
                 tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.MINE_ORE),
                 new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.005F, 20F),
-                createDefaultRewards()
-                        .addRewardForLevel(5, builder -> builder
-                                .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_5)
-                                .addAdvancementRewards(AdvancementRewards.Builder.loot(BuiltInLootTables.SIMPLE_DUNGEON).build())
-                                .addAbility(ConfiguredPlayerAbilities.PICKAXE_EFFICIENCY_BONUS_KEYS[0])
-                                .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.WOODEN_PICKAXE)))
+                createDefaultRewards(context)
+                        .addRewardForLevel(5, builder -> builder.clear()
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.SIMPLE_DUNGEON_LOOT_EDIBLE[0].getKey())
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_EFFICIENCY_BONUS.getKey(0))
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.WOODEN_PICKAXE)))
                         )
                         .addRewardForLevel(7, builder -> builder
-                                .addAbility(ConfiguredPlayerAbilities.SUBMERGED_PICKAXE_EFFICIENCY_BONUS_KEYS[0])
-                                .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.STONE_PICKAXE)))
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.SUBMERGED_PICKAXE_EFFICIENCY_BONUS.getKey(0))
                         )
                         .addRewardForLevel(8, builder -> builder
-                                .addAbility(ConfiguredPlayerAbilities.PICKAXE_COPPER_ORE_ADDITIONAL_LOOT_KEYS[0])
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_COPPER_ORE_ADDITIONAL_LOOT.getKey(0))
                         )
-                        .addRewardForLevel(10, builder -> builder
-                                .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_10)
-                                .addAdvancementRewards(AdvancementRewards.Builder.loot(BuiltInLootTables.ABANDONED_MINESHAFT).build())
-                                .addAbility(ConfiguredPlayerAbilities.PICKAXE_EFFICIENCY_BONUS_KEYS[1])
-                                .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.STONE_PICKAXE)))
+                        .addRewardForLevel(10, builder -> builder.clear()
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.ABANDONED_MINESHAFT_LOOT_EDIBLE[0].getKey())
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_EFFICIENCY_BONUS.getKey(1))
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.STONE_PICKAXE)))
+                        )
+                        .addRewardForLevel(11, builder -> builder
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_LOOT_1.getKey())
                         )
                         .addRewardForLevel(13, builder -> builder
-                                .addAbility(ConfiguredPlayerAbilities.SUBMERGED_PICKAXE_EFFICIENCY_BONUS_KEYS[1])
-                                .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.DIAMOND_PICKAXE)))
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.SUBMERGED_PICKAXE_EFFICIENCY_BONUS.getKey(1))
                         )
-                        .addRewardForLevel(15, builder -> builder
-                                .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_15)
-                                .addAdvancementRewards(AdvancementRewards.Builder.loot(BuiltInLootTables.STRONGHOLD_LIBRARY).build())
-                                .addAbility(ConfiguredPlayerAbilities.PICKAXE_EFFICIENCY_BONUS_KEYS[2])
+                        .addRewardForLevel(15, builder -> builder.clear()
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.STRONGHOLD_LIBRARY_LOOT_EDIBLE[0].getKey())
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_EFFICIENCY_BONUS.getKey(2))
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.IRON_PICKAXE)))
                         )
                         .addRewardForLevel(16, builder -> builder
-                                .addAbility(ConfiguredPlayerAbilities.PICKAXE_IRON_ORE_ADDITIONAL_LOOT_KEYS[0])
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_IRON_ORE_ADDITIONAL_LOOT.getKey(0))
                         )
-                        .addRewardForLevel(20, builder -> builder
-                                .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_20)
-                                .addAdvancementRewards(AdvancementRewards.Builder.loot(BuiltInLootTables.DESERT_PYRAMID).build())
-                                .addAbility(ConfiguredPlayerAbilities.PICKAXE_EFFICIENCY_BONUS_KEYS[3])
-                                .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.IRON_PICKAXE)))
+                        .addRewardForLevel(17, builder -> builder
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_LOOT_2.getKey())
+                        )
+                        .addRewardForLevel(18, builder -> builder
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_PICKAXE_EFFICIENCY_2.getKey())
+                        )
+                        .addRewardForLevel(20, builder -> builder.clear()
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.DESERT_PYRAMID_LOOT_EDIBLE[0].getKey())
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_EFFICIENCY_BONUS.getKey(3))
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.GOLDEN_PICKAXE)))
                         )
                         .addRewardForLevel(21, builder -> builder
-                                .addAbility(ConfiguredPlayerAbilities.SUBMERGED_PICKAXE_EFFICIENCY_BONUS_KEYS[2])
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.SUBMERGED_PICKAXE_EFFICIENCY_BONUS.getKey(2))
                         )
                         .addRewardForLevel(23, builder -> builder
-                                .addAbility(ConfiguredPlayerAbilities.PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_KEYS[0])
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_PICKAXE_LOOT_1.getKey())
                         )
                         .addRewardForLevel(24, builder -> builder
-                                .addAbility(ConfiguredPlayerAbilities.PICKAXE_FORTUNE_BONUS_KEYS[1])
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_FORTUNE_BONUS.getKey(0))
                         )
-                        .addRewardForLevel(25, builder -> builder
-                                .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_25)
-                                .addAdvancementRewards(AdvancementRewards.Builder.loot(BuiltInLootTables.JUNGLE_TEMPLE).build())
-                                .addAbility(ConfiguredPlayerAbilities.PICKAXE_EFFICIENCY_BONUS_KEYS[4])
+                        .addRewardForLevel(25, builder -> builder.clear()
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.JUNGLE_TEMPLE_LOOT_EDIBLE[0].getKey())
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_EFFICIENCY_BONUS.getKey(4))
                         )
-                        .build(abilityLookup)
+                        .build(rewardLookup)
         )));
 
         // Woodcutting
@@ -105,28 +108,28 @@ public class ConfiguredSkills {
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_WOODCUTTING,
                         tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.MINE_LOG),
                         new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.003F, 20F),
-                        createDefaultRewards()
+                        createDefaultRewards(context)
                                 .addRewardForLevel(5, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.AXE_EFFICIENCY_BONUS_KEYS[0])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.WOODEN_AXE)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.AXE_EFFICIENCY_BONUS.getKey(0))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.WOODEN_AXE)))
                                 )
                                 .addRewardForLevel(10, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.AXE_EFFICIENCY_BONUS_KEYS[1])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.STONE_AXE)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.AXE_EFFICIENCY_BONUS.getKey(1))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.STONE_AXE)))
                                 )
                                 .addRewardForLevel(15, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.AXE_EFFICIENCY_BONUS_KEYS[2])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.IRON_AXE)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.AXE_EFFICIENCY_BONUS.getKey(2))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.IRON_AXE)))
                                 )
                                 .addRewardForLevel(20, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.AXE_EFFICIENCY_BONUS_KEYS[3])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.GOLDEN_AXE)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.AXE_EFFICIENCY_BONUS.getKey(3))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.GOLDEN_AXE)))
                                 )
                                 .addRewardForLevel(25, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.AXE_EFFICIENCY_BONUS_KEYS[4])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.DIAMOND_AXE)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.AXE_EFFICIENCY_BONUS.getKey(4))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.DIAMOND_AXE)))
                                 )
-                                .build(abilityLookup)
+                                .build(rewardLookup)
                 )
         ));
 
@@ -134,29 +137,29 @@ public class ConfiguredSkills {
         context.register(WALKING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_WALKING,
                         tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.WALK),
-                        new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.001F, 20F),
-                        createDefaultRewards()
+                        new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.0002F, 20F),
+                        createDefaultRewards(context)
                                 .addRewardForLevel(5, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.MOVEMENT_SPEED_BONUS_KEYS[0])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.LEATHER_BOOTS)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.MOVEMENT_SPEED_BONUS.getKey(0))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.LEATHER_BOOTS)))
                                 )
                                 .addRewardForLevel(10, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.MOVEMENT_SPEED_BONUS_KEYS[1])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.CHAINMAIL_BOOTS)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.MOVEMENT_SPEED_BONUS.getKey(1))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.CHAINMAIL_BOOTS)))
                                 )
                                 .addRewardForLevel(15, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.MOVEMENT_SPEED_BONUS_KEYS[2])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.IRON_BOOTS)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.MOVEMENT_SPEED_BONUS.getKey(2))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.IRON_BOOTS)))
                                 )
                                 .addRewardForLevel(20, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.MOVEMENT_SPEED_BONUS_KEYS[3])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.GOLDEN_BOOTS)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.MOVEMENT_SPEED_BONUS.getKey(3))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.GOLDEN_BOOTS)))
                                 )
                                 .addRewardForLevel(25, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.MOVEMENT_SPEED_BONUS_KEYS[4])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.DIAMOND_BOOTS)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.MOVEMENT_SPEED_BONUS.getKey(4))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.DIAMOND_BOOTS)))
                                 )
-                                .build(abilityLookup)
+                                .build(rewardLookup)
                 )
         ));
 
@@ -165,28 +168,24 @@ public class ConfiguredSkills {
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_SPRINTING,
                         tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.SPRINT),
                         new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.001F, 20F),
-                        createDefaultRewards()
+                        createDefaultRewards(context)
                                 .addRewardForLevel(5, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SPRINT_SPEED_BONUS_KEYS[0])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.SUGAR)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SPRINT_SPEED_BONUS.getKey(0))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.SUGAR)))
                                 )
                                 .addRewardForLevel(10, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SPRINT_SPEED_BONUS_KEYS[1])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.SUGAR)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SPRINT_SPEED_BONUS.getKey(1))
                                 )
                                 .addRewardForLevel(15, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SPRINT_SPEED_BONUS_KEYS[2])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.SUGAR)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SPRINT_SPEED_BONUS.getKey(2))
                                 )
                                 .addRewardForLevel(20, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SPRINT_SPEED_BONUS_KEYS[3])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.SUGAR)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SPRINT_SPEED_BONUS.getKey(3))
                                 )
                                 .addRewardForLevel(25, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SPRINT_SPEED_BONUS_KEYS[4])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.SUGAR)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SPRINT_SPEED_BONUS.getKey(4))
                                 )
-                                .build(abilityLookup)
+                                .build(rewardLookup)
                 )
         ));
 
@@ -195,13 +194,13 @@ public class ConfiguredSkills {
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_SNEAKING,
                         tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.SNEAK),
                         new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.003F, 20F),
-                        createDefaultRewards()
-                                .addRewardForLevel(5, builder -> builder.addAbility(ConfiguredPlayerAbilities.SNEAK_SPEED_BONUS_KEYS[0]))
-                                .addRewardForLevel(10, builder -> builder.addAbility(ConfiguredPlayerAbilities.SNEAK_SPEED_BONUS_KEYS[1]))
-                                .addRewardForLevel(15, builder -> builder.addAbility(ConfiguredPlayerAbilities.SNEAK_SPEED_BONUS_KEYS[2]))
-                                .addRewardForLevel(20, builder -> builder.addAbility(ConfiguredPlayerAbilities.SNEAK_SPEED_BONUS_KEYS[3]))
-                                .addRewardForLevel(25, builder -> builder.addAbility(ConfiguredPlayerAbilities.SNEAK_SPEED_BONUS_KEYS[4]))
-                                .build(abilityLookup)
+                        createDefaultRewards(context)
+                                .addRewardForLevel(5, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SNEAK_SPEED_BONUS.getKey(0)))
+                                .addRewardForLevel(10, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SNEAK_SPEED_BONUS.getKey(1)))
+                                .addRewardForLevel(15, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SNEAK_SPEED_BONUS.getKey(2)))
+                                .addRewardForLevel(20, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SNEAK_SPEED_BONUS.getKey(3)))
+                                .addRewardForLevel(25, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SNEAK_SPEED_BONUS.getKey(4)))
+                                .build(rewardLookup)
                 )
         ));
 
@@ -210,13 +209,13 @@ public class ConfiguredSkills {
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_JUMPING,
                         tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.JUMP),
                         new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.0002F, 20F),
-                        createDefaultRewards()
-                                .addRewardForLevel(5, builder -> builder.addAbility(ConfiguredPlayerAbilities.JUMP_HEIGHT_BONUS_KEYS[0]))
-                                .addRewardForLevel(10, builder -> builder.addAbility(ConfiguredPlayerAbilities.JUMP_HEIGHT_BONUS_KEYS[1]))
-                                .addRewardForLevel(15, builder -> builder.addAbility(ConfiguredPlayerAbilities.JUMP_HEIGHT_BONUS_KEYS[2]))
-                                .addRewardForLevel(20, builder -> builder.addAbility(ConfiguredPlayerAbilities.JUMP_HEIGHT_BONUS_KEYS[3]))
-                                .addRewardForLevel(25, builder -> builder.addAbility(ConfiguredPlayerAbilities.JUMP_HEIGHT_BONUS_KEYS[4]))
-                                .build(abilityLookup)
+                        createDefaultRewards(context)
+                                .addRewardForLevel(5, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.JUMP_HEIGHT_BONUS.getKey(0)))
+                                .addRewardForLevel(10, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.JUMP_HEIGHT_BONUS.getKey(1)))
+                                .addRewardForLevel(15, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.JUMP_HEIGHT_BONUS.getKey(2)))
+                                .addRewardForLevel(20, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.JUMP_HEIGHT_BONUS.getKey(3)))
+                                .addRewardForLevel(25, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.JUMP_HEIGHT_BONUS.getKey(4)))
+                                .build(rewardLookup)
                 )
         ));
 
@@ -224,40 +223,40 @@ public class ConfiguredSkills {
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_SWORDSMANSHIP,
                         tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_SWORD),
                         new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.003F, 20F),
-                        createDefaultRewards()
+                        createDefaultRewards(context)
                                 .addRewardForLevel(5, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SWORD_SHARPNESS_BONUS_KEYS[0])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.WOODEN_SWORD)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_SHARPNESS_BONUS.getKey(0))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.WOODEN_SWORD)))
                                 )
                                 .addRewardForLevel(6, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SKELETON_BONE_MEAL_ADDITIONAL_LOOT_KEYS[0])
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SKELETON_BONE_MEAL_ADDITIONAL_LOOT.getKey(0))
                                 )
                                 .addRewardForLevel(10, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SWORD_SHARPNESS_BONUS_KEYS[1])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.STONE_SWORD)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_SHARPNESS_BONUS.getKey(1))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.STONE_SWORD)))
                                 )
                                 .addRewardForLevel(14, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT_KEYS[0])
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT.getKey(0))
                                 )
                                 .addRewardForLevel(15, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SWORD_SHARPNESS_BONUS_KEYS[2])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.IRON_SWORD)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_SHARPNESS_BONUS.getKey(2))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.IRON_SWORD)))
                                 )
                                 .addRewardForLevel(18, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.CREEPER_SAND_ADDITIONAL_LOOT_KEYS[0])
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.CREEPER_SAND_ADDITIONAL_LOOT.getKey(0))
                                 )
                                 .addRewardForLevel(20, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SWORD_SHARPNESS_BONUS_KEYS[3])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.GOLDEN_SWORD)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_SHARPNESS_BONUS.getKey(3))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.GOLDEN_SWORD)))
                                 )
                                 .addRewardForLevel(23, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SWORD_LOOTING_BONUS_KEYS[0])
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_LOOTING_BONUS.getKey(0))
                                 )
                                 .addRewardForLevel(25, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.SWORD_SHARPNESS_BONUS_KEYS[4])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.DIAMOND_SWORD)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_SHARPNESS_BONUS.getKey(4))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.DIAMOND_SWORD)))
                                 )
-                                .build(abilityLookup)
+                                .build(rewardLookup)
                 )
         ));
 
@@ -265,28 +264,28 @@ public class ConfiguredSkills {
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_CHOPPING,
                         tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_AXE),
                         new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.003F, 20F),
-                        createDefaultRewards()
+                        createDefaultRewards(context)
                                 .addRewardForLevel(5, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.AXE_DAMAGE_BONUS_KEYS[0])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.WOODEN_AXE)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.AXE_DAMAGE_BONUS.getKey(0))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.WOODEN_AXE)))
                                 )
                                 .addRewardForLevel(10, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.AXE_DAMAGE_BONUS_KEYS[1])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.STONE_AXE)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.AXE_DAMAGE_BONUS.getKey(1))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.STONE_AXE)))
                                 )
                                 .addRewardForLevel(15, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.AXE_DAMAGE_BONUS_KEYS[2])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.IRON_AXE)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.AXE_DAMAGE_BONUS.getKey(2))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.IRON_AXE)))
                                 )
                                 .addRewardForLevel(20, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.AXE_DAMAGE_BONUS_KEYS[3])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.GOLDEN_AXE)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.AXE_DAMAGE_BONUS.getKey(3))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.GOLDEN_AXE)))
                                 )
                                 .addRewardForLevel(25, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.AXE_DAMAGE_BONUS_KEYS[4])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.DIAMOND_AXE)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.AXE_DAMAGE_BONUS.getKey(4))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.DIAMOND_AXE)))
                                 )
-                                .build(abilityLookup)
+                                .build(rewardLookup)
                 )
         ));
 
@@ -294,28 +293,28 @@ public class ConfiguredSkills {
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_ARCHERY,
                         tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_BOW),
                         new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.003F, 20F),
-                        createDefaultRewards()
+                        createDefaultRewards(context)
                                 .addRewardForLevel(5, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.BOW_POWER_BONUS_KEYS[0])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.BOW)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.BOW_POWER_BONUS.getKey(0))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.BOW)))
                                 )
                                 .addRewardForLevel(10, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.BOW_POWER_BONUS_KEYS[1])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.BOW)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.BOW_POWER_BONUS.getKey(1))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.BOW)))
                                 )
                                 .addRewardForLevel(15, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.BOW_POWER_BONUS_KEYS[2])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.BOW)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.BOW_POWER_BONUS.getKey(2))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.BOW)))
                                 )
                                 .addRewardForLevel(20, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.BOW_POWER_BONUS_KEYS[3])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.BOW)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.BOW_POWER_BONUS.getKey(3))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.BOW)))
                                 )
                                 .addRewardForLevel(25, builder -> builder
-                                        .addAbility(ConfiguredPlayerAbilities.BOW_POWER_BONUS_KEYS[4])
-                                        .addAnimatedItemReward(new AnimatedItemRewardData(new ItemStack(Items.BOW)))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.BOW_POWER_BONUS.getKey(4))
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.BOW)))
                                 )
-                                .build(abilityLookup)
+                                .build(rewardLookup)
                 )
         ));
     }
@@ -334,107 +333,58 @@ public class ConfiguredSkills {
         return validSources;
     }
 
-    private static SkillLevelUpRewardsConfiguration.Builder createDefaultRewards() {
+    private static SkillLevelUpRewardsConfiguration.Builder createDefaultRewards(BootstrapContext<ConfiguredSkill<?, ?>> context) {
+        HolderGetter<ConfiguredGrantableReward<?, ?>> rewardLookup = context.lookup(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD);
         return SkillLevelUpRewardsConfiguration.Builder.create()
                 .addRewardForLevel(1, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.BASIC_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(2, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.BASIC_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(3, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.BASIC_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(4, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.BASIC_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(5, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.BASIC_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(6, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.BASIC_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(7, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.BASIC_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(8, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.BASIC_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(9, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.BASIC_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(10, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.BASIC_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(11, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.INTERMEDIATE_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(12, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.INTERMEDIATE_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(13, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.INTERMEDIATE_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(14, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.INTERMEDIATE_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(15, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.INTERMEDIATE_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(16, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.INTERMEDIATE_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(17, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.INTERMEDIATE_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(18, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.INTERMEDIATE_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(19, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.INTERMEDIATE_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(20, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_ADVANCED)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.ADVANCED_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(21, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_ADVANCED)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.ADVANCED_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.ADVANCED_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(22, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_ADVANCED)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.ADVANCED_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.ADVANCED_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(23, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_ADVANCED)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.ADVANCED_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.ADVANCED_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(24, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_ADVANCED)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.ADVANCED_SKILL_REWARDS).build())
-                )
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.ADVANCED_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(25, builder -> builder
-                        .translationKey(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_MASTER)
-                        .addAdvancementRewards(AdvancementRewards.Builder.loot(LootTables.MASTER_SKILL_REWARDS).build())
-                );
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.MASTER_SKILL_LOOT_EDIBLE.getKey()));
     }
 }

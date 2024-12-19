@@ -3,6 +3,8 @@ package grill24.potionsplus.core;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
+import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
+import grill24.potionsplus.skill.reward.GrantableReward;
 import grill24.potionsplus.skill.source.ConfiguredSkillPointSource;
 import grill24.potionsplus.skill.source.SkillPointSource;
 import grill24.potionsplus.skill.Skill;
@@ -35,17 +37,26 @@ public class PotionsPlusRegistries {
             .sync(true)
             .create();
 
+    public static final ResourceKey<Registry<GrantableReward<?>>> GRANTABLE_REWARD_REGISTRY_KEY = ResourceKey.createRegistryKey(ppId("grantable_reward"));
+    public static final Registry<GrantableReward<?>> GRANTABLE_REWARD = new RegistryBuilder<>(GRANTABLE_REWARD_REGISTRY_KEY)
+            .sync(true)
+            .create();
+
 
     // Datapack Registries
     public static final ResourceKey<Registry<ConfiguredSkill<?, ?>>> CONFIGURED_SKILL = ResourceKey.createRegistryKey(ppId("configured_skill"));
     public static final ResourceKey<Registry<ConfiguredSkillPointSource<?, ?>>> CONFIGURED_SKILL_POINT_SOURCE = ResourceKey.createRegistryKey(ppId("configured_skill_point_source"));
     public static final ResourceKey<Registry<ConfiguredPlayerAbility<?, ?>>> CONFIGURED_PLAYER_ABILITY = ResourceKey.createRegistryKey(ppId("configured_player_ability"));
 
+    public static final ResourceKey<Registry<ConfiguredGrantableReward<?, ?>>> CONFIGURED_GRANTABLE_REWARD = ResourceKey.createRegistryKey(ppId("configured_grantable_reward"));
+
     @SubscribeEvent
     public static void registerRegistries(NewRegistryEvent event) {
         event.register(SKILL);
         event.register(SKILL_POINT_SOURCE);
         event.register(PLAYER_ABILITY);
+
+        event.register(GRANTABLE_REWARD);
     }
 
     @SubscribeEvent
@@ -66,6 +77,12 @@ public class PotionsPlusRegistries {
                 CONFIGURED_PLAYER_ABILITY, // Registry key
                 ConfiguredPlayerAbility.DIRECT_CODEC, // Codec
                 ConfiguredPlayerAbility.DIRECT_CODEC // Network codec - nullable
+        );
+
+        event.dataPackRegistry(
+                CONFIGURED_GRANTABLE_REWARD, // Registry key
+                ConfiguredGrantableReward.DIRECT_CODEC, // Codec
+                ConfiguredGrantableReward.DIRECT_CODEC // Network codec - nullable
         );
     }
 }

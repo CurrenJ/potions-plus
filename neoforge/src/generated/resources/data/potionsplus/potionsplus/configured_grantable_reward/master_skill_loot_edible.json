@@ -1,0 +1,15 @@
+{
+  "type": "potionsplus:choice",
+  "config": {
+    "rewards": [
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:master_loot"
+        },
+        "linkedChoiceParent": "potionsplus:master_skill_loot_edible",
+        "linkedOption": "potionsplus:master_skill"
+      }
+    ]
+  }
+}

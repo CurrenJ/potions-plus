@@ -86,7 +86,7 @@ public class AbilityInstance {
     public Component getDescription(boolean showEnablementText) {
         MutableComponent component = Component.empty();
 
-        ClickEvent clickEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/potionsplus skill ability byId " + ability.getKey().location() + " toggle");
+        ClickEvent clickEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/potionsplus reward ability byId " + ability.getKey().location() + " toggle");
         HoverEvent hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable(Translations.GENERIC_POTIONSPLUS_TOGGLE));
         Style style = Style.EMPTY.withHoverEvent(hoverEvent).withClickEvent(clickEvent).withColor(this.isEnabled ? ChatFormatting.GREEN : ChatFormatting.RED);
 

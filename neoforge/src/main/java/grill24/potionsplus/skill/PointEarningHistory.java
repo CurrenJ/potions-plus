@@ -31,7 +31,7 @@ public class PointEarningHistory {
 
     public record PointEarned(ResourceKey<ConfiguredSkill<?, ?>> skill) {
         public static final Codec<PointEarned> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
-                ResourceKey.codec(PotionsPlusRegistries.CONFIGURED_SKILL).fieldOf("skill").forGetter(PointEarned::skill)
+                ResourceKey.codec(PotionsPlusRegistries.CONFIGURED_SKILL).fieldOf("reward").forGetter(PointEarned::skill)
         ).apply(codecBuilder, PointEarned::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, PointEarned> STREAM_CODEC = StreamCodec.composite(

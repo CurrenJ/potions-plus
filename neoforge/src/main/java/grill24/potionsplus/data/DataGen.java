@@ -32,7 +32,8 @@ public class DataGen {
             // Custom Datapack Registries
             .add(PotionsPlusRegistries.CONFIGURED_SKILL, ConfiguredSkills::generate)
             .add(PotionsPlusRegistries.CONFIGURED_SKILL_POINT_SOURCE, ConfiguredSkillPointSources::generate)
-            .add(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ConfiguredPlayerAbilities::generate);
+            .add(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ConfiguredPlayerAbilities::generate)
+            .add(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ConfiguredGrantableRewards::generate);
 
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent event) {

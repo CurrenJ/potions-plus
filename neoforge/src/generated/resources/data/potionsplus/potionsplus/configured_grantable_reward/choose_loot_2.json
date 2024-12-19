@@ -1,0 +1,23 @@
+{
+  "type": "potionsplus:choice",
+  "config": {
+    "rewards": [
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:sparkling_squash"
+        },
+        "linkedChoiceParent": "potionsplus:choose_loot_2",
+        "linkedOption": "potionsplus:stronghold_library_loot"
+      },
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:blueb_berries"
+        },
+        "linkedChoiceParent": "potionsplus:choose_loot_2",
+        "linkedOption": "potionsplus:desert_pyramid_loot"
+      }
+    ]
+  }
+}

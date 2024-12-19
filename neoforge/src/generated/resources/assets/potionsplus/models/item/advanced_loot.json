@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "potionsplus:item/advanced_loot_advanced",
+      "predicate": {
+        "potionsplus:edible_choice_flag": 0.0
+      }
+    },
+    {
+      "model": "potionsplus:item/advanced_loot_red_flag",
+      "predicate": {
+        "potionsplus:edible_choice_flag": 0.015625
+      }
+    },
+    {
+      "model": "potionsplus:item/advanced_loot_green_flag",
+      "predicate": {
+        "potionsplus:edible_choice_flag": 0.03125
+      }
+    },
+    {
+      "model": "potionsplus:item/advanced_loot_blue_flag",
+      "predicate": {
+        "potionsplus:edible_choice_flag": 0.046875
+      }
+    },
+    {
+      "model": "potionsplus:item/advanced_loot_yellow_flag",
+      "predicate": {
+        "potionsplus:edible_choice_flag": 0.0625
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "potionsplus:item/advanced"
+  }
+}

@@ -18,12 +18,13 @@ import static grill24.potionsplus.utility.Utility.ppId;
  * Data Gen Class. ConfiguredSkills are registered dynamically from datapack.
  */
 public class ConfiguredPlayerAbilities {
-    public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] PICKAXE_EFFICIENCY_BONUS_KEYS = generateKeys(register("pickaxe_efficiency_bonus"), 5);
-    public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] SUBMERGED_PICKAXE_EFFICIENCY_BONUS_KEYS = generateKeys(register("submerged_pickaxe_efficiency_bonus"), 5);
+    public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] PICKAXE_EFFICIENCY_BONUS_KEYS = generateKeys(register("pickaxe_efficiency_bonus"), 7);
+    public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] SUBMERGED_PICKAXE_EFFICIENCY_BONUS_KEYS = generateKeys(register("submerged_pickaxe_efficiency_bonus"), 7);
     public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] PICKAXE_FORTUNE_BONUS_KEYS = generateKeys(register("fortune_bonus"), 5);
     public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] PICKAXE_COPPER_ORE_ADDITIONAL_LOOT_KEYS = generateKeys(register("copper_bonus_drops"), 1);
     public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] PICKAXE_IRON_ORE_ADDITIONAL_LOOT_KEYS = generateKeys(register("iron_bonus_drops"), 1);
-    public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_KEYS = generateKeys(register("diamond_bonus_drops"), 1);
+    public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS_KEYS = generateKeys(register("diamond_bonus_drops_emeralds"), 1);
+    public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS_KEYS = generateKeys(register("diamond_bonus_drops_lapis"), 1);
 
     public static final ResourceKey<ConfiguredPlayerAbility<?, ?>>[] AXE_EFFICIENCY_BONUS_KEYS = generateKeys(register("axe_efficiency_bonus"), 5);
 
@@ -56,10 +57,10 @@ public class ConfiguredPlayerAbilities {
     public static void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
         // Mining Speed while Pickaxe Held
         generateAttributeBonuses(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_EFFICIENCY_BONUS, PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get(), Attributes.MINING_EFFICIENCY,
-                AttributeModifier.Operation.ADD_VALUE, PICKAXE_EFFICIENCY_BONUS_KEYS, 0.1, 0.2, 0.3, 0.4, 0.5);
+                AttributeModifier.Operation.ADD_VALUE, PICKAXE_EFFICIENCY_BONUS_KEYS, 0.1, 0.2, 0.3, 0.4, 0.5, 0.1, 0.1);
         // Underwater Mining Speed while Pickaxe Held
         generateAttributeBonuses(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SUBMERGED_PICKAXE_EFFICIENCY_BONUS, PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get(), Attributes.SUBMERGED_MINING_SPEED,
-                AttributeModifier.Operation.ADD_VALUE, SUBMERGED_PICKAXE_EFFICIENCY_BONUS_KEYS, 0.1, 0.2, 0.3, 0.4, 0.5);
+                AttributeModifier.Operation.ADD_VALUE, SUBMERGED_PICKAXE_EFFICIENCY_BONUS_KEYS, 0.1, 0.2, 0.3, 0.4, 0.5, 0.1, 0.1);
         // Fortune Bonus while Pickaxe Held
         generateAttributeBonuses(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_FORTUNE_BONUS, PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get(), grill24.potionsplus.core.Attributes.FORTUNE_BONUS,
                 AttributeModifier.Operation.ADD_VALUE, PICKAXE_FORTUNE_BONUS_KEYS, 1, 1, 1, 1, 1);
@@ -67,8 +68,10 @@ public class ConfiguredPlayerAbilities {
         generateSimpleAbility(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_COPPER_ORE_ADDITIONAL_LOOT_IRON_NUGGETS, PICKAXE_COPPER_ORE_ADDITIONAL_LOOT_KEYS[0]);
         // Iron Ore Additional Drops while Pickaxe Held
         generateSimpleAbility(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_IRON_ORE_ADDITIONAL_LOOT_GOLD_NUGGETS, PICKAXE_IRON_ORE_ADDITIONAL_LOOT_KEYS[0]);
-        // Diamond Ore Additional Drops while Pickaxe Held
-        generateSimpleAbility(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS, PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_KEYS[0]);
+        // Diamond Ore Additional Drops Emeralds
+        generateSimpleAbility(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS, PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS_KEYS[0]);
+        // Diamond Ore Additional Drops Lapis
+        generateSimpleAbility(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS, PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS_KEYS[0]);
 
         // Mining Speed while Axe Held
         generateAttributeBonuses(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_EFFICIENCY_BONUS, PlayerAbilities.MODIFIERS_WHILE_AXE_HELD.get(), Attributes.MINING_EFFICIENCY,

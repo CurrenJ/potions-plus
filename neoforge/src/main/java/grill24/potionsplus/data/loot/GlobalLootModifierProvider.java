@@ -9,14 +9,10 @@ import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.neoforged.neoforge.common.loot.AddTableLootModifier;
@@ -74,9 +70,21 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemBlockTagCondition.tag(BlockTags.DIAMOND_ORES).build(),
-                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_KEYS[0])
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS_KEYS[0])
                         },
                         LootTables.DIAMOND_ORE_EMERALD_BONUS_DROPS
+                )
+        );
+
+        // Diamond Ore Lapis Bonus Drops (Skill Ability)
+        this.add(
+                "diamond_ore_bonus_drops_ability",
+                new AddTableLootModifier(
+                        new LootItemCondition[]{
+                                LootItemBlockTagCondition.tag(BlockTags.DIAMOND_ORES).build(),
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS_KEYS[0])
+                        },
+                        LootTables.DIAMOND_ORE_LAPIS_BONUS_DROPS
                 )
         );
 

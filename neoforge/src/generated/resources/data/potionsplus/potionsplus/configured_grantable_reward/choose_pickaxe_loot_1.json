@@ -1,0 +1,23 @@
+{
+  "type": "potionsplus:choice",
+  "config": {
+    "rewards": [
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:sparkling_squash"
+        },
+        "linkedChoiceParent": "potionsplus:choose_pickaxe_loot_1",
+        "linkedOption": "potionsplus:diamond_bonus_drops_emeralds_1"
+      },
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:blueb_berries"
+        },
+        "linkedChoiceParent": "potionsplus:choose_pickaxe_loot_1",
+        "linkedOption": "potionsplus:diamond_bonus_drops_lapis_1"
+      }
+    ]
+  }
+}

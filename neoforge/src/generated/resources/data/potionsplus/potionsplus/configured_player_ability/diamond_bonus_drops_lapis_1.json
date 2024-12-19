@@ -1,0 +1,9 @@
+{
+  "type": "potionsplus:simple",
+  "config": {
+    "baseConfig": {
+      "enabledByDefault": true,
+      "translationKey": "description.potionsplus.ability.diamond_ore_additional_loot_lapis"
+    }
+  }
+}
