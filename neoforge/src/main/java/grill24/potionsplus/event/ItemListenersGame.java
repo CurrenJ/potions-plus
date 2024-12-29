@@ -168,9 +168,9 @@ public class ItemListenersGame {
                 if (Items.BASIC_LOOT_MODEL.getOverrideValue(choiceItemData.flag()) > 0) {
                     tooltipMessages.add(List.of(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_CHOOSE_ONE).withStyle(ChatFormatting.GRAY)));
                 }
-                Component component = linkedOption.getDescription();
+                List<List<Component>> component = linkedOption.getMultiLineRichDescription();
                 if (component != null) {
-                    tooltipMessages.add(List.of(component));
+                    tooltipMessages.addAll(component);
                 }
             }
         }

@@ -43,31 +43,35 @@ public class Items {
 
     public static final ResourceLocation EDIBLE_CHOICE_ITEM_FLAG_PROPERTY_NAME = ppId("edible_choice_flag");
     public static final DeferredHolder<Item, EdibleChoiceItem> SPARKLING_SQUASH = ITEMS.register("sparkling_squash", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData SPARKLING_SQUASH_MODEL = createEdibleChoiceItemModel(SPARKLING_SQUASH, ppId("item/sparkling_squash"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData SPARKLING_SQUASH_MODEL = registerEdibleChoiceItemModel(SPARKLING_SQUASH, ppId("item/sparkling_squash"));
     public static final Holder<Item> BLUEB_BERRIES = ITEMS.register("blueb_berries", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData BLUEB_BERRIES_MODEL = createEdibleChoiceItemModel(BLUEB_BERRIES, ppId("item/blueb_berries"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData BLUEB_BERRIES_MODEL = registerEdibleChoiceItemModel(BLUEB_BERRIES, ppId("item/blueb_berries"));
     public static final Holder<Item> FORTIFYING_FUDGE = ITEMS.register("fortifying_fudge", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData FORTIFYING_FUDGE_MODEL = createEdibleChoiceItemModel(FORTIFYING_FUDGE, ppId("item/fortifying_fudge"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData FORTIFYING_FUDGE_MODEL = registerEdibleChoiceItemModel(FORTIFYING_FUDGE, ppId("item/fortifying_fudge"));
     public static final Holder<Item> GRASS_CLIPPINGS = ITEMS.register("grass_clippings", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData GRASS_CLIPPINGS_MODEL = createEdibleChoiceItemModel(GRASS_CLIPPINGS, ppId("item/grass_clippings"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData GRASS_CLIPPINGS_MODEL = registerEdibleChoiceItemModel(GRASS_CLIPPINGS, ppId("item/grass_clippings"));
     public static final Holder<Item> STONE_FRUIT = ITEMS.register("stone_fruit", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData STONE_FRUIT_MODEL = createEdibleChoiceItemModel(STONE_FRUIT, ppId("item/stone_fruit"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData STONE_FRUIT_MODEL = registerEdibleChoiceItemModel(STONE_FRUIT, ppId("item/stone_fruit"));
     public static final Holder<Item> CHOCOLATE_BOOK = ITEMS.register("chocolate_book", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData CHOCOLATE_BOOK_MODEL = createEdibleChoiceItemModel(CHOCOLATE_BOOK, ppId("item/chocolate_book"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData CHOCOLATE_BOOK_MODEL = registerEdibleChoiceItemModel(CHOCOLATE_BOOK, ppId("item/chocolate_book"));
     public static final Holder<Item> ROASTED_BAMBOO = ITEMS.register("roasted_bamboo", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData ROASTED_BAMBOO_MODEL = createEdibleChoiceItemModel(ROASTED_BAMBOO, ppId("item/roasted_bamboo"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData ROASTED_BAMBOO_MODEL = registerEdibleChoiceItemModel(ROASTED_BAMBOO, ppId("item/roasted_bamboo"));
     public static final Holder<Item> MOSSASHIMI = ITEMS.register("mossashimi", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData MOSSASHIMI_MODEL = createEdibleChoiceItemModel(MOSSASHIMI, ppId("item/mossashimi"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData MOSSASHIMI_MODEL = registerEdibleChoiceItemModel(MOSSASHIMI, ppId("item/mossashimi"));
     public static final Holder<Item> PYRAMIDS_OF_SALT = ITEMS.register("pyramids_of_salt", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData PYRAMIDS_OF_SALT_MODEL = createEdibleChoiceItemModel(PYRAMIDS_OF_SALT, ppId("item/pyramids_of_salt"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData PYRAMIDS_OF_SALT_MODEL = registerEdibleChoiceItemModel(PYRAMIDS_OF_SALT, ppId("item/pyramids_of_salt"));
+
     public static final Holder<Item> BASIC_LOOT = ITEMS.register("basic_loot", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData BASIC_LOOT_MODEL = createEdibleChoiceItemModel(BASIC_LOOT, ppId("item/basic"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData BASIC_LOOT_MODEL = registerEdibleChoiceItemModel(BASIC_LOOT, ppId("item/basic"));
     public static final Holder<Item> INTERMEDIATE_LOOT = ITEMS.register("intermediate_loot", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData INTERMEDIATE_LOOT_MODEL = createEdibleChoiceItemModel(INTERMEDIATE_LOOT, ppId("item/intermediate"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData INTERMEDIATE_LOOT_MODEL = registerEdibleChoiceItemModel(INTERMEDIATE_LOOT, ppId("item/intermediate"));
     public static final Holder<Item> ADVANCED_LOOT = ITEMS.register("advanced_loot", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData ADVANCED_LOOT_MODEL = createEdibleChoiceItemModel(ADVANCED_LOOT, ppId("item/advanced"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData ADVANCED_LOOT_MODEL = registerEdibleChoiceItemModel(ADVANCED_LOOT, ppId("item/advanced"));
     public static final Holder<Item> MASTER_LOOT = ITEMS.register("master_loot", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
-    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData MASTER_LOOT_MODEL = createEdibleChoiceItemModel(MASTER_LOOT, ppId("item/master"));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData MASTER_LOOT_MODEL = registerEdibleChoiceItemModel(MASTER_LOOT, ppId("item/master"));
+
+    public static final Holder<Item> WHEEL = ITEMS.register("wheel", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
+    public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData WHEEL_MODEL = registerEdibleChoiceItemModel(WHEEL, ppId("item/wheel_0"));
 
     // ----- Dynamically Rendered Display Items -----
     public static final ResourceLocation DYNAMIC_ICON_INDEX_PROPERTY_NAME = ppId("dynamic_icon_index");
@@ -120,7 +124,7 @@ public class Items {
         return holder;
     }
 
-    public static ItemOverrideUtility.EdibleChoiceItemOverrideModelData createEdibleChoiceItemModel(Holder<Item> item, ResourceLocation itemTexture) {
+    public static ItemOverrideUtility.EdibleChoiceItemOverrideModelData registerEdibleChoiceItemModel(Holder<Item> item, ResourceLocation itemTexture) {
         return register(new ItemOverrideUtility.EdibleChoiceItemOverrideModelData(
                 EDIBLE_CHOICE_ITEM_FLAG_PROPERTY_NAME,
                 item,
@@ -130,6 +134,7 @@ public class Items {
                     add(ppId("item/green_flag"));
                     add(ppId("item/blue_flag"));
                     add(ppId("item/yellow_flag"));
+                    add(ppId("item/orange_flag"));
                 }}));
     }
 }

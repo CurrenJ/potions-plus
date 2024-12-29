@@ -1,13 +1,11 @@
 package grill24.potionsplus.skill.reward;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import grill24.potionsplus.network.ClientboundDisplayItemActivation;
+import grill24.potionsplus.network.ClientboundDisplayItemActivationPacket;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.animal.Cod;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -41,7 +39,7 @@ public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.Anima
     @Override
     public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, AnimatedItemRewardConfiguration config, ServerPlayer player) {
         if (!config.displayItem.isEmpty()) {
-            PacketDistributor.sendToPlayer(player, new ClientboundDisplayItemActivation(config.displayItem));
+            PacketDistributor.sendToPlayer(player, new ClientboundDisplayItemActivationPacket(config.displayItem));
         }
 
         for (ItemStack reward : config.rewards) {

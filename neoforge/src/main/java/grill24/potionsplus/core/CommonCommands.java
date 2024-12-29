@@ -1,15 +1,24 @@
 package grill24.potionsplus.core;
 
+import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.core.potion.Potions;
+import grill24.potionsplus.network.ClientboundDisplayTossupAnimationPacket;
+import grill24.potionsplus.network.ClientboundDisplayWheelAnimationPacket;
+import grill24.potionsplus.network.ClientboundSyncSpatialAnimationDataPacket;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
+import grill24.potionsplus.render.animation.keyframe.Interpolation;
+import grill24.potionsplus.render.animation.keyframe.*;
 import grill24.potionsplus.skill.*;
 import grill24.potionsplus.skill.ability.AbilityInstance;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
+import grill24.potionsplus.utility.DelayedServerEvents;
+import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -22,11 +31,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.GameType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 
 import java.util.*;
@@ -141,6 +154,168 @@ public class CommonCommands {
                         return 1;
                     })
                 )
+                .then(Commands.literal("wheel")
+                        .requires((source) -> source.hasPermission(2))
+                        .executes(context -> {
+                            if(context.getSource().getEntity() instanceof ServerPlayer player) {
+                                List<ItemStack> itemStacks = player.getInventory().items.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
+                                int winnerIndex = player.getRandom().nextInt(itemStacks.size());
+
+                                PacketDistributor.sendToPlayer(player, new ClientboundDisplayWheelAnimationPacket(itemStacks, winnerIndex));
+                                DelayedServerEvents.queueDelayedEvent(() -> InvUtil.giveOrDropItem(player, itemStacks.get(winnerIndex).copy()), 190);
+                            }
+
+                            return 1;
+                        })
+                )
+                .then(Commands.literal("tossup")
+                        .requires((source) -> source.hasPermission(2))
+                        .executes(context -> {
+                            if(context.getSource().getEntity() instanceof ServerPlayer player) {
+                                List<ItemStack> itemStacks = player.getInventory().items.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
+                                PacketDistributor.sendToPlayer(player, new ClientboundDisplayTossupAnimationPacket(itemStacks, 5, 0.75F));
+                            }
+
+                            return 1;
+                        })
+                )
+                .then(Commands.literal("animation")
+                        .then(Commands.argument("id", new SpatialAnimationDataArgument(event.getBuildContext()))
+                                .then(Commands.argument("property", StringArgumentType.word()).suggests(SpatialAnimationData.SUGGEST_SPATIAL_ANIMATION_PROPERTIES)
+                                        .executes(context -> {
+                                            if (context.getSource().getEntity() instanceof ServerPlayer player) {
+                                                String propertyString = StringArgumentType.getString(context, "property");
+                                                SpatialAnimationData.Property property = SpatialAnimationData.Property.valueOf(propertyString.toUpperCase());
+                                                SpatialAnimationData spatialAnimationData = SpatialAnimationDataArgument.get(context, "id");
+                                                AnimationCurve<?> curve = spatialAnimationData.get(property);
+                                                curve.printInChat(player);
+                                            }
+                                            return 1;
+                                        })
+                                        .then(Commands.literal("keyframe")
+                                        .then(Commands.literal("remove")
+                                                .then(Commands.argument("time", FloatArgumentType.floatArg())
+                                                .executes(context -> {
+                                                    if (context.getSource().getEntity() instanceof ServerPlayer player) {
+                                                        String propertyString = StringArgumentType.getString(context, "property");
+                                                        SpatialAnimationData.Property property = SpatialAnimationData.Property.valueOf(propertyString.toUpperCase());
+                                                        SpatialAnimationData spatialAnimationData = SpatialAnimationDataArgument.get(context, "id");
+                                                        ResourceLocation id = SpatialAnimationDataArgument.getId(context, "id");
+                                                        AnimationCurve<?> curve = spatialAnimationData.get(property);
+                                                        float time = FloatArgumentType.getFloat(context, "time");
+
+                                                        curve.removeKeyframe(time);
+                                                        curve.printInChat(player);
+                                                        PacketDistributor.sendToPlayer(player, new ClientboundSyncSpatialAnimationDataPacket(id, spatialAnimationData));
+                                                    }
+                                                    return 1;
+                                                })
+                                        ))
+                                        .then(Commands.literal("add")
+                                                .then(Commands.argument("time", FloatArgumentType.floatArg())
+                                                        .then(Commands.argument("interpolation", StringArgumentType.word()).suggests(Interpolation.INTERPOLATION_COMMAND_SUGGESTIONS)
+                                                                .then(Commands.argument("x", FloatArgumentType.floatArg())
+                                                                        .executes(context -> {
+                                                                            if (context.getSource().getEntity() instanceof ServerPlayer player) {
+                                                                                String propertyString = StringArgumentType.getString(context, "property");
+                                                                                SpatialAnimationData.Property property = SpatialAnimationData.Property.valueOf(propertyString.toUpperCase());
+                                                                                SpatialAnimationData spatialAnimationData = SpatialAnimationDataArgument.get(context, "id");
+                                                                                ResourceLocation id = SpatialAnimationDataArgument.getId(context, "id");
+                                                                                AnimationCurve<?> curve = spatialAnimationData.get(property);
+
+                                                                                String interpolationString = StringArgumentType.getString(context, "interpolation");
+                                                                                Interpolation.Mode interpolation = Interpolation.Mode.valueOf(interpolationString.toUpperCase());
+                                                                                float time = FloatArgumentType.getFloat(context, "time");
+                                                                                float x = FloatArgumentType.getFloat(context, "x");
+
+                                                                                if (curve instanceof FloatAnimationCurve floatAnimationCurve) {
+                                                                                    AnimationCurve.Keyframe<Float> keyframe = AnimationCurve.Keyframe.<Float>builder()
+                                                                                            .time(time)
+                                                                                            .value(x)
+                                                                                            .interp(interpolation)
+                                                                                            .build();
+                                                                                    floatAnimationCurve.addKeyframe(keyframe);
+                                                                                    curve.printInChat(player);
+                                                                                    PacketDistributor.sendToPlayer(player, new ClientboundSyncSpatialAnimationDataPacket(id, spatialAnimationData));
+                                                                                } else {
+                                                                                    context.getSource().sendFailure(Component.literal("Property is not a FloatAnimationCurve."));
+                                                                                }
+                                                                            }
+                                                                            return 1;
+                                                                        })
+                                                                        .then(Commands.argument("y", FloatArgumentType.floatArg())
+                                                                                .then(Commands.argument("z", FloatArgumentType.floatArg())
+                                                                                        .executes(context -> {
+                                                                                            if (context.getSource().getEntity() instanceof ServerPlayer player) {
+                                                                                                String propertyString = StringArgumentType.getString(context, "property");
+                                                                                                SpatialAnimationData.Property property = SpatialAnimationData.Property.valueOf(propertyString.toUpperCase());
+                                                                                                SpatialAnimationData spatialAnimationData = SpatialAnimationDataArgument.get(context, "id");
+                                                                                                ResourceLocation id = SpatialAnimationDataArgument.getId(context, "id");
+                                                                                                AnimationCurve<?> curve = spatialAnimationData.get(property);
+
+                                                                                                String interpolationString = StringArgumentType.getString(context, "interpolation");
+                                                                                                Interpolation.Mode interpolation = Interpolation.Mode.valueOf(interpolationString.toUpperCase());
+                                                                                                float time = FloatArgumentType.getFloat(context, "time");
+                                                                                                float x = FloatArgumentType.getFloat(context, "x");
+                                                                                                float y = FloatArgumentType.getFloat(context, "y");
+                                                                                                float z = FloatArgumentType.getFloat(context, "z");
+
+                                                                                                if (curve instanceof Vector3fAnimationCurve vector3fAnimationCurve) {
+                                                                                                    AnimationCurve.Keyframe<Vector3f> keyframe = AnimationCurve.Keyframe.<Vector3f>builder()
+                                                                                                            .time(time)
+                                                                                                            .value(new Vector3f(x, y, z))
+                                                                                                            .interp(interpolation)
+                                                                                                            .build();
+                                                                                                    vector3fAnimationCurve.addKeyframe(keyframe);
+                                                                                                    curve.printInChat(player);
+                                                                                                    PacketDistributor.sendToPlayer(player, new ClientboundSyncSpatialAnimationDataPacket(id, spatialAnimationData));
+                                                                                                } else {
+                                                                                                    context.getSource().sendFailure(Component.literal("Property is not a Vector3fAnimationCurve."));
+                                                                                                }
+                                                                                            }
+                                                                                            return 1;
+                                                                                        })
+                                                                                        .then(Commands.argument("w", FloatArgumentType.floatArg())
+                                                                                                .executes(context -> {
+                                                                                                    if (context.getSource().getEntity() instanceof ServerPlayer player) {
+                                                                                                        String propertyString = StringArgumentType.getString(context, "property");
+                                                                                                        SpatialAnimationData.Property property = SpatialAnimationData.Property.valueOf(propertyString.toUpperCase());
+                                                                                                        SpatialAnimationData spatialAnimationData = SpatialAnimationDataArgument.get(context, "id");
+                                                                                                        ResourceLocation id = SpatialAnimationDataArgument.getId(context, "id");
+                                                                                                        AnimationCurve<?> curve = spatialAnimationData.get(property);
+
+                                                                                                        String interpolationString = StringArgumentType.getString(context, "interpolation");
+                                                                                                        Interpolation.Mode interpolation = Interpolation.Mode.valueOf(interpolationString.toUpperCase());
+                                                                                                        float time = FloatArgumentType.getFloat(context, "time");
+                                                                                                        float x = FloatArgumentType.getFloat(context, "x");
+                                                                                                        float y = FloatArgumentType.getFloat(context, "y");
+                                                                                                        float z = FloatArgumentType.getFloat(context, "z");
+                                                                                                        float w = FloatArgumentType.getFloat(context, "w");
+
+                                                                                                        if (curve instanceof Vector4fAnimationCurve vector4fAnimationCurve) {
+                                                                                                            AnimationCurve.Keyframe<Vector4f> keyframe = AnimationCurve.Keyframe.<Vector4f>builder()
+                                                                                                                    .time(time)
+                                                                                                                    .value(new Vector4f(x, y, z, w))
+                                                                                                                    .interp(interpolation)
+                                                                                                                    .build();
+                                                                                                            vector4fAnimationCurve.addKeyframe(keyframe);
+                                                                                                            curve.printInChat(player);
+                                                                                                            PacketDistributor.sendToPlayer(player, new ClientboundSyncSpatialAnimationDataPacket(id, spatialAnimationData));
+                                                                                                        } else {
+                                                                                                            context.getSource().sendFailure(Component.literal("Property is not a Vector4fAnimationCurve."));
+                                                                                                        }
+                                                                                                    }
+                                                                                                    return 1;
+                                                                                                })
+                                                                                        )
+                                                                                    )
+                                                                            )
+                                                                    )
+                                                        )))
+                                                            )
+                                                    )
+                                            )
+                                )
                 .then(Commands.literal("skill")
                         .executes(context -> {
                             if (context.getSource().getPlayer() == null) {

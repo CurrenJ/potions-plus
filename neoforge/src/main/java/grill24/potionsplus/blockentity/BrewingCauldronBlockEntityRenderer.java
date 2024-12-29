@@ -52,7 +52,7 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
 
         Optional<RecipeHolder<BrewingCauldronRecipe>> activeRecipe = blockEntity.getActiveRecipe();
         if (activeRecipe.isPresent() && blockEntity.isAbleToBrew()) {
-            // TODO: Calculate display stack in BlocKEntity on update and store it in a field. Needs this fix for durative upgrades
+            // TODO: Calculate display stacks in BlocKEntity on update and store it in a field. Needs this fix for durative upgrades
             ItemStack stack = blockEntity.getResultWithTransformations();
             Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
                     light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);

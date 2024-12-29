@@ -106,7 +106,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 allIcons.addAll(potionIcons.values());
                 allIcons.addAll(additionalIcons);
 
-                // Update the center display stack - either common, rare, or N/A ingredient.
+                // Update the center display stacks - either common, rare, or N/A ingredient.
                 ItemStack centerDisplayStack = new ItemStack(Items.GENERIC_ICON.value(), 1);
                 PpIngredient ingredient = PpIngredient.of(inputStack);
                 if(Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {

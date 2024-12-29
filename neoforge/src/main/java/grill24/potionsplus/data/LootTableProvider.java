@@ -11,6 +11,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
@@ -40,15 +41,56 @@ import java.util.function.BiConsumer;
 
 public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider {
     public LootTableProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryAccess) {
-        super(packOutput, Set.of(), Collections.singletonList(new SubProviderEntry((provider) -> new PotionsPlusLoot(
-                Set.of(),
-                FeatureFlags.DEFAULT_FLAGS,
-                provider
-        ), LootContextParamSets.BLOCK)), registryAccess);
+        super(packOutput, Set.of(), List.of(
+                new SubProviderEntry((provider) ->
+                        new PotionsPlusBlockLoot(Set.of(), FeatureFlags.DEFAULT_FLAGS, provider),
+                        LootContextParamSets.BLOCK),
+                new SubProviderEntry((provider) ->
+                        new PotionsPlusRewardLoot(),
+                        LootContextParamSets.EMPTY)
+        ), registryAccess);
     }
 
-    public static class PotionsPlusLoot extends BlockLootSubProvider {
-        protected PotionsPlusLoot(Set<Item> p_249153_, FeatureFlagSet p_251215_, HolderLookup.Provider registryAccess) {
+    public static class PotionsPlusRewardLoot implements LootTableSubProvider {
+
+        @Override
+        public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+            // Gems and Ores Rewards
+            consumer.accept(
+                    LootTables.GEMS_AND_ORES_REWARDS,
+                    LootTable.lootTable()
+                            .withPool(
+                                    LootPool.lootPool()
+                                            .setRolls(ConstantValue.exactly(1))
+                                            .add(LootItem.lootTableItem(Items.DIAMOND).setWeight(6))
+                                            .add(LootItem.lootTableItem(Items.EMERALD).setWeight(6))
+                                            .add(LootItem.lootTableItem(Items.LAPIS_LAZULI).setWeight(6))
+                                            .add(LootItem.lootTableItem(Items.REDSTONE).setWeight(6))
+                                            .add(LootItem.lootTableItem(Items.COAL).setWeight(6))
+                                            .add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(6))
+                                            .add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(6))
+                                            .add(LootItem.lootTableItem(Items.COPPER_INGOT).setWeight(6))
+                                            .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(6))
+                                            .add(LootItem.lootTableItem(Items.NETHERITE_SCRAP).setWeight(6))
+                                            .add(LootItem.lootTableItem(grill24.potionsplus.core.Items.NETHERITE_REMNANT.value()).setWeight(6))
+                                            .add(LootItem.lootTableItem(grill24.potionsplus.core.Items.URANIUM_INGOT.value()).setWeight(6))
+                                            .add(LootItem.lootTableItem(Items.DIAMOND_BLOCK).setWeight(1))
+                                            .add(LootItem.lootTableItem(Items.GOLD_BLOCK).setWeight(1))
+                                            .add(LootItem.lootTableItem(Items.EMERALD_BLOCK).setWeight(1))
+                                            .add(LootItem.lootTableItem(Items.NETHERITE_INGOT).setWeight(1))
+                                            .add(LootItem.lootTableItem(Blocks.URANIUM_BLOCK.value()).setWeight(1))
+                                            .add(LootItem.lootTableItem(Items.IRON_BLOCK).setWeight(1))
+                                            .add(LootItem.lootTableItem(Items.COPPER_BLOCK).setWeight(1))
+                                            .add(LootItem.lootTableItem(Items.REDSTONE_BLOCK).setWeight(1))
+                                            .add(LootItem.lootTableItem(Items.LAPIS_BLOCK).setWeight(1))
+                                            .add(LootItem.lootTableItem(Items.COAL_BLOCK).setWeight(1))
+                            )
+            );
+        }
+    }
+
+    public static class PotionsPlusBlockLoot extends BlockLootSubProvider {
+        protected PotionsPlusBlockLoot(Set<Item> p_249153_, FeatureFlagSet p_251215_, HolderLookup.Provider registryAccess) {
             super(p_249153_, p_251215_, registryAccess);
         }
 

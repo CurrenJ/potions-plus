@@ -30,6 +30,12 @@
       "predicate": {
         "potionsplus:edible_choice_flag": 0.0625
       }
+    },
+    {
+      "model": "potionsplus:item/blueb_berries_orange_flag",
+      "predicate": {
+        "potionsplus:edible_choice_flag": 0.078125
+      }
     }
   ],
   "textures": {

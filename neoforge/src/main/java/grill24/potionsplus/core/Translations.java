@@ -73,12 +73,16 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SPRINT_SPEED_BONUS = "description.potionsplus.ability.sprint_speed_bonus";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_SPEED_BONUS = "description.potionsplus.ability.sneak_speed_bonus";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_JUMP_STRENGTH_BONUS = "description.potionsplus.ability.jump_strength_bonus";
+    public static final String DESCRIPTION_POTIONSPLUS_REWARD_WHEEL = "description.potionsplus.reward.wheel";
+    public static final String DESCRIPTION_POTIONSPLUS_SPIN_TO_WIN = "description.potionsplus.spin_to_win";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_MINING = "tooltip.potionsplus.skill.mining";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_5 = "tooltip.potionsplus.skill.mining.reward.level_5";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_10 = "tooltip.potionsplus.skill.mining.reward.level_10";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_15 = "tooltip.potionsplus.skill.mining.reward.level_15";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_20 = "tooltip.potionsplus.skill.mining.reward.level_20";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_25 = "tooltip.potionsplus.skill.mining.reward.level_25";
+    public static final String TOOLTIP_POTIONSPLUS_REWARD_END_CITY_LOOT = "tooltip.potionsplus.reward.end_city_loot";
+    public static final String TOOLTIP_POTIONSPLUS_REWARD_GEMS_AND_ORES_WHEEL = "tooltip.potionsplus.reward.gems_and_ores_wheel";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC = "tooltip.potionsplus.skill.reward.basic";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE = "tooltip.potionsplus.skill.reward.intermediate";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_REWARD_ADVANCED = "tooltip.potionsplus.skill.reward.advanced";
@@ -197,6 +201,7 @@ public class Translations {
     public static final String JEI_POTIONSPLUS_SULFURIC_ACID_DESCRIPTION = "jei.potionsplus.sulfuric_acid.description";
     public static final String TOOLTIP_POTIONSPLUS_CHOICE = "tooltip.potionsplus.choice";
     public static final String TOOLTIP_POTIONSPLUS_CHOOSE_ONE = "tooltip.potionsplus.choose_one";
+    public static final String TOOLTIP_POTIONSPLUS_OR = "tooltip.potionsplus.or";
     public static final String ITEM_POTIONSPLUS_SPARKLING_SQUASH = "item.potionsplus.sparkling_squash";
     public static final String ITEM_POTIONSPLUS_BLUEB_BERRIES = "item.potionsplus.blueb_berries";
     public static final String ITEM_POTIONSPLUS_FORTIFYING_FUDGE = "item.potionsplus.fortifying_fudge";
@@ -208,6 +213,10 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_PYRAMIDS_OF_SALT = "item.potionsplus.pyramids_of_salt";
     public static final String ITEM_POTIONSPLUS_BASIC_LOOT = "item.potionsplus.basic_loot";
     public static final String ITEM_POTIONSPLUS_INTERMEDIATE_LOOT = "item.potionsplus.intermediate_loot";
+    public static final String ITEM_POTIONSPLUS_ADVANCED_LOOT = "item.potionsplus.advanced_loot";
+    public static final String ITEM_POTIONSPLUS_EXPERT_LOOT = "item.potionsplus.expert_loot";
+    public static final String ITEM_POTIONSPLUS_MASTER_LOOT = "item.potionsplus.master_loot";
+    public static final String ITEM_POTIONSPLUS_WHEEL = "item.potionsplus.wheel";
     public static final String ITEMGROUP_POTIONSPLUS = "itemGroup.potionsplus";
     public static final String EFFECT_POTIONSPLUS_ANY_POTION = "effect.potionsplus.any_potion";
     public static final String ITEM_MINECRAFT_POTION_EFFECT_ANY_POTION = "item.minecraft.potion.effect.any_potion";

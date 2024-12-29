@@ -66,7 +66,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
 
         // Diamond Ore Emerald Bonus Drops (Skill Ability)
         this.add(
-                "diamond_ore_bonus_drops_ability",
+                "diamond_ore_bonus_emerald_ability",
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemBlockTagCondition.tag(BlockTags.DIAMOND_ORES).build(),
@@ -78,7 +78,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
 
         // Diamond Ore Lapis Bonus Drops (Skill Ability)
         this.add(
-                "diamond_ore_bonus_drops_ability",
+                "diamond_ore_bonus_lapis_ability",
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemBlockTagCondition.tag(BlockTags.DIAMOND_ORES).build(),

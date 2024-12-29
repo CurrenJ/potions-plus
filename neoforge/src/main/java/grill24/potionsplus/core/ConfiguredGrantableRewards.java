@@ -9,11 +9,14 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootTable;
 import oshi.util.tuples.Pair;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -111,6 +114,7 @@ public class ConfiguredGrantableRewards {
     ));
 
     public static final AnimatedItemRewardBuilder ANIMATED_ITEMS = register(() -> new AnimatedItemRewardBuilder(new ItemStack(Items.WOODEN_PICKAXE), new ItemStack(Items.STONE_PICKAXE), new ItemStack(Items.IRON_PICKAXE), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.NETHERITE_PICKAXE), new ItemStack(Items.GOLDEN_PICKAXE), new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_AXE), new ItemStack(Items.IRON_AXE), new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.NETHERITE_AXE), new ItemStack(Items.GOLDEN_AXE), new ItemStack(Items.WOODEN_SHOVEL), new ItemStack(Items.STONE_SHOVEL), new ItemStack(Items.IRON_SHOVEL), new ItemStack(Items.DIAMOND_SHOVEL), new ItemStack(Items.NETHERITE_SHOVEL), new ItemStack(Items.GOLDEN_SHOVEL), new ItemStack(Items.WOODEN_HOE), new ItemStack(Items.STONE_HOE), new ItemStack(Items.IRON_HOE), new ItemStack(Items.DIAMOND_HOE), new ItemStack(Items.NETHERITE_HOE), new ItemStack(Items.GOLDEN_HOE), new ItemStack(Items.WOODEN_SWORD), new ItemStack(Items.STONE_SWORD), new ItemStack(Items.IRON_SWORD), new ItemStack(Items.DIAMOND_SWORD), new ItemStack(Items.NETHERITE_SWORD), new ItemStack(Items.GOLDEN_SWORD), new ItemStack(Items.BOW), new ItemStack(Items.CROSSBOW), new ItemStack(Items.TRIDENT), new ItemStack(Items.LEATHER_BOOTS), new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_CHESTPLATE), new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.CHAINMAIL_BOOTS), new ItemStack(Items.CHAINMAIL_LEGGINGS), new ItemStack(Items.CHAINMAIL_CHESTPLATE), new ItemStack(Items.CHAINMAIL_HELMET), new ItemStack(Items.IRON_BOOTS), new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Items.IRON_CHESTPLATE), new ItemStack(Items.IRON_HELMET), new ItemStack(Items.DIAMOND_BOOTS), new ItemStack(Items.DIAMOND_LEGGINGS), new ItemStack(Items.DIAMOND_CHESTPLATE), new ItemStack(Items.DIAMOND_HELMET), new ItemStack(Items.NETHERITE_BOOTS), new ItemStack(Items.NETHERITE_LEGGINGS), new ItemStack(Items.NETHERITE_CHESTPLATE), new ItemStack(Items.NETHERITE_HELMET), new ItemStack(Items.GOLDEN_BOOTS), new ItemStack(Items.GOLDEN_LEGGINGS), new ItemStack(Items.GOLDEN_CHESTPLATE), new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.SHIELD), new ItemStack(Items.ELYTRA), new ItemStack(Items.SUGAR)));
+    public static final AnimatedItemRewardBuilder ANIMTED_ITEMS_TEST = register(() -> new AnimatedItemRewardBuilder(new ItemStack(Items.GOLDEN_CARROT)));
 
     public static final AbilityRewardBuilder PICKAXE_EFFICIENCY_BONUS = register(() -> new AbilityRewardBuilder(ConfiguredPlayerAbilities.PICKAXE_EFFICIENCY_BONUS_KEYS));
     public static final AbilityRewardBuilder SUBMERGED_PICKAXE_EFFICIENCY_BONUS = register(() -> new AbilityRewardBuilder(ConfiguredPlayerAbilities.SUBMERGED_PICKAXE_EFFICIENCY_BONUS_KEYS));
@@ -169,6 +173,31 @@ public class ConfiguredGrantableRewards {
     public static ChoiceRewardBuilder CHOOSE_PICKAXE_LOOT_1 = register(() -> new ChoiceRewardBuilder("choose_pickaxe_loot_1",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), PICKAXE_DIAMOND_ORE_ADDITIONAL_EMERALDS_LOOT.getKey(0)),
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), PICKAXE_DIAMOND_ORE_ADDITIONAL_LAPIS_LOOT.getKey(0))
+    ));
+
+    public static ItemWheelRewardBuilder WHEEL_TREASURES = register(() -> new ItemWheelRewardBuilder("wheel_treasures",
+            new ItemStack(Items.DIAMOND),
+            new ItemStack(Items.LAPIS_LAZULI),
+            new ItemStack(Items.EMERALD),
+            new ItemStack(Items.REDSTONE),
+            new ItemStack(Items.GOLD_INGOT),
+            new ItemStack(Items.IRON_INGOT),
+            new ItemStack(Items.ANCIENT_DEBRIS)
+    ));
+    public static ChoiceRewardBuilder EDIBLE_WHEEL_TREASURES = register(() -> new ChoiceRewardBuilder("edible_wheel_treasures",
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), WHEEL_TREASURES.getKey())
+    ));
+
+    public static ItemWheelRewardBuilder WHEEL_END_CITY = register(() -> new ItemWheelRewardBuilder("wheel_end_city",
+            BuiltInLootTables.END_CITY_TREASURE, 8).translation(Translations.TOOLTIP_POTIONSPLUS_REWARD_END_CITY_LOOT));
+    public static ChoiceRewardBuilder EDIBLE_WHEEL_END_CITY = register(() -> new ChoiceRewardBuilder("edible_wheel_end_city",
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), WHEEL_END_CITY.getKey())
+    ));
+
+    public static ItemWheelRewardBuilder GEMS_AND_ORES_WHEEL = register(() -> new ItemWheelRewardBuilder("gems_and_ores_wheel",
+            LootTables.GEMS_AND_ORES_REWARDS, 8).translation(Translations.TOOLTIP_POTIONSPLUS_REWARD_GEMS_AND_ORES_WHEEL));
+    public static ChoiceRewardBuilder EDIBLE_GEMS_AND_ORES_WHEEL = register(() -> new ChoiceRewardBuilder("edible_gems_and_ores_wheel",
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), GEMS_AND_ORES_WHEEL.getKey())
     ));
 
     public static void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
@@ -266,7 +295,7 @@ public class ConfiguredGrantableRewards {
                 }
             }
 
-            throw new IllegalArgumentException(itemStack.getItemHolder().getKey() + " is not a registered item stack");
+            throw new IllegalArgumentException(itemStack.getItemHolder().getKey() + " is not a registered item stacks");
         }
 
         @Override
@@ -345,6 +374,52 @@ public class ConfiguredGrantableRewards {
                     GrantableRewards.CHOICE.value(),
                     new EdibleChoiceRewardConfiguration(options)
             ));
+        }
+    }
+
+    public static class ItemWheelRewardBuilder implements IRewardBuilder {
+        private String translationKey;
+
+        private final List<ItemStack> itemStacks;
+        private final ResourceKey<LootTable> lootTable;
+        private final int numToSample;
+
+        private final ResourceKey<ConfiguredGrantableReward<?, ?>> key;
+
+        public ItemWheelRewardBuilder(String name, ItemStack... itemStacks) {
+            translationKey = "";
+
+            this.itemStacks = Arrays.stream(itemStacks).toList();
+            this.lootTable = null;
+            this.numToSample = 0;
+
+            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
+        }
+
+        public ItemWheelRewardBuilder(String name, ResourceKey<LootTable> lootTable, int numToSample) {
+            translationKey = "";
+
+            this.itemStacks = new ArrayList<>();
+            this.lootTable = lootTable;
+            this.numToSample = numToSample;
+
+            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
+        }
+
+        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {return key; }
+
+        public ItemWheelRewardBuilder translation(String translationKey) {
+            this.translationKey = translationKey;
+            return this;
+        }
+
+        @Override
+        public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
+            context.register(key, new ConfiguredGrantableReward<>(
+                    GrantableRewards.WHEEL.value(),
+                    new ItemWheelRewardConfiguration(translationKey, itemStacks, Optional.ofNullable(lootTable), numToSample)
+            ));
+
         }
     }
 }

@@ -88,12 +88,18 @@
   "description.potionsplus.ability.sneak_speed_bonus": "%s Sneak Speed",
   "description.potionsplus.ability.jump_strength_bonus": "%s Jump Height",
 
+  "description.potionsplus.reward.wheel": "Spin The Wheel",
+  "description.potionsplus.spin_to_win": "Spin to Win: %s",
+
   "tooltip.potionsplus.skill.mining": "Mining",
   "tooltip.potionsplus.skill.mining.reward.level_5": "Dungeon Loot",
   "tooltip.potionsplus.skill.mining.reward.level_10": "Abandoned Mineshaft Loot",
   "tooltip.potionsplus.skill.mining.reward.level_15": "Stronghold Library Loot",
   "tooltip.potionsplus.skill.mining.reward.level_20": "Desert Pyramid Loot",
   "tooltip.potionsplus.skill.mining.reward.level_25": "Jungle Temple Loot",
+  "tooltip.potionsplus.reward.end_city_loot": "End City Loot",
+
+  "tooltip.potionsplus.reward.gems_and_ores_wheel": "Gems and Ores",
 
   "tooltip.potionsplus.skill.reward.basic": "Basic Loot",
   "tooltip.potionsplus.skill.reward.intermediate": "Intermediate Loot",
@@ -229,6 +235,7 @@
 
   "tooltip.potionsplus.choice": "When eaten grants:",
   "tooltip.potionsplus.choose_one": "(Choose only one)",
+  "tooltip.potionsplus.or": "or",
 
   "item.potionsplus.sparkling_squash": "Sparkling Squash",
   "item.potionsplus.blueb_berries": "Blueb Berries",
@@ -239,8 +246,13 @@
   "item.potionsplus.chocolate_book": "Chocolate Book",
   "item.potionsplus.mossashimi": "Mossashimi",
   "item.potionsplus.pyramids_of_salt": "Pyramids of Salt",
-  "item.potionsplus.basic_loot": "Basic",
-  "item.potionsplus.intermediate_loot": "Intermediate",
+  "item.potionsplus.basic_loot": "Basic Loot",
+  "item.potionsplus.intermediate_loot": "Intermediate Loot",
+  "item.potionsplus.advanced_loot": "Advanced Loot",
+  "item.potionsplus.expert_loot": "Expert Loot",
+  "item.potionsplus.master_loot": "Master Loot",
+
+  "item.potionsplus.wheel": "Wheel of Loot",
 
   "itemGroup.potionsplus": "Potions Plus",
 

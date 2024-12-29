@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "potionsplus:item/master",
+    "layer1": "potionsplus:item/orange_flag"
+  }
+}

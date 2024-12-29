@@ -17,6 +17,7 @@
           },
           "10": {
             "advancementRewards": [
+              "potionsplus:basic_skill_loot_edible",
               "potionsplus:abandoned_mineshaft_loot_edible_0",
               "potionsplus:pickaxe_efficiency_bonus_2",
               "potionsplus:display_stone_pickaxe"
@@ -35,17 +36,20 @@
           },
           "13": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:edible_wheel_treasures",
               "potionsplus:submerged_pickaxe_efficiency_bonus_2"
             ]
           },
           "14": {
             "advancementRewards": [
+              "potionsplus:edible_wheel_end_city",
               "potionsplus:intermediate_skill_loot_edible"
             ]
           },
           "15": {
             "advancementRewards": [
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:stronghold_library_loot_edible_0",
               "potionsplus:pickaxe_efficiency_bonus_3",
               "potionsplus:display_iron_pickaxe"
@@ -59,6 +63,7 @@
           },
           "17": {
             "advancementRewards": [
+              "potionsplus:edible_wheel_treasures",
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:choose_loot_2"
             ]
@@ -81,6 +86,7 @@
           },
           "20": {
             "advancementRewards": [
+              "potionsplus:edible_wheel_treasures",
               "potionsplus:desert_pyramid_loot_edible_0",
               "potionsplus:pickaxe_efficiency_bonus_4",
               "potionsplus:display_golden_pickaxe"
@@ -111,6 +117,7 @@
           },
           "25": {
             "advancementRewards": [
+              "potionsplus:master_skill_loot_edible",
               "potionsplus:jungle_temple_loot_edible_0",
               "potionsplus:pickaxe_efficiency_bonus_5"
             ]
@@ -127,6 +134,8 @@
           },
           "5": {
             "advancementRewards": [
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:basic_skill_loot_edible",
               "potionsplus:simple_dungeon_loot_edible_0",
               "potionsplus:pickaxe_efficiency_bonus_1",
               "potionsplus:display_wooden_pickaxe"
@@ -151,7 +160,7 @@
           },
           "9": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:edible_wheel_treasures"
             ]
           }
         }

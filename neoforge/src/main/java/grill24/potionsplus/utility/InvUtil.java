@@ -76,4 +76,12 @@ public class InvUtil {
     public static net.minecraft.world.InteractionResult getMinecraftInteractionResult(InteractionResult result) {
         return getMinecraftItemInteractionResult(result).result();
     }
+
+    public static void giveOrDropItem(Player player, ItemStack item) {
+        if (player.addItem(item)) {
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), net.minecraft.sounds.SoundEvents.ITEM_PICKUP, net.minecraft.sounds.SoundSource.PLAYERS, 0.2F, ((player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        } else {
+            player.drop(item, false);
+        }
+    }
 }

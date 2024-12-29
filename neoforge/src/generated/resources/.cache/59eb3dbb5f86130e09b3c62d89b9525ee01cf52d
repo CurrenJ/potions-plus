@@ -1,4 +1,4 @@
-// 1.21.1	2024-12-18T18:42:33.797705	Loot Tables
+// 1.21.1	2024-12-27T23:49:56.997848	Loot Tables
 767576116fd07a81b32e7f2f0f1c900fb084b0a7 data/potionsplus/loot_table/advanced_skill_rewards.json
 655846a3de1433a76daf8e9ca805a4b285a5a856 data/potionsplus/loot_table/arid_cave_suspicious_sand.json
 12af4d734f3484bb07c5d2c3cda6e0fb5e4aad2d data/potionsplus/loot_table/basic_skill_rewards.json
@@ -78,6 +78,7 @@ ad90a5df9f34a87e6cbd41b652e38fc3a1dc60aa data/potionsplus/loot_table/copper_ore_
 8640ed3bc0281c6e94f0f2ad13c939ebfaa96aea data/potionsplus/loot_table/creeper_sand_bonus_drops.json
 e27fc2f8bb72e479f4086d29e136d50d600f7486 data/potionsplus/loot_table/diamond_ore_emerald_bonus_drops.json
 b68b2e2f521205619351b33950abcc2e9f9ffce9 data/potionsplus/loot_table/diamond_ore_lapis_bonus_drops.json
+3f52d600927db4f06641df1a02711857e15c6525 data/potionsplus/loot_table/gems_and_ores.json
 fecfbd45ec7b5554161835888b1fc3d9facdd327 data/potionsplus/loot_table/intermediate_skill_rewards.json
 54c8338ed3a7afabb7ef3fd860e9e6ea87cf2a43 data/potionsplus/loot_table/iron_ore_gold_nugget_bonus_drops.json
 eac30e17d0c477ee1448c38c5bfabf63082aed84 data/potionsplus/loot_table/skeleton_bone_block_bonus_drops.json

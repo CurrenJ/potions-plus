@@ -46,7 +46,7 @@ public class ConfiguredSkills {
                 tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.MINE_ORE),
                 new SkillConfiguration.PointsLevelingScale(-1, 25, SkillConfiguration.PointsLevelingScale.Scale.LOG, 0.005F, 20F),
                 createDefaultRewards(context)
-                        .addRewardForLevel(5, builder -> builder.clear()
+                        .addRewardForLevel(5, builder -> builder
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.SIMPLE_DUNGEON_LOOT_EDIBLE[0].getKey())
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_EFFICIENCY_BONUS.getKey(0))
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.WOODEN_PICKAXE)))
@@ -57,7 +57,7 @@ public class ConfiguredSkills {
                         .addRewardForLevel(8, builder -> builder
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_COPPER_ORE_ADDITIONAL_LOOT.getKey(0))
                         )
-                        .addRewardForLevel(10, builder -> builder.clear()
+                        .addRewardForLevel(10, builder -> builder
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.ABANDONED_MINESHAFT_LOOT_EDIBLE[0].getKey())
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_EFFICIENCY_BONUS.getKey(1))
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.STONE_PICKAXE)))
@@ -68,7 +68,7 @@ public class ConfiguredSkills {
                         .addRewardForLevel(13, builder -> builder
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.SUBMERGED_PICKAXE_EFFICIENCY_BONUS.getKey(1))
                         )
-                        .addRewardForLevel(15, builder -> builder.clear()
+                        .addRewardForLevel(15, builder -> builder
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.STRONGHOLD_LIBRARY_LOOT_EDIBLE[0].getKey())
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_EFFICIENCY_BONUS.getKey(2))
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.IRON_PICKAXE)))
@@ -82,7 +82,7 @@ public class ConfiguredSkills {
                         .addRewardForLevel(18, builder -> builder
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_PICKAXE_EFFICIENCY_2.getKey())
                         )
-                        .addRewardForLevel(20, builder -> builder.clear()
+                        .addRewardForLevel(20, builder -> builder
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.DESERT_PYRAMID_LOOT_EDIBLE[0].getKey())
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_EFFICIENCY_BONUS.getKey(3))
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.ANIMATED_ITEMS.getKey(new ItemStack(Items.GOLDEN_PICKAXE)))
@@ -96,7 +96,7 @@ public class ConfiguredSkills {
                         .addRewardForLevel(24, builder -> builder
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_FORTUNE_BONUS.getKey(0))
                         )
-                        .addRewardForLevel(25, builder -> builder.clear()
+                        .addRewardForLevel(25, builder -> builder
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.JUNGLE_TEMPLE_LOOT_EDIBLE[0].getKey())
                                 .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_EFFICIENCY_BONUS.getKey(4))
                         )
@@ -345,6 +345,7 @@ public class ConfiguredSkills {
                 .addRewardForLevel(4, builder -> builder
                         .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(5, builder -> builder
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.EDIBLE_GEMS_AND_ORES_WHEEL.getKey())
                         .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(6, builder -> builder
                         .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
@@ -353,7 +354,7 @@ public class ConfiguredSkills {
                 .addRewardForLevel(8, builder -> builder
                         .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(9, builder -> builder
-                        .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.EDIBLE_WHEEL_TREASURES.getKey()))
                 .addRewardForLevel(10, builder -> builder
                         .addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(11, builder -> builder
@@ -361,21 +362,24 @@ public class ConfiguredSkills {
                 .addRewardForLevel(12, builder -> builder
                         .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(13, builder -> builder
-                        .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.EDIBLE_WHEEL_TREASURES.getKey()))
                 .addRewardForLevel(14, builder -> builder
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.EDIBLE_WHEEL_END_CITY.getKey())
                         .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(15, builder -> builder
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.EDIBLE_GEMS_AND_ORES_WHEEL.getKey())
                         .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(16, builder -> builder
                         .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(17, builder -> builder
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.EDIBLE_WHEEL_TREASURES.getKey())
                         .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(18, builder -> builder
                         .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(19, builder -> builder
                         .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(20, builder -> builder
-                        .addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()))
+                        .addReward(rewardLookup, ConfiguredGrantableRewards.EDIBLE_WHEEL_TREASURES.getKey()))
                 .addRewardForLevel(21, builder -> builder
                         .addReward(rewardLookup, ConfiguredGrantableRewards.ADVANCED_SKILL_LOOT_EDIBLE.getKey()))
                 .addRewardForLevel(22, builder -> builder

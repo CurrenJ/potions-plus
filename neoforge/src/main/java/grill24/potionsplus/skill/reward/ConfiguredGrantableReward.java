@@ -8,6 +8,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.server.level.ServerPlayer;
 
+import java.util.List;
+
 public record ConfiguredGrantableReward<RC extends GrantableRewardConfiguration, R extends GrantableReward<RC>>(R reward, RC config) {
     public static final Codec<ConfiguredGrantableReward<?, ?>> DIRECT_CODEC = PotionsPlusRegistries.GRANTABLE_REWARD
             .byNameCodec()
@@ -27,5 +29,9 @@ public record ConfiguredGrantableReward<RC extends GrantableRewardConfiguration,
 
     public Component getDescription() {
         return this.reward.getDescription(config);
+    }
+
+    public List<List<Component>> getMultiLineRichDescription() {
+        return this.reward.getMultiLineRichDescription(config);
     }
 }

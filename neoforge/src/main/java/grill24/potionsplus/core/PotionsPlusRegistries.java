@@ -1,5 +1,6 @@
 package grill24.potionsplus.core;
 
+import grill24.potionsplus.render.animation.keyframe.AnimationCurveSerializer;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
@@ -42,6 +43,11 @@ public class PotionsPlusRegistries {
             .sync(true)
             .create();
 
+    public static final ResourceKey<Registry<AnimationCurveSerializer<?>>> ANIMATION_CURVE_SERIALIZER_REGISTRY_KEY = ResourceKey.createRegistryKey(ppId("animation_curve_serializer"));
+    public static final Registry<AnimationCurveSerializer<?>> ANIMATION_CURVE_SERIALIZER = new RegistryBuilder<>(ANIMATION_CURVE_SERIALIZER_REGISTRY_KEY)
+            .sync(true)
+            .create();
+
 
     // Datapack Registries
     public static final ResourceKey<Registry<ConfiguredSkill<?, ?>>> CONFIGURED_SKILL = ResourceKey.createRegistryKey(ppId("configured_skill"));
@@ -57,6 +63,8 @@ public class PotionsPlusRegistries {
         event.register(PLAYER_ABILITY);
 
         event.register(GRANTABLE_REWARD);
+
+        event.register(ANIMATION_CURVE_SERIALIZER);
     }
 
     @SubscribeEvent

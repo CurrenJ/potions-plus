@@ -102,7 +102,7 @@ public class PpIngredient {
     }
 
     public ItemStack getItemStack() {
-        assert ingredients.length == 1 : "Tried to get item stack, but there are multiple.";
+        assert ingredients.length == 1 : "Tried to get item stacks, but there are multiple.";
         return ingredients[0].getItems()[0];
     }
 

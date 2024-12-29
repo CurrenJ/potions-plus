@@ -15,6 +15,8 @@ public class LootTables {
     public static final ResourceKey<LootTable> EXPERT_SKILL_REWARDS = ResourceKey.create(Registries.LOOT_TABLE, ppId("expert_skill_rewards"));
     public static final ResourceKey<LootTable> MASTER_SKILL_REWARDS = ResourceKey.create(Registries.LOOT_TABLE, ppId("master_skill_rewards"));
 
+    public static final ResourceKey<LootTable> GEMS_AND_ORES_REWARDS = ResourceKey.create(Registries.LOOT_TABLE, ppId("gems_and_ores"));
+
     public static final ResourceKey<LootTable> IRON_ORE_GOLD_NUGGET_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("iron_ore_gold_nugget_bonus_drops"));
     public static final ResourceKey<LootTable> COPPER_ORE_IRON_NUGGET_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("copper_ore_iron_nugget_bonus_drops"));
     public static final ResourceKey<LootTable> DIAMOND_ORE_EMERALD_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("diamond_ore_emerald_bonus_drops"));

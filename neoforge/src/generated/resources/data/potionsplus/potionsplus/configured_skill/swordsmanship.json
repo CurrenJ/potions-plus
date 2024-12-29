@@ -34,17 +34,19 @@
           },
           "13": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:edible_wheel_treasures"
             ]
           },
           "14": {
             "advancementRewards": [
+              "potionsplus:edible_wheel_end_city",
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:skeleton_bone_block_bonus_drops_1"
             ]
           },
           "15": {
             "advancementRewards": [
+              "potionsplus:edible_gems_and_ores_wheel",
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:sword_sharpness_bonus_3",
               "potionsplus:display_iron_sword"
@@ -57,6 +59,7 @@
           },
           "17": {
             "advancementRewards": [
+              "potionsplus:edible_wheel_treasures",
               "potionsplus:intermediate_skill_loot_edible"
             ]
           },
@@ -78,7 +81,7 @@
           },
           "20": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:edible_wheel_treasures",
               "potionsplus:sword_sharpness_bonus_4",
               "potionsplus:display_golden_sword"
             ]
@@ -123,6 +126,7 @@
           },
           "5": {
             "advancementRewards": [
+              "potionsplus:edible_gems_and_ores_wheel",
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:sword_sharpness_bonus_1",
               "potionsplus:display_wooden_sword"
@@ -146,7 +150,7 @@
           },
           "9": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:edible_wheel_treasures"
             ]
           }
         }

@@ -1,6 +1,7 @@
 package grill24.potionsplus.skill.reward;
 
 import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.skill.SkillsData;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -24,7 +25,9 @@ public class EdibleChoiceReward extends GrantableReward<EdibleChoiceRewardConfig
             Component rewardDescription = reward.linkedOption.value().getDescription();
             if (rewardDescription != null) {
                 if (hasText) {
-                    description.append(Component.literal(" or "));
+                    description.append(Component.literal(" "));
+                    description.append(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_OR));
+                    description.append(Component.literal(" "));
                 }
                 description.append(rewardDescription);
                 hasText = true;

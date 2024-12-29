@@ -30,6 +30,12 @@
       "predicate": {
         "potionsplus:edible_choice_flag": 0.0625
       }
+    },
+    {
+      "model": "potionsplus:item/master_loot_orange_flag",
+      "predicate": {
+        "potionsplus:edible_choice_flag": 0.078125
+      }
     }
   ],
   "textures": {

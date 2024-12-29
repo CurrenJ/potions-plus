@@ -1,5 +1,6 @@
 package grill24.potionsplus.core;
 
+import grill24.potionsplus.render.animation.keyframe.SpatialAnimationDataArgument;
 import grill24.potionsplus.skill.ConfiguredPlayerAbilityArgument;
 import grill24.potionsplus.skill.ConfiguredSkillArgument;
 import grill24.potionsplus.utility.ModInfo;
@@ -15,4 +16,6 @@ public class CommandArgumentTypes {
 
     private static final DeferredHolder<ArgumentTypeInfo<?, ?>, SingletonArgumentInfo<ConfiguredSkillArgument>> CONFIGURED_SKILL = COMMAND_ARGUMENT_TYPES.register("configured_skill", () -> ArgumentTypeInfos.registerByClass(ConfiguredSkillArgument.class, SingletonArgumentInfo.contextAware(ConfiguredSkillArgument::new)));
     private static final DeferredHolder<ArgumentTypeInfo<?, ?>, SingletonArgumentInfo<ConfiguredPlayerAbilityArgument>> ABILITY_INSTANCE = COMMAND_ARGUMENT_TYPES.register("ability_instance", () -> ArgumentTypeInfos.registerByClass(ConfiguredPlayerAbilityArgument.class, SingletonArgumentInfo.contextAware(ConfiguredPlayerAbilityArgument::new)));
+
+    private static final DeferredHolder<ArgumentTypeInfo<?, ?>, SingletonArgumentInfo<SpatialAnimationDataArgument>> ANIMATION_CURVE = COMMAND_ARGUMENT_TYPES.register("animation_curve", () -> ArgumentTypeInfos.registerByClass(SpatialAnimationDataArgument.class, SingletonArgumentInfo.contextAware(SpatialAnimationDataArgument::new)));
 }

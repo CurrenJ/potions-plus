@@ -1,11 +1,12 @@
 {
   "entries": [
+    "potionsplus:diamond_ore_bonus_lapis_ability",
     "potionsplus:skeleton_bone_meal_loot_modifier",
     "potionsplus:skeleton_bone_block_loot_modifier",
     "potionsplus:wormroot_loot_modifier",
     "potionsplus:copper_ore_bonus_drops_ability",
     "potionsplus:iron_ore_bonus_drops_ability",
-    "potionsplus:diamond_ore_bonus_drops_ability",
+    "potionsplus:diamond_ore_bonus_emerald_ability",
     "potionsplus:creeper_loot_modifier"
   ],
   "replace": false

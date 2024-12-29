@@ -67,7 +67,7 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
                 // Add attribute modifier to player entity
                 player.getAttribute(config.getAttributeHolder()).addOrUpdateTransientModifier(modifier);
 
-                // Add attribute modifier to item stack
+                // Add attribute modifier to item stacks
                 player.getMainHandItem().update(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY, (modifiers) -> modifiers.withModifierAdded(config.getAttributeHolder(), modifier, EquipmentSlotGroup.MAINHAND));
             } else {
                 disable(player, config, itemStack);
@@ -80,7 +80,7 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
             // Remove attribute modifier from player entity
             player.getAttribute(config.getAttributeHolder()).removeModifier(modifier);
 
-            // Remove attribute modifier from item stack
+            // Remove attribute modifier from item stacks
             ItemAttributeModifiers modifiers = player.getMainHandItem().getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
             modifiers = ((IItemAttributeModifiersMixin) (Object) modifiers).potions_plus$withModifierRemoved(config.getAttributeHolder(), modifier, EquipmentSlotGroup.MAINHAND);
             player.getMainHandItem().set(DataComponents.ATTRIBUTE_MODIFIERS, modifiers);

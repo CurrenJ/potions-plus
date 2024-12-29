@@ -211,7 +211,7 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
         }
 
         if (!flag) {
-            // Maybe have variation of stack changed that takes in the slot?
+            // Maybe have variation of stacks changed that takes in the slot?
             this.setChanged();
         }
     }

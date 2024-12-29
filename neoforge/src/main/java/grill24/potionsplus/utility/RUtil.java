@@ -371,6 +371,10 @@ public class RUtil {
         return new Quaternionf().rotateZ(toRadians(degrees));
     }
 
+    public static Quaternionf rotate(Vector3fc degrees) {
+        return fromXYZDegrees(degrees);
+    }
+
     public static Quaternionf fromXYZDegrees(Vector3fc degrees) {
         // Convert degrees to radians
         float radX = toRadians(degrees.x());

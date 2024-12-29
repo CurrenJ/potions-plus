@@ -1,0 +1,37 @@
+{
+  "type": "potionsplus:wheel",
+  "config": {
+    "numToSample": 0,
+    "possibleRewards": [
+      {
+        "count": 1,
+        "id": "minecraft:diamond"
+      },
+      {
+        "count": 1,
+        "id": "minecraft:lapis_lazuli"
+      },
+      {
+        "count": 1,
+        "id": "minecraft:emerald"
+      },
+      {
+        "count": 1,
+        "id": "minecraft:redstone"
+      },
+      {
+        "count": 1,
+        "id": "minecraft:gold_ingot"
+      },
+      {
+        "count": 1,
+        "id": "minecraft:iron_ingot"
+      },
+      {
+        "count": 1,
+        "id": "minecraft:ancient_debris"
+      }
+    ],
+    "translationKey": ""
+  }
+}

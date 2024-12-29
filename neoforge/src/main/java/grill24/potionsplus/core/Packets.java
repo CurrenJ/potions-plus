@@ -95,9 +95,30 @@ public class Packets {
 
         // Display Item Activation Packet
         registrar.playToClient(
-                ClientboundDisplayItemActivation.TYPE,
-                ClientboundDisplayItemActivation.STREAM_CODEC,
-                ClientboundDisplayItemActivation.ClientPayloadHandler::handleDataOnMain
+                ClientboundDisplayItemActivationPacket.TYPE,
+                ClientboundDisplayItemActivationPacket.STREAM_CODEC,
+                ClientboundDisplayItemActivationPacket.ClientPayloadHandler::handleDataOnMain
+        );
+
+        // Display Wheel Animation Packet
+        registrar.playToClient(
+                ClientboundDisplayWheelAnimationPacket.TYPE,
+                ClientboundDisplayWheelAnimationPacket.STREAM_CODEC,
+                ClientboundDisplayWheelAnimationPacket.ClientPayloadHandler::handleDataOnMain
+        );
+
+        // Display Tossup Animation Packet
+        registrar.playToClient(
+                ClientboundDisplayTossupAnimationPacket.TYPE,
+                ClientboundDisplayTossupAnimationPacket.STREAM_CODEC,
+                ClientboundDisplayTossupAnimationPacket.ClientPayloadHandler::handleDataOnMain
+        );
+
+        // Sync Spatial Animation Data Packet
+        registrar.playToClient(
+                ClientboundSyncSpatialAnimationDataPacket.TYPE,
+                ClientboundSyncSpatialAnimationDataPacket.STREAM_CODEC,
+                ClientboundSyncSpatialAnimationDataPacket.ClientPayloadHandler::handleDataOnMain
         );
 
         // Display Alert Packet
