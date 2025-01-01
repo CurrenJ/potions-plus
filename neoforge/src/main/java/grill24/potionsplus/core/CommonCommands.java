@@ -23,6 +23,8 @@ import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -32,6 +34,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.GameType;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -172,8 +175,15 @@ public class CommonCommands {
                         .requires((source) -> source.hasPermission(2))
                         .executes(context -> {
                             if(context.getSource().getEntity() instanceof ServerPlayer player) {
-                                List<ItemStack> itemStacks = player.getInventory().items.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
-                                PacketDistributor.sendToPlayer(player, new ClientboundDisplayTossupAnimationPacket(itemStacks, 5, 0.75F));
+                                List<ItemStack> itemStacks = new ArrayList<>();
+                                for (int i = 0; i < 100; i++) {
+                                    if (i % 2 == 0) {
+                                        itemStacks.add(new ItemStack(Items.EMERALD));
+                                    } else {
+                                        itemStacks.add(new ItemStack(Items.DIAMOND));
+                                    }
+                                }
+                                PacketDistributor.sendToPlayer(player, new ClientboundDisplayTossupAnimationPacket(itemStacks, 1, 1F));
                             }
 
                             return 1;
@@ -484,12 +494,15 @@ public class CommonCommands {
                                             )
                                             .executes(context -> {
                                                 tryConsumeSkillInstance(context, skillInstance -> {
+                                                    RegistryAccess registryAccess = context.getSource().registryAccess();
                                                     SkillLevelUpRewardsConfiguration rewardsConfiguration = skillInstance.getConfiguredSkill(context.getSource().registryAccess()).config().getData().rewardsConfiguration();
                                                     // Sorted by level
                                                     TreeMap<Integer, Component> rewardsMap = new TreeMap<>();
                                                     rewardsConfiguration.rewardsDataMap.forEach((level, rewardsData) -> {
                                                         int levelInt = Integer.parseInt(level);
-                                                        rewardsMap.put(levelInt, skillInstance.getRewardDescription(context.getSource().getPlayer().registryAccess(), levelInt));
+                                                        if (levelInt < skillInstance.getLevel(registryAccess) + 10) {
+                                                            rewardsMap.put(levelInt, skillInstance.getRewardDescription(context.getSource().getPlayer().registryAccess(), levelInt));
+                                                        }
                                                     });
 
                                                     rewardsMap.forEach((level, component) -> {

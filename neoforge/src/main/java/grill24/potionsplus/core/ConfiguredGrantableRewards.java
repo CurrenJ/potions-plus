@@ -200,6 +200,12 @@ public class ConfiguredGrantableRewards {
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), GEMS_AND_ORES_WHEEL.getKey())
     ));
 
+    public static ItemWheelRewardBuilder POTIONS_WHEEL = register(() -> new ItemWheelRewardBuilder("potions_wheel",
+            LootTables.ALL_POTIONS, 8));
+    public static ChoiceRewardBuilder EDIBLE_POTIONS_WHEEL = register(() -> new ChoiceRewardBuilder("edible_potions_wheel",
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), POTIONS_WHEEL.getKey())
+    ));
+
     public static void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
         for (IRewardBuilder data : rewardBuilders) {
             data.generate(context);

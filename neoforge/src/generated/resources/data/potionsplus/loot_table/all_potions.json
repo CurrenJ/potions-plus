@@ -12,8 +12,7 @@
               "id": "minecraft:water"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -23,8 +22,7 @@
               "id": "minecraft:mundane"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -34,8 +32,7 @@
               "id": "minecraft:thick"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -45,8 +42,7 @@
               "id": "minecraft:awkward"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -56,8 +52,7 @@
               "id": "minecraft:night_vision"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -67,8 +62,7 @@
               "id": "minecraft:long_night_vision"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -78,8 +72,7 @@
               "id": "minecraft:invisibility"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -89,8 +82,7 @@
               "id": "minecraft:long_invisibility"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -100,8 +92,7 @@
               "id": "minecraft:leaping"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -111,8 +102,7 @@
               "id": "minecraft:long_leaping"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -122,8 +112,7 @@
               "id": "minecraft:strong_leaping"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -133,8 +122,7 @@
               "id": "minecraft:fire_resistance"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -144,8 +132,7 @@
               "id": "minecraft:long_fire_resistance"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -155,8 +142,7 @@
               "id": "minecraft:swiftness"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -166,8 +152,7 @@
               "id": "minecraft:long_swiftness"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -177,8 +162,7 @@
               "id": "minecraft:strong_swiftness"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -188,8 +172,7 @@
               "id": "minecraft:slowness"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -199,8 +182,7 @@
               "id": "minecraft:long_slowness"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -210,8 +192,7 @@
               "id": "minecraft:strong_slowness"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -221,8 +202,7 @@
               "id": "minecraft:turtle_master"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -232,8 +212,7 @@
               "id": "minecraft:long_turtle_master"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -243,8 +222,7 @@
               "id": "minecraft:strong_turtle_master"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -254,8 +232,7 @@
               "id": "minecraft:water_breathing"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -265,8 +242,7 @@
               "id": "minecraft:long_water_breathing"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -276,8 +252,7 @@
               "id": "minecraft:healing"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -287,8 +262,7 @@
               "id": "minecraft:strong_healing"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -298,8 +272,7 @@
               "id": "minecraft:harming"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -309,8 +282,7 @@
               "id": "minecraft:strong_harming"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -320,8 +292,7 @@
               "id": "minecraft:poison"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -331,8 +302,7 @@
               "id": "minecraft:long_poison"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -342,8 +312,7 @@
               "id": "minecraft:strong_poison"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -353,8 +322,7 @@
               "id": "minecraft:regeneration"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -364,8 +332,7 @@
               "id": "minecraft:long_regeneration"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -375,8 +342,7 @@
               "id": "minecraft:strong_regeneration"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -386,8 +352,7 @@
               "id": "minecraft:strength"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -397,8 +362,7 @@
               "id": "minecraft:long_strength"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -408,8 +372,7 @@
               "id": "minecraft:strong_strength"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -419,8 +382,7 @@
               "id": "minecraft:weakness"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -430,8 +392,7 @@
               "id": "minecraft:long_weakness"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -441,8 +402,7 @@
               "id": "minecraft:luck"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -452,8 +412,7 @@
               "id": "minecraft:slow_falling"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -463,8 +422,7 @@
               "id": "minecraft:long_slow_falling"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -474,8 +432,7 @@
               "id": "minecraft:wind_charged"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -485,8 +442,7 @@
               "id": "minecraft:weaving"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -496,8 +452,7 @@
               "id": "minecraft:oozing"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -507,8 +462,7 @@
               "id": "minecraft:infested"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -518,8 +472,7 @@
               "id": "potionsplus:any_potion"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -529,8 +482,7 @@
               "id": "potionsplus:any_other_potion"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -540,8 +492,7 @@
               "id": "potionsplus:geode_grace"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -551,8 +502,7 @@
               "id": "potionsplus:fall_of_the_void"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -562,8 +512,7 @@
               "id": "potionsplus:haste"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -573,8 +522,7 @@
               "id": "potionsplus:levitation"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -584,8 +532,7 @@
               "id": "potionsplus:magnetic"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -595,8 +542,7 @@
               "id": "potionsplus:exploding"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -606,8 +552,7 @@
               "id": "potionsplus:teleportation"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -617,8 +562,7 @@
               "id": "potionsplus:looting"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -628,8 +572,7 @@
               "id": "potionsplus:fortuitous_fate"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -639,8 +582,7 @@
               "id": "potionsplus:metal_detecting"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -650,8 +592,7 @@
               "id": "potionsplus:giant_steps"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -661,8 +602,7 @@
               "id": "potionsplus:reach_for_the_stars"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -672,8 +612,7 @@
               "id": "potionsplus:nautical_nitro"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -683,8 +622,7 @@
               "id": "potionsplus:crop_collector"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -694,8 +632,7 @@
               "id": "potionsplus:botanical_boost"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -705,8 +642,7 @@
               "id": "potionsplus:saturation"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -716,8 +652,7 @@
               "id": "potionsplus:blindness"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -727,8 +662,7 @@
               "id": "potionsplus:confusion"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -738,8 +672,7 @@
               "id": "potionsplus:hunger"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -749,8 +682,7 @@
               "id": "potionsplus:wither"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -760,8 +692,7 @@
               "id": "potionsplus:slip_n_slide"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -771,8 +702,7 @@
               "id": "potionsplus:harrowing_hands"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -782,8 +712,7 @@
               "id": "potionsplus:shepherds_serenade"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -793,8 +722,7 @@
               "id": "potionsplus:strength"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -804,8 +732,7 @@
               "id": "potionsplus:resistance"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -815,8 +742,7 @@
               "id": "potionsplus:fire_resistance"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -826,8 +752,7 @@
               "id": "potionsplus:water_breathing"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -837,8 +762,7 @@
               "id": "potionsplus:invisibility"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -848,8 +772,7 @@
               "id": "potionsplus:soul_mate"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
@@ -859,32 +782,11 @@
               "id": "potionsplus:flying_time"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 12
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:gold_nugget",
-          "weight": 20000
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:quartz",
-          "weight": 6000
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:gold_ingot",
-          "weight": 4000
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:emerald",
-          "weight": 3000
+          "name": "minecraft:potion"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "potionsplus:arid_cave_suspicious_sand"
+  "random_sequence": "potionsplus:all_potions"
 }

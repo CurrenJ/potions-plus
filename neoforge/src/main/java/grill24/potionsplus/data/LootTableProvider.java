@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -38,6 +39,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider {
     public LootTableProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryAccess) {
@@ -52,6 +54,16 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
     }
 
     public static class PotionsPlusRewardLoot implements LootTableSubProvider {
+
+        public static void potions(List<Holder.Reference<Potion>> potions, int totalWeight, LootPool.Builder builder) {
+            int weight = Math.max(1, totalWeight / potions.size());
+            for (Holder<Potion> potion : potions) {
+                LootPoolSingletonContainer.Builder<?> entryBuilder = LootItem.lootTableItem(Items.POTION);
+                entryBuilder.apply(SetPotionFunction.setPotion(potion));
+                entryBuilder.setWeight(weight);
+                builder.add(entryBuilder);
+            }
+        }
 
         @Override
         public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
@@ -84,6 +96,35 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
                                             .add(LootItem.lootTableItem(Items.REDSTONE_BLOCK).setWeight(1))
                                             .add(LootItem.lootTableItem(Items.LAPIS_BLOCK).setWeight(1))
                                             .add(LootItem.lootTableItem(Items.COAL_BLOCK).setWeight(1))
+                            )
+            );
+
+            List<Holder.Reference<Potion>> allPotions = BuiltInRegistries.POTION.holders().toList();
+            int aridCaveSuspiciousSandWeightScalar = 1000;
+            LootPool.Builder aridCaveSuspiciousSandBuilder = LootPool.lootPool();
+            potions(allPotions, aridCaveSuspiciousSandWeightScalar, aridCaveSuspiciousSandBuilder);
+            consumer.accept(
+                    LootTables.ARID_CAVE_SUSPICIOUS_SAND,
+                    LootTable.lootTable()
+                            .withPool(
+                                    aridCaveSuspiciousSandBuilder
+                                            .setRolls(ConstantValue.exactly(1.0F))
+                                            .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(20 * aridCaveSuspiciousSandWeightScalar))
+                                            .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(6 * aridCaveSuspiciousSandWeightScalar))
+                                            .add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(4 * aridCaveSuspiciousSandWeightScalar))
+                                            .add(LootItem.lootTableItem(Items.EMERALD).setWeight(3 * aridCaveSuspiciousSandWeightScalar))
+                            )
+            );
+
+            // All Potions
+            LootPool.Builder potionsBuilder = LootPool.lootPool();
+            potions(allPotions, 1, potionsBuilder);
+            consumer.accept(
+                    LootTables.ALL_POTIONS,
+                    LootTable.lootTable()
+                            .withPool(
+                                    potionsBuilder
+                                            .setRolls(ConstantValue.exactly(1.0F))
                             )
             );
         }
@@ -226,22 +267,6 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
             consumer.accept(Blocks.MOSSY_COAL_ORE.value().getLootTable(), createOreDrop(Blocks.MOSSY_COAL_ORE.value(), Items.COAL));
             consumer.accept(Blocks.MOSSY_EMERALD_ORE.value().getLootTable(), createOreDrop(Blocks.MOSSY_EMERALD_ORE.value(), Items.EMERALD));
 
-            List<Holder.Reference<Potion>> allPotions = BuiltInRegistries.POTION.holders().toList();
-            int aridCaveSuspiciousSandWeightScalar = 1000;
-            consumer.accept(
-                    LootTables.ARID_CAVE_SUSPICIOUS_SAND,
-                    LootTable.lootTable()
-                            .withPool(
-                                    LootPool.lootPool()
-                                            .setRolls(ConstantValue.exactly(1.0F))
-                                            .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(20 * aridCaveSuspiciousSandWeightScalar))
-                                            .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(6 * aridCaveSuspiciousSandWeightScalar))
-                                            .add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(4 * aridCaveSuspiciousSandWeightScalar))
-                                            .add(LootItem.lootTableItem(Items.EMERALD).setWeight(3 * aridCaveSuspiciousSandWeightScalar))
-                                            .add(potions(allPotions, aridCaveSuspiciousSandWeightScalar))
-                            )
-            );
-
             dropSelf(consumer, Blocks.REMNANT_DEBRIS.value());
             dropSelf(consumer, Blocks.DEEPSLATE_REMNANT_DEBRIS.value());
 
@@ -369,15 +394,7 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
             consumer.accept(block.getLootTable(), LootTable.lootTable().withPool(LootPool.lootPool().when(condition).add(LootItem.lootTableItem(block))));
         }
 
-        public static LootPoolSingletonContainer.Builder<?> potions(List<Holder.Reference<Potion>> potions, int totalWeight) {
-            LootPoolSingletonContainer.Builder<?> builder = LootItem.lootTableItem(Items.POTION);
-            for (Holder<Potion> potion : potions) {
-                builder.apply(SetPotionFunction.setPotion(potion));
-            }
-            return builder.setWeight(totalWeight);
-        }
-
-            @Override
+        @Override
         protected void generate() {
             // NO-OP
         }
