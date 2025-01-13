@@ -1,11 +1,14 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.advancement.AbyssalTroveTrigger;
+import grill24.potionsplus.advancement.AwardStatTrigger;
 import grill24.potionsplus.advancement.CraftRecipeTrigger;
 import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
 import grill24.potionsplus.block.OreFlowerBlock;
 import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.LootTables;
 import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -14,6 +17,7 @@ import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -22,10 +26,14 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,7 +42,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-import static grill24.potionsplus.utility.Utility.ppId;
+import static grill24.potionsplus.utility.Utility.*;
 
 public class AdvancementProvider extends net.neoforged.neoforge.common.data.AdvancementProvider {
     /**
@@ -73,6 +81,15 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
     public static final ResourceLocation ICE_CAVE = ppId("ice_cave");
     public static final ResourceLocation VOLCANIC_CAVE = ppId("volcanic_cave");
 
+    // Skill advancements
+    public static final ResourceLocation SKILL_JOURNALS = ppId("skill_journals");
+    public static final ResourceLocation[] MINE_COPPER_ORES = enumerateResourceLocations(grill24.potionsplus.core.Items.BLOCK_HAT_MODELS.length, count -> ppId("mine_copper_ore_" + count));
+    public static final ResourceLocation[] MINE_COAL_ORES = enumerateResourceLocations(grill24.potionsplus.core.Items.BLOCK_HAT_MODELS.length, count -> ppId("mine_coal_ore_" + count));
+    public static final ResourceLocation[] MINE_IRON_ORES = enumerateResourceLocations(grill24.potionsplus.core.Items.BLOCK_HAT_MODELS.length, count -> ppId("mine_iron_ore_" + count));
+    public static final ResourceLocation[] MINE_GOLD_ORES = enumerateResourceLocations(grill24.potionsplus.core.Items.BLOCK_HAT_MODELS.length, count -> ppId("mine_gold_ore_" + count));
+    public static final ResourceLocation[] MINE_DIAMOND_ORES = enumerateResourceLocations(grill24.potionsplus.core.Items.BLOCK_HAT_MODELS.length, count -> ppId("mine_diamond_ore_" + count));
+    public static final ResourceLocation[] MINE_EMERALD_ORES = enumerateResourceLocations(grill24.potionsplus.core.Items.BLOCK_HAT_MODELS.length, count -> ppId("mine_emerald_ore_" + count));
+
     private static final class PotionsPlusAdvancementGenerator implements AdvancementProvider.AdvancementGenerator {
         @Override
         public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {
@@ -80,8 +97,136 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
             createAbyssalTroveAdvancements(saver, existingFileHelper, create_brewing_cauldron);
             createSanguineAltarAdvancements(saver, existingFileHelper, create_brewing_cauldron);
             createClotheslineAdvancements(saver, existingFileHelper, create_brewing_cauldron);
+            createSkillsAdvancements(saver, existingFileHelper, create_brewing_cauldron);
             createOtherAdvancements(registries, saver, existingFileHelper, create_brewing_cauldron);
             // Biome advancements are generated manually
+        }
+    }
+
+    private static void createSkillsAdvancements(Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper, AdvancementHolder root) {
+        AdvancementHolder skillJournals = Advancement.Builder.advancement()
+                .parent(root)
+                .display(
+                        new ItemStack(Blocks.SKILL_JOURNALS.value()),
+                        Component.translatable(Translations.ADVANCEMENTS_POTIONSPLUS_SKILL_JOURNALS_TITLE),
+                        Component.translatable(Translations.ADVANCEMENTS_POTIONSPLUS_SKILL_JOURNALS_DESCRIPTION),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false)
+                .rewards(AdvancementRewards.Builder.experience(100))
+                .addCriterion("skill_journals", InventoryChangeTrigger.TriggerInstance.hasItems(Blocks.SKILL_JOURNALS.value()))
+                .requirements(AdvancementRequirements.allOf(List.of("skill_journals")))
+                .save(saver, SKILL_JOURNALS, existingFileHelper);
+
+        // Ore Block Hat advancements
+        List<Block> copperOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COPPER_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE, Blocks.SANDY_COPPER_ORE.value(), Blocks.MOSSY_COPPER_ORE.value());
+        createOreHatAdvancement
+                (saver,
+                existingFileHelper,
+                "mine_copper_ore",
+                HatInfo.hats(MINE_COPPER_ORES, grill24.potionsplus.core.Items.COPPER_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.COPPER_ORE_HATS),
+                copperOreBlocks,
+                skillJournals);
+
+        List<Block> coalOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COAL_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE, Blocks.SANDY_COAL_ORE.value(), Blocks.MOSSY_COAL_ORE.value());
+        createOreHatAdvancement
+                (saver,
+                existingFileHelper,
+                "mine_coal_ore",
+                HatInfo.hats(MINE_COAL_ORES, grill24.potionsplus.core.Items.COAL_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.COAL_ORE_HATS),
+                coalOreBlocks,
+                skillJournals);
+
+        List<Block> ironOreBlocks = List.of(net.minecraft.world.level.block.Blocks.IRON_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE, Blocks.SANDY_IRON_ORE.value(), Blocks.MOSSY_IRON_ORE.value());
+        createOreHatAdvancement
+                (saver,
+                existingFileHelper,
+                "mine_iron_ore",
+                HatInfo.hats(MINE_IRON_ORES, grill24.potionsplus.core.Items.IRON_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.IRON_ORE_HATS),
+                ironOreBlocks,
+                skillJournals);
+
+        List<Block> goldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.GOLD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE, Blocks.SANDY_GOLD_ORE.value(), Blocks.MOSSY_GOLD_ORE.value());
+        createOreHatAdvancement
+                (saver,
+                existingFileHelper,
+                "mine_gold_ore",
+                HatInfo.hats(MINE_GOLD_ORES, grill24.potionsplus.core.Items.GOLD_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.GOLD_ORE_HATS),
+                goldOreBlocks,
+                skillJournals);
+
+        List<Block> diamondOreBlocks = List.of(net.minecraft.world.level.block.Blocks.DIAMOND_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE, Blocks.SANDY_DIAMOND_ORE.value(), Blocks.MOSSY_DIAMOND_ORE.value());
+        createOreHatAdvancement
+                (saver,
+                existingFileHelper,
+                "mine_diamond_ore",
+                HatInfo.hats(MINE_DIAMOND_ORES, grill24.potionsplus.core.Items.DIAMOND_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.DIAMOND_ORE_HATS),
+                diamondOreBlocks,
+                skillJournals);
+
+        List<Block> emeraldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.EMERALD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_EMERALD_ORE, Blocks.SANDY_EMERALD_ORE.value(), Blocks.MOSSY_EMERALD_ORE.value());
+        createOreHatAdvancement
+                (saver,
+                existingFileHelper,
+                "mine_emerald_ore",
+                HatInfo.hats(MINE_EMERALD_ORES, grill24.potionsplus.core.Items.EMERALD_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.EMERALD_ORE_HATS),
+                emeraldOreBlocks,
+                skillJournals);
+    }
+
+    private record HatInfo(ResourceLocation advancementId, ItemStack display, int amountRequired, ResourceKey<LootTable> rewards) {
+        public HatInfo(ResourceLocation advancementId, ItemStack display, int amountRequired, ResourceKey<LootTable> rewards) {
+            this.advancementId = advancementId;
+            this.display = display;
+            this.amountRequired = amountRequired;
+            this.rewards = rewards;
+        }
+
+        public static List<HatInfo> hats(ResourceLocation[] advancementIds, Holder<Item>[] hatItems, int[] amountsRequired, ResourceKey<LootTable>[] rewards) {
+            if (hatItems.length != amountsRequired.length || hatItems.length != rewards.length || hatItems.length != advancementIds.length) {
+                throw new IllegalArgumentException("All arrays must be the same length");
+            }
+
+            List<HatInfo> hatInfos = new ArrayList<>();
+            for (int i = 0; i < hatItems.length; i++) {
+                hatInfos.add(new HatInfo(
+                        advancementIds[i],
+                        new ItemStack(hatItems[i].value()),
+                        amountsRequired[i],
+                        rewards[i])
+                );
+            }
+            return hatInfos;
+        }
+    }
+    private static void createOreHatAdvancement(Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper, String name, List<HatInfo> hatInfos, List<Block> acceptedBlocks, AdvancementHolder parent) {
+        AdvancementHolder currentParent = parent;
+        for (HatInfo hatInfo : hatInfos) {
+            Advancement.Builder builder = Advancement.Builder.advancement();
+            builder.parent(currentParent);
+            builder.display(
+                    hatInfo.display(),
+                    Component.translatable("advancements.potionsplus.ore_hat." + name + "_" + hatInfo.amountRequired() + ".title", hatInfo.display().getHoverName()),
+                    Component.translatable("advancements.potionsplus.ore_hat." + name + "_" + hatInfo.amountRequired() + ".description", hatInfo.display().getHoverName()),
+                    null,
+                    AdvancementType.TASK,
+                    true,
+                    true,
+                    false);
+            builder.rewards(AdvancementRewards.Builder.loot(hatInfo.rewards()));
+
+            List<String> acceptedBlockKeys = acceptedBlocks.stream().map(b -> name + "_" + BuiltInRegistries.BLOCK.getKey(b).getPath()).toList();
+            for (int i = 0; i < acceptedBlocks.size(); i++) {
+                String criterionName = acceptedBlockKeys.get(i);
+                Block block = acceptedBlocks.get(i);
+
+                builder.addCriterion(criterionName, AwardStatTrigger.TriggerInstance.create(Stats.BLOCK_MINED.get(block).getName(), hatInfo.amountRequired()));
+            }
+            builder.requirements(AdvancementRequirements.anyOf(acceptedBlockKeys));
+
+            currentParent = builder.save(saver, hatInfo.advancementId(), existingFileHelper);
         }
     }
 
@@ -187,8 +332,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         true,
                         true,
                         false)
-                .rewards(AdvancementRewards.Builder
-                        .experience(100))
+                .rewards(AdvancementRewards.Builder.experience(100))
                 .addCriterion("create_sanguine_altar", CreatePotionsPlusBlockTrigger.TriggerInstance.create(Blocks.SANGUINE_ALTAR.value().defaultBlockState()))
                 .requirements(AdvancementRequirements.allOf(List.of("create_sanguine_altar")))
                 .save(saver, CREATE_SANGUINE_ALTAR, existingFileHelper);
@@ -204,8 +348,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         true,
                         true,
                         false)
-                .rewards(AdvancementRewards.Builder
-                        .experience(100))
+                .rewards(AdvancementRewards.Builder.experience(100))
                 .addCriterion("convert_item_in_sanguine_altar", CraftRecipeTrigger.TriggerInstance.create(Recipes.SANGUINE_ALTAR_RECIPE.getKey()))
                 .requirements(AdvancementRequirements.allOf(List.of("convert_item_in_sanguine_altar")))
                 .save(saver, ppId("convert_item_in_sanguine_altar"), existingFileHelper);
@@ -230,8 +373,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 // Whether the advancement should be hidden or not.
                 false)
         .rewards(
-                AdvancementRewards.Builder
-                .experience(100)
+                AdvancementRewards.Builder.experience(100)
                 .addLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath("minecraft", "chests/igloo"))))
         .addCriterion("create_brewing_cauldron", CreatePotionsPlusBlockTrigger.TriggerInstance.create(Blocks.BREWING_CAULDRON.value().defaultBlockState()))
         .requirements(AdvancementRequirements.allOf(List.of("create_brewing_cauldron")))

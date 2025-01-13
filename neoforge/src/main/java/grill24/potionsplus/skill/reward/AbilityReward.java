@@ -13,6 +13,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 
+import java.util.Optional;
+
 public class AbilityReward extends GrantableReward<AbilityReward.AbilityRewardConfiguration> {
     public AbilityReward() {
         super(AbilityRewardConfiguration.CODEC);
@@ -36,8 +38,8 @@ public class AbilityReward extends GrantableReward<AbilityReward.AbilityRewardCo
     }
 
     @Override
-    public Component getDescription(AbilityRewardConfiguration config) {
-        return config.ability.value().getDescription();
+    public Optional<Component> getDescription(AbilityRewardConfiguration config) {
+        return Optional.ofNullable(config.ability.value().getDescription());
     }
 
     @Override

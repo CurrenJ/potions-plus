@@ -23,8 +23,10 @@
     "TemptGoalMixin"
   ],
   "client": [
+    "ClientAdvancementsMixin",
     "ClientPacketListenerMixin",
     "GameRendererMixin",
+    "GuiGraphicsMixin",
     "ParticleEngineMixin"
   ],
   "injectors": {

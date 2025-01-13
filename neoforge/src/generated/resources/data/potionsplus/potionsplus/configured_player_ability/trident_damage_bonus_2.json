@@ -4,6 +4,7 @@
     "attribute": "minecraft:generic.attack_damage",
     "baseConfig": {
       "enabledByDefault": true,
+      "parentSkill": "potionsplus:swordsmanship",
       "translationKey": "description.potionsplus.ability.trident_damage_bonus"
     },
     "modifiers": [

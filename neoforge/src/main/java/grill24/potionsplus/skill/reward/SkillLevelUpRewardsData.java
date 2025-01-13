@@ -53,11 +53,12 @@ public record SkillLevelUpRewardsData(String translationKey, List<Holder<Configu
         }
 
         for (Holder<ConfiguredGrantableReward<?, ?>> reward : rewards) {
-            if (reward.value().getDescription() != null) {
+            if (reward.value().getDescription().isPresent()) {
                 if (hasText) {
                     component.append(Component.literal(", "));
                 }
-                component.append(reward.value().getDescription());
+
+                component.append(reward.value().getDescription().get());
                 hasText = true;
             }
         }

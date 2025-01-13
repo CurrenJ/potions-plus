@@ -1,0 +1,69 @@
+{
+  "parent": "potionsplus:mine_copper_ore_1",
+  "criteria": {
+    "mine_copper_ore_copper_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:minecraft.copper_ore",
+        "totalStats": 256
+      },
+      "trigger": "potionsplus:award_stat"
+    },
+    "mine_copper_ore_deepslate_copper_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:minecraft.deepslate_copper_ore",
+        "totalStats": 256
+      },
+      "trigger": "potionsplus:award_stat"
+    },
+    "mine_copper_ore_mossy_copper_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:potionsplus.mossy_copper_ore",
+        "totalStats": 256
+      },
+      "trigger": "potionsplus:award_stat"
+    },
+    "mine_copper_ore_sandy_copper_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:potionsplus.sandy_copper_ore",
+        "totalStats": 256
+      },
+      "trigger": "potionsplus:award_stat"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.ore_hat.mine_copper_ore_256.description",
+      "with": [
+        {
+          "translate": "item.potionsplus.copper_ore_hat_3"
+        }
+      ]
+    },
+    "icon": {
+      "count": 1,
+      "id": "potionsplus:copper_ore_hat_3"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.ore_hat.mine_copper_ore_256.title",
+      "with": [
+        {
+          "translate": "item.potionsplus.copper_ore_hat_3"
+        }
+      ]
+    }
+  },
+  "requirements": [
+    [
+      "mine_copper_ore_copper_ore",
+      "mine_copper_ore_deepslate_copper_ore",
+      "mine_copper_ore_sandy_copper_ore",
+      "mine_copper_ore_mossy_copper_ore"
+    ]
+  ],
+  "rewards": {
+    "loot": [
+      "potionsplus:copper_ore_hat_2"
+    ]
+  },
+  "sends_telemetry_event": true
+}

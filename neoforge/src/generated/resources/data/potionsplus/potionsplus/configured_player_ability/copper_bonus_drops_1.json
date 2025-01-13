@@ -3,6 +3,7 @@
   "config": {
     "baseConfig": {
       "enabledByDefault": true,
+      "parentSkill": "potionsplus:mining",
       "translationKey": "description.potionsplus.ability.copper_ore_additional_loot_iron_nuggets"
     }
   }

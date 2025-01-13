@@ -4,6 +4,7 @@
     "attribute": "minecraft:generic.attack_damage",
     "baseConfig": {
       "enabledByDefault": true,
+      "parentSkill": "potionsplus:archery",
       "translationKey": "description.potionsplus.ability.crossbow_damage_bonus"
     },
     "modifiers": [

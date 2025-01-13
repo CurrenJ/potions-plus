@@ -9,6 +9,7 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
 import grill24.potionsplus.network.ClientboundSyncKnownBrewingRecipesPacket;
 import grill24.potionsplus.network.ClientboundSyncPairedAbyssalTrove;
+import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -169,8 +170,10 @@ public class PlayerListeners {
     @SubscribeEvent
     public static void onPlayerJoin(final EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
-            PacketDistributor.sendToPlayer(player, ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()));
-            PacketDistributor.sendToPlayer(player, new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()));
+            PacketDistributor.sendToPlayer(player,
+                    ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()),
+                    new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()),
+                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
             SkillsData.updatePlayerData(player, (skillsData -> skillsData.syncAbilitiesEnablement(player)));
         }
     }

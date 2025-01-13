@@ -4,8 +4,6 @@ import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.potion.MobEffects;
-import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
-import grill24.potionsplus.recipe.ShapelessProcessingRecipeBuilder;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipeBuilder;
@@ -17,7 +15,6 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -429,6 +426,13 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("UUU")
                 .define('U', Items.URANIUM_INGOT.value())
                 .unlockedBy("has_uranium_ingot", has(Items.URANIUM_INGOT.value()))
+                .save(recipeConsumer);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.SKILL_JOURNALS.value().asItem())
+                .requires(net.minecraft.world.item.Items.BOOK)
+                .requires(net.minecraft.world.item.Items.BOOK)
+                .requires(net.minecraft.world.item.Items.BOOK)
+                .unlockedBy("has_book", has(net.minecraft.world.item.Items.BOOK))
                 .save(recipeConsumer);
     }
 }

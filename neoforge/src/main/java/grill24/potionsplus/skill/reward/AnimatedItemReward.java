@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.List;
+import java.util.Optional;
 
 public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.AnimatedItemRewardConfiguration> {
     public AnimatedItemReward() {
@@ -32,8 +33,8 @@ public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.Anima
     }
 
     @Override
-    public Component getDescription(AnimatedItemRewardConfiguration config) {
-        return null;
+    public Optional<Component> getDescription(AnimatedItemRewardConfiguration config) {
+        return Optional.empty();
     }
 
     @Override

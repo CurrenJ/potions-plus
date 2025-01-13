@@ -59,6 +59,9 @@ public class Blocks {
             new ClotheslineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion().strength(0.8F).sound(SoundType.WOOD)));
     public static final Holder<Block> POTION_BEACON = register("potion_beacon", () ->
             new PotionBeaconBlock(BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.BEACON).mapColor(MapColor.WOOD).requiresCorrectToolForDrops().strength(2.5F).sound(SoundType.WOOD)));
+    public static final Holder<Block> SKILL_JOURNALS = register("skill_journals", () ->
+            new SkillJournalsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.5F).sound(SoundType.WOOD).noOcclusion()));
+
 
     public static final Holder<Block> LUNAR_BERRY_BUSH = register("lunar_berry_bush", () ->
             new LunarBerryBushBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.SWEET_BERRY_BUSH).noOcclusion().lightLevel(LunarBerryBushBlock.LIGHT_EMISSION)), false);

@@ -13,4 +13,5 @@ public class GrantableRewards {
     public static final DeferredHolder<GrantableReward<?>, AnimatedItemReward> ANIMATED_ITEM_DISPLAY = GRANTABLE_REWARDS.register("animated_item_display", AnimatedItemReward::new);
     public static final DeferredHolder<GrantableReward<?>, EdibleChoiceReward> CHOICE = GRANTABLE_REWARDS.register("choice", EdibleChoiceReward::new);
     public static final DeferredHolder<GrantableReward<?>, ItemWheelReward> WHEEL = GRANTABLE_REWARDS.register("wheel", ItemWheelReward::new);
+    public static final DeferredHolder<GrantableReward<?>, UnknownPotionIngredientReward> UNKNOWN_POTION_INGREDIENT = GRANTABLE_REWARDS.register("unknown_potion_ingredient", UnknownPotionIngredientReward::new);
 }

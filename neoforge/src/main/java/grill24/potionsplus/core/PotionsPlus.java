@@ -48,6 +48,7 @@ public class PotionsPlus {
         GrantableRewards.GRANTABLE_REWARDS.register(bus);
         DataComponents.DATA_COMPONENTS.register(bus);
         AnimationCurveSerializers.SERIALIZERS.register(bus);
+        MenuTypes.MENU_TYPES.register(bus);
 
         CreativeModeTabs.CREATIVE_MODE_TABS.register(bus);
     }

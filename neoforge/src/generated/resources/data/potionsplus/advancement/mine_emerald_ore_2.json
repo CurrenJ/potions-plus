@@ -1,0 +1,69 @@
+{
+  "parent": "potionsplus:mine_emerald_ore_1",
+  "criteria": {
+    "mine_emerald_ore_deepslate_emerald_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:minecraft.deepslate_emerald_ore",
+        "totalStats": 256
+      },
+      "trigger": "potionsplus:award_stat"
+    },
+    "mine_emerald_ore_emerald_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:minecraft.emerald_ore",
+        "totalStats": 256
+      },
+      "trigger": "potionsplus:award_stat"
+    },
+    "mine_emerald_ore_mossy_emerald_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:potionsplus.mossy_emerald_ore",
+        "totalStats": 256
+      },
+      "trigger": "potionsplus:award_stat"
+    },
+    "mine_emerald_ore_sandy_emerald_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:potionsplus.sandy_emerald_ore",
+        "totalStats": 256
+      },
+      "trigger": "potionsplus:award_stat"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.ore_hat.mine_emerald_ore_256.description",
+      "with": [
+        {
+          "translate": "item.potionsplus.emerald_ore_hat_3"
+        }
+      ]
+    },
+    "icon": {
+      "count": 1,
+      "id": "potionsplus:emerald_ore_hat_3"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.ore_hat.mine_emerald_ore_256.title",
+      "with": [
+        {
+          "translate": "item.potionsplus.emerald_ore_hat_3"
+        }
+      ]
+    }
+  },
+  "requirements": [
+    [
+      "mine_emerald_ore_emerald_ore",
+      "mine_emerald_ore_deepslate_emerald_ore",
+      "mine_emerald_ore_sandy_emerald_ore",
+      "mine_emerald_ore_mossy_emerald_ore"
+    ]
+  ],
+  "rewards": {
+    "loot": [
+      "potionsplus:emerald_ore_hat_2"
+    ]
+  },
+  "sends_telemetry_event": true
+}

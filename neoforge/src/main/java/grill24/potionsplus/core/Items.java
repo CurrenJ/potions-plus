@@ -1,6 +1,7 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.item.EdibleChoiceItem;
+import grill24.potionsplus.item.EquipableHatItem;
 import grill24.potionsplus.item.ItemOverrideUtility;
 import grill24.potionsplus.item.WormrootItem;
 import grill24.potionsplus.utility.ModInfo;
@@ -25,6 +26,18 @@ public class Items {
     // ----- Items -----
 
     public static final Holder<Item> WREATH = ITEMS.register("wreath", () ->  new ArmorItem(ArmorMaterials.WREATH, ArmorItem.Type.HELMET, properties()));
+
+    public static final ResourceLocation[] BLOCK_HAT_MODELS = new ResourceLocation[] { ppId("item/block_hat_1"), ppId("item/block_hat_2"), ppId("item/block_hat_3"), ppId("item/block_hat_4") };
+    public static final Holder<Item>[] COAL_ORE_HATS = Items.generateHats("coal_ore_hat", BLOCK_HAT_MODELS.length, () -> new EquipableHatItem(properties()));
+    public static final Holder<Item>[] COPPER_ORE_HATS = Items.generateHats("copper_ore_hat", BLOCK_HAT_MODELS.length, () -> new EquipableHatItem(properties()));
+    public static final Holder<Item>[] IRON_ORE_HATS = Items.generateHats("iron_ore_hat", BLOCK_HAT_MODELS.length, () -> new EquipableHatItem(properties()));
+    public static final Holder<Item>[] GOLD_ORE_HATS = Items.generateHats("gold_ore_hat", BLOCK_HAT_MODELS.length, () -> new EquipableHatItem(properties()));
+    public static final Holder<Item>[] DIAMOND_ORE_HATS = Items.generateHats("diamond_ore_hat", BLOCK_HAT_MODELS.length, () -> new EquipableHatItem(properties()));
+    public static final Holder<Item>[] EMERALD_ORE_HATS = Items.generateHats("emerald_ore_hat", BLOCK_HAT_MODELS.length, () -> new EquipableHatItem(properties()));
+
+    public static final Holder<Item> FROGGY_HAT = ITEMS.register("froggy_hat", () -> new EquipableHatItem(properties()));
+    public static final Holder<Item> HOOK_HAT = ITEMS.register("hook_hat", () -> new EquipableHatItem(properties()));
+    public static final Holder<Item> APPLE_HAT = ITEMS.register("apple_hat", () -> new EquipableHatItem(properties()));
 
     public static final Holder<Item> LUNAR_BERRIES = ITEMS.register("lunar_berries", () -> new ItemNameBlockItem(Blocks.LUNAR_BERRY_BUSH.value(), properties().food(Foods.SWEET_BERRIES)));
     public static final Holder<Item> MOSS = ITEMS.register("moss", () -> new Item(properties()));
@@ -136,5 +149,13 @@ public class Items {
                     add(ppId("item/yellow_flag"));
                     add(ppId("item/orange_flag"));
                 }}));
+    }
+
+    private static Holder<Item>[] generateHats(String name, int count, Supplier<Item> supplier) {
+        Holder<Item>[] hats = new Holder[count];
+        for (int i = 0; i < count; i++) {
+            hats[i] = ITEMS.register(name + "_" + (i+1) , supplier);
+        }
+        return hats;
     }
 }

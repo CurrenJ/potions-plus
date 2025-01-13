@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -39,7 +38,6 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider {
     public LootTableProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryAccess) {
@@ -127,6 +125,34 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
                                             .setRolls(ConstantValue.exactly(1.0F))
                             )
             );
+
+            // Ore Hats
+            generateOreHats(consumer, grill24.potionsplus.core.Items.COPPER_ORE_HATS, LootTables.COPPER_ORE_HATS);
+            generateOreHats(consumer, grill24.potionsplus.core.Items.COAL_ORE_HATS, LootTables.COAL_ORE_HATS);
+            generateOreHats(consumer, grill24.potionsplus.core.Items.IRON_ORE_HATS, LootTables.IRON_ORE_HATS);
+            generateOreHats(consumer, grill24.potionsplus.core.Items.GOLD_ORE_HATS, LootTables.GOLD_ORE_HATS);
+            generateOreHats(consumer, grill24.potionsplus.core.Items.DIAMOND_ORE_HATS, LootTables.DIAMOND_ORE_HATS);
+            generateOreHats(consumer, grill24.potionsplus.core.Items.EMERALD_ORE_HATS, LootTables.EMERALD_ORE_HATS);
+        }
+
+        @SafeVarargs
+        protected final void generateOreHats(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, Holder<Item>[] hatItems, ResourceKey<LootTable>... lootTableKeys) {
+            if (hatItems.length != lootTableKeys.length) {
+                throw new IllegalArgumentException("hatItems and lootTableKeys must be the same length");
+            }
+
+            for (int i = 0; i < hatItems.length; i++) {
+                consumer.accept(
+                        lootTableKeys[i],
+                        LootTable.lootTable()
+                                .withPool(
+                                        LootPool.lootPool()
+                                                .setRolls(ConstantValue.exactly(1))
+                                                .add(LootItem.lootTableItem(hatItems[i].value()))
+                                )
+                );
+            }
+
         }
     }
 
@@ -357,6 +383,8 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
             generateAdditionalOreDrops(LootTables.SKELETON_BONE_MEAL_BONUS_DROPS, consumer, Items.BONE_MEAL, 1, 3, 0.5F, 0.6F, 0.7F, 0.8F);
             // Skeleton Additional Bone Block Drops (Skill Ability)
             generateAdditionalOreDrops(LootTables.SKELETON_BONE_BLOCK_BONUS_DROPS, consumer, Items.BONE_BLOCK, 1, 1, 0.1F, 0.125F, 0.15F, 0.175F);
+
+            dropSelf(consumer, Blocks.SKILL_JOURNALS.value());
         }
 
         private void generateAdditionalMobDrops(ResourceKey<LootTable> lootTableResourceKey, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, ItemLike drop, int min, int max, float... lootingBonusChances) {

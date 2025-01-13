@@ -14,13 +14,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 public class ItemWheelReward extends GrantableReward<ItemWheelRewardConfiguration> {
     public ItemWheelReward() {
@@ -28,7 +26,7 @@ public class ItemWheelReward extends GrantableReward<ItemWheelRewardConfiguratio
     }
 
     @Override
-    public Component getDescription(ItemWheelRewardConfiguration config) {
+    public Optional<Component> getDescription(ItemWheelRewardConfiguration config) {
         // Condense the description to a single line
         List<List<Component>> multiLineRichDescription = getMultiLineRichDescription(config, false);
         MutableComponent description = Component.empty();
@@ -37,7 +35,8 @@ public class ItemWheelReward extends GrantableReward<ItemWheelRewardConfiguratio
                 description.append(component.plainCopy());
             }
         }
-        return description;
+
+        return Optional.of(description);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package grill24.potionsplus.skill.source;
 
+import grill24.potionsplus.advancement.AwardStatTrigger;
 import grill24.potionsplus.core.SkillPointSources;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.utility.ModInfo;
@@ -30,7 +31,11 @@ public class IncrementStatSource extends SkillPointSource<Pair<String, Integer>,
             int currentStatValue = serverPlayer.getStats().getValue(event.getStat());
             int increment = event.getValue() - currentStatValue;
 
+            // Trigger skill point source(s)
             SkillsData.triggerSkillPointSource(event.getEntity(), SkillPointSources.INCREMENT_STAT.value(), new Pair<>(event.getStat().getName(), increment));
+
+            // Trigger advancement
+            AwardStatTrigger.INSTANCE.trigger(serverPlayer, event.getStat().getName(), event.getValue());
         }
     }
 

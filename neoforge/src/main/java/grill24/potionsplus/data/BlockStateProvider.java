@@ -5,16 +5,14 @@ import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.item.ItemOverrideUtility;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -49,6 +47,10 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
 
         // Potion Beacon
         registerBlockWithModel(Blocks.POTION_BEACON.value());
+
+        // Skill Journals
+        registerHorizontalDirectionalBlock(Blocks.SKILL_JOURNALS.value());
+        registerItemFromParent(Blocks.SKILL_JOURNALS.value().asItem(), ResourceLocation.fromNamespaceAndPath(ModInfo.MOD_ID, "block/skill_journals"));
 
         registerClothesline();
         registerFlowerBlock(Blocks.IRON_OXIDE_DAISY.value());
@@ -324,6 +326,35 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         registerItem(Items.URANIUM_INGOT.value());
         registerItem(Items.SULFUR_SHARD.value());
         registerItem(Items.SULFURIC_ACID.value());
+
+        Holder<Item>[][] blockHatItems = new Holder[][]{
+                Items.COAL_ORE_HATS,
+                Items.COPPER_ORE_HATS,
+                Items.IRON_ORE_HATS,
+                Items.GOLD_ORE_HATS,
+                Items.DIAMOND_ORE_HATS,
+                Items.EMERALD_ORE_HATS
+        };
+        ResourceLocation[] blockHatTextures = new ResourceLocation[] { mc("block/coal_ore"), mc("block/copper_ore"), mc("block/iron_ore"), mc("block/gold_ore"), mc("block/diamond_ore"), mc("block/emerald_ore") };
+        registerAllBlockHatVariantsForItem(Items.BLOCK_HAT_MODELS, blockHatTextures, blockHatItems);
+    }
+
+    private void registerAllBlockHatVariantsForItem(ResourceLocation[] parentModels, ResourceLocation[] textures, Holder<Item>[][] blockHatItems) {
+        for (int t = 0; t < textures.length; t++) {
+            ResourceLocation texture = textures[t];
+            for (int m = 0; m < parentModels.length; m++) {
+                Holder<Item> itemForTexture = blockHatItems[t][m];
+                ResourceLocation resourceLocation = parentModels[m];
+                registerBlockHatItem(itemForTexture, resourceLocation, texture);
+            }
+        }
+    }
+
+    private void registerBlockHatItem(Holder<Item> item, ResourceLocation parentModel, ResourceLocation texture) {
+        ResourceLocation modelLocation = getModelLocation(item.value());
+        itemModels().getBuilder(modelLocation.getPath())
+                .parent(models().getExistingFile(parentModel))
+                .texture("0", texture);
     }
 
     private void registerCubeAll(Block block) {

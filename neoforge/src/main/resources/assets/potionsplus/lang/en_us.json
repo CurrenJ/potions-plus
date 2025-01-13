@@ -50,6 +50,7 @@
   "tooltip.potionsplus.skill.max_level": "You reached max level.",
   "tooltip.potionsplus.skill.level": "[Lvl %s] ",
   "tooltip.potionsplus.skill.points_earned": "points earned",
+  "tooltip.potionsplus.skill.journal.none": "Level up skills to unlock abilities here!",
 
   "description.potionsplus.ability.pickaxe_efficiency_bonus": "%s Pickaxe Mining Speed",
   "description.potionsplus.ability.pickaxe_fortune_bonus": "%s Pickaxe Fortune Level",
@@ -251,8 +252,11 @@
   "item.potionsplus.advanced_loot": "Advanced Loot",
   "item.potionsplus.expert_loot": "Expert Loot",
   "item.potionsplus.master_loot": "Master Loot",
-
   "item.potionsplus.wheel": "Wheel of Loot",
+
+  "block.potionsplus.skill_journals": "Skill Journals",
+  "block.potionsplus.uranium_glass": "Uranium Glass",
+  "block.potionsplus.icicle": "Icicle",
 
   "itemGroup.potionsplus": "Potions Plus",
 
@@ -548,5 +552,74 @@
   "advancements.potionsplus.acquire_uranium_ingot.title": "Radioactive",
   "advancements.potionsplus.acquire_uranium_ingot.description": "Feel it in your bones!",
   "advancements.potionsplus.acquire_sulfuric_acid.title": "It Burns",
-  "advancements.potionsplus.acquire_sulfuric_acid.description": "Brew Sulfuric Acid."
+  "advancements.potionsplus.acquire_sulfuric_acid.description": "Brew Sulfuric Acid.",
+  "advancements.potionsplus.skill_journals.title": "Seriously Skilled",
+  "advancements.potionsplus.skill_journals.description": "Pen your Skill Journals.",
+
+
+
+  "item.potionsplus.coal_ore_hat_1": "Coal Ore Hat (64)",
+  "item.potionsplus.coal_ore_hat_2": "Coal Ore Hat (128)",
+  "item.potionsplus.coal_ore_hat_3": "Coal Ore Hat (256)",
+  "advancements.potionsplus.ore_hat.mine_coal_ore_64.title": "Apprentice Coal Miner",
+  "advancements.potionsplus.ore_hat.mine_coal_ore_64.description": "Mine 64 Coal Ore.",
+  "advancements.potionsplus.ore_hat.mine_coal_ore_128.title": "Journeyman Coal Miner",
+  "advancements.potionsplus.ore_hat.mine_coal_ore_128.description": "Mine 128 Coal Ore.",
+  "advancements.potionsplus.ore_hat.mine_coal_ore_256.title": "Royal Coal Miner",
+  "advancements.potionsplus.ore_hat.mine_coal_ore_256.description": "Mine 256 Coal Ore.",
+
+  "item.potionsplus.iron_ore_hat_1": "Iron Ore Hat (64)",
+  "item.potionsplus.iron_ore_hat_2": "Iron Ore Hat (128)",
+  "item.potionsplus.iron_ore_hat_3": "Iron Ore Hat (256)",
+  "advancements.potionsplus.ore_hat.mine_iron_ore_64.title": "Apprentice Iron Miner",
+  "advancements.potionsplus.ore_hat.mine_iron_ore_64.description": "Mine 64 Iron Ore.",
+  "advancements.potionsplus.ore_hat.mine_iron_ore_128.title": "Journeyman Iron Miner",
+  "advancements.potionsplus.ore_hat.mine_iron_ore_128.description": "Mine 128 Iron Ore.",
+  "advancements.potionsplus.ore_hat.mine_iron_ore_256.title": "Royal Iron Miner",
+  "advancements.potionsplus.ore_hat.mine_iron_ore_256.description": "Mine 256 Iron Ore.",
+
+  "item.potionsplus.gold_ore_hat_1": "Gold Ore Hat (64)",
+  "item.potionsplus.gold_ore_hat_2": "Gold Ore Hat (128)",
+  "item.potionsplus.gold_ore_hat_3": "Gold Ore Hat (256)",
+  "advancements.potionsplus.ore_hat.mine_gold_ore_64.title": "Apprentice Gold Miner",
+  "advancements.potionsplus.ore_hat.mine_gold_ore_64.description": "Mine 64 Gold Ore.",
+  "advancements.potionsplus.ore_hat.mine_gold_ore_128.title": "Journeyman Gold Miner",
+  "advancements.potionsplus.ore_hat.mine_gold_ore_128.description": "Mine 128 Gold Ore.",
+  "advancements.potionsplus.ore_hat.mine_gold_ore_256.title": "Royal Gold Miner",
+  "advancements.potionsplus.ore_hat.mine_gold_ore_256.description": "Mine 256 Gold Ore.",
+
+  "item.potionsplus.copper_ore_hat_1": "Copper Ore Hat (64)",
+  "item.potionsplus.copper_ore_hat_2": "Copper Ore Hat (128)",
+  "item.potionsplus.copper_ore_hat_3": "Copper Ore Hat (256)",
+  "advancements.potionsplus.ore_hat.mine_copper_ore_64.title": "Apprentice Copper Miner",
+  "advancements.potionsplus.ore_hat.mine_copper_ore_64.description": "Mine 64 Copper Ore.",
+  "advancements.potionsplus.ore_hat.mine_copper_ore_128.title": "Journeyman Copper Miner",
+  "advancements.potionsplus.ore_hat.mine_copper_ore_128.description": "Mine 128 Copper Ore.",
+  "advancements.potionsplus.ore_hat.mine_copper_ore_256.title": "Royal Copper Miner",
+  "advancements.potionsplus.ore_hat.mine_copper_ore_256.description": "Mine 256 Copper Ore.",
+
+"item.potionsplus.diamond_ore_hat_1": "Diamond Ore Hat (64)",
+  "item.potionsplus.diamond_ore_hat_2": "Diamond Ore Hat (128)",
+  "item.potionsplus.diamond_ore_hat_3": "Diamond Ore Hat (256)",
+  "advancements.potionsplus.ore_hat.mine_diamond_ore_64.title": "Apprentice Diamond Miner",
+  "advancements.potionsplus.ore_hat.mine_diamond_ore_64.description": "Mine 64 Diamond Ore.",
+  "advancements.potionsplus.ore_hat.mine_diamond_ore_128.title": "Journeyman Diamond Miner",
+  "advancements.potionsplus.ore_hat.mine_diamond_ore_128.description": "Mine 128 Diamond Ore.",
+  "advancements.potionsplus.ore_hat.mine_diamond_ore_256.title": "Royal Diamond Miner",
+  "advancements.potionsplus.ore_hat.mine_diamond_ore_256.description": "Mine 256 Diamond Ore.",
+
+  "item.potionsplus.emerald_ore_hat_1": "Emerald Ore Hat (64)",
+  "item.potionsplus.emerald_ore_hat_2": "Emerald Ore Hat (128)",
+  "item.potionsplus.emerald_ore_hat_3": "Emerald Ore Hat (256)",
+  "advancements.potionsplus.ore_hat.mine_emerald_ore_64.title": "Apprentice Emerald Miner",
+  "advancements.potionsplus.ore_hat.mine_emerald_ore_64.description": "Mine 64 Emerald Ore.",
+  "advancements.potionsplus.ore_hat.mine_emerald_ore_128.title": "Journeyman Emerald Miner",
+  "advancements.potionsplus.ore_hat.mine_emerald_ore_128.description": "Mine 128 Emerald Ore.",
+  "advancements.potionsplus.ore_hat.mine_emerald_ore_256.title": "Royal Emerald Miner",
+  "advancements.potionsplus.ore_hat.mine_emerald_ore_256.description": "Mine 256 Emerald Ore.",
+
+  "tooltip.potionsplus.reward.unknown_potion_ingredient.description": "An Unknown Potion Ingredient",
+  "alert.potionsplus.reward.unknown_potion_ingredient": "The brewing cauldron calls...",
+
+  "item.potionsplus.froggy_hat": "Froggy Hat"
 }

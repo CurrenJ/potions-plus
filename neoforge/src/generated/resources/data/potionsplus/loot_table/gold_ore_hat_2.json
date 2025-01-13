@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:empty",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "potionsplus:gold_ore_hat_3"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "potionsplus:gold_ore_hat_2"
+}

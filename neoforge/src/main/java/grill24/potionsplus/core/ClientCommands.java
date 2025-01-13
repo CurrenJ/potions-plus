@@ -19,22 +19,23 @@ public class ClientCommands {
     public static void registerCommands(RegisterClientCommandsEvent event) {
         if (!PotionsPlus.Debug.DEBUG) { return; }
 
-        event.getDispatcher().register(Commands.literal("potionsplus")
-                .then(Commands.literal("reveal")
-                        .requires(source -> source.hasPermission(2))
-                        .executes(context -> {
-                            PotionsPlus.LOGGER.info("Reloading PotionsPlus data");
-                            Player player = Minecraft.getInstance().player;
-                            if (player == null) {
-                                return 0;
-                            }
-                            if (player.hasPermissions(2)) {
-                                PotionsPlus.Debug.shouldRevealAllRecipes = !PotionsPlus.Debug.shouldRevealAllRecipes;
-                                context.getSource().sendSuccess(() -> Component.literal(PotionsPlus.Debug.shouldRevealAllRecipes ? "true" : "false"), true);
-                                JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
-                            }
-                            return 1;
-                        }))
+        event.getDispatcher().register(
+                Commands.literal("potionsplus")
+                    .then(Commands.literal("reveal")
+                            .requires(source -> source.hasPermission(2))
+                            .executes(context -> {
+                                PotionsPlus.LOGGER.info("Reloading PotionsPlus data");
+                                Player player = Minecraft.getInstance().player;
+                                if (player == null) {
+                                    return 0;
+                                }
+                                if (player.hasPermissions(2)) {
+                                    PotionsPlus.Debug.shouldRevealAllRecipes = !PotionsPlus.Debug.shouldRevealAllRecipes;
+                                    context.getSource().sendSuccess(() -> Component.literal(PotionsPlus.Debug.shouldRevealAllRecipes ? "true" : "false"), true);
+                                    JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
+                                }
+                                return 1;
+                            }))
         );
     }
 }

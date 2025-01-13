@@ -4,6 +4,7 @@
     "attribute": "minecraft:generic.movement_speed",
     "baseConfig": {
       "enabledByDefault": true,
+      "parentSkill": "potionsplus:walking",
       "translationKey": "description.potionsplus.ability.movement_speed_bonus"
     },
     "modifiers": [

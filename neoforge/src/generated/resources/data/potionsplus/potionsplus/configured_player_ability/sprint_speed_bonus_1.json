@@ -4,6 +4,7 @@
     "attribute": "potionsplus:player.sprint_speed_bonus",
     "baseConfig": {
       "enabledByDefault": true,
+      "parentSkill": "potionsplus:sprinting",
       "translationKey": "description.potionsplus.ability.sprint_speed_bonus"
     },
     "modifiers": [

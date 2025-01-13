@@ -5,9 +5,12 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.serialization.JsonOps;
+import grill24.potionsplus.block.SkillJournalsBlock;
 import grill24.potionsplus.core.potion.Potions;
+import grill24.potionsplus.gui.skill.SkillsMenu;
 import grill24.potionsplus.network.ClientboundDisplayTossupAnimationPacket;
 import grill24.potionsplus.network.ClientboundDisplayWheelAnimationPacket;
+import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
 import grill24.potionsplus.network.ClientboundSyncSpatialAnimationDataPacket;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
@@ -23,7 +26,6 @@ import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -31,6 +33,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
@@ -184,6 +187,17 @@ public class CommonCommands {
                                     }
                                 }
                                 PacketDistributor.sendToPlayer(player, new ClientboundDisplayTossupAnimationPacket(itemStacks, 1, 1F));
+                            }
+
+                            return 1;
+                        })
+                )
+                .then(Commands.literal("skillsMenu")
+                        .requires((source) -> source.hasPermission(2))
+                        .executes(context -> {
+                            if(context.getSource().getEntity() instanceof ServerPlayer serverPlayer) {
+                                //
+                                SkillJournalsBlock.openSkillsMenu(serverPlayer);
                             }
 
                             return 1;
@@ -349,8 +363,10 @@ public class CommonCommands {
                                         return 0;
                                     }
 
-                                    SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> skillsData.clear(context.getSource().getPlayer())));
-
+                                    SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> {
+                                        skillsData.clear(context.getSource().getPlayer());
+                                        PacketDistributor.sendToPlayer(context.getSource().getPlayer(), new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(context.getSource().getPlayer())));
+                                    }));
                                     return 1;
                                 })
                         )
@@ -516,7 +532,7 @@ public class CommonCommands {
                                     .then(Commands.literal("progress")
                                             .executes(context -> {
                                                 tryConsumeSkillInstance(context, skillInstance -> {
-                                                    context.getSource().sendSuccess(() -> skillInstance.getProgressToNextLevel(context.getSource().getPlayer().registryAccess()), true);
+                                                    context.getSource().sendSuccess(() -> skillInstance.getProgressToNextLevel(context.getSource().getPlayer().registryAccess(), true, 10), true);
                                                 });
 
                                                 return 1;

@@ -6,6 +6,7 @@ import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.network.ClientboundDisplayAlert;
 import grill24.potionsplus.network.ClientboundDisplayAlertWithParameter;
+import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
 import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
 import grill24.potionsplus.skill.reward.GrantableReward;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
@@ -107,12 +108,6 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
 
 
             if(levelAfter > levelBefore) {
-                // Send alert
-                MutableComponent levelUpAlert = Component.empty();
-                levelUpAlert.append(getConfiguredSkill(registryAccess).getChatHeader());
-                levelUpAlert.append(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_SKILL_LEVEL_UP, levelAfter).withStyle(ChatFormatting.WHITE));
-                PacketDistributor.sendToPlayer(serverPlayer, new ClientboundDisplayAlert(levelUpAlert));
-
                 for (int i = levelBefore + 1; i <= levelAfter; i++) {
                     // Grant rewards
                     SkillLevelUpRewardsConfiguration rewardsConfiguration = configuredSkill.config().getData().rewardsConfiguration();
@@ -123,6 +118,17 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
                         serverPlayer.sendSystemMessage(getRewardDescription(registryAccess, i));
                     }
                 }
+
+                // Build alert
+                MutableComponent levelUpAlert = Component.empty();
+                levelUpAlert.append(getConfiguredSkill(registryAccess).getChatHeader());
+                levelUpAlert.append(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_SKILL_LEVEL_UP, levelAfter).withStyle(ChatFormatting.WHITE));
+
+                PacketDistributor.sendToPlayer(serverPlayer,
+                        new ClientboundDisplayAlert(levelUpAlert), // Send alert
+                        new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)) // Sync skills data
+                );
+
             }
         }
     }
@@ -151,13 +157,15 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
         return getConfiguredSkill(registryAccess).getLevelMax();
     }
 
-    public Component getProgressToNextLevel(RegistryAccess registryAccess) {
+    public Component getProgressToNextLevel(RegistryAccess registryAccess, boolean fluffText, int numProgressBarChars) {
         MutableComponent component = Component.empty();
-        component.append(getConfiguredSkill(registryAccess).getChatHeader());
 
         int currentLevel = getLevel(registryAccess);
         int nextLevel = currentLevel + 1;
-        component.append(getLevelChatHeader(registryAccess, currentLevel, true));
+        if (fluffText) {
+            component.append(getConfiguredSkill(registryAccess).getChatHeader());
+            component.append(getLevelChatHeader(registryAccess, currentLevel, true));
+        }
 
         if (currentLevel >= getConfiguredSkill(registryAccess).getLevelMax()) {
             component.append(Component.literal(" ")).append(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_SKILL_MAX_LEVEL).withStyle(ChatFormatting.GRAY));
@@ -166,13 +174,14 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
 
         // Progress bar by coloring "|" char based on progress
         float progress = getPartialLevel(registryAccess) - currentLevel;
-        int progressBars = 10;
-        int greenBars = (int) (progressBars * progress);
-        int grayBars = progressBars - greenBars;
+        int greenBars = (int) (numProgressBarChars * progress);
+        int grayBars = numProgressBarChars - greenBars;
         component.append(Component.literal("|".repeat(greenBars)).withStyle(ChatFormatting.GREEN));
         component.append(Component.literal("|".repeat(grayBars)).withStyle(ChatFormatting.GRAY));
 
-        component.append(Component.literal(" ")).append(getLevelChatHeader(registryAccess, nextLevel, false));
+        if (fluffText) {
+            component.append(Component.literal(" ")).append(getLevelChatHeader(registryAccess, nextLevel, false));
+        }
 
         Optional<SkillLevelUpRewardsData> rewardsData = getConfiguredSkill(registryAccess).config().getData().rewardsConfiguration().tryGetRewardForLevel(nextLevel);
         rewardsData.ifPresent(skillLevelUpRewardsData -> component.append(skillLevelUpRewardsData.getDescription().copy().withStyle(ChatFormatting.GRAY)));

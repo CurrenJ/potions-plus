@@ -1,6 +1,7 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.advancement.AbyssalTroveTrigger;
+import grill24.potionsplus.advancement.AwardStatTrigger;
 import grill24.potionsplus.advancement.CraftRecipeTrigger;
 import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
 import grill24.potionsplus.utility.ModInfo;
@@ -15,4 +16,5 @@ public class Advancements {
     public static DeferredHolder<CriterionTrigger<?>, CreatePotionsPlusBlockTrigger> BREWING_CAULDRON_CREATION = TRIGGERS.register(CreatePotionsPlusBlockTrigger.ID.getPath(), () -> CreatePotionsPlusBlockTrigger.INSTANCE);
     public static DeferredHolder<CriterionTrigger<?>, CraftRecipeTrigger> CRAFT_RECIPE = TRIGGERS.register(CraftRecipeTrigger.ID.getPath(), () -> CraftRecipeTrigger.INSTANCE);
     public static DeferredHolder<CriterionTrigger<?>, AbyssalTroveTrigger> ABYSSAL_TROVE_TRIGGER = TRIGGERS.register(AbyssalTroveTrigger.ID.getPath(), () -> AbyssalTroveTrigger.INSTANCE);
+    public static DeferredHolder<CriterionTrigger<?>, AwardStatTrigger> AWARD_STAT_TRIGGER = TRIGGERS.register(AwardStatTrigger.ID.getPath(), () -> AwardStatTrigger.INSTANCE);
 }

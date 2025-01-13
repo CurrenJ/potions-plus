@@ -24,6 +24,7 @@ public class BlockRenderLayers {
         registerBlock(Blocks.URANIUM_GLASS, RenderType.cutout());
         registerBlock(Blocks.POTION_BEACON, RenderType.cutout());
         registerBlock(Blocks.LUMOSEED_SACKS, RenderType.solid());
+        registerBlock(Blocks.SKILL_JOURNALS, RenderType.cutout());
     }
 
     private static void registerBlock(Holder<Block> block, RenderType renderType) {

@@ -2,14 +2,20 @@ package grill24.potionsplus.skill.ability;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
+import grill24.potionsplus.skill.SkillsData;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.StringUtil;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class AbilityInstance {
     public static final Codec<AbilityInstance> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
@@ -70,12 +76,28 @@ public class AbilityInstance {
     }
 
     public boolean toggle(ServerPlayer player) {
+        boolean enabled = false;
         if (this.isEnabled) {
             tryDisable(player);
-            return false;
         } else {
             tryEnable(player);
-            return true;
+            enabled = true;
+        }
+
+        // Send updated skill data to the client
+        PacketDistributor.sendToPlayer(player, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
+
+        return enabled;
+    }
+
+    public void toggle(LocalPlayer player) {
+        String s = StringUtil.filterText(getToggleCommand());
+        if (s.startsWith("/")) {
+            if (!player.connection.sendUnsignedCommand(s.substring(1))) {
+                PotionsPlus.LOGGER.error("Not allowed to run command with signed argument from click event: '{}'", s);
+            }
+        } else {
+            PotionsPlus.LOGGER.error("Failed to run command without '/' prefix from click event: '{}'", s);
         }
     }
 
@@ -86,7 +108,7 @@ public class AbilityInstance {
     public Component getDescription(boolean showEnablementText) {
         MutableComponent component = Component.empty();
 
-        ClickEvent clickEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/potionsplus skill ability byId " + ability.getKey().location() + " toggle");
+        ClickEvent clickEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, getToggleCommand());
         HoverEvent hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable(Translations.GENERIC_POTIONSPLUS_TOGGLE));
         Style style = Style.EMPTY.withHoverEvent(hoverEvent).withClickEvent(clickEvent).withColor(this.isEnabled ? ChatFormatting.GREEN : ChatFormatting.RED);
 
@@ -99,5 +121,9 @@ public class AbilityInstance {
 
 
         return component;
+    }
+
+    private String getToggleCommand() {
+        return "/potionsplus skill ability byId " + ability.getKey().location() + " toggle";
     }
 }

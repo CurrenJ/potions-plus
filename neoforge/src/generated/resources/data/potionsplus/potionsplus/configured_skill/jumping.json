@@ -2,6 +2,28 @@
   "type": "potionsplus:generic",
   "config": {
     "baseConfig": {
+      "displayIconForLevel": {
+        "10": {
+          "count": 1,
+          "id": "minecraft:rabbit_foot"
+        },
+        "15": {
+          "count": 1,
+          "id": "minecraft:rabbit_foot"
+        },
+        "20": {
+          "count": 1,
+          "id": "minecraft:rabbit_foot"
+        },
+        "25": {
+          "count": 1,
+          "id": "minecraft:rabbit_foot"
+        },
+        "5": {
+          "count": 1,
+          "id": "minecraft:rabbit_foot"
+        }
+      },
       "pointsLevelingScale": {
         "a": 2.0,
         "b": 1.2,
@@ -19,12 +41,15 @@
           "10": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel",
               "potionsplus:jump_height_bonus_2"
             ]
           },
           "100": {
             "advancementRewards": [
-              "potionsplus:master_skill_loot_edible"
+              "potionsplus:master_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:edible_wheel_end_city"
             ]
           },
           "11": {
@@ -34,7 +59,8 @@
           },
           "12": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "13": {
@@ -50,6 +76,7 @@
           "15": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel",
               "potionsplus:jump_height_bonus_3"
             ]
           },
@@ -65,7 +92,8 @@
           },
           "18": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "19": {
@@ -81,6 +109,7 @@
           "20": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel",
               "potionsplus:jump_height_bonus_4"
             ]
           },
@@ -101,12 +130,15 @@
           },
           "24": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "25": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:edible_wheel_end_city",
               "potionsplus:jump_height_bonus_5"
             ]
           },
@@ -137,7 +169,9 @@
           },
           "30": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "31": {
@@ -162,12 +196,14 @@
           },
           "35": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "36": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "37": {
@@ -192,7 +228,8 @@
           },
           "40": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "41": {
@@ -202,7 +239,8 @@
           },
           "42": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "43": {
@@ -217,7 +255,8 @@
           },
           "45": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "46": {
@@ -232,7 +271,8 @@
           },
           "48": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "49": {
@@ -243,12 +283,15 @@
           "5": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel",
               "potionsplus:jump_height_bonus_1"
             ]
           },
           "50": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:edible_wheel_end_city"
             ]
           },
           "51": {
@@ -268,12 +311,14 @@
           },
           "54": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "55": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "56": {
@@ -298,12 +343,15 @@
           },
           "6": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "60": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "61": {
@@ -328,12 +376,14 @@
           },
           "65": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "66": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "67": {
@@ -358,7 +408,8 @@
           },
           "70": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "71": {
@@ -368,7 +419,8 @@
           },
           "72": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "73": {
@@ -383,7 +435,9 @@
           },
           "75": {
             "advancementRewards": [
-              "potionsplus:expert_skill_loot_edible"
+              "potionsplus:expert_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:edible_wheel_end_city"
             ]
           },
           "76": {
@@ -398,7 +452,8 @@
           },
           "78": {
             "advancementRewards": [
-              "potionsplus:expert_skill_loot_edible"
+              "potionsplus:expert_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "79": {
@@ -413,7 +468,8 @@
           },
           "80": {
             "advancementRewards": [
-              "potionsplus:expert_skill_loot_edible"
+              "potionsplus:expert_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "81": {
@@ -433,12 +489,14 @@
           },
           "84": {
             "advancementRewards": [
-              "potionsplus:expert_skill_loot_edible"
+              "potionsplus:expert_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "85": {
             "advancementRewards": [
-              "potionsplus:expert_skill_loot_edible"
+              "potionsplus:expert_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "86": {
@@ -468,7 +526,9 @@
           },
           "90": {
             "advancementRewards": [
-              "potionsplus:master_skill_loot_edible"
+              "potionsplus:master_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "91": {
@@ -493,12 +553,14 @@
           },
           "95": {
             "advancementRewards": [
-              "potionsplus:master_skill_loot_edible"
+              "potionsplus:master_skill_loot_edible",
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "96": {
             "advancementRewards": [
-              "potionsplus:master_skill_loot_edible"
+              "potionsplus:master_skill_loot_edible",
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "97": {

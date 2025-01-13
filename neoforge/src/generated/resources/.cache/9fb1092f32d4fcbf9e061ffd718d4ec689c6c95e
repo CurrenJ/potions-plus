@@ -1,4 +1,4 @@
-// 1.21.1	2024-12-30T23:32:16.182585	Recipes
+// 1.21.1	2025-01-12T18:17:04.1703096	Recipes
 4d566373e3049d51570ad1c6743ef28afbe6076a data/minecraft/advancement/all_potions_duration_increase.json
 1def5fcd1f058e1d7d4794873092d81c9464fc7e data/minecraft/advancement/amplification_testing.json
 f15b50555c63f06d0122ecd0b105b5e0342df40a data/minecraft/advancement/any_potion_any_potion_a0_d1200_potion_arrow_to_any_potion_any_potion_a0_d1200_tipped_arrow.json
@@ -60,6 +60,7 @@ ca5194b1a5c5eb8765098a02209c46aa99c3df8d data/potionsplus/advancement/lava_bucke
 b7cd36b5c6742c51641482cdecc46f0efc772576 data/potionsplus/advancement/recipes/brewing/sanguine_altar.json
 8e125cf412c49b98f2f10dd8d38c1907fe972cae data/potionsplus/advancement/recipes/building_blocks/uranium_glass.json
 2b3451684b8f245191e9c19d413f58d94c76ac86 data/potionsplus/advancement/recipes/combat/wreath.json
+bf9ddaba922e102b237291e5e678ba5ce72be5c6 data/potionsplus/advancement/recipes/misc/skill_journals.json
 84cdfdeb4da2d724a32554cbe99dd10b5cf618cb data/potionsplus/advancement/recipes/misc/uranium_block.json
 2ff440128814b456bb02972bc16dac67f9401ced data/potionsplus/advancement/recipes/redstone/particle_emitter.json
 d3ac5cf28a22b9c6358f9c976926eca048cbb64d data/potionsplus/advancement/recipes/redstone/precision_dispenser.json
@@ -85,6 +86,7 @@ b228f8603095d499808c66ab38ff7f4641cdee8d data/potionsplus/recipe/potion_to_glass
 5cd7fb4c3008eb1175d5bc1afb8f4f94fe8774f5 data/potionsplus/recipe/redstone_rose_to_red_dye.json
 790528fa8b36aa1ff2f91e1b67f8ef367e291596 data/potionsplus/recipe/rotten_flesh_to_leather.json
 ed529db84a2ca815166aaf994c24f7660fec8c80 data/potionsplus/recipe/sanguine_altar.json
+c490d401029158e48a419ca763e8ed6f6ceb8fca data/potionsplus/recipe/skill_journals.json
 93089b3f8fa8fcf54a18e9efe01349c4a088bd30 data/potionsplus/recipe/soul_sand_to_sand.json
 514667a82cf0662d7f92e520f840d6de9ca4eef5 data/potionsplus/recipe/uranium_block.json
 3946d1a5cc24707b047444a8f6ea581d30aaa67f data/potionsplus/recipe/uranium_glass.json

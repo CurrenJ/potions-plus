@@ -186,7 +186,7 @@ public class ItemListenersGame {
             List<Component> tooltipMessage = tooltipMessages.get(i);
 
             int delayTicks = i * 2;
-            Pair<MutableComponent, Integer> animatedComponent = animateComponentText(tooltipMessage, durationUpgradeTextAnimationDurationTicks, delayTicks);
+            Pair<MutableComponent, Integer> animatedComponent = animateComponentText(tooltipMessage, durationUpgradeTextAnimationDurationTicks, delayTicks, animationStartTimestamp);
             if (animatedComponent.getSecond() > 0 || i < 2) { // First two components are vanilla tooltip components - don't remove
                 event.getToolTip().add(animatedComponent.getFirst());
             }
@@ -196,7 +196,19 @@ public class ItemListenersGame {
         lastItemStack = event.getItemStack();
     }
 
-    private static Pair<MutableComponent, Integer> animateComponentText(List<Component> component, float duration, int delayTicks) {
+    public static List<Component> animateComponentText(List<List<Component>> components, float animationStartTimestamp) {
+        List<Component> animatedComponents = new ArrayList<>();
+        for (int i = 0; i < components.size(); i++) {
+            List<Component> component = components.get(i);
+            int delayTicks = i * 2;
+            Pair<MutableComponent, Integer> animatedComponent = animateComponentText(component, durationUpgradeTextAnimationDurationTicks, delayTicks, animationStartTimestamp);
+            animatedComponents.add(animatedComponent.getFirst());
+        }
+
+        return animatedComponents;
+    }
+
+    private static Pair<MutableComponent, Integer> animateComponentText(List<Component> component, float duration, int delayTicks, float animationStartTimestamp) {
         // Join all the components passed into one string, then split it at the appropriate index according to the animation progress
         String totalString = component.stream().map(Component::getString).collect(Collectors.joining());
         float f = RUtil.lerp(0.0F, 1.0F, RUtil.easeOutSine(Math.clamp((ClientTickHandler.total() - animationStartTimestamp - delayTicks) / duration, 0.0F, 1.0F)));

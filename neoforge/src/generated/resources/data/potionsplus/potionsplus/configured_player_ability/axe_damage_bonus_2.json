@@ -4,6 +4,7 @@
     "attribute": "minecraft:generic.attack_damage",
     "baseConfig": {
       "enabledByDefault": true,
+      "parentSkill": "potionsplus:chopping",
       "translationKey": "description.potionsplus.ability.axe_damage_bonus"
     },
     "modifiers": [

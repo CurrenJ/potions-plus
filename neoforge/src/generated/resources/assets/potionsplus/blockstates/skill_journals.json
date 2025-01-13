@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "potionsplus:block/skill_journals",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "potionsplus:block/skill_journals",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "potionsplus:block/skill_journals"
+    },
+    "facing=west": {
+      "model": "potionsplus:block/skill_journals",
+      "y": 90
+    }
+  }
+}

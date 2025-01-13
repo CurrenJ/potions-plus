@@ -1,0 +1,69 @@
+{
+  "parent": "potionsplus:mine_gold_ore_1",
+  "criteria": {
+    "mine_gold_ore_deepslate_gold_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:minecraft.deepslate_gold_ore",
+        "totalStats": 256
+      },
+      "trigger": "potionsplus:award_stat"
+    },
+    "mine_gold_ore_gold_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:minecraft.gold_ore",
+        "totalStats": 256
+      },
+      "trigger": "potionsplus:award_stat"
+    },
+    "mine_gold_ore_mossy_gold_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:potionsplus.mossy_gold_ore",
+        "totalStats": 256
+      },
+      "trigger": "potionsplus:award_stat"
+    },
+    "mine_gold_ore_sandy_gold_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:potionsplus.sandy_gold_ore",
+        "totalStats": 256
+      },
+      "trigger": "potionsplus:award_stat"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.ore_hat.mine_gold_ore_256.description",
+      "with": [
+        {
+          "translate": "item.potionsplus.gold_ore_hat_3"
+        }
+      ]
+    },
+    "icon": {
+      "count": 1,
+      "id": "potionsplus:gold_ore_hat_3"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.ore_hat.mine_gold_ore_256.title",
+      "with": [
+        {
+          "translate": "item.potionsplus.gold_ore_hat_3"
+        }
+      ]
+    }
+  },
+  "requirements": [
+    [
+      "mine_gold_ore_gold_ore",
+      "mine_gold_ore_deepslate_gold_ore",
+      "mine_gold_ore_sandy_gold_ore",
+      "mine_gold_ore_mossy_gold_ore"
+    ]
+  ],
+  "rewards": {
+    "loot": [
+      "potionsplus:gold_ore_hat_2"
+    ]
+  },
+  "sends_telemetry_event": true
+}

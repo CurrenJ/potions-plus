@@ -9,6 +9,8 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 
+import java.util.Optional;
+
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class EdibleChoiceReward extends GrantableReward<EdibleChoiceRewardConfiguration> {
@@ -17,24 +19,24 @@ public class EdibleChoiceReward extends GrantableReward<EdibleChoiceRewardConfig
     }
 
     @Override
-    public Component getDescription(EdibleChoiceRewardConfiguration config) {
+    public Optional<Component> getDescription(EdibleChoiceRewardConfiguration config) {
         MutableComponent description = Component.empty();
 
         boolean hasText = false;
         for (EdibleChoiceRewardOption reward : config.rewards) {
-            Component rewardDescription = reward.linkedOption.value().getDescription();
-            if (rewardDescription != null) {
+            Optional<Component> rewardDescription = reward.linkedOption.value().getDescription();
+            if (rewardDescription.isPresent()) {
                 if (hasText) {
                     description.append(Component.literal(" "));
                     description.append(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_OR));
                     description.append(Component.literal(" "));
                 }
-                description.append(rewardDescription);
+                description.append(rewardDescription.get());
                 hasText = true;
             }
         }
 
-        return description;
+        return Optional.of(description);
     }
 
     @Override
