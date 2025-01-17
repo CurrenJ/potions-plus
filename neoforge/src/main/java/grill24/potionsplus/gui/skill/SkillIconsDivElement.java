@@ -11,6 +11,11 @@ public class SkillIconsDivElement extends DivScreenElement<SkillIconsScreenEleme
         setAllowClicksOutsideBounds(true);
     }
 
+    public SkillIconsDivElement(Screen screen, Settings settings, SkillIconsScreenElement child) {
+        super(screen, null, settings, RenderableScreenElement.Anchor.CENTER, child);
+
+        setAllowClicksOutsideBounds(true);
+    }
     @Override
     protected float getWidth() {
         if (getChildren().isEmpty()) {

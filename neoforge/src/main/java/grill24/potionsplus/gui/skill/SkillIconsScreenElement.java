@@ -56,6 +56,16 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
     }
 
     @Override
+    protected float getWidth() {
+        return getRadius() * 2;
+    }
+
+    @Override
+    protected float getHeight() {
+        return getRadius() * 2;
+    }
+
+    @Override
     protected void onTick(float partialTick) {
         // Update wheel rotation
         tickWheelRotation(partialTick, hoveredItem != null);

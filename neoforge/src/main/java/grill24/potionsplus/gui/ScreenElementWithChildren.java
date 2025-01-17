@@ -126,10 +126,27 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
 
     @Override
     public void snapToTarget() {
-        super.snapToTarget();
-
+        // Children first because parent should be able to adjust to children size and position
         for (E child : getChildren()) {
             child.snapToTarget();
+        }
+
+        super.snapToTarget();
+    }
+
+    @Override
+    public void setShowBounds(boolean showBounds) {
+        super.setShowBounds(showBounds);
+        for (E child : getChildren()) {
+            child.setShowBounds(showBounds);
+        }
+    }
+
+    @Override
+    public void setShowGridLines(boolean showGridLines) {
+        super.setShowGridLines(showGridLines);
+        for (E child : getChildren()) {
+            child.setShowGridLines(showGridLines);
         }
     }
 }

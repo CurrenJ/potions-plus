@@ -1,5 +1,6 @@
 package grill24.potionsplus.gui.skill;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.event.ItemListenersGame;
 import grill24.potionsplus.gui.*;
@@ -19,14 +20,10 @@ public class SkillsScreen extends AbstractContainerScreen<SkillsMenu> {
     private SkillTitleScreenElement skillTitleRenderer;
     private SkillIconsScreenElement skillsIconsRenderer;
     private AbilitiesListScreenElement abilitiesRenderer;
-    private RenderableScreenElement allText;
-
-
     private MilestonesScreenElement milestoneRenderer;
+    private RenderableScreenElement allScreenElements;
 
     private final float screenOpenedTimestamp;
-
-
 
     public SkillsScreen(SkillsMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -43,28 +40,31 @@ public class SkillsScreen extends AbstractContainerScreen<SkillsMenu> {
             return;
         }
 
-        // Milestones
-        this.milestoneRenderer = new MilestonesScreenElement(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.YAlignment.CENTER);
-
         // Initialize render elements
+        // Skill title
         this.skillTitleRenderer = new SkillTitleScreenElement(this);
+        // Abilities list
         this.abilitiesRenderer = new AbilitiesListScreenElement(this, RenderableScreenElement.Settings.DEFAULT);
+        // Skills icons
         this.skillsIconsRenderer = new SkillIconsScreenElement(this, RenderableScreenElement.Settings.DEFAULT, itemDisplay -> {
             ResourceKey<ConfiguredSkill<?, ?>> key = itemDisplay == null ? null : itemDisplay.skill.getKey();
             this.skillTitleRenderer.setSelectedSkill(key);
             this.abilitiesRenderer.setSelectedSkill(key);
             this.milestoneRenderer.setSkill(key);
         });
-        SkillIconsDivElement skillsIconsRendererDiv = new SkillIconsDivElement(this, this.skillsIconsRenderer);
+        SkillIconsDivElement skillsIconsRendererDiv = new SkillIconsDivElement(this, RenderableScreenElement.Settings.DEFAULT.withAnimationSpeed(1F), this.skillsIconsRenderer);
         skillsIconsRendererDiv.setAllowClicksOutsideBounds(true);
+        // Milestones
+        this.milestoneRenderer = new MilestonesScreenElement(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.YAlignment.CENTER);
 
+        // Add all elements to a vertical list
         VerticalListScreenElement<RenderableScreenElement> elementsList =
                 new VerticalListScreenElement<>(this,
                         RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.XAlignment.CENTER,
                         this.skillTitleRenderer, skillsIconsRendererDiv, this.abilitiesRenderer, this.milestoneRenderer);
         elementsList.setAllowClicksOutsideBounds(true);
 
-        this.allText = new FullScreenDivScreenElement<VerticalListScreenElement<?>>(
+        this.allScreenElements = new FullScreenDivScreenElement<VerticalListScreenElement<?>>(
                 this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.CENTER, elementsList);
     }
 
@@ -78,8 +78,8 @@ public class SkillsScreen extends AbstractContainerScreen<SkillsMenu> {
         // Then the widgets if this is a direct child of the Screen
         super.render(graphics, mouseX, mouseY, partialTick);
 
-        allText.tick(partialTick, mouseX, mouseY);
-        allText.tryRender(graphics, partialTick, mouseX, mouseY);
+        allScreenElements.tick(partialTick, mouseX, mouseY);
+        allScreenElements.tryRender(graphics, partialTick, mouseX, mouseY);
 
         if (this.skillsIconsRenderer.getChildren().isEmpty()) {
             renderHelpText(graphics, mouseX, mouseY, partialTick);
@@ -114,8 +114,28 @@ public class SkillsScreen extends AbstractContainerScreen<SkillsMenu> {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        allText.click((int) mouseX, (int) mouseY);
+        allScreenElements.click((int) mouseX, (int) mouseY);
 
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    private boolean isShowingDebugBounds = false;
+    private boolean isShowingGridLines = false;
+    // In some Screen subclass
+    @Override
+    public boolean keyPressed(int key, int scancode, int mods) {
+        InputConstants.Key keyPress = InputConstants.getKey(key, scancode);
+
+        if (keyPress.getValue() == InputConstants.KEY_8) {
+            isShowingDebugBounds = !isShowingDebugBounds;
+            allScreenElements.setShowBounds(!isShowingDebugBounds);
+        } else if (keyPress.getValue() == InputConstants.KEY_7) {
+            allScreenElements.snapToTarget();
+        } else if (keyPress.getValue() == InputConstants.KEY_9) {
+            isShowingGridLines = !isShowingGridLines;
+            allScreenElements.setShowGridLines(isShowingGridLines);
+        }
+
+        return super.keyPressed(key, scancode, mods);
     }
 }

@@ -131,6 +131,8 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     }
 
     private static final int BOUNDS_COLOR = FastColor.ARGB32.colorFromFloat(0.2F, 1, 1, 1);
+    private static final int GRID_COLOR = FastColor.ARGB32.colorFromFloat(0.3F, 0, 0, 1);
+    private static final int OUTLINE_COLOR = FastColor.ARGB32.colorFromFloat(0.3F, 1, 0, 0);
     protected void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         if (isVisible()) {
             if (this.settings.showBounds) {
@@ -143,6 +145,26 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
                 Rectangle2D bounds = getGlobalBounds();
                 // Render the element
                 graphics.fill((int) bounds.getMinX(), (int) bounds.getMinY(), (int) bounds.getMinX() + 1, (int) bounds.getMinY() + 1, BOUNDS_COLOR);
+            }
+
+            if (this.settings.showGridLines) {
+                // Lines at 1/4, 1/2, 3/4 of the way across the element
+                Rectangle2D bounds = getGlobalBounds();
+                final int thickness = 1;
+                // Vertical lines
+                graphics.fill((int) (bounds.getMinX() + bounds.getWidth() / 4), (int) bounds.getMinY(), (int) (bounds.getMinX() + bounds.getWidth() / 4) + thickness, (int) bounds.getMaxY(), GRID_COLOR);
+                graphics.fill((int) (bounds.getMinX() + bounds.getWidth() / 2), (int) bounds.getMinY(), (int) (bounds.getMinX() + bounds.getWidth() / 2) + thickness, (int) bounds.getMaxY(), GRID_COLOR);
+                graphics.fill((int) (bounds.getMinX() + bounds.getWidth() * 3 / 4), (int) bounds.getMinY(), (int) (bounds.getMinX() + bounds.getWidth() * 3 / 4) + thickness, (int) bounds.getMaxY(), GRID_COLOR);
+                // Horizontal lines
+                graphics.fill((int) bounds.getMinX(), (int) (bounds.getMinY() + bounds.getHeight() / 4), (int) bounds.getMaxX(), (int) (bounds.getMinY() + bounds.getHeight() / 4) + thickness, GRID_COLOR);
+                graphics.fill((int) bounds.getMinX(), (int) (bounds.getMinY() + bounds.getHeight() / 2), (int) bounds.getMaxX(), (int) (bounds.getMinY() + bounds.getHeight() / 2) + thickness, GRID_COLOR);
+                graphics.fill((int) bounds.getMinX(), (int) (bounds.getMinY() + bounds.getHeight() * 3 / 4), (int) bounds.getMaxX(), (int) (bounds.getMinY() + bounds.getHeight() * 3 / 4) + thickness, GRID_COLOR);
+
+                // Outline
+                graphics.fill((int) bounds.getMinX(), (int) bounds.getMinY(), (int) bounds.getMaxX(), (int) bounds.getMinY() + thickness, OUTLINE_COLOR);
+                graphics.fill((int) bounds.getMinX(), (int) bounds.getMinY(), (int) bounds.getMinX() + thickness, (int) bounds.getMaxY(), OUTLINE_COLOR);
+                graphics.fill((int) bounds.getMaxX() - thickness, (int) bounds.getMinY(), (int) bounds.getMaxX(), (int) bounds.getMaxY(), OUTLINE_COLOR);
+                graphics.fill((int) bounds.getMinX(), (int) bounds.getMaxY() - thickness, (int) bounds.getMaxX(), (int) bounds.getMaxY(), OUTLINE_COLOR);
             }
         }
     }
@@ -166,9 +188,13 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     }
 
     @Override
-    public void tick(float partialTick, int mouseX, int mouseY) {
+    public final void tick(float partialTick, int mouseX, int mouseY) {
         updateHover(mouseX, mouseY);
         onTick(partialTick);
+
+        if (this.settings.snapToTargetPosition) {
+            snapToTarget();
+        }
     }
 
     protected void updateHover(int mouseX, int mouseY) {
@@ -238,6 +264,14 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         return this.currentPosition;
     }
 
+    public void setShowBounds(boolean showBounds) {
+        this.settings = this.settings.withShowBounds(showBounds);
+    }
+
+    public void setShowGridLines(boolean showGridLines) {
+        this.settings = this.settings.withShowGridLines(showGridLines);
+    }
+
     /**
      * These methods should be implemented by the extending class. They define the width and height of the element.
      * It is queried constantly by the rendering system to determine the bounds of the element.
@@ -285,11 +319,11 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     /**
      * Render settings for the element.
      */
-    public record Settings(Anchor anchor, Vector4f padding, float animationSpeed, boolean hiddenByDefault, boolean showBounds, boolean showAnchor) {
-        public static final Settings DEFAULT = new Settings(Anchor.DEFAULT, new Vector4f(), 0.1F, false, false, false);
+    public record Settings(Anchor anchor, Vector4f padding, float animationSpeed, boolean snapToTargetPosition, boolean hiddenByDefault, boolean showBounds, boolean showAnchor, boolean showGridLines) {
+        public static final Settings DEFAULT = new Settings(Anchor.DEFAULT, new Vector4f(), 0.1F, false, false, false, false, false);
 
         public Settings withAnchor(Anchor anchor) {
-            return new Settings(anchor, this.padding, this.animationSpeed, this.hiddenByDefault, this.showBounds, this.showAnchor);
+            return new Settings(anchor, this.padding, this.animationSpeed, this.snapToTargetPosition, this.hiddenByDefault, this.showBounds, this.showAnchor, this.showGridLines);
         }
 
         /**
@@ -298,19 +332,31 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
          * @return New settings with padding applied
          */
         public Settings withPadding(Vector4f padding) {
-            return new Settings(this.anchor, padding, this.animationSpeed, this.hiddenByDefault, this.showBounds, this.showAnchor);
+            return new Settings(this.anchor, padding, this.animationSpeed, this.snapToTargetPosition, this.hiddenByDefault, this.showBounds, this.showAnchor, this.showGridLines);
         }
 
         public Settings withHiddenByDefault(boolean hiddenByDefault) {
-            return new Settings(this.anchor, this.padding, this.animationSpeed, hiddenByDefault, this.showBounds, this.showAnchor);
+            return new Settings(this.anchor, this.padding, this.animationSpeed, this.snapToTargetPosition, hiddenByDefault, this.showBounds, this.showAnchor, this.showGridLines);
         }
 
         public Settings withShowBounds(boolean showBounds) {
-            return new Settings(this.anchor, this.padding, this.animationSpeed, this.hiddenByDefault, showBounds, this.showAnchor);
+            return new Settings(this.anchor, this.padding, this.animationSpeed, this.snapToTargetPosition, this.hiddenByDefault, showBounds, this.showAnchor, this.showGridLines);
         }
 
         public Settings withShowAnchor(boolean showAnchor) {
-            return new Settings(this.anchor, this.padding, this.animationSpeed, this.hiddenByDefault, this.showBounds, showAnchor);
+            return new Settings(this.anchor, this.padding, this.animationSpeed, this.snapToTargetPosition, this.hiddenByDefault, this.showBounds, showAnchor, this.showGridLines);
+        }
+
+        public Settings withAnimationSpeed(float animationSpeed) {
+            return new Settings(this.anchor, this.padding, animationSpeed, this.snapToTargetPosition, this.hiddenByDefault, this.showBounds, this.showAnchor, this.showGridLines);
+        }
+
+        public Settings withSnapToTargetPosition(boolean snapToTargetPosition) {
+            return new Settings(this.anchor, this.padding, this.animationSpeed, snapToTargetPosition, this.hiddenByDefault, this.showBounds, this.showAnchor, this.showGridLines);
+        }
+
+        public Settings withShowGridLines(boolean showGridLines) {
+            return new Settings(this.anchor, this.padding, this.animationSpeed, this.snapToTargetPosition, this.hiddenByDefault, this.showBounds, this.showAnchor, showGridLines);
         }
     }
 }

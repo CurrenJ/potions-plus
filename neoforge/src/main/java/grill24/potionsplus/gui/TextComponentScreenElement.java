@@ -40,7 +40,7 @@ public class TextComponentScreenElement extends RenderableScreenElement {
 
     @Override
     protected float getHeight() {
-        return screen.getMinecraft().font.lineHeight;
+        return getWidth() == 0 ? 0 : screen.getMinecraft().font.lineHeight;
     }
 
     @Override
