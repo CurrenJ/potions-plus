@@ -16,8 +16,8 @@ public class HorizontalListScreenElement<E extends RenderableScreenElement> exte
     }
 
     @Override
-    protected void onTick(float partialTick) {
-        super.onTick(partialTick);
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
+        super.onTick(partialTick, mouseX, mouseY);
 
         Rectangle2D bounds = getGlobalBounds();
         float height = (float) bounds.getHeight();

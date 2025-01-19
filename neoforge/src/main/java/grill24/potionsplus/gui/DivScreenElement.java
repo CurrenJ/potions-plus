@@ -26,7 +26,7 @@ public class DivScreenElement<E extends RenderableScreenElement> extends ScreenE
     }
 
     @Override
-    protected void onTick(float partialTick) {
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
         Rectangle2D bounds = this.getGlobalBounds();
         float width = (float) bounds.getWidth();
         float height = (float) bounds.getHeight();
@@ -51,6 +51,10 @@ public class DivScreenElement<E extends RenderableScreenElement> extends ScreenE
         Vector3f targetPosition = new Vector3f(xOffset, yOffset, 0);
         child.setTargetPosition(targetPosition, Scope.LOCAL, false);
 
-        super.onTick(partialTick);
+        super.onTick(partialTick, mouseX, mouseY);
+    }
+
+    protected E getChild() {
+        return getChildren().iterator().next();
     }
 }

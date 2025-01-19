@@ -66,7 +66,7 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
     }
 
     @Override
-    protected void onTick(float partialTick) {
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
         // Update wheel rotation
         tickWheelRotation(partialTick, hoveredItem != null);
 
@@ -80,7 +80,7 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
             display.setSelected(display == selectedItem);
         }
 
-        super.onTick(partialTick);
+        super.onTick(partialTick, mouseX, mouseY);
     }
 
     private void initializeItemDisplays(Screen screen, RegistryAccess registryAccess) {
@@ -98,7 +98,7 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
         for (ResourceKey<ConfiguredSkill<?, ?>> skill : skills) {
             itemDisplays.computeIfAbsent(index, k -> {
                         // Create item display for the skill
-                        SkillIconScreenElement display = new SkillIconScreenElement(screen, Settings.DEFAULT, holderGetter.getOrThrow(skill), SkillIconsScreenElement.BASE_SCALE);
+                        SkillIconScreenElement display = new SkillIconScreenElement(screen, Settings.DEFAULT.withAnchor(Anchor.CENTER), holderGetter.getOrThrow(skill), SkillIconsScreenElement.BASE_SCALE);
                         // Parent to this element
                         display.setParent(this);
                         // Add click listener
@@ -171,7 +171,7 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
         for (SkillIconScreenElement display : itemDisplays.values()) {
             if (display.isSelected) {
                 Rectangle2D itemBounds = display.getGlobalBounds();
-                display.setTargetPosition(new Vector3f((float) (bounds.getWidth() / 2F - itemBounds.getWidth() / 2F), (float) (bounds.getHeight() / 2F - itemBounds.getHeight() / 2F), 0), Scope.LOCAL, false);
+                display.setTargetPosition(new Vector3f((float) (bounds.getWidth() / 2F), (float) (bounds.getHeight() / 2F), 0), Scope.LOCAL, false);
             } else if (index < pointsInWheel.length) {
                 display.setTargetPosition(pointsInWheel[index], Scope.LOCAL, false);
                 index++;
@@ -180,7 +180,8 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
     }
 
     public float getRadius() {
-        return Math.min(this.screen.width, this.screen.height) * (deselectedTimestamp != -1 ?
+        float baseRadius = Math.min(this.screen.width, this.screen.height);
+        return baseRadius * (deselectedTimestamp != -1 ?
                 SpatialAnimations.get(SpatialAnimations.SKILL_ICON_WHEEL_DESELECTED).getScale().evaluate(getSelectAnimationProgress()) :
                 SpatialAnimations.get(SpatialAnimations.SKILL_ICON_WHEEL_SELECTED).getScale().evaluate(getSelectAnimationProgress()));
     }

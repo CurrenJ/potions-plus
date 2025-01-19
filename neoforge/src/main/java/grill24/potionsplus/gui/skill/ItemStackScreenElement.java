@@ -54,6 +54,9 @@ public class ItemStackScreenElement extends RenderableScreenElement {
         }
 
         Rectangle2D bounds = getGlobalBounds();
+        // By default, send the item to the back of the screen render order because we want text and other elements to render on top of it.
+        graphics.pose().pushPose();
+        graphics.pose().translate(0, 0, -100);
         ((IGuiGraphicsMixin) graphics).potions_plus$renderItem(
                 this.stack,
                 new Vector3f(0, this.rotation, 0),
@@ -61,7 +64,6 @@ public class ItemStackScreenElement extends RenderableScreenElement {
                 (float) (bounds.getMinY()),
                 this.scale,
                 Anchor.DEFAULT);
-
-        super.render(graphics, partialTick, mouseX, mouseY);
+        graphics.pose().popPose();
     }
 }

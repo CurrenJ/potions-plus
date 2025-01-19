@@ -23,7 +23,7 @@ public class SkillIconsDivElement extends DivScreenElement<SkillIconsScreenEleme
         }
 
         if (getChildren().iterator().next() instanceof SkillIconsScreenElement skillsIcons) {
-            return skillsIcons.getRadius() * 2;
+            return skillsIcons.getRadius() * 2 + 16;
         }
         return 0;
     }
@@ -35,7 +35,7 @@ public class SkillIconsDivElement extends DivScreenElement<SkillIconsScreenEleme
         }
 
         if (getChildren().iterator().next() instanceof SkillIconsScreenElement skillsIcons) {
-            return skillsIcons.getRadius() * 2;
+            return skillsIcons.getRadius() * 2 + 16;
         }
         return 0;
     }

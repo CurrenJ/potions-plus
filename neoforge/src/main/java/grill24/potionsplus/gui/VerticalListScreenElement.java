@@ -16,7 +16,7 @@ public class VerticalListScreenElement<E extends RenderableScreenElement> extend
     }
 
     @Override
-    protected void onTick(float partialTick) {
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
         int height = 0;
         for (RenderableScreenElement element : getChildren()) {
             Rectangle2D childBounds = element.getGlobalBounds();
@@ -32,7 +32,7 @@ public class VerticalListScreenElement<E extends RenderableScreenElement> extend
             height += (int) childBounds.getHeight();
         }
 
-        super.onTick(partialTick);
+        super.onTick(partialTick, mouseX, mouseY);
     }
 
     @Override

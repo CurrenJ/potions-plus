@@ -27,10 +27,10 @@ public class AbilityTextScreenElement extends TextComponentScreenElement {
     }
 
     @Override
-    protected void onTick(float partialTick) {
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
         setTargetColor(getTargetColor(ability.isEnabled()));
 
-        super.onTick(partialTick);
+        super.onTick(partialTick, mouseX, mouseY);
     }
 
     @Override

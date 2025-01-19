@@ -39,7 +39,7 @@ class SkillIconScreenElement extends ItemStackScreenElement {
     }
 
     @Override
-    protected void onTick(float partialTick) {
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
         // Update ItemStack
         Player player = this.screen.getMinecraft().player;
         if (player == null) {
@@ -63,7 +63,7 @@ class SkillIconScreenElement extends ItemStackScreenElement {
                 SpatialAnimations.get(SpatialAnimations.SKILL_ICON_UNHOVER).getScale().evaluate(animationProgress);
         this.scale *= baseScale;
 
-        super.onTick(partialTick);
+        super.onTick(partialTick, mouseX, mouseY);
     }
 
     @Override

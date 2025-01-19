@@ -1,21 +1,29 @@
 package grill24.potionsplus.gui;
 
+import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.event.ItemListenersGame;
+import grill24.potionsplus.render.animation.keyframe.AnimationCurve;
+import grill24.potionsplus.render.animation.keyframe.FloatAnimationCurve;
 import grill24.potionsplus.utility.ClientTickHandler;
+import grill24.potionsplus.utility.IGuiGraphicsMixin;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Collections;
-import java.util.List;
 
 public class TextComponentScreenElement extends RenderableScreenElement {
     protected Component component;
+
     private Color currentColor;
     private Color targetColor;
+
+    private FloatAnimationCurve shownAnimation;
+    private FloatAnimationCurve hiddenAnimation;
 
     public TextComponentScreenElement(Screen screen, Settings settings, Color defaultColor, Component component) {
         super(screen, null, settings);
@@ -23,6 +31,20 @@ public class TextComponentScreenElement extends RenderableScreenElement {
         this.component = component;
         this.currentColor = defaultColor;
         this.targetColor = defaultColor;
+
+        this.shownAnimation = null;
+        this.hiddenAnimation = null;
+    }
+
+    public TextComponentScreenElement(Screen screen, Settings settings, Color defaultColor, Component component, FloatAnimationCurve shownAnimation, FloatAnimationCurve hiddenAnimation) {
+        super(screen, null, settings);
+
+        this.component = component;
+        this.currentColor = defaultColor;
+        this.targetColor = defaultColor;
+
+        this.shownAnimation = shownAnimation;
+        this.hiddenAnimation = hiddenAnimation;
     }
 
     public Color getColor() {
@@ -35,19 +57,21 @@ public class TextComponentScreenElement extends RenderableScreenElement {
 
     @Override
     protected float getWidth() {
-        return screen.getMinecraft().font.width(component);
+        float width = screen.getMinecraft().font.width(component);
+        return Float.max(Float.min(width, settings.maxWidth()), settings.minWidth());
     }
 
     @Override
     protected float getHeight() {
-        return getWidth() == 0 ? 0 : screen.getMinecraft().font.lineHeight;
+        float height = getWidth() == 0 ? 0 : screen.getMinecraft().font.lineHeight;
+        return Float.max(Float.min(height, settings.maxHeight()), settings.minHeight());
     }
 
     @Override
-    protected void onTick(float partialTick) {
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
         tickColor(partialTick);
 
-        super.onTick(partialTick);
+        super.onTick(partialTick, mouseX, mouseY);
     }
 
     private void tickColor(float partialTick) {
@@ -59,22 +83,52 @@ public class TextComponentScreenElement extends RenderableScreenElement {
         this.currentColor = new Color(r, g, b);
     }
 
+    private static final AnimationCurve<Float> defaultShownAnimation = new FloatAnimationCurve();
+    static {
+        defaultShownAnimation.addKeyframe(AnimationCurve.Keyframe.<Float>builder()
+                .time(0F)
+                .value(0F)
+                .build());
+        defaultShownAnimation.addKeyframe(AnimationCurve.Keyframe.<Float>builder()
+                .time(10F)
+                .value(1F)
+                .build());
+    }
+    private static final AnimationCurve<Float> defaultHiddenAnimation = new FloatAnimationCurve();
+    static {
+        defaultHiddenAnimation.addKeyframe(AnimationCurve.Keyframe.<Float>builder()
+                .time(0F)
+                .value(1F)
+                .build());
+        defaultHiddenAnimation.addKeyframe(AnimationCurve.Keyframe.<Float>builder()
+                .time(5F)
+                .value(0F)
+                .build());
+    }
+
+    public AnimationCurve<Float> getShownAnimation() {
+        return shownAnimation;
+    }
+
+    public AnimationCurve<Float> getHiddenAnimation() {
+        return hiddenAnimation;
+    }
+
     @Override
     public void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         // Animate and render text
-        List<List<Component>> abilitiesComponents = Collections.singletonList(Collections.singletonList(this.component));
-        List<Component> animatedComponents = ItemListenersGame.animateComponentText(abilitiesComponents, shownTimestamp);
+        Pair<MutableComponent, Integer> animatedComponent = ItemListenersGame.animateComponentText(Collections.singletonList(this.component), getAnimationProgress(getShownAnimation(), getHiddenAnimation()));
 
-        for (Component component : animatedComponents) {
-            Rectangle2D bounds = getGlobalBounds();
+        Rectangle2D bounds = getGlobalBounds();
+        float x = (float) bounds.getMinX();
+        float y = (float) bounds.getMinY();
 
-            int x = (int) Math.round(bounds.getMinX());
-            int y = (int) Math.round(bounds.getMinY());
-
-            // Render text
-            graphics.drawString(this.screen.getMinecraft().font, component,
-                    x, y, this.currentColor.getRGB());
-        }
+        // Render text
+        IGuiGraphicsMixin guiGraphics = (IGuiGraphicsMixin) graphics;
+        graphics.setColor(1F, 1F, 1F, this.currentColor.getAlpha() / 255F);
+        guiGraphics.potions_plus$drawString(this.screen.getMinecraft().font, animatedComponent.getFirst(),
+                x, y, this.currentColor.getRGB());
+        graphics.setColor(1F, 1F, 1F, 1F);
     }
 
     public void setComponent(Component component) {

@@ -100,7 +100,7 @@ public class SkillsScreen extends AbstractContainerScreen<SkillsMenu> {
         // Render help text
         Font font = this.getMinecraft().font;
         Component component = Component.translatable(Translations.TOOLTIP_POTIONSPLUS_SKILL_JOURNAL_NONE);
-        List<Component> animatedComponents = ItemListenersGame.animateComponentText(Collections.singletonList(Collections.singletonList(component)), screenOpenedTimestamp);
+        List<Component> animatedComponents = ItemListenersGame.animateComponentTextStartTime(Collections.singletonList(Collections.singletonList(component)), screenOpenedTimestamp);
 
         int textWidth = font.width(component);
         int textHeight = font.lineHeight;

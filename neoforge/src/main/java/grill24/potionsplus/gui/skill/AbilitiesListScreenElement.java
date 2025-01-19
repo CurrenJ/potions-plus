@@ -25,7 +25,7 @@ public class AbilitiesListScreenElement extends VerticalListScreenElement<Abilit
     }
 
     @Override
-    protected void onTick(float partialTicks) {
+    protected void onTick(float partialTicks, int mouseX, int mouseY) {
         Player player = this.screen.getMinecraft().player;
         if (player == null) {
             return;
@@ -41,7 +41,7 @@ public class AbilitiesListScreenElement extends VerticalListScreenElement<Abilit
             }
         }
 
-        super.onTick(partialTicks);
+        super.onTick(partialTicks, mouseX, mouseY);
     }
 
     private List<AbilityTextScreenElement> createAbilityDisplays() {

@@ -62,11 +62,11 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
 
 
     @Override
-    protected void onTick(float partialTick) {
-        super.onTick(partialTick);
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
+        super.onTick(partialTick, mouseX, mouseY);
 
         for (RenderableScreenElement child : getChildren()) {
-            child.onTick(partialTick);
+            child.tick(partialTick, mouseX, mouseY);
         }
     }
 
@@ -75,8 +75,6 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
         for (IRenderableScreenElement child : getChildren()) {
             child.tryRender(graphics, partialTick, mouseX, mouseY);
         }
-
-        super.render(graphics, partialTick, mouseX, mouseY);
     }
 
     @Override
@@ -112,6 +110,22 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
         // Cascade update children
         for (E child : getChildren()) {
             child.updateHover(mouseX, mouseY);
+        }
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        for (E child : getChildren()) {
+            child.show();
+        }
+    }
+
+    @Override
+    public void hide() {
+        super.hide();
+        for (E child : getChildren()) {
+            child.hide();
         }
     }
 

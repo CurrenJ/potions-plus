@@ -196,7 +196,7 @@ public class ItemListenersGame {
         lastItemStack = event.getItemStack();
     }
 
-    public static List<Component> animateComponentText(List<List<Component>> components, float animationStartTimestamp) {
+    public static List<Component> animateComponentTextStartTime(List<List<Component>> components, float animationStartTimestamp) {
         List<Component> animatedComponents = new ArrayList<>();
         for (int i = 0; i < components.size(); i++) {
             List<Component> component = components.get(i);
@@ -209,11 +209,16 @@ public class ItemListenersGame {
     }
 
     private static Pair<MutableComponent, Integer> animateComponentText(List<Component> component, float duration, int delayTicks, float animationStartTimestamp) {
-        // Join all the components passed into one string, then split it at the appropriate index according to the animation progress
-        String totalString = component.stream().map(Component::getString).collect(Collectors.joining());
         float f = RUtil.lerp(0.0F, 1.0F, RUtil.easeOutSine(Math.clamp((ClientTickHandler.total() - animationStartTimestamp - delayTicks) / duration, 0.0F, 1.0F)));
         f = Math.clamp(f, 0.0F, 1.0F);
-        int splitIndex = Math.round(f * totalString.length());
+
+        return animateComponentText(component, f);
+    }
+
+    public static Pair<MutableComponent, Integer> animateComponentText(List<Component> component, float animationProgress) {
+        // Join all the components passed into one string, then split it at the appropriate index according to the animation progress
+        String totalString = component.stream().map(Component::getString).collect(Collectors.joining());
+        int splitIndex = Math.round(animationProgress * totalString.length());
 
         // Iterate over the components and split them at the appropriate index
         // Add any components with remaining text to our final list
