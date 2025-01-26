@@ -94,7 +94,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
             this.isUnlocked = isAdvancementUnlocked(this.milestone.advancementId());
             this.tooltip = new SimpleTooltipScreenElement(this.screen, Settings.DEFAULT.withAnchor(Anchor.BOTTOM_LEFT).withAnimationSpeed(1.0F).withHiddenByDefault(true), this.isUnlocked ? Color.GREEN : Color.RED, display.getDescription());
         } else {
-            hide();
+            hide(false);
         }
     }
 
@@ -141,7 +141,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
     @Override
     protected void onMouseExit(int x, int y) {
         if (this.tooltip != null) {
-            this.tooltip.hide();
+            this.tooltip.hide(false);
         }
     }
 }

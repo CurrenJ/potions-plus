@@ -257,9 +257,9 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     protected void onShow() {}
 
     @Override
-    public void hide() {
+    public void hide(boolean playHideAnimation) {
         // Hide the element
-        this.hiddenTimestamp = ClientTickHandler.total();
+        this.hiddenTimestamp = playHideAnimation ? ClientTickHandler.total() : -1;
         this.shownTimestamp = -1;
     }
 

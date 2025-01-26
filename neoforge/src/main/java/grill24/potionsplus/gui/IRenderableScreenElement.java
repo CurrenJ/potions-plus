@@ -12,7 +12,7 @@ public interface IRenderableScreenElement {
     void click(int mouseX, int mouseY);
 
     void show();
-    void hide();
+    void hide(boolean hidePlayAnimation);
     boolean isVisible();
     boolean isHovering();
     void setTargetPosition(Vector3f targetPosition, RenderableScreenElement.Scope targetPositionScope, boolean instant);

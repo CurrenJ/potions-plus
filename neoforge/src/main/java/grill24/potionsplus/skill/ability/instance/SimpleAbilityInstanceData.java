@@ -1,4 +1,4 @@
-package grill24.potionsplus.skill.ability;
+package grill24.potionsplus.skill.ability.instance;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -6,6 +6,9 @@ import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
 import grill24.potionsplus.skill.SkillsData;
+import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
+import grill24.potionsplus.skill.ability.PlayerAbility;
+import grill24.potionsplus.skill.ability.PlayerAbilityConfiguration;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
@@ -17,29 +20,29 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringUtil;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-public class AbilityInstance {
-    public static final Codec<AbilityInstance> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
-            ConfiguredPlayerAbility.HOLDER_CODECS.holderCodec().fieldOf("ability").forGetter(instance -> instance.ability),
+public class SimpleAbilityInstanceData {
+    public static final Codec<SimpleAbilityInstanceData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
+            ConfiguredPlayerAbility.HOLDER_CODECS.holderCodec().fieldOf("type").forGetter(instance -> instance.ability),
             Codec.BOOL.optionalFieldOf("isEnabled", false).forGetter(instance -> instance.isEnabled)
-    ).apply(codecBuilder, AbilityInstance::new));
+    ).apply(codecBuilder, SimpleAbilityInstanceData::new));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, AbilityInstance> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, SimpleAbilityInstanceData> STREAM_CODEC = StreamCodec.composite(
             ConfiguredPlayerAbility.HOLDER_CODECS.holderStreamCodec(),
             (instance) -> instance.ability,
             ByteBufCodecs.BOOL,
             (instance) -> instance.isEnabled,
-            AbilityInstance::new);
+            SimpleAbilityInstanceData::new);
 
     protected final Holder<ConfiguredPlayerAbility<?, ?>> ability;
     protected boolean isEnabled;
 
     // For deserialization
-    private AbilityInstance(Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled) {
+    protected SimpleAbilityInstanceData(Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled) {
         this.ability = ability;
         this.isEnabled = isEnabled;
     }
 
-    public AbilityInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled) {
+    public SimpleAbilityInstanceData(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled) {
         this.ability = ability;
 
         if (isEnabled && getConfiguredAbility().config().getData().enabledByDefault()) {
@@ -101,6 +104,7 @@ public class AbilityInstance {
         }
     }
 
+
     public Component getDescription() {
         return getDescription(false);
     }
@@ -117,13 +121,15 @@ public class AbilityInstance {
             component.append(Component.translatable(this.isEnabled ? Translations.GENERIC_POTIONSPLUS_ENABLED : Translations.GENERIC_POTIONSPLUS_DISABLED).withStyle(style));
             component.append(Component.literal("] ").withStyle(style));
         }
-        component.append(getConfiguredAbility().getDescription().copy().withStyle(style));
+
+        Component description = getConfiguredAbility().getDescription();
+        component.append(description.copy().withStyle(style));
 
 
         return component;
     }
 
-    private String getToggleCommand() {
+    protected String getToggleCommand() {
         return "/potionsplus skill ability byId " + ability.getKey().location() + " toggle";
     }
 }

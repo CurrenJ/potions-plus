@@ -107,11 +107,11 @@ public class TextComponentScreenElement extends RenderableScreenElement {
     }
 
     public AnimationCurve<Float> getShownAnimation() {
-        return shownAnimation;
+        return shownAnimation != null ? shownAnimation : defaultShownAnimation;
     }
 
     public AnimationCurve<Float> getHiddenAnimation() {
-        return hiddenAnimation;
+        return hiddenAnimation != null ? hiddenAnimation : defaultHiddenAnimation;
     }
 
     @Override
@@ -131,8 +131,10 @@ public class TextComponentScreenElement extends RenderableScreenElement {
         graphics.setColor(1F, 1F, 1F, 1F);
     }
 
-    public void setComponent(Component component) {
-        this.component = component;
-        this.shownTimestamp = ClientTickHandler.total();
+    public void setComponent(Component component, boolean restartAnimation) {
+        this.component = component.copy();
+        if (restartAnimation) {
+            this.shownTimestamp = ClientTickHandler.total();
+        }
     }
 }

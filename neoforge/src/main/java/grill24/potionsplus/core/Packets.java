@@ -21,6 +21,13 @@ public class Packets {
                 ServerboundConstructClotheslinePacket.ServerPayloadHandler::handleDataOnMain
         );
 
+        // Update Ability Strength Packet
+        registrar.playToServer(
+                ServerboundUpdateAbilityStrengthPacket.TYPE,
+                ServerboundUpdateAbilityStrengthPacket.STREAM_CODEC,
+                ServerboundUpdateAbilityStrengthPacket.ServerPayloadHandler::handleDataOnMain
+        );
+
 
         // ----- Clientbound Packets -----
 

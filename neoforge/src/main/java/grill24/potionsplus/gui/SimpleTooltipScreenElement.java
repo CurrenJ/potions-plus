@@ -120,13 +120,13 @@ public class SimpleTooltipScreenElement extends DivScreenElement<TextComponentSc
 
         // Draw outline
         IGuiGraphicsMixin graphicsMixin = (IGuiGraphicsMixin) graphics;
-        graphicsMixin.potions_plus$fill(minX, minY, minX + this.outlineWidth, minY + height, OUTLINE_Z, OUTLINE_COLOR_DARK);
-        graphicsMixin.potions_plus$fill(minX, minY, minX + width, minY + this.outlineHeight, OUTLINE_Z, OUTLINE_COLOR_DARK);
-        graphicsMixin.potions_plus$fill(minX + width, minY, minX + width + this.outlineWidth, minY + height, OUTLINE_Z, OUTLINE_COLOR_LIGHT);
-        graphicsMixin.potions_plus$fill(minX, minY + height, minX + width, minY + height + this.outlineHeight, OUTLINE_Z, OUTLINE_COLOR_LIGHT);
+        graphicsMixin.potions_plus$fill(minX, minY, minX + this.outlineWidth, minY + height, 0, OUTLINE_Z, OUTLINE_COLOR_DARK);
+        graphicsMixin.potions_plus$fill(minX, minY, minX + width, minY + this.outlineHeight, 0, OUTLINE_Z, OUTLINE_COLOR_DARK);
+        graphicsMixin.potions_plus$fill(minX + width - this.outlineWidth, minY, minX + width, minY + height, 0, OUTLINE_Z, OUTLINE_COLOR_LIGHT);
+        graphicsMixin.potions_plus$fill(minX, minY + height - this.outlineHeight, minX + width, minY + height, 0, OUTLINE_Z, OUTLINE_COLOR_LIGHT);
 
         // Fill background
-        graphicsMixin.potions_plus$fill(minX, minY, minX + width, minY + height, FILL_Z, FastColor.ARGB32.color(255, 198, 198, 198));
+        graphicsMixin.potions_plus$fill(minX, minY, minX + width, minY + height, 0, FILL_Z, FastColor.ARGB32.color(255, 198, 198, 198));
 
         // Render tooltip text in front of the background.
         graphics.pose().pushPose();

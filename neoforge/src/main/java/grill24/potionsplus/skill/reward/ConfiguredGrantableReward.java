@@ -44,7 +44,9 @@ public record ConfiguredGrantableReward<RC extends GrantableRewardConfiguration,
         }
 
         // Display the item activation
-        PacketDistributor.sendToPlayer(player, new ClientboundDisplayTossupAnimationPacket(newItems, 5, 0.75F));
+        if(!newItems.isEmpty()) {
+            PacketDistributor.sendToPlayer(player, new ClientboundDisplayTossupAnimationPacket(newItems, 5, 0.75F));
+        }
     }
 
     public Optional<Component> getDescription() {

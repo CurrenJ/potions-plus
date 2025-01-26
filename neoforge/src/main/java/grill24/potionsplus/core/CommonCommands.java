@@ -7,7 +7,6 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.block.SkillJournalsBlock;
 import grill24.potionsplus.core.potion.Potions;
-import grill24.potionsplus.gui.skill.SkillsMenu;
 import grill24.potionsplus.network.ClientboundDisplayTossupAnimationPacket;
 import grill24.potionsplus.network.ClientboundDisplayWheelAnimationPacket;
 import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
@@ -17,8 +16,8 @@ import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.render.animation.keyframe.Interpolation;
 import grill24.potionsplus.render.animation.keyframe.*;
 import grill24.potionsplus.skill.*;
-import grill24.potionsplus.skill.ability.AbilityInstance;
 import grill24.potionsplus.skill.ability.PlayerAbility;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
 import grill24.potionsplus.utility.DelayedServerEvents;
 import grill24.potionsplus.utility.InvUtil;
@@ -33,7 +32,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
@@ -382,8 +380,8 @@ public class CommonCommands {
                                                             ResourceLocation abilityId = ConfiguredPlayerAbilityArgument.getHolder(context, "abilityId").getKey().location();
                                                             SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> {
                                                                 skillsData.getAbilityInstance(context.getSource().registryAccess(), abilityId).ifPresent(abilityInstance -> {
-                                                                    abilityInstance.toggle(context.getSource().getPlayer());
-                                                                    context.getSource().sendSuccess(() -> abilityInstance.getDescription(true), true);
+                                                                    abilityInstance.data().toggle(context.getSource().getPlayer());
+                                                                    context.getSource().sendSuccess(() -> abilityInstance.data().getDescription(true), true);
                                                                 });
                                                             }));
 
@@ -401,7 +399,7 @@ public class CommonCommands {
 
                                                         SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData1 -> {
                                                             skillsData1.getAbilityInstance(context.getSource().registryAccess(), abilityId).ifPresentOrElse(abilityInstance -> {
-                                                                component.append(abilityInstance.getDescription(true));
+                                                                component.append(abilityInstance.data().getDescription(true));
                                                                 context.getSource().sendSuccess(() -> component, true);
                                                             }, () -> context.getSource().sendFailure(Component.literal("No unlocked ability found.")));
                                                         }));
@@ -420,9 +418,9 @@ public class CommonCommands {
                                         MutableComponent component = Component.empty();
                                         boolean hasAbilities = false;
 
-                                        for (Map.Entry<ResourceKey<PlayerAbility<?, ?>>, List<AbilityInstance>> entry : skillsData.activeAbilities().entrySet()) {
-                                            for (AbilityInstance abilityInstance : entry.getValue()) {
-                                                Component abilityComponent = abilityInstance.getDescription();
+                                        for (Map.Entry<ResourceKey<PlayerAbility<?, ?>>, List<AbilityInstanceSerializable<?, ?>>> entry : skillsData.activeAbilities().entrySet()) {
+                                            for (AbilityInstanceSerializable<?, ?> abilityInstance : entry.getValue()) {
+                                                Component abilityComponent = abilityInstance.data().getDescription();
                                                 if (hasAbilities) {
                                                     component.append(Component.literal(", ").withStyle(abilityComponent.getStyle()));
                                                 }

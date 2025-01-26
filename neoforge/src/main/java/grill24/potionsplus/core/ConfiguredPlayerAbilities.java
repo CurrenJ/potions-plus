@@ -132,7 +132,7 @@ public class ConfiguredPlayerAbilities {
         // Movement Speed Permanent
         generateAttributeBonuses(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_MOVEMENT_SPEED_BONUS, ConfiguredSkills.WALKING,
                 PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get(), Attributes.MOVEMENT_SPEED,
-                AttributeModifier.Operation.ADD_VALUE, MOVEMENT_SPEED_BONUS_KEYS, 0.005, 0.001, 0.015, 0.02, 0.025);
+                AttributeModifier.Operation.ADD_VALUE, MOVEMENT_SPEED_BONUS_KEYS, 0.005, 0.01, 0.015, 0.02, 0.025);
 
         // Sprinting Speed Permanent
         generateAttributeBonuses(context, Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SPRINT_SPEED_BONUS, ConfiguredSkills.SPRINTING,
@@ -151,7 +151,7 @@ public class ConfiguredPlayerAbilities {
     }
 
     /**
-     * Generate a simple ability with a translation key. The ability has no effect. Used as a simple off/on toggle to be referenced in custom behaviours
+     * Generate a simple type with a translation key. The type has no effect. Used as a simple off/on toggle to be referenced in custom behaviours
      * <p>
      * (i.e. loot modifiers use the condition {@link HasPlayerAbilityCondition} as seen in {@link grill24.potionsplus.data.loot.GlobalLootModifierProvider}).
      * @param context
@@ -174,7 +174,7 @@ public class ConfiguredPlayerAbilities {
     /**
      * Generate abilities with attribute modifiers.
      * @param context Boostrap context for data generation
-     * @param translationKey Translation key for the short ability description
+     * @param translationKey Translation key for the short type description
      * @param ability Ability type to create ({@link PermanentAttributeModifiersAbility} or {@link AttributeModifiersWhileHeldAbility}).
      * @param attribute The attribute to modify. Can use built-in attributes or custom attributes from {@link grill24.potionsplus.core.Attributes}.
      * @param operation The operation to apply to the attribute modifier.

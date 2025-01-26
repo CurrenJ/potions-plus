@@ -7,12 +7,23 @@ import java.awt.geom.Rectangle2D;
 
 public class HorizontalListScreenElement<E extends RenderableScreenElement> extends ScreenElementWithChildren<E> {
     private YAlignment alignment;
+    private float paddingBetweenElements;
+
+    private float width;
 
     @SafeVarargs
     public HorizontalListScreenElement(Screen screen, Settings settings, YAlignment alignment, E... elements) {
         super(screen, null, settings, elements);
 
         this.alignment = alignment;
+    }
+
+    @SafeVarargs
+    public HorizontalListScreenElement(Screen screen, Settings settings, YAlignment alignment, float paddingBetweenElements, E... elements) {
+        super(screen, null, settings, elements);
+
+        this.alignment = alignment;
+        this.paddingBetweenElements = paddingBetweenElements;
     }
 
     @Override
@@ -22,7 +33,7 @@ public class HorizontalListScreenElement<E extends RenderableScreenElement> exte
         Rectangle2D bounds = getGlobalBounds();
         float height = (float) bounds.getHeight();
 
-        int width = 0;
+        this.width = 0;
         for (RenderableScreenElement element : getChildren()) {
             Rectangle2D childBounds = element.getGlobalBounds();
             float childHeight = (float) childBounds.getHeight();
@@ -35,22 +46,18 @@ public class HorizontalListScreenElement<E extends RenderableScreenElement> exte
 
             element.setTargetPosition(new Vector3f(width, yOffset, 0), Scope.LOCAL, false);
             width += (int) childBounds.getWidth();
+            width += paddingBetweenElements;
         }
     }
 
     @Override
     protected float getWidth() {
-        // Get the maximum width of all elements
-        return getChildren().stream()
-                .filter(IRenderableScreenElement::isVisible)
-                .map(IRenderableScreenElement::getGlobalBounds)
-                .map(bounds -> (float) bounds.getWidth())
-                .reduce(Float::sum).orElse(0F);
+        return width;
     }
 
     @Override
     protected float getHeight() {
-        // Get the sum of the heights of all elements
+        // Get the max of the heights of all elements
         return getChildren().stream()
                 .filter(IRenderableScreenElement::isVisible)
                 .map(IRenderableScreenElement::getGlobalBounds)

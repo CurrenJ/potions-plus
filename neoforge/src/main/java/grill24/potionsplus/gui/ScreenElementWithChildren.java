@@ -122,10 +122,10 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
     }
 
     @Override
-    public void hide() {
-        super.hide();
+    public void hide(boolean playHideAnimation) {
+        super.hide(playHideAnimation);
         for (E child : getChildren()) {
-            child.hide();
+            child.hide(playHideAnimation);
         }
     }
 

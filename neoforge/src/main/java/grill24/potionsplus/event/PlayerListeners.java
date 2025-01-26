@@ -173,8 +173,9 @@ public class PlayerListeners {
             PacketDistributor.sendToPlayer(player,
                     ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()),
                     new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()),
-                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
-            SkillsData.updatePlayerData(player, (skillsData -> skillsData.syncAbilitiesEnablement(player)));
+                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player))
+//                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player))
+            );
         }
     }
 

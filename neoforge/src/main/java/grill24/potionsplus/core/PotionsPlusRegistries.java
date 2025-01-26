@@ -4,6 +4,7 @@ import grill24.potionsplus.render.animation.keyframe.AnimationCurveSerializer;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
 import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
 import grill24.potionsplus.skill.reward.GrantableReward;
 import grill24.potionsplus.skill.source.ConfiguredSkillPointSource;
@@ -48,6 +49,11 @@ public class PotionsPlusRegistries {
             .sync(true)
             .create();
 
+    public static final ResourceKey<Registry<AbilityInstanceType<?>>> ABILITY_INSTANCE_TYPE_REGISTRY_KEY = ResourceKey.createRegistryKey(ppId("ability_instance_type"));
+    public static final Registry<AbilityInstanceType<?>> ABILITY_INSTANCE_TYPE = new RegistryBuilder<>(ABILITY_INSTANCE_TYPE_REGISTRY_KEY)
+            .sync(true)
+            .create();
+
 
     // Datapack Registries
     public static final ResourceKey<Registry<ConfiguredSkill<?, ?>>> CONFIGURED_SKILL = ResourceKey.createRegistryKey(ppId("configured_skill"));
@@ -61,6 +67,7 @@ public class PotionsPlusRegistries {
         event.register(SKILL);
         event.register(SKILL_POINT_SOURCE);
         event.register(PLAYER_ABILITY);
+        event.register(ABILITY_INSTANCE_TYPE);
 
         event.register(GRANTABLE_REWARD);
 

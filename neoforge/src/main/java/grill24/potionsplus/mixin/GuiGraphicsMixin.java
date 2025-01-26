@@ -24,12 +24,13 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
-import org.joml.Vector3i;
+import org.joml.*;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+
+import java.awt.geom.Rectangle2D;
+import java.lang.Math;
 
 @Mixin(GuiGraphics.class)
 public abstract class GuiGraphicsMixin implements IGuiGraphicsMixin {
@@ -124,7 +125,7 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsMixin {
     }
 
     @Override
-    public void potions_plus$fill(RenderType renderType, float minX, float minY, float maxX, float maxY, int z, int color) {
+    public void potions_plus$fill(RenderType renderType, float minX, float minY, float maxX, float maxY, Vector2f origin, float rotationDegrees, int z, int color) {
         Matrix4f matrix4f = this.pose.last().pose();
         if (minX < maxX) {
             float i = minX;
@@ -138,22 +139,35 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsMixin {
             maxY = j;
         }
 
+        Vector2f[] points = {
+                new Vector2f(minX, minY),
+                new Vector2f(minX, maxY),
+                new Vector2f(maxX, maxY),
+                new Vector2f(maxX, minY)
+        };
+        RUtil.rotatePointsAround(points, origin, rotationDegrees);
+
         VertexConsumer vertexconsumer = this.bufferSource.getBuffer(renderType);
-        vertexconsumer.addVertex(matrix4f, minX, minY, (float) z).setColor(color);
-        vertexconsumer.addVertex(matrix4f, minX, maxY, (float) z).setColor(color);
-        vertexconsumer.addVertex(matrix4f, maxX, maxY, (float) z).setColor(color);
-        vertexconsumer.addVertex(matrix4f, maxX, minY, (float) z).setColor(color);
+        for (Vector2f point : points) {
+            vertexconsumer.addVertex(matrix4f, point.x(), point.y(), (float) z).setColor(color);
+        }
         this.flushIfUnmanaged();
     }
 
     @Override
-    public void potions_plus$fill(float minX, float minY, float maxX, float maxY, int z, int color) {
-        this.potions_plus$fill(RenderType.gui(), minX, minY, maxX, maxY, z, color);
+    public void potions_plus$fill(float minX, float minY, float maxX, float maxY, Vector2f origin, float rotationDegrees, int z, int color) {
+        this.potions_plus$fill(RenderType.gui(), minX, minY, maxX, maxY, origin, rotationDegrees, z, color);
+    }
+
+    @Override
+    public void potions_plus$fill(float minX, float minY, float maxX, float maxY, float rotationDegrees, int z, int color) {
+        Vector2f center = new Vector2f(minX + (maxX - minX) / 2, minY + (maxY - minY) / 2);
+        this.potions_plus$fill(minX, minY, maxX, maxY, center, rotationDegrees, z, color);
     }
 
     @Override
     public void potions_plus$fill(float minX, float minY, float maxX, float maxY, int color) {
-        this.potions_plus$fill(minX, minY, maxX, maxY, 0, color);
+        this.potions_plus$fill(minX, minY, maxX, maxY, 0, 0, color);
     }
 
     @Override

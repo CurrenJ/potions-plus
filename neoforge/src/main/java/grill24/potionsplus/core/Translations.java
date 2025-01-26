@@ -544,4 +544,5 @@ public class Translations {
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_EMERALD_ORE_256_DESCRIPTION = "advancements.potionsplus.ore_hat.mine_emerald_ore_256.description";
     public static final String TOOLTIP_POTIONSPLUS_REWARD_UNKNOWN_POTION_INGREDIENT_DESCRIPTION = "tooltip.potionsplus.reward.unknown_potion_ingredient.description";
     public static final String ALERT_POTIONSPLUS_REWARD_UNKNOWN_POTION_INGREDIENT = "alert.potionsplus.reward.unknown_potion_ingredient";
+    public static final String ITEM_POTIONSPLUS_FROGGY_HAT = "item.potionsplus.froggy_hat";
 }

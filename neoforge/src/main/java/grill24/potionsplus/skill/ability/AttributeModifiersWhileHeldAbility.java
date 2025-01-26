@@ -1,8 +1,10 @@
 package grill24.potionsplus.skill.ability;
 
-import grill24.potionsplus.core.Attributes;
+import grill24.potionsplus.core.AbilityInstanceTypes;
 import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.skill.SkillsData;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
+import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
 import grill24.potionsplus.utility.IItemAttributeModifiersMixin;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -19,7 +21,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 
-public class AttributeModifiersWhileHeldAbility<T extends Item> extends PermanentAttributeModifiersAbility<T, AttributeModifiersAbilityConfiguration> {
+public class AttributeModifiersWhileHeldAbility<T extends Item> extends PermanentAttributeModifiersAbility<T, AttributeModifiersAbilityConfiguration> implements IAdjustableStrengthAbility<AttributeModifiersAbilityConfiguration> {
     private final Class<T> toolType;
 
     public AttributeModifiersWhileHeldAbility(Class<T> toolType) {
@@ -41,7 +43,7 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
     public static void onTick(final ServerTickEvent.Pre event) {
         MinecraftServer server = event.getServer();
         List<ServerPlayer> players = server.getPlayerList().getPlayers();
-        if(players.isEmpty()) {
+        if (players.isEmpty()) {
             return;
         }
 
@@ -61,14 +63,15 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
         updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_SHIELD_HELD);
     }
 
-    public void enable(ServerPlayer player, AttributeModifiersAbilityConfiguration config, ItemStack itemStack) {
+    public void enable(ServerPlayer player, AttributeModifiersAbilityConfiguration config, ItemStack itemStack, float strength) {
         for (AttributeModifier modifier : config.getModifiers()) {
             if (isMatchingItemClass(itemStack)) {
+                AttributeModifier modifierStrengthScaled = new AttributeModifier(modifier.id(), modifier.amount() * strength, modifier.operation());
                 // Add attribute modifier to player entity
-                player.getAttribute(config.getAttributeHolder()).addOrUpdateTransientModifier(modifier);
+                player.getAttribute(config.getAttributeHolder()).addOrUpdateTransientModifier(modifierStrengthScaled);
 
                 // Add attribute modifier to item stacks
-                player.getMainHandItem().update(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY, (modifiers) -> modifiers.withModifierAdded(config.getAttributeHolder(), modifier, EquipmentSlotGroup.MAINHAND));
+                player.getMainHandItem().update(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY, (modifiers) -> modifiers.withModifierAdded(config.getAttributeHolder(), modifierStrengthScaled, EquipmentSlotGroup.MAINHAND));
             } else {
                 disable(player, config, itemStack);
             }
@@ -88,8 +91,22 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
     }
 
     @Override
+    public void onAbilityStrengthChanged(ServerPlayer player, AttributeModifiersAbilityConfiguration config, float strength) {
+        ItemStack stack = player.getMainHandItem();
+        if (isMatchingItemClass(stack)) {
+            disable(player, config, stack);
+            enable(player, config, stack, strength);
+        }
+    }
+
+    @Override
     public void onAbilityGranted(ServerPlayer player, AttributeModifiersAbilityConfiguration config) {
-        enable(player, config, player.getMainHandItem());
+        enable(player, config, player.getMainHandItem(), 1F);
+    }
+
+    @Override
+    public void onAbilityGranted(ServerPlayer player, AttributeModifiersAbilityConfiguration config, float strength) {
+        enable(player, config, player.getMainHandItem(), strength);
     }
 
     @Override
@@ -101,15 +118,16 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
         ItemStack stack = player.getMainHandItem();
 
         SkillsData.updatePlayerData(player, (skillsData) -> {
-            List<AbilityInstance> configuredAbilities = skillsData.activeAbilities().get(abilityHolder.getKey());
+            List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.activeAbilities().get(abilityHolder.getKey());
             if (configuredAbilities == null) return;
 
-            for (AbilityInstance abilityInstance : configuredAbilities) {
-                // Unchecked cast. We pray that the ability is correctly linked in SkillsData to a key of the same type.
-                ConfiguredPlayerAbility<AttributeModifiersAbilityConfiguration, T> configuredAbility = (ConfiguredPlayerAbility<AttributeModifiersAbilityConfiguration, T>) abilityInstance.getHolder().value();
+            for (AbilityInstanceSerializable<?, ?> abilityInstance : configuredAbilities) {
+                // Unchecked cast. We pray that the type is correctly linked in SkillsData to a key of the same type.
+                ConfiguredPlayerAbility<AttributeModifiersAbilityConfiguration, T> configuredAbility = (ConfiguredPlayerAbility<AttributeModifiersAbilityConfiguration, T>) abilityInstance.data().getHolder().value();
 
-                if(abilityInstance.isEnabled()) {
-                    configuredAbility.ability().enable(player, configuredAbility.config(), stack);
+                if (abilityInstance.data().isEnabled()) {
+                    float strength = (abilityInstance.data() instanceof AdjustableStrengthAbilityInstanceData adjustable) ? adjustable.getAbilityStrength() : 1F;
+                    configuredAbility.ability().enable(player, configuredAbility.config(), stack, strength);
                 } else {
                     configuredAbility.ability().disable(player, configuredAbility.config(), stack);
                 }
@@ -117,21 +135,39 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
         });
     }
 
-    @Override
-    public Component getDescription(AttributeModifiersAbilityConfiguration config) {
+    private Component getDescriptionWithStrength(AttributeModifiersAbilityConfiguration config, float strength) {
         if (config.getModifiers().size() == 1) {
-            double amount = config.getModifiers().get(0).amount();
+            double amount = config.getModifiers().get(0).amount() * strength;
             AttributeModifier.Operation operation = config.getModifiers().get(0).operation();
 
             String param = "";
+            // Format float to 2 decimal places
+            String amountStr = String.format("%.2f", amount);
             switch (operation) {
-                case ADD_VALUE -> param = "+" + amount;
-                case ADD_MULTIPLIED_BASE, ADD_MULTIPLIED_TOTAL -> param = "x" + (amount + 1);
+                case ADD_VALUE -> param = "+" + amountStr;
+                case ADD_MULTIPLIED_BASE, ADD_MULTIPLIED_TOTAL -> param = "x" + (amountStr + 1);
             }
 
             return Component.translatable(config.getData().translationKey(), param);
         } else {
             return Component.translatable(config.getData().translationKey());
         }
+    }
+
+    @Override
+    public Component getDescription(AttributeModifiersAbilityConfiguration config) {
+        return getDescriptionWithStrength(config, 1F);
+    }
+
+    @Override
+    public Component getDescription(AttributeModifiersAbilityConfiguration config, float strength) {
+        return getDescriptionWithStrength(config, strength);
+    }
+
+    @Override
+    public AbilityInstanceSerializable<?, ?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability) {
+        return new AbilityInstanceSerializable<>(
+                AbilityInstanceTypes.ADJUSTABLE_STRENGTH.value(),
+                new AdjustableStrengthAbilityInstanceData(player, ability, true, 1F));
     }
 }

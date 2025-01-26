@@ -3,7 +3,6 @@ package grill24.potionsplus.skill.ability;
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.utility.HolderCodecs;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 

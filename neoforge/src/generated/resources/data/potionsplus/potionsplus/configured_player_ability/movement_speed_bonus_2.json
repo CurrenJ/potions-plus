@@ -9,7 +9,7 @@
     },
     "modifiers": [
       {
-        "amount": 0.001,
+        "amount": 0.01,
         "id": "potionsplus:movement_speed_bonus_2_modifier",
         "operation": "add_value"
       }
