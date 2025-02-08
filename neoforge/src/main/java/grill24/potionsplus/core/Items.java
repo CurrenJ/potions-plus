@@ -2,6 +2,7 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.item.EdibleChoiceItem;
 import grill24.potionsplus.item.EquipableHatItem;
+import grill24.potionsplus.item.FishingRodItem;
 import grill24.potionsplus.item.ItemOverrideUtility;
 import grill24.potionsplus.item.WormrootItem;
 import grill24.potionsplus.utility.ModInfo;
@@ -86,6 +87,8 @@ public class Items {
     public static final Holder<Item> WHEEL = ITEMS.register("wheel", () -> new EdibleChoiceItem(properties().food(Foods.GOLDEN_CARROT)));
     public static final ItemOverrideUtility.EdibleChoiceItemOverrideModelData WHEEL_MODEL = registerEdibleChoiceItemModel(WHEEL, ppId("item/wheel_0"));
 
+    public static final Holder<Item> COPPER_FISHING_ROD = ITEMS.register("copper_fishing_rod", () -> new FishingRodItem(properties()));
+
     // ----- Dynamically Rendered Display Items -----
     public static final ResourceLocation DYNAMIC_ICON_INDEX_PROPERTY_NAME = ppId("dynamic_icon_index");
 
@@ -117,6 +120,12 @@ public class Items {
         add(ppId("item/rare")); // ItemStack count: 18
         add(ppId("item/no_experience")); // ItemStack count: 19
         add(ppId("item/no_heat")); // ItemStack count: 20
+        add(ppId("item/fishing_bar")); // ItemStack count: 21
+        add(ppId("item/fishing_bobber")); // ItemStack count: 22
+        add(ppId("item/copper_fishing_frame")); // ItemStack count: 23
+        add(ppId("item/gold_fishing_frame")); // ItemStack count: 24
+        add(ppId("item/diamond_fishing_frame")); // ItemStack count: 25
+        add(ppId("item/purple_fishing_frame")); // ItemStack count: 25
     }}));
 
     public static Item.Properties properties() {

@@ -120,6 +120,42 @@
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.296875
       }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_fishing_bar",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.3125
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_fishing_bobber",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.328125
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_copper_fishing_frame",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.34375
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_gold_fishing_frame",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.359375
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_diamond_fishing_frame",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.375
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_purple_fishing_frame",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.390625
+      }
     }
   ],
   "textures": {

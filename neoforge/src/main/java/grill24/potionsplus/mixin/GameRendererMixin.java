@@ -48,4 +48,9 @@ public abstract class GameRendererMixin implements IGameRendererMixin {
             ci.cancel();
         } // Else pass to the original method
     }
+
+    @Override
+    public ItemActivationAnimation getActiveAnimation() {
+        return this.activeAnimation;
+    }
 }

@@ -28,6 +28,14 @@ public class Packets {
                 ServerboundUpdateAbilityStrengthPacket.ServerPayloadHandler::handleDataOnMain
         );
 
+        // End Fishing Minigame on Server
+        registrar.playToServer(
+                ServerboundEndFishingMinigame.TYPE,
+                ServerboundEndFishingMinigame.STREAM_CODEC,
+                ServerboundEndFishingMinigame.ServerPayloadHandler::handleDataOnMain
+        );
+
+
 
         // ----- Clientbound Packets -----
 
@@ -112,6 +120,13 @@ public class Packets {
                 ClientboundDisplayWheelAnimationPacket.TYPE,
                 ClientboundDisplayWheelAnimationPacket.STREAM_CODEC,
                 ClientboundDisplayWheelAnimationPacket.ClientPayloadHandler::handleDataOnMain
+        );
+
+        // Start Fishing Minigame on Client
+        registrar.playToClient(
+                ClientboundStartFishingMinigamePacket.TYPE,
+                ClientboundStartFishingMinigamePacket.STREAM_CODEC,
+                ClientboundStartFishingMinigamePacket.ClientPayloadHandler::handleDataOnMain
         );
 
         // Display Tossup Animation Packet

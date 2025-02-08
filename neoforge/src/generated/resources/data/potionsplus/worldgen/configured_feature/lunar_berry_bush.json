@@ -19,9 +19,10 @@
               },
               {
                 "data": {
-                  "Name": "minecraft:sweet_berry_bush",
+                  "Name": "potionsplus:lunar_berry_bush",
                   "Properties": {
-                    "age": "3"
+                    "age": "3",
+                    "blooming": "false"
                   }
                 },
                 "weight": 1

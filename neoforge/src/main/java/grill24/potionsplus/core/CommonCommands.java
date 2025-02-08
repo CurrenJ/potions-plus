@@ -7,10 +7,8 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.block.SkillJournalsBlock;
 import grill24.potionsplus.core.potion.Potions;
-import grill24.potionsplus.network.ClientboundDisplayTossupAnimationPacket;
-import grill24.potionsplus.network.ClientboundDisplayWheelAnimationPacket;
-import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
-import grill24.potionsplus.network.ClientboundSyncSpatialAnimationDataPacket;
+import grill24.potionsplus.misc.FishingGamePlayerAttachment;
+import grill24.potionsplus.network.*;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.render.animation.keyframe.Interpolation;
@@ -22,6 +20,7 @@ import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
 import grill24.potionsplus.utility.DelayedServerEvents;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.ModInfo;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -38,6 +37,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
@@ -167,6 +170,23 @@ public class CommonCommands {
 
                                 PacketDistributor.sendToPlayer(player, new ClientboundDisplayWheelAnimationPacket(itemStacks, winnerIndex));
                                 DelayedServerEvents.queueDelayedEvent(() -> InvUtil.giveOrDropItem(player, itemStacks.get(winnerIndex).copy()), 190);
+                            }
+
+                            return 1;
+                        })
+                )
+                .then(Commands.literal("fishing")
+                        .requires((source) -> source.hasPermission(2))
+                        .executes(context -> {
+                            if(context.getSource().getEntity() instanceof ServerPlayer player) {
+                                LootParams lootParams = new LootParams.Builder(player.serverLevel()).withParameter(LootContextParams.ORIGIN, player.position()).withParameter(LootContextParams.TOOL, player.getMainHandItem()).create(LootContextParamSets.FISHING);
+                                ObjectArrayList<ItemStack> samples = context.getSource().getServer().reloadableRegistries().getLootTable(BuiltInLootTables.FISHING_FISH).getRandomItems(lootParams);
+                                if (!samples.isEmpty()) {
+                                    PacketDistributor.sendToPlayer(player, ClientboundStartFishingMinigamePacket.create(
+                                            player,
+                                            new FishingGamePlayerAttachment(samples.getFirst(), new ItemStack(grill24.potionsplus.core.Items.GENERIC_ICON, 23 + player.getRandom().nextInt(4)))
+                                    ));
+                                }
                             }
 
                             return 1;

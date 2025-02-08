@@ -4,4 +4,5 @@ import grill24.potionsplus.render.animation.ItemActivationAnimation;
 
 public interface IGameRendererMixin {
     void potions_plus$displayItemActivation(ItemActivationAnimation animation);
+    ItemActivationAnimation getActiveAnimation();
 }

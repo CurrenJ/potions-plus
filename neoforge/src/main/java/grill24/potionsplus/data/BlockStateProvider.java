@@ -326,6 +326,7 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         registerItem(Items.URANIUM_INGOT.value());
         registerItem(Items.SULFUR_SHARD.value());
         registerItem(Items.SULFURIC_ACID.value());
+        registerItemFromParentWithTextureOverride(Items.COPPER_FISHING_ROD.value(), mc("item/handheld_rod"), ppId("item/copper_fishing_rod"));
 
         Holder<Item>[][] blockHatItems = new Holder[][]{
                 Items.COAL_ORE_HATS,
@@ -408,6 +409,13 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         ResourceLocation modelLocation = getModelLocation(item);
         itemModels().getBuilder(modelLocation.getPath())
                 .parent(models().getExistingFile(parent));
+    }
+
+    private void registerItemFromParentWithTextureOverride(Item item, ResourceLocation parent, ResourceLocation textureOverride) {
+        ResourceLocation modelLocation = getModelLocation(item);
+        itemModels().getBuilder(modelLocation.getPath())
+                .parent(models().getExistingFile(parent))
+                .texture("layer0", textureOverride);
     }
 
     private void registerParticleEmitter() {
