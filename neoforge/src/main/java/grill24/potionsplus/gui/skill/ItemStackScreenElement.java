@@ -1,7 +1,7 @@
 package grill24.potionsplus.gui.skill;
 
 import grill24.potionsplus.gui.RenderableScreenElement;
-import grill24.potionsplus.utility.IGuiGraphicsMixin;
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.ItemStack;
@@ -57,7 +57,7 @@ public class ItemStackScreenElement extends RenderableScreenElement {
         // By default, send the item to the back of the screen render order because we want text and other elements to render on top of it.
         graphics.pose().pushPose();
         graphics.pose().translate(0, 0, -100);
-        ((IGuiGraphicsMixin) graphics).potions_plus$renderItem(
+        ((IGuiGraphicsExtension) graphics).potions_plus$renderItem(
                 this.stack,
                 new Vector3f(0, this.rotation, 0),
                 (float) (bounds.getMinX()), // The render method we are calling here renders an item centered at the given position. We align to top-left because that's how the screen elements assume bounds are positioned.

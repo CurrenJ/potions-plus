@@ -3,9 +3,8 @@ package grill24.potionsplus.mixin;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import grill24.potionsplus.gui.RenderableScreenElement;
-import grill24.potionsplus.utility.IGuiGraphicsMixin;
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
@@ -29,11 +28,8 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-import java.awt.geom.Rectangle2D;
-import java.lang.Math;
-
 @Mixin(GuiGraphics.class)
-public abstract class GuiGraphicsMixin implements IGuiGraphicsMixin {
+public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
     @Shadow
     @Final
     private Minecraft minecraft;

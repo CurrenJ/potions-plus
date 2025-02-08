@@ -1,5 +1,6 @@
 package grill24.potionsplus.mixin;
 
+import grill24.potionsplus.extension.IParticleEngineExtension;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +12,7 @@ import org.spongepowered.asm.mixin.Unique;
 import java.util.Map;
 
 @Mixin(ParticleEngine.class)
-public abstract class ParticleEngineMixin implements grill24.potionsplus.utility.IParticleEngineProviders {
+public abstract class ParticleEngineMixin implements IParticleEngineExtension {
     @Shadow @Final private Map<ResourceLocation, ParticleProvider<?>> providers;
 
     @Unique

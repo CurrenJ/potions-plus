@@ -5,7 +5,7 @@ import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.entity.InvisibleFireDamager;
 import grill24.potionsplus.particle.EmitterParticle;
 import grill24.potionsplus.particle.ParticleConfigurations;
-import grill24.potionsplus.utility.IParticleEngineProviders;
+import grill24.potionsplus.extension.IParticleEngineExtension;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleProvider;
@@ -135,7 +135,7 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
 
         // This makes sure we don't spawn particle *spawners* with the geyser block if it is attached to the particle emitter. Instead, get that spawner's particle type and spawn it like usual.
         SimpleParticleType particleType = particleSampler.sampleParticleType(level.random);
-        ParticleProvider<?> particleprovider = ((IParticleEngineProviders) Minecraft.getInstance().particleEngine).potions_plus$getProviders().get(BuiltInRegistries.PARTICLE_TYPE.getKey(particleType));
+        ParticleProvider<?> particleprovider = ((IParticleEngineExtension) Minecraft.getInstance().particleEngine).potions_plus$getProviders().get(BuiltInRegistries.PARTICLE_TYPE.getKey(particleType));
         if(particleprovider instanceof EmitterParticle.Provider) {
             return ((EmitterParticle.Provider) particleprovider).particleTypeSupplier.apply(level.random);
         }

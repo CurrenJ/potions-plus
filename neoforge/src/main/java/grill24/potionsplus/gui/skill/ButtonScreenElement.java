@@ -4,14 +4,13 @@ import com.mojang.math.Axis;
 import grill24.potionsplus.gui.RenderableScreenElement;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
 import grill24.potionsplus.utility.ClientTickHandler;
-import grill24.potionsplus.utility.IGuiGraphicsMixin;
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FastColor;
-import net.neoforged.neoforge.client.event.RenderTooltipEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.geom.Rectangle2D;
@@ -51,7 +50,7 @@ public class ButtonScreenElement extends RenderableScreenElement {
     protected void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         Rectangle2D bounds = getGlobalBounds();
 
-        IGuiGraphicsMixin graphicsMixin = (IGuiGraphicsMixin) graphics;
+        IGuiGraphicsExtension graphicsMixin = (IGuiGraphicsExtension) graphics;
 
         final float outlineSize = 0.5F;
         RUtil.drawInventoryBackgroundRect(graphics, bounds, this.renderRotation, 0.5F, 0.5F);

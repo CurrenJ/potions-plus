@@ -31,6 +31,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -328,6 +329,11 @@ public class Blocks {
         }, net.minecraft.world.item.Items.POTION);
 
         event.register((stack, i) -> GrassColor.get(0.5, 1.0), Blocks.TALL_GRASS_VERSATILE.value().asItem(), Blocks.LARGE_FERN_VERSATILE.value().asItem());
+    }
+
+    @SubscribeEvent
+    public static void addValidBlocksToBlockEntityTypes(final BlockEntityTypeAddBlocksEvent event) {
+        event.modify(BlockEntityType.DISPENSER, Blocks.PRECISION_DISPENSER.value());
     }
 
     @SubscribeEvent

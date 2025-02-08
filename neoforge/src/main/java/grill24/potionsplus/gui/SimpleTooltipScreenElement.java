@@ -3,7 +3,7 @@ package grill24.potionsplus.gui;
 import grill24.potionsplus.render.animation.keyframe.AnimationCurve;
 import grill24.potionsplus.render.animation.keyframe.FloatAnimationCurve;
 import grill24.potionsplus.render.animation.keyframe.Interpolation;
-import grill24.potionsplus.utility.IGuiGraphicsMixin;
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -119,7 +119,7 @@ public class SimpleTooltipScreenElement extends DivScreenElement<TextComponentSc
         this.outlineHeight = animationProgress;
 
         // Draw outline
-        IGuiGraphicsMixin graphicsMixin = (IGuiGraphicsMixin) graphics;
+        IGuiGraphicsExtension graphicsMixin = (IGuiGraphicsExtension) graphics;
         graphicsMixin.potions_plus$fill(minX, minY, minX + this.outlineWidth, minY + height, 0, OUTLINE_Z, OUTLINE_COLOR_DARK);
         graphicsMixin.potions_plus$fill(minX, minY, minX + width, minY + this.outlineHeight, 0, OUTLINE_Z, OUTLINE_COLOR_DARK);
         graphicsMixin.potions_plus$fill(minX + width - this.outlineWidth, minY, minX + width, minY + height, 0, OUTLINE_Z, OUTLINE_COLOR_LIGHT);

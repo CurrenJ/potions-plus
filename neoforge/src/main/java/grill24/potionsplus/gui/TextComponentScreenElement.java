@@ -5,7 +5,7 @@ import grill24.potionsplus.event.ItemListenersGame;
 import grill24.potionsplus.render.animation.keyframe.AnimationCurve;
 import grill24.potionsplus.render.animation.keyframe.FloatAnimationCurve;
 import grill24.potionsplus.utility.ClientTickHandler;
-import grill24.potionsplus.utility.IGuiGraphicsMixin;
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -124,7 +124,7 @@ public class TextComponentScreenElement extends RenderableScreenElement {
         float y = (float) bounds.getMinY();
 
         // Render text
-        IGuiGraphicsMixin guiGraphics = (IGuiGraphicsMixin) graphics;
+        IGuiGraphicsExtension guiGraphics = (IGuiGraphicsExtension) graphics;
         graphics.setColor(1F, 1F, 1F, this.currentColor.getAlpha() / 255F);
         guiGraphics.potions_plus$drawString(this.screen.getMinecraft().font, animatedComponent.getFirst(),
                 x, y, this.currentColor.getRGB());

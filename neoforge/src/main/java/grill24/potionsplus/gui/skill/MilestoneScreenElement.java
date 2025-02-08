@@ -3,12 +3,11 @@ package grill24.potionsplus.gui.skill;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.gui.RenderableScreenElement;
 import grill24.potionsplus.gui.SimpleTooltipScreenElement;
-import grill24.potionsplus.gui.TextComponentScreenElement;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
 import grill24.potionsplus.skill.Milestone;
 import grill24.potionsplus.utility.ClientTickHandler;
-import grill24.potionsplus.utility.IClientAdvancementsMixin;
-import grill24.potionsplus.utility.IGuiGraphicsMixin;
+import grill24.potionsplus.extension.IClientAdvancementsExtension;
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
@@ -56,7 +55,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
         Rectangle2D bounds = getGlobalBounds();
         graphics.pose().pushPose();
         graphics.pose().translate(0, 0, -100);
-        ((IGuiGraphicsMixin) graphics).potions_plus$renderItem(
+        ((IGuiGraphicsExtension) graphics).potions_plus$renderItem(
                 new ItemStack(Items.GENERIC_ICON, 12),
                 new Vector3f(0, 0, 0),
                 (float) (bounds.getMinX() + bounds.getWidth() / 4F), // The render method we are calling here renders an item centered at the given position. We align to top-left because that's how the screen elements assume bounds are positioned.
@@ -116,7 +115,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
     private boolean isAdvancementUnlocked(ResourceLocation advancementId) {
         Optional<ClientAdvancements> advancements = getAdvancements();
         return advancements
-                .map(clientAdvancements -> ((IClientAdvancementsMixin) clientAdvancements).potions_plus$getAdvancementProgress(advancementId)
+                .map(clientAdvancements -> ((IClientAdvancementsExtension) clientAdvancements).potions_plus$getAdvancementProgress(advancementId)
                 .map(AdvancementProgress::isDone)
                 .orElse(false))
                 .orElse(false);

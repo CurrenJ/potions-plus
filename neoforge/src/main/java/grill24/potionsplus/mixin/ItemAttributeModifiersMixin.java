@@ -1,7 +1,7 @@
 package grill24.potionsplus.mixin;
 
 import com.google.common.collect.ImmutableList;
-import grill24.potionsplus.utility.IItemAttributeModifiersMixin;
+import grill24.potionsplus.extension.IItemAttributeModifiersExtension;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import java.util.List;
 
 @Mixin(ItemAttributeModifiers.class)
-public abstract class ItemAttributeModifiersMixin implements IItemAttributeModifiersMixin {
+public abstract class ItemAttributeModifiersMixin implements IItemAttributeModifiersExtension {
     @Shadow @Final private List<ItemAttributeModifiers.Entry> modifiers;
 
     @Shadow @Final private boolean showInTooltip;

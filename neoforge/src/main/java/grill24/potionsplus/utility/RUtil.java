@@ -2,6 +2,7 @@ package grill24.potionsplus.utility;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.blockentity.ITimestampSupplier;
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -9,7 +10,6 @@ import org.joml.*;
 import grill24.potionsplus.blockentity.ISingleStackDisplayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.world.item.ItemStack;
 
 import java.awt.geom.Rectangle2D;
@@ -401,7 +401,7 @@ public class RUtil {
         Vector2f center = new Vector2f((float) rect.getCenterX(), (float) rect.getCenterY());
 
         // Draw outline entirely inside the bounds
-        IGuiGraphicsMixin graphicsMixin = (IGuiGraphicsMixin) graphics;
+        IGuiGraphicsExtension graphicsMixin = (IGuiGraphicsExtension) graphics;
         graphicsMixin.potions_plus$fill(minX, minY, minX + outlineWidth, minY + height, center, rotationDegrees, OUTLINE_Z, OUTLINE_COLOR_DARK);
         graphicsMixin.potions_plus$fill(minX, minY, minX + width, minY + outlineHeight, center, rotationDegrees, OUTLINE_Z, OUTLINE_COLOR_DARK);
         graphicsMixin.potions_plus$fill(minX + width - outlineWidth, minY, minX + width, minY + height, center, rotationDegrees, OUTLINE_Z, OUTLINE_COLOR_LIGHT);

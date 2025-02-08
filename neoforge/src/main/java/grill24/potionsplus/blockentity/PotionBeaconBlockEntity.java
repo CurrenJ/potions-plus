@@ -2,14 +2,13 @@ package grill24.potionsplus.blockentity;
 
 import grill24.potionsplus.block.PotionBeaconBlock;
 import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.extension.IMobEffectInstanceExtension;
 import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.utility.*;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
@@ -27,7 +26,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
-import org.joml.Quaternionf;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
 
@@ -203,7 +201,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
             List<MobEffectInstance> toRemove = new ArrayList<>();
             if (ServerTickHandler.ticksInGame % TICK_INTERVAL == 0) {
                 for (MobEffectInstance effect : blockEntity.effects) {
-                    if (effect instanceof IMobEffectInstanceSetters mobEffectInstance) {
+                    if (effect instanceof IMobEffectInstanceExtension mobEffectInstance) {
                         int effectDurationToApply = Math.min(TICK_INTERVAL, effect.getDuration());
                         int remainingDuration = Math.max(0, effect.getDuration() - effectDurationToApply);
                         mobEffectInstance.potions_plus$setDuration(remainingDuration);
@@ -211,7 +209,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
                         final int finalEffectDurationToApply = effect.is(MobEffects.NIGHT_VISION) ? 300 : effectDurationToApply;
                         level.getEntitiesOfClass(Player.class, new AABB(blockEntity.worldPosition).inflate(16.0)).forEach(player -> {
                             MobEffectInstance effectInstance = new MobEffectInstance(effect);
-                            IMobEffectInstanceSetters effectToApply = (IMobEffectInstanceSetters) effectInstance;
+                            IMobEffectInstanceExtension effectToApply = (IMobEffectInstanceExtension) effectInstance;
                             effectToApply.potions_plus$setDuration(finalEffectDurationToApply);
                             player.addEffect(effectInstance);
                         });

@@ -5,7 +5,7 @@ import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
-import grill24.potionsplus.utility.IItemAttributeModifiersMixin;
+import grill24.potionsplus.extension.IItemAttributeModifiersExtension;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -85,7 +85,7 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
 
             // Remove attribute modifier from item stacks
             ItemAttributeModifiers modifiers = player.getMainHandItem().getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
-            modifiers = ((IItemAttributeModifiersMixin) (Object) modifiers).potions_plus$withModifierRemoved(config.getAttributeHolder(), modifier, EquipmentSlotGroup.MAINHAND);
+            modifiers = ((IItemAttributeModifiersExtension) (Object) modifiers).potions_plus$withModifierRemoved(config.getAttributeHolder(), modifier, EquipmentSlotGroup.MAINHAND);
             player.getMainHandItem().set(DataComponents.ATTRIBUTE_MODIFIERS, modifiers);
         }
     }
