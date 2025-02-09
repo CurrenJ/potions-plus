@@ -2,7 +2,6 @@ package grill24.potionsplus.network;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.DataAttachments;
-import grill24.potionsplus.core.ServerLifecycleListeners;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.utility.DelayedServerEvents;
 import grill24.potionsplus.utility.InvUtil;
@@ -64,7 +63,11 @@ public record ServerboundEndFishingMinigame(Result result) implements CustomPack
                     if(packet.result == Result.SUCCESS) {
                         DelayedServerEvents.queueDelayedEvent(() -> InvUtil.giveOrDropItem(serverPlayer, fishingGamePlayerAttachment.fishReward()), 10);
                     }
+
                     serverPlayer.removeData(DataAttachments.FISHING_GAME_DATA);
+                    if (serverPlayer.fishing != null) {
+                        serverPlayer.fishing.discard();
+                    }
                 }
             });
         }

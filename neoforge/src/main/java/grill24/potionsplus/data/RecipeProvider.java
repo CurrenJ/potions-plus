@@ -434,5 +434,15 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .requires(net.minecraft.world.item.Items.BOOK)
                 .unlockedBy("has_book", has(net.minecraft.world.item.Items.BOOK))
                 .save(recipeConsumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Items.COPPER_FISHING_ROD.value())
+                .define('C', net.minecraft.world.item.Items.COPPER_INGOT)
+                .define('S', net.minecraft.world.item.Items.STICK)
+                .define('F', net.minecraft.world.item.Items.STRING)
+                .pattern("  C")
+                .pattern(" CF")
+                .pattern("S F")
+                .unlockedBy("has_copper_ingot", has(net.minecraft.world.item.Items.COPPER_INGOT))
+                .save(recipeConsumer);
     }
 }

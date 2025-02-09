@@ -10,6 +10,7 @@
     "BootstrapMixin",
     "BucketItemMixin",
     "EnchantedCountIncreaseFunctionMixin",
+    "FishingHookMixin",
     "ItemAttributeModifiersMixin",
     "ItemEntityMixin",
     "ItemMixin",

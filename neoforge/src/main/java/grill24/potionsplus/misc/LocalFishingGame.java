@@ -1,5 +1,6 @@
 package grill24.potionsplus.misc;
 
+import grill24.potionsplus.core.DataAttachments;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.network.ServerboundEndFishingMinigame;
 import grill24.potionsplus.render.IGameRendererMixin;
@@ -9,6 +10,7 @@ import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -62,6 +64,10 @@ public class LocalFishingGame {
         randomizeFishPosition();
 
         ((IGameRendererMixin) Minecraft.getInstance().gameRenderer).potions_plus$displayItemActivation(new FishingMinigameAnimation(this));
+    }
+
+    public static ServerboundEndFishingMinigame endGame(ServerboundEndFishingMinigame.Result result) {
+        return new ServerboundEndFishingMinigame(result);
     }
 
     private void randomizeFishPosition() {
@@ -118,7 +124,7 @@ public class LocalFishingGame {
                     this.isCaptured = true;
                     this.gameOverTimestamp = ClientTickHandler.ticksInGame;
 
-                    PacketDistributor.sendToServer(new ServerboundEndFishingMinigame(ServerboundEndFishingMinigame.Result.SUCCESS));
+                    PacketDistributor.sendToServer(endGame(ServerboundEndFishingMinigame.Result.SUCCESS));
                 }
             } else {
                 this.captureProgress -= 0.01F * difficulty;
@@ -127,7 +133,7 @@ public class LocalFishingGame {
                     this.isCaptured = false;
                     this.gameOverTimestamp = ClientTickHandler.ticksInGame;
 
-                    PacketDistributor.sendToServer(new ServerboundEndFishingMinigame(ServerboundEndFishingMinigame.Result.FAILURE));
+                    PacketDistributor.sendToServer(endGame(ServerboundEndFishingMinigame.Result.FAILURE));
                 }
                 this.isCapturing = false;
             }
@@ -169,12 +175,13 @@ public class LocalFishingGame {
         return RUtil.lerp(fishPosition, targetFishPosition, partialTick * fishMovementSpeed);
     }
 
-    public void useRod() {
+    public boolean useRod() {
         if (isOver()) {
-            return;
+            return false;
         }
 
         this.bobberSpeed += 0.05F;
+        return true;
     }
 
     public boolean isOver() {

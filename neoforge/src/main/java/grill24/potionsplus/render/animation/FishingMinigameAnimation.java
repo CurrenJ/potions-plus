@@ -136,7 +136,7 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         barElementsTransform.pushPose();
         // subtract (14 / 32) because item renders in center of bar when using existing transforms.
         // align to bottom of inner bar bc fishing game data assumes 0F position is bottom of bar
-        barElementsTransform.translate(0, (localFishingGame.predictFishPosition(partialTick) - (14F / 32F)) * maxBarOffset, Z_OFFSET * 2);
+        barElementsTransform.translate(0, (localFishingGame.predictFishPosition(partialTick) - (14F / 32F)) * maxBarOffset, Z_OFFSET * 3);
         final float iconSize = localFishingGame.getCaptureProgress() * barInteriorWidth * winnerEnlargement;
 
         barElementsTransform.pushPose();
