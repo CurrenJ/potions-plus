@@ -45,7 +45,7 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
         }
 
         text = new TextComponentScreenElement(screen, Settings.DEFAULT, getTargetColor(ability.get().data().isEnabled()), component);
-        text.addClickListener((mouseX, mouseY, element) -> ability.get().data().toggle(this.screen.getMinecraft().player));
+        text.addClickListener((mouseX, mouseY, element) -> ability.get().toggleClient());
         float buttonSize = (float) text.getGlobalBounds().getHeight();
 
         buttonDecrease = new ButtonScreenElement(screen, this, Settings.DEFAULT, Component.literal("-"), buttonSize, buttonSize);

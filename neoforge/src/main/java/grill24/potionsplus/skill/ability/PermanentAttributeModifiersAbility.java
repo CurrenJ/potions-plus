@@ -8,35 +8,47 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.Nullable;
 
-public class PermanentAttributeModifiersAbility<E, AC extends AttributeModifiersAbilityConfiguration> extends PlayerAbility<E, AC> implements IAdjustableStrengthAbility<AC>{
+import java.util.Set;
+
+public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbilityConfiguration> extends PlayerAbility<AC> implements IAdjustableStrengthAbility<AC> {
     public PermanentAttributeModifiersAbility(Codec<AC> configurationCodec) {
-        super(configurationCodec);
+        super(configurationCodec, Set.of(AbilityInstanceTypes.ADJUSTABLE_STRENGTH.value()));
     }
 
     @Override
-    public void enable(ServerPlayer player, AC config, @Nullable E evaluationData) {
-        enable(player, config, evaluationData, 1);
+    protected void onEnable(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance) {
+        if (abilityInstance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthData) {
+            enable(player, config, adjustableStrengthData.getAbilityStrength());
+        } else {
+            enable(player, config, 1F);
+        }
     }
 
-    public void enable(ServerPlayer player, AC config, @Nullable E evaluationData, float strength) {
+    private void enable(ServerPlayer player, AC config, float strength) {
         for (AttributeModifier modifier : config.getModifiers()) {
             AttributeModifier modifierStrengthScaled = new AttributeModifier(modifier.id(), modifier.amount() * strength, modifier.operation());
             player.getAttribute(config.getAttributeHolder()).addOrUpdateTransientModifier(modifierStrengthScaled);
         }
     }
 
-    public void disable(ServerPlayer player, AC config, @Nullable  E evaluationData) {
+    @Override
+    protected void onDisable(ServerPlayer player, AC config) {
         for (AttributeModifier modifier : config.getModifiers()) {
             player.getAttribute(config.getAttributeHolder()).removeModifier(modifier);
         }
     }
 
     @Override
-    public void  onAbilityGranted(ServerPlayer player, AC config) {
-        enable(player, config, null);
+    public void onInstanceChanged(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance) {
+        abilityInstance.tryEnable(player);
+    }
+
+    @Override
+    public void onAbilityGranted(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance) {
+        if (abilityInstance.data().getConfiguredAbility().config().getData().enabledByDefault()) {
+            abilityInstance.tryEnable(player);
+        }
     }
 
     @Override
@@ -71,17 +83,6 @@ public class PermanentAttributeModifiersAbility<E, AC extends AttributeModifiers
     @Override
     public Component getDescription(AC config, float strength) {
         return getDescriptionWithStrength(config, strength);
-    }
-
-    @Override
-    public void onAbilityStrengthChanged(ServerPlayer player, AC config, float strength) {
-        disable(player, config, null);
-        enable(player, config, null, strength);
-    }
-
-    @Override
-    public void onAbilityGranted(ServerPlayer player, AC config, float strength) {
-        enable(player, config, null, strength);
     }
 
     @Override

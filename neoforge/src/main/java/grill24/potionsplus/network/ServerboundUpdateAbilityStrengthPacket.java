@@ -55,6 +55,7 @@ public record ServerboundUpdateAbilityStrengthPacket(ResourceLocation abilityId,
                             case Operation.SET -> adjustableStrengthInstance.setAbilityStrength(player, packet.amount);
                             case Operation.ADD -> adjustableStrengthInstance.setAbilityStrength(player, adjustableStrengthInstance.getAbilityStrength() + packet.amount);
                         }
+                        instance.onInstanceChanged(player);
 
                         PacketDistributor.sendToPlayer(player, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
                     }

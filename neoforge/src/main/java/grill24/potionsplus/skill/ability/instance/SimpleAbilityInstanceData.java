@@ -2,23 +2,16 @@ package grill24.potionsplus.skill.ability.instance;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Translations;
-import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
-import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbilityConfiguration;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.StringUtil;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 public class SimpleAbilityInstanceData {
     public static final Codec<SimpleAbilityInstanceData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
@@ -36,23 +29,12 @@ public class SimpleAbilityInstanceData {
     protected final Holder<ConfiguredPlayerAbility<?, ?>> ability;
     protected boolean isEnabled;
 
-    // For deserialization
-    protected SimpleAbilityInstanceData(Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled) {
+    public SimpleAbilityInstanceData(Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled) {
         this.ability = ability;
         this.isEnabled = isEnabled;
     }
 
-    public SimpleAbilityInstanceData(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled) {
-        this.ability = ability;
-
-        if (isEnabled && getConfiguredAbility().config().getData().enabledByDefault()) {
-            tryEnable(player);
-        } else {
-            tryDisable(player);
-        }
-    }
-
-    public  <E, AC extends PlayerAbilityConfiguration, A extends PlayerAbility<E, AC>> ConfiguredPlayerAbility<AC, A> getConfiguredAbility() {
+    public  <E, AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>> ConfiguredPlayerAbility<AC, A> getConfiguredAbility() {
         return (ConfiguredPlayerAbility<AC, A>) ability.value();
     }
 
@@ -64,46 +46,9 @@ public class SimpleAbilityInstanceData {
         return this.isEnabled;
     }
 
-    public boolean tryEnable(ServerPlayer player) {
-        this.isEnabled = true;
-        getConfiguredAbility().onAbilityGranted(player);
-        return true;
+    public void setEnabled(boolean enabled) {
+        this.isEnabled = enabled;
     }
-
-    public void tryDisable(ServerPlayer player) {
-        if (!this.isEnabled) {
-            return;
-        }
-        this.isEnabled = false;
-        getConfiguredAbility().onAbilityRevoked(player);
-    }
-
-    public boolean toggle(ServerPlayer player) {
-        boolean enabled = false;
-        if (this.isEnabled) {
-            tryDisable(player);
-        } else {
-            tryEnable(player);
-            enabled = true;
-        }
-
-        // Send updated skill data to the client
-        PacketDistributor.sendToPlayer(player, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
-
-        return enabled;
-    }
-
-    public void toggle(LocalPlayer player) {
-        String s = StringUtil.filterText(getToggleCommand());
-        if (s.startsWith("/")) {
-            if (!player.connection.sendUnsignedCommand(s.substring(1))) {
-                PotionsPlus.LOGGER.error("Not allowed to run command with signed argument from click event: '{}'", s);
-            }
-        } else {
-            PotionsPlus.LOGGER.error("Failed to run command without '/' prefix from click event: '{}'", s);
-        }
-    }
-
 
     public Component getDescription() {
         return getDescription(false);
@@ -131,5 +76,16 @@ public class SimpleAbilityInstanceData {
 
     protected String getToggleCommand() {
         return "/potionsplus skill ability byId " + ability.getKey().location() + " toggle";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SimpleAbilityInstanceData that = (SimpleAbilityInstanceData) o;
+
+        if (isEnabled != that.isEnabled) return false;
+        return ability.getKey() != null && ability.getKey().equals(that.ability.getKey());
     }
 }

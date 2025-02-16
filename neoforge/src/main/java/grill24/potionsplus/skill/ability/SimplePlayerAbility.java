@@ -1,21 +1,38 @@
 package grill24.potionsplus.skill.ability;
 
-import com.mojang.serialization.Codec;
+import grill24.potionsplus.core.AbilityInstanceTypes;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
+import grill24.potionsplus.skill.ability.instance.SimpleAbilityInstanceData;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 
-public class SimplePlayerAbility extends PlayerAbility<Object, PlayerAbilityConfiguration>{
+import java.util.Set;
+
+public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguration>{
     public SimplePlayerAbility() {
-        super(PlayerAbilityConfiguration.CODEC);
+        super(PlayerAbilityConfiguration.CODEC, Set.of(AbilityInstanceTypes.SIMPLE_TOGGLEABLE.value()));
     }
 
     @Override
-    public void enable(ServerPlayer player, PlayerAbilityConfiguration config, Object evaluationData) {}
+    public AbilityInstanceSerializable<?, ?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability) {
+        return new AbilityInstanceSerializable<>(
+                AbilityInstanceTypes.SIMPLE_TOGGLEABLE.value(),
+                new SimpleAbilityInstanceData(ability, true));
+    }
 
     @Override
-    public void disable(ServerPlayer player, PlayerAbilityConfiguration config, Object evaluationData) {}
+    public void onEnable(ServerPlayer player, PlayerAbilityConfiguration config, AbilityInstanceSerializable<?, ?> instance) {}
 
     @Override
-    public void onAbilityGranted(ServerPlayer player, PlayerAbilityConfiguration config) {}
+    public void onDisable(ServerPlayer player, PlayerAbilityConfiguration config) {}
+
+    @Override
+    public void onInstanceChanged(ServerPlayer player, PlayerAbilityConfiguration config, AbilityInstanceSerializable<?, ?> abilityInstance) {
+        abilityInstance.tryEnable(player);
+    }
+
+    @Override
+    public void onAbilityGranted(ServerPlayer player, PlayerAbilityConfiguration config, AbilityInstanceSerializable<?, ?> instance) {}
 
     @Override
     public void onAbilityRevoked(ServerPlayer player, PlayerAbilityConfiguration config) {}

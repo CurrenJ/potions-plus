@@ -14,6 +14,7 @@ import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.render.animation.keyframe.Interpolation;
 import grill24.potionsplus.render.animation.keyframe.*;
 import grill24.potionsplus.skill.*;
+import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
@@ -397,13 +398,16 @@ public class CommonCommands {
                                                                 return 0;
                                                             }
 
-                                                            ResourceLocation abilityId = ConfiguredPlayerAbilityArgument.getHolder(context, "abilityId").getKey().location();
-                                                            SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> {
-                                                                skillsData.getAbilityInstance(context.getSource().registryAccess(), abilityId).ifPresent(abilityInstance -> {
-                                                                    abilityInstance.data().toggle(context.getSource().getPlayer());
-                                                                    context.getSource().sendSuccess(() -> abilityInstance.data().getDescription(true), true);
-                                                                });
-                                                            }));
+                                                            if (context.getSource().getPlayer() instanceof ServerPlayer player) {
+                                                                ResourceLocation abilityId = ConfiguredPlayerAbilityArgument.getHolder(context, "abilityId").getKey().location();
+                                                                SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> {
+                                                                    skillsData.getAbilityInstance(context.getSource().registryAccess(), abilityId).ifPresent(abilityInstance -> {
+                                                                        abilityInstance.toggle(player);
+                                                                        context.getSource().sendSuccess(() -> abilityInstance.data().getDescription(true), true);
+                                                                    });
+                                                                }));
+                                                            }
+
 
                                                             return 1;
                                                         })
@@ -438,7 +442,7 @@ public class CommonCommands {
                                         MutableComponent component = Component.empty();
                                         boolean hasAbilities = false;
 
-                                        for (Map.Entry<ResourceKey<PlayerAbility<?, ?>>, List<AbilityInstanceSerializable<?, ?>>> entry : skillsData.activeAbilities().entrySet()) {
+                                        for (Map.Entry<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> entry : skillsData.activeAbilities().entrySet()) {
                                             for (AbilityInstanceSerializable<?, ?> abilityInstance : entry.getValue()) {
                                                 Component abilityComponent = abilityInstance.data().getDescription();
                                                 if (hasAbilities) {

@@ -35,6 +35,12 @@ public class Packets {
                 ServerboundEndFishingMinigame.ServerPayloadHandler::handleDataOnMain
         );
 
+        // Toggle Ability
+        registrar.playToServer(
+                ServerboundToggleAbilityPacket.TYPE,
+                ServerboundToggleAbilityPacket.STREAM_CODEC,
+                ServerboundToggleAbilityPacket.ServerPayloadHandler::handleDataOnMain
+        );
 
 
         // ----- Clientbound Packets -----

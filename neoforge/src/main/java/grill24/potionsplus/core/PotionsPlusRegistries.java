@@ -34,8 +34,8 @@ public class PotionsPlusRegistries {
             .sync(true)
             .create();
 
-    public static final ResourceKey<Registry<PlayerAbility<?, ?>>> PLAYER_ABILITY_REGISTRY_KEY = ResourceKey.createRegistryKey(ppId("player_ability"));
-    public static final Registry<PlayerAbility<?, ?>> PLAYER_ABILITY = new RegistryBuilder<>(PLAYER_ABILITY_REGISTRY_KEY)
+    public static final ResourceKey<Registry<PlayerAbility<?>>> PLAYER_ABILITY_REGISTRY_KEY = ResourceKey.createRegistryKey(ppId("player_ability"));
+    public static final Registry<PlayerAbility<?>> PLAYER_ABILITY = new RegistryBuilder<>(PLAYER_ABILITY_REGISTRY_KEY)
             .sync(true)
             .create();
 

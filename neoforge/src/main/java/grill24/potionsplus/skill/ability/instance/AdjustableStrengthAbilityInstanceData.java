@@ -43,13 +43,12 @@ public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstance
     }
 
     public AdjustableStrengthAbilityInstanceData(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled, float abilityStrength) {
-        super(player, ability, isEnabled);
+        super(ability, isEnabled);
         this.abilityStrength = abilityStrength;
     }
 
     public void setAbilityStrength(ServerPlayer player, float strength) {
         this.abilityStrength = Math.clamp(strength, 0, 1);
-        tryEnable(player);
     }
 
     public float getAbilityStrength() {
@@ -78,18 +77,6 @@ public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstance
 
 
         return component;
-    }
-
-    @Override
-    public boolean tryEnable(ServerPlayer player) {
-        this.isEnabled = true;
-        if (getConfiguredAbility().ability() instanceof IAdjustableStrengthAbility adjustableStrengthSkill) {
-            PlayerAbilityConfiguration config = getConfiguredAbility().config();
-            adjustableStrengthSkill.onAbilityGranted(player, config, abilityStrength);
-        } else {
-            super.tryEnable(player);
-        }
-        return true;
     }
 
     public void clientRequestDecreaseStrength(LocalPlayer player) {

@@ -183,7 +183,7 @@ public class ConfiguredPlayerAbilities {
      * @return Array of keys registered.
      * @param <A> Ability type
      */
-    private static <A extends PermanentAttributeModifiersAbility<?, AttributeModifiersAbilityConfiguration>> ResourceKey<ConfiguredPlayerAbility<?, ?>>[] generateAttributeBonuses(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context, String translationKey, ResourceKey<ConfiguredSkill<?, ?>> parentSkillKey, A ability, Holder<Attribute> attribute, AttributeModifier.Operation operation, ResourceKey<ConfiguredPlayerAbility<?, ?>>[] keys, boolean enabledByDefault, double... amounts) {
+    private static <A extends PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> ResourceKey<ConfiguredPlayerAbility<?, ?>>[] generateAttributeBonuses(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context, String translationKey, ResourceKey<ConfiguredSkill<?, ?>> parentSkillKey, A ability, Holder<Attribute> attribute, AttributeModifier.Operation operation, ResourceKey<ConfiguredPlayerAbility<?, ?>>[] keys, boolean enabledByDefault, double... amounts) {
         HolderGetter<ConfiguredSkill<?, ?>> skillLookup = context.lookup(PotionsPlusRegistries.CONFIGURED_SKILL);
 
         for (int i = 0; i < amounts.length; i++) {
@@ -198,7 +198,7 @@ public class ConfiguredPlayerAbilities {
         return keys;
     }
 
-    private static <A extends PermanentAttributeModifiersAbility<?, AttributeModifiersAbilityConfiguration>> ResourceKey<ConfiguredPlayerAbility<?, ?>>[] generateAttributeBonuses(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context, String translationKey, ResourceKey<ConfiguredSkill<?, ?>> parentSkillKey, A ability, Holder<Attribute> attribute, AttributeModifier.Operation operation, ResourceKey<ConfiguredPlayerAbility<?, ?>>[] keys, double... amounts) {
+    private static <A extends PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> ResourceKey<ConfiguredPlayerAbility<?, ?>>[] generateAttributeBonuses(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context, String translationKey, ResourceKey<ConfiguredSkill<?, ?>> parentSkillKey, A ability, Holder<Attribute> attribute, AttributeModifier.Operation operation, ResourceKey<ConfiguredPlayerAbility<?, ?>>[] keys, double... amounts) {
         return generateAttributeBonuses(context, translationKey, parentSkillKey, ability, attribute, operation, keys, true, amounts);
     }
 
