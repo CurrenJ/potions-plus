@@ -27,8 +27,8 @@ public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbi
 
     private void enable(ServerPlayer player, AC config, float strength) {
         for (AttributeModifier modifier : config.getModifiers()) {
-            AttributeModifier modifierStrengthScaled = new AttributeModifier(modifier.id(), modifier.amount() * strength, modifier.operation());
-            player.getAttribute(config.getAttributeHolder()).addOrUpdateTransientModifier(modifierStrengthScaled);
+            AttributeModifier modifierWithStrength = new AttributeModifier(modifier.id(), strength, modifier.operation());
+            player.getAttribute(config.getAttributeHolder()).addOrUpdateTransientModifier(modifierWithStrength);
         }
     }
 
@@ -63,12 +63,11 @@ public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbi
 
     private Component getDescriptionWithStrength(AttributeModifiersAbilityConfiguration config, float strength) {
         if (config.getModifiers().size() == 1) {
-            double amount = config.getModifiers().get(0).amount() * strength;
             AttributeModifier.Operation operation = config.getModifiers().get(0).operation();
 
             String param = "";
             // Format float to 2 decimal places
-            String amountStr = String.format("%.2f", amount);
+            String amountStr = String.format("%.2f", strength);
             switch (operation) {
                 case ADD_VALUE -> param = "+" + amountStr;
                 case ADD_MULTIPLIED_BASE, ADD_MULTIPLIED_TOTAL -> param = "x" + (amountStr + 1);
@@ -89,6 +88,6 @@ public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbi
     public AbilityInstanceSerializable<?, ?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability) {
         return new AbilityInstanceSerializable<>(
                 AbilityInstanceTypes.ADJUSTABLE_STRENGTH.value(),
-                new AdjustableStrengthAbilityInstanceData(player, ability, true, 1F));
+                new AdjustableStrengthAbilityInstanceData(ability, true));
     }
 }

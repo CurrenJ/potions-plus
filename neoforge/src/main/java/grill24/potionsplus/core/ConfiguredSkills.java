@@ -202,6 +202,12 @@ public class ConfiguredSkills {
                                 .addRewardForLevel(5, builder -> builder
                                         .addReward(rewardLookup, ConfiguredGrantableRewards.MOVEMENT_SPEED_BONUS.getKey(0))
                                 )
+                                .addRewardForLevel(6, builder -> builder
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.MOVEMENT_SPEED_INCREASE.getKey())
+                                )
+                                .addRewardForLevel(7, builder -> builder
+                                        .addReward(rewardLookup, ConfiguredGrantableRewards.MOVEMENT_SPEED_INCREASE.getKey())
+                                )
                                 .addRewardForLevel(15, builder -> builder
                                         .addReward(rewardLookup, ConfiguredGrantableRewards.MOVEMENT_SPEED_BONUS.getKey(1))
                                 )

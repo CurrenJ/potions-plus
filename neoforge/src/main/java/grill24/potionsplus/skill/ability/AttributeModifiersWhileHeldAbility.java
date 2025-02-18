@@ -41,12 +41,12 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
     public void enable(ServerPlayer player, AttributeModifiersAbilityConfiguration config, float strength) {
         for (AttributeModifier modifier : config.getModifiers()) {
             if (isMatchingItemClass(player.getMainHandItem())) {
-                AttributeModifier modifierStrengthScaled = new AttributeModifier(modifier.id(), modifier.amount() * strength, modifier.operation());
+                AttributeModifier modifierWithStrength = new AttributeModifier(modifier.id(), strength, modifier.operation());
                 // Add attribute modifier to player entity
-                player.getAttribute(config.getAttributeHolder()).addOrUpdateTransientModifier(modifierStrengthScaled);
+                player.getAttribute(config.getAttributeHolder()).addOrUpdateTransientModifier(modifierWithStrength);
 
                 // Add attribute modifier to item stacks
-                player.getMainHandItem().update(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY, (modifiers) -> modifiers.withModifierAdded(config.getAttributeHolder(), modifierStrengthScaled, EquipmentSlotGroup.MAINHAND));
+                player.getMainHandItem().update(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY, (modifiers) -> modifiers.withModifierAdded(config.getAttributeHolder(), modifierWithStrength, EquipmentSlotGroup.MAINHAND));
             } else {
                 disable(player, config);
             }
@@ -117,7 +117,7 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
     public AbilityInstanceSerializable<?, ?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability) {
         return new AbilityInstanceSerializable<>(
                 AbilityInstanceTypes.ADJUSTABLE_STRENGTH.value(),
-                new AdjustableStrengthAbilityInstanceData(player, ability, true, 1F));
+                new AdjustableStrengthAbilityInstanceData(ability, true));
     }
 
     // ----- Helper Methods -----

@@ -188,6 +188,13 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         return Optional.empty();
     }
 
+    public Optional<AbilityInstanceSerializable<?, ?>> getAbilityInstance(RegistryAccess registryAccess, ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredAbilityId) {
+        if (configuredAbilityId == null) {
+            return Optional.empty();
+        }
+        return getAbilityInstance(registryAccess, configuredAbilityId.location());
+    }
+
 
     public void activateAbilities(ServerPlayer player, HolderSet<ConfiguredPlayerAbility<?, ?>> configuredAbilities) {
         Registry<PlayerAbility<?>> abilityLookup = player.registryAccess().registryOrThrow(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY);

@@ -1,19 +1,14 @@
 package grill24.potionsplus.network;
 
-import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
-import grill24.potionsplus.behaviour.ClotheslineBehaviour;
-import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.handling.ServerPayloadContext;
@@ -52,8 +47,8 @@ public record ServerboundUpdateAbilityStrengthPacket(ResourceLocation abilityId,
                     if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthInstance) {
                         player.sendSystemMessage(Component.literal("Updated type strength for " + packet.abilityId + " by " + packet.amount + " (op " + packet.operation + ")"));
                         switch (packet.operation) {
-                            case Operation.SET -> adjustableStrengthInstance.setAbilityStrength(player, packet.amount);
-                            case Operation.ADD -> adjustableStrengthInstance.setAbilityStrength(player, adjustableStrengthInstance.getAbilityStrength() + packet.amount);
+                            case Operation.SET -> adjustableStrengthInstance.setAbilityStrength(packet.amount);
+                            case Operation.ADD -> adjustableStrengthInstance.setAbilityStrength(adjustableStrengthInstance.getAbilityStrength() + packet.amount);
                         }
                         instance.onInstanceChanged(player);
 

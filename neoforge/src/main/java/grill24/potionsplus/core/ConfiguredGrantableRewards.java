@@ -148,6 +148,9 @@ public class ConfiguredGrantableRewards {
     public static final AbilityRewardBuilder TRIDENT_DAMAGE_BONUS = registerAbilities(ConfiguredPlayerAbilities.TRIDENT_DAMAGE_BONUS_KEYS);
 
     public static final AbilityRewardBuilder MOVEMENT_SPEED_BONUS = registerAbilities(ConfiguredPlayerAbilities.MOVEMENT_SPEED_BONUS_KEYS);
+    public static final IncreaseAbilityStrengthRewardBuilder MOVEMENT_SPEED_INCREASE = register(() -> new IncreaseAbilityStrengthRewardBuilder("movement_speed_increase")
+            .ability(ConfiguredPlayerAbilities.MOVEMENT_SPEED_BONUS_KEYS[0])
+            .strength(0.1F));
     public static final AbilityRewardBuilder SPRINT_SPEED_BONUS = registerAbilities(ConfiguredPlayerAbilities.SPRINT_SPEED_BONUS_KEYS);
     public static final AbilityRewardBuilder SNEAK_SPEED_BONUS = registerAbilities(ConfiguredPlayerAbilities.SNEAK_SPEED_BONUS_KEYS);
 
@@ -455,6 +458,49 @@ public class ConfiguredGrantableRewards {
             context.register(key, new ConfiguredGrantableReward<>(
                     GrantableRewards.UNKNOWN_POTION_INGREDIENT.value(),
                     new UnknownPotionIngredientRewardConfiguration(count)
+            ));
+        }
+    }
+
+    public static class IncreaseAbilityStrengthRewardBuilder implements IRewardBuilder {
+        private final ResourceKey<ConfiguredGrantableReward<?, ?>> key;
+
+        private ResourceKey<ConfiguredPlayerAbility<?, ?>> ability;
+        private float strengthIncrease;
+
+        public IncreaseAbilityStrengthRewardBuilder(String name) {
+            this.strengthIncrease = 0;
+
+            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
+        }
+
+        public IncreaseAbilityStrengthRewardBuilder strength(float strengthIncrease) {
+            this.strengthIncrease = strengthIncrease;
+            return this;
+        }
+
+        public IncreaseAbilityStrengthRewardBuilder ability(ResourceKey<ConfiguredPlayerAbility<?, ?>> ability) {
+            this.ability = ability;
+            return this;
+        }
+
+        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {
+            return key;
+        }
+
+        @Override
+        public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
+            if (this.ability == null) {
+                throw new IllegalArgumentException("Ability must be set");
+            }
+
+            if (this.strengthIncrease == 0) {
+                throw new IllegalArgumentException("Strength increase must be set");
+            }
+
+            context.register(key, new ConfiguredGrantableReward<>(
+                    GrantableRewards.INCREASE_ABILITY_STRENGTH.value(),
+                    new IncreaseAbilityStrengthReward.IncreaseAbilityStrengthRewardConfiguration(this.ability, this.strengthIncrease)
             ));
         }
     }

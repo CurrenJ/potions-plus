@@ -6,7 +6,6 @@ import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.network.ServerboundUpdateAbilityStrengthPacket;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.IAdjustableStrengthAbility;
-import grill24.potionsplus.skill.ability.PlayerAbilityConfiguration;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
@@ -14,17 +13,18 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstanceData
 {
     protected float abilityStrength;
+    protected float maxAbilityStrength;
 
     public static final Codec<AdjustableStrengthAbilityInstanceData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             ConfiguredPlayerAbility.HOLDER_CODECS.holderCodec().fieldOf("type").forGetter(instance -> instance.ability),
             Codec.BOOL.optionalFieldOf("isEnabled", false).forGetter(instance -> instance.isEnabled),
-            Codec.FLOAT.optionalFieldOf("abilityStrength", 1F).forGetter(instance -> instance.abilityStrength)
+            Codec.FLOAT.optionalFieldOf("abilityStrength", 1F).forGetter(instance -> instance.abilityStrength),
+            Codec.FLOAT.optionalFieldOf("maxAbilityStrength", 1F).forGetter(instance -> instance.maxAbilityStrength)
     ).apply(codecBuilder, AdjustableStrengthAbilityInstanceData::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AdjustableStrengthAbilityInstanceData> STREAM_CODEC = StreamCodec.composite(
@@ -34,25 +34,40 @@ public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstance
             (instance) -> instance.isEnabled,
             ByteBufCodecs.FLOAT,
             (instance) -> instance.abilityStrength,
+            ByteBufCodecs.FLOAT,
+            (instance) -> instance.maxAbilityStrength,
             AdjustableStrengthAbilityInstanceData::new);
 
     // For deserialization
-    protected AdjustableStrengthAbilityInstanceData(Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled, float abilityStrength) {
+    public AdjustableStrengthAbilityInstanceData(Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled, float abilityStrength, float maxAbilityStrength) {
         super(ability, isEnabled);
+
         this.abilityStrength = abilityStrength;
+        this.maxAbilityStrength = maxAbilityStrength;
     }
 
-    public AdjustableStrengthAbilityInstanceData(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled, float abilityStrength) {
-        super(ability, isEnabled);
-        this.abilityStrength = abilityStrength;
+    public AdjustableStrengthAbilityInstanceData(Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled) {
+        this(ability, isEnabled, 0F, 0F);
     }
 
-    public void setAbilityStrength(ServerPlayer player, float strength) {
-        this.abilityStrength = Math.clamp(strength, 0, 1);
+    public void setAbilityStrength(float strength) {
+        this.abilityStrength = Math.clamp(strength, 0, maxAbilityStrength);
     }
 
     public float getAbilityStrength() {
         return this.abilityStrength;
+    }
+
+    public void setMaxAbilityStrength(float maxStrength) {
+        this.maxAbilityStrength = maxStrength;
+    }
+
+    public void increaseMaxAbilityStrength(float increase) {
+        this.maxAbilityStrength += increase;
+    }
+
+    public float getMaxAbilityStrength() {
+        return this.maxAbilityStrength;
     }
 
     @Override
