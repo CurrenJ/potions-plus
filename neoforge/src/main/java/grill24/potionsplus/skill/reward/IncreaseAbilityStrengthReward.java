@@ -2,6 +2,8 @@ package grill24.potionsplus.skill.reward;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.core.ConfiguredGrantableRewards;
+import grill24.potionsplus.core.GrantableRewards;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.skill.SkillsData;
@@ -11,11 +13,14 @@ import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInsta
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
+
+import static grill24.potionsplus.utility.Utility.ppId;
 
 public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbilityStrengthReward.IncreaseAbilityStrengthRewardConfiguration> {
     public static class IncreaseAbilityStrengthRewardConfiguration extends GrantableRewardConfiguration {
@@ -69,5 +74,48 @@ public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbili
         }
 
         PotionsPlus.LOGGER.warn("Failed to grant increase to max ability strength for player {} with ability key {}.", player.getName(), config.abilityKey);
+    }
+
+    public static class IncreaseAbilityStrengthRewardBuilder implements ConfiguredGrantableRewards.IRewardBuilder {
+        private final ResourceKey<ConfiguredGrantableReward<?, ?>> key;
+
+        private ResourceKey<ConfiguredPlayerAbility<?, ?>> ability;
+        private float strengthIncrease;
+
+        public IncreaseAbilityStrengthRewardBuilder(String name) {
+            this.strengthIncrease = 0;
+
+            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
+        }
+
+        public IncreaseAbilityStrengthRewardBuilder strength(float strengthIncrease) {
+            this.strengthIncrease = strengthIncrease;
+            return this;
+        }
+
+        public IncreaseAbilityStrengthRewardBuilder ability(ResourceKey<ConfiguredPlayerAbility<?, ?>> ability) {
+            this.ability = ability;
+            return this;
+        }
+
+        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {
+            return key;
+        }
+
+        @Override
+        public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
+            if (this.ability == null) {
+                throw new IllegalArgumentException("Ability must be set");
+            }
+
+            if (this.strengthIncrease == 0) {
+                throw new IllegalArgumentException("Strength increase must be set");
+            }
+
+            context.register(key, new ConfiguredGrantableReward<>(
+                    GrantableRewards.INCREASE_ABILITY_STRENGTH.value(),
+                    new IncreaseAbilityStrengthRewardConfiguration(this.ability, this.strengthIncrease)
+            ));
+        }
     }
 }

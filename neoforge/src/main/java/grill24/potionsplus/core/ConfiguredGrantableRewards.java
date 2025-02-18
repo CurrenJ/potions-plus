@@ -1,165 +1,158 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.skill.UnknownPotionIngredientRewardConfiguration;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.reward.*;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootTable;
 import oshi.util.tuples.Pair;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static grill24.potionsplus.utility.Utility.ppId;
-
 public class ConfiguredGrantableRewards {
-    public static final AdvancementRewardBuilder SIMPLE_DUNGEON_LOOT = register(() ->
-            new AdvancementRewardBuilder("simple_dungeon_loot",
+    public static final AdvancementReward.AdvancementRewardBuilder SIMPLE_DUNGEON_LOOT = register(() ->
+            new AdvancementReward.AdvancementRewardBuilder("simple_dungeon_loot",
                     AdvancementRewards.Builder.loot(BuiltInLootTables.SIMPLE_DUNGEON).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_5));
 
-    public static final ChoiceRewardBuilder[] SIMPLE_DUNGEON_LOOT_EDIBLE = register((i) -> new ChoiceRewardBuilder("simple_dungeon_loot_edible_"+i,
+    public static final EdibleChoiceReward.ChoiceRewardBuilder[] SIMPLE_DUNGEON_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("simple_dungeon_loot_edible_"+i,
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI), SIMPLE_DUNGEON_LOOT.getKey())
     ), 25);
 
-    public static final AdvancementRewardBuilder ABANDONED_MINESHAFT_LOOT = register(() ->
-            new AdvancementRewardBuilder("abandoned_mineshaft_loot",
+    public static final AdvancementReward.AdvancementRewardBuilder ABANDONED_MINESHAFT_LOOT = register(() ->
+            new AdvancementReward.AdvancementRewardBuilder("abandoned_mineshaft_loot",
                     AdvancementRewards.Builder.loot(BuiltInLootTables.ABANDONED_MINESHAFT).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_10));
 
-    public static final ChoiceRewardBuilder[] ABANDONED_MINESHAFT_LOOT_EDIBLE = register((i) -> new ChoiceRewardBuilder("abandoned_mineshaft_loot_edible_"+i,
+    public static final EdibleChoiceReward.ChoiceRewardBuilder[] ABANDONED_MINESHAFT_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("abandoned_mineshaft_loot_edible_"+i,
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.STONE_FRUIT), ABANDONED_MINESHAFT_LOOT.getKey())
     ), 25);
 
-    public static final AdvancementRewardBuilder STRONGHOLD_LIBRARY_LOOT = register(() ->
-            new AdvancementRewardBuilder("stronghold_library_loot",
+    public static final AdvancementReward.AdvancementRewardBuilder STRONGHOLD_LIBRARY_LOOT = register(() ->
+            new AdvancementReward.AdvancementRewardBuilder("stronghold_library_loot",
                     AdvancementRewards.Builder.loot(BuiltInLootTables.STRONGHOLD_LIBRARY).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_15));
 
-    public static final ChoiceRewardBuilder[] STRONGHOLD_LIBRARY_LOOT_EDIBLE = register((i) -> new ChoiceRewardBuilder("stronghold_library_loot_edible_"+i,
+    public static final EdibleChoiceReward.ChoiceRewardBuilder[] STRONGHOLD_LIBRARY_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("stronghold_library_loot_edible_"+i,
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.CHOCOLATE_BOOK), STRONGHOLD_LIBRARY_LOOT.getKey())
     ), 25);
 
-    public static final AdvancementRewardBuilder DESERT_PYRAMID_LOOT = register(() ->
-            new AdvancementRewardBuilder("desert_pyramid_loot",
+    public static final AdvancementReward.AdvancementRewardBuilder DESERT_PYRAMID_LOOT = register(() ->
+            new AdvancementReward.AdvancementRewardBuilder("desert_pyramid_loot",
                     AdvancementRewards.Builder.loot(BuiltInLootTables.DESERT_PYRAMID).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_20));
 
-    public static final ChoiceRewardBuilder[] DESERT_PYRAMID_LOOT_EDIBLE = register((i) -> new ChoiceRewardBuilder("desert_pyramid_loot_edible_"+i,
+    public static final EdibleChoiceReward.ChoiceRewardBuilder[] DESERT_PYRAMID_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("desert_pyramid_loot_edible_"+i,
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.PYRAMIDS_OF_SALT), DESERT_PYRAMID_LOOT.getKey())
     ), 25);
 
-    public static final AdvancementRewardBuilder JUNGLE_TEMPLE_LOOT = register(() ->
-            new AdvancementRewardBuilder("jungle_temple_loot",
+    public static final AdvancementReward.AdvancementRewardBuilder JUNGLE_TEMPLE_LOOT = register(() ->
+            new AdvancementReward.AdvancementRewardBuilder("jungle_temple_loot",
                     AdvancementRewards.Builder.loot(BuiltInLootTables.JUNGLE_TEMPLE).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_25));
 
-    public static final ChoiceRewardBuilder[] JUNGLE_TEMPLE_LOOT_EDIBLE = register((i) -> new ChoiceRewardBuilder("jungle_temple_loot_edible_"+i,
+    public static final EdibleChoiceReward.ChoiceRewardBuilder[] JUNGLE_TEMPLE_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("jungle_temple_loot_edible_"+i,
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.ROASTED_BAMBOO), JUNGLE_TEMPLE_LOOT.getKey())
     ), 25);
 
-    public static final AdvancementRewardBuilder BASIC_SKILL_REWARDS = register(() ->
-            new AdvancementRewardBuilder("basic_skill",
+    public static final AdvancementReward.AdvancementRewardBuilder BASIC_SKILL_REWARDS = register(() ->
+            new AdvancementReward.AdvancementRewardBuilder("basic_skill",
                     AdvancementRewards.Builder.loot(LootTables.BASIC_SKILL_REWARDS).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC));
 
-    public static final ChoiceRewardBuilder BASIC_SKILL_LOOT_EDIBLE = register(() -> new ChoiceRewardBuilder("basic_skill_loot_edible",
+    public static final EdibleChoiceReward.ChoiceRewardBuilder BASIC_SKILL_LOOT_EDIBLE = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("basic_skill_loot_edible",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BASIC_LOOT), BASIC_SKILL_REWARDS.getKey())
     ));
 
-    public static final AdvancementRewardBuilder INTERMEDIATE_SKILL_REWARDS = register(() ->
-            new AdvancementRewardBuilder("intermediate_skill",
+    public static final AdvancementReward.AdvancementRewardBuilder INTERMEDIATE_SKILL_REWARDS = register(() ->
+            new AdvancementReward.AdvancementRewardBuilder("intermediate_skill",
                     AdvancementRewards.Builder.loot(LootTables.INTERMEDIATE_SKILL_REWARDS).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE));
 
-    public static final ChoiceRewardBuilder INTERMEDIATE_SKILL_LOOT_EDIBLE = register(() -> new ChoiceRewardBuilder("intermediate_skill_loot_edible",
+    public static final EdibleChoiceReward.ChoiceRewardBuilder INTERMEDIATE_SKILL_LOOT_EDIBLE = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("intermediate_skill_loot_edible",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.INTERMEDIATE_LOOT), INTERMEDIATE_SKILL_REWARDS.getKey())
     ));
 
-    public static final AdvancementRewardBuilder ADVANCED_SKILL_REWARDS = register(() ->
-            new AdvancementRewardBuilder("advanced_skill",
+    public static final AdvancementReward.AdvancementRewardBuilder ADVANCED_SKILL_REWARDS = register(() ->
+            new AdvancementReward.AdvancementRewardBuilder("advanced_skill",
                     AdvancementRewards.Builder.loot(LootTables.ADVANCED_SKILL_REWARDS).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_ADVANCED));
 
-    public static final ChoiceRewardBuilder ADVANCED_SKILL_LOOT_EDIBLE = register(() -> new ChoiceRewardBuilder("advanced_skill_loot_edible",
+    public static final EdibleChoiceReward.ChoiceRewardBuilder ADVANCED_SKILL_LOOT_EDIBLE = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("advanced_skill_loot_edible",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.ADVANCED_LOOT), ADVANCED_SKILL_REWARDS.getKey())
     ));
 
-    public static final AdvancementRewardBuilder EXPERT_SKILL_REWARDS = register(() ->
-            new AdvancementRewardBuilder("expert_skill",
+    public static final AdvancementReward.AdvancementRewardBuilder EXPERT_SKILL_REWARDS = register(() ->
+            new AdvancementReward.AdvancementRewardBuilder("expert_skill",
                     AdvancementRewards.Builder.loot(LootTables.EXPERT_SKILL_REWARDS).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_EXPERT));
 
-    public static final ChoiceRewardBuilder EXPERT_SKILL_LOOT_EDIBLE = register(() -> new ChoiceRewardBuilder("expert_skill_loot_edible",
+    public static final EdibleChoiceReward.ChoiceRewardBuilder EXPERT_SKILL_LOOT_EDIBLE = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("expert_skill_loot_edible",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), EXPERT_SKILL_REWARDS.getKey())
     ));
 
-    public static final AdvancementRewardBuilder MASTER_SKILL_REWARDS = register(() ->
-            new AdvancementRewardBuilder("master_skill",
+    public static final AdvancementReward.AdvancementRewardBuilder MASTER_SKILL_REWARDS = register(() ->
+            new AdvancementReward.AdvancementRewardBuilder("master_skill",
                     AdvancementRewards.Builder.loot(LootTables.MASTER_SKILL_REWARDS).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_MASTER));
 
-    public static final ChoiceRewardBuilder MASTER_SKILL_LOOT_EDIBLE = register(() -> new ChoiceRewardBuilder("master_skill_loot_edible",
+    public static final EdibleChoiceReward.ChoiceRewardBuilder MASTER_SKILL_LOOT_EDIBLE = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("master_skill_loot_edible",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MASTER_LOOT), MASTER_SKILL_REWARDS.getKey())
     ));
 
-    public static final AnimatedItemRewardBuilder ANIMATED_ITEMS = register(() -> new AnimatedItemRewardBuilder(new ItemStack(Items.WOODEN_PICKAXE), new ItemStack(Items.STONE_PICKAXE), new ItemStack(Items.IRON_PICKAXE), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.NETHERITE_PICKAXE), new ItemStack(Items.GOLDEN_PICKAXE), new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_AXE), new ItemStack(Items.IRON_AXE), new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.NETHERITE_AXE), new ItemStack(Items.GOLDEN_AXE), new ItemStack(Items.WOODEN_SHOVEL), new ItemStack(Items.STONE_SHOVEL), new ItemStack(Items.IRON_SHOVEL), new ItemStack(Items.DIAMOND_SHOVEL), new ItemStack(Items.NETHERITE_SHOVEL), new ItemStack(Items.GOLDEN_SHOVEL), new ItemStack(Items.WOODEN_HOE), new ItemStack(Items.STONE_HOE), new ItemStack(Items.IRON_HOE), new ItemStack(Items.DIAMOND_HOE), new ItemStack(Items.NETHERITE_HOE), new ItemStack(Items.GOLDEN_HOE), new ItemStack(Items.WOODEN_SWORD), new ItemStack(Items.STONE_SWORD), new ItemStack(Items.IRON_SWORD), new ItemStack(Items.DIAMOND_SWORD), new ItemStack(Items.NETHERITE_SWORD), new ItemStack(Items.GOLDEN_SWORD), new ItemStack(Items.BOW), new ItemStack(Items.CROSSBOW), new ItemStack(Items.TRIDENT), new ItemStack(Items.LEATHER_BOOTS), new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_CHESTPLATE), new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.CHAINMAIL_BOOTS), new ItemStack(Items.CHAINMAIL_LEGGINGS), new ItemStack(Items.CHAINMAIL_CHESTPLATE), new ItemStack(Items.CHAINMAIL_HELMET), new ItemStack(Items.IRON_BOOTS), new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Items.IRON_CHESTPLATE), new ItemStack(Items.IRON_HELMET), new ItemStack(Items.DIAMOND_BOOTS), new ItemStack(Items.DIAMOND_LEGGINGS), new ItemStack(Items.DIAMOND_CHESTPLATE), new ItemStack(Items.DIAMOND_HELMET), new ItemStack(Items.NETHERITE_BOOTS), new ItemStack(Items.NETHERITE_LEGGINGS), new ItemStack(Items.NETHERITE_CHESTPLATE), new ItemStack(Items.NETHERITE_HELMET), new ItemStack(Items.GOLDEN_BOOTS), new ItemStack(Items.GOLDEN_LEGGINGS), new ItemStack(Items.GOLDEN_CHESTPLATE), new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.SHIELD), new ItemStack(Items.ELYTRA), new ItemStack(Items.SUGAR), new ItemStack(Items.COPPER_ORE), new ItemStack(Items.COAL_ORE), new ItemStack(Items.IRON_ORE), new ItemStack(Items.GOLD_ORE), new ItemStack(Items.DIAMOND_ORE), new ItemStack(Items.EMERALD_ORE), new ItemStack(Items.ANCIENT_DEBRIS)));
-    public static final AnimatedItemRewardBuilder ANIMTED_ITEMS_TEST = register(() -> new AnimatedItemRewardBuilder(new ItemStack(Items.GOLDEN_CARROT)));
+    public static final AnimatedItemReward.AnimatedItemRewardBuilder ANIMATED_ITEMS = register(() -> new AnimatedItemReward.AnimatedItemRewardBuilder(new ItemStack(Items.WOODEN_PICKAXE), new ItemStack(Items.STONE_PICKAXE), new ItemStack(Items.IRON_PICKAXE), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.NETHERITE_PICKAXE), new ItemStack(Items.GOLDEN_PICKAXE), new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_AXE), new ItemStack(Items.IRON_AXE), new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.NETHERITE_AXE), new ItemStack(Items.GOLDEN_AXE), new ItemStack(Items.WOODEN_SHOVEL), new ItemStack(Items.STONE_SHOVEL), new ItemStack(Items.IRON_SHOVEL), new ItemStack(Items.DIAMOND_SHOVEL), new ItemStack(Items.NETHERITE_SHOVEL), new ItemStack(Items.GOLDEN_SHOVEL), new ItemStack(Items.WOODEN_HOE), new ItemStack(Items.STONE_HOE), new ItemStack(Items.IRON_HOE), new ItemStack(Items.DIAMOND_HOE), new ItemStack(Items.NETHERITE_HOE), new ItemStack(Items.GOLDEN_HOE), new ItemStack(Items.WOODEN_SWORD), new ItemStack(Items.STONE_SWORD), new ItemStack(Items.IRON_SWORD), new ItemStack(Items.DIAMOND_SWORD), new ItemStack(Items.NETHERITE_SWORD), new ItemStack(Items.GOLDEN_SWORD), new ItemStack(Items.BOW), new ItemStack(Items.CROSSBOW), new ItemStack(Items.TRIDENT), new ItemStack(Items.LEATHER_BOOTS), new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_CHESTPLATE), new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.CHAINMAIL_BOOTS), new ItemStack(Items.CHAINMAIL_LEGGINGS), new ItemStack(Items.CHAINMAIL_CHESTPLATE), new ItemStack(Items.CHAINMAIL_HELMET), new ItemStack(Items.IRON_BOOTS), new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Items.IRON_CHESTPLATE), new ItemStack(Items.IRON_HELMET), new ItemStack(Items.DIAMOND_BOOTS), new ItemStack(Items.DIAMOND_LEGGINGS), new ItemStack(Items.DIAMOND_CHESTPLATE), new ItemStack(Items.DIAMOND_HELMET), new ItemStack(Items.NETHERITE_BOOTS), new ItemStack(Items.NETHERITE_LEGGINGS), new ItemStack(Items.NETHERITE_CHESTPLATE), new ItemStack(Items.NETHERITE_HELMET), new ItemStack(Items.GOLDEN_BOOTS), new ItemStack(Items.GOLDEN_LEGGINGS), new ItemStack(Items.GOLDEN_CHESTPLATE), new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.SHIELD), new ItemStack(Items.ELYTRA), new ItemStack(Items.SUGAR), new ItemStack(Items.COPPER_ORE), new ItemStack(Items.COAL_ORE), new ItemStack(Items.IRON_ORE), new ItemStack(Items.GOLD_ORE), new ItemStack(Items.DIAMOND_ORE), new ItemStack(Items.EMERALD_ORE), new ItemStack(Items.ANCIENT_DEBRIS)));
+    public static final AnimatedItemReward.AnimatedItemRewardBuilder ANIMTED_ITEMS_TEST = register(() -> new AnimatedItemReward.AnimatedItemRewardBuilder(new ItemStack(Items.GOLDEN_CARROT)));
 
-    public static final AbilityRewardBuilder PICKAXE_EFFICIENCY_BONUS = register(() -> new AbilityRewardBuilder(ConfiguredPlayerAbilities.PICKAXE_EFFICIENCY_BONUS_KEYS));
-    public static final AbilityRewardBuilder SUBMERGED_PICKAXE_EFFICIENCY_BONUS = register(() -> new AbilityRewardBuilder(ConfiguredPlayerAbilities.SUBMERGED_PICKAXE_EFFICIENCY_BONUS_KEYS));
-    public static final AbilityRewardBuilder PICKAXE_FORTUNE_BONUS = registerAbility(ConfiguredPlayerAbilities.PICKAXE_FORTUNE_BONUS_KEYS);
-    public static final AbilityRewardBuilder PICKAXE_COPPER_ORE_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.PICKAXE_COPPER_ORE_ADDITIONAL_LOOT_KEYS);
-    public static final AbilityRewardBuilder PICKAXE_IRON_ORE_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.PICKAXE_IRON_ORE_ADDITIONAL_LOOT_KEYS);
-    public static final AbilityRewardBuilder PICKAXE_DIAMOND_ORE_ADDITIONAL_EMERALDS_LOOT = registerAbility(ConfiguredPlayerAbilities.PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS_KEYS);
-    public static final AbilityRewardBuilder PICKAXE_DIAMOND_ORE_ADDITIONAL_LAPIS_LOOT = registerAbility(ConfiguredPlayerAbilities.PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder PICKAXE_EFFICIENCY_BONUS = register(() -> new AbilityReward.AbilityRewardBuilder(ConfiguredPlayerAbilities.PICKAXE_EFFICIENCY_BONUS_KEYS));
+    public static final AbilityReward.AbilityRewardBuilder SUBMERGED_PICKAXE_EFFICIENCY_BONUS = register(() -> new AbilityReward.AbilityRewardBuilder(ConfiguredPlayerAbilities.SUBMERGED_PICKAXE_EFFICIENCY_BONUS_KEYS));
+    public static final AbilityReward.AbilityRewardBuilder PICKAXE_FORTUNE_BONUS = registerAbility(ConfiguredPlayerAbilities.PICKAXE_FORTUNE_BONUS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder PICKAXE_COPPER_ORE_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.PICKAXE_COPPER_ORE_ADDITIONAL_LOOT_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder PICKAXE_IRON_ORE_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.PICKAXE_IRON_ORE_ADDITIONAL_LOOT_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder PICKAXE_DIAMOND_ORE_ADDITIONAL_EMERALDS_LOOT = registerAbility(ConfiguredPlayerAbilities.PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder PICKAXE_DIAMOND_ORE_ADDITIONAL_LAPIS_LOOT = registerAbility(ConfiguredPlayerAbilities.PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS_KEYS);
 
-    public static final AbilityRewardBuilder AXE_EFFICIENCY_BONUS = registerAbility(ConfiguredPlayerAbilities.AXE_EFFICIENCY_BONUS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder AXE_EFFICIENCY_BONUS = registerAbility(ConfiguredPlayerAbilities.AXE_EFFICIENCY_BONUS_KEYS);
 
-    public static final AbilityRewardBuilder SHOVEL_EFFICIENCY_BONUS = registerAbility(ConfiguredPlayerAbilities.SHOVEL_EFFICIENCY_BONUS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder SHOVEL_EFFICIENCY_BONUS = registerAbility(ConfiguredPlayerAbilities.SHOVEL_EFFICIENCY_BONUS_KEYS);
 
-    public static final AbilityRewardBuilder HOE_EFFICIENCY_BONUS = registerAbility(ConfiguredPlayerAbilities.HOE_EFFICIENCY_BONUS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder HOE_EFFICIENCY_BONUS = registerAbility(ConfiguredPlayerAbilities.HOE_EFFICIENCY_BONUS_KEYS);
 
-    public static final AbilityRewardBuilder SWORD_SHARPNESS_BONUS = registerAbility(ConfiguredPlayerAbilities.SWORD_SHARPNESS_BONUS_KEYS);
-    public static final AbilityRewardBuilder SWORD_LOOTING_BONUS = registerAbility(ConfiguredPlayerAbilities.SWORD_LOOTING_BONUS_KEYS);
-    public static final AbilityRewardBuilder CREEPER_SAND_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.CREEPER_SAND_ADDITIONAL_LOOT_KEYS);
-    public static final AbilityRewardBuilder SKELETON_BONE_MEAL_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.SKELETON_BONE_MEAL_ADDITIONAL_LOOT_KEYS);
-    public static final AbilityRewardBuilder SKELETON_BONE_BLOCK_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder SWORD_SHARPNESS_BONUS = registerAbility(ConfiguredPlayerAbilities.SWORD_SHARPNESS_BONUS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder SWORD_LOOTING_BONUS = registerAbility(ConfiguredPlayerAbilities.SWORD_LOOTING_BONUS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder CREEPER_SAND_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.CREEPER_SAND_ADDITIONAL_LOOT_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder SKELETON_BONE_MEAL_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.SKELETON_BONE_MEAL_ADDITIONAL_LOOT_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder SKELETON_BONE_BLOCK_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT_KEYS);
 
-    public static final AbilityRewardBuilder AXE_DAMAGE_BONUS = registerAbility(ConfiguredPlayerAbilities.AXE_DAMAGE_BONUS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder AXE_DAMAGE_BONUS = registerAbility(ConfiguredPlayerAbilities.AXE_DAMAGE_BONUS_KEYS);
 
-    public static final AbilityRewardBuilder BOW_POWER_BONUS = registerAbility(ConfiguredPlayerAbilities.BOW_POWER_BONUS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder BOW_POWER_BONUS = registerAbility(ConfiguredPlayerAbilities.BOW_POWER_BONUS_KEYS);
 
-    public static final AbilityRewardBuilder CROSSBOW_DAMAGE_BONUS = registerAbility(ConfiguredPlayerAbilities.CROSSBOW_DAMAGE_BONUS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder CROSSBOW_DAMAGE_BONUS = registerAbility(ConfiguredPlayerAbilities.CROSSBOW_DAMAGE_BONUS_KEYS);
 
-    public static final AbilityRewardBuilder TRIDENT_DAMAGE_BONUS = registerAbility(ConfiguredPlayerAbilities.TRIDENT_DAMAGE_BONUS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder TRIDENT_DAMAGE_BONUS = registerAbility(ConfiguredPlayerAbilities.TRIDENT_DAMAGE_BONUS_KEYS);
 
-    public static final AbilityRewardBuilder MOVEMENT_SPEED_BONUS = registerAbility(ConfiguredPlayerAbilities.MOVEMENT_SPEED_BONUS_KEYS);
-    public static final IncreaseAbilityStrengthRewardBuilder MOVEMENT_SPEED_INCREASE = register(() -> new IncreaseAbilityStrengthRewardBuilder("movement_speed_increase")
+    public static final AbilityReward.AbilityRewardBuilder MOVEMENT_SPEED_BONUS = registerAbility(ConfiguredPlayerAbilities.MOVEMENT_SPEED_BONUS_KEYS);
+    public static final IncreaseAbilityStrengthReward.IncreaseAbilityStrengthRewardBuilder MOVEMENT_SPEED_INCREASE = register(() -> new IncreaseAbilityStrengthReward.IncreaseAbilityStrengthRewardBuilder("movement_speed_increase")
             .ability(ConfiguredPlayerAbilities.MOVEMENT_SPEED_BONUS_KEYS)
             .strength(0.1F));
-    public static final AbilityRewardBuilder SPRINT_SPEED_BONUS = registerAbility(ConfiguredPlayerAbilities.SPRINT_SPEED_BONUS_KEYS);
-    public static final AbilityRewardBuilder SNEAK_SPEED_BONUS = registerAbility(ConfiguredPlayerAbilities.SNEAK_SPEED_BONUS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder SPRINT_SPEED_BONUS = registerAbility(ConfiguredPlayerAbilities.SPRINT_SPEED_BONUS_KEYS);
+    public static final AbilityReward.AbilityRewardBuilder SNEAK_SPEED_BONUS = registerAbility(ConfiguredPlayerAbilities.SNEAK_SPEED_BONUS_KEYS);
 
-    public static AbilityRewardBuilder JUMP_HEIGHT_BONUS = registerAbility(ConfiguredPlayerAbilities.JUMP_HEIGHT_BONUS_KEYS);
+    public static AbilityReward.AbilityRewardBuilder JUMP_HEIGHT_BONUS = registerAbility(ConfiguredPlayerAbilities.JUMP_HEIGHT_BONUS_KEYS);
 
-    public static ChoiceRewardBuilder CHOOSE_LOOT_1 = register(() -> new ChoiceRewardBuilder("choose_loot_1",
+    public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_LOOT_1 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_loot_1",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI), SIMPLE_DUNGEON_LOOT.getKey()),
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.STONE_FRUIT), ABANDONED_MINESHAFT_LOOT.getKey())
     ));
 
-    public static ChoiceRewardBuilder CHOOSE_LOOT_2 = register(() -> new ChoiceRewardBuilder("choose_loot_2",
+    public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_LOOT_2 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_loot_2",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), STRONGHOLD_LIBRARY_LOOT.getKey()),
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), DESERT_PYRAMID_LOOT.getKey())
     ));
@@ -179,7 +172,7 @@ public class ConfiguredGrantableRewards {
 //            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), PICKAXE_DIAMOND_ORE_ADDITIONAL_LAPIS_LOOT.getKey(0))
 //    ));
 
-    public static ItemWheelRewardBuilder WHEEL_TREASURES = register(() -> new ItemWheelRewardBuilder("wheel_treasures",
+    public static ItemWheelReward.ItemWheelRewardBuilder WHEEL_TREASURES = register(() -> new ItemWheelReward.ItemWheelRewardBuilder("wheel_treasures",
             new ItemStack(Items.DIAMOND),
             new ItemStack(Items.LAPIS_LAZULI),
             new ItemStack(Items.EMERALD),
@@ -188,30 +181,30 @@ public class ConfiguredGrantableRewards {
             new ItemStack(Items.IRON_INGOT),
             new ItemStack(Items.ANCIENT_DEBRIS)
     ));
-    public static ChoiceRewardBuilder EDIBLE_WHEEL_TREASURES = register(() -> new ChoiceRewardBuilder("edible_wheel_treasures",
+    public static EdibleChoiceReward.ChoiceRewardBuilder EDIBLE_WHEEL_TREASURES = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("edible_wheel_treasures",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), WHEEL_TREASURES.getKey())
     ));
 
-    public static ItemWheelRewardBuilder WHEEL_END_CITY = register(() -> new ItemWheelRewardBuilder("wheel_end_city",
+    public static ItemWheelReward.ItemWheelRewardBuilder WHEEL_END_CITY = register(() -> new ItemWheelReward.ItemWheelRewardBuilder("wheel_end_city",
             BuiltInLootTables.END_CITY_TREASURE, 8).translation(Translations.TOOLTIP_POTIONSPLUS_REWARD_END_CITY_LOOT));
-    public static ChoiceRewardBuilder EDIBLE_WHEEL_END_CITY = register(() -> new ChoiceRewardBuilder("edible_wheel_end_city",
+    public static EdibleChoiceReward.ChoiceRewardBuilder EDIBLE_WHEEL_END_CITY = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("edible_wheel_end_city",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), WHEEL_END_CITY.getKey())
     ));
 
-    public static ItemWheelRewardBuilder GEMS_AND_ORES_WHEEL = register(() -> new ItemWheelRewardBuilder("gems_and_ores_wheel",
+    public static ItemWheelReward.ItemWheelRewardBuilder GEMS_AND_ORES_WHEEL = register(() -> new ItemWheelReward.ItemWheelRewardBuilder("gems_and_ores_wheel",
             LootTables.GEMS_AND_ORES_REWARDS, 8).translation(Translations.TOOLTIP_POTIONSPLUS_REWARD_GEMS_AND_ORES_WHEEL));
-    public static ChoiceRewardBuilder EDIBLE_GEMS_AND_ORES_WHEEL = register(() -> new ChoiceRewardBuilder("edible_gems_and_ores_wheel",
+    public static EdibleChoiceReward.ChoiceRewardBuilder EDIBLE_GEMS_AND_ORES_WHEEL = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("edible_gems_and_ores_wheel",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), GEMS_AND_ORES_WHEEL.getKey())
     ));
 
-    public static ItemWheelRewardBuilder POTIONS_WHEEL = register(() -> new ItemWheelRewardBuilder("potions_wheel",
+    public static ItemWheelReward.ItemWheelRewardBuilder POTIONS_WHEEL = register(() -> new ItemWheelReward.ItemWheelRewardBuilder("potions_wheel",
             LootTables.ALL_POTIONS, 8));
-    public static ChoiceRewardBuilder EDIBLE_POTIONS_WHEEL = register(() -> new ChoiceRewardBuilder("edible_potions_wheel",
+    public static EdibleChoiceReward.ChoiceRewardBuilder EDIBLE_POTIONS_WHEEL = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("edible_potions_wheel",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), POTIONS_WHEEL.getKey())
     ));
 
-    public static UnknownPotionIngredientRewardBuilder UNKNOWN_POTION_INGREDIENT = register(() -> new UnknownPotionIngredientRewardBuilder("unknown_potion_ingredient", 1));
-    public static ChoiceRewardBuilder EDIBLE_UNKNOWN_POTION_INGREDIENT = register(() -> new ChoiceRewardBuilder("edible_unknown_potion_ingredient",
+    public static UnknownPotionIngredientReward.UnknownPotionIngredientRewardBuilder UNKNOWN_POTION_INGREDIENT = register(() -> new UnknownPotionIngredientReward.UnknownPotionIngredientRewardBuilder("unknown_potion_ingredient", 1));
+    public static EdibleChoiceReward.ChoiceRewardBuilder EDIBLE_UNKNOWN_POTION_INGREDIENT = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("edible_unknown_potion_ingredient",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI), UNKNOWN_POTION_INGREDIENT.getKey())
     ));
 
@@ -222,8 +215,8 @@ public class ConfiguredGrantableRewards {
     }
 
     private static List<IRewardBuilder> rewardBuilders;
-    private static AbilityRewardBuilder registerAbility(ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredAbilityKey) {
-        AbilityRewardBuilder data = new AbilityRewardBuilder(configuredAbilityKey);
+    private static AbilityReward.AbilityRewardBuilder registerAbility(ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredAbilityKey) {
+        AbilityReward.AbilityRewardBuilder data = new AbilityReward.AbilityRewardBuilder(configuredAbilityKey);
         if (rewardBuilders == null) {
             rewardBuilders = new ArrayList<>();
         }
@@ -253,243 +246,4 @@ public class ConfiguredGrantableRewards {
         void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context);
     }
 
-    public static class AbilityRewardBuilder implements IRewardBuilder {
-        private final ResourceKey<ConfiguredPlayerAbility<?, ?>> abilityKey;
-        private final ResourceKey<ConfiguredGrantableReward<?, ?>> abilityRewardKey;
-
-        public AbilityRewardBuilder(ResourceKey<ConfiguredPlayerAbility<?, ?>> abilityKey) {
-            this.abilityKey = abilityKey;
-            this.abilityRewardKey = registerKey(abilityKey);
-        }
-
-        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {
-            return abilityRewardKey;
-        }
-
-        private static ResourceKey<ConfiguredGrantableReward<?, ?>> registerKey(ResourceKey<ConfiguredPlayerAbility<?, ?>> ability) {
-            return ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(ability.location().getPath()));
-        }
-
-        @Override
-        public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
-            context.register(this.abilityRewardKey, AbilityReward.ability(context, abilityKey));
-        }
-    }
-
-    public static class AnimatedItemRewardBuilder implements IRewardBuilder {
-        private final ItemStack[] itemStacks;
-        private final ResourceKey<ConfiguredGrantableReward<?, ?>>[] keys;
-
-        public AnimatedItemRewardBuilder(ItemStack... itemStacks) {
-            keys = new ResourceKey[itemStacks.length];
-            for (int i = 0; i < itemStacks.length; i++) {
-                keys[i] = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId("display_" + itemStacks[i].getItemHolder().getKey().location().getPath()));
-            }
-            this.itemStacks = itemStacks;
-        }
-
-        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey(int index) {
-            return keys[index];
-        }
-
-        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey(ItemStack itemStack) {
-            // linear search
-            for (int i = 0; i < itemStacks.length; i++) {
-                if (ItemStack.isSameItem(itemStacks[i], itemStack)) {
-                    return keys[i];
-                }
-            }
-
-            throw new IllegalArgumentException(itemStack.getItemHolder().getKey() + " is not a registered animation item stack");
-        }
-
-        @Override
-        public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
-            if (this.keys.length != itemStacks.length) {
-                throw new IllegalArgumentException("Keys and itemStacks must have the same length");
-            }
-
-            for (int i = 0; i < itemStacks.length; i++) {
-                ResourceKey<ConfiguredGrantableReward<?, ?>> key = keys[i];
-                ItemStack itemStack = itemStacks[i];
-
-                context.register(key, new ConfiguredGrantableReward<>(
-                        GrantableRewards.ANIMATED_ITEM_DISPLAY.value(),
-                        new AnimatedItemReward.AnimatedItemRewardConfiguration(itemStack, List.of())
-                ));
-            }
-        }
-    }
-
-    public static class AdvancementRewardBuilder implements IRewardBuilder {
-        private String translationKey;
-        private final AdvancementRewards rewards;
-        private final ResourceKey<ConfiguredGrantableReward<?, ?>> key;
-
-        public AdvancementRewardBuilder(String name, AdvancementRewards rewards) {
-            this.rewards = rewards;
-            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
-            this.translationKey = "";
-        }
-
-        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {
-            return key;
-        }
-
-        public AdvancementRewardBuilder translation(String translationKey) {
-            this.translationKey = translationKey;
-            return this;
-        }
-
-        @Override
-        public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
-            context.register(key, new ConfiguredGrantableReward<>(
-                    GrantableRewards.ADVANCEMENT.value(),
-                    new AdvancementReward.AdvancementRewardConfiguration(translationKey, rewards)
-            ));
-        }
-    }
-
-    public static class ChoiceRewardBuilder implements IRewardBuilder {
-        private final Pair<ItemStack, ResourceKey<ConfiguredGrantableReward<?, ?>>>[] rewards;
-        private final ResourceKey<ConfiguredGrantableReward<?, ?>> key;
-
-        @SafeVarargs
-        public ChoiceRewardBuilder(String name, Pair<ItemStack, ResourceKey<ConfiguredGrantableReward<?, ?>>>... rewards) {
-            this.rewards = rewards;
-            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
-        }
-
-        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {
-            return key;
-        }
-
-        @Override
-        public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
-            HolderGetter<ConfiguredGrantableReward<?, ?>> lookup = context.lookup(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD);
-
-            List<EdibleChoiceRewardOption> options = new ArrayList<>();
-            for (Pair<ItemStack, ResourceKey<ConfiguredGrantableReward<?, ?>>> reward : rewards) {
-                ItemStack itemStack = reward.getA();
-                ResourceKey<ConfiguredGrantableReward<?, ?>> optionKey = reward.getB();
-                options.add(new EdibleChoiceRewardOption(lookup, key, optionKey, itemStack));
-            }
-
-            context.register(key, new ConfiguredGrantableReward<>(
-                    GrantableRewards.CHOICE.value(),
-                    new EdibleChoiceRewardConfiguration(options)
-            ));
-        }
-    }
-
-    public static class ItemWheelRewardBuilder implements IRewardBuilder {
-        private String translationKey;
-
-        private final List<ItemStack> itemStacks;
-        private final ResourceKey<LootTable> lootTable;
-        private final int numToSample;
-
-        private final ResourceKey<ConfiguredGrantableReward<?, ?>> key;
-
-        public ItemWheelRewardBuilder(String name, ItemStack... itemStacks) {
-            translationKey = "";
-
-            this.itemStacks = Arrays.stream(itemStacks).toList();
-            this.lootTable = null;
-            this.numToSample = 0;
-
-            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
-        }
-
-        public ItemWheelRewardBuilder(String name, ResourceKey<LootTable> lootTable, int numToSample) {
-            translationKey = "";
-
-            this.itemStacks = new ArrayList<>();
-            this.lootTable = lootTable;
-            this.numToSample = numToSample;
-
-            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
-        }
-
-        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {return key; }
-
-        public ItemWheelRewardBuilder translation(String translationKey) {
-            this.translationKey = translationKey;
-            return this;
-        }
-
-        @Override
-        public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
-            context.register(key, new ConfiguredGrantableReward<>(
-                    GrantableRewards.WHEEL.value(),
-                    new ItemWheelRewardConfiguration(translationKey, itemStacks, Optional.ofNullable(lootTable), numToSample)
-            ));
-
-        }
-    }
-
-    public static class UnknownPotionIngredientRewardBuilder implements IRewardBuilder {
-        private final int count;
-        private final ResourceKey<ConfiguredGrantableReward<?, ?>> key;
-
-        public UnknownPotionIngredientRewardBuilder(String name, int count) {
-            this.count = count;
-            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
-        }
-
-        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {
-            return key;
-        }
-
-        @Override
-        public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
-            context.register(key, new ConfiguredGrantableReward<>(
-                    GrantableRewards.UNKNOWN_POTION_INGREDIENT.value(),
-                    new UnknownPotionIngredientRewardConfiguration(count)
-            ));
-        }
-    }
-
-    public static class IncreaseAbilityStrengthRewardBuilder implements IRewardBuilder {
-        private final ResourceKey<ConfiguredGrantableReward<?, ?>> key;
-
-        private ResourceKey<ConfiguredPlayerAbility<?, ?>> ability;
-        private float strengthIncrease;
-
-        public IncreaseAbilityStrengthRewardBuilder(String name) {
-            this.strengthIncrease = 0;
-
-            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
-        }
-
-        public IncreaseAbilityStrengthRewardBuilder strength(float strengthIncrease) {
-            this.strengthIncrease = strengthIncrease;
-            return this;
-        }
-
-        public IncreaseAbilityStrengthRewardBuilder ability(ResourceKey<ConfiguredPlayerAbility<?, ?>> ability) {
-            this.ability = ability;
-            return this;
-        }
-
-        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {
-            return key;
-        }
-
-        @Override
-        public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
-            if (this.ability == null) {
-                throw new IllegalArgumentException("Ability must be set");
-            }
-
-            if (this.strengthIncrease == 0) {
-                throw new IllegalArgumentException("Strength increase must be set");
-            }
-
-            context.register(key, new ConfiguredGrantableReward<>(
-                    GrantableRewards.INCREASE_ABILITY_STRENGTH.value(),
-                    new IncreaseAbilityStrengthReward.IncreaseAbilityStrengthRewardConfiguration(this.ability, this.strengthIncrease)
-            ));
-        }
-    }
 }
