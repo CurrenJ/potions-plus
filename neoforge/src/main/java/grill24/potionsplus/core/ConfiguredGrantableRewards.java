@@ -108,44 +108,60 @@ public class ConfiguredGrantableRewards {
     ));
 
     public static final AnimatedItemReward.AnimatedItemRewardBuilder ANIMATED_ITEMS = register(() -> new AnimatedItemReward.AnimatedItemRewardBuilder(new ItemStack(Items.WOODEN_PICKAXE), new ItemStack(Items.STONE_PICKAXE), new ItemStack(Items.IRON_PICKAXE), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.NETHERITE_PICKAXE), new ItemStack(Items.GOLDEN_PICKAXE), new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_AXE), new ItemStack(Items.IRON_AXE), new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.NETHERITE_AXE), new ItemStack(Items.GOLDEN_AXE), new ItemStack(Items.WOODEN_SHOVEL), new ItemStack(Items.STONE_SHOVEL), new ItemStack(Items.IRON_SHOVEL), new ItemStack(Items.DIAMOND_SHOVEL), new ItemStack(Items.NETHERITE_SHOVEL), new ItemStack(Items.GOLDEN_SHOVEL), new ItemStack(Items.WOODEN_HOE), new ItemStack(Items.STONE_HOE), new ItemStack(Items.IRON_HOE), new ItemStack(Items.DIAMOND_HOE), new ItemStack(Items.NETHERITE_HOE), new ItemStack(Items.GOLDEN_HOE), new ItemStack(Items.WOODEN_SWORD), new ItemStack(Items.STONE_SWORD), new ItemStack(Items.IRON_SWORD), new ItemStack(Items.DIAMOND_SWORD), new ItemStack(Items.NETHERITE_SWORD), new ItemStack(Items.GOLDEN_SWORD), new ItemStack(Items.BOW), new ItemStack(Items.CROSSBOW), new ItemStack(Items.TRIDENT), new ItemStack(Items.LEATHER_BOOTS), new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_CHESTPLATE), new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.CHAINMAIL_BOOTS), new ItemStack(Items.CHAINMAIL_LEGGINGS), new ItemStack(Items.CHAINMAIL_CHESTPLATE), new ItemStack(Items.CHAINMAIL_HELMET), new ItemStack(Items.IRON_BOOTS), new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Items.IRON_CHESTPLATE), new ItemStack(Items.IRON_HELMET), new ItemStack(Items.DIAMOND_BOOTS), new ItemStack(Items.DIAMOND_LEGGINGS), new ItemStack(Items.DIAMOND_CHESTPLATE), new ItemStack(Items.DIAMOND_HELMET), new ItemStack(Items.NETHERITE_BOOTS), new ItemStack(Items.NETHERITE_LEGGINGS), new ItemStack(Items.NETHERITE_CHESTPLATE), new ItemStack(Items.NETHERITE_HELMET), new ItemStack(Items.GOLDEN_BOOTS), new ItemStack(Items.GOLDEN_LEGGINGS), new ItemStack(Items.GOLDEN_CHESTPLATE), new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.SHIELD), new ItemStack(Items.ELYTRA), new ItemStack(Items.SUGAR), new ItemStack(Items.COPPER_ORE), new ItemStack(Items.COAL_ORE), new ItemStack(Items.IRON_ORE), new ItemStack(Items.GOLD_ORE), new ItemStack(Items.DIAMOND_ORE), new ItemStack(Items.EMERALD_ORE), new ItemStack(Items.ANCIENT_DEBRIS)));
-    public static final AnimatedItemReward.AnimatedItemRewardBuilder ANIMTED_ITEMS_TEST = register(() -> new AnimatedItemReward.AnimatedItemRewardBuilder(new ItemStack(Items.GOLDEN_CARROT)));
 
-    public static final AbilityReward.AbilityRewardBuilder PICKAXE_EFFICIENCY_BONUS = register(() -> new AbilityReward.AbilityRewardBuilder(ConfiguredPlayerAbilities.PICKAXE_EFFICIENCY_MODIFIER_KEY));
-    public static final AbilityReward.AbilityRewardBuilder SUBMERGED_PICKAXE_EFFICIENCY_BONUS = register(() -> new AbilityReward.AbilityRewardBuilder(ConfiguredPlayerAbilities.SUBMERGED_PICKAXE_EFFICIENCY_MODIFIER_KEY));
-    public static final AbilityReward.AbilityRewardBuilder PICKAXE_FORTUNE_BONUS = registerAbility(ConfiguredPlayerAbilities.PICKAXE_FORTUNE_MODIFIER_KEY);
-    public static final AbilityReward.AbilityRewardBuilder PICKAXE_COPPER_ORE_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.PICKAXE_COPPER_ORE_ADDITIONAL_LOOT_KEY);
-    public static final AbilityReward.AbilityRewardBuilder PICKAXE_IRON_ORE_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.PICKAXE_IRON_ORE_ADDITIONAL_LOOT_KEY);
-    public static final AbilityReward.AbilityRewardBuilder PICKAXE_DIAMOND_ORE_ADDITIONAL_EMERALDS_LOOT = registerAbility(ConfiguredPlayerAbilities.PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS_KEY);
-    public static final AbilityReward.AbilityRewardBuilder PICKAXE_DIAMOND_ORE_ADDITIONAL_LAPIS_LOOT = registerAbility(ConfiguredPlayerAbilities.PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS_KEY);
+    public static final IncreaseAbilityStrengthReward.Builder PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("pickaxe_efficiency_increase")
+            .ability(ConfiguredPlayerAbilities.PICKAXE_EFFICIENCY_MODIFIER_KEY.getKey())
+            .strength(1.0F));
+    public static final IncreaseAbilityStrengthReward.Builder SUBMERGED_PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("submerged_pickaxe_efficiency_increase")
+            .ability(ConfiguredPlayerAbilities.SUBMERGED_PICKAXE_EFFICIENCY_MODIFIER_KEY.getKey())
+            .strength(1.0F));
+    public static final IncreaseAbilityStrengthReward.Builder PICKAXE_FORTUNE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("pickaxe_fortune_increase")
+            .ability(ConfiguredPlayerAbilities.PICKAXE_FORTUNE_MODIFIER_KEY.getKey())
+            .strength(1.0F));
+    public static final AbilityReward.AbilityRewardBuilder PICKAXE_COPPER_ORE_ADDITIONAL_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.COPPER_ORE_ADDITIONAL_LOOT.getKey());
+    public static final AbilityReward.AbilityRewardBuilder PICKAXE_IRON_ORE_ADDITIONAL_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.IRON_ORE_ADDITIONAL_LOOT.getKey());
+    public static final AbilityReward.AbilityRewardBuilder PICKAXE_DIAMOND_ORE_ADDITIONAL_EMERALDS_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS.getKey());
+    public static final AbilityReward.AbilityRewardBuilder PICKAXE_DIAMOND_ORE_ADDITIONAL_LAPIS_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS.getKey());
 
-    public static final AbilityReward.AbilityRewardBuilder AXE_EFFICIENCY_BONUS = registerAbility(ConfiguredPlayerAbilities.AXE_EFFICIENCY_MODIFIER_KEY);
+    public static final IncreaseAbilityStrengthReward.Builder AXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("axe_efficiency_increase")
+            .ability(ConfiguredPlayerAbilities.AXE_EFFICIENCY_MODIFIER_KEY.getKey())
+            .strength(1.0F));
+    public static final IncreaseAbilityStrengthReward.Builder SHOVEL_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("shovel_efficiency_increase")
+            .ability(ConfiguredPlayerAbilities.SHOVEL_EFFICIENCY_MODIFIER_KEY.getKey())
+            .strength(1.0F));
+    public static final IncreaseAbilityStrengthReward.Builder HOE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("hoe_efficiency_increase")
+            .ability(ConfiguredPlayerAbilities.HOE_EFFICIENCY_MODIFIER_KEY.getKey())
+            .strength(1.0F));
 
-    public static final AbilityReward.AbilityRewardBuilder SHOVEL_EFFICIENCY_BONUS = registerAbility(ConfiguredPlayerAbilities.SHOVEL_EFFICIENCY_MODIFIER_KEY);
+    public static final IncreaseAbilityStrengthReward.Builder SWORD_SHARPNESS_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("sword_sharpness_increase")
+            .ability(ConfiguredPlayerAbilities.SWORD_SHARPNESS_MODIFIER_KEY.getKey())
+            .strength(1.0F));
+    public static final IncreaseAbilityStrengthReward.Builder SWORD_LOOTING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("sword_looting_increase")
+            .ability(ConfiguredPlayerAbilities.SWORD_LOOTING_MODIFIER_KEY.getKey())
+            .strength(1.0F));
+    public static final AbilityReward.AbilityRewardBuilder CREEPER_SAND_ADDITIONAL_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.CREEPER_SAND_ADDITIONAL_LOOT_KEY.getKey());
+    public static final AbilityReward.AbilityRewardBuilder SKELETON_BONE_MEAL_ADDITIONAL_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.SKELETON_BONE_MEAL_ADDITIONAL_LOOT_KEY.getKey());
+    public static final AbilityReward.AbilityRewardBuilder SKELETON_BONE_BLOCK_ADDITIONAL_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT_KEY.getKey());
 
-    public static final AbilityReward.AbilityRewardBuilder HOE_EFFICIENCY_BONUS = registerAbility(ConfiguredPlayerAbilities.HOE_EFFICIENCY_MODIFIER_KEY);
+    public static final IncreaseAbilityStrengthReward.Builder AXE_DAMAGE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("axe_damage_increase")
+            .ability(ConfiguredPlayerAbilities.AXE_DAMAGE_MODIFIER_KEY.getKey())
+            .strength(1.0F));
+    public static final IncreaseAbilityStrengthReward.Builder BOW_POWER_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("bow_power_increase")
+            .ability(ConfiguredPlayerAbilities.BOW_POWER_MODIFIER_KEY.getKey())
+            .strength(1.0F));
 
-    public static final AbilityReward.AbilityRewardBuilder SWORD_SHARPNESS_BONUS = registerAbility(ConfiguredPlayerAbilities.SWORD_SHARPNESS_MODIFIER_KEY);
-    public static final AbilityReward.AbilityRewardBuilder SWORD_LOOTING_BONUS = registerAbility(ConfiguredPlayerAbilities.SWORD_LOOTING_MODIFIER_KEY);
-    public static final AbilityReward.AbilityRewardBuilder CREEPER_SAND_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.CREEPER_SAND_ADDITIONAL_LOOT_KEY);
-    public static final AbilityReward.AbilityRewardBuilder SKELETON_BONE_MEAL_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.SKELETON_BONE_MEAL_ADDITIONAL_LOOT_KEY);
-    public static final AbilityReward.AbilityRewardBuilder SKELETON_BONE_BLOCK_ADDITIONAL_LOOT = registerAbility(ConfiguredPlayerAbilities.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT_KEY);
-
-    public static final AbilityReward.AbilityRewardBuilder AXE_DAMAGE_BONUS = registerAbility(ConfiguredPlayerAbilities.AXE_DAMAGE_MODIFIER_KEY);
-
-    public static final AbilityReward.AbilityRewardBuilder BOW_POWER_BONUS = registerAbility(ConfiguredPlayerAbilities.BOW_POWER_MODIFIER_KEY);
-
-    public static final AbilityReward.AbilityRewardBuilder CROSSBOW_DAMAGE_BONUS = registerAbility(ConfiguredPlayerAbilities.CROSSBOW_DAMAGE_MODIFIER_KEY);
-
-    public static final AbilityReward.AbilityRewardBuilder TRIDENT_DAMAGE_BONUS = registerAbility(ConfiguredPlayerAbilities.TRIDENT_DAMAGE_MODIFIER_KEY);
-
-    public static final AbilityReward.AbilityRewardBuilder MOVEMENT_SPEED_BONUS = registerAbility(ConfiguredPlayerAbilities.MOVEMENT_SPEED_MODIFIER_KEY);
-    public static final IncreaseAbilityStrengthReward.IncreaseAbilityStrengthRewardBuilder MOVEMENT_SPEED_INCREASE = register(() -> new IncreaseAbilityStrengthReward.IncreaseAbilityStrengthRewardBuilder("movement_speed_increase")
-            .ability(ConfiguredPlayerAbilities.MOVEMENT_SPEED_MODIFIER_KEY)
+    public static final IncreaseAbilityStrengthReward.Builder SMALL_MOVEMENT_SPEED_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("movement_speed_increase")
+            .ability(ConfiguredPlayerAbilities.MOVEMENT_SPEED_MODIFIER_KEY.getKey())
+            .strength(0.01F));
+    public static final IncreaseAbilityStrengthReward.Builder SMALL_SPRINT_SPEED_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("sprint_speed_increase")
+            .ability(ConfiguredPlayerAbilities.SPRINT_SPEED_MODIFIER_KEY.getKey())
+            .strength(0.001F));
+    public static final IncreaseAbilityStrengthReward.Builder SMALL_SNEAK_SPEED_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("sneak_speed_increase")
+            .ability(ConfiguredPlayerAbilities.SNEAK_SPEED_MODIFIER_KEY.getKey())
+            .strength(0.01F));
+    public static IncreaseAbilityStrengthReward.Builder SMALL_JUMP_HEIGHT_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("jump_height_increase")
+            .ability(ConfiguredPlayerAbilities.JUMP_HEIGHT_MODIFIER_KEY.getKey())
             .strength(0.1F));
-    public static final AbilityReward.AbilityRewardBuilder SPRINT_SPEED_BONUS = registerAbility(ConfiguredPlayerAbilities.SPRINT_SPEED_MODIFIER_KEY);
-    public static final AbilityReward.AbilityRewardBuilder SNEAK_SPEED_BONUS = registerAbility(ConfiguredPlayerAbilities.SNEAK_SPEED_MODIFIER_KEY);
-
-    public static AbilityReward.AbilityRewardBuilder JUMP_HEIGHT_BONUS = registerAbility(ConfiguredPlayerAbilities.JUMP_HEIGHT_MODIFIER_KEY);
 
     public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_LOOT_1 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_loot_1",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI), SIMPLE_DUNGEON_LOOT.getKey()),
@@ -157,20 +173,19 @@ public class ConfiguredGrantableRewards {
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), DESERT_PYRAMID_LOOT.getKey())
     ));
 
-//    public static ChoiceRewardBuilder CHOOSE_PICKAXE_EFFICIENCY_1 = register(() -> new ChoiceRewardBuilder("choose_pickaxe_efficiency_1",
-//            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), PICKAXE_EFFICIENCY_BONUS.getKey(5)),
-//            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), SUBMERGED_PICKAXE_EFFICIENCY_BONUS.getKey(5))
-//    ));
-//
-//    public static ChoiceRewardBuilder CHOOSE_PICKAXE_EFFICIENCY_2 = register(() -> new ChoiceRewardBuilder("choose_pickaxe_efficiency_2",
-//            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.FORTIFYING_FUDGE), PICKAXE_EFFICIENCY_BONUS.getKey(6)),
-//            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), SUBMERGED_PICKAXE_EFFICIENCY_BONUS.getKey(6))
-//    ));
-//
-//    public static ChoiceRewardBuilder CHOOSE_PICKAXE_LOOT_1 = register(() -> new ChoiceRewardBuilder("choose_pickaxe_loot_1",
-//            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), PICKAXE_DIAMOND_ORE_ADDITIONAL_EMERALDS_LOOT.getKey(0)),
-//            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), PICKAXE_DIAMOND_ORE_ADDITIONAL_LAPIS_LOOT.getKey(0))
-//    ));
+    public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_PICKAXE_EFFICIENCY_1 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_pickaxe_efficiency_1",
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), PICKAXE_EFFICIENCY_INCREASE.getKey()),
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), SUBMERGED_PICKAXE_EFFICIENCY_INCREASE.getKey())
+    ));
+    public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_PICKAXE_EFFICIENCY_2 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_pickaxe_efficiency_2",
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.FORTIFYING_FUDGE), PICKAXE_EFFICIENCY_INCREASE.getKey()),
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), SUBMERGED_PICKAXE_EFFICIENCY_INCREASE.getKey())
+    ));
+
+    public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_PICKAXE_LOOT_1 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_pickaxe_loot_1",
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), PICKAXE_DIAMOND_ORE_ADDITIONAL_EMERALDS_LOOT.getKey()),
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), PICKAXE_DIAMOND_ORE_ADDITIONAL_LAPIS_LOOT.getKey())
+    ));
 
     public static ItemWheelReward.ItemWheelRewardBuilder WHEEL_TREASURES = register(() -> new ItemWheelReward.ItemWheelRewardBuilder("wheel_treasures",
             new ItemStack(Items.DIAMOND),
@@ -215,7 +230,7 @@ public class ConfiguredGrantableRewards {
     }
 
     private static List<IRewardBuilder> rewardBuilders;
-    private static AbilityReward.AbilityRewardBuilder registerAbility(ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredAbilityKey) {
+    private static AbilityReward.AbilityRewardBuilder registerAbilityReward(ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredAbilityKey) {
         AbilityReward.AbilityRewardBuilder data = new AbilityReward.AbilityRewardBuilder(configuredAbilityKey);
         if (rewardBuilders == null) {
             rewardBuilders = new ArrayList<>();
@@ -244,6 +259,6 @@ public class ConfiguredGrantableRewards {
 
     public interface IRewardBuilder {
         void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context);
+        ResourceKey<ConfiguredGrantableReward<?, ?>> getKey();
     }
-
 }

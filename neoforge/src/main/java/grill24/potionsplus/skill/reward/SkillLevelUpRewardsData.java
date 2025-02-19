@@ -2,6 +2,7 @@ package grill24.potionsplus.skill.reward;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.core.ConfiguredGrantableRewards;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
@@ -88,6 +89,14 @@ public record SkillLevelUpRewardsData(String translationKey, List<Holder<Configu
                 PotionsPlus.LOGGER.error("Failed to add reward {} to skill level up rewards data", reward.location());
             }
             return this;
+        }
+
+        public Builder addReward(HolderGetter<ConfiguredGrantableReward<?, ?>> lookup, ConfiguredGrantableRewards.IRewardBuilder... rewards) {
+            for (ConfiguredGrantableRewards.IRewardBuilder reward : rewards) {
+                addReward(lookup, reward.getKey());
+            }
+            return this;
+
         }
 
         public Builder clear() {

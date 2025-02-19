@@ -98,5 +98,10 @@ public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.Anima
                 ));
             }
         }
+
+        @Override
+        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {
+            throw new UnsupportedOperationException("getKey() is not supported for AnimatedItemRewardBuilder");
+        }
     }
 }

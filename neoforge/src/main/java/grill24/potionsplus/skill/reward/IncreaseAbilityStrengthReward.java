@@ -76,24 +76,24 @@ public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbili
         PotionsPlus.LOGGER.warn("Failed to grant increase to max ability strength for player {} with ability key {}.", player.getName(), config.abilityKey);
     }
 
-    public static class IncreaseAbilityStrengthRewardBuilder implements ConfiguredGrantableRewards.IRewardBuilder {
+    public static class Builder implements ConfiguredGrantableRewards.IRewardBuilder {
         private final ResourceKey<ConfiguredGrantableReward<?, ?>> key;
 
         private ResourceKey<ConfiguredPlayerAbility<?, ?>> ability;
         private float strengthIncrease;
 
-        public IncreaseAbilityStrengthRewardBuilder(String name) {
+        public Builder(String name) {
             this.strengthIncrease = 0;
 
             this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
         }
 
-        public IncreaseAbilityStrengthRewardBuilder strength(float strengthIncrease) {
+        public Builder strength(float strengthIncrease) {
             this.strengthIncrease = strengthIncrease;
             return this;
         }
 
-        public IncreaseAbilityStrengthRewardBuilder ability(ResourceKey<ConfiguredPlayerAbility<?, ?>> ability) {
+        public Builder ability(ResourceKey<ConfiguredPlayerAbility<?, ?>> ability) {
             this.ability = ability;
             return this;
         }

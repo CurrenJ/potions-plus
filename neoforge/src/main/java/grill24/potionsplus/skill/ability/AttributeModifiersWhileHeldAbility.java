@@ -1,17 +1,25 @@
 package grill24.potionsplus.skill.ability;
 
 import grill24.potionsplus.core.AbilityInstanceTypes;
+import grill24.potionsplus.core.ConfiguredPlayerAbilities;
 import grill24.potionsplus.core.PlayerAbilities;
+import grill24.potionsplus.core.PotionsPlusRegistries;
+import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
 import grill24.potionsplus.extension.IItemAttributeModifiersExtension;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,6 +28,8 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
+
+import static grill24.potionsplus.utility.Utility.ppId;
 
 public class AttributeModifiersWhileHeldAbility<T extends Item> extends PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration> implements IAdjustableStrengthAbility<AttributeModifiersAbilityConfiguration> {
     private final Class<T> toolType;

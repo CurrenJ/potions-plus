@@ -45,7 +45,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemBlockTagCondition.tag(BlockTags.IRON_ORES).build(),
-                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.PICKAXE_IRON_ORE_ADDITIONAL_LOOT_KEY)
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.IRON_ORE_ADDITIONAL_LOOT.getKey())
                         },
                         // The loot table to add. This is a built-in loot table.
                         LootTables.IRON_ORE_GOLD_NUGGET_BONUS_DROPS
@@ -58,7 +58,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemBlockTagCondition.tag(BlockTags.COPPER_ORES).build(),
-                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.PICKAXE_COPPER_ORE_ADDITIONAL_LOOT_KEY)
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.COPPER_ORE_ADDITIONAL_LOOT.getKey())
                         },
                         LootTables.COPPER_ORE_IRON_NUGGET_BONUS_DROPS
                 )
@@ -70,7 +70,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemBlockTagCondition.tag(BlockTags.DIAMOND_ORES).build(),
-                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS_KEY)
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS.getKey())
                         },
                         LootTables.DIAMOND_ORE_EMERALD_BONUS_DROPS
                 )
@@ -82,7 +82,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemBlockTagCondition.tag(BlockTags.DIAMOND_ORES).build(),
-                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.PICKAXE_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS_KEY)
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS.getKey())
                         },
                         LootTables.DIAMOND_ORE_LAPIS_BONUS_DROPS
                 )
@@ -94,7 +94,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.CREEPER)).build(),
-                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.CREEPER_SAND_ADDITIONAL_LOOT_KEY)
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.CREEPER_SAND_ADDITIONAL_LOOT_KEY.getKey())
                         },
                         LootTables.CREEPER_SAND_BONUS_DROPS
                 )
@@ -106,7 +106,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.SKELETON)).build(),
-                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.SKELETON_BONE_MEAL_ADDITIONAL_LOOT_KEY)
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.SKELETON_BONE_MEAL_ADDITIONAL_LOOT_KEY.getKey())
                         },
                         LootTables.SKELETON_BONE_MEAL_BONUS_DROPS
                 )
@@ -118,7 +118,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.SKELETON)).build(),
-                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT_KEY)
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT_KEY.getKey())
                         },
                         LootTables.SKELETON_BONE_BLOCK_BONUS_DROPS
                 )
