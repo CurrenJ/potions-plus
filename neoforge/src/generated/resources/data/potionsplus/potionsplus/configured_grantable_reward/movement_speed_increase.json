@@ -1,7 +1,7 @@
 {
   "type": "potionsplus:increase_ability_strength",
   "config": {
-    "abilityKey": "potionsplus:movement_speed_bonus_1",
-    "strengthIncrease": 0.1
+    "abilityKey": "potionsplus:movement_speed_modifier",
+    "strengthIncrease": 0.01
   }
 }

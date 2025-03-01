@@ -19,14 +19,13 @@ import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class ItemOverrideUtility {
-    public abstract static class ItemOverrideModelGenerator {
+    public abstract static class ItemOverrideModelGenerator implements IItemModelGenerator {
         protected ResourceLocation overridePropertyId;
 
         public ItemOverrideModelGenerator(ResourceLocation overridePropertyId) {
             this.overridePropertyId = overridePropertyId;
         }
 
-        public abstract void generate(BlockStateProvider provider);
         ResourceLocation getOverridePropertyId() {
             return overridePropertyId;
         }

@@ -10,7 +10,7 @@
     },
     {
       "condition": "potionsplus:has_player_ability",
-      "configuredPlayerAbility": "potionsplus:creeper_sand_bonus_drops_1"
+      "configuredPlayerAbility": "potionsplus:creeper_additional_loot_sand"
     }
   ],
   "table": "potionsplus:creeper_sand_bonus_drops"

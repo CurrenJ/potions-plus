@@ -1,6 +1,0 @@
-{
-  "type": "potionsplus:ability",
-  "config": {
-    "configuredPlayerAbility": "potionsplus:sneak_speed_bonus_2"
-  }
-}

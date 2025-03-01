@@ -96,13 +96,13 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_unknown_potion_ingredient",
-              "potionsplus:submerged_pickaxe_efficiency_bonus_1"
+              "potionsplus:submerged_pickaxe_efficiency_increase"
             ]
           },
           "13": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:submerged_pickaxe_efficiency_bonus_2"
+              "potionsplus:submerged_pickaxe_efficiency_increase"
             ]
           },
           "14": {
@@ -121,7 +121,7 @@
           "16": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:iron_bonus_drops_1"
+              "potionsplus:iron_ore_additional_loot"
             ]
           },
           "17": {
@@ -157,7 +157,7 @@
           "21": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:submerged_pickaxe_efficiency_bonus_3"
+              "potionsplus:submerged_pickaxe_efficiency_increase"
             ]
           },
           "22": {
@@ -175,7 +175,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_unknown_potion_ingredient",
-              "potionsplus:fortune_bonus_1"
+              "potionsplus:pickaxe_fortune_increase"
             ]
           },
           "25": {
@@ -194,7 +194,7 @@
           "27": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:pickaxe_efficiency_bonus_2"
+              "potionsplus:pickaxe_efficiency_increase"
             ]
           },
           "28": {
@@ -281,7 +281,7 @@
           "41": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:pickaxe_efficiency_bonus_3"
+              "potionsplus:pickaxe_efficiency_increase"
             ]
           },
           "42": {
@@ -421,7 +421,7 @@
           "64": {
             "advancementRewards": [
               "potionsplus:advanced_skill_loot_edible",
-              "potionsplus:pickaxe_efficiency_bonus_4"
+              "potionsplus:pickaxe_efficiency_increase"
             ]
           },
           "65": {
@@ -514,8 +514,8 @@
           "8": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:pickaxe_efficiency_bonus_1",
-              "potionsplus:copper_bonus_drops_1"
+              "potionsplus:pickaxe_efficiency_increase",
+              "potionsplus:copper_ore_additional_loot"
             ]
           },
           "80": {
@@ -528,7 +528,7 @@
           "81": {
             "advancementRewards": [
               "potionsplus:expert_skill_loot_edible",
-              "potionsplus:pickaxe_efficiency_bonus_5"
+              "potionsplus:pickaxe_efficiency_increase"
             ]
           },
           "82": {

@@ -7,7 +7,7 @@
     },
     {
       "condition": "potionsplus:has_player_ability",
-      "configuredPlayerAbility": "potionsplus:iron_bonus_drops_1"
+      "configuredPlayerAbility": "potionsplus:iron_ore_additional_loot"
     }
   ],
   "table": "potionsplus:iron_ore_gold_nugget_bonus_drops"

@@ -42,7 +42,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:sprint_speed_bonus_2"
+              "potionsplus:sprint_speed_increase"
             ]
           },
           "100": {
@@ -77,7 +77,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:sprint_speed_bonus_3"
+              "potionsplus:sprint_speed_increase"
             ]
           },
           "16": {
@@ -110,7 +110,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:sprint_speed_bonus_4"
+              "potionsplus:sprint_speed_increase"
             ]
           },
           "21": {
@@ -139,7 +139,7 @@
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
               "potionsplus:edible_wheel_end_city",
-              "potionsplus:sprint_speed_bonus_5"
+              "potionsplus:sprint_speed_increase"
             ]
           },
           "26": {
@@ -284,7 +284,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:sprint_speed_bonus_1",
+              "potionsplus:sprint_speed_increase",
               "potionsplus:display_sugar"
             ]
           },

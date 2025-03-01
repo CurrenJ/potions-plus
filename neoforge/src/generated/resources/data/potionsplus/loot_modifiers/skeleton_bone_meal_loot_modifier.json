@@ -10,7 +10,7 @@
     },
     {
       "condition": "potionsplus:has_player_ability",
-      "configuredPlayerAbility": "potionsplus:skeleton_bone_meal_bonus_drops_1"
+      "configuredPlayerAbility": "potionsplus:skeleton_additional_loot_bone_meal"
     }
   ],
   "table": "potionsplus:skeleton_bone_meal_bonus_drops"

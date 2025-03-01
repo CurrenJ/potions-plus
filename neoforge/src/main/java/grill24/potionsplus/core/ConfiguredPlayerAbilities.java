@@ -147,7 +147,9 @@ public class ConfiguredPlayerAbilities {
 
     // Data Gen
     public static void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
-        abilityBuilders.forEach(builder -> builder.generate(context));
+        for (IAbilityBuilder builder : abilityBuilders) {
+            builder.generate(context);
+        }
     }
 
     private static List<IAbilityBuilder> abilityBuilders;

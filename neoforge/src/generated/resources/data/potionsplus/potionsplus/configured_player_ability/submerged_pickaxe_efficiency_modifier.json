@@ -1,0 +1,17 @@
+{
+  "type": "potionsplus:modifiers_while_pickaxe_held",
+  "config": {
+    "attribute": "minecraft:player.submerged_mining_speed",
+    "baseConfig": {
+      "enabledByDefault": true,
+      "parentSkill": "potionsplus:mining"
+    },
+    "modifiers": [
+      {
+        "amount": 0.0,
+        "id": "potionsplus:submerged_pickaxe_efficiency_modifier_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

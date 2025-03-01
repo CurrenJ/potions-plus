@@ -7,7 +7,7 @@
     },
     {
       "condition": "potionsplus:has_player_ability",
-      "configuredPlayerAbility": "potionsplus:diamond_bonus_drops_lapis_1"
+      "configuredPlayerAbility": "potionsplus:diamond_ore_additional_loot_lapis"
     }
   ],
   "table": "potionsplus:diamond_ore_lapis_bonus_drops"

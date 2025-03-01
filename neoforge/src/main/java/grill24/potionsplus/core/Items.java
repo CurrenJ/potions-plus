@@ -1,10 +1,7 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.item.EdibleChoiceItem;
-import grill24.potionsplus.item.EquipableHatItem;
+import grill24.potionsplus.item.*;
 import grill24.potionsplus.item.FishingRodItem;
-import grill24.potionsplus.item.ItemOverrideUtility;
-import grill24.potionsplus.item.WormrootItem;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -89,6 +86,18 @@ public class Items {
 
     public static final Holder<Item> COPPER_FISHING_ROD = ITEMS.register("copper_fishing_rod", () -> new FishingRodItem(properties()));
 
+    public static final Holder<Item> NORTHERN_PIKE = register("northern_pike", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> PARROTFISH = register("parrotfish", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> RAINFORDIA = register("rainfordia", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> GARDEN_EEL = register("garden_eel", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> LONGNOSE_GAR = register("longnose_gar", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> SHRIMP = register("shrimp", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> MOORISH_IDOL = register("moorish_idol", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> OCEAN_SUNFISH = register("ocean_sunfish", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> PORTUGUESE_MAN_O_WAR = register("portuguese_man_o_war", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> BLUEGILL = register("bluegill", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> NEON_TETRA = register("neon_tetra", () -> new Item(properties().food(Foods.COD)));
+
     // ----- Dynamically Rendered Display Items -----
     public static final ResourceLocation DYNAMIC_ICON_INDEX_PROPERTY_NAME = ppId("dynamic_icon_index");
 
@@ -132,18 +141,43 @@ public class Items {
         return new Item.Properties();
     }
 
-    public static List<ItemOverrideUtility.ItemOverrideModelGenerator> ITEM_OVERRIDE_MODEL_GENERATORS;
-    public static <T extends ItemOverrideUtility.ItemOverrideModelGenerator> T register(T generator) {
-        if (ITEM_OVERRIDE_MODEL_GENERATORS == null) {
-            ITEM_OVERRIDE_MODEL_GENERATORS = new ArrayList<>();
+    public static List<IItemModelGenerator> ITEM_MODEL_GENERATORS;
+    public static <T extends IItemModelGenerator> T register(T generator) {
+        if (ITEM_MODEL_GENERATORS == null) {
+            ITEM_MODEL_GENERATORS = new ArrayList<>();
         }
-        ITEM_OVERRIDE_MODEL_GENERATORS.add(generator);
+        ITEM_MODEL_GENERATORS.add(generator);
         return generator;
     }
 
-    public static <T extends EdibleChoiceItem> Holder<Item> registerEdibleChoiceItem(String name, Supplier<T> supplier) {
-        Holder<Item> holder = ITEMS.register(name, supplier);
+    /**
+     * Registers an {@link Item} and a corresponding {@link IItemModelGenerator}
+     * @param itemName The name of the item. Used to generate the item's registry name and determine the item's model location.
+     * @param itemFactory A supplier that creates the {@link Item} instance for this item type.
+     * @param generator The {@link IItemModelGenerator} that generates the item's model data.
+     * @return A {@link DeferredHolder} that holds the registered item.
+     * @param <I> The type of item to register.
+     */
+    public static <I extends Item> DeferredHolder<Item, ? extends I> register(String itemName, Supplier<? extends I> itemFactory, IItemModelGenerator generator) {
+        register(generator);
+        return ITEMS.register(itemName, itemFactory);
+    }
+
+    /**
+     * Registers an {@link Item} and a corresponding {@link grill24.potionsplus.item.ItemModelUtility.SimpleItemModelGenerator}
+     * @param itemName The name of the item. Used to generate the item's registry name and determine the item's model location.
+     * @param itemFactory A supplier that creates the {@link Item} instance for this item type.
+     * @return A {@link DeferredHolder} that holds the registered item.
+     * @param <I> The type of item to register.
+     */
+    public static <I extends Item> DeferredHolder<Item, ? extends I> register(String itemName, Supplier<? extends I> itemFactory) {
+        DeferredHolder<Item, ? extends I> holder = ITEMS.register(itemName, itemFactory);
+        register(new ItemModelUtility.SimpleItemModelGenerator(holder));
         return holder;
+    }
+
+    public static <T extends EdibleChoiceItem> Holder<Item> registerEdibleChoiceItem(String name, Supplier<T> supplier) {
+        return ITEMS.register(name, supplier);
     }
 
     public static ItemOverrideUtility.EdibleChoiceItemOverrideModelData registerEdibleChoiceItemModel(Holder<Item> item, ResourceLocation itemTexture) {

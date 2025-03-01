@@ -3,6 +3,7 @@ package grill24.potionsplus.data;
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
+import grill24.potionsplus.item.IItemModelGenerator;
 import grill24.potionsplus.item.ItemOverrideUtility;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Direction;
@@ -105,7 +106,7 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
 
         // ----- Items -----
 
-        for (ItemOverrideUtility.ItemOverrideModelGenerator modelGenerator : Items.ITEM_OVERRIDE_MODEL_GENERATORS) {
+        for (IItemModelGenerator modelGenerator : Items.ITEM_MODEL_GENERATORS) {
             modelGenerator.generate(this);
         }
 

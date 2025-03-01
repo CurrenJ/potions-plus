@@ -93,8 +93,8 @@ public class SpatialAnimations {
             .addKeyframe(SpatialAnimationData.Property.ROTATION, AnimationCurve.Keyframe.<Vector3f>builder().time(0).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(new Vector3f(0, 0, 0)).build())
             .addKeyframe(SpatialAnimationData.Property.ROTATION, AnimationCurve.Keyframe.<Vector3f>builder().time(15).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(new Vector3f(0,  720, 0)).build())
             .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(0).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(1F).build())
-            .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(20).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(3F).build())
-            .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(70).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(3F).build())
+            .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(20).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(5F).build())
+            .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(70).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(5F).build())
             .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(110).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(0F).build())
     );
 

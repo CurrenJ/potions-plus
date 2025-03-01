@@ -42,7 +42,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:axe_damage_bonus_2",
+              "potionsplus:axe_damage_increase",
               "potionsplus:display_stone_axe"
             ]
           },
@@ -78,7 +78,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:axe_damage_bonus_3",
+              "potionsplus:axe_damage_increase",
               "potionsplus:display_iron_axe"
             ]
           },
@@ -112,7 +112,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:axe_damage_bonus_4",
+              "potionsplus:axe_damage_increase",
               "potionsplus:display_golden_axe"
             ]
           },
@@ -142,7 +142,7 @@
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
               "potionsplus:edible_wheel_end_city",
-              "potionsplus:axe_damage_bonus_5",
+              "potionsplus:axe_damage_increase",
               "potionsplus:display_diamond_axe"
             ]
           },
@@ -288,7 +288,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:axe_damage_bonus_1",
+              "potionsplus:axe_damage_increase",
               "potionsplus:display_wooden_axe"
             ]
           },

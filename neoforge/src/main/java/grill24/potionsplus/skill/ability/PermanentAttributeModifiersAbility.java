@@ -114,6 +114,8 @@ public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbi
 
         public Builder(String name) {
             this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ppId(name));
+
+            this.translationKey = "";
         }
 
         public Builder<A> translationKey(String translationKey) {

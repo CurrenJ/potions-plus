@@ -1,0 +1,17 @@
+{
+  "type": "potionsplus:modifiers_while_axe_held",
+  "config": {
+    "attribute": "minecraft:player.mining_efficiency",
+    "baseConfig": {
+      "enabledByDefault": true,
+      "parentSkill": "potionsplus:woodcutting"
+    },
+    "modifiers": [
+      {
+        "amount": 0.0,
+        "id": "potionsplus:axe_efficiency_modifier_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

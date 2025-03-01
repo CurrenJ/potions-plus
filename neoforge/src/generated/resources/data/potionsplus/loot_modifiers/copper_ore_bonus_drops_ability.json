@@ -7,7 +7,7 @@
     },
     {
       "condition": "potionsplus:has_player_ability",
-      "configuredPlayerAbility": "potionsplus:copper_bonus_drops_1"
+      "configuredPlayerAbility": "potionsplus:copper_ore_additional_loot"
     }
   ],
   "table": "potionsplus:copper_ore_iron_nugget_bonus_drops"

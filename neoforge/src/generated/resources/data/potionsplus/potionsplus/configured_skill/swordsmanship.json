@@ -42,7 +42,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:sword_sharpness_bonus_2",
+              "potionsplus:sword_sharpness_increase",
               "potionsplus:display_stone_sword"
             ]
           },
@@ -72,14 +72,14 @@
           "14": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:skeleton_bone_block_bonus_drops_1"
+              "potionsplus:skeleton_additional_loot_bone_block"
             ]
           },
           "15": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:sword_sharpness_bonus_3",
+              "potionsplus:sword_sharpness_increase",
               "potionsplus:display_iron_sword"
             ]
           },
@@ -97,7 +97,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_unknown_potion_ingredient",
-              "potionsplus:creeper_sand_bonus_drops_1"
+              "potionsplus:creeper_additional_loot_sand"
             ]
           },
           "19": {
@@ -114,7 +114,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:sword_sharpness_bonus_4",
+              "potionsplus:sword_sharpness_increase",
               "potionsplus:display_golden_sword"
             ]
           },
@@ -131,7 +131,7 @@
           "23": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:sword_looting_bonus_1"
+              "potionsplus:sword_looting_increase"
             ]
           },
           "24": {
@@ -145,7 +145,7 @@
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
               "potionsplus:edible_wheel_end_city",
-              "potionsplus:sword_sharpness_bonus_5",
+              "potionsplus:sword_sharpness_increase",
               "potionsplus:display_diamond_sword"
             ]
           },
@@ -291,7 +291,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:sword_sharpness_bonus_1",
+              "potionsplus:sword_sharpness_increase",
               "potionsplus:display_wooden_sword"
             ]
           },
@@ -353,7 +353,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_unknown_potion_ingredient",
-              "potionsplus:skeleton_bone_meal_bonus_drops_1"
+              "potionsplus:skeleton_additional_loot_bone_meal"
             ]
           },
           "60": {

@@ -180,12 +180,21 @@ public class CommonCommands {
                         .requires((source) -> source.hasPermission(2))
                         .executes(context -> {
                             if(context.getSource().getEntity() instanceof ServerPlayer player) {
-                                LootParams lootParams = new LootParams.Builder(player.serverLevel()).withParameter(LootContextParams.ORIGIN, player.position()).withParameter(LootContextParams.TOOL, player.getMainHandItem()).create(LootContextParamSets.FISHING);
-                                ObjectArrayList<ItemStack> samples = context.getSource().getServer().reloadableRegistries().getLootTable(BuiltInLootTables.FISHING_FISH).getRandomItems(lootParams);
-                                if (!samples.isEmpty()) {
+                                // Use offhand item as reward
+                                ItemStack reward = player.getOffhandItem().copy();
+                                // Else use fishing loot table
+                                if (reward.isEmpty()) {
+                                    LootParams lootParams = new LootParams.Builder(player.serverLevel()).withParameter(LootContextParams.ORIGIN, player.position()).withParameter(LootContextParams.TOOL, player.getMainHandItem()).create(LootContextParamSets.FISHING);
+                                    ObjectArrayList<ItemStack> samples = context.getSource().getServer().reloadableRegistries().getLootTable(BuiltInLootTables.FISHING_FISH).getRandomItems(lootParams);
+                                    if (!samples.isEmpty()) {
+                                        reward = samples.getFirst();
+                                    }
+                                }
+
+                                if (!reward.isEmpty()) {
                                     PacketDistributor.sendToPlayer(player, ClientboundStartFishingMinigamePacket.create(
                                             player,
-                                            new FishingGamePlayerAttachment(samples.getFirst(), new ItemStack(grill24.potionsplus.core.Items.GENERIC_ICON, 23 + player.getRandom().nextInt(4)))
+                                            new FishingGamePlayerAttachment(reward, new ItemStack(grill24.potionsplus.core.Items.GENERIC_ICON, 23 + player.getRandom().nextInt(4)))
                                     ));
                                 }
                             }

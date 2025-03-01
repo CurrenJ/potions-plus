@@ -1,6 +1,0 @@
-{
-  "type": "potionsplus:ability",
-  "config": {
-    "configuredPlayerAbility": "potionsplus:copper_bonus_drops_1"
-  }
-}
