@@ -1,25 +1,16 @@
 package grill24.potionsplus.skill.ability;
 
 import grill24.potionsplus.core.AbilityInstanceTypes;
-import grill24.potionsplus.core.ConfiguredPlayerAbilities;
 import grill24.potionsplus.core.PlayerAbilities;
-import grill24.potionsplus.core.PotionsPlusRegistries;
-import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
 import grill24.potionsplus.extension.IItemAttributeModifiersExtension;
-import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlotGroup;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -29,9 +20,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 
-import static grill24.potionsplus.utility.Utility.ppId;
-
-public class AttributeModifiersWhileHeldAbility<T extends Item> extends PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration> implements IAdjustableStrengthAbility<AttributeModifiersAbilityConfiguration> {
+public class AttributeModifiersWhileHeldAbility<T extends Item> extends PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration> {
     private final Class<T> toolType;
 
     public AttributeModifiersWhileHeldAbility(Class<T> toolType) {
@@ -75,7 +64,7 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
         }
     }
 
-    public static <T extends AttributeModifiersWhileHeldAbility<?>> void updatePlayerAttributeModifiers(ServerPlayer player, DeferredHolder<PlayerAbility<?>, T> abilityHolder) {
+    private static <T extends AttributeModifiersWhileHeldAbility<?>> void updatePlayerAttributeModifiers(ServerPlayer player, DeferredHolder<PlayerAbility<?>, T> abilityHolder, boolean enable) {
         SkillsData.updatePlayerData(player, (skillsData) -> {
             List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.activeAbilities().get(abilityHolder.getKey());
             if (configuredAbilities == null) return;
@@ -84,7 +73,7 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
                 // Unchecked cast. We pray that the type is correctly linked in SkillsData to a key of the same type.
                 ConfiguredPlayerAbility<AttributeModifiersAbilityConfiguration, T> configuredAbility = (ConfiguredPlayerAbility<AttributeModifiersAbilityConfiguration, T>) abilityInstance.data().getHolder().value();
 
-                if (abilityInstance.data().isEnabled()) {
+                if (enable && abilityInstance.data().isEnabled()) {
                     float strength = (abilityInstance.data() instanceof AdjustableStrengthAbilityInstanceData adjustable) ? adjustable.getAbilityStrength() : 1F;
                     configuredAbility.ability().enable(player, configuredAbility.config(), strength);
                 } else {
@@ -92,35 +81,6 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
                 }
             }
         });
-    }
-
-    private Component getDescriptionWithStrength(AttributeModifiersAbilityConfiguration config, float strength) {
-        if (config.getModifiers().size() == 1) {
-            double amount = config.getModifiers().get(0).amount() * strength;
-            AttributeModifier.Operation operation = config.getModifiers().get(0).operation();
-
-            String param = "";
-            // Format float to 2 decimal places
-            String amountStr = String.format("%.2f", amount);
-            switch (operation) {
-                case ADD_VALUE -> param = "+" + amountStr;
-                case ADD_MULTIPLIED_BASE, ADD_MULTIPLIED_TOTAL -> param = "x" + (amountStr + 1);
-            }
-
-            return Component.translatable(config.getData().translationKey(), param);
-        } else {
-            return Component.translatable(config.getData().translationKey());
-        }
-    }
-
-    @Override
-    public Component getDescription(AttributeModifiersAbilityConfiguration config) {
-        return getDescriptionWithStrength(config, 1F);
-    }
-
-    @Override
-    public Component getDescription(AttributeModifiersAbilityConfiguration config, float strength) {
-        return getDescriptionWithStrength(config, strength);
     }
 
     @Override
@@ -132,7 +92,7 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
 
     // ----- Helper Methods -----
 
-    public static void onTick(final ServerTickEvent.Pre event) {
+    public static void onPreTick(final ServerTickEvent.Pre event) {
         MinecraftServer server = event.getServer();
         List<ServerPlayer> players = server.getPlayerList().getPlayers();
         if (players.isEmpty()) {
@@ -140,18 +100,29 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
         }
 
         ServerPlayer player = players.get(server.getTickCount() % players.size());
-        updateAllToolBonusAbilities(player);
+        updateAllToolBonusAbilities(player, true);
     }
 
-    public static void updateAllToolBonusAbilities(ServerPlayer player) {
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_AXE_HELD);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_HOE_HELD);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_SHOVEL_HELD);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_SWORD_HELD);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_BOW_HELD);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_CROSSBOW_HELD);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_TRIDENT_HELD);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_SHIELD_HELD);
+    public static void onPostTick(final ServerTickEvent.Post event) {
+        MinecraftServer server = event.getServer();
+        List<ServerPlayer> players = server.getPlayerList().getPlayers();
+        if (players.isEmpty()) {
+            return;
+        }
+
+        ServerPlayer player = players.get(server.getTickCount() % players.size());
+        updateAllToolBonusAbilities(player, false);
+    }
+
+    private static void updateAllToolBonusAbilities(ServerPlayer player, boolean enable) {
+        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD, enable);
+        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_AXE_HELD, enable);
+        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_HOE_HELD, enable);
+        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_SHOVEL_HELD, enable);
+        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_SWORD_HELD, enable);
+        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_BOW_HELD, enable);
+        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_CROSSBOW_HELD, enable);
+        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_TRIDENT_HELD, enable);
+        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_SHIELD_HELD, enable);
     }
 }

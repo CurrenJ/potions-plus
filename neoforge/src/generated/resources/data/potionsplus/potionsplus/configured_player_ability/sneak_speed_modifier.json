@@ -4,7 +4,8 @@
     "attribute": "minecraft:player.sneaking_speed",
     "baseConfig": {
       "enabledByDefault": true,
-      "parentSkill": "potionsplus:sneaking"
+      "parentSkill": "potionsplus:sneaking",
+      "translationKey": "description.potionsplus.ability.sneak_speed"
     },
     "modifiers": [
       {

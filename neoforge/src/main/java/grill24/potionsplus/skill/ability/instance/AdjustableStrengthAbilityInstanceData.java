@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.network.ServerboundUpdateAbilityStrengthPacket;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
-import grill24.potionsplus.skill.ability.IAdjustableStrengthAbility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
@@ -84,10 +83,7 @@ public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstance
             component.append(Component.literal("] ").withStyle(style));
         }
 
-        Component description = getConfiguredAbility().getDescription();
-        if (getConfiguredAbility().ability() instanceof IAdjustableStrengthAbility adjustableStrengthSkill) {
-            description = adjustableStrengthSkill.getDescription(getConfiguredAbility().config(), abilityStrength);
-        }
+        Component description = getConfiguredAbility().getDescription(abilityStrength);
         component.append(description.copy().withStyle(style));
 
 

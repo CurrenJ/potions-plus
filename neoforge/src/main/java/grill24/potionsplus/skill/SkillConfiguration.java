@@ -113,7 +113,7 @@ public class SkillConfiguration {
         public float getPartialLevel(float totalPoints) {
             // Assuming points are always increasing, we can binary search for the level
             // Total points should be between the level and the next level
-            // We want to values: the level (points required < totalPoints) and the next level (points required > totalPoints)
+            // We want two values: the level (points required < totalPoints) and the next level (points required > totalPoints)
             int left = 0;
             int right = levelMax;
             while (left < right) {

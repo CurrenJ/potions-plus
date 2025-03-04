@@ -4,7 +4,8 @@
     "attribute": "potionsplus:player.looting_bonus",
     "baseConfig": {
       "enabledByDefault": true,
-      "parentSkill": "potionsplus:swordsmanship"
+      "parentSkill": "potionsplus:swordsmanship",
+      "translationKey": "description.potionsplus.ability.sword_looting"
     },
     "modifiers": [
       {

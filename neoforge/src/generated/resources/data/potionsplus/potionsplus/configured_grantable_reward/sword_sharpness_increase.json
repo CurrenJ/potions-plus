@@ -1,7 +1,7 @@
 {
   "type": "potionsplus:increase_ability_strength",
   "config": {
-    "abilityKey": "potionsplus:sword_sharpness_modifier",
+    "ability": "potionsplus:sword_sharpness_modifier",
     "strengthIncrease": 1.0
   }
 }

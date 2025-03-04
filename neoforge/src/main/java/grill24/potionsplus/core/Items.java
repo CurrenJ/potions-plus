@@ -105,36 +105,44 @@ public class Items {
     public static final ItemOverrideUtility.PotionEffectIconOverrideModelData POTION_EFFECT_ICON_RESOURCE_LOCATIONS = register(new ItemOverrideUtility.PotionEffectIconOverrideModelData(
         DYNAMIC_ICON_INDEX_PROPERTY_NAME));
 
+    public static final ResourceLocation AMP_TEX_LOC = ppId("item/amplifier_upgrade");
+    public static final ResourceLocation DUR_TEX_LOC = ppId("item/duration_upgrade");
+    public static final ResourceLocation I_TEX_LOC = ppId("item/i");
+    public static final ResourceLocation II_TEX_LOC = ppId("item/ii");
+    public static final ResourceLocation III_TEX_LOC = ppId("item/iii");
+    public static final ResourceLocation IV_TEX_LOC = ppId("item/iv");
+    public static final ResourceLocation V_TEX_LOC = ppId("item/v");
+    public static final ResourceLocation VI_TEX_LOC = ppId("item/vi");
+    public static final ResourceLocation VII_TEX_LOC = ppId("item/vii");
+    public static final ResourceLocation VIII_TEX_LOC = ppId("item/viii");
+    public static final ResourceLocation ARROW_TEX_LOC = ppId("item/arrow");
+    public static final ResourceLocation UNKNOWN_TEX_LOC = ppId("item/unknown");
+    public static final ResourceLocation SGA_A_TEX_LOC = mc("particle/sga_a");
+    public static final ResourceLocation SGA_B_TEX_LOC = mc("particle/sga_b");
+    public static final ResourceLocation SGA_C_TEX_LOC = mc("particle/sga_c");
+    public static final ResourceLocation SGA_D_TEX_LOC = mc("particle/sga_d");
+    public static final ResourceLocation COMMON_TEX_LOC = ppId("item/common");
+    public static final ResourceLocation RARE_TEX_LOC = ppId("item/rare");
+    public static final ResourceLocation NO_EXP_TEX_LOC = ppId("item/no_experience");
+    public static final ResourceLocation NO_HEAT_TEX_LOC = ppId("item/no_heat");
+    public static final ResourceLocation FISHING_BAR_TEX_LOC = ppId("item/fishing_bar");
+    public static final ResourceLocation FISHING_BOBBER_TEX_LOC = ppId("item/fishing_bobber");
+    public static final ResourceLocation COPPER_FISHING_FRAME_TEX_LOC = ppId("item/copper_fishing_frame");
+    public static final ResourceLocation GOLD_FISHING_FRAME_TEX_LOC = ppId("item/gold_fishing_frame");
+    public static final ResourceLocation DIAMOND_FISHING_FRAME_TEX_LOC = ppId("item/diamond_fishing_frame");
+    public static final ResourceLocation PURPLE_FISHING_FRAME_TEX_LOC = ppId("item/purple_fishing_frame");
     public static final Holder<Item> GENERIC_ICON = ITEMS.register("generic_icon", () -> new Item(properties()));
     public static final ItemOverrideUtility.DynamicItemOverrideModelData GENERIC_ICON_RESOURCE_LOCATIONS = register(new ItemOverrideUtility.DynamicItemOverrideModelData(
         DYNAMIC_ICON_INDEX_PROPERTY_NAME,
         new ArrayList<>() {{
-        add(ppId("item/amplifier_upgrade")); // ItemStack count: 1
-        add(ppId("item/duration_upgrade")); // ItemStack count: 2
-        add(ppId("item/i")); // ItemStack count: 3
-        add(ppId("item/ii")); // ItemStack count: 4
-        add(ppId("item/iii")); // ItemStack count: 5
-        add(ppId("item/iv")); // ItemStack count: 6
-        add(ppId("item/v")); // ItemStack count: 7
-        add(ppId("item/vi")); // ItemStack count: 8
-        add(ppId("item/vii")); // ItemStack count: 9
-        add(ppId("item/viii")); // ItemStack count: 10
-        add(ppId("item/arrow")); // ItemStack count: 11
-        add(ppId("item/unknown")); // ItemStack count: 12
-        add(mc("particle/sga_a")); // ItemStack count: 13
-        add(mc("particle/sga_b")); // ItemStack count: 14
-        add(mc("particle/sga_c")); // ItemStack count: 15
-        add(mc("particle/sga_d")); // ItemStack count: 16
-        add(ppId("item/common")); // ItemStack count: 17
-        add(ppId("item/rare")); // ItemStack count: 18
-        add(ppId("item/no_experience")); // ItemStack count: 19
-        add(ppId("item/no_heat")); // ItemStack count: 20
-        add(ppId("item/fishing_bar")); // ItemStack count: 21
-        add(ppId("item/fishing_bobber")); // ItemStack count: 22
-        add(ppId("item/copper_fishing_frame")); // ItemStack count: 23
-        add(ppId("item/gold_fishing_frame")); // ItemStack count: 24
-        add(ppId("item/diamond_fishing_frame")); // ItemStack count: 25
-        add(ppId("item/purple_fishing_frame")); // ItemStack count: 25
+            add(AMP_TEX_LOC); /* 1 */ add(DUR_TEX_LOC) /* 2 */; add(I_TEX_LOC); /* 3 */ add(II_TEX_LOC); /* 4 */
+            add(III_TEX_LOC); /* 5 */ add(IV_TEX_LOC); /* 6 */ add(V_TEX_LOC); /* 7 */ add(VI_TEX_LOC); /* 8 */
+            add(VII_TEX_LOC); /* 9 */ add(VIII_TEX_LOC) /* 10 */; add(ARROW_TEX_LOC); /* 11 */
+            add(UNKNOWN_TEX_LOC); /* 12 */ add(SGA_A_TEX_LOC); /* 13 */ add(SGA_B_TEX_LOC); /* 14 */
+            add(SGA_C_TEX_LOC); /* 15 */ add(SGA_D_TEX_LOC); /* 16 */ add(COMMON_TEX_LOC); /* 17 */
+            add(RARE_TEX_LOC); /* 18 */ add(NO_EXP_TEX_LOC); /* 19 */ add(NO_HEAT_TEX_LOC); /* 20 */
+            add(FISHING_BAR_TEX_LOC); /* 21 */ add(FISHING_BOBBER_TEX_LOC); /* 22 */ add(COPPER_FISHING_FRAME_TEX_LOC); /* 23 */
+            add(GOLD_FISHING_FRAME_TEX_LOC); /* 24 */ add(DIAMOND_FISHING_FRAME_TEX_LOC); /* 25 */ add(PURPLE_FISHING_FRAME_TEX_LOC); /* 26 */
     }}));
 
     public static Item.Properties properties() {

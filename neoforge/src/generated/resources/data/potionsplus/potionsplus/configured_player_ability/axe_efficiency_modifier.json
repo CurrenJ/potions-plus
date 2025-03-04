@@ -4,7 +4,8 @@
     "attribute": "minecraft:player.mining_efficiency",
     "baseConfig": {
       "enabledByDefault": true,
-      "parentSkill": "potionsplus:woodcutting"
+      "parentSkill": "potionsplus:woodcutting",
+      "translationKey": "description.potionsplus.ability.axe_efficiency"
     },
     "modifiers": [
       {

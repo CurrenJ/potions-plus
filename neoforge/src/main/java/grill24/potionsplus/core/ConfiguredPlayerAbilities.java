@@ -16,6 +16,7 @@ import java.util.function.Supplier;
 public class ConfiguredPlayerAbilities {
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> PICKAXE_EFFICIENCY_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("pickaxe_efficiency_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_EFFICIENCY)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get())
             .attribute(Attributes.MINING_EFFICIENCY)
@@ -23,6 +24,7 @@ public class ConfiguredPlayerAbilities {
             .enabledByDefault(true));
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SUBMERGED_PICKAXE_EFFICIENCY_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("submerged_pickaxe_efficiency_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SUBMERGED_PICKAXE_EFFICIENCY)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get())
             .attribute(Attributes.SUBMERGED_MINING_SPEED)
@@ -30,6 +32,7 @@ public class ConfiguredPlayerAbilities {
             .enabledByDefault(true));
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> PICKAXE_FORTUNE_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("pickaxe_fortune_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_FORTUNE)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get())
             .attribute(grill24.potionsplus.core.Attributes.FORTUNE_BONUS)
@@ -50,6 +53,7 @@ public class ConfiguredPlayerAbilities {
 
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_EFFICIENCY_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("axe_efficiency_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_EFFICIENCY)
             .parentSkill(ConfiguredSkills.WOODCUTTING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_AXE_HELD.get())
             .attribute(Attributes.MINING_EFFICIENCY)
@@ -57,6 +61,7 @@ public class ConfiguredPlayerAbilities {
             .enabledByDefault(true));
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SHOVEL_EFFICIENCY_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("shovel_efficiency_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SHOVEL_EFFICIENCY)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_SHOVEL_HELD.get())
             .attribute(Attributes.MINING_EFFICIENCY)
@@ -64,6 +69,7 @@ public class ConfiguredPlayerAbilities {
             .enabledByDefault(true));
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_EFFICIENCY_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("hoe_efficiency_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_EFFICIENCY)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_HOE_HELD.get())
             .attribute(Attributes.MINING_EFFICIENCY)
@@ -72,6 +78,7 @@ public class ConfiguredPlayerAbilities {
 
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SWORD_SHARPNESS_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("sword_sharpness_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_SHARPNESS)
             .parentSkill(ConfiguredSkills.SWORDSMANSHIP)
             .ability(PlayerAbilities.MODIFIERS_WHILE_SWORD_HELD.get())
             .attribute(grill24.potionsplus.core.Attributes.SHARPNESS_BONUS)
@@ -79,6 +86,7 @@ public class ConfiguredPlayerAbilities {
             .enabledByDefault(true));
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SWORD_LOOTING_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("sword_looting_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_LOOTING)
             .parentSkill(ConfiguredSkills.SWORDSMANSHIP)
             .ability(PlayerAbilities.MODIFIERS_WHILE_SWORD_HELD.get())
             .attribute(grill24.potionsplus.core.Attributes.LOOTING_BONUS)
@@ -96,6 +104,7 @@ public class ConfiguredPlayerAbilities {
 
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_DAMAGE_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("axe_damage_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_DAMAGE)
             .parentSkill(ConfiguredSkills.CHOPPING)
             .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
             .attribute(Attributes.ATTACK_DAMAGE)
@@ -103,6 +112,7 @@ public class ConfiguredPlayerAbilities {
             .enabledByDefault(true));
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_POWER_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("bow_power_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BOW_POWER)
             .parentSkill(ConfiguredSkills.ARCHERY)
             .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
             .attribute(grill24.potionsplus.core.Attributes.POWER_BONUS)
@@ -118,6 +128,7 @@ public class ConfiguredPlayerAbilities {
 
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> MOVEMENT_SPEED_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("movement_speed_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_MOVEMENT_SPEED)
             .parentSkill(ConfiguredSkills.WALKING)
             .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
             .attribute(Attributes.MOVEMENT_SPEED)
@@ -125,6 +136,7 @@ public class ConfiguredPlayerAbilities {
             .enabledByDefault(true));
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SPRINT_SPEED_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("sprint_speed_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SPRINT_SPEED)
             .parentSkill(ConfiguredSkills.SPRINTING)
             .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
             .attribute(grill24.potionsplus.core.Attributes.SPRINTING_SPEED)
@@ -132,6 +144,7 @@ public class ConfiguredPlayerAbilities {
             .enabledByDefault(true));
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SNEAK_SPEED_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("sneak_speed_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_SPEED)
             .parentSkill(ConfiguredSkills.SNEAKING)
             .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
             .attribute(Attributes.SNEAKING_SPEED)
@@ -139,6 +152,7 @@ public class ConfiguredPlayerAbilities {
             .enabledByDefault(true));
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> JUMP_HEIGHT_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("jump_height_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_JUMP_STRENGTH)
             .parentSkill(ConfiguredSkills.JUMPING)
             .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
             .attribute(Attributes.JUMP_STRENGTH)

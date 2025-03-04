@@ -23,6 +23,10 @@ public record ConfiguredPlayerAbility<AC extends PlayerAbilityConfiguration, A e
         return ability.getDescription(config);
     }
 
+    public Component getDescription(Object... params) {
+        return ability.getDescription(config, params);
+    }
+
     public void onAbilityGranted(ServerPlayer player, AbilityInstanceSerializable<?, ?> abilityInstance) {
         ability.onAbilityGranted(player, config, abilityInstance);
     }

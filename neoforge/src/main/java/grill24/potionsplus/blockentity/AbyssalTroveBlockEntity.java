@@ -186,26 +186,22 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
             ItemStack icon = ingredient.getItemStack();
             List<ItemStack> subIcon = new ArrayList<>();
             if (!PotionsPlus.Debug.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
-                icon = new ItemStack(Items.GENERIC_ICON.value(), 12);
+                icon = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.UNKNOWN_TEX_LOC);
             } else {
                 if (Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
-                    ItemStack sub = new ItemStack(Items.GENERIC_ICON.value());
-                    sub.setCount(2);
+                    ItemStack sub = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.DUR_TEX_LOC);
                     subIcon.add(sub);
                 }
                 if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
-                    ItemStack sub = new ItemStack(Items.GENERIC_ICON.value());
-                    sub.setCount(1);
+                    ItemStack sub = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.AMP_TEX_LOC);
                     subIcon.add(sub);
                 }
                 if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, ingredient)) {
-                    ItemStack sub = new ItemStack(Items.GENERIC_ICON.value());
-                    sub.setCount(17);
+                    ItemStack sub = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.COMMON_TEX_LOC);
                     subIcon.add(sub);
                 }
                 if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, ingredient)) {
-                    ItemStack sub = new ItemStack(Items.GENERIC_ICON.value());
-                    sub.setCount(18);
+                    ItemStack sub = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.RARE_TEX_LOC);
                     subIcon.add(sub);
                 }
             }

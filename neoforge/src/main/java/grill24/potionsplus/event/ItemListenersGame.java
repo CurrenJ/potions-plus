@@ -19,6 +19,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -94,7 +95,8 @@ public class ItemListenersGame {
 
 
                     // Recipe text
-                    if (Recipes.ALL_BCR_RECIPES_ANALYSIS.isIngredientUsed(ppIngredient)) {
+                    Player player = event.getEntity();
+                    if (SavedData.instance.getData(event.getEntity()).abyssalTroveContainsIngredient(player.level(), ppIngredient)) {
                         // Look at all the recipes that this ingredient is used in
                         for (RecipeHolder<BrewingCauldronRecipe> recipeHolder : Recipes.ALL_BCR_RECIPES_ANALYSIS.getRecipesForIngredient(ppIngredient)) {
                             if (SavedData.instance.getData(event.getEntity()).isRecipeUnknown(recipeHolder.id().toString()))

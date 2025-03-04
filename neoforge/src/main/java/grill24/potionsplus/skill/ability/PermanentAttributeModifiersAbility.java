@@ -22,7 +22,7 @@ import java.util.Set;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbilityConfiguration> extends PlayerAbility<AC> implements IAdjustableStrengthAbility<AC> {
+public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbilityConfiguration> extends PlayerAbility<AC> {
     public PermanentAttributeModifiersAbility(Codec<AC> configurationCodec) {
         super(configurationCodec, Set.of(AbilityInstanceTypes.ADJUSTABLE_STRENGTH.value()));
     }
@@ -68,8 +68,12 @@ public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbi
     }
 
     @Override
-    public Component getDescription(AC config) {
-        return getDescriptionWithStrength(config, 1);
+    public Component getDescription(AC config, Object... params) {
+        if (params.length == 1 && params[0] instanceof Float strength) {
+            return getDescriptionWithStrength(config, strength);
+        } else {
+            return super.getDescription(config, params);
+        }
     }
 
     private Component getDescriptionWithStrength(AttributeModifiersAbilityConfiguration config, float strength) {
@@ -88,11 +92,6 @@ public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbi
         } else {
             return Component.translatable(config.getData().translationKey());
         }
-    }
-
-    @Override
-    public Component getDescription(AC config, float strength) {
-        return getDescriptionWithStrength(config, strength);
     }
 
     @Override

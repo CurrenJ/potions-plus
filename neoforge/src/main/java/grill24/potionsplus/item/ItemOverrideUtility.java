@@ -7,6 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -133,6 +135,14 @@ public class ItemOverrideUtility {
 
         public int getIndex(ResourceLocation textureLocation) {
             return textureIndexMap.getOrDefault(textureLocation, 0);
+        }
+
+        public int getItemStackCountForTexture(ResourceLocation textureLocation) {
+            return getIndex(textureLocation) + 1;
+        }
+
+        public ItemStack getItemStackForTexture(ItemLike itemLike, ResourceLocation textureLocation) {
+            return new ItemStack(itemLike, getItemStackCountForTexture(textureLocation));
         }
 
         @Override

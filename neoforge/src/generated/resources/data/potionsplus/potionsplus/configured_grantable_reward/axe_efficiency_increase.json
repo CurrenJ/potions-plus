@@ -1,7 +1,7 @@
 {
   "type": "potionsplus:increase_ability_strength",
   "config": {
-    "abilityKey": "potionsplus:axe_efficiency_modifier",
+    "ability": "potionsplus:axe_efficiency_modifier",
     "strengthIncrease": 1.0
   }
 }

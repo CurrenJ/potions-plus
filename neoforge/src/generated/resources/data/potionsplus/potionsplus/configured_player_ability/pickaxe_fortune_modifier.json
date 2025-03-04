@@ -4,7 +4,8 @@
     "attribute": "potionsplus:player.fortune_bonus",
     "baseConfig": {
       "enabledByDefault": true,
-      "parentSkill": "potionsplus:mining"
+      "parentSkill": "potionsplus:mining",
+      "translationKey": "description.potionsplus.ability.pickaxe_fortune"
     },
     "modifiers": [
       {

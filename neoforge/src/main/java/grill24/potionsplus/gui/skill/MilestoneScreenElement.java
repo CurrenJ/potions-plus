@@ -56,7 +56,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
         graphics.pose().pushPose();
         graphics.pose().translate(0, 0, -100);
         ((IGuiGraphicsExtension) graphics).potions_plus$renderItem(
-                new ItemStack(Items.GENERIC_ICON, 12),
+                Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.UNKNOWN_TEX_LOC),
                 new Vector3f(0, 0, 0),
                 (float) (bounds.getMinX() + bounds.getWidth() / 4F), // The render method we are calling here renders an item centered at the given position. We align to top-left because that's how the screen elements assume bounds are positioned.
                 (float) (bounds.getMinY() + bounds.getHeight() / 4F),

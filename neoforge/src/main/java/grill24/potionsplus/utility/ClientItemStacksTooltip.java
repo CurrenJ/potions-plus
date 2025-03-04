@@ -1,6 +1,11 @@
 package grill24.potionsplus.utility;
 
 import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -10,9 +15,12 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
@@ -22,11 +30,9 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     private static final int SLOT_SIZE_X = 18;
     private static final int SLOT_SIZE_Y = 20;
     private final List<ItemStack> items;
-    private final String recipeId;
 
-    public ClientItemStacksTooltip(List<ItemStack> items, String recipeId) {
+    public ClientItemStacksTooltip(List<ItemStack> items) {
         this.items = items;
-        this.recipeId = recipeId;
     }
 
     @Override
@@ -66,18 +72,36 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
 
     private boolean isShowing() {
         LocalPlayer player = Minecraft.getInstance().player;
-        return player != null && SavedData.instance.getData(player).isRecipeKnown(recipeId);
+        return player != null;
     }
 
     private void renderSlot(int x, int y, int itemIndex, GuiGraphics guiGraphics, Font font) {
         if (itemIndex < this.items.size()) {
             ItemStack itemstack = this.items.get(itemIndex);
+            if (itemstack.isEmpty()) {
+                return;
+            }
+
             if (!itemstack.is(Blocks.BREWING_CAULDRON.value().asItem())) {
                 this.blit(guiGraphics, x, y, ClientItemStacksTooltip.Texture.SLOT);
+
+                LocalPlayer player = Minecraft.getInstance().player;
+                if (player != null) {
+                    try (Level level = player.level()) {
+                        PlayerBrewingKnowledge brewingKnowledge = SavedData.instance.getData(player);
+                        boolean isInAbyssalTrove = brewingKnowledge.abyssalTroveContainsIngredient(level, PpIngredient.of(itemstack));
+                        boolean isPotion = PUtil.isPotion(itemstack);
+                        if (!isInAbyssalTrove && !isPotion && !PotionsPlus.Debug.shouldRevealAllRecipes) {
+
+                            itemstack = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.UNKNOWN_TEX_LOC);
+                        }
+                    } catch (IOException ignored) {}
+                }
+
             }
 
             guiGraphics.renderItem(itemstack, x + 1, y + 1, itemIndex);
-            guiGraphics.renderItemDecorations(font, itemstack, x + 1, y + 1);
+            //guiGraphics.renderItemDecorations(font, itemstack, x + 1, y + 1);
         }
     }
 
@@ -90,7 +114,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     private int gridSizeY() {
-        return isShowing() ? 1 : 0;
+        return isShowing() ? (int) (Math.ceil(this.items.size() / (double) gridSizeX())) : 0;
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -25,10 +25,10 @@ public class Attributes {
 
     public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(Registries.ATTRIBUTE, ModInfo.MOD_ID);
 
-    public static final Holder<Attribute> LOOTING_BONUS = registerEnchantmentBonus("player.looting_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_LOOTING_LEVEL_BONUS, Enchantments.LOOTING);
-    public static final Holder<Attribute> FORTUNE_BONUS = registerEnchantmentBonus("player.fortune_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_FORTUNE_LEVEL_BONUS, Enchantments.FORTUNE);
-    public static final Holder<Attribute> SHARPNESS_BONUS = registerEnchantmentBonus("player.sharpness_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SHARPNESS_LEVEL_BONUS, Enchantments.SHARPNESS);
-    public static final Holder<Attribute> POWER_BONUS = registerEnchantmentBonus("player.power_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_POWER_LEVEL_BONUS, Enchantments.POWER);
+    public static final Holder<Attribute> LOOTING_BONUS = registerEnchantmentBonus("player.looting_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_LOOTING_LEVEL, Enchantments.LOOTING);
+    public static final Holder<Attribute> FORTUNE_BONUS = registerEnchantmentBonus("player.fortune_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_FORTUNE_LEVEL, Enchantments.FORTUNE);
+    public static final Holder<Attribute> SHARPNESS_BONUS = registerEnchantmentBonus("player.sharpness_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SHARPNESS_LEVEL, Enchantments.SHARPNESS);
+    public static final Holder<Attribute> POWER_BONUS = registerEnchantmentBonus("player.power_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_POWER_LEVEL, Enchantments.POWER);
 
     public static final Holder<Attribute> SPRINTING_SPEED = ATTRIBUTES.register("player.sprint_speed_bonus", () -> new net.neoforged.neoforge.common.PercentageAttribute("attribute.name.generic.sprint_speed_bonus", 0, 0.0, 1024.0, 1000).setSyncable(true));
 

@@ -109,12 +109,15 @@ public class ConfiguredGrantableRewards {
 
     public static final AnimatedItemReward.AnimatedItemRewardBuilder ANIMATED_ITEMS = register(() -> new AnimatedItemReward.AnimatedItemRewardBuilder(new ItemStack(Items.WOODEN_PICKAXE), new ItemStack(Items.STONE_PICKAXE), new ItemStack(Items.IRON_PICKAXE), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.NETHERITE_PICKAXE), new ItemStack(Items.GOLDEN_PICKAXE), new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_AXE), new ItemStack(Items.IRON_AXE), new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.NETHERITE_AXE), new ItemStack(Items.GOLDEN_AXE), new ItemStack(Items.WOODEN_SHOVEL), new ItemStack(Items.STONE_SHOVEL), new ItemStack(Items.IRON_SHOVEL), new ItemStack(Items.DIAMOND_SHOVEL), new ItemStack(Items.NETHERITE_SHOVEL), new ItemStack(Items.GOLDEN_SHOVEL), new ItemStack(Items.WOODEN_HOE), new ItemStack(Items.STONE_HOE), new ItemStack(Items.IRON_HOE), new ItemStack(Items.DIAMOND_HOE), new ItemStack(Items.NETHERITE_HOE), new ItemStack(Items.GOLDEN_HOE), new ItemStack(Items.WOODEN_SWORD), new ItemStack(Items.STONE_SWORD), new ItemStack(Items.IRON_SWORD), new ItemStack(Items.DIAMOND_SWORD), new ItemStack(Items.NETHERITE_SWORD), new ItemStack(Items.GOLDEN_SWORD), new ItemStack(Items.BOW), new ItemStack(Items.CROSSBOW), new ItemStack(Items.TRIDENT), new ItemStack(Items.LEATHER_BOOTS), new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_CHESTPLATE), new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.CHAINMAIL_BOOTS), new ItemStack(Items.CHAINMAIL_LEGGINGS), new ItemStack(Items.CHAINMAIL_CHESTPLATE), new ItemStack(Items.CHAINMAIL_HELMET), new ItemStack(Items.IRON_BOOTS), new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Items.IRON_CHESTPLATE), new ItemStack(Items.IRON_HELMET), new ItemStack(Items.DIAMOND_BOOTS), new ItemStack(Items.DIAMOND_LEGGINGS), new ItemStack(Items.DIAMOND_CHESTPLATE), new ItemStack(Items.DIAMOND_HELMET), new ItemStack(Items.NETHERITE_BOOTS), new ItemStack(Items.NETHERITE_LEGGINGS), new ItemStack(Items.NETHERITE_CHESTPLATE), new ItemStack(Items.NETHERITE_HELMET), new ItemStack(Items.GOLDEN_BOOTS), new ItemStack(Items.GOLDEN_LEGGINGS), new ItemStack(Items.GOLDEN_CHESTPLATE), new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.SHIELD), new ItemStack(Items.ELYTRA), new ItemStack(Items.SUGAR), new ItemStack(Items.COPPER_ORE), new ItemStack(Items.COAL_ORE), new ItemStack(Items.IRON_ORE), new ItemStack(Items.GOLD_ORE), new ItemStack(Items.DIAMOND_ORE), new ItemStack(Items.EMERALD_ORE), new ItemStack(Items.ANCIENT_DEBRIS)));
 
-    public static final IncreaseAbilityStrengthReward.Builder PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("pickaxe_efficiency_increase")
+    public static final IncreaseAbilityStrengthReward.Builder SMALL_PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("small_pickaxe_efficiency_increase")
             .ability(ConfiguredPlayerAbilities.PICKAXE_EFFICIENCY_MODIFIER_KEY.getKey())
-            .strength(1.0F));
-    public static final IncreaseAbilityStrengthReward.Builder SUBMERGED_PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("submerged_pickaxe_efficiency_increase")
+            .strength(0.05F));
+    public static final IncreaseAbilityStrengthReward.Builder MEDIUM_PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("medium_pickaxe_efficiency_increase")
+            .ability(ConfiguredPlayerAbilities.PICKAXE_EFFICIENCY_MODIFIER_KEY.getKey())
+            .strength(0.1F));
+    public static final IncreaseAbilityStrengthReward.Builder SMALL_SUBMERGED_PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("small_submerged_pickaxe_efficiency_increase")
             .ability(ConfiguredPlayerAbilities.SUBMERGED_PICKAXE_EFFICIENCY_MODIFIER_KEY.getKey())
-            .strength(1.0F));
+            .strength(0.05F));
     public static final IncreaseAbilityStrengthReward.Builder PICKAXE_FORTUNE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("pickaxe_fortune_increase")
             .ability(ConfiguredPlayerAbilities.PICKAXE_FORTUNE_MODIFIER_KEY.getKey())
             .strength(1.0F));
@@ -174,12 +177,12 @@ public class ConfiguredGrantableRewards {
     ));
 
     public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_PICKAXE_EFFICIENCY_1 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_pickaxe_efficiency_1",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), PICKAXE_EFFICIENCY_INCREASE.getKey()),
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), SUBMERGED_PICKAXE_EFFICIENCY_INCREASE.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), SMALL_PICKAXE_EFFICIENCY_INCREASE.getKey()),
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), SMALL_SUBMERGED_PICKAXE_EFFICIENCY_INCREASE.getKey())
     ));
     public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_PICKAXE_EFFICIENCY_2 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_pickaxe_efficiency_2",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.FORTIFYING_FUDGE), PICKAXE_EFFICIENCY_INCREASE.getKey()),
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), SUBMERGED_PICKAXE_EFFICIENCY_INCREASE.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.FORTIFYING_FUDGE), SMALL_PICKAXE_EFFICIENCY_INCREASE.getKey()),
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), SMALL_SUBMERGED_PICKAXE_EFFICIENCY_INCREASE.getKey())
     ));
 
     public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_PICKAXE_LOOT_1 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_pickaxe_loot_1",

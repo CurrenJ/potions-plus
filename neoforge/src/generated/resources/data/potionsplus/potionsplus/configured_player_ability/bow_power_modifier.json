@@ -4,7 +4,8 @@
     "attribute": "potionsplus:player.power_bonus",
     "baseConfig": {
       "enabledByDefault": true,
-      "parentSkill": "potionsplus:archery"
+      "parentSkill": "potionsplus:archery",
+      "translationKey": "description.potionsplus.ability.bow_power"
     },
     "modifiers": [
       {

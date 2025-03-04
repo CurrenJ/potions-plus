@@ -3,32 +3,32 @@
   "config": {
     "baseConfig": {
       "displayIconForLevel": {
-        "10": {
+        "0": {
           "count": 1,
-          "id": "minecraft:iron_axe"
-        },
-        "15": {
-          "count": 1,
-          "id": "minecraft:iron_axe"
+          "id": "minecraft:wooden_axe"
         },
         "20": {
           "count": 1,
-          "id": "minecraft:iron_axe"
+          "id": "minecraft:stone_axe"
         },
-        "25": {
+        "40": {
           "count": 1,
           "id": "minecraft:iron_axe"
         },
-        "5": {
+        "60": {
           "count": 1,
-          "id": "minecraft:iron_axe"
+          "id": "minecraft:golden_axe"
+        },
+        "80": {
+          "count": 1,
+          "id": "minecraft:diamond_axe"
         }
       },
       "pointsLevelingScale": {
         "a": 2.0,
         "b": 1.2,
         "c": 4,
-        "levelMax": 25,
+        "levelMax": 100,
         "scale": "EXPONENTIAL"
       },
       "rewardsConfig": {
@@ -41,9 +41,7 @@
           "10": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:axe_damage_increase",
-              "potionsplus:display_stone_axe"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "100": {
@@ -77,9 +75,7 @@
           "15": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:axe_damage_increase",
-              "potionsplus:display_iron_axe"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "16": {
@@ -100,7 +96,8 @@
           },
           "19": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:axe_damage_increase"
             ]
           },
           "2": {
@@ -111,9 +108,7 @@
           "20": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:axe_damage_increase",
-              "potionsplus:display_golden_axe"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "21": {
@@ -141,9 +136,7 @@
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_wheel_end_city",
-              "potionsplus:axe_damage_increase",
-              "potionsplus:display_diamond_axe"
+              "potionsplus:edible_wheel_end_city"
             ]
           },
           "26": {
@@ -212,7 +205,8 @@
           },
           "37": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:axe_damage_increase"
             ]
           },
           "38": {
@@ -287,9 +281,7 @@
           "5": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:axe_damage_increase",
-              "potionsplus:display_wooden_axe"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "50": {
@@ -328,7 +320,8 @@
           },
           "56": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:axe_damage_increase"
             ]
           },
           "57": {
@@ -430,7 +423,8 @@
           },
           "73": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:axe_damage_increase"
             ]
           },
           "74": {
@@ -511,7 +505,8 @@
           },
           "87": {
             "advancementRewards": [
-              "potionsplus:expert_skill_loot_edible"
+              "potionsplus:expert_skill_loot_edible",
+              "potionsplus:axe_damage_increase"
             ]
           },
           "88": {

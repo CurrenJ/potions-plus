@@ -52,8 +52,7 @@
             "advancementRewards": [
               "potionsplus:master_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_wheel_end_city",
-              "potionsplus:display_netherite_boots"
+              "potionsplus:edible_wheel_end_city"
             ]
           },
           "11": {
@@ -113,8 +112,7 @@
           "20": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:display_chainmail_boots"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "21": {
@@ -233,8 +231,7 @@
           "40": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:display_iron_boots"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "41": {
@@ -358,8 +355,7 @@
             "advancementRewards": [
               "potionsplus:advanced_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_unknown_potion_ingredient",
-              "potionsplus:display_golden_boots"
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "61": {
@@ -478,8 +474,7 @@
           "80": {
             "advancementRewards": [
               "potionsplus:expert_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:display_diamond_boots"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "81": {

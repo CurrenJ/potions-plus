@@ -28,8 +28,8 @@ public abstract class PlayerAbility<AC extends PlayerAbilityConfiguration> {
         return this.configuredCodec;
     }
 
-    public Component getDescription(AC config) {
-        return Component.translatable(config.getData().translationKey());
+    public Component getDescription(AC config, Object... params) {
+        return Component.translatable(config.getData().translationKey(), params);
     }
 
     public abstract AbilityInstanceSerializable<? ,?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability);

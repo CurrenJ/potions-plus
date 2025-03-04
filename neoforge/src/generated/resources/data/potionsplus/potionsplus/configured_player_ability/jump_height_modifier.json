@@ -4,7 +4,8 @@
     "attribute": "minecraft:generic.jump_strength",
     "baseConfig": {
       "enabledByDefault": false,
-      "parentSkill": "potionsplus:jumping"
+      "parentSkill": "potionsplus:jumping",
+      "translationKey": "description.potionsplus.ability.jump_strength"
     },
     "modifiers": [
       {

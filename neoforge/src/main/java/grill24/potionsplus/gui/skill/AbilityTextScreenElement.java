@@ -4,7 +4,6 @@ import grill24.potionsplus.gui.HorizontalListScreenElement;
 import grill24.potionsplus.gui.RenderableScreenElement;
 import grill24.potionsplus.gui.TextComponentScreenElement;
 import grill24.potionsplus.skill.SkillsData;
-import grill24.potionsplus.skill.ability.IAdjustableStrengthAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
 import net.minecraft.client.gui.screens.Screen;
@@ -61,7 +60,7 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
             }
         });
 
-        if (!(ability.get().data().getConfiguredAbility().ability() instanceof IAdjustableStrengthAbility<?>)) {
+        if (!(ability.get().data() instanceof AdjustableStrengthAbilityInstanceData)) {
             buttonDecrease.hide(false);
             buttonIncrease.hide(false);
         }
