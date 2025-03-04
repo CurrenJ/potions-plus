@@ -54,6 +54,7 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_IRON_ORE_ADDITIONAL_LOOT_GOLD_NUGGETS = "description.potionsplus.ability.iron_ore_additional_loot_gold_nuggets";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS = "description.potionsplus.ability.diamond_ore_additional_loot_emeralds";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS = "description.potionsplus.ability.diamond_ore_additional_loot_lapis";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DOUBLE_JUMP = "description.potionsplus.ability.double_jump";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_AXE_EFFICIENCY = "description.potionsplus.ability.axe_efficiency";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SHOVEL_EFFICIENCY = "description.potionsplus.ability.shovel_efficiency";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_HOE_EFFICIENCY = "description.potionsplus.ability.hoe_efficiency";

@@ -23,6 +23,8 @@ public class PlayerAbilities {
     public static final DeferredHolder<PlayerAbility<?>, AttributeModifiersWhileHeldAbility<TridentItem>> MODIFIERS_WHILE_TRIDENT_HELD = register("modifiers_while_trident_held", () -> new AttributeModifiersWhileHeldAbility<>(TridentItem.class));
     public static final DeferredHolder<PlayerAbility<?>, AttributeModifiersWhileHeldAbility<ShieldItem>> MODIFIERS_WHILE_SHIELD_HELD = register("modifiers_while_shield_held", () -> new AttributeModifiersWhileHeldAbility<>(ShieldItem.class));
 
+    public static final DeferredHolder<PlayerAbility<?>, DoubleJumpAbility> DOUBLE_JUMP = register("double_jump", DoubleJumpAbility::new);
+
     private static <S extends PlayerAbility<?>> DeferredHolder<PlayerAbility<?>, S> register(String name, Supplier<S> supplier) {
         return PLAYER_ABILITIES.register(name, supplier);
     }

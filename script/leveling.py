@@ -2,7 +2,7 @@ if __name__ == "__main__":
     a = 2
     b = 1.2
     c = 0
-    d = 100
+    d = 25
     levelToPoints = lambda x : (x ** a + c + (d * x)) ** b
     levelToPointsMap = {level: round(levelToPoints(level), 0) for level in range(1, 101)}
     diff = {level: round(points - levelToPoints(level - 1), 0) for level, points in levelToPointsMap.items() if level > 1}

@@ -61,6 +61,8 @@
   "description.potionsplus.ability.diamond_ore_additional_loot_emeralds": "+Diamond Ore May Drop Emeralds",
   "description.potionsplus.ability.diamond_ore_additional_loot_lapis": "+Diamond Ore May Drop Lapis",
 
+  "description.potionsplus.ability.double_jump": "+%s Additional Jump(s)",
+
 
   "description.potionsplus.ability.axe_efficiency": "%s Axe Mining Speed",
   "description.potionsplus.ability.shovel_efficiency": "%s Shovel Mining Speed",

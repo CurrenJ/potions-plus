@@ -162,9 +162,13 @@ public class ConfiguredGrantableRewards {
     public static final IncreaseAbilityStrengthReward.Builder SMALL_SNEAK_SPEED_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("sneak_speed_increase")
             .ability(ConfiguredPlayerAbilities.SNEAK_SPEED_MODIFIER_KEY.getKey())
             .strength(0.01F));
+
     public static IncreaseAbilityStrengthReward.Builder SMALL_JUMP_HEIGHT_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("jump_height_increase")
             .ability(ConfiguredPlayerAbilities.JUMP_HEIGHT_MODIFIER_KEY.getKey())
             .strength(0.1F));
+    public static IncreaseAbilityStrengthReward.Builder DOUBLE_JUMP_COUNT_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("double_jump_count_increase")
+            .ability(ConfiguredPlayerAbilities.DOUBLE_JUMP.getKey())
+            .strength(1.0F));
 
     public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_LOOT_1 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_loot_1",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI), SIMPLE_DUNGEON_LOOT.getKey()),

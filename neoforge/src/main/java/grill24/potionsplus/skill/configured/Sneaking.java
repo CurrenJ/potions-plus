@@ -24,7 +24,7 @@ public class Sneaking {
                                 5, new ItemStack(Items.LEATHER_BOOTS)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.SNEAK),
-                        new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 0, 50),
+                        new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 0, 25),
                         List.of(),
                         ConfiguredSkills.createDefaultRewards(context)
                                 .addRewardForLevel(13, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_SNEAK_SPEED_INCREASE))

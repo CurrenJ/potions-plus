@@ -150,6 +150,7 @@ public class ConfiguredPlayerAbilities {
             .attribute(Attributes.SNEAKING_SPEED)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
+
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> JUMP_HEIGHT_MODIFIER_KEY = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("jump_height_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_JUMP_STRENGTH)
@@ -158,6 +159,10 @@ public class ConfiguredPlayerAbilities {
             .attribute(Attributes.JUMP_STRENGTH)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(false));
+
+    public static final DoubleJumpAbility.Builder DOUBLE_JUMP = register(() -> new DoubleJumpAbility.Builder("double_jump")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DOUBLE_JUMP)
+            .parentSkill(ConfiguredSkills.JUMPING));
 
     // Data Gen
     public static void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {

@@ -6,6 +6,7 @@ import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
 import grill24.potionsplus.skill.ability.instance.SimpleAbilityInstanceData;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -20,6 +21,10 @@ import static grill24.potionsplus.utility.Utility.ppId;
 public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguration>{
     public SimplePlayerAbility() {
         super(PlayerAbilityConfiguration.CODEC, Set.of(AbilityInstanceTypes.SIMPLE_TOGGLEABLE.value()));
+    }
+
+    public SimplePlayerAbility(Set<AbilityInstanceType<?>> instanceTypes) {
+        super(PlayerAbilityConfiguration.CODEC, instanceTypes);
     }
 
     @Override
