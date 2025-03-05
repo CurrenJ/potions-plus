@@ -42,6 +42,13 @@ public class Packets {
                 ServerboundToggleAbilityPacket.ServerPayloadHandler::handleDataOnMain
         );
 
+        // Spawn Double Jump Particles Packet
+        registrar.playToServer(
+                ServerboundSpawnDoubleJumpParticlesPacket.TYPE,
+                ServerboundSpawnDoubleJumpParticlesPacket.STREAM_CODEC,
+                ServerboundSpawnDoubleJumpParticlesPacket.ServerPayloadHandler::handleDataOnMain
+        );
+
 
         // ----- Clientbound Packets -----
 

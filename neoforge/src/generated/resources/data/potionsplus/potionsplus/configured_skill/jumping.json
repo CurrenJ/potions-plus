@@ -3,22 +3,6 @@
   "config": {
     "baseConfig": {
       "displayIconForLevel": {
-        "10": {
-          "count": 1,
-          "id": "minecraft:rabbit_foot"
-        },
-        "15": {
-          "count": 1,
-          "id": "minecraft:rabbit_foot"
-        },
-        "20": {
-          "count": 1,
-          "id": "minecraft:rabbit_foot"
-        },
-        "25": {
-          "count": 1,
-          "id": "minecraft:rabbit_foot"
-        },
         "5": {
           "count": 1,
           "id": "minecraft:rabbit_foot"
@@ -54,7 +38,8 @@
           },
           "11": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:jump_height_increase"
             ]
           },
           "12": {
@@ -87,7 +72,8 @@
           },
           "17": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:safe_fall_distance_increase"
             ]
           },
           "18": {
@@ -171,7 +157,8 @@
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:safe_fall_distance_increase"
             ]
           },
           "31": {
@@ -214,7 +201,8 @@
           },
           "38": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:jump_height_increase"
             ]
           },
           "39": {
@@ -241,18 +229,19 @@
           "42": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:safe_fall_distance_increase"
             ]
           },
           "43": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:jump_height_increase"
+              "potionsplus:intermediate_skill_loot_edible"
             ]
           },
           "44": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:jump_height_increase"
             ]
           },
           "45": {
@@ -396,7 +385,8 @@
           },
           "68": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:safe_fall_distance_increase"
             ]
           },
           "69": {
@@ -406,7 +396,8 @@
           },
           "7": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:safe_fall_distance_increase"
             ]
           },
           "70": {
@@ -483,7 +474,8 @@
           },
           "82": {
             "advancementRewards": [
-              "potionsplus:expert_skill_loot_edible"
+              "potionsplus:expert_skill_loot_edible",
+              "potionsplus:safe_fall_distance_increase"
             ]
           },
           "83": {
@@ -565,7 +557,8 @@
           "96": {
             "advancementRewards": [
               "potionsplus:master_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:safe_fall_distance_increase"
             ]
           },
           "97": {

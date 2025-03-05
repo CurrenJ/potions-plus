@@ -90,10 +90,12 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayerExtensi
     public void potions_plus$performAdditionalJump() {
         super.jumpFromGround();
         this.awardStat(Stats.JUMP);
+
+        final float additionalJumpFoodExhaustionMultiplier = 2F;
         if (this.isSprinting()) {
-            this.causeFoodExhaustion(0.2F);
+            this.causeFoodExhaustion(0.2F * additionalJumpFoodExhaustionMultiplier);
         } else {
-            this.causeFoodExhaustion(0.05F);
+            this.causeFoodExhaustion(0.05F * additionalJumpFoodExhaustionMultiplier);
         }
     }
 }

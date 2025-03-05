@@ -178,8 +178,11 @@ public class PlayerListeners {
                     ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()),
                     new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()),
                     new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player))
-//                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player))
             );
+
+            SkillsData.updatePlayerData(player, data -> data.activeAbilities()
+                    .forEach((key, list) -> list
+                            .forEach(instance -> instance.onInstanceChanged(player))));
         }
     }
 

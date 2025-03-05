@@ -94,7 +94,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.CREEPER)).build(),
-                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.CREEPER_SAND_ADDITIONAL_LOOT_KEY.getKey())
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.CREEPER_SAND_ADDITIONAL_LOOT.getKey())
                         },
                         LootTables.CREEPER_SAND_BONUS_DROPS
                 )
@@ -106,7 +106,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.SKELETON)).build(),
-                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.SKELETON_BONE_MEAL_ADDITIONAL_LOOT_KEY.getKey())
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.SKELETON_BONE_MEAL_ADDITIONAL_LOOT.getKey())
                         },
                         LootTables.SKELETON_BONE_MEAL_BONUS_DROPS
                 )
@@ -118,7 +118,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.SKELETON)).build(),
-                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT_KEY.getKey())
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT.getKey())
                         },
                         LootTables.SKELETON_BONE_BLOCK_BONUS_DROPS
                 )

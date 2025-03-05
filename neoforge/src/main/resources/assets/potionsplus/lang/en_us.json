@@ -71,6 +71,7 @@
   "description.potionsplus.ability.sword_sharpness": "%s Sword Sharpness Level",
   "description.potionsplus.attribute.sharpness_level": "Sharpness",
   "description.potionsplus.ability.sword_looting": "%s Sword Looting Level",
+  "description.potionsplus.ability.sword_unbreaking": "%s Sword Unbreaking Level",
   "description.potionsplus.attribute.looting_level": "Looting",
   "description.potionsplus.ability.creeper_additional_loot_sand": "+Creepers May Drop Sand",
   "description.potionsplus.ability.skeleton_bone_meal_bonus_drops": "+Skeletons May Drop Bone Meal",
@@ -81,12 +82,16 @@
   "description.potionsplus.ability.bow_power": "%s Bow Power Level",
   "description.potionsplus.attribute.power_level": "Power",
 
+  "description.potionsplus.ability.pickaxe_unbreaking": "%s Pickaxe Unbreaking Level",
+  "description.potionsplus.attribute.unbreaking_level": "Unbreaking",
+
   "description.potionsplus.ability.axe_damage": "%s Axe Damage",
 
   "description.potionsplus.ability.movement_speed": "%s Movement Speed",
   "description.potionsplus.ability.sprint_speed": "%s Sprint Speed",
   "description.potionsplus.ability.sneak_speed": "%s Sneak Speed",
   "description.potionsplus.ability.jump_strength": "%s Jump Height",
+  "description.potionsplus.ability.safe_fall_distance": "%s Blocks Safe Fall Distance",
 
   "description.potionsplus.reward.wheel": "Spin The Wheel",
   "description.potionsplus.spin_to_win": "Spin to Win: %s",

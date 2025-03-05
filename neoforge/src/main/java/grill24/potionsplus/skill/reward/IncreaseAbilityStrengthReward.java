@@ -61,6 +61,7 @@ public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbili
             if (abilityInstance.get().data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthData) {
                 adjustableStrengthData.increaseMaxAbilityStrength(config.strengthIncrease);
                 adjustableStrengthData.setAbilityStrength(adjustableStrengthData.getAbilityStrength() + config.strengthIncrease);
+                abilityInstance.get().onInstanceChanged(player);
             } else {
                 PotionsPlus.LOGGER.warn("Attempted to increase max ability strength for player {} with ability key {}, but the ability instance is not adjustable strength.", player.getName(), config.ability);
             }

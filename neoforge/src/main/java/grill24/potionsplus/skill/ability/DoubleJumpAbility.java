@@ -2,6 +2,7 @@ package grill24.potionsplus.skill.ability;
 
 import grill24.potionsplus.core.*;
 import grill24.potionsplus.extension.IPlayerExtension;
+import grill24.potionsplus.network.ServerboundSpawnDoubleJumpParticlesPacket;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
@@ -18,6 +19,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -28,7 +30,7 @@ import static grill24.potionsplus.utility.Utility.ppId;
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class DoubleJumpAbility extends SimplePlayerAbility {
     public DoubleJumpAbility() {
-        super(Set.of(AbilityInstanceTypes.ADJUSTABLE_STRENGTH.value()));
+        super(Set.of(AbilityInstanceTypes.DOUBLE_JUMP.value()));
     }
 
     @Override
@@ -101,13 +103,15 @@ public class DoubleJumpAbility extends SimplePlayerAbility {
 
         SkillsData skillsData = SkillsData.getPlayerData(player);
         Optional<AbilityInstanceSerializable<?, ?>> inst = skillsData.getAbilityInstance(player.registryAccess(), ConfiguredPlayerAbilities.DOUBLE_JUMP.getKey());
-        if (inst.isPresent() && inst.get().data() instanceof DoubleJumpAbilityInstanceData data
+        if (inst.isPresent() && inst.get().data().isEnabled() && inst.get().data() instanceof DoubleJumpAbilityInstanceData data
                 && event.getInput().jumping && player.isLocalPlayer() && data.hasFinishedCooldown(gameTime) && data.getJumpsLeft() > 0) {
             if(player.onGround()) {
                 data.resetJumps(gameTime);
             } else {
                 ((IPlayerExtension) player).potions_plus$performAdditionalJump();
                 data.decrementJumps(gameTime);
+                PacketDistributor.sendToServer(new ServerboundSpawnDoubleJumpParticlesPacket(player.position()));
+
                 PotionsPlus.LOGGER.warn("Extra jump! Jumps left: " + data.getJumpsLeft());
             }
         }

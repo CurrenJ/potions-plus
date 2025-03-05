@@ -21,25 +21,30 @@ public class Jumping {
         return context.register(ConfiguredSkills.JUMPING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_JUMPING,
                         new TreeMap<>(Map.of(
-                                5, new ItemStack(Items.RABBIT_FOOT),
-                                10, new ItemStack(Items.RABBIT_FOOT),
-                                15, new ItemStack(Items.RABBIT_FOOT),
-                                20, new ItemStack(Items.RABBIT_FOOT),
-                                25, new ItemStack(Items.RABBIT_FOOT)
+                                5, new ItemStack(Items.RABBIT_FOOT)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.JUMP),
                         new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 0, 25),
                         List.of(),
                         ConfiguredSkills.createDefaultRewards(context)
+                                .addRewardForLevel(7, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SAFE_FALL_DISTANCE_INCREASE))
+                                .addRewardForLevel(11, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_JUMP_HEIGHT_INCREASE))
                                 .addRewardForLevel(15, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_JUMP_HEIGHT_INCREASE))
+                                .addRewardForLevel(17, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SAFE_FALL_DISTANCE_INCREASE))
                                 .addRewardForLevel(21, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.DOUBLE_JUMP_COUNT_INCREASE))
                                 .addRewardForLevel(27, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_JUMP_HEIGHT_INCREASE))
+                                .addRewardForLevel(30, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SAFE_FALL_DISTANCE_INCREASE))
                                 .addRewardForLevel(36, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.DOUBLE_JUMP_COUNT_INCREASE))
-                                .addRewardForLevel(43, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_JUMP_HEIGHT_INCREASE))
+                                .addRewardForLevel(38, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_JUMP_HEIGHT_INCREASE))
+                                .addRewardForLevel(42, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SAFE_FALL_DISTANCE_INCREASE))
+                                .addRewardForLevel(44, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_JUMP_HEIGHT_INCREASE))
                                 .addRewardForLevel(58, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_JUMP_HEIGHT_INCREASE))
                                 .addRewardForLevel(62, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.DOUBLE_JUMP_COUNT_INCREASE))
+                                .addRewardForLevel(68, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SAFE_FALL_DISTANCE_INCREASE))
                                 .addRewardForLevel(72, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_JUMP_HEIGHT_INCREASE))
+                                .addRewardForLevel(82, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SAFE_FALL_DISTANCE_INCREASE))
                                 .addRewardForLevel(91, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_JUMP_HEIGHT_INCREASE))
+                                .addRewardForLevel(96, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SAFE_FALL_DISTANCE_INCREASE))
                                 .addRewardForLevel(100, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_JUMP_HEIGHT_INCREASE))
                                 .build(rewardLookup)
                 )

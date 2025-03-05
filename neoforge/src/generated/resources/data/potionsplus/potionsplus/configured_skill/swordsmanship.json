@@ -180,7 +180,8 @@
           },
           "32": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:sword_unbreaking_increase"
             ]
           },
           "33": {
@@ -313,7 +314,8 @@
           "54": {
             "advancementRewards": [
               "potionsplus:advanced_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:sword_unbreaking_increase"
             ]
           },
           "55": {
