@@ -31,11 +31,16 @@ public class Axes {
                         new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 0),
                         List.of(),
                         ConfiguredSkills.createDefaultRewards(context)
-                                .addRewardForLevel(19, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.AXE_DAMAGE_INCREASE))
-                                .addRewardForLevel(37, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.AXE_DAMAGE_INCREASE))
-                                .addRewardForLevel(56, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.AXE_DAMAGE_INCREASE))
-                                .addRewardForLevel(73, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.AXE_DAMAGE_INCREASE))
-                                .addRewardForLevel(87, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.AXE_DAMAGE_INCREASE))
+                                .addRewardForLevel(5, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_AXE_DAMAGE_INCREASE))
+                                .addRewardForLevel(14, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.AXE_SMITE_INCREASE))
+                                .addRewardForLevel(19, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_AXE_DAMAGE_INCREASE))
+                                .addRewardForLevel(23, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.AXE_LOOTING_INCREASE))
+                                .addRewardForLevel(37, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_AXE_DAMAGE_INCREASE))
+                                .addRewardForLevel(42, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.AXE_LOOTING_INCREASE))
+                                .addRewardForLevel(56, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_AXE_DAMAGE_INCREASE))
+                                .addRewardForLevel(58, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.AXE_SMITE_INCREASE))
+                                .addRewardForLevel(73, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_AXE_DAMAGE_INCREASE))
+                                .addRewardForLevel(87, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_AXE_DAMAGE_INCREASE))
                                 .build(rewardLookup)
                 )
         ));

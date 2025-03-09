@@ -69,7 +69,8 @@
           },
           "14": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:axe_smite_increase"
             ]
           },
           "15": {
@@ -123,7 +124,8 @@
           },
           "23": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:axe_looting_increase"
             ]
           },
           "24": {
@@ -238,7 +240,8 @@
           "42": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:axe_looting_increase"
             ]
           },
           "43": {
@@ -281,7 +284,8 @@
           "5": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel"
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:axe_damage_increase"
             ]
           },
           "50": {
@@ -331,7 +335,8 @@
           },
           "58": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:axe_smite_increase"
             ]
           },
           "59": {

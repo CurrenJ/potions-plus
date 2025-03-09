@@ -2,6 +2,6 @@
   "type": "potionsplus:increase_ability_strength",
   "config": {
     "ability": "potionsplus:hoe_efficiency_modifier",
-    "strengthIncrease": 1.0
+    "strengthIncrease": 0.05
   }
 }

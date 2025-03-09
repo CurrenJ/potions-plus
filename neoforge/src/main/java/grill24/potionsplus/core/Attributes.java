@@ -30,6 +30,7 @@ public class Attributes {
     public static final Holder<Attribute> SHARPNESS_BONUS = registerEnchantmentBonus("player.sharpness_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SHARPNESS_LEVEL, Enchantments.SHARPNESS);
     public static final Holder<Attribute> POWER_BONUS = registerEnchantmentBonus("player.power_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_POWER_LEVEL, Enchantments.POWER);
     public static final Holder<Attribute> UNBREAKING_BONUS = registerEnchantmentBonus("player.unbreaking_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_UNBREAKING_LEVEL, Enchantments.UNBREAKING);
+    public static final Holder<Attribute> SMITE_BONUS = registerEnchantmentBonus("player.smite_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SMITE_LEVEL, Enchantments.SMITE);
 
     public static final Holder<Attribute> SPRINTING_SPEED = ATTRIBUTES.register("player.sprint_speed_bonus", () -> new net.neoforged.neoforge.common.PercentageAttribute("attribute.name.generic.sprint_speed_bonus", 0, 0.0, 1024.0, 1000).setSyncable(true));
 

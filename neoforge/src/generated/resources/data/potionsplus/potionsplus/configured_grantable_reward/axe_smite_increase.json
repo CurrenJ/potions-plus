@@ -1,0 +1,7 @@
+{
+  "type": "potionsplus:increase_ability_strength",
+  "config": {
+    "ability": "potionsplus:axe_smite_modifier",
+    "strengthIncrease": 1.0
+  }
+}

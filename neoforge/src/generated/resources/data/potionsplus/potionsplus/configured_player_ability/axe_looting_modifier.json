@@ -1,16 +1,16 @@
 {
   "type": "potionsplus:modifiers_while_axe_held",
   "config": {
-    "attribute": "minecraft:generic.attack_damage",
+    "attribute": "potionsplus:player.looting_bonus",
     "baseConfig": {
       "enabledByDefault": true,
       "parentSkill": "potionsplus:chopping",
-      "translationKey": "description.potionsplus.ability.axe_damage"
+      "translationKey": "description.potionsplus.ability.axe_looting"
     },
     "modifiers": [
       {
         "amount": 0.0,
-        "id": "potionsplus:axe_damage_modifier_modifier",
+        "id": "potionsplus:axe_looting_modifier_modifier",
         "operation": "add_value"
       }
     ]

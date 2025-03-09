@@ -68,24 +68,29 @@
   "description.potionsplus.ability.shovel_efficiency": "%s Shovel Mining Speed",
   "description.potionsplus.ability.hoe_efficiency": "%s Hoe Mining Speed",
 
-  "description.potionsplus.ability.sword_sharpness": "%s Sword Sharpness Level",
-  "description.potionsplus.attribute.sharpness_level": "Sharpness",
-  "description.potionsplus.ability.sword_looting": "%s Sword Looting Level",
-  "description.potionsplus.ability.sword_unbreaking": "%s Sword Unbreaking Level",
-  "description.potionsplus.attribute.looting_level": "Looting",
   "description.potionsplus.ability.creeper_additional_loot_sand": "+Creepers May Drop Sand",
   "description.potionsplus.ability.skeleton_bone_meal_bonus_drops": "+Skeletons May Drop Bone Meal",
   "description.potionsplus.ability.skeleton_bone_block_bonus_drops": "+Skeletons May Drop Bone Blocks",
 
 
+  "description.potionsplus.attribute.power_level": "Power",
+  "description.potionsplus.attribute.sharpness_level": "Sharpness",
+  "description.potionsplus.attribute.looting_level": "Looting",
+  "description.potionsplus.attribute.unbreaking_level": "Unbreaking",
+  "description.potionsplus.attribute.smite_level": "Smite",
 
   "description.potionsplus.ability.bow_power": "%s Bow Power Level",
-  "description.potionsplus.attribute.power_level": "Power",
-
   "description.potionsplus.ability.pickaxe_unbreaking": "%s Pickaxe Unbreaking Level",
-  "description.potionsplus.attribute.unbreaking_level": "Unbreaking",
+  "description.potionsplus.ability.shovel_unbreaking": "%s Shovel Unbreaking Level",
+  "description.potionsplus.ability.hoe_unbreaking": "%s Hoe Unbreaking Level",
+  "description.potionsplus.ability.sword_sharpness": "%s Sword Sharpness Level",
+  "description.potionsplus.ability.sword_looting": "%s Sword Looting Level",
+  "description.potionsplus.ability.sword_unbreaking": "%s Sword Unbreaking Level",
 
   "description.potionsplus.ability.axe_damage": "%s Axe Damage",
+  "description.potionsplus.ability.axe_unbreaking": "%s Axe Unbreaking Level",
+  "description.potionsplus.ability.axe_smite": "%s Axe Smite Level",
+  "description.potionsplus.ability.axe_looting": "%s Axe Looting Level",
 
   "description.potionsplus.ability.movement_speed": "%s Movement Speed",
   "description.potionsplus.ability.sprint_speed": "%s Sprint Speed",

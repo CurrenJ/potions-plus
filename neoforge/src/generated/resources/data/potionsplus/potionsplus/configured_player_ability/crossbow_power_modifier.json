@@ -1,5 +1,5 @@
 {
-  "type": "potionsplus:permanent_attribute_modifiers",
+  "type": "potionsplus:modifiers_while_crossbow_held",
   "config": {
     "attribute": "potionsplus:player.power_bonus",
     "baseConfig": {

@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-05T01:15:53.5595018	Recipes
+// 1.21.1	2025-03-09T13:39:25.5959054	Recipes
 4d566373e3049d51570ad1c6743ef28afbe6076a data/minecraft/advancement/all_potions_duration_increase.json
 1def5fcd1f058e1d7d4794873092d81c9464fc7e data/minecraft/advancement/amplification_testing.json
 f15b50555c63f06d0122ecd0b105b5e0342df40a data/minecraft/advancement/any_potion_any_potion_a0_d1200_potion_arrow_to_any_potion_any_potion_a0_d1200_tipped_arrow.json
@@ -33,7 +33,7 @@ de2657a84b7af4b34083f00113d2f24e41361ff3 data/minecraft/recipe/dirt_moss_block_t
 c489a1e5598564b44864172196e97307a06fec3f data/minecraft/recipe/glass_bottle_to_water_potion.json
 c3af32b61c2e5d60fe4ad9da793d92388469ef5d data/minecraft/recipe/gravel_sand_to_clay_ball.json
 9da5406bc8a6bb42d777b58b12db58edab27c15d data/minecraft/recipe/lava_bucket_to_obsidian.json
-93a4ab1c645910613fc9eb262747430b35b7e709 data/minecraft/recipe/merge_potions.json
+71a1a57bab34438274251593fe6a41deb37261f0 data/minecraft/recipe/merge_potions.json
 5f2687ebf6c2a5d5bbc9c5e4e90f194a7378b9ee data/minecraft/recipe/netherite_ingot.json
 5b4e96060a4eec01c063506c91518359b687b088 data/minecraft/recipe/potion_beacon_alternate.json
 af26312d48b19aa906b9f8e0a51e6969456eb10f data/minecraft/recipe/raw_uranium_to_uranium_ingot_blasting.json

@@ -129,15 +129,15 @@ public class ConfiguredGrantableRewards {
     public static final AbilityReward.AbilityRewardBuilder PICKAXE_DIAMOND_ORE_ADDITIONAL_EMERALDS_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS.getKey());
     public static final AbilityReward.AbilityRewardBuilder PICKAXE_DIAMOND_ORE_ADDITIONAL_LAPIS_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS.getKey());
 
-    public static final IncreaseAbilityStrengthReward.Builder AXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("axe_efficiency_increase")
+    public static final IncreaseAbilityStrengthReward.Builder SMALL_AXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("axe_efficiency_increase")
             .ability(ConfiguredPlayerAbilities.AXE_EFFICIENCY_MODIFIER.getKey())
-            .strength(1.0F));
-    public static final IncreaseAbilityStrengthReward.Builder SHOVEL_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("shovel_efficiency_increase")
+            .strength(0.05F));
+    public static final IncreaseAbilityStrengthReward.Builder SMALL_SHOVEL_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("shovel_efficiency_increase")
             .ability(ConfiguredPlayerAbilities.SHOVEL_EFFICIENCY_MODIFIER.getKey())
-            .strength(1.0F));
-    public static final IncreaseAbilityStrengthReward.Builder HOE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("hoe_efficiency_increase")
+            .strength(0.05F));
+    public static final IncreaseAbilityStrengthReward.Builder SMALL_HOE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("hoe_efficiency_increase")
             .ability(ConfiguredPlayerAbilities.HOE_EFFICIENCY_MODIFIER.getKey())
-            .strength(1.0F));
+            .strength(0.05F));
 
     public static final IncreaseAbilityStrengthReward.Builder SWORD_SHARPNESS_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("sword_sharpness_increase")
             .ability(ConfiguredPlayerAbilities.SWORD_SHARPNESS_MODIFIER.getKey())
@@ -152,9 +152,19 @@ public class ConfiguredGrantableRewards {
     public static final AbilityReward.AbilityRewardBuilder SKELETON_BONE_MEAL_ADDITIONAL_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.SKELETON_BONE_MEAL_ADDITIONAL_LOOT.getKey());
     public static final AbilityReward.AbilityRewardBuilder SKELETON_BONE_BLOCK_ADDITIONAL_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT.getKey());
 
-    public static final IncreaseAbilityStrengthReward.Builder AXE_DAMAGE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("axe_damage_increase")
+    public static final IncreaseAbilityStrengthReward.Builder SMALL_AXE_DAMAGE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("axe_damage_increase")
             .ability(ConfiguredPlayerAbilities.AXE_DAMAGE_MODIFIER.getKey())
+            .strength(0.25F));
+    public static final IncreaseAbilityStrengthReward.Builder AXE_SMITE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("axe_smite_increase")
+            .ability(ConfiguredPlayerAbilities.AXE_SMITE_MODIFIER.getKey())
             .strength(1.0F));
+    public static final IncreaseAbilityStrengthReward.Builder AXE_UNBREAKING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("axe_unbreaking_increase")
+            .ability(ConfiguredPlayerAbilities.AXE_UNBREAKING_MODIFIER.getKey())
+            .strength(1.0F));
+    public static final IncreaseAbilityStrengthReward.Builder AXE_LOOTING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("axe_looting_increase")
+            .ability(ConfiguredPlayerAbilities.AXE_LOOTING_MODIFIER.getKey())
+            .strength(1.0F));
+
     public static final IncreaseAbilityStrengthReward.Builder BOW_POWER_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("bow_power_increase")
             .ability(ConfiguredPlayerAbilities.BOW_POWER_MODIFIER.getKey())
             .strength(1.0F));

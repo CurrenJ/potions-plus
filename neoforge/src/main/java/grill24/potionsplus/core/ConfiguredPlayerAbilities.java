@@ -123,22 +123,47 @@ public class ConfiguredPlayerAbilities {
             new PermanentAttributeModifiersAbility.Builder<>("axe_damage_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_DAMAGE)
             .parentSkill(ConfiguredSkills.CHOPPING)
-            .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+            .ability(PlayerAbilities.MODIFIERS_WHILE_AXE_HELD.get())
             .attribute(Attributes.ATTACK_DAMAGE)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_SMITE_MODIFIER = register(() ->
+            new PermanentAttributeModifiersAbility.Builder<>("axe_smite_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_SMITE)
+            .parentSkill(ConfiguredSkills.CHOPPING)
+            .ability(PlayerAbilities.MODIFIERS_WHILE_AXE_HELD.get())
+            .attribute(grill24.potionsplus.core.Attributes.SMITE_BONUS)
+            .operation(AttributeModifier.Operation.ADD_VALUE)
+            .enabledByDefault(true));
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_UNBREAKING_MODIFIER = register(() ->
+            new PermanentAttributeModifiersAbility.Builder<>("axe_unbreaking_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_UNBREAKING)
+            .parentSkill(ConfiguredSkills.CHOPPING)
+            .ability(PlayerAbilities.MODIFIERS_WHILE_AXE_HELD.get())
+            .attribute(grill24.potionsplus.core.Attributes.UNBREAKING_BONUS)
+            .operation(AttributeModifier.Operation.ADD_VALUE)
+            .enabledByDefault(true));
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_LOOTING_MODIFIER = register(() ->
+            new PermanentAttributeModifiersAbility.Builder<>("axe_looting_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_LOOTING)
+            .parentSkill(ConfiguredSkills.CHOPPING)
+            .ability(PlayerAbilities.MODIFIERS_WHILE_AXE_HELD.get())
+            .attribute(grill24.potionsplus.core.Attributes.LOOTING_BONUS)
+            .operation(AttributeModifier.Operation.ADD_VALUE)
+            .enabledByDefault(true));
+
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_POWER_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("bow_power_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BOW_POWER)
             .parentSkill(ConfiguredSkills.ARCHERY)
-            .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+            .ability(PlayerAbilities.MODIFIERS_WHILE_BOW_HELD.get())
             .attribute(grill24.potionsplus.core.Attributes.POWER_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> CROSSBOW_POWER_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("crossbow_power_modifier")
             .parentSkill(ConfiguredSkills.ARCHERY)
-            .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+            .ability(PlayerAbilities.MODIFIERS_WHILE_CROSSBOW_HELD.get())
             .attribute(grill24.potionsplus.core.Attributes.POWER_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
