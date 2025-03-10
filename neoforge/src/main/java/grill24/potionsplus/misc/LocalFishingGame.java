@@ -70,6 +70,21 @@ public class LocalFishingGame {
         return new ServerboundEndFishingMinigame(result);
     }
 
+    public static void resetLocalGameData() {
+        Minecraft minecraft = Minecraft.getInstance();
+        Player player = minecraft.player;
+        if (player != null) {
+            if (player.hasData(DataAttachments.FISHING_GAME_DATA)) {
+                player.removeData(DataAttachments.FISHING_GAME_DATA);
+            }
+
+            IGameRendererMixin gameRenderer = (IGameRendererMixin) minecraft.gameRenderer;
+            if (gameRenderer.getActiveAnimation() instanceof FishingMinigameAnimation) {
+                gameRenderer.potions_plus$cancelCurrentAnimation();
+            }
+        }
+    }
+
     private void randomizeFishPosition() {
         if (Minecraft.getInstance().level == null) {
             return;
@@ -124,7 +139,9 @@ public class LocalFishingGame {
                     this.isCaptured = true;
                     this.gameOverTimestamp = ClientTickHandler.ticksInGame;
 
-                    PacketDistributor.sendToServer(endGame(ServerboundEndFishingMinigame.Result.SUCCESS));
+                    if (Minecraft.getInstance().getConnection() != null) {
+                        PacketDistributor.sendToServer(endGame(ServerboundEndFishingMinigame.Result.SUCCESS));
+                    }
                 }
             } else {
                 this.captureProgress -= 0.01F * difficulty;
@@ -133,7 +150,9 @@ public class LocalFishingGame {
                     this.isCaptured = false;
                     this.gameOverTimestamp = ClientTickHandler.ticksInGame;
 
-                    PacketDistributor.sendToServer(endGame(ServerboundEndFishingMinigame.Result.FAILURE));
+                    if (Minecraft.getInstance().getConnection() != null) {
+                        PacketDistributor.sendToServer(endGame(ServerboundEndFishingMinigame.Result.FAILURE));
+                    }
                 }
                 this.isCapturing = false;
             }
@@ -213,16 +232,30 @@ public class LocalFishingGame {
     }
 
     public static void tryTick() {
+        ensureValidStateOnClient();
+
         if (instance != null) {
             instance.onTick();
         }
     }
 
-    public static void newGame() {
+    public static void newLocalGame() {
         if (Minecraft.getInstance().level == null) {
             return;
         }
         instance = new LocalFishingGame(9.0F / 28.0F, Minecraft.getInstance().level.getRandom().nextFloat() * 2.0F);
+    }
+
+    public static void ensureValidStateOnClient() {
+        Minecraft minecraft = Minecraft.getInstance();
+        Player player = minecraft.player;
+        if (player != null && player.hasData(DataAttachments.FISHING_GAME_DATA.get()) != isLocalFishingGameActive()) {
+            endGame(ServerboundEndFishingMinigame.Result.FAILURE);
+        }
+    }
+
+    public static boolean isLocalFishingGameActive() {
+        return ((IGameRendererMixin) Minecraft.getInstance().gameRenderer).getActiveAnimation() instanceof FishingMinigameAnimation animation && animation.getGame() != null;
     }
 
     @SubscribeEvent

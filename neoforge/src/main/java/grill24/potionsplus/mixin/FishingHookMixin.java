@@ -5,6 +5,7 @@ import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.network.ClientboundStartFishingMinigamePacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
@@ -31,6 +32,10 @@ public abstract class FishingHookMixin extends Projectile {
     @Shadow @Nullable public abstract Player getPlayerOwner();
     @Shadow @Final private int luck;
 
+    @Shadow @Nullable private Entity hookedIn;
+
+    @Shadow private int nibble;
+
     protected FishingHookMixin(EntityType<? extends Projectile> entityType, Level level) {
         super(entityType, level);
     }
@@ -38,7 +43,8 @@ public abstract class FishingHookMixin extends Projectile {
     @Inject(method = "retrieve", at = @org.spongepowered.asm.mixin.injection.At("HEAD"), cancellable = true)
     private void potions_plus$retrieve(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
         Player player = this.getPlayerOwner();
-        if (stack.getItem() instanceof FishingRodItem && !this.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (this.hookedIn == null && this.nibble > 0 &&
+                stack.getItem() instanceof FishingRodItem && !this.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
             LootParams lootparams = new LootParams.Builder((ServerLevel)this.level())
                     .withParameter(LootContextParams.ORIGIN, this.position())
                     .withParameter(LootContextParams.TOOL, stack)

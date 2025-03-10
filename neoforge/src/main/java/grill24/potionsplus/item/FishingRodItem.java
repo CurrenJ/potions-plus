@@ -1,6 +1,7 @@
 package grill24.potionsplus.item;
 
 import grill24.potionsplus.core.DataAttachments;
+import grill24.potionsplus.misc.LocalFishingGame;
 import grill24.potionsplus.render.IGameRendererMixin;
 import grill24.potionsplus.render.animation.FishingMinigameAnimation;
 import net.minecraft.client.Minecraft;
@@ -17,6 +18,10 @@ public class FishingRodItem extends net.minecraft.world.item.FishingRodItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+        if (level.isClientSide) {
+            LocalFishingGame.ensureValidStateOnClient();
+        }
+
         if (isFishingGameActive(player)) {
             tryUseRodInMinigame(level);
             return InteractionResultHolder.success(player.getItemInHand(usedHand));
@@ -30,10 +35,9 @@ public class FishingRodItem extends net.minecraft.world.item.FishingRodItem {
     }
 
     private boolean tryUseRodInMinigame(Level level) {
-        if (level.isClientSide) {
-            if(((IGameRendererMixin) Minecraft.getInstance().gameRenderer).getActiveAnimation() instanceof FishingMinigameAnimation fishingGameAnimation) {
-                return fishingGameAnimation.getGame().useRod();
-            }
+        if (level.isClientSide && ((IGameRendererMixin) Minecraft.getInstance().gameRenderer).getActiveAnimation()
+                        instanceof FishingMinigameAnimation fishingGameAnimation) {
+            return fishingGameAnimation.getGame().useRod();
         }
 
         return false;

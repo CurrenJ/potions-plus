@@ -11,8 +11,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import javax.xml.crypto.Data;
-
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class ClientboundStartFishingMinigamePacket implements CustomPacketPayload {
@@ -50,7 +48,7 @@ public class ClientboundStartFishingMinigamePacket implements CustomPacketPayloa
 
                         // Display the item activation
                         mc.player.setData(DataAttachments.FISHING_GAME_DATA, packet.attachmentData);
-                        LocalFishingGame.newGame();
+                        LocalFishingGame.newLocalGame();
                     }
             );
         }

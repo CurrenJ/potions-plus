@@ -142,6 +142,13 @@ public class Packets {
                 ClientboundStartFishingMinigamePacket.ClientPayloadHandler::handleDataOnMain
         );
 
+        // Reset Fishing Minigame Data on Client
+        registrar.playToClient(
+                ClientboundResetFishingMinigame.TYPE,
+                ClientboundResetFishingMinigame.STREAM_CODEC,
+                ClientboundResetFishingMinigame.ClientPayloadHandler::handleDataOnMain
+        );
+
         // Display Tossup Animation Packet
         registrar.playToClient(
                 ClientboundDisplayTossupAnimationPacket.TYPE,

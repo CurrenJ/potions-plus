@@ -6,10 +6,7 @@ import grill24.potionsplus.block.UraniumOreBlock;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
-import grill24.potionsplus.network.ClientboundSyncKnownBrewingRecipesPacket;
-import grill24.potionsplus.network.ClientboundSyncPairedAbyssalTrove;
-import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
+import grill24.potionsplus.network.*;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -177,15 +174,19 @@ public class PlayerListeners {
     @SubscribeEvent
     public static void onPlayerJoin(final EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
+            // Sync known brewing cauldron recipe, sync paired abyssal trove, and sync player skill data
             PacketDistributor.sendToPlayer(player,
                     ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()),
                     new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()),
                     new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player))
             );
 
+            // Trigger an update for all abilities
             SkillsData.updatePlayerData(player, data -> data.activeAbilities()
                     .forEach((key, list) -> list
                             .forEach(instance -> instance.onInstanceChanged(player))));
+
+            ServerboundEndFishingMinigame.ServerPayloadHandler.endGame(player, ServerboundEndFishingMinigame.Result.RESET);
         }
     }
 

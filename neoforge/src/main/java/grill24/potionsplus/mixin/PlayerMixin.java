@@ -1,13 +1,8 @@
 package grill24.potionsplus.mixin;
 
-import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.extension.IPlayerExtension;
-import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.DoubleJumpAbility;
-import grill24.potionsplus.skill.reward.EdibleChoiceRewardConfiguration;
 import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
-import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -41,39 +36,8 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayerExtensi
             return;
         }
 
-        if (food.has(DataComponents.CHOICE_ITEM_DATA)) {
-            ServerPlayer player = (ServerPlayer) (Object) this;
-            EdibleRewardGranterDataComponent choiceItemData = food.get(DataComponents.CHOICE_ITEM_DATA);
-
-            ConfiguredGrantableReward<?, ?> linkedOption = choiceItemData.linkedOption().value();
-            SkillsData data = SkillsData.getPlayerData(player);
-            // If the choice item has a linked choice parent, do choice granting logic. This field can be null.
-            if (choiceItemData.linkedChoiceParent() != null) {
-                if (data.hasPendingChoice(choiceItemData.linkedChoiceParent().getKey())) {
-                    linkedOption.grant(choiceItemData.linkedOption(), (ServerPlayer) (Object) this);
-                    data.removePendingChoice(choiceItemData.linkedChoiceParent().getKey());
-
-                    // Disable and remove all other choice items with the same parent
-                    if (choiceItemData.linkedChoiceParent().value().config() instanceof EdibleChoiceRewardConfiguration config && config.rewards.size() > 1) {
-                        for (ItemStack slot : player.getInventory().items) {
-                            if (slot.has(DataComponents.CHOICE_ITEM_DATA) && slot.get(DataComponents.CHOICE_ITEM_DATA).linkedChoiceParent().getKey().equals(choiceItemData.linkedChoiceParent().getKey())) {
-                                slot.remove(DataComponents.CHOICE_ITEM_DATA);
-                                slot.shrink(1);
-                            }
-                        }
-                    } else {
-                        food.shrink(1);
-                    }
-                } else {
-                    player.sendSystemMessage(Component.literal("D:"));
-                    food.shrink(1);
-                }
-            } else {
-                // If no linked choice parent, just grant the reward.
-                linkedOption.grant(choiceItemData.linkedOption(), (ServerPlayer) (Object) this);
-                food.shrink(1);
-            }
-        }
+        ServerPlayer player = (ServerPlayer) (Object) this;
+        EdibleRewardGranterDataComponent.tryEatEdibleChoiceItem(player, food);
     }
 
     @Inject(method = "jumpFromGround", at = @At("HEAD"))

@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-10T01:45:17.8146945	Recipes
+// 1.21.1	2025-03-10T01:46:06.906588	Recipes
 ee797629c30fe0ffe70bcdbbdc550a163cd0fbd6 data/potionsplus/advancement/all_potions_duration_increase.json
 1a340fc6ced4e7bbdb3e8d783b9ff5f2d7b0dd18 data/potionsplus/advancement/amplification_testing.json
 94cce8bff6c077753bc77f2948e496bd130e9c0f data/potionsplus/advancement/black_coalla_lily_to_black_dye.json
@@ -63,7 +63,7 @@ a8eebc5bb4e3fb78d74600cc8f3876bec270a987 data/potionsplus/recipe/iron_oxide_dais
 172a25ec97faeaba90e8445082463b01bd3c66f0 data/potionsplus/recipe/lapis_lilac_to_blue_dye.json
 b5352efff9fdd0ce2db0a9c0e931eb10fa4bc509 data/potionsplus/recipe/lava_bucket_to_obsidian.json
 af18df73431c1a0c4aa8716c806f4709ebb6921d data/potionsplus/recipe/lingering_potion.json
-93a4ab1c645910613fc9eb262747430b35b7e709 data/potionsplus/recipe/merge_potions.json
+71a1a57bab34438274251593fe6a41deb37261f0 data/potionsplus/recipe/merge_potions.json
 f8763cd20de05bcdc0026b808eaeeb3152ad6c15 data/potionsplus/recipe/mushroom_conversions_b2r.json
 82e594027923c098d622c0d21d83959c7de0f8b1 data/potionsplus/recipe/mushroom_conversions_r2b.json
 5f2687ebf6c2a5d5bbc9c5e4e90f194a7378b9ee data/potionsplus/recipe/netherite_ingot.json
