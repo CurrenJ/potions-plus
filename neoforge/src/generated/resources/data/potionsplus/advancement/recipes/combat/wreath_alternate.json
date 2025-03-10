@@ -1,10 +1,11 @@
 {
+  "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_potion": {
+    "has_bone": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:potion"
+            "items": "minecraft:bone"
           }
         ]
       },
@@ -12,21 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:merge_potions"
+        "recipe": "potionsplus:wreath_alternate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_potion",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_bone"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:merge_potions"
+      "potionsplus:wreath_alternate"
     ]
-  },
-  "sends_telemetry_event": true
+  }
 }

@@ -3,15 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:potion_beacon_alternate"
+        "recipe": "potionsplus:uranium_ore_to_uranium_ingot_smelting"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_uranium_glass": {
+    "has_uranium_ore": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:uranium_glass"
+            "items": "potionsplus:uranium_ore"
           }
         ]
       },
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_uranium_glass"
+      "has_uranium_ore"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:potion_beacon_alternate"
+      "potionsplus:uranium_ore_to_uranium_ingot_smelting"
     ]
   }
 }

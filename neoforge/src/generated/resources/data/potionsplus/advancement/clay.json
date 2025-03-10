@@ -1,11 +1,10 @@
 {
-  "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_netherite_remnant": {
+    "has_potion": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:netherite_remnant"
+            "items": "minecraft:potion"
           }
         ]
       },
@@ -13,20 +12,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:netherite_ingot"
+        "recipe": "potionsplus:clay"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_netherite_remnant"
+      "has_potion",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:netherite_ingot"
+      "potionsplus:clay"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

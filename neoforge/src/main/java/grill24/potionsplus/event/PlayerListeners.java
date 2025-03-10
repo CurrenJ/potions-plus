@@ -108,13 +108,16 @@ public class PlayerListeners {
     @SubscribeEvent
     public static void onTick(final ServerTickEvent.Pre event) {
         applyAllPassiveItemPotionEffects(event.getServer().getPlayerList().getPlayers());
-        AttributeModifiersWhileHeldAbility.onPreTick(event);
+
         SkillsData.tickPointEarningHistory(event);
     }
 
     @SubscribeEvent
-    public static void onServerTickEnd(final ServerTickEvent.Post event) {
-        AttributeModifiersWhileHeldAbility.onPostTick(event);
+    public static void onServerTickEnd(final ServerTickEvent.Post event) {}
+
+    @SubscribeEvent
+    public static void onServerPlayerHeldItemChanged(final ServerPlayerHeldItemChangedEvent event) {
+        AttributeModifiersWhileHeldAbility.onHeldItemChanged(event);
     }
 
     private static void applyAllPassiveItemPotionEffects(List<ServerPlayer> players) {

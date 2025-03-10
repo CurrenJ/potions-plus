@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_bone": {
+    "has_netherite_remnant": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:bone"
+            "items": "potionsplus:netherite_remnant"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:wreath_alternate"
+        "recipe": "potionsplus:netherite_ingot"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_bone"
+      "has_netherite_remnant"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:wreath_alternate"
+      "potionsplus:netherite_ingot"
     ]
   }
 }

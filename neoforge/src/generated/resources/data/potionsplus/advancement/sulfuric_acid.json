@@ -1,10 +1,10 @@
 {
   "criteria": {
-    "has_potion": {
+    "has_sulfur_shard": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:potion"
+            "items": "potionsplus:sulfur_shard"
           }
         ]
       },
@@ -12,20 +12,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:dirt_moss_block_to_grass_block"
+        "recipe": "potionsplus:sulfuric_acid"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_potion",
+      "has_sulfur_shard",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:dirt_moss_block_to_grass_block"
+      "potionsplus:sulfuric_acid"
     ]
   },
   "sends_telemetry_event": true

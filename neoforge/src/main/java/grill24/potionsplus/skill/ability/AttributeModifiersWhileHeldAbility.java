@@ -2,10 +2,12 @@ package grill24.potionsplus.skill.ability;
 
 import grill24.potionsplus.core.AbilityInstanceTypes;
 import grill24.potionsplus.core.PlayerAbilities;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
 import grill24.potionsplus.extension.IItemAttributeModifiersExtension;
+import grill24.potionsplus.utility.ServerPlayerHeldItemChangedEvent;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.MinecraftServer;
@@ -15,6 +17,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -53,15 +56,33 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
     }
 
     public void disable(ServerPlayer player, AttributeModifiersAbilityConfiguration config) {
+        clearModifiersOnItemStack(player, player.getMainHandItem(), config);
+    }
+
+    private static void clearModifiersOnItemStack(ServerPlayer player, ItemStack stack, AttributeModifiersAbilityConfiguration config) {
         for (AttributeModifier modifier : config.getModifiers()) {
             // Remove attribute modifier from player entity
             player.getAttribute(config.getAttributeHolder()).removeModifier(modifier);
 
             // Remove attribute modifier from item stacks
-            ItemAttributeModifiers modifiers = player.getMainHandItem().getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+            ItemAttributeModifiers modifiers = stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
             modifiers = ((IItemAttributeModifiersExtension) (Object) modifiers).potions_plus$withModifierRemoved(config.getAttributeHolder(), modifier, EquipmentSlotGroup.MAINHAND);
-            player.getMainHandItem().set(DataComponents.ATTRIBUTE_MODIFIERS, modifiers);
+            stack.set(DataComponents.ATTRIBUTE_MODIFIERS, modifiers);
         }
+    }
+
+    private static <T extends AttributeModifiersWhileHeldAbility<?>> void clearAllAttributeModifiersOnStack(ServerPlayer player, DeferredHolder<PlayerAbility<?>, T> abilityHolder, ItemStack stack) {
+        SkillsData.updatePlayerData(player, (skillsData) -> {
+            List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.activeAbilities().get(abilityHolder.getKey());
+            if (configuredAbilities == null) return;
+
+            for (AbilityInstanceSerializable<?, ?> abilityInstance : configuredAbilities) {
+                // Unchecked cast. We pray that the type is correctly linked in SkillsData to a key of the same type.
+                ConfiguredPlayerAbility<AttributeModifiersAbilityConfiguration, T> configuredAbility = (ConfiguredPlayerAbility<AttributeModifiersAbilityConfiguration, T>) abilityInstance.data().getHolder().value();
+
+                clearModifiersOnItemStack(player, stack, configuredAbility.config());
+            }
+        });
     }
 
     private static <T extends AttributeModifiersWhileHeldAbility<?>> void updatePlayerAttributeModifiers(ServerPlayer player, DeferredHolder<PlayerAbility<?>, T> abilityHolder, boolean enable) {
@@ -90,39 +111,27 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
                 new AdjustableStrengthAbilityInstanceData(ability, true));
     }
 
-    // ----- Helper Methods -----
-
-    public static void onPreTick(final ServerTickEvent.Pre event) {
-        MinecraftServer server = event.getServer();
-        List<ServerPlayer> players = server.getPlayerList().getPlayers();
-        if (players.isEmpty()) {
-            return;
-        }
-
-        ServerPlayer player = players.get(server.getTickCount() % players.size());
-        updateAllToolBonusAbilities(player, true);
+    @SubscribeEvent
+    public static void onHeldItemChanged(final ServerPlayerHeldItemChangedEvent event) {
+        PotionsPlus.LOGGER.info("onHeldItemChanged");
+        getToolBonusAbilities().forEach(holder -> {
+            clearAllAttributeModifiersOnStack(event.getPlayer(), holder, event.getLastHeldItem());
+            updatePlayerAttributeModifiers(event.getPlayer(), holder, true);
+        });
     }
 
-    public static void onPostTick(final ServerTickEvent.Post event) {
-        MinecraftServer server = event.getServer();
-        List<ServerPlayer> players = server.getPlayerList().getPlayers();
-        if (players.isEmpty()) {
-            return;
-        }
-
-        ServerPlayer player = players.get(server.getTickCount() % players.size());
-        updateAllToolBonusAbilities(player, false);
-    }
-
-    private static void updateAllToolBonusAbilities(ServerPlayer player, boolean enable) {
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD, enable);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_AXE_HELD, enable);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_HOE_HELD, enable);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_SHOVEL_HELD, enable);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_SWORD_HELD, enable);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_BOW_HELD, enable);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_CROSSBOW_HELD, enable);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_TRIDENT_HELD, enable);
-        updatePlayerAttributeModifiers(player, PlayerAbilities.MODIFIERS_WHILE_SHIELD_HELD, enable);
+    // TODO: Auto pull abilities from registry
+    private static List<DeferredHolder<PlayerAbility<?>,? extends AttributeModifiersWhileHeldAbility<? extends Item>>> getToolBonusAbilities() {
+        return List.of(
+            PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD,
+            PlayerAbilities.MODIFIERS_WHILE_AXE_HELD,
+            PlayerAbilities.MODIFIERS_WHILE_HOE_HELD,
+            PlayerAbilities.MODIFIERS_WHILE_SHOVEL_HELD,
+            PlayerAbilities.MODIFIERS_WHILE_SWORD_HELD,
+            PlayerAbilities.MODIFIERS_WHILE_BOW_HELD,
+            PlayerAbilities.MODIFIERS_WHILE_CROSSBOW_HELD,
+            PlayerAbilities.MODIFIERS_WHILE_TRIDENT_HELD,
+            PlayerAbilities.MODIFIERS_WHILE_SHIELD_HELD
+        );
     }
 }

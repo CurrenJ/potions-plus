@@ -1,11 +1,10 @@
 {
-  "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_remnant_debris": {
+    "has_potion": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:remnant_debris"
+            "items": "minecraft:potion"
           }
         ]
       },
@@ -13,20 +12,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:remnant_debris_to_netherite_remnant_smelting"
+        "recipe": "potionsplus:amplification_testing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_remnant_debris"
+      "has_potion",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:remnant_debris_to_netherite_remnant_smelting"
+      "potionsplus:amplification_testing"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

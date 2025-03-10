@@ -1,11 +1,10 @@
 {
-  "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_raw_uranium": {
+    "has_potion": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:raw_uranium"
+            "items": "minecraft:potion"
           }
         ]
       },
@@ -13,20 +12,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:raw_uranium_to_uranium_ingot_blasting"
+        "recipe": "potionsplus:water_bottle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_raw_uranium"
+      "has_potion",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:raw_uranium_to_uranium_ingot_blasting"
+      "potionsplus:water_bottle"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

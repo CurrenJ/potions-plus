@@ -1,10 +1,11 @@
 {
+  "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_sulfur_shard": {
+    "has_raw_uranium": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:sulfur_shard"
+            "items": "potionsplus:raw_uranium"
           }
         ]
       },
@@ -12,21 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:sulfur_shard_water_potion_to_sulfuric_acid"
+        "recipe": "potionsplus:raw_uranium_to_uranium_ingot_blasting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_sulfur_shard",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_raw_uranium"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:sulfur_shard_water_potion_to_sulfuric_acid"
+      "potionsplus:raw_uranium_to_uranium_ingot_blasting"
     ]
-  },
-  "sends_telemetry_event": true
+  }
 }

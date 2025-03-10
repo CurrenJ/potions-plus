@@ -1,10 +1,11 @@
 {
+  "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_potion": {
+    "has_raw_uranium": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:potion"
+            "items": "potionsplus:raw_uranium"
           }
         ]
       },
@@ -12,21 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:water_bucket_to_bucket"
+        "recipe": "potionsplus:raw_uranium_to_uranium_ingot_smelting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_potion",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_raw_uranium"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:water_bucket_to_bucket"
+      "potionsplus:raw_uranium_to_uranium_ingot_smelting"
     ]
-  },
-  "sends_telemetry_event": true
+  }
 }

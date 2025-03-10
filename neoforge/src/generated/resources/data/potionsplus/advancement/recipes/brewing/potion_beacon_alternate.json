@@ -3,15 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:uranium_ore_to_uranium_ingot_blasting"
+        "recipe": "potionsplus:potion_beacon_alternate"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_uranium_ore": {
+    "has_uranium_glass": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:uranium_ore"
+            "items": "potionsplus:uranium_glass"
           }
         ]
       },
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_uranium_ore"
+      "has_uranium_glass"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:uranium_ore_to_uranium_ingot_blasting"
+      "potionsplus:potion_beacon_alternate"
     ]
   }
 }

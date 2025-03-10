@@ -1,10 +1,10 @@
 {
   "criteria": {
-    "has_lava_bucket": {
+    "has_potion": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:lava_bucket"
+            "items": "minecraft:potion"
           }
         ]
       },
@@ -12,20 +12,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:lava_bucket_to_obsidian"
+        "recipe": "potionsplus:merge_potions"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_lava_bucket",
+      "has_potion",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:lava_bucket_to_obsidian"
+      "potionsplus:merge_potions"
     ]
   },
   "sends_telemetry_event": true

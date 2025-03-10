@@ -1,10 +1,10 @@
 {
   "criteria": {
-    "has_potion": {
+    "has_lava_bucket": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:potion"
+            "items": "minecraft:lava_bucket"
           }
         ]
       },
@@ -12,20 +12,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:any_potion_any_potion_a0_d1200_potion_gunpowder_to_any_potion_any_potion_a0_d1200_splash_potion"
+        "recipe": "potionsplus:obsidian"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_potion",
+      "has_lava_bucket",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:any_potion_any_potion_a0_d1200_potion_gunpowder_to_any_potion_any_potion_a0_d1200_splash_potion"
+      "potionsplus:obsidian"
     ]
   },
   "sends_telemetry_event": true

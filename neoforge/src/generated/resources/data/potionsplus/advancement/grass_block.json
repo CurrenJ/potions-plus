@@ -12,7 +12,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:gravel_sand_to_clay_ball"
+        "recipe": "potionsplus:grass_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -25,7 +25,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:gravel_sand_to_clay_ball"
+      "potionsplus:grass_block"
     ]
   },
   "sends_telemetry_event": true

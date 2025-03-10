@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:remnant_debris_to_netherite_remnant_blasting"
+        "recipe": "potionsplus:remnant_debris_to_netherite_remnant_smelting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:remnant_debris_to_netherite_remnant_blasting"
+      "potionsplus:remnant_debris_to_netherite_remnant_smelting"
     ]
   }
 }

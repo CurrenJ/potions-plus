@@ -1,10 +1,11 @@
 {
+  "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_potion": {
+    "has_remnant_debris": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:potion"
+            "items": "potionsplus:remnant_debris"
           }
         ]
       },
@@ -12,21 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:glass_bottle_to_water_potion"
+        "recipe": "potionsplus:remnant_debris_to_netherite_remnant_blasting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_potion",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_remnant_debris"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:glass_bottle_to_water_potion"
+      "potionsplus:remnant_debris_to_netherite_remnant_blasting"
     ]
-  },
-  "sends_telemetry_event": true
+  }
 }

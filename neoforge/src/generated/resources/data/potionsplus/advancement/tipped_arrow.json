@@ -12,7 +12,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:amplification_testing"
+        "recipe": "potionsplus:tipped_arrow"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -25,7 +25,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:amplification_testing"
+      "potionsplus:tipped_arrow"
     ]
   },
   "sends_telemetry_event": true
