@@ -43,6 +43,9 @@ public class ConfiguredSkillPointSources {
 
     public static void generate(BootstrapContext<ConfiguredSkillPointSource<?, ?>> context) {
         context.register(MINE_ORE, new ConfiguredSkillPointSource<>(SkillPointSources.BREAK_BLOCK.get(), new BreakBlockSourceConfiguration(List.of(
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_COPPER), false, 1),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_IRON), false, 2),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_GOLD), false, 6),
                 new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES), true, 0)
         ))));
         context.register(MINE_LOG, new ConfiguredSkillPointSource<>(SkillPointSources.BREAK_BLOCK.get(), new BreakBlockSourceConfiguration(
