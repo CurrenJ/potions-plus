@@ -74,12 +74,16 @@
 
 
   "description.potionsplus.attribute.power_level": "Power",
+  "description.potionsplus.attribute.punch_level": "Punch",
   "description.potionsplus.attribute.sharpness_level": "Sharpness",
   "description.potionsplus.attribute.looting_level": "Looting",
   "description.potionsplus.attribute.unbreaking_level": "Unbreaking",
   "description.potionsplus.attribute.smite_level": "Smite",
 
   "description.potionsplus.ability.bow_power": "%s Bow Power Level",
+  "description.potionsplus.ability.bow_punch": "%s Bow Punch Level",
+  "description.potionsplus.ability.bow_unbreaking": "%s Bow Unbreaking Level",
+  "description.potionsplus.ability.bow_looting": "%s Bow Looting Level",
   "description.potionsplus.ability.pickaxe_unbreaking": "%s Pickaxe Unbreaking Level",
   "description.potionsplus.ability.shovel_unbreaking": "%s Shovel Unbreaking Level",
   "description.potionsplus.ability.hoe_unbreaking": "%s Hoe Unbreaking Level",

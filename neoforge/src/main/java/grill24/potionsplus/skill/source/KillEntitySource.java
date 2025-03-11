@@ -12,12 +12,17 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
+import net.neoforged.neoforge.event.level.BlockDropsEvent;
 import oshi.util.tuples.Pair;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
-public class KillEntitySource extends SkillPointSource<Pair<ServerPlayer, LootContext>, KillEntitySourceConfiguration> {
+public class KillEntitySource extends SkillPointSource<KillEntitySource.EvaluationData, KillEntitySourceConfiguration> {
+    public record EvaluationData(ServerPlayer player, LootContext context, float defaultXpToAward) {
+    }
+
     public static final ResourceLocation ID = ppId("kill_entity");
 
     public KillEntitySource() {
@@ -26,11 +31,22 @@ public class KillEntitySource extends SkillPointSource<Pair<ServerPlayer, LootCo
 
     @SubscribeEvent
     public static void onLivingDeathEvent(final LivingDeathEvent event) {
-        if (event.getSource().getEntity() instanceof ServerPlayer serverPlayer) {
-            Entity entity = event.getEntity();
-            Pair<ServerPlayer, LootContext> evaluationData = new Pair<>(serverPlayer, EntityPredicate.createContext(serverPlayer, entity));
+//        if (event.getSource().getEntity() instanceof ServerPlayer serverPlayer) {
+//            Entity entity = event.getEntity();
+//            Pair<ServerPlayer, LootContext> evaluationData = new Pair<>(serverPlayer, EntityPredicate.createContext(serverPlayer, entity));
+//            EvaluationData evaluationData = new EvaluationData(serverPlayer, EntityPredicate.createContext(serverPlayer, entity), event.getExperienceToDrop());
+//
+//            SkillsData.triggerSkillPointSource((ServerPlayer) event.getSource().getEntity(), SkillPointSources.KILL_ENTITY.value(), evaluationData);
+//        }
+    }
 
-            SkillsData.triggerSkillPointSource((ServerPlayer) event.getSource().getEntity(), SkillPointSources.KILL_ENTITY.value(), evaluationData);
+    @SubscribeEvent
+    public static void onLivingExperienceDrop(final LivingExperienceDropEvent event) {
+        if (event.getAttackingPlayer() instanceof ServerPlayer serverPlayer) {
+            Entity entity = event.getEntity();
+            EvaluationData evaluationData = new EvaluationData(serverPlayer, EntityPredicate.createContext(serverPlayer, entity), event.getDroppedExperience());
+
+            SkillsData.triggerSkillPointSource(serverPlayer, SkillPointSources.KILL_ENTITY.value(), evaluationData);
         }
     }
 
@@ -40,14 +56,18 @@ public class KillEntitySource extends SkillPointSource<Pair<ServerPlayer, LootCo
     }
 
     @Override
-    public float evaluateSkillPointsToAdd(KillEntitySourceConfiguration config, Pair<ServerPlayer, LootContext> evaluationData) {
-        return config.getEntitySkillPoints().stream()
-                .filter(entitySkillPoints -> {
-                    Entity entity = evaluationData.getB().getParamOrNull(LootContextParams.THIS_ENTITY);
-                    ServerPlayer player = evaluationData.getA();
-                    return entitySkillPoints.entityPredicate().matches(player, entity) && entitySkillPoints.playerPredicate().matches(player, player);
-                })
-                .mapToInt(KillEntitySourceConfiguration.EntitySkillPoints::points)
-                .findFirst().orElse(0);
+    public float evaluateSkillPointsToAdd(KillEntitySourceConfiguration config, EvaluationData evaluationData) {
+        Entity killedEntity = evaluationData.context().getParamOrNull(LootContextParams.THIS_ENTITY);
+        ServerPlayer player = evaluationData.player();
+        if (config.getPlayerEntityPredicate().matches(player, player)) {
+            return (float) config.getEntitySkillPoints().stream()
+                    .filter(entitySkillPoints -> {
+                        Entity entity = evaluationData.context().getParamOrNull(LootContextParams.THIS_ENTITY);
+                        return entitySkillPoints.entityPredicate().matches(player, entity);
+                    })
+                    .mapToDouble(KillEntitySourceConfiguration.EntitySkillPoints::points)
+                    .findFirst().orElse(evaluationData.defaultXpToAward());
+        }
+        return 0;
     }
 }

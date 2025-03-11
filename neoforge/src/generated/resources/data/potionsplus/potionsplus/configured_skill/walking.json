@@ -63,7 +63,8 @@
           "12": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:movement_speed_increase"
             ]
           },
           "13": {
@@ -79,8 +80,7 @@
           "15": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:movement_speed_increase"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "16": {
@@ -127,7 +127,8 @@
           },
           "23": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:movement_speed_increase"
             ]
           },
           "24": {
@@ -172,8 +173,7 @@
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_unknown_potion_ingredient",
-              "potionsplus:movement_speed_increase"
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "31": {
@@ -199,7 +199,8 @@
           "35": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel"
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:movement_speed_increase"
             ]
           },
           "36": {
@@ -347,8 +348,7 @@
           "6": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient",
-              "potionsplus:movement_speed_increase"
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "60": {
@@ -407,8 +407,7 @@
           },
           "7": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible",
-              "potionsplus:movement_speed_increase"
+              "potionsplus:basic_skill_loot_edible"
             ]
           },
           "70": {

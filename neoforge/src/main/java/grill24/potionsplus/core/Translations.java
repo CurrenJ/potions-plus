@@ -62,11 +62,15 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SKELETON_BONE_MEAL_BONUS_DROPS = "description.potionsplus.ability.skeleton_bone_meal_bonus_drops";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SKELETON_BONE_BLOCK_BONUS_DROPS = "description.potionsplus.ability.skeleton_bone_block_bonus_drops";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_POWER_LEVEL = "description.potionsplus.attribute.power_level";
+    public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_PUNCH_LEVEL = "description.potionsplus.attribute.punch_level";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SHARPNESS_LEVEL = "description.potionsplus.attribute.sharpness_level";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_LOOTING_LEVEL = "description.potionsplus.attribute.looting_level";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_UNBREAKING_LEVEL = "description.potionsplus.attribute.unbreaking_level";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SMITE_LEVEL = "description.potionsplus.attribute.smite_level";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_BOW_POWER = "description.potionsplus.ability.bow_power";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_BOW_PUNCH = "description.potionsplus.ability.bow_punch";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_BOW_UNBREAKING = "description.potionsplus.ability.bow_unbreaking";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_BOW_LOOTING = "description.potionsplus.ability.bow_looting";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_UNBREAKING = "description.potionsplus.ability.pickaxe_unbreaking";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SHOVEL_UNBREAKING = "description.potionsplus.ability.shovel_unbreaking";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_HOE_UNBREAKING = "description.potionsplus.ability.hoe_unbreaking";

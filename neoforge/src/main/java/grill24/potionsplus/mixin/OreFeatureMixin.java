@@ -34,7 +34,7 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
 
     @Inject(method = "doPlace", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/LevelChunkSection;setBlockState(IIILnet/minecraft/world/level/block/state/BlockState;Z)Lnet/minecraft/world/level/block/state/BlockState;"), locals = LocalCapture.CAPTURE_FAILSOFT)
     public void onSetBlockState(WorldGenLevel level, RandomSource random, OreConfiguration config, double minX, double maxX, double minZ, double maxZ, double minY, double maxY, int x, int y, int z, int width, int height, CallbackInfoReturnable<Boolean> cir, int i, BitSet bitset, BlockPos.MutableBlockPos blockpos$mutableblockpos, int j, double[] adouble, BulkSectionAccess bulksectionaccess, int j4, double d9, double d11, double d13, double d15, int k4, int l, int i1, int j1, int k1, int l1, int i2, double d5, int j2, double d6, int k2, double d7, int l2, LevelChunkSection levelchunksection, int i3, int j3, int k3, BlockState blockstate, Iterator var57, OreConfiguration.TargetBlockState oreconfiguration$targetblockstate) {
-        potions_plus$onPlaceOre(level, random, blockpos$mutableblockpos, bulksectionaccess, levelchunksection, i3, j3, k3, blockstate);
+        potions_plus$onPlaceOre(level, random, blockpos$mutableblockpos, bulksectionaccess, levelchunksection, i3, j3, k3, oreconfiguration$targetblockstate.state);
     }
 
     @Unique
@@ -60,13 +60,6 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
                 quartzState.ifPresent(blockState -> levelchunksection.setBlockState(x, y, z, blockState, false));
             }
         }
-
-
-        if (PotionsPlus.Debug.DEBUG && (blockstate.is(Blocks.DENSE_DIAMOND_ORE.value()) || blockstate.is(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.value())))
-            PotionsPlus.LOGGER.info("Dense diamond ore generated at " + blockpos$mutableblockpos);
-
-        if (PotionsPlus.Debug.DEBUG && (blockstate.is(Blocks.URANIUM_ORE.value()) || blockstate.is(Blocks.DEEPSLATE_URANIUM_ORE.value())))
-            PotionsPlus.LOGGER.info("Dense uranium ore generated at " + blockpos$mutableblockpos);
     }
 
     @Unique

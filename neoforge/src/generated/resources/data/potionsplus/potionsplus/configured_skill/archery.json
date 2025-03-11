@@ -12,6 +12,7 @@
         "a": 2.0,
         "b": 1.2,
         "c": 4,
+        "d": 50.0,
         "levelMax": 100,
         "scale": "EXPONENTIAL"
       },
@@ -25,8 +26,7 @@
           "10": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:bow_power_increase"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "100": {
@@ -50,7 +50,8 @@
           },
           "13": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:bow_unbreaking_increase"
             ]
           },
           "14": {
@@ -82,7 +83,8 @@
           },
           "19": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:bow_power_increase"
             ]
           },
           "2": {
@@ -136,7 +138,8 @@
           },
           "28": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:bow_looting_increase"
             ]
           },
           "29": {
@@ -153,8 +156,7 @@
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_unknown_potion_ingredient",
-              "potionsplus:bow_power_increase"
+              "potionsplus:edible_unknown_potion_ingredient"
             ]
           },
           "31": {
@@ -186,7 +188,8 @@
           "36": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:bow_power_increase"
             ]
           },
           "37": {
@@ -223,7 +226,8 @@
           "42": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:bow_punch_increase"
             ]
           },
           "43": {
@@ -266,7 +270,8 @@
           "5": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel"
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:bow_punch_increase"
             ]
           },
           "50": {
@@ -349,7 +354,8 @@
           },
           "63": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:bow_looting_increase"
             ]
           },
           "64": {

@@ -29,6 +29,7 @@ public class Attributes {
     public static final Holder<Attribute> FORTUNE_BONUS = registerEnchantmentBonus("player.fortune_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_FORTUNE_LEVEL, Enchantments.FORTUNE);
     public static final Holder<Attribute> SHARPNESS_BONUS = registerEnchantmentBonus("player.sharpness_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SHARPNESS_LEVEL, Enchantments.SHARPNESS);
     public static final Holder<Attribute> POWER_BONUS = registerEnchantmentBonus("player.power_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_POWER_LEVEL, Enchantments.POWER);
+    public static final Holder<Attribute> PUNCH_BONUS = registerEnchantmentBonus("player.punch_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_PUNCH_LEVEL, Enchantments.PUNCH);
     public static final Holder<Attribute> UNBREAKING_BONUS = registerEnchantmentBonus("player.unbreaking_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_UNBREAKING_LEVEL, Enchantments.UNBREAKING);
     public static final Holder<Attribute> SMITE_BONUS = registerEnchantmentBonus("player.smite_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SMITE_LEVEL, Enchantments.SMITE);
 

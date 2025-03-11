@@ -7,12 +7,10 @@ import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipeBuilder;
-import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
@@ -314,49 +312,49 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.IRON_OXIDE_DAISY.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.GRAY_DYE, 2))
+                .result(new ItemStack(net.minecraft.world.item.Items.IRON_INGOT, 3))
                 .processingTime(60)
                 .unlockedBy("has_iron_oxide_daisy", has(Blocks.IRON_OXIDE_DAISY.value()))
                 .save(recipeConsumer, ppId("iron_oxide_daisy_to_gray_dye"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.COPPER_CHRYSANTHEMUM.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.ORANGE_DYE, 2))
+                .result(new ItemStack(net.minecraft.world.item.Items.COPPER_BLOCK, 1))
                 .processingTime(60)
                 .unlockedBy("has_copper_chrysanthemum", has(Blocks.COPPER_CHRYSANTHEMUM.value()))
                 .save(recipeConsumer, ppId("copper_chrysanthemum_to_orange_dye"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.GOLDEN_CUBENSIS.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.YELLOW_DYE, 2))
+                .result(new ItemStack(net.minecraft.world.level.block.Blocks.GOLD_BLOCK, 1))
                 .processingTime(60)
                 .unlockedBy("has_golden_cubensis", has(Blocks.GOLDEN_CUBENSIS.value()))
                 .save(recipeConsumer, ppId("golden_cubensis_to_yellow_dye"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.LAPIS_LILAC.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.BLUE_DYE, 2))
+                .result(new ItemStack(net.minecraft.world.item.Items.LAPIS_BLOCK, 2))
                 .processingTime(60)
                 .unlockedBy("has_lapis_lilac", has(Blocks.LAPIS_LILAC.value()))
                 .save(recipeConsumer, ppId("lapis_lilac_to_blue_dye"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.DIAMOUR.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.LIGHT_BLUE_DYE, 2))
+                .result(new ItemStack(net.minecraft.world.item.Items.DIAMOND, 2))
                 .processingTime(60)
                 .unlockedBy("has_diamour", has(Blocks.DIAMOUR.value()))
                 .save(recipeConsumer, ppId("diamour_to_light_blue_dye"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.BLACK_COALLA_LILY.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.BLACK_DYE, 2))
+                .result(new ItemStack(net.minecraft.world.item.Items.COAL_BLOCK, 2))
                 .processingTime(60)
                 .unlockedBy("has_black_coalla_lily", has(Blocks.BLACK_COALLA_LILY.value()))
                 .save(recipeConsumer, ppId("black_coalla_lily_to_black_dye"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.REDSTONE_ROSE.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.RED_DYE, 2))
+                .result(new ItemStack(net.minecraft.world.item.Items.REDSTONE_BLOCK, 2))
                 .processingTime(60)
                 .unlockedBy("has_redstone_rose", has(Blocks.REDSTONE_ROSE.value()))
                 .save(recipeConsumer, ppId("redstone_rose_to_red_dye"));

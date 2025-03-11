@@ -33,10 +33,9 @@ public class Walking {
                         List.of(),
                         ConfiguredSkills.createDefaultRewards(context)
                                 .addRewardForLevel(5, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_MOVEMENT_SPEED_INCREASE))
-                                .addRewardForLevel(6, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_MOVEMENT_SPEED_INCREASE))
-                                .addRewardForLevel(7, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_MOVEMENT_SPEED_INCREASE))
-                                .addRewardForLevel(15, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_MOVEMENT_SPEED_INCREASE))
-                                .addRewardForLevel(30, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_MOVEMENT_SPEED_INCREASE))
+                                .addRewardForLevel(12, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_MOVEMENT_SPEED_INCREASE))
+                                .addRewardForLevel(23, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_MOVEMENT_SPEED_INCREASE))
+                                .addRewardForLevel(35, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_MOVEMENT_SPEED_INCREASE))
                                 .addRewardForLevel(50, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_MOVEMENT_SPEED_INCREASE))
                                 .addRewardForLevel(85, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_MOVEMENT_SPEED_INCREASE))
                                 .build(rewardLookup)

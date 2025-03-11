@@ -24,12 +24,17 @@ public class Archery {
                                 5, new ItemStack(Items.BOW)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_BOW),
-                        new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 0),
+                        new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 50),
                         List.of(),
                         ConfiguredSkills.createDefaultRewards(context)
-                                .addRewardForLevel(10, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_POWER_INCREASE))
-                                .addRewardForLevel(30, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_POWER_INCREASE))
+                                .addRewardForLevel(5, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_PUNCH_INCREASE))
+                                .addRewardForLevel(13, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_UNBREAKING_INCREASE))
+                                .addRewardForLevel(19, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_POWER_INCREASE))
+                                .addRewardForLevel(28, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_LOOTING_INCREASE))
+                                .addRewardForLevel(36, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_POWER_INCREASE))
+                                .addRewardForLevel(42, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_PUNCH_INCREASE))
                                 .addRewardForLevel(50, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_POWER_INCREASE))
+                                .addRewardForLevel(63, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_LOOTING_INCREASE))
                                 .addRewardForLevel(75, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_POWER_INCREASE))
                                 .addRewardForLevel(100, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_POWER_INCREASE))
                                 .build(rewardLookup)

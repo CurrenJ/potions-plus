@@ -20,7 +20,7 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class OreFlowerBlock extends PotionsPlusFlowerBlock implements BonemealableBlock {
+public class OreFlowerBlock extends PotionsPlusFlowerBlock {
     private final float generationChance;
 
     public OreFlowerBlock(Holder<MobEffect> effectHolder, int effectDuration, Properties properties, boolean spawnParticles, Supplier<ParticleOptions> particles, Function<BlockState, Boolean> mayPlaceOn, float generationChance) {
@@ -30,66 +30,5 @@ public class OreFlowerBlock extends PotionsPlusFlowerBlock implements Bonemealab
 
     public float getGenerationChance() {
         return generationChance;
-    }
-
-    @Override
-    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
-        BlockPos down = blockPos.below();
-        // Iterate horizontal
-        for (Direction direction : Direction.Plane.HORIZONTAL) {
-            BlockPos offset = down.relative(direction);
-            BlockState state = levelReader.getBlockState(offset);
-            if (mayPlaceOn(state) && levelReader.getBlockState(offset.above()).isAir()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos blockPos, BlockState blockState) {
-        return isValidBonemealTarget(level, blockPos, blockState);
-    }
-
-    @Override
-    public void performBonemeal(ServerLevel serverLevel, RandomSource random, BlockPos blockPos, BlockState blockState) {
-        grow(serverLevel, random, blockPos, blockState, true);
-    }
-
-    public boolean grow(ServerLevel serverLevel, RandomSource random, BlockPos blockPos, BlockState blockState, boolean consumeOre) {
-        BlockPos down = blockPos.below();
-        // Iterate horizontal
-        for (Direction direction : Direction.Plane.HORIZONTAL) {
-            BlockPos offset = down.relative(direction);
-            BlockState state = serverLevel.getBlockState(offset);
-            if(mayPlaceOn(state) && serverLevel.getBlockState(offset.above()).isAir()) {
-                if(consumeOre) {
-                    Block stoneBlock = state.getBlock().toString().contains("deepslate") ? Blocks.DEEPSLATE : Blocks.STONE;
-                    serverLevel.setBlock(offset, stoneBlock.defaultBlockState(), 3);
-                    serverLevel.levelEvent(2001, offset, Block.getId(stoneBlock.defaultBlockState()));
-                    popResource(serverLevel, offset.above(), new ItemStack(this));
-                } else if (random.nextFloat() < generationChance * 0.5f){
-                    serverLevel.setBlock(offset.above(), this.defaultBlockState(), 3);
-                }
-
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
-        super.tick(blockState, serverLevel, blockPos, random);
-
-        if (serverLevel.random.nextFloat() < generationChance) {
-            grow(serverLevel, random, blockPos, blockState, false);
-        }
-    }
-
-    @Override
-    public boolean isRandomlyTicking(BlockState blockState) {
-        return true;
     }
 }

@@ -160,6 +160,31 @@ public class ConfiguredPlayerAbilities {
             .attribute(grill24.potionsplus.core.Attributes.POWER_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_PUNCH_MODIFIER = register(() ->
+            new PermanentAttributeModifiersAbility.Builder<>("bow_punch_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BOW_PUNCH)
+            .parentSkill(ConfiguredSkills.ARCHERY)
+            .ability(PlayerAbilities.MODIFIERS_WHILE_BOW_HELD.get())
+            .attribute(grill24.potionsplus.core.Attributes.PUNCH_BONUS)
+            .operation(AttributeModifier.Operation.ADD_VALUE)
+            .enabledByDefault(true));
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_UNBREAKING_MODIFIER = register(() ->
+            new PermanentAttributeModifiersAbility.Builder<>("bow_unbreaking_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BOW_UNBREAKING)
+            .parentSkill(ConfiguredSkills.ARCHERY)
+            .ability(PlayerAbilities.MODIFIERS_WHILE_BOW_HELD.get())
+            .attribute(grill24.potionsplus.core.Attributes.UNBREAKING_BONUS)
+            .operation(AttributeModifier.Operation.ADD_VALUE)
+            .enabledByDefault(true));
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_LOOTING_MODIFIER = register(() ->
+            new PermanentAttributeModifiersAbility.Builder<>("bow_looting_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BOW_LOOTING)
+            .parentSkill(ConfiguredSkills.ARCHERY)
+            .ability(PlayerAbilities.MODIFIERS_WHILE_BOW_HELD.get())
+            .attribute(grill24.potionsplus.core.Attributes.LOOTING_BONUS)
+            .operation(AttributeModifier.Operation.ADD_VALUE)
+            .enabledByDefault(true));
+
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> CROSSBOW_POWER_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("crossbow_power_modifier")
             .parentSkill(ConfiguredSkills.ARCHERY)
