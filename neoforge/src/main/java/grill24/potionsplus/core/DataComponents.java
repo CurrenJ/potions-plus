@@ -1,6 +1,7 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
+import grill24.potionsplus.skill.reward.OwnerDataComponent;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -16,5 +17,11 @@ public class DataComponents {
             "choice_item_data", builder -> builder
                     .persistent(EdibleRewardGranterDataComponent.CODEC)
                     .networkSynchronized(EdibleRewardGranterDataComponent.STREAM_CODEC)
+    );
+
+    public static final Supplier<DataComponentType<OwnerDataComponent>> OWNER_DATA = DATA_COMPONENTS.registerComponentType(
+            "owner_data", builder -> builder
+                    .persistent(OwnerDataComponent.CODEC)
+                    .networkSynchronized(OwnerDataComponent.STREAM_CODEC)
     );
 }

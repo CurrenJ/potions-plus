@@ -13,6 +13,7 @@ import grill24.potionsplus.effect.IEffectTooltipDetails;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
+import grill24.potionsplus.skill.reward.OwnerDataComponent;
 import grill24.potionsplus.utility.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -26,6 +27,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.ArrayList;
@@ -173,6 +175,19 @@ public class ItemListenersGame {
                 List<List<Component>> component = linkedOption.getMultiLineRichDescription();
                 if (component != null) {
                     tooltipMessages.addAll(component);
+                }
+            }
+
+            // Owner Data Component Tooltip
+            if (stack.has(grill24.potionsplus.core.DataComponents.OWNER_DATA)) {
+                OwnerDataComponent ownerData = stack.get(grill24.potionsplus.core.DataComponents.OWNER_DATA);
+                if (ownerData != null) {
+                    boolean isOwner = ownerData.isOwner(event.getEntity());
+                    MutableComponent ownerText = ownerData.getTooltipComponent();
+                    if (!isOwner) {
+                        ownerText = ownerText.plainCopy().withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD);
+                    }
+                    tooltipMessages.add(List.of(ownerText));
                 }
             }
         }

@@ -96,6 +96,7 @@ public class Translations {
     public static final String TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_25 = "tooltip.potionsplus.skill.mining.reward.level_25";
     public static final String TOOLTIP_POTIONSPLUS_REWARD_END_CITY_LOOT = "tooltip.potionsplus.reward.end_city_loot";
     public static final String TOOLTIP_POTIONSPLUS_REWARD_GEMS_AND_ORES_WHEEL = "tooltip.potionsplus.reward.gems_and_ores_wheel";
+    public static final String TOOLTIP_POTIONSPLUS_REWARD_OWNER = "tooltip.potionsplus.reward.owner";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC = "tooltip.potionsplus.skill.reward.basic";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE = "tooltip.potionsplus.skill.reward.intermediate";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_REWARD_ADVANCED = "tooltip.potionsplus.skill.reward.advanced";

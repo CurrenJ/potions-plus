@@ -115,6 +115,8 @@
 
   "tooltip.potionsplus.reward.gems_and_ores_wheel": "Gems and Ores",
 
+  "tooltip.potionsplus.reward.owner": "Owner: %s",
+
   "tooltip.potionsplus.skill.reward.basic": "Basic Loot",
   "tooltip.potionsplus.skill.reward.intermediate": "Intermediate Loot",
   "tooltip.potionsplus.skill.reward.advanced": "Advanced Loot",
