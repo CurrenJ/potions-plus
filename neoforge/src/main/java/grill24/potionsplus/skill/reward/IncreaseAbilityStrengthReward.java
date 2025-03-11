@@ -54,7 +54,7 @@ public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbili
         RegistryAccess registryAccess = player.registryAccess();
 
         SkillsData skillsData = SkillsData.getPlayerData(player);
-        skillsData.activateAbility(player, config.ability.getKey());
+        skillsData.unlockAbility(player, config.ability.getKey());
 
         Optional<AbilityInstanceSerializable<?, ?>> abilityInstance = skillsData.getAbilityInstance(registryAccess, config.ability.getKey());
         if (abilityInstance.isPresent()) {

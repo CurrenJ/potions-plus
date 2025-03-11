@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-11T18:37:02.0096433	Registries
+// 1.21.1	2025-03-11T20:25:14.6905007	Registries
 7bd6409c746ef4e3e859ff1159eb3d4cc2eb58e2 data/potionsplus/neoforge/biome_modifier/lush_cave_additional_plants.json
 388ccd4087d8feab9978cfad5208cb39d53f23ff data/potionsplus/neoforge/biome_modifier/lush_cave_versatile_vanilla_plants.json
 ba9059ce4e69789f2849c009d24a434a0ff54c9b data/potionsplus/potionsplus/configured_grantable_reward/abandoned_mineshaft_loot.json
@@ -290,7 +290,7 @@ b9944a847fc636f3ee6f918abc2c228327f4f1f6 data/potionsplus/potionsplus/configured
 03396528fd1972adaf62547ea4d8135160168e83 data/potionsplus/potionsplus/configured_skill/archery.json
 0bce3eb01056be6b436d396faf90d2cd0ffbfd76 data/potionsplus/potionsplus/configured_skill/chopping.json
 299d451abcb02aae4d528451fbd06c3fc59557df data/potionsplus/potionsplus/configured_skill/jumping.json
-ec37afe12996a9b0014807ea413e006d5f47acde data/potionsplus/potionsplus/configured_skill/mining.json
+49fa66a5d08448fe93f73b0b9ac315c96c8d1f8e data/potionsplus/potionsplus/configured_skill/mining.json
 64ee4f2844b00a17879eb72d6a44223075cedcc2 data/potionsplus/potionsplus/configured_skill/sneaking.json
 17d82511b6f38c617bb0a8dc430de45c28903d90 data/potionsplus/potionsplus/configured_skill/sprinting.json
 afbd10b64dda3410d75aa9e080b2a93dc01d619d data/potionsplus/potionsplus/configured_skill/swordsmanship.json

@@ -5,11 +5,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.DataAttachments;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.PotionsPlusRegistries;
+import grill24.potionsplus.core.Skills;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbilityConfiguration;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
-import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
+import grill24.potionsplus.skill.reward.*;
 import grill24.potionsplus.skill.source.ConfiguredSkillPointSource;
 import grill24.potionsplus.skill.source.SkillPointSource;
 import grill24.potionsplus.skill.source.SkillPointSourceConfiguration;
@@ -31,11 +32,11 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> activeAbilities, List<ResourceKey<ConfiguredGrantableReward<?, ?>>> pendingChoices) {
+public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> unlockedAbilities, List<ResourceKey<ConfiguredGrantableReward<?, ?>>> pendingChoices) {
     public static final Codec<SkillsData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             Codec.unboundedMap(HolderCodecs.resourceKey(PotionsPlusRegistries.CONFIGURED_SKILL), SkillInstance.CODEC).optionalFieldOf("skillInstances", new HashMap<>()).forGetter(instance -> instance.skillData),
             PointEarningHistory.CODEC.optionalFieldOf("pointEarningHistory", new PointEarningHistory(1000)).forGetter(instance -> instance.pointEarningHistory),
-            Codec.unboundedMap(HolderCodecs.resourceKey(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY), AbilityInstanceSerializable.DIRECT_CODEC.listOf()).optionalFieldOf("activeAbilities", new HashMap<>()).forGetter(instance -> instance.activeAbilities),
+            Codec.unboundedMap(HolderCodecs.resourceKey(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY), AbilityInstanceSerializable.DIRECT_CODEC.listOf()).optionalFieldOf("activeAbilities", new HashMap<>()).forGetter(instance -> instance.unlockedAbilities),
             ResourceKey.codec(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD).listOf().optionalFieldOf("pendingChoices", new ArrayList<>()).forGetter(instance -> instance.pendingChoices)
     ).apply(codecBuilder, SkillsData::new));
 
@@ -45,7 +46,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
             PointEarningHistory.STREAM_CODEC,
             (instance) -> instance.pointEarningHistory,
             ByteBufCodecs.map(Object2ObjectOpenHashMap::new, HolderCodecs.resourceKeyStream(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY), AbilityInstanceSerializable.STREAM_CODEC.apply(ByteBufCodecs.list())),
-            (instance) -> instance.activeAbilities,
+            (instance) -> instance.unlockedAbilities,
             ResourceKey.streamCodec(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD).apply(ByteBufCodecs.list()),
             (instance) -> instance.pendingChoices,
             SkillsData::new
@@ -55,10 +56,10 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         this(new HashMap<>(), new PointEarningHistory(1000), new HashMap<>(), new ArrayList<>());
     }
 
-    public SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> activeAbilities, List<ResourceKey<ConfiguredGrantableReward<?, ?>>> pendingChoices) {
+    public SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> unlockedAbilities, List<ResourceKey<ConfiguredGrantableReward<?, ?>>> pendingChoices) {
         this.skillData = new HashMap<>(skillData);
-        this.activeAbilities = new HashMap<>();
-        activeAbilities.forEach((key, value) -> this.activeAbilities.put(key, new ArrayList<>(value)));        // Deep copy, make sure lists are mutable
+        this.unlockedAbilities = new HashMap<>();
+        unlockedAbilities.forEach((key, value) -> this.unlockedAbilities.put(key, new ArrayList<>(value)));        // Deep copy, make sure lists are mutable
         this.pointEarningHistory = pointEarningHistory;
         this.pendingChoices = new ArrayList<>(pendingChoices);
     }
@@ -66,12 +67,12 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
     public void clear(ServerPlayer player) {
         skillData.clear();
 
-        for (List<AbilityInstanceSerializable<?, ?>> abilityInstances : activeAbilities.values()) {
+        for (List<AbilityInstanceSerializable<?, ?>> abilityInstances : unlockedAbilities.values()) {
             for (AbilityInstanceSerializable<?, ?> instance : abilityInstances) {
                 instance.tryEnable(player);
             }
         }
-        activeAbilities.clear();
+        unlockedAbilities.clear();
 
         pointEarningHistory.clear();
 
@@ -164,7 +165,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         return Optional.empty();
     }
 
-    // ----- Helper Methods Active Abilities -----
+    // ----- Helper Methods Unlocked Abilities -----
 
     public static <AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>> Optional<ConfiguredPlayerAbility<AC, A>> getConfiguredAbility(RegistryAccess registryAccess, ResourceLocation configuredAbilityId) {
         return Optional.ofNullable((ConfiguredPlayerAbility<AC, A>) registryAccess.registryOrThrow(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY).get(configuredAbilityId));
@@ -177,8 +178,8 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
             PlayerAbility<?> ability = configuredPlayerAbility.get().ability();
             ResourceKey<PlayerAbility<?>> abilityKey = abilityLookup.getResourceKey(ability).get();
 
-            if (this.activeAbilities.containsKey(abilityKey)) {
-                return this.activeAbilities.get(abilityKey)
+            if (this.unlockedAbilities.containsKey(abilityKey)) {
+                return this.unlockedAbilities.get(abilityKey)
                         .stream()
                         .filter(abilityInstance -> abilityInstance.data().getHolder().getKey().location().equals(configuredAbilityId))
                         .findFirst();
@@ -196,13 +197,13 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
     }
 
 
-    public void activateAbilities(ServerPlayer player, HolderSet<ConfiguredPlayerAbility<?, ?>> configuredAbilities) {
+    public void unlockAbilities(ServerPlayer player, HolderSet<ConfiguredPlayerAbility<?, ?>> configuredAbilities) {
         Registry<PlayerAbility<?>> abilityLookup = player.registryAccess().registryOrThrow(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY);
 
         configuredAbilities.forEach(configuredAbility -> {
             AbilityInstanceSerializable<?, ?> abilityInstance = configuredAbility.value().ability().createInstance(player, configuredAbility);
             ResourceKey<PlayerAbility<?>> abilityKey = abilityLookup.getResourceKey(configuredAbility.value().ability()).get();
-            List<AbilityInstanceSerializable<?, ?>> abilityInstances = activeAbilities
+            List<AbilityInstanceSerializable<?, ?>> abilityInstances = unlockedAbilities
                     .computeIfAbsent(abilityKey, (key) -> new ArrayList<>());
             if (!abilityInstances.contains(abilityInstance)) {
                 abilityInstances.add(abilityInstance);
@@ -218,37 +219,76 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         Registry<PlayerAbility<?>> abilityLookup = player.registryAccess().registryOrThrow(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY);
         ResourceKey<PlayerAbility<?>> abilityKey = abilityLookup.getResourceKey(configuredAbility.value().ability()).get();
 
-        activeAbilities
+        unlockedAbilities
                 .computeIfPresent(abilityKey, (key, value) -> {
                     value.removeIf(abilityInstance -> abilityInstance.data().getHolder().getKey() != null && abilityInstance.data().getHolder().getKey().equals(configuredAbility.getKey()));
                     return value;
                 });
-        activateAbility(player, configuredAbility.getKey());
+        unlockAbility(player, configuredAbility.getKey());
 
         PotionsPlus.LOGGER.warn("Reset ability instance for player: " + player.getName().getString() + " with ability: " + configuredAbility.getKey());
     }
 
-    public void activateAbility(ServerPlayer player, ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredPlayerAbility) {
+    public void unlockAbility(ServerPlayer player, ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredPlayerAbility) {
         Registry<ConfiguredPlayerAbility<?, ?>> abilityLookup = player.registryAccess().registryOrThrow(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY);
         if (abilityLookup.containsKey(configuredPlayerAbility)) {
-            activateAbilities(player, HolderSet.direct(abilityLookup.getHolderOrThrow(configuredPlayerAbility)));
+            unlockAbilities(player, HolderSet.direct(abilityLookup.getHolderOrThrow(configuredPlayerAbility)));
         } else {
             PotionsPlus.LOGGER.error("Failed to activate type: " + configuredPlayerAbility);
         }
     }
 
-    public void deactivateAbilities(ServerPlayer player, HolderSet<ConfiguredPlayerAbility<?, ?>> configuredAbilities) {
+    @SafeVarargs
+    public final void removeUnlockedAbilities(ServerPlayer player, ResourceKey<ConfiguredPlayerAbility<?, ?>>... configuredAbilityKeys) {
+        for (ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredAbilityKey : configuredAbilityKeys) {
+            removeUnlockedAbility(player, configuredAbilityKey);
+        }
+    }
+
+    public void removeUnlockedAbility(ServerPlayer player, ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredAbilityKey) {
         Registry<PlayerAbility<?>> abilityLookup = player.registryAccess().registryOrThrow(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY);
+        Registry<ConfiguredPlayerAbility<?, ?>> configuredAbilityLookup = player.registryAccess().registryOrThrow(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY);
 
-        configuredAbilities.forEach(configuredAbility -> {
-            activeAbilities
-                    .computeIfPresent(abilityLookup.getResourceKey(configuredAbility.value().ability()).get(), (key, value) -> {
-                        value.remove(configuredAbility);
-                        return value;
-                    });
+        Holder<ConfiguredPlayerAbility<?, ?>> configuredAbility = configuredAbilityLookup.getHolderOrThrow(configuredAbilityKey);
+        ResourceKey<PlayerAbility<?>> abilityKey = abilityLookup.getResourceKey(configuredAbility.value().ability()).get();
 
-            configuredAbility.value().onAbilityRevoked(player);
-        });
+        unlockedAbilities
+                .computeIfPresent(abilityKey, (key, value) -> {
+                    value.removeIf(abilityInstance -> abilityInstance.data().getHolder().getKey() != null && abilityInstance.data().getHolder().getKey().equals(configuredAbilityKey));
+                    return value;
+                });
+
+        configuredAbility.value().onAbilityRevoked(player);
+    }
+
+    public void clearAndReunlockAbilities(ServerPlayer player) {
+        // Clear and revoke all unlocked abilities
+        List<AbilityInstanceSerializable<?, ?>> allUnlockedAbilities = this.unlockedAbilities.values().stream().flatMap(List::stream).toList();
+        for (AbilityInstanceSerializable<?, ?> instance : allUnlockedAbilities) {
+            removeUnlockedAbilities(player, instance.data().getHolder().getKey());
+        }
+
+        // Re-unlock all abilities
+        this.skillData.forEach(
+                (key, skillInstance) -> {
+                   ConfiguredSkill<?, ?> skill = skillInstance.getConfiguredSkill(player.registryAccess());
+                   SkillLevelUpRewardsConfiguration skillLevelUpRewardsConfiguration = skill.config().getData().rewardsConfiguration();
+                   int currentLevel = skillInstance.getLevel(player.registryAccess());
+                   for (int i = 0; i <= currentLevel; i++) {
+                       if (skillLevelUpRewardsConfiguration.hasRewardForLevel(i)) {
+                            Optional<SkillLevelUpRewardsData> rewards = skillLevelUpRewardsConfiguration.tryGetRewardForLevel(i);
+                            for (Holder<ConfiguredGrantableReward<?, ?>> reward : rewards.get().rewards()) {
+                                // Re-grant all rewards that have to do with abilities. We don't want to regrant rewards that are not abilities, like loot rewards.
+                                GrantableReward<?> grantableReward = reward.value().reward();
+                                if (grantableReward instanceof AbilityReward) {
+                                    reward.value().grant(reward, player);
+                                } else if (grantableReward instanceof IncreaseAbilityStrengthReward) {
+                                    reward.value().grant(reward, player);
+                                }
+                            }
+                       }
+                   }
+                });
     }
 
     public static void tickPointEarningHistory(ServerTickEvent event) {

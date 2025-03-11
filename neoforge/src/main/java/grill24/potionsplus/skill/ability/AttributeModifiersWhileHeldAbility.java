@@ -10,7 +10,6 @@ import grill24.potionsplus.extension.IItemAttributeModifiersExtension;
 import grill24.potionsplus.utility.ServerPlayerHeldItemChangedEvent;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -18,7 +17,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
@@ -73,7 +71,7 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
 
     private static <T extends AttributeModifiersWhileHeldAbility<?>> void clearAllAttributeModifiersOnStack(ServerPlayer player, DeferredHolder<PlayerAbility<?>, T> abilityHolder, ItemStack stack) {
         SkillsData.updatePlayerData(player, (skillsData) -> {
-            List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.activeAbilities().get(abilityHolder.getKey());
+            List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.unlockedAbilities().get(abilityHolder.getKey());
             if (configuredAbilities == null) return;
 
             for (AbilityInstanceSerializable<?, ?> abilityInstance : configuredAbilities) {
@@ -87,7 +85,7 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
 
     private static <T extends AttributeModifiersWhileHeldAbility<?>> void updatePlayerAttributeModifiers(ServerPlayer player, DeferredHolder<PlayerAbility<?>, T> abilityHolder, boolean enable) {
         SkillsData.updatePlayerData(player, (skillsData) -> {
-            List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.activeAbilities().get(abilityHolder.getKey());
+            List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.unlockedAbilities().get(abilityHolder.getKey());
             if (configuredAbilities == null) return;
 
             for (AbilityInstanceSerializable<?, ?> abilityInstance : configuredAbilities) {

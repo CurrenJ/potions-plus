@@ -338,7 +338,8 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:simple_dungeon_loot_edible_0"
+              "potionsplus:simple_dungeon_loot_edible_0",
+              "potionsplus:small_pickaxe_efficiency_increase"
             ]
           },
           "50": {
@@ -523,7 +524,6 @@
           "8": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:small_pickaxe_efficiency_increase",
               "potionsplus:copper_ore_additional_loot"
             ]
           },

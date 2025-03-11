@@ -49,6 +49,6 @@ public class AbilitiesListScreenElement extends VerticalListScreenElement<Abilit
         if (this.screen.getMinecraft().player == null) {
             return Collections.emptyList();
         }
-        return SkillsData.getPlayerData(this.screen.getMinecraft().player).activeAbilities().values().stream().flatMap(List::stream).toList();
+        return SkillsData.getPlayerData(this.screen.getMinecraft().player).unlockedAbilities().values().stream().flatMap(List::stream).toList();
     }
 }

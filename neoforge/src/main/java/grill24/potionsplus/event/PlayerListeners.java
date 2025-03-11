@@ -182,7 +182,7 @@ public class PlayerListeners {
             );
 
             // Trigger an update for all abilities
-            SkillsData.updatePlayerData(player, data -> data.activeAbilities()
+            SkillsData.updatePlayerData(player, data -> data.unlockedAbilities()
                     .forEach((key, list) -> list
                             .forEach(instance -> instance.onInstanceChanged(player))));
 

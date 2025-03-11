@@ -14,7 +14,6 @@ import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.render.animation.keyframe.Interpolation;
 import grill24.potionsplus.render.animation.keyframe.*;
 import grill24.potionsplus.skill.*;
-import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
@@ -173,6 +172,19 @@ public class CommonCommands {
                                 DelayedServerEvents.queueDelayedEvent(() -> InvUtil.giveOrDropItem(player, itemStacks.get(winnerIndex).copy()), 190);
                             }
 
+                            return 1;
+                        })
+                )
+                .then(Commands.literal("restoreAbilities")
+                        .executes(context -> {
+                            if (context.getSource().getPlayer() == null) {
+                                return 0;
+                            }
+
+                            SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> {
+                                skillsData.clearAndReunlockAbilities(context.getSource().getPlayer());
+                                PacketDistributor.sendToPlayer(context.getSource().getPlayer(), new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(context.getSource().getPlayer())));
+                            }));
                             return 1;
                         })
                 )
@@ -451,7 +463,7 @@ public class CommonCommands {
                                         MutableComponent component = Component.empty();
                                         boolean hasAbilities = false;
 
-                                        for (Map.Entry<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> entry : skillsData.activeAbilities().entrySet()) {
+                                        for (Map.Entry<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> entry : skillsData.unlockedAbilities().entrySet()) {
                                             for (AbilityInstanceSerializable<?, ?> abilityInstance : entry.getValue()) {
                                                 Component abilityComponent = abilityInstance.data().getDescription();
                                                 if (hasAbilities) {

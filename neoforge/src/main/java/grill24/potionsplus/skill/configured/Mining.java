@@ -35,10 +35,8 @@ public class Mining {
                 allOreHats,
                 ConfiguredSkills.createDefaultRewards(context)
                         .addRewardForLevel(5, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SIMPLE_DUNGEON_LOOT_EDIBLE[0].getKey()))
-                        .addRewardForLevel(8, builder -> builder
-                                .addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_PICKAXE_EFFICIENCY_INCREASE)
-                                .addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_COPPER_ORE_ADDITIONAL_LOOT)
-                        )
+                        .addRewardForLevel(5, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_PICKAXE_EFFICIENCY_INCREASE))
+                        .addRewardForLevel(8, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_COPPER_ORE_ADDITIONAL_LOOT))
                         .addRewardForLevel(10, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.ABANDONED_MINESHAFT_LOOT_EDIBLE[0].getKey()))
                         .addRewardForLevel(11, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_LOOT_1.getKey()))
                         .addRewardForLevel(12, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_SUBMERGED_PICKAXE_EFFICIENCY_INCREASE))
