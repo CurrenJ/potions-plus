@@ -37,6 +37,13 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 new WormrootLootModifier(new LootItemCondition[0], List.of(Blocks.HANGING_ROOTS, Blocks.ROOTED_DIRT))
         );
 
+        // Add Passive Potion Effects Loot Modifier
+        this.add(
+                "add_mob_effects_to_tools_and_armor_loot_modifier",
+                new grill24.potionsplus.behaviour.AddMobEffectsLootModifier(new LootItemCondition[0])
+        );
+
+
         // Iron Ore Fortune Bonus Drops (Skill Ability)
         this.add(
                 // The name of the modifier. This will be the file name.
