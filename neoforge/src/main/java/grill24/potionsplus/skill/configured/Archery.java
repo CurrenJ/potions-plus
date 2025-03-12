@@ -24,7 +24,7 @@ public class Archery {
                                 5, new ItemStack(Items.BOW)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_BOW),
-                        new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 50),
+                        new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 25),
                         List.of(),
                         ConfiguredSkills.createDefaultRewards(context)
                                 .addRewardForLevel(5, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BOW_PUNCH_INCREASE))
