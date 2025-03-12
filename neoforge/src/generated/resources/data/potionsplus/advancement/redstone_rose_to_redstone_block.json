@@ -1,10 +1,10 @@
 {
   "criteria": {
-    "has_golden_cubensis": {
+    "has_redstone_rose": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:golden_cubensis"
+            "items": "potionsplus:redstone_rose"
           }
         ]
       },
@@ -12,20 +12,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "potionsplus:golden_cubensis_to_yellow_dye"
+        "recipe": "potionsplus:redstone_rose_to_redstone_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_golden_cubensis",
+      "has_redstone_rose",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "potionsplus:golden_cubensis_to_yellow_dye"
+      "potionsplus:redstone_rose_to_redstone_block"
     ]
   },
   "sends_telemetry_event": true

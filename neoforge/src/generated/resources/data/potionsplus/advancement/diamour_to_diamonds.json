@@ -1,10 +1,10 @@
 {
   "criteria": {
-    "has_copper_chrysanthemum": {
+    "has_diamour": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:copper_chrysanthemum"
+            "items": "potionsplus:diamour"
           }
         ]
       },
@@ -12,20 +12,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "potionsplus:copper_chrysanthemum_to_orange_dye"
+        "recipe": "potionsplus:diamour_to_diamonds"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_copper_chrysanthemum",
+      "has_diamour",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "potionsplus:copper_chrysanthemum_to_orange_dye"
+      "potionsplus:diamour_to_diamonds"
     ]
   },
   "sends_telemetry_event": true

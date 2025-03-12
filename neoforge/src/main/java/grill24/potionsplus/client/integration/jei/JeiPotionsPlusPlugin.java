@@ -48,67 +48,44 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(@NotNull IRecipeRegistration registration) {
-        IVanillaRecipeFactory factory = registration.getVanillaRecipeFactory();
+        // Register descriptions for block entities
+        registerDescription(registration, grill24.potionsplus.core.Blocks.PARTICLE_EMITTER.value()); // Particle Emitter description
+        registerDescription(registration, grill24.potionsplus.core.Blocks.BREWING_CAULDRON.value()); // Brewing Cauldron description
+        registerDescription(registration, grill24.potionsplus.core.Blocks.HERBALISTS_LECTERN.value()); // Herbalist's Lectern description
+        registerDescription(registration, grill24.potionsplus.core.Blocks.ABYSSAL_TROVE.value()); // Abyssal Trove description
+        registerDescription(registration, grill24.potionsplus.core.Blocks.SANGUINE_ALTAR.value()); // Sanguine Altar description
+        registerDescription(registration, grill24.potionsplus.core.Blocks.CLOTHESLINE.value()); // Clothesline description
 
-        // Particle Emitter description
-        registerDescription(registration, grill24.potionsplus.core.Blocks.PARTICLE_EMITTER.value());
+        // Register descriptions for miscellaneous items and blocks
+        registerDescription(registration, grill24.potionsplus.core.Blocks.DECORATIVE_FIRE.value()); // Decorative Fire description
+        registerDescription(registration, grill24.potionsplus.core.Items.MOSS.value()); // Moss description
+        registerDescription(registration, grill24.potionsplus.core.Items.SALT.value()); // Salt
+        registerDescription(registration, grill24.potionsplus.core.Items.WORMROOT.value()); // Wormroot
+        registerDescription(registration, grill24.potionsplus.core.Items.ROTTEN_WORMROOT.value()); // Rotten Wormroot
+        registerDescription(registration, grill24.potionsplus.core.Items.LUNAR_BERRIES.value()); // Lunar Berries
+        registerDescription(registration, grill24.potionsplus.core.Items.WREATH.value()); // Wreath
+        registerDescription(registration, Blocks.COOBLESTONE.value()); // Cooblestone
+        registerDescription(registration, grill24.potionsplus.core.Blocks.LAVA_GEYSER.value()); // Lava Geyser
+        registerAllPotionsInfo(registration, Potions.getAllPotionAmpDurMatrices()); // Potion descriptions
 
-        // Brewing Cauldron description
-        registerDescription(registration, grill24.potionsplus.core.Blocks.BREWING_CAULDRON.value());
-
-        // Herbalist's Lectern description
-        registerDescription(registration, grill24.potionsplus.core.Blocks.HERBALISTS_LECTERN.value());
-
-        // Abyssal Trove description
-        registerDescription(registration, grill24.potionsplus.core.Blocks.ABYSSAL_TROVE.value());
-
-        // Sanguine Altar description
-        registerDescription(registration, grill24.potionsplus.core.Blocks.SANGUINE_ALTAR.value());
-
-        // Clothesline description
-        registerDescription(registration, grill24.potionsplus.core.Blocks.CLOTHESLINE.value());
-
-        // Decorative Fire description
-        registerDescription(registration, grill24.potionsplus.core.Blocks.DECORATIVE_FIRE.value());
-
-        // Moss description
-        registerDescription(registration, grill24.potionsplus.core.Items.MOSS.value());
-
-        // Salt
-        registerDescription(registration, grill24.potionsplus.core.Items.SALT.value());
-
-        // Wormroot
-        registerDescription(registration, grill24.potionsplus.core.Items.WORMROOT.value());
-
-        // Rotten Wormroot
-        registerDescription(registration, grill24.potionsplus.core.Items.ROTTEN_WORMROOT.value());
-
-        // Lunar Berries
-        registerDescription(registration, grill24.potionsplus.core.Items.LUNAR_BERRIES.value());
-
-        // Wreath
-        registerDescription(registration, grill24.potionsplus.core.Items.WREATH.value());
-
-        // Cooblestone
-        registerDescription(registration, Blocks.COOBLESTONE.value());
-
-        // Lava Geyser
-        registerDescription(registration, grill24.potionsplus.core.Blocks.LAVA_GEYSER.value());
-
-        // Potion descriptions
-        registerAllPotionsInfo(registration, Potions.getAllPotionAmpDurMatrices());
-
-        // Register all brewing cauldron recipes
+        // Register recipes for custom JEI recipe categories
         if (Minecraft.getInstance().level != null) {
+            // Register all brewing cauldron recipes
             registration.addRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE,
                     Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.value())
                             .stream().map(RecipeHolder::value).filter(BrewingCauldronRecipe::canShowInJei).toList());
+
+            // Register all clothesline recipes
+            registration.addRecipes(ClotheslineRecipeCategory.CLOTHESLINE_RECIPE_TYPE,
+                    Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.CLOTHESLINE_RECIPE.value())
+                            .stream().map(RecipeHolder::value).toList());
         }
     }
 
     @Override
     public void registerCategories(@NotNull IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new BrewingCauldronRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new ClotheslineRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -142,7 +119,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(grill24.potionsplus.core.Blocks.BREWING_CAULDRON.value()), BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE);
-        // TODO: Add clothesline recipes
+        registration.addRecipeCatalyst(new ItemStack(grill24.potionsplus.core.Blocks.CLOTHESLINE.value()), ClotheslineRecipeCategory.CLOTHESLINE_RECIPE_TYPE);
     }
 
     private static void registerAllPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsPlusPotionGenerationData... potionData) {

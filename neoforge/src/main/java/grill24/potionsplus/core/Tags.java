@@ -14,6 +14,7 @@ public class Tags {
 
         public static final TagKey<Block> FREEZABLE = tag("freezable");
         public static final TagKey<Block> CAVE_REPLACEABLE = tag("cave_replaceable");
+        public static final TagKey<Block> ORE_FLOWERS = tag("ore_flowers");
 
         private static TagKey<Block> tag(String id) {
             return TagKey.create(Registries.BLOCK, ppId(id));

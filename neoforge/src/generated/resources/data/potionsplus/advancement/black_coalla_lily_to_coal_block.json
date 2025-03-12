@@ -1,10 +1,10 @@
 {
   "criteria": {
-    "has_iron_oxide_daisy": {
+    "has_black_coalla_lily": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:iron_oxide_daisy"
+            "items": "potionsplus:black_coalla_lily"
           }
         ]
       },
@@ -12,20 +12,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "potionsplus:iron_oxide_daisy_to_gray_dye"
+        "recipe": "potionsplus:black_coalla_lily_to_coal_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_iron_oxide_daisy",
+      "has_black_coalla_lily",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "potionsplus:iron_oxide_daisy_to_gray_dye"
+      "potionsplus:black_coalla_lily_to_coal_block"
     ]
   },
   "sends_telemetry_event": true

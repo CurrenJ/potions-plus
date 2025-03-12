@@ -94,8 +94,16 @@ public class BlockTagProvider extends BlockTagsProvider {
                         net.minecraft.world.level.block.Blocks.REDSTONE_ORE,
                         net.minecraft.world.level.block.Blocks.DEEPSLATE_REDSTONE_ORE,
                         Blocks.URANIUM_ORE.value(),
-                        Blocks.DEEPSLATE_URANIUM_ORE.value()
-                        );
+                        Blocks.DEEPSLATE_URANIUM_ORE.value());
+
+        tag(grill24.potionsplus.core.Tags.Blocks.ORE_FLOWERS)
+                .add(Blocks.IRON_OXIDE_DAISY.value())
+                .add(Blocks.COPPER_CHRYSANTHEMUM.value())
+                .add(Blocks.LAPIS_LILAC.value())
+                .add(Blocks.DIAMOUR.value())
+                .add(Blocks.GOLDEN_CUBENSIS.value())
+                .add(Blocks.REDSTONE_ROSE.value())
+                .add(Blocks.BLACK_COALLA_LILY.value());
     }
 
     private void addBlocksToTags(TagKey<Block>[] tags, Block[] values) {

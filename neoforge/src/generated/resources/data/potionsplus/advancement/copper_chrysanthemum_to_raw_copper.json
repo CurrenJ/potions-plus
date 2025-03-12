@@ -1,10 +1,10 @@
 {
   "criteria": {
-    "has_lapis_lilac": {
+    "has_copper_chrysanthemum": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:lapis_lilac"
+            "items": "potionsplus:copper_chrysanthemum"
           }
         ]
       },
@@ -12,20 +12,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "potionsplus:lapis_lilac_to_blue_dye"
+        "recipe": "potionsplus:copper_chrysanthemum_to_raw_copper"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_lapis_lilac",
+      "has_copper_chrysanthemum",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "potionsplus:lapis_lilac_to_blue_dye"
+      "potionsplus:copper_chrysanthemum_to_raw_copper"
     ]
   },
   "sends_telemetry_event": true

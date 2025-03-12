@@ -1,10 +1,10 @@
 {
   "criteria": {
-    "has_redstone_rose": {
+    "has_iron_oxide_daisy": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:redstone_rose"
+            "items": "potionsplus:iron_oxide_daisy"
           }
         ]
       },
@@ -12,20 +12,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "potionsplus:redstone_rose_to_red_dye"
+        "recipe": "potionsplus:iron_oxide_daisy_to_raw_iron"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_redstone_rose",
+      "has_iron_oxide_daisy",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "potionsplus:redstone_rose_to_red_dye"
+      "potionsplus:iron_oxide_daisy_to_raw_iron"
     ]
   },
   "sends_telemetry_event": true

@@ -2,6 +2,7 @@ package grill24.potionsplus.client.integration.jei;
 
 import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
 import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
@@ -59,7 +60,7 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
 
     @Override
     public @NotNull Component getTitle() {
-        return Component.translatable("block.potionsplus.brewing_cauldron");
+        return Component.translatable(Translations.BLOCK_POTIONSPLUS_BREWING_CAULDRON);
     }
 
     @Override

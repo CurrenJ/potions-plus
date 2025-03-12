@@ -1,10 +1,10 @@
 {
   "criteria": {
-    "has_black_coalla_lily": {
+    "has_golden_cubensis": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:black_coalla_lily"
+            "items": "potionsplus:golden_cubensis"
           }
         ]
       },
@@ -12,20 +12,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "potionsplus:black_coalla_lily_to_black_dye"
+        "recipe": "potionsplus:golden_cubensis_to_raw_gold"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_black_coalla_lily",
+      "has_golden_cubensis",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "potionsplus:black_coalla_lily_to_black_dye"
+      "potionsplus:golden_cubensis_to_raw_gold"
     ]
   },
   "sends_telemetry_event": true

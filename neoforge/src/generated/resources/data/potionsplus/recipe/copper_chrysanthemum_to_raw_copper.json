@@ -5,13 +5,13 @@
     {
       "ppIngredient": {
         "count": 1,
-        "id": "potionsplus:golden_cubensis"
+        "id": "potionsplus:copper_chrysanthemum"
       }
     }
   ],
   "processingTime": 60,
   "result": {
-    "count": 1,
-    "id": "minecraft:gold_block"
+    "count": 6,
+    "id": "minecraft:raw_copper"
   }
 }

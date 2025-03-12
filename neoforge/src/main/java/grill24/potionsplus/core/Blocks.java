@@ -1,5 +1,6 @@
 package grill24.potionsplus.core;
 
+import glitchcore.event.RegistryEvent;
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.core.potion.MobEffects;
@@ -32,6 +33,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
+import net.neoforged.neoforge.event.server.ServerLifecycleEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -84,15 +87,14 @@ public class Blocks {
             new DecorativeFireBlock(BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).noCollission().instabreak().lightLevel((p_152605_) -> 15).sound(SoundType.WOOL)));
 
 
-    public static final List<OreFlowerBlock> ORE_FLOWER_BLOCKS = new ArrayList<>();
     public static final Holder<Block> IRON_OXIDE_DAISY = register("iron_oxide_daisy", () ->
             new OreFlowerBlock(MobEffects.MAGNETIC, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.IRON_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE),
-                    0.1f));
+                    0.15f));
     public static final Holder<Block> COPPER_CHRYSANTHEMUM = register("copper_chrysanthemum", () ->
             new OreFlowerBlock(MobEffects.FORTUITOUS_FATE, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.COPPER_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE),
-                    0.1f));
+                    0.15f));
     public static final Holder<Block> LAPIS_LILAC = register("lapis_lilac", () ->
             new OreFlowerBlock(MobEffects.LOOTING, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.LAPIS_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_LAPIS_ORE),
@@ -100,15 +102,15 @@ public class Blocks {
     public static final Holder<Block> DIAMOUR = register("diamour", () ->
             new OreFlowerBlock(MobEffects.TELEPORTATION, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.DIAMOND_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE),
-                    0.2f));
+                    0.15f));
     public static final Holder<Block> GOLDEN_CUBENSIS = register("golden_cubensis", () ->
             new OreFlowerBlock(MobEffects.GEODE_GRACE, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.GOLD_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE),
-                    0.25f));
+                    0.2f));
     public static final Holder<Block> REDSTONE_ROSE = register("redstone_rose", () ->
             new OreFlowerBlock(MobEffects.REACH_FOR_THE_STARS, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.REDSTONE_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_REDSTONE_ORE),
-                    0.15f));
+                    0.1f));
     public static final Holder<Block> BLACK_COALLA_LILY = register("black_coalla_lily", () ->
             new OreFlowerBlock(net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.COAL_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE),
@@ -334,17 +336,6 @@ public class Blocks {
     @SubscribeEvent
     public static void addValidBlocksToBlockEntityTypes(final BlockEntityTypeAddBlocksEvent event) {
         event.modify(BlockEntityType.DISPENSER, Blocks.PRECISION_DISPENSER.value());
-    }
-
-    @SubscribeEvent
-    public static void onClientSetup(final FMLClientSetupEvent event) {
-        // Grab plants/bushes from the block registry and register them as cutout render type
-        Blocks.BLOCKS.getEntries().forEach(entry -> {
-            Block block = entry.get();
-            if (block instanceof OreFlowerBlock) {
-                ORE_FLOWER_BLOCKS.add((OreFlowerBlock) block);
-            }
-        });
     }
 
     public static <T extends Block> DeferredHolder<Block, T> register(final String name, final Supplier<T> sup, boolean registerBlockItem, Item.Properties properties) {

@@ -181,7 +181,7 @@ public class ItemListenersGame {
             // Owner Data Component Tooltip
             if (stack.has(grill24.potionsplus.core.DataComponents.OWNER_DATA)) {
                 OwnerDataComponent ownerData = stack.get(grill24.potionsplus.core.DataComponents.OWNER_DATA);
-                if (ownerData != null) {
+                if (ownerData != null && ownerData.shouldShowTooltip()) {
                     boolean isOwner = ownerData.isOwner(event.getEntity());
                     MutableComponent ownerText = ownerData.getTooltipComponent();
                     if (!isOwner) {

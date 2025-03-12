@@ -36,8 +36,16 @@ public record OwnerDataComponent(UUID uuid, String playerDisplayName) {
         return isOwner(player.getUUID());
     }
 
+    public boolean shouldShowTooltip() {
+        return !playerDisplayName.isEmpty();
+    }
+
     public static OwnerDataComponent fromPlayer(Player player) {
-        return new OwnerDataComponent(player.getUUID(), player.getDisplayName().getString());
+        return fromPlayer(player, true);
+    }
+
+    public static OwnerDataComponent fromPlayer(Player player, boolean showItemTooltip) {
+        return new OwnerDataComponent(player.getUUID(), showItemTooltip ? player.getDisplayName().getString() : "");
     }
 
     /**

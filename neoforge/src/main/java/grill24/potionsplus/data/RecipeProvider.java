@@ -312,52 +312,52 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.IRON_OXIDE_DAISY.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.IRON_INGOT, 3))
+                .result(new ItemStack(net.minecraft.world.item.Items.RAW_IRON, 3))
                 .processingTime(60)
                 .unlockedBy("has_iron_oxide_daisy", has(Blocks.IRON_OXIDE_DAISY.value()))
-                .save(recipeConsumer, ppId("iron_oxide_daisy_to_gray_dye"));
+                .save(recipeConsumer, ppId("iron_oxide_daisy_to_raw_iron"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.COPPER_CHRYSANTHEMUM.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.COPPER_BLOCK, 1))
+                .result(new ItemStack(net.minecraft.world.item.Items.RAW_COPPER, 6))
                 .processingTime(60)
                 .unlockedBy("has_copper_chrysanthemum", has(Blocks.COPPER_CHRYSANTHEMUM.value()))
-                .save(recipeConsumer, ppId("copper_chrysanthemum_to_orange_dye"));
+                .save(recipeConsumer, ppId("copper_chrysanthemum_to_raw_copper"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.GOLDEN_CUBENSIS.value())
-                .result(new ItemStack(net.minecraft.world.level.block.Blocks.GOLD_BLOCK, 1))
+                .result(new ItemStack(net.minecraft.world.item.Items.RAW_GOLD, 3))
                 .processingTime(60)
                 .unlockedBy("has_golden_cubensis", has(Blocks.GOLDEN_CUBENSIS.value()))
-                .save(recipeConsumer, ppId("golden_cubensis_to_yellow_dye"));
+                .save(recipeConsumer, ppId("golden_cubensis_to_raw_gold"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.LAPIS_LILAC.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.LAPIS_BLOCK, 2))
+                .result(new ItemStack(net.minecraft.world.item.Items.LAPIS_BLOCK, 1))
                 .processingTime(60)
                 .unlockedBy("has_lapis_lilac", has(Blocks.LAPIS_LILAC.value()))
-                .save(recipeConsumer, ppId("lapis_lilac_to_blue_dye"));
+                .save(recipeConsumer, ppId("lapis_lilac_to_lapis_block"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.DIAMOUR.value())
                 .result(new ItemStack(net.minecraft.world.item.Items.DIAMOND, 2))
                 .processingTime(60)
                 .unlockedBy("has_diamour", has(Blocks.DIAMOUR.value()))
-                .save(recipeConsumer, ppId("diamour_to_light_blue_dye"));
+                .save(recipeConsumer, ppId("diamour_to_diamonds"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.BLACK_COALLA_LILY.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.COAL_BLOCK, 2))
+                .result(new ItemStack(net.minecraft.world.item.Items.COAL_BLOCK, 1))
                 .processingTime(60)
                 .unlockedBy("has_black_coalla_lily", has(Blocks.BLACK_COALLA_LILY.value()))
-                .save(recipeConsumer, ppId("black_coalla_lily_to_black_dye"));
+                .save(recipeConsumer, ppId("black_coalla_lily_to_coal_block"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(Blocks.REDSTONE_ROSE.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.REDSTONE_BLOCK, 2))
+                .result(new ItemStack(net.minecraft.world.item.Items.REDSTONE_BLOCK, 1))
                 .processingTime(60)
                 .unlockedBy("has_redstone_rose", has(Blocks.REDSTONE_ROSE.value()))
-                .save(recipeConsumer, ppId("redstone_rose_to_red_dye"));
+                .save(recipeConsumer, ppId("redstone_rose_to_redstone_block"));
 
         SimpleCookingRecipeBuilder.blasting(
                 Ingredient.of(Tags.Items.REMNANT_DEBRIS),

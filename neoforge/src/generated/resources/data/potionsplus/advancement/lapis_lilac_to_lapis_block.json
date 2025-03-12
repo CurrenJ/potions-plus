@@ -1,10 +1,10 @@
 {
   "criteria": {
-    "has_diamour": {
+    "has_lapis_lilac": {
       "conditions": {
         "items": [
           {
-            "items": "potionsplus:diamour"
+            "items": "potionsplus:lapis_lilac"
           }
         ]
       },
@@ -12,20 +12,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "potionsplus:diamour_to_light_blue_dye"
+        "recipe": "potionsplus:lapis_lilac_to_lapis_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_diamour",
+      "has_lapis_lilac",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "potionsplus:diamour_to_light_blue_dye"
+      "potionsplus:lapis_lilac_to_lapis_block"
     ]
   },
   "sends_telemetry_event": true
