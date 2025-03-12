@@ -184,6 +184,14 @@ public class ConfiguredPlayerAbilities {
             .attribute(grill24.potionsplus.core.Attributes.LOOTING_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_USE_SPEED_MODIFIER = register(() ->
+            new PermanentAttributeModifiersAbility.Builder<>("bow_use_speed_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BOW_USE_SPEED)
+            .parentSkill(ConfiguredSkills.ARCHERY)
+            .ability(PlayerAbilities.MODIFIERS_WHILE_BOW_HELD.get())
+            .attribute(grill24.potionsplus.core.Attributes.USE_SPEED_BONUS)
+            .operation(AttributeModifier.Operation.ADD_VALUE)
+            .enabledByDefault(true));
 
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> CROSSBOW_POWER_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("crossbow_power_modifier")

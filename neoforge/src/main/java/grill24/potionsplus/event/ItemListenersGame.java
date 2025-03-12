@@ -2,6 +2,7 @@ package grill24.potionsplus.event;
 
 import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.core.Attributes;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Translations;
@@ -19,15 +20,19 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.ArrayList;
@@ -264,5 +269,24 @@ public class ItemListenersGame {
             finalComponent = finalComponent.append(mutableComponent);
         }
         return Pair.of(finalComponent, splitIndex);
+    }
+
+    /**
+     * This event is used to shorten the duration of the item use animation.
+     * @param event the event
+     */
+    @SubscribeEvent
+    public static void on(final LivingEntityUseItemEvent.Tick event) {
+        ItemStack itemStack = event.getItem();
+        for(ItemAttributeModifiers.Entry entry : itemStack.getAttributeModifiers().modifiers()) {
+            ResourceKey<Attribute> attributeKey = entry.attribute().getKey();
+            if(attributeKey != null && attributeKey.equals(Attributes.USE_SPEED_BONUS.getKey())) {
+                float useSpeedBonus = (float) entry.modifier().amount(); // 0.05 = 5% faster = skip every 20th tick
+                int skipTickEveryTicks = Math.round(1.0F / useSpeedBonus);
+                if (event.getDuration() % skipTickEveryTicks == 0) {
+                    event.setDuration(event.getDuration() - 1);
+                }
+            }
+        }
     }
 }

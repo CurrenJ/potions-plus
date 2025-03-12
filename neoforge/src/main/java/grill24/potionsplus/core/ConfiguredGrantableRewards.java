@@ -177,6 +177,12 @@ public class ConfiguredGrantableRewards {
     public static final IncreaseAbilityStrengthReward.Builder BOW_LOOTING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("bow_looting_increase")
             .ability(ConfiguredPlayerAbilities.BOW_LOOTING_MODIFIER.getKey())
             .strength(1.0F));
+    public static final IncreaseAbilityStrengthReward.Builder SMALL_BOW_USE_SPEED_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("small_bow_use_speed_increase")
+            .ability(ConfiguredPlayerAbilities.BOW_USE_SPEED_MODIFIER.getKey())
+            .strength(0.05F));
+    public static final IncreaseAbilityStrengthReward.Builder MEDIUM_BOW_USE_SPEED_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("medium_bow_use_speed_increase")
+            .ability(ConfiguredPlayerAbilities.BOW_USE_SPEED_MODIFIER.getKey())
+            .strength(0.1F));
 
     public static final IncreaseAbilityStrengthReward.Builder SMALL_MOVEMENT_SPEED_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("movement_speed_increase")
             .ability(ConfiguredPlayerAbilities.MOVEMENT_SPEED_MODIFIER.getKey())
