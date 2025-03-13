@@ -15,7 +15,7 @@ public class NauticalNitroEffect extends MobEffect implements IEffectTooltipDeta
     }
 
     public float getSpeedMultiplier(MobEffectInstance effectInstance) {
-        return (effectInstance.getAmplifier() + 1) * 1.2f;
+        return (effectInstance.getAmplifier() + 1) * 0.2F + 1F;
     }
 
     @Override

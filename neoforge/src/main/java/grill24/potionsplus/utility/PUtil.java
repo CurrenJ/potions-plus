@@ -6,6 +6,7 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -288,18 +289,24 @@ public class PUtil {
      * @param context the loot context
      * @param stack the item stack to add the effects to
      */
-    public static void addRandomPassivePotionEffect(LootContext context, ItemStack stack) {
+    public static void addRandomPassivePotionEffect(LootContext context, ItemStack stack, Set<ResourceKey<MobEffect>> excludedEffects) {
         if (isItemEligibleForPassivePotionEffects(stack)) {
             Registry<MobEffect> mobEffectRegistry = context.getLevel().registryAccess().registryOrThrow(Registries.MOB_EFFECT);
             Optional<Holder.Reference<MobEffect>> optionalHolder = mobEffectRegistry.getRandom(context.getRandom());
-            List<MobEffectInstance> customEffects = new ArrayList<>(PUtil.getAllEffects(stack));
-            if (optionalHolder.isPresent()) {
+            int attempts = 0;
+            while (optionalHolder.isPresent() && excludedEffects.contains(optionalHolder.get().getKey()) && attempts < 3) {
+                optionalHolder = mobEffectRegistry.getRandom(context.getRandom());
+                attempts++;
+            }
+
+            if (optionalHolder.isPresent() && !excludedEffects.contains(optionalHolder.get().getKey())) {
+                List<MobEffectInstance> customEffects = new ArrayList<>(PUtil.getAllEffects(stack));
                 int amplifier = (int) Math.round(Math.clamp(Utility.nextGaussian(1, 1, context.getRandom()), 1F, 3F));
                 int duration = context.getRandom().nextInt(4800) + 300;
                 MobEffectInstance effectInstance = new MobEffectInstance(optionalHolder.get(), duration, amplifier);
                 customEffects.add(effectInstance);
+                setCustomEffects(stack, customEffects);
             }
-            setCustomEffects(stack, customEffects);
         }
     }
 

@@ -28,7 +28,7 @@ public class Swordsmanship {
                                 25, new ItemStack(Items.DIAMOND_SWORD)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_SWORD),
-                        new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 25),
+                        new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 10),
                         List.of(),
                         ConfiguredSkills.createDefaultRewards(context)
                                 .addRewardForLevel(12, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SKELETON_BONE_MEAL_ADDITIONAL_LOOT))

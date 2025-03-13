@@ -10,6 +10,7 @@ import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyC
 import net.neoforged.neoforge.common.loot.AddTableLootModifier;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -40,7 +42,8 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
         // Add Passive Potion Effects Loot Modifier
         this.add(
                 "add_mob_effects_to_tools_and_armor_loot_modifier",
-                new grill24.potionsplus.behaviour.AddMobEffectsLootModifier(new LootItemCondition[0])
+                new grill24.potionsplus.behaviour.AddMobEffectsLootModifier(new LootItemCondition[0],
+                        Set.of(MobEffects.HARM.getKey(), grill24.potionsplus.core.potion.MobEffects.ANY_POTION.getKey(), MobEffects.HEAL.getKey()))
         );
 
 

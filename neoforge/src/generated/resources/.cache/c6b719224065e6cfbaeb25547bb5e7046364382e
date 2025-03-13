@@ -1,6 +1,6 @@
-// 1.21.1	2025-03-11T21:42:50.3715344	Global Loot Modifiers : potionsplus
+// 1.21.1	2025-03-12T23:51:04.6102199	Global Loot Modifiers : potionsplus
 d14c5fe399ce4adb0f885c49b861951c6a64a8c5 data/neoforge/loot_modifiers/global_loot_modifiers.json
-599e3ac42f5777dfa41facab572fa383e0f365b2 data/potionsplus/loot_modifiers/add_mob_effects_to_tools_and_armor_loot_modifier.json
+0eef3bb574e0dee415bb8c7f7bc9077c4eafdd6c data/potionsplus/loot_modifiers/add_mob_effects_to_tools_and_armor_loot_modifier.json
 da06048ffacb23eb038581e9ede86fb8b8fb7248 data/potionsplus/loot_modifiers/copper_ore_bonus_drops_ability.json
 90c6d557e0ced5a75f8ee116d15c360d8780c9f7 data/potionsplus/loot_modifiers/creeper_loot_modifier.json
 c71928ea4ba4a50030aece43380b140b5ed702f8 data/potionsplus/loot_modifiers/diamond_ore_bonus_emerald_ability.json

@@ -1,4 +1,9 @@
 {
   "type": "potionsplus:add_mob_effects_loot_modifier",
+  "blacklistedEffects": [
+    "potionsplus:any_potion",
+    "minecraft:instant_health",
+    "minecraft:instant_damage"
+  ],
   "conditions": []
 }
