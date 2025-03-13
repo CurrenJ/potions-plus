@@ -9,7 +9,9 @@ import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
@@ -17,9 +19,12 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.neoforged.neoforge.common.loot.AddTableLootModifier;
+import org.antlr.v4.runtime.tree.Tree;
 
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -43,8 +48,11 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
         this.add(
                 "add_mob_effects_to_tools_and_armor_loot_modifier",
                 new grill24.potionsplus.behaviour.AddMobEffectsLootModifier(new LootItemCondition[0],
-                        Set.of(MobEffects.HARM.getKey(), grill24.potionsplus.core.potion.MobEffects.ANY_POTION.getKey(), MobEffects.HEAL.getKey()))
-        );
+                        new TreeSet<>(Set.of(
+                                MobEffects.HARM.getKey(),
+                                grill24.potionsplus.core.potion.MobEffects.ANY_POTION.getKey(),
+                                MobEffects.HEAL.getKey()
+                        ))));
 
 
         // Iron Ore Fortune Bonus Drops (Skill Ability)
