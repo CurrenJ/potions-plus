@@ -111,7 +111,6 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
 
     @SubscribeEvent
     public static void onHeldItemChanged(final ServerPlayerHeldItemChangedEvent event) {
-        PotionsPlus.LOGGER.info("onHeldItemChanged");
         getToolBonusAbilities().forEach(holder -> {
             clearAllAttributeModifiersOnStack(event.getPlayer(), holder, event.getLastHeldItem());
             updatePlayerAttributeModifiers(event.getPlayer(), holder, true);

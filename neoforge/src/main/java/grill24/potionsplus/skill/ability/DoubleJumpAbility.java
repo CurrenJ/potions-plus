@@ -18,7 +18,6 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.io.IOException;
@@ -88,7 +87,7 @@ public class DoubleJumpAbility extends SimplePlayerAbility {
         Optional<AbilityInstanceSerializable<?, ?>> inst = skillsData.getAbilityInstance(player.registryAccess(), ConfiguredPlayerAbilities.DOUBLE_JUMP.getKey());
         if(inst.isPresent() && inst.get().data() instanceof DoubleJumpAbilityInstanceData data && player.isLocalPlayer()) {
             try (Level level = player.level()) {
-                data.resetJumps(level.getGameTime());
+                data.onInitialJump(level.getGameTime());
             } catch (IOException ignored) {}
         }
     }
@@ -103,16 +102,18 @@ public class DoubleJumpAbility extends SimplePlayerAbility {
 
         SkillsData skillsData = SkillsData.getPlayerData(player);
         Optional<AbilityInstanceSerializable<?, ?>> inst = skillsData.getAbilityInstance(player.registryAccess(), ConfiguredPlayerAbilities.DOUBLE_JUMP.getKey());
-        if (inst.isPresent() && inst.get().data().isEnabled() && inst.get().data() instanceof DoubleJumpAbilityInstanceData data
-                && event.getInput().jumping && player.isLocalPlayer() && data.hasFinishedCooldown(gameTime) && data.getJumpsLeft() > 0) {
-            if(player.onGround()) {
-                data.resetJumps(gameTime);
-            } else {
-                ((IPlayerExtension) player).potions_plus$performAdditionalJump();
-                data.decrementJumps(gameTime);
-                PacketDistributor.sendToServer(new ServerboundSpawnDoubleJumpParticlesPacket(player.position()));
-
-                PotionsPlus.LOGGER.warn("Extra jump! Jumps left: " + data.getJumpsLeft());
+        if (inst.isPresent() && inst.get().data().isEnabled() && inst.get().data() instanceof DoubleJumpAbilityInstanceData data) {
+            if (player.onGround()) {
+                data.resetJumps();
+            }
+            if (event.getInput().jumping && player.isLocalPlayer() && data.hasFinishedCooldown(gameTime) && data.getJumpsLeft() > 0){
+                if (player.onGround()) {
+                    data.onInitialJump(gameTime);
+                } else {
+                    ((IPlayerExtension) player).potions_plus$performAdditionalJump();
+                    data.decrementJumps(gameTime);
+                    PacketDistributor.sendToServer(new ServerboundSpawnDoubleJumpParticlesPacket(player.position()));
+                }
             }
         }
     }

@@ -3,7 +3,6 @@ package grill24.potionsplus.skill.ability.instance;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
-import grill24.potionsplus.utility.ServerTickHandler;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -53,9 +52,13 @@ public class DoubleJumpAbilityInstanceData extends AdjustableStrengthAbilityInst
         return this.jumpsLeft;
     }
 
-    public void resetJumps(long timestamp) {
+    public void onInitialJump(long timestamp) {
         this.jumpsLeft = (int) this.abilityStrength;
         this.lastJumpTick = timestamp;
+    }
+
+    public void resetJumps() {
+        this.jumpsLeft = (int) this.abilityStrength;
     }
 
     public void decrementJumps(long timestamp) {
