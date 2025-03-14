@@ -60,7 +60,7 @@ public class ItemStackScreenElement extends RenderableScreenElement {
         ((IGuiGraphicsExtension) graphics).potions_plus$renderItem(
                 this.stack,
                 new Vector3f(0, this.rotation, 0),
-                (float) (bounds.getMinX()), // The render method we are calling here renders an item centered at the given position. We align to top-left because that's how the screen elements assume bounds are positioned.
+                (float) (bounds.getMinX()),
                 (float) (bounds.getMinY()),
                 this.scale,
                 Anchor.DEFAULT);

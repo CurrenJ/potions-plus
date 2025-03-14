@@ -7,6 +7,7 @@ import grill24.potionsplus.render.animation.keyframe.FloatAnimationCurve;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.utility.RUtil;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -19,6 +20,8 @@ import java.util.Collections;
 public class TextComponentScreenElement extends RenderableScreenElement {
     protected Component component;
 
+    protected float scale;
+
     private Color currentColor;
     private Color targetColor;
 
@@ -29,6 +32,7 @@ public class TextComponentScreenElement extends RenderableScreenElement {
         super(screen, null, settings);
 
         this.component = component;
+        this.scale = 1F;
         this.currentColor = defaultColor;
         this.targetColor = defaultColor;
 
@@ -57,13 +61,13 @@ public class TextComponentScreenElement extends RenderableScreenElement {
 
     @Override
     protected float getWidth() {
-        float width = screen.getMinecraft().font.width(component);
+        float width = screen.getMinecraft().font.width(component) * this.scale;
         return Float.max(Float.min(width, settings.maxWidth()), settings.minWidth());
     }
 
     @Override
     protected float getHeight() {
-        float height = getWidth() == 0 ? 0 : screen.getMinecraft().font.lineHeight;
+        float height = getWidth() == 0 ? 0 : screen.getMinecraft().font.lineHeight * this.scale;
         return Float.max(Float.min(height, settings.maxHeight()), settings.minHeight());
     }
 
@@ -126,8 +130,12 @@ public class TextComponentScreenElement extends RenderableScreenElement {
         // Render text
         IGuiGraphicsExtension guiGraphics = (IGuiGraphicsExtension) graphics;
         graphics.setColor(1F, 1F, 1F, this.currentColor.getAlpha() / 255F);
+        graphics.pose().pushPose();
+        graphics.pose().translate(x, y, 0);
+        graphics.pose().scale(this.scale, this.scale, 1F);
         guiGraphics.potions_plus$drawString(this.screen.getMinecraft().font, animatedComponent.getFirst(),
-                x, y, this.currentColor.getRGB());
+                0, 0, this.currentColor.getRGB());
+        graphics.pose().popPose();
         graphics.setColor(1F, 1F, 1F, 1F);
     }
 
@@ -136,5 +144,9 @@ public class TextComponentScreenElement extends RenderableScreenElement {
         if (restartAnimation) {
             this.shownTimestamp = ClientTickHandler.total();
         }
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
     }
 }

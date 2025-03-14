@@ -22,9 +22,9 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
     private static final Color ENABLED_COLOR = new Color(0x00FF00);
     private static final Color DISABLED_COLOR = new Color(0xFF0000);
 
-    private ButtonScreenElement buttonDecrease;
+    private TextButtonScreenElement buttonDecrease;
     private TextComponentScreenElement text;
-    private ButtonScreenElement buttonIncrease;
+    private TextButtonScreenElement buttonIncrease;
 
     public AbilityTextScreenElement(Screen screen, ResourceLocation abilityId, List<Component> components) {
         this(screen, abilityId, compactComponents(components));
@@ -47,13 +47,13 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
         text.addClickListener((mouseX, mouseY, element) -> ability.get().toggleClient());
         float buttonSize = (float) text.getGlobalBounds().getHeight();
 
-        buttonDecrease = new ButtonScreenElement(screen, this, Settings.DEFAULT, Component.literal("-"), buttonSize, buttonSize);
+        buttonDecrease = new TextButtonScreenElement(screen, this, Settings.DEFAULT, Component.literal("-"), buttonSize, buttonSize);
         buttonDecrease.addClickListener((mouseX, mouseY, element) -> {
             if(ability.get().data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrength) {
                 adjustableStrength.clientRequestDecreaseStrength(this.screen.getMinecraft().player);
             }
         });
-        buttonIncrease = new ButtonScreenElement(screen, this, Settings.DEFAULT, Component.literal("+"), buttonSize, buttonSize);
+        buttonIncrease = new TextButtonScreenElement(screen, this, Settings.DEFAULT, Component.literal("+"), buttonSize, buttonSize);
         buttonIncrease.addClickListener((mouseX, mouseY, element) -> {
             if(ability.get().data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrength) {
                 adjustableStrength.clientRequestIncreaseStrength(this.screen.getMinecraft().player);

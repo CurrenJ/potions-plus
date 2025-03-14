@@ -97,6 +97,14 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
         }
     }
 
+    @Override
+    public void show() {
+        super.show();
+        if (this.stack == null || this.stack.isEmpty()) {
+            hide(false);
+        }
+    }
+
     private Optional<DisplayInfo> tryGetAdvancementDisplayInfo(ResourceLocation advancementId) {
         Optional<ClientAdvancements> advancements = getAdvancements();
         if (!advancements.isPresent()) {

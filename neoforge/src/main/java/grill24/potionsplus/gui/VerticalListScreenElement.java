@@ -7,9 +7,10 @@ import java.awt.geom.Rectangle2D;
 
 public class VerticalListScreenElement<E extends RenderableScreenElement> extends ScreenElementWithChildren<E> {
     private final XAlignment alignment;
-    private float paddingBetweenElements;
+    private final float paddingBetweenElements;
 
     private float height;
+    protected float offsetY;
 
     @SafeVarargs
     public VerticalListScreenElement(Screen screen, Settings settings, XAlignment alignment, E... elements) {
@@ -29,7 +30,7 @@ public class VerticalListScreenElement<E extends RenderableScreenElement> extend
 
     @Override
     protected void onTick(float partialTick, int mouseX, int mouseY) {
-        this.height = 0;
+        this.height = getOffsetY();
         for (RenderableScreenElement element : getChildren()) {
             Rectangle2D childBounds = element.getGlobalBounds();
             float childWidth = (float) childBounds.getWidth();
@@ -62,5 +63,9 @@ public class VerticalListScreenElement<E extends RenderableScreenElement> extend
     protected float getHeight() {
         // Get the sum of the heights of all elements
         return this.height;
+    }
+
+    protected float getOffsetY() {
+        return offsetY;
     }
 }

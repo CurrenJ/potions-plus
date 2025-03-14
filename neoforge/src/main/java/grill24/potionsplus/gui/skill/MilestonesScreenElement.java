@@ -30,7 +30,7 @@ public class MilestonesScreenElement extends HorizontalListScreenElement<Milesto
         this.setChildren(elements);
     }
 
-    public void setSkill(ResourceKey<ConfiguredSkill<?, ?>> skill) {
+    public void setSelectedSkill(ResourceKey<ConfiguredSkill<?, ?>> skill) {
         if (skill == null) {
             this.setMilestones(List.of());
             return;

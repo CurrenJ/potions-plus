@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.awt.geom.Rectangle2D;
 
-public class ButtonScreenElement extends RenderableScreenElement {
+public class TextButtonScreenElement extends RenderableScreenElement {
     private float width;
     private float height;
     private Component text;
@@ -24,7 +24,7 @@ public class ButtonScreenElement extends RenderableScreenElement {
     private float renderRotation;
     private float renderScale;
 
-    public ButtonScreenElement(Screen screen, @Nullable RenderableScreenElement parent, Settings settings, Component text, float width, float height) {
+    public TextButtonScreenElement(Screen screen, @Nullable RenderableScreenElement parent, Settings settings, Component text, float width, float height) {
         super(screen, parent, settings);
 
         this.width = width;

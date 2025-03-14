@@ -52,6 +52,7 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
      * Listeners for mouse clicks, and enter and exiting of the element.
      */
     protected Collection<MouseListener> clickListeners;
+    protected Collection<ScrollListener> scrollListeners;
     protected Collection<MouseListener> mouseEnterListeners;
     protected Collection<MouseListener> mouseExitListeners;
     protected boolean allowClicksOutsideBounds = false;
@@ -80,6 +81,7 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         this.targetPosition = new Vector3f();
 
         this.clickListeners = new ArrayList<>();
+        this.scrollListeners = new ArrayList<>();
         this.mouseEnterListeners = new ArrayList<>();
         this.mouseExitListeners = new ArrayList<>();
 
@@ -208,9 +210,11 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     @Override
     public final void tick(float partialTick, int mouseX, int mouseY) {
         updateHover(mouseX, mouseY);
-        onTick(partialTick, mouseX, mouseY);
-        if (this.tooltip != null) {
-            this.tooltip.tick(partialTick, mouseX, mouseY);
+        if (this.isVisible()) {
+            onTick(partialTick, mouseX, mouseY);
+            if (this.tooltip != null) {
+                this.tooltip.tick(partialTick, mouseX, mouseY);
+            }
         }
 
         if (this.settings.snapToTargetPosition) {
@@ -238,10 +242,27 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     }
 
     @Override
-    public void click(int mouseX, int mouseY) {
+    public void tryClick(int mouseX, int mouseY) {
         if (isVisible() && (this.allowClicksOutsideBounds || getGlobalBounds().contains(mouseX, mouseY))) {
-            this.clickListeners.forEach(listener -> listener.onClick(mouseX, mouseY, this));
+            onClick(mouseX, mouseY);
         }
+    }
+
+    @Override
+    public void onClick(int mouseX, int mouseY) {
+        this.clickListeners.forEach(listener -> listener.onClick(mouseX, mouseY, this));
+    }
+
+    @Override
+    public void tryScroll(int mouseX, int mouseY, double scrollDelta) {
+        if (isVisible() && getGlobalBounds().contains(mouseX, mouseY)) {
+            onScroll(mouseX, mouseY, scrollDelta);
+        }
+    }
+
+    @Override
+    public void onScroll(int mouseX, int mouseY, double scrollDelta) {
+        this.scrollListeners.forEach(listener -> listener.onScroll(mouseX, mouseY, scrollDelta, this));
     }
 
     protected void onMouseExit(int mouseX, int mouseY) {}

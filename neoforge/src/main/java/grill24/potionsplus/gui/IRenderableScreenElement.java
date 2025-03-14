@@ -9,7 +9,10 @@ public interface IRenderableScreenElement {
     void tick(float partialTick, int mouseX, int mouseY);
     void tryRender(GuiGraphics graphics, float partialTick, int mouseX, int mouseY);
 
-    void click(int mouseX, int mouseY);
+    void tryClick(int mouseX, int mouseY);
+    void onClick(int mouseX, int mouseY);
+    void tryScroll(int mouseX, int mouseY, double scrollDelta);
+    void onScroll(int mouseX, int mouseY, double scrollDelta);
 
     void show();
     void hide(boolean hidePlayAnimation);
