@@ -67,7 +67,8 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_LOOTING_LEVEL = "description.potionsplus.attribute.looting_level";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_UNBREAKING_LEVEL = "description.potionsplus.attribute.unbreaking_level";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SMITE_LEVEL = "description.potionsplus.attribute.smite_level";
-    public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_USE_SPEED_LEVEL = "description.potionsplus.attribute.use_speed_level";
+    public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_USE_SPEED_BONUS = "description.potionsplus.attribute.use_speed_bonus";
+    public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SPRINT_SPEED_BONUS = "description.potionsplus.attribute.sprint_speed_bonus";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_BOW_POWER = "description.potionsplus.ability.bow_power";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_BOW_PUNCH = "description.potionsplus.ability.bow_punch";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_BOW_UNBREAKING = "description.potionsplus.ability.bow_unbreaking";

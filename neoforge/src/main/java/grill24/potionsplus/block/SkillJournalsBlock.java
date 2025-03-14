@@ -1,6 +1,8 @@
 package grill24.potionsplus.block;
 
 import grill24.potionsplus.gui.skill.SkillsMenu;
+import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
+import grill24.potionsplus.skill.SkillsData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class SkillJournalsBlock extends HorizontalDirectionalBlock {
     public SkillJournalsBlock(Properties properties) {
@@ -47,6 +50,8 @@ public class SkillJournalsBlock extends HorizontalDirectionalBlock {
                     (containerId, playerInventory, p) -> new SkillsMenu(containerId, playerInventory),
                     Component.literal("Skills!")
             ));
+
+            PacketDistributor.sendToPlayer(serverPlayer, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(serverPlayer)));
         }
     }
 }

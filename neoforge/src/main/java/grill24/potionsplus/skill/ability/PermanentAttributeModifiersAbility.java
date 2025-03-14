@@ -3,6 +3,7 @@ package grill24.potionsplus.skill.ability;
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.AbilityInstanceTypes;
 import grill24.potionsplus.core.ConfiguredPlayerAbilities;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
@@ -15,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
 import java.util.List;
@@ -39,14 +41,25 @@ public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbi
     private void enable(ServerPlayer player, AC config, float strength) {
         for (AttributeModifier modifier : config.getModifiers()) {
             AttributeModifier modifierWithStrength = new AttributeModifier(modifier.id(), strength, modifier.operation());
-            player.getAttribute(config.getAttributeHolder()).addOrUpdateTransientModifier(modifierWithStrength);
+
+            AttributeInstance attributeInstance = player.getAttribute(config.getAttributeHolder());
+            if (attributeInstance == null) {
+                PotionsPlus.LOGGER.error("Expected attribute instance but was null: " + config.getAttributeHolder());
+            } else {
+                attributeInstance.addOrUpdateTransientModifier(modifierWithStrength);
+            }
         }
     }
 
     @Override
     protected void onDisable(ServerPlayer player, AC config) {
         for (AttributeModifier modifier : config.getModifiers()) {
-            player.getAttribute(config.getAttributeHolder()).removeModifier(modifier);
+            AttributeInstance attributeInstance = player.getAttribute(config.getAttributeHolder());
+            if (attributeInstance == null) {
+                PotionsPlus.LOGGER.error("Expected attribute instance but was null: " + config.getAttributeHolder());
+            } else {
+                attributeInstance.removeModifier(modifier);
+            }
         }
     }
 

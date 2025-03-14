@@ -397,7 +397,7 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
             boolean showBounds,
             boolean showAnchor,
             boolean showGridLines) {
-        public static final Settings DEFAULT = new Settings(Anchor.DEFAULT, new Vector4f(), 0.1F, Float.MIN_VALUE, Float.MAX_VALUE, Float.MIN_VALUE, Float.MAX_VALUE, false, false, false, false, false);
+        public static final Settings DEFAULT = new Settings(Anchor.DEFAULT, new Vector4f(), 0.25F, Float.MIN_VALUE, Float.MAX_VALUE, Float.MIN_VALUE, Float.MAX_VALUE, false, false, false, false, false);
 
         public Settings withAnchor(Anchor anchor) {
             return new Settings(anchor, this.padding, this.animationSpeed, this.minWidth, this.maxWidth, this.minHeight, this.maxHeight, this.snapToTargetPosition, this.hiddenByDefault, this.showBounds, this.showAnchor, this.showGridLines);

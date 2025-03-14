@@ -97,6 +97,7 @@ public class SkillsScreen extends AbstractContainerScreen<SkillsMenu> {
                 this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.CENTER, elementsList);
     }
 
+    private float lastTickTime = 0;
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         // Background is typically rendered first
@@ -107,7 +108,10 @@ public class SkillsScreen extends AbstractContainerScreen<SkillsMenu> {
         // Then the widgets if this is a direct child of the Screen
         super.render(graphics, mouseX, mouseY, partialTick);
 
-        allScreenElements.tick(partialTick, mouseX, mouseY);
+        if (ClientTickHandler.total() - lastTickTime > 0.25F) {
+            allScreenElements.tick(ClientTickHandler.total() - lastTickTime, mouseX, mouseY);
+            lastTickTime = ClientTickHandler.total();
+        }
         allScreenElements.tryRender(graphics, partialTick, mouseX, mouseY);
 
         if (this.skillsIconsRenderer.getChildren().isEmpty()) {

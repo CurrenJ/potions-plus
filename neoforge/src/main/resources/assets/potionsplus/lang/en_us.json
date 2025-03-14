@@ -79,7 +79,8 @@
   "description.potionsplus.attribute.looting_level": "Looting",
   "description.potionsplus.attribute.unbreaking_level": "Unbreaking",
   "description.potionsplus.attribute.smite_level": "Smite",
-  "description.potionsplus.attribute.use_speed_level": "Use Speed",
+  "description.potionsplus.attribute.use_speed_bonus": "Use Speed",
+  "description.potionsplus.attribute.sprint_speed_bonus": "Sprint Speed",
 
   "description.potionsplus.ability.bow_power": "%s Bow Power Level",
   "description.potionsplus.ability.bow_punch": "%s Bow Punch Level",

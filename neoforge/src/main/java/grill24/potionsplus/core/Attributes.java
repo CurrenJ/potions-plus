@@ -33,8 +33,8 @@ public class Attributes {
     public static final Holder<Attribute> UNBREAKING_BONUS = registerEnchantmentBonus("player.unbreaking_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_UNBREAKING_LEVEL, Enchantments.UNBREAKING);
     public static final Holder<Attribute> SMITE_BONUS = registerEnchantmentBonus("player.smite_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SMITE_LEVEL, Enchantments.SMITE);
 
-    public static final Holder<Attribute> SPRINTING_SPEED = ATTRIBUTES.register("player.sprint_speed_bonus", () -> new net.neoforged.neoforge.common.PercentageAttribute("attribute.name.generic.sprint_speed_bonus", 0, 0.0, 1024.0, 1000).setSyncable(true));
-    public static final Holder<Attribute> USE_SPEED_BONUS = registerPercentageAttribute("player.use_speed_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_USE_SPEED_LEVEL, 0.0, 0.0, 1.0);
+    public static final Holder<Attribute> SPRINTING_SPEED = registerPercentageAttribute("player.sprinting_speed_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SPRINT_SPEED_BONUS, 0.0, 0.0, 1.0);
+    public static final Holder<Attribute> USE_SPEED_BONUS = registerPercentageAttribute("player.use_speed_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_USE_SPEED_BONUS, 0.0, 0.0, 1.0);
 
     private static Holder<Attribute> registerEnchantmentBonus(String name, String translationKey, ResourceKey<Enchantment> enchantment) {
         Holder<Attribute> attribute = ATTRIBUTES_BY_ENCHANTMENT.computeIfAbsent(enchantment, key -> ATTRIBUTES.register(name, () -> new RangedAttribute(translationKey, 0.0D, 0.0D, 64.0D)));

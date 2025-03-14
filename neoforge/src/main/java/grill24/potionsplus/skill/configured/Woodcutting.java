@@ -21,6 +21,7 @@ public class Woodcutting {
         return context.register(ConfiguredSkills.WOODCUTTING_CONFIGURED_KEY, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_WOODCUTTING,
                         new TreeMap<>(Map.of(
+                                0, new ItemStack(Items.OAK_PLANKS),
                                 15, new ItemStack(Items.OAK_LOG),
                                 30, new ItemStack(Items.SPRUCE_LOG),
                                 45, new ItemStack(Items.BIRCH_LOG),

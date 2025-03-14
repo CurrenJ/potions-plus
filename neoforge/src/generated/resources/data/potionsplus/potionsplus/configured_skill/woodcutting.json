@@ -3,6 +3,10 @@
   "config": {
     "baseConfig": {
       "displayIconForLevel": {
+        "0": {
+          "count": 1,
+          "id": "minecraft:oak_planks"
+        },
         "15": {
           "count": 1,
           "id": "minecraft:oak_log"
