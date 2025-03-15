@@ -13,7 +13,6 @@ import java.awt.geom.Rectangle2D;
 public class ItemStackScreenElement extends RenderableScreenElement {
     protected ItemStack stack;
 
-    protected float scale;
     protected float rotation;
 
     public ItemStackScreenElement(Screen screen, @Nullable RenderableScreenElement parent, Settings settings, ItemStack stack) {
@@ -21,12 +20,8 @@ public class ItemStackScreenElement extends RenderableScreenElement {
 
         this.stack = stack;
 
-        this.scale = 1F;
+        setCurrentScale(1F);
         this.rotation = 0F;
-    }
-
-    public void setScale(float scale) {
-        this.scale = scale;
     }
 
     public void setRotation(float rotation) {
@@ -39,12 +34,12 @@ public class ItemStackScreenElement extends RenderableScreenElement {
 
     @Override
     protected float getWidth() {
-        return 16 * this.scale;
+        return 16 * this.getCurrentScale();
     }
 
     @Override
     protected float getHeight() {
-        return 16 * this.scale;
+        return 16 * this.getCurrentScale();
     }
 
     @Override
@@ -62,7 +57,7 @@ public class ItemStackScreenElement extends RenderableScreenElement {
                 new Vector3f(0, this.rotation, 0),
                 (float) (bounds.getMinX()),
                 (float) (bounds.getMinY()),
-                this.scale,
+                this.getCurrentScale(),
                 Anchor.DEFAULT);
         graphics.pose().popPose();
     }

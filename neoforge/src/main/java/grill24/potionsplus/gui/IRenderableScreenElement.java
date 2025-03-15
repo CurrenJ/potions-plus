@@ -18,8 +18,12 @@ public interface IRenderableScreenElement {
     void hide(boolean hidePlayAnimation);
     boolean isVisible();
     boolean isHovering();
+    float getMouseEnterTimestamp();
+    float getMouseExitTimestamp();
     void setTargetPosition(Vector3f targetPosition, RenderableScreenElement.Scope targetPositionScope, boolean instant);
+    void setCurrentScale(float scale);
 
     Rectangle2D getGlobalBounds();
     Vector3f getCurrentPosition();
+    float getCurrentScale();
 }

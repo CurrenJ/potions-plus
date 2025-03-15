@@ -190,10 +190,10 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
     }
 
     public Component getRewardDescription(RegistryAccess registryAccess, int level) {
-        return getRewardDescription(registryAccess, level, true);
+        return getRewardDescription(registryAccess, level, true, true, true);
     }
 
-    public Component getRewardDescription(RegistryAccess registryAccess, int level, boolean includeSkillName) {
+    public Component getRewardDescription(RegistryAccess registryAccess, int level, boolean includeSkillName, boolean includeLevel, boolean includeRewards) {
         MutableComponent component = Component.empty();
         if (includeSkillName) {
             component.append(getConfiguredSkill(registryAccess).getChatHeader());
@@ -201,10 +201,14 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
 
         int currentLevel = getLevel(registryAccess);
         boolean isUnlocked = currentLevel >= level;
-        component.append(getLevelChatHeader(registryAccess, level, isUnlocked));
+        if (includeLevel) {
+            component.append(getLevelChatHeader(registryAccess, level, isUnlocked));
+        }
 
-        Optional<SkillLevelUpRewardsData> rewardsData = getConfiguredSkill(registryAccess).config().getData().rewardsConfiguration().tryGetRewardForLevel(level);
-        rewardsData.ifPresent(skillLevelUpRewardsData -> component.append(skillLevelUpRewardsData.getDescription().copy().withStyle(isUnlocked ? ChatFormatting.GREEN : ChatFormatting.GRAY)));
+        if (includeRewards) {
+            Optional<SkillLevelUpRewardsData> rewardsData = getConfiguredSkill(registryAccess).config().getData().rewardsConfiguration().tryGetRewardForLevel(level);
+            rewardsData.ifPresent(skillLevelUpRewardsData -> component.append(skillLevelUpRewardsData.getDescription().copy().withStyle(isUnlocked ? ChatFormatting.GREEN : ChatFormatting.GRAY)));
+        }
 
         return component;
     }

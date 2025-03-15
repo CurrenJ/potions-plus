@@ -1,6 +1,7 @@
 package grill24.potionsplus.gui.skill;
 
 import grill24.potionsplus.core.PotionsPlusRegistries;
+import grill24.potionsplus.gui.HorizontalListScreenElement;
 import grill24.potionsplus.gui.RenderableScreenElement;
 import grill24.potionsplus.gui.TextComponentScreenElement;
 import grill24.potionsplus.gui.VerticalListScreenElement;
@@ -58,20 +59,28 @@ public class SkillRewardsListScreenElement extends VerticalListScreenElement<Ren
         int currentLevel = skillInstance.get().getLevel(registryAccess);
 
         List<RenderableScreenElement> text = new ArrayList<>();
-        for (int i = currentLevel + 1; i < currentLevel + 10; i++) {
+        for (int i = currentLevel - 5; i < currentLevel + 10; i++) {
             if(!rewardsConfiguration.hasRewardForLevel(i)) {
                 continue;
             } else {
                 Optional<SkillLevelUpRewardsData> rewards = rewardsConfiguration.tryGetRewardForLevel(i);
                 if(rewards.isPresent()) {
-                    TextComponentScreenElement textEl = new TextComponentScreenElement(
+                    boolean isUnlocked = i <= currentLevel;
+                    TextComponentScreenElement levelText = new TextComponentScreenElement(
                             this.screen,
                             Settings.DEFAULT,
-                            Color.WHITE,
-                            skillInstance.get().getRewardDescription(registryAccess, i, false)
+                            isUnlocked ? new Color(255, 170, 0) : Color.GRAY,
+                            skillInstance.get().getRewardDescription(registryAccess, i, false, true, false)
                     );
-                    textEl.setScale(0.5F);
-                    text.add(textEl);
+                    TextComponentScreenElement rewardText = new TextComponentScreenElement(
+                            this.screen,
+                            Settings.DEFAULT,
+                            isUnlocked ? Color.GREEN : Color.GRAY,
+                            skillInstance.get().getRewardDescription(registryAccess, i, false, false, true)
+                    );
+                    levelText.setCurrentScale(0.5F);
+                    rewardText.setCurrentScale(0.5F);
+                    text.add(new HorizontalListScreenElement<>(this.screen, Settings.DEFAULT, YAlignment.CENTER, levelText, rewardText));
                 }
             }
         }

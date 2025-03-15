@@ -146,7 +146,7 @@ public class TextComponentScreenElement extends RenderableScreenElement {
         }
     }
 
-    public void setScale(float scale) {
+    public void setCurrentScale(float scale) {
         this.scale = scale;
     }
 }

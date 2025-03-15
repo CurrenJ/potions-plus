@@ -1,6 +1,8 @@
 package grill24.potionsplus.gui;
 
+import grill24.potionsplus.gui.skill.HoverItemStackScreenElement;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -13,9 +15,17 @@ public class TabsScreenElement<E extends RenderableScreenElement> extends Vertic
         public final SelectableDivScreenElement icon;
         public final RenderableScreenElement content;
 
-        public TabData(SelectableDivScreenElement icon, RenderableScreenElement content) {
-            this.icon = icon;
+        public TabData(Screen screen, RenderableScreenElement icon, RenderableScreenElement content) {
+            this.icon = new SelectableDivScreenElement(screen, null, Settings.DEFAULT, Anchor.CENTER, icon);
             this.content = content;
+        }
+
+        public static TabData verticalListTab(Screen screen, RenderableScreenElement icon, RenderableScreenElement... content) {
+            return new TabData(screen, icon, new VerticalListScreenElement<>(screen, Settings.DEFAULT, XAlignment.CENTER, content));
+        }
+
+        public static TabData verticalListTab(Screen screen, ItemStack itemStack, float iconHoverScale, RenderableScreenElement... content) {
+            return new TabData(screen, new HoverItemStackScreenElement(screen, null, Settings.DEFAULT, itemStack, 1F, iconHoverScale), new VerticalListScreenElement<>(screen, Settings.DEFAULT, XAlignment.CENTER, content));
         }
     }
 
@@ -48,7 +58,7 @@ public class TabsScreenElement<E extends RenderableScreenElement> extends Vertic
             contents.add(tab.content);
         }
 
-        HorizontalListScreenElement<RenderableScreenElement> tabIcons = new HorizontalListScreenElement<>(screen, Settings.DEFAULT, YAlignment.CENTER);
+        HorizontalListScreenElement<RenderableScreenElement> tabIcons = new HorizontalListScreenElement<>(screen, Settings.DEFAULT, YAlignment.CENTER, 2);
         tabIcons.setChildren(icons);
         this.tabIcons = tabIcons;
 

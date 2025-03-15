@@ -45,7 +45,6 @@ public record ServerboundUpdateAbilityStrengthPacket(ResourceLocation abilityId,
                 ServerPlayer player = serverContext.player();
                 SkillsData.getPlayerData(player).getAbilityInstance(player.registryAccess(), packet.abilityId).ifPresent(instance -> {
                     if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthInstance) {
-                        player.sendSystemMessage(Component.literal("Updated type strength for " + packet.abilityId + " by " + packet.amount + " (op " + packet.operation + ")"));
                         switch (packet.operation) {
                             case Operation.SET -> adjustableStrengthInstance.setAbilityStrength(packet.amount);
                             case Operation.ADD -> adjustableStrengthInstance.setAbilityStrength(adjustableStrengthInstance.getAbilityStrength() + packet.amount);

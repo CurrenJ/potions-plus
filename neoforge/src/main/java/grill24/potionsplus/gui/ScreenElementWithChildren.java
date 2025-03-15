@@ -66,7 +66,9 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
         super.onTick(partialTick, mouseX, mouseY);
 
         for (RenderableScreenElement child : getChildren()) {
-            child.tick(partialTick, mouseX, mouseY);
+            if(child != null) {
+                child.tick(partialTick, mouseX, mouseY);
+            }
         }
     }
 

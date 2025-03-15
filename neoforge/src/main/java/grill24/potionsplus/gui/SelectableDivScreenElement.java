@@ -38,9 +38,9 @@ public class SelectableDivScreenElement extends DivScreenElement<RenderableScree
         Rectangle2D bounds = getGlobalBounds();
         float animationProgress = SpatialAnimations.get(SpatialAnimations.SCALE_IN_BACK).getScale().evaluate((ClientTickHandler.total() - this.timeSelectedStateChanged) / 20F);
         if (this.selected) {
-            graphicsExtension.potions_plus$renderItem(Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.GOLD_FISHING_FRAME_TEX_LOC), new Vector3f(), (float) bounds.getMinX(), (float) bounds.getMinY(), 0, animationProgress, Anchor.DEFAULT);
+            graphicsExtension.potions_plus$renderItem(Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.GOLD_FISHING_FRAME_TEX_LOC), new Vector3f(), (float) bounds.getMinX(), (float) bounds.getMinY(), 0, animationProgress * getChild().getCurrentScale(), Anchor.DEFAULT);
         } else if(animationProgress < 1) {
-            graphicsExtension.potions_plus$renderItem(Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.GOLD_FISHING_FRAME_TEX_LOC), new Vector3f(), (float) bounds.getMinX(), (float) bounds.getMinY(), 0, 1 - animationProgress, Anchor.DEFAULT);
+            graphicsExtension.potions_plus$renderItem(Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.GOLD_FISHING_FRAME_TEX_LOC), new Vector3f(), (float) bounds.getMinX(), (float) bounds.getMinY(), 0, (1 - animationProgress) * getChild().getCurrentScale(), Anchor.DEFAULT);
         }
     }
 }

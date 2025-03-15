@@ -42,11 +42,17 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         GLOBAL,
         LOCAL
     }
+
     /**
      * Target position / set-point of the element - may be global or local.
      */
     private Scope targetPositionScope;
     private Vector3f targetPosition;
+
+    /**
+     * {@link #setCurrentScale(float)}
+     */
+    private float currentScale;
 
     /**
      * Listeners for mouse clicks, and enter and exiting of the element.
@@ -140,6 +146,16 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     private Vector3f getPositionWithAppliedAlignment(Vector3f position) {
         Vector3f alignmentOffset = Anchor.alignmentOffset(getWidth(), getHeight(), this.settings.anchor);
         return new Vector3f(position).add(alignmentOffset);
+    }
+
+    /**
+     * Set the scale of the element. Use of scale is up to the extending class.
+     * Does not affect the bounds of the element by default.
+     * @param scale
+     */
+    @Override
+    public void setCurrentScale(float scale) {
+        this.currentScale = scale;
     }
 
     protected abstract void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY);
@@ -308,6 +324,21 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     @Override
     public Vector3f getCurrentPosition() {
         return this.currentPosition;
+    }
+
+    @Override
+    public float getCurrentScale() {
+        return this.currentScale;
+    }
+
+    @Override
+    public float getMouseEnterTimestamp() {
+        return this.mouseEnteredTimestamp;
+    }
+
+    @Override
+    public float getMouseExitTimestamp() {
+        return this.mouseExitedTimestamp;
     }
 
     protected <T> T getAnimationProgress(AnimationCurve<T> shownCurve, AnimationCurve<T> hiddenCurve) {

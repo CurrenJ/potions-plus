@@ -61,7 +61,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
                 (float) (bounds.getMinX() + bounds.getWidth() / 4F), // The render method we are calling here renders an item centered at the given position. We align to top-left because that's how the screen elements assume bounds are positioned.
                 (float) (bounds.getMinY() + bounds.getHeight() / 4F),
                 10,
-                this.scale * 0.5F,
+                this.getCurrentScale() * 0.5F,
                 Anchor.DEFAULT);
         graphics.pose().popPose();
         }
@@ -71,7 +71,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
     public void onTick(float partialTick, int mouseX, int mouseY) {
         float animationProgress = (ClientTickHandler.total() - this.shownTimestamp - this.appearDelay) / 20F;
         float scale = this.shownTimestamp != -1 ? SpatialAnimations.get(SpatialAnimations.SCALE_IN_BACK).getScale().evaluate(animationProgress) : 0;
-        this.setScale(scale);
+        this.setCurrentScale(scale);
 
         if (!this.isUnlocked) {
             this.rotation += partialTick;

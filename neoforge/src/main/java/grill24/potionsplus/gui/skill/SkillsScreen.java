@@ -68,6 +68,10 @@ public class SkillsScreen extends AbstractContainerScreen<SkillsMenu> {
         skillsIconsRendererDiv.setAllowClicksOutsideBounds(true);
 
 
+        // Spacer
+        final RenderableScreenElement spacer = new FixedSizeDivScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.DEFAULT, null, 4, 4);
+        final RenderableScreenElement spacer2 = new FixedSizeDivScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.DEFAULT, null, 4, 4);
+        final RenderableScreenElement spacer3 = new FixedSizeDivScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.DEFAULT, null, 4, 4);
         // Abilities list
         this.abilitiesRenderer = new AbilitiesListScreenElement(this, RenderableScreenElement.Settings.DEFAULT);
         // Milestones
@@ -75,21 +79,17 @@ public class SkillsScreen extends AbstractContainerScreen<SkillsMenu> {
         // Rewards
         this.rewardsRenderer = new SkillRewardsListScreenElement(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.XAlignment.CENTER);
         // Put abilities and milestones in a tab
+
         this.tabsRenderer = new TabsScreenElement<>(this, null, RenderableScreenElement.Settings.DEFAULT,
-                new TabsScreenElement.TabData(
-                        new SelectableDivScreenElement(this, null, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.DEFAULT, new ItemStackScreenElement(this, null, RenderableScreenElement.Settings.DEFAULT, new ItemStack(Items.ENCHANTED_BOOK))),
-                        new VerticalListScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.XAlignment.CENTER, this.abilitiesRenderer, this.milestoneRenderer)),
-                new TabsScreenElement.TabData(
-                        new SelectableDivScreenElement(this, null, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.DEFAULT, new ItemStackScreenElement(this, null, RenderableScreenElement.Settings.DEFAULT, new ItemStack(Items.GOLD_INGOT))),
-                        this.rewardsRenderer)
-        );
+                TabsScreenElement.TabData.verticalListTab(this, new ItemStack(Items.ENCHANTED_BOOK), 1.2F, spacer2, this.abilitiesRenderer, this.milestoneRenderer),
+                TabsScreenElement.TabData.verticalListTab(this, new ItemStack(Items.GOLD_INGOT), 1.2F, spacer3, this.rewardsRenderer));
         this.tabsRenderer.hide(false, false);
 
         // Add all elements to a vertical list
         VerticalScrollListScreenElement<RenderableScreenElement> elementsList =
                 new VerticalScrollListScreenElement<>(this,
                         RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.XAlignment.CENTER,
-                        this.skillTitleRenderer, skillsIconsRendererDiv, tabsRenderer);
+                        this.skillTitleRenderer, skillsIconsRendererDiv, spacer, tabsRenderer);
         elementsList.setAllowClicksOutsideBounds(true);
 
 
