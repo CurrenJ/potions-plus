@@ -131,6 +131,7 @@ public class Items {
     public static final ResourceLocation GOLD_FISHING_FRAME_TEX_LOC = ppId("item/gold_fishing_frame");
     public static final ResourceLocation DIAMOND_FISHING_FRAME_TEX_LOC = ppId("item/diamond_fishing_frame");
     public static final ResourceLocation PURPLE_FISHING_FRAME_TEX_LOC = ppId("item/purple_fishing_frame");
+    public static final ResourceLocation GOLD_SELECTION_FRAME_TEX_LOC = ppId("item/gold_selection_frame");
     public static final Holder<Item> GENERIC_ICON = ITEMS.register("generic_icon", () -> new Item(properties()));
     public static final ItemOverrideUtility.DynamicItemOverrideModelData GENERIC_ICON_RESOURCE_LOCATIONS = register(new ItemOverrideUtility.DynamicItemOverrideModelData(
         DYNAMIC_ICON_INDEX_PROPERTY_NAME,
@@ -143,6 +144,7 @@ public class Items {
             add(RARE_TEX_LOC); /* 18 */ add(NO_EXP_TEX_LOC); /* 19 */ add(NO_HEAT_TEX_LOC); /* 20 */
             add(FISHING_BAR_TEX_LOC); /* 21 */ add(FISHING_BOBBER_TEX_LOC); /* 22 */ add(COPPER_FISHING_FRAME_TEX_LOC); /* 23 */
             add(GOLD_FISHING_FRAME_TEX_LOC); /* 24 */ add(DIAMOND_FISHING_FRAME_TEX_LOC); /* 25 */ add(PURPLE_FISHING_FRAME_TEX_LOC); /* 26 */
+            add(GOLD_SELECTION_FRAME_TEX_LOC); /* 27 */
     }}));
 
     public static Item.Properties properties() {

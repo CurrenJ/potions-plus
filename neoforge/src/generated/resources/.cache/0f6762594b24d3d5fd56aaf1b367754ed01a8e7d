@@ -1,4 +1,4 @@
-// 1.21.1	2025-02-28T22:29:23.4148224	Block States: potionsplus
+// 1.21.1	2025-03-15T14:53:41.437105	Block States: potionsplus
 32f31cb42acc6abb5df45794da26abaf6f68cc6c assets/potionsplus/blockstates/abyssal_trove.json
 e1f97b37fbc358408652e49e551ef4c520ceda2d assets/potionsplus/blockstates/allium_versatile.json
 b8ea677105165afcba3c3b07bc02884195834fe0 assets/potionsplus/blockstates/azure_bluet_versatile.json
@@ -254,7 +254,7 @@ aa71b19e36897a3b54da0b1d0804912c9e5b4964 assets/potionsplus/models/item/fortifyi
 ea3406275ac1c4fee74f0c2838a40f6593ca41c7 assets/potionsplus/models/item/fortifying_fudge_red_flag.json
 6f2389db44a014e972219aceaa49b05b5359d6e6 assets/potionsplus/models/item/fortifying_fudge_yellow_flag.json
 c27bbb2b0fc46a6bb7741fc8eab1fd927c6abd87 assets/potionsplus/models/item/garden_eel.json
-d15f961edc9fd857fe496c25375edeff0a0237a7 assets/potionsplus/models/item/generic_icon.json
+ba1a0ca7f63e82e6e270d880ef0388c48d5693ba assets/potionsplus/models/item/generic_icon.json
 35519e18da4ca76acce90d086dcb60fd68dbdad9 assets/potionsplus/models/item/generic_icon_amplifier_upgrade.json
 a1f6a01a19fc0c5862c268a085ccdc51c4ab2a19 assets/potionsplus/models/item/generic_icon_arrow.json
 864738a6d7a61087f6ced8ca771d925031d2433d assets/potionsplus/models/item/generic_icon_common.json
@@ -264,6 +264,7 @@ a1f6a01a19fc0c5862c268a085ccdc51c4ab2a19 assets/potionsplus/models/item/generic_
 879720b5d8a8a08b9b39d3e77922a7410d62faeb assets/potionsplus/models/item/generic_icon_fishing_bar.json
 f481f20f86d447b24dee739fe049b6d4f7cf9951 assets/potionsplus/models/item/generic_icon_fishing_bobber.json
 405b774d7b0604e4a9318cc713f568739b54fea3 assets/potionsplus/models/item/generic_icon_gold_fishing_frame.json
+048f475428c8bfd26f6261f96c9babc7dc81d3c4 assets/potionsplus/models/item/generic_icon_gold_selection_frame.json
 61dbbe1817ef07625a5b4cc03b7ed61004acc295 assets/potionsplus/models/item/generic_icon_i.json
 3f0ee83c32520770f3fc5f250c65000b7ac03819 assets/potionsplus/models/item/generic_icon_ii.json
 d36523a335df80cea64875f6c7c232844565744a assets/potionsplus/models/item/generic_icon_iii.json
