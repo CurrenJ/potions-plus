@@ -442,5 +442,16 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("S F")
                 .unlockedBy("has_copper_ingot", has(net.minecraft.world.item.Items.COPPER_INGOT))
                 .save(recipeConsumer, ppId("copper_fishing_rod"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Blocks.FILTER_HOPPER.value())
+                .define('H', net.minecraft.world.item.Items.HOPPER)
+                .define('C', net.minecraft.world.item.Items.COMPARATOR)
+                .define('D', net.minecraft.world.item.Items.REDSTONE)
+                .define('T', net.minecraft.world.item.Items.REDSTONE_TORCH)
+                .define('S', net.minecraft.world.item.Items.STONE)
+                .pattern("HCD")
+                .pattern("HTS")
+                .unlockedBy("has_hopper", has(net.minecraft.world.item.Items.HOPPER))
+                .save(recipeConsumer, ppId("filter_hopper"));
     }
 }

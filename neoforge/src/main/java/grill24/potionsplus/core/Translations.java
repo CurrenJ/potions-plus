@@ -40,6 +40,9 @@ public class Translations {
     public static final String BLOCK_POTIONSPLUS_URANIUM_BLOCK = "block.potionsplus.uranium_block";
     public static final String BLOCK_POTIONSPLUS_POTION_BEACON = "block.potionsplus.potion_beacon";
     public static final String BLOCK_POTIONSPLUS_POTION_BEACON_HINT = "block.potionsplus.potion_beacon.hint";
+    public static final String CONTAINER_POTIONSPLUS_FILTER_HOPPER = "container.potionsplus.filter_hopper";
+    public static final String CONTAINER_POTIONSPLUS_FILTER_HOPPER_DESCRIPTION = "container.potionsplus.filter_hopper.description";
+    public static final String BLOCK_POTIONSPLUS_FILTER_HOPPER = "block.potionsplus.filter_hopper";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_LEVEL_UP = "tooltip.potionsplus.skill.level_up";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_MAX_POINTS = "tooltip.potionsplus.skill.max_points";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_MAX_LEVEL = "tooltip.potionsplus.skill.max_level";

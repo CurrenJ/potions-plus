@@ -273,6 +273,10 @@ public class Blocks {
                             .sound(SoundType.ANCIENT_DEBRIS)),
             false);
 
+
+    public static final DeferredHolder<Block, FilterHopperBlock> FILTER_HOPPER = register("filter_hopper", () ->
+            new FilterHopperBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL)), true);
+
     // ----- Block Entities -----
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ModInfo.MOD_ID);
 
@@ -282,6 +286,7 @@ public class Blocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AbyssalTroveBlockEntity>> ABYSSAL_TROVE_BLOCK_ENTITY = BLOCK_ENTITIES.register("abyssal_trove_block_entity", () -> BlockEntityType.Builder.of(AbyssalTroveBlockEntity::new, ABYSSAL_TROVE.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ClotheslineBlockEntity>> CLOTHESLINE_BLOCK_ENTITY = BLOCK_ENTITIES.register("clothesline_block_entity", () -> BlockEntityType.Builder.of(ClotheslineBlockEntity::new, CLOTHESLINE.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PotionBeaconBlockEntity>> POTION_BEACON_BLOCK_ENTITY = BLOCK_ENTITIES.register("potion_beacon_block_entity", () -> BlockEntityType.Builder.of(PotionBeaconBlockEntity::new, POTION_BEACON.value()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FilterHopperBlockEntity>> FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("filter_hopper_block_entity", () -> BlockEntityType.Builder.of(FilterHopperBlockEntity::new, FILTER_HOPPER.value()).build(null));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
