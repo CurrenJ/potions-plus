@@ -171,6 +171,7 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
             dropSelf(consumer, Blocks.PRECISION_DISPENSER.value());
             dropSelf(consumer, Blocks.SMALL_FILTER_HOPPER.value());
             dropSelf(consumer, Blocks.LARGE_FILTER_HOPPER.value());
+            dropSelf(consumer, Blocks.HUGE_FILTER_HOPPER.value());
             dropSelf(consumer, Blocks.POTION_BEACON.value());
 
             dropSelf(consumer, Blocks.UNSTABLE_DEEPSLATE.value());

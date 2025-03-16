@@ -1,6 +1,7 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.blockentity.filterhopper.FilterHopperScreen;
+import grill24.potionsplus.blockentity.filterhopper.HugeFilterHopperScreen;
 import grill24.potionsplus.blockentity.filterhopper.LargeFilterHopperScreen;
 import grill24.potionsplus.blockentity.filterhopper.SmallFilterHopperScreen;
 import grill24.potionsplus.gui.skill.SkillsScreen;
@@ -17,5 +18,6 @@ public class Screens {
         event.register(MenuTypes.SKILLS.get(), SkillsScreen::new);
         event.register(MenuTypes.SMALL_FILTER_HOPPER.get(), SmallFilterHopperScreen::new);
         event.register(MenuTypes.LARGE_FILTER_HOPPER.get(), LargeFilterHopperScreen::new);
+        event.register(MenuTypes.HUGE_FILTER_HOPPER.get(), HugeFilterHopperScreen::new);
     }
 }

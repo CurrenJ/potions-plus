@@ -42,9 +42,11 @@ public class Translations {
     public static final String BLOCK_POTIONSPLUS_POTION_BEACON_HINT = "block.potionsplus.potion_beacon.hint";
     public static final String CONTAINER_POTIONSPLUS_SMALL_FILTER_HOPPER = "container.potionsplus.small_filter_hopper";
     public static final String CONTAINER_POTIONSPLUS_LARGE_FILTER_HOPPER = "container.potionsplus.large_filter_hopper";
+    public static final String CONTAINER_POTIONSPLUS_HUGE_FILTER_HOPPER = "container.potionsplus.huge_filter_hopper";
     public static final String CONTAINER_POTIONSPLUS_FILTER_HOPPER_DESCRIPTION = "container.potionsplus.filter_hopper.description";
     public static final String BLOCK_POTIONSPLUS_SMALL_FILTER_HOPPER = "block.potionsplus.small_filter_hopper";
     public static final String BLOCK_POTIONSPLUS_LARGE_FILTER_HOPPER = "block.potionsplus.large_filter_hopper";
+    public static final String BLOCK_POTIONSPLUS_HUGE_FILTER_HOPPER = "block.potionsplus.huge_filter_hopper";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_LEVEL_UP = "tooltip.potionsplus.skill.level_up";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_MAX_POINTS = "tooltip.potionsplus.skill.max_points";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_MAX_LEVEL = "tooltip.potionsplus.skill.max_level";

@@ -15,20 +15,20 @@ import java.util.Optional;
 public abstract class FilterHopperMenu extends AbstractContainerMenu {
     private final Container hopper;
 
-    public FilterHopperMenu(MenuType<? extends FilterHopperMenu> menuType, int containerId, Inventory playerInventory, int hopperSlots, int filterSlots, int inventoryTexX, int inventoryTexY, int hoppperFilterSlotsX, int hoppperFilterSlotsY) {
-        this(menuType, containerId, playerInventory, new SimpleContainer(hopperSlots + filterSlots), hopperSlots, filterSlots, inventoryTexX, inventoryTexY, hoppperFilterSlotsX, hoppperFilterSlotsY);
+    public FilterHopperMenu(MenuType<? extends FilterHopperMenu> menuType, int containerId, Inventory playerInventory, int hopperSlots, int filterSlots, int inventoryTexX, int inventoryTexY, int hoppperFilterSlotsX, int hoppperFilterSlotsY, int maxFilterRowLength, int hopperSlotsX, int hopperSlotsY) {
+        this(menuType, containerId, playerInventory, new SimpleContainer(hopperSlots + filterSlots), hopperSlots, filterSlots, inventoryTexX, inventoryTexY, hoppperFilterSlotsX, hoppperFilterSlotsY, maxFilterRowLength, hopperSlotsX, hopperSlotsY);
     }
 
-    public FilterHopperMenu(MenuType<? extends FilterHopperMenu> menuType, int containerId, Inventory playerInventory, Container container, int hopperSlots, int filterSlots, int inventoryTexX, int inventoryTexY, int hoppperFilterSlotsX, int hoppperFilterSlotsY) {
+    public FilterHopperMenu(MenuType<? extends FilterHopperMenu> menuType, int containerId, Inventory playerInventory, Container container, int hopperSlots, int filterSlots, int inventoryTexX, int inventoryTexY, int hoppperFilterSlotsX, int hoppperFilterSlotsY, int maxFilterRowLength, int hopperSlotsX, int hopperSlotsY) {
         super(menuType, containerId);
         this.hopper = container;
         checkContainerSize(container, hopperSlots + filterSlots);
         container.startOpen(playerInventory.player);
 
         // Hopper slots
-        addSlotsInRows(container, 0, hopperSlots, 9, 44, 19);
+        addSlotsInRows(container, 0, hopperSlots, hopperSlots, hopperSlotsX, hopperSlotsY);
         // Filter slots
-        addSlotsInRows(container, hopperSlots, filterSlots, 9, hoppperFilterSlotsX, hoppperFilterSlotsY);
+        addSlotsInRows(container, hopperSlots, filterSlots, maxFilterRowLength, hoppperFilterSlotsX, hoppperFilterSlotsY);
         // Player inventory slots
         addSlotsInRows(playerInventory, 9, 27, 9, inventoryTexX, inventoryTexY);
         // Player hotbar slots

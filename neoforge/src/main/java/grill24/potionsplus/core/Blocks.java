@@ -2,6 +2,7 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.blockentity.*;
+import grill24.potionsplus.blockentity.filterhopper.HugeFilterHopperBlockEntity;
 import grill24.potionsplus.blockentity.filterhopper.LargeFilterHopperBlockEntity;
 import grill24.potionsplus.blockentity.filterhopper.SmallFilterHopperBlockEntity;
 import grill24.potionsplus.core.potion.MobEffects;
@@ -274,6 +275,8 @@ public class Blocks {
             new SmallFilterHopperBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL)), true);
     public static final DeferredHolder<Block, FilterHopperBlock> LARGE_FILTER_HOPPER = register("large_filter_hopper", () ->
             new LargeFilterHopperBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL)), true);
+    public static final DeferredHolder<Block, FilterHopperBlock> HUGE_FILTER_HOPPER = register("huge_filter_hopper", () ->
+            new HugeFilterHopperBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL)), true);
 
 
     // ----- Block Entities -----
@@ -287,6 +290,7 @@ public class Blocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PotionBeaconBlockEntity>> POTION_BEACON_BLOCK_ENTITY = BLOCK_ENTITIES.register("potion_beacon_block_entity", () -> BlockEntityType.Builder.of(PotionBeaconBlockEntity::new, POTION_BEACON.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SmallFilterHopperBlockEntity>> SMALL_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("small_filter_hopper_block_entity", () -> BlockEntityType.Builder.of(SmallFilterHopperBlockEntity::new, SMALL_FILTER_HOPPER.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LargeFilterHopperBlockEntity>> LARGE_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("large_filter_hopper_block_entity", () -> BlockEntityType.Builder.of(LargeFilterHopperBlockEntity::new, LARGE_FILTER_HOPPER.value()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HugeFilterHopperBlockEntity>> HUGE_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("huge_filter_hopper_block_entity", () -> BlockEntityType.Builder.of(HugeFilterHopperBlockEntity::new, HUGE_FILTER_HOPPER.value()).build(null));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent

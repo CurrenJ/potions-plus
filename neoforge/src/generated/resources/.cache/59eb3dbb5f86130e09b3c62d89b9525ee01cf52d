@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-15T23:09:56.7884602	Loot Tables
+// 1.21.1	2025-03-16T01:59:12.0908739	Loot Tables
 767576116fd07a81b32e7f2f0f1c900fb084b0a7 data/potionsplus/loot_table/advanced_skill_rewards.json
 5ce7aa0dce68f195b279d112900ecc92d607d318 data/potionsplus/loot_table/all_potions.json
 e9dc83c3b813d5617ff00ea1053596cb8f447d26 data/potionsplus/loot_table/arid_cave_suspicious_sand.json
@@ -23,6 +23,7 @@ a8598f7b5ad1c94f0790b336be7aa8df315d98f9 data/potionsplus/loot_table/blocks/deep
 83ba8df4b3420c7869a9fb3f791d6615ca649f10 data/potionsplus/loot_table/blocks/golden_cubensis.json
 8cec7bfd8054032c776ed26c4f4e93f9f86fc970 data/potionsplus/loot_table/blocks/hanging_fern.json
 30948e9313e0fa3f02226515e2804e2b9fe80f89 data/potionsplus/loot_table/blocks/herbalists_lectern.json
+872d8f6a5334f6f888bea737014b0a1b9fd5485c data/potionsplus/loot_table/blocks/huge_filter_hopper.json
 c6f8de627f9657e3fda4e4de3b292400b86f1b71 data/potionsplus/loot_table/blocks/icicle.json
 6a243cf1bc9cf1e48163b5878047199289d6e445 data/potionsplus/loot_table/blocks/iron_oxide_daisy.json
 31fa7e304c5942973f4202f0031fe42b91223d3d data/potionsplus/loot_table/blocks/lapis_lilac.json

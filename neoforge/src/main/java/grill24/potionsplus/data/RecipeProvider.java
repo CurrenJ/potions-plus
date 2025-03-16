@@ -463,5 +463,15 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("G")
                 .unlockedBy("has_hopper", has(Blocks.SMALL_FILTER_HOPPER.get()))
                 .save(recipeConsumer, ppId("filter_hopper_large"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Blocks.HUGE_FILTER_HOPPER.value())
+                .define('H', Blocks.LARGE_FILTER_HOPPER.value())
+                .define('U', Items.URANIUM_INGOT.value())
+                .define('D', net.minecraft.world.item.Items.DIAMOND)
+                .pattern("U")
+                .pattern("H")
+                .pattern("D")
+                .unlockedBy("has_hopper", has(Blocks.LARGE_FILTER_HOPPER.get()))
+                .save(recipeConsumer, ppId("filter_hopper_huge"));
     }
 }
