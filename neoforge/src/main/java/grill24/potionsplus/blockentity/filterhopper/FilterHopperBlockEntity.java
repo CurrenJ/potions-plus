@@ -1,14 +1,11 @@
 package grill24.potionsplus.blockentity.filterhopper;
 
 import grill24.potionsplus.block.FilterHopperBlock;
-import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.Translations;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
@@ -17,8 +14,6 @@ import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -41,7 +36,8 @@ import java.util.function.BooleanSupplier;
 public abstract class FilterHopperBlockEntity extends RandomizableContainerBlockEntity implements Hopper {
     public static final int MOVE_ITEM_SPEED = 8;
     public static final int HOPPER_CONTAINER_SIZE = 5;
-    private final int filterSize;
+    private final int filterSlotsSize;
+    private final int upgradeSlotsSize;
     private static final int[][] CACHED_SLOTS = new int[54][];
     private NonNullList<ItemStack> items;
     private Set<Item> filterItemsCache;
@@ -49,20 +45,21 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     private long tickedGameTime;
     private Direction facing;
 
-    public FilterHopperBlockEntity(BlockEntityType<? extends FilterHopperBlockEntity> blockEntityType, BlockPos pos, BlockState blockState, int filterSize) {
+    public FilterHopperBlockEntity(BlockEntityType<? extends FilterHopperBlockEntity> blockEntityType, BlockPos pos, BlockState blockState, int filterSlotsSize, int upgradeSlotsSize) {
         super(blockEntityType, pos, blockState);
 
-        this.items = NonNullList.withSize(HOPPER_CONTAINER_SIZE + filterSize, ItemStack.EMPTY);
+        this.items = NonNullList.withSize(getTotalSize(), ItemStack.EMPTY);
 
         this.facing = blockState.getValue(FilterHopperBlock.FACING);
         this.filterItemsCache = Set.of();
-        this.filterSize = filterSize;
+        this.filterSlotsSize = filterSlotsSize;
+        this.upgradeSlotsSize = upgradeSlotsSize;
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        this.items = NonNullList.withSize(HOPPER_CONTAINER_SIZE + filterSize, ItemStack.EMPTY);
+        this.items = NonNullList.withSize(getTotalSize(), ItemStack.EMPTY);
         if (!this.tryLoadLootTable(tag)) {
             ContainerHelper.loadAllItems(tag, this.items, registries);
         }
@@ -70,6 +67,10 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
         updateFilterItemsCache();
 
         this.cooldownTime = tag.getInt("TransferCooldown");
+    }
+
+    private int getTotalSize() {
+        return HOPPER_CONTAINER_SIZE + filterSlotsSize + upgradeSlotsSize;
     }
 
     @Override
@@ -116,6 +117,8 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
         if (isFilterItemSlot(index)) {
             updateFilterItemsCache();
+        } else if (isUpgradeItemSlot(index)) {
+
         }
     }
 
@@ -523,6 +526,15 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
         this.filterItemsCache = generateFilterItemsSet(getFilterItems());
     }
 
+    private void updateUpgradeItemsCache() {
+        // TODO:
+    }
+
+    private void updateCache() {
+        updateFilterItemsCache();
+        updateUpgradeItemsCache();
+    }
+
     private Collection<ItemStack> getFilterItems() {
         List<ItemStack> filterItems = new ArrayList<>();
         for(int i = 0; i < items.size(); i++) {
@@ -534,7 +546,11 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     }
 
     private boolean isFilterItemSlot(int slot) {
-        return slot >= HOPPER_CONTAINER_SIZE;
+        return slot >= HOPPER_CONTAINER_SIZE + upgradeSlotsSize;
+    }
+
+    private boolean isUpgradeItemSlot(int slot) {
+        return slot >= HOPPER_CONTAINER_SIZE && slot < HOPPER_CONTAINER_SIZE + upgradeSlotsSize;
     }
 
     private Set<Item> generateFilterItemsSet(Collection<ItemStack> stacks) {
