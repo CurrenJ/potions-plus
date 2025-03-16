@@ -1,27 +1,39 @@
-package grill24.potionsplus.blockentity;
+package grill24.potionsplus.blockentity.filterhopper;
 
+import grill24.potionsplus.network.ServerboundSetupFilterHopperFromContainerPacket;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.HopperMenu;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
 @OnlyIn(Dist.CLIENT)
-public class FilterHopperScreen extends AbstractContainerScreen<FilterHopperMenu> {
+public abstract class FilterHopperScreen<M extends FilterHopperMenu> extends AbstractContainerScreen<M> {
     /**
      * The ResourceLocation containing the gui texture for the hopper
      */
-    private static final ResourceLocation FILTER_HOPPER_LOCATION = ppId("textures/gui/container/filter_hopper.png");
 
-    public FilterHopperScreen(FilterHopperMenu menu, Inventory playerInventory, Component title) {
+    public FilterHopperScreen(M menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         this.imageHeight = 205;
         this.inventoryLabelY = this.imageHeight - 94;
+    }
+
+    @Override
+    public void init() {
+        super.init();
+
+        int i = (this.width - this.imageWidth) / 2;
+        int j = (this.height - this.imageHeight) / 2;
+        this.addRenderableWidget(Button.builder(Component.literal(" "), (button) ->
+                PacketDistributor.sendToServer(new ServerboundSetupFilterHopperFromContainerPacket()))
+                .pos(i + 31, j + 22).size(8, 8).build());
     }
 
     /**
@@ -42,6 +54,8 @@ public class FilterHopperScreen extends AbstractContainerScreen<FilterHopperMenu
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
-        guiGraphics.blit(FILTER_HOPPER_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
+        guiGraphics.blit(getTexture(), i, j, 0, 0, this.imageWidth, this.imageHeight);
     }
+
+    abstract ResourceLocation getTexture();
 }

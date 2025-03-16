@@ -443,7 +443,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_copper_ingot", has(net.minecraft.world.item.Items.COPPER_INGOT))
                 .save(recipeConsumer, ppId("copper_fishing_rod"));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Blocks.FILTER_HOPPER.value())
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Blocks.SMALL_FILTER_HOPPER.value())
                 .define('H', net.minecraft.world.item.Items.HOPPER)
                 .define('C', net.minecraft.world.item.Items.COMPARATOR)
                 .define('D', net.minecraft.world.item.Items.REDSTONE)
@@ -453,5 +453,15 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("HTS")
                 .unlockedBy("has_hopper", has(net.minecraft.world.item.Items.HOPPER))
                 .save(recipeConsumer, ppId("filter_hopper"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Blocks.LARGE_FILTER_HOPPER.value())
+                .define('H', Blocks.SMALL_FILTER_HOPPER.value())
+                .define('D', net.minecraft.world.item.Items.DIAMOND)
+                .define('G', net.minecraft.world.item.Items.GOLD_INGOT)
+                .pattern("D")
+                .pattern("H")
+                .pattern("G")
+                .unlockedBy("has_hopper", has(Blocks.SMALL_FILTER_HOPPER.get()))
+                .save(recipeConsumer, ppId("filter_hopper_large"));
     }
 }

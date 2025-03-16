@@ -22,7 +22,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.BREWING_CAULDRON.value(), Blocks.ABYSSAL_TROVE.value(), Blocks.SANGUINE_ALTAR.value(), Blocks.PRECISION_DISPENSER.value(), Blocks.PARTICLE_EMITTER.value(), Blocks.FILTER_HOPPER.value());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.BREWING_CAULDRON.value(), Blocks.ABYSSAL_TROVE.value(), Blocks.SANGUINE_ALTAR.value(), Blocks.PRECISION_DISPENSER.value(), Blocks.PARTICLE_EMITTER.value(), Blocks.SMALL_FILTER_HOPPER.value(), Blocks.LARGE_FILTER_HOPPER.value());
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(Blocks.ABYSSAL_TROVE.value());
         tag(BlockTags.MINEABLE_WITH_AXE).add(Blocks.CLOTHESLINE.value(), Blocks.HERBALISTS_LECTERN.value());
 

@@ -1,4 +1,4 @@
-package grill24.potionsplus.blockentity;
+package grill24.potionsplus.blockentity.filterhopper;
 
 import grill24.potionsplus.block.FilterHopperBlock;
 import grill24.potionsplus.core.Blocks;
@@ -24,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.Hopper;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
@@ -37,28 +38,31 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 
-public class FilterHopperBlockEntity extends RandomizableContainerBlockEntity implements Hopper {
+public abstract class FilterHopperBlockEntity extends RandomizableContainerBlockEntity implements Hopper {
     public static final int MOVE_ITEM_SPEED = 8;
-    public static final int HOPPER_CONTAINER_SIZE = 1;
-    public static final int FILTER_SIZE = 27;
+    public static final int HOPPER_CONTAINER_SIZE = 5;
+    private final int filterSize;
     private static final int[][] CACHED_SLOTS = new int[54][];
-    private NonNullList<ItemStack> items = NonNullList.withSize(HOPPER_CONTAINER_SIZE + FILTER_SIZE, ItemStack.EMPTY);
+    private NonNullList<ItemStack> items;
     private Set<Item> filterItemsCache;
     private int cooldownTime = -1;
     private long tickedGameTime;
     private Direction facing;
 
-    public FilterHopperBlockEntity(BlockPos pos, BlockState blockState) {
-        super(Blocks.FILTER_HOPPER_BLOCK_ENTITY.value(), pos, blockState);
+    public FilterHopperBlockEntity(BlockEntityType<? extends FilterHopperBlockEntity> blockEntityType, BlockPos pos, BlockState blockState, int filterSize) {
+        super(blockEntityType, pos, blockState);
+
+        this.items = NonNullList.withSize(HOPPER_CONTAINER_SIZE + filterSize, ItemStack.EMPTY);
 
         this.facing = blockState.getValue(FilterHopperBlock.FACING);
         this.filterItemsCache = Set.of();
+        this.filterSize = filterSize;
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        this.items = NonNullList.withSize(HOPPER_CONTAINER_SIZE + filterSize, ItemStack.EMPTY);
         if (!this.tryLoadLootTable(tag)) {
             ContainerHelper.loadAllItems(tag, this.items, registries);
         }
@@ -89,7 +93,7 @@ public class FilterHopperBlockEntity extends RandomizableContainerBlockEntity im
 
     @Override
     public int getMaxStackSize() {
-        return 1;
+        return 64;
     }
 
     @Override
@@ -124,11 +128,6 @@ public class FilterHopperBlockEntity extends RandomizableContainerBlockEntity im
     public void setBlockState(BlockState blockState) {
         super.setBlockState(blockState);
         this.facing = blockState.getValue(FilterHopperBlock.FACING);
-    }
-
-    @Override
-    protected Component getDefaultName() {
-        return Component.translatable(Translations.CONTAINER_POTIONSPLUS_FILTER_HOPPER);
     }
 
     public static void pushItemsTick(Level level, BlockPos pos, BlockState state, FilterHopperBlockEntity blockEntity) {
@@ -512,11 +511,6 @@ public class FilterHopperBlockEntity extends RandomizableContainerBlockEntity im
         }
     }
 
-    @Override
-    protected AbstractContainerMenu createMenu(int id, Inventory player) {
-        return new FilterHopperMenu(id, player, this);
-    }
-
     public long getLastUpdateTime() {
         return this.tickedGameTime;
     }
@@ -545,5 +539,25 @@ public class FilterHopperBlockEntity extends RandomizableContainerBlockEntity im
 
     private Set<Item> generateFilterItemsSet(Collection<ItemStack> stacks) {
         return stacks.stream().map(ItemStack::getItem).collect(java.util.stream.Collectors.toSet());
+    }
+
+    public void addConnectedContainerContentsToFilter() {
+        Container container = getAttachedContainer(level, worldPosition, this);
+        if (container != null) {
+            for (int i = 0; i < container.getContainerSize(); i++) {
+                ItemStack stack = container.getItem(i);
+                if (!stack.isEmpty() && !isItemValidForFilter(stack)) {
+                    for (int j = HOPPER_CONTAINER_SIZE; j < items.size(); j++) {
+                        if (items.get(j).isEmpty()) {
+                            ItemStack filterStack = stack.copy();
+                            filterStack.setCount(1);
+                            setItem(j, filterStack);
+                            container.getItem(i).shrink(1);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

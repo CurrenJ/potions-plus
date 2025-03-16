@@ -1,4 +1,4 @@
-package grill24.potionsplus.blockentity;
+package grill24.potionsplus.blockentity.filterhopper;
 
 import grill24.potionsplus.core.MenuTypes;
 import net.minecraft.world.Container;
@@ -10,28 +10,29 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class FilterHopperMenu extends AbstractContainerMenu {
-    public static final int CONTAINER_SIZE = 5;
+import java.util.Optional;
+
+public abstract class FilterHopperMenu extends AbstractContainerMenu {
     private final Container hopper;
 
-    public FilterHopperMenu(int containerId, Inventory playerInventory) {
-        this(containerId, playerInventory, new SimpleContainer(FilterHopperBlockEntity.HOPPER_CONTAINER_SIZE + FilterHopperBlockEntity.FILTER_SIZE));
+    public FilterHopperMenu(MenuType<? extends FilterHopperMenu> menuType, int containerId, Inventory playerInventory, int hopperSlots, int filterSlots, int inventoryTexX, int inventoryTexY, int hoppperFilterSlotsX, int hoppperFilterSlotsY) {
+        this(menuType, containerId, playerInventory, new SimpleContainer(hopperSlots + filterSlots), hopperSlots, filterSlots, inventoryTexX, inventoryTexY, hoppperFilterSlotsX, hoppperFilterSlotsY);
     }
 
-    public FilterHopperMenu(int containerId, Inventory playerInventory, Container container) {
-        super(MenuTypes.FILTER_HOPPER.get(), containerId);
+    public FilterHopperMenu(MenuType<? extends FilterHopperMenu> menuType, int containerId, Inventory playerInventory, Container container, int hopperSlots, int filterSlots, int inventoryTexX, int inventoryTexY, int hoppperFilterSlotsX, int hoppperFilterSlotsY) {
+        super(menuType, containerId);
         this.hopper = container;
-        checkContainerSize(container, FilterHopperBlockEntity.HOPPER_CONTAINER_SIZE + FilterHopperBlockEntity.FILTER_SIZE);
+        checkContainerSize(container, hopperSlots + filterSlots);
         container.startOpen(playerInventory.player);
 
         // Hopper slots
-        addSlotsInRows(container, 0, FilterHopperBlockEntity.HOPPER_CONTAINER_SIZE, 9, 80, 19);
+        addSlotsInRows(container, 0, hopperSlots, 9, 44, 19);
         // Filter slots
-        addSlotsInRows(container, FilterHopperBlockEntity.HOPPER_CONTAINER_SIZE, FilterHopperBlockEntity.FILTER_SIZE, 9, 8, 53);
+        addSlotsInRows(container, hopperSlots, filterSlots, 9, hoppperFilterSlotsX, hoppperFilterSlotsY);
         // Player inventory slots
-        addSlotsInRows(playerInventory, 9, 27, 9, 8, 123);
+        addSlotsInRows(playerInventory, 9, 27, 9, inventoryTexX, inventoryTexY);
         // Player hotbar slots
-        addSlotsInRows(playerInventory, 0, 9, 9, 8, 181);
+        addSlotsInRows(playerInventory, 0, 9, 9, inventoryTexX, inventoryTexY + 58);
     }
 
     private void addSlotsInRows(Container container, int slotStartingIndex, int numSlots, int maxRowLength, int texX, int texY) {
@@ -88,5 +89,13 @@ public class FilterHopperMenu extends AbstractContainerMenu {
     public void removed(Player player) {
         super.removed(player);
         this.hopper.stopOpen(player);
+    }
+
+    public Optional<FilterHopperBlockEntity> getFilterHopperBlockEntity() {
+        if (this.hopper instanceof FilterHopperBlockEntity filterHopperBlockEntity) {
+            return Optional.of(filterHopperBlockEntity);
+        } else {
+            return Optional.empty();
+        }
     }
 }

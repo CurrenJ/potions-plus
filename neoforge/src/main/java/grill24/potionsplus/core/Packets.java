@@ -49,6 +49,13 @@ public class Packets {
                 ServerboundSpawnDoubleJumpParticlesPacket.ServerPayloadHandler::handleDataOnMain
         );
 
+        // Setup Filter Hopper From Container Packet
+        registrar.playToServer(
+                ServerboundSetupFilterHopperFromContainerPacket.TYPE,
+                ServerboundSetupFilterHopperFromContainerPacket.STREAM_CODEC,
+                ServerboundSetupFilterHopperFromContainerPacket.ServerPayloadHandler::handleDataOnMain
+        );
+
 
         // ----- Clientbound Packets -----
 

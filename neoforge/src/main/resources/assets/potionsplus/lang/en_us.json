@@ -45,9 +45,11 @@
   "block.potionsplus.potion_beacon": "Potion Beacon",
   "block.potionsplus.potion_beacon.hint": "Try a potion...",
 
-  "container.potionsplus.filter_hopper": "Filter Hopper",
+  "container.potionsplus.small_filter_hopper": "Small Filter Hopper",
+  "container.potionsplus.large_filter_hopper": "Large Filter Hopper",
   "container.potionsplus.filter_hopper.description": "A hopper that filters items.",
-  "block.potionsplus.filter_hopper": "Filter Hopper",
+  "block.potionsplus.small_filter_hopper": "Small Filter Hopper",
+  "block.potionsplus.large_filter_hopper": "Large Filter Hopper",
 
   "tooltip.potionsplus.skill.level_up": "You reached level %s!",
   "tooltip.potionsplus.skill.max_points": "You reached max skill points.",
