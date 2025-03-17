@@ -117,6 +117,23 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Blocks.SANDY_URANIUM_ORE.value().asItem(),
                 Blocks.MOSSY_URANIUM_ORE.value().asItem()
         );
+
+        tag(Tags.Items.EDIBLE_REWARDS).add(
+                grill24.potionsplus.core.Items.SPARKLING_SQUASH.value(),
+                grill24.potionsplus.core.Items.BLUEB_BERRIES.value(),
+                grill24.potionsplus.core.Items.FORTIFYING_FUDGE.value(),
+                grill24.potionsplus.core.Items.GRASS_CLIPPINGS.value(),
+                grill24.potionsplus.core.Items.STONE_FRUIT.value(),
+                grill24.potionsplus.core.Items.CHOCOLATE_BOOK.value(),
+                grill24.potionsplus.core.Items.ROASTED_BAMBOO.value(),
+                grill24.potionsplus.core.Items.MOSSASHIMI.value(),
+                grill24.potionsplus.core.Items.PYRAMIDS_OF_SALT.value(),
+                grill24.potionsplus.core.Items.BASIC_LOOT.value(),
+                grill24.potionsplus.core.Items.INTERMEDIATE_LOOT.value(),
+                grill24.potionsplus.core.Items.ADVANCED_LOOT.value(),
+                grill24.potionsplus.core.Items.MASTER_LOOT.value(),
+                grill24.potionsplus.core.Items.WHEEL.value()
+        );
     }
 
     @Override

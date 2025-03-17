@@ -44,6 +44,8 @@ public class Tags {
         public static final TagKey<Item> URANIUM_ORE = tag("uranium_ore");
         public static final TagKey<Item> REMNANT_DEBRIS = tag("remnant_debris");
 
+        public static final TagKey<Item> EDIBLE_REWARDS = tag("edible_rewards");
+
         private static TagKey<Item> tag(String id) {
             return ItemTags.create(ppId(id));
         }

@@ -98,6 +98,16 @@ public class Items {
     public static final Holder<Item> BLUEGILL = register("bluegill", () -> new Item(properties().food(Foods.COD)));
     public static final Holder<Item> NEON_TETRA = register("neon_tetra", () -> new Item(properties().food(Foods.COD)));
 
+    public static final Holder<Item> UPGRADE_BASE = register("upgrade_base", () -> new UpgradeBaseItem(properties()));
+    public static final Holder<Item> FILTER_HOPPER_UPGRADE_BLACKLIST = register("filter_hopper_upgrade_blacklist", () -> new UpgradeBaseItem(properties()));
+    public static final Holder<Item> FILTER_HOPPER_UPGRADE_ALLOW_ARMOR = register("filter_hopper_upgrade_allow_armor", () -> new UpgradeBaseItem(properties()));
+    public static final Holder<Item> FILTER_HOPPER_UPGRADE_ALLOW_FOOD = register("filter_hopper_upgrade_allow_food", () -> new UpgradeBaseItem(properties()));
+    public static final Holder<Item> FILTER_HOPPER_UPGRADE_ALLOW_TOOLS = register("filter_hopper_upgrade_allow_tools", () -> new UpgradeBaseItem(properties()));
+    public static final Holder<Item> FILTER_HOPPER_UPGRADE_ALLOW_POTIONS = register("filter_hopper_upgrade_allow_potions", () -> new UpgradeBaseItem(properties()));
+    public static final Holder<Item> FILTER_HOPPER_UPGRADE_ALLOW_ENCHANTED = register("filter_hopper_upgrade_allow_enchanted", () -> new UpgradeBaseItem(properties()));
+    public static final Holder<Item> FILTER_HOPPER_UPGRADE_ALLOW_POTION_INGREDIENTS = register("filter_hopper_upgrade_allow_potion_ingredients", () -> new UpgradeBaseItem(properties()));
+    public static final Holder<Item> FILTER_HOPPER_UPGRADE_ALLOW_EDIBLE_REWARDS = register("filter_hopper_upgrade_allow_edible_rewards", () -> new UpgradeBaseItem(properties()));
+
     // ----- Dynamically Rendered Display Items -----
     public static final ResourceLocation DYNAMIC_ICON_INDEX_PROPERTY_NAME = ppId("dynamic_icon_index");
 

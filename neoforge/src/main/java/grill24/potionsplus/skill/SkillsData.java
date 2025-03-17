@@ -31,6 +31,7 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> unlockedAbilities, List<ResourceKey<ConfiguredGrantableReward<?, ?>>> pendingChoices) {
     public static final Codec<SkillsData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
@@ -205,12 +206,15 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
             ResourceKey<PlayerAbility<?>> abilityKey = abilityLookup.getResourceKey(configuredAbility.value().ability()).get();
             List<AbilityInstanceSerializable<?, ?>> abilityInstances = unlockedAbilities
                     .computeIfAbsent(abilityKey, (key) -> new ArrayList<>());
-            if (!abilityInstances.contains(abilityInstance)) {
+            Set<ResourceKey<ConfiguredPlayerAbility<?, ?>>> unlockedAbilityKeys = abilityInstances.stream()
+                    .map(instance -> instance.data().getHolder().getKey())
+                    .collect(Collectors.toSet());
+            if (!unlockedAbilityKeys.contains(abilityInstance.data().getHolder().getKey())) {
                 abilityInstances.add(abilityInstance);
-            }
 
-            if (configuredAbility.value().config().getData().enabledByDefault()) {
-                configuredAbility.value().onAbilityGranted(player, abilityInstance);
+                if (configuredAbility.value().config().getData().enabledByDefault()) {
+                    configuredAbility.value().onAbilityGranted(player, abilityInstance);
+                }
             }
         });
     }

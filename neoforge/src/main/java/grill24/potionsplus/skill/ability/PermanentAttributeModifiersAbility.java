@@ -64,11 +64,6 @@ public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbi
     }
 
     @Override
-    public void onInstanceChanged(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance) {
-        abilityInstance.tryEnable(player);
-    }
-
-    @Override
     public void onAbilityGranted(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance) {
         if (abilityInstance.data().getConfiguredAbility().config().getData().enabledByDefault()) {
             abilityInstance.tryEnable(player);

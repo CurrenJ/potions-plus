@@ -1,6 +1,5 @@
 package grill24.potionsplus.blockentity.filterhopper;
 
-import grill24.potionsplus.core.MenuTypes;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,33 +14,35 @@ import java.util.Optional;
 public abstract class FilterHopperMenu extends AbstractContainerMenu {
     private final Container hopper;
 
-    public FilterHopperMenu(MenuType<? extends FilterHopperMenu> menuType, int containerId, Inventory playerInventory, int hopperSlots, int filterSlots, int inventoryTexX, int inventoryTexY, int hoppperFilterSlotsX, int hoppperFilterSlotsY, int maxFilterRowLength, int hopperSlotsX, int hopperSlotsY) {
-        this(menuType, containerId, playerInventory, new SimpleContainer(hopperSlots + filterSlots), hopperSlots, filterSlots, inventoryTexX, inventoryTexY, hoppperFilterSlotsX, hoppperFilterSlotsY, maxFilterRowLength, hopperSlotsX, hopperSlotsY);
+    public FilterHopperMenu(MenuType<? extends FilterHopperMenu> menuType, int containerId, Inventory playerInventory, FilterHopperMenuLayout layout) {
+        this(menuType, containerId, playerInventory, new SimpleContainer(layout.getTotalSlots()), layout);
     }
 
-    public FilterHopperMenu(MenuType<? extends FilterHopperMenu> menuType, int containerId, Inventory playerInventory, Container container, int hopperSlots, int filterSlots, int inventoryTexX, int inventoryTexY, int hoppperFilterSlotsX, int hoppperFilterSlotsY, int maxFilterRowLength, int hopperSlotsX, int hopperSlotsY) {
+    public FilterHopperMenu(MenuType<? extends FilterHopperMenu> menuType, int containerId, Inventory playerInventory, Container container, FilterHopperMenuLayout layout) {
         super(menuType, containerId);
         this.hopper = container;
-        checkContainerSize(container, hopperSlots + filterSlots);
+        checkContainerSize(container, layout.getTotalSlots());
         container.startOpen(playerInventory.player);
 
         // Hopper slots
-        addSlotsInRows(container, 0, hopperSlots, hopperSlots, hopperSlotsX, hopperSlotsY);
+        addSlotsInRows(container, 0, layout.hopperSlots(), layout.hopperSlots(), 0, 0, layout.hopperSlotsTexX(), layout.hopperSlotsTexY(), Slot::new);
         // Filter slots
-        addSlotsInRows(container, hopperSlots, filterSlots, maxFilterRowLength, hoppperFilterSlotsX, hoppperFilterSlotsY);
+        addSlotsInRows(container, layout.hopperSlots() + layout.upgradeSlots(), layout.filterSlots(), layout.maxFilterRowLength(), 0, 0, layout.hoppperFilterSlotsTexX(), layout.hoppperFilterSlotsTexY(), OneItemSlot::new);
+        // Upgrade Slots
+        addSlotsInRows(container, layout.hopperSlots(), layout.upgradeSlots(), layout.maxUpgradeRowLength(), layout.upgradeSlotsPaddingBetweenRows(), layout.upgradeSlotsPaddingBetweenColumns(), layout.upgradeSlotsX(), layout.upgradeSlotsY(), FilterHopperUpgradeSlot::new);
         // Player inventory slots
-        addSlotsInRows(playerInventory, 9, 27, 9, inventoryTexX, inventoryTexY);
+        addSlotsInRows(playerInventory, 9, 27, 9, 0, 0, layout.playerInventoryTexX(), layout.playerInventoryTexY(), Slot::new);
         // Player hotbar slots
-        addSlotsInRows(playerInventory, 0, 9, 9, inventoryTexX, inventoryTexY + 58);
+        addSlotsInRows(playerInventory, 0, 9, 9, layout.playerInventoryTexX(), 0, layout.playerInventoryTexX(), layout.playerInventoryTexY() + 58, Slot::new);
     }
 
-    private void addSlotsInRows(Container container, int slotStartingIndex, int numSlots, int maxRowLength, int texX, int texY) {
+    private void addSlotsInRows(Container container, int slotStartingIndex, int numSlots, int maxRowLength, int paddingBetweenRows, int paddingBetweenColumns, int texX, int texY, SlotFactory slotFactory) {
         final int rows = (int) Math.ceil(numSlots / (float) maxRowLength);
         for (int f = 0; f < rows; f++) {
             final int rowLength = Math.min(numSlots - f * maxRowLength, maxRowLength);
             for (int x = 0; x < rowLength; x++) {
                 final int slotIndex = slotStartingIndex + f * maxRowLength + x;
-                this.addSlot(new Slot(container, slotIndex, texX + x * 18, texY + f * 18));
+                this.addSlot(slotFactory.create(container, slotIndex, texX + x * (18 + paddingBetweenColumns), texY + f * (18 + paddingBetweenRows)));
             }
         }
     }

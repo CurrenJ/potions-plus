@@ -9,8 +9,11 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class SmallFilterHopperBlockEntity extends FilterHopperBlockEntity {
+    public static final int FILTER_SLOTS_SIZE = 27;
+    public static final int UPGRADE_SLOTS_SIZE = 1;
+
     public SmallFilterHopperBlockEntity(BlockPos pos, BlockState blockState) {
-        super(Blocks.SMALL_FILTER_HOPPER_BLOCK_ENTITY.value(), pos, blockState, 27);
+        super(Blocks.SMALL_FILTER_HOPPER_BLOCK_ENTITY.value(), pos, blockState, FILTER_SLOTS_SIZE, UPGRADE_SLOTS_SIZE);
     }
 
     @Override

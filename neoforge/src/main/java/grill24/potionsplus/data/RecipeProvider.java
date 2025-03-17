@@ -473,5 +473,72 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("D")
                 .unlockedBy("has_hopper", has(Blocks.LARGE_FILTER_HOPPER.get()))
                 .save(recipeConsumer, ppId("filter_hopper_huge"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Items.UPGRADE_BASE.value())
+                .pattern("RGR")
+                .pattern("EQE")
+                .pattern("RGR")
+                .define('G', net.minecraft.world.item.Items.GOLD_INGOT)
+                .define('E', net.minecraft.world.item.Items.EMERALD)
+                .define('Q', net.minecraft.world.item.Items.QUARTZ)
+                .define('R', net.minecraft.world.item.Items.REDSTONE)
+                .unlockedBy("has_quartz", has(net.minecraft.world.item.Items.QUARTZ))
+                .save(recipeConsumer, ppId("upgrade_base"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_BLACKLIST.value())
+                .requires(Items.UPGRADE_BASE.value())
+                .requires(net.minecraft.world.item.Items.REDSTONE_TORCH)
+                .group("filter_hopper_upgrade_blacklist")
+                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
+                .save(recipeConsumer, ppId("filter_hopper_upgrade_blacklist"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_ARMOR.value())
+                .requires(Items.UPGRADE_BASE.value())
+                .requires(net.neoforged.neoforge.common.Tags.Items.ARMORS)
+                .group("filter_hopper_upgrade_allow_armor")
+                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
+                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_armor"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_TOOLS.value())
+                .requires(Items.UPGRADE_BASE.value())
+                .requires(net.neoforged.neoforge.common.Tags.Items.TOOLS)
+                .group("filter_hopper_upgrade_allow_tools")
+                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
+                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_tools"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_FOOD.value())
+                .requires(Items.UPGRADE_BASE.value())
+                .requires(net.neoforged.neoforge.common.Tags.Items.FOODS)
+                .group("filter_hopper_upgrade_allow_food")
+                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
+                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_food"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_POTIONS.value())
+                .requires(Items.UPGRADE_BASE.value())
+                .requires(net.neoforged.neoforge.common.Tags.Items.POTIONS)
+                .group("filter_hopper_upgrade_allow_potions")
+                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
+                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_potions"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_ENCHANTED.value())
+                .requires(Items.UPGRADE_BASE.value())
+                .requires(net.minecraft.world.item.Items.ENCHANTED_BOOK)
+                .group("filter_hopper_upgrade_allow_enchanted")
+                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
+                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_enchanted"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_POTION_INGREDIENTS.value())
+                .requires(Items.UPGRADE_BASE.value())
+                .requires(net.minecraft.world.item.Items.BLAZE_POWDER)
+                .group("filter_hopper_upgrade_allow_potion_ingredients")
+                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
+                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_potion_ingredients"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_EDIBLE_REWARDS.value())
+                .requires(Items.UPGRADE_BASE.value())
+                .requires(Tags.Items.EDIBLE_REWARDS)
+                .group("filter_hopper_upgrade_allow_edible_rewards")
+                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
+                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_edible_rewards"));
     }
 }

@@ -65,7 +65,13 @@ public abstract class PlayerAbility<AC extends PlayerAbilityConfiguration> {
     protected abstract void onEnable(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance);
     protected abstract void onDisable(ServerPlayer player, AC config);
 
-    public abstract void onInstanceChanged(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance);
+    public void onInstanceChanged(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance) {
+        if (abilityInstance.data().isEnabled()) {
+            abilityInstance.tryEnable(player);
+        } else {
+            abilityInstance.tryDisable(player);
+        }
+    }
 
     public abstract void onAbilityGranted(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance);
     public abstract void onAbilityRevoked(ServerPlayer player, AC config);

@@ -41,11 +41,6 @@ public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguratio
     public void onDisable(ServerPlayer player, PlayerAbilityConfiguration config) {}
 
     @Override
-    public void onInstanceChanged(ServerPlayer player, PlayerAbilityConfiguration config, AbilityInstanceSerializable<?, ?> abilityInstance) {
-        abilityInstance.tryEnable(player);
-    }
-
-    @Override
     public void onAbilityGranted(ServerPlayer player, PlayerAbilityConfiguration config, AbilityInstanceSerializable<?, ?> instance) {}
 
     @Override

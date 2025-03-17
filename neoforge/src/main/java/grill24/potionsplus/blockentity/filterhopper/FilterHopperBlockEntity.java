@@ -1,10 +1,16 @@
 package grill24.potionsplus.blockentity.filterhopper;
 
+import grill24.potionsplus.block.AbyssalTroveBlock;
 import grill24.potionsplus.block.FilterHopperBlock;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.item.EdibleChoiceItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.Container;
@@ -14,8 +20,11 @@ import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PotionItem;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
@@ -40,20 +49,23 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     private final int upgradeSlotsSize;
     private static final int[][] CACHED_SLOTS = new int[54][];
     private NonNullList<ItemStack> items;
-    private Set<Item> filterItemsCache;
     private int cooldownTime = -1;
     private long tickedGameTime;
     private Direction facing;
 
+    private Set<Item> filterItemsCache;
+    private Set<Item> upgradeItemsCache;
+
     public FilterHopperBlockEntity(BlockEntityType<? extends FilterHopperBlockEntity> blockEntityType, BlockPos pos, BlockState blockState, int filterSlotsSize, int upgradeSlotsSize) {
         super(blockEntityType, pos, blockState);
 
-        this.items = NonNullList.withSize(getTotalSize(), ItemStack.EMPTY);
 
         this.facing = blockState.getValue(FilterHopperBlock.FACING);
         this.filterItemsCache = Set.of();
         this.filterSlotsSize = filterSlotsSize;
+        this.upgradeItemsCache = Set.of();
         this.upgradeSlotsSize = upgradeSlotsSize;
+        this.items = NonNullList.withSize(getTotalSize(), ItemStack.EMPTY);
     }
 
     @Override
@@ -64,7 +76,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
             ContainerHelper.loadAllItems(tag, this.items, registries);
         }
 
-        updateFilterItemsCache();
+        updateCache();
 
         this.cooldownTime = tag.getInt("TransferCooldown");
     }
@@ -102,9 +114,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
         this.unpackLootTable(null);
         ItemStack itemStack = ContainerHelper.removeItem(this.getItems(), index, count);
 
-        if (isFilterItemSlot(index)) {
-            updateFilterItemsCache();
-        }
+        updateCache(index);
 
         return itemStack;
     }
@@ -115,11 +125,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
         this.getItems().set(index, stack);
         stack.limitSize(this.getMaxStackSize(stack));
 
-        if (isFilterItemSlot(index)) {
-            updateFilterItemsCache();
-        } else if (isUpgradeItemSlot(index)) {
-
-        }
+        updateCache(index);
     }
 
     @Override
@@ -519,20 +525,45 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     }
 
     private boolean isItemValidForFilter(ItemStack stack) {
-        return this.filterItemsCache.contains(stack.getItem());
+        Item item = stack.getItem();
+        boolean allowArmor = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_ARMOR.value());
+        boolean allowTools = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_TOOLS.value());
+        boolean allowFood = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_FOOD.value());
+        boolean allowPotions = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_POTIONS.value());
+        boolean allowEnchanted = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_ENCHANTED.value());
+        boolean allowPotionIngredients = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_POTION_INGREDIENTS.value());
+        boolean allowEdibleRewards = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_EDIBLE_REWARDS.value());
+
+        boolean blacklist = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_BLACKLIST.value());
+        boolean isItemValid = this.filterItemsCache.contains(item)
+                || (allowArmor && item instanceof ArmorItem)
+                || (allowTools && stack.isDamageableItem() && !(item instanceof ArmorItem))
+                || (allowFood && stack.has(DataComponents.FOOD))
+                || (allowPotions && (stack.has(DataComponents.POTION_CONTENTS) || item instanceof PotionItem)
+                || (allowEnchanted && (!stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty()
+                            || !stack.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty()))
+                || (allowPotionIngredients && AbyssalTroveBlockEntity.isItemPotionIngredient(stack))
+                || (allowEdibleRewards && item instanceof EdibleChoiceItem)
+        );
+
+        return blacklist != isItemValid;
     }
 
-    private void updateFilterItemsCache() {
-        this.filterItemsCache = generateFilterItemsSet(getFilterItems());
-    }
+    private void updateFilterItemsCache() { this.filterItemsCache = generateItemsSet(getFilterItems()); }
 
-    private void updateUpgradeItemsCache() {
-        // TODO:
-    }
+    private void updateUpgradeItemsCache() { this.upgradeItemsCache = generateItemsSet(getUpgradeItems()); }
 
     private void updateCache() {
         updateFilterItemsCache();
         updateUpgradeItemsCache();
+    }
+
+    private void updateCache(int slotIndex) {
+        if (isFilterItemSlot(slotIndex)) {
+            updateFilterItemsCache();
+        } else if (isUpgradeItemSlot(slotIndex)) {
+            updateUpgradeItemsCache();
+        }
     }
 
     private Collection<ItemStack> getFilterItems() {
@@ -545,6 +576,16 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
         return filterItems;
     }
 
+    private Collection<ItemStack> getUpgradeItems() {
+        List<ItemStack> upgradeItems = new ArrayList<>();
+        for(int i = 0; i < items.size(); i++) {
+            if (isUpgradeItemSlot(i)) {
+                upgradeItems.add(this.items.get(i));
+            }
+        }
+        return upgradeItems;
+    }
+
     private boolean isFilterItemSlot(int slot) {
         return slot >= HOPPER_CONTAINER_SIZE + upgradeSlotsSize;
     }
@@ -553,7 +594,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
         return slot >= HOPPER_CONTAINER_SIZE && slot < HOPPER_CONTAINER_SIZE + upgradeSlotsSize;
     }
 
-    private Set<Item> generateFilterItemsSet(Collection<ItemStack> stacks) {
+    private Set<Item> generateItemsSet(Collection<ItemStack> stacks) {
         return stacks.stream().map(ItemStack::getItem).collect(java.util.stream.Collectors.toSet());
     }
 
@@ -563,8 +604,8 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
             for (int i = 0; i < container.getContainerSize(); i++) {
                 ItemStack stack = container.getItem(i);
                 if (!stack.isEmpty() && !isItemValidForFilter(stack)) {
-                    for (int j = HOPPER_CONTAINER_SIZE; j < items.size(); j++) {
-                        if (items.get(j).isEmpty()) {
+                    for (int j = 0; j < items.size(); j++) {
+                        if (isFilterItemSlot(j) && items.get(j).isEmpty()) {
                             ItemStack filterStack = stack.copy();
                             filterStack.setCount(1);
                             setItem(j, filterStack);

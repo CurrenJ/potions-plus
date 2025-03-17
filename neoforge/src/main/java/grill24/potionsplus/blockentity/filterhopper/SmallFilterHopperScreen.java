@@ -10,7 +10,10 @@ public class SmallFilterHopperScreen extends FilterHopperScreen<SmallFilterHoppe
     private static final ResourceLocation TEX = ppId("textures/gui/container/filter_hopper.png");
 
     public SmallFilterHopperScreen(SmallFilterHopperMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
+        super(menu, playerInventory, title, 32, 23, 8, 6);
+
+        this.imageWidth = 195;
+        this.imageHeight = 205;
     }
 
     @Override

@@ -11,18 +11,22 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import static grill24.potionsplus.utility.Utility.ppId;
-
 @OnlyIn(Dist.CLIENT)
 public abstract class FilterHopperScreen<M extends FilterHopperMenu> extends AbstractContainerScreen<M> {
-    /**
-     * The ResourceLocation containing the gui texture for the hopper
-     */
+    private final int autoCreateFilterButtonX;
+    private final int autoCreateFilterButtonY;
 
-    public FilterHopperScreen(M menu, Inventory playerInventory, Component title) {
+    public FilterHopperScreen(M menu, Inventory playerInventory, Component title, int autoCreateFilterButtonX, int autoCreateFilterButtonY, int titleX, int titleY) {
         super(menu, playerInventory, title);
+
         this.imageHeight = 205;
         this.inventoryLabelY = this.imageHeight - 94;
+
+        this.autoCreateFilterButtonX = autoCreateFilterButtonX;
+        this.autoCreateFilterButtonY = autoCreateFilterButtonY;
+
+        this.titleLabelX = titleX;
+        this.titleLabelY = titleY;
     }
 
     @Override
@@ -33,7 +37,7 @@ public abstract class FilterHopperScreen<M extends FilterHopperMenu> extends Abs
         int j = (this.height - this.imageHeight) / 2;
         this.addRenderableWidget(Button.builder(Component.literal(" "), (button) ->
                 PacketDistributor.sendToServer(new ServerboundSetupFilterHopperFromContainerPacket()))
-                .pos(i + 31, j + 22).size(8, 8).build());
+                .pos(i + autoCreateFilterButtonX, j + autoCreateFilterButtonY).size(8, 8).build());
     }
 
     /**
