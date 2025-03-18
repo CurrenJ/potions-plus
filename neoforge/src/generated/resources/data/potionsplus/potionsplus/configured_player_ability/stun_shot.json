@@ -1,0 +1,10 @@
+{
+  "type": "potionsplus:stun_shot",
+  "config": {
+    "baseConfig": {
+      "enabledByDefault": true,
+      "parentSkill": "potionsplus:chopping",
+      "translationKey": "description.potionsplus.ability.stun_shot"
+    }
+  }
+}

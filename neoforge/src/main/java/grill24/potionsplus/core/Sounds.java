@@ -27,6 +27,8 @@ public class Sounds extends SoundDefinitionsProvider {
     public static Holder<SoundEvent> MUTED_PLUCKS_0 = SOUNDS.register("muted_plucks_0", () -> SoundEvent.createVariableRangeEvent(ppId("muted_plucks_0")));
     public static Holder<SoundEvent> MUTED_PLUCKS_1 = SOUNDS.register("muted_plucks_1", () -> SoundEvent.createVariableRangeEvent(ppId("muted_plucks_1")));
     public static Holder<SoundEvent> SANGUINE_ALTAR_CONVERSION = SOUNDS.register("sanguine_altar_conversion", () -> SoundEvent.createVariableRangeEvent(ppId("sanguine_altar_conversion")));
+    public static Holder<SoundEvent> LIGHTNING_BOLT_ABILITY = SOUNDS.register("lightning_bolt_ability", () -> SoundEvent.createVariableRangeEvent(ppId("lightning_bolt_ability")));
+    public static Holder<SoundEvent> HEAVY_IMPACT = SOUNDS.register("heavy_impact", () -> SoundEvent.createVariableRangeEvent(ppId("heavy_impact")));
 
     /**
      * Creates a new instance of this data provider.
@@ -129,6 +131,22 @@ public class Sounds extends SoundDefinitionsProvider {
                 .subtitle("sound." + BuiltInRegistries.SOUND_EVENT.getKey(SANGUINE_ALTAR_CONVERSION.value()).getNamespace() + "." + BuiltInRegistries.SOUND_EVENT.getKey(SANGUINE_ALTAR_CONVERSION.value()).getPath()) // Set translation key
                 .with(
                         sound(ppId("block/conversion")).weight(1)
+                )
+        );
+
+        this.add(LIGHTNING_BOLT_ABILITY.value(), definition()
+                .subtitle("sound." + BuiltInRegistries.SOUND_EVENT.getKey(LIGHTNING_BOLT_ABILITY.value()).getNamespace() + "." + BuiltInRegistries.SOUND_EVENT.getKey(LIGHTNING_BOLT_ABILITY.value()).getPath()) // Set translation key
+                .with(
+                        sound(ppId("ability/lightning_0")).weight(1),
+                        sound(ppId("ability/lightning_1")).weight(1)
+                )
+        );
+
+        this.add(HEAVY_IMPACT.value(), definition()
+                .subtitle("sound." + BuiltInRegistries.SOUND_EVENT.getKey(HEAVY_IMPACT.value()).getNamespace() + "." + BuiltInRegistries.SOUND_EVENT.getKey(HEAVY_IMPACT.value()).getPath()) // Set translation key
+                .with(
+                        sound(ppId("ability/stun_0")).weight(1),
+                        sound(ppId("ability/stun_1")).weight(1)
                 )
         );
     }

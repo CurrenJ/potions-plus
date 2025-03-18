@@ -247,6 +247,14 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DOUBLE_JUMP)
             .parentSkill(ConfiguredSkills.JUMPING));
 
+    public static final SimplePlayerAbility.Builder CHAIN_LIGHTNING = register(() -> new ChainLightningAbility.Builder("chain_lightning")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_CHAIN_LIGHTNING)
+            .parentSkill(ConfiguredSkills.SWORDSMANSHIP));
+
+    public static final SimplePlayerAbility.Builder STUN_SHOT = register(() -> new StunShotAbility.Builder("stun_shot")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_STUN_SHOT)
+            .parentSkill(ConfiguredSkills.CHOPPING));
+
     // Data Gen
     public static void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
         for (IAbilityBuilder builder : abilityBuilders) {

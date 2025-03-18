@@ -47,6 +47,5 @@ public class BloodGobParticle extends SimpleAnimatedParticle {
         if (!this.removed) {
             this.setSprite(spriteSet.get(this.age, this.lifetime));
         }
-
     }
 }

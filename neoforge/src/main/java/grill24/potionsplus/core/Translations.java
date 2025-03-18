@@ -62,6 +62,8 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS = "description.potionsplus.ability.diamond_ore_additional_loot_emeralds";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS = "description.potionsplus.ability.diamond_ore_additional_loot_lapis";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DOUBLE_JUMP = "description.potionsplus.ability.double_jump";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_CHAIN_LIGHTNING = "description.potionsplus.ability.chain_lightning";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_STUN_SHOT = "description.potionsplus.ability.stun_shot";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_AXE_EFFICIENCY = "description.potionsplus.ability.axe_efficiency";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SHOVEL_EFFICIENCY = "description.potionsplus.ability.shovel_efficiency";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_HOE_EFFICIENCY = "description.potionsplus.ability.hoe_efficiency";
@@ -223,6 +225,15 @@ public class Translations {
     public static final String JEI_POTIONSPLUS_SULFUR_SHARD_DESCRIPTION = "jei.potionsplus.sulfur_shard.description";
     public static final String ITEM_POTIONSPLUS_SULFURIC_ACID = "item.potionsplus.sulfuric_acid";
     public static final String JEI_POTIONSPLUS_SULFURIC_ACID_DESCRIPTION = "jei.potionsplus.sulfuric_acid.description";
+    public static final String ITEM_POTIONSPLUS_UPGRADE_BASE = "item.potionsplus.upgrade_base";
+    public static final String ITEM_POTIONSPLUS_FILTER_HOPPER_UPGRADE_BLACKLIST = "item.potionsplus.filter_hopper_upgrade_blacklist";
+    public static final String ITEM_POTIONSPLUS_FILTER_HOPPER_UPGRADE_ALLOW_ARMOR = "item.potionsplus.filter_hopper_upgrade_allow_armor";
+    public static final String ITEM_POTIONSPLUS_FILTER_HOPPER_UPGRADE_ALLOW_TOOLS = "item.potionsplus.filter_hopper_upgrade_allow_tools";
+    public static final String ITEM_POTIONSPLUS_FILTER_HOPPER_UPGRADE_ALLOW_FOOD = "item.potionsplus.filter_hopper_upgrade_allow_food";
+    public static final String ITEM_POTIONSPLUS_FILTER_HOPPER_UPGRADE_ALLOW_POTIONS = "item.potionsplus.filter_hopper_upgrade_allow_potions";
+    public static final String ITEM_POTIONSPLUS_FILTER_HOPPER_UPGRADE_ALLOW_ENCHANTED = "item.potionsplus.filter_hopper_upgrade_allow_enchanted";
+    public static final String ITEM_POTIONSPLUS_FILTER_HOPPER_UPGRADE_ALLOW_POTION_INGREDIENTS = "item.potionsplus.filter_hopper_upgrade_allow_potion_ingredients";
+    public static final String ITEM_POTIONSPLUS_FILTER_HOPPER_UPGRADE_ALLOW_EDIBLE_REWARDS = "item.potionsplus.filter_hopper_upgrade_allow_edible_rewards";
     public static final String TOOLTIP_POTIONSPLUS_CHOICE = "tooltip.potionsplus.choice";
     public static final String TOOLTIP_POTIONSPLUS_CHOOSE_ONE = "tooltip.potionsplus.choose_one";
     public static final String TOOLTIP_POTIONSPLUS_OR = "tooltip.potionsplus.or";

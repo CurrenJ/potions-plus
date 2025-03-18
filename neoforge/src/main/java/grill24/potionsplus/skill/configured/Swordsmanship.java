@@ -21,7 +21,7 @@ public class Swordsmanship {
         return context.register(ConfiguredSkills.SWORDSMANSHIP, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_SWORDSMANSHIP,
                         new TreeMap<>(Map.of(
-                                5, new ItemStack(Items.WOODEN_SWORD),
+                                0, new ItemStack(Items.WOODEN_SWORD),
                                 10, new ItemStack(Items.STONE_SWORD),
                                 15, new ItemStack(Items.IRON_SWORD),
                                 20, new ItemStack(Items.GOLDEN_SWORD),
@@ -32,13 +32,18 @@ public class Swordsmanship {
                         List.of(),
                         ConfiguredSkills.createDefaultRewards(context)
                                 .addRewardForLevel(12, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SKELETON_BONE_MEAL_ADDITIONAL_LOOT))
+                                .addRewardForLevel(17, builder -> builder.addReward(rewardLookup,
+                                        ConfiguredGrantableRewards.CHAIN_LIGHTNING_INCREASE_2X))
                                 .addRewardForLevel(24, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_SHARPNESS_INCREASE))
+                                .addRewardForLevel(29, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CHAIN_LIGHTNING_INCREASE))
                                 .addRewardForLevel(32, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_UNBREAKING_INCREASE))
                                 .addRewardForLevel(33, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT))
                                 .addRewardForLevel(35, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CREEPER_SAND_ADDITIONAL_LOOT))
+                                .addRewardForLevel(41, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CHAIN_LIGHTNING_INCREASE))
                                 .addRewardForLevel(45, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_SHARPNESS_INCREASE))
-                                .addRewardForLevel(61, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_SHARPNESS_INCREASE))
                                 .addRewardForLevel(54, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_UNBREAKING_INCREASE))
+                                .addRewardForLevel(61, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_SHARPNESS_INCREASE))
+                                .addRewardForLevel(65, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CHAIN_LIGHTNING_INCREASE))
                                 .addRewardForLevel(73, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_SHARPNESS_INCREASE))
                                 .addRewardForLevel(88, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_LOOTING_INCREASE))
                                 .addRewardForLevel(100, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SWORD_SHARPNESS_INCREASE))

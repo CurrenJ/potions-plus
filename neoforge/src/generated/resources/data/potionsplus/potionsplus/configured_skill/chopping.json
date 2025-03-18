@@ -54,7 +54,8 @@
           },
           "11": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:stun_shot_increase"
             ]
           },
           "12": {
@@ -154,7 +155,8 @@
           },
           "28": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:stun_shot_increase"
             ]
           },
           "29": {
@@ -258,7 +260,8 @@
           "45": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel"
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:stun_shot_increase"
             ]
           },
           "46": {
@@ -375,7 +378,8 @@
           },
           "64": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:stun_shot_increase"
             ]
           },
           "65": {

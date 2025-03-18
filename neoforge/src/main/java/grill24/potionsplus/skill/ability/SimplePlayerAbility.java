@@ -18,7 +18,7 @@ import java.util.Set;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguration>{
+public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguration> {
     public SimplePlayerAbility() {
         super(PlayerAbilityConfiguration.CODEC, Set.of(AbilityInstanceTypes.SIMPLE_TOGGLEABLE.value()));
     }
@@ -47,10 +47,10 @@ public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguratio
     public void onAbilityRevoked(ServerPlayer player, PlayerAbilityConfiguration config) {}
 
     public static class Builder implements ConfiguredPlayerAbilities.IAbilityBuilder {
-        private final ResourceKey<ConfiguredPlayerAbility<?, ?>> key;
-        private String translationKey;
+        protected final ResourceKey<ConfiguredPlayerAbility<?, ?>> key;
+        protected String translationKey;
 
-        private ResourceKey<ConfiguredSkill<?, ?>> parentSkillKey;
+        protected ResourceKey<ConfiguredSkill<?, ?>> parentSkillKey;
 
         public Builder(String key) {
             this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ppId(key));

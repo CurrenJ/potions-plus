@@ -2,13 +2,11 @@ package grill24.potionsplus.block;
 
 import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntity;
 import grill24.potionsplus.blockentity.HerbalistsLecternSounds;
-import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;

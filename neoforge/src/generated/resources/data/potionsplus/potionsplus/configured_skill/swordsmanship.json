@@ -3,6 +3,10 @@
   "config": {
     "baseConfig": {
       "displayIconForLevel": {
+        "0": {
+          "count": 1,
+          "id": "minecraft:wooden_sword"
+        },
         "10": {
           "count": 1,
           "id": "minecraft:stone_sword"
@@ -18,10 +22,6 @@
         "25": {
           "count": 1,
           "id": "minecraft:diamond_sword"
-        },
-        "5": {
-          "count": 1,
-          "id": "minecraft:wooden_sword"
         }
       },
       "pointsLevelingScale": {
@@ -88,7 +88,8 @@
           },
           "17": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:chain_lightning_increase_2x"
             ]
           },
           "18": {
@@ -159,7 +160,8 @@
           },
           "29": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:chain_lightning_increase"
             ]
           },
           "3": {
@@ -237,7 +239,8 @@
           },
           "41": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:chain_lightning_increase"
             ]
           },
           "42": {
@@ -382,7 +385,8 @@
           "65": {
             "advancementRewards": [
               "potionsplus:advanced_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel"
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:chain_lightning_increase"
             ]
           },
           "66": {

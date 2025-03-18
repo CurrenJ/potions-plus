@@ -1,0 +1,7 @@
+{
+  "type": "potionsplus:increase_ability_strength",
+  "config": {
+    "ability": "potionsplus:chain_lightning",
+    "strengthIncrease": 2.0
+  }
+}

@@ -26,6 +26,12 @@ import java.util.Set;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
+/**
+ * Ability that allows the player to jump a second time in midair.
+ * Does not implement {@link ITriggerablePlayerAbility} because Minecraft's movement is driven by the client,
+ * so unlike most other abilities, the server cannot trigger the ability.
+ * {@link ITriggerablePlayerAbility} is used only for abilities that are triggered by the server.
+ */
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class DoubleJumpAbility extends SimplePlayerAbility {
     public DoubleJumpAbility() {

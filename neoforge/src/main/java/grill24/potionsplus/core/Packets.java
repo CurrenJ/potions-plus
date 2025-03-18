@@ -176,5 +176,19 @@ public class Packets {
                 ClientboundDisplayAlert.STREAM_CODEC,
                 ClientboundDisplayAlert.ClientPayloadHandler::handleDataOnMain
         );
+
+        // Trigger Chain Lightning Packet
+        registrar.playToClient(
+                ClientboundTriggerChainLightningPacket.TYPE,
+                ClientboundTriggerChainLightningPacket.STREAM_CODEC,
+                ClientboundTriggerChainLightningPacket.ClientPayloadHandler::handleDataOnMain
+        );
+
+        // Trigger Stun Shot Packet
+        registrar.playToClient(
+                ClientboundTriggerStunShotPacket.TYPE,
+                ClientboundTriggerStunShotPacket.STREAM_CODEC,
+                ClientboundTriggerStunShotPacket.ClientPayloadHandler::handleDataOnMain
+        );
     }
 }

@@ -27,6 +27,13 @@
     ],
     "subtitle": "sound.potionsplus.giant_steps"
   },
+  "heavy_impact": {
+    "sounds": [
+      "potionsplus:ability/stun_0",
+      "potionsplus:ability/stun_1"
+    ],
+    "subtitle": "sound.potionsplus.heavy_impact"
+  },
   "herbalists_lectern_appear": {
     "sounds": [
       "potionsplus:block/herbalists_lectern_appear"
@@ -38,6 +45,13 @@
       "potionsplus:block/herbalists_lectern_disappear"
     ],
     "subtitle": "sound.potionsplus.herbalists_lectern_disappear"
+  },
+  "lightning_bolt_ability": {
+    "sounds": [
+      "potionsplus:ability/lightning_0",
+      "potionsplus:ability/lightning_1"
+    ],
+    "subtitle": "sound.potionsplus.lightning_bolt_ability"
   },
   "muted_plucks_0": {
     "sounds": [

@@ -27,6 +27,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -40,6 +42,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.function.Function;
 
 public class Utility {
@@ -176,6 +179,24 @@ public class Utility {
 
     public static ResourceLocation modifierId(ResourceKey<ConfiguredPlayerAbility<?, ?>> key) {
         return ppId(key.location().getPath() + "_modifier");
+    }
+
+    /**
+     * Get a list of entities to chain to.
+     * @param initialEntity The entity to start the chain from
+     * @param entityLimit The maximum number of entities to chain to
+     * @param range The range to search for entities to chain to
+     * @return A list of entities to chain lightning to
+     */
+    public static List<Entity> getEntitiesToChainOffensiveAbilityTo(Entity initialEntity, int entityLimit, float range) {
+        List<Entity> entities = initialEntity.level().getEntities(initialEntity, initialEntity.getBoundingBox().inflate(range),
+                entity -> (entity instanceof Monster || initialEntity.getClass().isInstance(entity)) && entity != initialEntity);
+        entities.addFirst(initialEntity);
+
+        if (entities.size() > entityLimit) {
+            entities = entities.subList(0, entityLimit);
+        }
+        return entities;
     }
 
     @FunctionalInterface

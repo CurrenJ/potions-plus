@@ -11,4 +11,6 @@ public class AbilityInstanceTypes {
     public static final DeferredHolder<AbilityInstanceType<?>, SimpleToggleable> SIMPLE_TOGGLEABLE = ABILITY_INSTANCE_TYPE.register("simple_toggleable", SimpleToggleable::new);
     public static final DeferredHolder<AbilityInstanceType<?>, AdjustableStrength> ADJUSTABLE_STRENGTH = ABILITY_INSTANCE_TYPE.register("adjustable_strength", AdjustableStrength::new);
     public static final DeferredHolder<AbilityInstanceType<?>, DoubleJump> DOUBLE_JUMP = ABILITY_INSTANCE_TYPE.register("double_jump", DoubleJump::new);
+
+    public static final DeferredHolder<AbilityInstanceType<?>, ChainLightning> CHAIN_LIGHTNING = ABILITY_INSTANCE_TYPE.register("chain_lightning", ChainLightning::new);
 }

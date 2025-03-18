@@ -70,6 +70,8 @@
   "description.potionsplus.ability.diamond_ore_additional_loot_lapis": "+Diamond Ore May Drop Lapis",
 
   "description.potionsplus.ability.double_jump": "+%s Additional Jump(s)",
+  "description.potionsplus.ability.chain_lightning": "+%s Crit. Chain Lightning",
+  "description.potionsplus.ability.stun_shot": "+%s Crit. Stun Shot",
 
 
   "description.potionsplus.ability.axe_efficiency": "%s Axe Mining Speed",

@@ -204,6 +204,17 @@ public class ConfiguredGrantableRewards {
             .ability(ConfiguredPlayerAbilities.SAFE_FALL_DISTANCE_MODIFIER.getKey())
             .strength(0.5F));
 
+    public static IncreaseAbilityStrengthReward.Builder CHAIN_LIGHTNING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("chain_lightning_increase")
+            .ability(ConfiguredPlayerAbilities.CHAIN_LIGHTNING.getKey())
+            .strength(1.0F));
+    public static IncreaseAbilityStrengthReward.Builder CHAIN_LIGHTNING_INCREASE_2X = register(() -> new IncreaseAbilityStrengthReward.Builder("chain_lightning_increase_2x")
+            .ability(ConfiguredPlayerAbilities.CHAIN_LIGHTNING.getKey())
+            .strength(2.0F));
+
+    public static IncreaseAbilityStrengthReward.Builder STUN_SHOT_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("stun_shot_increase")
+            .ability(ConfiguredPlayerAbilities.STUN_SHOT.getKey())
+            .strength(1.0F));
+
     public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_LOOT_1 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_loot_1",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI), SIMPLE_DUNGEON_LOOT.getKey()),
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.STONE_FRUIT), ABANDONED_MINESHAFT_LOOT.getKey())

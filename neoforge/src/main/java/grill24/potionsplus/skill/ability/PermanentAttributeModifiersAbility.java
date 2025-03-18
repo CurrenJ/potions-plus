@@ -78,7 +78,7 @@ public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbi
     @Override
     public Component getDescription(AC config, Object... params) {
         if (params.length == 1 && params[0] instanceof Float strength) {
-            return getDescriptionWithStrength(config, strength);
+            return Component.translatable(config.getData().translationKey(), params);
         } else {
             return super.getDescription(config, params);
         }
