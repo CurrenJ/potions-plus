@@ -194,6 +194,11 @@ public class Potions {
             .withRarityCount(PotionUpgradeIngredients.Rarity.RARE, 1)
             .build(ALL_POTION_GENERATION_DATA::add);
 
+    public static final PotionBuilder.PotionsPlusPotionGenerationData BOUNCING_POTIONS = new PotionBuilder()
+            .name("bouncing")
+            .effect(MobEffects.BOUNCING)
+            .build(ALL_POTION_GENERATION_DATA::add);
+
     @SubscribeEvent
     public static void onRegisterPotions(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {

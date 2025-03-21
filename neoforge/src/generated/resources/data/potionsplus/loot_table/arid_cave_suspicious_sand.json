@@ -864,6 +864,17 @@
         },
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:bouncing"
+            }
+          ],
+          "name": "minecraft:potion",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:gold_nugget",
           "weight": 20000
         },

@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-16T23:36:13.8816815	Block States: potionsplus
+// 1.21.1	2025-03-21T16:29:35.538592	Block States: potionsplus
 32f31cb42acc6abb5df45794da26abaf6f68cc6c assets/potionsplus/blockstates/abyssal_trove.json
 e1f97b37fbc358408652e49e551ef4c520ceda2d assets/potionsplus/blockstates/allium_versatile.json
 b8ea677105165afcba3c3b07bc02884195834fe0 assets/potionsplus/blockstates/azure_bluet_versatile.json
@@ -361,7 +361,7 @@ afe9e0a3c61766b87cc589f2936b571349444b61 assets/potionsplus/models/item/peony_ve
 9908f99b9257e1ed253d6f9e1109630b874ee069 assets/potionsplus/models/item/pitcher_plant_versatile.json
 e6488dd13d313787b6f8a2ecad339be68e7aa63a assets/potionsplus/models/item/poppy_versatile.json
 a8be1f330da8954d61f69be2e555e62af509db0f assets/potionsplus/models/item/portuguese_man_o_war.json
-cd4709ffff4e6e6e8d6f4a293f94f40f39bc82bb assets/potionsplus/models/item/potion_effect_icon.json
+69060adfaa4cd956084038f111bb6031c0ba3a39 assets/potionsplus/models/item/potion_effect_icon.json
 1cf83c4ed95a7c24b482320875bb253554a93472 assets/potionsplus/models/item/potion_effect_icon_absorption.json
 04ffe6362e34607416adac2c6ed9b55703a369f4 assets/potionsplus/models/item/potion_effect_icon_any_other_potion.json
 8d418318b67dae61c3d27aa90bdbf89a0f4b3245 assets/potionsplus/models/item/potion_effect_icon_any_potion.json
@@ -369,6 +369,7 @@ cd4709ffff4e6e6e8d6f4a293f94f40f39bc82bb assets/potionsplus/models/item/potion_e
 13450cf26806653063d2b7e543f4e6c42f1536b5 assets/potionsplus/models/item/potion_effect_icon_blindness.json
 62722003af2541c17938cd40302658a8a4c2df37 assets/potionsplus/models/item/potion_effect_icon_bone_buddy.json
 f8b7191ace6316381b746d48ca62eefddbfc6551 assets/potionsplus/models/item/potion_effect_icon_botanical_boost.json
+7888a22a0859652860311eb76931eda10ea604c9 assets/potionsplus/models/item/potion_effect_icon_bouncing.json
 e12843ee67f5243b057a2acb75003c6566ba9fbb assets/potionsplus/models/item/potion_effect_icon_conduit_power.json
 08d021bde9006c6cba235e73f3715b73828adaaa assets/potionsplus/models/item/potion_effect_icon_crop_collector.json
 f92d9968e4a3d7131390f3af09e2cac33ac45590 assets/potionsplus/models/item/potion_effect_icon_darkness.json

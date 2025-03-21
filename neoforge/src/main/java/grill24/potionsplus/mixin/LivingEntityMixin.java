@@ -117,6 +117,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     /**
      * Create attribute modifiers from our custom attributes so that we can add them as modifiers on the entity movement speed attribute.
+     * {@link grill24.potionsplus.core.Attributes#SPRINTING_SPEED}
      */
     @Unique
     private static final List<Holder<Attribute>> SPRINT_SPEED_ATTRIBUTES = new ArrayList<>() {{ add(grill24.potionsplus.core.Attributes.SPRINTING_SPEED); }};
@@ -134,6 +135,16 @@ public abstract class LivingEntityMixin extends Entity {
                     }
                 }
             }
+        }
+    }
+
+
+
+    @Inject(method = "causeFallDamage")
+    private void onCheckFallDamage(float fallDistance, float multiplier, DamageSource source, CallbackInfoReturnable<Boolean> cir) {
+        Entity entity = (Entity) (Object) this;
+        if (entity instanceof LivingEntity livingEntity && !livingEntity.hasEffect(MobEffects.BOUNCING)) {
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.BOUNCING, 100, 0));
         }
     }
 }

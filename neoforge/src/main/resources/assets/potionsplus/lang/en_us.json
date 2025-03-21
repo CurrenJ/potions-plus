@@ -490,6 +490,13 @@
   "item.minecraft.tipped_arrow.effect.flying_time": "Arrow of Flying Time",
   "jei.potionsplus.flying_time.description": "Time seems to rush by...",
 
+  "effect.potionsplus.bouncing": "Bouncing",
+  "item.minecraft.potion.effect.bouncing": "Potion of Bouncing",
+  "item.minecraft.splash_potion.effect.bouncing": "Splash Potion of Bouncing",
+  "item.minecraft.lingering_potion.effect.bouncing": "Lingering Potion of Bouncing",
+  "item.minecraft.tipped_arrow.effect.bouncing": "Arrow of Bouncing",
+  "jei.potionsplus.bouncing.description": "Affected mobs bounce around like they're on a trampoline. What fun!",
+
   "chat.potionsplus.acquired_ingredient_knowledge_1": "You tingle with alchemical knowledge of the %s you possess...",
   "chat.potionsplus.acquired_ingredient_knowledge_2": "The %s you possess reminds you of something wet and warm...",
   "chat.potionsplus.acquired_ingredient_knowledge_3": "The %s you possess fills you with alchemical determination.",
@@ -584,6 +591,7 @@
   "effect.potionsplus.metal_detecting.tooltip_1": "Pings metallic ores within a ",
   "effect.potionsplus.metal_detecting.tooltip_2": " range every ",
   "effect.potionsplus.metal_detecting.tooltip_3": " ticks.",
+  "effect.potionsplus.bouncing.tooltip": " bounce height.",
   "jei.potionsplus.requires_xp": "Consumes %s XP",
   "advancements.potionsplus.acquire_sulfur_shard.title": "It Was All Yellow",
   "advancements.potionsplus.acquire_sulfur_shard.description": "Find a Sulfur Shard.",

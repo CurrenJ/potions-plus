@@ -420,6 +420,12 @@ public class Translations {
     public static final String ITEM_MINECRAFT_LINGERING_POTION_EFFECT_FLYING_TIME = "item.minecraft.lingering_potion.effect.flying_time";
     public static final String ITEM_MINECRAFT_TIPPED_ARROW_EFFECT_FLYING_TIME = "item.minecraft.tipped_arrow.effect.flying_time";
     public static final String JEI_POTIONSPLUS_FLYING_TIME_DESCRIPTION = "jei.potionsplus.flying_time.description";
+    public static final String EFFECT_POTIONSPLUS_BOUNCING = "effect.potionsplus.bouncing";
+    public static final String ITEM_MINECRAFT_POTION_EFFECT_BOUNCING = "item.minecraft.potion.effect.bouncing";
+    public static final String ITEM_MINECRAFT_SPLASH_POTION_EFFECT_BOUNCING = "item.minecraft.splash_potion.effect.bouncing";
+    public static final String ITEM_MINECRAFT_LINGERING_POTION_EFFECT_BOUNCING = "item.minecraft.lingering_potion.effect.bouncing";
+    public static final String ITEM_MINECRAFT_TIPPED_ARROW_EFFECT_BOUNCING = "item.minecraft.tipped_arrow.effect.bouncing";
+    public static final String JEI_POTIONSPLUS_BOUNCING_DESCRIPTION = "jei.potionsplus.bouncing.description";
     public static final String CHAT_POTIONSPLUS_ACQUIRED_INGREDIENT_KNOWLEDGE_1 = "chat.potionsplus.acquired_ingredient_knowledge_1";
     public static final String CHAT_POTIONSPLUS_ACQUIRED_INGREDIENT_KNOWLEDGE_2 = "chat.potionsplus.acquired_ingredient_knowledge_2";
     public static final String CHAT_POTIONSPLUS_ACQUIRED_INGREDIENT_KNOWLEDGE_3 = "chat.potionsplus.acquired_ingredient_knowledge_3";
@@ -512,6 +518,7 @@ public class Translations {
     public static final String EFFECT_POTIONSPLUS_METAL_DETECTING_TOOLTIP_1 = "effect.potionsplus.metal_detecting.tooltip_1";
     public static final String EFFECT_POTIONSPLUS_METAL_DETECTING_TOOLTIP_2 = "effect.potionsplus.metal_detecting.tooltip_2";
     public static final String EFFECT_POTIONSPLUS_METAL_DETECTING_TOOLTIP_3 = "effect.potionsplus.metal_detecting.tooltip_3";
+    public static final String EFFECT_POTIONSPLUS_BOUNCING_TOOLTIP = "effect.potionsplus.bouncing.tooltip";
     public static final String JEI_POTIONSPLUS_REQUIRES_XP = "jei.potionsplus.requires_xp";
     public static final String ADVANCEMENTS_POTIONSPLUS_ACQUIRE_SULFUR_SHARD_TITLE = "advancements.potionsplus.acquire_sulfur_shard.title";
     public static final String ADVANCEMENTS_POTIONSPLUS_ACQUIRE_SULFUR_SHARD_DESCRIPTION = "advancements.potionsplus.acquire_sulfur_shard.description";

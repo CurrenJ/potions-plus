@@ -783,6 +783,16 @@
             }
           ],
           "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:bouncing"
+            }
+          ],
+          "name": "minecraft:potion"
         }
       ],
       "rolls": 1.0
