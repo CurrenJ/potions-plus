@@ -29,6 +29,7 @@ public class Jumping {
                         ConfiguredSkills.createDefaultRewards(context)
                                 .addRewardForLevel(7, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SAFE_FALL_DISTANCE_INCREASE))
                                 .addRewardForLevel(11, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_JUMP_HEIGHT_INCREASE))
+                                .addRewardForLevel(13, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SAVED_BY_THE_BOUNCE_INCREASE))
                                 .addRewardForLevel(15, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_JUMP_HEIGHT_INCREASE))
                                 .addRewardForLevel(17, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SAFE_FALL_DISTANCE_INCREASE))
                                 .addRewardForLevel(21, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.DOUBLE_JUMP_COUNT_INCREASE))

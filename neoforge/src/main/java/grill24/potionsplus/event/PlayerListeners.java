@@ -12,10 +12,13 @@ import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.AttributeModifiersWhileHeldAbility;
+import grill24.potionsplus.skill.ability.PlayerAbility;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.utility.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -175,6 +178,8 @@ public class PlayerListeners {
     @SubscribeEvent
     public static void onPlayerJoin(final EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
+            SkillsData skillsData = SkillsData.getPlayerData(player);
+
             // Sync known brewing cauldron recipe, sync paired abyssal trove, and sync player skill data
             PacketDistributor.sendToPlayer(player,
                     ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()),
@@ -183,10 +188,13 @@ public class PlayerListeners {
             );
 
             // Trigger an update for all abilities
-            SkillsData.updatePlayerData(player, data -> data.unlockedAbilities()
-                    .forEach((key, list) -> list
-                            .forEach(instance -> instance.onInstanceChanged(player))));
+            for (Map.Entry<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> entry : skillsData.unlockedAbilities().entrySet()) {
+                for (AbilityInstanceSerializable<?, ?> instance : entry.getValue()) {
+                    instance.onInstanceChanged(player);
+                }
+            }
 
+            // Reset Fishing Game
             ServerboundEndFishingMinigame.ServerPayloadHandler.endGame(player, ServerboundEndFishingMinigame.Result.RESET);
         }
     }

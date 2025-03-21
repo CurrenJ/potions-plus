@@ -64,6 +64,7 @@ public class SkillsScreen extends AbstractContainerScreen<SkillsMenu> {
                 this.tabsRenderer.show(false);
             }
         });
+        this.skillsIconsRenderer.setAllowClicksOutsideBounds(true);
         SkillIconsDivElement skillsIconsRendererDiv = new SkillIconsDivElement(this, RenderableScreenElement.Settings.DEFAULT.withAnimationSpeed(1F), this.skillsIconsRenderer);
         skillsIconsRendererDiv.setAllowClicksOutsideBounds(true);
 

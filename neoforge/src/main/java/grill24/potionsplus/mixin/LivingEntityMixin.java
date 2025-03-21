@@ -137,14 +137,4 @@ public abstract class LivingEntityMixin extends Entity {
             }
         }
     }
-
-
-
-    @Inject(method = "causeFallDamage")
-    private void onCheckFallDamage(float fallDistance, float multiplier, DamageSource source, CallbackInfoReturnable<Boolean> cir) {
-        Entity entity = (Entity) (Object) this;
-        if (entity instanceof LivingEntity livingEntity && !livingEntity.hasEffect(MobEffects.BOUNCING)) {
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.BOUNCING, 100, 0));
-        }
-    }
 }

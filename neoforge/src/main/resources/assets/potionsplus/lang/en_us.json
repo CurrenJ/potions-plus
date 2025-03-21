@@ -72,7 +72,9 @@
   "description.potionsplus.ability.double_jump": "+%s Additional Jump(s)",
   "description.potionsplus.ability.chain_lightning": "+%s Crit. Chain Lightning",
   "description.potionsplus.ability.stun_shot": "+%s Crit. Stun Shot",
-
+  "description.potionsplus.ability.saved_by_the_bounce": "+Saved By The Bounce",
+  "cooldown.potionsplus.ability.saved_by_the_bounce": "Saved By The Bounce is ready to use!",
+  "cooldown.potionsplus.ability": "Ability will be ready to use again in %s seconds.",
 
   "description.potionsplus.ability.axe_efficiency": "%s Axe Mining Speed",
   "description.potionsplus.ability.shovel_efficiency": "%s Shovel Mining Speed",

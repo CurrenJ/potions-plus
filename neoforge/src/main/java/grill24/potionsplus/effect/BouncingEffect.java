@@ -1,25 +1,37 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.core.ConfiguredPlayerAbilities;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.network.ClientboundDisplayAlert;
+import grill24.potionsplus.skill.SkillsData;
+import grill24.potionsplus.skill.ability.SavedByTheBounceAbility;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
+import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
 import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.ServerTickHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.List;
+import java.util.Optional;
 
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
     public BouncingEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
@@ -55,10 +67,39 @@ public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
             MobEffectInstance effectInstance = entity.getEffect(MobEffects.BOUNCING);
             if (effectInstance != null && effectInstance.getEffect().value() instanceof BouncingEffect bouncing) {
                 bouncing.bounceUp(entity, bouncing.getBounceHeight(effectInstance.getAmplifier()));
-                return true;
             }
+            return true;
         }
         return false;
+    }
+
+    @SubscribeEvent
+    public static void onLivingFall(LivingFallEvent event) {
+        Entity entity = event.getEntity();
+        if (entity instanceof Player player && !player.hasEffect(MobEffects.BOUNCING)) {
+            float safeFallDistance = (float) player.getAttribute(Attributes.SAFE_FALL_DISTANCE).getValue();
+            if (event.getDistance() > safeFallDistance) {
+                SkillsData skillsData = SkillsData.getPlayerData(player);
+                Optional<AbilityInstanceSerializable<?, ?>> abilityInstance = skillsData.getAbilityInstance(player.registryAccess(), ConfiguredPlayerAbilities.SAVED_BY_THE_BOUNCE.getKey());
+                long gameTime = player.level().getGameTime();
+                if (abilityInstance.isPresent() && abilityInstance.get().data().isEnabled() &&
+                        abilityInstance.get().data() instanceof CooldownAbilityInstanceData cooldownAbilityInstanceData
+                        && cooldownAbilityInstanceData.hasFinishedCooldown(gameTime)
+                        && cooldownAbilityInstanceData.getConfiguredAbility().ability() instanceof SavedByTheBounceAbility) {
+
+                    cooldownAbilityInstanceData.onTrigger(gameTime);
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        PacketDistributor.sendToPlayer(serverPlayer, new ClientboundDisplayAlert(Component.translatable(Translations.COOLDOWN_POTIONSPLUS_ABILITY, cooldownAbilityInstanceData.getCooldownSeconds())));
+                        cooldownAbilityInstanceData.scheduleCooldownDoneNotificationServer(Component.translatable(Translations.COOLDOWN_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE), serverPlayer);
+                    }
+                    player.addEffect(new MobEffectInstance(MobEffects.BOUNCING, 60, 0));
+                }
+            }
+        }
+
+        if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.BOUNCING)) {
+            event.setCanceled(true);
+        }
     }
 }
 

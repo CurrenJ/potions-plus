@@ -255,6 +255,10 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_STUN_SHOT)
             .parentSkill(ConfiguredSkills.CHOPPING));
 
+    public static final SimplePlayerAbility.Builder SAVED_BY_THE_BOUNCE = register(() -> new SavedByTheBounceAbility.Builder("saved_by_the_bounce")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE)
+            .parentSkill(ConfiguredSkills.JUMPING));
+
     // Data Gen
     public static void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
         for (IAbilityBuilder builder : abilityBuilders) {

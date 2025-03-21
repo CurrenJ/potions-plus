@@ -50,7 +50,8 @@
           },
           "13": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:saved_by_the_bounce_increase"
             ]
           },
           "14": {
