@@ -73,6 +73,7 @@
   "description.potionsplus.ability.chain_lightning": "+%s Crit. Chain Lightning",
   "description.potionsplus.ability.stun_shot": "+%s Crit. Stun Shot",
   "description.potionsplus.ability.saved_by_the_bounce": "+Saved By The Bounce",
+  "description.potionsplus.ability.saved_by_the_bounce_increase": "-30 seconds Saved By The Bounce cooldown",
   "cooldown.potionsplus.ability.saved_by_the_bounce": "Saved By The Bounce is ready to use!",
   "cooldown.potionsplus.ability": "Ability will be ready to use again in %s seconds.",
 

@@ -5,6 +5,7 @@ import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
+import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -18,7 +19,11 @@ import java.util.Optional;
 public class SavedByTheBounceAbility extends CooldownTriggerableAbility<LivingFallEvent, CustomPacketPayload> {
     @Override
     public int getCooldownDurationForAbility(AbilityInstanceSerializable<?, ?> instance) {
-        return 3600;
+        float strength = 0F;
+        if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthAbilityInstanceData) {
+            strength = adjustableStrengthAbilityInstanceData.getAbilityStrength();
+        }
+        return Math.max(600, 3600 - (int) (strength * 600));
     }
 
     @Override

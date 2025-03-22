@@ -51,7 +51,7 @@
           "13": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:saved_by_the_bounce_increase"
+              "potionsplus:saved_by_the_bounce"
             ]
           },
           "14": {
@@ -125,7 +125,8 @@
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_wheel_end_city"
+              "potionsplus:edible_wheel_end_city",
+              "potionsplus:saved_by_the_bounce_increase"
             ]
           },
           "26": {
@@ -164,7 +165,8 @@
           },
           "31": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:saved_by_the_bounce_increase"
             ]
           },
           "32": {
@@ -269,7 +271,8 @@
           },
           "49": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:saved_by_the_bounce_increase"
             ]
           },
           "5": {
@@ -364,7 +367,8 @@
           },
           "64": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:saved_by_the_bounce_increase"
             ]
           },
           "65": {
@@ -443,7 +447,8 @@
           },
           "77": {
             "advancementRewards": [
-              "potionsplus:expert_skill_loot_edible"
+              "potionsplus:expert_skill_loot_edible",
+              "potionsplus:saved_by_the_bounce_increase"
             ]
           },
           "78": {
@@ -493,7 +498,8 @@
           "85": {
             "advancementRewards": [
               "potionsplus:expert_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel"
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:saved_by_the_bounce_increase"
             ]
           },
           "86": {

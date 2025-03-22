@@ -203,9 +203,11 @@ public class ConfiguredGrantableRewards {
     public static IncreaseAbilityStrengthReward.Builder SAFE_FALL_DISTANCE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("safe_fall_distance_increase")
             .ability(ConfiguredPlayerAbilities.SAFE_FALL_DISTANCE_MODIFIER.getKey())
             .strength(0.5F));
+    public static AbilityReward.AbilityRewardBuilder SAVED_BY_THE_BOUNCE = registerAbilityReward(ConfiguredPlayerAbilities.SAVED_BY_THE_BOUNCE.getKey());
     public static IncreaseAbilityStrengthReward.Builder SAVED_BY_THE_BOUNCE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("saved_by_the_bounce_increase")
             .ability(ConfiguredPlayerAbilities.SAVED_BY_THE_BOUNCE.getKey())
-            .strength(1.0F));
+            .strength(1.0F))
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE_INCREASE);
 
     public static IncreaseAbilityStrengthReward.Builder CHAIN_LIGHTNING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("chain_lightning_increase")
             .ability(ConfiguredPlayerAbilities.CHAIN_LIGHTNING.getKey())

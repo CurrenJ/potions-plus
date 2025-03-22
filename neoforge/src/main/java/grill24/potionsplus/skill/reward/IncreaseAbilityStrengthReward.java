@@ -26,16 +26,23 @@ public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbili
         public static final Codec<IncreaseAbilityStrengthRewardConfiguration> CODEC = RecordCodecBuilder.create(
             codecBuilder -> codecBuilder.group(
                 ConfiguredPlayerAbility.HOLDER_CODECS.holderCodec().fieldOf("ability").forGetter(instance -> instance.ability),
-                Codec.FLOAT.fieldOf("strengthIncrease").forGetter(instance -> instance.strengthIncrease)
+                Codec.FLOAT.fieldOf("strengthIncrease").forGetter(instance -> instance.strengthIncrease),
+                Codec.STRING.optionalFieldOf("translationKey", "").forGetter(instance -> instance.translationKey)
             ).apply(codecBuilder, IncreaseAbilityStrengthRewardConfiguration::new)
         );
 
         public final Holder<ConfiguredPlayerAbility<?, ?>> ability;
         public final float strengthIncrease;
+        public final String translationKey;
 
-        public IncreaseAbilityStrengthRewardConfiguration(Holder<ConfiguredPlayerAbility<?, ?>> ability, float strengthIncrease) {
+        public IncreaseAbilityStrengthRewardConfiguration(Holder<ConfiguredPlayerAbility<?, ?>> ability, float strengthIncrease, String translationKey) {
             this.ability = ability;
             this.strengthIncrease = strengthIncrease;
+            this.translationKey = translationKey;
+        }
+
+        public IncreaseAbilityStrengthRewardConfiguration(Holder<ConfiguredPlayerAbility<?, ?>> ability, float strengthIncrease) {
+            this(ability, strengthIncrease, "");
         }
     }
 
@@ -45,8 +52,14 @@ public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbili
 
     @Override
     public Optional<Component> getDescription(IncreaseAbilityStrengthRewardConfiguration config) {
-        ConfiguredPlayerAbility<?, ?> ability = config.ability.value();
-        return Optional.of(ability.getDescription(config.strengthIncrease));
+        if (!config.translationKey.isEmpty()) {
+            // Use the translation key if it is set
+            return Optional.of(Component.translatable(config.translationKey));
+        } else {
+            // Otherwise, use the ability description
+            ConfiguredPlayerAbility<?, ?> ability = config.ability.value();
+            return Optional.of(ability.getDescription(config.strengthIncrease));
+        }
     }
 
     @Override
@@ -76,11 +89,13 @@ public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbili
 
         private ResourceKey<ConfiguredPlayerAbility<?, ?>> ability;
         private float strengthIncrease;
+        private String translationKey;
 
         public Builder(String name) {
             this.strengthIncrease = 0;
 
             this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
+            this.translationKey = "";
         }
 
         public Builder strength(float strengthIncrease) {
@@ -90,6 +105,11 @@ public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbili
 
         public Builder ability(ResourceKey<ConfiguredPlayerAbility<?, ?>> ability) {
             this.ability = ability;
+            return this;
+        }
+
+        public Builder translationKey(String translationKey) {
+            this.translationKey = translationKey;
             return this;
         }
 
@@ -114,7 +134,7 @@ public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbili
 
             context.register(key, new ConfiguredGrantableReward<>(
                     GrantableRewards.INCREASE_ABILITY_STRENGTH.value(),
-                    new IncreaseAbilityStrengthRewardConfiguration(ability.get(), this.strengthIncrease)
+                    new IncreaseAbilityStrengthRewardConfiguration(ability.get(), this.strengthIncrease, this.translationKey)
             ));
         }
     }

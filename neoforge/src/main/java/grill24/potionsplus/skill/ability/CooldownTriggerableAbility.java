@@ -7,8 +7,10 @@ import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
 import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
+import grill24.potionsplus.skill.ability.instance.SimpleAbilityInstanceData;
 import grill24.potionsplus.utility.DelayedEvents;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
@@ -23,6 +25,13 @@ import java.util.function.Consumer;
 public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayload> extends SimplePlayerAbility implements ITriggerablePlayerAbility<E, P> {
     public CooldownTriggerableAbility() {
         super(Set.of(AbilityInstanceTypes.COOLDOWN.get()));
+    }
+
+    @Override
+    public AbilityInstanceSerializable<?, ?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability) {
+        return new AbilityInstanceSerializable<>(
+                AbilityInstanceTypes.COOLDOWN.value(),
+                new CooldownAbilityInstanceData(ability, true, 0, 0, 0));
     }
 
     public CooldownTriggerableAbility(Set<AbilityInstanceType<?>> types) {
