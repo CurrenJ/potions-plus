@@ -5,7 +5,7 @@ import grill24.potionsplus.core.GrantableRewards;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.network.ClientboundDisplayWheelAnimationPacket;
-import grill24.potionsplus.utility.DelayedServerEvents;
+import grill24.potionsplus.utility.DelayedEvents;
 import grill24.potionsplus.utility.InvUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -96,7 +96,7 @@ public class ItemWheelReward extends GrantableReward<ItemWheelRewardConfiguratio
         // Play animation on client
         PacketDistributor.sendToPlayer(player, new ClientboundDisplayWheelAnimationPacket(possibleRewards, winnerIndex));
         // Give item at right time during animation (server)
-        DelayedServerEvents.queueDelayedEvent(() -> InvUtil.giveOrDropItem(player, possibleRewards.get(winnerIndex).copy()), 190);
+        DelayedEvents.queueDelayedEvent(() -> InvUtil.giveOrDropItem(player, possibleRewards.get(winnerIndex).copy()), 190);
     }
 
     public static class ItemWheelRewardBuilder implements ConfiguredGrantableRewards.IRewardBuilder {

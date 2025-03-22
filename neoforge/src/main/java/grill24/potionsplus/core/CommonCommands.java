@@ -17,7 +17,7 @@ import grill24.potionsplus.skill.*;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
-import grill24.potionsplus.utility.DelayedServerEvents;
+import grill24.potionsplus.utility.DelayedEvents;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.ModInfo;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -169,7 +169,7 @@ public class CommonCommands {
                                 int winnerIndex = player.getRandom().nextInt(itemStacks.size());
 
                                 PacketDistributor.sendToPlayer(player, new ClientboundDisplayWheelAnimationPacket(itemStacks, winnerIndex));
-                                DelayedServerEvents.queueDelayedEvent(() -> InvUtil.giveOrDropItem(player, itemStacks.get(winnerIndex).copy()), 190);
+                                DelayedEvents.queueDelayedEvent(() -> InvUtil.giveOrDropItem(player, itemStacks.get(winnerIndex).copy()), 190);
                             }
 
                             return 1;

@@ -1,31 +1,39 @@
 package grill24.potionsplus.skill.ability;
 
-import grill24.potionsplus.core.AbilityInstanceTypes;
 import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.core.PotionsPlusRegistries;
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
-import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
-import net.minecraft.core.Holder;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 
 import java.util.Optional;
 
-public class SavedByTheBounceAbility extends SimplePlayerAbility implements ITriggerablePlayerAbility<LivingFallEvent, CustomPacketPayload> {
+public class SavedByTheBounceAbility extends CooldownTriggerableAbility<LivingFallEvent, CustomPacketPayload> {
     @Override
-    public Optional<CustomPacketPayload> onTrigger(ServerPlayer player, AbilityInstanceSerializable<?, ?> instance, LivingFallEvent eventData) {
+    public int getCooldownDurationForAbility(AbilityInstanceSerializable<?, ?> instance) {
+        return 3600;
+    }
+
+    @Override
+    protected Component getCooldownOverComponent(AbilityInstanceSerializable<?, ?> instance) {
+        return Component.translatable(Translations.COOLDOWN_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE).withStyle(ChatFormatting.GRAY);
+    }
+
+    @Override
+    public Optional<CustomPacketPayload> onTriggeredFromServer(Player player, AbilityInstanceSerializable<?, ?> instance, LivingFallEvent eventData) {
         return Optional.empty();
     }
 
     @Override
-    public AbilityInstanceSerializable<?, ?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability) {
-        return new AbilityInstanceSerializable<>(
-                AbilityInstanceTypes.COOLDOWN.value(),
-                new CooldownAbilityInstanceData(ability, true, 0, 0, 6000, 0));
+    public Optional<CustomPacketPayload> onTriggeredFromClient(Player player, AbilityInstanceSerializable<?, ?> instance, LivingFallEvent eventData) {
+        return Optional.empty();
     }
 
     public static class Builder extends SimplePlayerAbility.Builder {

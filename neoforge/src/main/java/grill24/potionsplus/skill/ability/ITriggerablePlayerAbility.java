@@ -5,6 +5,7 @@ import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Optional;
@@ -17,29 +18,16 @@ import java.util.Optional;
  */
 public interface ITriggerablePlayerAbility<E, P extends CustomPacketPayload> {
     /**
-     * Trigger the ability for the player. Override this method to implement the ability's behavior.
-     * @return True if the ability was triggered successfully, false otherwise.
-     *         If true, the client will be notified of the ability's activation.
+     * Trigger the ability for the player. Override this method to implement the ability's behavior if it is triggered by the server.
+     * NOTE: Will not be called if the ability is triggered from the client. Instead, a packet will be sent to the client.
+     * @return A packet to send to the client, or an empty optional if no packet should be sent.
      */
-    Optional<P> onTrigger(ServerPlayer player, AbilityInstanceSerializable<?, ?> instance, E eventData);
+    Optional<P> onTriggeredFromServer(Player player, AbilityInstanceSerializable<?, ?> instance, E eventData);
 
     /**
-     * Trigger the ability for the player.
-     * @param player The player to trigger the ability for.
-     * @param abilityResourceKey The resource key of the ability type to trigger.
-     * @param eventData The event data to pass to the ability.
+     * Trigger the ability for the player. Override this method to implement the ability's behavior if it is triggered by the client.
+     * NOTE: Will not be called if the ability is triggered from the server. Instead, a packet will be sent to the server.
+     * @return A packet to send to the server, or an empty optional if no packet should be sent.
      */
-    default void trigger(ServerPlayer player, ResourceKey<PlayerAbility<?>> abilityResourceKey, E eventData) {
-        SkillsData skillsData = SkillsData.getPlayerData(player);
-        if (!player.isLocalPlayer()) {
-            if (skillsData.unlockedAbilities().containsKey(abilityResourceKey)) {
-                for (AbilityInstanceSerializable<?, ?> instance : skillsData.unlockedAbilities().get(abilityResourceKey)) {
-                    if (instance.data().isEnabled()) {
-                        Optional<P> packet = onTrigger(player, instance, eventData);
-                        packet.ifPresent(p -> PacketDistributor.sendToPlayersTrackingEntityAndSelf(player, p));
-                    }
-                }
-            }
-        }
-    }
+    Optional<P> onTriggeredFromClient(Player player, AbilityInstanceSerializable<?, ?> instance, E eventData);
 }

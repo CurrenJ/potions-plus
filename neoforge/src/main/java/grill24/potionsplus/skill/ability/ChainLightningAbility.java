@@ -5,16 +5,18 @@ import grill24.potionsplus.network.ClientboundTriggerChainLightningPacket;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
-import grill24.potionsplus.skill.ability.instance.ChainLightningAbilityInstanceData;
+import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -26,31 +28,40 @@ import java.util.Optional;
 import java.util.Set;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
-public class ChainLightningAbility extends SimplePlayerAbility implements ITriggerablePlayerAbility<CriticalHitEvent, ClientboundTriggerChainLightningPacket> {
+public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHitEvent, ClientboundTriggerChainLightningPacket> {
     public ChainLightningAbility() {
-        super(Set.of(AbilityInstanceTypes.CHAIN_LIGHTNING.value()));
+        super(Set.of(AbilityInstanceTypes.COOLDOWN.value()));
     }
 
     @Override
     public AbilityInstanceSerializable<?, ?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability) {
         return new AbilityInstanceSerializable<>(
-                AbilityInstanceTypes.CHAIN_LIGHTNING.value(),
-                new ChainLightningAbilityInstanceData(ability, true));
+                AbilityInstanceTypes.COOLDOWN.value(),
+                new CooldownAbilityInstanceData(ability, true, 0, 0, 0));
     }
 
+    @Override
+    protected int getCooldownDurationForAbility(AbilityInstanceSerializable<?, ?> instance) {
+        return 0;
+    }
 
-    // ----- ITriggerablePlayerAbility -----
+    @Override
+    protected Component getCooldownOverComponent(AbilityInstanceSerializable<?, ?> instance) {
+        return Component.empty();
+    }
 
     @SubscribeEvent
     public static void onCriticalHit(final CriticalHitEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
-            DeferredHolder<PlayerAbility<?>, ChainLightningAbility> ability = PlayerAbilities.CHAIN_LIGHTNING;
-            ability.value().trigger(serverPlayer, PlayerAbilities.CHAIN_LIGHTNING.getKey(), event);
+            PlayerAbilities.CHAIN_LIGHTNING.value().triggerFromServer(serverPlayer, ConfiguredPlayerAbilities.CHAIN_LIGHTNING.getKey(), event);
         }
     }
 
+    // ----- ITriggerablePlayerAbility -----
+
+
     @Override
-    public Optional<ClientboundTriggerChainLightningPacket> onTrigger(ServerPlayer player, AbilityInstanceSerializable<?, ?> instance, CriticalHitEvent event) {
+    public Optional<ClientboundTriggerChainLightningPacket> onTriggeredFromServer(Player player, AbilityInstanceSerializable<?, ?> instance, CriticalHitEvent event) {
         if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthAbilityInstanceData) {
             final float strength = adjustableStrengthAbilityInstanceData.getAbilityStrength();
             float chanceToActivate = strength * 0.15F;
@@ -67,7 +78,12 @@ public class ChainLightningAbility extends SimplePlayerAbility implements ITrigg
         return Optional.empty();
     }
 
-    // ----- Chain Lightning Behaviour -----
+    @Override
+    public Optional<ClientboundTriggerChainLightningPacket> onTriggeredFromClient(Player player, AbilityInstanceSerializable<?, ?> instance, CriticalHitEvent event) {
+        return Optional.empty();
+    }
+
+    // ----- Chain Lightning Behaviour ----
 
     /**
      * Perform the chain lightning ability.

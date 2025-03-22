@@ -1,23 +1,14 @@
 package grill24.potionsplus.network;
 
-import com.mojang.serialization.Codec;
-import grill24.potionsplus.core.DataAttachments;
 import grill24.potionsplus.core.PotionsPlusRegistries;
-import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
-import grill24.potionsplus.utility.DelayedServerEvents;
-import grill24.potionsplus.utility.InvUtil;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.StringRepresentable;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.handling.ServerPayloadContext;
