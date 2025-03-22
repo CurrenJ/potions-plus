@@ -29,6 +29,11 @@ public abstract class GameRendererMixin implements IGameRendererMixin {
         this.activeAnimation = animation;
     }
 
+    @Override
+    public void potions_plus$cancelCurrentAnimation() {
+        this.activeAnimation = null;
+    }
+
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         if (this.activeAnimation != null) {
@@ -47,5 +52,10 @@ public abstract class GameRendererMixin implements IGameRendererMixin {
             this.activeAnimation.render(this.minecraft, guiGraphics, partialTick);
             ci.cancel();
         } // Else pass to the original method
+    }
+
+    @Override
+    public ItemActivationAnimation getActiveAnimation() {
+        return this.activeAnimation;
     }
 }

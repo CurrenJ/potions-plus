@@ -117,6 +117,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     /**
      * Create attribute modifiers from our custom attributes so that we can add them as modifiers on the entity movement speed attribute.
+     * {@link grill24.potionsplus.core.Attributes#SPRINTING_SPEED}
      */
     @Unique
     private static final List<Holder<Attribute>> SPRINT_SPEED_ATTRIBUTES = new ArrayList<>() {{ add(grill24.potionsplus.core.Attributes.SPRINTING_SPEED); }};

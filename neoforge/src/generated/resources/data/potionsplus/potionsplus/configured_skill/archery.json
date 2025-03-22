@@ -3,22 +3,6 @@
   "config": {
     "baseConfig": {
       "displayIconForLevel": {
-        "10": {
-          "count": 1,
-          "id": "minecraft:bow"
-        },
-        "15": {
-          "count": 1,
-          "id": "minecraft:bow"
-        },
-        "20": {
-          "count": 1,
-          "id": "minecraft:bow"
-        },
-        "25": {
-          "count": 1,
-          "id": "minecraft:bow"
-        },
         "5": {
           "count": 1,
           "id": "minecraft:bow"
@@ -28,7 +12,8 @@
         "a": 2.0,
         "b": 1.2,
         "c": 4,
-        "levelMax": 25,
+        "d": 10.0,
+        "levelMax": 100,
         "scale": "EXPONENTIAL"
       },
       "rewardsConfig": {
@@ -41,16 +26,15 @@
           "10": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:bow_power_bonus_2",
-              "potionsplus:display_bow"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "100": {
             "advancementRewards": [
               "potionsplus:master_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_wheel_end_city"
+              "potionsplus:edible_wheel_end_city",
+              "potionsplus:bow_power_increase"
             ]
           },
           "11": {
@@ -66,7 +50,8 @@
           },
           "13": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:bow_unbreaking_increase"
             ]
           },
           "14": {
@@ -77,9 +62,7 @@
           "15": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:bow_power_bonus_3",
-              "potionsplus:display_bow"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "16": {
@@ -89,7 +72,8 @@
           },
           "17": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:small_bow_use_speed_increase"
             ]
           },
           "18": {
@@ -112,8 +96,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:bow_power_bonus_4",
-              "potionsplus:display_bow"
+              "potionsplus:bow_power_increase"
             ]
           },
           "21": {
@@ -141,9 +124,7 @@
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_wheel_end_city",
-              "potionsplus:bow_power_bonus_5",
-              "potionsplus:display_bow"
+              "potionsplus:edible_wheel_end_city"
             ]
           },
           "26": {
@@ -158,7 +139,8 @@
           },
           "28": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:bow_looting_increase"
             ]
           },
           "29": {
@@ -185,7 +167,8 @@
           },
           "32": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:medium_bow_use_speed_increase"
             ]
           },
           "33": {
@@ -244,7 +227,8 @@
           "42": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:bow_punch_increase"
             ]
           },
           "43": {
@@ -288,15 +272,15 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:bow_power_bonus_1",
-              "potionsplus:display_bow"
+              "potionsplus:small_bow_use_speed_increase"
             ]
           },
           "50": {
             "advancementRewards": [
               "potionsplus:advanced_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_wheel_end_city"
+              "potionsplus:edible_wheel_end_city",
+              "potionsplus:bow_power_increase"
             ]
           },
           "51": {
@@ -323,7 +307,8 @@
           "55": {
             "advancementRewards": [
               "potionsplus:advanced_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel"
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:small_bow_use_speed_increase"
             ]
           },
           "56": {
@@ -371,7 +356,8 @@
           },
           "63": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:bow_looting_increase"
             ]
           },
           "64": {
@@ -442,7 +428,8 @@
             "advancementRewards": [
               "potionsplus:expert_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_wheel_end_city"
+              "potionsplus:edible_wheel_end_city",
+              "potionsplus:bow_power_increase"
             ]
           },
           "76": {
@@ -516,7 +503,8 @@
           },
           "88": {
             "advancementRewards": [
-              "potionsplus:expert_skill_loot_edible"
+              "potionsplus:expert_skill_loot_edible",
+              "potionsplus:small_bow_use_speed_increase"
             ]
           },
           "89": {
@@ -526,7 +514,8 @@
           },
           "9": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:bow_punch_increase"
             ]
           },
           "90": {

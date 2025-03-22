@@ -1,98 +1,13 @@
 {
   "type": "potionsplus:kill_entity",
   "config": {
-    "pointsPerEntity": [
-      {
-        "killedEntityPredicate": {
-          "type": "#minecraft:zombies"
-        },
-        "playerEntityPredicate": {
-          "equipment": {
-            "mainhand": {
-              "items": "#minecraft:swords"
-            }
-          }
-        },
-        "points": 1
-      },
-      {
-        "killedEntityPredicate": {
-          "type": "#minecraft:skeletons"
-        },
-        "playerEntityPredicate": {
-          "equipment": {
-            "mainhand": {
-              "items": "#minecraft:swords"
-            }
-          }
-        },
-        "points": 1
-      },
-      {
-        "killedEntityPredicate": {
-          "type": "minecraft:creeper"
-        },
-        "playerEntityPredicate": {
-          "equipment": {
-            "mainhand": {
-              "items": "#minecraft:swords"
-            }
-          }
-        },
-        "points": 3
-      },
-      {
-        "killedEntityPredicate": {
-          "type": "minecraft:spider"
-        },
-        "playerEntityPredicate": {
-          "equipment": {
-            "mainhand": {
-              "items": "#minecraft:swords"
-            }
-          }
-        },
-        "points": 1
-      },
-      {
-        "killedEntityPredicate": {
-          "type": "minecraft:enderman"
-        },
-        "playerEntityPredicate": {
-          "equipment": {
-            "mainhand": {
-              "items": "#minecraft:swords"
-            }
-          }
-        },
-        "points": 2
-      },
-      {
-        "killedEntityPredicate": {
-          "type": "minecraft:wither_skeleton"
-        },
-        "playerEntityPredicate": {
-          "equipment": {
-            "mainhand": {
-              "items": "#minecraft:swords"
-            }
-          }
-        },
-        "points": 3
-      },
-      {
-        "killedEntityPredicate": {
-          "type": "#minecraft:illager"
-        },
-        "playerEntityPredicate": {
-          "equipment": {
-            "mainhand": {
-              "items": "#minecraft:swords"
-            }
-          }
-        },
-        "points": 2
+    "playerEntityPredicate": {
+      "equipment": {
+        "mainhand": {
+          "items": "#minecraft:swords"
+        }
       }
-    ]
+    },
+    "pointsPerEntity": []
   }
 }

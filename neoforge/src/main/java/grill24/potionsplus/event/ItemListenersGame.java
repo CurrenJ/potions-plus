@@ -2,6 +2,7 @@ package grill24.potionsplus.event;
 
 import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.core.Attributes;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Translations;
@@ -13,18 +14,25 @@ import grill24.potionsplus.effect.IEffectTooltipDetails;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
+import grill24.potionsplus.skill.reward.OwnerDataComponent;
 import grill24.potionsplus.utility.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.ArrayList;
@@ -94,7 +102,8 @@ public class ItemListenersGame {
 
 
                     // Recipe text
-                    if (Recipes.ALL_BCR_RECIPES_ANALYSIS.isIngredientUsed(ppIngredient)) {
+                    Player player = event.getEntity();
+                    if (SavedData.instance.getData(event.getEntity()).abyssalTroveContainsIngredient(player.level(), ppIngredient)) {
                         // Look at all the recipes that this ingredient is used in
                         for (RecipeHolder<BrewingCauldronRecipe> recipeHolder : Recipes.ALL_BCR_RECIPES_ANALYSIS.getRecipesForIngredient(ppIngredient)) {
                             if (SavedData.instance.getData(event.getEntity()).isRecipeUnknown(recipeHolder.id().toString()))
@@ -173,6 +182,19 @@ public class ItemListenersGame {
                     tooltipMessages.addAll(component);
                 }
             }
+
+            // Owner Data Component Tooltip
+            if (stack.has(grill24.potionsplus.core.DataComponents.OWNER_DATA)) {
+                OwnerDataComponent ownerData = stack.get(grill24.potionsplus.core.DataComponents.OWNER_DATA);
+                if (ownerData != null && ownerData.shouldShowTooltip()) {
+                    boolean isOwner = ownerData.isOwner(event.getEntity());
+                    MutableComponent ownerText = ownerData.getTooltipComponent();
+                    if (!isOwner) {
+                        ownerText = ownerText.plainCopy().withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD);
+                    }
+                    tooltipMessages.add(List.of(ownerText));
+                }
+            }
         }
         return tooltipMessages;
     }
@@ -196,7 +218,7 @@ public class ItemListenersGame {
         lastItemStack = event.getItemStack();
     }
 
-    public static List<Component> animateComponentText(List<List<Component>> components, float animationStartTimestamp) {
+    public static List<Component> animateComponentTextStartTime(List<List<Component>> components, float animationStartTimestamp) {
         List<Component> animatedComponents = new ArrayList<>();
         for (int i = 0; i < components.size(); i++) {
             List<Component> component = components.get(i);
@@ -209,11 +231,16 @@ public class ItemListenersGame {
     }
 
     private static Pair<MutableComponent, Integer> animateComponentText(List<Component> component, float duration, int delayTicks, float animationStartTimestamp) {
-        // Join all the components passed into one string, then split it at the appropriate index according to the animation progress
-        String totalString = component.stream().map(Component::getString).collect(Collectors.joining());
         float f = RUtil.lerp(0.0F, 1.0F, RUtil.easeOutSine(Math.clamp((ClientTickHandler.total() - animationStartTimestamp - delayTicks) / duration, 0.0F, 1.0F)));
         f = Math.clamp(f, 0.0F, 1.0F);
-        int splitIndex = Math.round(f * totalString.length());
+
+        return animateComponentText(component, f);
+    }
+
+    public static Pair<MutableComponent, Integer> animateComponentText(List<Component> component, float animationProgress) {
+        // Join all the components passed into one string, then split it at the appropriate index according to the animation progress
+        String totalString = component.stream().map(Component::getString).collect(Collectors.joining());
+        int splitIndex = Math.round(animationProgress * totalString.length());
 
         // Iterate over the components and split them at the appropriate index
         // Add any components with remaining text to our final list
@@ -242,5 +269,24 @@ public class ItemListenersGame {
             finalComponent = finalComponent.append(mutableComponent);
         }
         return Pair.of(finalComponent, splitIndex);
+    }
+
+    /**
+     * This event is used to shorten the duration of the item use animation.
+     * @param event the event
+     */
+    @SubscribeEvent
+    public static void on(final LivingEntityUseItemEvent.Tick event) {
+        ItemStack itemStack = event.getItem();
+        for(ItemAttributeModifiers.Entry entry : itemStack.getAttributeModifiers().modifiers()) {
+            ResourceKey<Attribute> attributeKey = entry.attribute().getKey();
+            if(attributeKey != null && attributeKey.equals(Attributes.USE_SPEED_BONUS.getKey())) {
+                float useSpeedBonus = (float) entry.modifier().amount(); // 0.05 = 5% faster = skip every 20th tick
+                int skipTickEveryTicks = Math.round(1.0F / useSpeedBonus);
+                if (event.getDuration() % skipTickEveryTicks == 0) {
+                    event.setDuration(event.getDuration() - 1);
+                }
+            }
+        }
     }
 }

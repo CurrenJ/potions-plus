@@ -50,6 +50,10 @@ public class ClientEvents {
         Minecraft.getInstance().particleEngine.register(Particles.RANDOM_NOTE.get(), RandomNoteParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(Particles.BLOOD_GOB.get(), BloodGobParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(Particles.LUNAR_BERRY_BUSH_AMBIENT.get(), LunarBerryBushAmbientParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(Particles.LIGHTNING_BOLT.get(), LightningBoltParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(Particles.LIGHTNING_BOLT_SMALL.get(), SmallLightningBoltParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(Particles.ELECTRICAL_SPARK.get(), ElectricalSparkParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(Particles.STUN_STARS.get(), StunStarsParticle.Provider::new);
 
         Minecraft.getInstance().particleEngine.register(Particles.END_ROD_RAIN_EMITTER.get(),
                 new EmitterParticle.Provider(ParticleConfigurations.END_ROD_RAIN::sampleParticleType));

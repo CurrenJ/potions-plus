@@ -1,6 +1,0 @@
-{
-  "type": "potionsplus:ability",
-  "config": {
-    "configuredPlayerAbility": "potionsplus:submerged_pickaxe_efficiency_bonus_3"
-  }
-}

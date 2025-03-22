@@ -26,31 +26,38 @@ public class DivScreenElement<E extends RenderableScreenElement> extends ScreenE
     }
 
     @Override
-    protected void onTick(float partialTick) {
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
         Rectangle2D bounds = this.getGlobalBounds();
         float width = (float) bounds.getWidth();
         float height = (float) bounds.getHeight();
 
-        RenderableScreenElement child = this.getChildren().iterator().next();
-        Rectangle2D childBounds = child.getGlobalBounds();
 
-        float childWidth = (float) childBounds.getWidth();
-        float childHeight = (float) childBounds.getHeight();
+        if(!this.getChildren().isEmpty()) {
+            RenderableScreenElement child = this.getChildren().iterator().next();
+            Rectangle2D childBounds = child.getGlobalBounds();
 
-        float xOffset = switch (this.childAlignment.xAlignment()) {
-            case LEFT -> 0;
-            case CENTER -> (width - childWidth) / 2;
-            case RIGHT -> width - childWidth;
-        };
-        float yOffset = switch (this.childAlignment.yAlignment()) {
-            case TOP -> 0;
-            case CENTER -> (height - childHeight) / 2;
-            case BOTTOM -> height - childHeight;
-        };
+            float childWidth = (float) childBounds.getWidth();
+            float childHeight = (float) childBounds.getHeight();
 
-        Vector3f targetPosition = new Vector3f(xOffset, yOffset, 0);
-        child.setTargetPosition(targetPosition, Scope.LOCAL, false);
+            float xOffset = switch (this.childAlignment.xAlignment()) {
+                case LEFT -> 0;
+                case CENTER -> (width - childWidth) / 2;
+                case RIGHT -> width - childWidth;
+            };
+            float yOffset = switch (this.childAlignment.yAlignment()) {
+                case TOP -> 0;
+                case CENTER -> (height - childHeight) / 2;
+                case BOTTOM -> height - childHeight;
+            };
 
-        super.onTick(partialTick);
+            Vector3f targetPosition = new Vector3f(xOffset, yOffset, 0);
+            child.setTargetPosition(targetPosition, Scope.LOCAL, false);
+        }
+
+        super.onTick(partialTick, mouseX, mouseY);
+    }
+
+    protected E getChild() {
+        return getChildren().iterator().next();
     }
 }

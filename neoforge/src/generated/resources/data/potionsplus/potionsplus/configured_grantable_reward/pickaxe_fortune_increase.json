@@ -1,0 +1,7 @@
+{
+  "type": "potionsplus:increase_ability_strength",
+  "config": {
+    "ability": "potionsplus:pickaxe_fortune_modifier",
+    "strengthIncrease": 1.0
+  }
+}

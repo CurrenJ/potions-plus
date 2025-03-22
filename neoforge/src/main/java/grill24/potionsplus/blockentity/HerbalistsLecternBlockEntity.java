@@ -91,11 +91,11 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                             List<PpIngredient> recipeIngredients = recipe.getPpIngredients();
                             for (PpIngredient recipeIngredient : recipeIngredients) {
                                 if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, recipeIngredient)) {
-                                    ItemStack common = new ItemStack(Items.GENERIC_ICON.value(), 17);
+                                    ItemStack common = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.COMMON_TEX_LOC);
                                     subIcons.add(PpIngredient.of(common));
                                 }
                                 if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, recipeIngredient)) {
-                                    ItemStack rare = new ItemStack(Items.GENERIC_ICON.value(), 18);
+                                    ItemStack rare = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.RARE_TEX_LOC);
                                     subIcons.add(PpIngredient.of(rare));
                                 }
                             }
@@ -107,20 +107,18 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 allIcons.addAll(additionalIcons);
 
                 // Update the center display stacks - either common, rare, or N/A ingredient.
-                ItemStack centerDisplayStack = new ItemStack(Items.GENERIC_ICON.value(), 1);
                 PpIngredient ingredient = PpIngredient.of(inputStack);
                 if(Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
-                    centerDisplayStack.setCount(2);
+                    this.centerDisplayStack = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.DUR_TEX_LOC);
                 } else if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
-                    centerDisplayStack.setCount(1);
+                    this.centerDisplayStack = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.AMP_TEX_LOC);
                 } else if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, ingredient)) {
-                    centerDisplayStack.setCount(17);
+                    this.centerDisplayStack = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.COMMON_TEX_LOC);
                 } else if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, ingredient)) {
-                    centerDisplayStack.setCount(18);
+                    this.centerDisplayStack = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.RARE_TEX_LOC);
                 } else {
-                    centerDisplayStack = ItemStack.EMPTY;
+                    this.centerDisplayStack = ItemStack.EMPTY;
                 }
-                this.centerDisplayStack = centerDisplayStack;
             }
 
 

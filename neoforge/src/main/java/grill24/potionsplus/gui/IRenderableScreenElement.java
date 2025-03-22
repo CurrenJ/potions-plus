@@ -9,14 +9,21 @@ public interface IRenderableScreenElement {
     void tick(float partialTick, int mouseX, int mouseY);
     void tryRender(GuiGraphics graphics, float partialTick, int mouseX, int mouseY);
 
-    void click(int mouseX, int mouseY);
+    void tryClick(int mouseX, int mouseY);
+    void onClick(int mouseX, int mouseY);
+    void tryScroll(int mouseX, int mouseY, double scrollDelta);
+    void onScroll(int mouseX, int mouseY, double scrollDelta);
 
     void show();
-    void hide();
+    void hide(boolean hidePlayAnimation);
     boolean isVisible();
     boolean isHovering();
+    float getMouseEnterTimestamp();
+    float getMouseExitTimestamp();
     void setTargetPosition(Vector3f targetPosition, RenderableScreenElement.Scope targetPositionScope, boolean instant);
+    void setCurrentScale(float scale);
 
     Rectangle2D getGlobalBounds();
     Vector3f getCurrentPosition();
+    float getCurrentScale();
 }

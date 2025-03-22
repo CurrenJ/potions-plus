@@ -62,11 +62,13 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
 
 
     @Override
-    protected void onTick(float partialTick) {
-        super.onTick(partialTick);
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
+        super.onTick(partialTick, mouseX, mouseY);
 
         for (RenderableScreenElement child : getChildren()) {
-            child.onTick(partialTick);
+            if(child != null) {
+                child.tick(partialTick, mouseX, mouseY);
+            }
         }
     }
 
@@ -75,18 +77,29 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
         for (IRenderableScreenElement child : getChildren()) {
             child.tryRender(graphics, partialTick, mouseX, mouseY);
         }
-
-        super.render(graphics, partialTick, mouseX, mouseY);
     }
 
     @Override
-    public void click(int mouseX, int mouseY) {
+    public void tryClick(int mouseX, int mouseY) {
         if (!this.allowClicksOutsideBounds && !getGlobalBounds().contains(mouseX, mouseY)) {
             return;
         }
 
+        onClick(mouseX, mouseY);
         for (E element : getChildren()) {
-            element.click(mouseX, mouseY);
+            element.tryClick(mouseX, mouseY);
+        }
+    }
+
+    @Override
+    public void tryScroll(int mouseX, int mouseY, double scrollDelta) {
+        if (!this.allowClicksOutsideBounds && !getGlobalBounds().contains(mouseX, mouseY)) {
+            return;
+        }
+
+        onScroll(mouseX, mouseY, scrollDelta);
+        for (E element : getChildren()) {
+            element.tryScroll(mouseX, mouseY, scrollDelta);
         }
     }
 
@@ -115,6 +128,38 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
         }
     }
 
+    @Override
+    public void show() {
+        super.show();
+        for (E child : getChildren()) {
+            child.show();
+        }
+    }
+
+    public void show(boolean recursive) {
+        if (recursive) {
+            show();
+        } else {
+            super.show();
+        }
+    }
+
+    @Override
+    public void hide(boolean playHideAnimation) {
+        super.hide(playHideAnimation);
+        for (E child : getChildren()) {
+            child.hide(playHideAnimation);
+        }
+    }
+
+    public void hide(boolean playHideAnimation, boolean recursive) {
+        if (recursive) {
+            hide(playHideAnimation);
+        } else {
+            super.hide(playHideAnimation);
+        }
+    }
+
     protected Collection<E> getChildren() {
         return elements;
     }
@@ -126,10 +171,27 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
 
     @Override
     public void snapToTarget() {
-        super.snapToTarget();
-
+        // Children first because parent should be able to adjust to children size and position
         for (E child : getChildren()) {
             child.snapToTarget();
+        }
+
+        super.snapToTarget();
+    }
+
+    @Override
+    public void setShowBounds(boolean showBounds) {
+        super.setShowBounds(showBounds);
+        for (E child : getChildren()) {
+            child.setShowBounds(showBounds);
+        }
+    }
+
+    @Override
+    public void setShowGridLines(boolean showGridLines) {
+        super.setShowGridLines(showGridLines);
+        for (E child : getChildren()) {
+            child.setShowGridLines(showGridLines);
         }
     }
 }

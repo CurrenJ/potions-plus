@@ -21,6 +21,41 @@ public class Packets {
                 ServerboundConstructClotheslinePacket.ServerPayloadHandler::handleDataOnMain
         );
 
+        // Update Ability Strength Packet
+        registrar.playToServer(
+                ServerboundUpdateAbilityStrengthPacket.TYPE,
+                ServerboundUpdateAbilityStrengthPacket.STREAM_CODEC,
+                ServerboundUpdateAbilityStrengthPacket.ServerPayloadHandler::handleDataOnMain
+        );
+
+        // End Fishing Minigame on Server
+        registrar.playToServer(
+                ServerboundEndFishingMinigame.TYPE,
+                ServerboundEndFishingMinigame.STREAM_CODEC,
+                ServerboundEndFishingMinigame.ServerPayloadHandler::handleDataOnMain
+        );
+
+        // Toggle Ability
+        registrar.playToServer(
+                ServerboundToggleAbilityPacket.TYPE,
+                ServerboundToggleAbilityPacket.STREAM_CODEC,
+                ServerboundToggleAbilityPacket.ServerPayloadHandler::handleDataOnMain
+        );
+
+        // Spawn Double Jump Particles Packet
+        registrar.playToServer(
+                ServerboundSpawnDoubleJumpParticlesPacket.TYPE,
+                ServerboundSpawnDoubleJumpParticlesPacket.STREAM_CODEC,
+                ServerboundSpawnDoubleJumpParticlesPacket.ServerPayloadHandler::handleDataOnMain
+        );
+
+        // Setup Filter Hopper From Container Packet
+        registrar.playToServer(
+                ServerboundSetupFilterHopperFromContainerPacket.TYPE,
+                ServerboundSetupFilterHopperFromContainerPacket.STREAM_CODEC,
+                ServerboundSetupFilterHopperFromContainerPacket.ServerPayloadHandler::handleDataOnMain
+        );
+
 
         // ----- Clientbound Packets -----
 
@@ -107,6 +142,20 @@ public class Packets {
                 ClientboundDisplayWheelAnimationPacket.ClientPayloadHandler::handleDataOnMain
         );
 
+        // Start Fishing Minigame on Client
+        registrar.playToClient(
+                ClientboundStartFishingMinigamePacket.TYPE,
+                ClientboundStartFishingMinigamePacket.STREAM_CODEC,
+                ClientboundStartFishingMinigamePacket.ClientPayloadHandler::handleDataOnMain
+        );
+
+        // Reset Fishing Minigame Data on Client
+        registrar.playToClient(
+                ClientboundResetFishingMinigame.TYPE,
+                ClientboundResetFishingMinigame.STREAM_CODEC,
+                ClientboundResetFishingMinigame.ClientPayloadHandler::handleDataOnMain
+        );
+
         // Display Tossup Animation Packet
         registrar.playToClient(
                 ClientboundDisplayTossupAnimationPacket.TYPE,
@@ -126,6 +175,20 @@ public class Packets {
                 ClientboundDisplayAlert.TYPE,
                 ClientboundDisplayAlert.STREAM_CODEC,
                 ClientboundDisplayAlert.ClientPayloadHandler::handleDataOnMain
+        );
+
+        // Trigger Chain Lightning Packet
+        registrar.playToClient(
+                ClientboundTriggerChainLightningPacket.TYPE,
+                ClientboundTriggerChainLightningPacket.STREAM_CODEC,
+                ClientboundTriggerChainLightningPacket.ClientPayloadHandler::handleDataOnMain
+        );
+
+        // Trigger Stun Shot Packet
+        registrar.playToClient(
+                ClientboundTriggerStunShotPacket.TYPE,
+                ClientboundTriggerStunShotPacket.STREAM_CODEC,
+                ClientboundTriggerStunShotPacket.ClientPayloadHandler::handleDataOnMain
         );
     }
 }

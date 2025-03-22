@@ -9,7 +9,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 
 import java.util.List;
 
-public class ShepherdsSerenadeEffect extends MobEffect implements IEffectTooltipDetails{
+public class ShepherdsSerenadeEffect extends MobEffect implements IEffectTooltipDetails {
     public ShepherdsSerenadeEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
     }

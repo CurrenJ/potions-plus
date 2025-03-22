@@ -186,26 +186,22 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
             ItemStack icon = ingredient.getItemStack();
             List<ItemStack> subIcon = new ArrayList<>();
             if (!PotionsPlus.Debug.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
-                icon = new ItemStack(Items.GENERIC_ICON.value(), 12);
+                icon = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.UNKNOWN_TEX_LOC);
             } else {
                 if (Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
-                    ItemStack sub = new ItemStack(Items.GENERIC_ICON.value());
-                    sub.setCount(2);
+                    ItemStack sub = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.DUR_TEX_LOC);
                     subIcon.add(sub);
                 }
                 if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
-                    ItemStack sub = new ItemStack(Items.GENERIC_ICON.value());
-                    sub.setCount(1);
+                    ItemStack sub = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.AMP_TEX_LOC);
                     subIcon.add(sub);
                 }
                 if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, ingredient)) {
-                    ItemStack sub = new ItemStack(Items.GENERIC_ICON.value());
-                    sub.setCount(17);
+                    ItemStack sub = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.COMMON_TEX_LOC);
                     subIcon.add(sub);
                 }
                 if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, ingredient)) {
-                    ItemStack sub = new ItemStack(Items.GENERIC_ICON.value());
-                    sub.setCount(18);
+                    ItemStack sub = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.RARE_TEX_LOC);
                     subIcon.add(sub);
                 }
             }
@@ -244,8 +240,11 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     @Override
     public boolean canPlaceItem(int index, ItemStack stack) {
         boolean canPlace = super.canPlaceItem(index, stack);
-        boolean isIngredient = Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.isIngredientUsed(PpIngredient.of(stack));
-        return canPlace && isIngredient;
+        return canPlace && isItemPotionIngredient(stack);
+    }
+
+    public static boolean isItemPotionIngredient(ItemStack stack) {
+        return Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.isIngredientUsed(PpIngredient.of(stack));
     }
 
     public static Set<PpIngredient> ABYSSAL_TROVE_INGREDIENTS = new HashSet<>();

@@ -2,7 +2,9 @@ package grill24.potionsplus.skill.source;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.blockpredicates.StateTestingPredicate;
 
 import java.util.List;
 
@@ -12,12 +14,26 @@ public class BreakBlockSourceConfiguration extends SkillPointSourceConfiguration
                     BreakBlockSourceConfiguration.BlockSkillPoints.CODEC.listOf().fieldOf("pointsPerBlock").forGetter(BreakBlockSourceConfiguration::getBlockSkillPoints)
             ).apply(codecBuilder, BreakBlockSourceConfiguration::new));
 
-    public record BlockSkillPoints(BlockPredicate blockPredicate, float points) {
+    public static class BlockSkillPoints {
         public static final Codec<BlockSkillPoints> CODEC = RecordCodecBuilder.create(
                 codecBuilder -> codecBuilder.group(
-                        BlockPredicate.CODEC.fieldOf("entityPredicate").forGetter(BlockSkillPoints::blockPredicate),
-                        Codec.FLOAT.fieldOf("points").forGetter(BlockSkillPoints::points)
+                        StateTestingPredicate.CODEC.fieldOf("blockStatePredicate").forGetter(instance -> instance.blockStatePredicate),
+                        Codec.BOOL.optionalFieldOf("useXpDroppedAsPoints", false).forGetter(instance -> instance.useXpDroppedAsPoints),
+                        Codec.FLOAT.optionalFieldOf("points", 0F).forGetter(instance -> instance.points)
                 ).apply(codecBuilder, BlockSkillPoints::new));
+
+        public final StateTestingPredicate blockStatePredicate;
+        public final boolean useXpDroppedAsPoints;
+        public final float points;
+        public BlockSkillPoints(BlockPredicate blockPredicate, boolean useXpDroppedAsPoints, float points) {
+            if (blockPredicate instanceof StateTestingPredicate stateTestingPredicate) {
+                this.blockStatePredicate = stateTestingPredicate;
+                this.useXpDroppedAsPoints = useXpDroppedAsPoints;
+                this.points = points;
+            } else {
+                throw new IllegalArgumentException("BlockPredicate must be a StateTestingPredicate");
+            }
+        }
     }
 
     private final List<BlockSkillPoints> blockSkillPoints;

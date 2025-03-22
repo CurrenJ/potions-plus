@@ -7,22 +7,20 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.block.SkillJournalsBlock;
 import grill24.potionsplus.core.potion.Potions;
-import grill24.potionsplus.gui.skill.SkillsMenu;
-import grill24.potionsplus.network.ClientboundDisplayTossupAnimationPacket;
-import grill24.potionsplus.network.ClientboundDisplayWheelAnimationPacket;
-import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
-import grill24.potionsplus.network.ClientboundSyncSpatialAnimationDataPacket;
+import grill24.potionsplus.misc.FishingGamePlayerAttachment;
+import grill24.potionsplus.network.*;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.render.animation.keyframe.Interpolation;
 import grill24.potionsplus.render.animation.keyframe.*;
 import grill24.potionsplus.skill.*;
-import grill24.potionsplus.skill.ability.AbilityInstance;
 import grill24.potionsplus.skill.ability.PlayerAbility;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
-import grill24.potionsplus.utility.DelayedServerEvents;
+import grill24.potionsplus.utility.DelayedEvents;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.ModInfo;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -33,13 +31,16 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
@@ -168,7 +169,46 @@ public class CommonCommands {
                                 int winnerIndex = player.getRandom().nextInt(itemStacks.size());
 
                                 PacketDistributor.sendToPlayer(player, new ClientboundDisplayWheelAnimationPacket(itemStacks, winnerIndex));
-                                DelayedServerEvents.queueDelayedEvent(() -> InvUtil.giveOrDropItem(player, itemStacks.get(winnerIndex).copy()), 190);
+                                DelayedEvents.queueDelayedEvent(() -> InvUtil.giveOrDropItem(player, itemStacks.get(winnerIndex).copy()), 190);
+                            }
+
+                            return 1;
+                        })
+                )
+                .then(Commands.literal("restoreAbilities")
+                        .executes(context -> {
+                            if (context.getSource().getPlayer() == null) {
+                                return 0;
+                            }
+
+                            SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> {
+                                skillsData.clearAndReunlockAbilities(context.getSource().getPlayer());
+                                PacketDistributor.sendToPlayer(context.getSource().getPlayer(), new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(context.getSource().getPlayer())));
+                            }));
+                            return 1;
+                        })
+                )
+                .then(Commands.literal("fishing")
+                        .requires((source) -> source.hasPermission(2))
+                        .executes(context -> {
+                            if(context.getSource().getEntity() instanceof ServerPlayer player) {
+                                // Use offhand item as reward
+                                ItemStack reward = player.getOffhandItem().copy();
+                                // Else use fishing loot table
+                                if (reward.isEmpty()) {
+                                    LootParams lootParams = new LootParams.Builder(player.serverLevel()).withParameter(LootContextParams.ORIGIN, player.position()).withParameter(LootContextParams.TOOL, player.getMainHandItem()).create(LootContextParamSets.FISHING);
+                                    ObjectArrayList<ItemStack> samples = context.getSource().getServer().reloadableRegistries().getLootTable(BuiltInLootTables.FISHING_FISH).getRandomItems(lootParams);
+                                    if (!samples.isEmpty()) {
+                                        reward = samples.getFirst();
+                                    }
+                                }
+
+                                if (!reward.isEmpty()) {
+                                    PacketDistributor.sendToPlayer(player, ClientboundStartFishingMinigamePacket.create(
+                                            player,
+                                            new FishingGamePlayerAttachment(reward, new ItemStack(grill24.potionsplus.core.Items.GENERIC_ICON, 23 + player.getRandom().nextInt(4)))
+                                    ));
+                                }
                             }
 
                             return 1;
@@ -379,13 +419,16 @@ public class CommonCommands {
                                                                 return 0;
                                                             }
 
-                                                            ResourceLocation abilityId = ConfiguredPlayerAbilityArgument.getHolder(context, "abilityId").getKey().location();
-                                                            SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> {
-                                                                skillsData.getAbilityInstance(context.getSource().registryAccess(), abilityId).ifPresent(abilityInstance -> {
-                                                                    abilityInstance.toggle(context.getSource().getPlayer());
-                                                                    context.getSource().sendSuccess(() -> abilityInstance.getDescription(true), true);
-                                                                });
-                                                            }));
+                                                            if (context.getSource().getPlayer() instanceof ServerPlayer player) {
+                                                                ResourceLocation abilityId = ConfiguredPlayerAbilityArgument.getHolder(context, "abilityId").getKey().location();
+                                                                SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> {
+                                                                    skillsData.getAbilityInstance(context.getSource().registryAccess(), abilityId).ifPresent(abilityInstance -> {
+                                                                        abilityInstance.toggle(player);
+                                                                        context.getSource().sendSuccess(() -> abilityInstance.data().getDescription(true), true);
+                                                                    });
+                                                                }));
+                                                            }
+
 
                                                             return 1;
                                                         })
@@ -401,7 +444,7 @@ public class CommonCommands {
 
                                                         SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData1 -> {
                                                             skillsData1.getAbilityInstance(context.getSource().registryAccess(), abilityId).ifPresentOrElse(abilityInstance -> {
-                                                                component.append(abilityInstance.getDescription(true));
+                                                                component.append(abilityInstance.data().getDescription(true));
                                                                 context.getSource().sendSuccess(() -> component, true);
                                                             }, () -> context.getSource().sendFailure(Component.literal("No unlocked ability found.")));
                                                         }));
@@ -420,9 +463,9 @@ public class CommonCommands {
                                         MutableComponent component = Component.empty();
                                         boolean hasAbilities = false;
 
-                                        for (Map.Entry<ResourceKey<PlayerAbility<?, ?>>, List<AbilityInstance>> entry : skillsData.activeAbilities().entrySet()) {
-                                            for (AbilityInstance abilityInstance : entry.getValue()) {
-                                                Component abilityComponent = abilityInstance.getDescription();
+                                        for (Map.Entry<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> entry : skillsData.unlockedAbilities().entrySet()) {
+                                            for (AbilityInstanceSerializable<?, ?> abilityInstance : entry.getValue()) {
+                                                Component abilityComponent = abilityInstance.data().getDescription();
                                                 if (hasAbilities) {
                                                     component.append(Component.literal(", ").withStyle(abilityComponent.getStyle()));
                                                 }

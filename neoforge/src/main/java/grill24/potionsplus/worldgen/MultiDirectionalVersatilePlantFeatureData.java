@@ -157,7 +157,7 @@ public class MultiDirectionalVersatilePlantFeatureData {
     }
 
     public HolderSet<PlacedFeature> getPlacedFeatures(HolderGetter<PlacedFeature> holderGetter) {
-        return HolderSet.direct(placedFeatureResourceKeys.values().stream().map(holderGetter::getOrThrow).toArray(Holder[]::new));
+        return HolderSet.direct(placedFeatureResourceKeys.values().stream().sorted().map(holderGetter::getOrThrow).toArray(Holder[]::new));
     }
 
 }

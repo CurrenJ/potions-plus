@@ -1,7 +1,7 @@
 package grill24.potionsplus.mixin;
 
 import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.utility.IUncertaintyGetter;
+import grill24.potionsplus.extension.IProjectileDispenseBehaviorExtension;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.ProjectileDispenseBehavior;
 import net.minecraft.world.item.ProjectileItem;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ProjectileDispenseBehavior.class)
-public abstract class AbstractProjectileDispenseBehaviorMixin implements IUncertaintyGetter {
+public abstract class AbstractProjectileDispenseBehaviorMixin implements IProjectileDispenseBehaviorExtension {
     @Shadow @Final private ProjectileItem.DispenseConfig dispenseConfig;
 
     @Redirect(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ProjectileItem$DispenseConfig;uncertainty()F"))

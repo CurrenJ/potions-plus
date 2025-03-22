@@ -73,7 +73,7 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
             List<ItemStack> ingredients = new ArrayList<>();
             // Add the input potion to the list of ingredients.
             ingredients.add(inputPotion.getItemStack());
-            // Sample ingredients from each rarity config.
+            // Sample ingredients from each rarity data.
             for (Map.Entry<Rarity, IngredientSamplingConfig> rarityConfig : config.entrySet()) {
                 if (rarityConfig.getValue().count() == 0) {
                     continue;

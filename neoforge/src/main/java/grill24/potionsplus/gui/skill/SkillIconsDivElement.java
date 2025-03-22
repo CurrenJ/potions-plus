@@ -11,6 +11,11 @@ public class SkillIconsDivElement extends DivScreenElement<SkillIconsScreenEleme
         setAllowClicksOutsideBounds(true);
     }
 
+    public SkillIconsDivElement(Screen screen, Settings settings, SkillIconsScreenElement child) {
+        super(screen, null, settings, RenderableScreenElement.Anchor.CENTER, child);
+
+        setAllowClicksOutsideBounds(true);
+    }
     @Override
     protected float getWidth() {
         if (getChildren().isEmpty()) {
@@ -18,7 +23,7 @@ public class SkillIconsDivElement extends DivScreenElement<SkillIconsScreenEleme
         }
 
         if (getChildren().iterator().next() instanceof SkillIconsScreenElement skillsIcons) {
-            return skillsIcons.getRadius() * 2;
+            return skillsIcons.getRadius() * 2 + 16;
         }
         return 0;
     }
@@ -30,7 +35,7 @@ public class SkillIconsDivElement extends DivScreenElement<SkillIconsScreenEleme
         }
 
         if (getChildren().iterator().next() instanceof SkillIconsScreenElement skillsIcons) {
-            return skillsIcons.getRadius() * 2;
+            return skillsIcons.getRadius() * 2 + 16;
         }
         return 0;
     }

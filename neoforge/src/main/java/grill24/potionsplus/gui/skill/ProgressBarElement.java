@@ -62,11 +62,11 @@ public class ProgressBarElement extends HorizontalListScreenElement<ColoredRecta
 
     @Override
     protected float getHeight() {
-        return this.screen.getMinecraft().font.lineHeight;
+        return getWidth() < 1F ? 0 : this.screen.getMinecraft().font.lineHeight;
     }
 
     @Override
-    protected void onTick(float partialTick) {
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
         this.progress = RUtil.lerp(this.progress, this.targetProgress, Math.clamp(partialTick * this.settings.animationSpeed(), 0, 1));
         this.width = RUtil.lerp(this.width, this.targetWidth, Math.clamp(partialTick * this.settings.animationSpeed() * 3, 0, 1));
 
@@ -75,13 +75,15 @@ public class ProgressBarElement extends HorizontalListScreenElement<ColoredRecta
         for (ColoredRectangleScreenElement element : getChildren()) {
             if (first) {
                 element.setWidth((float) (bounds.getWidth() * this.progress));
+                element.setHeight((float) bounds.getHeight());
                 first = false;
             } else {
                 element.setWidth((float) (bounds.getWidth() * (1 - this.progress)));
+                element.setHeight((float) bounds.getHeight());
             }
         }
 
-        super.onTick(partialTick);
+        super.onTick(partialTick, mouseX, mouseY);
     }
 
     public void setProgress(float progress) {

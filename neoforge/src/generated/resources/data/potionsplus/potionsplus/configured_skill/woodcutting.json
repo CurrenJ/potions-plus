@@ -3,32 +3,36 @@
   "config": {
     "baseConfig": {
       "displayIconForLevel": {
-        "10": {
+        "0": {
           "count": 1,
-          "id": "minecraft:spruce_log"
+          "id": "minecraft:oak_planks"
         },
         "15": {
           "count": 1,
+          "id": "minecraft:oak_log"
+        },
+        "30": {
+          "count": 1,
+          "id": "minecraft:spruce_log"
+        },
+        "45": {
+          "count": 1,
           "id": "minecraft:birch_log"
         },
-        "20": {
+        "60": {
           "count": 1,
           "id": "minecraft:jungle_log"
         },
-        "25": {
+        "75": {
           "count": 1,
           "id": "minecraft:acacia_log"
-        },
-        "5": {
-          "count": 1,
-          "id": "minecraft:oak_log"
         }
       },
       "pointsLevelingScale": {
         "a": 2.0,
         "b": 1.2,
         "c": 4,
-        "levelMax": 25,
+        "levelMax": 100,
         "scale": "EXPONENTIAL"
       },
       "rewardsConfig": {
@@ -41,9 +45,7 @@
           "10": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:axe_efficiency_bonus_2",
-              "potionsplus:display_stone_axe"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "100": {
@@ -78,8 +80,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:axe_efficiency_bonus_3",
-              "potionsplus:display_iron_axe"
+              "potionsplus:axe_efficiency_increase"
             ]
           },
           "16": {
@@ -111,9 +112,7 @@
           "20": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:axe_efficiency_bonus_4",
-              "potionsplus:display_golden_axe"
+              "potionsplus:edible_gems_and_ores_wheel"
             ]
           },
           "21": {
@@ -123,7 +122,8 @@
           },
           "22": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:axe_unbreaking_increase"
             ]
           },
           "23": {
@@ -134,16 +134,15 @@
           "24": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:axe_efficiency_increase"
             ]
           },
           "25": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_wheel_end_city",
-              "potionsplus:axe_efficiency_bonus_5",
-              "potionsplus:display_diamond_axe"
+              "potionsplus:edible_wheel_end_city"
             ]
           },
           "26": {
@@ -185,7 +184,8 @@
           },
           "32": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:axe_efficiency_increase"
             ]
           },
           "33": {
@@ -207,7 +207,8 @@
           "36": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:axe_unbreaking_increase"
             ]
           },
           "37": {
@@ -276,7 +277,8 @@
           "48": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:axe_efficiency_increase"
             ]
           },
           "49": {
@@ -288,8 +290,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:axe_efficiency_bonus_1",
-              "potionsplus:display_wooden_axe"
+              "potionsplus:axe_efficiency_increase"
             ]
           },
           "50": {
@@ -328,7 +329,8 @@
           },
           "56": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:axe_efficiency_increase"
             ]
           },
           "57": {
@@ -361,7 +363,8 @@
           },
           "61": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:axe_unbreaking_increase"
             ]
           },
           "62": {
@@ -419,7 +422,8 @@
           },
           "71": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:axe_efficiency_increase"
             ]
           },
           "72": {
@@ -495,7 +499,8 @@
           "84": {
             "advancementRewards": [
               "potionsplus:expert_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:axe_efficiency_increase"
             ]
           },
           "85": {
@@ -548,7 +553,8 @@
           },
           "93": {
             "advancementRewards": [
-              "potionsplus:master_skill_loot_edible"
+              "potionsplus:master_skill_loot_edible",
+              "potionsplus:axe_efficiency_increase"
             ]
           },
           "94": {

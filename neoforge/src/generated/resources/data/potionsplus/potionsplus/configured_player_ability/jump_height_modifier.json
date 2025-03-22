@@ -1,0 +1,18 @@
+{
+  "type": "potionsplus:permanent_attribute_modifiers",
+  "config": {
+    "attribute": "minecraft:generic.jump_strength",
+    "baseConfig": {
+      "enabledByDefault": false,
+      "parentSkill": "potionsplus:jumping",
+      "translationKey": "description.potionsplus.ability.jump_strength"
+    },
+    "modifiers": [
+      {
+        "amount": 0.0,
+        "id": "potionsplus:jump_height_modifier_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

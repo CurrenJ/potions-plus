@@ -1,9 +1,7 @@
 package grill24.potionsplus.skill.reward;
 
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
-import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.core.*;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.ClientboundDisplayAlert;
 import grill24.potionsplus.persistence.SavedData;
@@ -11,13 +9,17 @@ import grill24.potionsplus.skill.UnknownPotionIngredientRewardConfiguration;
 import grill24.potionsplus.utility.InvUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
+import static grill24.potionsplus.utility.Utility.ppId;
 
 public class UnknownPotionIngredientReward extends GrantableReward<UnknownPotionIngredientRewardConfiguration> {
     public UnknownPotionIngredientReward() {
@@ -55,6 +57,28 @@ public class UnknownPotionIngredientReward extends GrantableReward<UnknownPotion
             PpIngredient ppIngredient = allIngredients.stream().skip(player.getRandom().nextInt(allIngredients.size())).findFirst().orElseThrow();
             InvUtil.giveOrDropItem(player, ppIngredient.getItemStack().copy());
             allIngredients.remove(ppIngredient);
+        }
+    }
+
+    public static class UnknownPotionIngredientRewardBuilder implements ConfiguredGrantableRewards.IRewardBuilder {
+        private final int count;
+        private final ResourceKey<ConfiguredGrantableReward<?, ?>> key;
+
+        public UnknownPotionIngredientRewardBuilder(String name, int count) {
+            this.count = count;
+            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
+        }
+
+        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {
+            return key;
+        }
+
+        @Override
+        public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
+            context.register(key, new ConfiguredGrantableReward<>(
+                    GrantableRewards.UNKNOWN_POTION_INGREDIENT.value(),
+                    new UnknownPotionIngredientRewardConfiguration(count)
+            ));
         }
     }
 }

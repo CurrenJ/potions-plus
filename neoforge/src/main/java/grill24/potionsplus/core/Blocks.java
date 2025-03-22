@@ -2,6 +2,9 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.blockentity.*;
+import grill24.potionsplus.blockentity.filterhopper.HugeFilterHopperBlockEntity;
+import grill24.potionsplus.blockentity.filterhopper.LargeFilterHopperBlockEntity;
+import grill24.potionsplus.blockentity.filterhopper.SmallFilterHopperBlockEntity;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.ModInfo;
@@ -22,19 +25,17 @@ import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -83,15 +84,14 @@ public class Blocks {
             new DecorativeFireBlock(BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).noCollission().instabreak().lightLevel((p_152605_) -> 15).sound(SoundType.WOOL)));
 
 
-    public static final List<OreFlowerBlock> ORE_FLOWER_BLOCKS = new ArrayList<>();
     public static final Holder<Block> IRON_OXIDE_DAISY = register("iron_oxide_daisy", () ->
             new OreFlowerBlock(MobEffects.MAGNETIC, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.IRON_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE),
-                    0.1f));
+                    0.15f));
     public static final Holder<Block> COPPER_CHRYSANTHEMUM = register("copper_chrysanthemum", () ->
             new OreFlowerBlock(MobEffects.FORTUITOUS_FATE, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.COPPER_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE),
-                    0.1f));
+                    0.15f));
     public static final Holder<Block> LAPIS_LILAC = register("lapis_lilac", () ->
             new OreFlowerBlock(MobEffects.LOOTING, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.LAPIS_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_LAPIS_ORE),
@@ -99,15 +99,15 @@ public class Blocks {
     public static final Holder<Block> DIAMOUR = register("diamour", () ->
             new OreFlowerBlock(MobEffects.TELEPORTATION, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.DIAMOND_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE),
-                    0.2f));
+                    0.15f));
     public static final Holder<Block> GOLDEN_CUBENSIS = register("golden_cubensis", () ->
             new OreFlowerBlock(MobEffects.GEODE_GRACE, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.GOLD_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE),
-                    0.25f));
+                    0.2f));
     public static final Holder<Block> REDSTONE_ROSE = register("redstone_rose", () ->
             new OreFlowerBlock(MobEffects.REACH_FOR_THE_STARS, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.REDSTONE_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_REDSTONE_ORE),
-                    0.15f));
+                    0.1f));
     public static final Holder<Block> BLACK_COALLA_LILY = register("black_coalla_lily", () ->
             new OreFlowerBlock(net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, 200, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
                     state -> state.is(net.minecraft.world.level.block.Blocks.COAL_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE),
@@ -270,6 +270,15 @@ public class Blocks {
                             .sound(SoundType.ANCIENT_DEBRIS)),
             false);
 
+
+    public static final DeferredHolder<Block, FilterHopperBlock> SMALL_FILTER_HOPPER = register("small_filter_hopper", () ->
+            new SmallFilterHopperBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL)), true);
+    public static final DeferredHolder<Block, FilterHopperBlock> LARGE_FILTER_HOPPER = register("large_filter_hopper", () ->
+            new LargeFilterHopperBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL)), true);
+    public static final DeferredHolder<Block, FilterHopperBlock> HUGE_FILTER_HOPPER = register("huge_filter_hopper", () ->
+            new HugeFilterHopperBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL)), true);
+
+
     // ----- Block Entities -----
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ModInfo.MOD_ID);
 
@@ -279,6 +288,9 @@ public class Blocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AbyssalTroveBlockEntity>> ABYSSAL_TROVE_BLOCK_ENTITY = BLOCK_ENTITIES.register("abyssal_trove_block_entity", () -> BlockEntityType.Builder.of(AbyssalTroveBlockEntity::new, ABYSSAL_TROVE.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ClotheslineBlockEntity>> CLOTHESLINE_BLOCK_ENTITY = BLOCK_ENTITIES.register("clothesline_block_entity", () -> BlockEntityType.Builder.of(ClotheslineBlockEntity::new, CLOTHESLINE.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PotionBeaconBlockEntity>> POTION_BEACON_BLOCK_ENTITY = BLOCK_ENTITIES.register("potion_beacon_block_entity", () -> BlockEntityType.Builder.of(PotionBeaconBlockEntity::new, POTION_BEACON.value()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SmallFilterHopperBlockEntity>> SMALL_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("small_filter_hopper_block_entity", () -> BlockEntityType.Builder.of(SmallFilterHopperBlockEntity::new, SMALL_FILTER_HOPPER.value()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LargeFilterHopperBlockEntity>> LARGE_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("large_filter_hopper_block_entity", () -> BlockEntityType.Builder.of(LargeFilterHopperBlockEntity::new, LARGE_FILTER_HOPPER.value()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HugeFilterHopperBlockEntity>> HUGE_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("huge_filter_hopper_block_entity", () -> BlockEntityType.Builder.of(HugeFilterHopperBlockEntity::new, HUGE_FILTER_HOPPER.value()).build(null));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -331,14 +343,8 @@ public class Blocks {
     }
 
     @SubscribeEvent
-    public static void onClientSetup(final FMLClientSetupEvent event) {
-        // Grab plants/bushes from the block registry and register them as cutout render type
-        Blocks.BLOCKS.getEntries().forEach(entry -> {
-            Block block = entry.get();
-            if (block instanceof OreFlowerBlock) {
-                ORE_FLOWER_BLOCKS.add((OreFlowerBlock) block);
-            }
-        });
+    public static void addValidBlocksToBlockEntityTypes(final BlockEntityTypeAddBlocksEvent event) {
+        event.modify(BlockEntityType.DISPENSER, Blocks.PRECISION_DISPENSER.value());
     }
 
     public static <T extends Block> DeferredHolder<Block, T> register(final String name, final Supplier<T> sup, boolean registerBlockItem, Item.Properties properties) {

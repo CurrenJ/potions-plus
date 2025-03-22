@@ -41,6 +41,7 @@ public class PotionsPlus {
         Skills.SKILLS.register(bus);
         SkillPointSources.SKILL_POINT_SOURCES.register(bus);
         PlayerAbilities.PLAYER_ABILITIES.register(bus);
+        AbilityInstanceTypes.ABILITY_INSTANCE_TYPE.register(bus);
         CommandArgumentTypes.COMMAND_ARGUMENT_TYPES.register(bus);
         Attributes.ATTRIBUTES.register(bus);
         LootItemConditions.LOOT_ITEM_CONDITIONS.register(bus);

@@ -1,0 +1,18 @@
+{
+  "type": "potionsplus:modifiers_while_sword_held",
+  "config": {
+    "attribute": "potionsplus:player.looting_bonus",
+    "baseConfig": {
+      "enabledByDefault": true,
+      "parentSkill": "potionsplus:swordsmanship",
+      "translationKey": "description.potionsplus.ability.sword_looting"
+    },
+    "modifiers": [
+      {
+        "amount": 0.0,
+        "id": "potionsplus:sword_looting_modifier_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

@@ -14,6 +14,7 @@ public class Tags {
 
         public static final TagKey<Block> FREEZABLE = tag("freezable");
         public static final TagKey<Block> CAVE_REPLACEABLE = tag("cave_replaceable");
+        public static final TagKey<Block> ORE_FLOWERS = tag("ore_flowers");
 
         private static TagKey<Block> tag(String id) {
             return TagKey.create(Registries.BLOCK, ppId(id));
@@ -42,6 +43,8 @@ public class Tags {
 
         public static final TagKey<Item> URANIUM_ORE = tag("uranium_ore");
         public static final TagKey<Item> REMNANT_DEBRIS = tag("remnant_debris");
+
+        public static final TagKey<Item> EDIBLE_REWARDS = tag("edible_rewards");
 
         private static TagKey<Item> tag(String id) {
             return ItemTags.create(ppId(id));

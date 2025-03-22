@@ -7,17 +7,30 @@ import java.awt.geom.Rectangle2D;
 
 public class VerticalListScreenElement<E extends RenderableScreenElement> extends ScreenElementWithChildren<E> {
     private final XAlignment alignment;
+    private final float paddingBetweenElements;
+
+    private float height;
+    protected float offsetY;
 
     @SafeVarargs
     public VerticalListScreenElement(Screen screen, Settings settings, XAlignment alignment, E... elements) {
         super(screen, null, settings, elements);
 
         this.alignment = alignment;
+        this.paddingBetweenElements = 0;
+    }
+
+    @SafeVarargs
+    public VerticalListScreenElement(Screen screen, Settings settings, XAlignment alignment, float paddingBetweenElements, E... elements) {
+        super(screen, null, settings, elements);
+
+        this.alignment = alignment;
+        this.paddingBetweenElements = paddingBetweenElements;
     }
 
     @Override
-    protected void onTick(float partialTick) {
-        int height = 0;
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
+        this.height = getOffsetY();
         for (RenderableScreenElement element : getChildren()) {
             Rectangle2D childBounds = element.getGlobalBounds();
             float childWidth = (float) childBounds.getWidth();
@@ -30,9 +43,10 @@ public class VerticalListScreenElement<E extends RenderableScreenElement> extend
 
             element.setTargetPosition(new Vector3f(xOffset, height, 0), Scope.LOCAL, false);
             height += (int) childBounds.getHeight();
+            height += paddingBetweenElements;
         }
 
-        super.onTick(partialTick);
+        super.onTick(partialTick, mouseX, mouseY);
     }
 
     @Override
@@ -48,10 +62,10 @@ public class VerticalListScreenElement<E extends RenderableScreenElement> extend
     @Override
     protected float getHeight() {
         // Get the sum of the heights of all elements
-        return getChildren().stream()
-                .filter(IRenderableScreenElement::isVisible)
-                .map(IRenderableScreenElement::getGlobalBounds)
-                .map(bounds -> (float) bounds.getHeight())
-                .reduce(Float::sum).orElse(0F);
+        return this.height;
+    }
+
+    protected float getOffsetY() {
+        return offsetY;
     }
 }

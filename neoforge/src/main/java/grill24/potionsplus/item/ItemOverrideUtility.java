@@ -7,6 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -19,14 +21,13 @@ import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class ItemOverrideUtility {
-    public abstract static class ItemOverrideModelGenerator {
+    public abstract static class ItemOverrideModelGenerator implements IItemModelGenerator {
         protected ResourceLocation overridePropertyId;
 
         public ItemOverrideModelGenerator(ResourceLocation overridePropertyId) {
             this.overridePropertyId = overridePropertyId;
         }
 
-        public abstract void generate(BlockStateProvider provider);
         ResourceLocation getOverridePropertyId() {
             return overridePropertyId;
         }
@@ -134,6 +135,14 @@ public class ItemOverrideUtility {
 
         public int getIndex(ResourceLocation textureLocation) {
             return textureIndexMap.getOrDefault(textureLocation, 0);
+        }
+
+        public int getItemStackCountForTexture(ResourceLocation textureLocation) {
+            return getIndex(textureLocation) + 1;
+        }
+
+        public ItemStack getItemStackForTexture(ItemLike itemLike, ResourceLocation textureLocation) {
+            return new ItemStack(itemLike, getItemStackCountForTexture(textureLocation));
         }
 
         @Override

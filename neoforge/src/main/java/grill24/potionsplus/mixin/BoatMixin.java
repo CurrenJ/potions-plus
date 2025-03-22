@@ -30,7 +30,7 @@ public abstract class BoatMixin extends Entity {
         LivingEntity livingEntity = this.getControllingPassenger();
         if (livingEntity.hasEffect(MobEffects.NAUTICAL_NITRO)) {
             MobEffectInstance effect = livingEntity.getEffect(MobEffects.NAUTICAL_NITRO);
-            if (effect != null && effect.getEffect() instanceof NauticalNitroEffect nauticalNitroEffect) {
+            if (effect != null && effect.getEffect().value() instanceof NauticalNitroEffect nauticalNitroEffect) {
                 return f * nauticalNitroEffect.getSpeedMultiplier(effect);
             }
         }

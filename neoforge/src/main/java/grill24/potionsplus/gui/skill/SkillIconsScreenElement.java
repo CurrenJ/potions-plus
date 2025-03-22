@@ -6,7 +6,7 @@ import grill24.potionsplus.gui.ScreenElementWithChildren;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillsData;
-import grill24.potionsplus.skill.ability.AbilityInstance;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.screens.Screen;
@@ -56,7 +56,17 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
     }
 
     @Override
-    protected void onTick(float partialTick) {
+    protected float getWidth() {
+        return getRadius() * 2;
+    }
+
+    @Override
+    protected float getHeight() {
+        return getRadius() * 2;
+    }
+
+    @Override
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
         // Update wheel rotation
         tickWheelRotation(partialTick, hoveredItem != null);
 
@@ -70,15 +80,15 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
             display.setSelected(display == selectedItem);
         }
 
-        super.onTick(partialTick);
+        super.onTick(partialTick, mouseX, mouseY);
     }
 
     private void initializeItemDisplays(Screen screen, RegistryAccess registryAccess) {
         // Build skills list (icons we want to display)
         Set<ResourceKey<ConfiguredSkill<?, ?>>> skills = new HashSet<>() {};
-        Collection<AbilityInstance> abilities = getAbilities();
-        for (AbilityInstance abilityInstance : abilities) {
-            ResourceKey<ConfiguredSkill<?, ?>> skill = abilityInstance.getConfiguredAbility().config().getData().parentSkill().getKey();
+        Collection<AbilityInstanceSerializable<?, ?>> abilities = getAbilities();
+        for (AbilityInstanceSerializable<?, ?> abilityInstance : abilities) {
+            ResourceKey<ConfiguredSkill<?, ?>> skill = abilityInstance.data().getConfiguredAbility().config().getData().parentSkill().getKey();
             skills.add(skill);
         }
 
@@ -88,7 +98,7 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
         for (ResourceKey<ConfiguredSkill<?, ?>> skill : skills) {
             itemDisplays.computeIfAbsent(index, k -> {
                         // Create item display for the skill
-                        SkillIconScreenElement display = new SkillIconScreenElement(screen, Settings.DEFAULT, holderGetter.getOrThrow(skill), SkillIconsScreenElement.BASE_SCALE);
+                        SkillIconScreenElement display = new SkillIconScreenElement(screen, Settings.DEFAULT.withAnchor(Anchor.CENTER), holderGetter.getOrThrow(skill), SkillIconsScreenElement.BASE_SCALE);
                         // Parent to this element
                         display.setParent(this);
                         // Add click listener
@@ -161,7 +171,7 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
         for (SkillIconScreenElement display : itemDisplays.values()) {
             if (display.isSelected) {
                 Rectangle2D itemBounds = display.getGlobalBounds();
-                display.setTargetPosition(new Vector3f((float) (bounds.getWidth() / 2F - itemBounds.getWidth() / 2F), (float) (bounds.getHeight() / 2F - itemBounds.getHeight() / 2F), 0), Scope.LOCAL, false);
+                display.setTargetPosition(new Vector3f((float) (bounds.getWidth() / 2F), (float) (bounds.getHeight() / 2F), 0), Scope.LOCAL, false);
             } else if (index < pointsInWheel.length) {
                 display.setTargetPosition(pointsInWheel[index], Scope.LOCAL, false);
                 index++;
@@ -170,7 +180,8 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
     }
 
     public float getRadius() {
-        return Math.min(this.screen.width, this.screen.height) * (deselectedTimestamp != -1 ?
+        float baseRadius = Math.min(this.screen.width, this.screen.height);
+        return baseRadius * (deselectedTimestamp != -1 ?
                 SpatialAnimations.get(SpatialAnimations.SKILL_ICON_WHEEL_DESELECTED).getScale().evaluate(getSelectAnimationProgress()) :
                 SpatialAnimations.get(SpatialAnimations.SKILL_ICON_WHEEL_SELECTED).getScale().evaluate(getSelectAnimationProgress()));
     }
@@ -199,10 +210,10 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
         return 0;
     }
 
-    private Collection<AbilityInstance> getAbilities() {
+    private Collection<AbilityInstanceSerializable<?, ?>> getAbilities() {
         if (this.screen.getMinecraft().player == null) {
             return Collections.emptyList();
         }
-        return SkillsData.getPlayerData(this.screen.getMinecraft().player).activeAbilities().values().stream().flatMap(List::stream).toList();
+        return SkillsData.getPlayerData(this.screen.getMinecraft().player).unlockedAbilities().values().stream().flatMap(List::stream).toList();
     }
 }

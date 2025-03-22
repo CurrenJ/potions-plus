@@ -294,7 +294,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.CAMPFIRE)
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.SOUL_CAMPFIRE)
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.SOUL_FIRE);
-        blockEntity.statusIcon = hasHeatSource ? ItemStack.EMPTY : new ItemStack(Items.GENERIC_ICON, 20);
+        blockEntity.statusIcon = hasHeatSource ? ItemStack.EMPTY : Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.NO_HEAT_TEX_LOC);
 
         if (hasHeatSource) {
             if (blockEntity.getActiveRecipe().isPresent()) {
@@ -311,10 +311,10 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                             }
                             blockEntity.storedExperience += 1;
                         } else {
-                            blockEntity.statusIcon = new ItemStack(Items.GENERIC_ICON, 19);
+                            blockEntity.statusIcon = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.NO_EXP_TEX_LOC);
                         }
                     } else {
-                        blockEntity.statusIcon = new ItemStack(Items.GENERIC_ICON, 19);
+                        blockEntity.statusIcon = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.NO_EXP_TEX_LOC);
                     }
                 }
                 boolean isExperienceRequirementMet = blockEntity.storedExperience >= experienceRequiredForRecipe;

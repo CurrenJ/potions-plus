@@ -78,8 +78,15 @@ public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<San
 
             Vector3f point = points[p];
             // Added 4 runes to the generic icon, so pick a different one for each point.
-            ItemStack runeStack = new ItemStack(Items.GENERIC_ICON.value(), 13 + p % 4);
+            ItemStack runeStack = RUNES[p % RUNES.length];
             RUtil.renderItemWithYaw(blockEntity, runeStack, new Vector3d(point.x(), point.y(), point.z()), 20, 0, p * 10, itemScale, matrices, vertexConsumers, light, overlay);
         }
     }
+
+    private static final ItemStack[] RUNES = new ItemStack[] {
+            Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.SGA_A_TEX_LOC),
+            Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.SGA_B_TEX_LOC),
+            Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.SGA_C_TEX_LOC),
+            Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.SGA_D_TEX_LOC)
+    };
 }

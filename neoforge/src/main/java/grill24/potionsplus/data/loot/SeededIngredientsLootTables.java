@@ -88,7 +88,6 @@ public class SeededIngredientsLootTables {
                 PpIngredient.of(Items.ENCHANTED_GOLDEN_APPLE.getDefaultInstance())
         );
 
-        map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 4, ItemTags.SAPLINGS, blacklist));
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, Tags.Items.FOODS_GOLDEN, blacklist));
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 5, grill24.potionsplus.core.Tags.Items.RARE_INGREDIENTS, blacklist));
 

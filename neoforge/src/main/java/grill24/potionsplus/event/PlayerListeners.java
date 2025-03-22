@@ -6,19 +6,19 @@ import grill24.potionsplus.block.UraniumOreBlock;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
-import grill24.potionsplus.network.ClientboundSyncKnownBrewingRecipesPacket;
-import grill24.potionsplus.network.ClientboundSyncPairedAbyssalTrove;
-import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
+import grill24.potionsplus.network.*;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.AttributeModifiersWhileHeldAbility;
+import grill24.potionsplus.skill.ability.PlayerAbility;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.utility.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -30,6 +30,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -109,8 +110,15 @@ public class PlayerListeners {
     public static void onTick(final ServerTickEvent.Pre event) {
         applyAllPassiveItemPotionEffects(event.getServer().getPlayerList().getPlayers());
 
-        AttributeModifiersWhileHeldAbility.onTick(event);
         SkillsData.tickPointEarningHistory(event);
+    }
+
+    @SubscribeEvent
+    public static void onServerTickEnd(final ServerTickEvent.Post event) {}
+
+    @SubscribeEvent
+    public static void onServerPlayerHeldItemChanged(final ServerPlayerHeldItemChangedEvent event) {
+        AttributeModifiersWhileHeldAbility.onHeldItemChanged(event);
     }
 
     private static void applyAllPassiveItemPotionEffects(List<ServerPlayer> players) {
@@ -170,11 +178,24 @@ public class PlayerListeners {
     @SubscribeEvent
     public static void onPlayerJoin(final EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
+            SkillsData skillsData = SkillsData.getPlayerData(player);
+
+            // Sync known brewing cauldron recipe, sync paired abyssal trove, and sync player skill data
             PacketDistributor.sendToPlayer(player,
                     ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()),
                     new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()),
-                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
-            SkillsData.updatePlayerData(player, (skillsData -> skillsData.syncAbilitiesEnablement(player)));
+                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player))
+            );
+
+            // Trigger an update for all abilities
+            for (Map.Entry<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> entry : skillsData.unlockedAbilities().entrySet()) {
+                for (AbilityInstanceSerializable<?, ?> instance : entry.getValue()) {
+                    instance.onInstanceChanged(player);
+                }
+            }
+
+            // Reset Fishing Game
+            ServerboundEndFishingMinigame.ServerPayloadHandler.endGame(player, ServerboundEndFishingMinigame.Result.RESET);
         }
     }
 

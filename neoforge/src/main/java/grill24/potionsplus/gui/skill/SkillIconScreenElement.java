@@ -39,7 +39,7 @@ class SkillIconScreenElement extends ItemStackScreenElement {
     }
 
     @Override
-    protected void onTick(float partialTick) {
+    protected void onTick(float partialTick, int mouseX, int mouseY) {
         // Update ItemStack
         Player player = this.screen.getMinecraft().player;
         if (player == null) {
@@ -58,12 +58,13 @@ class SkillIconScreenElement extends ItemStackScreenElement {
         // Update scale
         this.baseScale = RUtil.lerp(this.baseScale, !isSelected && isAnyItemSelected ? SkillIconsScreenElement.BASE_SCALE * 0.5F : targetBaseScale, partialTick * this.settings.animationSpeed());
         float animationProgress = getAnimationProgress(SkillIconsScreenElement.HOVER_DURATION, SkillIconsScreenElement.HOVER_DURATION);
-        this.scale = this.isHovering() ?
-                SpatialAnimations.get(SpatialAnimations.SKILL_ICON_HOVER).getScale().evaluate(animationProgress) :
-                SpatialAnimations.get(SpatialAnimations.SKILL_ICON_UNHOVER).getScale().evaluate(animationProgress);
-        this.scale *= baseScale;
 
-        super.onTick(partialTick);
+        this.setCurrentScale(this.isHovering() ?
+                SpatialAnimations.get(SpatialAnimations.SKILL_ICON_HOVER).getScale().evaluate(animationProgress) :
+                SpatialAnimations.get(SpatialAnimations.SKILL_ICON_UNHOVER).getScale().evaluate(animationProgress));
+        this.setCurrentScale(this.baseScale * this.getCurrentScale());
+
+        super.onTick(partialTick, mouseX, mouseY);
     }
 
     @Override
@@ -82,12 +83,12 @@ class SkillIconScreenElement extends ItemStackScreenElement {
 
     @Override
     protected float getWidth() {
-        return DEFAULT_PIXEL_SIZE * scale;
+        return DEFAULT_PIXEL_SIZE * getCurrentScale();
     }
 
     @Override
     protected float getHeight() {
-        return DEFAULT_PIXEL_SIZE * scale;
+        return DEFAULT_PIXEL_SIZE * getCurrentScale();
     }
 
     public void setIsAnyItemHovering(boolean isAnyItemHovering) {

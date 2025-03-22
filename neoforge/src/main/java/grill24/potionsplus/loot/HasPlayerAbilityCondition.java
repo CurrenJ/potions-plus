@@ -7,8 +7,8 @@ import grill24.potionsplus.core.DataAttachments;
 import grill24.potionsplus.core.LootItemConditions;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.skill.SkillsData;
-import grill24.potionsplus.skill.ability.AbilityInstance;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
@@ -47,8 +47,8 @@ public record HasPlayerAbilityCondition(ResourceKey<ConfiguredPlayerAbility<?, ?
         }
         if (entity instanceof Player player) {
             SkillsData skillsData = player.getData(DataAttachments.SKILL_PLAYER_DATA);
-            Optional<AbilityInstance> abilityInstance = skillsData.getAbilityInstance(entity.registryAccess(), key.location());
-            return abilityInstance.isPresent() && abilityInstance.get().isEnabled();
+            Optional<AbilityInstanceSerializable<?, ?>> abilityInstance = skillsData.getAbilityInstance(entity.registryAccess(), key.location());
+            return abilityInstance.isPresent() && abilityInstance.get().data().isEnabled();
         }
 
         return false;

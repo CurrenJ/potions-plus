@@ -2,12 +2,12 @@
   "type": "neoforge:add_features",
   "biomes": "minecraft:lush_caves",
   "features": [
-    "potionsplus:lush_caves_additional_plants_placed_east",
     "potionsplus:lush_caves_additional_plants_placed_down",
-    "potionsplus:lush_caves_additional_plants_placed_west",
+    "potionsplus:lush_caves_additional_plants_placed_east",
     "potionsplus:lush_caves_additional_plants_placed_north",
     "potionsplus:lush_caves_additional_plants_placed_south",
-    "potionsplus:lush_caves_additional_plants_placed_up"
+    "potionsplus:lush_caves_additional_plants_placed_up",
+    "potionsplus:lush_caves_additional_plants_placed_west"
   ],
   "step": "vegetal_decoration"
 }

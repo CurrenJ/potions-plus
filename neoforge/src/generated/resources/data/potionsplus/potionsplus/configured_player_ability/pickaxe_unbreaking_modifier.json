@@ -1,0 +1,18 @@
+{
+  "type": "potionsplus:modifiers_while_pickaxe_held",
+  "config": {
+    "attribute": "potionsplus:player.unbreaking_bonus",
+    "baseConfig": {
+      "enabledByDefault": true,
+      "parentSkill": "potionsplus:mining",
+      "translationKey": "description.potionsplus.ability.pickaxe_unbreaking"
+    },
+    "modifiers": [
+      {
+        "amount": 0.0,
+        "id": "potionsplus:pickaxe_unbreaking_modifier_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

@@ -54,8 +54,8 @@ public class SkillTitleScreenElement extends VerticalListScreenElement<Renderabl
     }
 
     public void setBlank() {
-        this.title.setComponent(Component.empty());
-        this.level.setComponent(Component.empty());
+        this.title.setComponent(Component.empty(), false);
+        this.level.setComponent(Component.empty(), false);
         this.progressBar.setTargetWidth(0);
     }
 
@@ -78,10 +78,10 @@ public class SkillTitleScreenElement extends VerticalListScreenElement<Renderabl
         int level = (int) partialLevel;
 
         Component skillName = Component.translatable(configuredSkill.get().getConfiguredSkill(registryAccess).config().getData().translationKey());
-        this.title.setComponent(skillName);
+        this.title.setComponent(skillName, true);
 
         Component skillLevel = Component.translatable(Translations.TOOLTIP_POTIONSPLUS_SKILL_LEVEL, level);
-        this.level.setComponent(skillLevel);
+        this.level.setComponent(skillLevel, true);
 
         this.progressBar.setProgress(progressToNextLevel);
         this.progressBar.setTargetWidth(this.progressBar.getDefaultWidth());

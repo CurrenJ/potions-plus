@@ -8,7 +8,7 @@
           "id": "potionsplus:sparkling_squash"
         },
         "linkedChoiceParent": "potionsplus:choose_pickaxe_efficiency_1",
-        "linkedOption": "potionsplus:pickaxe_efficiency_bonus_6"
+        "linkedOption": "potionsplus:small_pickaxe_efficiency_increase"
       },
       {
         "activationFood": {
@@ -16,7 +16,7 @@
           "id": "potionsplus:blueb_berries"
         },
         "linkedChoiceParent": "potionsplus:choose_pickaxe_efficiency_1",
-        "linkedOption": "potionsplus:submerged_pickaxe_efficiency_bonus_6"
+        "linkedOption": "potionsplus:small_submerged_pickaxe_efficiency_increase"
       }
     ]
   }

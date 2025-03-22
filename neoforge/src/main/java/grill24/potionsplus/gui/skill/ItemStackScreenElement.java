@@ -1,7 +1,7 @@
 package grill24.potionsplus.gui.skill;
 
 import grill24.potionsplus.gui.RenderableScreenElement;
-import grill24.potionsplus.utility.IGuiGraphicsMixin;
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +13,6 @@ import java.awt.geom.Rectangle2D;
 public class ItemStackScreenElement extends RenderableScreenElement {
     protected ItemStack stack;
 
-    protected float scale;
     protected float rotation;
 
     public ItemStackScreenElement(Screen screen, @Nullable RenderableScreenElement parent, Settings settings, ItemStack stack) {
@@ -21,12 +20,8 @@ public class ItemStackScreenElement extends RenderableScreenElement {
 
         this.stack = stack;
 
-        this.scale = 1F;
+        setCurrentScale(1F);
         this.rotation = 0F;
-    }
-
-    public void setScale(float scale) {
-        this.scale = scale;
     }
 
     public void setRotation(float rotation) {
@@ -39,12 +34,12 @@ public class ItemStackScreenElement extends RenderableScreenElement {
 
     @Override
     protected float getWidth() {
-        return 16 * this.scale;
+        return 16 * this.getCurrentScale();
     }
 
     @Override
     protected float getHeight() {
-        return 16 * this.scale;
+        return 16 * this.getCurrentScale();
     }
 
     @Override
@@ -54,14 +49,16 @@ public class ItemStackScreenElement extends RenderableScreenElement {
         }
 
         Rectangle2D bounds = getGlobalBounds();
-        ((IGuiGraphicsMixin) graphics).potions_plus$renderItem(
+        // By default, send the item to the back of the screen render order because we want text and other elements to render on top of it.
+        graphics.pose().pushPose();
+        graphics.pose().translate(0, 0, -100);
+        ((IGuiGraphicsExtension) graphics).potions_plus$renderItem(
                 this.stack,
                 new Vector3f(0, this.rotation, 0),
-                (float) (bounds.getMinX()), // The render method we are calling here renders an item centered at the given position. We align to top-left because that's how the screen elements assume bounds are positioned.
+                (float) (bounds.getMinX()),
                 (float) (bounds.getMinY()),
-                this.scale,
+                this.getCurrentScale(),
                 Anchor.DEFAULT);
-
-        super.render(graphics, partialTick, mouseX, mouseY);
+        graphics.pose().popPose();
     }
 }

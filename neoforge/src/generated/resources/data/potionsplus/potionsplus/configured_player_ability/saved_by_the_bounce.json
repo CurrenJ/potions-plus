@@ -1,0 +1,10 @@
+{
+  "type": "potionsplus:saved_by_the_bounce",
+  "config": {
+    "baseConfig": {
+      "enabledByDefault": true,
+      "parentSkill": "potionsplus:jumping",
+      "translationKey": "description.potionsplus.ability.saved_by_the_bounce"
+    }
+  }
+}

@@ -4,6 +4,7 @@ import grill24.potionsplus.render.animation.keyframe.AnimationCurveSerializer;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
 import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
 import grill24.potionsplus.skill.reward.GrantableReward;
 import grill24.potionsplus.skill.source.ConfiguredSkillPointSource;
@@ -33,8 +34,8 @@ public class PotionsPlusRegistries {
             .sync(true)
             .create();
 
-    public static final ResourceKey<Registry<PlayerAbility<?, ?>>> PLAYER_ABILITY_REGISTRY_KEY = ResourceKey.createRegistryKey(ppId("player_ability"));
-    public static final Registry<PlayerAbility<?, ?>> PLAYER_ABILITY = new RegistryBuilder<>(PLAYER_ABILITY_REGISTRY_KEY)
+    public static final ResourceKey<Registry<PlayerAbility<?>>> PLAYER_ABILITY_REGISTRY_KEY = ResourceKey.createRegistryKey(ppId("player_ability"));
+    public static final Registry<PlayerAbility<?>> PLAYER_ABILITY = new RegistryBuilder<>(PLAYER_ABILITY_REGISTRY_KEY)
             .sync(true)
             .create();
 
@@ -45,6 +46,11 @@ public class PotionsPlusRegistries {
 
     public static final ResourceKey<Registry<AnimationCurveSerializer<?>>> ANIMATION_CURVE_SERIALIZER_REGISTRY_KEY = ResourceKey.createRegistryKey(ppId("animation_curve_serializer"));
     public static final Registry<AnimationCurveSerializer<?>> ANIMATION_CURVE_SERIALIZER = new RegistryBuilder<>(ANIMATION_CURVE_SERIALIZER_REGISTRY_KEY)
+            .sync(true)
+            .create();
+
+    public static final ResourceKey<Registry<AbilityInstanceType<?>>> ABILITY_INSTANCE_TYPE_REGISTRY_KEY = ResourceKey.createRegistryKey(ppId("ability_instance_type"));
+    public static final Registry<AbilityInstanceType<?>> ABILITY_INSTANCE_TYPE = new RegistryBuilder<>(ABILITY_INSTANCE_TYPE_REGISTRY_KEY)
             .sync(true)
             .create();
 
@@ -61,6 +67,7 @@ public class PotionsPlusRegistries {
         event.register(SKILL);
         event.register(SKILL_POINT_SOURCE);
         event.register(PLAYER_ABILITY);
+        event.register(ABILITY_INSTANCE_TYPE);
 
         event.register(GRANTABLE_REWARD);
 

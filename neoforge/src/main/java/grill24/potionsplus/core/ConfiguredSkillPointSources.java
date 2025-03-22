@@ -6,17 +6,13 @@ import grill24.potionsplus.skill.source.IncrementStatSourceConfiguration;
 import grill24.potionsplus.skill.source.KillEntitySourceConfiguration;
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.EntityTypePredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.neoforged.neoforge.common.Tags;
 
@@ -44,18 +40,19 @@ public class ConfiguredSkillPointSources {
 
     public static void generate(BootstrapContext<ConfiguredSkillPointSource<?, ?>> context) {
         context.register(MINE_ORE, new ConfiguredSkillPointSource<>(SkillPointSources.BREAK_BLOCK.get(), new BreakBlockSourceConfiguration(List.of(
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_COPPER), 0.25F),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_COAL), 0.4F),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_IRON), 1),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_LAPIS), 3),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_REDSTONE), 1.5F),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_GOLD), 2),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_DIAMOND), 6),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_EMERALD), 8),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(grill24.potionsplus.core.Tags.Blocks.ORES_URANIUM), 16)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_COAL), false, 2),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_COPPER), false, 4),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_IRON), false, 6),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_GOLD), false, 9),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_REDSTONE), false, 7),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_LAPIS), false, 8),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_DIAMOND), false, 12),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_EMERALD), false, 16),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_QUARTZ), false, 4),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES), false, 1) // fallback
         ))));
         context.register(MINE_LOG, new ConfiguredSkillPointSource<>(SkillPointSources.BREAK_BLOCK.get(), new BreakBlockSourceConfiguration(
-                List.of(new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(BlockTags.LOGS), 1)
+                List.of(new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(BlockTags.LOGS), false, 1)
         ))));
 
         EntityPredicate swordPredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ItemTags.SWORDS))).build();
@@ -105,14 +102,6 @@ public class ConfiguredSkillPointSources {
     }
 
     private static KillEntitySourceConfiguration createKillEntitySourceConfiguration(EntityPredicate weaponPredicate) {
-        return new KillEntitySourceConfiguration(List.of(
-                new KillEntitySourceConfiguration.EntitySkillPoints(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityTypeTags.ZOMBIES)).build(), weaponPredicate, 1),
-                new KillEntitySourceConfiguration.EntitySkillPoints(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityTypeTags.SKELETONS)).build(), weaponPredicate, 1),
-                new KillEntitySourceConfiguration.EntitySkillPoints(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityType.CREEPER)).build(), weaponPredicate, 3),
-                new KillEntitySourceConfiguration.EntitySkillPoints(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityType.SPIDER)).build(), weaponPredicate, 1),
-                new KillEntitySourceConfiguration.EntitySkillPoints(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityType.ENDERMAN)).build(), weaponPredicate, 2),
-                new KillEntitySourceConfiguration.EntitySkillPoints(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityType.WITHER_SKELETON)).build(), weaponPredicate, 3),
-                new KillEntitySourceConfiguration.EntitySkillPoints(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityTypeTags.ILLAGER)).build(), weaponPredicate, 2)
-        ));
+        return new KillEntitySourceConfiguration(List.of(), weaponPredicate);
     }
 }

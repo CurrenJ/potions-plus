@@ -2,6 +2,7 @@ package grill24.potionsplus.skill.reward;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.core.ConfiguredGrantableRewards;
 import grill24.potionsplus.core.GrantableRewards;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.skill.SkillsData;
@@ -14,6 +15,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
+
+import static grill24.potionsplus.utility.Utility.ppId;
 
 public class AbilityReward extends GrantableReward<AbilityReward.AbilityRewardConfiguration> {
     public AbilityReward() {
@@ -44,6 +47,29 @@ public class AbilityReward extends GrantableReward<AbilityReward.AbilityRewardCo
 
     @Override
     public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, AbilityRewardConfiguration config, ServerPlayer player) {
-        SkillsData.updatePlayerData(player, data -> data.activateAbility(player, config.ability.getKey()));
+        SkillsData.updatePlayerData(player, data -> data.unlockAbility(player, config.ability.getKey()));
+    }
+
+    public static class AbilityRewardBuilder implements ConfiguredGrantableRewards.IRewardBuilder {
+        private final ResourceKey<ConfiguredPlayerAbility<?, ?>> abilityKey;
+        private final ResourceKey<ConfiguredGrantableReward<?, ?>> abilityRewardKey;
+
+        public AbilityRewardBuilder(ResourceKey<ConfiguredPlayerAbility<?, ?>> abilityKey) {
+            this.abilityKey = abilityKey;
+            this.abilityRewardKey = registerKey(abilityKey);
+        }
+
+        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {
+            return abilityRewardKey;
+        }
+
+        private static ResourceKey<ConfiguredGrantableReward<?, ?>> registerKey(ResourceKey<ConfiguredPlayerAbility<?, ?>> ability) {
+            return ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(ability.location().getPath()));
+        }
+
+        @Override
+        public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
+            context.register(this.abilityRewardKey, ability(context, abilityKey));
+        }
     }
 }

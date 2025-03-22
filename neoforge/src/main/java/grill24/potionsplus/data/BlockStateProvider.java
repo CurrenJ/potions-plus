@@ -3,6 +3,7 @@ package grill24.potionsplus.data;
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
+import grill24.potionsplus.item.IItemModelGenerator;
 import grill24.potionsplus.item.ItemOverrideUtility;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Direction;
@@ -105,7 +106,7 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
 
         // ----- Items -----
 
-        for (ItemOverrideUtility.ItemOverrideModelGenerator modelGenerator : Items.ITEM_OVERRIDE_MODEL_GENERATORS) {
+        for (IItemModelGenerator modelGenerator : Items.ITEM_MODEL_GENERATORS) {
             modelGenerator.generate(this);
         }
 
@@ -326,6 +327,7 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         registerItem(Items.URANIUM_INGOT.value());
         registerItem(Items.SULFUR_SHARD.value());
         registerItem(Items.SULFURIC_ACID.value());
+        registerItemFromParentWithTextureOverride(Items.COPPER_FISHING_ROD.value(), mc("item/handheld_rod"), ppId("item/copper_fishing_rod"));
 
         Holder<Item>[][] blockHatItems = new Holder[][]{
                 Items.COAL_ORE_HATS,
@@ -408,6 +410,13 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         ResourceLocation modelLocation = getModelLocation(item);
         itemModels().getBuilder(modelLocation.getPath())
                 .parent(models().getExistingFile(parent));
+    }
+
+    private void registerItemFromParentWithTextureOverride(Item item, ResourceLocation parent, ResourceLocation textureOverride) {
+        ResourceLocation modelLocation = getModelLocation(item);
+        itemModels().getBuilder(modelLocation.getPath())
+                .parent(models().getExistingFile(parent))
+                .texture("layer0", textureOverride);
     }
 
     private void registerParticleEmitter() {

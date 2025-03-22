@@ -1,6 +1,6 @@
 package grill24.potionsplus.mixin;
 
-import grill24.potionsplus.utility.IClientAdvancementsMixin;
+import grill24.potionsplus.extension.IClientAdvancementsExtension;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.multiplayer.ClientAdvancements;
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Mixin(ClientAdvancements.class)
-public abstract class ClientAdvancementsMixin implements IClientAdvancementsMixin {
+public abstract class ClientAdvancementsMixin implements IClientAdvancementsExtension {
     @Shadow @Final private Map<AdvancementHolder, AdvancementProgress> progress;
 
     @Shadow @Nullable public abstract AdvancementHolder get(ResourceLocation id);
