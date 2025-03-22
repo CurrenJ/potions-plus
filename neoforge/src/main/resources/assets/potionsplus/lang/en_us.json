@@ -76,6 +76,9 @@
   "cooldown.potionsplus.ability.saved_by_the_bounce": "Saved By The Bounce is ready to use!",
   "cooldown.potionsplus.ability": "Ability will be ready to use again in %s seconds.",
 
+  "key.categories.potionsplus": "Potions Plus",
+  "key.potionsplus.activate_ability": "Activate Ability For Held Item",
+
   "description.potionsplus.ability.axe_efficiency": "%s Axe Mining Speed",
   "description.potionsplus.ability.shovel_efficiency": "%s Shovel Mining Speed",
   "description.potionsplus.ability.hoe_efficiency": "%s Hoe Mining Speed",
