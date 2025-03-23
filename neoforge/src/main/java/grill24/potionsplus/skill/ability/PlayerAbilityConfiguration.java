@@ -3,6 +3,7 @@ package grill24.potionsplus.skill.ability;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.skill.ConfiguredSkill;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Holder;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -21,11 +22,12 @@ public class PlayerAbilityConfiguration {
         return this.data;
     }
 
-    public record PlayerAbilityConfigurationData(@NonNull String translationKey, boolean enabledByDefault, Holder<ConfiguredSkill<?, ?>> parentSkill) {
+    public record PlayerAbilityConfigurationData(@NonNull String translationKey, boolean enabledByDefault, Holder<ConfiguredSkill<?, ?>> parentSkill, ItemPredicate itemPredicate) {
         public static final Codec<PlayerAbilityConfigurationData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.optionalFieldOf("translationKey", "").forGetter(PlayerAbilityConfigurationData::translationKey),
             Codec.BOOL.fieldOf("enabledByDefault").forGetter(PlayerAbilityConfigurationData::enabledByDefault),
-            ConfiguredSkill.CODEC.fieldOf("parentSkill").forGetter(PlayerAbilityConfigurationData::parentSkill)
+            ConfiguredSkill.CODEC.fieldOf("parentSkill").forGetter(PlayerAbilityConfigurationData::parentSkill),
+            ItemPredicate.CODEC.optionalFieldOf("itemPredicate", ItemPredicate.Builder.item().build()).forGetter(PlayerAbilityConfigurationData::itemPredicate)
         ).apply(instance, PlayerAbilityConfigurationData::new));
     }
 }

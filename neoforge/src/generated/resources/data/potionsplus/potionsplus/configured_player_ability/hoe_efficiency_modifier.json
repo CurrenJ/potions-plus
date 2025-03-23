@@ -4,6 +4,9 @@
     "attribute": "minecraft:player.mining_efficiency",
     "baseConfig": {
       "enabledByDefault": true,
+      "itemPredicate": {
+        "items": "#minecraft:hoes"
+      },
       "parentSkill": "potionsplus:mining",
       "translationKey": "description.potionsplus.ability.hoe_efficiency"
     },

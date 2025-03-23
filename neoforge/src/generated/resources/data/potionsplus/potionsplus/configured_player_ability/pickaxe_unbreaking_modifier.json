@@ -4,6 +4,9 @@
     "attribute": "potionsplus:player.unbreaking_bonus",
     "baseConfig": {
       "enabledByDefault": true,
+      "itemPredicate": {
+        "items": "#minecraft:pickaxes"
+      },
       "parentSkill": "potionsplus:mining",
       "translationKey": "description.potionsplus.ability.pickaxe_unbreaking"
     },

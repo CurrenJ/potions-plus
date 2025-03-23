@@ -34,13 +34,14 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
         return toolType;
     }
 
-    public boolean isMatchingItemClass(ItemStack stack) {
-        return getItemType().isAssignableFrom(stack.getItem().getClass());
+    public boolean isMatchingItemClass(AttributeModifiersAbilityConfiguration config, ItemStack stack) {
+        boolean isPredicateMatched = config.getData().itemPredicate().test(stack);
+        return getItemType().isAssignableFrom(stack.getItem().getClass()) || isPredicateMatched;
     }
 
     public void enable(ServerPlayer player, AttributeModifiersAbilityConfiguration config, float strength) {
         for (AttributeModifier modifier : config.getModifiers()) {
-            if (isMatchingItemClass(player.getMainHandItem())) {
+            if (isMatchingItemClass(config, player.getMainHandItem())) {
                 AttributeModifier modifierWithStrength = new AttributeModifier(modifier.id(), strength, modifier.operation());
                 // Add attribute modifier to player entity
                 player.getAttribute(config.getAttributeHolder()).addOrUpdateTransientModifier(modifierWithStrength);

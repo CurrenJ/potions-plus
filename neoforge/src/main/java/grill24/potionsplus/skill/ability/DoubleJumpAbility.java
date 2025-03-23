@@ -45,49 +45,6 @@ public class DoubleJumpAbility extends SimplePlayerAbility {
                 new DoubleJumpAbilityInstanceData(ability, true));
     }
 
-    public static class Builder implements ConfiguredPlayerAbilities.IAbilityBuilder {
-        ResourceKey<ConfiguredPlayerAbility<?, ?>> key;
-        String translationKey;
-
-        ResourceKey<ConfiguredSkill<?, ?>> parentSkillKey;
-
-        public Builder(String name) {
-            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ppId(name));
-
-            this.translationKey = "";
-        }
-
-        public Builder translationKey(String translationKey) {
-            this.translationKey = translationKey;
-            return this;
-        }
-
-        public Builder parentSkill(ResourceKey<ConfiguredSkill<?, ?>> parentSkillKey) {
-            this.parentSkillKey = parentSkillKey;
-            return this;
-        }
-
-        @Override
-        public void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
-            if (parentSkillKey == null) {
-                throw new IllegalStateException("Parent skill must be set");
-            }
-
-            HolderGetter<ConfiguredSkill<?, ?>> skillLookup = context.lookup(PotionsPlusRegistries.CONFIGURED_SKILL);
-
-            context.register(key,
-                    new ConfiguredPlayerAbility<>(PlayerAbilities.DOUBLE_JUMP.value(),
-                            new PlayerAbilityConfiguration(
-                                    new PlayerAbilityConfiguration.PlayerAbilityConfigurationData(translationKey, true, skillLookup.getOrThrow(parentSkillKey))))
-            );
-        }
-
-        @Override
-        public ResourceKey<ConfiguredPlayerAbility<?, ?>> getKey() {
-            return key;
-        }
-    }
-
     public static void onJumpFromGround(Player player) {
         SkillsData skillsData = SkillsData.getPlayerData(player);
         Optional<AbilityInstanceSerializable<?, ?>> inst = skillsData.getAbilityInstance(player.registryAccess(), ConfiguredPlayerAbilities.DOUBLE_JUMP.getKey());

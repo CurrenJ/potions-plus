@@ -21,7 +21,6 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 import java.util.Optional;
@@ -151,28 +150,5 @@ public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHi
      */
     private static ParticleOptions getRandomParticleType(RandomSource randomSource) {
         return randomSource.nextInt(6) == 0 ? Particles.LIGHTNING_BOLT.value() : Particles.LIGHTNING_BOLT_SMALL.value();
-    }
-
-    public static class Builder extends SimplePlayerAbility.Builder {
-        public Builder(String key) {
-            super(key);
-        }
-
-        @Override
-        public void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
-            if (parentSkillKey == null) {
-                throw new IllegalStateException("Parent skill key must be set");
-            }
-
-            HolderGetter<ConfiguredSkill<?, ?>> skillLookup = context.lookup(PotionsPlusRegistries.CONFIGURED_SKILL);
-
-            context.register(key,
-                    new ConfiguredPlayerAbility<>(PlayerAbilities.CHAIN_LIGHTNING.value(),
-                            new PlayerAbilityConfiguration(
-                                    new PlayerAbilityConfiguration.PlayerAbilityConfigurationData(translationKey, true, skillLookup.getOrThrow(parentSkillKey))
-                            )
-                    )
-            );
-        }
     }
 }

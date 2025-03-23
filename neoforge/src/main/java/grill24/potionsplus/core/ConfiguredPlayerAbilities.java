@@ -1,10 +1,13 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.skill.ability.*;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.neoforged.neoforge.common.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +17,13 @@ import java.util.function.Supplier;
  * Data Gen Class. ConfiguredSkills are registered dynamically from datapack.
  */
 public class ConfiguredPlayerAbilities {
+    private static final ItemPredicate pickaxePredicate = ItemPredicate.Builder.item().of(ItemTags.PICKAXES).build();
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> PICKAXE_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("pickaxe_efficiency_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_EFFICIENCY)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get())
+            .itemPredicate(pickaxePredicate)
             .attribute(Attributes.MINING_EFFICIENCY)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -27,6 +32,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SUBMERGED_PICKAXE_EFFICIENCY)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get())
+            .itemPredicate(pickaxePredicate)
             .attribute(Attributes.SUBMERGED_MINING_SPEED)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -35,6 +41,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_FORTUNE)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get())
+            .itemPredicate(pickaxePredicate)
             .attribute(grill24.potionsplus.core.Attributes.FORTUNE_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -43,6 +50,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_UNBREAKING)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get())
+            .itemPredicate(pickaxePredicate)
             .attribute(grill24.potionsplus.core.Attributes.UNBREAKING_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -59,36 +67,46 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY));
 
+    private static final ItemPredicate axePredicate = ItemPredicate.Builder.item().of(ItemTags.AXES).build();
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("axe_efficiency_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_EFFICIENCY)
             .parentSkill(ConfiguredSkills.WOODCUTTING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_AXE_HELD.get())
+            .itemPredicate(axePredicate)
             .attribute(Attributes.MINING_EFFICIENCY)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
+
+    private static final ItemPredicate shovelPredicate = ItemPredicate.Builder.item().of(ItemTags.SHOVELS).build();
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SHOVEL_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("shovel_efficiency_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SHOVEL_EFFICIENCY)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_SHOVEL_HELD.get())
+            .itemPredicate(shovelPredicate)
             .attribute(Attributes.MINING_EFFICIENCY)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
+
+    private static final ItemPredicate hoePredicate = ItemPredicate.Builder.item().of(ItemTags.HOES).build();
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("hoe_efficiency_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_EFFICIENCY)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_HOE_HELD.get())
+            .itemPredicate(hoePredicate)
             .attribute(Attributes.MINING_EFFICIENCY)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
 
+    private static final ItemPredicate swordPredicate = ItemPredicate.Builder.item().of(ItemTags.SWORDS).build();
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SWORD_SHARPNESS_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("sword_sharpness_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_SHARPNESS)
             .parentSkill(ConfiguredSkills.SWORDSMANSHIP)
             .ability(PlayerAbilities.MODIFIERS_WHILE_SWORD_HELD.get())
+            .itemPredicate(swordPredicate)
             .attribute(grill24.potionsplus.core.Attributes.SHARPNESS_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -97,6 +115,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_LOOTING)
             .parentSkill(ConfiguredSkills.SWORDSMANSHIP)
             .ability(PlayerAbilities.MODIFIERS_WHILE_SWORD_HELD.get())
+            .itemPredicate(swordPredicate)
             .attribute(grill24.potionsplus.core.Attributes.LOOTING_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -106,6 +125,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_UNBREAKING)
             .parentSkill(ConfiguredSkills.SWORDSMANSHIP)
             .ability(PlayerAbilities.MODIFIERS_WHILE_SWORD_HELD.get())
+            .itemPredicate(swordPredicate)
             .attribute(grill24.potionsplus.core.Attributes.UNBREAKING_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -124,6 +144,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_DAMAGE)
             .parentSkill(ConfiguredSkills.CHOPPING)
             .ability(PlayerAbilities.MODIFIERS_WHILE_AXE_HELD.get())
+            .itemPredicate(axePredicate)
             .attribute(Attributes.ATTACK_DAMAGE)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -132,6 +153,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_SMITE)
             .parentSkill(ConfiguredSkills.CHOPPING)
             .ability(PlayerAbilities.MODIFIERS_WHILE_AXE_HELD.get())
+            .itemPredicate(axePredicate)
             .attribute(grill24.potionsplus.core.Attributes.SMITE_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -140,6 +162,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_UNBREAKING)
             .parentSkill(ConfiguredSkills.CHOPPING)
             .ability(PlayerAbilities.MODIFIERS_WHILE_AXE_HELD.get())
+            .itemPredicate(axePredicate)
             .attribute(grill24.potionsplus.core.Attributes.UNBREAKING_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -148,6 +171,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_LOOTING)
             .parentSkill(ConfiguredSkills.CHOPPING)
             .ability(PlayerAbilities.MODIFIERS_WHILE_AXE_HELD.get())
+            .itemPredicate(axePredicate)
             .attribute(grill24.potionsplus.core.Attributes.LOOTING_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -157,6 +181,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BOW_POWER)
             .parentSkill(ConfiguredSkills.ARCHERY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_BOW_HELD.get())
+            .itemPredicate(axePredicate)
             .attribute(grill24.potionsplus.core.Attributes.POWER_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -165,6 +190,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BOW_PUNCH)
             .parentSkill(ConfiguredSkills.ARCHERY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_BOW_HELD.get())
+            .itemPredicate(axePredicate)
             .attribute(grill24.potionsplus.core.Attributes.PUNCH_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -173,6 +199,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BOW_UNBREAKING)
             .parentSkill(ConfiguredSkills.ARCHERY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_BOW_HELD.get())
+            .itemPredicate(axePredicate)
             .attribute(grill24.potionsplus.core.Attributes.UNBREAKING_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -181,6 +208,7 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BOW_LOOTING)
             .parentSkill(ConfiguredSkills.ARCHERY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_BOW_HELD.get())
+            .itemPredicate(axePredicate)
             .attribute(grill24.potionsplus.core.Attributes.LOOTING_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -189,14 +217,17 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BOW_USE_SPEED)
             .parentSkill(ConfiguredSkills.ARCHERY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_BOW_HELD.get())
+            .itemPredicate(axePredicate)
             .attribute(grill24.potionsplus.core.Attributes.USE_SPEED_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
 
+    private static final ItemPredicate bowPredicate = ItemPredicate.Builder.item().of(Tags.Items.TOOLS_BOW).build();
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> CROSSBOW_POWER_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("crossbow_power_modifier")
             .parentSkill(ConfiguredSkills.ARCHERY)
             .ability(PlayerAbilities.MODIFIERS_WHILE_CROSSBOW_HELD.get())
+            .itemPredicate(bowPredicate)
             .attribute(grill24.potionsplus.core.Attributes.POWER_BONUS)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
@@ -244,30 +275,34 @@ public class ConfiguredPlayerAbilities {
             .enabledByDefault(false));
 
     public static final DoubleJumpAbility.Builder DOUBLE_JUMP = register(() -> new DoubleJumpAbility.Builder("double_jump")
+            .ability(PlayerAbilities.DOUBLE_JUMP.value())
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DOUBLE_JUMP)
             .parentSkill(ConfiguredSkills.JUMPING));
 
-    public static final SimplePlayerAbility.Builder CHAIN_LIGHTNING = register(() -> new ChainLightningAbility.Builder("chain_lightning")
+    public static final CooldownTriggerableAbility.Builder<ChainLightningAbility> CHAIN_LIGHTNING = register(() -> new CooldownTriggerableAbility.Builder<ChainLightningAbility>("chain_lightning")
+            .ability(PlayerAbilities.CHAIN_LIGHTNING.value())
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_CHAIN_LIGHTNING)
             .parentSkill(ConfiguredSkills.SWORDSMANSHIP));
 
-    public static final SimplePlayerAbility.Builder STUN_SHOT = register(() -> new StunShotAbility.Builder("stun_shot")
+    public static final CooldownTriggerableAbility.Builder<StunShotAbility> STUN_SHOT = register(() -> new CooldownTriggerableAbility.Builder<StunShotAbility>("stun_shot")
+            .ability(PlayerAbilities.STUN_SHOT.value())
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_STUN_SHOT)
             .parentSkill(ConfiguredSkills.CHOPPING));
 
-    public static final SimplePlayerAbility.Builder SAVED_BY_THE_BOUNCE = register(() -> new SavedByTheBounceAbility.Builder("saved_by_the_bounce")
+    public static final CooldownTriggerableAbility.Builder<SavedByTheBounceAbility> SAVED_BY_THE_BOUNCE = register(() -> new CooldownTriggerableAbility.Builder<SavedByTheBounceAbility>("saved_by_the_bounce")
+            .ability(PlayerAbilities.SAVED_BY_THE_BOUNCE.value())
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE)
             .parentSkill(ConfiguredSkills.JUMPING));
 
     // Data Gen
     public static void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
-        for (IAbilityBuilder builder : abilityBuilders) {
-            builder.generate(context);
+        for (IAbilityBuilder<?> builder : abilityBuilders) {
+            builder.tryGenerate(context);
         }
     }
 
-    private static List<IAbilityBuilder> abilityBuilders;
-    private static <T extends IAbilityBuilder> T register(Supplier<T> supplier) {
+    private static List<IAbilityBuilder<?>> abilityBuilders;
+    private static <T extends IAbilityBuilder<?>> T register(Supplier<T> supplier) {
         T data = supplier.get();
         if (abilityBuilders == null) {
             abilityBuilders = new ArrayList<>();
@@ -276,8 +311,9 @@ public class ConfiguredPlayerAbilities {
         return data;
     }
 
-    public interface IAbilityBuilder {
-        void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context);
+    public interface IAbilityBuilder<B extends IAbilityBuilder<B>> {
+        void tryGenerate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context);
         ResourceKey<ConfiguredPlayerAbility<?, ?>> getKey();
+        B self();
     }
 }

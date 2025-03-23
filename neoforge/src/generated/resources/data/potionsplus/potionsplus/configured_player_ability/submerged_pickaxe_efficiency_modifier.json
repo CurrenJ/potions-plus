@@ -4,6 +4,9 @@
     "attribute": "minecraft:player.submerged_mining_speed",
     "baseConfig": {
       "enabledByDefault": true,
+      "itemPredicate": {
+        "items": "#minecraft:pickaxes"
+      },
       "parentSkill": "potionsplus:mining",
       "translationKey": "description.potionsplus.ability.submerged_pickaxe_efficiency"
     },

@@ -4,6 +4,9 @@
     "attribute": "minecraft:player.mining_efficiency",
     "baseConfig": {
       "enabledByDefault": true,
+      "itemPredicate": {
+        "items": "#minecraft:shovels"
+      },
       "parentSkill": "potionsplus:mining",
       "translationKey": "description.potionsplus.ability.shovel_efficiency"
     },

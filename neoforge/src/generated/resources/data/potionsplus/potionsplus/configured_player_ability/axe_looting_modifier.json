@@ -4,6 +4,9 @@
     "attribute": "potionsplus:player.looting_bonus",
     "baseConfig": {
       "enabledByDefault": true,
+      "itemPredicate": {
+        "items": "#minecraft:axes"
+      },
       "parentSkill": "potionsplus:chopping",
       "translationKey": "description.potionsplus.ability.axe_looting"
     },

@@ -2,7 +2,6 @@ package grill24.potionsplus.skill.ability;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.AbilityInstanceTypes;
-import grill24.potionsplus.core.ConfiguredPlayerAbilities;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.skill.ConfiguredSkill;
@@ -13,7 +12,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -21,8 +19,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
 import java.util.List;
 import java.util.Set;
-
-import static grill24.potionsplus.utility.Utility.ppId;
 
 public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbilityConfiguration> extends PlayerAbility<AC> {
     public PermanentAttributeModifiersAbility(Codec<AC> configurationCodec) {
@@ -109,35 +105,13 @@ public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbi
                 new AdjustableStrengthAbilityInstanceData(ability, true));
     }
 
-    public static class Builder<A extends PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> implements ConfiguredPlayerAbilities.IAbilityBuilder {
-        ResourceKey<ConfiguredPlayerAbility<?, ?>> key;
-        String translationKey;
-
-        ResourceKey<ConfiguredSkill<?, ?>> parentSkillKey;
-        A ability;
+    public static class Builder<A extends PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+            extends SimplePlayerAbility.AbstractBuilder<AttributeModifiersAbilityConfiguration, A, Builder<A>> {
         Holder<Attribute> attribute;
         AttributeModifier.Operation operation;
-        boolean enabledByDefault;
 
-        public Builder(String name) {
-            this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ppId(name));
-
-            this.translationKey = "";
-        }
-
-        public Builder<A> translationKey(String translationKey) {
-            this.translationKey = translationKey;
-            return this;
-        }
-
-        public Builder<A> parentSkill(ResourceKey<ConfiguredSkill<?, ?>> parentSkillKey) {
-            this.parentSkillKey = parentSkillKey;
-            return this;
-        }
-
-        public Builder<A> ability(A ability) {
-            this.ability = ability;
-            return this;
+        public Builder(String key) {
+            super(key);
         }
 
         public Builder<A> attribute(Holder<Attribute> attribute) {
@@ -150,43 +124,31 @@ public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbi
             return this;
         }
 
-        public Builder<A> enabledByDefault(boolean enabledByDefault) {
-            this.enabledByDefault = enabledByDefault;
-            return this;
-        }
-
         @Override
-        public void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
-            if (ability == null) {
-                throw new IllegalStateException("Ability must be set");
-            }
-
+        public boolean validate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
             if (attribute == null) {
-                throw new IllegalStateException("Attribute must be set");
+                throw new IllegalStateException("Attribute must be set. |" + key);
             }
 
             if (operation == null) {
-                throw new IllegalStateException("Operation must be set");
+                throw new IllegalStateException("Operation must be set. |" + key);
             }
 
-            if (parentSkillKey == null) {
-                throw new IllegalStateException("Parent skill must be set");
-            }
-
-            HolderGetter<ConfiguredSkill<?, ?>> skillLookup = context.lookup(PotionsPlusRegistries.CONFIGURED_SKILL);
-
-            context.register(key,
-                    new ConfiguredPlayerAbility<>(ability,
-                            new AttributeModifiersAbilityConfiguration(
-                                    new PlayerAbilityConfiguration.PlayerAbilityConfigurationData(translationKey, enabledByDefault, skillLookup.getOrThrow(parentSkillKey)),
-                                    attribute,
-                                    List.of(new AttributeModifier(Utility.modifierId(key), 0, operation))
-                            )));
+            return true;
         }
 
         @Override
-        public ResourceKey<ConfiguredPlayerAbility<?, ?>> getKey() {
-            return key;
+        protected AttributeModifiersAbilityConfiguration buildConfig(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
+            return new AttributeModifiersAbilityConfiguration(
+                    buildBaseConfigurationData(context),
+                    attribute,
+                    List.of(new AttributeModifier(Utility.modifierId(key), 0, operation))
+            );
+        }
+
+        @Override
+        public Builder<A> self() {
+            return this;
         }
     }
 }

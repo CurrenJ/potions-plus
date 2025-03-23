@@ -4,6 +4,9 @@
     "attribute": "potionsplus:player.power_bonus",
     "baseConfig": {
       "enabledByDefault": true,
+      "itemPredicate": {
+        "items": "#minecraft:axes"
+      },
       "parentSkill": "potionsplus:archery",
       "translationKey": "description.potionsplus.ability.bow_power"
     },

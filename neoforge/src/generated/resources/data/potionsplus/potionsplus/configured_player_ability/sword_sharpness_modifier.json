@@ -4,6 +4,9 @@
     "attribute": "potionsplus:player.sharpness_bonus",
     "baseConfig": {
       "enabledByDefault": true,
+      "itemPredicate": {
+        "items": "#minecraft:swords"
+      },
       "parentSkill": "potionsplus:swordsmanship",
       "translationKey": "description.potionsplus.ability.sword_sharpness"
     },

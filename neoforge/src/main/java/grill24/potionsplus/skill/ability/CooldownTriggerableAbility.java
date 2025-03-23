@@ -1,16 +1,16 @@
 package grill24.potionsplus.skill.ability;
 
-import grill24.potionsplus.core.AbilityInstanceTypes;
-import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.core.*;
+import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
 import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
-import grill24.potionsplus.skill.ability.instance.SimpleAbilityInstanceData;
 import grill24.potionsplus.utility.DelayedEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
@@ -134,5 +134,21 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
         };
 
         return doForAbility(player, abilityResourceKey, runnable, eventData);
+    }
+
+    public static class Builder<A extends CooldownTriggerableAbility<?, ?>> extends CooldownTriggerableAbility.AbstractBuilder<PlayerAbilityConfiguration, A, Builder<A>> {
+        public Builder(String key) {
+            super(key);
+        }
+
+        @Override
+        protected PlayerAbilityConfiguration buildConfig(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
+            return new PlayerAbilityConfiguration(buildBaseConfigurationData(context));
+        }
+
+        @Override
+        public Builder<A> self() {
+            return this;
+        }
     }
 }
