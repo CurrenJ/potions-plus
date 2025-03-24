@@ -45,8 +45,8 @@ public class EdibleChoiceRewardOption {
 
         if (optional.isPresent() && optional.get().value().reward() instanceof EdibleChoiceReward choiceReward) {
             ItemStack item = this.activationFood.copy();
-            item.set(DataComponents.CHOICE_ITEM_DATA, new EdibleRewardGranterDataComponent(optional.get(), linkedOption, flag));
-            item.set(DataComponents.OWNER_DATA, OwnerDataComponent.fromPlayer(player));
+            item.set(DataComponents.CHOICE_ITEM, new EdibleRewardGranterDataComponent(optional.get(), linkedOption, flag));
+            item.set(DataComponents.OWNER, OwnerDataComponent.fromPlayer(player));
             item.set(net.minecraft.core.component.DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
             if (player.addItem(item)) {
                 player.level()

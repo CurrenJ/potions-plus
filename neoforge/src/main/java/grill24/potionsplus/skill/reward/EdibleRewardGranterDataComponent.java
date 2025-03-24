@@ -30,8 +30,8 @@ public record EdibleRewardGranterDataComponent(Holder<ConfiguredGrantableReward<
     );
 
     public static void tryEatEdibleChoiceItem(ServerPlayer player, ItemStack food) {
-        if (food.has(DataComponents.CHOICE_ITEM_DATA)) {
-            EdibleRewardGranterDataComponent choiceItemData = food.get(DataComponents.CHOICE_ITEM_DATA);
+        if (food.has(DataComponents.CHOICE_ITEM)) {
+            EdibleRewardGranterDataComponent choiceItemData = food.get(DataComponents.CHOICE_ITEM);
 
             ConfiguredGrantableReward<?, ?> linkedOption = choiceItemData.linkedOption().value();
             SkillsData data = SkillsData.getPlayerData(player);
@@ -46,8 +46,8 @@ public record EdibleRewardGranterDataComponent(Holder<ConfiguredGrantableReward<
                     // Disable and remove all other choice items with the same parent
                     if (choiceItemData.linkedChoiceParent().value().config() instanceof EdibleChoiceRewardConfiguration config && config.rewards.size() > 1) {
                         for (ItemStack slot : player.getInventory().items) {
-                            if (slot.has(DataComponents.CHOICE_ITEM_DATA) && slot.get(DataComponents.CHOICE_ITEM_DATA).linkedChoiceParent().getKey().equals(choiceItemData.linkedChoiceParent().getKey())) {
-                                slot.remove(DataComponents.CHOICE_ITEM_DATA);
+                            if (slot.has(DataComponents.CHOICE_ITEM) && slot.get(DataComponents.CHOICE_ITEM).linkedChoiceParent().getKey().equals(choiceItemData.linkedChoiceParent().getKey())) {
+                                slot.remove(DataComponents.CHOICE_ITEM);
                             }
                         }
                     }

@@ -31,7 +31,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
@@ -169,8 +168,8 @@ public class ItemListenersGame {
             }
 
             // Choice Reward Item Tooltip
-            if (stack.has(grill24.potionsplus.core.DataComponents.CHOICE_ITEM_DATA)) {
-                EdibleRewardGranterDataComponent choiceItemData = stack.get(grill24.potionsplus.core.DataComponents.CHOICE_ITEM_DATA);
+            if (stack.has(grill24.potionsplus.core.DataComponents.CHOICE_ITEM)) {
+                EdibleRewardGranterDataComponent choiceItemData = stack.get(grill24.potionsplus.core.DataComponents.CHOICE_ITEM);
                 grill24.potionsplus.skill.reward.ConfiguredGrantableReward<?, ?> linkedOption = choiceItemData.linkedOption().value();
 
                 tooltipMessages.add(List.of(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_CHOICE).withStyle(ChatFormatting.GOLD)));
@@ -184,8 +183,8 @@ public class ItemListenersGame {
             }
 
             // Owner Data Component Tooltip
-            if (stack.has(grill24.potionsplus.core.DataComponents.OWNER_DATA)) {
-                OwnerDataComponent ownerData = stack.get(grill24.potionsplus.core.DataComponents.OWNER_DATA);
+            if (stack.has(grill24.potionsplus.core.DataComponents.OWNER)) {
+                OwnerDataComponent ownerData = stack.get(grill24.potionsplus.core.DataComponents.OWNER);
                 if (ownerData != null && ownerData.shouldShowTooltip()) {
                     boolean isOwner = ownerData.isOwner(event.getEntity());
                     MutableComponent ownerText = ownerData.getTooltipComponent();

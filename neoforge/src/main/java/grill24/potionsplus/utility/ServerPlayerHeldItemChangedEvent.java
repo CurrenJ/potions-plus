@@ -1,5 +1,6 @@
 package grill24.potionsplus.utility;
 
+import grill24.potionsplus.core.PotionsPlus;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -11,11 +12,13 @@ public class ServerPlayerHeldItemChangedEvent extends Event {
     private final ItemStack lastHeldItem;
     private final ItemStack heldItem;
 
-    protected ServerPlayerHeldItemChangedEvent(MinecraftServer server, ServerPlayer player, ItemStack lastHeldItem, ItemStack heldItem) {
+    public ServerPlayerHeldItemChangedEvent(MinecraftServer server, ServerPlayer player, ItemStack lastHeldItem, ItemStack heldItem) {
         this.server = server;
         this.player = player;
         this.lastHeldItem = lastHeldItem;
         this.heldItem = heldItem;
+
+        PotionsPlus.LOGGER.info(this.lastHeldItem + " -> " + this.heldItem);
     }
 
     public MinecraftServer getServer() {

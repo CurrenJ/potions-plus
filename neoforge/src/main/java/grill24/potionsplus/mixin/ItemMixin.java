@@ -85,8 +85,8 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, net.neoforg
     @Redirect(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;canEat(Z)Z"))
     private boolean potions_plus$canEat(Player p, boolean canAlwaysEat, Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.has(DataComponents.CHOICE_ITEM_DATA) && itemStack.has(DataComponents.OWNER_DATA)) {
-            OwnerDataComponent ownerData = itemStack.get(DataComponents.OWNER_DATA);
+        if (itemStack.has(DataComponents.CHOICE_ITEM) && itemStack.has(DataComponents.OWNER)) {
+            OwnerDataComponent ownerData = itemStack.get(DataComponents.OWNER);
             if (ownerData != null) {
                 return ownerData.isOwner(player);
             }

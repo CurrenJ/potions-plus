@@ -30,8 +30,8 @@ public class ClientEvents {
             net.minecraft.client.renderer.item.ItemProperties.register(GENERIC_ICON.value(), DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
 
             ClampedItemPropertyFunction edibleChoiceItemPropertyFunction = (stack, world, entity, i) -> {
-                if (stack.has(DataComponents.CHOICE_ITEM_DATA)) {
-                    return BASIC_LOOT_MODEL.getOverrideValue(stack.get(DataComponents.CHOICE_ITEM_DATA).flag());
+                if (stack.has(DataComponents.CHOICE_ITEM)) {
+                    return BASIC_LOOT_MODEL.getOverrideValue(stack.get(DataComponents.CHOICE_ITEM).flag());
                 }
                 return 0.0F;
             };

@@ -12,6 +12,7 @@
     "EnchantedCountIncreaseFunctionMixin",
     "EntityMixin",
     "FishingHookMixin",
+    "InventoryMixin",
     "ItemAttributeModifiersMixin",
     "ItemEntityMixin",
     "ItemMixin",

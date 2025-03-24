@@ -2,6 +2,7 @@ package grill24.potionsplus.skill.reward;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.core.Translations;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.ChatFormatting;
@@ -10,6 +11,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.UUID;
 
@@ -46,6 +48,10 @@ public record OwnerDataComponent(UUID uuid, String playerDisplayName) {
 
     public static OwnerDataComponent fromPlayer(Player player, boolean showItemTooltip) {
         return new OwnerDataComponent(player.getUUID(), showItemTooltip ? player.getDisplayName().getString() : "");
+    }
+
+    public static void addOwnerToStack(Player player, ItemStack stack) {
+        stack.set(DataComponents.OWNER, OwnerDataComponent.fromPlayer(player, false));
     }
 
     /**
