@@ -27,6 +27,7 @@ public class PlayerAbilities {
     public static final DeferredHolder<PlayerAbility<?>, ChainLightningAbility> CHAIN_LIGHTNING = register("chain_lightning", ChainLightningAbility::new);
     public static final DeferredHolder<PlayerAbility<?>, StunShotAbility> STUN_SHOT = register("stun_shot", StunShotAbility::new);
     public static final DeferredHolder<PlayerAbility<?>, SavedByTheBounceAbility> SAVED_BY_THE_BOUNCE = register("saved_by_the_bounce", SavedByTheBounceAbility::new);
+    public static final DeferredHolder<PlayerAbility<?>, LastBreathAbility> LAST_BREATH = register("last_breath", LastBreathAbility::new);
 
     private static <S extends PlayerAbility<?>> DeferredHolder<PlayerAbility<?>, S> register(String name, Supplier<S> supplier) {
         return PLAYER_ABILITIES.register(name, supplier);

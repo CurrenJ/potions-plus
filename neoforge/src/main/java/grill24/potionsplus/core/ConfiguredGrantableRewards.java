@@ -209,6 +209,12 @@ public class ConfiguredGrantableRewards {
             .strength(1.0F))
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE_INCREASE);
 
+    public static AbilityReward.AbilityRewardBuilder LAST_BREATH = registerAbilityReward(ConfiguredPlayerAbilities.LAST_BREATH.getKey());
+    public static IncreaseAbilityStrengthReward.Builder LAST_BREATH_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("last_breath_increase")
+            .ability(ConfiguredPlayerAbilities.LAST_BREATH.getKey())
+            .strength(1.0F))
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_LAST_BREATH_INCREASE);
+
     public static IncreaseAbilityStrengthReward.Builder CHAIN_LIGHTNING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("chain_lightning_increase")
             .ability(ConfiguredPlayerAbilities.CHAIN_LIGHTNING.getKey())
             .strength(1.0F));

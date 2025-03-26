@@ -104,8 +104,7 @@
           },
           "13": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible",
-              "potionsplus:small_submerged_pickaxe_efficiency_increase"
+              "potionsplus:basic_skill_loot_edible"
             ]
           },
           "14": {
@@ -118,8 +117,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:stronghold_library_loot_edible_0",
-              "potionsplus:display_copper_ore"
+              "potionsplus:stronghold_library_loot_edible_0"
             ]
           },
           "16": {
@@ -167,7 +165,8 @@
           },
           "22": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:last_breath_increase"
             ]
           },
           "23": {
@@ -249,7 +248,8 @@
           "35": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel"
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:last_breath_increase"
             ]
           },
           "36": {
@@ -338,7 +338,6 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:simple_dungeon_loot_edible_0",
               "potionsplus:small_pickaxe_efficiency_increase"
             ]
           },
@@ -395,13 +394,15 @@
           },
           "59": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:last_breath_increase"
             ]
           },
           "6": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:simple_dungeon_loot_edible_0"
             ]
           },
           "60": {
@@ -583,7 +584,8 @@
           },
           "9": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:last_breath"
             ]
           },
           "90": {

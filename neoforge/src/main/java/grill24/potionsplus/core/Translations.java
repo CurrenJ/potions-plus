@@ -67,6 +67,9 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE = "description.potionsplus.ability.saved_by_the_bounce";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE_INCREASE = "description.potionsplus.ability.saved_by_the_bounce_increase";
     public static final String COOLDOWN_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE = "cooldown.potionsplus.ability.saved_by_the_bounce";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_LAST_BREATH = "description.potionsplus.ability.last_breath";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_LAST_BREATH_INCREASE = "description.potionsplus.ability.last_breath_increase";
+    public static final String COOLDOWN_POTIONSPLUS_ABILITY_LAST_BREATH = "cooldown.potionsplus.ability.last_breath";
     public static final String COOLDOWN_POTIONSPLUS_ABILITY = "cooldown.potionsplus.ability";
     public static final String KEY_CATEGORIES_POTIONSPLUS = "key.categories.potionsplus";
     public static final String KEY_POTIONSPLUS_ACTIVATE_ABILITY = "key.potionsplus.activate_ability";

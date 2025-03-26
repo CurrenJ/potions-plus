@@ -23,7 +23,7 @@ public class SavedByTheBounceAbility extends CooldownTriggerableAbility<LivingFa
         if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthAbilityInstanceData) {
             strength = adjustableStrengthAbilityInstanceData.getAbilityStrength();
         }
-        return Math.max(600, 3600 - (int) (strength * 600));
+        return Math.max(600, 3600 - (int) (strength * 300));
     }
 
     @Override

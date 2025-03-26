@@ -294,6 +294,11 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE)
             .parentSkill(ConfiguredSkills.JUMPING));
 
+    public static final CooldownTriggerableAbility.Builder<LastBreathAbility> LAST_BREATH = register(() -> new CooldownTriggerableAbility.Builder<LastBreathAbility>("last_breath")
+            .ability(PlayerAbilities.LAST_BREATH.value())
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_LAST_BREATH)
+            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY));
+
     // Data Gen
     public static void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
         for (IAbilityBuilder<?> builder : abilityBuilders) {

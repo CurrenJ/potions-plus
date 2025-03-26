@@ -1,5 +1,6 @@
 package grill24.potionsplus.mixin;
 
+import grill24.potionsplus.core.DataAttachments;
 import grill24.potionsplus.effect.BouncingEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
