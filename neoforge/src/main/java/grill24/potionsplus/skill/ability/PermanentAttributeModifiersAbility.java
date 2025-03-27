@@ -3,13 +3,10 @@ package grill24.potionsplus.skill.ability;
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.AbilityInstanceTypes;
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.core.PotionsPlusRegistries;
-import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -77,24 +74,6 @@ public class PermanentAttributeModifiersAbility<AC extends AttributeModifiersAbi
             return Component.translatable(config.getData().translationKey(), params);
         } else {
             return super.getDescription(config, params);
-        }
-    }
-
-    private Component getDescriptionWithStrength(AttributeModifiersAbilityConfiguration config, float strength) {
-        if (config.getModifiers().size() == 1) {
-            AttributeModifier.Operation operation = config.getModifiers().get(0).operation();
-
-            String param = "";
-            // Format float to 2 decimal places
-            String amountStr = String.format("%.2f", strength);
-            switch (operation) {
-                case ADD_VALUE -> param = "+" + amountStr;
-                case ADD_MULTIPLIED_BASE, ADD_MULTIPLIED_TOTAL -> param = "x" + (amountStr + 1);
-            }
-
-            return Component.translatable(config.getData().translationKey(), param);
-        } else {
-            return Component.translatable(config.getData().translationKey());
         }
     }
 

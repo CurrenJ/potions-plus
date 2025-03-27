@@ -70,15 +70,31 @@
   "description.potionsplus.ability.diamond_ore_additional_loot_lapis": "+Diamond Ore May Drop Lapis",
 
   "description.potionsplus.ability.double_jump": "+%s Additional Jump(s)",
-  "description.potionsplus.ability.chain_lightning": "+%s Crit. Chain Lightning",
-  "description.potionsplus.ability.stun_shot": "+%s Crit. Stun Shot",
-  "description.potionsplus.ability.saved_by_the_bounce": "+[Saved By The Bounce]",
+
+  "description.potionsplus.ability.chain_lightning": "[Lvl %s] Chain Lightning",
+  "description.potionsplus.ability.chain_lightning_increase": "[Chain Lightning] +15% trigger chance, +1 target",
+  "description.potionsplus.ability.chain_lightning_increase_2x": "[Chain Lightning] +30% trigger chance, +2 targets",
+  "description.long.potionsplus.ability.chain_lightning": "When you §6crit§r, §a%s§r chance\nto inflict §l§dchain lightning§r\non up to §a%s§r targets.",
+
+  "description.potionsplus.ability.stun_shot": "[Lvl %s] Stun Shot",
+  "description.potionsplus.ability.stun_shot_increase": "[Stun Shot] +15% trigger chance, +1.5 second stun duration",
+  "description.long.potionsplus.ability.stun_shot": "When you §6crit§r, §a%s§r chance\nto §l§dstun§r for §a%s§r seconds.",
+
+  "description.potionsplus.ability.saved_by_the_bounce": "[Lvl %s] Saved By The Bounce",
+  "description.potionsplus.ability.saved_by_the_bounce_unlock": "+Saved By The Bounce",
   "description.potionsplus.ability.saved_by_the_bounce_increase": "[Saved By The Bounce] -30 seconds cooldown",
-  "cooldown.potionsplus.ability.saved_by_the_bounce": "Saved By The Bounce is ready to use!",
-  "description.potionsplus.ability.last_breath": "+[Last Breath]",
+  "cooldown.potionsplus.ability.saved_by_the_bounce": "[Saved By The Bounce] is ready to use!",
+  "description.long.potionsplus.ability.saved_by_the_bounce": "When you would take §6fall§r\ndamage, §l§dbounce§r instead.",
+
+  "description.potionsplus.ability.last_breath": "[Lvl %s] Last Breath",
+  "description.potionsplus.ability.last_breath_unlock": "+Last Breath",
   "description.potionsplus.ability.last_breath_increase": "[Last Breath] -30 seconds cooldown, +10 seconds water breathing",
-  "cooldown.potionsplus.ability.last_breath": "Last Breath is ready to use!",
-  "cooldown.potionsplus.ability": "Ability will be ready to use again in %s seconds.",
+  "cooldown.potionsplus.ability.last_breath": "[Last Breath] is ready to use!",
+  "description.long.potionsplus.ability.last_breath": "When you would §6drown§r, get\n§l§dwater breathing§r for §a%s§r seconds.",
+
+  "tooltip.potionsplus.ability.tag": "§d§n§oAbility",
+  "cooldown.potionsplus.ability.alert": "Ability will be ready to use again in %s seconds.",
+  "cooldown.potionsplus.ability.info": "Cooldown: §a%s§r seconds",
 
   "key.categories.potionsplus": "Potions Plus",
   "key.potionsplus.activate_ability": "Activate Ability For Held Item",
@@ -158,7 +174,9 @@
   "tooltip.potionsplus.skill.jumping": "Jumping",
 
   "generic.potionsplus.enabled" : "Enabled",
+  "generic.potionsplus.enabled.rich": "§a§n§oEnabled",
   "generic.potionsplus.disabled" : "Disabled",
+  "generic.potionsplus.disabled.rich": "§c§n§oDisabled",
   "generic.potionsplus.toggle" : "[Toggle]",
 
   "block.potionsplus.sandy_copper_ore": "Sandy Copper Ore",

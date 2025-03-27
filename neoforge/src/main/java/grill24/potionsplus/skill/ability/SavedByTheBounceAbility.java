@@ -1,19 +1,19 @@
 package grill24.potionsplus.skill.ability;
 
-import grill24.potionsplus.core.PlayerAbilities;
-import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.core.Translations;
-import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class SavedByTheBounceAbility extends CooldownTriggerableAbility<LivingFallEvent, CustomPacketPayload> {
@@ -23,7 +23,7 @@ public class SavedByTheBounceAbility extends CooldownTriggerableAbility<LivingFa
         if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthAbilityInstanceData) {
             strength = adjustableStrengthAbilityInstanceData.getAbilityStrength();
         }
-        return Math.max(600, 3600 - (int) (strength * 300));
+        return Math.max(600, 3600 - (int) ((strength-1) * 300));
     }
 
     @Override

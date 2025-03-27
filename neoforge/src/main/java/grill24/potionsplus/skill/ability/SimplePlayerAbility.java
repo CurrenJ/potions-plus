@@ -9,6 +9,7 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -52,9 +53,14 @@ public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguratio
         return playerAbilityConfiguration.getData().itemPredicate().test(stack);
     }
 
+    public Component getRichEnablementTooltipComponent(boolean isEnabled) {
+        return isEnabled ? Component.translatable(Translations.GENERIC_POTIONSPLUS_ENABLED_RICH) : Component.translatable(Translations.GENERIC_POTIONSPLUS_DISABLED_RICH);
+    }
+
     abstract static class AbstractBuilder<AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>, B extends AbstractBuilder<AC, A, B>> implements ConfiguredPlayerAbilities.IAbilityBuilder<B> {
         protected final ResourceKey<ConfiguredPlayerAbility<?, ?>> key;
         protected String translationKey;
+        protected String longTranslationKey;
         protected ResourceKey<ConfiguredSkill<?, ?>> parentSkillKey;
         protected ItemPredicate itemPredicate;
         protected boolean enabledByDefault;
@@ -63,12 +69,18 @@ public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguratio
         public AbstractBuilder(String key) {
             this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ppId(key));
             this.translationKey = "";
+            this.longTranslationKey = "";
             this.itemPredicate = ItemPredicate.Builder.item().build();
             this.enabledByDefault = true;
         }
 
         public B translationKey(String translationKey) {
             this.translationKey = translationKey;
+            return self();
+        }
+
+        public B longTranslationKey(String longTranslationKey) {
+            this.longTranslationKey = longTranslationKey;
             return self();
         }
 
@@ -132,7 +144,7 @@ public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguratio
 
         protected PlayerAbilityConfiguration.PlayerAbilityConfigurationData buildBaseConfigurationData(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
             HolderGetter<ConfiguredSkill<?, ?>> skillLookup = context.lookup(PotionsPlusRegistries.CONFIGURED_SKILL);
-            return new PlayerAbilityConfiguration.PlayerAbilityConfigurationData(translationKey, enabledByDefault, skillLookup.getOrThrow(parentSkillKey), itemPredicate);
+            return new PlayerAbilityConfiguration.PlayerAbilityConfigurationData(translationKey, longTranslationKey, enabledByDefault, skillLookup.getOrThrow(parentSkillKey), itemPredicate);
         }
 
         @Override

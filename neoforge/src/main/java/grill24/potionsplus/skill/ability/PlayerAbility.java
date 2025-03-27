@@ -7,13 +7,14 @@ import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Set;
+import java.util.*;
 
 public abstract class PlayerAbility<AC extends PlayerAbilityConfiguration> {
     public final MapCodec<ConfiguredPlayerAbility<AC, PlayerAbility<AC>>> configuredCodec;
@@ -30,6 +31,16 @@ public abstract class PlayerAbility<AC extends PlayerAbilityConfiguration> {
 
     public Component getDescription(AC config, Object... params) {
         return Component.translatable(config.getData().translationKey(), params);
+    }
+
+    public Optional<List<List<Component>>> getLongDescription(AbilityInstanceSerializable<?, ?> instance, AC config, Object... params) {
+        List<List<Component>> components = new ArrayList<>();
+        List<Component> split = Utility.splitOnLinebreaks(Component.translatable(config.getData().longTranslationKey(), params));
+        for (Component component : split) {
+            components.add(Collections.singletonList(component));
+        }
+
+        return config.getData().longTranslationKey().isEmpty() ? Optional.empty() : Optional.of(components);
     }
 
     public abstract AbilityInstanceSerializable<? ,?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability);

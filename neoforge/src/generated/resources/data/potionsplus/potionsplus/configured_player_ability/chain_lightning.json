@@ -3,6 +3,7 @@
   "config": {
     "baseConfig": {
       "enabledByDefault": true,
+      "longTranslationKey": "description.long.potionsplus.ability.chain_lightning",
       "parentSkill": "potionsplus:swordsmanship",
       "translationKey": "description.potionsplus.ability.chain_lightning"
     }

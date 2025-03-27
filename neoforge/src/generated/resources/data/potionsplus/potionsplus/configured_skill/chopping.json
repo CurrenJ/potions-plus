@@ -28,7 +28,7 @@
         "a": 2.0,
         "b": 1.2,
         "c": 4,
-        "d": 15.0,
+        "d": 10.0,
         "levelMax": 100,
         "scale": "EXPONENTIAL"
       },

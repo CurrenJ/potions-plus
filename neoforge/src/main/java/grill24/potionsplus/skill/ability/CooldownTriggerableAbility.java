@@ -18,8 +18,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayload> extends SimplePlayerAbility implements ITriggerablePlayerAbility<E, P> {
@@ -31,7 +30,7 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
     public AbilityInstanceSerializable<?, ?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability) {
         return new AbilityInstanceSerializable<>(
                 AbilityInstanceTypes.COOLDOWN.value(),
-                new CooldownAbilityInstanceData(ability, true, 0, 0, 0));
+                new CooldownAbilityInstanceData(ability, true, 0, 1, 0, 0));
     }
 
     public CooldownTriggerableAbility(Set<AbilityInstanceType<?>> types) {
@@ -45,10 +44,34 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
     }
 
     protected Component getCooldownComponent(AbilityInstanceSerializable<?, ?> instance) {
-        return Component.translatable(Translations.COOLDOWN_POTIONSPLUS_ABILITY, getCooldownSeconds(instance)).withStyle(ChatFormatting.GREEN);
+        return Component.translatable(Translations.COOLDOWN_POTIONSPLUS_ABILITY_ALERT, getCooldownSeconds(instance)).withStyle(ChatFormatting.GREEN);
     }
 
     abstract protected Component getCooldownOverComponent(AbilityInstanceSerializable<?, ?> instance);
+
+    @Override
+    public Optional<List<List<Component>>> getLongDescription(AbilityInstanceSerializable<?, ?> instance, PlayerAbilityConfiguration config, Object... params) {
+        List<List<Component>> components = new ArrayList<>();
+
+        List<Component> abilityTag = List.of(getRichEnablementTooltipComponent(instance.data().isEnabled()), Component.literal(" "), Component.translatable(Translations.TOOLTIP_POTIONSPLUS_ABILITY_TAG));
+        components.add(abilityTag);
+        components.add(List.of());
+
+        Optional<List<List<Component>>> component = super.getLongDescription(instance, config, params);
+        component.ifPresent(components::addAll);
+
+        int cooldownTicks = getCooldownDurationForAbility(instance);
+        if (cooldownTicks > 0) {
+            List<Component> row2 = List.of(
+                    Component.translatable(Translations.COOLDOWN_POTIONSPLUS_ABILITY_INFO,
+                                    String.valueOf(getCooldownDurationForAbility(instance) / 20))
+                            .withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)
+            );
+            components.add(row2);
+        }
+
+        return !components.isEmpty() ? Optional.of(components) : Optional.empty();
+    }
 
     protected boolean hasFinishedCooldown(AbilityInstanceSerializable<?, ?> instance, long timestamp) {
         if (instance.data() instanceof CooldownAbilityInstanceData cooldownAbilityInstanceData) {

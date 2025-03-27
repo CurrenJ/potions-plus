@@ -2,6 +2,7 @@ package grill24.potionsplus.gui.skill;
 
 import grill24.potionsplus.gui.HorizontalListScreenElement;
 import grill24.potionsplus.gui.RenderableScreenElement;
+import grill24.potionsplus.gui.SimpleTooltipScreenElement;
 import grill24.potionsplus.gui.TextComponentScreenElement;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
@@ -11,6 +12,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Vector4f;
 
 import java.awt.*;
 import java.util.List;
@@ -26,6 +29,8 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
     private TextComponentScreenElement text;
     private TextButtonScreenElement buttonIncrease;
 
+    private Component abilityTextComponent;
+
     public AbilityTextScreenElement(Screen screen, ResourceLocation abilityId, List<Component> components) {
         this(screen, abilityId, compactComponents(components));
     }
@@ -34,6 +39,7 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
         super(screen, Settings.DEFAULT, YAlignment.CENTER, 5);
 
         this.abilityId = abilityId;
+        this.abilityTextComponent = abilityTextComponent;
         initializeChildren(abilityTextComponent);
     }
 
@@ -66,6 +72,18 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
         }
 
         setChildren(List.of(buttonDecrease, text, buttonIncrease));
+
+        this.tooltip = getSimpleTooltipScreenElement();
+    }
+
+    private @NotNull SimpleTooltipScreenElement getSimpleTooltipScreenElement() {
+        SimpleTooltipScreenElement tooltip = new SimpleTooltipScreenElement(this.screen, Settings.DEFAULT.withAnchor(Anchor.BOTTOM_LEFT).withAnimationSpeed(1.0F).withHiddenByDefault(true), Color.WHITE, () -> {
+            Optional<AbilityInstanceSerializable<?, ?>> abilityInstance = getAbility();
+            Optional<List<List<Component>>> text = abilityInstance.flatMap(AbilityInstanceSerializable::getLongDescription);
+            return text.orElseGet(List::of);
+        });
+        tooltip.setPadding(new Vector4f(2, 1, 2, 1));
+        return tooltip;
     }
 
     @Override
@@ -77,6 +95,9 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
 
         text.setTargetColor(getTargetColor(ability.get().data().isEnabled()));
         text.setComponent(ability.get().data().getDescription(), false);
+        if (this.tooltip instanceof SimpleTooltipScreenElement t) {
+            t.update();
+        }
         super.onTick(partialTick, mouseX, mouseY);
     }
 
@@ -106,5 +127,22 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
 
     public ResourceLocation getAbilityId() {
         return abilityId;
+    }
+
+    @Override
+    protected void onMouseEnter(int x, int y) {
+        if (this.tooltip != null) {
+            if (this.tooltip instanceof SimpleTooltipScreenElement t) {
+                t.update();
+            }
+            this.tooltip.show();
+        }
+    }
+
+    @Override
+    protected void onMouseExit(int x, int y) {
+        if (this.tooltip != null) {
+            this.tooltip.hide(false);
+        }
     }
 }

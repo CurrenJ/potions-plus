@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.network.ServerboundUpdateAbilityStrengthPacket;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
@@ -14,16 +15,23 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import java.util.List;
+import java.util.Optional;
+
 public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstanceData
 {
     protected float abilityStrength;
+    protected float minAbilityStrength;
     protected float maxAbilityStrength;
+    protected float stepSize;
 
     public static final Codec<AdjustableStrengthAbilityInstanceData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             ConfiguredPlayerAbility.HOLDER_CODECS.holderCodec().fieldOf("type").forGetter(instance -> instance.ability),
             Codec.BOOL.optionalFieldOf("isEnabled", false).forGetter(instance -> instance.isEnabled),
             Codec.FLOAT.optionalFieldOf("abilityStrength", 1F).forGetter(instance -> instance.abilityStrength),
-            Codec.FLOAT.optionalFieldOf("maxAbilityStrength", 1F).forGetter(instance -> instance.maxAbilityStrength)
+            Codec.FLOAT.optionalFieldOf("minAbilityStrength", 0F).forGetter(instance -> instance.minAbilityStrength),
+            Codec.FLOAT.optionalFieldOf("maxAbilityStrength", 1F).forGetter(instance -> instance.maxAbilityStrength),
+            Codec.FLOAT.optionalFieldOf("stepSize", 1F).forGetter(instance -> instance.stepSize)
     ).apply(codecBuilder, AdjustableStrengthAbilityInstanceData::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AdjustableStrengthAbilityInstanceData> STREAM_CODEC = StreamCodec.composite(
@@ -34,23 +42,29 @@ public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstance
             ByteBufCodecs.FLOAT,
             (instance) -> instance.abilityStrength,
             ByteBufCodecs.FLOAT,
+            (instance) -> instance.minAbilityStrength,
+            ByteBufCodecs.FLOAT,
             (instance) -> instance.maxAbilityStrength,
+            ByteBufCodecs.FLOAT,
+            (instance) -> instance.stepSize,
             AdjustableStrengthAbilityInstanceData::new);
 
     // For deserialization
-    public AdjustableStrengthAbilityInstanceData(Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled, float abilityStrength, float maxAbilityStrength) {
+    public AdjustableStrengthAbilityInstanceData(Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled, float abilityStrength, float minAbilityStrength, float maxAbilityStrength, float stepSize) {
         super(ability, isEnabled);
 
         this.abilityStrength = abilityStrength;
+        this.minAbilityStrength = minAbilityStrength;
         this.maxAbilityStrength = maxAbilityStrength;
+        this.stepSize = stepSize;
     }
 
     public AdjustableStrengthAbilityInstanceData(Holder<ConfiguredPlayerAbility<?, ?>> ability, boolean isEnabled) {
-        this(ability, isEnabled, 0F, 0F);
+        this(ability, isEnabled, 0F, 0F, 0F, 1F);
     }
 
     public void setAbilityStrength(float strength) {
-        this.abilityStrength = Math.clamp(strength, 0, maxAbilityStrength);
+        this.abilityStrength = Math.clamp(strength, minAbilityStrength, maxAbilityStrength);
     }
 
     public float getAbilityStrength() {
@@ -83,7 +97,9 @@ public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstance
             component.append(Component.literal("] ").withStyle(style));
         }
 
-        Component description = getConfiguredAbility().getDescription(abilityStrength);
+        // Get string of ability strength with decimal places
+        String strength = Utility.autoFormatNumber(abilityStrength);
+        Component description = getConfiguredAbility().getDescription(strength);
         component.append(description.copy().withStyle(style));
 
 
@@ -91,10 +107,10 @@ public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstance
     }
 
     public void clientRequestDecreaseStrength(LocalPlayer player) {
-        PacketDistributor.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.getKey().location(), -.25F, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
+        PacketDistributor.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.getKey().location(), -stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
     }
 
     public void clientRequestIncreaseStrength(LocalPlayer player) {
-        PacketDistributor.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.getKey().location(), .25F, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
+        PacketDistributor.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.getKey().location(), stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
     }
 }

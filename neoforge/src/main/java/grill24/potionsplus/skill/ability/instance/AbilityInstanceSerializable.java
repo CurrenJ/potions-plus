@@ -3,12 +3,15 @@ package grill24.potionsplus.skill.ability.instance;
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.network.ServerboundToggleAbilityPacket;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.PacketDistributor;
+
+import java.util.List;
+import java.util.Optional;
 
 public record AbilityInstanceSerializable<D extends SimpleAbilityInstanceData, T extends AbilityInstanceType<D>>(T type, D data) {
     public static final Codec<AbilityInstanceSerializable<?, ?>> DIRECT_CODEC = PotionsPlusRegistries.ABILITY_INSTANCE_TYPE
@@ -41,6 +44,10 @@ public record AbilityInstanceSerializable<D extends SimpleAbilityInstanceData, T
 
     public void toggleClient() {
         PacketDistributor.sendToServer(ServerboundToggleAbilityPacket.of(this));
+    }
+
+    public Optional<List<List<Component>>> getLongDescription() {
+        return this.data.getConfiguredAbility().getLongDescription(this);
     }
 
     @Override

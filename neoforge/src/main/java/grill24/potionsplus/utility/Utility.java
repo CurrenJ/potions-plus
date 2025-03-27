@@ -298,4 +298,34 @@ public class Utility {
     public static <T> Registry<T> getRegistry(ResourceKey<Registry<T>> resourceKey) {
         return (Registry<T>) BuiltInRegistries.REGISTRY.get(resourceKey.location());
     }
+
+    public static List<Component> splitOnLinebreaks(Component component) {
+        List<Component> components = new ArrayList<>();
+        String contents = component.getString();
+        List<String> lines = List.of(contents.split("\n"));
+        for (String line : lines) {
+            components.add(Component.literal(line));
+        }
+        return components;
+    }
+
+    public static boolean isZeroish(float value) {
+        return Math.abs(value) < 0.0001;
+    }
+
+    public static boolean isZeroish(double value) {
+        return Math.abs(value) < 0.0001;
+    }
+
+    public static String trimToDecimalPlaces(float f, int decimalPlaces) {
+        return String.format("%." + decimalPlaces + "f", f);
+    }
+
+    public static String autoFormatNumber(float number) {
+        if (number == (int) number) {
+            return String.format("%d", (int) number);
+        } else {
+            return String.format("%s", number);
+        }
+    }
 }

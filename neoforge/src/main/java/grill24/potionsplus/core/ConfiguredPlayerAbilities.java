@@ -282,21 +282,25 @@ public class ConfiguredPlayerAbilities {
     public static final CooldownTriggerableAbility.Builder<ChainLightningAbility> CHAIN_LIGHTNING = register(() -> new CooldownTriggerableAbility.Builder<ChainLightningAbility>("chain_lightning")
             .ability(PlayerAbilities.CHAIN_LIGHTNING.value())
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_CHAIN_LIGHTNING)
+            .longTranslationKey(Translations.DESCRIPTION_LONG_POTIONSPLUS_ABILITY_CHAIN_LIGHTNING)
             .parentSkill(ConfiguredSkills.SWORDSMANSHIP));
 
     public static final CooldownTriggerableAbility.Builder<StunShotAbility> STUN_SHOT = register(() -> new CooldownTriggerableAbility.Builder<StunShotAbility>("stun_shot")
             .ability(PlayerAbilities.STUN_SHOT.value())
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_STUN_SHOT)
+            .longTranslationKey(Translations.DESCRIPTION_LONG_POTIONSPLUS_ABILITY_STUN_SHOT)
             .parentSkill(ConfiguredSkills.CHOPPING));
 
     public static final CooldownTriggerableAbility.Builder<SavedByTheBounceAbility> SAVED_BY_THE_BOUNCE = register(() -> new CooldownTriggerableAbility.Builder<SavedByTheBounceAbility>("saved_by_the_bounce")
             .ability(PlayerAbilities.SAVED_BY_THE_BOUNCE.value())
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE)
+            .longTranslationKey(Translations.DESCRIPTION_LONG_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE)
             .parentSkill(ConfiguredSkills.JUMPING));
 
     public static final CooldownTriggerableAbility.Builder<LastBreathAbility> LAST_BREATH = register(() -> new CooldownTriggerableAbility.Builder<LastBreathAbility>("last_breath")
             .ability(PlayerAbilities.LAST_BREATH.value())
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_LAST_BREATH)
+            .longTranslationKey(Translations.DESCRIPTION_LONG_POTIONSPLUS_ABILITY_LAST_BREATH)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY));
 
     // Data Gen

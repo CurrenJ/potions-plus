@@ -3,6 +3,7 @@
   "config": {
     "baseConfig": {
       "enabledByDefault": true,
+      "longTranslationKey": "description.long.potionsplus.ability.saved_by_the_bounce",
       "parentSkill": "potionsplus:jumping",
       "translationKey": "description.potionsplus.ability.saved_by_the_bounce"
     }

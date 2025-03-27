@@ -7,6 +7,7 @@ import grill24.potionsplus.render.animation.keyframe.FloatAnimationCurve;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.utility.RUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -16,9 +17,10 @@ import net.minecraft.network.chat.MutableComponent;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Collections;
+import java.util.List;
 
 public class TextComponentScreenElement extends RenderableScreenElement {
-    protected Component component;
+    protected List<List<Component>> components;
 
     protected float scale;
 
@@ -29,21 +31,25 @@ public class TextComponentScreenElement extends RenderableScreenElement {
     private FloatAnimationCurve hiddenAnimation;
 
     public TextComponentScreenElement(Screen screen, Settings settings, Color defaultColor, Component component) {
-        super(screen, null, settings);
+        this(screen, settings, defaultColor, component, null, null);
 
-        this.component = component;
         this.scale = 1F;
-        this.currentColor = defaultColor;
-        this.targetColor = defaultColor;
+    }
 
-        this.shownAnimation = null;
-        this.hiddenAnimation = null;
+    public TextComponentScreenElement(Screen screen, Settings settings, Color defaultColor, List<List<Component>> component) {
+        this(screen, settings, defaultColor, component, null, null);
+
+        this.scale = 1F;
     }
 
     public TextComponentScreenElement(Screen screen, Settings settings, Color defaultColor, Component component, FloatAnimationCurve shownAnimation, FloatAnimationCurve hiddenAnimation) {
+        this(screen, settings, defaultColor, Collections.singletonList(Collections.singletonList(component)), shownAnimation, hiddenAnimation);
+    }
+
+    public TextComponentScreenElement(Screen screen, Settings settings, Color defaultColor, List<List<Component>> components, FloatAnimationCurve shownAnimation, FloatAnimationCurve hiddenAnimation) {
         super(screen, null, settings);
 
-        this.component = component;
+        this.components = components;
         this.currentColor = defaultColor;
         this.targetColor = defaultColor;
 
@@ -61,13 +67,14 @@ public class TextComponentScreenElement extends RenderableScreenElement {
 
     @Override
     protected float getWidth() {
-        float width = screen.getMinecraft().font.width(component) * this.scale;
+        Font font = screen.getMinecraft().font;
+        float width = (float) (components.stream().map(row -> row.stream().mapToDouble(font::width).sum()).max(Double::compare).orElse(0D) * this.scale);
         return Float.max(Float.min(width, settings.maxWidth()), settings.minWidth());
     }
 
     @Override
     protected float getHeight() {
-        float height = getWidth() == 0 ? 0 : screen.getMinecraft().font.lineHeight * this.scale;
+        float height = getWidth() == 0 ? 0 : (float) (components.stream().mapToDouble(this::getRowHeight).sum() * this.scale);
         return Float.max(Float.min(height, settings.maxHeight()), settings.minHeight());
     }
 
@@ -120,27 +127,43 @@ public class TextComponentScreenElement extends RenderableScreenElement {
 
     @Override
     public void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        // Animate and render text
-        Pair<MutableComponent, Integer> animatedComponent = ItemListenersGame.animateComponentText(Collections.singletonList(this.component), getAnimationProgress(getShownAnimation(), getHiddenAnimation()));
-
         Rectangle2D bounds = getGlobalBounds();
         float x = (float) bounds.getMinX();
         float y = (float) bounds.getMinY();
+        for (List<Component> row : components) {
+            Pair<MutableComponent, Integer> animatedRow = ItemListenersGame.animateComponentText(row, getAnimationProgress(getShownAnimation(), getHiddenAnimation()));
 
-        // Render text
-        IGuiGraphicsExtension guiGraphics = (IGuiGraphicsExtension) graphics;
-        graphics.setColor(1F, 1F, 1F, this.currentColor.getAlpha() / 255F);
-        graphics.pose().pushPose();
-        graphics.pose().translate(x, y, 0);
-        graphics.pose().scale(this.scale, this.scale, 1F);
-        guiGraphics.potions_plus$drawString(this.screen.getMinecraft().font, animatedComponent.getFirst(),
-                0, 0, this.currentColor.getRGB());
-        graphics.pose().popPose();
-        graphics.setColor(1F, 1F, 1F, 1F);
+            // Render text
+            IGuiGraphicsExtension guiGraphics = (IGuiGraphicsExtension) graphics;
+            graphics.setColor(1F, 1F, 1F, this.currentColor.getAlpha() / 255F);
+            graphics.pose().pushPose();
+            graphics.pose().translate(x, y, 0);
+            graphics.pose().scale(this.scale, this.scale, 1F);
+            guiGraphics.potions_plus$drawString(this.screen.getMinecraft().font, animatedRow.getFirst(),
+                    0, 0, this.currentColor.getRGB());
+            graphics.pose().popPose();
+            graphics.setColor(1F, 1F, 1F, 1F);
+
+            y += getRowHeight(row);
+        }
+
+
+    }
+
+    public float getRowHeight(List<Component> row) {
+        float height = this.screen.getMinecraft().font.lineHeight * this.scale;
+        if (row.isEmpty()) {
+            height *= 0.5F;
+        }
+        return height;
     }
 
     public void setComponent(Component component, boolean restartAnimation) {
-        this.component = component.copy();
+        setComponent(List.of(List.of(component)), restartAnimation);
+    }
+
+    public void setComponent(List<List<Component>> components, boolean restartAnimation) {
+        this.components = components;
         if (restartAnimation) {
             this.shownTimestamp = ClientTickHandler.total();
         }

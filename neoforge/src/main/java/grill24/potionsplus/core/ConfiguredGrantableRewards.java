@@ -203,13 +203,20 @@ public class ConfiguredGrantableRewards {
     public static IncreaseAbilityStrengthReward.Builder SAFE_FALL_DISTANCE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("safe_fall_distance_increase")
             .ability(ConfiguredPlayerAbilities.SAFE_FALL_DISTANCE_MODIFIER.getKey())
             .strength(0.5F));
-    public static AbilityReward.AbilityRewardBuilder SAVED_BY_THE_BOUNCE = registerAbilityReward(ConfiguredPlayerAbilities.SAVED_BY_THE_BOUNCE.getKey());
+
+    public static IncreaseAbilityStrengthReward.Builder SAVED_BY_THE_BOUNCE_UNLOCK = register(() -> new IncreaseAbilityStrengthReward.Builder("saved_by_the_bounce_unlock")
+            .ability(ConfiguredPlayerAbilities.SAVED_BY_THE_BOUNCE.getKey())
+            .strength(1.0F)
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE_UNLOCK));
     public static IncreaseAbilityStrengthReward.Builder SAVED_BY_THE_BOUNCE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("saved_by_the_bounce_increase")
             .ability(ConfiguredPlayerAbilities.SAVED_BY_THE_BOUNCE.getKey())
             .strength(1.0F))
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SAVED_BY_THE_BOUNCE_INCREASE);
 
-    public static AbilityReward.AbilityRewardBuilder LAST_BREATH = registerAbilityReward(ConfiguredPlayerAbilities.LAST_BREATH.getKey());
+    public static IncreaseAbilityStrengthReward.Builder LAST_BREATH_UNLOCK = register(() -> new IncreaseAbilityStrengthReward.Builder("last_breath_unlock")
+            .ability(ConfiguredPlayerAbilities.LAST_BREATH.getKey())
+            .strength(1.0F)
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_LAST_BREATH_UNLOCK));
     public static IncreaseAbilityStrengthReward.Builder LAST_BREATH_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("last_breath_increase")
             .ability(ConfiguredPlayerAbilities.LAST_BREATH.getKey())
             .strength(1.0F))
@@ -217,14 +224,17 @@ public class ConfiguredGrantableRewards {
 
     public static IncreaseAbilityStrengthReward.Builder CHAIN_LIGHTNING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("chain_lightning_increase")
             .ability(ConfiguredPlayerAbilities.CHAIN_LIGHTNING.getKey())
-            .strength(1.0F));
+            .strength(1.0F)
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_CHAIN_LIGHTNING_INCREASE));
     public static IncreaseAbilityStrengthReward.Builder CHAIN_LIGHTNING_INCREASE_2X = register(() -> new IncreaseAbilityStrengthReward.Builder("chain_lightning_increase_2x")
             .ability(ConfiguredPlayerAbilities.CHAIN_LIGHTNING.getKey())
-            .strength(2.0F));
+            .strength(2.0F)
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_CHAIN_LIGHTNING_INCREASE_2X));
 
     public static IncreaseAbilityStrengthReward.Builder STUN_SHOT_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("stun_shot_increase")
             .ability(ConfiguredPlayerAbilities.STUN_SHOT.getKey())
-            .strength(1.0F));
+            .strength(1.0F)
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_STUN_SHOT_INCREASE));
 
     public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_LOOT_1 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_loot_1",
             new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI), SIMPLE_DUNGEON_LOOT.getKey()),

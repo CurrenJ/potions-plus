@@ -13,6 +13,9 @@ import net.minecraft.network.chat.*;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
+import java.util.List;
+import java.util.Optional;
+
 public class SimpleAbilityInstanceData {
     public static final Codec<SimpleAbilityInstanceData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             ConfiguredPlayerAbility.HOLDER_CODECS.holderCodec().fieldOf("type").forGetter(instance -> instance.ability),

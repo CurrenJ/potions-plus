@@ -25,7 +25,7 @@ public class SkillRewardsListScreenElement extends VerticalListScreenElement<Ren
     private ResourceKey<ConfiguredSkill<?, ?>> skillKey;
 
     public SkillRewardsListScreenElement(Screen screen, Settings settings, XAlignment alignment, RenderableScreenElement... elements) {
-        super(screen, settings, alignment, 1, elements);
+        super(screen, settings, alignment, 3, elements);
     }
 
     public SkillRewardsListScreenElement(Screen screen, Settings settings, XAlignment alignment, float paddingBetweenElements, RenderableScreenElement... elements) {

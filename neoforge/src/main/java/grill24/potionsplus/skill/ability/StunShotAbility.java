@@ -1,19 +1,12 @@
 package grill24.potionsplus.skill.ability;
 
-import grill24.potionsplus.core.AbilityInstanceTypes;
 import grill24.potionsplus.core.ConfiguredPlayerAbilities;
 import grill24.potionsplus.core.PlayerAbilities;
-import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.network.ClientboundTriggerStunShotPacket;
-import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
-import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,12 +24,6 @@ import java.util.Optional;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class StunShotAbility extends CooldownTriggerableAbility<CriticalHitEvent, CustomPacketPayload> {
-    @Override
-    public AbilityInstanceSerializable<?, ?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability) {
-        return new AbilityInstanceSerializable<>(
-                AbilityInstanceTypes.COOLDOWN.value(),
-                new CooldownAbilityInstanceData(ability, true, 0, 0, 0));
-    }
 
     @Override
     protected int getCooldownDurationForAbility(AbilityInstanceSerializable<?, ?> instance) {
@@ -46,6 +33,17 @@ public class StunShotAbility extends CooldownTriggerableAbility<CriticalHitEvent
     @Override
     protected Component getCooldownOverComponent(AbilityInstanceSerializable<?, ?> instance) {
         return Component.empty();
+    }
+
+    @Override
+    public Optional<List<List<Component>>> getLongDescription(AbilityInstanceSerializable<?, ?> instance, PlayerAbilityConfiguration config, Object... params) {
+        if (instance.data() instanceof AdjustableStrengthAbilityInstanceData data) {
+            float activationChance = getActivationChance(data.getAbilityStrength());
+            String activationPercentage = String.format("%d%%", (int) (activationChance * 100));
+            return super.getLongDescription(instance, config, activationPercentage, getDuration(data.getAbilityStrength()) / 20);
+        }
+
+        return super.getLongDescription(instance, config, params);
     }
 
     @SubscribeEvent
@@ -61,7 +59,7 @@ public class StunShotAbility extends CooldownTriggerableAbility<CriticalHitEvent
     public Optional<CustomPacketPayload> onTriggeredFromServer(Player player, AbilityInstanceSerializable<?, ?> instance, CriticalHitEvent eventData) {
         if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthAbilityInstanceData) {
             final float strength = adjustableStrengthAbilityInstanceData.getAbilityStrength();
-            float chanceToActivate = 0.15F + strength * 0.15F;
+            float chanceToActivate = getActivationChance(strength);
             if (player.getRandom().nextFloat() < chanceToActivate) {
                 final int duration = getDuration(strength);
                 List<Entity> entities = doStunShot(eventData.getTarget(), strength);
@@ -97,5 +95,9 @@ public class StunShotAbility extends CooldownTriggerableAbility<CriticalHitEvent
 
     private static int getDuration(float strength) {
         return (int) (30 * strength);
+    }
+
+    private float getActivationChance(float strength) {
+        return 0.15F + strength * 0.15F;
     }
 }

@@ -36,7 +36,7 @@ public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHi
     public AbilityInstanceSerializable<?, ?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability) {
         return new AbilityInstanceSerializable<>(
                 AbilityInstanceTypes.COOLDOWN.value(),
-                new CooldownAbilityInstanceData(ability, true, 0, 0, 0));
+                new CooldownAbilityInstanceData(ability, true, 0, 2, 0, 0));
     }
 
     @Override
@@ -47,6 +47,17 @@ public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHi
     @Override
     protected Component getCooldownOverComponent(AbilityInstanceSerializable<?, ?> instance) {
         return Component.empty();
+    }
+
+    @Override
+    public Optional<List<List<Component>>> getLongDescription(AbilityInstanceSerializable<?, ?> instance, PlayerAbilityConfiguration config, Object... params) {
+        if (instance.data() instanceof AdjustableStrengthAbilityInstanceData data) {
+            float activationChance = getActivationChance(data.getAbilityStrength());
+            String activationPercentage = String.format("%d%%", (int) (activationChance * 100));
+            return super.getLongDescription(instance, config, activationPercentage, getEntityLimit(data.getAbilityStrength()));
+        }
+
+        return super.getLongDescription(instance, config, params);
     }
 
     @SubscribeEvent
@@ -63,7 +74,7 @@ public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHi
     public Optional<ClientboundTriggerChainLightningPacket> onTriggeredFromServer(Player player, AbilityInstanceSerializable<?, ?> instance, CriticalHitEvent event) {
         if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthAbilityInstanceData) {
             final float strength = adjustableStrengthAbilityInstanceData.getAbilityStrength();
-            float chanceToActivate = strength * 0.15F;
+            float chanceToActivate = getActivationChance(strength);
             if (player.getRandom().nextFloat() < chanceToActivate) {
                 List<Entity> affected = doChainLightning(event.getTarget(), strength);
 
@@ -150,5 +161,13 @@ public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHi
      */
     private static ParticleOptions getRandomParticleType(RandomSource randomSource) {
         return randomSource.nextInt(6) == 0 ? Particles.LIGHTNING_BOLT.value() : Particles.LIGHTNING_BOLT_SMALL.value();
+    }
+
+    private static float getActivationChance(float strength) {
+        return strength * 0.15F;
+    }
+
+    private static int getEntityLimit(float strength) {
+        return (int) strength;
     }
 }

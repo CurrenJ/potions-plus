@@ -18,6 +18,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDrownEvent;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -30,12 +31,22 @@ public class LastBreathAbility extends CooldownTriggerableAbility<LivingDrownEve
     @Override
     protected int getCooldownDurationForAbility(AbilityInstanceSerializable<?, ?> instance) {
         float strength = instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustable ? adjustable.getAbilityStrength() : 0F;
-        return (int) Math.max(0, 3600 - strength * 600);
+        return (int) Math.max(0, 3600 - (strength - 1) * 600);
     }
 
     @Override
     protected Component getCooldownOverComponent(AbilityInstanceSerializable<?, ?> instance) {
         return Component.translatable(Translations.COOLDOWN_POTIONSPLUS_ABILITY_LAST_BREATH).withStyle(ChatFormatting.GRAY);
+    }
+
+    @Override
+    public Optional<List<List<Component>>> getLongDescription(AbilityInstanceSerializable<?, ?> instance, PlayerAbilityConfiguration config, Object... params) {
+        if (instance.data() instanceof AdjustableStrengthAbilityInstanceData data) {
+            String activationPercentage = String.valueOf(getDurationTicks(data.getAbilityStrength()));
+            return super.getLongDescription(instance, config, activationPercentage, activationPercentage);
+        }
+
+        return super.getLongDescription(instance, config, params);
     }
 
     @SubscribeEvent
@@ -52,7 +63,7 @@ public class LastBreathAbility extends CooldownTriggerableAbility<LivingDrownEve
         if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthAbilityInstanceData) {
             final float strength = adjustableStrengthAbilityInstanceData.getAbilityStrength();
 
-            player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, (int) (strength * 100), 0, false, true));
+            player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, getDurationTicks(strength), 0, false, true));
         }
 
         return Optional.empty();
@@ -61,5 +72,13 @@ public class LastBreathAbility extends CooldownTriggerableAbility<LivingDrownEve
     @Override
     public Optional<ClientboundTriggerChainLightningPacket> onTriggeredFromClient(Player player, AbilityInstanceSerializable<?, ?> instance, LivingDrownEvent event) {
         return Optional.empty();
+    }
+
+    public int getDurationTicks(float strength) {
+        return (int) (strength * 100);
+    }
+
+    public int getDurationSeconds(float strength) {
+        return getDurationTicks(strength) / 20;
     }
 }

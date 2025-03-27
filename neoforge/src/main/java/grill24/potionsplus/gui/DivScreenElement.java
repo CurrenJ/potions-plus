@@ -1,13 +1,16 @@
 package grill24.potionsplus.gui;
 
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import java.awt.geom.Rectangle2D;
 
 public class DivScreenElement<E extends RenderableScreenElement> extends ScreenElementWithChildren<E> {
     protected final Anchor childAlignment;
+    protected Vector4f padding = new Vector4f(0, 0, 0, 0); // top, right, bottom, left
 
     public DivScreenElement(Screen screen, @Nullable RenderableScreenElement parent, Settings settings, Anchor childAlignment, @Nullable E child) {
         super(screen, parent, settings, child);
@@ -17,12 +20,18 @@ public class DivScreenElement<E extends RenderableScreenElement> extends ScreenE
 
     @Override
     protected float getWidth() {
-        return getChildren().iterator().next().getWidth();
+        float width = getChildren().iterator().next().getWidth();
+        return width + this.padding.x() + this.padding.z();
     }
 
     @Override
     protected float getHeight() {
-        return getChildren().iterator().next().getHeight();
+        float height = getChildren().iterator().next().getHeight();
+        return height + this.padding.y() + this.padding.w();
+    }
+
+    public void setPadding(Vector4f padding) {
+        this.padding = padding;
     }
 
     @Override

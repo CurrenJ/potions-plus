@@ -55,7 +55,7 @@ public record ClientboundTriggerStunShotPacket(int duration, BlockPos soundOrigi
                             ((IParticleEngineExtension) mc.particleEngine).potions_plus$createTrackingEmitter(entity, Particles.STUN_STARS.value(), packet.duration, 0.25F);
                         }
                         // Play sound at sound origin
-                        mc.level.playSound(context.player(), packet.soundOrigin, Sounds.HEAVY_IMPACT.value(), SoundSource.PLAYERS);
+                        mc.level.playSound(context.player(), packet.soundOrigin, Sounds.HEAVY_IMPACT.value(), SoundSource.PLAYERS, 0.5F, 1.0F);
                     }
             );
         }

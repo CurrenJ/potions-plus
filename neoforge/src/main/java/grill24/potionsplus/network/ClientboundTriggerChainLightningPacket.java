@@ -63,7 +63,7 @@ public record ClientboundTriggerChainLightningPacket(BlockPos soundOrigin, List<
                         }
 
                         // Play sound at sound origin
-                        mc.level.playSound(context.player(), packet.soundOrigin, Sounds.LIGHTNING_BOLT_ABILITY.value(), SoundSource.PLAYERS);
+                        mc.level.playSound(context.player(), packet.soundOrigin, Sounds.LIGHTNING_BOLT_ABILITY.value(), SoundSource.PLAYERS, 0.5F, 1.0F);
                     }
             );
         }

@@ -423,4 +423,12 @@ public class RUtil {
             point.add(origin);
         }
     }
+
+    public static int invertColor(int color) {
+        int red = FastColor.ARGB32.red(color);
+        int green = FastColor.ARGB32.green(color);
+        int blue = FastColor.ARGB32.blue(color);
+        int alpha = FastColor.ARGB32.alpha(color);
+        return FastColor.ARGB32.color(alpha, 255 - red, 255 - green, 255 - blue);
+    }
 }

@@ -7,6 +7,9 @@ import grill24.potionsplus.utility.HolderCodecs;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
+import java.util.List;
+import java.util.Optional;
+
 public record ConfiguredPlayerAbility<AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>>(A ability, AC config) {
     public static final Codec<ConfiguredPlayerAbility<?, ?>> DIRECT_CODEC = PotionsPlusRegistries.PLAYER_ABILITY
             .byNameCodec()
@@ -25,6 +28,10 @@ public record ConfiguredPlayerAbility<AC extends PlayerAbilityConfiguration, A e
 
     public Component getDescription(Object... params) {
         return ability.getDescription(config, params);
+    }
+
+    public Optional<List<List<Component>>> getLongDescription(AbilityInstanceSerializable<?, ?> instance) {
+        return ability.getLongDescription(instance, config);
     }
 
     public void onAbilityGranted(ServerPlayer player, AbilityInstanceSerializable<?, ?> abilityInstance) {
