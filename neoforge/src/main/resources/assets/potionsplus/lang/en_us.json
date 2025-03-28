@@ -70,6 +70,7 @@
   "description.potionsplus.ability.diamond_ore_additional_loot_lapis": "+Diamond Ore May Drop Lapis",
 
   "description.potionsplus.ability.double_jump": "+%s Additional Jump(s)",
+  "description.long.potionsplus.ability.double_jump": "§l§dJump§r again in mid-air.",
 
   "description.potionsplus.ability.chain_lightning": "[Lvl %s] Chain Lightning",
   "description.potionsplus.ability.chain_lightning_increase": "[Chain Lightning] +15% trigger chance, +1 target",
@@ -88,9 +89,15 @@
 
   "description.potionsplus.ability.last_breath": "[Lvl %s] Last Breath",
   "description.potionsplus.ability.last_breath_unlock": "+Last Breath",
-  "description.potionsplus.ability.last_breath_increase": "[Last Breath] -30 seconds cooldown, +10 seconds water breathing",
+  "description.potionsplus.ability.last_breath_increase": "[Last Breath] -30 seconds cooldown, +5 seconds water breathing",
   "cooldown.potionsplus.ability.last_breath": "[Last Breath] is ready to use!",
   "description.long.potionsplus.ability.last_breath": "When you would §6drown§r, get\n§l§dwater breathing§r for §a%s§r seconds.",
+
+  "description.potionsplus.ability.hot_potato": "[Lvl %s] Hot Potato",
+  "description.potionsplus.ability.hot_potato_unlock": "+Hot Potato",
+  "description.potionsplus.ability.hot_potato_increase": "[Hot Potato] -30 seconds cooldown, +5 seconds fire resistance",
+  "cooldown.potionsplus.ability.hot_potato": "[Hot Potato] is ready to use!",
+  "description.long.potionsplus.ability.hot_potato": "When you would §6burn§r,\nuse a §6poisonous potato§r\nand get §l§dfire resistance§r\nfor §a%s§r seconds.",
 
   "tooltip.potionsplus.ability.tag": "§d§n§oAbility",
   "cooldown.potionsplus.ability.alert": "Ability will be ready to use again in %s seconds.",

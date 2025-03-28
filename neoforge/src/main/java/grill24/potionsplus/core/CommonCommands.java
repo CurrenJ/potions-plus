@@ -16,6 +16,8 @@ import grill24.potionsplus.render.animation.keyframe.*;
 import grill24.potionsplus.skill.*;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
+import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
+import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
 import grill24.potionsplus.utility.DelayedEvents;
 import grill24.potionsplus.utility.InvUtil;
@@ -429,6 +431,27 @@ public class CommonCommands {
                                                                 }));
                                                             }
 
+
+                                                            return 1;
+                                                        })
+                                                )
+                                                .then(Commands.literal("skipCooldown")
+                                                        .executes(context -> {
+                                                            if (context.getSource().getPlayer() == null) {
+                                                                return 0;
+                                                            }
+
+                                                            if (context.getSource().getPlayer() instanceof ServerPlayer player) {
+                                                                ResourceLocation abilityId = ConfiguredPlayerAbilityArgument.getHolder(context, "abilityId").getKey().location();
+                                                                SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> {
+                                                                    skillsData.getAbilityInstance(context.getSource().registryAccess(), abilityId).ifPresent(abilityInstance -> {
+                                                                        if (abilityInstance.data() instanceof CooldownAbilityInstanceData data) {
+                                                                            data.setLastTriggeredTick(player.level().getGameTime() - 60000);
+                                                                            context.getSource().sendSuccess(() -> Component.literal("Ability cooldown skipped."), true);
+                                                                        }
+                                                                    });
+                                                                }));
+                                                            }
 
                                                             return 1;
                                                         })

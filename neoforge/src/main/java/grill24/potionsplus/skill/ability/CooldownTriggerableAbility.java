@@ -67,6 +67,9 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
                                     String.valueOf(getCooldownDurationForAbility(instance) / 20))
                             .withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)
             );
+
+            // Padding row
+            components.add(List.of());
             components.add(row2);
         }
 

@@ -62,6 +62,7 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS = "description.potionsplus.ability.diamond_ore_additional_loot_emeralds";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS = "description.potionsplus.ability.diamond_ore_additional_loot_lapis";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DOUBLE_JUMP = "description.potionsplus.ability.double_jump";
+    public static final String DESCRIPTION_LONG_POTIONSPLUS_ABILITY_DOUBLE_JUMP = "description.long.potionsplus.ability.double_jump";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_CHAIN_LIGHTNING = "description.potionsplus.ability.chain_lightning";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_CHAIN_LIGHTNING_INCREASE = "description.potionsplus.ability.chain_lightning_increase";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_CHAIN_LIGHTNING_INCREASE_2X = "description.potionsplus.ability.chain_lightning_increase_2x";
@@ -79,6 +80,11 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_LAST_BREATH_INCREASE = "description.potionsplus.ability.last_breath_increase";
     public static final String COOLDOWN_POTIONSPLUS_ABILITY_LAST_BREATH = "cooldown.potionsplus.ability.last_breath";
     public static final String DESCRIPTION_LONG_POTIONSPLUS_ABILITY_LAST_BREATH = "description.long.potionsplus.ability.last_breath";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_HOT_POTATO = "description.potionsplus.ability.hot_potato";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_HOT_POTATO_UNLOCK = "description.potionsplus.ability.hot_potato_unlock";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_HOT_POTATO_INCREASE = "description.potionsplus.ability.hot_potato_increase";
+    public static final String COOLDOWN_POTIONSPLUS_ABILITY_HOT_POTATO = "cooldown.potionsplus.ability.hot_potato";
+    public static final String DESCRIPTION_LONG_POTIONSPLUS_ABILITY_HOT_POTATO = "description.long.potionsplus.ability.hot_potato";
     public static final String TOOLTIP_POTIONSPLUS_ABILITY_TAG = "tooltip.potionsplus.ability.tag";
     public static final String COOLDOWN_POTIONSPLUS_ABILITY_ALERT = "cooldown.potionsplus.ability.alert";
     public static final String COOLDOWN_POTIONSPLUS_ABILITY_INFO = "cooldown.potionsplus.ability.info";

@@ -117,7 +117,7 @@
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:stronghold_library_loot_edible_0"
+              "potionsplus:hot_potato_unlock"
             ]
           },
           "16": {
@@ -187,7 +187,8 @@
               "potionsplus:intermediate_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
               "potionsplus:edible_wheel_end_city",
-              "potionsplus:jungle_temple_loot_edible_0"
+              "potionsplus:jungle_temple_loot_edible_0",
+              "potionsplus:hot_potato_increase"
             ]
           },
           "26": {
@@ -293,7 +294,8 @@
           "42": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:hot_potato_increase"
             ]
           },
           "43": {
@@ -389,7 +391,8 @@
           },
           "58": {
             "advancementRewards": [
-              "potionsplus:advanced_skill_loot_edible"
+              "potionsplus:advanced_skill_loot_edible",
+              "potionsplus:hot_potato_increase"
             ]
           },
           "59": {
@@ -497,7 +500,8 @@
             "advancementRewards": [
               "potionsplus:expert_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_wheel_end_city"
+              "potionsplus:edible_wheel_end_city",
+              "potionsplus:hot_potato_increase"
             ]
           },
           "76": {

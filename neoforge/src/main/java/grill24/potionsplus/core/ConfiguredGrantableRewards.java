@@ -222,6 +222,15 @@ public class ConfiguredGrantableRewards {
             .strength(1.0F))
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_LAST_BREATH_INCREASE);
 
+    public static IncreaseAbilityStrengthReward.Builder HOT_POTATO_UNLOCK = register(() -> new IncreaseAbilityStrengthReward.Builder("hot_potato_unlock")
+            .ability(ConfiguredPlayerAbilities.HOT_POTATO.getKey())
+            .strength(1.0F)
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOT_POTATO_UNLOCK));
+    public static IncreaseAbilityStrengthReward.Builder HOT_POTATO_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("hot_potato_increase")
+            .ability(ConfiguredPlayerAbilities.HOT_POTATO.getKey())
+            .strength(1.0F))
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOT_POTATO_INCREASE);
+
     public static IncreaseAbilityStrengthReward.Builder CHAIN_LIGHTNING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("chain_lightning_increase")
             .ability(ConfiguredPlayerAbilities.CHAIN_LIGHTNING.getKey())
             .strength(1.0F)

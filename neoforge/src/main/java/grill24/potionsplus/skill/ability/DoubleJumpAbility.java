@@ -8,9 +8,11 @@ import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.DoubleJumpAbilityInstanceData;
 import grill24.potionsplus.utility.ModInfo;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -21,6 +23,8 @@ import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -43,6 +47,20 @@ public class DoubleJumpAbility extends SimplePlayerAbility {
         return new AbilityInstanceSerializable<>(
                 AbilityInstanceTypes.DOUBLE_JUMP.value(),
                 new DoubleJumpAbilityInstanceData(ability, true));
+    }
+
+    @Override
+    public Optional<List<List<Component>>> getLongDescription(AbilityInstanceSerializable<?, ?> instance, PlayerAbilityConfiguration config, Object... params) {
+        List<List<Component>> components = new ArrayList<>();
+
+        List<Component> abilityTag = List.of(getRichEnablementTooltipComponent(instance.data().isEnabled()), Component.literal(" "), Component.translatable(Translations.TOOLTIP_POTIONSPLUS_ABILITY_TAG));
+        components.add(abilityTag);
+        components.add(List.of());
+
+        Optional<List<List<Component>>> component = super.getLongDescription(instance, config, params);
+        component.ifPresent(components::addAll);
+
+        return Optional.of(components);
     }
 
     public static void onJumpFromGround(Player player) {

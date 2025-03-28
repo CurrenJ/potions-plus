@@ -277,6 +277,7 @@ public class ConfiguredPlayerAbilities {
     public static final DoubleJumpAbility.Builder DOUBLE_JUMP = register(() -> new DoubleJumpAbility.Builder("double_jump")
             .ability(PlayerAbilities.DOUBLE_JUMP.value())
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DOUBLE_JUMP)
+            .longTranslationKey(Translations.DESCRIPTION_LONG_POTIONSPLUS_ABILITY_DOUBLE_JUMP)
             .parentSkill(ConfiguredSkills.JUMPING));
 
     public static final CooldownTriggerableAbility.Builder<ChainLightningAbility> CHAIN_LIGHTNING = register(() -> new CooldownTriggerableAbility.Builder<ChainLightningAbility>("chain_lightning")
@@ -301,6 +302,12 @@ public class ConfiguredPlayerAbilities {
             .ability(PlayerAbilities.LAST_BREATH.value())
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_LAST_BREATH)
             .longTranslationKey(Translations.DESCRIPTION_LONG_POTIONSPLUS_ABILITY_LAST_BREATH)
+            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY));
+
+    public static final CooldownTriggerableAbility.Builder<HotPotatoAbility> HOT_POTATO = register(() -> new CooldownTriggerableAbility.Builder<HotPotatoAbility>("hot_potato")
+            .ability(PlayerAbilities.HOT_POTATO.value())
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOT_POTATO)
+            .longTranslationKey(Translations.DESCRIPTION_LONG_POTIONSPLUS_ABILITY_HOT_POTATO)
             .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY));
 
     // Data Gen
