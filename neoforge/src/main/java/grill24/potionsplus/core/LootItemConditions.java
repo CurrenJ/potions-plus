@@ -2,6 +2,8 @@ package grill24.potionsplus.core;
 
 import com.mojang.serialization.MapCodec;
 import grill24.potionsplus.loot.HasPlayerAbilityCondition;
+import grill24.potionsplus.loot.IsInBiomeCondition;
+import grill24.potionsplus.loot.IsInBiomeTagCondition;
 import grill24.potionsplus.loot.LootItemBlockTagCondition;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
@@ -15,6 +17,8 @@ public class LootItemConditions {
 
     public static final Holder<LootItemConditionType> HAS_PLAYER_ABILITY = register("has_player_ability", HasPlayerAbilityCondition.CODEC);
     public static final Holder<LootItemConditionType> LOOT_ITEM_BLOCK_TAG = register("loot_item_block_tag", LootItemBlockTagCondition.CODEC);
+    public static final Holder<LootItemConditionType> IS_IN_BIOME = register("is_in_biome", IsInBiomeCondition.CODEC);
+    public static final Holder<LootItemConditionType> IS_IN_BIOME_TAG = register("is_in_biome_tag", IsInBiomeTagCondition.CODEC);
 
     private static Holder<LootItemConditionType> register(String name, MapCodec<? extends LootItemCondition> codec) {
         return LOOT_ITEM_CONDITIONS.register(name, () -> new LootItemConditionType(codec));

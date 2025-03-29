@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-21T16:29:35.538592	Block States: potionsplus
+// 1.21.1	2025-03-29T02:18:40.2245876	Block States: potionsplus
 32f31cb42acc6abb5df45794da26abaf6f68cc6c assets/potionsplus/blockstates/abyssal_trove.json
 e1f97b37fbc358408652e49e551ef4c520ceda2d assets/potionsplus/blockstates/allium_versatile.json
 b8ea677105165afcba3c3b07bc02884195834fe0 assets/potionsplus/blockstates/azure_bluet_versatile.json
@@ -261,6 +261,7 @@ ec4de1c86dbfb1c624de16cc0805f4ee60300939 assets/potionsplus/models/item/fortifyi
 aa71b19e36897a3b54da0b1d0804912c9e5b4964 assets/potionsplus/models/item/fortifying_fudge_orange_flag.json
 ea3406275ac1c4fee74f0c2838a40f6593ca41c7 assets/potionsplus/models/item/fortifying_fudge_red_flag.json
 6f2389db44a014e972219aceaa49b05b5359d6e6 assets/potionsplus/models/item/fortifying_fudge_yellow_flag.json
+4a7f9190324611e0a745f4ef169daca054aee688 assets/potionsplus/models/item/frozen_giant_manta_ray.json
 c27bbb2b0fc46a6bb7741fc8eab1fd927c6abd87 assets/potionsplus/models/item/garden_eel.json
 ba1a0ca7f63e82e6e270d880ef0388c48d5693ba assets/potionsplus/models/item/generic_icon.json
 35519e18da4ca76acce90d086dcb60fd68dbdad9 assets/potionsplus/models/item/generic_icon_amplifier_upgrade.json
@@ -290,6 +291,7 @@ ff759714f0645065e2ad3d7675c07a9a0cee4a5b assets/potionsplus/models/item/generic_
 9dd1afa63551e9f41871fe429da59fb3444654bc assets/potionsplus/models/item/generic_icon_vi.json
 e5c1e1fd12715a59248833eba5ba9f9f1ab8870b assets/potionsplus/models/item/generic_icon_vii.json
 a4b6c42d8fc4ee893c059b918ce41bfa42b56188 assets/potionsplus/models/item/generic_icon_viii.json
+acec63880e2a8071e912d092e750c6b3b43bc6ef assets/potionsplus/models/item/giant_manta_ray.json
 59b0aacf0f5a0d8154fb1a289048d666ef6cd31c assets/potionsplus/models/item/golden_cubensis.json
 d52f75279e5647542b7266028d90cd9ccddaecb5 assets/potionsplus/models/item/gold_ore_hat_1.json
 aa915dc5c2e0d6b64483d98d75c075e5e05072d0 assets/potionsplus/models/item/gold_ore_hat_2.json
@@ -320,6 +322,7 @@ e23386e1fed908b7a2b61dca6937fa5f009ec4c9 assets/potionsplus/models/item/large_fe
 be1c10a6d91c32d5f854a1047f90d40f98e27114 assets/potionsplus/models/item/lava_geyser.json
 90b4f6a207d734cb262f60d0a6c4b845625f97fc assets/potionsplus/models/item/lilac_versatile.json
 20c8450310e8c6240431bb7e404942778c2c7325 assets/potionsplus/models/item/lily_of_the_valley_versatile.json
+8df6d9291602763ffd54c384f695ec2d8a9d4db0 assets/potionsplus/models/item/lizardfish.json
 385fc928d1a7b31fc04ba199b3339dda20bdb340 assets/potionsplus/models/item/longnose_gar.json
 08ffbbe285432631d127557c23e6ee348fa520c6 assets/potionsplus/models/item/lumoseed_sacks.json
 a08d8c7aabff7f5983a01ad4cfbc31e2bfef3b7c assets/potionsplus/models/item/lunar_berries.json
@@ -330,6 +333,7 @@ a357c661449dffd0c35a4c62bdf00b0a8c56679b assets/potionsplus/models/item/master_l
 c95e0767fe0849aeda04be04dcd0855a91e082db assets/potionsplus/models/item/master_loot_orange_flag.json
 66af49ab64049e644291a0df17f9cda92ccc96fc assets/potionsplus/models/item/master_loot_red_flag.json
 62dc1fa8d8efbdf9f35d537574afd3c48b47eea4 assets/potionsplus/models/item/master_loot_yellow_flag.json
+ff7cb1d77437e5a5f2beacc21795dec5c7baca9c assets/potionsplus/models/item/molten_moorish_idol.json
 ca58a0620ed7cc16d3bcf9bb3d53422b0214f4e3 assets/potionsplus/models/item/moorish_idol.json
 a9692bf29db7dfdffd00ea20470fd4af72c566e6 assets/potionsplus/models/item/moss.json
 722f2faaa5a003ae77aee56d2ec7d5b47bc26e92 assets/potionsplus/models/item/mossashimi.json

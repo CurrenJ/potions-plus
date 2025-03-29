@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import java.util.Set;
 
 /**
- * A LootItemCondition that checks whether the {@linkplain LootContextParams#BLOCK_STATE block state} matches a given Block and {@link StatePropertiesPredicate}.
+ * A LootItemCondition that checks whether the {@linkplain LootContextParams#BLOCK_STATE block state} matches a given Block tag.
  */
 public record LootItemBlockTagCondition(TagKey<Block> block) implements LootItemCondition {
     public static final MapCodec<LootItemBlockTagCondition> CODEC = RecordCodecBuilder.<LootItemBlockTagCondition>mapCodec(

@@ -35,4 +35,5 @@ public class LootTables {
     public static final ResourceKey<LootTable>[] DIAMOND_ORE_HATS = Utility.enumerateLootTableKeys(ppId("diamond_ore_hat"), Items.BLOCK_HAT_MODELS.length);
     public static final ResourceKey<LootTable>[] EMERALD_ORE_HATS = Utility.enumerateLootTableKeys(ppId("emerald_ore_hat"), Items.BLOCK_HAT_MODELS.length);
 
+    public static final ResourceKey<LootTable> FISHING = ResourceKey.create(Registries.LOOT_TABLE, ppId("fishing"));
 }

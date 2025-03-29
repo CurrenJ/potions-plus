@@ -39,7 +39,7 @@
                     0.175
                   ],
                   "condition": "minecraft:table_bonus",
-                  "enchantment": "minecraft:fortune"
+                  "enchantment": "minecraft:looting"
                 }
               ],
               "functions": [
@@ -53,7 +53,7 @@
                   "function": "minecraft:set_count"
                 },
                 {
-                  "enchantment": "minecraft:fortune",
+                  "enchantment": "minecraft:looting",
                   "formula": "minecraft:ore_drops",
                   "function": "minecraft:apply_bonus"
                 },

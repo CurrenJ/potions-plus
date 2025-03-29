@@ -46,6 +46,12 @@ public class Tags {
 
         public static final TagKey<Item> EDIBLE_REWARDS = tag("edible_rewards");
 
+        public static final TagKey<Item> PP_FISH = tag("pp_fish");
+        public static final TagKey<Item> PP_FISHING_COPPER_FRAME = tag("pp_fishing_copper_frame");
+        public static final TagKey<Item> PP_FISHING_GOLD_FRAME = tag("pp_fishing_gold_frame");
+        public static final TagKey<Item> PP_FISHING_DIAMOND_FRAME = tag("pp_fishing_diamond_frame");
+        public static final TagKey<Item> PP_FISHING_PURPLE_FRAME = tag("pp_fishing_purple_frame");
+
         private static TagKey<Item> tag(String id) {
             return ItemTags.create(ppId(id));
         }

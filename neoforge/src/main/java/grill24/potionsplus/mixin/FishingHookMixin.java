@@ -1,5 +1,6 @@
 package grill24.potionsplus.mixin;
 
+import grill24.potionsplus.core.LootTables;
 import grill24.potionsplus.item.FishingRodItem;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.network.ClientboundStartFishingMinigamePacket;
@@ -42,27 +43,27 @@ public abstract class FishingHookMixin extends Projectile {
 
     @Inject(method = "retrieve", at = @org.spongepowered.asm.mixin.injection.At("HEAD"), cancellable = true)
     private void potions_plus$retrieve(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
-        Player player = this.getPlayerOwner();
-        if (this.hookedIn == null && this.nibble > 0 &&
-                stack.getItem() instanceof FishingRodItem && !this.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
-            LootParams lootparams = new LootParams.Builder((ServerLevel)this.level())
-                    .withParameter(LootContextParams.ORIGIN, this.position())
-                    .withParameter(LootContextParams.TOOL, stack)
-                    .withParameter(LootContextParams.THIS_ENTITY, this)
-                    .withParameter(LootContextParams.ATTACKING_ENTITY, this.getOwner())
-                    .withLuck((float)this.luck + player.getLuck())
-                    .create(LootContextParamSets.FISHING);
-            LootTable loottable = this.level().getServer().reloadableRegistries().getLootTable(BuiltInLootTables.FISHING);
-            List<ItemStack> list = loottable.getRandomItems(lootparams);
-
-            if (!list.isEmpty()) {
-                ItemStack reward = list.getFirst();
-                PacketDistributor.sendToPlayer(serverPlayer, ClientboundStartFishingMinigamePacket.create(
-                        serverPlayer,
-                        new FishingGamePlayerAttachment(reward, new ItemStack(grill24.potionsplus.core.Items.GENERIC_ICON, 23 + player.getRandom().nextInt(4)))
-                ));
-                cir.setReturnValue(1);
-            }
-        }
+//        Player player = this.getPlayerOwner();
+//        if (this.hookedIn == null && this.nibble > 0 &&
+//                stack.getItem() instanceof FishingRodItem && !this.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
+//            LootParams lootparams = new LootParams.Builder((ServerLevel)this.level())
+//                    .withParameter(LootContextParams.ORIGIN, this.position())
+//                    .withParameter(LootContextParams.TOOL, stack)
+//                    .withParameter(LootContextParams.THIS_ENTITY, this)
+//                    .withParameter(LootContextParams.ATTACKING_ENTITY, this.getOwner())
+//                    .withLuck((float)this.luck + player.getLuck())
+//                    .create(LootContextParamSets.FISHING);
+//            LootTable loottable = this.level().getServer().reloadableRegistries().getLootTable(LootTables.FISHING);
+//            List<ItemStack> list = loottable.getRandomItems(lootparams);
+//
+//            if (!list.isEmpty()) {
+//                ItemStack reward = list.getFirst();
+//                PacketDistributor.sendToPlayer(serverPlayer, ClientboundStartFishingMinigamePacket.create(
+//                        serverPlayer,
+//                        new FishingGamePlayerAttachment(reward, new ItemStack(grill24.potionsplus.core.Items.GENERIC_ICON, 23 + player.getRandom().nextInt(4)))
+//                ));
+//                cir.setReturnValue(1);
+//            }
+//        }
     }
 }

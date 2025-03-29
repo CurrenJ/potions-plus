@@ -46,15 +46,15 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         }
 
         final float scaleInProgress = RUtil.getProgress(0, 10F, this.animationStartTimestamp, ClientTickHandler.total());
-        final float size = Math.min(guiGraphics.guiWidth(), guiGraphics.guiHeight()) / 2.0F * SpatialAnimations.get(SpatialAnimations.SCALE_IN_BACK).getScale().evaluate(scaleInProgress);
-        Vector3f offset = new Vector3f(-0.375F /* 12 / 32 pixel offset to center png */ , 0, 0);
+        final float size = Math.min(guiGraphics.guiWidth(), guiGraphics.guiHeight()) / 2.0F * SpatialAnimations.get(SpatialAnimations.SCALE_IN_BACK).getScale().evaluate(scaleInProgress) * 1.5F;
+        Vector3f offset = new Vector3f(-0.375F /* 12 / 32 pixel offset to center bar png */ , 0, 0);
 
         final float bottomPadding = 0.0625F;
         final float topPadding = 0.0625F;
 
-        final float barSize = 9.0F / 32.0F; /* 9 / 32 pixel size */
-        final float maxBarOffset = 1.0F - bottomPadding - topPadding - barSize;
-        final float barOffset = localFishingGame.predictPosition(partialTick) * maxBarOffset;
+        final float bobberBarSize = 9.0F / 32.0F; /* 9 / 32 pixel size */
+        final float maxBobberOffset = 1.0F - bottomPadding - topPadding - bobberBarSize;
+        final float barOffset = localFishingGame.predictPosition(partialTick) * maxBobberOffset;
 
         updateRotation(minecraft, partialTick);
 
@@ -136,7 +136,7 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         barElementsTransform.pushPose();
         // subtract (14 / 32) because item renders in center of bar when using existing transforms.
         // align to bottom of inner bar bc fishing game data assumes 0F position is bottom of bar
-        barElementsTransform.translate(0, (localFishingGame.predictFishPosition(partialTick) - (14F / 32F)) * maxBarOffset, Z_OFFSET * 3);
+        barElementsTransform.translate(0, (localFishingGame.predictFishPosition(partialTick) - (14F / 32F)) * maxBobberOffset, Z_OFFSET * 3);
         final float iconSize = localFishingGame.getCaptureProgress() * barInteriorWidth * winnerEnlargement * 0.8F;
 
         barElementsTransform.pushPose();

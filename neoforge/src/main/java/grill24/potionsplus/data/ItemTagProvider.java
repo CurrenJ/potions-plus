@@ -6,6 +6,7 @@ import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -133,6 +134,32 @@ public class ItemTagProvider extends ItemTagsProvider {
                 grill24.potionsplus.core.Items.ADVANCED_LOOT.value(),
                 grill24.potionsplus.core.Items.MASTER_LOOT.value(),
                 grill24.potionsplus.core.Items.WHEEL.value()
+        );
+
+        tag(ItemTags.FISHING_ENCHANTABLE).add(grill24.potionsplus.core.Items.COPPER_FISHING_ROD.value());
+
+        tag(Tags.Items.PP_FISHING_COPPER_FRAME).add(
+                grill24.potionsplus.core.Items.NORTHERN_PIKE.value(),
+                grill24.potionsplus.core.Items.RAINFORDIA.value(),
+                grill24.potionsplus.core.Items.LONGNOSE_GAR.value(),
+                grill24.potionsplus.core.Items.BLUEGILL.value(),
+                grill24.potionsplus.core.Items.NEON_TETRA.value()
+        );
+        tag(Tags.Items.PP_FISHING_GOLD_FRAME).add(
+                grill24.potionsplus.core.Items.PARROTFISH.value(),
+                grill24.potionsplus.core.Items.SHRIMP.value(),
+                grill24.potionsplus.core.Items.OCEAN_SUNFISH.value(),
+                grill24.potionsplus.core.Items.LIZARDFISH.value()
+        );
+        tag(Tags.Items.PP_FISHING_DIAMOND_FRAME).add(
+                grill24.potionsplus.core.Items.GARDEN_EEL.value(),
+                grill24.potionsplus.core.Items.GIANT_MANTA_RAY.value(),
+                grill24.potionsplus.core.Items.MOORISH_IDOL.value(),
+                grill24.potionsplus.core.Items.PORTUGUESE_MAN_O_WAR.value()
+        );
+        tag(Tags.Items.PP_FISHING_PURPLE_FRAME).add(
+                grill24.potionsplus.core.Items.MOLTEN_MOORISH_IDOL.value(),
+                grill24.potionsplus.core.Items.FROZEN_GIANT_MANTA_RAY.value()
         );
     }
 

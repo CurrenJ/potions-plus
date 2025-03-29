@@ -1,0 +1,226 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:beach",
+                "minecraft:plains",
+                "minecraft:forest",
+                "minecraft:snowy_plains"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:northern_pike"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:savanna",
+                "minecraft:lush_caves",
+                "minecraft:windswept_savanna",
+                "minecraft:savanna_plateau",
+                "minecraft:desert"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:parrotfish"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:plains",
+                "minecraft:bamboo_jungle",
+                "minecraft:savanna"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:rainfordia"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:lush_caves",
+                "minecraft:cherry_grove",
+                "minecraft:sunflower_plains",
+                "minecraft:flower_forest"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:garden_eel"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:frozen_river",
+                "minecraft:taiga",
+                "minecraft:snowy_taiga",
+                "minecraft:ice_spikes"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:longnose_gar"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:swamp",
+                "minecraft:mangrove_swamp",
+                "minecraft:grove"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:shrimp"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:plains",
+                "minecraft:bamboo_jungle",
+                "minecraft:jungle",
+                "minecraft:sparse_jungle",
+                "minecraft:birch_forest"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:moorish_idol"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "potionsplus:volcanic_cave"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:molten_moorish_idol"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomeTag": "minecraft:is_deep_ocean",
+              "condition": "potionsplus:is_in_biome_tag"
+            }
+          ],
+          "name": "potionsplus:ocean_sunfish"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:warm_ocean",
+                "minecraft:stony_peaks",
+                "minecraft:jagged_peaks"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:portuguese_man_o_war"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:lush_caves",
+                "minecraft:snowy_plains",
+                "minecraft:flower_forest",
+                "minecraft:snowy_beach"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:bluegill"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:flower_forest",
+                "minecraft:badlands",
+                "minecraft:snowy_slopes"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:neon_tetra"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:eroded_badlands",
+                "minecraft:wooded_badlands",
+                "minecraft:birch_forest"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:giant_manta_ray"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "potionsplus:ice_cave",
+                "minecraft:frozen_peaks",
+                "minecraft:frozen_river"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:frozen_giant_manta_ray"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:lush_caves",
+                "minecraft:forest",
+                "minecraft:mushroom_fields",
+                "minecraft:sunflower_plains",
+                "minecraft:dark_forest"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "name": "potionsplus:lizardfish"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "potionsplus:fishing"
+}

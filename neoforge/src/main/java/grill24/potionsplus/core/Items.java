@@ -4,6 +4,7 @@ import grill24.potionsplus.item.*;
 import grill24.potionsplus.item.FishingRodItem;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.Foods;
@@ -93,10 +94,14 @@ public class Items {
     public static final Holder<Item> LONGNOSE_GAR = register("longnose_gar", () -> new Item(properties().food(Foods.COD)));
     public static final Holder<Item> SHRIMP = register("shrimp", () -> new Item(properties().food(Foods.COD)));
     public static final Holder<Item> MOORISH_IDOL = register("moorish_idol", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> MOLTEN_MOORISH_IDOL = register("molten_moorish_idol", () -> new Item(properties().food(Foods.COD).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
     public static final Holder<Item> OCEAN_SUNFISH = register("ocean_sunfish", () -> new Item(properties().food(Foods.COD)));
     public static final Holder<Item> PORTUGUESE_MAN_O_WAR = register("portuguese_man_o_war", () -> new Item(properties().food(Foods.COD)));
     public static final Holder<Item> BLUEGILL = register("bluegill", () -> new Item(properties().food(Foods.COD)));
     public static final Holder<Item> NEON_TETRA = register("neon_tetra", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> GIANT_MANTA_RAY = register("giant_manta_ray", () -> new Item(properties().food(Foods.COD)));
+    public static final Holder<Item> FROZEN_GIANT_MANTA_RAY = register("frozen_giant_manta_ray", () -> new Item(properties().food(Foods.COD).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
+    public static final Holder<Item> LIZARDFISH = register("lizardfish", () -> new Item(properties().food(Foods.COD)));
 
     public static final Holder<Item> UPGRADE_BASE = register("upgrade_base", () -> new UpgradeBaseItem(properties()));
     public static final Holder<Item> FILTER_HOPPER_UPGRADE_BLACKLIST = register("filter_hopper_upgrade_blacklist", () -> new UpgradeBaseItem(properties()));

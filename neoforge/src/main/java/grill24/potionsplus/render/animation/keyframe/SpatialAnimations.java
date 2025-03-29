@@ -67,10 +67,6 @@ public class SpatialAnimations {
             .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(0).value(0.17F).build()) // Scale used for wheel radius in SkillsScreen
             .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(1F).value(0.33F).build()) // Scale used for wheel radius in SkillsScreen
     );
-    public static ResourceLocation SKILL_SCREEN_PROGRESS_BAR = register(ppId("skill_screen_progress_bar"), new SpatialAnimationData()
-            .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(0).value(0F).interp(Interpolation.Mode.EASE_OUT_QUAD).build())
-            .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(10F).value(1F).build())
-    );
 
     public static ResourceLocation SCALE_IN_BACK = register(ppId("scale_in_back"), new SpatialAnimationData()
             .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(0).value(0F).interp(Interpolation.Mode.EASE_OUT_BACK).build())

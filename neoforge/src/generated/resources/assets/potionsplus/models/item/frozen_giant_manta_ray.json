@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "potionsplus:item/frozen_giant_manta_ray"
+  }
+}
