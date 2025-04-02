@@ -538,7 +538,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder add_first_ingredient_to_abyssal_trove = Advancement.Builder.advancement()
                 .parent(create_abyssal_trove)
                 .display(
-                        grill24.potionsplus.core.Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(grill24.potionsplus.core.Items.GENERIC_ICON.value(), grill24.potionsplus.core.Items.UNKNOWN_TEX_LOC),
+                        grill24.potionsplus.core.Items.GENERIC_ICON.getItemStackForTexture(grill24.potionsplus.core.Items.UNKNOWN_TEX_LOC),
                         Component.translatable("advancements.potionsplus.add_first_ingredient_to_abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.add_first_ingredient_to_abyssal_trove.description"),
                         null,
@@ -555,7 +555,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder add_common_ingredient_to_abyssal_trove = Advancement.Builder.advancement()
                 .parent(add_first_ingredient_to_abyssal_trove)
                 .display(
-                        grill24.potionsplus.core.Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(grill24.potionsplus.core.Items.GENERIC_ICON.value(), grill24.potionsplus.core.Items.COMMON_TEX_LOC),
+                        grill24.potionsplus.core.Items.GENERIC_ICON.getItemStackForTexture(grill24.potionsplus.core.Items.COMMON_TEX_LOC),
                         Component.translatable("advancements.potionsplus.add_common_ingredient_to_abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.add_common_ingredient_to_abyssal_trove.description"),
                         null,
@@ -572,7 +572,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder add_rare_ingredient_to_abyssal_trove = Advancement.Builder.advancement()
                 .parent(add_common_ingredient_to_abyssal_trove)
                 .display(
-                        grill24.potionsplus.core.Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(grill24.potionsplus.core.Items.GENERIC_ICON.value(), grill24.potionsplus.core.Items.RARE_TEX_LOC),
+                        grill24.potionsplus.core.Items.GENERIC_ICON.getItemStackForTexture(grill24.potionsplus.core.Items.RARE_TEX_LOC),
                         Component.translatable("advancements.potionsplus.add_rare_ingredient_to_abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.add_rare_ingredient_to_abyssal_trove.description"),
                         null,

@@ -18,7 +18,7 @@ import java.util.TreeMap;
 
 public class Woodcutting {
     public static Holder.@NotNull Reference<ConfiguredSkill<?, ?>> generate(BootstrapContext<ConfiguredSkill<?, ?>> context, HolderGetter<ConfiguredSkillPointSource<?, ?>> sourceLookup, HolderGetter<ConfiguredGrantableReward<?, ?>> rewardLookup) {
-        return context.register(ConfiguredSkills.WOODCUTTING_CONFIGURED_KEY, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+        return context.register(ConfiguredSkills.WOODCUTTING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_WOODCUTTING,
                         new TreeMap<>(Map.of(
                                 0, new ItemStack(Items.OAK_PLANKS),

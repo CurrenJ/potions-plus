@@ -15,6 +15,7 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.*;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -31,6 +32,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -317,15 +320,26 @@ public class Utility {
         return Math.abs(value) < 0.0001;
     }
 
-    public static String trimToDecimalPlaces(float f, int decimalPlaces) {
-        return String.format("%." + decimalPlaces + "f", f);
-    }
-
     public static String autoFormatNumber(float number) {
         if (number == (int) number) {
             return String.format("%d", (int) number);
         } else {
             return String.format("%s", number);
         }
+    }
+
+    public static String trimToDecimalPlaces(float number, int decimalPlaces) {
+        String numberString = String.valueOf(number);
+        int decimalIndex = numberString.indexOf(".");
+        if (decimalIndex != -1 && decimalIndex + decimalPlaces + 1 < numberString.length()) {
+            return numberString.substring(0, decimalIndex + decimalPlaces + 1);
+        }
+        return numberString;
+    }
+
+    public static ItemStack getPlayerHead(Player player) {
+        ItemStack head = new ItemStack(Items.PLAYER_HEAD);
+        head.set(DataComponents.PROFILE, new ResolvableProfile(player.getGameProfile()));
+        return head;
     }
 }

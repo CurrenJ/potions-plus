@@ -52,7 +52,7 @@ public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<Abys
             for (AbyssalTroveBlockEntity.RendererData.AbyssalTroveRenderedItem item : items.getValue()) {
                 matrices.pushPose();
 
-                boolean isUnknownIngredient = item.icon.is(Items.GENERIC_ICON);
+                boolean isUnknownIngredient = item.icon.is(Items.GENERIC_ICON.getItem());
 
                 // Render ingredients and unknown ingredients
                 Vector3d position = new Vector3d(item.position.x * horizontalPaddingScalar, item.position.y * verticalPaddingScalar, item.position.z * horizontalPaddingScalar);

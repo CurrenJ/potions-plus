@@ -93,7 +93,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
                         boolean isPotion = PUtil.isPotion(itemstack);
                         if (!isInAbyssalTrove && !isPotion && !PotionsPlus.Debug.shouldRevealAllRecipes) {
 
-                            itemstack = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.UNKNOWN_TEX_LOC);
+                            itemstack = Items.GENERIC_ICON.getItemStackForTexture(Items.UNKNOWN_TEX_LOC);
                         }
                     } catch (IOException ignored) {}
                 }

@@ -50,6 +50,8 @@ public class PotionsPlus {
         DataComponents.DATA_COMPONENTS.register(bus);
         AnimationCurveSerializers.SERIALIZERS.register(bus);
         MenuTypes.MENU_TYPES.register(bus);
+        LootItemFunctions.LOOT_ITEM_FUNCTIONS.register(bus);
+        NumberProviders.NUMBER_PROVIDERS.register(bus);
 
         CreativeModeTabs.CREATIVE_MODE_TABS.register(bus);
     }

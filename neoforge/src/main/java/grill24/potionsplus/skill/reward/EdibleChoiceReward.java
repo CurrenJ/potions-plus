@@ -47,7 +47,7 @@ public class EdibleChoiceReward extends GrantableReward<EdibleChoiceRewardConfig
 
     @Override
     public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, EdibleChoiceRewardConfiguration config, ServerPlayer player) {
-        ResourceLocation flag = config.rewards.size() > 1 ? Items.BASIC_LOOT_MODEL.getRandomFlag(player.getRandom()) : ppId("");
+        ResourceLocation flag = config.rewards.size() > 1 ? Items.BASIC_LOOT.getItemOverrideModelData().getRandomFlag(player.getRandom()) : ppId("");
         for (EdibleChoiceRewardOption reward : config.rewards) {
             reward.giveItem(player, flag);
         }

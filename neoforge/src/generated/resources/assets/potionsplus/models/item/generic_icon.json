@@ -162,6 +162,24 @@
       "predicate": {
         "potionsplus:dynamic_icon_index": 0.40625
       }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_global",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.421875
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_ruler",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.4375
+      }
+    },
+    {
+      "model": "potionsplus:item/generic_icon_count",
+      "predicate": {
+        "potionsplus:dynamic_icon_index": 0.453125
+      }
     }
   ],
   "textures": {

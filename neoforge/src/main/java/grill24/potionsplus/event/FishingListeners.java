@@ -1,14 +1,21 @@
 package grill24.potionsplus.event;
 
+import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.LootTables;
+import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.item.FishingRodItem;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.network.ClientboundStartFishingMinigamePacket;
 import grill24.potionsplus.utility.ModInfo;
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -42,12 +49,32 @@ public class FishingListeners {
                         serverPlayer,
                         ClientboundStartFishingMinigamePacket.create(
                                 serverPlayer,
-                                new FishingGamePlayerAttachment(reward, new ItemStack(grill24.potionsplus.core.Items.GENERIC_ICON, 23 + player.getRandom().nextInt(4)))
+                                new FishingGamePlayerAttachment(reward, getFrame(player.registryAccess(), reward))
                         )
                 );
+                rod.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                 event.setCanceled(true);
             }
         }
+    }
+
+    private static ItemStack getFrame(RegistryAccess registryAccess, ItemStack reward) {
+        Iterable<Holder<Item>> copper = registryAccess.registryOrThrow(Registries.ITEM).getTagOrEmpty(Tags.Items.PP_FISHING_COPPER_FRAME);
+        Iterable<Holder<Item>> gold = registryAccess.registryOrThrow(Registries.ITEM).getTagOrEmpty(Tags.Items.PP_FISHING_GOLD_FRAME);
+        Iterable<Holder<Item>> diamond = registryAccess.registryOrThrow(Registries.ITEM).getTagOrEmpty(Tags.Items.PP_FISHING_DIAMOND_FRAME);
+        Iterable<Holder<Item>> purple = registryAccess.registryOrThrow(Registries.ITEM).getTagOrEmpty(Tags.Items.PP_FISHING_PURPLE_FRAME);
+
+        if (reward.is(Tags.Items.PP_FISHING_COPPER_FRAME)) {
+            return Items.GENERIC_ICON.getItemStackForTexture(Items.COPPER_FISHING_FRAME_TEX_LOC);
+        } else if (reward.is(Tags.Items.PP_FISHING_GOLD_FRAME)) {
+            return Items.GENERIC_ICON.getItemStackForTexture(Items.GOLD_FISHING_FRAME_TEX_LOC);
+        } else if (reward.is(Tags.Items.PP_FISHING_DIAMOND_FRAME)) {
+            return Items.GENERIC_ICON.getItemStackForTexture(Items.DIAMOND_FISHING_FRAME_TEX_LOC);
+        } else if (reward.is(Tags.Items.PP_FISHING_PURPLE_FRAME)) {
+            return Items.GENERIC_ICON.getItemStackForTexture(Items.PURPLE_FISHING_FRAME_TEX_LOC);
+        }
+
+        return ItemStack.EMPTY;
     }
 
     private static LootParams createLootParams(ServerPlayer player, FishingHook hook, ItemStack rod) {

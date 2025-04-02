@@ -2,6 +2,9 @@ package grill24.potionsplus.network;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.DataAttachments;
+import grill24.potionsplus.core.DataComponents;
+import grill24.potionsplus.event.ServerPlayerHeldItemChangedEvent;
+import grill24.potionsplus.event.SizedFishCaughtEvent;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.utility.DelayedEvents;
 import grill24.potionsplus.utility.InvUtil;
@@ -12,6 +15,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.handling.ServerPayloadContext;
@@ -72,7 +77,13 @@ public record ServerboundEndFishingMinigame(Result result) implements CustomPack
                 if (serverPlayer.hasData(DataAttachments.FISHING_GAME_DATA)) {
                     FishingGamePlayerAttachment fishingGamePlayerAttachment = serverPlayer.getData(DataAttachments.FISHING_GAME_DATA);
                     if (result == Result.SUCCESS) {
-                        DelayedEvents.queueDelayedEvent(() -> InvUtil.giveOrDropItem(serverPlayer, fishingGamePlayerAttachment.fishReward()), 10);
+                        DelayedEvents.queueDelayedEvent(() -> {
+                            if (fishingGamePlayerAttachment.fishReward().has(DataComponents.FISH_SIZE)) {
+                                NeoForge.EVENT_BUS.post(new SizedFishCaughtEvent(fishingGamePlayerAttachment.fishReward(), serverPlayer));
+                            }
+                            InvUtil.giveOrDropItem(serverPlayer, fishingGamePlayerAttachment.fishReward().copy());
+
+                        }, 10);
                     }
 
                     serverPlayer.removeData(DataAttachments.FISHING_GAME_DATA);

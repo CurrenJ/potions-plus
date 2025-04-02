@@ -3,8 +3,7 @@ package grill24.potionsplus.data;
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Items;
-import grill24.potionsplus.item.IItemModelGenerator;
-import grill24.potionsplus.item.ItemOverrideUtility;
+import grill24.potionsplus.item.builder.ItemBuilder;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -52,6 +51,9 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
         // Skill Journals
         registerHorizontalDirectionalBlock(Blocks.SKILL_JOURNALS.value());
         registerItemFromParent(Blocks.SKILL_JOURNALS.value().asItem(), ResourceLocation.fromNamespaceAndPath(ModInfo.MOD_ID, "block/skill_journals"));
+
+        registerHorizontalDirectionalBlock(Blocks.FISHING_LEADERBOARDS.value());
+        registerItemFromParent(Blocks.FISHING_LEADERBOARDS.value().asItem(), ResourceLocation.fromNamespaceAndPath(ModInfo.MOD_ID, "block/fishing_leaderboards"));
 
         registerClothesline();
         registerFlowerBlock(Blocks.IRON_OXIDE_DAISY.value());
@@ -106,15 +108,9 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
 
         // ----- Items -----
 
-        for (IItemModelGenerator modelGenerator : Items.ITEM_MODEL_GENERATORS) {
-            modelGenerator.generate(this);
+        for (ItemBuilder<?, ?> itemBuilder : Items.ITEM_BUILDERS) {
+            itemBuilder.generate(this);
         }
-
-        registerItem(Items.MOSS.value());
-        registerItem(Items.SALT.value());
-        registerItem(Items.WORMROOT.value());
-        registerItem(Items.ROTTEN_WORMROOT.value());
-        registerItem(Items.LUNAR_BERRIES.value());
 
         registerItem(Blocks.IRON_OXIDE_DAISY.value().asItem(), "block/iron_oxide_daisy");
         registerItem(Blocks.COPPER_CHRYSANTHEMUM.value().asItem(), "block/copper_chrysanthemum");
@@ -318,15 +314,6 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
                 mc("item/pitcher_plant"),
                 parentedModelGenerator);
 
-
-
-        registerItem(Items.WREATH.value());
-
-        registerItem(Items.NETHERITE_REMNANT.value());
-        registerItem(Items.RAW_URANIUM.value());
-        registerItem(Items.URANIUM_INGOT.value());
-        registerItem(Items.SULFUR_SHARD.value());
-        registerItem(Items.SULFURIC_ACID.value());
         registerItemFromParentWithTextureOverride(Items.COPPER_FISHING_ROD.value(), mc("item/handheld_rod"), ppId("item/copper_fishing_rod"));
 
         Holder<Item>[][] blockHatItems = new Holder[][]{

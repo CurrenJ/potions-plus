@@ -23,7 +23,7 @@ public class ConfiguredGrantableRewards {
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_5));
 
     public static final EdibleChoiceReward.ChoiceRewardBuilder[] SIMPLE_DUNGEON_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("simple_dungeon_loot_edible_"+i,
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI), SIMPLE_DUNGEON_LOOT.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI.getItem()), SIMPLE_DUNGEON_LOOT.getKey())
     ), 25);
 
     public static final AdvancementReward.AdvancementRewardBuilder ABANDONED_MINESHAFT_LOOT = register(() ->
@@ -32,7 +32,7 @@ public class ConfiguredGrantableRewards {
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_10));
 
     public static final EdibleChoiceReward.ChoiceRewardBuilder[] ABANDONED_MINESHAFT_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("abandoned_mineshaft_loot_edible_"+i,
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.STONE_FRUIT), ABANDONED_MINESHAFT_LOOT.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.STONE_FRUIT.getItem()), ABANDONED_MINESHAFT_LOOT.getKey())
     ), 25);
 
     public static final AdvancementReward.AdvancementRewardBuilder STRONGHOLD_LIBRARY_LOOT = register(() ->
@@ -41,7 +41,7 @@ public class ConfiguredGrantableRewards {
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_15));
 
     public static final EdibleChoiceReward.ChoiceRewardBuilder[] STRONGHOLD_LIBRARY_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("stronghold_library_loot_edible_"+i,
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.CHOCOLATE_BOOK), STRONGHOLD_LIBRARY_LOOT.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.CHOCOLATE_BOOK.getItem()), STRONGHOLD_LIBRARY_LOOT.getKey())
     ), 25);
 
     public static final AdvancementReward.AdvancementRewardBuilder DESERT_PYRAMID_LOOT = register(() ->
@@ -50,7 +50,7 @@ public class ConfiguredGrantableRewards {
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_20));
 
     public static final EdibleChoiceReward.ChoiceRewardBuilder[] DESERT_PYRAMID_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("desert_pyramid_loot_edible_"+i,
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.PYRAMIDS_OF_SALT), DESERT_PYRAMID_LOOT.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.PYRAMIDS_OF_SALT.getItem()), DESERT_PYRAMID_LOOT.getKey())
     ), 25);
 
     public static final AdvancementReward.AdvancementRewardBuilder JUNGLE_TEMPLE_LOOT = register(() ->
@@ -59,7 +59,7 @@ public class ConfiguredGrantableRewards {
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_25));
 
     public static final EdibleChoiceReward.ChoiceRewardBuilder[] JUNGLE_TEMPLE_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("jungle_temple_loot_edible_"+i,
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.ROASTED_BAMBOO), JUNGLE_TEMPLE_LOOT.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.ROASTED_BAMBOO.getItem()), JUNGLE_TEMPLE_LOOT.getKey())
     ), 25);
 
     public static final AdvancementReward.AdvancementRewardBuilder BASIC_SKILL_REWARDS = register(() ->
@@ -68,7 +68,7 @@ public class ConfiguredGrantableRewards {
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_BASIC));
 
     public static final EdibleChoiceReward.ChoiceRewardBuilder BASIC_SKILL_LOOT_EDIBLE = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("basic_skill_loot_edible",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BASIC_LOOT), BASIC_SKILL_REWARDS.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BASIC_LOOT.getItem()), BASIC_SKILL_REWARDS.getKey())
     ));
 
     public static final AdvancementReward.AdvancementRewardBuilder INTERMEDIATE_SKILL_REWARDS = register(() ->
@@ -77,7 +77,7 @@ public class ConfiguredGrantableRewards {
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_INTERMEDIATE));
 
     public static final EdibleChoiceReward.ChoiceRewardBuilder INTERMEDIATE_SKILL_LOOT_EDIBLE = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("intermediate_skill_loot_edible",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.INTERMEDIATE_LOOT), INTERMEDIATE_SKILL_REWARDS.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.INTERMEDIATE_LOOT.getItem()), INTERMEDIATE_SKILL_REWARDS.getKey())
     ));
 
     public static final AdvancementReward.AdvancementRewardBuilder ADVANCED_SKILL_REWARDS = register(() ->
@@ -86,7 +86,7 @@ public class ConfiguredGrantableRewards {
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_ADVANCED));
 
     public static final EdibleChoiceReward.ChoiceRewardBuilder ADVANCED_SKILL_LOOT_EDIBLE = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("advanced_skill_loot_edible",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.ADVANCED_LOOT), ADVANCED_SKILL_REWARDS.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.ADVANCED_LOOT.getItem()), ADVANCED_SKILL_REWARDS.getKey())
     ));
 
     public static final AdvancementReward.AdvancementRewardBuilder EXPERT_SKILL_REWARDS = register(() ->
@@ -95,7 +95,7 @@ public class ConfiguredGrantableRewards {
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_EXPERT));
 
     public static final EdibleChoiceReward.ChoiceRewardBuilder EXPERT_SKILL_LOOT_EDIBLE = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("expert_skill_loot_edible",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), EXPERT_SKILL_REWARDS.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH.getItem()), EXPERT_SKILL_REWARDS.getKey())
     ));
 
     public static final AdvancementReward.AdvancementRewardBuilder MASTER_SKILL_REWARDS = register(() ->
@@ -104,7 +104,7 @@ public class ConfiguredGrantableRewards {
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_REWARD_MASTER));
 
     public static final EdibleChoiceReward.ChoiceRewardBuilder MASTER_SKILL_LOOT_EDIBLE = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("master_skill_loot_edible",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MASTER_LOOT), MASTER_SKILL_REWARDS.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MASTER_LOOT.getItem()), MASTER_SKILL_REWARDS.getKey())
     ));
 
     public static final AnimatedItemReward.AnimatedItemRewardBuilder ANIMATED_ITEMS = register(() -> new AnimatedItemReward.AnimatedItemRewardBuilder(new ItemStack(Items.WOODEN_PICKAXE), new ItemStack(Items.STONE_PICKAXE), new ItemStack(Items.IRON_PICKAXE), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.NETHERITE_PICKAXE), new ItemStack(Items.GOLDEN_PICKAXE), new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_AXE), new ItemStack(Items.IRON_AXE), new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.NETHERITE_AXE), new ItemStack(Items.GOLDEN_AXE), new ItemStack(Items.WOODEN_SHOVEL), new ItemStack(Items.STONE_SHOVEL), new ItemStack(Items.IRON_SHOVEL), new ItemStack(Items.DIAMOND_SHOVEL), new ItemStack(Items.NETHERITE_SHOVEL), new ItemStack(Items.GOLDEN_SHOVEL), new ItemStack(Items.WOODEN_HOE), new ItemStack(Items.STONE_HOE), new ItemStack(Items.IRON_HOE), new ItemStack(Items.DIAMOND_HOE), new ItemStack(Items.NETHERITE_HOE), new ItemStack(Items.GOLDEN_HOE), new ItemStack(Items.WOODEN_SWORD), new ItemStack(Items.STONE_SWORD), new ItemStack(Items.IRON_SWORD), new ItemStack(Items.DIAMOND_SWORD), new ItemStack(Items.NETHERITE_SWORD), new ItemStack(Items.GOLDEN_SWORD), new ItemStack(Items.BOW), new ItemStack(Items.CROSSBOW), new ItemStack(Items.TRIDENT), new ItemStack(Items.LEATHER_BOOTS), new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_CHESTPLATE), new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.CHAINMAIL_BOOTS), new ItemStack(Items.CHAINMAIL_LEGGINGS), new ItemStack(Items.CHAINMAIL_CHESTPLATE), new ItemStack(Items.CHAINMAIL_HELMET), new ItemStack(Items.IRON_BOOTS), new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Items.IRON_CHESTPLATE), new ItemStack(Items.IRON_HELMET), new ItemStack(Items.DIAMOND_BOOTS), new ItemStack(Items.DIAMOND_LEGGINGS), new ItemStack(Items.DIAMOND_CHESTPLATE), new ItemStack(Items.DIAMOND_HELMET), new ItemStack(Items.NETHERITE_BOOTS), new ItemStack(Items.NETHERITE_LEGGINGS), new ItemStack(Items.NETHERITE_CHESTPLATE), new ItemStack(Items.NETHERITE_HELMET), new ItemStack(Items.GOLDEN_BOOTS), new ItemStack(Items.GOLDEN_LEGGINGS), new ItemStack(Items.GOLDEN_CHESTPLATE), new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.SHIELD), new ItemStack(Items.ELYTRA), new ItemStack(Items.SUGAR), new ItemStack(Items.COPPER_ORE), new ItemStack(Items.COAL_ORE), new ItemStack(Items.IRON_ORE), new ItemStack(Items.GOLD_ORE), new ItemStack(Items.DIAMOND_ORE), new ItemStack(Items.EMERALD_ORE), new ItemStack(Items.ANCIENT_DEBRIS)));
@@ -163,6 +163,16 @@ public class ConfiguredGrantableRewards {
             .strength(1.0F));
     public static final IncreaseAbilityStrengthReward.Builder AXE_LOOTING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("axe_looting_increase")
             .ability(ConfiguredPlayerAbilities.AXE_LOOTING_MODIFIER.getKey())
+            .strength(1.0F));
+
+    public static final IncreaseAbilityStrengthReward.Builder FISHING_ROD_LUCK_OF_THE_SEA_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("fishing_rod_luck_of_the_sea_increase")
+            .ability(ConfiguredPlayerAbilities.FISHING_ROD_LUCK_OF_THE_SEA_MODIFIER.getKey())
+            .strength(1.0F));
+    public static final IncreaseAbilityStrengthReward.Builder FISHING_ROD_LURE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("fishing_rod_lure_increase")
+            .ability(ConfiguredPlayerAbilities.FISHING_ROD_LURE_MODIFIER.getKey())
+            .strength(1.0F));
+    public static final IncreaseAbilityStrengthReward.Builder FISHING_ROD_UNBREAKING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("fishing_rod_unbreaking_increase")
+            .ability(ConfiguredPlayerAbilities.FISHING_ROD_UNBREAKING_MODIFIER.getKey())
             .strength(1.0F));
 
     public static final IncreaseAbilityStrengthReward.Builder BOW_POWER_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("bow_power_increase")
@@ -246,27 +256,27 @@ public class ConfiguredGrantableRewards {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_STUN_SHOT_INCREASE));
 
     public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_LOOT_1 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_loot_1",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI), SIMPLE_DUNGEON_LOOT.getKey()),
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.STONE_FRUIT), ABANDONED_MINESHAFT_LOOT.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI.getItem()), SIMPLE_DUNGEON_LOOT.getKey()),
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.STONE_FRUIT.getItem()), ABANDONED_MINESHAFT_LOOT.getKey())
     ));
 
     public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_LOOT_2 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_loot_2",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), STRONGHOLD_LIBRARY_LOOT.getKey()),
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), DESERT_PYRAMID_LOOT.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH.getItem()), STRONGHOLD_LIBRARY_LOOT.getKey()),
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES.getItem()), DESERT_PYRAMID_LOOT.getKey())
     ));
 
     public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_PICKAXE_EFFICIENCY_1 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_pickaxe_efficiency_1",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), SMALL_PICKAXE_EFFICIENCY_INCREASE.getKey()),
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), SMALL_SUBMERGED_PICKAXE_EFFICIENCY_INCREASE.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH.getItem()), SMALL_PICKAXE_EFFICIENCY_INCREASE.getKey()),
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES.getItem()), SMALL_SUBMERGED_PICKAXE_EFFICIENCY_INCREASE.getKey())
     ));
     public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_PICKAXE_EFFICIENCY_2 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_pickaxe_efficiency_2",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.FORTIFYING_FUDGE), SMALL_PICKAXE_EFFICIENCY_INCREASE.getKey()),
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), SMALL_SUBMERGED_PICKAXE_EFFICIENCY_INCREASE.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.FORTIFYING_FUDGE.getItem()), SMALL_PICKAXE_EFFICIENCY_INCREASE.getKey()),
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES.getItem()), SMALL_SUBMERGED_PICKAXE_EFFICIENCY_INCREASE.getKey())
     ));
 
     public static EdibleChoiceReward.ChoiceRewardBuilder CHOOSE_PICKAXE_LOOT_1 = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("choose_pickaxe_loot_1",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH), PICKAXE_DIAMOND_ORE_ADDITIONAL_EMERALDS_LOOT.getKey()),
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES), PICKAXE_DIAMOND_ORE_ADDITIONAL_LAPIS_LOOT.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.SPARKLING_SQUASH.getItem()), PICKAXE_DIAMOND_ORE_ADDITIONAL_EMERALDS_LOOT.getKey()),
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.BLUEB_BERRIES.getItem()), PICKAXE_DIAMOND_ORE_ADDITIONAL_LAPIS_LOOT.getKey())
     ));
 
     public static ItemWheelReward.ItemWheelRewardBuilder WHEEL_TREASURES = register(() -> new ItemWheelReward.ItemWheelRewardBuilder("wheel_treasures",
@@ -279,30 +289,30 @@ public class ConfiguredGrantableRewards {
             new ItemStack(Items.ANCIENT_DEBRIS)
     ));
     public static EdibleChoiceReward.ChoiceRewardBuilder EDIBLE_WHEEL_TREASURES = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("edible_wheel_treasures",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), WHEEL_TREASURES.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL.getItem()), WHEEL_TREASURES.getKey())
     ));
 
     public static ItemWheelReward.ItemWheelRewardBuilder WHEEL_END_CITY = register(() -> new ItemWheelReward.ItemWheelRewardBuilder("wheel_end_city",
             BuiltInLootTables.END_CITY_TREASURE, 8).translation(Translations.TOOLTIP_POTIONSPLUS_REWARD_END_CITY_LOOT));
     public static EdibleChoiceReward.ChoiceRewardBuilder EDIBLE_WHEEL_END_CITY = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("edible_wheel_end_city",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), WHEEL_END_CITY.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL.getItem()), WHEEL_END_CITY.getKey())
     ));
 
     public static ItemWheelReward.ItemWheelRewardBuilder GEMS_AND_ORES_WHEEL = register(() -> new ItemWheelReward.ItemWheelRewardBuilder("gems_and_ores_wheel",
             LootTables.GEMS_AND_ORES_REWARDS, 8).translation(Translations.TOOLTIP_POTIONSPLUS_REWARD_GEMS_AND_ORES_WHEEL));
     public static EdibleChoiceReward.ChoiceRewardBuilder EDIBLE_GEMS_AND_ORES_WHEEL = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("edible_gems_and_ores_wheel",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), GEMS_AND_ORES_WHEEL.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL.getItem()), GEMS_AND_ORES_WHEEL.getKey())
     ));
 
     public static ItemWheelReward.ItemWheelRewardBuilder POTIONS_WHEEL = register(() -> new ItemWheelReward.ItemWheelRewardBuilder("potions_wheel",
             LootTables.ALL_POTIONS, 8));
     public static EdibleChoiceReward.ChoiceRewardBuilder EDIBLE_POTIONS_WHEEL = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("edible_potions_wheel",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL), POTIONS_WHEEL.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.WHEEL.getItem()), POTIONS_WHEEL.getKey())
     ));
 
     public static UnknownPotionIngredientReward.UnknownPotionIngredientRewardBuilder UNKNOWN_POTION_INGREDIENT = register(() -> new UnknownPotionIngredientReward.UnknownPotionIngredientRewardBuilder("unknown_potion_ingredient", 1));
     public static EdibleChoiceReward.ChoiceRewardBuilder EDIBLE_UNKNOWN_POTION_INGREDIENT = register(() -> new EdibleChoiceReward.ChoiceRewardBuilder("edible_unknown_potion_ingredient",
-            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI), UNKNOWN_POTION_INGREDIENT.getKey())
+            new Pair<>(new ItemStack(grill24.potionsplus.core.Items.MOSSASHIMI.getItem()), UNKNOWN_POTION_INGREDIENT.getKey())
     ));
 
     public static void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {

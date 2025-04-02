@@ -7,7 +7,7 @@ import java.awt.geom.Rectangle2D;
 
 public class VerticalListScreenElement<E extends RenderableScreenElement> extends ScreenElementWithChildren<E> {
     private final XAlignment alignment;
-    private final float paddingBetweenElements;
+    protected final float paddingBetweenElements;
 
     private float height;
     protected float offsetY;

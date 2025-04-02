@@ -1,0 +1,31 @@
+package grill24.potionsplus.gui.fishing;
+
+import grill24.potionsplus.core.MenuTypes;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
+
+public class FishingLeaderboardsMenu extends AbstractContainerMenu {
+    private final ContainerLevelAccess access;
+
+    public FishingLeaderboardsMenu(int containerId, Inventory playerInventory) {
+        super(MenuTypes.FISHING_LEADERBOARDS.get(), containerId);
+        this.access = null;
+    }
+
+    @Override
+    public ItemStack quickMoveStack(Player player, int index) {
+        return null;
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        if (this.access == null) {
+            return true;
+        }
+        return AbstractContainerMenu.stillValid(this.access, player, Blocks.DIRT);
+    }
+}

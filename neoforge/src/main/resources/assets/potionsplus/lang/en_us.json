@@ -69,6 +69,10 @@
   "description.potionsplus.ability.diamond_ore_additional_loot_emeralds": "+Diamond Ore May Drop Emeralds",
   "description.potionsplus.ability.diamond_ore_additional_loot_lapis": "+Diamond Ore May Drop Lapis",
 
+  "description.potionsplus.ability.fishing_rod_luck_of_the_sea": "%s Fishing Rod Luck of the Sea Level",
+  "description.potionsplus.ability.fishing_rod_lure": "%s Fishing Rod Lure Level",
+  "description.potionsplus.ability.fishing_rod_unbreaking": "%s Fishing Rod Unbreaking Level",
+
   "description.potionsplus.ability.double_jump": "+%s Additional Jump(s)",
   "description.long.potionsplus.ability.double_jump": "§l§dJump§r again in mid-air.",
 
@@ -121,8 +125,10 @@
   "description.potionsplus.attribute.looting_level": "Looting",
   "description.potionsplus.attribute.unbreaking_level": "Unbreaking",
   "description.potionsplus.attribute.smite_level": "Smite",
-  "description.potionsplus.attribute.use_speed_bonus": "Use Speed",
-  "description.potionsplus.attribute.sprint_speed_bonus": "Sprint Speed",
+  "description.potionsplus.attribute.luck_of_the_sea_level": "Luck of the Sea",
+  "description.potionsplus.attribute.lure_level": "Lure",
+  "description.potionsplus.attribute.use_speed_level": "Use Speed",
+  "description.potionsplus.attribute.sprint_speed_level": "Sprint Speed",
 
   "description.potionsplus.ability.bow_power": "%s Bow Power Level",
   "description.potionsplus.ability.bow_punch": "%s Bow Punch Level",
@@ -169,6 +175,7 @@
   "tooltip.potionsplus.skill.reward.master": "Master Loot",
 
   "tooltip.potionsplus.skill.woodcutting": "Woodcutting",
+  "tooltip.potionsplus.skill.fishing": "Fishing",
 
   "tooltip.potionsplus.skill.swordsmanship": "Swordsmanship",
 
@@ -332,6 +339,7 @@
   "item.potionsplus.parrotfish": "Parrotfish",
   "item.potionsplus.rainfordia": "Rainfordia",
   "item.potionsplus.garden_eel": "Garden Eel",
+  "item.potionsplus.royal_garden_eel": "Royal Garden Eel",
   "item.potionsplus.longnose_gar": "Longnose Gar",
   "item.potionsplus.shrimp": "Shrimp",
   "item.potionsplus.moorish_idol": "Moorish Idol",
@@ -345,6 +353,7 @@
   "item.potionsplus.lizardfish": "Lizardfish",
 
   "block.potionsplus.skill_journals": "Skill Journals",
+  "block.potionsplus.fishing_leaderboards": "Fishing Leaderboards",
   "block.potionsplus.uranium_glass": "Uranium Glass",
   "block.potionsplus.icicle": "Icicle",
 
@@ -719,5 +728,13 @@
   "tooltip.potionsplus.reward.unknown_potion_ingredient.description": "An Unknown Potion Ingredient",
   "alert.potionsplus.reward.unknown_potion_ingredient": "The brewing cauldron calls...",
 
-  "item.potionsplus.froggy_hat": "Froggy Hat"
+  "item.potionsplus.froggy_hat": "Froggy Hat",
+
+  "fish.size": "§7§oSize: %s cm",
+  "fish.leaderboard.size": "[%s] %s: %s cm",
+  "fish.size.simple": "%s cm",
+  "fish.count.simple": "Caught %s times.",
+  "fish.leaderboard.count": "[%s] %s %s",
+  "fish.leaderboard.caught.chat": "%s caught a %s cm %s.",
+  "fish.leaderboard.npr": "That's a §6§onew personal record!"
 }

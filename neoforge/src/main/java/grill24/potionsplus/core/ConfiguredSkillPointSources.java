@@ -1,12 +1,10 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.skill.source.BreakBlockSourceConfiguration;
-import grill24.potionsplus.skill.source.ConfiguredSkillPointSource;
-import grill24.potionsplus.skill.source.IncrementStatSourceConfiguration;
-import grill24.potionsplus.skill.source.KillEntitySourceConfiguration;
+import grill24.potionsplus.skill.source.*;
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.stats.Stats;
@@ -17,6 +15,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.List;
+import java.util.Map;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -26,6 +25,7 @@ import static grill24.potionsplus.utility.Utility.ppId;
 public class ConfiguredSkillPointSources {
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> MINE_ORE = register("mine_ore");
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> MINE_LOG = register("mine_log");
+    public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> CATCH_FISH = register("catch_fish");
 
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> KILL_ENTITY_WITH_SWORD = register("kill_entity_with_sword");
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> KILL_ENTITY_WITH_BOW = register("kill_entity_with_bow");
@@ -49,11 +49,16 @@ public class ConfiguredSkillPointSources {
                 new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_DIAMOND), false, 12),
                 new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_EMERALD), false, 16),
                 new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES_QUARTZ), false, 4),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES), false, 1) // fallback
-        ))));
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(Tags.Blocks.ORES), false, 1)))));
+
         context.register(MINE_LOG, new ConfiguredSkillPointSource<>(SkillPointSources.BREAK_BLOCK.get(), new BreakBlockSourceConfiguration(
-                List.of(new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(BlockTags.LOGS), false, 1)
-        ))));
+                List.of(new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(BlockTags.LOGS), false, 1)))));
+
+        context.register(CATCH_FISH, new ConfiguredSkillPointSource<>(SkillPointSources.CATCH_FISH.get(), new CatchFishSourceConfiguration(Map.of(
+                grill24.potionsplus.core.Tags.Items.PP_FISHING_COPPER_FRAME, 1F,
+                grill24.potionsplus.core.Tags.Items.PP_FISHING_GOLD_FRAME, 4F,
+                grill24.potionsplus.core.Tags.Items.PP_FISHING_DIAMOND_FRAME, 6F,
+                grill24.potionsplus.core.Tags.Items.PP_FISHING_PURPLE_FRAME, 8F))));
 
         EntityPredicate swordPredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ItemTags.SWORDS))).build();
         context.register(KILL_ENTITY_WITH_SWORD, new ConfiguredSkillPointSource<>(SkillPointSources.KILL_ENTITY.get(),

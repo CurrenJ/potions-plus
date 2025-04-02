@@ -20,8 +20,9 @@ import static grill24.potionsplus.utility.Utility.ppId;
  * Data Gen Class. ConfiguredSkills are registered dynamically from datapack.
  */
 public class ConfiguredSkills {
-    public static final ResourceKey<ConfiguredSkill<?, ?>> MINING_CONFIGURED_KEY = register("mining");
-    public static final ResourceKey<ConfiguredSkill<?, ?>> WOODCUTTING_CONFIGURED_KEY = register("woodcutting");
+    public static final ResourceKey<ConfiguredSkill<?, ?>> MINING = register("mining");
+    public static final ResourceKey<ConfiguredSkill<?, ?>> WOODCUTTING = register("woodcutting");
+    public static final ResourceKey<ConfiguredSkill<?, ?>> FISHING = register("fishing");
 
     public static final ResourceKey<ConfiguredSkill<?, ?>> SWORDSMANSHIP = register("swordsmanship");
     public static final ResourceKey<ConfiguredSkill<?, ?>> ARCHERY = register("archery");
@@ -51,6 +52,9 @@ public class ConfiguredSkills {
 
         // Woodcutting
         Woodcutting.generate(context, sourceLookup, rewardLookup);
+
+        // Fishing
+        Fishing.generate(context, sourceLookup, rewardLookup);
 
         // Walking
         Walking.generate(context, sourceLookup, rewardLookup);

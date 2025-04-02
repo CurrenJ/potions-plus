@@ -11,6 +11,7 @@ import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.effect.IEffectTooltipDetails;
+import grill24.potionsplus.item.FishSizeDataComponent;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
@@ -173,7 +174,7 @@ public class ItemListenersGame {
                 grill24.potionsplus.skill.reward.ConfiguredGrantableReward<?, ?> linkedOption = choiceItemData.linkedOption().value();
 
                 tooltipMessages.add(List.of(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_CHOICE).withStyle(ChatFormatting.GOLD)));
-                if (Items.BASIC_LOOT_MODEL.getOverrideValue(choiceItemData.flag()) > 0) {
+                if (Items.BASIC_LOOT.getItemOverrideModelData().getOverrideValue(choiceItemData.flag()) > 0) {
                     tooltipMessages.add(List.of(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_CHOOSE_ONE).withStyle(ChatFormatting.GRAY)));
                 }
                 List<List<Component>> component = linkedOption.getMultiLineRichDescription();
@@ -192,6 +193,14 @@ public class ItemListenersGame {
                         ownerText = ownerText.plainCopy().withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD);
                     }
                     tooltipMessages.add(List.of(ownerText));
+                }
+            }
+
+            // Fish Size Data Component Tooltip
+            if (stack.has(grill24.potionsplus.core.DataComponents.FISH_SIZE)) {
+                FishSizeDataComponent fishSizeData = stack.get(grill24.potionsplus.core.DataComponents.FISH_SIZE);
+                if (fishSizeData != null) {
+                    tooltipMessages.add(List.of(fishSizeData.getSizeText()));
                 }
             }
         }

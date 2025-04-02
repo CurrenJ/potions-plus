@@ -1,5 +1,6 @@
 package grill24.potionsplus.item;
 
+import grill24.potionsplus.item.builder.IItemModelGenerator;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -34,14 +35,12 @@ public class ItemOverrideUtility {
     }
 
     public static class EdibleChoiceItemOverrideModelData extends ItemOverrideModelGenerator {
-        private final Holder<Item> item;
         private final ResourceLocation layer0;
         private final List<ResourceLocation> layer1;
         private final Map<ResourceLocation, Integer> textureIndexMap;
 
-        public EdibleChoiceItemOverrideModelData(ResourceLocation overridePropertyId, Holder<Item> item, ResourceLocation layer0, List<ResourceLocation> layer1) {
+        public EdibleChoiceItemOverrideModelData(ResourceLocation overridePropertyId, ResourceLocation layer0, List<ResourceLocation> layer1) {
             super(overridePropertyId);
-            this.item = item;
             this.layer0 = layer0;
             this.layer1 = layer1;
             this.layer1.addFirst(layer0);
@@ -64,7 +63,7 @@ public class ItemOverrideUtility {
         }
 
         @Override
-        public void generate(BlockStateProvider provider) {
+        public void generate(BlockStateProvider provider, Holder<Item> item) {
             ItemModelBuilder imb = null;
 
             for (ResourceLocation layer1Texture : layer1) {
@@ -97,7 +96,7 @@ public class ItemOverrideUtility {
         }
 
         @Override
-        public void generate(BlockStateProvider provider) {
+        public void generate(BlockStateProvider provider, Holder<Item> item) {
             ItemModelProvider itemModels = provider.itemModels();
             ItemModelBuilder imb = null;
             for (MobEffect mobEffect : PUtil.getAllMobEffects()) {
@@ -146,7 +145,7 @@ public class ItemOverrideUtility {
         }
 
         @Override
-        public void generate(BlockStateProvider provider) {
+        public void generate(BlockStateProvider provider, Holder<Item> item) {
             ItemModelBuilder imb = null;
 
             for (ResourceLocation rl : textureLocations) {

@@ -61,6 +61,9 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_IRON_ORE_ADDITIONAL_LOOT_GOLD_NUGGETS = "description.potionsplus.ability.iron_ore_additional_loot_gold_nuggets";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS = "description.potionsplus.ability.diamond_ore_additional_loot_emeralds";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS = "description.potionsplus.ability.diamond_ore_additional_loot_lapis";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_FISHING_ROD_LUCK_OF_THE_SEA = "description.potionsplus.ability.fishing_rod_luck_of_the_sea";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_FISHING_ROD_LURE = "description.potionsplus.ability.fishing_rod_lure";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_FISHING_ROD_UNBREAKING = "description.potionsplus.ability.fishing_rod_unbreaking";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DOUBLE_JUMP = "description.potionsplus.ability.double_jump";
     public static final String DESCRIPTION_LONG_POTIONSPLUS_ABILITY_DOUBLE_JUMP = "description.long.potionsplus.ability.double_jump";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_CHAIN_LIGHTNING = "description.potionsplus.ability.chain_lightning";
@@ -102,8 +105,10 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_LOOTING_LEVEL = "description.potionsplus.attribute.looting_level";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_UNBREAKING_LEVEL = "description.potionsplus.attribute.unbreaking_level";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SMITE_LEVEL = "description.potionsplus.attribute.smite_level";
-    public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_USE_SPEED_BONUS = "description.potionsplus.attribute.use_speed_bonus";
-    public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SPRINT_SPEED_BONUS = "description.potionsplus.attribute.sprint_speed_bonus";
+    public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_LUCK_OF_THE_SEA_LEVEL = "description.potionsplus.attribute.luck_of_the_sea_level";
+    public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_LURE_LEVEL = "description.potionsplus.attribute.lure_level";
+    public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_USE_SPEED_LEVEL = "description.potionsplus.attribute.use_speed_level";
+    public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SPRINT_SPEED_LEVEL = "description.potionsplus.attribute.sprint_speed_level";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_BOW_POWER = "description.potionsplus.ability.bow_power";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_BOW_PUNCH = "description.potionsplus.ability.bow_punch";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_BOW_UNBREAKING = "description.potionsplus.ability.bow_unbreaking";
@@ -141,6 +146,7 @@ public class Translations {
     public static final String TOOLTIP_POTIONSPLUS_SKILL_REWARD_EXPERT = "tooltip.potionsplus.skill.reward.expert";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_REWARD_MASTER = "tooltip.potionsplus.skill.reward.master";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_WOODCUTTING = "tooltip.potionsplus.skill.woodcutting";
+    public static final String TOOLTIP_POTIONSPLUS_SKILL_FISHING = "tooltip.potionsplus.skill.fishing";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_SWORDSMANSHIP = "tooltip.potionsplus.skill.swordsmanship";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_ARCHERY = "tooltip.potionsplus.skill.archery";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_CHOPPING = "tooltip.potionsplus.skill.chopping";
@@ -281,6 +287,21 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_MASTER_LOOT = "item.potionsplus.master_loot";
     public static final String ITEM_POTIONSPLUS_WHEEL = "item.potionsplus.wheel";
     public static final String ITEM_POTIONSPLUS_COPPER_FISHING_ROD = "item.potionsplus.copper_fishing_rod";
+    public static final String ITEM_POTIONSPLUS_NORTHERN_PIKE = "item.potionsplus.northern_pike";
+    public static final String ITEM_POTIONSPLUS_PARROTFISH = "item.potionsplus.parrotfish";
+    public static final String ITEM_POTIONSPLUS_RAINFORDIA = "item.potionsplus.rainfordia";
+    public static final String ITEM_POTIONSPLUS_GARDEN_EEL = "item.potionsplus.garden_eel";
+    public static final String ITEM_POTIONSPLUS_LONGNOSE_GAR = "item.potionsplus.longnose_gar";
+    public static final String ITEM_POTIONSPLUS_SHRIMP = "item.potionsplus.shrimp";
+    public static final String ITEM_POTIONSPLUS_MOORISH_IDOL = "item.potionsplus.moorish_idol";
+    public static final String ITEM_POTIONSPLUS_MOLTEN_MOORISH_IDOL = "item.potionsplus.molten_moorish_idol";
+    public static final String ITEM_POTIONSPLUS_OCEAN_SUNFISH = "item.potionsplus.ocean_sunfish";
+    public static final String ITEM_POTIONSPLUS_PORTUGUESE_MAN_O_WAR = "item.potionsplus.portuguese_man_o_war";
+    public static final String ITEM_POTIONSPLUS_BLUEGILL = "item.potionsplus.bluegill";
+    public static final String ITEM_POTIONSPLUS_NEON_TETRA = "item.potionsplus.neon_tetra";
+    public static final String ITEM_POTIONSPLUS_GIANT_MANTA_RAY = "item.potionsplus.giant_manta_ray";
+    public static final String ITEM_POTIONSPLUS_FROZEN_GIANT_MANTA_RAY = "item.potionsplus.frozen_giant_manta_ray";
+    public static final String ITEM_POTIONSPLUS_LIZARDFISH = "item.potionsplus.lizardfish";
     public static final String BLOCK_POTIONSPLUS_SKILL_JOURNALS = "block.potionsplus.skill_journals";
     public static final String BLOCK_POTIONSPLUS_URANIUM_GLASS = "block.potionsplus.uranium_glass";
     public static final String BLOCK_POTIONSPLUS_ICICLE = "block.potionsplus.icicle";
@@ -615,4 +636,11 @@ public class Translations {
     public static final String TOOLTIP_POTIONSPLUS_REWARD_UNKNOWN_POTION_INGREDIENT_DESCRIPTION = "tooltip.potionsplus.reward.unknown_potion_ingredient.description";
     public static final String ALERT_POTIONSPLUS_REWARD_UNKNOWN_POTION_INGREDIENT = "alert.potionsplus.reward.unknown_potion_ingredient";
     public static final String ITEM_POTIONSPLUS_FROGGY_HAT = "item.potionsplus.froggy_hat";
+    public static final String FISH_SIZE = "fish.size";
+    public static final String FISH_LEADERBOARD_SIZE = "fish.leaderboard.size";
+    public static final String FISH_SIZE_SIMPLE = "fish.size.simple";
+    public static final String FISH_COUNT_SIMPLE = "fish.count.simple";
+    public static final String FISH_LEADERBOARD_COUNT = "fish.leaderboard.count";
+    public static final String FISH_LEADERBOARD_CAUGHT_CHAT = "fish.leaderboard.caught.chat";
+    public static final String FISH_LEADERBOARD_NPR = "fish.leaderboard.npr";
 }

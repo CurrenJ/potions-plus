@@ -7,9 +7,12 @@ import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.PpMultiIngredient;
+import grill24.potionsplus.event.SizedFishCaughtEvent;
 import grill24.potionsplus.persistence.adapter.*;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.skill.SkillInstance;
+import grill24.potionsplus.utility.FishingLeaderboards;
+import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -18,6 +21,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Modifier;
@@ -25,6 +30,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 import java.util.function.Consumer;
 
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     public static SavedData instance = new SavedData();
     private static final String LOGGER_HEADER = "[Saved Data]";
@@ -32,16 +38,20 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     public static final String FILE_NAME = "potionsplus";
     public static final String PLAYER_DATA_MAP_KEY = "player_data_map";
     public static final String SEEDED_POTION_RECIPES_KEY = "seeded_potion_recipes";
+    public static final String FISHING_LEADERBOARDS_KEY = "fishing_leaderboards";
 
     public Map<UUID, PlayerBrewingKnowledge> playerDataMap;
 
     public List<RecipeHolder<BrewingCauldronRecipe>> seededPotionRecipes;
     public Map<PpIngredient, List<BrewingCauldronRecipe>> recipeResultsInSavedData;
 
+    public FishingLeaderboards fishingLeaderboards;
+
     public SavedData() {
         playerDataMap = new java.util.HashMap<>();
         seededPotionRecipes = new java.util.ArrayList<>();
         recipeResultsInSavedData = new java.util.HashMap<>();
+        fishingLeaderboards = new FishingLeaderboards();
     }
 
     public static net.minecraft.world.level.saveddata.SavedData.Factory<SavedData> factory(ServerLevel level) {
@@ -61,6 +71,10 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
         Type playerDataMapType = new TypeToken<HashMap<UUID, PlayerBrewingKnowledge>>() {
         }.getType();
         data.playerDataMap = gson.fromJson(json, playerDataMapType);
+        if (data.playerDataMap == null) {
+            data.playerDataMap = new HashMap<>();
+            PotionsPlus.LOGGER.warn("{} Player data map is null, creating a new one.", LOGGER_HEADER);
+        }
 
         PotionsPlus.LOGGER.info("{} Loaded {} player data entries from saved data.", LOGGER_HEADER, data.playerDataMap.size());
 
@@ -68,7 +82,21 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
         Type seededPotionRecipesType = new TypeToken<List<RecipeHolder>>() {
         }.getType();
         data.setBrewingCauldronRecipes(gson.fromJson(json, seededPotionRecipesType));
+        if (data.seededPotionRecipes == null) {
+            data.seededPotionRecipes = new ArrayList<>();
+            PotionsPlus.LOGGER.warn("{} Seeded potion recipes are null, creating a new one.", LOGGER_HEADER);
+        }
         PotionsPlus.LOGGER.info("{} Loaded {} seeded potion recipes from saved data.", LOGGER_HEADER, data.seededPotionRecipes.size());
+
+        json = getJoinedString(compoundTag, FISHING_LEADERBOARDS_KEY);
+        Type fishingLeaderboardsType = new TypeToken<FishingLeaderboards>() {
+        }.getType();
+        data.fishingLeaderboards = gson.fromJson(json, fishingLeaderboardsType);
+        if (data.fishingLeaderboards == null) {
+            data.fishingLeaderboards = new FishingLeaderboards();
+            PotionsPlus.LOGGER.warn("{} Fishing leaderboards are null, creating a new one.", LOGGER_HEADER);
+        }
+        PotionsPlus.LOGGER.info("{} Loaded {} fishing player leaderboards from saved data.", LOGGER_HEADER, data.fishingLeaderboards.getFishingData().size());
 
         return data;
     }
@@ -124,7 +152,22 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
         json = gson.toJson(this.seededPotionRecipes);
         putSplitString(json, compoundTag, SEEDED_POTION_RECIPES_KEY);
 
+        json = gson.toJson(this.fishingLeaderboards);
+        putSplitString(json, compoundTag, FISHING_LEADERBOARDS_KEY);
+
         return compoundTag;
+    }
+
+    @SubscribeEvent
+    public static void onSizedFishCaught(final SizedFishCaughtEvent event) {
+        Player player = event.getPlayer();
+        ItemStack fish = event.getFish();
+
+        if (player.level().isClientSide()) {
+            return;
+        }
+
+        SavedData.instance.fishingLeaderboards.onFishCaught(player, fish);
     }
 
     public void clear() {
@@ -144,6 +187,7 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
         gsonBuilder.registerTypeAdapter(RecipeHolder.class, new BrewingCauldronRecipeHolderTypeAdapter(registries));
         gsonBuilder.registerTypeAdapter(String.class, new LargeStringTypeAdapter());
         gsonBuilder.registerTypeHierarchyAdapter(SkillInstance.class, new SkillInstanceTypeAdapter());
+        gsonBuilder.registerTypeAdapter(FishingLeaderboards.class, new FishingLeaderboardsTypeAdapter());
         gsonBuilder.enableComplexMapKeySerialization();
         return gsonBuilder.create();
     }

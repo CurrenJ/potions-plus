@@ -1,0 +1,21 @@
+{
+  "type": "potionsplus:modifiers_while_fishing_rod_held",
+  "config": {
+    "attribute": "potionsplus:player.unbreaking_bonus",
+    "baseConfig": {
+      "enabledByDefault": true,
+      "itemPredicate": {
+        "items": "#c:tools/fishing_rod"
+      },
+      "parentSkill": "potionsplus:fishing",
+      "translationKey": "description.potionsplus.ability.fishing_rod_unbreaking"
+    },
+    "modifiers": [
+      {
+        "amount": 0.0,
+        "id": "potionsplus:fishing_rod_unbreaking_modifier_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

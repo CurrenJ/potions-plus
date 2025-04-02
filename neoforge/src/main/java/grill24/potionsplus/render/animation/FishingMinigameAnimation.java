@@ -73,7 +73,7 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         barElementsTransform.translate(offset.x(), offset.y(), offset.z());
         barElementsTransform.mulPose(RUtil.rotate(this.rotation));
         minecraft.getItemRenderer().renderStatic(
-                Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.FISHING_BAR_TEX_LOC), // 21 is the fishing game bar icon
+                Items.GENERIC_ICON.getItemStackForTexture(Items.FISHING_BAR_TEX_LOC), // 21 is the fishing game bar icon
                 ItemDisplayContext.FIXED,
                 BRIGHTNESS,
                 OverlayTexture.NO_OVERLAY,
@@ -86,7 +86,7 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         barElementsTransform.pushPose();
         barElementsTransform.translate(0, barOffset, Z_OFFSET);
         minecraft.getItemRenderer().renderStatic(
-                Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.FISHING_BOBBER_TEX_LOC), // 22 is the capture bar icon
+                Items.GENERIC_ICON.getItemStackForTexture(Items.FISHING_BOBBER_TEX_LOC), // 22 is the capture bar icon
                 ItemDisplayContext.FIXED,
                 BRIGHTNESS,
                 OverlayTexture.NO_OVERLAY,
@@ -105,7 +105,7 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         final float barInteriorWidth = 0.125F;
         Vector3f rotationOffset = new Vector3f();
 
-        ItemStack fishReward = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.UNKNOWN_TEX_LOC);
+        ItemStack fishReward = Items.GENERIC_ICON.getItemStackForTexture(Items.UNKNOWN_TEX_LOC);
         float winnerEnlargement = 1;
         if (localFishingGame.isOver()) {
             if (localFishingGame.isCaptured()) {
@@ -163,7 +163,7 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         }
         barElementsTransform.mulPose(RUtil.rotate(new Vector3f(rotation, rotation, rotation)));
 
-        ItemStack frame = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.COPPER_FISHING_FRAME_TEX_LOC);
+        ItemStack frame = Items.GENERIC_ICON.getItemStackForTexture(Items.COPPER_FISHING_FRAME_TEX_LOC);
         if (minecraft.player.hasData(DataAttachments.FISHING_GAME_DATA)) {
             FishingGamePlayerAttachment fishingGamePlayerAttachment = minecraft.player.getData(DataAttachments.FISHING_GAME_DATA);
             frame = fishingGamePlayerAttachment.frameType();

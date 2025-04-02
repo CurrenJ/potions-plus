@@ -6,18 +6,126 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "minecraft:cod",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 50.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "minecraft:salmon",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "minecraft:pufferfish",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomeTag": "c:is_hot/overworld",
+              "condition": "potionsplus:is_in_biome_tag"
+            }
+          ],
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 50.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "minecraft:tropical_fish",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 80.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:northern_pike",
+          "quality": 1
+        },
+        {
+          "type": "minecraft:item",
           "conditions": [
             {
               "biomes": [
                 "minecraft:beach",
-                "minecraft:plains",
+                "minecraft:snowy_plains",
                 "minecraft:forest",
-                "minecraft:snowy_plains"
+                "minecraft:plains"
               ],
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:northern_pike"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 80.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:northern_pike",
+          "quality": 1,
+          "weight": 11
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:parrotfish",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
@@ -25,15 +133,41 @@
             {
               "biomes": [
                 "minecraft:savanna",
+                "minecraft:desert",
                 "minecraft:lush_caves",
                 "minecraft:windswept_savanna",
-                "minecraft:savanna_plateau",
-                "minecraft:desert"
+                "minecraft:savanna_plateau"
               ],
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:parrotfish"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:parrotfish",
+          "weight": 11
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:rainfordia",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
@@ -47,22 +181,103 @@
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:rainfordia"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:rainfordia",
+          "quality": 1,
+          "weight": 11
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:garden_eel",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "biomes": [
-                "minecraft:lush_caves",
-                "minecraft:cherry_grove",
                 "minecraft:sunflower_plains",
-                "minecraft:flower_forest"
+                "minecraft:lush_caves",
+                "minecraft:flower_forest",
+                "minecraft:cherry_grove"
               ],
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:garden_eel"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:garden_eel",
+          "quality": 1,
+          "weight": 11
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:sunflower_plains",
+                "minecraft:lush_caves",
+                "minecraft:flower_forest",
+                "minecraft:cherry_grove"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:royal_garden_eel",
+          "quality": 2,
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 80.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:longnose_gar",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
@@ -70,28 +285,108 @@
             {
               "biomes": [
                 "minecraft:frozen_river",
-                "minecraft:taiga",
                 "minecraft:snowy_taiga",
+                "minecraft:taiga",
                 "minecraft:ice_spikes"
               ],
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:longnose_gar"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 80.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:longnose_gar",
+          "quality": 1,
+          "weight": 11
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:shrimp",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "biomes": [
-                "minecraft:swamp",
                 "minecraft:mangrove_swamp",
+                "minecraft:swamp",
                 "minecraft:grove"
               ],
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:shrimp"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:shrimp",
+          "quality": 1,
+          "weight": 11
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:mangrove_swamp",
+                "potionsplus:arid_cave",
+                "minecraft:mushroom_fields"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:fried_shrimp",
+          "quality": 2,
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 50.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:moorish_idol",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
@@ -99,15 +394,27 @@
             {
               "biomes": [
                 "minecraft:plains",
-                "minecraft:bamboo_jungle",
-                "minecraft:jungle",
                 "minecraft:sparse_jungle",
-                "minecraft:birch_forest"
+                "minecraft:birch_forest",
+                "minecraft:jungle",
+                "minecraft:bamboo_jungle"
               ],
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:moorish_idol"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 50.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:moorish_idol",
+          "quality": 1,
+          "weight": 11
         },
         {
           "type": "minecraft:item",
@@ -119,7 +426,34 @@
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:molten_moorish_idol"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 50.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:molten_moorish_idol",
+          "quality": 2,
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 80.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:ocean_sunfish",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
@@ -129,50 +463,158 @@
               "condition": "potionsplus:is_in_biome_tag"
             }
           ],
-          "name": "potionsplus:ocean_sunfish"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 80.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:ocean_sunfish",
+          "quality": 1,
+          "weight": 11
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 80.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:portuguese_man_o_war",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "biomes": [
+                "minecraft:jagged_peaks",
                 "minecraft:warm_ocean",
-                "minecraft:stony_peaks",
-                "minecraft:jagged_peaks"
+                "minecraft:stony_peaks"
               ],
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:portuguese_man_o_war"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 80.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:portuguese_man_o_war",
+          "quality": 1,
+          "weight": 11
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 50.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:bluegill",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "biomes": [
-                "minecraft:lush_caves",
                 "minecraft:snowy_plains",
+                "minecraft:lush_caves",
                 "minecraft:flower_forest",
                 "minecraft:snowy_beach"
               ],
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:bluegill"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 50.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:bluegill",
+          "quality": 1,
+          "weight": 11
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:neon_tetra",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "biomes": [
-                "minecraft:flower_forest",
                 "minecraft:badlands",
-                "minecraft:snowy_slopes"
+                "minecraft:snowy_slopes",
+                "minecraft:flower_forest"
               ],
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:neon_tetra"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:neon_tetra",
+          "quality": 1,
+          "weight": 11
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 80.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:giant_manta_ray",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
@@ -186,37 +628,88 @@
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:giant_manta_ray"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 80.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:giant_manta_ray",
+          "quality": 1,
+          "weight": 11
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "biomes": [
-                "potionsplus:ice_cave",
                 "minecraft:frozen_peaks",
-                "minecraft:frozen_river"
+                "minecraft:frozen_river",
+                "potionsplus:ice_cave"
               ],
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:frozen_giant_manta_ray"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 80.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:frozen_giant_manta_ray",
+          "quality": 2,
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 50.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:lizardfish",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "biomes": [
-                "minecraft:lush_caves",
                 "minecraft:forest",
                 "minecraft:mushroom_fields",
+                "minecraft:dark_forest",
                 "minecraft:sunflower_plains",
-                "minecraft:dark_forest"
+                "minecraft:lush_caves"
               ],
               "condition": "potionsplus:is_in_biome"
             }
           ],
-          "name": "potionsplus:lizardfish"
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 50.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:lizardfish",
+          "quality": 1,
+          "weight": 11
         }
       ],
       "rolls": 1.0

@@ -1,6 +1,6 @@
 package grill24.potionsplus.mixin;
 
-import grill24.potionsplus.utility.ServerPlayerHeldItemChangedEvent;
+import grill24.potionsplus.event.ServerPlayerHeldItemChangedEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

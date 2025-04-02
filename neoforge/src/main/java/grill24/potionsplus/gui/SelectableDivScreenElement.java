@@ -42,18 +42,18 @@ public class SelectableDivScreenElement extends DivScreenElement<RenderableScree
         float scale = 1;
         if (this.selected) {
             scale = selectedFrameAnimationProgress * getChild().getCurrentScale();
-            itemStack = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.GOLD_FISHING_FRAME_TEX_LOC);
+            itemStack = Items.GENERIC_ICON.getItemStackForTexture(Items.GOLD_FISHING_FRAME_TEX_LOC);
         } else if(selectedFrameAnimationProgress < 1) {
             scale = Math.max(0, (1 - selectedFrameAnimationProgress) * getChild().getCurrentScale());
-            itemStack = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.GOLD_FISHING_FRAME_TEX_LOC);
+            itemStack = Items.GENERIC_ICON.getItemStackForTexture(Items.GOLD_FISHING_FRAME_TEX_LOC);
         } else if(this.isHovering()){
             float hoverFrameAnimationProgress = SpatialAnimations.get(SpatialAnimations.SCALE_IN_BACK).getScale().evaluate((ClientTickHandler.total() - this.mouseEnteredTimestamp) / 10F);
             scale = hoverFrameAnimationProgress * getChild().getCurrentScale();
-            itemStack = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.GOLD_SELECTION_FRAME_TEX_LOC);
+            itemStack = Items.GENERIC_ICON.getItemStackForTexture(Items.GOLD_SELECTION_FRAME_TEX_LOC);
         } else if(!this.isHovering()) {
             float hoverFrameAnimationProgress = SpatialAnimations.get(SpatialAnimations.SCALE_IN_BACK).getScale().evaluate((ClientTickHandler.total() - this.mouseExitedTimestamp) / 10F);
             scale = Math.max(0, (1 - hoverFrameAnimationProgress) * getChild().getCurrentScale());
-            itemStack = Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.GOLD_SELECTION_FRAME_TEX_LOC);
+            itemStack = Items.GENERIC_ICON.getItemStackForTexture(Items.GOLD_SELECTION_FRAME_TEX_LOC);
         }
         graphicsExtension.potions_plus$renderItem(itemStack, new Vector3f(), x, y, -100, scale, Anchor.DEFAULT);
     }

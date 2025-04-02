@@ -19,7 +19,7 @@ import java.util.TreeMap;
 
 public class Mining {
     public static Holder.@NotNull Reference<ConfiguredSkill<?, ?>> generate(BootstrapContext<ConfiguredSkill<?, ?>> context, HolderGetter<ConfiguredSkillPointSource<?, ?>> sourceLookup, List<Milestone> allOreHats, HolderGetter<ConfiguredGrantableReward<?, ?>> rewardLookup) {
-        return context.register(ConfiguredSkills.MINING_CONFIGURED_KEY, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration(
+        return context.register(ConfiguredSkills.MINING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration(
                 Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING,
                 new TreeMap<>(Map.of(
                         0, new ItemStack(Items.COAL_ORE),

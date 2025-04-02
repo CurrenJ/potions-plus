@@ -163,8 +163,6 @@ public class LocalFishingGame {
             if (ClientTickHandler.ticksInGame >= this.nextFishMovementTimestamp) {
                 randomizeFishPosition();
             }
-
-            PotionsPlus.LOGGER.info("Capture progress: " + this.captureProgress);
         }
     }
 

@@ -291,8 +291,6 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         this.hiddenTimestamp = -1;
     }
 
-    protected void onShow() {}
-
     @Override
     public void hide(boolean playHideAnimation) {
         // Hide the element

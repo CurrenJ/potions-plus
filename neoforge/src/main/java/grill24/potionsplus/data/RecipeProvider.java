@@ -540,5 +540,12 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .group("filter_hopper_upgrade_allow_edible_rewards")
                 .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
                 .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_edible_rewards"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.FISHING_LEADERBOARDS.value())
+                .requires(net.minecraft.world.item.Items.BOOK)
+                .requires(ItemTags.FISHES)
+                .group("fishing_leaderboards")
+                .unlockedBy("has_book", has(net.minecraft.world.item.Items.BOOK))
+                .save(recipeConsumer, ppId("fishing_leaderboards"));
     }
 }

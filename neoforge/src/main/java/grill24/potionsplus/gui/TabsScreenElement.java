@@ -24,12 +24,13 @@ public class TabsScreenElement<E extends RenderableScreenElement> extends Vertic
             return new TabData(screen, icon, new VerticalListScreenElement<>(screen, Settings.DEFAULT, XAlignment.CENTER, content));
         }
 
-        public static TabData verticalListTab(Screen screen, ItemStack itemStack, float iconHoverScale, RenderableScreenElement... content) {
-            return new TabData(screen, new HoverItemStackScreenElement(screen, null, Settings.DEFAULT, itemStack, 1F, iconHoverScale), new VerticalListScreenElement<>(screen, Settings.DEFAULT, XAlignment.CENTER, content));
+        public static TabData verticalListTab(Screen screen, ItemStack itemStack, float defaultScale, float iconHoverScale, RenderableScreenElement... content) {
+            return new TabData(screen, new HoverItemStackScreenElement(screen, null, Settings.DEFAULT, itemStack, defaultScale, iconHoverScale), new VerticalListScreenElement<>(screen, Settings.DEFAULT, XAlignment.CENTER, content));
         }
     }
 
     private HorizontalListScreenElement<RenderableScreenElement> tabIcons;
+    private TabData[] tabs;
     private TabData selectedTab;
     private TabData lastSelectedTab;
 
@@ -39,6 +40,7 @@ public class TabsScreenElement<E extends RenderableScreenElement> extends Vertic
         this.tabIcons = new HorizontalListScreenElement<>(screen, settings, YAlignment.CENTER);
         this.selectedTab = null;
         this.lastSelectedTab = null;
+        this.tabs = tabs;
 
         initializeElements(tabs);
     }
@@ -82,6 +84,18 @@ public class TabsScreenElement<E extends RenderableScreenElement> extends Vertic
             } else {
                 this.selectedTab.icon.setSelected(true);
                 this.selectedTab.content.show();
+            }
+        }
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        for (TabData tab : tabs) {
+            if (tab != this.selectedTab) {
+                tab.content.hide(false);
+            } else {
+                tab.content.show();
             }
         }
     }

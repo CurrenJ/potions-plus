@@ -30,7 +30,6 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -180,11 +179,13 @@ public class PlayerListeners {
         if (event.getEntity() instanceof ServerPlayer player) {
             SkillsData skillsData = SkillsData.getPlayerData(player);
 
-            // Sync known brewing cauldron recipe, sync paired abyssal trove, and sync player skill data
+            // Sync known brewing cauldron recipe, sync paired abyssal trove, sync player skill data, and sync fishing leaderboard data.
+            // TOOD: Sync whole saved data on join?
             PacketDistributor.sendToPlayer(player,
                     ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()),
                     new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()),
-                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player))
+                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)),
+                    ClientboundSyncFishingLeaderboardsPacket.create() // Sync Fishing Leaderboard Data
             );
 
             // Trigger an update for all abilities

@@ -1,9 +1,6 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.skill.source.BreakBlockSource;
-import grill24.potionsplus.skill.source.IncrementStatSource;
-import grill24.potionsplus.skill.source.KillEntitySource;
-import grill24.potionsplus.skill.source.SkillPointSource;
+import grill24.potionsplus.skill.source.*;
 import grill24.potionsplus.utility.ModInfo;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -15,6 +12,7 @@ public class SkillPointSources {
 
     public static final DeferredHolder<SkillPointSource<?, ?>, BreakBlockSource> BREAK_BLOCK = register("break_block", BreakBlockSource::new);
     public static final DeferredHolder<SkillPointSource<?, ?>, IncrementStatSource> INCREMENT_STAT = register("increment_stat", IncrementStatSource::new);
+    public static final DeferredHolder<SkillPointSource<?, ?>, CatchFishSource> CATCH_FISH = register("catch_fish", CatchFishSource::new);
     public static final DeferredHolder<SkillPointSource<?, ?>, KillEntitySource> KILL_ENTITY = register("kill_entity", KillEntitySource::new);
 
     private static <S extends SkillPointSource<?, ?>> DeferredHolder<SkillPointSource<?, ?>, S> register(String name, Supplier<S> supplier) {

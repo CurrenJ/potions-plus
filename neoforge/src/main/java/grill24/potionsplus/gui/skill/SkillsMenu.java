@@ -16,11 +16,6 @@ public class SkillsMenu extends AbstractContainerMenu {
         access = null;
     }
 
-    public SkillsMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access) {
-        super(MenuTypes.SKILLS.get(), containerId);
-        this.access = access;
-    }
-
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
         return null;

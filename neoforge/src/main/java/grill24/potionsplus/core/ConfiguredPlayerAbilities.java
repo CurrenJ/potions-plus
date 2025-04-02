@@ -21,7 +21,7 @@ public class ConfiguredPlayerAbilities {
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> PICKAXE_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("pickaxe_efficiency_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_EFFICIENCY)
-            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
+            .parentSkill(ConfiguredSkills.MINING)
             .ability(PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get())
             .itemPredicate(pickaxePredicate)
             .attribute(Attributes.MINING_EFFICIENCY)
@@ -30,7 +30,7 @@ public class ConfiguredPlayerAbilities {
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SUBMERGED_PICKAXE_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("submerged_pickaxe_efficiency_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SUBMERGED_PICKAXE_EFFICIENCY)
-            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
+            .parentSkill(ConfiguredSkills.MINING)
             .ability(PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get())
             .itemPredicate(pickaxePredicate)
             .attribute(Attributes.SUBMERGED_MINING_SPEED)
@@ -39,7 +39,7 @@ public class ConfiguredPlayerAbilities {
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> PICKAXE_FORTUNE_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("pickaxe_fortune_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_FORTUNE)
-            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
+            .parentSkill(ConfiguredSkills.MINING)
             .ability(PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get())
             .itemPredicate(pickaxePredicate)
             .attribute(grill24.potionsplus.core.Attributes.FORTUNE_BONUS)
@@ -48,7 +48,7 @@ public class ConfiguredPlayerAbilities {
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> PICKAXE_UNBREAKING_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("pickaxe_unbreaking_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_UNBREAKING)
-            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
+            .parentSkill(ConfiguredSkills.MINING)
             .ability(PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD.get())
             .itemPredicate(pickaxePredicate)
             .attribute(grill24.potionsplus.core.Attributes.UNBREAKING_BONUS)
@@ -56,33 +56,63 @@ public class ConfiguredPlayerAbilities {
             .enabledByDefault(true));
     public static final SimplePlayerAbility.Builder COPPER_ORE_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("copper_ore_additional_loot")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_COPPER_ORE_ADDITIONAL_LOOT_IRON_NUGGETS)
-            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY));
+            .parentSkill(ConfiguredSkills.MINING));
     public static final SimplePlayerAbility.Builder IRON_ORE_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("iron_ore_additional_loot")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_IRON_ORE_ADDITIONAL_LOOT_GOLD_NUGGETS)
-            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY));
+            .parentSkill(ConfiguredSkills.MINING));
     public static final SimplePlayerAbility.Builder DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS = register(() -> new SimplePlayerAbility.Builder("diamond_ore_additional_loot_emeralds")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS)
-            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY));
+            .parentSkill(ConfiguredSkills.MINING));
     public static final SimplePlayerAbility.Builder DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS = register(() -> new SimplePlayerAbility.Builder("diamond_ore_additional_loot_lapis")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS)
-            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY));
+            .parentSkill(ConfiguredSkills.MINING));
 
     private static final ItemPredicate axePredicate = ItemPredicate.Builder.item().of(ItemTags.AXES).build();
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("axe_efficiency_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_EFFICIENCY)
-            .parentSkill(ConfiguredSkills.WOODCUTTING_CONFIGURED_KEY)
+            .parentSkill(ConfiguredSkills.WOODCUTTING)
             .ability(PlayerAbilities.MODIFIERS_WHILE_AXE_HELD.get())
             .itemPredicate(axePredicate)
             .attribute(Attributes.MINING_EFFICIENCY)
             .operation(AttributeModifier.Operation.ADD_VALUE)
             .enabledByDefault(true));
 
+    private static final ItemPredicate fishingRodPredicate = ItemPredicate.Builder.item().of(Tags.Items.TOOLS_FISHING_ROD).build();
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> FISHING_ROD_LUCK_OF_THE_SEA_MODIFIER = register(() ->
+            new PermanentAttributeModifiersAbility.Builder<>("fishing_rod_luck_of_the_sea_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_FISHING_ROD_LUCK_OF_THE_SEA)
+            .parentSkill(ConfiguredSkills.FISHING)
+            .ability(PlayerAbilities.MODIFIERS_WHILE_FISHING_ROD_HELD.get())
+            .itemPredicate(fishingRodPredicate)
+            .attribute(grill24.potionsplus.core.Attributes.LUCK_OF_THE_SEA_BONUS)
+            .operation(AttributeModifier.Operation.ADD_VALUE)
+            .enabledByDefault(true));
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> FISHING_ROD_LURE_MODIFIER = register(() ->
+            new PermanentAttributeModifiersAbility.Builder<>("fishing_rod_lure_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_FISHING_ROD_LURE)
+            .parentSkill(ConfiguredSkills.FISHING)
+            .ability(PlayerAbilities.MODIFIERS_WHILE_FISHING_ROD_HELD.get())
+            .itemPredicate(fishingRodPredicate)
+            .attribute(grill24.potionsplus.core.Attributes.LURE)
+            .operation(AttributeModifier.Operation.ADD_VALUE)
+            .enabledByDefault(true));
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> FISHING_ROD_UNBREAKING_MODIFIER = register(() ->
+            new PermanentAttributeModifiersAbility.Builder<>("fishing_rod_unbreaking_modifier")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_FISHING_ROD_UNBREAKING)
+            .parentSkill(ConfiguredSkills.FISHING)
+            .ability(PlayerAbilities.MODIFIERS_WHILE_FISHING_ROD_HELD.get())
+            .itemPredicate(fishingRodPredicate)
+            .attribute(grill24.potionsplus.core.Attributes.UNBREAKING_BONUS)
+            .operation(AttributeModifier.Operation.ADD_VALUE)
+            .enabledByDefault(true));
+
+
     private static final ItemPredicate shovelPredicate = ItemPredicate.Builder.item().of(ItemTags.SHOVELS).build();
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SHOVEL_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("shovel_efficiency_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SHOVEL_EFFICIENCY)
-            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
+            .parentSkill(ConfiguredSkills.MINING)
             .ability(PlayerAbilities.MODIFIERS_WHILE_SHOVEL_HELD.get())
             .itemPredicate(shovelPredicate)
             .attribute(Attributes.MINING_EFFICIENCY)
@@ -93,7 +123,7 @@ public class ConfiguredPlayerAbilities {
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("hoe_efficiency_modifier")
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_EFFICIENCY)
-            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY)
+            .parentSkill(ConfiguredSkills.MINING)
             .ability(PlayerAbilities.MODIFIERS_WHILE_HOE_HELD.get())
             .itemPredicate(hoePredicate)
             .attribute(Attributes.MINING_EFFICIENCY)
@@ -302,13 +332,13 @@ public class ConfiguredPlayerAbilities {
             .ability(PlayerAbilities.LAST_BREATH.value())
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_LAST_BREATH)
             .longTranslationKey(Translations.DESCRIPTION_LONG_POTIONSPLUS_ABILITY_LAST_BREATH)
-            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY));
+            .parentSkill(ConfiguredSkills.MINING));
 
     public static final CooldownTriggerableAbility.Builder<HotPotatoAbility> HOT_POTATO = register(() -> new CooldownTriggerableAbility.Builder<HotPotatoAbility>("hot_potato")
             .ability(PlayerAbilities.HOT_POTATO.value())
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOT_POTATO)
             .longTranslationKey(Translations.DESCRIPTION_LONG_POTIONSPLUS_ABILITY_HOT_POTATO)
-            .parentSkill(ConfiguredSkills.MINING_CONFIGURED_KEY));
+            .parentSkill(ConfiguredSkills.MINING));
 
     // Data Gen
     public static void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {

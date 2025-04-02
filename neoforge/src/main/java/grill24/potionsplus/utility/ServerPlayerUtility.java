@@ -1,5 +1,6 @@
 package grill24.potionsplus.utility;
 
+import grill24.potionsplus.event.ServerPlayerHeldItemChangedEvent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;

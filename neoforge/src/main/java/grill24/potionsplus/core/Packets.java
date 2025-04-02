@@ -190,5 +190,12 @@ public class Packets {
                 ClientboundTriggerStunShotPacket.STREAM_CODEC,
                 ClientboundTriggerStunShotPacket.ClientPayloadHandler::handleDataOnMain
         );
+
+        // Sync Fishing Leaderboards Data
+        registrar.playToClient(
+                ClientboundSyncFishingLeaderboardsPacket.TYPE,
+                ClientboundSyncFishingLeaderboardsPacket.STREAM_CODEC,
+                ClientboundSyncFishingLeaderboardsPacket.ClientPayloadHandler::handleDataOnMain
+        );
     }
 }

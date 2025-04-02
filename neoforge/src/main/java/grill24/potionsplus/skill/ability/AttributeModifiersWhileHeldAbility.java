@@ -7,7 +7,7 @@ import grill24.potionsplus.item.PlayerLockedItemModifiersDataComponent;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
-import grill24.potionsplus.utility.ServerPlayerHeldItemChangedEvent;
+import grill24.potionsplus.event.ServerPlayerHeldItemChangedEvent;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
@@ -122,7 +122,8 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
             PlayerAbilities.MODIFIERS_WHILE_BOW_HELD,
             PlayerAbilities.MODIFIERS_WHILE_CROSSBOW_HELD,
             PlayerAbilities.MODIFIERS_WHILE_TRIDENT_HELD,
-            PlayerAbilities.MODIFIERS_WHILE_SHIELD_HELD
+            PlayerAbilities.MODIFIERS_WHILE_SHIELD_HELD,
+            PlayerAbilities.MODIFIERS_WHILE_FISHING_ROD_HELD
         );
     }
 

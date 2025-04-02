@@ -1,9 +1,8 @@
 {
   "values": [
-    "potionsplus:northern_pike",
-    "potionsplus:rainfordia",
-    "potionsplus:longnose_gar",
-    "potionsplus:bluegill",
-    "potionsplus:neon_tetra"
+    "minecraft:cod",
+    "minecraft:salmon",
+    "minecraft:tropical_fish",
+    "minecraft:pufferfish"
   ]
 }

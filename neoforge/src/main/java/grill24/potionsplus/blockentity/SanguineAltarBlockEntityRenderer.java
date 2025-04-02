@@ -84,9 +84,9 @@ public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<San
     }
 
     private static final ItemStack[] RUNES = new ItemStack[] {
-            Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.SGA_A_TEX_LOC),
-            Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.SGA_B_TEX_LOC),
-            Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.SGA_C_TEX_LOC),
-            Items.GENERIC_ICON_RESOURCE_LOCATIONS.getItemStackForTexture(Items.GENERIC_ICON.value(), Items.SGA_D_TEX_LOC)
+            Items.GENERIC_ICON.getItemStackForTexture(Items.SGA_A_TEX_LOC),
+            Items.GENERIC_ICON.getItemStackForTexture(Items.SGA_B_TEX_LOC),
+            Items.GENERIC_ICON.getItemStackForTexture(Items.SGA_C_TEX_LOC),
+            Items.GENERIC_ICON.getItemStackForTexture(Items.SGA_D_TEX_LOC)
     };
 }

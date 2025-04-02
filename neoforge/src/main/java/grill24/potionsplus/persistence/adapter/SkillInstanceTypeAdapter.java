@@ -32,7 +32,7 @@ public class SkillInstanceTypeAdapter extends TypeAdapter<SkillInstance<?, ?>> {
 
         skillInstance = JsonParser.parseString(in.nextString());
         if (skillInstance == null)
-            throw new IOException("Invalid BrewingCauldronRecipe JSON");
+            throw new IOException("Invalid SkillInstance JSON");
 
         return SkillInstance.CODEC.decode(JsonOps.INSTANCE, skillInstance)
                 .result().map(Pair::getFirst)

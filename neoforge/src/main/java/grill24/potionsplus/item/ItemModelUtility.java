@@ -1,5 +1,6 @@
 package grill24.potionsplus.item;
 
+import grill24.potionsplus.item.builder.IItemModelGenerator;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -17,21 +18,18 @@ public class ItemModelUtility {
     public static class SimpleItemModelGenerator implements IItemModelGenerator {
         @Nullable
         private final ResourceLocation textureLocation;
-        private final Holder<Item> itemGetter;
 
-        public SimpleItemModelGenerator(ResourceLocation textureLocation, Holder<Item> itemGetter) {
+        public SimpleItemModelGenerator(ResourceLocation textureLocation) {
             this.textureLocation = textureLocation;
-            this.itemGetter = itemGetter;
         }
 
-        public SimpleItemModelGenerator(Holder<Item> itemGetter) {
+        public SimpleItemModelGenerator() {
             this.textureLocation = null;
-            this.itemGetter = itemGetter;
         }
 
         @Override
-        public void generate(BlockStateProvider provider) {
-            ResourceLocation modelLocation = getModelLocation(itemGetter.value());
+        public void generate(BlockStateProvider provider, Holder<Item> item) {
+            ResourceLocation modelLocation = getModelLocation(item.value());
             provider.itemModels().getBuilder(modelLocation.getPath())
                     .parent(provider.models().getExistingFile(mc("item/generated")))
                     .texture("layer0", textureLocation == null ? modelLocation : textureLocation);

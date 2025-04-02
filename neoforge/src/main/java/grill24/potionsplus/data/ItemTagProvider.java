@@ -120,46 +120,73 @@ public class ItemTagProvider extends ItemTagsProvider {
         );
 
         tag(Tags.Items.EDIBLE_REWARDS).add(
-                grill24.potionsplus.core.Items.SPARKLING_SQUASH.value(),
-                grill24.potionsplus.core.Items.BLUEB_BERRIES.value(),
-                grill24.potionsplus.core.Items.FORTIFYING_FUDGE.value(),
-                grill24.potionsplus.core.Items.GRASS_CLIPPINGS.value(),
-                grill24.potionsplus.core.Items.STONE_FRUIT.value(),
-                grill24.potionsplus.core.Items.CHOCOLATE_BOOK.value(),
-                grill24.potionsplus.core.Items.ROASTED_BAMBOO.value(),
-                grill24.potionsplus.core.Items.MOSSASHIMI.value(),
-                grill24.potionsplus.core.Items.PYRAMIDS_OF_SALT.value(),
-                grill24.potionsplus.core.Items.BASIC_LOOT.value(),
-                grill24.potionsplus.core.Items.INTERMEDIATE_LOOT.value(),
-                grill24.potionsplus.core.Items.ADVANCED_LOOT.value(),
-                grill24.potionsplus.core.Items.MASTER_LOOT.value(),
-                grill24.potionsplus.core.Items.WHEEL.value()
+                grill24.potionsplus.core.Items.SPARKLING_SQUASH.getItem(),
+                grill24.potionsplus.core.Items.BLUEB_BERRIES.getItem(),
+                grill24.potionsplus.core.Items.FORTIFYING_FUDGE.getItem(),
+                grill24.potionsplus.core.Items.GRASS_CLIPPINGS.getItem(),
+                grill24.potionsplus.core.Items.STONE_FRUIT.getItem(),
+                grill24.potionsplus.core.Items.CHOCOLATE_BOOK.getItem(),
+                grill24.potionsplus.core.Items.ROASTED_BAMBOO.getItem(),
+                grill24.potionsplus.core.Items.MOSSASHIMI.getItem(),
+                grill24.potionsplus.core.Items.PYRAMIDS_OF_SALT.getItem(),
+                grill24.potionsplus.core.Items.BASIC_LOOT.getItem(),
+                grill24.potionsplus.core.Items.INTERMEDIATE_LOOT.getItem(),
+                grill24.potionsplus.core.Items.ADVANCED_LOOT.getItem(),
+                grill24.potionsplus.core.Items.MASTER_LOOT.getItem(),
+                grill24.potionsplus.core.Items.WHEEL.getItem()
         );
 
         tag(ItemTags.FISHING_ENCHANTABLE).add(grill24.potionsplus.core.Items.COPPER_FISHING_ROD.value());
 
+        tag(Tags.Items.PP_FISH).add(
+                grill24.potionsplus.core.Items.NORTHERN_PIKE.getItem(),
+                grill24.potionsplus.core.Items.PARROTFISH.getItem(),
+                grill24.potionsplus.core.Items.RAINFORDIA.getItem(),
+                grill24.potionsplus.core.Items.GARDEN_EEL.getItem(),
+                grill24.potionsplus.core.Items.ROYAL_GARDEN_EEL.getItem(),
+                grill24.potionsplus.core.Items.LONGNOSE_GAR.getItem(),
+                grill24.potionsplus.core.Items.SHRIMP.getItem(),
+                grill24.potionsplus.core.Items.FRIED_SHRIMP.getItem(),
+                grill24.potionsplus.core.Items.MOORISH_IDOL.getItem(),
+                grill24.potionsplus.core.Items.MOLTEN_MOORISH_IDOL.getItem(),
+                grill24.potionsplus.core.Items.OCEAN_SUNFISH.getItem(),
+                grill24.potionsplus.core.Items.PORTUGUESE_MAN_O_WAR.getItem(),
+                grill24.potionsplus.core.Items.BLUEGILL.getItem(),
+                grill24.potionsplus.core.Items.NEON_TETRA.getItem(),
+                grill24.potionsplus.core.Items.GIANT_MANTA_RAY.getItem(),
+                grill24.potionsplus.core.Items.FROZEN_GIANT_MANTA_RAY.getItem(),
+                grill24.potionsplus.core.Items.LIZARDFISH.getItem()
+        );
+        tag(ItemTags.FISHES).addTag(Tags.Items.PP_FISH);
+
         tag(Tags.Items.PP_FISHING_COPPER_FRAME).add(
-                grill24.potionsplus.core.Items.NORTHERN_PIKE.value(),
-                grill24.potionsplus.core.Items.RAINFORDIA.value(),
-                grill24.potionsplus.core.Items.LONGNOSE_GAR.value(),
-                grill24.potionsplus.core.Items.BLUEGILL.value(),
-                grill24.potionsplus.core.Items.NEON_TETRA.value()
+                Items.COD,
+                Items.SALMON,
+                Items.TROPICAL_FISH,
+                Items.PUFFERFISH
         );
         tag(Tags.Items.PP_FISHING_GOLD_FRAME).add(
-                grill24.potionsplus.core.Items.PARROTFISH.value(),
-                grill24.potionsplus.core.Items.SHRIMP.value(),
-                grill24.potionsplus.core.Items.OCEAN_SUNFISH.value(),
-                grill24.potionsplus.core.Items.LIZARDFISH.value()
+                grill24.potionsplus.core.Items.PARROTFISH.getItem(),
+                grill24.potionsplus.core.Items.SHRIMP.getItem(),
+                grill24.potionsplus.core.Items.OCEAN_SUNFISH.getItem(),
+                grill24.potionsplus.core.Items.NORTHERN_PIKE.getItem(),
+                grill24.potionsplus.core.Items.RAINFORDIA.getItem(),
+                grill24.potionsplus.core.Items.LONGNOSE_GAR.getItem(),
+                grill24.potionsplus.core.Items.BLUEGILL.getItem(),
+                grill24.potionsplus.core.Items.NEON_TETRA.getItem()
         );
         tag(Tags.Items.PP_FISHING_DIAMOND_FRAME).add(
-                grill24.potionsplus.core.Items.GARDEN_EEL.value(),
-                grill24.potionsplus.core.Items.GIANT_MANTA_RAY.value(),
-                grill24.potionsplus.core.Items.MOORISH_IDOL.value(),
-                grill24.potionsplus.core.Items.PORTUGUESE_MAN_O_WAR.value()
+                grill24.potionsplus.core.Items.GARDEN_EEL.getItem(),
+                grill24.potionsplus.core.Items.GIANT_MANTA_RAY.getItem(),
+                grill24.potionsplus.core.Items.MOORISH_IDOL.getItem(),
+                grill24.potionsplus.core.Items.PORTUGUESE_MAN_O_WAR.getItem(),
+                grill24.potionsplus.core.Items.LIZARDFISH.getItem()
         );
         tag(Tags.Items.PP_FISHING_PURPLE_FRAME).add(
-                grill24.potionsplus.core.Items.MOLTEN_MOORISH_IDOL.value(),
-                grill24.potionsplus.core.Items.FROZEN_GIANT_MANTA_RAY.value()
+                grill24.potionsplus.core.Items.MOLTEN_MOORISH_IDOL.getItem(),
+                grill24.potionsplus.core.Items.FROZEN_GIANT_MANTA_RAY.getItem(),
+                grill24.potionsplus.core.Items.ROYAL_GARDEN_EEL.getItem(),
+                grill24.potionsplus.core.Items.FRIED_SHRIMP.getItem()
         );
     }
 

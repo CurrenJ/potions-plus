@@ -1,4 +1,4 @@
-package grill24.potionsplus.utility;
+package grill24.potionsplus.event;
 
 import grill24.potionsplus.core.PotionsPlus;
 import net.minecraft.server.MinecraftServer;
