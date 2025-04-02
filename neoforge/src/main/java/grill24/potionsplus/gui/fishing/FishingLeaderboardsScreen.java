@@ -1,10 +1,7 @@
 package grill24.potionsplus.gui.fishing;
 
 import grill24.potionsplus.core.Items;
-import grill24.potionsplus.gui.FullScreenDivScreenElement;
-import grill24.potionsplus.gui.PotionsPlusScreen;
-import grill24.potionsplus.gui.RenderableScreenElement;
-import grill24.potionsplus.gui.TabsScreenElement;
+import grill24.potionsplus.gui.*;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -37,7 +34,10 @@ public class FishingLeaderboardsScreen extends PotionsPlusScreen<FishingLeaderbo
                 TabsScreenElement.TabData.verticalListTab(this, Items.GENERIC_ICON.getItemStackForTexture(Items.GLOBAL_TEX_LOC), 1F, 1.25F, globalMetricTabsRenderer),
                 TabsScreenElement.TabData.verticalListTab(this, Utility.getPlayerHead(minecraft.player), 1F, 1.25F, personalMetricTabsRenderer));
 
-        this.root = new FullScreenDivScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.CENTER, scopeTabsRenderer);
+        VerticalScrollListScreenElement<RenderableScreenElement> all = new VerticalScrollListScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.XAlignment.CENTER, scopeTabsRenderer);
+        all.setAllowClicksOutsideBounds(true);
+
+        this.root = new FullScreenDivScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.CENTER, all);
     }
 
     private TabsScreenElement<RenderableScreenElement> createMetricTabs(Screen screen, FishingLeaderboardsMenu menu, FishingLeaderboardScreenElement.Type type) {

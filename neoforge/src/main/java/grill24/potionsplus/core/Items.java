@@ -9,6 +9,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.biome.Biomes;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
@@ -85,23 +86,73 @@ public class Items {
 
     public static final Holder<Item> COPPER_FISHING_ROD = ITEMS.register("copper_fishing_rod", () -> new FishingRodItem(properties().durability(80)));
 
-    public static final FishItemBuilder NORTHERN_PIKE = register(FishItemBuilder.create("northern_pike"));
-    public static final FishItemBuilder PARROTFISH = register(FishItemBuilder.create("parrotfish"));
-    public static final FishItemBuilder RAINFORDIA = register(FishItemBuilder.create("rainfordia"));
-    public static final FishItemBuilder GARDEN_EEL = register(FishItemBuilder.create("garden_eel"));
-    public static final FishItemBuilder ROYAL_GARDEN_EEL = register(FishItemBuilder.create("royal_garden_eel", true));
-    public static final FishItemBuilder LONGNOSE_GAR = register(FishItemBuilder.create("longnose_gar"));
-    public static final FishItemBuilder SHRIMP = register(FishItemBuilder.create("shrimp"));
-    public static final FishItemBuilder FRIED_SHRIMP = register(FishItemBuilder.create("fried_shrimp", true));
-    public static final FishItemBuilder MOORISH_IDOL = register(FishItemBuilder.create("moorish_idol"));
-    public static final FishItemBuilder MOLTEN_MOORISH_IDOL = register(FishItemBuilder.create("molten_moorish_idol", true));
-    public static final FishItemBuilder OCEAN_SUNFISH = register(FishItemBuilder.create("ocean_sunfish"));
-    public static final FishItemBuilder PORTUGUESE_MAN_O_WAR = register(FishItemBuilder.create("portuguese_man_o_war"));
-    public static final FishItemBuilder BLUEGILL = register(FishItemBuilder.create("bluegill"));
-    public static final FishItemBuilder NEON_TETRA = register(FishItemBuilder.create("neon_tetra"));
-    public static final FishItemBuilder GIANT_MANTA_RAY = register(FishItemBuilder.create("giant_manta_ray"));
-    public static final FishItemBuilder FROZEN_GIANT_MANTA_RAY = register(FishItemBuilder.create("frozen_giant_manta_ray", true));
-    public static final FishItemBuilder LIZARDFISH = register(FishItemBuilder.create("lizardfish"));
+    public static final FishItemBuilder NORTHERN_PIKE = register(FishItemBuilder.create("northern_pike")
+            .sizeProvider(FishItemBuilder.LARGE_SIZE)
+            .biomes(Biomes.BEACH, Biomes.FOREST, Biomes.PLAINS, Biomes.SNOWY_PLAINS));
+    public static final FishItemBuilder PARROTFISH = register(FishItemBuilder.create("parrotfish")
+            .sizeProvider(FishItemBuilder.SMALL_SIZE)
+            .biomes(Biomes.DESERT, Biomes.WINDSWEPT_SAVANNA, Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.LUSH_CAVES));
+    public static final FishItemBuilder RAINFORDIA = register(FishItemBuilder.create("rainfordia")
+        .sizeProvider(FishItemBuilder.SMALL_SIZE)
+            .biomes(Biomes.SAVANNA, Biomes.BAMBOO_JUNGLE, Biomes.PLAINS));
+    public static final FishItemBuilder GARDEN_EEL = register(FishItemBuilder.create("garden_eel")
+            .sizeProvider(FishItemBuilder.SMALL_SIZE)
+            .biomes(Biomes.FLOWER_FOREST, Biomes.SUNFLOWER_PLAINS, Biomes.CHERRY_GROVE, Biomes.LUSH_CAVES));
+    public static final FishItemBuilder ROYAL_GARDEN_EEL = register(FishItemBuilder.create("royal_garden_eel", true)
+            .sizeProvider(FishItemBuilder.SMALL_SIZE)
+            .biomes(Biomes.FLOWER_FOREST, Biomes.SUNFLOWER_PLAINS, Biomes.CHERRY_GROVE, Biomes.LUSH_CAVES)
+            .canBeCaughtOutsideBiome(false)
+            .baseFishWeight(5)
+            .biomeBonusWeight(0)
+            .quality(2));
+    public static final FishItemBuilder LONGNOSE_GAR = register(FishItemBuilder.create("longnose_gar")
+            .sizeProvider(FishItemBuilder.LARGE_SIZE)
+            .biomes(Biomes.TAIGA, Biomes.ICE_SPIKES, Biomes.SNOWY_TAIGA, Biomes.FROZEN_RIVER));
+    public static final FishItemBuilder SHRIMP = register(FishItemBuilder.create("shrimp")
+            .sizeProvider(FishItemBuilder.SMALL_SIZE)
+            .biomes(Biomes.MANGROVE_SWAMP, Biomes.SWAMP, Biomes.GROVE));
+    public static final FishItemBuilder FRIED_SHRIMP = register(FishItemBuilder.create("fried_shrimp", true)
+            .sizeProvider(FishItemBuilder.SMALL_SIZE)
+            .biomes(Biomes.MUSHROOM_FIELDS, grill24.potionsplus.core.Biomes.ARID_CAVE_KEY, Biomes.MANGROVE_SWAMP)
+            .canBeCaughtOutsideBiome(false)
+            .baseFishWeight(5)
+            .biomeBonusWeight(0)
+            .quality(2));
+    public static final FishItemBuilder MOORISH_IDOL = register(FishItemBuilder.create("moorish_idol")
+            .sizeProvider(FishItemBuilder.MEDIUM_SIZE)
+            .biomes(Biomes.JUNGLE, Biomes.BAMBOO_JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BIRCH_FOREST, Biomes.PLAINS));
+    public static final FishItemBuilder MOLTEN_MOORISH_IDOL = register(FishItemBuilder.create("molten_moorish_idol", true)
+            .sizeProvider(FishItemBuilder.MEDIUM_SIZE)
+            .biomes(grill24.potionsplus.core.Biomes.VOLCANIC_CAVE_KEY)
+            .canBeCaughtOutsideBiome(false)
+            .baseFishWeight(5)
+            .biomeBonusWeight(0)
+            .quality(2));
+    public static final FishItemBuilder OCEAN_SUNFISH = register(FishItemBuilder.create("ocean_sunfish")
+            .sizeProvider(FishItemBuilder.LARGE_SIZE)
+            .biomes(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.WARM_OCEAN, Biomes.COLD_OCEAN, Biomes.FROZEN_OCEAN, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS));
+    public static final FishItemBuilder PORTUGUESE_MAN_O_WAR = register(FishItemBuilder.create("portuguese_man_o_war")
+            .sizeProvider(FishItemBuilder.LARGE_SIZE)
+            .biomes(Biomes.WARM_OCEAN, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS));
+    public static final FishItemBuilder BLUEGILL = register(FishItemBuilder.create("bluegill")
+            .sizeProvider(FishItemBuilder.MEDIUM_SIZE)
+            .biomes(Biomes.FLOWER_FOREST, Biomes.LUSH_CAVES, Biomes.SNOWY_PLAINS, Biomes.SNOWY_BEACH));
+    public static final FishItemBuilder NEON_TETRA = register(FishItemBuilder.create("neon_tetra")
+            .sizeProvider(FishItemBuilder.SMALL_SIZE)
+            .biomes(Biomes.FLOWER_FOREST, Biomes.SNOWY_SLOPES, Biomes.BADLANDS));
+    public static final FishItemBuilder GIANT_MANTA_RAY = register(FishItemBuilder.create("giant_manta_ray")
+            .sizeProvider(FishItemBuilder.LARGE_SIZE)
+            .biomes(Biomes.ERODED_BADLANDS, Biomes.WOODED_BADLANDS, Biomes.BIRCH_FOREST));
+    public static final FishItemBuilder FROZEN_GIANT_MANTA_RAY = register(FishItemBuilder.create("frozen_giant_manta_ray", true)
+            .sizeProvider(FishItemBuilder.LARGE_SIZE)
+            .biomes(grill24.potionsplus.core.Biomes.ICE_CAVE_KEY, Biomes.FROZEN_PEAKS, Biomes.FROZEN_RIVER)
+            .canBeCaughtOutsideBiome(false)
+            .baseFishWeight(5)
+            .biomeBonusWeight(0)
+            .quality(2));
+    public static final FishItemBuilder LIZARDFISH = register(FishItemBuilder.create("lizardfish")
+            .sizeProvider(FishItemBuilder.MEDIUM_SIZE)
+            .biomes(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.MUSHROOM_FIELDS, Biomes.LUSH_CAVES, Biomes.SUNFLOWER_PLAINS));
 
     public static final Holder<Item> UPGRADE_BASE = register(SimpleItemBuilder.create("upgrade_base").itemFactory(UpgradeBaseItem::new)).getHolder();
     public static final Holder<Item> FILTER_HOPPER_UPGRADE_BLACKLIST = register(SimpleItemBuilder.create("filter_hopper_upgrade_blacklist").itemFactory(UpgradeBaseItem::new)).getHolder();

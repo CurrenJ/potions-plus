@@ -158,6 +158,7 @@ public class ItemTagProvider extends ItemTagsProvider {
                 grill24.potionsplus.core.Items.LIZARDFISH.getItem()
         );
         tag(ItemTags.FISHES).addTag(Tags.Items.PP_FISH);
+        tag(net.neoforged.neoforge.common.Tags.Items.FOODS_RAW_FISH).addTag(Tags.Items.PP_FISH);
 
         tag(Tags.Items.PP_FISHING_COPPER_FRAME).add(
                 Items.COD,

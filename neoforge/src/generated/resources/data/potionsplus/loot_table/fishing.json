@@ -91,9 +91,9 @@
             {
               "biomes": [
                 "minecraft:beach",
-                "minecraft:snowy_plains",
                 "minecraft:forest",
-                "minecraft:plains"
+                "minecraft:plains",
+                "minecraft:snowy_plains"
               ],
               "condition": "potionsplus:is_in_biome"
             }
@@ -110,7 +110,7 @@
           ],
           "name": "potionsplus:northern_pike",
           "quality": 1,
-          "weight": 11
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -125,6 +125,49 @@
             }
           ],
           "name": "potionsplus:parrotfish",
+          "quality": 1
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:savanna_plateau",
+                "minecraft:savanna",
+                "minecraft:lush_caves",
+                "minecraft:windswept_savanna",
+                "minecraft:desert"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            }
+          ],
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:parrotfish",
+          "quality": 1,
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 30.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:rainfordia",
           "quality": 1
         },
         {
@@ -133,50 +176,8 @@
             {
               "biomes": [
                 "minecraft:savanna",
-                "minecraft:desert",
-                "minecraft:lush_caves",
-                "minecraft:windswept_savanna",
-                "minecraft:savanna_plateau"
-              ],
-              "condition": "potionsplus:is_in_biome"
-            }
-          ],
-          "functions": [
-            {
-              "function": "potionsplus:set_fish_size",
-              "size": {
-                "type": "potionsplus:gaussian_distribution",
-                "mean": 30.0,
-                "stdDev": 15.0
-              }
-            }
-          ],
-          "name": "potionsplus:parrotfish",
-          "weight": 11
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "potionsplus:set_fish_size",
-              "size": {
-                "type": "potionsplus:gaussian_distribution",
-                "mean": 30.0,
-                "stdDev": 15.0
-              }
-            }
-          ],
-          "name": "potionsplus:rainfordia",
-          "quality": 1
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "biomes": [
-                "minecraft:plains",
                 "minecraft:bamboo_jungle",
-                "minecraft:savanna"
+                "minecraft:plains"
               ],
               "condition": "potionsplus:is_in_biome"
             }
@@ -193,7 +194,7 @@
           ],
           "name": "potionsplus:rainfordia",
           "quality": 1,
-          "weight": 11
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -216,9 +217,9 @@
             {
               "biomes": [
                 "minecraft:sunflower_plains",
+                "minecraft:cherry_grove",
                 "minecraft:lush_caves",
-                "minecraft:flower_forest",
-                "minecraft:cherry_grove"
+                "minecraft:flower_forest"
               ],
               "condition": "potionsplus:is_in_biome"
             }
@@ -235,7 +236,7 @@
           ],
           "name": "potionsplus:garden_eel",
           "quality": 1,
-          "weight": 11
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -243,9 +244,9 @@
             {
               "biomes": [
                 "minecraft:sunflower_plains",
+                "minecraft:cherry_grove",
                 "minecraft:lush_caves",
-                "minecraft:flower_forest",
-                "minecraft:cherry_grove"
+                "minecraft:flower_forest"
               ],
               "condition": "potionsplus:is_in_biome"
             }
@@ -284,8 +285,8 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:frozen_river",
                 "minecraft:snowy_taiga",
+                "minecraft:frozen_river",
                 "minecraft:taiga",
                 "minecraft:ice_spikes"
               ],
@@ -304,7 +305,7 @@
           ],
           "name": "potionsplus:longnose_gar",
           "quality": 1,
-          "weight": 11
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -327,8 +328,8 @@
             {
               "biomes": [
                 "minecraft:mangrove_swamp",
-                "minecraft:swamp",
-                "minecraft:grove"
+                "minecraft:grove",
+                "minecraft:swamp"
               ],
               "condition": "potionsplus:is_in_biome"
             }
@@ -345,7 +346,7 @@
           ],
           "name": "potionsplus:shrimp",
           "quality": 1,
-          "weight": 11
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -353,8 +354,8 @@
             {
               "biomes": [
                 "minecraft:mangrove_swamp",
-                "potionsplus:arid_cave",
-                "minecraft:mushroom_fields"
+                "minecraft:mushroom_fields",
+                "potionsplus:arid_cave"
               ],
               "condition": "potionsplus:is_in_biome"
             }
@@ -394,9 +395,9 @@
             {
               "biomes": [
                 "minecraft:plains",
+                "minecraft:jungle",
                 "minecraft:sparse_jungle",
                 "minecraft:birch_forest",
-                "minecraft:jungle",
                 "minecraft:bamboo_jungle"
               ],
               "condition": "potionsplus:is_in_biome"
@@ -414,7 +415,7 @@
           ],
           "name": "potionsplus:moorish_idol",
           "quality": 1,
-          "weight": 11
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -459,8 +460,16 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "biomeTag": "minecraft:is_deep_ocean",
-              "condition": "potionsplus:is_in_biome_tag"
+              "biomes": [
+                "minecraft:ocean",
+                "minecraft:jagged_peaks",
+                "minecraft:frozen_ocean",
+                "minecraft:stony_peaks",
+                "minecraft:deep_ocean",
+                "minecraft:warm_ocean",
+                "minecraft:cold_ocean"
+              ],
+              "condition": "potionsplus:is_in_biome"
             }
           ],
           "functions": [
@@ -475,7 +484,7 @@
           ],
           "name": "potionsplus:ocean_sunfish",
           "quality": 1,
-          "weight": 11
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -498,8 +507,8 @@
             {
               "biomes": [
                 "minecraft:jagged_peaks",
-                "minecraft:warm_ocean",
-                "minecraft:stony_peaks"
+                "minecraft:stony_peaks",
+                "minecraft:warm_ocean"
               ],
               "condition": "potionsplus:is_in_biome"
             }
@@ -516,7 +525,7 @@
           ],
           "name": "potionsplus:portuguese_man_o_war",
           "quality": 1,
-          "weight": 11
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -538,10 +547,10 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:snowy_plains",
                 "minecraft:lush_caves",
                 "minecraft:flower_forest",
-                "minecraft:snowy_beach"
+                "minecraft:snowy_beach",
+                "minecraft:snowy_plains"
               ],
               "condition": "potionsplus:is_in_biome"
             }
@@ -558,7 +567,7 @@
           ],
           "name": "potionsplus:bluegill",
           "quality": 1,
-          "weight": 11
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -581,8 +590,8 @@
             {
               "biomes": [
                 "minecraft:badlands",
-                "minecraft:snowy_slopes",
-                "minecraft:flower_forest"
+                "minecraft:flower_forest",
+                "minecraft:snowy_slopes"
               ],
               "condition": "potionsplus:is_in_biome"
             }
@@ -599,7 +608,7 @@
           ],
           "name": "potionsplus:neon_tetra",
           "quality": 1,
-          "weight": 11
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -621,9 +630,9 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:eroded_badlands",
                 "minecraft:wooded_badlands",
-                "minecraft:birch_forest"
+                "minecraft:birch_forest",
+                "minecraft:eroded_badlands"
               ],
               "condition": "potionsplus:is_in_biome"
             }
@@ -640,16 +649,16 @@
           ],
           "name": "potionsplus:giant_manta_ray",
           "quality": 1,
-          "weight": 11
+          "weight": 4
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "biomes": [
-                "minecraft:frozen_peaks",
                 "minecraft:frozen_river",
-                "potionsplus:ice_cave"
+                "potionsplus:ice_cave",
+                "minecraft:frozen_peaks"
               ],
               "condition": "potionsplus:is_in_biome"
             }
@@ -688,11 +697,11 @@
           "conditions": [
             {
               "biomes": [
+                "minecraft:dark_forest",
+                "minecraft:lush_caves",
                 "minecraft:forest",
                 "minecraft:mushroom_fields",
-                "minecraft:dark_forest",
-                "minecraft:sunflower_plains",
-                "minecraft:lush_caves"
+                "minecraft:sunflower_plains"
               ],
               "condition": "potionsplus:is_in_biome"
             }
@@ -709,7 +718,7 @@
           ],
           "name": "potionsplus:lizardfish",
           "quality": 1,
-          "weight": 11
+          "weight": 4
         }
       ],
       "rolls": 1.0

@@ -3,6 +3,7 @@ package grill24.potionsplus.utility;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.DataComponents;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.network.ClientboundSyncFishingLeaderboardsPacket;
 import io.netty.buffer.ByteBuf;
@@ -56,6 +57,10 @@ public class FishingLeaderboards {
             // Update the highest fish size
             if (fish.has(DataComponents.FISH_SIZE)) {
                 float previousHighestSize = data.getHighestFishSizesByItem().getOrDefault(fish.getItemHolder(), 0f);
+                if (previousHighestSize == 0) {
+                    PotionsPlus.LOGGER.warn("Player {} caught their first fish of type {}",
+                            player.getName().getString(), fish.getItem().getName(new ItemStack(fish.getItemHolder())).getString());
+                }
                 float size = fish.get(DataComponents.FISH_SIZE).size();
                 String sizeString = Utility.trimToDecimalPlaces(size, 1);
 

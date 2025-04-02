@@ -30,7 +30,8 @@ public class VerticalListScreenElement<E extends RenderableScreenElement> extend
 
     @Override
     protected void onTick(float partialTick, int mouseX, int mouseY) {
-        this.height = getOffsetY();
+        float yOffset = getOffsetY();
+        float height = 0;
         for (RenderableScreenElement element : getChildren()) {
             Rectangle2D childBounds = element.getGlobalBounds();
             float childWidth = (float) childBounds.getWidth();
@@ -41,10 +42,14 @@ public class VerticalListScreenElement<E extends RenderableScreenElement> extend
                 case RIGHT -> (int) (getWidth() - childWidth);
             };
 
-            element.setTargetPosition(new Vector3f(xOffset, height, 0), Scope.LOCAL, false);
+            element.setTargetPosition(new Vector3f(xOffset, yOffset, 0), Scope.LOCAL, false);
+            yOffset += (int) childBounds.getHeight();
+            yOffset += paddingBetweenElements;
+
             height += (int) childBounds.getHeight();
             height += paddingBetweenElements;
         }
+        this.height = height;
 
         super.onTick(partialTick, mouseX, mouseY);
     }

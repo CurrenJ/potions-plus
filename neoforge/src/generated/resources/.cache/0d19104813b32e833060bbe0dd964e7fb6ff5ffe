@@ -1,4 +1,5 @@
-// 1.21.1	2025-04-02T21:10:42.0890098	Potions Plus item tags
+// 1.21.1	2025-04-02T22:57:57.1282684	Potions Plus item tags
+388034e01567a2815e172e710146be2a4359abec data/c/tags/item/foods/raw_fish.json
 f5910a92ea5fb6f84cd96853e46380fa579ea546 data/minecraft/tags/item/enchantable/fishing.json
 388034e01567a2815e172e710146be2a4359abec data/minecraft/tags/item/fishes.json
 00391626c9319b4f8fc4c624269d451ab2819852 data/potionsplus/tags/item/edible_rewards.json
