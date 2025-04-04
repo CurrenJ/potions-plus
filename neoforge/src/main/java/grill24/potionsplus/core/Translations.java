@@ -291,6 +291,7 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_PARROTFISH = "item.potionsplus.parrotfish";
     public static final String ITEM_POTIONSPLUS_RAINFORDIA = "item.potionsplus.rainfordia";
     public static final String ITEM_POTIONSPLUS_GARDEN_EEL = "item.potionsplus.garden_eel";
+    public static final String ITEM_POTIONSPLUS_ROYAL_GARDEN_EEL = "item.potionsplus.royal_garden_eel";
     public static final String ITEM_POTIONSPLUS_LONGNOSE_GAR = "item.potionsplus.longnose_gar";
     public static final String ITEM_POTIONSPLUS_SHRIMP = "item.potionsplus.shrimp";
     public static final String ITEM_POTIONSPLUS_MOORISH_IDOL = "item.potionsplus.moorish_idol";
@@ -303,6 +304,7 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_FROZEN_GIANT_MANTA_RAY = "item.potionsplus.frozen_giant_manta_ray";
     public static final String ITEM_POTIONSPLUS_LIZARDFISH = "item.potionsplus.lizardfish";
     public static final String BLOCK_POTIONSPLUS_SKILL_JOURNALS = "block.potionsplus.skill_journals";
+    public static final String BLOCK_POTIONSPLUS_FISHING_LEADERBOARDS = "block.potionsplus.fishing_leaderboards";
     public static final String BLOCK_POTIONSPLUS_URANIUM_GLASS = "block.potionsplus.uranium_glass";
     public static final String BLOCK_POTIONSPLUS_ICICLE = "block.potionsplus.icicle";
     public static final String ITEMGROUP_POTIONSPLUS = "itemGroup.potionsplus";
@@ -643,4 +645,5 @@ public class Translations {
     public static final String FISH_LEADERBOARD_COUNT = "fish.leaderboard.count";
     public static final String FISH_LEADERBOARD_CAUGHT_CHAT = "fish.leaderboard.caught.chat";
     public static final String FISH_LEADERBOARD_NPR = "fish.leaderboard.npr";
+    public static final String ITEM_FISHING_ROD_NO_BAIT = "item.fishing_rod.no_bait";
 }

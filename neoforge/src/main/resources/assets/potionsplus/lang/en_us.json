@@ -736,5 +736,6 @@
   "fish.count.simple": "Caught %s times.",
   "fish.leaderboard.count": "[%s] %s %s",
   "fish.leaderboard.caught.chat": "%s caught a %s cm %s.",
-  "fish.leaderboard.npr": "That's a §6§onew personal record!"
+  "fish.leaderboard.npr": "That's a §6§onew personal record!",
+  "item.fishing_rod.no_bait": "§7§oAdd bait to catch fish..."
 }

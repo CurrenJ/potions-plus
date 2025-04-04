@@ -2,10 +2,14 @@ package grill24.potionsplus.item;
 
 import grill24.potionsplus.core.DataAttachments;
 import grill24.potionsplus.core.DataComponents;
+import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.misc.LocalFishingGame;
 import grill24.potionsplus.render.IGameRendererMixin;
 import grill24.potionsplus.render.animation.FishingMinigameAnimation;
+import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.SlotAccess;
@@ -15,10 +19,15 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.List;
 import java.util.Optional;
 
+import static grill24.potionsplus.utility.Utility.ppId;
+
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class FishingRodItem extends net.minecraft.world.item.FishingRodItem {
     public FishingRodItem(Properties properties) {
         super(properties);
@@ -108,5 +117,17 @@ public class FishingRodItem extends net.minecraft.world.item.FishingRodItem {
         FishingRodDataComponent fishingRodData = rod.getOrDefault(DataComponents.FISHING_ROD, new FishingRodDataComponent());
         fishingRodData.addFishingRodItem(other);
         rod.set(DataComponents.FISHING_ROD, fishingRodData);
+    }
+
+    private static boolean hasBait(ItemStack rod) {
+        FishingRodDataComponent fishingRodData = rod.getOrDefault(DataComponents.FISHING_ROD, new FishingRodDataComponent());
+        return !fishingRodData.getFishingRodItems().isEmpty();
+    }
+
+    @SubscribeEvent
+    public static void onTooltip(final AnimatedItemTooltipEvent.Add event) {
+        if (event.getItemStack().getItem() instanceof FishingRodItem && !FishingRodItem.hasBait(event.getItemStack())) {
+            event.getTooltipMessages().add(AnimatedItemTooltipEvent.TooltipLines.of(ppId("fishing_rod_no_bait"), 50, Component.translatable(Translations.ITEM_FISHING_ROD_NO_BAIT)));
+        }
     }
 }
