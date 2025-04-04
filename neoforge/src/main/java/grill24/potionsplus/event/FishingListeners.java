@@ -1,8 +1,8 @@
 package grill24.potionsplus.event;
 
-import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.LootTables;
 import grill24.potionsplus.core.Tags;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.item.FishingRodItem;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.network.ClientboundStartFishingMinigamePacket;
@@ -42,18 +42,20 @@ public class FishingListeners {
             if (!loot.isEmpty()) {
                 ItemStack reward = loot.getFirst();
 
-                event.getDrops().clear();
-                event.getDrops().add(reward);
+                if (!reward.isEmpty()) {
+                    event.getDrops().clear();
+                    event.getDrops().add(reward);
 
-                PacketDistributor.sendToPlayer(
-                        serverPlayer,
-                        ClientboundStartFishingMinigamePacket.create(
-                                serverPlayer,
-                                new FishingGamePlayerAttachment(reward, getFrame(player.registryAccess(), reward))
-                        )
-                );
-                rod.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
-                event.setCanceled(true);
+                    PacketDistributor.sendToPlayer(
+                            serverPlayer,
+                            ClientboundStartFishingMinigamePacket.create(
+                                    serverPlayer,
+                                    new FishingGamePlayerAttachment(reward, getFrame(player.registryAccess(), reward))
+                            )
+                    );
+                    rod.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+                    event.setCanceled(true);
+                }
             }
         }
     }
@@ -65,13 +67,13 @@ public class FishingListeners {
         Iterable<Holder<Item>> purple = registryAccess.registryOrThrow(Registries.ITEM).getTagOrEmpty(Tags.Items.PP_FISHING_PURPLE_FRAME);
 
         if (reward.is(Tags.Items.PP_FISHING_COPPER_FRAME)) {
-            return Items.GENERIC_ICON.getItemStackForTexture(Items.COPPER_FISHING_FRAME_TEX_LOC);
+            return DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.COPPER_FISHING_FRAME_TEX_LOC);
         } else if (reward.is(Tags.Items.PP_FISHING_GOLD_FRAME)) {
-            return Items.GENERIC_ICON.getItemStackForTexture(Items.GOLD_FISHING_FRAME_TEX_LOC);
+            return DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.GOLD_FISHING_FRAME_TEX_LOC);
         } else if (reward.is(Tags.Items.PP_FISHING_DIAMOND_FRAME)) {
-            return Items.GENERIC_ICON.getItemStackForTexture(Items.DIAMOND_FISHING_FRAME_TEX_LOC);
+            return DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.DIAMOND_FISHING_FRAME_TEX_LOC);
         } else if (reward.is(Tags.Items.PP_FISHING_PURPLE_FRAME)) {
-            return Items.GENERIC_ICON.getItemStackForTexture(Items.PURPLE_FISHING_FRAME_TEX_LOC);
+            return DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.PURPLE_FISHING_FRAME_TEX_LOC);
         }
 
         return ItemStack.EMPTY;

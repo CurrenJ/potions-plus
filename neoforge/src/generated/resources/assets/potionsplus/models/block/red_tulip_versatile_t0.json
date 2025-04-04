@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "minecraft:block/red_tulip"
-  }
+  "parent": "minecraft:block/red_tulip"
 }

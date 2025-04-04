@@ -1,5 +1,7 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -55,12 +57,14 @@ public class MagneticEffect extends MobEffect implements ITickingTooltipDetails 
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         String tickInterval = String.valueOf(getTickInterval(effectInstance.getAmplifier()));
-        MutableComponent ticks = Component.translatable("tooltip.potionsplus.ticks", tickInterval).withStyle(ChatFormatting.GREEN);
+        MutableComponent ticks = Component.translatable(Translations.TOOLTIP_POTIONSPLUS_TICKS, tickInterval).withStyle(ChatFormatting.GREEN);
 
-        return List.of(Component.translatable("effect.potionsplus.magnetic.tooltip_1").withStyle(ChatFormatting.LIGHT_PURPLE),
+        List<Component> text = List.of(Component.translatable(Translations.EFFECT_POTIONSPLUS_MAGNETIC_TOOLTIP_1).withStyle(ChatFormatting.LIGHT_PURPLE),
                 ticks,
-                Component.translatable("effect.potionsplus.magnetic.tooltip_2").withStyle(ChatFormatting.LIGHT_PURPLE));
+                Component.translatable(Translations.EFFECT_POTIONSPLUS_MAGNETIC_TOOLTIP_2).withStyle(ChatFormatting.LIGHT_PURPLE));
+
+        return createTooltipLine(text);
     }
 }

@@ -1,6 +1,6 @@
 package grill24.potionsplus.gui.skill;
 
-import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.gui.RenderableScreenElement;
 import grill24.potionsplus.gui.SimpleTooltipScreenElement;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
@@ -56,7 +56,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
         graphics.pose().pushPose();
         graphics.pose().translate(0, 0, -100);
         ((IGuiGraphicsExtension) graphics).potions_plus$renderItem(
-                Items.GENERIC_ICON.getItemStackForTexture(Items.UNKNOWN_TEX_LOC),
+                DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC),
                 new Vector3f(0, 0, 0),
                 (float) (bounds.getMinX() + bounds.getWidth() / 4F), // The render method we are calling here renders an item centered at the given position. We align to top-left because that's how the screen elements assume bounds are positioned.
                 (float) (bounds.getMinY() + bounds.getHeight() / 4F),

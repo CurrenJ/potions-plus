@@ -1,11 +1,12 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 
+import java.util.Collections;
 import java.util.List;
 
 public class HarrowingHandsEffect extends MobEffect implements IEffectTooltipDetails {
@@ -62,8 +64,8 @@ public class HarrowingHandsEffect extends MobEffect implements IEffectTooltipDet
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance instance) {
-        MutableComponent tooltipDetails = Component.translatable("effect.minecraft.harrowing_hands.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE);
-        return List.of(tooltipDetails);
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance instance) {
+        MutableComponent tooltipDetails = Component.translatable(Translations.EFFECT_MINECRAFT_HARROWING_HANDS_TOOLTIP).withStyle(ChatFormatting.LIGHT_PURPLE);
+        return createTooltipLine(tooltipDetails);
     }
 }

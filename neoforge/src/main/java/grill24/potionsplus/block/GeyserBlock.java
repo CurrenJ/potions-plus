@@ -1,7 +1,7 @@
 package grill24.potionsplus.block;
 
-import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.entity.InvisibleFireDamager;
 import grill24.potionsplus.particle.EmitterParticle;
 import grill24.potionsplus.particle.ParticleConfigurations;
@@ -122,7 +122,7 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
 
     private ParticleEmitterBlock.ParticleEmitterConfiguration getActiveParticleConfiguration(Level level, BlockPos pos) {
         BlockState attachedState = level.getBlockState(getAttachedTo(level.getBlockState(pos), pos));
-        if (attachedState.is(Blocks.PARTICLE_EMITTER.value())) {
+        if (attachedState.is(BlockEntityBlocks.PARTICLE_EMITTER.value())) {
             return ParticleEmitterBlock.getParticleEmitterConfiguration(attachedState);
         }
 

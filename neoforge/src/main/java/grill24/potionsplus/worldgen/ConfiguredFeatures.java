@@ -1,13 +1,14 @@
 package grill24.potionsplus.worldgen;
 
-import grill24.potionsplus.block.VersatilePlantBlock;
 import grill24.potionsplus.core.Features;
 import grill24.potionsplus.core.Tags;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.worldgen.biome.AridCave;
 import grill24.potionsplus.worldgen.biome.IceCave;
 import grill24.potionsplus.worldgen.biome.VolcanicCave;
 import grill24.potionsplus.worldgen.feature.PotionsPlusVegetationPatchConfiguration;
-import grill24.potionsplus.worldgen.feature.VersatilePlantBlockFeatureConfiguration;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -36,7 +37,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 import java.util.List;
-import java.util.Map;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -85,18 +85,18 @@ public class ConfiguredFeatures {
         RuleTest deepslateOreReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
         final Holder<ConfiguredFeature<?, ?>> ORE_DENSE_DIAMOND_SMALL = register(context, ORE_DENSE_DIAMOND_SMALL_KEY, Feature.ORE,
                 new OreConfiguration(List.of(
-                        OreConfiguration.target(stoneOreReplaceables, grill24.potionsplus.core.Blocks.DENSE_DIAMOND_ORE.value().defaultBlockState()),
-                        OreConfiguration.target(deepslateOreReplaceables, grill24.potionsplus.core.Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.value().defaultBlockState())
+                        OreConfiguration.target(stoneOreReplaceables, OreBlocks.DENSE_DIAMOND_ORE.value().defaultBlockState()),
+                        OreConfiguration.target(deepslateOreReplaceables, OreBlocks.DEEPSLATE_DENSE_DIAMOND_ORE.value().defaultBlockState())
                 ), 4, 0.5F));
         final Holder<ConfiguredFeature<?, ?>> ORE_REMNANT_DEBRIS = register(context, ORE_REMNANT_DEBRIS_KEY, Feature.ORE,
                 new OreConfiguration(List.of(
-                        OreConfiguration.target(stoneOreReplaceables, grill24.potionsplus.core.Blocks.REMNANT_DEBRIS.value().defaultBlockState()),
-                        OreConfiguration.target(deepslateOreReplaceables, grill24.potionsplus.core.Blocks.DEEPSLATE_REMNANT_DEBRIS.value().defaultBlockState())
+                        OreConfiguration.target(stoneOreReplaceables, OreBlocks.REMNANT_DEBRIS.value().defaultBlockState()),
+                        OreConfiguration.target(deepslateOreReplaceables, OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value().defaultBlockState())
                 ), 4, 0.5F));
         final Holder<ConfiguredFeature<?, ?>> ORE_URANIUM = register(context, ORE_URANIUM_KEY, Feature.ORE,
                 new OreConfiguration(List.of(
-                        OreConfiguration.target(stoneOreReplaceables, grill24.potionsplus.core.Blocks.URANIUM_ORE.value().defaultBlockState()),
-                        OreConfiguration.target(deepslateOreReplaceables, grill24.potionsplus.core.Blocks.DEEPSLATE_URANIUM_ORE.value().defaultBlockState())
+                        OreConfiguration.target(stoneOreReplaceables, OreBlocks.URANIUM_ORE.value().defaultBlockState()),
+                        OreConfiguration.target(deepslateOreReplaceables, OreBlocks.DEEPSLATE_URANIUM_ORE.value().defaultBlockState())
                 ), 4, 0.5F));
 
         // ----- Lunar Berry Bush -----
@@ -104,7 +104,7 @@ public class ConfiguredFeatures {
                 new RandomPatchConfiguration(32, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
                         new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                                 .add(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 3)
-                                .add(grill24.potionsplus.core.Blocks.LUNAR_BERRY_BUSH.value().defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 1)
+                                .add(FlowerBlocks.LUNAR_BERRY_BUSH.value().defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 1)
                         )))));
 
         // ----- Volcanic Cave -----
@@ -148,7 +148,7 @@ public class ConfiguredFeatures {
         final Holder<ConfiguredFeature<?, ?>> ICICLE_SELECTOR = register(context, ICICLE_SELECTOR_KEY, Feature.SIMPLE_RANDOM_SELECTOR,
                 new SimpleRandomFeatureConfiguration(HolderSet.direct(PlacementUtils.inlinePlaced(ICICLE), PlacementUtils.inlinePlaced(ICE_CEILING_VEGETATION))));
         final Holder<ConfiguredFeature<?, ?>> COOBLESTONE_PILE = register(context, COOBLESTONE_PILE_KEY, Feature.BLOCK_PILE,
-                new BlockPileConfiguration(BlockStateProvider.simple(grill24.potionsplus.core.Blocks.COOBLESTONE.value())));
+                new BlockPileConfiguration(BlockStateProvider.simple(DecorationBlocks.COOBLESTONE.value())));
         final Holder<ConfiguredFeature<?, ?>> ICE_PATCH = register(context, ICE_PATCH_KEY, Feature.VEGETATION_PATCH,
                 new VegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, IceCave.ICE_SAMPLER, PlacementUtils.inlinePlaced(ICE_FLOOR_VEGETATION), CaveSurface.FLOOR, UniformInt.of(2, 5), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F));
         final Holder<ConfiguredFeature<?, ?>> ICE_PATCH_CEILING = register(context, ICE_PATCH_CEILING_KEY, Feature.VEGETATION_PATCH,

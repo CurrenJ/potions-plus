@@ -6,8 +6,8 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public record ItemStacksTooltip(List<ItemStack> items) implements TooltipComponent {
-    public static ItemStacksTooltip of(List<List<ItemStack>> items) {
+public record ItemStacksTooltip(List<ItemStack> items, boolean hideUnknownPotionIngredients, boolean renderItemDecorations) implements TooltipComponent {
+    public static ItemStacksTooltip of(List<List<ItemStack>> items, boolean hideUnknownPotionIngredients, boolean renderItemDecorations) {
         List<ItemStack> displayStacks = new ArrayList<>();
         final int maxGridWidth = 9;
         for (List<ItemStack> itemStacks : items) {
@@ -19,6 +19,6 @@ public record ItemStacksTooltip(List<ItemStack> items) implements TooltipCompone
                 }
             }
         }
-        return new ItemStacksTooltip(displayStacks);
+        return new ItemStacksTooltip(displayStacks, hideUnknownPotionIngredients, renderItemDecorations);
     }
 }

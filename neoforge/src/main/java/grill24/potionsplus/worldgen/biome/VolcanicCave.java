@@ -1,6 +1,7 @@
 package grill24.potionsplus.worldgen.biome;
 
 import grill24.potionsplus.core.Biomes;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.worldgen.Placements;
 import net.minecraft.core.*;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -40,18 +41,18 @@ public class VolcanicCave {
     public static final BlockPredicate VOLCANIC_CAVE_END_SCAN = BlockPredicate.allOf(
             BlockPredicate.solid(),
             BlockPredicate.not(BlockPredicate.matchesBlocks(List.of(
-                    grill24.potionsplus.core.Blocks.UNSTABLE_BLACKSTONE.value(),
-                    grill24.potionsplus.core.Blocks.UNSTABLE_DEEPSLATE.value(),
-                    grill24.potionsplus.core.Blocks.UNSTABLE_MOLTEN_BLACKSTONE.value(),
-                    grill24.potionsplus.core.Blocks.UNSTABLE_MOLTEN_DEEPSLATE.value()))
+                    DecorationBlocks.UNSTABLE_BLACKSTONE.value(),
+                    DecorationBlocks.UNSTABLE_DEEPSLATE.value(),
+                    DecorationBlocks.UNSTABLE_MOLTEN_BLACKSTONE.value(),
+                    DecorationBlocks.UNSTABLE_MOLTEN_DEEPSLATE.value()))
             ));
     public static final BlockPredicate VOLCANIC_CAVE_CONTINUE_SCAN = BlockPredicate.anyOf(
             BlockPredicate.ONLY_IN_AIR_PREDICATE,
             BlockPredicate.matchesBlocks(List.of(
-                            grill24.potionsplus.core.Blocks.UNSTABLE_BLACKSTONE.value(),
-                            grill24.potionsplus.core.Blocks.UNSTABLE_DEEPSLATE.value(),
-                            grill24.potionsplus.core.Blocks.UNSTABLE_MOLTEN_BLACKSTONE.value(),
-                            grill24.potionsplus.core.Blocks.UNSTABLE_MOLTEN_DEEPSLATE.value())),
+                            DecorationBlocks.UNSTABLE_BLACKSTONE.value(),
+                            DecorationBlocks.UNSTABLE_DEEPSLATE.value(),
+                            DecorationBlocks.UNSTABLE_MOLTEN_BLACKSTONE.value(),
+                            DecorationBlocks.UNSTABLE_MOLTEN_DEEPSLATE.value())),
             BlockPredicate.matchesFluids(Vec3i.ZERO, Fluids.LAVA)
             );
 

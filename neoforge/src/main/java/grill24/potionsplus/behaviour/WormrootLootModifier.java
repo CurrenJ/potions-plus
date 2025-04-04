@@ -3,8 +3,8 @@ package grill24.potionsplus.behaviour;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.LootModifiers;
+import grill24.potionsplus.core.items.BrewingItems;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
@@ -52,7 +52,7 @@ public class WormrootLootModifier extends LootModifier {
 
                         blockBroken = b;
                         generatedLoot.removeIf(stack -> Block.byItem(stack.getItem()) == blockBroken);
-                        generatedLoot.add(new ItemStack(Items.WORMROOT.value(), 1));
+                        generatedLoot.add(new ItemStack(BrewingItems.WORMROOT.value(), 1));
                     }
 
                     break;

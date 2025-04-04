@@ -1,6 +1,8 @@
 package grill24.potionsplus.data;
 
-import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -22,56 +24,56 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.BREWING_CAULDRON.value(), Blocks.ABYSSAL_TROVE.value(), Blocks.SANGUINE_ALTAR.value(), Blocks.PRECISION_DISPENSER.value(), Blocks.PARTICLE_EMITTER.value(), Blocks.SMALL_FILTER_HOPPER.value(), Blocks.LARGE_FILTER_HOPPER.value());
-        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(Blocks.ABYSSAL_TROVE.value());
-        tag(BlockTags.MINEABLE_WITH_AXE).add(Blocks.CLOTHESLINE.value(), Blocks.HERBALISTS_LECTERN.value());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockEntityBlocks.BREWING_CAULDRON.value(), BlockEntityBlocks.ABYSSAL_TROVE.value(), BlockEntityBlocks.SANGUINE_ALTAR.value(), BlockEntityBlocks.PRECISION_DISPENSER.value(), BlockEntityBlocks.PARTICLE_EMITTER.value(), BlockEntityBlocks.SMALL_FILTER_HOPPER.value(), BlockEntityBlocks.LARGE_FILTER_HOPPER.value());
+        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(BlockEntityBlocks.ABYSSAL_TROVE.value());
+        tag(BlockTags.MINEABLE_WITH_AXE).add(BlockEntityBlocks.CLOTHESLINE.value(), BlockEntityBlocks.HERBALISTS_LECTERN.value());
 
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.DENSE_DIAMOND_ORE.value(), Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), Blocks.REMNANT_DEBRIS.value(), Blocks.DEEPSLATE_REMNANT_DEBRIS.value());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.URANIUM_ORE.value(), Blocks.DEEPSLATE_URANIUM_ORE.value());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.SULFURIC_NETHER_QUARTZ_ORE.value());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.DENSE_DIAMOND_ORE.value(), OreBlocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), OreBlocks.REMNANT_DEBRIS.value(), OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.URANIUM_ORE.value(), OreBlocks.DEEPSLATE_URANIUM_ORE.value());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.SULFURIC_NETHER_QUARTZ_ORE.value());
 
-        tag(Tags.Blocks.ORES).add(Blocks.DEEPSLATE_REMNANT_DEBRIS.value(), Blocks.REMNANT_DEBRIS.value());
-        tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(Blocks.DENSE_DIAMOND_ORE.value(), Blocks.REMNANT_DEBRIS.value());
-        tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), Blocks.DEEPSLATE_REMNANT_DEBRIS.value());
+        tag(Tags.Blocks.ORES).add(OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value(), OreBlocks.REMNANT_DEBRIS.value());
+        tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(OreBlocks.DENSE_DIAMOND_ORE.value(), OreBlocks.REMNANT_DEBRIS.value());
+        tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(OreBlocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value());
 
-        Block[] coalOres = new Block[]{Blocks.MOSSY_COAL_ORE.value(), Blocks.SANDY_COAL_ORE.value()};
+        Block[] coalOres = new Block[]{OreBlocks.MOSSY_COAL_ORE.value(), OreBlocks.SANDY_COAL_ORE.value()};
         TagKey<Block>[] coalOreTags = new TagKey[]{Tags.Blocks.ORES_COAL, BlockTags.COAL_ORES};
         addOresToTags(coalOreTags, coalOres);
 
-        Block[] copperOres = new Block[]{Blocks.MOSSY_COPPER_ORE.value(), Blocks.SANDY_COPPER_ORE.value()};
+        Block[] copperOres = new Block[]{OreBlocks.MOSSY_COPPER_ORE.value(), OreBlocks.SANDY_COPPER_ORE.value()};
         TagKey<Block>[] copperOreTags = new TagKey[]{Tags.Blocks.ORES_COPPER, BlockTags.COPPER_ORES};
         addOresToTags(copperOreTags, copperOres);
 
-        Block[] ironOres = new Block[]{Blocks.MOSSY_IRON_ORE.value(), Blocks.SANDY_IRON_ORE.value()};
+        Block[] ironOres = new Block[]{OreBlocks.MOSSY_IRON_ORE.value(), OreBlocks.SANDY_IRON_ORE.value()};
         TagKey<Block>[] ironOreTags = new TagKey[]{Tags.Blocks.ORES_IRON, BlockTags.IRON_ORES};
         addOresToTags(ironOreTags, ironOres);
 
-        Block[] goldOres = new Block[]{Blocks.MOSSY_GOLD_ORE.value(), Blocks.SANDY_GOLD_ORE.value()};
+        Block[] goldOres = new Block[]{OreBlocks.MOSSY_GOLD_ORE.value(), OreBlocks.SANDY_GOLD_ORE.value()};
         TagKey<Block>[] goldOreTags = new TagKey[]{Tags.Blocks.ORES_GOLD, BlockTags.GOLD_ORES};
         addOresToTags(goldOreTags, goldOres);
 
-        Block[] redstoneOres = new Block[]{Blocks.MOSSY_REDSTONE_ORE.value(), Blocks.SANDY_REDSTONE_ORE.value()};
+        Block[] redstoneOres = new Block[]{OreBlocks.MOSSY_REDSTONE_ORE.value(), OreBlocks.SANDY_REDSTONE_ORE.value()};
         TagKey<Block>[] redstoneOreTags = new TagKey[]{Tags.Blocks.ORES_REDSTONE, BlockTags.REDSTONE_ORES};
         addOresToTags(redstoneOreTags, redstoneOres);
 
-        Block[] lapisOres = new Block[]{Blocks.MOSSY_LAPIS_ORE.value(), Blocks.SANDY_LAPIS_ORE.value()};
+        Block[] lapisOres = new Block[]{OreBlocks.MOSSY_LAPIS_ORE.value(), OreBlocks.SANDY_LAPIS_ORE.value()};
         TagKey<Block>[] lapisOreTags = new TagKey[]{Tags.Blocks.ORES_LAPIS, BlockTags.LAPIS_ORES};
         addOresToTags(lapisOreTags, lapisOres);
 
-        Block[] emeraldOres = new Block[]{Blocks.MOSSY_EMERALD_ORE.value(), Blocks.SANDY_EMERALD_ORE.value()};
+        Block[] emeraldOres = new Block[]{OreBlocks.MOSSY_EMERALD_ORE.value(), OreBlocks.SANDY_EMERALD_ORE.value()};
         TagKey<Block>[] emeraldOreTags = new TagKey[]{Tags.Blocks.ORES_EMERALD, BlockTags.EMERALD_ORES};
         addOresToTags(emeraldOreTags, emeraldOres);
 
-        Block[] diamondOres = new Block[]{Blocks.DENSE_DIAMOND_ORE.value(), Blocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), Blocks.MOSSY_DIAMOND_ORE.value(), Blocks.SANDY_DIAMOND_ORE.value()};
+        Block[] diamondOres = new Block[]{OreBlocks.DENSE_DIAMOND_ORE.value(), OreBlocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), OreBlocks.MOSSY_DIAMOND_ORE.value(), OreBlocks.SANDY_DIAMOND_ORE.value()};
         TagKey<Block>[] diamondOreTags = new TagKey[]{Tags.Blocks.ORES_DIAMOND, BlockTags.DIAMOND_ORES};
         addOresToTags(diamondOreTags, diamondOres);
 
-        Block[] uraniumOres = new Block[]{Blocks.MOSSY_URANIUM_ORE.value(), Blocks.SANDY_URANIUM_ORE.value()};
+        Block[] uraniumOres = new Block[]{OreBlocks.MOSSY_URANIUM_ORE.value(), OreBlocks.SANDY_URANIUM_ORE.value()};
         TagKey<Block>[] uraniumOreTags = new TagKey[]{grill24.potionsplus.core.Tags.Blocks.ORES_URANIUM};
         addOresToTags(uraniumOreTags, uraniumOres);
 
-        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(Blocks.SANDY_COPPER_ORE.value(), Blocks.SANDY_IRON_ORE.value(), Blocks.SANDY_GOLD_ORE.value(), Blocks.SANDY_DIAMOND_ORE.value(), Blocks.SANDY_EMERALD_ORE.value(), Blocks.SANDY_LAPIS_ORE.value(), Blocks.SANDY_REDSTONE_ORE.value(), Blocks.SANDY_COAL_ORE.value(), Blocks.SANDY_URANIUM_ORE.value());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.MOSSY_COPPER_ORE.value(), Blocks.MOSSY_IRON_ORE.value(), Blocks.MOSSY_GOLD_ORE.value(), Blocks.MOSSY_DIAMOND_ORE.value(), Blocks.MOSSY_EMERALD_ORE.value(), Blocks.MOSSY_LAPIS_ORE.value(), Blocks.MOSSY_REDSTONE_ORE.value(), Blocks.MOSSY_COAL_ORE.value(), Blocks.MOSSY_URANIUM_ORE.value());
+        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(OreBlocks.SANDY_COPPER_ORE.value(), OreBlocks.SANDY_IRON_ORE.value(), OreBlocks.SANDY_GOLD_ORE.value(), OreBlocks.SANDY_DIAMOND_ORE.value(), OreBlocks.SANDY_EMERALD_ORE.value(), OreBlocks.SANDY_LAPIS_ORE.value(), OreBlocks.SANDY_REDSTONE_ORE.value(), OreBlocks.SANDY_COAL_ORE.value(), OreBlocks.SANDY_URANIUM_ORE.value());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.MOSSY_COPPER_ORE.value(), OreBlocks.MOSSY_IRON_ORE.value(), OreBlocks.MOSSY_GOLD_ORE.value(), OreBlocks.MOSSY_DIAMOND_ORE.value(), OreBlocks.MOSSY_EMERALD_ORE.value(), OreBlocks.MOSSY_LAPIS_ORE.value(), OreBlocks.MOSSY_REDSTONE_ORE.value(), OreBlocks.MOSSY_COAL_ORE.value(), OreBlocks.MOSSY_URANIUM_ORE.value());
 
         tag(grill24.potionsplus.core.Tags.Blocks.FREEZABLE).add(net.minecraft.world.level.block.Blocks.WATER);
 
@@ -93,17 +95,17 @@ public class BlockTagProvider extends BlockTagsProvider {
                         net.minecraft.world.level.block.Blocks.DEEPSLATE_LAPIS_ORE,
                         net.minecraft.world.level.block.Blocks.REDSTONE_ORE,
                         net.minecraft.world.level.block.Blocks.DEEPSLATE_REDSTONE_ORE,
-                        Blocks.URANIUM_ORE.value(),
-                        Blocks.DEEPSLATE_URANIUM_ORE.value());
+                        OreBlocks.URANIUM_ORE.value(),
+                        OreBlocks.DEEPSLATE_URANIUM_ORE.value());
 
         tag(grill24.potionsplus.core.Tags.Blocks.ORE_FLOWERS)
-                .add(Blocks.IRON_OXIDE_DAISY.value())
-                .add(Blocks.COPPER_CHRYSANTHEMUM.value())
-                .add(Blocks.LAPIS_LILAC.value())
-                .add(Blocks.DIAMOUR.value())
-                .add(Blocks.GOLDEN_CUBENSIS.value())
-                .add(Blocks.REDSTONE_ROSE.value())
-                .add(Blocks.BLACK_COALLA_LILY.value());
+                .add(FlowerBlocks.IRON_OXIDE_DAISY.value())
+                .add(FlowerBlocks.COPPER_CHRYSANTHEMUM.value())
+                .add(FlowerBlocks.LAPIS_LILAC.value())
+                .add(FlowerBlocks.DIAMOUR.value())
+                .add(FlowerBlocks.GOLDEN_CUBENSIS.value())
+                .add(FlowerBlocks.REDSTONE_ROSE.value())
+                .add(FlowerBlocks.BLACK_COALLA_LILY.value());
     }
 
     private void addBlocksToTags(TagKey<Block>[] tags, Block[] values) {

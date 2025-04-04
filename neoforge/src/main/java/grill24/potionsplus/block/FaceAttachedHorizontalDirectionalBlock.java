@@ -32,6 +32,7 @@ public class FaceAttachedHorizontalDirectionalBlock extends net.minecraft.world.
         this.shapes = generateShapes(onGroundShape);
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_51101_) {
         p_51101_.add(FACING, FACE);
     }

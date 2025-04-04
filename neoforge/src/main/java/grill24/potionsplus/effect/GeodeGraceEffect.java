@@ -1,6 +1,8 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
@@ -142,9 +144,11 @@ public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         int percentChance = (int) (getActivationChance(effectInstance.getAmplifier()) * 100);
         Component percentage = Utility.formatEffectNumber(percentChance, 0, "%");
-        return List.of(percentage, Component.translatable("effect.minecraft.geode_grace.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
+        List<Component> text = List.of(percentage, Component.translatable(Translations.EFFECT_MINECRAFT_GEODE_GRACE_TOOLTIP).withStyle(ChatFormatting.LIGHT_PURPLE));
+
+        return createTooltipLine(text);
     }
 }

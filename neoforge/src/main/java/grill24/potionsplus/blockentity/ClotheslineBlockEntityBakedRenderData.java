@@ -1,8 +1,8 @@
 package grill24.potionsplus.blockentity;
 
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import org.joml.Vector3f;
 import grill24.potionsplus.block.ClotheslineBlock;
-import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.render.LeashRenderer;
 import grill24.potionsplus.utility.RUtil;
@@ -55,7 +55,7 @@ public class ClotheslineBlockEntityBakedRenderData {
         }
 
         public Vector3f getItemPoint(BlockPos pos, BlockState state, int slot, boolean worldSpace) {
-            if (!state.is(Blocks.CLOTHESLINE.value()) || !state.hasProperty(ClotheslineBlock.DISTANCE)) {
+            if (!state.is(BlockEntityBlocks.CLOTHESLINE.value()) || !state.hasProperty(ClotheslineBlock.DISTANCE)) {
                 PotionsPlus.LOGGER.warn("Tried to get item point for a clothesline block without a distance property!");
                 return null;
             }
@@ -74,7 +74,7 @@ public class ClotheslineBlockEntityBakedRenderData {
     }
 
     public static Vector3f getItemPoint(BlockPos pos, BlockState state, int slot, boolean worldSpace) {
-        if (!state.is(Blocks.CLOTHESLINE.value()) || !state.hasProperty(ClotheslineBlock.FACING)) {
+        if (!state.is(BlockEntityBlocks.CLOTHESLINE.value()) || !state.hasProperty(ClotheslineBlock.FACING)) {
             PotionsPlus.LOGGER.warn("Tried to get item point for a clothesline block without a facing property!");
             return null;
         }

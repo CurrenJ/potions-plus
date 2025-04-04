@@ -2,6 +2,7 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.blockentity.ClotheslineBlockEntity;
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Direction;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -38,7 +39,7 @@ public class Capabilities {
                     return null;
                 },
                 // blocks to register for
-                Blocks.CLOTHESLINE.value());
+                BlockEntityBlocks.CLOTHESLINE.value());
     }
 
 }

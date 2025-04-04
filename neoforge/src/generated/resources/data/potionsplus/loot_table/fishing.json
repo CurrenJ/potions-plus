@@ -6,6 +6,14 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -17,10 +25,18 @@
             }
           ],
           "name": "minecraft:cod",
-          "weight": 40
+          "weight": 30
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -32,10 +48,18 @@
             }
           ],
           "name": "minecraft:salmon",
-          "weight": 40
+          "weight": 30
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -47,7 +71,7 @@
             }
           ],
           "name": "minecraft:pufferfish",
-          "weight": 40
+          "weight": 30
         },
         {
           "type": "minecraft:item",
@@ -55,6 +79,12 @@
             {
               "biomeTag": "c:is_hot/overworld",
               "condition": "potionsplus:is_in_biome_tag"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -68,10 +98,23 @@
             }
           ],
           "name": "minecraft:tropical_fish",
-          "weight": 40
+          "weight": 30
         },
         {
           "type": "minecraft:item",
+          "name": "potionsplus:worms",
+          "weight": 30
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -90,12 +133,18 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:beach",
+                "minecraft:snowy_plains",
                 "minecraft:forest",
-                "minecraft:plains",
-                "minecraft:snowy_plains"
+                "minecraft:beach",
+                "minecraft:plains"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -114,6 +163,14 @@
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -132,13 +189,19 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:savanna_plateau",
-                "minecraft:savanna",
                 "minecraft:lush_caves",
+                "minecraft:savanna",
                 "minecraft:windswept_savanna",
-                "minecraft:desert"
+                "minecraft:desert",
+                "minecraft:savanna_plateau"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -157,6 +220,14 @@
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -180,6 +251,12 @@
                 "minecraft:plains"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -198,6 +275,14 @@
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -216,12 +301,18 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:sunflower_plains",
-                "minecraft:cherry_grove",
+                "minecraft:flower_forest",
                 "minecraft:lush_caves",
-                "minecraft:flower_forest"
+                "minecraft:cherry_grove",
+                "minecraft:sunflower_plains"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -243,12 +334,18 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:sunflower_plains",
-                "minecraft:cherry_grove",
+                "minecraft:flower_forest",
                 "minecraft:lush_caves",
-                "minecraft:flower_forest"
+                "minecraft:cherry_grove",
+                "minecraft:sunflower_plains"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -267,6 +364,14 @@
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -285,12 +390,18 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:snowy_taiga",
                 "minecraft:frozen_river",
+                "minecraft:ice_spikes",
                 "minecraft:taiga",
-                "minecraft:ice_spikes"
+                "minecraft:snowy_taiga"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -309,6 +420,14 @@
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -327,11 +446,17 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:mangrove_swamp",
                 "minecraft:grove",
+                "minecraft:mangrove_swamp",
                 "minecraft:swamp"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -353,11 +478,17 @@
           "conditions": [
             {
               "biomes": [
+                "potionsplus:arid_cave",
                 "minecraft:mangrove_swamp",
-                "minecraft:mushroom_fields",
-                "potionsplus:arid_cave"
+                "minecraft:mushroom_fields"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -376,6 +507,14 @@
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -394,13 +533,19 @@
           "conditions": [
             {
               "biomes": [
+                "minecraft:sparse_jungle",
                 "minecraft:plains",
                 "minecraft:jungle",
-                "minecraft:sparse_jungle",
-                "minecraft:birch_forest",
-                "minecraft:bamboo_jungle"
+                "minecraft:bamboo_jungle",
+                "minecraft:birch_forest"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -425,6 +570,12 @@
                 "potionsplus:volcanic_cave"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -443,6 +594,14 @@
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -461,15 +620,21 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:ocean",
-                "minecraft:jagged_peaks",
                 "minecraft:frozen_ocean",
-                "minecraft:stony_peaks",
+                "minecraft:cold_ocean",
                 "minecraft:deep_ocean",
+                "minecraft:ocean",
+                "minecraft:stony_peaks",
                 "minecraft:warm_ocean",
-                "minecraft:cold_ocean"
+                "minecraft:jagged_peaks"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -488,6 +653,14 @@
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -507,10 +680,16 @@
             {
               "biomes": [
                 "minecraft:jagged_peaks",
-                "minecraft:stony_peaks",
-                "minecraft:warm_ocean"
+                "minecraft:warm_ocean",
+                "minecraft:stony_peaks"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -529,6 +708,14 @@
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -547,12 +734,18 @@
           "conditions": [
             {
               "biomes": [
+                "minecraft:flower_forest",
                 "minecraft:lush_caves",
-                "minecraft:flower_forest",
-                "minecraft:snowy_beach",
-                "minecraft:snowy_plains"
+                "minecraft:snowy_plains",
+                "minecraft:snowy_beach"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -571,6 +764,14 @@
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -589,11 +790,17 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:badlands",
+                "minecraft:snowy_slopes",
                 "minecraft:flower_forest",
-                "minecraft:snowy_slopes"
+                "minecraft:badlands"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -612,6 +819,14 @@
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -635,6 +850,12 @@
                 "minecraft:eroded_badlands"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -656,11 +877,17 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:frozen_river",
                 "potionsplus:ice_cave",
-                "minecraft:frozen_peaks"
+                "minecraft:frozen_peaks",
+                "minecraft:frozen_river"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [
@@ -679,6 +906,14 @@
         },
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
           "functions": [
             {
               "function": "potionsplus:set_fish_size",
@@ -697,13 +932,19 @@
           "conditions": [
             {
               "biomes": [
-                "minecraft:dark_forest",
                 "minecraft:lush_caves",
-                "minecraft:forest",
                 "minecraft:mushroom_fields",
-                "minecraft:sunflower_plains"
+                "minecraft:sunflower_plains",
+                "minecraft:forest",
+                "minecraft:dark_forest"
               ],
               "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
             }
           ],
           "functions": [

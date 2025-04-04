@@ -1,6 +1,7 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.item.FishSizeDataComponent;
+import grill24.potionsplus.item.FishingRodDataComponent;
 import grill24.potionsplus.item.PlayerLockedItemModifiersDataComponent;
 import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
 import grill24.potionsplus.skill.reward.OwnerDataComponent;
@@ -37,5 +38,11 @@ public class DataComponents {
             "fish_size_data", builder -> builder
                     .persistent(FishSizeDataComponent.CODEC)
                     .networkSynchronized(FishSizeDataComponent.STREAM_CODEC)
+    );
+
+    public static final Supplier<DataComponentType<FishingRodDataComponent>> FISHING_ROD = DATA_COMPONENTS.registerComponentType(
+            "fishing_rod_data", builder -> builder
+                    .persistent(FishingRodDataComponent.CODEC)
+                    .networkSynchronized(FishingRodDataComponent.STREAM_CODEC)
     );
 }

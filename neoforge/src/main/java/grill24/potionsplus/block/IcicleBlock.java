@@ -1,6 +1,7 @@
 package grill24.potionsplus.block;
 
 import com.google.common.annotations.VisibleForTesting;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -353,7 +354,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
     }
 
     private static void createDripstone(LevelAccessor p_154088_, BlockPos p_154089_, Direction p_154090_, DripstoneThickness p_154091_) {
-        BlockState blockstate = grill24.potionsplus.core.Blocks.ICICLE.value().defaultBlockState().setValue(TIP_DIRECTION, p_154090_).setValue(THICKNESS, p_154091_).setValue(WATERLOGGED, Boolean.valueOf(p_154088_.getFluidState(p_154089_).getType() == Fluids.WATER));
+        BlockState blockstate = DecorationBlocks.ICICLE.value().defaultBlockState().setValue(TIP_DIRECTION, p_154090_).setValue(THICKNESS, p_154091_).setValue(WATERLOGGED, Boolean.valueOf(p_154088_.getFluidState(p_154089_).getType() == Fluids.WATER));
         p_154088_.setBlock(p_154089_, blockstate, 3);
     }
 
@@ -396,7 +397,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
         } else {
             Direction direction = p_154131_.getValue(TIP_DIRECTION);
             BiPredicate<BlockPos, BlockState> bipredicate = (p_202023_, p_202024_) -> {
-                return p_202024_.is(grill24.potionsplus.core.Blocks.ICICLE.value()) && p_202024_.getValue(TIP_DIRECTION) == direction;
+                return p_202024_.is(DecorationBlocks.ICICLE.value()) && p_202024_.getValue(TIP_DIRECTION) == direction;
             };
             return findBlockVertical(p_154132_, p_154133_, direction.getAxisDirection(), bipredicate, (p_154168_) -> {
                 return isTip(p_154168_, p_154135_);
@@ -456,10 +457,10 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
     private static Optional<BlockPos> findRootBlock(Level p_154067_, BlockPos p_154068_, BlockState p_154069_, int p_154070_) {
         Direction direction = p_154069_.getValue(TIP_DIRECTION);
         BiPredicate<BlockPos, BlockState> bipredicate = (p_202015_, p_202016_) -> {
-            return p_202016_.is(grill24.potionsplus.core.Blocks.ICICLE.value()) && p_202016_.getValue(TIP_DIRECTION) == direction;
+            return p_202016_.is(DecorationBlocks.ICICLE.value()) && p_202016_.getValue(TIP_DIRECTION) == direction;
         };
         return findBlockVertical(p_154067_, p_154068_, direction.getOpposite().getAxisDirection(), bipredicate, (p_154245_) -> {
-            return !p_154245_.is(grill24.potionsplus.core.Blocks.ICICLE.value());
+            return !p_154245_.is(DecorationBlocks.ICICLE.value());
         }, p_154070_);
     }
 
@@ -470,7 +471,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
     }
 
     private static boolean isTip(BlockState p_154154_, boolean p_154155_) {
-        if (!p_154154_.is(grill24.potionsplus.core.Blocks.ICICLE.value())) {
+        if (!p_154154_.is(DecorationBlocks.ICICLE.value())) {
             return false;
         } else {
             DripstoneThickness dripstonethickness = p_154154_.getValue(THICKNESS);
@@ -491,7 +492,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
     }
 
     private static boolean isStalactiteStartPos(BlockState p_154204_, LevelReader p_154205_, BlockPos p_154206_) {
-        return isStalactite(p_154204_) && !p_154205_.getBlockState(p_154206_.above()).is(grill24.potionsplus.core.Blocks.ICICLE.value());
+        return isStalactite(p_154204_) && !p_154205_.getBlockState(p_154206_.above()).is(DecorationBlocks.ICICLE.value());
     }
 
     public boolean isPathfindable(BlockState p_154112_, BlockGetter p_154113_, BlockPos p_154114_, PathComputationType p_154115_) {
@@ -499,7 +500,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
     }
 
     private static boolean isPointedDripstoneWithDirection(BlockState p_154208_, Direction p_154209_) {
-        return p_154208_.is(grill24.potionsplus.core.Blocks.ICICLE.value()) && p_154208_.getValue(TIP_DIRECTION) == p_154209_;
+        return p_154208_.is(DecorationBlocks.ICICLE.value()) && p_154208_.getValue(TIP_DIRECTION) == p_154209_;
     }
 
     @Nullable

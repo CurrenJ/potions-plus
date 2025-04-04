@@ -12,7 +12,7 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
     public LootTableProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryAccess) {
         super(packOutput, Set.of(), List.of(
                 new SubProviderEntry((provider) ->
-                        new PotionsPlusBlockLoot(Set.of(), FeatureFlags.DEFAULT_FLAGS, provider),
+                        new PotionsPlusBlockLoot(LootContextParamSets.BLOCK, Set.of(), FeatureFlags.DEFAULT_FLAGS, provider),
                         LootContextParamSets.BLOCK),
                 new SubProviderEntry((provider) ->
                         new PotionsPlusRewardLoot(),

@@ -1,5 +1,9 @@
 package grill24.potionsplus.core;
 
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -19,12 +23,12 @@ public class BlockRenderLayers {
     private static final Map<Holder<Block>, RenderType> renderLayers = new HashMap<>();
 
     static {
-        registerBlock(Blocks.DECORATIVE_FIRE, RenderType.cutout());
-        registerBlock(Blocks.ICICLE, RenderType.cutout());
-        registerBlock(Blocks.URANIUM_GLASS, RenderType.cutout());
-        registerBlock(Blocks.POTION_BEACON, RenderType.cutout());
-        registerBlock(Blocks.LUMOSEED_SACKS, RenderType.solid());
-        registerBlock(Blocks.SKILL_JOURNALS, RenderType.cutout());
+        registerBlock(DecorationBlocks.DECORATIVE_FIRE, RenderType.cutout());
+        registerBlock(DecorationBlocks.ICICLE, RenderType.cutout());
+        registerBlock(OreBlocks.URANIUM_GLASS, RenderType.cutout());
+        registerBlock(BlockEntityBlocks.POTION_BEACON, RenderType.cutout());
+        registerBlock(FlowerBlocks.LUMOSEED_SACKS, RenderType.solid());
+        registerBlock(BlockEntityBlocks.SKILL_JOURNALS, RenderType.cutout());
     }
 
     private static void registerBlock(Holder<Block> block, RenderType renderType) {

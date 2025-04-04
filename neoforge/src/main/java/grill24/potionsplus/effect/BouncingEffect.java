@@ -5,6 +5,7 @@ import grill24.potionsplus.core.DataAttachments;
 import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -20,7 +21,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 
-import javax.xml.crypto.Data;
 import java.util.List;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
@@ -46,12 +46,13 @@ public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         float bounceHeight = getBounceHeight(effectInstance.getAmplifier());
 
         Component frictionComponent = Component.literal("+" + String.format("%.0f", bounceHeight * 100f) + "%").withStyle(ChatFormatting.GREEN);
+        List<Component> text = List.of(frictionComponent, Component.translatable(Translations.EFFECT_POTIONSPLUS_BOUNCING_TOOLTIP).withStyle(ChatFormatting.LIGHT_PURPLE));
 
-        return List.of(frictionComponent, Component.translatable(Translations.EFFECT_POTIONSPLUS_BOUNCING_TOOLTIP).withStyle(ChatFormatting.LIGHT_PURPLE));
+        return createTooltipLine(text);
     }
 
     public static boolean onFall(LivingEntity entity) {

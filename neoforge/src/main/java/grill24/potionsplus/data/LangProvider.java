@@ -41,16 +41,6 @@ public class LangProvider extends LanguageProvider {
         add(item, id);
     }
 
-//    private void addPotion(Potion potion) {
-//        String id = potion.getRegistryName().getPath();
-//        String titleText = snakeToTitle(id);
-//
-//        add(PUtil.createPotionItemStack(potion, PUtil.PotionType.POTION), PUtil.getPotionName(PUtil.PotionType.POTION, titleText));
-//        add(PUtil.createPotionItemStack(potion, PUtil.PotionType.SPLASH_POTION), PUtil.getPotionName(PUtil.PotionType.SPLASH_POTION, titleText));
-//        add(PUtil.createPotionItemStack(potion, PUtil.PotionType.LINGERING_POTION), PUtil.getPotionName(PUtil.PotionType.LINGERING_POTION, titleText));
-//        add(PUtil.createPotionItemStack(potion, PUtil.PotionType.TIPPED_ARROW), PUtil.getPotionName(PUtil.PotionType.TIPPED_ARROW, titleText));
-//    }
-
     private void addEffect(net.minecraft.world.effect.MobEffect effect) {
         String id = BuiltInRegistries.MOB_EFFECT.getKey(effect).getPath();
         String titleText = snakeToTitle(id);

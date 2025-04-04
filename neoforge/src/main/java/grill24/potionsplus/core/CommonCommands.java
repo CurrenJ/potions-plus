@@ -6,9 +6,9 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.block.SkillJournalsBlock;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.gui.fishing.FishingLeaderboardsMenu;
-import grill24.potionsplus.gui.skill.SkillsMenu;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.network.*;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
@@ -266,7 +266,7 @@ public class CommonCommands {
                                 if (!reward.isEmpty()) {
                                     PacketDistributor.sendToPlayer(player, ClientboundStartFishingMinigamePacket.create(
                                             player,
-                                            new FishingGamePlayerAttachment(reward, new ItemStack(grill24.potionsplus.core.Items.GENERIC_ICON.getItem(), 23 + player.getRandom().nextInt(4)))
+                                            new FishingGamePlayerAttachment(reward, new ItemStack(DynamicIconItems.GENERIC_ICON.getItem(), 23 + player.getRandom().nextInt(4)))
                                     ));
                                 }
                             }

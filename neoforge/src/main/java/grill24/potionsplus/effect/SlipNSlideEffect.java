@@ -1,6 +1,7 @@
 package grill24.potionsplus.effect;
 
-import grill24.potionsplus.utility.Utility;
+import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
@@ -26,12 +27,12 @@ public class SlipNSlideEffect extends MobEffect implements IEffectTooltipDetails
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         float defaultFriction = getFriction(-1);
         float friction = getFriction(effectInstance.getAmplifier());
 
         Component frictionComponent = Component.literal("-" + String.format("%.0f", (friction - defaultFriction) * 100f) + "%").withStyle(ChatFormatting.GREEN);
-
-        return List.of(frictionComponent, Component.translatable("effect.potionsplus.slip_n_slide.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
+        List<Component> text = List.of(frictionComponent, Component.translatable(Translations.EFFECT_POTIONSPLUS_SLIP_N_SLIDE_TOOLTIP).withStyle(ChatFormatting.LIGHT_PURPLE));
+        return createTooltipLine(text);
     }
 }

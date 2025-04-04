@@ -1,9 +1,8 @@
 package grill24.potionsplus.render.animation;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.DataAttachments;
-import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.misc.LocalFishingGame;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
@@ -73,7 +72,7 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         barElementsTransform.translate(offset.x(), offset.y(), offset.z());
         barElementsTransform.mulPose(RUtil.rotate(this.rotation));
         minecraft.getItemRenderer().renderStatic(
-                Items.GENERIC_ICON.getItemStackForTexture(Items.FISHING_BAR_TEX_LOC), // 21 is the fishing game bar icon
+                DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.FISHING_BAR_TEX_LOC), // 21 is the fishing game bar icon
                 ItemDisplayContext.FIXED,
                 BRIGHTNESS,
                 OverlayTexture.NO_OVERLAY,
@@ -86,7 +85,7 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         barElementsTransform.pushPose();
         barElementsTransform.translate(0, barOffset, Z_OFFSET);
         minecraft.getItemRenderer().renderStatic(
-                Items.GENERIC_ICON.getItemStackForTexture(Items.FISHING_BOBBER_TEX_LOC), // 22 is the capture bar icon
+                DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.FISHING_BOBBER_TEX_LOC), // 22 is the capture bar icon
                 ItemDisplayContext.FIXED,
                 BRIGHTNESS,
                 OverlayTexture.NO_OVERLAY,
@@ -105,7 +104,7 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         final float barInteriorWidth = 0.125F;
         Vector3f rotationOffset = new Vector3f();
 
-        ItemStack fishReward = Items.GENERIC_ICON.getItemStackForTexture(Items.UNKNOWN_TEX_LOC);
+        ItemStack fishReward = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC);
         float winnerEnlargement = 1;
         if (localFishingGame.isOver()) {
             if (localFishingGame.isCaptured()) {
@@ -163,7 +162,7 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         }
         barElementsTransform.mulPose(RUtil.rotate(new Vector3f(rotation, rotation, rotation)));
 
-        ItemStack frame = Items.GENERIC_ICON.getItemStackForTexture(Items.COPPER_FISHING_FRAME_TEX_LOC);
+        ItemStack frame = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.COPPER_FISHING_FRAME_TEX_LOC);
         if (minecraft.player.hasData(DataAttachments.FISHING_GAME_DATA)) {
             FishingGamePlayerAttachment fishingGamePlayerAttachment = minecraft.player.getData(DataAttachments.FISHING_GAME_DATA);
             frame = fishingGamePlayerAttachment.frameType();

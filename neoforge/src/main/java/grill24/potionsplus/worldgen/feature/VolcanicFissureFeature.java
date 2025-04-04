@@ -2,6 +2,7 @@ package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
 import net.neoforged.neoforge.common.util.Lazy;
 import grill24.potionsplus.block.UnstableBlock;
 import grill24.potionsplus.utility.WorldGenUtil;
@@ -18,10 +19,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class VolcanicFissureFeature extends Feature<NoneFeatureConfiguration> {
     public static Lazy<WeightedStateProvider> FILL_SAMPLER = Lazy.of(() -> new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-            .add(grill24.potionsplus.core.Blocks.UNSTABLE_BLACKSTONE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 2)
-            .add(grill24.potionsplus.core.Blocks.UNSTABLE_DEEPSLATE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 2)
-            .add(grill24.potionsplus.core.Blocks.UNSTABLE_MOLTEN_BLACKSTONE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 1)
-            .add(grill24.potionsplus.core.Blocks.UNSTABLE_MOLTEN_DEEPSLATE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 1)
+            .add(DecorationBlocks.UNSTABLE_BLACKSTONE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 2)
+            .add(DecorationBlocks.UNSTABLE_DEEPSLATE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 2)
+            .add(DecorationBlocks.UNSTABLE_MOLTEN_BLACKSTONE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 1)
+            .add(DecorationBlocks.UNSTABLE_MOLTEN_DEEPSLATE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 1)
     ));
 
     public VolcanicFissureFeature(Codec<NoneFeatureConfiguration> codec) {

@@ -2,7 +2,7 @@ package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.block.PotionBeaconBlock;
-import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
@@ -98,7 +98,7 @@ public class PotionBeaconBlockEntityRenderer implements BlockEntityRenderer<Poti
             final float scale = RUtil.lerp(itemParticle.scale, 0, age);
             matrices.scale(scale, scale, scale);
             matrices.mulPose(RUtil.fromXYZDegrees(itemParticle.rotation));
-            Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Blocks.URANIUM_GLASS.value()), ItemDisplayContext.FIXED,
+            Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(OreBlocks.URANIUM_GLASS.value()), ItemDisplayContext.FIXED,
                     light, overlay, matrices, vertexConsumers, null, 0);
             matrices.popPose();
         }

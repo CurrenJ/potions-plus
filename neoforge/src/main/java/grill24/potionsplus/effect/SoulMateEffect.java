@@ -1,11 +1,12 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -134,12 +135,14 @@ public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails{
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         Component percentageComponent = Utility.formatEffectNumber(getPercentToRedirect(effectInstance.getAmplifier()) * 100F, 0, "%");
 
-        return List.of(
-                Component.translatable("effect.potionsplus.soul_mate.tooltip_1").withStyle(ChatFormatting.LIGHT_PURPLE),
+        List<Component> text = List.of(
+                Component.translatable(Translations.EFFECT_POTIONSPLUS_SOUL_MATE_TOOLTIP_1).withStyle(ChatFormatting.LIGHT_PURPLE),
                 percentageComponent,
-                Component.translatable("effect.potionsplus.soul_mate.tooltip_2").withStyle(ChatFormatting.LIGHT_PURPLE));
+                Component.translatable(Translations.EFFECT_POTIONSPLUS_SOUL_MATE_TOOLTIP_2).withStyle(ChatFormatting.LIGHT_PURPLE));
+
+        return createTooltipLine(text);
     }
 }

@@ -5,6 +5,8 @@ import grill24.potionsplus.core.DataAttachments;
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.event.ServerPlayerHeldItemChangedEvent;
 import grill24.potionsplus.event.SizedFishCaughtEvent;
+import grill24.potionsplus.item.FishingRodDataComponent;
+import grill24.potionsplus.item.FishingRodItem;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.utility.DelayedEvents;
 import grill24.potionsplus.utility.InvUtil;
@@ -89,6 +91,18 @@ public record ServerboundEndFishingMinigame(Result result) implements CustomPack
                     serverPlayer.removeData(DataAttachments.FISHING_GAME_DATA);
                     if (serverPlayer.fishing != null) {
                         serverPlayer.fishing.discard();
+                    }
+
+                    // Consume bait if any from the fishing rod
+                    if (result != Result.RESET) {
+                        ItemStack heldItem = serverPlayer.getItemInHand(serverPlayer.getUsedItemHand());
+                        if (heldItem.getItem() instanceof FishingRodItem) {
+                            FishingRodDataComponent fishingRodDataComponent = heldItem.get(DataComponents.FISHING_ROD);
+                            if (fishingRodDataComponent != null) {
+                                fishingRodDataComponent.consumeBait();
+                            }
+                            heldItem.set(DataComponents.FISHING_ROD, fishingRodDataComponent);
+                        }
                     }
                 }
             }

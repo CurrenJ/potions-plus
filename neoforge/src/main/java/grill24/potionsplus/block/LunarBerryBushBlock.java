@@ -1,7 +1,7 @@
 package grill24.potionsplus.block;
 
-import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.Particles;
+import grill24.potionsplus.core.items.BrewingItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -13,7 +13,6 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -24,7 +23,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 
-import java.util.Random;
 import java.util.function.ToIntFunction;
 
 public class LunarBerryBushBlock extends SweetBerryBushBlock {
@@ -113,6 +111,6 @@ public class LunarBerryBushBlock extends SweetBerryBushBlock {
 
 
     private Item getDropItem(BlockState blockState) {
-        return blockState.getValue(BLOOMING) ? Items.LUNAR_BERRIES.value() : net.minecraft.world.item.Items.SWEET_BERRIES;
+        return blockState.getValue(BLOOMING) ? BrewingItems.LUNAR_BERRIES.value() : net.minecraft.world.item.Items.SWEET_BERRIES;
     }
 }

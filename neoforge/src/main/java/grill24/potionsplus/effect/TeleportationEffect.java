@@ -1,5 +1,7 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -72,12 +74,14 @@ public class TeleportationEffect extends InstantenousMobEffect implements IEffec
 
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         Component range = Component.literal(String.valueOf(getStepLength(effectInstance.getAmplifier()))).withStyle(ChatFormatting.GREEN);
 
-        return List.of(
-                Component.translatable("effect.potionsplus.teleportation.tooltip_1").withStyle(ChatFormatting.LIGHT_PURPLE),
+        List<Component> text = List.of(
+                Component.translatable(Translations.EFFECT_POTIONSPLUS_TELEPORTATION_TOOLTIP_1).withStyle(ChatFormatting.LIGHT_PURPLE),
                 range,
-                Component.translatable("effect.potionsplus.teleportation.tooltip_2").withStyle(ChatFormatting.LIGHT_PURPLE));
+                Component.translatable(Translations.EFFECT_POTIONSPLUS_TELEPORTATION_TOOLTIP_2).withStyle(ChatFormatting.LIGHT_PURPLE));
+
+        return createTooltipLine(text);
     }
 }

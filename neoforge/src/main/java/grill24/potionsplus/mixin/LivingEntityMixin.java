@@ -1,5 +1,6 @@
 package grill24.potionsplus.mixin;
 
+import grill24.potionsplus.core.items.HatItems;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.effect.SlipNSlideEffect;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -87,7 +88,7 @@ public abstract class LivingEntityMixin extends Entity {
     public void checkTotemDeathProtection(DamageSource p_21263_, CallbackInfoReturnable<Boolean> cir) {
         ItemStack wreathe = null;
         for (ItemStack itemStack : getArmorSlots()) {
-            if(itemStack.is(grill24.potionsplus.core.Items.WREATH)) {
+            if(itemStack.is(HatItems.WREATH)) {
                 wreathe = itemStack.copy();
                 itemStack.shrink(1);
                 break;

@@ -2,8 +2,8 @@ package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.block.GeyserBlock;
-import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -39,14 +39,14 @@ public class LavaGeyserFeature extends Feature<NoneFeatureConfiguration> {
         if (isValid(context, pos, direction)) {
             switch (direction) {
                 case UP:
-                    context.level().setBlock(pos, Blocks.LAVA_GEYSER.value().defaultBlockState().setValue(GeyserBlock.FACE, AttachFace.CEILING), 2);
+                    context.level().setBlock(pos, DecorationBlocks.LAVA_GEYSER.value().defaultBlockState().setValue(GeyserBlock.FACE, AttachFace.CEILING), 2);
                     break;
                 case DOWN:
-                    context.level().setBlock(pos, Blocks.LAVA_GEYSER.value().defaultBlockState().setValue(GeyserBlock.FACE, AttachFace.FLOOR), 2);
+                    context.level().setBlock(pos, DecorationBlocks.LAVA_GEYSER.value().defaultBlockState().setValue(GeyserBlock.FACE, AttachFace.FLOOR), 2);
                     break;
                 default:
-                    context.level().setBlock(pos, Blocks.LAVA_GEYSER.value().defaultBlockState().setValue(GeyserBlock.FACE, AttachFace.WALL), 2);
-                    context.level().setBlock(pos, Blocks.LAVA_GEYSER.value().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, direction.getOpposite()), 2);
+                    context.level().setBlock(pos, DecorationBlocks.LAVA_GEYSER.value().defaultBlockState().setValue(GeyserBlock.FACE, AttachFace.WALL), 2);
+                    context.level().setBlock(pos, DecorationBlocks.LAVA_GEYSER.value().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, direction.getOpposite()), 2);
                     break;
             }
             if(PotionsPlus.Debug.DEBUG) {

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "fish_no_size",
+  "ingredients": [
+    {
+      "item": "potionsplus:portuguese_man_o_war"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "potionsplus:portuguese_man_o_war"
+  }
+}

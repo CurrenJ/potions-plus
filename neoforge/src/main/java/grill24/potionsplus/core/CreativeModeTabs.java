@@ -1,5 +1,6 @@
 package grill24.potionsplus.core;
 
+import grill24.potionsplus.core.items.BrewingItems;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -9,7 +10,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -26,7 +26,7 @@ public class CreativeModeTabs {
     public static final Holder<CreativeModeTab> POTIONS_PLUS_TAB = CREATIVE_MODE_TABS.register(POTIONS_PLUS_TAB_KEY.location().getPath(), () ->
             CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.potionsplus").withStyle(style -> style.withColor(ChatFormatting.LIGHT_PURPLE)))
-                    .icon(() -> new ItemStack(Items.LUNAR_BERRIES.value()))
+                    .icon(() -> new ItemStack(BrewingItems.LUNAR_BERRIES.value()))
                     .withSearchBar()
                     .build());
 

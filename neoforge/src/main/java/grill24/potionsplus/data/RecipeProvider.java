@@ -1,21 +1,25 @@
 package grill24.potionsplus.data;
 
-import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.Items;
-import grill24.potionsplus.core.Tags;
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipeBuilder;
+import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.utility.registration.RegistrationUtility;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -27,110 +31,9 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
         super(packOutput, registryAccess);
     }
 
-    private void buildBrewingCauldronRecipes(RecipeOutput recipeOutput, List<RecipeHolder<BrewingCauldronRecipe>> recipes) {
-        for (RecipeHolder<BrewingCauldronRecipe> recipe : recipes) {
-            buildBrewingCauldronRecipe(recipeOutput, recipe);
-        }
-    }
-
-    private void buildBrewingCauldronRecipe(RecipeOutput recipeOutput, RecipeHolder<BrewingCauldronRecipe> recipe) {
-        new BrewingCauldronRecipeBuilder(recipe.value())
-                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
-                .save(recipeOutput);
-    }
-
     @Override
     protected void buildRecipes(RecipeOutput recipeConsumer) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Blocks.PARTICLE_EMITTER.value())
-                .pattern("III")
-                .pattern("IXI")
-                .pattern("III")
-                .define('I', net.minecraft.world.item.Items.IRON_INGOT)
-                .define('X', net.minecraft.world.item.Items.SPORE_BLOSSOM)
-                .unlockedBy("has_iron_ingot", has(net.minecraft.world.item.Items.SPORE_BLOSSOM))
-                .save(recipeConsumer, ppId("particle_emitter"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, Blocks.HERBALISTS_LECTERN.value())
-                .pattern("WWW")
-                .pattern("S S")
-                .pattern("DDD")
-                .define('W', ItemTags.PLANKS)
-                .define('S', net.minecraft.world.item.Items.STICK)
-                .define('D', net.minecraft.world.item.Items.DEEPSLATE_BRICK_SLAB)
-                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
-                .save(recipeConsumer, ppId("herbalists_lectern"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, Blocks.SANGUINE_ALTAR.value())
-                .pattern("AEA")
-                .pattern("ESE")
-                .pattern("AEA")
-                .define('E', net.minecraft.world.item.Items.END_ROD)
-                .define('A', net.minecraft.world.item.Items.AMETHYST_SHARD)
-                .define('S', net.minecraft.world.item.Items.SOUL_SAND)
-                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
-                .save(recipeConsumer, ppId("sanguine_altar"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, Blocks.ABYSSAL_TROVE.value())
-                .pattern("OSO")
-                .pattern("SAS")
-                .pattern("OSO")
-                .define('O', net.minecraft.world.item.Items.SOUL_SOIL)
-                .define('A', net.minecraft.world.item.Items.AMETHYST_BLOCK)
-                .define('S', net.minecraft.world.item.Items.SOUL_SAND)
-                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
-                .save(recipeConsumer, ppId("abyssal_trove"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Blocks.PRECISION_DISPENSER.value())
-                .requires(net.minecraft.world.item.Items.DISPENSER)
-                .requires(net.minecraft.world.item.Items.SPYGLASS)
-                .unlockedBy("has_dispenser", has(net.minecraft.world.item.Items.DISPENSER))
-                .save(recipeConsumer, ppId("precision_dispenser"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, Items.WREATH.value())
-                .pattern("LBL")
-                .pattern("BTB")
-                .pattern("LBL")
-                .define('L', ItemTags.LEAVES)
-                .define('B', net.minecraft.world.item.Items.BONE)
-                .define('T', net.minecraft.world.item.Items.TOTEM_OF_UNDYING)
-                .unlockedBy("has_bone", has(net.minecraft.world.item.Items.BONE))
-                .save(recipeConsumer, ppId("wreath"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, Items.WREATH.value())
-                .pattern("BLB")
-                .pattern("LTL")
-                .pattern("BLB")
-                .define('L', ItemTags.LEAVES)
-                .define('B', net.minecraft.world.item.Items.BONE)
-                .define('T', net.minecraft.world.item.Items.TOTEM_OF_UNDYING)
-                .unlockedBy("has_bone", has(net.minecraft.world.item.Items.BONE))
-                .save(recipeConsumer, ppId("wreath_alternate"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Blocks.URANIUM_GLASS.value())
-                .requires(net.minecraft.world.item.Items.GLASS)
-                .requires(Items.URANIUM_INGOT.value())
-                .unlockedBy("has_uranium_ingot", has(Items.URANIUM_INGOT.value()))
-                .save(recipeConsumer, ppId("uranium_glass"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, Blocks.POTION_BEACON.value())
-                .pattern("GGG")
-                .pattern("GNG")
-                .pattern("OOO")
-                .define('G', Blocks.URANIUM_GLASS.value())
-                .define('N', net.minecraft.world.item.Items.NETHER_STAR)
-                .define('O', net.minecraft.world.item.Items.OBSIDIAN)
-                .unlockedBy("has_uranium_glass", has(Blocks.URANIUM_GLASS.value()))
-                .save(recipeConsumer, ppId("potion_beacon"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, Blocks.POTION_BEACON.value())
-                .pattern("GGG")
-                .pattern("GBG")
-                .pattern("OOO")
-                .define('G', Blocks.URANIUM_GLASS.value())
-                .define('B', net.minecraft.world.item.Items.BEACON)
-                .define('O', net.minecraft.world.item.Items.OBSIDIAN)
-                .unlockedBy("has_uranium_glass", has(Blocks.URANIUM_GLASS.value()))
-                .save(recipeConsumer, ppId("potion_beacon_alternate"));
+        RegistrationUtility.generateRecipes(ModInfo.MOD_ID, this, recipeConsumer);
 
         // ----- Static Brewing Cauldron Recipes -----
 
@@ -190,10 +93,10 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
         // Sulfuric Acid
         new BrewingCauldronRecipeBuilder()
-                .result(new ItemStack(Items.SULFURIC_ACID))
-                .ingredients(PUtil.createPotionItemStack(net.minecraft.world.item.alchemy.Potions.WATER, PUtil.PotionType.POTION), new ItemStack(Items.SULFUR_SHARD))
+                .result(new ItemStack(OreItems.SULFURIC_ACID))
+                .ingredients(PUtil.createPotionItemStack(net.minecraft.world.item.alchemy.Potions.WATER, PUtil.PotionType.POTION), new ItemStack(OreItems.SULFUR_SHARD))
                 .processingTime(40)
-                .unlockedBy("has_sulfur_shard", has(Items.SULFUR_SHARD.value()))
+                .unlockedBy("has_sulfur_shard", has(OreItems.SULFUR_SHARD.value()))
                 .save(recipeConsumer, ppId("sulfuric_acid"));
 
         // All Potions Duration Increase [5 Seconds] [Recipe is constant in all worlds]
@@ -211,7 +114,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
         // Amplification Increase [1 level] [Recipe is constant in all worlds]
         new BrewingCauldronRecipeBuilder()
                 .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION))
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), new ItemStack(Items.URANIUM_INGOT.value()))
+                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), new ItemStack(OreItems.URANIUM_INGOT.value()))
                 .processingTime(30)
                 .amplifierToAdd(1)
                 .potionMatchingCriteria(upgradePotionMatchingCriteria)
@@ -311,241 +214,61 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(recipeConsumer, ppId("water_bucket_to_bucket"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Blocks.IRON_OXIDE_DAISY.value())
+                .ingredient(FlowerBlocks.IRON_OXIDE_DAISY.value())
                 .result(new ItemStack(net.minecraft.world.item.Items.RAW_IRON, 3))
                 .processingTime(60)
-                .unlockedBy("has_iron_oxide_daisy", has(Blocks.IRON_OXIDE_DAISY.value()))
+                .unlockedBy("has_iron_oxide_daisy", has(FlowerBlocks.IRON_OXIDE_DAISY.value()))
                 .save(recipeConsumer, ppId("iron_oxide_daisy_to_raw_iron"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Blocks.COPPER_CHRYSANTHEMUM.value())
+                .ingredient(FlowerBlocks.COPPER_CHRYSANTHEMUM.value())
                 .result(new ItemStack(net.minecraft.world.item.Items.RAW_COPPER, 6))
                 .processingTime(60)
-                .unlockedBy("has_copper_chrysanthemum", has(Blocks.COPPER_CHRYSANTHEMUM.value()))
+                .unlockedBy("has_copper_chrysanthemum", has(FlowerBlocks.COPPER_CHRYSANTHEMUM.value()))
                 .save(recipeConsumer, ppId("copper_chrysanthemum_to_raw_copper"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Blocks.GOLDEN_CUBENSIS.value())
+                .ingredient(FlowerBlocks.GOLDEN_CUBENSIS.value())
                 .result(new ItemStack(net.minecraft.world.item.Items.RAW_GOLD, 3))
                 .processingTime(60)
-                .unlockedBy("has_golden_cubensis", has(Blocks.GOLDEN_CUBENSIS.value()))
+                .unlockedBy("has_golden_cubensis", has(FlowerBlocks.GOLDEN_CUBENSIS.value()))
                 .save(recipeConsumer, ppId("golden_cubensis_to_raw_gold"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Blocks.LAPIS_LILAC.value())
+                .ingredient(FlowerBlocks.LAPIS_LILAC.value())
                 .result(new ItemStack(net.minecraft.world.item.Items.LAPIS_BLOCK, 1))
                 .processingTime(60)
-                .unlockedBy("has_lapis_lilac", has(Blocks.LAPIS_LILAC.value()))
+                .unlockedBy("has_lapis_lilac", has(FlowerBlocks.LAPIS_LILAC.value()))
                 .save(recipeConsumer, ppId("lapis_lilac_to_lapis_block"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Blocks.DIAMOUR.value())
+                .ingredient(FlowerBlocks.DIAMOUR.value())
                 .result(new ItemStack(net.minecraft.world.item.Items.DIAMOND, 2))
                 .processingTime(60)
-                .unlockedBy("has_diamour", has(Blocks.DIAMOUR.value()))
+                .unlockedBy("has_diamour", has(FlowerBlocks.DIAMOUR.value()))
                 .save(recipeConsumer, ppId("diamour_to_diamonds"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Blocks.BLACK_COALLA_LILY.value())
+                .ingredient(FlowerBlocks.BLACK_COALLA_LILY.value())
                 .result(new ItemStack(net.minecraft.world.item.Items.COAL_BLOCK, 1))
                 .processingTime(60)
-                .unlockedBy("has_black_coalla_lily", has(Blocks.BLACK_COALLA_LILY.value()))
+                .unlockedBy("has_black_coalla_lily", has(FlowerBlocks.BLACK_COALLA_LILY.value()))
                 .save(recipeConsumer, ppId("black_coalla_lily_to_coal_block"));
 
         new ClotheslineRecipeBuilder()
-                .ingredient(Blocks.REDSTONE_ROSE.value())
+                .ingredient(FlowerBlocks.REDSTONE_ROSE.value())
                 .result(new ItemStack(net.minecraft.world.item.Items.REDSTONE_BLOCK, 1))
                 .processingTime(60)
-                .unlockedBy("has_redstone_rose", has(Blocks.REDSTONE_ROSE.value()))
+                .unlockedBy("has_redstone_rose", has(FlowerBlocks.REDSTONE_ROSE.value()))
                 .save(recipeConsumer, ppId("redstone_rose_to_redstone_block"));
+    }
 
-        SimpleCookingRecipeBuilder.blasting(
-                Ingredient.of(Tags.Items.REMNANT_DEBRIS),
-                RecipeCategory.MISC,
-                new ItemStack(Items.NETHERITE_REMNANT.value()),
-                2.0F,
-                50
-        ).unlockedBy("has_remnant_debris", has(Items.REMNANT_DEBRIS.value()))
-                .save(recipeConsumer, ppId("remnant_debris_to_netherite_remnant_blasting"));
-        SimpleCookingRecipeBuilder.smelting(
-                Ingredient.of(Tags.Items.REMNANT_DEBRIS),
-                RecipeCategory.MISC,
-                new ItemStack(Items.NETHERITE_REMNANT.value()),
-                2.0F,
-                100
-        ).unlockedBy("has_remnant_debris", has(Items.REMNANT_DEBRIS.value()))
-                .save(recipeConsumer, ppId("remnant_debris_to_netherite_remnant_smelting"));
+    public static @NotNull Criterion<InventoryChangeTrigger.TriggerInstance> has(@NotNull ItemLike itemLike) {
+        return net.minecraft.data.recipes.RecipeProvider.has(itemLike);
+    }
 
-        SimpleCookingRecipeBuilder.blasting(
-                Ingredient.of(Tags.Items.URANIUM_ORE),
-                RecipeCategory.MISC,
-                new ItemStack(Items.URANIUM_INGOT.value()),
-                2.0F,
-                50
-        ).unlockedBy("has_uranium_ore", has(Blocks.URANIUM_ORE.value()))
-                .save(recipeConsumer, ppId("uranium_ore_to_uranium_ingot_blasting"));
-        SimpleCookingRecipeBuilder.smelting(
-                Ingredient.of(Tags.Items.URANIUM_ORE),
-                RecipeCategory.MISC,
-                new ItemStack(Items.URANIUM_INGOT.value()),
-                2.0F,
-                100
-        ).unlockedBy("has_uranium_ore", has(Blocks.URANIUM_ORE.value()))
-                .save(recipeConsumer, ppId("uranium_ore_to_uranium_ingot_smelting"));
-
-        SimpleCookingRecipeBuilder.blasting(
-                Ingredient.of(Items.RAW_URANIUM.value()),
-                RecipeCategory.MISC,
-                new ItemStack(Items.URANIUM_INGOT.value()),
-                2.0F,
-                50
-        ).unlockedBy("has_raw_uranium", has(Items.RAW_URANIUM.value()))
-                .save(recipeConsumer, ppId("raw_uranium_to_uranium_ingot_blasting"));
-        SimpleCookingRecipeBuilder.smelting(
-                Ingredient.of(Items.RAW_URANIUM.value()),
-                RecipeCategory.MISC,
-                new ItemStack(Items.URANIUM_INGOT.value()),
-                2.0F,
-                100
-        ).unlockedBy("has_raw_uranium", has(Items.RAW_URANIUM.value()))
-                .save(recipeConsumer, ppId("raw_uranium_to_uranium_ingot_smelting"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, net.minecraft.world.item.Items.NETHERITE_INGOT)
-                .requires(net.minecraft.world.item.Items.NETHERITE_SCRAP, 2)
-                .requires(Items.NETHERITE_REMNANT.value(), 1)
-                .requires(net.minecraft.world.item.Items.GOLD_INGOT, 4)
-                .group("netherite_ingot")
-                .unlockedBy("has_netherite_remnant", has(Items.NETHERITE_REMNANT.value()))
-                .save(recipeConsumer, ppId("netherite_ingot"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Blocks.URANIUM_BLOCK.value())
-                .pattern("UUU")
-                .pattern("UUU")
-                .pattern("UUU")
-                .define('U', Items.URANIUM_INGOT.value())
-                .unlockedBy("has_uranium_ingot", has(Items.URANIUM_INGOT.value()))
-                .save(recipeConsumer, ppId("uranium_block"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.SKILL_JOURNALS.value().asItem())
-                .requires(net.minecraft.world.item.Items.BOOK)
-                .requires(net.minecraft.world.item.Items.BOOK)
-                .requires(net.minecraft.world.item.Items.BOOK)
-                .unlockedBy("has_book", has(net.minecraft.world.item.Items.BOOK))
-                .save(recipeConsumer, ppId("skill_journals"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Items.COPPER_FISHING_ROD.value())
-                .define('C', net.minecraft.world.item.Items.COPPER_INGOT)
-                .define('S', net.minecraft.world.item.Items.STICK)
-                .define('F', net.minecraft.world.item.Items.STRING)
-                .pattern("  C")
-                .pattern(" CF")
-                .pattern("S F")
-                .unlockedBy("has_copper_ingot", has(net.minecraft.world.item.Items.COPPER_INGOT))
-                .save(recipeConsumer, ppId("copper_fishing_rod"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Blocks.SMALL_FILTER_HOPPER.value())
-                .define('H', net.minecraft.world.item.Items.HOPPER)
-                .define('C', net.minecraft.world.item.Items.COMPARATOR)
-                .define('D', net.minecraft.world.item.Items.REDSTONE)
-                .define('T', net.minecraft.world.item.Items.REDSTONE_TORCH)
-                .define('S', net.minecraft.world.item.Items.STONE)
-                .pattern("HCD")
-                .pattern("HTS")
-                .unlockedBy("has_hopper", has(net.minecraft.world.item.Items.HOPPER))
-                .save(recipeConsumer, ppId("filter_hopper"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Blocks.LARGE_FILTER_HOPPER.value())
-                .define('H', Blocks.SMALL_FILTER_HOPPER.value())
-                .define('D', net.minecraft.world.item.Items.DIAMOND)
-                .define('G', net.minecraft.world.item.Items.GOLD_INGOT)
-                .pattern("D")
-                .pattern("H")
-                .pattern("G")
-                .unlockedBy("has_hopper", has(Blocks.SMALL_FILTER_HOPPER.get()))
-                .save(recipeConsumer, ppId("filter_hopper_large"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Blocks.HUGE_FILTER_HOPPER.value())
-                .define('H', Blocks.LARGE_FILTER_HOPPER.value())
-                .define('U', Items.URANIUM_INGOT.value())
-                .define('D', net.minecraft.world.item.Items.DIAMOND)
-                .pattern("U")
-                .pattern("H")
-                .pattern("D")
-                .unlockedBy("has_hopper", has(Blocks.LARGE_FILTER_HOPPER.get()))
-                .save(recipeConsumer, ppId("filter_hopper_huge"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Items.UPGRADE_BASE.value())
-                .pattern("RGR")
-                .pattern("EQE")
-                .pattern("RGR")
-                .define('G', net.minecraft.world.item.Items.GOLD_INGOT)
-                .define('E', net.minecraft.world.item.Items.EMERALD)
-                .define('Q', net.minecraft.world.item.Items.QUARTZ)
-                .define('R', net.minecraft.world.item.Items.REDSTONE)
-                .unlockedBy("has_quartz", has(net.minecraft.world.item.Items.QUARTZ))
-                .save(recipeConsumer, ppId("upgrade_base"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_BLACKLIST.value())
-                .requires(Items.UPGRADE_BASE.value())
-                .requires(net.minecraft.world.item.Items.REDSTONE_TORCH)
-                .group("filter_hopper_upgrade_blacklist")
-                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
-                .save(recipeConsumer, ppId("filter_hopper_upgrade_blacklist"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_ARMOR.value())
-                .requires(Items.UPGRADE_BASE.value())
-                .requires(net.neoforged.neoforge.common.Tags.Items.ARMORS)
-                .group("filter_hopper_upgrade_allow_armor")
-                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
-                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_armor"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_TOOLS.value())
-                .requires(Items.UPGRADE_BASE.value())
-                .requires(net.neoforged.neoforge.common.Tags.Items.TOOLS)
-                .group("filter_hopper_upgrade_allow_tools")
-                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
-                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_tools"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_FOOD.value())
-                .requires(Items.UPGRADE_BASE.value())
-                .requires(net.neoforged.neoforge.common.Tags.Items.FOODS)
-                .group("filter_hopper_upgrade_allow_food")
-                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
-                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_food"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_POTIONS.value())
-                .requires(Items.UPGRADE_BASE.value())
-                .requires(net.neoforged.neoforge.common.Tags.Items.POTIONS)
-                .group("filter_hopper_upgrade_allow_potions")
-                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
-                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_potions"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_ENCHANTED.value())
-                .requires(Items.UPGRADE_BASE.value())
-                .requires(net.minecraft.world.item.Items.ENCHANTED_BOOK)
-                .group("filter_hopper_upgrade_allow_enchanted")
-                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
-                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_enchanted"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_POTION_INGREDIENTS.value())
-                .requires(Items.UPGRADE_BASE.value())
-                .requires(net.minecraft.world.item.Items.BLAZE_POWDER)
-                .group("filter_hopper_upgrade_allow_potion_ingredients")
-                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
-                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_potion_ingredients"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, Items.FILTER_HOPPER_UPGRADE_ALLOW_EDIBLE_REWARDS.value())
-                .requires(Items.UPGRADE_BASE.value())
-                .requires(Tags.Items.EDIBLE_REWARDS)
-                .group("filter_hopper_upgrade_allow_edible_rewards")
-                .unlockedBy("has_upgrade_base", has(Items.UPGRADE_BASE.value()))
-                .save(recipeConsumer, ppId("filter_hopper_upgrade_allow_edible_rewards"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.FISHING_LEADERBOARDS.value())
-                .requires(net.minecraft.world.item.Items.BOOK)
-                .requires(ItemTags.FISHES)
-                .group("fishing_leaderboards")
-                .unlockedBy("has_book", has(net.minecraft.world.item.Items.BOOK))
-                .save(recipeConsumer, ppId("fishing_leaderboards"));
+    // has KeyTag
+    public static @NotNull Criterion<InventoryChangeTrigger.TriggerInstance> has(@NotNull TagKey<Item> keyTag) {
+        return net.minecraft.data.recipes.RecipeProvider.has(keyTag);
     }
 }

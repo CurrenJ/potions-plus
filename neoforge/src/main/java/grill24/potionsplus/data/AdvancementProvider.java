@@ -5,10 +5,16 @@ import grill24.potionsplus.advancement.AwardStatTrigger;
 import grill24.potionsplus.advancement.CraftRecipeTrigger;
 import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
 import grill24.potionsplus.block.OreFlowerBlock;
-import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.LootTables;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+import grill24.potionsplus.core.blocks.OreBlocks;
+import grill24.potionsplus.core.items.BrewingItems;
+import grill24.potionsplus.core.items.DynamicIconItems;
+import grill24.potionsplus.core.items.HatItems;
+import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -83,12 +89,12 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
 
     // Skill advancements
     public static final ResourceLocation SKILL_JOURNALS = ppId("skill_journals");
-    public static final ResourceLocation[] MINE_COPPER_ORES = enumerateResourceLocations(grill24.potionsplus.core.Items.BLOCK_HAT_MODELS.length, count -> ppId("mine_copper_ore_" + count));
-    public static final ResourceLocation[] MINE_COAL_ORES = enumerateResourceLocations(grill24.potionsplus.core.Items.BLOCK_HAT_MODELS.length, count -> ppId("mine_coal_ore_" + count));
-    public static final ResourceLocation[] MINE_IRON_ORES = enumerateResourceLocations(grill24.potionsplus.core.Items.BLOCK_HAT_MODELS.length, count -> ppId("mine_iron_ore_" + count));
-    public static final ResourceLocation[] MINE_GOLD_ORES = enumerateResourceLocations(grill24.potionsplus.core.Items.BLOCK_HAT_MODELS.length, count -> ppId("mine_gold_ore_" + count));
-    public static final ResourceLocation[] MINE_DIAMOND_ORES = enumerateResourceLocations(grill24.potionsplus.core.Items.BLOCK_HAT_MODELS.length, count -> ppId("mine_diamond_ore_" + count));
-    public static final ResourceLocation[] MINE_EMERALD_ORES = enumerateResourceLocations(grill24.potionsplus.core.Items.BLOCK_HAT_MODELS.length, count -> ppId("mine_emerald_ore_" + count));
+    public static final ResourceLocation[] MINE_COPPER_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_copper_ore_" + count));
+    public static final ResourceLocation[] MINE_COAL_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_coal_ore_" + count));
+    public static final ResourceLocation[] MINE_IRON_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_iron_ore_" + count));
+    public static final ResourceLocation[] MINE_GOLD_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_gold_ore_" + count));
+    public static final ResourceLocation[] MINE_DIAMOND_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_diamond_ore_" + count));
+    public static final ResourceLocation[] MINE_EMERALD_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_emerald_ore_" + count));
 
     private static final class PotionsPlusAdvancementGenerator implements AdvancementProvider.AdvancementGenerator {
         @Override
@@ -107,7 +113,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder skillJournals = Advancement.Builder.advancement()
                 .parent(root)
                 .display(
-                        new ItemStack(Blocks.SKILL_JOURNALS.value()),
+                        new ItemStack(BlockEntityBlocks.SKILL_JOURNALS.value()),
                         Component.translatable(Translations.ADVANCEMENTS_POTIONSPLUS_SKILL_JOURNALS_TITLE),
                         Component.translatable(Translations.ADVANCEMENTS_POTIONSPLUS_SKILL_JOURNALS_DESCRIPTION),
                         null,
@@ -116,62 +122,62 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         true,
                         false)
                 .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("skill_journals", InventoryChangeTrigger.TriggerInstance.hasItems(Blocks.SKILL_JOURNALS.value()))
+                .addCriterion("skill_journals", InventoryChangeTrigger.TriggerInstance.hasItems(BlockEntityBlocks.SKILL_JOURNALS.value()))
                 .requirements(AdvancementRequirements.allOf(List.of("skill_journals")))
                 .save(saver, SKILL_JOURNALS, existingFileHelper);
 
         // Ore Block Hat advancements
-        List<Block> copperOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COPPER_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE, Blocks.SANDY_COPPER_ORE.value(), Blocks.MOSSY_COPPER_ORE.value());
+        List<Block> copperOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COPPER_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE, OreBlocks.SANDY_COPPER_ORE.value(), OreBlocks.MOSSY_COPPER_ORE.value());
         createOreHatAdvancement
                 (saver,
                 existingFileHelper,
                 "mine_copper_ore",
-                HatInfo.hats(MINE_COPPER_ORES, grill24.potionsplus.core.Items.COPPER_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.COPPER_ORE_HATS),
+                HatInfo.hats(MINE_COPPER_ORES, HatItems.COPPER_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.COPPER_ORE_HATS),
                 copperOreBlocks,
                 skillJournals);
 
-        List<Block> coalOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COAL_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE, Blocks.SANDY_COAL_ORE.value(), Blocks.MOSSY_COAL_ORE.value());
+        List<Block> coalOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COAL_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE, OreBlocks.SANDY_COAL_ORE.value(), OreBlocks.MOSSY_COAL_ORE.value());
         createOreHatAdvancement
                 (saver,
                 existingFileHelper,
                 "mine_coal_ore",
-                HatInfo.hats(MINE_COAL_ORES, grill24.potionsplus.core.Items.COAL_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.COAL_ORE_HATS),
+                HatInfo.hats(MINE_COAL_ORES, HatItems.COAL_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.COAL_ORE_HATS),
                 coalOreBlocks,
                 skillJournals);
 
-        List<Block> ironOreBlocks = List.of(net.minecraft.world.level.block.Blocks.IRON_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE, Blocks.SANDY_IRON_ORE.value(), Blocks.MOSSY_IRON_ORE.value());
+        List<Block> ironOreBlocks = List.of(net.minecraft.world.level.block.Blocks.IRON_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE, OreBlocks.SANDY_IRON_ORE.value(), OreBlocks.MOSSY_IRON_ORE.value());
         createOreHatAdvancement
                 (saver,
                 existingFileHelper,
                 "mine_iron_ore",
-                HatInfo.hats(MINE_IRON_ORES, grill24.potionsplus.core.Items.IRON_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.IRON_ORE_HATS),
+                HatInfo.hats(MINE_IRON_ORES, HatItems.IRON_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.IRON_ORE_HATS),
                 ironOreBlocks,
                 skillJournals);
 
-        List<Block> goldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.GOLD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE, Blocks.SANDY_GOLD_ORE.value(), Blocks.MOSSY_GOLD_ORE.value());
+        List<Block> goldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.GOLD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE, OreBlocks.SANDY_GOLD_ORE.value(), OreBlocks.MOSSY_GOLD_ORE.value());
         createOreHatAdvancement
                 (saver,
                 existingFileHelper,
                 "mine_gold_ore",
-                HatInfo.hats(MINE_GOLD_ORES, grill24.potionsplus.core.Items.GOLD_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.GOLD_ORE_HATS),
+                HatInfo.hats(MINE_GOLD_ORES, HatItems.GOLD_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.GOLD_ORE_HATS),
                 goldOreBlocks,
                 skillJournals);
 
-        List<Block> diamondOreBlocks = List.of(net.minecraft.world.level.block.Blocks.DIAMOND_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE, Blocks.SANDY_DIAMOND_ORE.value(), Blocks.MOSSY_DIAMOND_ORE.value());
+        List<Block> diamondOreBlocks = List.of(net.minecraft.world.level.block.Blocks.DIAMOND_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE, OreBlocks.SANDY_DIAMOND_ORE.value(), OreBlocks.MOSSY_DIAMOND_ORE.value());
         createOreHatAdvancement
                 (saver,
                 existingFileHelper,
                 "mine_diamond_ore",
-                HatInfo.hats(MINE_DIAMOND_ORES, grill24.potionsplus.core.Items.DIAMOND_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.DIAMOND_ORE_HATS),
+                HatInfo.hats(MINE_DIAMOND_ORES, HatItems.DIAMOND_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.DIAMOND_ORE_HATS),
                 diamondOreBlocks,
                 skillJournals);
 
-        List<Block> emeraldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.EMERALD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_EMERALD_ORE, Blocks.SANDY_EMERALD_ORE.value(), Blocks.MOSSY_EMERALD_ORE.value());
+        List<Block> emeraldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.EMERALD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_EMERALD_ORE, OreBlocks.SANDY_EMERALD_ORE.value(), OreBlocks.MOSSY_EMERALD_ORE.value());
         createOreHatAdvancement
                 (saver,
                 existingFileHelper,
                 "mine_emerald_ore",
-                HatInfo.hats(MINE_EMERALD_ORES, grill24.potionsplus.core.Items.EMERALD_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.EMERALD_ORE_HATS),
+                HatInfo.hats(MINE_EMERALD_ORES, HatItems.EMERALD_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.EMERALD_ORE_HATS),
                 emeraldOreBlocks,
                 skillJournals);
     }
@@ -234,7 +240,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         Advancement.Builder acquire_ore_flower = Advancement.Builder.advancement()
                 .parent(createBrewingCauldron)
                 .display(
-                        new ItemStack(Blocks.COPPER_CHRYSANTHEMUM.value()),
+                        new ItemStack(FlowerBlocks.COPPER_CHRYSANTHEMUM.value()),
                         Component.translatable("advancements.potionsplus.acquire_ore_flower.title"),
                         Component.translatable("advancements.potionsplus.acquire_ore_flower.description"),
                         null,
@@ -258,7 +264,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder sulfurShard = Advancement.Builder.advancement()
                 .parent(createBrewingCauldron)
                 .display(
-                        new ItemStack(grill24.potionsplus.core.Items.SULFUR_SHARD),
+                        new ItemStack(OreItems.SULFUR_SHARD),
                         Component.translatable("advancements.potionsplus.acquire_sulfur_shard.title"),
                         Component.translatable("advancements.potionsplus.acquire_sulfur_shard.description"),
                         null,
@@ -267,14 +273,14 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         true,
                         false)
                 .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("acquire_sulfur_shard", InventoryChangeTrigger.TriggerInstance.hasItems(grill24.potionsplus.core.Items.SULFUR_SHARD.value()))
+                .addCriterion("acquire_sulfur_shard", InventoryChangeTrigger.TriggerInstance.hasItems(OreItems.SULFUR_SHARD.value()))
                 .requirements(AdvancementRequirements.allOf(List.of("acquire_sulfur_shard")))
                 .save(saver, ppId("acquire_sulfur_shard"), existingFileHelper);
 
         AdvancementHolder sulfuricAcid = Advancement.Builder.advancement()
                 .parent(sulfurShard)
                 .display(
-                        new ItemStack(grill24.potionsplus.core.Items.SULFURIC_ACID),
+                        new ItemStack(OreItems.SULFURIC_ACID),
                         Component.translatable("advancements.potionsplus.acquire_sulfuric_acid.title"),
                         Component.translatable("advancements.potionsplus.acquire_sulfuric_acid.description"),
                         null,
@@ -283,14 +289,14 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         true,
                         false)
                 .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("acquire_sulfuric_acid", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(new ItemStack(grill24.potionsplus.core.Items.SULFURIC_ACID))))
+                .addCriterion("acquire_sulfuric_acid", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(new ItemStack(OreItems.SULFURIC_ACID))))
                 .requirements(AdvancementRequirements.allOf(List.of("acquire_sulfuric_acid")))
                 .save(saver, ppId("acquire_sulfuric_acid"), existingFileHelper);
 
         AdvancementHolder acquireUraniumOre = Advancement.Builder.advancement()
                 .parent(sulfurShard)
                 .display(
-                        new ItemStack(grill24.potionsplus.core.Items.RAW_URANIUM),
+                        new ItemStack(OreItems.RAW_URANIUM),
                         Component.translatable("advancements.potionsplus.acquire_uranium_ore.title"),
                         Component.translatable("advancements.potionsplus.acquire_uranium_ore.description"),
                         null,
@@ -299,14 +305,14 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         true,
                         false)
                 .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("acquire_raw_uranium", InventoryChangeTrigger.TriggerInstance.hasItems(grill24.potionsplus.core.Items.RAW_URANIUM.value()))
+                .addCriterion("acquire_raw_uranium", InventoryChangeTrigger.TriggerInstance.hasItems(OreItems.RAW_URANIUM.value()))
                 .requirements(AdvancementRequirements.allOf(List.of("acquire_raw_uranium")))
                 .save(saver, ppId("acquire_raw_uranium"), existingFileHelper);
 
         AdvancementHolder acquireUraniumIngot = Advancement.Builder.advancement()
                 .parent(acquireUraniumOre)
                 .display(
-                        new ItemStack(grill24.potionsplus.core.Items.URANIUM_INGOT),
+                        new ItemStack(OreItems.URANIUM_INGOT),
                         Component.translatable("advancements.potionsplus.acquire_uranium_ingot.title"),
                         Component.translatable("advancements.potionsplus.acquire_uranium_ingot.description"),
                         null,
@@ -315,7 +321,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         true,
                         false)
                 .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("acquire_uranium_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(grill24.potionsplus.core.Items.URANIUM_INGOT.value()))
+                .addCriterion("acquire_uranium_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(OreItems.URANIUM_INGOT.value()))
                 .requirements(AdvancementRequirements.allOf(List.of("acquire_uranium_ingot")))
                 .save(saver, ppId("acquire_uranium_ingot"), existingFileHelper);
     }
@@ -324,7 +330,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder create_sanguine_altar = Advancement.Builder.advancement()
                 .parent(create_brewing_cauldron)
                 .display(
-                        new ItemStack(Blocks.SANGUINE_ALTAR.value()),
+                        new ItemStack(BlockEntityBlocks.SANGUINE_ALTAR.value()),
                         Component.translatable("advancements.potionsplus.sanguine_altar.title"),
                         Component.translatable("advancements.potionsplus.sanguine_altar.description"),
                         null,
@@ -333,7 +339,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         true,
                         false)
                 .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("create_sanguine_altar", CreatePotionsPlusBlockTrigger.TriggerInstance.create(Blocks.SANGUINE_ALTAR.value().defaultBlockState()))
+                .addCriterion("create_sanguine_altar", CreatePotionsPlusBlockTrigger.TriggerInstance.create(BlockEntityBlocks.SANGUINE_ALTAR.value().defaultBlockState()))
                 .requirements(AdvancementRequirements.allOf(List.of("create_sanguine_altar")))
                 .save(saver, CREATE_SANGUINE_ALTAR, existingFileHelper);
 
@@ -358,7 +364,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder create_brewing_cauldron = Advancement.Builder.advancement()
         .display(
                 // The advancement icon. Can be an ItemStack or an ItemLike.
-                new ItemStack(Blocks.BREWING_CAULDRON.value()),
+                new ItemStack(BlockEntityBlocks.BREWING_CAULDRON.value()),
                 // The advancement title and description. Don't forget to add translations for these!
                 Component.translatable("advancements.potionsplus.brewing_cauldron.title"),
                 Component.translatable("advancements.potionsplus.brewing_cauldron.description"),
@@ -375,7 +381,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         .rewards(
                 AdvancementRewards.Builder.experience(100)
                 .addLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath("minecraft", "chests/igloo"))))
-        .addCriterion("create_brewing_cauldron", CreatePotionsPlusBlockTrigger.TriggerInstance.create(Blocks.BREWING_CAULDRON.value().defaultBlockState()))
+        .addCriterion("create_brewing_cauldron", CreatePotionsPlusBlockTrigger.TriggerInstance.create(BlockEntityBlocks.BREWING_CAULDRON.value().defaultBlockState()))
         .requirements(AdvancementRequirements.allOf(List.of("create_brewing_cauldron")))
         .save(saver, CREATE_BREWING_CAULDRON, existingFileHelper);
 
@@ -416,7 +422,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder acquire_moss = Advancement.Builder.advancement()
                 .parent(create_brewing_cauldron)
                 .display(
-                        new ItemStack(grill24.potionsplus.core.Items.MOSS),
+                        new ItemStack(BrewingItems.MOSS),
                         Component.translatable("advancements.potionsplus.acquire_moss.title"),
                         Component.translatable("advancements.potionsplus.acquire_moss.description"),
                         null,
@@ -425,14 +431,14 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         true,
                         false)
                 .rewards(AdvancementRewards.Builder.experience(50))
-                .addCriterion("acquire_moss", InventoryChangeTrigger.TriggerInstance.hasItems(grill24.potionsplus.core.Items.MOSS.value()))
+                .addCriterion("acquire_moss", InventoryChangeTrigger.TriggerInstance.hasItems(BrewingItems.MOSS.value()))
                 .requirements(AdvancementRequirements.allOf(List.of("acquire_moss")))
                 .save(saver, ppId("acquire_moss"), existingFileHelper);
 
         AdvancementHolder acquire_salt = Advancement.Builder.advancement()
                 .parent(acquire_moss)
                 .display(
-                        new ItemStack(grill24.potionsplus.core.Items.SALT),
+                        new ItemStack(BrewingItems.SALT),
                         Component.translatable("advancements.potionsplus.acquire_salt.title"),
                         Component.translatable("advancements.potionsplus.acquire_salt.description"),
                         null,
@@ -441,14 +447,14 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         true,
                         false)
                 .rewards(AdvancementRewards.Builder.experience(50))
-                .addCriterion("acquire_salt", InventoryChangeTrigger.TriggerInstance.hasItems(grill24.potionsplus.core.Items.SALT.value()))
+                .addCriterion("acquire_salt", InventoryChangeTrigger.TriggerInstance.hasItems(BrewingItems.SALT.value()))
                 .requirements(AdvancementRequirements.allOf(List.of("acquire_salt")))
                 .save(saver, ppId("acquire_salt"), existingFileHelper);
 
         AdvancementHolder acquire_wormroot = Advancement.Builder.advancement()
                 .parent(acquire_salt)
                 .display(
-                        new ItemStack(grill24.potionsplus.core.Items.WORMROOT),
+                        new ItemStack(BrewingItems.WORMROOT),
                         Component.translatable("advancements.potionsplus.acquire_wormroot.title"),
                         Component.translatable("advancements.potionsplus.acquire_wormroot.description"),
                         null,
@@ -457,14 +463,14 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         true,
                         false)
                 .rewards(AdvancementRewards.Builder.experience(50))
-                .addCriterion("acquire_wormroot", InventoryChangeTrigger.TriggerInstance.hasItems(grill24.potionsplus.core.Items.WORMROOT.value()))
+                .addCriterion("acquire_wormroot", InventoryChangeTrigger.TriggerInstance.hasItems(BrewingItems.WORMROOT.value()))
                 .requirements(AdvancementRequirements.allOf(List.of("acquire_wormroot")))
                 .save(saver, ppId("acquire_wormroot"), existingFileHelper);
 
         AdvancementHolder acquire_rotten_wormroot = Advancement.Builder.advancement()
                 .parent(acquire_wormroot)
                 .display(
-                        new ItemStack(grill24.potionsplus.core.Items.ROTTEN_WORMROOT),
+                        new ItemStack(BrewingItems.ROTTEN_WORMROOT),
                         Component.translatable("advancements.potionsplus.acquire_rotten_wormroot.title"),
                         Component.translatable("advancements.potionsplus.acquire_rotten_wormroot.description"),
                         null,
@@ -473,7 +479,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         true,
                         false)
                 .rewards(AdvancementRewards.Builder.experience(50))
-                .addCriterion("acquire_rotten_wormroot", InventoryChangeTrigger.TriggerInstance.hasItems(grill24.potionsplus.core.Items.ROTTEN_WORMROOT.value()))
+                .addCriterion("acquire_rotten_wormroot", InventoryChangeTrigger.TriggerInstance.hasItems(BrewingItems.ROTTEN_WORMROOT.value()))
                 .requirements(AdvancementRequirements.allOf(List.of("acquire_rotten_wormroot")))
                 .save(saver, ppId("acquire_rotten_wormroot"), existingFileHelper);
 
@@ -485,7 +491,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder create_clothesline = Advancement.Builder.advancement()
                 .parent(create_brewing_cauldron)
                 .display(
-                        new ItemStack(Blocks.CLOTHESLINE.value()),
+                        new ItemStack(BlockEntityBlocks.CLOTHESLINE.value()),
                         Component.translatable("advancements.potionsplus.clothesline.title"),
                         Component.translatable("advancements.potionsplus.clothesline.description"),
                         null,
@@ -495,7 +501,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         false)
                 .rewards(AdvancementRewards.Builder
                         .experience(100))
-                .addCriterion("create_clothesline", CreatePotionsPlusBlockTrigger.TriggerInstance.create(Blocks.CLOTHESLINE.value().defaultBlockState()))
+                .addCriterion("create_clothesline", CreatePotionsPlusBlockTrigger.TriggerInstance.create(BlockEntityBlocks.CLOTHESLINE.value().defaultBlockState()))
                 .requirements(AdvancementRequirements.allOf(List.of("create_clothesline")))
                 .save(saver, CREATE_CLOTHESLINE, existingFileHelper);
 
@@ -521,7 +527,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder create_abyssal_trove = Advancement.Builder.advancement()
                 .parent(create_brewing_cauldron)
                 .display(
-                        new ItemStack(Blocks.ABYSSAL_TROVE.value()),
+                        new ItemStack(BlockEntityBlocks.ABYSSAL_TROVE.value()),
                         Component.translatable("advancements.potionsplus.abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.abyssal_trove.description"),
                         null,
@@ -531,14 +537,14 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         false)
                 .rewards(AdvancementRewards.Builder
                         .experience(100))
-                .addCriterion("create_abyssal_trove", CreatePotionsPlusBlockTrigger.TriggerInstance.create(Blocks.ABYSSAL_TROVE.value().defaultBlockState()))
+                .addCriterion("create_abyssal_trove", CreatePotionsPlusBlockTrigger.TriggerInstance.create(BlockEntityBlocks.ABYSSAL_TROVE.value().defaultBlockState()))
                 .requirements(AdvancementRequirements.allOf(List.of("create_abyssal_trove")))
                 .save(saver, CREATE_ABYSSAL_TROVE, existingFileHelper);
 
         AdvancementHolder add_first_ingredient_to_abyssal_trove = Advancement.Builder.advancement()
                 .parent(create_abyssal_trove)
                 .display(
-                        grill24.potionsplus.core.Items.GENERIC_ICON.getItemStackForTexture(grill24.potionsplus.core.Items.UNKNOWN_TEX_LOC),
+                        DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC),
                         Component.translatable("advancements.potionsplus.add_first_ingredient_to_abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.add_first_ingredient_to_abyssal_trove.description"),
                         null,
@@ -555,7 +561,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder add_common_ingredient_to_abyssal_trove = Advancement.Builder.advancement()
                 .parent(add_first_ingredient_to_abyssal_trove)
                 .display(
-                        grill24.potionsplus.core.Items.GENERIC_ICON.getItemStackForTexture(grill24.potionsplus.core.Items.COMMON_TEX_LOC),
+                        DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.COMMON_TEX_LOC),
                         Component.translatable("advancements.potionsplus.add_common_ingredient_to_abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.add_common_ingredient_to_abyssal_trove.description"),
                         null,
@@ -572,7 +578,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder add_rare_ingredient_to_abyssal_trove = Advancement.Builder.advancement()
                 .parent(add_common_ingredient_to_abyssal_trove)
                 .display(
-                        grill24.potionsplus.core.Items.GENERIC_ICON.getItemStackForTexture(grill24.potionsplus.core.Items.RARE_TEX_LOC),
+                        DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.RARE_TEX_LOC),
                         Component.translatable("advancements.potionsplus.add_rare_ingredient_to_abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.add_rare_ingredient_to_abyssal_trove.description"),
                         null,

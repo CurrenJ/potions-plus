@@ -1,16 +1,14 @@
 package grill24.potionsplus.utility;
 
-import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +18,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
@@ -30,9 +27,13 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     private static final int SLOT_SIZE_X = 18;
     private static final int SLOT_SIZE_Y = 20;
     private final List<ItemStack> items;
+    private final boolean hideUnknownPotionIngredients;
+    private final boolean renderItemDecorations;
 
-    public ClientItemStacksTooltip(List<ItemStack> items) {
+    public ClientItemStacksTooltip(List<ItemStack> items, boolean hideUnknownPotionIngredients, boolean renderItemDecorations) {
         this.items = items;
+        this.hideUnknownPotionIngredients = hideUnknownPotionIngredients;
+        this.renderItemDecorations = renderItemDecorations;
     }
 
     @Override
@@ -82,7 +83,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
                 return;
             }
 
-            if (!itemstack.is(Blocks.BREWING_CAULDRON.value().asItem())) {
+            if (!itemstack.is(BlockEntityBlocks.BREWING_CAULDRON.value().asItem())) {
                 this.blit(guiGraphics, x, y, ClientItemStacksTooltip.Texture.SLOT);
 
                 LocalPlayer player = Minecraft.getInstance().player;
@@ -91,9 +92,8 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
                         PlayerBrewingKnowledge brewingKnowledge = SavedData.instance.getData(player);
                         boolean isInAbyssalTrove = brewingKnowledge.abyssalTroveContainsIngredient(level, PpIngredient.of(itemstack));
                         boolean isPotion = PUtil.isPotion(itemstack);
-                        if (!isInAbyssalTrove && !isPotion && !PotionsPlus.Debug.shouldRevealAllRecipes) {
-
-                            itemstack = Items.GENERIC_ICON.getItemStackForTexture(Items.UNKNOWN_TEX_LOC);
+                        if (!isInAbyssalTrove && !isPotion && !PotionsPlus.Debug.shouldRevealAllRecipes && this.hideUnknownPotionIngredients) {
+                            itemstack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC);
                         }
                     } catch (IOException ignored) {}
                 }
@@ -101,7 +101,9 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
             }
 
             guiGraphics.renderItem(itemstack, x + 1, y + 1, itemIndex);
-            //guiGraphics.renderItemDecorations(font, itemstack, x + 1, y + 1);
+            if (this.renderItemDecorations) {
+                guiGraphics.renderItemDecorations(font, itemstack, x + 1, y + 1);
+            }
         }
     }
 

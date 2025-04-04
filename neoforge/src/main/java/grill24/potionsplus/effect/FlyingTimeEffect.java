@@ -1,6 +1,8 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.Utility;
@@ -84,8 +86,10 @@ public class FlyingTimeEffect extends MobEffect implements IEffectTooltipDetails
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         Component percentageIncrease = Utility.formatEffectNumber(getAdditionalTickRate(effectInstance.getAmplifier()) / 20f * 100f, 0, "%");
-        return List.of(percentageIncrease, Component.translatable("effect.potionsplus.flying_time.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
+        List<Component> text = List.of(percentageIncrease, Component.translatable(Translations.EFFECT_POTIONSPLUS_FLYING_TIME_TOOLTIP).withStyle(ChatFormatting.LIGHT_PURPLE));
+
+        return createTooltipLine(text);
     }
 }

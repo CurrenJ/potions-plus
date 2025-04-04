@@ -1,6 +1,8 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
@@ -15,7 +17,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 
-import java.util.List;
+import java.util.Collections;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class FallOfTheVoidEffect extends MobEffect implements IEffectTooltipDetails {
@@ -43,8 +45,8 @@ public class FallOfTheVoidEffect extends MobEffect implements IEffectTooltipDeta
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
-        MutableComponent tooltip = Component.translatable("effect.potionsplus.fall_of_the_void.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE);
-        return List.of(tooltip);
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
+        MutableComponent tooltip = Component.translatable(Translations.EFFECT_POTIONSPLUS_FALL_OF_THE_VOID_TOOLTIP).withStyle(ChatFormatting.LIGHT_PURPLE);
+        return createTooltipLine(tooltip);
     }
 }

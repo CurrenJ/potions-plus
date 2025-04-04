@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "fish_no_size",
+  "ingredients": [
+    {
+      "item": "potionsplus:frozen_giant_manta_ray"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "potionsplus:frozen_giant_manta_ray"
+  }
+}

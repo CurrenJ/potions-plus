@@ -2,7 +2,7 @@ package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.block.IcicleBlock;
-import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,7 +13,6 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.PointedDripstoneConfiguration;
 
 import java.util.Optional;
-import java.util.Random;
 
 public class IcicleFeature extends Feature<PointedDripstoneConfiguration> {
     public IcicleFeature(Codec<PointedDripstoneConfiguration> codec) {
@@ -29,9 +28,9 @@ public class IcicleFeature extends Feature<PointedDripstoneConfiguration> {
             BlockPos above = blockpos.above();
             BlockPos below = blockpos.below();
             if (!levelaccessor.getBlockState(above).isAir()) {
-                levelaccessor.setBlock(blockpos, Blocks.ICICLE.value().defaultBlockState().setValue(IcicleBlock.TIP_DIRECTION, Direction.DOWN), 2);
+                levelaccessor.setBlock(blockpos, DecorationBlocks.ICICLE.value().defaultBlockState().setValue(IcicleBlock.TIP_DIRECTION, Direction.DOWN), 2);
             } else if (!levelaccessor.getBlockState(below).isAir()) {
-                levelaccessor.setBlock(blockpos, Blocks.ICICLE.value().defaultBlockState().setValue(IcicleBlock.TIP_DIRECTION, Direction.UP), 2);
+                levelaccessor.setBlock(blockpos, DecorationBlocks.ICICLE.value().defaultBlockState().setValue(IcicleBlock.TIP_DIRECTION, Direction.UP), 2);
             } else {
                 return false;
             }

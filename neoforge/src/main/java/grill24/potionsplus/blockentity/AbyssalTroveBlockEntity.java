@@ -1,6 +1,7 @@
 package grill24.potionsplus.blockentity;
 
 import grill24.potionsplus.core.*;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
@@ -186,22 +187,22 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
             ItemStack icon = ingredient.getItemStack();
             List<ItemStack> subIcon = new ArrayList<>();
             if (!PotionsPlus.Debug.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
-                icon = Items.GENERIC_ICON.getItemStackForTexture(Items.UNKNOWN_TEX_LOC);
+                icon = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC);
             } else {
                 if (Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
-                    ItemStack sub = Items.GENERIC_ICON.getItemStackForTexture(Items.DUR_TEX_LOC);
+                    ItemStack sub = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.DUR_TEX_LOC);
                     subIcon.add(sub);
                 }
                 if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
-                    ItemStack sub = Items.GENERIC_ICON.getItemStackForTexture(Items.AMP_TEX_LOC);
+                    ItemStack sub = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.AMP_TEX_LOC);
                     subIcon.add(sub);
                 }
                 if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, ingredient)) {
-                    ItemStack sub = Items.GENERIC_ICON.getItemStackForTexture(Items.COMMON_TEX_LOC);
+                    ItemStack sub = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.COMMON_TEX_LOC);
                     subIcon.add(sub);
                 }
                 if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, ingredient)) {
-                    ItemStack sub = Items.GENERIC_ICON.getItemStackForTexture(Items.RARE_TEX_LOC);
+                    ItemStack sub = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.RARE_TEX_LOC);
                     subIcon.add(sub);
                 }
             }

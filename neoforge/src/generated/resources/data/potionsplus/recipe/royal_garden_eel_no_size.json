@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "fish_no_size",
+  "ingredients": [
+    {
+      "item": "potionsplus:royal_garden_eel"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "potionsplus:royal_garden_eel"
+  }
+}

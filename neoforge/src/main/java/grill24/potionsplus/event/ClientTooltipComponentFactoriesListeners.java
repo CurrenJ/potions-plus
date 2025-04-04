@@ -12,6 +12,6 @@ import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactori
 public class ClientTooltipComponentFactoriesListeners {
     @SubscribeEvent
     public static void on(final RegisterClientTooltipComponentFactoriesEvent event) {
-        event.register(ItemStacksTooltip.class, (itemStacksTooltip) -> new ClientItemStacksTooltip(itemStacksTooltip.items()));
+        event.register(ItemStacksTooltip.class, (itemStacksTooltip) -> new ClientItemStacksTooltip(itemStacksTooltip.items(), itemStacksTooltip.hideUnknownPotionIngredients(), itemStacksTooltip.renderItemDecorations()));
     }
 }

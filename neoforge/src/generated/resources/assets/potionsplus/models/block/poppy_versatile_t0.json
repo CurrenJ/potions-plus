@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "minecraft:block/poppy"
-  }
+  "parent": "minecraft:block/poppy"
 }

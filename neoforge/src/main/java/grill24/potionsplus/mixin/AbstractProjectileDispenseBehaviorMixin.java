@@ -1,6 +1,6 @@
 package grill24.potionsplus.mixin;
 
-import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.extension.IProjectileDispenseBehaviorExtension;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.ProjectileDispenseBehavior;
@@ -17,7 +17,7 @@ public abstract class AbstractProjectileDispenseBehaviorMixin implements IProjec
 
     @Redirect(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ProjectileItem$DispenseConfig;uncertainty()F"))
     public float potions_plus$getUncertainty(ProjectileItem.DispenseConfig instance, BlockSource blockSource) {
-        if (blockSource.state().is(Blocks.PRECISION_DISPENSER.value())) {
+        if (blockSource.state().is(BlockEntityBlocks.PRECISION_DISPENSER.value())) {
             return 0.0F;
         }
         return this.dispenseConfig.uncertainty();

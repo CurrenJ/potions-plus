@@ -1,5 +1,7 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -39,8 +41,10 @@ public class ReachForTheStarsEffect extends MobEffect implements IEffectTooltipD
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         Component distance = Utility.formatEffectNumber(getReach(effectInstance.getAmplifier()), 0, "");
-        return List.of(distance, Component.translatable("effect.potionsplus.reach_for_the_stars.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
+        List<Component> text = List.of(distance, Component.translatable(Translations.EFFECT_POTIONSPLUS_REACH_FOR_THE_STARS_TOOLTIP).withStyle(ChatFormatting.LIGHT_PURPLE));
+
+        return createTooltipLine(text);
     }
 }

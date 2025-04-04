@@ -2,10 +2,9 @@ package grill24.potionsplus.mixin;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.block.OreFlowerBlock;
-import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.core.Tags;
+import grill24.potionsplus.core.blocks.OreBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.Registries;
@@ -61,7 +60,7 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
         // Replace a fraction of nether quartz ore with sulfuric nether quartz ore
         if (blockstate.is(net.minecraft.world.level.block.Blocks.NETHER_QUARTZ_ORE)) {
             if (random.nextFloat() < 0.1F) {
-                Optional<BlockState> quartzState = potions_plus$tryPlaceBlock(level, bulksectionaccess, Blocks.SULFURIC_NETHER_QUARTZ_ORE.value(), blockpos$mutableblockpos);
+                Optional<BlockState> quartzState = potions_plus$tryPlaceBlock(level, bulksectionaccess, OreBlocks.SULFURIC_NETHER_QUARTZ_ORE.value(), blockpos$mutableblockpos);
                 quartzState.ifPresent(blockState -> levelchunksection.setBlockState(x, y, z, blockState, false));
             }
         }

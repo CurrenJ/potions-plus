@@ -1,8 +1,8 @@
 package grill24.potionsplus.client.integration.jei;
 
 import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
-import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
@@ -50,7 +50,7 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     public BrewingCauldronRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.drawableBuilder(RECIPE_GUI, 0, 0, 128, 62)
                 .build();
-        icon = guiHelper.createDrawableItemStack(new ItemStack(Blocks.BREWING_CAULDRON.value()));
+        icon = guiHelper.createDrawableItemStack(new ItemStack(BlockEntityBlocks.BREWING_CAULDRON.value()));
     }
 
     @Override
@@ -104,7 +104,7 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
 
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 38 - 8, 31 - 8)
                 .setSlotName("cauldron")
-                .addItemStack(new ItemStack(Blocks.BREWING_CAULDRON.value()));
+                .addItemStack(new ItemStack(BlockEntityBlocks.BREWING_CAULDRON.value()));
     }
 
     @Override

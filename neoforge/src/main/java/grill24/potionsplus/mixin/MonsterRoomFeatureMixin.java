@@ -2,6 +2,7 @@ package grill24.potionsplus.mixin;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.Biomes;
+import grill24.potionsplus.core.blocks.OreBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
@@ -29,14 +30,14 @@ import java.util.function.Predicate;
 @Mixin(MonsterRoomFeature.class)
 public abstract class MonsterRoomFeatureMixin extends Feature<NoneFeatureConfiguration> {
     private static final Lazy<WeightedStateProvider> SPAWNABLE = Lazy.of(() -> new WeightedStateProvider(SimpleWeightedRandomList .<BlockState>builder()
-            .add(grill24.potionsplus.core.Blocks.MOSSY_COAL_ORE.value().defaultBlockState(), 1)
-            .add(grill24.potionsplus.core.Blocks.MOSSY_COPPER_ORE.value().defaultBlockState(), 1)
-            .add(grill24.potionsplus.core.Blocks.MOSSY_IRON_ORE.value().defaultBlockState(), 1)
-            .add(grill24.potionsplus.core.Blocks.MOSSY_GOLD_ORE.value().defaultBlockState(), 2)
-            .add(grill24.potionsplus.core.Blocks.MOSSY_LAPIS_ORE.value().defaultBlockState(), 2)
-            .add(grill24.potionsplus.core.Blocks.MOSSY_REDSTONE_ORE.value().defaultBlockState(), 2)
-            .add(grill24.potionsplus.core.Blocks.MOSSY_DIAMOND_ORE.value().defaultBlockState(), 5)
-            .add(grill24.potionsplus.core.Blocks.MOSSY_EMERALD_ORE.value().defaultBlockState(), 5)
+            .add(OreBlocks.MOSSY_COAL_ORE.value().defaultBlockState(), 1)
+            .add(OreBlocks.MOSSY_COPPER_ORE.value().defaultBlockState(), 1)
+            .add(OreBlocks.MOSSY_IRON_ORE.value().defaultBlockState(), 1)
+            .add(OreBlocks.MOSSY_GOLD_ORE.value().defaultBlockState(), 2)
+            .add(OreBlocks.MOSSY_LAPIS_ORE.value().defaultBlockState(), 2)
+            .add(OreBlocks.MOSSY_REDSTONE_ORE.value().defaultBlockState(), 2)
+            .add(OreBlocks.MOSSY_DIAMOND_ORE.value().defaultBlockState(), 5)
+            .add(OreBlocks.MOSSY_EMERALD_ORE.value().defaultBlockState(), 5)
     ));
     
     public MonsterRoomFeatureMixin(Codec<NoneFeatureConfiguration> codec) {

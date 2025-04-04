@@ -1,6 +1,8 @@
 package grill24.potionsplus.effect;
 
 import grill24.potionsplus.core.Sounds;
+import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
@@ -112,16 +114,18 @@ public class MetalDetectingEffect extends MobEffect implements ITickingAreaToolt
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         int range = getRadius(effectInstance.getAmplifier()) * 2 + 1;
         MutableComponent area = Component.literal(range + "x" + range).withStyle(ChatFormatting.GREEN);
         Component tickInterval = Component.literal(String.valueOf(getTickInterval(effectInstance.getAmplifier()))).withStyle(ChatFormatting.GREEN);
 
-        return List.of(
-                Component.translatable("effect.potionsplus.metal_detecting.tooltip_1").withStyle(ChatFormatting.LIGHT_PURPLE),
+        List<Component> text = List.of(
+                Component.translatable(Translations.EFFECT_POTIONSPLUS_METAL_DETECTING_TOOLTIP_1).withStyle(ChatFormatting.LIGHT_PURPLE),
                 area,
-                Component.translatable("effect.potionsplus.metal_detecting.tooltip_2").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Component.translatable(Translations.EFFECT_POTIONSPLUS_METAL_DETECTING_TOOLTIP_2).withStyle(ChatFormatting.LIGHT_PURPLE),
                 tickInterval,
-                Component.translatable("effect.potionsplus.metal_detecting.tooltip_3").withStyle(ChatFormatting.LIGHT_PURPLE));
+                Component.translatable(Translations.EFFECT_POTIONSPLUS_METAL_DETECTING_TOOLTIP_3).withStyle(ChatFormatting.LIGHT_PURPLE));
+
+        return createTooltipLine(text);
     }
 }

@@ -342,4 +342,11 @@ public class Utility {
         head.set(DataComponents.PROFILE, new ResolvableProfile(player.getGameProfile()));
         return head;
     }
+
+    public static Optional<ResourceLocation> getResourceLocation(Holder<?> holder) {
+        if (holder.getKey() == null) {
+            return Optional.empty();
+        }
+        return Optional.of(holder.getKey().location());
+    }
 }

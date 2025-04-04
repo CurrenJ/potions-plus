@@ -1,6 +1,6 @@
 package grill24.potionsplus.item;
 
-import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.items.BrewingItems;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +21,7 @@ public class WormrootItem extends Item {
             boolean isInWater = level.isWaterAt(entity.blockPosition());
             if (isInWater) {
                 for (int i = 0; i < entity.getItem().getCount(); i++) {
-                    Block.popResource(level, entity.blockPosition(), new ItemStack(Items.ROTTEN_WORMROOT.value()));
+                    Block.popResource(level, entity.blockPosition(), new ItemStack(BrewingItems.ROTTEN_WORMROOT.value()));
                 }
                 entity.discard();
                 return true;

@@ -1,6 +1,7 @@
 package grill24.potionsplus.skill.reward;
 
 import grill24.potionsplus.core.*;
+import grill24.potionsplus.core.items.SkillLootItems;
 import grill24.potionsplus.skill.SkillsData;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -47,7 +48,7 @@ public class EdibleChoiceReward extends GrantableReward<EdibleChoiceRewardConfig
 
     @Override
     public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, EdibleChoiceRewardConfiguration config, ServerPlayer player) {
-        ResourceLocation flag = config.rewards.size() > 1 ? Items.BASIC_LOOT.getItemOverrideModelData().getRandomFlag(player.getRandom()) : ppId("");
+        ResourceLocation flag = config.rewards.size() > 1 ? SkillLootItems.BASIC_LOOT.getItemOverrideModelData().getRandomFlag(player.getRandom()) : ppId("");
         for (EdibleChoiceRewardOption reward : config.rewards) {
             reward.giveItem(player, flag);
         }

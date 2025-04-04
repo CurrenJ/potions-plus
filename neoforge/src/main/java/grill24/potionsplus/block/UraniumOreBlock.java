@@ -1,6 +1,6 @@
 package grill24.potionsplus.block;
 
-import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -10,7 +10,6 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ExperienceBottleItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -78,7 +77,7 @@ public class UraniumOreBlock extends DropExperienceBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (stack.is(Items.SULFURIC_ACID) && state.getValue(URANIUM_STATE) != UraniumState.FULLY_EXPOSED) {
+        if (stack.is(OreItems.SULFURIC_ACID) && state.getValue(URANIUM_STATE) != UraniumState.FULLY_EXPOSED) {
             if(!player.isCreative()) {
                 stack.shrink(1);
             }

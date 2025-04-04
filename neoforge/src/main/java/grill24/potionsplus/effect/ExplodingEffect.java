@@ -1,6 +1,7 @@
 package grill24.potionsplus.effect;
 
 import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.network.ClientboundImpulsePlayerPacket;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.ChatFormatting;
@@ -21,7 +22,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.List;
+import java.util.Collections;
 import java.util.Objects;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
@@ -66,9 +67,9 @@ public class ExplodingEffect extends MobEffect implements IEffectTooltipDetails 
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         String power = String.format("%.1f", getExplosionPower(effectInstance.getAmplifier()));
         MutableComponent tooltip = Component.translatable("effect.minecraft.exploding.tooltip", power).withStyle(ChatFormatting.RED);
-        return List.of(tooltip);
+        return createTooltipLine(tooltip);
     }
 }

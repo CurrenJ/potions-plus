@@ -1,5 +1,7 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -70,10 +72,12 @@ public class GiantStepsEffect extends MobEffect implements IEffectTooltipDetails
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         Component stepHeight = Utility.formatEffectNumber(getStepHeight(effectInstance.getAmplifier()), 0, "");
-        return List.of(
+        List<Component> text = List.of(
                 stepHeight,
-                Component.translatable("effect.potionsplus.giant_steps.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
+                Component.translatable(Translations.EFFECT_POTIONSPLUS_GIANT_STEPS_TOOLTIP).withStyle(ChatFormatting.LIGHT_PURPLE));
+
+        return createTooltipLine(text);
     }
 }

@@ -1,5 +1,7 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -25,7 +27,9 @@ public class ShepherdsSerenadeEffect extends MobEffect implements IEffectTooltip
     }
 
     @Override
-    public List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
-        return List.of(Component.translatable("effect.potionsplus.shepherds_serenade.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
+    public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
+        List<Component> text = List.of(Component.translatable(Translations.EFFECT_POTIONSPLUS_SHEPHERDS_SERENADE_TOOLTIP).withStyle(ChatFormatting.LIGHT_PURPLE));
+
+        return createTooltipLine(text);
     }
 }

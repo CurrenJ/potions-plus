@@ -1,6 +1,6 @@
 package grill24.potionsplus.behaviour;
 
-import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.items.BrewingItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -33,7 +33,7 @@ public class MossBehaviour {
 
     private static void tryMossifyBlock(PlayerInteractEvent.RightClickBlock event, BlockPos pos, Block nonMossyBlock, Block mossyBlock) {
         if (event.getLevel().getBlockState(pos).is(nonMossyBlock)) {
-            if (event.getItemStack().is(Items.MOSS.value())) {
+            if (event.getItemStack().is(BrewingItems.MOSS.value())) {
                 event.setCanceled(true);
                 event.getLevel().setBlockAndUpdate(pos, mossyBlock.defaultBlockState());
                 if (!event.getEntity().isCreative()) {
@@ -60,7 +60,7 @@ public class MossBehaviour {
                     }
 
                     if (dropped) {
-                        Block.popResource(event.getLevel(), pos, new ItemStack(Items.MOSS.value(), 1));
+                        Block.popResource(event.getLevel(), pos, new ItemStack(BrewingItems.MOSS.value(), 1));
                         event.getItemStack().hurtAndBreak(1, event.getEntity(), event.getEntity().getEquipmentSlotForItem(event.getItemStack()));
                     }
                 }

@@ -1,7 +1,9 @@
 package grill24.potionsplus.data;
 
-import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.LootTables;
+import grill24.potionsplus.core.blocks.OreBlocks;
+import grill24.potionsplus.core.items.HatItems;
+import grill24.potionsplus.core.items.OreItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.LootTableSubProvider;
@@ -50,13 +52,13 @@ public class PotionsPlusRewardLoot implements LootTableSubProvider {
                                         .add(LootItem.lootTableItem(Items.COPPER_INGOT).setWeight(6))
                                         .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(6))
                                         .add(LootItem.lootTableItem(Items.NETHERITE_SCRAP).setWeight(6))
-                                        .add(LootItem.lootTableItem(grill24.potionsplus.core.Items.NETHERITE_REMNANT.value()).setWeight(6))
-                                        .add(LootItem.lootTableItem(grill24.potionsplus.core.Items.URANIUM_INGOT.value()).setWeight(6))
+                                        .add(LootItem.lootTableItem(OreItems.NETHERITE_REMNANT.value()).setWeight(6))
+                                        .add(LootItem.lootTableItem(OreItems.URANIUM_INGOT.value()).setWeight(6))
                                         .add(LootItem.lootTableItem(Items.DIAMOND_BLOCK).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.GOLD_BLOCK).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.EMERALD_BLOCK).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.NETHERITE_INGOT).setWeight(1))
-                                        .add(LootItem.lootTableItem(Blocks.URANIUM_BLOCK.value()).setWeight(1))
+                                        .add(LootItem.lootTableItem(OreBlocks.URANIUM_BLOCK.value()).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.IRON_BLOCK).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.COPPER_BLOCK).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.REDSTONE_BLOCK).setWeight(1))
@@ -95,12 +97,12 @@ public class PotionsPlusRewardLoot implements LootTableSubProvider {
         );
 
         // Ore Hats
-        generateOreHats(consumer, grill24.potionsplus.core.Items.COPPER_ORE_HATS, LootTables.COPPER_ORE_HATS);
-        generateOreHats(consumer, grill24.potionsplus.core.Items.COAL_ORE_HATS, LootTables.COAL_ORE_HATS);
-        generateOreHats(consumer, grill24.potionsplus.core.Items.IRON_ORE_HATS, LootTables.IRON_ORE_HATS);
-        generateOreHats(consumer, grill24.potionsplus.core.Items.GOLD_ORE_HATS, LootTables.GOLD_ORE_HATS);
-        generateOreHats(consumer, grill24.potionsplus.core.Items.DIAMOND_ORE_HATS, LootTables.DIAMOND_ORE_HATS);
-        generateOreHats(consumer, grill24.potionsplus.core.Items.EMERALD_ORE_HATS, LootTables.EMERALD_ORE_HATS);
+        generateOreHats(consumer, HatItems.COPPER_ORE_HATS, LootTables.COPPER_ORE_HATS);
+        generateOreHats(consumer, HatItems.COAL_ORE_HATS, LootTables.COAL_ORE_HATS);
+        generateOreHats(consumer, HatItems.IRON_ORE_HATS, LootTables.IRON_ORE_HATS);
+        generateOreHats(consumer, HatItems.GOLD_ORE_HATS, LootTables.GOLD_ORE_HATS);
+        generateOreHats(consumer, HatItems.DIAMOND_ORE_HATS, LootTables.DIAMOND_ORE_HATS);
+        generateOreHats(consumer, HatItems.EMERALD_ORE_HATS, LootTables.EMERALD_ORE_HATS);
     }
 
     @SafeVarargs

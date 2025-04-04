@@ -1,6 +1,6 @@
 package grill24.potionsplus.gui.fishing;
 
-import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.gui.*;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.gui.screens.Screen;
@@ -31,7 +31,7 @@ public class FishingLeaderboardsScreen extends PotionsPlusScreen<FishingLeaderbo
         TabsScreenElement<RenderableScreenElement> globalMetricTabsRenderer = createMetricTabs(this, menu, FishingLeaderboardScreenElement.Type.GLOBAL);
 
         TabsScreenElement<TabsScreenElement<RenderableScreenElement>> scopeTabsRenderer = new TabsScreenElement<>(this, null, RenderableScreenElement.Settings.DEFAULT,
-                TabsScreenElement.TabData.verticalListTab(this, Items.GENERIC_ICON.getItemStackForTexture(Items.GLOBAL_TEX_LOC), 1F, 1.25F, globalMetricTabsRenderer),
+                TabsScreenElement.TabData.verticalListTab(this, DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.GLOBAL_TEX_LOC), 1F, 1.25F, globalMetricTabsRenderer),
                 TabsScreenElement.TabData.verticalListTab(this, Utility.getPlayerHead(minecraft.player), 1F, 1.25F, personalMetricTabsRenderer));
 
         VerticalScrollListScreenElement<RenderableScreenElement> all = new VerticalScrollListScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.XAlignment.CENTER, scopeTabsRenderer);
@@ -42,9 +42,9 @@ public class FishingLeaderboardsScreen extends PotionsPlusScreen<FishingLeaderbo
 
     private TabsScreenElement<RenderableScreenElement> createMetricTabs(Screen screen, FishingLeaderboardsMenu menu, FishingLeaderboardScreenElement.Type type) {
         return new TabsScreenElement<>(screen, null, RenderableScreenElement.Settings.DEFAULT,
-                TabsScreenElement.TabData.verticalListTab(screen, Items.GENERIC_ICON.getItemStackForTexture(Items.RULER_TEX_LOC), 0.85F, 1.15F,
+                TabsScreenElement.TabData.verticalListTab(screen, DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.RULER_TEX_LOC), 0.85F, 1.15F,
                         new FishingLeaderboardScreenElement(screen, this.minecraft.player, type, FishingLeaderboardScreenElement.Metric.SIZE)),
-                TabsScreenElement.TabData.verticalListTab(screen, Items.GENERIC_ICON.getItemStackForTexture(Items.COUNT_TEX_LOC), 0.85F, 1.15F,
+                TabsScreenElement.TabData.verticalListTab(screen, DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.COUNT_TEX_LOC), 0.85F, 1.15F,
                         new FishingLeaderboardScreenElement(screen, this.minecraft.player, type, FishingLeaderboardScreenElement.Metric.COUNT)));
     }
 }

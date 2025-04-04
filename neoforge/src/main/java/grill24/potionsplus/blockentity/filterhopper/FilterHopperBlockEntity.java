@@ -1,10 +1,8 @@
 package grill24.potionsplus.blockentity.filterhopper;
 
-import grill24.potionsplus.block.AbyssalTroveBlock;
 import grill24.potionsplus.block.FilterHopperBlock;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
-import grill24.potionsplus.core.Items;
-import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.items.FilterHopperUpgradeItems;
 import grill24.potionsplus.item.EdibleChoiceItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -526,15 +524,15 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     private boolean isItemValidForFilter(ItemStack stack) {
         Item item = stack.getItem();
-        boolean allowArmor = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_ARMOR.value());
-        boolean allowTools = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_TOOLS.value());
-        boolean allowFood = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_FOOD.value());
-        boolean allowPotions = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_POTIONS.value());
-        boolean allowEnchanted = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_ENCHANTED.value());
-        boolean allowPotionIngredients = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_POTION_INGREDIENTS.value());
-        boolean allowEdibleRewards = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_ALLOW_EDIBLE_REWARDS.value());
+        boolean allowArmor = upgradeItemsCache.contains(FilterHopperUpgradeItems.FILTER_HOPPER_UPGRADE_ALLOW_ARMOR.value());
+        boolean allowTools = upgradeItemsCache.contains(FilterHopperUpgradeItems.FILTER_HOPPER_UPGRADE_ALLOW_TOOLS.value());
+        boolean allowFood = upgradeItemsCache.contains(FilterHopperUpgradeItems.FILTER_HOPPER_UPGRADE_ALLOW_FOOD.value());
+        boolean allowPotions = upgradeItemsCache.contains(FilterHopperUpgradeItems.FILTER_HOPPER_UPGRADE_ALLOW_POTIONS.value());
+        boolean allowEnchanted = upgradeItemsCache.contains(FilterHopperUpgradeItems.FILTER_HOPPER_UPGRADE_ALLOW_ENCHANTED.value());
+        boolean allowPotionIngredients = upgradeItemsCache.contains(FilterHopperUpgradeItems.FILTER_HOPPER_UPGRADE_ALLOW_POTION_INGREDIENTS.value());
+        boolean allowEdibleRewards = upgradeItemsCache.contains(FilterHopperUpgradeItems.FILTER_HOPPER_UPGRADE_ALLOW_EDIBLE_REWARDS.value());
 
-        boolean blacklist = upgradeItemsCache.contains(Items.FILTER_HOPPER_UPGRADE_BLACKLIST.value());
+        boolean blacklist = upgradeItemsCache.contains(FilterHopperUpgradeItems.FILTER_HOPPER_UPGRADE_BLACKLIST.value());
         boolean isItemValid = this.filterItemsCache.contains(item)
                 || (allowArmor && item instanceof ArmorItem)
                 || (allowTools && stack.isDamageableItem() && !(item instanceof ArmorItem))

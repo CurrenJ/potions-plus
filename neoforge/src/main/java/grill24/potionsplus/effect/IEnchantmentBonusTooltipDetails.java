@@ -1,5 +1,6 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -17,7 +18,7 @@ public interface IEnchantmentBonusTooltipDetails extends IEffectTooltipDetails {
     ResourceKey<Enchantment> getEffect();
 
     @Override
-    default List<Component> getTooltipDetails(MobEffectInstance effectInstance) {
+    default AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         List<Component> tooltip = new ArrayList<>();
         Minecraft.getInstance().level.registryAccess().asGetterLookup().lookupOrThrow(Registries.ENCHANTMENT).get(getEffect()).ifPresent(enchantment -> {
             tooltip.add(Utility.formatEffectNumber(getEnchantmentBonus(effectInstance), ""));
@@ -27,6 +28,7 @@ public interface IEnchantmentBonusTooltipDetails extends IEffectTooltipDetails {
             tooltip.add(Component.literal(" "));
             tooltip.add(Component.translatable("effect.potionsplus.enchantment_bonus.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
         });
-        return tooltip;
+
+        return createTooltipLine(tooltip);
     }
 }

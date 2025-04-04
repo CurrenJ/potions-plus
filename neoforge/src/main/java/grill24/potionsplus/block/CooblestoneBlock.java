@@ -1,6 +1,6 @@
 package grill24.potionsplus.block;
 
-import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -21,10 +21,10 @@ public class CooblestoneBlock extends Block {
             for (int i = 1; i <= searchDistance; i++) {
                 BlockPos above = pos.above(i);
                 BlockState aboveState = level.getBlockState(above);
-                if (aboveState.is(Blocks.ICICLE.value())) {
+                if (aboveState.is(DecorationBlocks.ICICLE.value())) {
                     BlockPos aboveAbove = above.above();
                     BlockState aboveAboveState = level.getBlockState(aboveAbove);
-                    if(!aboveAboveState.is(Blocks.ICICLE.value()) && !aboveAboveState.isAir()) {
+                    if(!aboveAboveState.is(DecorationBlocks.ICICLE.value()) && !aboveAboveState.isAir()) {
                         // Make icicle fall on player hehehehe
                         level.destroyBlock(above, true);
 

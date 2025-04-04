@@ -3,6 +3,7 @@ package grill24.potionsplus.behaviour;
 import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.block.ClotheslinePart;
 import grill24.potionsplus.core.Particles;
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.network.ServerboundConstructClotheslinePacket;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
@@ -63,8 +64,8 @@ public class ClotheslineBehaviour {
         ClotheslinePart part = direction == Direction.NORTH ?
                 (pos.getX() < otherPos.getX() ? ClotheslinePart.LEFT : ClotheslinePart.RIGHT) :
                 (pos.getZ() < otherPos.getZ() ? ClotheslinePart.LEFT : ClotheslinePart.RIGHT);
-        level.setBlockAndUpdate(pos, grill24.potionsplus.core.Blocks.CLOTHESLINE.value().defaultBlockState().setValue(ClotheslineBlock.FACING, direction).setValue(ClotheslineBlock.PART, part).setValue(ClotheslineBlock.DISTANCE, distance));
-        level.setBlockAndUpdate(otherPos, grill24.potionsplus.core.Blocks.CLOTHESLINE.value().defaultBlockState().setValue(ClotheslineBlock.FACING, direction).setValue(ClotheslineBlock.PART, part == ClotheslinePart.LEFT ? ClotheslinePart.RIGHT : ClotheslinePart.LEFT).setValue(ClotheslineBlock.DISTANCE, distance));
+        level.setBlockAndUpdate(pos, BlockEntityBlocks.CLOTHESLINE.value().defaultBlockState().setValue(ClotheslineBlock.FACING, direction).setValue(ClotheslineBlock.PART, part).setValue(ClotheslineBlock.DISTANCE, distance));
+        level.setBlockAndUpdate(otherPos, BlockEntityBlocks.CLOTHESLINE.value().defaultBlockState().setValue(ClotheslineBlock.FACING, direction).setValue(ClotheslineBlock.PART, part == ClotheslinePart.LEFT ? ClotheslinePart.RIGHT : ClotheslinePart.LEFT).setValue(ClotheslineBlock.DISTANCE, distance));
     }
 
     private static void spawnParticles(Level level, BlockPos blockPos) {

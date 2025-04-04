@@ -1,6 +1,7 @@
 package grill24.potionsplus.worldgen.feature;
 
 import grill24.potionsplus.block.IcicleBlock;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -79,7 +80,7 @@ public class IcicleUtils {
       if (isIcicleBase(p_190848_.getBlockState(p_190849_.relative(p_190850_.getOpposite())))) {
          BlockPos.MutableBlockPos blockpos$mutableblockpos = p_190849_.mutable();
          buildBaseToTipColumn(p_190850_, p_190851_, p_190852_, (p_190846_) -> {
-            if (p_190846_.is(grill24.potionsplus.core.Blocks.ICICLE.value())) {
+            if (p_190846_.is(DecorationBlocks.ICICLE.value())) {
                p_190846_ = p_190846_.setValue(IcicleBlock.WATERLOGGED, Boolean.valueOf(p_190848_.isWaterAt(blockpos$mutableblockpos)));
             }
 
@@ -92,7 +93,7 @@ public class IcicleUtils {
    protected static boolean placeIcicleBlockIfPossible(LevelAccessor p_190854_, BlockPos p_190855_) {
       BlockState blockstate = p_190854_.getBlockState(p_190855_);
       if (blockstate.is(BlockTags.DRIPSTONE_REPLACEABLE)) {
-         p_190854_.setBlock(p_190855_, grill24.potionsplus.core.Blocks.ICICLE.value().defaultBlockState(), 2);
+         p_190854_.setBlock(p_190855_, DecorationBlocks.ICICLE.value().defaultBlockState(), 2);
          return true;
       } else {
          return false;
@@ -100,7 +101,7 @@ public class IcicleUtils {
    }
 
    private static BlockState createPointedIcicle(Direction p_159657_, DripstoneThickness p_159658_) {
-      return grill24.potionsplus.core.Blocks.ICICLE.value().defaultBlockState().setValue(IcicleBlock.TIP_DIRECTION, p_159657_).setValue(IcicleBlock.THICKNESS, p_159658_);
+      return DecorationBlocks.ICICLE.value().defaultBlockState().setValue(IcicleBlock.TIP_DIRECTION, p_159657_).setValue(IcicleBlock.THICKNESS, p_159658_);
    }
 
    public static boolean isIcicleBaseOrLava(BlockState p_159650_) {

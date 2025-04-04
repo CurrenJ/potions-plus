@@ -1,8 +1,8 @@
 package grill24.potionsplus.mixin;
 
-import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.skill.reward.OwnerDataComponent;
@@ -55,7 +55,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, net.neoforg
         }
 
         if (!displayStacks.isEmpty()) {
-            cir.setReturnValue(Optional.of(ItemStacksTooltip.of(displayStacks)));
+            cir.setReturnValue(Optional.of(ItemStacksTooltip.of(displayStacks, true, false)));
         }
     }
 
@@ -68,7 +68,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, net.neoforg
     @Unique
     private List<ItemStack> potions_plus$createTooltipFromBrewingRecipe(RecipeHolder<BrewingCauldronRecipe> recipe) {
         List<ItemStack> displayStacks = new ArrayList<>(recipe.value().getIngredientsAsItemStacks().stream().toList());
-        displayStacks.addFirst(new ItemStack(Blocks.BREWING_CAULDRON.value()));
+        displayStacks.addFirst(new ItemStack(BlockEntityBlocks.BREWING_CAULDRON.value()));
         return displayStacks;
     }
 
