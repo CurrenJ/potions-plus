@@ -4,6 +4,7 @@ import grill24.potionsplus.core.LootTables;
 import grill24.potionsplus.core.items.FishItems;
 import grill24.potionsplus.function.GaussianDistributionGenerator;
 import grill24.potionsplus.function.SetFishSizeFunction;
+import grill24.potionsplus.utility.registration.item.BaitItemBuilder;
 import grill24.potionsplus.utility.registration.item.FishItemBuilder;
 import grill24.potionsplus.loot.HasFishingRodBaitCondition;
 import grill24.potionsplus.loot.IsInBiomeTagCondition;
@@ -18,59 +19,31 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.neoforged.neoforge.common.Tags;
 
+import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.stream.Stream;
 
 public class PotionsPlusFishingLoot implements LootTableSubProvider {
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
         // Fishing
-        final int vanillaFishWeight = 30; // Vanilla fish use 120/160 weight total
+        LootPool.Builder fishingPoolBuilder = LootPool.lootPool().setRolls(ConstantValue.exactly(1));
 
-
-        final NumberProvider smallFishSize = GaussianDistributionGenerator.gaussian(30F, 15F);
-        final NumberProvider mediumFishSize = GaussianDistributionGenerator.gaussian(50F, 15F);
-        final NumberProvider largeFishSize = GaussianDistributionGenerator.gaussian(80F, 15F);
-
-        LootPool.Builder poolBuilder = LootPool.lootPool().setRolls(ConstantValue.exactly(1));
-        // Add vanilla fish
-        poolBuilder = poolBuilder.add(
-                LootItem.lootTableItem(net.minecraft.world.item.Items.COD)
-                        .setWeight(vanillaFishWeight)
-                        .apply(new SetFishSizeFunction.Builder(smallFishSize))
-                        .when(HasFishingRodBaitCondition.hasBait(FishItems.WORMS))
-        );
-        poolBuilder = poolBuilder.add(
-                LootItem.lootTableItem(net.minecraft.world.item.Items.SALMON)
-                        .setWeight(vanillaFishWeight)
-                        .apply(new SetFishSizeFunction.Builder(mediumFishSize))
-                        .when(HasFishingRodBaitCondition.hasBait(FishItems.WORMS))
-        );
-        poolBuilder = poolBuilder.add(
-                LootItem.lootTableItem(net.minecraft.world.item.Items.PUFFERFISH)
-                        .setWeight(vanillaFishWeight)
-                        .apply(new SetFishSizeFunction.Builder(smallFishSize))
-                        .when(HasFishingRodBaitCondition.hasBait(FishItems.WORMS))
-        );
-        poolBuilder = poolBuilder.add(
-                LootItem.lootTableItem(net.minecraft.world.item.Items.TROPICAL_FISH)
-                        .setWeight(vanillaFishWeight)
-                        .apply(new SetFishSizeFunction.Builder(mediumFishSize))
-                        .when(IsInBiomeTagCondition.isInBiomeTag(Tags.Biomes.IS_HOT_OVERWORLD))
-                        .when(HasFishingRodBaitCondition.hasBait(FishItems.WORMS))
-        );
-        poolBuilder = poolBuilder.add(
-                LootItem.lootTableItem(FishItems.WORMS.value())
-                        .setWeight(vanillaFishWeight)
-        );
-        // Add custom fish
-        for (AbstractRegistererBuilder<?, ?> builder : RegistrationUtility.BUILDERS) {
-            if (builder instanceof FishItemBuilder fishItemBuilder) {
-                fishItemBuilder.addAsFishingLoot(poolBuilder);
-            }
+        List<BaitItemBuilder> baits = RegistrationUtility.BUILDERS.stream()
+                .filter(b -> b instanceof BaitItemBuilder)
+                .map(b -> (BaitItemBuilder) b)
+                .toList();
+        List<FishItemBuilder> fishes = RegistrationUtility.BUILDERS.stream()
+                .filter(b -> b instanceof FishItemBuilder)
+                .map(b -> (FishItemBuilder) b)
+                .toList();
+        for (BaitItemBuilder bait : baits) {
+            bait.generateFishingLoot(fishes, fishingPoolBuilder);
         }
+
         consumer.accept(
                 LootTables.FISHING,
-                LootTable.lootTable().withPool(poolBuilder)
+                LootTable.lootTable().withPool(fishingPoolBuilder)
         );
     }
 }

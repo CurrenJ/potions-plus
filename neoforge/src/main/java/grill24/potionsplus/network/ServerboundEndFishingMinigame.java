@@ -3,8 +3,7 @@ package grill24.potionsplus.network;
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.DataAttachments;
 import grill24.potionsplus.core.DataComponents;
-import grill24.potionsplus.event.ServerPlayerHeldItemChangedEvent;
-import grill24.potionsplus.event.SizedFishCaughtEvent;
+import grill24.potionsplus.event.PpFishCaughtEvent;
 import grill24.potionsplus.item.FishingRodDataComponent;
 import grill24.potionsplus.item.FishingRodItem;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
@@ -15,6 +14,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.protocol.game.ClientboundSetCarriedItemPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
@@ -49,6 +49,7 @@ public record ServerboundEndFishingMinigame(Result result) implements CustomPack
             return this.name;
         }
     }
+
     public static final Type<ServerboundEndFishingMinigame> TYPE = new Type<>(ppId("end_fishing_minigame"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ServerboundEndFishingMinigame> STREAM_CODEC = StreamCodec.composite(
@@ -71,38 +72,33 @@ public record ServerboundEndFishingMinigame(Result result) implements CustomPack
         }
 
         public static void endGame(ServerPlayer player, Result result) {
-            if(player instanceof ServerPlayer serverPlayer) {
-                if (result == Result.RESET) {
-                    PacketDistributor.sendToPlayer(player, new ClientboundResetFishingMinigame());
+            if (result == Result.RESET) {
+                PacketDistributor.sendToPlayer(player, new ClientboundResetFishingMinigame());
+            }
+
+            if (player.hasData(DataAttachments.FISHING_GAME_DATA)) {
+                FishingGamePlayerAttachment fishingGamePlayerAttachment = player.getData(DataAttachments.FISHING_GAME_DATA);
+                if (result == Result.SUCCESS) {
+                    DelayedEvents.queueDelayedEvent(() -> {
+                        NeoForge.EVENT_BUS.post(new PpFishCaughtEvent(fishingGamePlayerAttachment.fishReward(), player));
+                        InvUtil.giveOrDropItem(player, fishingGamePlayerAttachment.fishReward().copy());
+                    }, 10);
                 }
 
-                if (serverPlayer.hasData(DataAttachments.FISHING_GAME_DATA)) {
-                    FishingGamePlayerAttachment fishingGamePlayerAttachment = serverPlayer.getData(DataAttachments.FISHING_GAME_DATA);
-                    if (result == Result.SUCCESS) {
-                        DelayedEvents.queueDelayedEvent(() -> {
-                            if (fishingGamePlayerAttachment.fishReward().has(DataComponents.FISH_SIZE)) {
-                                NeoForge.EVENT_BUS.post(new SizedFishCaughtEvent(fishingGamePlayerAttachment.fishReward(), serverPlayer));
-                            }
-                            InvUtil.giveOrDropItem(serverPlayer, fishingGamePlayerAttachment.fishReward().copy());
+                player.removeData(DataAttachments.FISHING_GAME_DATA);
+                if (player.fishing != null) {
+                    player.fishing.discard();
+                }
 
-                        }, 10);
-                    }
+                // Consume bait if any from the fishing rod
+                if (result != Result.RESET) {
+                    ItemStack heldItem = player.getItemInHand(player.getUsedItemHand());
+                    if (heldItem.getItem() instanceof FishingRodItem) {
+                        FishingRodDataComponent fishingRodData = heldItem.getOrDefault(DataComponents.FISHING_ROD, new FishingRodDataComponent());
+                        fishingRodData.consumeBait();
+                        heldItem.set(DataComponents.FISHING_ROD, fishingRodData);
 
-                    serverPlayer.removeData(DataAttachments.FISHING_GAME_DATA);
-                    if (serverPlayer.fishing != null) {
-                        serverPlayer.fishing.discard();
-                    }
-
-                    // Consume bait if any from the fishing rod
-                    if (result != Result.RESET) {
-                        ItemStack heldItem = serverPlayer.getItemInHand(serverPlayer.getUsedItemHand());
-                        if (heldItem.getItem() instanceof FishingRodItem) {
-                            FishingRodDataComponent fishingRodDataComponent = heldItem.get(DataComponents.FISHING_ROD);
-                            if (fishingRodDataComponent != null) {
-                                fishingRodDataComponent.consumeBait();
-                            }
-                            heldItem.set(DataComponents.FISHING_ROD, fishingRodDataComponent);
-                        }
+                        player.inventoryMenu.sendAllDataToRemote();
                     }
                 }
             }

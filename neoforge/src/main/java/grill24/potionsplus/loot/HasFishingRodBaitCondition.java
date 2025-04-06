@@ -5,16 +5,13 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.core.LootItemConditions;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.item.FishingRodDataComponent;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -23,9 +20,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -51,10 +45,10 @@ public record HasFishingRodBaitCondition(Set<Holder<Item>> items) implements Loo
         if (stack != null && stack.has(DataComponents.FISHING_ROD)) {
             FishingRodDataComponent fishingRodData = stack.get(DataComponents.FISHING_ROD);
             if (fishingRodData != null) {
-                for (ItemStack itemStack : fishingRodData.getFishingRodItems()) {
-                    if (items.contains(itemStack.getItemHolder())) {
-                        return true;
-                    }
+                ItemStack bait = fishingRodData.getActiveBait();
+                if (items.contains(bait.getItemHolder())) {
+                    PotionsPlus.LOGGER.info("Fishing rod bait found: " + bait.getItem().getDescriptionId() + " " + bait.getCount());
+                    return true;
                 }
             }
         }

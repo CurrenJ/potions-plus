@@ -18,6 +18,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,6 +37,23 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
         RegistrationUtility.generateRecipes(ModInfo.MOD_ID, this, recipeConsumer);
 
         // ----- Static Brewing Cauldron Recipes -----
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.COD)
+                .requires(Items.COD)
+                .unlockedBy("has_cod", has(Items.COD))
+                .save(recipeConsumer, ppId("cod_no_size"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.SALMON)
+                .requires(Items.SALMON)
+                .unlockedBy("has_salmon", has(Items.SALMON))
+                .save(recipeConsumer, ppId("salmon_no_size"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.TROPICAL_FISH)
+                .requires(Items.TROPICAL_FISH)
+                .unlockedBy("has_tropical_fish", has(Items.TROPICAL_FISH))
+                .save(recipeConsumer, ppId("tropical_fish_no_size"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.PUFFERFISH)
+                .requires(Items.PUFFERFISH)
+                .unlockedBy("has_pufferfish", has(Items.PUFFERFISH))
+                .save(recipeConsumer, ppId("pufferfish_no_size"));
 
         // Water Bottle
         new BrewingCauldronRecipeBuilder()

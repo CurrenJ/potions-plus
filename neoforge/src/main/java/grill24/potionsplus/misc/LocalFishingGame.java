@@ -1,7 +1,6 @@
 package grill24.potionsplus.misc;
 
 import grill24.potionsplus.core.DataAttachments;
-import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.network.ServerboundEndFishingMinigame;
 import grill24.potionsplus.render.IGameRendererMixin;
 import grill24.potionsplus.render.animation.FishingMinigameAnimation;

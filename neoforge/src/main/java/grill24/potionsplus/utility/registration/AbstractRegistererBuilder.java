@@ -108,11 +108,13 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
     @Override
     public void register(BiFunction<String, Supplier<T>, Holder<T>> register) {
         if (this.factory == null) {
-            throw new IllegalStateException("Item factory must be set before registration. | " + name);
+            PotionsPlus.LOGGER.warn("Item factory must be set before registration. | " + name + " will not be registered an Item.");
+            return;
         }
 
         if (this.name == null) {
-            throw new IllegalStateException("Name must be set before registration. | " + name);
+            PotionsPlus.LOGGER.warn("Item name must be set before registration. | " + name + " will not be registered an Item.");
+            return;
         }
 
         this.holder = register.apply(this.name, this.factory);

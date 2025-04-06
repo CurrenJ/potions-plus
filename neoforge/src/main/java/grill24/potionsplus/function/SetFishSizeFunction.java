@@ -52,7 +52,7 @@ public class SetFishSizeFunction extends LootItemConditionalFunction {
      */
     @Override
     public ItemStack run(ItemStack stack, LootContext context) {
-        stack.set(DataComponents.FISH_SIZE, new FishSizeDataComponent(Math.max(0, this.size.getFloat(context))));
+        stack.set(DataComponents.FISH_SIZE, new FishSizeDataComponent(Math.max(0.001F, this.size.getFloat(context))));
         return stack;
     }
 

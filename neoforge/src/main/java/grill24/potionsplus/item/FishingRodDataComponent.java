@@ -1,7 +1,7 @@
 package grill24.potionsplus.item;
 
 import com.mojang.serialization.Codec;
-import grill24.potionsplus.core.items.FishItems;
+import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.utility.ItemStacksTooltip;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -14,12 +14,15 @@ import java.util.List;
 import java.util.Optional;
 
 public record FishingRodDataComponent(List<ItemStack> fishingRodItems) {
-    public static final Codec<FishingRodDataComponent> CODEC = Codec.list(ItemStack.CODEC).xmap(FishingRodDataComponent::new, FishingRodDataComponent::fishingRodItems);
-    public static final StreamCodec<RegistryFriendlyByteBuf, FishingRodDataComponent> STREAM_CODEC = StreamCodec.composite(
-            ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()),
-            FishingRodDataComponent::fishingRodItems,
-            FishingRodDataComponent::new
+    public static final Codec<FishingRodDataComponent> CODEC = ItemStack.CODEC.listOf().xmap(
+            FishingRodDataComponent::new,
+            FishingRodDataComponent::fishingRodItems
     );
+    public static final StreamCodec<RegistryFriendlyByteBuf, FishingRodDataComponent> STREAM_CODEC =
+            ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()).map(
+                    FishingRodDataComponent::new,
+                    FishingRodDataComponent::fishingRodItems
+            );
 
     public FishingRodDataComponent(List<ItemStack> fishingRodItems) {
         this.fishingRodItems = new ArrayList<>(fishingRodItems);
@@ -31,6 +34,13 @@ public record FishingRodDataComponent(List<ItemStack> fishingRodItems) {
 
     public List<ItemStack> getFishingRodItems() {
         return fishingRodItems;
+    }
+
+    public ItemStack getActiveBait() {
+        if (fishingRodItems.isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+        return fishingRodItems.getFirst();
     }
 
     public List<ItemStack> clearFishingRodItems() {
@@ -73,7 +83,7 @@ public record FishingRodDataComponent(List<ItemStack> fishingRodItems) {
     }
 
     public boolean canAcceptItem(ItemStack stack) {
-        return stack.is(FishItems.WORMS);
+        return stack.is(Tags.Items.BAIT);
     }
 
     public List<List<ItemStack>> getDisplayFishingRodItems() {
@@ -87,14 +97,5 @@ public record FishingRodDataComponent(List<ItemStack> fishingRodItems) {
         }
 
         return Optional.of(ItemStacksTooltip.of(displayItems, false, true));
-    }
-
-    public boolean contains(ItemStack item) {
-        for (ItemStack existingItem : fishingRodItems) {
-            if (ItemStack.isSameItem(existingItem, item)) {
-                return true;
-            }
-        }
-        return false;
     }
 }

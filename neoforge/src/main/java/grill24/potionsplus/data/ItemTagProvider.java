@@ -161,6 +161,8 @@ public class ItemTagProvider extends ItemTagsProvider {
                 FishItems.FROZEN_GIANT_MANTA_RAY.getItem(),
                 FishItems.LIZARDFISH.getItem()
         );
+
+        tag(Tags.Items.BAIT).add(FishItems.WORMS.getItem(), FishItems.GUMMY_WORMS.getItem());
         tag(ItemTags.FISHES).addTag(Tags.Items.PP_FISH);
         tag(net.neoforged.neoforge.common.Tags.Items.FOODS_RAW_FISH).addTag(Tags.Items.PP_FISH);
 
@@ -169,7 +171,7 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.SALMON,
                 Items.TROPICAL_FISH,
                 Items.PUFFERFISH,
-                FishItems.WORMS.value()
+                FishItems.WORMS.getItem()
         );
         tag(Tags.Items.PP_FISHING_GOLD_FRAME).add(
                 FishItems.PARROTFISH.getItem(),
@@ -179,7 +181,8 @@ public class ItemTagProvider extends ItemTagsProvider {
                 FishItems.RAINFORDIA.getItem(),
                 FishItems.LONGNOSE_GAR.getItem(),
                 FishItems.BLUEGILL.getItem(),
-                FishItems.NEON_TETRA.getItem()
+                FishItems.NEON_TETRA.getItem(),
+                FishItems.GUMMY_WORMS.getItem()
         );
         tag(Tags.Items.PP_FISHING_DIAMOND_FRAME).add(
                 FishItems.GARDEN_EEL.getItem(),

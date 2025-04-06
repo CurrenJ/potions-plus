@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "potionsplus:item/neon_tetra"
+    "layer0": "potionsplus:item/fish/neon_tetra"
   }
 }

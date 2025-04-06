@@ -1,6 +1,5 @@
 package grill24.potionsplus.utility.registration.item;
 
-import grill24.potionsplus.core.items.FishItems;
 import grill24.potionsplus.function.GaussianDistributionGenerator;
 import grill24.potionsplus.function.SetFishSizeFunction;
 import grill24.potionsplus.loot.HasFishingRodBaitCondition;
@@ -29,7 +28,7 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
     public static final NumberProvider LARGE_SIZE = GaussianDistributionGenerator.gaussian(80F, 15F);
 
     private boolean glint;
-    private NumberProvider sizeProvider;
+    private SizeProvider sizeProvider;
     private List<ResourceKey<Biome>> biomes;
     private boolean canBeCaughtOutsideBiome;
     private boolean applyBiomeBonus;
@@ -37,12 +36,13 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
     private int biomeBonusWeight;
     private int quality;
 
-    public FishItemBuilder() {
+    public FishItemBuilder(String name) {
         super();
+        this.name(name);
         this.properties(new Item.Properties().food(Foods.COD));
         this.itemFactory(Item::new);
         this.modelGenerator(ItemModelUtility.SimpleItemModelGenerator::new);
-        this.sizeProvider(MEDIUM_SIZE);
+        this.sizeProvider(GaussianSizeBand.MEDIUM);
         this.biomes(List.of());
         this.canBeCaughtOutsideBiome(true);
         this.applyBiomeBonus(true);
@@ -51,12 +51,21 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
         this.quality(1);
     }
 
+    public FishItemBuilder(String name, String texPathPrefix) {
+        this(name, ppId(texPathPrefix + name));
+    }
+
+    public FishItemBuilder(String name, ResourceLocation tex) {
+        this(name);
+        this.modelGenerator(holder -> new ItemModelUtility.SimpleItemModelGenerator<>(holder, tex));
+    }
+
     public FishItemBuilder glint(boolean glint) {
         this.glint = glint;
         return this;
     }
 
-    public FishItemBuilder sizeProvider(NumberProvider sizeProvider) {
+    public FishItemBuilder sizeProvider(SizeProvider sizeProvider) {
         this.sizeProvider = sizeProvider;
         return this;
     }
@@ -98,7 +107,7 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
     }
 
     public static FishItemBuilder create(String name, boolean glint) {
-        FishItemBuilder builder = new FishItemBuilder();
+        FishItemBuilder builder = new FishItemBuilder(name, "item/fish/");
         builder.name(name);
         builder.glint(glint);
         if (builder.glint) {
@@ -111,35 +120,30 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
         return create(name, false);
     }
 
-    public NumberProvider getSizeProvider() {
+    public SizeProvider getSizeProvider() {
         return sizeProvider;
     }
 
-    public LootPool.Builder addAsFishingLoot(LootPool.Builder builder) {
+    public void addAsFishingLoot(LootPool.Builder builder, BaitItemBuilder bait) {
         // Anywhere rates
         if (canBeCaughtOutsideBiome) {
-            builder.add(
-                    LootItem.lootTableItem(getItem())
-                            .setWeight(baseFishWeight)
-                            .setQuality(quality)
-                            .apply(new SetFishSizeFunction.Builder(sizeProvider))
-                            .when(HasFishingRodBaitCondition.hasBait(FishItems.WORMS))
+            builder.add(BaitItemBuilder.whenBaitConditionMet(bait, LootItem.lootTableItem(getItem())
+                    .setWeight(baseFishWeight)
+                    .setQuality(quality)
+                    .apply(new SetFishSizeFunction.Builder(bait.getSizeProvider(this).get())))
             );
         }
 
         // Biome specific rates
         int weight = biomeBonusWeight + (canBeCaughtOutsideBiome ? 0 : baseFishWeight);
         if (applyBiomeBonus) {
-            builder.add(
-                    LootItem.lootTableItem(getItem())
-                            .setWeight(weight)
-                            .setQuality(quality)
-                            .apply(new SetFishSizeFunction.Builder(sizeProvider))
-                            .when(IsInBiomeCondition.isInBiome(biomes.toArray(new ResourceKey[0])))
-                            .when(HasFishingRodBaitCondition.hasBait(FishItems.WORMS))
+            builder.add(BaitItemBuilder.whenBaitConditionMet(bait, LootItem.lootTableItem(getItem())
+                    .setWeight(weight)
+                    .setQuality(quality)
+                    .apply(new SetFishSizeFunction.Builder(bait.getSizeProvider(this).get()))
+                    .when(IsInBiomeCondition.isInBiome(biomes.toArray(new ResourceKey[0]))))
             );
         }
-        return builder;
     }
 
     @Override

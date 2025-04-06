@@ -1,7 +1,8 @@
-// 1.21.1	2025-04-03T03:32:55.2304656	Potions Plus item tags
+// 1.21.1	2025-04-05T18:09:14.9991787	Potions Plus item tags
 388034e01567a2815e172e710146be2a4359abec data/c/tags/item/foods/raw_fish.json
 f5910a92ea5fb6f84cd96853e46380fa579ea546 data/minecraft/tags/item/enchantable/fishing.json
 388034e01567a2815e172e710146be2a4359abec data/minecraft/tags/item/fishes.json
+bff5e52b1bbea66f84b185faa45e72126e1722c6 data/potionsplus/tags/item/bait.json
 00391626c9319b4f8fc4c624269d451ab2819852 data/potionsplus/tags/item/edible_rewards.json
 71df0d2d89dfbeaa0211e65f5c247c52ffd9763f data/potionsplus/tags/item/food_ingredients_common.json
 a708c20dadf7739b7104a7bb74daf153f52496c0 data/potionsplus/tags/item/food_ingredients_rare.json
@@ -13,7 +14,7 @@ c39e9b524c83b8a4f688f1994644bd5f7615a0b4 data/potionsplus/tags/item/potion_durat
 4aeb97d6da36d4c115e1e4bbe46388eebcef96ed data/potionsplus/tags/item/pp_fish.json
 327b3c6093bd611bf9e50b060a5cffd5c9ba886a data/potionsplus/tags/item/pp_fishing_copper_frame.json
 ec2d5ec3ffc5dbf88c93f037a204474a53a8d47c data/potionsplus/tags/item/pp_fishing_diamond_frame.json
-5a8299d984e2861cc130809dd74a573b9bc62474 data/potionsplus/tags/item/pp_fishing_gold_frame.json
+d7241218a4a5c60cb7dca960a8631dd6509300cc data/potionsplus/tags/item/pp_fishing_gold_frame.json
 f5d774589dd84e4b3aadad56f6ac5b96bad29061 data/potionsplus/tags/item/pp_fishing_purple_frame.json
 9a217f499c5f76e32966026e9e3bef0f7c689002 data/potionsplus/tags/item/remnant_debris.json
 3e5116462b35750f484c0043429bbecd3056813c data/potionsplus/tags/item/tier_0_potion_ingredients.json

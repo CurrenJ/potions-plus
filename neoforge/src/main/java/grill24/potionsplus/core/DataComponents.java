@@ -44,5 +44,6 @@ public class DataComponents {
             "fishing_rod_data", builder -> builder
                     .persistent(FishingRodDataComponent.CODEC)
                     .networkSynchronized(FishingRodDataComponent.STREAM_CODEC)
+                    .cacheEncoding()
     );
 }

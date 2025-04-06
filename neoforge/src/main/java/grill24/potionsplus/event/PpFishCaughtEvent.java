@@ -6,11 +6,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.Event;
 
-public class SizedFishCaughtEvent extends Event {
+public class PpFishCaughtEvent extends Event {
     private final ItemStack fish;
     private final Player player;
 
-    public SizedFishCaughtEvent(ItemStack item, Player player) {
+    public PpFishCaughtEvent(ItemStack item, Player player) {
         this.fish = item;
         this.player = player;
     }

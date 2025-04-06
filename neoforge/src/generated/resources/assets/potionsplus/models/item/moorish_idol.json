@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "potionsplus:item/moorish_idol"
+    "layer0": "potionsplus:item/fish/moorish_idol"
   }
 }

@@ -7,7 +7,7 @@ import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.PpMultiIngredient;
-import grill24.potionsplus.event.SizedFishCaughtEvent;
+import grill24.potionsplus.event.PpFishCaughtEvent;
 import grill24.potionsplus.persistence.adapter.*;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.skill.SkillInstance;
@@ -159,7 +159,7 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     }
 
     @SubscribeEvent
-    public static void onSizedFishCaught(final SizedFishCaughtEvent event) {
+    public static void onSizedFishCaught(final PpFishCaughtEvent event) {
         Player player = event.getPlayer();
         ItemStack fish = event.getFish();
 

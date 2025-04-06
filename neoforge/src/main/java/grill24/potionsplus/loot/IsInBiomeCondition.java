@@ -31,6 +31,11 @@ public record IsInBiomeCondition(Set<ResourceKey<Biome>> biomes) implements Loot
             NeoForgeExtraCodecs.setOf(ResourceKey.codec(Registries.BIOME)).fieldOf("biomes").forGetter(IsInBiomeCondition::biomes)).apply(codecBuilder, IsInBiomeCondition::new)
     );
 
+    public IsInBiomeCondition(Set<ResourceKey<Biome>> biomes) {
+        // Sort the biomes to ensure consistent serialization - otherwise the order may change between runs
+        this.biomes = biomes.stream().sorted().collect(ImmutableSet.toImmutableSet());
+    }
+
     @Override
     public @NotNull LootItemConditionType getType() {
         return LootItemConditions.IS_IN_BIOME.value();

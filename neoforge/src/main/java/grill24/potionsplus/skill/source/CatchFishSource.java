@@ -1,21 +1,16 @@
 package grill24.potionsplus.skill.source;
 
-import grill24.potionsplus.advancement.AwardStatTrigger;
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.core.SkillPointSources;
-import grill24.potionsplus.event.SizedFishCaughtEvent;
+import grill24.potionsplus.event.PpFishCaughtEvent;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.StatAwardEvent;
-import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
-import oshi.util.tuples.Pair;
 
 import java.util.stream.Stream;
 
@@ -30,7 +25,7 @@ public class CatchFishSource extends SkillPointSource<ItemStack, CatchFishSource
     }
 
     @SubscribeEvent
-    public static void onCatchFish(final SizedFishCaughtEvent event) {
+    public static void onCatchFish(final PpFishCaughtEvent event) {
         SkillsData.triggerSkillPointSource(event.getPlayer(), SkillPointSources.CATCH_FISH.value(), event.getFish());
     }
 

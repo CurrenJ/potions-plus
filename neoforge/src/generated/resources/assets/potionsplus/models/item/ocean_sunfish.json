@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "potionsplus:item/ocean_sunfish"
+    "layer0": "potionsplus:item/fish/ocean_sunfish"
   }
 }

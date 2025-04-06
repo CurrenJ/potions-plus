@@ -21,6 +21,11 @@ public abstract class ItemBuilder<I extends Item, B extends ItemBuilder<I, B>> e
     }
 
     public B itemFactory(Function<Item.Properties, Item> factory) {
+        if (factory == null) {
+            this.factory = null;
+            return self();
+        }
+        
         this.factory = () -> factory.apply(this.properties);
         return self();
     }
