@@ -2,7 +2,6 @@ package grill24.potionsplus.utility.registration.item;
 
 import grill24.potionsplus.function.GaussianDistributionGenerator;
 import grill24.potionsplus.function.SetFishSizeFunction;
-import grill24.potionsplus.loot.HasFishingRodBaitCondition;
 import grill24.potionsplus.loot.IsInBiomeCondition;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -127,7 +126,7 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
     public void addAsFishingLoot(LootPool.Builder builder, BaitItemBuilder bait) {
         // Anywhere rates
         if (canBeCaughtOutsideBiome) {
-            builder.add(BaitItemBuilder.whenBaitConditionMet(bait, LootItem.lootTableItem(getItem())
+            builder.add(BaitItemBuilder.whenBaitConditionMet(bait, LootItem.lootTableItem(getValue())
                     .setWeight(baseFishWeight)
                     .setQuality(quality)
                     .apply(new SetFishSizeFunction.Builder(bait.getSizeProvider(this).get())))
@@ -137,7 +136,7 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
         // Biome specific rates
         int weight = biomeBonusWeight + (canBeCaughtOutsideBiome ? 0 : baseFishWeight);
         if (applyBiomeBonus) {
-            builder.add(BaitItemBuilder.whenBaitConditionMet(bait, LootItem.lootTableItem(getItem())
+            builder.add(BaitItemBuilder.whenBaitConditionMet(bait, LootItem.lootTableItem(getValue())
                     .setWeight(weight)
                     .setQuality(quality)
                     .apply(new SetFishSizeFunction.Builder(bait.getSizeProvider(this).get()))
@@ -164,10 +163,10 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
 
         ResourceLocation recipeId = ppId(getHolder().getKey().location().getPath() + "_no_size");
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, getItem())
-                .requires(getItem())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, getValue())
+                .requires(getValue())
                 .group("fish_no_size")
-                .unlockedBy("has_item", grill24.potionsplus.data.RecipeProvider.has(getItem()))
+                .unlockedBy("has_item", grill24.potionsplus.data.RecipeProvider.has(getValue()))
                 .save(output, recipeId);
     }
 }

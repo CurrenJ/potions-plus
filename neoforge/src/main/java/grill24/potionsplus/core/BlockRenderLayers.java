@@ -5,6 +5,9 @@ import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.registration.AbstractRegistererBuilder;
+import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.block.BlockBuilder;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Holder;
@@ -29,6 +32,16 @@ public class BlockRenderLayers {
         registerBlock(BlockEntityBlocks.POTION_BEACON, RenderType.cutout());
         registerBlock(FlowerBlocks.LUMOSEED_SACKS, RenderType.solid());
         registerBlock(BlockEntityBlocks.SKILL_JOURNALS, RenderType.cutout());
+
+        for (AbstractRegistererBuilder<?, ?> builder : RegistrationUtility.BUILDERS) {
+            if (builder instanceof BlockBuilder<?, ?> blockBuilder) {
+                switch (blockBuilder.getRenderType()) {
+                    case SOLID -> registerBlock(blockBuilder.getHolder(), RenderType.solid());
+                    case CUTOUT -> registerBlock(blockBuilder.getHolder(), RenderType.cutout());
+                    case TRANSLUCENT -> registerBlock(blockBuilder.getHolder(), RenderType.translucent());
+                }
+            }
+        }
     }
 
     private static void registerBlock(Holder<Block> block, RenderType renderType) {

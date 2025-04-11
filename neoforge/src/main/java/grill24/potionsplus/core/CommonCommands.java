@@ -266,7 +266,7 @@ public class CommonCommands {
                                 if (!reward.isEmpty()) {
                                     PacketDistributor.sendToPlayer(player, ClientboundStartFishingMinigamePacket.create(
                                             player,
-                                            new FishingGamePlayerAttachment(reward, new ItemStack(DynamicIconItems.GENERIC_ICON.getItem(), 23 + player.getRandom().nextInt(4)))
+                                            new FishingGamePlayerAttachment(reward, new ItemStack(DynamicIconItems.GENERIC_ICON.getValue(), 23 + player.getRandom().nextInt(4)))
                                     ));
                                 }
                             }

@@ -21,7 +21,7 @@ public class GenericIconItemBuilder extends ItemBuilder<Item, GenericIconItemBui
     }
 
     public ItemStack getItemStackForTexture(ResourceLocation textureLocation) {
-        return new ItemStack(getItem(), getItemModelGenerator().getItemStackCountForTexture(textureLocation));
+        return new ItemStack(getValue(), getItemModelGenerator().getItemStackCountForTexture(textureLocation));
     }
 
     @Override

@@ -28,8 +28,8 @@ public class ClientEvents {
             ClampedItemPropertyFunction clampedItemStackCountPropertyFunction =
                     (stack, world, entity, i) -> (float) (stack.getCount() - 1) / 64.0F + 0.01F;
 
-            net.minecraft.client.renderer.item.ItemProperties.register(DynamicIconItems.POTION_EFFECT_ICON.getItem(), DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
-            net.minecraft.client.renderer.item.ItemProperties.register(DynamicIconItems.GENERIC_ICON.getItem(), DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
+            net.minecraft.client.renderer.item.ItemProperties.register(DynamicIconItems.POTION_EFFECT_ICON.getValue(), DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
+            net.minecraft.client.renderer.item.ItemProperties.register(DynamicIconItems.GENERIC_ICON.getValue(), DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
 
             ClampedItemPropertyFunction edibleChoiceItemPropertyFunction = (stack, world, entity, i) -> {
                 if (stack.has(DataComponents.CHOICE_ITEM)) {

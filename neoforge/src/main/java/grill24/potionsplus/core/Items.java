@@ -36,6 +36,7 @@ public class Items {
 
     /**
      * Register a block item and DON'T generate a model for it. Assumes we generate it elsewhere or have manually created it.
+     *
      * @param block
      * @param registerItem
      */
@@ -53,6 +54,7 @@ public class Items {
 
     /**
      * Register a block item and generate an item model using a sprite texture.
+     *
      * @param block
      * @param registerItem
      * @param texture
@@ -83,6 +85,18 @@ public class Items {
             RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple(name)
                     .itemFactory(prop -> new BlockItem(block.get().value(), prop))
                     .modelGenerator((holder) -> new ItemModelUtility.SimpleBlockItemModelGenerator<>(holder, block)));
+        }
+    }
+
+    public static void registerBlockItemWithParentModel(Supplier<Holder<Block>> block, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem, ResourceLocation parent) {
+        Optional<ResourceLocation> id = Utility.getResourceLocation(block.get());
+        if (id.isEmpty()) {
+            throw new IllegalStateException("Couldn't get resource targetLocation for block: " + block + "! Skipping item registration.");
+        } else {
+            String name = id.get().getPath();
+            RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple(name)
+                    .itemFactory(prop -> new BlockItem(block.get().value(), prop))
+                    .modelGenerator((holder) -> new ItemModelUtility.SimpleBlockItemModelGenerator<>(holder, block, parent)));
         }
     }
 }

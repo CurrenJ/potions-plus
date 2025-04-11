@@ -19,6 +19,7 @@ public class Renderers {
         event.registerBlockEntityRenderer(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), AbyssalTroveBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), ClotheslineBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(Blocks.POTION_BEACON_BLOCK_ENTITY.get(), PotionBeaconBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(Blocks.FISH_TANK_BLOCK_ENTITY.get(), FishTankBlockEntityRenderer::new);
 
         event.registerEntityRenderer(Entities.INVISIBLE_FIRE_DAMAGER.get(), NoopRenderer::new);
     }

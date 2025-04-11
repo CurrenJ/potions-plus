@@ -6,6 +6,12 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": []
+            }
+          ],
           "functions": [
             {
               "add": false,

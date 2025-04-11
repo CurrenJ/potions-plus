@@ -13,6 +13,7 @@ import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.*;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.FastColor;
@@ -62,6 +63,7 @@ public class Blocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SmallFilterHopperBlockEntity>> SMALL_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("small_filter_hopper_block_entity", () -> BlockEntityType.Builder.of(SmallFilterHopperBlockEntity::new, BlockEntityBlocks.SMALL_FILTER_HOPPER.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LargeFilterHopperBlockEntity>> LARGE_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("large_filter_hopper_block_entity", () -> BlockEntityType.Builder.of(LargeFilterHopperBlockEntity::new, BlockEntityBlocks.LARGE_FILTER_HOPPER.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HugeFilterHopperBlockEntity>> HUGE_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("huge_filter_hopper_block_entity", () -> BlockEntityType.Builder.of(HugeFilterHopperBlockEntity::new, BlockEntityBlocks.HUGE_FILTER_HOPPER.value()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FishTankBlockEntity>> FISH_TANK_BLOCK_ENTITY = BLOCK_ENTITIES.register("fish_tank_block_entity", () -> BlockEntityType.Builder.of(FishTankBlockEntity::new, BlockEntityBlocks.toArray(BlockEntityBlocks.FISH_TANK_SUB_BLOCKS)).build(null));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -82,7 +84,6 @@ public class Blocks {
         event.register((state, blockAndTintGetter, blockPos, i) -> blockAndTintGetter != null && blockPos != null ?
                 BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos)
                 : GrassColor.getDefaultColor(), FlowerBlocks.TALL_GRASS_VERSATILE.value(), FlowerBlocks.LARGE_FERN_VERSATILE.value());
-
     }
 
     @OnlyIn(Dist.CLIENT)

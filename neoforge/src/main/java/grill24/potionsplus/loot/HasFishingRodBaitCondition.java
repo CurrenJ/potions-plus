@@ -46,8 +46,7 @@ public record HasFishingRodBaitCondition(Set<Holder<Item>> items) implements Loo
             FishingRodDataComponent fishingRodData = stack.get(DataComponents.FISHING_ROD);
             if (fishingRodData != null) {
                 ItemStack bait = fishingRodData.getActiveBait();
-                if (items.contains(bait.getItemHolder())) {
-                    PotionsPlus.LOGGER.info("Fishing rod bait found: " + bait.getItem().getDescriptionId() + " " + bait.getCount());
+                if (items.contains(bait.getItemHolder()) || (bait.isEmpty() && items.isEmpty())) {
                     return true;
                 }
             }

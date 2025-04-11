@@ -52,8 +52,9 @@ public class BaitItemBuilder extends ItemBuilder<Item, BaitItemBuilder> {
     }
 
     public static LootPoolEntryContainer.Builder<?> whenBaitConditionMet(BaitItemBuilder bait, LootPoolEntryContainer.Builder<?> builder) {
-        if (bait.getHolder() == null || bait.getItem() == null) {
-            return builder;
+        if (bait.getHolder() == null || bait.getValue() == null) {
+            // No item means we MUST have NO bait to catch this
+            return builder.when(HasFishingRodBaitCondition.hasBait());
         }
         return builder.when(HasFishingRodBaitCondition.hasBait(bait.getHolder()));
     }

@@ -1,7 +1,6 @@
 package grill24.potionsplus.core.items;
 
 import grill24.potionsplus.core.Items;
-import grill24.potionsplus.function.SetFishSizeFunction;
 import grill24.potionsplus.item.FishingRodItem;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
@@ -24,7 +23,7 @@ import static grill24.potionsplus.data.RecipeProvider.has;
 
 public class FishItems {
     public static Holder<Item> COPPER_FISHING_ROD;
-    public static BaitItemBuilder WORMS, GUMMY_WORMS;
+    public static BaitItemBuilder NO_BAIT, WORMS, GUMMY_WORMS;
 
     public static FishItemBuilder NORTHERN_PIKE, PARROTFISH, RAINFORDIA, GARDEN_EEL, ROYAL_GARDEN_EEL,
             LONGNOSE_GAR, SHRIMP, FRIED_SHRIMP, MOORISH_IDOL, MOLTEN_MOORISH_IDOL, OCEAN_SUNFISH,
@@ -51,12 +50,12 @@ public class FishItems {
 
         // No bait - register using our system but don't actually register a new item with the game.
         // Just used to link the fishing loot table for when the player has no bait.
-        RegistrationUtility.register(register, BaitItemBuilder.create("no_bait")
+        NO_BAIT = RegistrationUtility.register(register, BaitItemBuilder.create("no_bait")
                 .itemFactory(null)
                 .modelGenerator(null)
                 .fishingLoot(builder -> builder
-                        .add(LootItem.lootTableItem(WORMS.getItem()).setWeight(95).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3)))) // 95% worms
-                        .add(LootItem.lootTableItem(GUMMY_WORMS.getItem()).setWeight(5)) // 5% gummy worms = 1 in 20
+                        .add(BaitItemBuilder.whenBaitConditionMet(NO_BAIT, LootItem.lootTableItem(WORMS.getValue()).setWeight(95).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3)))))// 95% worms
+                        .add(LootItem.lootTableItem(GUMMY_WORMS.getValue()).setWeight(5)) // 5% gummy worms = 1 in 20
                 )
                 .sizeProvider(new GaussianSizeBand(0, 0)));
         WORMS = RegistrationUtility.register(register, DefaultBaitItemBuilder.create("worms", 30)

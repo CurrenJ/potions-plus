@@ -44,6 +44,8 @@ import net.minecraft.world.level.storage.loot.LootTable;
 
 import javax.annotation.Nullable;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.StringReader;
 import java.util.*;
 import java.util.List;
 import java.util.function.Function;
@@ -348,5 +350,9 @@ public class Utility {
             return Optional.empty();
         }
         return Optional.of(holder.getKey().location());
+    }
+
+    public static BufferedReader stringToBufferedReader(String string) {
+        return new BufferedReader(new StringReader(string));
     }
 }

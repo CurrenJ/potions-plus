@@ -52,11 +52,17 @@ public class ItemModelUtility {
     public static class SimpleBlockItemModelGenerator<I extends Item> implements IModelGenerator<I> {
         private final Supplier<Holder<I>> itemGetter;
         private final Supplier<Holder<Block>> block;
+        @Nullable private final ResourceLocation parentModel;
 
         public SimpleBlockItemModelGenerator(Supplier<Holder<I>> itemGetter, Supplier<Holder<Block>> block) {
+            this(itemGetter, block, null);
+        }
+
+        public SimpleBlockItemModelGenerator(Supplier<Holder<I>> itemGetter, Supplier<Holder<Block>> block, ResourceLocation parentModel) {
             super();
             this.itemGetter = itemGetter;
             this.block = block;
+            this.parentModel = parentModel;
         }
 
         @Override
@@ -64,7 +70,7 @@ public class ItemModelUtility {
             ResourceLocation modelLocation = getModelLocation(getHolder().value());
             ResourceLocation blockModelLocation = getModelLocation(block.get().value());
             provider.itemModels().getBuilder(modelLocation.getPath())
-                    .parent(provider.models().getExistingFile(blockModelLocation));
+                    .parent(provider.models().getExistingFile(parentModel != null ? parentModel : blockModelLocation));
         }
 
         @Override

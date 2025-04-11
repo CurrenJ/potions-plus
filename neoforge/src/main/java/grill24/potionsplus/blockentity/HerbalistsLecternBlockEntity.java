@@ -80,7 +80,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                         boolean doesIconExistForMobEffect = MobEffects.POTION_ICON_INDEX_MAP.get().containsKey(mobEffectId);
                         // If we haven't seen this MobEffect type yet and it has an icon, add it to the map of potion icons
                         if (!isMobEffectInIconDataAlready && doesIconExistForMobEffect) {
-                            ItemStack displayStack = new ItemStack(DynamicIconItems.POTION_EFFECT_ICON.getItem(), 1);
+                            ItemStack displayStack = new ItemStack(DynamicIconItems.POTION_EFFECT_ICON.getValue(), 1);
                             displayStack.setCount(MobEffects.POTION_ICON_INDEX_MAP.get().get(mobEffectId));
                             potionIcons.put(mobEffectId, new IconData(PpIngredient.of(displayStack), new ArrayList<>()));
 

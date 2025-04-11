@@ -4,19 +4,27 @@ import grill24.potionsplus.block.*;
 import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenerator;
 import grill24.potionsplus.utility.registration.block.*;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.neoforged.neoforge.common.Tags;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
@@ -35,6 +43,9 @@ public class BlockEntityBlocks {
     public static Holder<Block> POTION_BEACON;
     public static Holder<Block> SKILL_JOURNALS;
     public static Holder<Block> FISHING_LEADERBOARDS;
+    public static Holder<Block> FISH_TANK;
+
+    public static List<Holder<Block>> FISH_TANK_SUB_BLOCKS;
 
     public static Holder<Block> SMALL_FILTER_HOPPER, LARGE_FILTER_HOPPER, HUGE_FILTER_HOPPER;
 
@@ -67,62 +78,62 @@ public class BlockEntityBlocks {
         grill24.potionsplus.core.Items.registerBlockItem(PARTICLE_EMITTER, registerItem); // Doesn't generate an item model because we generate it in ParticleEmitterBlockModelGenerator
 
         HERBALISTS_LECTERN = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("herbalists_lectern")
-                .blockFactory(HerbalistsLecternBlock::new)
-                .properties(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.5F).sound(SoundType.WOOD))
-                .modelGenerator(holder -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(holder, ppId("block/herbalists_lectern")))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                        h -> ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, h.value())
-                                .pattern("WWW")
-                                .pattern("S S")
-                                .pattern("DDD")
-                                .define('W', ItemTags.PLANKS)
-                                .define('S', Items.STICK)
-                                .define('D', Items.DEEPSLATE_BRICK_SLAB)
-                                .unlockedBy("has_potion", has(Items.POTION)))))
+                        .blockFactory(HerbalistsLecternBlock::new)
+                        .properties(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.5F).sound(SoundType.WOOD))
+                        .modelGenerator(holder -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(holder, ppId("block/herbalists_lectern")))
+                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
+                                h -> ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, h.value())
+                                        .pattern("WWW")
+                                        .pattern("S S")
+                                        .pattern("DDD")
+                                        .define('W', ItemTags.PLANKS)
+                                        .define('S', Items.STICK)
+                                        .define('D', Items.DEEPSLATE_BRICK_SLAB)
+                                        .unlockedBy("has_potion", has(Items.POTION)))))
                 .getHolder();
         grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> HERBALISTS_LECTERN, registerItem);
 
         SANGUINE_ALTAR = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sanguine_altar")
-                .blockFactory(SanguineAltarBlock::new)
-                .properties(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(2.5F).requiresCorrectToolForDrops().sound(SoundType.STONE))
-                .modelGenerator(HorizontalDirectionalBlockModelGenerator::new)
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                        h -> ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, h.value())
-                                .pattern("AEA")
-                                .pattern("ESE")
-                                .pattern("AEA")
-                                .define('E', Items.END_ROD)
-                                .define('A', Items.AMETHYST_SHARD)
-                                .define('S', Items.SOUL_SAND)
-                                .unlockedBy("has_potion", has(Items.POTION)))))
+                        .blockFactory(SanguineAltarBlock::new)
+                        .properties(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(2.5F).requiresCorrectToolForDrops().sound(SoundType.STONE))
+                        .modelGenerator(HorizontalDirectionalBlockModelGenerator::new)
+                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
+                                h -> ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, h.value())
+                                        .pattern("AEA")
+                                        .pattern("ESE")
+                                        .pattern("AEA")
+                                        .define('E', Items.END_ROD)
+                                        .define('A', Items.AMETHYST_SHARD)
+                                        .define('S', Items.SOUL_SAND)
+                                        .unlockedBy("has_potion", has(Items.POTION)))))
                 .getHolder();
         grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> SANGUINE_ALTAR, registerItem);
 
         ABYSSAL_TROVE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("abyssal_trove")
-                .blockFactory(AbyssalTroveBlock::new)
-                .properties(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(5.0F, 6.0F).sound(SoundType.SOUL_SAND))
-                .modelGenerator(HorizontalDirectionalBlockModelGenerator::new)
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                        h -> ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, h.value())
-                                .pattern("OSO")
-                                .pattern("SAS")
-                                .pattern("OSO")
-                                .define('O', Items.SOUL_SOIL)
-                                .define('A', Items.AMETHYST_BLOCK)
-                                .define('S', Items.SOUL_SAND)
-                                .unlockedBy("has_potion", has(Items.POTION)))))
+                        .blockFactory(AbyssalTroveBlock::new)
+                        .properties(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(5.0F, 6.0F).sound(SoundType.SOUL_SAND))
+                        .modelGenerator(HorizontalDirectionalBlockModelGenerator::new)
+                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
+                                h -> ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, h.value())
+                                        .pattern("OSO")
+                                        .pattern("SAS")
+                                        .pattern("OSO")
+                                        .define('O', Items.SOUL_SOIL)
+                                        .define('A', Items.AMETHYST_BLOCK)
+                                        .define('S', Items.SOUL_SAND)
+                                        .unlockedBy("has_potion", has(Items.POTION)))))
                 .getHolder();
         grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> ABYSSAL_TROVE, registerItem);
 
         PRECISION_DISPENSER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("precision_dispenser")
-                .blockFactory(PrecisionDispenserBlock::new)
-                .properties(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.METAL))
-                .modelGenerator(null)
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                        h -> ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, h.value())
-                                .requires(net.minecraft.world.item.Items.DISPENSER)
-                                .requires(net.minecraft.world.item.Items.SPYGLASS)
-                                .unlockedBy("has_dispenser", has(net.minecraft.world.item.Items.DISPENSER)))))
+                        .blockFactory(PrecisionDispenserBlock::new)
+                        .properties(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.METAL))
+                        .modelGenerator(null)
+                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
+                                h -> ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, h.value())
+                                        .requires(net.minecraft.world.item.Items.DISPENSER)
+                                        .requires(net.minecraft.world.item.Items.SPYGLASS)
+                                        .unlockedBy("has_dispenser", has(net.minecraft.world.item.Items.DISPENSER)))))
                 .getHolder();
         grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> PRECISION_DISPENSER, registerItem);
 
@@ -190,7 +201,7 @@ public class BlockEntityBlocks {
 
         SMALL_FILTER_HOPPER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("small_filter_hopper")
                         .blockFactory(SmallFilterHopperBlock::new)
-                        .properties(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL))
+                        .properties(BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER))
                         .modelGenerator(null) // Hand-made custom model json
                         .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                                 h -> ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, h.value())
@@ -207,7 +218,7 @@ public class BlockEntityBlocks {
 
         LARGE_FILTER_HOPPER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("large_filter_hopper")
                         .blockFactory(LargeFilterHopperBlock::new)
-                        .properties(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL))
+                        .properties(BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER))
                         .modelGenerator(null) // Hand-made custom model json
                         .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                                 h -> ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, h.value())
@@ -223,7 +234,7 @@ public class BlockEntityBlocks {
 
         HUGE_FILTER_HOPPER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("huge_filter_hopper")
                         .blockFactory(HugeFilterHopperBlock::new)
-                        .properties(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL))
+                        .properties(BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER))
                         .modelGenerator(null) // Hand-made custom model json
                         .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                                 h -> ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, h.value())
@@ -236,5 +247,39 @@ public class BlockEntityBlocks {
                                         .unlockedBy("has_hopper", has(LARGE_FILTER_HOPPER.value())))))
                 .getHolder();
         grill24.potionsplus.core.Items.registerBlockItem(HUGE_FILTER_HOPPER, registerItem);
+
+        FISH_TANK_SUB_BLOCKS = new ArrayList<>();
+        FISH_TANK = registerFishTankSubBlock("fish_tank_planks", BlockTags.PLANKS, registerBlock, registerItem);
+        FISH_TANK_SUB_BLOCKS.add(FISH_TANK);
+        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_logs", BlockTags.LOGS, registerBlock, registerItem));
+        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_stones", Tags.Blocks.STONES, registerBlock, registerItem));
+    }
+
+    private static Holder<Block> registerFishTankSubBlock(String name, TagKey<Block> frameBlocks, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
+        ResourceLocation fishTankBaseModel = ppId("block/fish_tank");
+        Holder<Block> blockHolderResult = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple(name)
+                .properties(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).noOcclusion())
+                .blockFactory(FishTankBlock::new)
+                .modelGenerator(p -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(p, fishTankBaseModel))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
+                        h -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, h.value())
+                                .pattern("GGG")
+                                .pattern("GBG")
+                                .pattern("GGG")
+                                .define('G', Blocks.GLASS)
+                                .define('B', Items.WATER_BUCKET)
+                                .unlockedBy("was_water_bucket", has(Items.WATER_BUCKET))))
+                .renderType(BlockBuilder.RenderType.TRANSLUCENT)
+                .runtimeModelGenerator(holder -> new RuntimeTextureVariantModelGenerator(holder, fishTankBaseModel,
+                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromKey(FishTankBlock.FRAME_VARIANT, frameBlocks, "1"),
+                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromKey(FishTankBlock.SAND_VARIANT, BlockTags.SAND, "2")
+                ))).getHolder();
+        grill24.potionsplus.core.Items.registerBlockItemWithParentModel(() -> blockHolderResult, registerItem, fishTankBaseModel);
+
+        return blockHolderResult;
+    }
+
+    public static Block[] toArray(List<Holder<Block>> blocks) {
+        return blocks.stream().map(Holder::value).toArray(Block[]::new);
     }
 }
