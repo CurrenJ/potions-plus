@@ -15,16 +15,16 @@
       },
       "trigger": "potionsplus:award_stat"
     },
-    "mine_coal_ore_mossy_coal_ore": {
+    "mine_coal_ore_sandy_coal_ore": {
       "conditions": {
-        "statId": "minecraft.mined:potionsplus.mossy_coal_ore",
+        "statId": "minecraft.mined:potionsplus.sandy_coal_ore",
         "totalStats": 64
       },
       "trigger": "potionsplus:award_stat"
     },
-    "mine_coal_ore_sandy_coal_ore": {
+    "mine_coal_ore_stoney_coal_ore": {
       "conditions": {
-        "statId": "minecraft.mined:potionsplus.sandy_coal_ore",
+        "statId": "minecraft.mined:potionsplus.stoney_coal_ore",
         "totalStats": 64
       },
       "trigger": "potionsplus:award_stat"
@@ -57,7 +57,7 @@
       "mine_coal_ore_coal_ore",
       "mine_coal_ore_deepslate_coal_ore",
       "mine_coal_ore_sandy_coal_ore",
-      "mine_coal_ore_mossy_coal_ore"
+      "mine_coal_ore_stoney_coal_ore"
     ]
   ],
   "rewards": {

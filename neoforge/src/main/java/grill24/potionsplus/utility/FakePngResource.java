@@ -1,5 +1,6 @@
 package grill24.potionsplus.utility;
 
+import grill24.potionsplus.core.PotionsPlus;
 import net.minecraft.server.packs.resources.Resource;
 
 import javax.imageio.ImageIO;
@@ -26,6 +27,8 @@ public class FakePngResource extends FakeResource {
         // Write the provided image to a ByteArrayOutputStream
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "png", outputStream);
+
+        PotionsPlus.LOGGER.info("FakePngResource: {}", image);
 
         // Return an InputStream from the byte array
         return new ByteArrayInputStream(outputStream.toByteArray());

@@ -30,14 +30,14 @@ import java.util.function.Predicate;
 @Mixin(MonsterRoomFeature.class)
 public abstract class MonsterRoomFeatureMixin extends Feature<NoneFeatureConfiguration> {
     private static final Lazy<WeightedStateProvider> SPAWNABLE = Lazy.of(() -> new WeightedStateProvider(SimpleWeightedRandomList .<BlockState>builder()
-            .add(OreBlocks.MOSSY_COAL_ORE.value().defaultBlockState(), 1)
-            .add(OreBlocks.MOSSY_COPPER_ORE.value().defaultBlockState(), 1)
-            .add(OreBlocks.MOSSY_IRON_ORE.value().defaultBlockState(), 1)
-            .add(OreBlocks.MOSSY_GOLD_ORE.value().defaultBlockState(), 2)
-            .add(OreBlocks.MOSSY_LAPIS_ORE.value().defaultBlockState(), 2)
-            .add(OreBlocks.MOSSY_REDSTONE_ORE.value().defaultBlockState(), 2)
-            .add(OreBlocks.MOSSY_DIAMOND_ORE.value().defaultBlockState(), 5)
-            .add(OreBlocks.MOSSY_EMERALD_ORE.value().defaultBlockState(), 5)
+            .add(OreBlocks.STONEY_COAL_ORE.value().defaultBlockState(), 1)
+            .add(OreBlocks.STONEY_COPPER_ORE.value().defaultBlockState(), 1)
+            .add(OreBlocks.STONEY_IRON_ORE.value().defaultBlockState(), 1)
+            .add(OreBlocks.STONEY_GOLD_ORE.value().defaultBlockState(), 2)
+            .add(OreBlocks.STONEY_LAPIS_ORE.value().defaultBlockState(), 2)
+            .add(OreBlocks.STONEY_REDSTONE_ORE.value().defaultBlockState(), 2)
+            .add(OreBlocks.STONEY_DIAMOND_ORE.value().defaultBlockState(), 5)
+            .add(OreBlocks.STONEY_EMERALD_ORE.value().defaultBlockState(), 5)
     ));
     
     public MonsterRoomFeatureMixin(Codec<NoneFeatureConfiguration> codec) {

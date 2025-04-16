@@ -1,11 +1,7 @@
 package grill24.potionsplus.data;
 
-import grill24.potionsplus.block.OreFlowerBlock;
 import grill24.potionsplus.block.VersatilePlantBlock;
-import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.LootTables;
-import grill24.potionsplus.core.blocks.BlockEntityBlocks;
-import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.core.items.OreItems;
@@ -154,14 +150,14 @@ public class PotionsPlusBlockLoot extends BlockLootSubProvider {
         consumer.accept(OreBlocks.SANDY_COAL_ORE.value().getLootTable(), createOreDrop(OreBlocks.SANDY_COAL_ORE.value(), Items.COAL));
         consumer.accept(OreBlocks.SANDY_EMERALD_ORE.value().getLootTable(), createOreDrop(OreBlocks.SANDY_EMERALD_ORE.value(), Items.EMERALD));
 
-        consumer.accept(OreBlocks.MOSSY_COPPER_ORE.value().getLootTable(), createCopperOreDrops(OreBlocks.MOSSY_COPPER_ORE.value()));
-        consumer.accept(OreBlocks.MOSSY_IRON_ORE.value().getLootTable(), createOreDrop(OreBlocks.MOSSY_IRON_ORE.value(), Items.RAW_IRON));
-        consumer.accept(OreBlocks.MOSSY_GOLD_ORE.value().getLootTable(), createOreDrop(OreBlocks.MOSSY_GOLD_ORE.value(), Items.RAW_GOLD));
-        consumer.accept(OreBlocks.MOSSY_DIAMOND_ORE.value().getLootTable(), createOreDrop(OreBlocks.MOSSY_DIAMOND_ORE.value(), Items.DIAMOND));
-        consumer.accept(OreBlocks.MOSSY_REDSTONE_ORE.value().getLootTable(), createRedstoneOreDrops(OreBlocks.MOSSY_REDSTONE_ORE.value()));
-        consumer.accept(OreBlocks.MOSSY_LAPIS_ORE.value().getLootTable(), createLapisOreDrops(OreBlocks.MOSSY_LAPIS_ORE.value()));
-        consumer.accept(OreBlocks.MOSSY_COAL_ORE.value().getLootTable(), createOreDrop(OreBlocks.MOSSY_COAL_ORE.value(), Items.COAL));
-        consumer.accept(OreBlocks.MOSSY_EMERALD_ORE.value().getLootTable(), createOreDrop(OreBlocks.MOSSY_EMERALD_ORE.value(), Items.EMERALD));
+        consumer.accept(OreBlocks.STONEY_COPPER_ORE.value().getLootTable(), createCopperOreDrops(OreBlocks.STONEY_COPPER_ORE.value()));
+        consumer.accept(OreBlocks.STONEY_IRON_ORE.value().getLootTable(), createOreDrop(OreBlocks.STONEY_IRON_ORE.value(), Items.RAW_IRON));
+        consumer.accept(OreBlocks.STONEY_GOLD_ORE.value().getLootTable(), createOreDrop(OreBlocks.STONEY_GOLD_ORE.value(), Items.RAW_GOLD));
+        consumer.accept(OreBlocks.STONEY_DIAMOND_ORE.value().getLootTable(), createOreDrop(OreBlocks.STONEY_DIAMOND_ORE.value(), Items.DIAMOND));
+        consumer.accept(OreBlocks.STONEY_REDSTONE_ORE.value().getLootTable(), createRedstoneOreDrops(OreBlocks.STONEY_REDSTONE_ORE.value()));
+        consumer.accept(OreBlocks.STONEY_LAPIS_ORE.value().getLootTable(), createLapisOreDrops(OreBlocks.STONEY_LAPIS_ORE.value()));
+        consumer.accept(OreBlocks.STONEY_COAL_ORE.value().getLootTable(), createOreDrop(OreBlocks.STONEY_COAL_ORE.value(), Items.COAL));
+        consumer.accept(OreBlocks.STONEY_EMERALD_ORE.value().getLootTable(), createOreDrop(OreBlocks.STONEY_EMERALD_ORE.value(), Items.EMERALD));
 
         consumer.accept(
                 OreBlocks.SULFURIC_NETHER_QUARTZ_ORE.value().getLootTable(),

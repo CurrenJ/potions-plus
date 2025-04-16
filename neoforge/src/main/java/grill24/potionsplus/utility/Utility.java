@@ -31,11 +31,13 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -354,5 +356,25 @@ public class Utility {
 
     public static BufferedReader stringToBufferedReader(String string) {
         return new BufferedReader(new StringReader(string));
+    }
+
+    public Optional<Holder<Item>> getHolder(Item item) {
+        return getHolder(item, BuiltInRegistries.ITEM);
+    }
+
+    public Optional<Holder<Block>> getHolder(Block block) {
+        return getHolder(block, BuiltInRegistries.BLOCK);
+    }
+
+    public static <T> Optional<Holder<T>> getHolder(T value, DefaultedRegistry<T> registry) {
+        Optional<ResourceKey<T>> key = registry.getResourceKey(value);
+        if (key.isPresent()) {
+            Optional<Holder.Reference<T>> holder = registry.getHolder(key.get());
+            if (holder.isPresent()) {
+                return Optional.of(holder.get());
+            }
+        }
+
+        return Optional.empty();
     }
 }

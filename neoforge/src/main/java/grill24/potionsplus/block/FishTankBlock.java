@@ -3,7 +3,6 @@ package grill24.potionsplus.block;
 import grill24.potionsplus.blockentity.FishTankBlockEntity;
 import grill24.potionsplus.utility.registration.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -44,28 +43,6 @@ public class FishTankBlock extends Block implements EntityBlock {
     @Override
     protected ItemInteractionResult useItemOn(
             ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        for (AbstractRegistererBuilder<?, ?> gen : RegistrationUtility.BUILDERS) {
-            if (gen.getHolder() != null && gen.getHolder().value() == this
-                    && gen.getRuntimeModelGenerator() instanceof RuntimeTextureVariantModelGenerator textureGen) {
-                for (RuntimeTextureVariantModelGenerator.PropertyTexVariant propertyTexVariant : textureGen.getPropertyTexVariants()) {
-                    int index = 0;
-                    for (Holder<Block> block : propertyTexVariant.blocks().get()) {
-                        if (stack.getItem() == block.value().asItem() && state.getValue(propertyTexVariant.property()) != index
-                                && index < propertyTexVariant.property().getPossibleValues().size()) {
-                            BlockState newState = state.setValue(propertyTexVariant.property(), index);
-                            level.setBlock(pos, newState, 3);
-                            if (!player.isCreative()) {
-                                stack.shrink(1);
-                            }
-                            return ItemInteractionResult.SUCCESS;
-                        }
-
-                        index++;
-                    }
-                }
-            }
-        }
-
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return RuntimeTextureVariantModelGenerator.trySetTextureVariant(this, stack, state, level, pos, FRAME_VARIANT, SAND_VARIANT);
     }
 }

@@ -1,8 +1,7 @@
 package grill24.potionsplus.utility.registration;
 
-import grill24.potionsplus.event.resources.ClientModifyFileResourceStackEvent;
-import grill24.potionsplus.event.resources.ClientModifyFileResourcesEvent;
-import grill24.potionsplus.event.resources.IResourceModification;
+import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
+import grill24.potionsplus.event.runtimeresource.modification.IResourceModification;
 
 public abstract class RuntimeModelGenerator<T> implements IRuntimeModelGenerator<T> {
     protected final IResourceModification[] transformedClones;
@@ -12,16 +11,7 @@ public abstract class RuntimeModelGenerator<T> implements IRuntimeModelGenerator
     }
 
     @Override
-    public void generate(final ClientModifyFileResourcesEvent event) {
-        for (IResourceModification resource : transformedClones) {
-            event.inject(resource);
-        }
-    }
-
-    @Override
-    public void generate(final ClientModifyFileResourceStackEvent event) {
-        for (IResourceModification resource : transformedClones) {
-            event.inject(resource);
-        }
+    public void generate(final GenerateRuntimeResourceInjectionsCacheEvent event) {
+        event.addModifications(transformedClones);
     }
 }

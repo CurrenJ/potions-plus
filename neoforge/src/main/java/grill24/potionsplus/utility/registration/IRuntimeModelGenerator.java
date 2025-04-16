@@ -1,9 +1,7 @@
 package grill24.potionsplus.utility.registration;
 
-import grill24.potionsplus.event.resources.ClientModifyFileResourceStackEvent;
-import grill24.potionsplus.event.resources.ClientModifyFileResourcesEvent;
+import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
 
 public interface IRuntimeModelGenerator<T> extends IDataGenerator<T> {
-    void generate(final ClientModifyFileResourcesEvent event);
-    void generate(final ClientModifyFileResourceStackEvent event);
+    void generate(final GenerateRuntimeResourceInjectionsCacheEvent event);
 }

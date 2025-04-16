@@ -24,58 +24,10 @@
     "frame=0,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=0,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=0,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=0,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=0,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=0,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=0,sand=4": {
@@ -120,58 +72,10 @@
     "frame=1,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=1,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=1,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=1,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=1,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=1,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=1,sand=4": {
@@ -216,58 +120,10 @@
     "frame=10,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=10,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=10,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=10,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=10,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=10,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=10,sand=4": {
@@ -312,58 +168,10 @@
     "frame=11,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=11,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=11,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=11,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=11,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=11,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=11,sand=4": {
@@ -408,58 +216,10 @@
     "frame=12,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=12,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=12,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=12,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=12,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=12,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=12,sand=4": {
@@ -504,58 +264,10 @@
     "frame=13,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=13,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=13,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=13,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=13,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=13,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=13,sand=4": {
@@ -600,58 +312,10 @@
     "frame=14,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=14,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=14,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=14,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=14,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=14,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=14,sand=4": {
@@ -696,58 +360,10 @@
     "frame=15,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=15,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=15,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=15,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=15,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=15,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=15,sand=4": {
@@ -792,58 +408,10 @@
     "frame=16,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=16,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=16,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=16,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=16,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=16,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=16,sand=4": {
@@ -888,58 +456,10 @@
     "frame=17,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=17,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=17,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=17,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=17,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=17,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=17,sand=4": {
@@ -984,58 +504,10 @@
     "frame=18,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=18,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=18,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=18,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=18,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=18,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=18,sand=4": {
@@ -1080,58 +552,10 @@
     "frame=19,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=19,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=19,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=19,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=19,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=19,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=19,sand=4": {
@@ -1176,58 +600,10 @@
     "frame=2,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=2,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=2,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=2,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=2,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=2,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=2,sand=4": {
@@ -1272,58 +648,10 @@
     "frame=20,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=20,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=20,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=20,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=20,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=20,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=20,sand=4": {
@@ -1368,58 +696,10 @@
     "frame=21,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=21,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=21,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=21,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=21,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=21,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=21,sand=4": {
@@ -1464,58 +744,10 @@
     "frame=22,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=22,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=22,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=22,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=22,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=22,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=22,sand=4": {
@@ -1560,58 +792,10 @@
     "frame=23,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=23,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=23,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=23,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=23,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=23,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=23,sand=4": {
@@ -1656,58 +840,10 @@
     "frame=24,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=24,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=24,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=24,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=24,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=24,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=24,sand=4": {
@@ -1752,58 +888,10 @@
     "frame=25,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=25,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=25,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=25,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=25,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=25,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=25,sand=4": {
@@ -1848,58 +936,10 @@
     "frame=26,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=26,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=26,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=26,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=26,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=26,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=26,sand=4": {
@@ -1944,58 +984,10 @@
     "frame=27,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=27,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=27,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=27,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=27,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=27,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=27,sand=4": {
@@ -2040,58 +1032,10 @@
     "frame=28,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=28,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=28,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=28,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=28,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=28,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=28,sand=4": {
@@ -2136,58 +1080,10 @@
     "frame=29,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=29,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=29,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=29,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=29,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=29,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=29,sand=4": {
@@ -2232,58 +1128,10 @@
     "frame=3,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=3,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=3,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=3,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=3,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=3,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=3,sand=4": {
@@ -2328,58 +1176,10 @@
     "frame=30,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=30,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=30,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=30,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=30,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=30,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=30,sand=4": {
@@ -2424,58 +1224,10 @@
     "frame=31,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=31,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=31,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=31,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=31,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=31,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=31,sand=4": {
@@ -2494,6 +1246,390 @@
       "model": "potionsplus:block/fish_tank"
     },
     "frame=31,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=32,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=33,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=34,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=35,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=36,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=37,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=38,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=39,sand=9": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=4,sand=0": {
@@ -2520,58 +1656,10 @@
     "frame=4,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=4,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=4,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=4,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=4,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=4,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=4,sand=4": {
@@ -2590,6 +1678,486 @@
       "model": "potionsplus:block/fish_tank"
     },
     "frame=4,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=40,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=41,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=42,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=43,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=44,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=45,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=46,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=47,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=48,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=49,sand=9": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=5,sand=0": {
@@ -2616,58 +2184,10 @@
     "frame=5,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=5,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=5,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=5,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=5,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=5,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=5,sand=4": {
@@ -2686,6 +2206,486 @@
       "model": "potionsplus:block/fish_tank"
     },
     "frame=5,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=50,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=51,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=52,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=53,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=54,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=55,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=56,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=57,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=58,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=59,sand=9": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=6,sand=0": {
@@ -2712,58 +2712,10 @@
     "frame=6,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=6,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=6,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=6,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=6,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=6,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=6,sand=4": {
@@ -2782,6 +2734,198 @@
       "model": "potionsplus:block/fish_tank"
     },
     "frame=6,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=60,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=61,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=62,sand=9": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=0": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=1": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=10": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=11": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=12": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=13": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=14": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=15": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=2": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=3": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=4": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=5": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=6": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=7": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=8": {
+      "model": "potionsplus:block/fish_tank"
+    },
+    "frame=63,sand=9": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=7,sand=0": {
@@ -2808,58 +2952,10 @@
     "frame=7,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=7,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=7,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=7,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=7,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=7,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=7,sand=4": {
@@ -2904,58 +3000,10 @@
     "frame=8,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=8,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=8,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=8,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=8,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=8,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=8,sand=4": {
@@ -3000,58 +3048,10 @@
     "frame=9,sand=15": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=9,sand=16": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=17": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=18": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=19": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=9,sand=2": {
       "model": "potionsplus:block/fish_tank"
     },
-    "frame=9,sand=20": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=21": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=22": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=23": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=24": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=25": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=26": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=27": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=28": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=29": {
-      "model": "potionsplus:block/fish_tank"
-    },
     "frame=9,sand=3": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=30": {
-      "model": "potionsplus:block/fish_tank"
-    },
-    "frame=9,sand=31": {
       "model": "potionsplus:block/fish_tank"
     },
     "frame=9,sand=4": {

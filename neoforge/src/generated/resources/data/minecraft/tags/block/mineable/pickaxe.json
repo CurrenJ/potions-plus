@@ -14,14 +14,14 @@
     "potionsplus:uranium_ore",
     "potionsplus:deepslate_uranium_ore",
     "potionsplus:sulfuric_nether_quartz_ore",
-    "potionsplus:mossy_copper_ore",
-    "potionsplus:mossy_iron_ore",
-    "potionsplus:mossy_gold_ore",
-    "potionsplus:mossy_diamond_ore",
-    "potionsplus:mossy_emerald_ore",
-    "potionsplus:mossy_lapis_ore",
-    "potionsplus:mossy_redstone_ore",
-    "potionsplus:mossy_coal_ore",
+    "potionsplus:stoney_copper_ore",
+    "potionsplus:stoney_iron_ore",
+    "potionsplus:stoney_gold_ore",
+    "potionsplus:stoney_diamond_ore",
+    "potionsplus:stoney_emerald_ore",
+    "potionsplus:stoney_lapis_ore",
+    "potionsplus:stoney_redstone_ore",
+    "potionsplus:stoney_coal_ore",
     "potionsplus:mossy_uranium_ore"
   ]
 }

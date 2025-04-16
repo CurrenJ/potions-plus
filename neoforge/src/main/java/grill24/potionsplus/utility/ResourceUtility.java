@@ -3,6 +3,8 @@ package grill24.potionsplus.utility;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.event.runtimeresource.ClientInjectResourceStacksEvent;
+import grill24.potionsplus.event.runtimeresource.ClientInjectResourcesEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -10,9 +12,12 @@ import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.fml.ModLoader;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ResourceUtility {
@@ -103,6 +108,34 @@ public class ResourceUtility {
         } catch (IOException e) {
             PotionsPlus.LOGGER.error("Error reading resource: {}", e.getMessage());
             return "";
+        }
+    }
+
+    public static Optional<Resource> getResource(ResourceLocation longId) {
+        ResourceManager rm = Minecraft.getInstance().getResourceManager();
+        return rm.getResource(longId);
+    }
+
+    public static List<Resource> getResourceStack(ResourceLocation longId) {
+        ResourceManager rm = Minecraft.getInstance().getResourceManager();
+        return rm.getResourceStack(longId);
+    }
+
+    public static void postResourceEvent(CallbackInfoReturnable<Map<ResourceLocation, Resource>> cir) {
+        Map<ResourceLocation, Resource> resources = cir.getReturnValue();
+        if (resources != null) {
+            ModLoader.postEvent(new ClientInjectResourcesEvent(resources));
+        } else {
+            PotionsPlus.LOGGER.warn("Resources null - not injecting additional runtime resources.");
+        }
+    }
+
+    public static void postResourceStackEvent(CallbackInfoReturnable<Map<ResourceLocation, List<Resource>>> cir) {
+        Map<ResourceLocation, List<Resource>> resources = cir.getReturnValue();
+        if (resources != null) {
+            ModLoader.postEvent(new ClientInjectResourceStacksEvent(resources));
+        } else {
+            PotionsPlus.LOGGER.warn("Resources null - not injecting additional runtime resource stacks.");
         }
     }
 }

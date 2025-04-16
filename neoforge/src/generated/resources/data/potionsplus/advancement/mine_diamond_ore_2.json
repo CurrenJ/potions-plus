@@ -15,16 +15,16 @@
       },
       "trigger": "potionsplus:award_stat"
     },
-    "mine_diamond_ore_mossy_diamond_ore": {
+    "mine_diamond_ore_sandy_diamond_ore": {
       "conditions": {
-        "statId": "minecraft.mined:potionsplus.mossy_diamond_ore",
+        "statId": "minecraft.mined:potionsplus.sandy_diamond_ore",
         "totalStats": 256
       },
       "trigger": "potionsplus:award_stat"
     },
-    "mine_diamond_ore_sandy_diamond_ore": {
+    "mine_diamond_ore_stoney_diamond_ore": {
       "conditions": {
-        "statId": "minecraft.mined:potionsplus.sandy_diamond_ore",
+        "statId": "minecraft.mined:potionsplus.stoney_diamond_ore",
         "totalStats": 256
       },
       "trigger": "potionsplus:award_stat"
@@ -57,7 +57,7 @@
       "mine_diamond_ore_diamond_ore",
       "mine_diamond_ore_deepslate_diamond_ore",
       "mine_diamond_ore_sandy_diamond_ore",
-      "mine_diamond_ore_mossy_diamond_ore"
+      "mine_diamond_ore_stoney_diamond_ore"
     ]
   ],
   "rewards": {

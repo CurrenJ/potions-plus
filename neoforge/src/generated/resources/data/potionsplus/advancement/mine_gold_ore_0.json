@@ -15,16 +15,16 @@
       },
       "trigger": "potionsplus:award_stat"
     },
-    "mine_gold_ore_mossy_gold_ore": {
+    "mine_gold_ore_sandy_gold_ore": {
       "conditions": {
-        "statId": "minecraft.mined:potionsplus.mossy_gold_ore",
+        "statId": "minecraft.mined:potionsplus.sandy_gold_ore",
         "totalStats": 64
       },
       "trigger": "potionsplus:award_stat"
     },
-    "mine_gold_ore_sandy_gold_ore": {
+    "mine_gold_ore_stoney_gold_ore": {
       "conditions": {
-        "statId": "minecraft.mined:potionsplus.sandy_gold_ore",
+        "statId": "minecraft.mined:potionsplus.stoney_gold_ore",
         "totalStats": 64
       },
       "trigger": "potionsplus:award_stat"
@@ -57,7 +57,7 @@
       "mine_gold_ore_gold_ore",
       "mine_gold_ore_deepslate_gold_ore",
       "mine_gold_ore_sandy_gold_ore",
-      "mine_gold_ore_mossy_gold_ore"
+      "mine_gold_ore_stoney_gold_ore"
     ]
   ],
   "rewards": {

@@ -1,8 +1,7 @@
 package grill24.potionsplus.utility.registration;
 
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.event.resources.ClientModifyFileResourceStackEvent;
-import grill24.potionsplus.event.resources.ClientModifyFileResourcesEvent;
+import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
 import net.minecraft.core.Holder;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -179,14 +178,7 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
     }
 
     @Override
-    public void generate(final ClientModifyFileResourcesEvent event) {
-        if (this.runtimeModelGenerator != null) {
-            this.runtimeModelGenerator.generate(event);
-        }
-    }
-
-    @Override
-    public void generate(final ClientModifyFileResourceStackEvent event) {
+    public void generate(final GenerateRuntimeResourceInjectionsCacheEvent event) {
         if (this.runtimeModelGenerator != null) {
             this.runtimeModelGenerator.generate(event);
         }

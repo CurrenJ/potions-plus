@@ -271,8 +271,8 @@ public class BlockEntityBlocks {
                                 .unlockedBy("was_water_bucket", has(Items.WATER_BUCKET))))
                 .renderType(BlockBuilder.RenderType.TRANSLUCENT)
                 .runtimeModelGenerator(holder -> new RuntimeTextureVariantModelGenerator(holder, fishTankBaseModel,
-                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromKey(FishTankBlock.FRAME_VARIANT, frameBlocks, "1"),
-                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromKey(FishTankBlock.SAND_VARIANT, BlockTags.SAND, "2")
+                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankBlock.FRAME_VARIANT, frameBlocks, "1"),
+                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankBlock.SAND_VARIANT, BlockTags.SAND, "2")
                 ))).getHolder();
         grill24.potionsplus.core.Items.registerBlockItemWithParentModel(() -> blockHolderResult, registerItem, fishTankBaseModel);
 

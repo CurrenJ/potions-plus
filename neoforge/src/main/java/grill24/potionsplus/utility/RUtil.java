@@ -431,4 +431,91 @@ public class RUtil {
         int alpha = FastColor.ARGB32.alpha(color);
         return FastColor.ARGB32.color(alpha, 255 - red, 255 - green, 255 - blue);
     }
+
+
+    public enum BlendMode {
+        DEFAULT,
+        LIGHTEN,
+        DARKEN
+    }
+
+    public static int blendColors(int topColor, int bottomColor) {
+        // Extract ARGB components from the top color
+        int topAlpha = (topColor >> 24) & 0xFF;
+        int topRed = (topColor >> 16) & 0xFF;
+        int topGreen = (topColor >> 8) & 0xFF;
+        int topBlue = topColor & 0xFF;
+
+        // Extract ARGB components from the bottom color
+        int bottomAlpha = (bottomColor >> 24) & 0xFF;
+        int bottomRed = (bottomColor >> 16) & 0xFF;
+        int bottomGreen = (bottomColor >> 8) & 0xFF;
+        int bottomBlue = bottomColor & 0xFF;
+
+        // Normalize alpha to a 0-1 range
+        float normalizedTopAlpha = topAlpha / 255.0f;
+
+        // Blend each channel
+        int blendedAlpha = (int) Math.min(255, topAlpha + bottomAlpha * (1 - normalizedTopAlpha));
+        int blendedRed = (int) ((topRed * normalizedTopAlpha) + (bottomRed * (1 - normalizedTopAlpha)));
+        int blendedGreen = (int) ((topGreen * normalizedTopAlpha) + (bottomGreen * (1 - normalizedTopAlpha)));
+        int blendedBlue = (int) ((topBlue * normalizedTopAlpha) + (bottomBlue * (1 - normalizedTopAlpha)));
+
+        // Recombine the blended components into a single ARGB integer
+        return (blendedAlpha << 24) | (blendedRed << 16) | (blendedGreen << 8) | blendedBlue;
+    }
+
+    public static int lightenColors(int topColor, int bottomColor) {
+        // Extract ARGB components from the top color
+        int topAlpha = (topColor >> 24) & 0xFF;
+        int topRed = (topColor >> 16) & 0xFF;
+        int topGreen = (topColor >> 8) & 0xFF;
+        int topBlue = topColor & 0xFF;
+
+        // Extract ARGB components from the bottom color
+        int bottomAlpha = (bottomColor >> 24) & 0xFF;
+        int bottomRed = (bottomColor >> 16) & 0xFF;
+        int bottomGreen = (bottomColor >> 8) & 0xFF;
+        int bottomBlue = bottomColor & 0xFF;
+
+        // Blend each channel by taking the maximum value
+        int blendedAlpha = Math.max(topAlpha, bottomAlpha);
+        int blendedRed = Math.max(topRed, bottomRed);
+        int blendedGreen = Math.max(topGreen, bottomGreen);
+        int blendedBlue = Math.max(topBlue, bottomBlue);
+
+        // Recombine the blended components into a single ARGB integer
+        return (blendedAlpha << 24) | (blendedRed << 16) | (blendedGreen << 8) | blendedBlue;
+    }
+
+    public static int darkenColors(int topColor, int bottomColor) {
+        // Extract ARGB components from the top color
+        int topAlpha = (topColor >> 24) & 0xFF;
+        int topRed = (topColor >> 16) & 0xFF;
+        int topGreen = (topColor >> 8) & 0xFF;
+        int topBlue = topColor & 0xFF;
+
+        // Extract ARGB components from the bottom color
+        int bottomAlpha = (bottomColor >> 24) & 0xFF;
+        int bottomRed = (bottomColor >> 16) & 0xFF;
+        int bottomGreen = (bottomColor >> 8) & 0xFF;
+        int bottomBlue = bottomColor & 0xFF;
+
+        // Blend each channel by taking the minimum value
+        int blendedAlpha = Math.min(topAlpha, bottomAlpha);
+        int blendedRed = Math.min(topRed, bottomRed);
+        int blendedGreen = Math.min(topGreen, bottomGreen);
+        int blendedBlue = Math.min(topBlue, bottomBlue);
+
+        // Recombine the blended components into a single ARGB integer
+        return (blendedAlpha << 24) | (blendedRed << 16) | (blendedGreen << 8) | blendedBlue;
+    }
+
+    public static int blendColors(int topColor, int bottomColor, BlendMode mode) {
+        return switch (mode) {
+            case LIGHTEN -> lightenColors(topColor, bottomColor);
+            case DARKEN -> darkenColors(topColor, bottomColor);
+            default -> blendColors(topColor, bottomColor);
+        };
+    }
 }

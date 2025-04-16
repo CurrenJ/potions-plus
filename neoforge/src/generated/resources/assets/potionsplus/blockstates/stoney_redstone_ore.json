@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=true": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    }
+  }
+}

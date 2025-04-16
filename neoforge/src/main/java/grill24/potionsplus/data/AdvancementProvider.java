@@ -127,7 +127,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 .save(saver, SKILL_JOURNALS, existingFileHelper);
 
         // Ore Block Hat advancements
-        List<Block> copperOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COPPER_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE, OreBlocks.SANDY_COPPER_ORE.value(), OreBlocks.MOSSY_COPPER_ORE.value());
+        List<Block> copperOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COPPER_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE, OreBlocks.SANDY_COPPER_ORE.value(), OreBlocks.STONEY_COPPER_ORE.value());
         createOreHatAdvancement
                 (saver,
                 existingFileHelper,
@@ -136,7 +136,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 copperOreBlocks,
                 skillJournals);
 
-        List<Block> coalOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COAL_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE, OreBlocks.SANDY_COAL_ORE.value(), OreBlocks.MOSSY_COAL_ORE.value());
+        List<Block> coalOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COAL_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE, OreBlocks.SANDY_COAL_ORE.value(), OreBlocks.STONEY_COAL_ORE.value());
         createOreHatAdvancement
                 (saver,
                 existingFileHelper,
@@ -145,7 +145,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 coalOreBlocks,
                 skillJournals);
 
-        List<Block> ironOreBlocks = List.of(net.minecraft.world.level.block.Blocks.IRON_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE, OreBlocks.SANDY_IRON_ORE.value(), OreBlocks.MOSSY_IRON_ORE.value());
+        List<Block> ironOreBlocks = List.of(net.minecraft.world.level.block.Blocks.IRON_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE, OreBlocks.SANDY_IRON_ORE.value(), OreBlocks.STONEY_IRON_ORE.value());
         createOreHatAdvancement
                 (saver,
                 existingFileHelper,
@@ -154,7 +154,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 ironOreBlocks,
                 skillJournals);
 
-        List<Block> goldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.GOLD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE, OreBlocks.SANDY_GOLD_ORE.value(), OreBlocks.MOSSY_GOLD_ORE.value());
+        List<Block> goldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.GOLD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE, OreBlocks.SANDY_GOLD_ORE.value(), OreBlocks.STONEY_GOLD_ORE.value());
         createOreHatAdvancement
                 (saver,
                 existingFileHelper,
@@ -163,7 +163,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 goldOreBlocks,
                 skillJournals);
 
-        List<Block> diamondOreBlocks = List.of(net.minecraft.world.level.block.Blocks.DIAMOND_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE, OreBlocks.SANDY_DIAMOND_ORE.value(), OreBlocks.MOSSY_DIAMOND_ORE.value());
+        List<Block> diamondOreBlocks = List.of(net.minecraft.world.level.block.Blocks.DIAMOND_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE, OreBlocks.SANDY_DIAMOND_ORE.value(), OreBlocks.STONEY_DIAMOND_ORE.value());
         createOreHatAdvancement
                 (saver,
                 existingFileHelper,
@@ -172,7 +172,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 diamondOreBlocks,
                 skillJournals);
 
-        List<Block> emeraldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.EMERALD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_EMERALD_ORE, OreBlocks.SANDY_EMERALD_ORE.value(), OreBlocks.MOSSY_EMERALD_ORE.value());
+        List<Block> emeraldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.EMERALD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_EMERALD_ORE, OreBlocks.SANDY_EMERALD_ORE.value(), OreBlocks.STONEY_EMERALD_ORE.value());
         createOreHatAdvancement
                 (saver,
                 existingFileHelper,

@@ -1,6 +1,6 @@
 package grill24.potionsplus.utility.registration;
 
-import grill24.potionsplus.event.resources.IResourceModification;
+import grill24.potionsplus.event.runtimeresource.modification.IResourceModification;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;
 

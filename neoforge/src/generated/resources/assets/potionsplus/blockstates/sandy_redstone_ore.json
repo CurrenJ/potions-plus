@@ -1,9 +1,105 @@
 {
   "variants": {
-    "lit=false": {
+    "lit=false,texture=0": {
       "model": "potionsplus:block/sandy_redstone_ore"
     },
-    "lit=true": {
+    "lit=false,texture=1": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=10": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=11": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=12": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=13": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=14": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=15": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=16": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=2": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=3": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=4": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=5": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=6": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=7": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=8": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=false,texture=9": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=0": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=1": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=10": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=11": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=12": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=13": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=14": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=15": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=16": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=2": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=3": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=4": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=5": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=6": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=7": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=8": {
+      "model": "potionsplus:block/sandy_redstone_ore"
+    },
+    "lit=true,texture=9": {
       "model": "potionsplus:block/sandy_redstone_ore"
     }
   }

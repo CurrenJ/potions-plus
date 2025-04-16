@@ -15,16 +15,16 @@
       },
       "trigger": "potionsplus:award_stat"
     },
-    "mine_copper_ore_mossy_copper_ore": {
+    "mine_copper_ore_sandy_copper_ore": {
       "conditions": {
-        "statId": "minecraft.mined:potionsplus.mossy_copper_ore",
+        "statId": "minecraft.mined:potionsplus.sandy_copper_ore",
         "totalStats": 64
       },
       "trigger": "potionsplus:award_stat"
     },
-    "mine_copper_ore_sandy_copper_ore": {
+    "mine_copper_ore_stoney_copper_ore": {
       "conditions": {
-        "statId": "minecraft.mined:potionsplus.sandy_copper_ore",
+        "statId": "minecraft.mined:potionsplus.stoney_copper_ore",
         "totalStats": 64
       },
       "trigger": "potionsplus:award_stat"
@@ -57,7 +57,7 @@
       "mine_copper_ore_copper_ore",
       "mine_copper_ore_deepslate_copper_ore",
       "mine_copper_ore_sandy_copper_ore",
-      "mine_copper_ore_mossy_copper_ore"
+      "mine_copper_ore_stoney_copper_ore"
     ]
   ],
   "rewards": {

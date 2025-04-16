@@ -1,16 +1,14 @@
 package grill24.potionsplus.core.blocks;
 
-import com.mojang.blaze3d.platform.NativeImage;
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.core.Items;
-import grill24.potionsplus.event.resources.ResourceModification;
-import grill24.potionsplus.event.resources.TextureResourceModification;
-import grill24.potionsplus.utility.FakePngResource;
+import grill24.potionsplus.event.runtimeresource.modification.TextureResourceModification;
+import grill24.potionsplus.utility.RUtil;
+import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.RuntimeBlockModelGenerator;
 import grill24.potionsplus.utility.registration.block.BlockModelUtility;
 import grill24.potionsplus.utility.registration.block.FaceAttachedBlockModelGenerator;
 import grill24.potionsplus.utility.registration.block.SimpleBlockBuilder;
-import grill24.potionsplus.utility.registration.RegistrationUtility;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -18,8 +16,6 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 
-import java.awt.image.BufferedImage;
-import java.io.InputStream;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
@@ -34,13 +30,17 @@ public class DecorationBlocks {
 
     public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
         COOBLESTONE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("cooblestone")
-                        .blockFactory(CooblestoneBlock::new)
-                        .properties(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel(state -> 10))
-                        .runtimeModelGenerator(h -> new RuntimeBlockModelGenerator(h,
-                                new TextureResourceModification(
-                                        ppId("textures/block/cooblestone.png"),
-                                        ppId("textures/block/cooblestone.png")))))
-                .getHolder();
+                .blockFactory(CooblestoneBlock::new)
+                .properties(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel(state -> 10))
+                .runtimeModelGenerator(h -> new RuntimeBlockModelGenerator(h,
+                        new TextureResourceModification(
+                                ppId("textures/block/cooblestone.png"),
+                                ppId("textures/block/cooblestone.png"),
+                                TextureResourceModification.overlay(ppId("textures/block/cooblestone.png"),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_top.png"), RUtil.BlendMode.DEFAULT),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_bottom.png"), RUtil.BlendMode.DEFAULT)))))
+        ).getHolder();
         Items.registerBlockItem(COOBLESTONE, registerItem);
 
         ICICLE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("icicle")

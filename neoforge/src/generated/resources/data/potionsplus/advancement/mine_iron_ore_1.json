@@ -15,16 +15,16 @@
       },
       "trigger": "potionsplus:award_stat"
     },
-    "mine_iron_ore_mossy_iron_ore": {
+    "mine_iron_ore_sandy_iron_ore": {
       "conditions": {
-        "statId": "minecraft.mined:potionsplus.mossy_iron_ore",
+        "statId": "minecraft.mined:potionsplus.sandy_iron_ore",
         "totalStats": 128
       },
       "trigger": "potionsplus:award_stat"
     },
-    "mine_iron_ore_sandy_iron_ore": {
+    "mine_iron_ore_stoney_iron_ore": {
       "conditions": {
-        "statId": "minecraft.mined:potionsplus.sandy_iron_ore",
+        "statId": "minecraft.mined:potionsplus.stoney_iron_ore",
         "totalStats": 128
       },
       "trigger": "potionsplus:award_stat"
@@ -57,7 +57,7 @@
       "mine_iron_ore_iron_ore",
       "mine_iron_ore_deepslate_iron_ore",
       "mine_iron_ore_sandy_iron_ore",
-      "mine_iron_ore_mossy_iron_ore"
+      "mine_iron_ore_stoney_iron_ore"
     ]
   ],
   "rewards": {
