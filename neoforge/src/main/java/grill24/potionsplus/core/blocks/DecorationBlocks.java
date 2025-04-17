@@ -32,14 +32,6 @@ public class DecorationBlocks {
         COOBLESTONE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("cooblestone")
                 .blockFactory(CooblestoneBlock::new)
                 .properties(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel(state -> 10))
-                .runtimeModelGenerator(h -> new RuntimeBlockModelGenerator(h,
-                        new TextureResourceModification(
-                                ppId("textures/block/cooblestone.png"),
-                                ppId("textures/block/cooblestone.png"),
-                                TextureResourceModification.overlay(ppId("textures/block/cooblestone.png"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_bottom.png"), RUtil.BlendMode.DEFAULT)))))
         ).getHolder();
         Items.registerBlockItem(COOBLESTONE, registerItem);
 

@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.function.Supplier;
 
-public class RuntimeBlockModelGenerator extends RuntimeModelGenerator<Block> {
+public abstract class RuntimeBlockModelGenerator extends RuntimeModelGenerator<Block> {
     private final Supplier<Holder<Block>> blockHolder;
 
     public RuntimeBlockModelGenerator(Supplier<Holder<Block>> blockHolder, IResourceModification... resources) {

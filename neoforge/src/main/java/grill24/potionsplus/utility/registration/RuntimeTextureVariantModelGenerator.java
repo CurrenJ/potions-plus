@@ -1,14 +1,12 @@
 package grill24.potionsplus.utility.registration;
 
 import com.google.gson.JsonObject;
-import grill24.potionsplus.block.PotionsPlusOreBlock;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
 import grill24.potionsplus.event.runtimeresource.modification.IResourceModification;
 import grill24.potionsplus.event.runtimeresource.modification.TextResourceModification;
 import grill24.potionsplus.event.runtimeresource.modification.TextureResourceModification;
 import grill24.potionsplus.utility.ResourceUtility;
-import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -36,6 +34,8 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
     private final PropertyTexVariant[] propertyTexVariants;
 
     private Map<Property<Integer>, Map<Holder<Block>, Integer>> blockMappings = new HashMap<>();
+    private Map<Property<Integer>, Map<Integer, Holder<Block>>> blockMappingsByPropertyValue = new HashMap<>();
+
     private Map<Property<Integer>, Map<Holder<Item>, Integer>> itemMappings = new HashMap<>();
 
     public RuntimeTextureVariantModelGenerator(Supplier<Holder<Block>> blockHolder, ResourceLocation baseModelShortId, PropertyTexVariant... propertiesToGenerateTextureVariantsFor) {
@@ -86,12 +86,35 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
     }
 
     @Override
-    public void generate(final GenerateRuntimeResourceInjectionsCacheEvent event) {
-        Modifications modifications = getModifications(getHolder(), baseModel, propertyTexVariants);
-        event.addModifications(modifications.modifications);
+    public void generateClient(final GenerateRuntimeResourceInjectionsCacheEvent event) {
+        generateCommon();
 
-        this.blockMappings = modifications.mappings;
-        this.itemMappings = toItemMappings(modifications.mappings);
+        IResourceModification[] modifications = getModifications(getHolder(), baseModel, propertyTexVariants);
+        event.addModifications(modifications);
+    }
+
+    @Override
+    public void generateCommon() {
+        this.blockMappings.clear();
+        for (PropertyTexVariant propertyTexVariant : propertyTexVariants) {
+            // Sort low to high
+            List<Integer> possibleValues = propertyTexVariant.property().getPossibleValues().stream()
+                    .sorted()
+                    .toList();
+            int index = 0;
+            List<Holder<Block>> blocks = propertyTexVariant.blocks().get().stream().toList();
+            for (Integer value : possibleValues) {
+                // Get the block from the property value
+                if (blocks.size() > index) {
+                    Holder<Block> block = blocks.get(index);
+                    blockMappings.computeIfAbsent(propertyTexVariant.property(), k -> new HashMap<>()).put(block, value);
+                    blockMappingsByPropertyValue.computeIfAbsent(propertyTexVariant.property(), k -> new HashMap<>()).put(value, block);
+                }
+                index++;
+            }
+        }
+
+        this.itemMappings = toItemMappings(blockMappings);
     }
 
     private static Map<Property<Integer>, Map<Holder<Item>, Integer>> toItemMappings(Map<Property<Integer>, Map<Holder<Block>, Integer>> blockMappings) {
@@ -154,18 +177,18 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         }
     }
 
-    public record AdditionalModel(Holder<Block> blockHolder, ResourceLocation texLongId, ResourceLocation texShortId, String baseTextureKey, TextureResourceModification.OverlayImage[] overlayTextureLongIds) { }
+    public record AdditionalModel(Holder<Block> blockHolder, ResourceLocation texLongId, ResourceLocation texShortId,
+                                  String baseTextureKey,
+                                  TextureResourceModification.OverlayImage[] overlayTextureLongIds) {
+    }
 
-    public record Modifications(IResourceModification[] modifications, Map<Property<Integer>, Map<Holder<Block>, Integer>> mappings) { }
-
-    private static Modifications getModifications(Holder<? extends Block> blockHolder, ResourceLocation baseModelShortId, PropertyTexVariant... propertiesToGenerateTextureVariantsFor) {
+    private IResourceModification[] getModifications(Holder<? extends Block> blockHolder, ResourceLocation baseModelShortId, PropertyTexVariant... propertiesToGenerateTextureVariantsFor) {
         if (blockHolder == null) {
             PotionsPlus.LOGGER.warn("Holder is null or not bound during runtime model injection. | {}", Arrays.toString(propertiesToGenerateTextureVariantsFor));
-            return new Modifications(new TextResourceModification[0], new HashMap<>());
+            return new TextResourceModification[0];
         }
 
         List<IResourceModification> modifications = new ArrayList<>();
-        Map<Property<Integer>, Map<Holder<Block>, Integer>> mappings = new HashMap<>();
         List<PropertyTexVariant> properties = new ArrayList<>(Arrays.asList(propertiesToGenerateTextureVariantsFor));
 
         // Generate all permutations of properties that were provided
@@ -174,17 +197,6 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         List<Pair<String, String>> blockStateVariantModels = new ArrayList<>();
         for (List<Integer> permutation : permutations) {
             ModelsAndTextureGenerationData modelsAndTextureGenerationData = prepareGenerationData(propertiesToGenerateTextureVariantsFor, permutation, properties);
-            // Store the mappings for the blockstate permutations
-            for (int i = 0; i < properties.size(); i++) {
-                PropertyTexVariant propertyTexVariant = properties.get(i);
-                Integer value = permutation.get(i);
-                if (value < 0 || value >= propertyTexVariant.blocks().get().size()) {
-                    continue;
-                }
-
-                mappings.computeIfAbsent(propertyTexVariant.property(), k -> new HashMap<>())
-                        .put(propertyTexVariant.blocks().get().stream().skip(value).findFirst().orElse(null), value);
-            }
 
             List<IResourceModification> generatedModelsAndTextures = generateModelsAndTextures(baseModelShortId, modelsAndTextureGenerationData.subblocks(), blockStateVariantModels, modelsAndTextureGenerationData.blockStatePermutationKey());
             modifications.addAll(generatedModelsAndTextures);
@@ -194,10 +206,10 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         IResourceModification generatedBlockState = generateBlockstate(blockHolder, blockStateVariantModels);
         modifications.add(generatedBlockState);
 
-        return new Modifications(modifications.toArray(new IResourceModification[0]), mappings);
+        return modifications.toArray(new IResourceModification[0]);
     }
 
-    private static @NotNull RuntimeTextureVariantModelGenerator.ModelsAndTextureGenerationData prepareGenerationData(PropertyTexVariant[] propertiesToGenerateTextureVariantsFor, List<Integer> permutation, List<PropertyTexVariant> properties) {
+    private @NotNull RuntimeTextureVariantModelGenerator.ModelsAndTextureGenerationData prepareGenerationData(PropertyTexVariant[] propertiesToGenerateTextureVariantsFor, List<Integer> permutation, List<PropertyTexVariant> properties) {
         // (Variant texture, texture key to replace from the base model)[]
         List<AdditionalModel> subblocks = new ArrayList<>();
         // Convert the blockstate permutation into the blocks we will use as textures for that permutation's model
@@ -215,7 +227,7 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
 
 
             Collection<Holder<Block>> variantBlocks = variant.blocks().get();
-            Optional<Holder<Block>> variantBlock = variantBlocks.stream().skip(propertyValue).findFirst();
+            Optional<Holder<Block>> variantBlock = Optional.ofNullable(blockMappingsByPropertyValue.getOrDefault(variant.property(), new HashMap<>()).getOrDefault(propertyValue, null));
             // Be safe and check if the block is null or not bound
             if (variantBlock.isEmpty()) {
                 if (propertyValue < variantBlocks.size()) {
@@ -239,8 +251,7 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         return modelsAndTextureGenerationData;
     }
 
-    private record ModelsAndTextureGenerationData(List<AdditionalModel> subblocks, StringBuilder blockStatePermutationKey) {
-    }
+    private record ModelsAndTextureGenerationData(List<AdditionalModel> subblocks, StringBuilder blockStatePermutationKey) { }
 
     private static List<IResourceModification> generateModelsAndTextures(ResourceLocation baseModelShortId, List<AdditionalModel> subblocks, List<Pair<String, String>> blockStateVariantModels, StringBuilder blockStatePermutationKey) {
         List<IResourceModification> generatedModelsAndTextures = new ArrayList<>();
@@ -270,7 +281,7 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
             // Generate the runtime texture for the block if a generator is provided.
             List<AdditionalModel> modelsWithReplacementTextures = new ArrayList<>();
             for (AdditionalModel modelData : subblocks) {
-                if(modelData.overlayTextureLongIds().length > 0) {
+                if (modelData.overlayTextureLongIds().length > 0) {
                     ResourceLocation generatedTextureLongId = ResourceLocation.fromNamespaceAndPath(
                             baseModelLongId.getNamespace(),
                             "textures/" + subModelShortId.getPath() + "_" + modelData.baseTextureKey + ".png"

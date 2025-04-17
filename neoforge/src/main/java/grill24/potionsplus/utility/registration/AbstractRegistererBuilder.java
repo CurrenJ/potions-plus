@@ -178,9 +178,16 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
     }
 
     @Override
-    public void generate(final GenerateRuntimeResourceInjectionsCacheEvent event) {
+    public void generateClient(final GenerateRuntimeResourceInjectionsCacheEvent event) {
         if (this.runtimeModelGenerator != null) {
-            this.runtimeModelGenerator.generate(event);
+            this.runtimeModelGenerator.generateClient(event);
+        }
+    }
+
+    @Override
+    public void generateCommon() {
+        if (this.runtimeModelGenerator != null) {
+            this.runtimeModelGenerator.generateCommon();
         }
     }
 

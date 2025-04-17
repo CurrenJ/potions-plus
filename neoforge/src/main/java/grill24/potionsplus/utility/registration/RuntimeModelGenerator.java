@@ -11,7 +11,7 @@ public abstract class RuntimeModelGenerator<T> implements IRuntimeModelGenerator
     }
 
     @Override
-    public void generate(final GenerateRuntimeResourceInjectionsCacheEvent event) {
+    public void generateClient(final GenerateRuntimeResourceInjectionsCacheEvent event) {
         event.addModifications(transformedClones);
     }
 }

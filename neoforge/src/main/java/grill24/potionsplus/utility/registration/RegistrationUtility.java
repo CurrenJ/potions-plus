@@ -102,7 +102,13 @@ public class RegistrationUtility {
 
     public static void generateRuntimeResourceInjectionsCache(final GenerateRuntimeResourceInjectionsCacheEvent event) {
         for (IRuntimeModelGenerator<?> generator : RUNTIME_RESOURCE_GENERATORS) {
-            generator.generate(event);
+            generator.generateClient(event);
+        }
+    }
+
+    public static void generateCommonRuntimeResourceMappings() {
+        for (IRuntimeModelGenerator<?> generator : RUNTIME_RESOURCE_GENERATORS) {
+            generator.generateCommon();
         }
     }
 }
