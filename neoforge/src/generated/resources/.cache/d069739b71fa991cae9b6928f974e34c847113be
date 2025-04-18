@@ -1,4 +1,4 @@
-// 1.21.1	2025-04-14T22:47:03.6932554	Potions Plus block tags
+// 1.21.1	2025-04-18T15:05:40.711672	Potions Plus block tags
 86e81f2accfb35eff8521bb02b1df0a4e1f38115 data/c/tags/block/ores.json
 c1912c4e564624bdb548b7ce47bb1f0729133cb1 data/c/tags/block/ores/coal.json
 5d9df9ed1bf9f821ff59e45c2838f8d3d9e41512 data/c/tags/block/ores/copper.json
@@ -12,16 +12,20 @@ e3949cfc970fa804453a4504bff1e6aa822bbeaa data/c/tags/block/ores/redstone.json
 1ebd26d0e916577d931e49c0c65b7d7b8695980b data/c/tags/block/ores_in_ground/stone.json
 c1912c4e564624bdb548b7ce47bb1f0729133cb1 data/minecraft/tags/block/coal_ores.json
 5d9df9ed1bf9f821ff59e45c2838f8d3d9e41512 data/minecraft/tags/block/copper_ores.json
+35995e27b372a71c18126f75b0166891d0504bc8 data/minecraft/tags/block/deepslate_ore_replaceables.json
 f94c4a786175665640f6225694abd402dee89eef data/minecraft/tags/block/diamond_ores.json
 741c850f5f3f24d442435a5dc4884879110337a1 data/minecraft/tags/block/emerald_ores.json
 7274dc1dcbb0b37bf2942c25781b9088b40c2e81 data/minecraft/tags/block/gold_ores.json
 f2a42891791061174becd96aeb01fca83a2f95c8 data/minecraft/tags/block/iron_ores.json
 91390c50f906b5b159f0992a7685f0fac75e3c1a data/minecraft/tags/block/lapis_ores.json
 e27ff90d725b83b468a8c87e7cf0bd5c1fabe68b data/minecraft/tags/block/mineable/axe.json
-f13c0e9085f50ba38dc065155eac330426416890 data/minecraft/tags/block/mineable/pickaxe.json
+8f5b5942e9b53389165a8bbdbb1bd7cfaa741358 data/minecraft/tags/block/mineable/pickaxe.json
 844caccc749bff0bf527566f5eaf6cd9d4cf919e data/minecraft/tags/block/mineable/shovel.json
 e3949cfc970fa804453a4504bff1e6aa822bbeaa data/minecraft/tags/block/redstone_ores.json
+9bc809942ba96a8f0c8744b126e854911c90050e data/minecraft/tags/block/stone_ore_replaceables.json
 0de2f703978baeb8cf8553b066c031b5b5027d09 data/potionsplus/tags/block/cave_replaceable.json
 cf3608bd187922aeb48c566c19e8482b0dca34c7 data/potionsplus/tags/block/freezable.json
-2d54a2cd2e323d38b2e5e373779c6e4c07e564eb data/potionsplus/tags/block/ores/uranium.json
 d9648142ea095edd1549d371da4b741e9e1464f6 data/potionsplus/tags/block/ore_flowers.json
+85a8b3555e696b48add7cf6c5b01263c08ee2402 data/potionsplus/tags/block/ore_replaceable.json
+25c2b337a98c53c45a7c3e4b1ab7e1ce63aab1c2 data/potionsplus/tags/block/ores/uranium.json
+05740268cdaccd92531f51561570bc5239b343ca data/potionsplus/tags/block/sandy_ore_replaceable.json

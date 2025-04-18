@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class PotionsPlusOreBlock extends DropExperienceBlock {
-    public static final IntegerProperty TEXTURE = IntegerProperty.create("texture", 0, 16);
+    public static final IntegerProperty TEXTURE = IntegerProperty.create("texture", 0, 24);
 
     public PotionsPlusOreBlock(IntProvider xpRange, Properties properties) {
         super(xpRange, properties);

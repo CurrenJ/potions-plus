@@ -16,7 +16,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -30,8 +30,35 @@ import java.util.function.UnaryOperator;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenerator {
-    private final ResourceLocation baseModel;
+    private final BaseModel<?>[] baseModel;
     private final PropertyTexVariant[] propertyTexVariants;
+
+    public record BaseModel<T extends Comparable<T>>(Optional<Property<T>> property,
+                                                     Optional<T> propertyValue,
+                                                     ResourceLocation baseModelShortId,
+                                                     TextureResourceModification.OverlayImage... overlayTextureLongIds) {
+        public String getBlockStateKey() {
+            if (property.isEmpty() || propertyValue.isEmpty()) {
+                return "";
+            }
+            return property.get().getName().toLowerCase() + "=" + propertyValue.get().toString().toLowerCase();
+        }
+
+        public String getRuntimeModelNameSuffix() {
+            if (property.isEmpty() || propertyValue.isEmpty()) {
+                return "";
+            }
+            return property.get().getName().toLowerCase() + "_" + propertyValue.get().toString().toLowerCase();
+        }
+
+        public BaseModel(ResourceLocation baseModelShortId) {
+            this(Optional.empty(), Optional.empty(), baseModelShortId, new TextureResourceModification.OverlayImage[0]);
+        }
+
+        public BaseModel(ResourceLocation baseModelShortId, TextureResourceModification.OverlayImage... overlayTextureLongIds) {
+            this(Optional.empty(), Optional.empty(), baseModelShortId, overlayTextureLongIds);
+        }
+    }
 
     private Map<Property<Integer>, Map<Holder<Block>, Integer>> blockMappings = new HashMap<>();
     private Map<Property<Integer>, Map<Integer, Holder<Block>>> blockMappingsByPropertyValue = new HashMap<>();
@@ -40,12 +67,22 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
 
     public RuntimeTextureVariantModelGenerator(Supplier<Holder<Block>> blockHolder, ResourceLocation baseModelShortId, PropertyTexVariant... propertiesToGenerateTextureVariantsFor) {
         super(blockHolder);
-        this.baseModel = baseModelShortId;
+        this.baseModel = new BaseModel[]{new BaseModel<>(baseModelShortId)};
         this.propertyTexVariants = propertiesToGenerateTextureVariantsFor;
     }
 
-    @SafeVarargs
-    public static @NotNull ItemInteractionResult trySetTextureVariant(Block block, ItemStack stack, BlockState state, Level level, BlockPos pos, Property<Integer>... textureVariantProperties) {
+    public RuntimeTextureVariantModelGenerator(Supplier<Holder<Block>> blockHolder, BaseModel<?>[] baseModels, PropertyTexVariant... propertiesToGenerateTextureVariantsFor) {
+        super(blockHolder);
+        this.baseModel = baseModels;
+        this.propertyTexVariants = propertiesToGenerateTextureVariantsFor;
+    }
+
+    public RuntimeTextureVariantModelGenerator(Supplier<Holder<Block>> blockHolder, BaseModel<?> baseModels, PropertyTexVariant... propertiesToGenerateTextureVariantsFor) {
+        this(blockHolder, new BaseModel[]{baseModels}, propertiesToGenerateTextureVariantsFor);
+    }
+
+        @SafeVarargs
+    public static @NotNull ItemInteractionResult trySetTextureVariant(Block block, ItemStack stack, BlockState state, LevelAccessor level, BlockPos pos, Property<Integer>... textureVariantProperties) {
         for (AbstractRegistererBuilder<?, ?> gen : RegistrationUtility.BUILDERS) {
             if (gen.getHolder() != null && gen.getHolder().value() == block
                     && gen.getRuntimeModelGenerator() instanceof RuntimeTextureVariantModelGenerator textureGen) {
@@ -62,6 +99,23 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         }
 
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    @SafeVarargs
+    public static BlockState getTextureVariantBlockState(Block block, ItemStack stack, BlockState state, Property<Integer>... textureVariantProperties) {
+        for (AbstractRegistererBuilder<?, ?> gen : RegistrationUtility.BUILDERS) {
+            if (gen.getHolder() != null && gen.getHolder().value() == block
+                    && gen.getRuntimeModelGenerator() instanceof RuntimeTextureVariantModelGenerator textureGen) {
+                for (Property<Integer> property : textureVariantProperties) {
+                    int value = textureGen.getValueForProperty(property, stack);
+                    if (value != -1) {
+                        return state.setValue(property, value);
+                    }
+                }
+            }
+        }
+
+        return state;
     }
 
     public PropertyTexVariant[] getPropertyTexVariants() {
@@ -155,15 +209,14 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
     public record PropertyTexVariant(
             Property<Integer> property,
             Supplier<Collection<Holder<Block>>> blocks,
-            String textureKeyInBaseModel,
-            TextureResourceModification.OverlayImage[] overlayTextureLongIds
+            String textureKeyInBaseModel
     ) {
         public static PropertyTexVariant fromTag(Property<Integer> property, TagKey<Block> tagKey, String textureKeyInBaseModel) {
-            return new PropertyTexVariant(property, () -> BuiltInRegistries.BLOCK.getOrCreateTag(tagKey).stream().toList(), textureKeyInBaseModel, new TextureResourceModification.OverlayImage[0]);
+            return new PropertyTexVariant(property, () -> BuiltInRegistries.BLOCK.getOrCreateTag(tagKey).stream().toList(), textureKeyInBaseModel);
         }
 
-        public static PropertyTexVariant fromTagWithOverlay(Property<Integer> property, TagKey<Block> tagKey, String textureKeyInBaseModel, TextureResourceModification.OverlayImage... overlayTextureLongIds) {
-            return new PropertyTexVariant(property, () -> BuiltInRegistries.BLOCK.getOrCreateTag(tagKey).stream().toList(), textureKeyInBaseModel, overlayTextureLongIds);
+        public static PropertyTexVariant fromTagWithOverlay(Property<Integer> property, TagKey<Block> tagKey, String textureKeyInBaseModel) {
+            return new PropertyTexVariant(property, () -> BuiltInRegistries.BLOCK.getOrCreateTag(tagKey).stream().toList(), textureKeyInBaseModel);
         }
 
         @Override
@@ -172,17 +225,15 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
                     "property=" + property.getName() +
                     ", blocks=" + blocks.get() +
                     ", textureKeyInBaseModel='" + textureKeyInBaseModel + '\'' +
-                    ", overlayTextureLongIds=" + Arrays.toString(overlayTextureLongIds) +
                     '}';
         }
     }
 
     public record AdditionalModel(Holder<Block> blockHolder, ResourceLocation texLongId, ResourceLocation texShortId,
-                                  String baseTextureKey,
-                                  TextureResourceModification.OverlayImage[] overlayTextureLongIds) {
+                                  String baseTextureKey) {
     }
 
-    private IResourceModification[] getModifications(Holder<? extends Block> blockHolder, ResourceLocation baseModelShortId, PropertyTexVariant... propertiesToGenerateTextureVariantsFor) {
+    private IResourceModification[] getModifications(Holder<? extends Block> blockHolder, BaseModel<?>[] baseModels, PropertyTexVariant... propertiesToGenerateTextureVariantsFor) {
         if (blockHolder == null) {
             PotionsPlus.LOGGER.warn("Holder is null or not bound during runtime model injection. | {}", Arrays.toString(propertiesToGenerateTextureVariantsFor));
             return new TextResourceModification[0];
@@ -198,8 +249,21 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         for (List<Integer> permutation : permutations) {
             ModelsAndTextureGenerationData modelsAndTextureGenerationData = prepareGenerationData(propertiesToGenerateTextureVariantsFor, permutation, properties);
 
-            List<IResourceModification> generatedModelsAndTextures = generateModelsAndTextures(baseModelShortId, modelsAndTextureGenerationData.subblocks(), blockStateVariantModels, modelsAndTextureGenerationData.blockStatePermutationKey());
-            modifications.addAll(generatedModelsAndTextures);
+            for (BaseModel<?> baseModel : baseModels) {
+                String blockStatePermutationKey = modelsAndTextureGenerationData.blockStatePermutationKey();
+                if (baseModel.property.isPresent() && baseModel.propertyValue.isPresent()) {
+                    if (!blockStatePermutationKey.isBlank()) {
+                        blockStatePermutationKey += ",";
+                    }
+                    blockStatePermutationKey += baseModel.getBlockStateKey();
+                }
+                List<IResourceModification> generatedModelsAndTextures = generateModelsAndTextures(
+                        baseModel,
+                        modelsAndTextureGenerationData.additionalModels(),
+                        blockStateVariantModels,
+                        blockStatePermutationKey);
+                modifications.addAll(generatedModelsAndTextures);
+            }
         }
 
         // Generate the blockstate that maps the blockstate permutations to the models
@@ -211,7 +275,7 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
 
     private @NotNull RuntimeTextureVariantModelGenerator.ModelsAndTextureGenerationData prepareGenerationData(PropertyTexVariant[] propertiesToGenerateTextureVariantsFor, List<Integer> permutation, List<PropertyTexVariant> properties) {
         // (Variant texture, texture key to replace from the base model)[]
-        List<AdditionalModel> subblocks = new ArrayList<>();
+        List<AdditionalModel> additionalModels = new ArrayList<>();
         // Convert the blockstate permutation into the blocks we will use as textures for that permutation's model
         StringBuilder blockStatePermutationKey = new StringBuilder();
         for (int i = 0; i < permutation.size(); i++) {
@@ -244,33 +308,38 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
                     "textures/" + textureShortId.getPath() + ".png"
             );
 
-            // Populate subblocks, for each property value in the permutation, so we can generate the model later.
-            subblocks.add(new AdditionalModel(variantBlock.get(), textureLongId, textureShortId, variant.textureKeyInBaseModel(), variant.overlayTextureLongIds()));
+            // Populate additional models, for each property value in the permutation, so we can generate the model later.
+            additionalModels.add(new AdditionalModel(variantBlock.get(), textureLongId, textureShortId, variant.textureKeyInBaseModel()));
         }
-        ModelsAndTextureGenerationData modelsAndTextureGenerationData = new ModelsAndTextureGenerationData(subblocks, blockStatePermutationKey);
-        return modelsAndTextureGenerationData;
+        return new ModelsAndTextureGenerationData(additionalModels, blockStatePermutationKey.toString());
     }
 
-    private record ModelsAndTextureGenerationData(List<AdditionalModel> subblocks, StringBuilder blockStatePermutationKey) { }
+    private record ModelsAndTextureGenerationData(List<AdditionalModel> additionalModels,
+                                                  String blockStatePermutationKey) {
+    }
 
-    private static List<IResourceModification> generateModelsAndTextures(ResourceLocation baseModelShortId, List<AdditionalModel> subblocks, List<Pair<String, String>> blockStateVariantModels, StringBuilder blockStatePermutationKey) {
+    private static List<IResourceModification> generateModelsAndTextures(BaseModel<?> baseModel, List<AdditionalModel> subblocks, List<Pair<String, String>> blockStateVariantModels, String blockStatePermutationKey) {
         List<IResourceModification> generatedModelsAndTextures = new ArrayList<>();
 
         ResourceLocation baseModelLongId = ResourceLocation.fromNamespaceAndPath(
-                baseModelShortId.getNamespace(),
-                "models/" + baseModelShortId.getPath() + ".json"
+                baseModel.baseModelShortId().getNamespace(),
+                "models/" + baseModel.baseModelShortId().getPath() + ".json"
         );
 
-        Optional<String> subModelSuffix = subblocks.stream().map(modelData -> modelData.blockHolder().getKey().location().getPath()).reduce(String::concat);
-        if (subModelSuffix.isPresent()) {
+        Optional<String> blockTextureSuffix = subblocks.stream().map(modelData -> modelData.blockHolder().getKey().location().getPath()).reduce((a, b) -> a + "_" + b);
+        if (baseModel.baseModelShortId.getPath().contains("uranium")) {
+            PotionsPlus.LOGGER.info("uranium_debug");
+        }
+        if (blockTextureSuffix.isPresent()) {
             // Split base model on '.' and replace the last part with the submodel suffix - basically add our suffix to model name
+            String suffix = baseModel.getRuntimeModelNameSuffix();
             ResourceLocation subModelLongId = ResourceLocation.fromNamespaceAndPath(
                     baseModelLongId.getNamespace(),
-                    baseModelLongId.getPath().substring(0, baseModelLongId.getPath().lastIndexOf('.')) + "_" + subModelSuffix.get() + ".json"
+                    baseModelLongId.getPath().substring(0, baseModelLongId.getPath().lastIndexOf('.')) + "_" + blockTextureSuffix.get() + "_" + suffix + ".json"
             );
             ResourceLocation subModelShortId = ResourceLocation.fromNamespaceAndPath(
-                    baseModelShortId.getNamespace(),
-                    baseModelShortId.getPath() + "_" + subModelSuffix.get()
+                    baseModel.baseModelShortId().getNamespace(),
+                    baseModel.baseModelShortId().getPath() + "_" + blockTextureSuffix.get() + "_" + suffix
             );
 
             // Store blockstate variant info for blockstate generation later
@@ -281,24 +350,24 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
             // Generate the runtime texture for the block if a generator is provided.
             List<AdditionalModel> modelsWithReplacementTextures = new ArrayList<>();
             for (AdditionalModel modelData : subblocks) {
-                if (modelData.overlayTextureLongIds().length > 0) {
+                if (baseModel.overlayTextureLongIds().length > 0) {
                     ResourceLocation generatedTextureLongId = ResourceLocation.fromNamespaceAndPath(
                             baseModelLongId.getNamespace(),
                             "textures/" + subModelShortId.getPath() + "_" + modelData.baseTextureKey + ".png"
                     );
                     ResourceLocation generatedTextureShortId = ResourceLocation.fromNamespaceAndPath(
-                            baseModelShortId.getNamespace(),
+                            baseModel.baseModelShortId().getNamespace(),
                             subModelShortId.getPath() + "_" + modelData.baseTextureKey
                     );
 
                     // Add the texture resource modification to the list
                     generatedModelsAndTextures.add(new TextureResourceModification(
                             modelData.texLongId(), generatedTextureLongId,
-                            TextureResourceModification.overlay(modelData.texLongId(), modelData.overlayTextureLongIds())
+                            TextureResourceModification.overlay(modelData.texLongId(), baseModel.overlayTextureLongIds())
                     ));
 
                     // Add the model data with the generated texture to the list
-                    modelsWithReplacementTextures.add(new AdditionalModel(modelData.blockHolder(), generatedTextureLongId, generatedTextureShortId, modelData.baseTextureKey(), modelData.overlayTextureLongIds()));
+                    modelsWithReplacementTextures.add(new AdditionalModel(modelData.blockHolder(), generatedTextureLongId, generatedTextureShortId, modelData.baseTextureKey()));
                 } else {
                     // If no overlay texture is provided, just use the original texture
                     modelsWithReplacementTextures.add(modelData);
@@ -310,12 +379,14 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
                     baseModelLongId, subModelLongId,
                     TextResourceModification.jsonTransform(json -> {
                         json = new JsonObject();
-                        json.addProperty("parent", baseModelShortId.toString());
+                        json.addProperty("parent", baseModel.baseModelShortId().toString());
 
                         JsonObject textures = new JsonObject();
                         for (AdditionalModel modelData : modelsWithReplacementTextures) {
                             textures.addProperty(modelData.baseTextureKey(), modelData.texShortId().toString());
                         }
+
+                        PotionsPlus.LOGGER.info("NEW MODEL: {} | {}", subModelLongId, textures);
 
                         json.add("textures", textures);
                         return json;
@@ -323,7 +394,7 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
 
         } else {
             // Else, default model for the blockstate permutation bc every valid blockstate permutation must have a model
-            blockStateVariantModels.add(new Pair<>(blockStatePermutationKey.toString(), baseModelShortId.toString()));
+            blockStateVariantModels.add(new Pair<>(blockStatePermutationKey, baseModel.baseModelShortId().toString()));
         }
 
         return generatedModelsAndTextures;

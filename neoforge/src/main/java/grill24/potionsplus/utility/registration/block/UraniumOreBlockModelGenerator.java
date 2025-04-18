@@ -14,14 +14,17 @@ import java.util.function.Supplier;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class UraniumOreBlockModelGenerator<B extends Block> extends BlockModelUtility.BlockModelGenerator<B> {
-    public UraniumOreBlockModelGenerator(Supplier<Holder<B>> blockGetter) {
+    private ResourceLocation textureShortId;
+
+    public UraniumOreBlockModelGenerator(Supplier<Holder<B>> blockGetter, ResourceLocation textureShortId) {
         super(blockGetter);
+        this.textureShortId = textureShortId;
     }
 
-    public static void registerUraniumOre(BlockStateProvider provider, Block block) {
+    public static void registerUraniumOre(BlockStateProvider provider, Block block, ResourceLocation textureShortId) {
         VariantBlockStateBuilder builder = provider.getVariantBuilder(block);
         for (UraniumOreBlock.UraniumState state : UraniumOreBlock.UraniumState.values()) {
-            ResourceLocation textureLocation = ppId("block/" + BuiltInRegistries.BLOCK.getKey(block).getPath() + "_"+ state.getSerializedName());
+            ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(textureShortId.getNamespace(), textureShortId.getPath() + "_" + state.getSerializedName());
             ResourceLocation model = ppId(Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block)).getPath() + "_"+ state.getSerializedName());
             provider.models().cubeAll(model.getPath(), textureLocation);
 
@@ -35,6 +38,6 @@ public class UraniumOreBlockModelGenerator<B extends Block> extends BlockModelUt
 
     @Override
     public void generate(BlockStateProvider provider) {
-        registerUraniumOre(provider, getHolder().value());
+        registerUraniumOre(provider, getHolder().value(), textureShortId);
     }
 }

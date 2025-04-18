@@ -1,0 +1,11 @@
+{
+  "remove": [
+    "minecraft:grass_block",
+    "minecraft:podzol"
+  ],
+  "values": [
+    "#c:gravels",
+    "#minecraft:dirt",
+    "#minecraft:sand"
+  ]
+}

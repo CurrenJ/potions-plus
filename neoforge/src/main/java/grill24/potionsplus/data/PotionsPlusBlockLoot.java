@@ -139,7 +139,7 @@ public class PotionsPlusBlockLoot extends BlockLootSubProvider {
         consumer.accept(OreBlocks.URANIUM_ORE.value().getLootTable(), createOreDrop(OreBlocks.URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
         consumer.accept(OreBlocks.DEEPSLATE_URANIUM_ORE.value().getLootTable(), createOreDrop(OreBlocks.DEEPSLATE_URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
         consumer.accept(OreBlocks.SANDY_URANIUM_ORE.value().getLootTable(), createOreDrop(OreBlocks.SANDY_URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
-        consumer.accept(OreBlocks.MOSSY_URANIUM_ORE.value().getLootTable(), createOreDrop(OreBlocks.MOSSY_URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
+        consumer.accept(OreBlocks.STONEY_URANIUM_ORE.value().getLootTable(), createOreDrop(OreBlocks.STONEY_URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
 
         consumer.accept(OreBlocks.SANDY_COPPER_ORE.value().getLootTable(), createCopperOreDrops(OreBlocks.SANDY_COPPER_ORE.value()));
         consumer.accept(OreBlocks.SANDY_IRON_ORE.value().getLootTable(), createOreDrop(OreBlocks.SANDY_IRON_ORE.value(), Items.RAW_IRON));

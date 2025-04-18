@@ -22,6 +22,7 @@ public class SimpleTallVersatilePlantBlockBuilder extends SimpleBlockBuilder {
         builder.modelGenerator(prop -> new VersatilePlantBlockModelGenerator<>(
                 prop, resources, texRotationFunction, itemTexture, modelRegisterer));
         builder.lootGenerator(holder -> new BlockDropSelfLoot<>(LootContextParamSets.BLOCK, holder));
+        builder.renderType(RenderType.CUTOUT);
         return builder;
     }
 

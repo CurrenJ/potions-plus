@@ -27,7 +27,31 @@
     "texture=16": {
       "model": "potionsplus:block/stoney_gold_ore"
     },
+    "texture=17": {
+      "model": "potionsplus:block/stoney_gold_ore"
+    },
+    "texture=18": {
+      "model": "potionsplus:block/stoney_gold_ore"
+    },
+    "texture=19": {
+      "model": "potionsplus:block/stoney_gold_ore"
+    },
     "texture=2": {
+      "model": "potionsplus:block/stoney_gold_ore"
+    },
+    "texture=20": {
+      "model": "potionsplus:block/stoney_gold_ore"
+    },
+    "texture=21": {
+      "model": "potionsplus:block/stoney_gold_ore"
+    },
+    "texture=22": {
+      "model": "potionsplus:block/stoney_gold_ore"
+    },
+    "texture=23": {
+      "model": "potionsplus:block/stoney_gold_ore"
+    },
+    "texture=24": {
       "model": "potionsplus:block/stoney_gold_ore"
     },
     "texture=3": {

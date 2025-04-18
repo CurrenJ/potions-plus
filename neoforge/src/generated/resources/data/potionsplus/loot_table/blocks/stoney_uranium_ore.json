@@ -26,7 +26,7 @@
                   }
                 }
               ],
-              "name": "potionsplus:mossy_uranium_ore"
+              "name": "potionsplus:stoney_uranium_ore"
             },
             {
               "type": "minecraft:item",
@@ -48,5 +48,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "potionsplus:blocks/mossy_uranium_ore"
+  "random_sequence": "potionsplus:blocks/stoney_uranium_ore"
 }

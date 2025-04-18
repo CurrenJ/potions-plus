@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "potionsplus:block/mossy_uranium_ore_obscured"
+    "all": "potionsplus:block/uranium_ore_fully_exposed"
   }
 }

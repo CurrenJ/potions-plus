@@ -1,4 +1,4 @@
-// 1.21.1	2025-04-05T18:09:14.9991787	Potions Plus item tags
+// 1.21.1	2025-04-18T15:05:40.712815	Potions Plus item tags
 388034e01567a2815e172e710146be2a4359abec data/c/tags/item/foods/raw_fish.json
 f5910a92ea5fb6f84cd96853e46380fa579ea546 data/minecraft/tags/item/enchantable/fishing.json
 388034e01567a2815e172e710146be2a4359abec data/minecraft/tags/item/fishes.json
@@ -19,4 +19,4 @@ f5d774589dd84e4b3aadad56f6ac5b96bad29061 data/potionsplus/tags/item/pp_fishing_p
 9a217f499c5f76e32966026e9e3bef0f7c689002 data/potionsplus/tags/item/remnant_debris.json
 3e5116462b35750f484c0043429bbecd3056813c data/potionsplus/tags/item/tier_0_potion_ingredients.json
 bdbf4e6ab866b050900e65cc682b1f5e91ad0352 data/potionsplus/tags/item/tier_1_potion_ingredients.json
-85a96b0d5ece1f7de93ea94035a10a09bb9aced1 data/potionsplus/tags/item/uranium_ore.json
+c6808b7a9cd8a6c2e7b33afb7139261a3a802b34 data/potionsplus/tags/item/uranium_ore.json

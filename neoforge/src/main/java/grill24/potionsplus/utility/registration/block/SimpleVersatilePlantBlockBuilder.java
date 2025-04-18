@@ -24,6 +24,7 @@ public class SimpleVersatilePlantBlockBuilder extends SimpleBlockBuilder {
         builder.blockFactory(SimpleVersatilePlantBlockBuilder::createBlock);
         builder.modelGenerator(holder -> new VersatilePlantBlockModelGenerator<>(holder, resources, texRotationFunction, itemTexture, modelRegisterer));
         builder.lootGenerator(holder -> new BlockDropSelfLoot<>(LootContextParamSets.BLOCK, holder));
+        builder.renderType(RenderType.CUTOUT);
         return builder;
     }
 

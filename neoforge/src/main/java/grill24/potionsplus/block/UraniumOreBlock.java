@@ -22,7 +22,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-public class UraniumOreBlock extends DropExperienceBlock {
+public class UraniumOreBlock extends PotionsPlusOreBlock {
     public enum UraniumState implements StringRepresentable {
         OBSCURED("obscured", 0),
         SLIGHTLY_EXPOSED("slightly_exposed", 1),
@@ -65,6 +65,7 @@ public class UraniumOreBlock extends DropExperienceBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> blockStateBuilder) {
+        super.createBlockStateDefinition(blockStateBuilder);
         blockStateBuilder.add(URANIUM_STATE);
     }
 
@@ -76,7 +77,12 @@ public class UraniumOreBlock extends DropExperienceBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemInteractionResult result = super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+        if (result != ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION) {
+            return result;
+        }
+
         if (stack.is(OreItems.SULFURIC_ACID) && state.getValue(URANIUM_STATE) != UraniumState.FULLY_EXPOSED) {
             if(!player.isCreative()) {
                 stack.shrink(1);

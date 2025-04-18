@@ -9,6 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -68,12 +69,12 @@ public class BlockTagProvider extends BlockTagsProvider {
         TagKey<Block>[] diamondOreTags = new TagKey[]{Tags.Blocks.ORES_DIAMOND, BlockTags.DIAMOND_ORES};
         addOresToTags(diamondOreTags, diamondOres);
 
-        Block[] uraniumOres = new Block[]{OreBlocks.MOSSY_URANIUM_ORE.value(), OreBlocks.SANDY_URANIUM_ORE.value()};
+        Block[] uraniumOres = new Block[]{OreBlocks.STONEY_URANIUM_ORE.value(), OreBlocks.SANDY_URANIUM_ORE.value()};
         TagKey<Block>[] uraniumOreTags = new TagKey[]{grill24.potionsplus.core.Tags.Blocks.ORES_URANIUM};
         addOresToTags(uraniumOreTags, uraniumOres);
 
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(OreBlocks.SANDY_COPPER_ORE.value(), OreBlocks.SANDY_IRON_ORE.value(), OreBlocks.SANDY_GOLD_ORE.value(), OreBlocks.SANDY_DIAMOND_ORE.value(), OreBlocks.SANDY_EMERALD_ORE.value(), OreBlocks.SANDY_LAPIS_ORE.value(), OreBlocks.SANDY_REDSTONE_ORE.value(), OreBlocks.SANDY_COAL_ORE.value(), OreBlocks.SANDY_URANIUM_ORE.value());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.STONEY_COPPER_ORE.value(), OreBlocks.STONEY_IRON_ORE.value(), OreBlocks.STONEY_GOLD_ORE.value(), OreBlocks.STONEY_DIAMOND_ORE.value(), OreBlocks.STONEY_EMERALD_ORE.value(), OreBlocks.STONEY_LAPIS_ORE.value(), OreBlocks.STONEY_REDSTONE_ORE.value(), OreBlocks.STONEY_COAL_ORE.value(), OreBlocks.MOSSY_URANIUM_ORE.value());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.STONEY_COPPER_ORE.value(), OreBlocks.STONEY_IRON_ORE.value(), OreBlocks.STONEY_GOLD_ORE.value(), OreBlocks.STONEY_DIAMOND_ORE.value(), OreBlocks.STONEY_EMERALD_ORE.value(), OreBlocks.STONEY_LAPIS_ORE.value(), OreBlocks.STONEY_REDSTONE_ORE.value(), OreBlocks.STONEY_COAL_ORE.value(), OreBlocks.STONEY_URANIUM_ORE.value());
 
         tag(grill24.potionsplus.core.Tags.Blocks.FREEZABLE).add(net.minecraft.world.level.block.Blocks.WATER);
 
@@ -106,6 +107,27 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .add(FlowerBlocks.GOLDEN_CUBENSIS.value())
                 .add(FlowerBlocks.REDSTONE_ROSE.value())
                 .add(FlowerBlocks.BLACK_COALLA_LILY.value());
+
+        tag(grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE)
+                .addTag(Tags.Blocks.STONES)
+                .addTag(Tags.Blocks.COBBLESTONES);
+
+        tag(grill24.potionsplus.core.Tags.Blocks.SANDY_ORE_REPLACEABLE)
+                .addTag(Tags.Blocks.GRAVELS)
+                .addTag(BlockTags.DIRT)
+                .addTag(BlockTags.SAND)
+                .remove(Blocks.GRASS_BLOCK)
+                .remove(Blocks.PODZOL);
+
+
+        tag(BlockTags.STONE_ORE_REPLACEABLES)
+                .addTag(grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE)
+                .addTag(grill24.potionsplus.core.Tags.Blocks.SANDY_ORE_REPLACEABLE)
+                .remove(Blocks.DEEPSLATE);
+        tag(BlockTags.DEEPSLATE_ORE_REPLACEABLES)
+                .addTag(grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE)
+                .addTag(grill24.potionsplus.core.Tags.Blocks.SANDY_ORE_REPLACEABLE)
+                .remove(Blocks.STONE);
     }
 
     private void addBlocksToTags(TagKey<Block>[] tags, Block[] values) {

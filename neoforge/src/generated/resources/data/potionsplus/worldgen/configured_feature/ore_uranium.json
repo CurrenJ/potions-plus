@@ -8,6 +8,7 @@
         "state": {
           "Name": "potionsplus:uranium_ore",
           "Properties": {
+            "texture": "0",
             "uranium_state": "obscured"
           }
         },
@@ -20,6 +21,7 @@
         "state": {
           "Name": "potionsplus:deepslate_uranium_ore",
           "Properties": {
+            "texture": "0",
             "uranium_state": "obscured"
           }
         },

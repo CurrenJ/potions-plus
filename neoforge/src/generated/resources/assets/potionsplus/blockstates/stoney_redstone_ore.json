@@ -27,7 +27,31 @@
     "lit=false,texture=16": {
       "model": "potionsplus:block/stoney_redstone_ore"
     },
+    "lit=false,texture=17": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=false,texture=18": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=false,texture=19": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
     "lit=false,texture=2": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=false,texture=20": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=false,texture=21": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=false,texture=22": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=false,texture=23": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=false,texture=24": {
       "model": "potionsplus:block/stoney_redstone_ore"
     },
     "lit=false,texture=3": {
@@ -78,7 +102,31 @@
     "lit=true,texture=16": {
       "model": "potionsplus:block/stoney_redstone_ore"
     },
+    "lit=true,texture=17": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=true,texture=18": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=true,texture=19": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
     "lit=true,texture=2": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=true,texture=20": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=true,texture=21": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=true,texture=22": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=true,texture=23": {
+      "model": "potionsplus:block/stoney_redstone_ore"
+    },
+    "lit=true,texture=24": {
       "model": "potionsplus:block/stoney_redstone_ore"
     },
     "lit=true,texture=3": {

@@ -15,8 +15,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class PotionsPlusRedstoneOreBlock extends RedStoneOreBlock {
-    public static final IntegerProperty TEXTURE = IntegerProperty.create("texture", 0, 16);
-
     public PotionsPlusRedstoneOreBlock(Properties properties) {
         super(properties);
     }
@@ -24,11 +22,11 @@ public class PotionsPlusRedstoneOreBlock extends RedStoneOreBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> blockStateBuilder) {
         super.createBlockStateDefinition(blockStateBuilder);
-        blockStateBuilder.add(TEXTURE);
+        blockStateBuilder.add(PotionsPlusOreBlock.TEXTURE);
     }
 
     @Override
     public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        return RuntimeTextureVariantModelGenerator.trySetTextureVariant(this, stack, state, level, pos, TEXTURE);
+        return RuntimeTextureVariantModelGenerator.trySetTextureVariant(this, stack, state, level, pos, PotionsPlusOreBlock.TEXTURE);
     }
 }
