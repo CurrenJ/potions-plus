@@ -118,10 +118,6 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         return state;
     }
 
-    public PropertyTexVariant[] getPropertyTexVariants() {
-        return propertyTexVariants;
-    }
-
     public int getValueForProperty(Property<Integer> property, Holder<Item> item) {
         if (blockMappings.containsKey(property)) {
             Map<Holder<Item>, Integer> itemToPropertyValueMap = itemMappings.get(property);

@@ -20,7 +20,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -354,16 +353,24 @@ public class OreBlocks {
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel[]{
                                 new RuntimeTextureVariantModelGenerator.BaseModel<>(
                                         Optional.of(UraniumOreBlock.URANIUM_STATE), Optional.of(UraniumOreBlock.UraniumState.OBSCURED), ppId("block/stoney_uranium_ore_obscured"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_obscured_isolated.png"), RUtil.BlendMode.DEFAULT)),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_obscured_isolated.png"), RUtil.BlendMode.DEFAULT),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_obscured_top.png"), RUtil.BlendMode.DEFAULT),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_obscured_bottom.png"), RUtil.BlendMode.DEFAULT)),
                                 new RuntimeTextureVariantModelGenerator.BaseModel<>(
                                         Optional.of(UraniumOreBlock.URANIUM_STATE), Optional.of(UraniumOreBlock.UraniumState.SLIGHTLY_EXPOSED), ppId("block/stoney_uranium_ore_slightly_exposed"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_slightly_exposed_isolated.png"), RUtil.BlendMode.DEFAULT)),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_slightly_exposed_isolated.png"), RUtil.BlendMode.DEFAULT),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_slightly_exposed_top.png"), RUtil.BlendMode.DEFAULT),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_slightly_exposed_bottom.png"), RUtil.BlendMode.DEFAULT)),
                                 new RuntimeTextureVariantModelGenerator.BaseModel<>(
                                         Optional.of(UraniumOreBlock.URANIUM_STATE), Optional.of(UraniumOreBlock.UraniumState.MOSTLY_EXPOSED), ppId("block/stoney_uranium_ore_mostly_exposed"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_mostly_exposed_isolated.png"), RUtil.BlendMode.DEFAULT)),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_mostly_exposed_isolated.png"), RUtil.BlendMode.DEFAULT),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_mostly_exposed_top.png"), RUtil.BlendMode.DEFAULT),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_mostly_exposed_bottom.png"), RUtil.BlendMode.DEFAULT)),
                                 new RuntimeTextureVariantModelGenerator.BaseModel<>(
                                         Optional.of(UraniumOreBlock.URANIUM_STATE), Optional.of(UraniumOreBlock.UraniumState.FULLY_EXPOSED), ppId("block/stoney_uranium_ore_fully_exposed"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_fully_exposed_isolated.png"), RUtil.BlendMode.DEFAULT))
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_fully_exposed_isolated.png"), RUtil.BlendMode.DEFAULT),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_fully_exposed_top.png"), RUtil.BlendMode.DEFAULT),
+                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_fully_exposed_bottom.png"), RUtil.BlendMode.DEFAULT))
                         },
                                 RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE, "all")))
         ).getHolder();
