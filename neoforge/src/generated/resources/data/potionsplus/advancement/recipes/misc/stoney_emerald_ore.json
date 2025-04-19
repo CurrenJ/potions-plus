@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_stoney_emerald_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "potionsplus:stoney_emerald_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "potionsplus:stoney_emerald_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_stoney_emerald_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "potionsplus:stoney_emerald_ore"
+    ]
+  }
+}

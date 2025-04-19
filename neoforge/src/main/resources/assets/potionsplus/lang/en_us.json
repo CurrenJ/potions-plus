@@ -213,6 +213,10 @@
   "block.potionsplus.stoney_emerald_ore": "Stoney Emerald Ore",
   "block.potionsplus.stoney_uranium_ore": "Stoney Uranium Ore",
 
+  "block.potionsplus.fish_tank_planks": "Wooden Fish Tank",
+  "block.potionsplus.fish_tank_logs": "Log Fish Tank",
+  "block.potionsplus.fish_tank_stones": "Stone Fish Tank",
+
   "block.potionsplus.hanging_fern": "Hanging Fern",
   "block.potionsplus.hanging_fern.description": "A fern that hangs from the ceiling. It's a little bit like a fern, but it's hanging.",
   "block.potionsplus.droopy_vine": "Droopy Vine",

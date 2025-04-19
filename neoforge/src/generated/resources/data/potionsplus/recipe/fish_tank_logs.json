@@ -6,13 +6,13 @@
       "item": "minecraft:water_bucket"
     },
     "G": {
-      "item": "minecraft:glass"
+      "tag": "minecraft:logs"
     }
   },
   "pattern": [
-    "GGG",
+    " G ",
     "GBG",
-    "GGG"
+    " G "
   ],
   "result": {
     "count": 1,

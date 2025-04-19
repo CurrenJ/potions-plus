@@ -124,7 +124,7 @@ public class FishTankBlockEntityRenderer implements BlockEntityRenderer<FishTank
         float offsetY = renderType.shouldBobY() ? (float) (Math.sin(ticks / yBobOffset) * 0.05F) : 0F;
 
         Vector3f positionOffset = renderType.getPosition();
-        poseStack.translate(positionOffset.x(), positionOffset.y(), positionOffset.z());
+        poseStack.translate(positionOffset.x(), positionOffset.y() + offsetY, positionOffset.z());
 
         Vector3f rotationOffset = renderType.getRotationOffsetDegrees();
         float rotX = (float) (Math.toRadians(Math.sin(ticks / xRotation) * 10) + Math.toRadians(rotationOffset.x()));

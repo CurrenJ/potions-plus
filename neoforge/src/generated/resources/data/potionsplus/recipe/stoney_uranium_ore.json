@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "potionsplus:stoney_uranium_ore"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "potionsplus:uranium_ore"
+  }
+}

@@ -249,13 +249,13 @@ public class BlockEntityBlocks {
         grill24.potionsplus.core.Items.registerBlockItem(HUGE_FILTER_HOPPER, registerItem);
 
         FISH_TANK_SUB_BLOCKS = new ArrayList<>();
-        FISH_TANK = registerFishTankSubBlock("fish_tank_planks", BlockTags.PLANKS, registerBlock, registerItem);
+        FISH_TANK = registerFishTankSubBlock("fish_tank_planks", BlockTags.PLANKS, ItemTags.PLANKS, registerBlock, registerItem);
         FISH_TANK_SUB_BLOCKS.add(FISH_TANK);
-        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_logs", BlockTags.LOGS, registerBlock, registerItem));
-        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_stones", Tags.Blocks.STONEY_ORE_REPLACEABLE, registerBlock, registerItem));
+        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_logs", BlockTags.LOGS, ItemTags.LOGS, registerBlock, registerItem));
+        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_stones", Tags.Blocks.STONEY_ORE_REPLACEABLE, net.neoforged.neoforge.common.Tags.Items.STONES, registerBlock, registerItem));
     }
 
-    private static Holder<Block> registerFishTankSubBlock(String name, TagKey<Block> frameBlocks, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
+    private static Holder<Block> registerFishTankSubBlock(String name, TagKey<Block> frameBlocks, TagKey<Item> recipeItem, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
         ResourceLocation fishTankBaseModel = ppId("block/fish_tank");
         Holder<Block> blockHolderResult = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple(name)
                 .properties(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).noOcclusion())
@@ -263,10 +263,10 @@ public class BlockEntityBlocks {
                 .modelGenerator(p -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(p, fishTankBaseModel))
                 .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                         h -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, h.value())
-                                .pattern("GGG")
+                                .pattern(" G ")
                                 .pattern("GBG")
-                                .pattern("GGG")
-                                .define('G', Blocks.GLASS)
+                                .pattern(" G ")
+                                .define('G', recipeItem)
                                 .define('B', Items.WATER_BUCKET)
                                 .unlockedBy("was_water_bucket", has(Items.WATER_BUCKET))))
                 .renderType(BlockBuilder.RenderType.TRANSLUCENT)

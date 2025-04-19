@@ -242,6 +242,10 @@ public class OreBlocks {
                 .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/copper_ore"), true, true, true))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
+                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.COPPER_ORE)
+                                .requires(h.value())
+                                .unlockedBy("has_stoney_copper_ore", has(h.value()))))
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_copper_ore"),
                                 new TextureResourceModification.OverlayImage(ppId("textures/block/copper_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
@@ -255,6 +259,10 @@ public class OreBlocks {
                 .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/iron_ore"), true, true, true))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
+                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.IRON_ORE)
+                                .requires(h.value())
+                                .unlockedBy("has_stoney_iron_ore", has(h.value()))))
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_iron_ore"),
                                 new TextureResourceModification.OverlayImage(ppId("textures/block/iron_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
@@ -268,6 +276,10 @@ public class OreBlocks {
                 .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.ofFullCopy(Blocks.GOLD_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/gold_ore"), true, true, true))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
+                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.GOLD_ORE)
+                                .requires(h.value())
+                                .unlockedBy("has_stoney_gold_ore", has(h.value()))))
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_gold_ore"),
                                 new TextureResourceModification.OverlayImage(ppId("textures/block/gold_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
@@ -281,6 +293,10 @@ public class OreBlocks {
                 .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/diamond_ore"), true, true, true))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
+                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.DIAMOND_ORE)
+                                .requires(h.value())
+                                .unlockedBy("has_stoney_diamond_ore", has(h.value()))))
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_diamond_ore"),
                                 new TextureResourceModification.OverlayImage(ppId("textures/block/diamond_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
@@ -294,6 +310,10 @@ public class OreBlocks {
                 .blockFactory(prop -> new PotionsPlusRedstoneOreBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/redstone_ore"), true, true, true))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
+                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.REDSTONE_ORE)
+                                .requires(h.value())
+                                .unlockedBy("has_stoney_redstone_ore", has(h.value()))))
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_redstone_ore"),
                                 new TextureResourceModification.OverlayImage(ppId("textures/block/redstone_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
@@ -307,6 +327,10 @@ public class OreBlocks {
                 .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(2, 5), BlockBehaviour.Properties.ofFullCopy(Blocks.LAPIS_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/lapis_ore"), true, true, true))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
+                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.LAPIS_ORE)
+                                .requires(h.value())
+                                .unlockedBy("has_stoney_lapis_ore", has(h.value()))))
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_lapis_ore"),
                                 new TextureResourceModification.OverlayImage(ppId("textures/block/lapis_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
@@ -320,6 +344,10 @@ public class OreBlocks {
                 .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(0, 2), BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/coal_ore"), true, true, true))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
+                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.COAL_ORE)
+                                .requires(h.value())
+                                .unlockedBy("has_stoney_coal_ore", has(h.value()))))
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_coal_ore"),
                                 new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
@@ -333,6 +361,10 @@ public class OreBlocks {
                 .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/emerald_ore"), true, true, true))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
+                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.EMERALD_ORE)
+                                .requires(h.value())
+                                .unlockedBy("has_stoney_emerald_ore", has(h.value()))))
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_emerald_ore"),
                                 new TextureResourceModification.OverlayImage(ppId("textures/block/emerald_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
@@ -346,6 +378,10 @@ public class OreBlocks {
                 .blockFactory(prop -> new UraniumOreBlock(UniformInt.of(4, 9), BlockBehaviour.Properties.ofFullCopy(OreBlocks.URANIUM_ORE.value())))
                 .modelGenerator(h -> new UraniumOreBlockModelGenerator<>(h, ppId("block/uranium_ore")))
                 .lootGenerator(null) // Hand-made loot table
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
+                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OreBlocks.URANIUM_ORE.value())
+                                .requires(h.value())
+                                .unlockedBy("has_stoney_uranium_ore", has(h.value()))))
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel[]{
                                 new RuntimeTextureVariantModelGenerator.BaseModel<>(
