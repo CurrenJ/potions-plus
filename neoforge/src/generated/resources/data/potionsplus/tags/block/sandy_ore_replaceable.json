@@ -6,6 +6,9 @@
   "values": [
     "#c:gravels",
     "#minecraft:dirt",
-    "#minecraft:sand"
+    "#minecraft:sand",
+    "#c:sands",
+    "minecraft:soul_sand",
+    "minecraft:soul_soil"
   ]
 }

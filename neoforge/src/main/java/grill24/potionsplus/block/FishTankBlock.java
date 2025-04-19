@@ -3,6 +3,7 @@ package grill24.potionsplus.block;
 import grill24.potionsplus.blockentity.FishTankBlockEntity;
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.utility.InvUtil;
+import grill24.potionsplus.utility.Utility;
 import grill24.potionsplus.utility.registration.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -24,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class FishTankBlock extends Block implements EntityBlock {
     public static final IntegerProperty FRAME_VARIANT = IntegerProperty.create("frame", 0, 63);
-    public static final IntegerProperty SAND_VARIANT = IntegerProperty.create("sand", 0, 15);
+    public static final IntegerProperty SAND_VARIANT = IntegerProperty.create("sand", 0, 23);
 
     public FishTankBlock(Properties properties) {
         super(properties);
@@ -51,7 +52,9 @@ public class FishTankBlock extends Block implements EntityBlock {
 
         if (fishTankBlockEntity != null) {
             InvUtil.InteractionResult result = InvUtil.insertOnPlayerUseItem(level, pos, player, hand, SoundEvents.GENERIC_SPLASH);
-            return InvUtil.getMinecraftItemInteractionResult(result);
+            if (result != InvUtil.InteractionResult.PASS) {
+                return InvUtil.getMinecraftItemInteractionResult(result);
+            }
         }
 
         return RuntimeTextureVariantModelGenerator.trySetTextureVariant(this, stack, state, level, pos, FRAME_VARIANT, SAND_VARIANT);
@@ -62,5 +65,12 @@ public class FishTankBlock extends Block implements EntityBlock {
         InvUtil.InteractionResult result = InvUtil.extractOnPlayerUseWithoutItem(level, pos, player, true, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
 
         return InvUtil.getMinecraftInteractionResult(result);
+    }
+
+    @Override
+    @Deprecated
+    public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
+        Utility.dropContents(level, blockPos, blockState, newState);
+        super.onRemove(blockState, level, blockPos, newState, isMoving);
     }
 }

@@ -116,6 +116,8 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .addTag(Tags.Blocks.GRAVELS)
                 .addTag(BlockTags.DIRT)
                 .addTag(BlockTags.SAND)
+                .addTag(Tags.Blocks.SANDS)
+                .add(Blocks.SOUL_SAND, Blocks.SOUL_SOIL)
                 .remove(Blocks.GRASS_BLOCK)
                 .remove(Blocks.PODZOL);
 

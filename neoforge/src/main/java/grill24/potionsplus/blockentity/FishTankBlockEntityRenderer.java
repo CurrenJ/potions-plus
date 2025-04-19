@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -17,10 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Quaternionf;
 import org.joml.Random;
-import org.joml.Vector3f;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class FishTankBlockEntityRenderer implements BlockEntityRenderer<FishTankBlockEntity> {
@@ -42,17 +38,6 @@ public class FishTankBlockEntityRenderer implements BlockEntityRenderer<FishTank
     float targetYBobOffset = 35F;
     float timestampChangeYBobTarget = 0F;
 
-    private static final float SAND_HEIGHT = 2 / 16F;
-    private static final float BASE_KELP_SIZE = 0.2F;
-    private static final float KELP_CENTER_X = 0.5F - BASE_KELP_SIZE / 2F;
-    private static final float KELP_CENTER_Z = 0.5F - BASE_KELP_SIZE / 2F;
-
-    public record Kelp(Vector3f pos, float size, int height) {
-        public Kelp(Vector3f pos, float size) {
-            this(pos, size, 1);
-        }
-    }
-
     @Override
     public void render(FishTankBlockEntity fishTankBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int i, int i1) {
         Optional<ItemStack> fish = fishTankBlockEntity.getFish();
@@ -66,12 +51,12 @@ public class FishTankBlockEntityRenderer implements BlockEntityRenderer<FishTank
 
     private void renderKelp(PoseStack poseStack, MultiBufferSource bufferSource, FishTankBlockEntity fishTankBlockEntity, int i, int i1, int kelp) {
         // Render kelp decorations
-        Kelp[] randomizedKelp = fishTankBlockEntity.getKelpRenderData();
+        FishTankBlockEntity.Kelp[] randomizedKelp = fishTankBlockEntity.getKelpRenderData();
         for (int k = 0; k < kelp && k < randomizedKelp.length; k++) {
-            Kelp kelpData = randomizedKelp[k];
+            FishTankBlockEntity.Kelp kelpData = randomizedKelp[k];
             poseStack.pushPose();
-            poseStack.translate(kelpData.pos.x(), kelpData.pos.y(), kelpData.pos.z());
-            poseStack.scale(kelpData.size, kelpData.size, kelpData.size);
+            poseStack.translate(kelpData.pos().x(), kelpData.pos().y(), kelpData.pos().z());
+            poseStack.scale(kelpData.size(), kelpData.size(), kelpData.size());
 
             int height = kelpData.height();
             for (int j = 0; j < height; j++) {
@@ -89,10 +74,16 @@ public class FishTankBlockEntityRenderer implements BlockEntityRenderer<FishTank
         }
     }
 
+    private static final float R2 = (float) Math.sqrt(2);
+
     private void renderFish(FishTankBlockEntity fishTankBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int i, int i1, Optional<ItemStack> fish) {
         float scale = 1F;
         if (fish.get().has(DataComponents.FISH_SIZE)) {
             scale = fish.get().get(DataComponents.FISH_SIZE).getItemFrameSizeMultiplier();
+            // My fish textures are typically aligned to the diagonal.
+            // So we rotate the texture 45 to make the fish aligned in the right direction.
+            // Adjust scale so 100cm = 1 block wide
+            scale /= R2;
         }
 
         Level level = fishTankBlockEntity.getLevel();
@@ -121,7 +112,7 @@ public class FishTankBlockEntityRenderer implements BlockEntityRenderer<FishTank
         float offsetY = (float) (Math.sin(ticks / yBobOffset) * 0.05F);
         poseStack.translate(0.5, 0.5 + offsetY, 0.5);
 
-        poseStack.scale(0.5f, 0.5f, 0.5f);
+        poseStack.scale(0.55f, 0.55f, 0.55f);
 
         float rotX = (float) Math.toRadians(Math.sin(ticks / xRotation) * 10);
         float rotY = (float) Math.toRadians(Math.cos(ticks / yRotation) * 8);
@@ -142,25 +133,4 @@ public class FishTankBlockEntityRenderer implements BlockEntityRenderer<FishTank
         poseStack.popPose();
     }
 
-    public static Kelp[] generateKelp(Random random) {
-        int radius = 2;
-        List<Kelp> kelpList = new ArrayList<>();
-        for (int i = -radius; i <= radius; i++) {
-            for (int j = -radius; j <= radius; j++) {
-                Random kelpRandom = new Random((long) (random.nextFloat() + i * 1000L + j * 1000L));
-                Kelp kelp = new Kelp(new Vector3f(KELP_CENTER_X + i * BASE_KELP_SIZE, SAND_HEIGHT, KELP_CENTER_Z + j * BASE_KELP_SIZE), BASE_KELP_SIZE, kelpRandom.nextInt(4) + 1);
-                kelpList.add(kelp);
-            }
-        }
-
-        // Randomize order of kelp
-        for (int i = kelpList.size() - 1; i > 0; i--) {
-            int j = random.nextInt(i + 1);
-            Kelp temp = kelpList.get(i);
-            kelpList.set(i, kelpList.get(j));
-            kelpList.set(j, temp);
-        }
-
-        return kelpList.toArray(new Kelp[0]);
-    }
 }

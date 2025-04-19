@@ -272,7 +272,7 @@ public class BlockEntityBlocks {
                 .renderType(BlockBuilder.RenderType.TRANSLUCENT)
                 .runtimeModelGenerator(holder -> new RuntimeTextureVariantModelGenerator(holder, fishTankBaseModel,
                         RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankBlock.FRAME_VARIANT, frameBlocks, "1"),
-                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankBlock.SAND_VARIANT, BlockTags.SAND, "2")
+                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankBlock.SAND_VARIANT, Tags.Blocks.SANDY_ORE_REPLACEABLE, "2")
                 ))).getHolder();
         grill24.potionsplus.core.Items.registerBlockItemWithParentModel(() -> blockHolderResult, registerItem, fishTankBaseModel);
 
