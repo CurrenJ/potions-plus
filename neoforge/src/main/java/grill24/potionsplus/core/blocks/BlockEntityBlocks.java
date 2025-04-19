@@ -1,6 +1,7 @@
 package grill24.potionsplus.core.blocks;
 
 import grill24.potionsplus.block.*;
+import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
@@ -21,7 +22,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.neoforged.neoforge.common.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -252,7 +252,7 @@ public class BlockEntityBlocks {
         FISH_TANK = registerFishTankSubBlock("fish_tank_planks", BlockTags.PLANKS, registerBlock, registerItem);
         FISH_TANK_SUB_BLOCKS.add(FISH_TANK);
         FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_logs", BlockTags.LOGS, registerBlock, registerItem));
-        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_stones", Tags.Blocks.STONES, registerBlock, registerItem));
+        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_stones", Tags.Blocks.STONEY_ORE_REPLACEABLE, registerBlock, registerItem));
     }
 
     private static Holder<Block> registerFishTankSubBlock(String name, TagKey<Block> frameBlocks, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
