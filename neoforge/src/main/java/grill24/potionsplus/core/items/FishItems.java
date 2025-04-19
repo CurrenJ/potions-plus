@@ -2,6 +2,7 @@ package grill24.potionsplus.core.items;
 
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.item.FishingRodItem;
+import grill24.potionsplus.item.PotionsPlusFishItem;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.item.*;
@@ -74,9 +75,11 @@ public class FishItems {
                 .sizeProvider(GaussianSizeBand.SMALL)
                 .biomes(Biomes.SAVANNA, Biomes.BAMBOO_JUNGLE, Biomes.PLAINS));
         GARDEN_EEL = RegistrationUtility.register(register, FishItemBuilder.create("garden_eel")
+                .itemFactory(prop -> new PotionsPlusFishItem(prop, PotionsPlusFishItem.FishTankRenderType.GROUND_ANCHORED_NO_ROTATION))
                 .sizeProvider(GaussianSizeBand.SMALL)
                 .biomes(Biomes.FLOWER_FOREST, Biomes.SUNFLOWER_PLAINS, Biomes.CHERRY_GROVE, Biomes.LUSH_CAVES));
         ROYAL_GARDEN_EEL = RegistrationUtility.register(register, FishItemBuilder.create("royal_garden_eel", true)
+                .itemFactory(prop -> new PotionsPlusFishItem(prop, PotionsPlusFishItem.FishTankRenderType.GROUND_ANCHORED_NO_ROTATION))
                 .sizeProvider(GaussianSizeBand.SMALL)
                 .biomes(Biomes.FLOWER_FOREST, Biomes.SUNFLOWER_PLAINS, Biomes.CHERRY_GROVE, Biomes.LUSH_CAVES)
                 .canBeCaughtOutsideBiome(false)
@@ -87,9 +90,11 @@ public class FishItems {
                 .sizeProvider(GaussianSizeBand.LARGE)
                 .biomes(Biomes.TAIGA, Biomes.ICE_SPIKES, Biomes.SNOWY_TAIGA, Biomes.FROZEN_RIVER));
         SHRIMP = RegistrationUtility.register(register, FishItemBuilder.create("shrimp")
+                .itemFactory(prop -> new PotionsPlusFishItem(prop, PotionsPlusFishItem.FishTankRenderType.NO_ROTATION))
                 .sizeProvider(GaussianSizeBand.SMALL)
                 .biomes(Biomes.MANGROVE_SWAMP, Biomes.SWAMP, Biomes.GROVE));
         FRIED_SHRIMP = RegistrationUtility.register(register, FishItemBuilder.create("fried_shrimp", true)
+                .itemFactory(prop -> new PotionsPlusFishItem(prop, PotionsPlusFishItem.FishTankRenderType.NO_ROTATION))
                 .sizeProvider(GaussianSizeBand.SMALL)
                 .biomes(Biomes.MUSHROOM_FIELDS, grill24.potionsplus.core.Biomes.ARID_CAVE_KEY, Biomes.MANGROVE_SWAMP)
                 .canBeCaughtOutsideBiome(false)
@@ -110,6 +115,7 @@ public class FishItems {
                 .sizeProvider(GaussianSizeBand.LARGE)
                 .biomes(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.WARM_OCEAN, Biomes.COLD_OCEAN, Biomes.FROZEN_OCEAN, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS));
         PORTUGUESE_MAN_O_WAR = RegistrationUtility.register(register, FishItemBuilder.create("portuguese_man_o_war")
+                .itemFactory(prop -> new PotionsPlusFishItem(prop, PotionsPlusFishItem.FishTankRenderType.UPRIGHT_FISH))
                 .sizeProvider(GaussianSizeBand.LARGE)
                 .biomes(Biomes.WARM_OCEAN, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS));
         BLUEGILL = RegistrationUtility.register(register, FishItemBuilder.create("bluegill")

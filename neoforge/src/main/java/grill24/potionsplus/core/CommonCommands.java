@@ -9,6 +9,7 @@ import grill24.potionsplus.block.SkillJournalsBlock;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.gui.fishing.FishingLeaderboardsMenu;
+import grill24.potionsplus.item.FishSizeDataComponent;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.network.*;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
@@ -271,6 +272,18 @@ public class CommonCommands {
 
                             return 1;
                         })
+                        .then(Commands.literal("size")
+                                .then(Commands.argument("cm", IntegerArgumentType.integer())
+                                        .requires((source) -> source.hasPermission(2))
+                                        .executes(context -> {
+                                            if (context.getSource().getEntity() instanceof ServerPlayer player) {
+                                                int cm = IntegerArgumentType.getInteger(context, "cm");
+                                                player.getMainHandItem().set(grill24.potionsplus.core.DataComponents.FISH_SIZE, new FishSizeDataComponent(cm));
+                                            }
+
+                                            return 1;
+                                        }))
+                        )
                 )
                 .then(Commands.literal("tossup")
                         .requires((source) -> source.hasPermission(2))

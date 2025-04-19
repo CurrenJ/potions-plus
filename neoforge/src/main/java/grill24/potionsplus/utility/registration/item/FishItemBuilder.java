@@ -2,6 +2,7 @@ package grill24.potionsplus.utility.registration.item;
 
 import grill24.potionsplus.function.GaussianDistributionGenerator;
 import grill24.potionsplus.function.SetFishSizeFunction;
+import grill24.potionsplus.item.PotionsPlusFishItem;
 import grill24.potionsplus.loot.IsInBiomeCondition;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -39,7 +40,7 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
         super();
         this.name(name);
         this.properties(new Item.Properties().food(Foods.COD));
-        this.itemFactory(Item::new);
+        this.itemFactory(PotionsPlusFishItem::new);
         this.modelGenerator(ItemModelUtility.SimpleItemModelGenerator::new);
         this.sizeProvider(GaussianSizeBand.MEDIUM);
         this.biomes(List.of());
