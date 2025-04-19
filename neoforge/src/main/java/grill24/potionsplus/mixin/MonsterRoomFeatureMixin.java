@@ -1,13 +1,17 @@
 package grill24.potionsplus.mixin;
 
 import com.mojang.serialization.Codec;
+import grill24.potionsplus.block.PotionsPlusOreBlock;
 import grill24.potionsplus.core.Biomes;
 import grill24.potionsplus.core.blocks.OreBlocks;
+import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenerator;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.neoforged.neoforge.common.Tags;
@@ -30,15 +34,20 @@ import java.util.function.Predicate;
 @Mixin(MonsterRoomFeature.class)
 public abstract class MonsterRoomFeatureMixin extends Feature<NoneFeatureConfiguration> {
     private static final Lazy<WeightedStateProvider> SPAWNABLE = Lazy.of(() -> new WeightedStateProvider(SimpleWeightedRandomList .<BlockState>builder()
-            .add(OreBlocks.STONEY_COAL_ORE.value().defaultBlockState(), 1)
-            .add(OreBlocks.STONEY_COPPER_ORE.value().defaultBlockState(), 1)
-            .add(OreBlocks.STONEY_IRON_ORE.value().defaultBlockState(), 1)
-            .add(OreBlocks.STONEY_GOLD_ORE.value().defaultBlockState(), 2)
-            .add(OreBlocks.STONEY_LAPIS_ORE.value().defaultBlockState(), 2)
-            .add(OreBlocks.STONEY_REDSTONE_ORE.value().defaultBlockState(), 2)
-            .add(OreBlocks.STONEY_DIAMOND_ORE.value().defaultBlockState(), 5)
-            .add(OreBlocks.STONEY_EMERALD_ORE.value().defaultBlockState(), 5)
+            .add(getMossyOre(OreBlocks.STONEY_COAL_ORE), 1)
+            .add(getMossyOre(OreBlocks.STONEY_COPPER_ORE), 1)
+            .add(getMossyOre(OreBlocks.STONEY_IRON_ORE), 1)
+            .add(getMossyOre(OreBlocks.STONEY_GOLD_ORE), 1)
+            .add(getMossyOre(OreBlocks.STONEY_LAPIS_ORE), 1)
+            .add(getMossyOre(OreBlocks.STONEY_REDSTONE_ORE), 1)
+            .add(getMossyOre(OreBlocks.STONEY_DIAMOND_ORE), 1)
+            .add(getMossyOre(OreBlocks.STONEY_EMERALD_ORE), 1)
     ));
+
+    private static BlockState getMossyOre(Holder<Block> blockHolder) {
+        Block block = blockHolder.value();
+        return RuntimeTextureVariantModelGenerator.getTextureVariantBlockState(block, new ItemStack(Blocks.MOSSY_COBBLESTONE), block.defaultBlockState(), PotionsPlusOreBlock.TEXTURE);
+    }
     
     public MonsterRoomFeatureMixin(Codec<NoneFeatureConfiguration> codec) {
         super(codec);

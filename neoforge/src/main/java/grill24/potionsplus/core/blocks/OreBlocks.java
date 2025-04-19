@@ -25,10 +25,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DropExperienceBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.TransparentBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 
@@ -242,7 +239,7 @@ public class OreBlocks {
         Items.registerBlockItem(SANDY_URANIUM_ORE, registerItem);
 
         STONEY_COPPER_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_copper_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/copper_ore"), true, true, true))
                 .runtimeModelGenerator(h ->
@@ -255,7 +252,7 @@ public class OreBlocks {
         Items.registerBlockItemWithAutoModel(() -> STONEY_COPPER_ORE, registerItem);
 
         STONEY_IRON_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_iron_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/iron_ore"), true, true, true))
                 .runtimeModelGenerator(h ->
@@ -268,7 +265,7 @@ public class OreBlocks {
         Items.registerBlockItemWithAutoModel(() -> STONEY_IRON_ORE, registerItem);
 
         STONEY_GOLD_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_gold_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.ofFullCopy(Blocks.GOLD_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/gold_ore"), true, true, true))
                 .runtimeModelGenerator(h ->
@@ -281,7 +278,7 @@ public class OreBlocks {
         Items.registerBlockItemWithAutoModel(() -> STONEY_GOLD_ORE, registerItem);
 
         STONEY_DIAMOND_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_diamond_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/diamond_ore"), true, true, true))
                 .runtimeModelGenerator(h ->
@@ -294,7 +291,7 @@ public class OreBlocks {
         Items.registerBlockItemWithAutoModel(() -> STONEY_DIAMOND_ORE, registerItem);
 
         STONEY_REDSTONE_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_redstone_ore")
-                .blockFactory(prop -> new PotionsPlusRedstoneOreBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusRedstoneOreBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/redstone_ore"), true, true, true))
                 .runtimeModelGenerator(h ->
@@ -307,7 +304,7 @@ public class OreBlocks {
         Items.registerBlockItemWithAutoModel(() -> STONEY_REDSTONE_ORE, registerItem);
 
         STONEY_LAPIS_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_lapis_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(2, 5), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(2, 5), BlockBehaviour.Properties.ofFullCopy(Blocks.LAPIS_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/lapis_ore"), true, true, true))
                 .runtimeModelGenerator(h ->
@@ -320,7 +317,7 @@ public class OreBlocks {
         Items.registerBlockItemWithAutoModel(() -> STONEY_LAPIS_ORE, registerItem);
 
         STONEY_COAL_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_coal_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(0, 2), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(0, 2), BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/coal_ore"), true, true, true))
                 .runtimeModelGenerator(h ->
@@ -333,7 +330,7 @@ public class OreBlocks {
         Items.registerBlockItemWithAutoModel(() -> STONEY_COAL_ORE, registerItem);
 
         STONEY_EMERALD_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_emerald_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_ORE)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/emerald_ore"), true, true, true))
                 .runtimeModelGenerator(h ->
@@ -346,7 +343,7 @@ public class OreBlocks {
         Items.registerBlockItemWithAutoModel(() -> STONEY_EMERALD_ORE, registerItem);
 
         STONEY_URANIUM_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_uranium_ore")
-                .blockFactory(prop -> new UraniumOreBlock(UniformInt.of(4, 9), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new UraniumOreBlock(UniformInt.of(4, 9), BlockBehaviour.Properties.ofFullCopy(OreBlocks.URANIUM_ORE.value())))
                 .modelGenerator(h -> new UraniumOreBlockModelGenerator<>(h, ppId("block/uranium_ore")))
                 .lootGenerator(null) // Hand-made loot table
                 .runtimeModelGenerator(h ->

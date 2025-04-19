@@ -13,7 +13,6 @@ import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.*;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.FastColor;
