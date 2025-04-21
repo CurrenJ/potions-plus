@@ -1,5 +1,6 @@
 package grill24.potionsplus.utility.registration.item;
 
+import grill24.potionsplus.item.BaitItem;
 import grill24.potionsplus.loot.HasFishingRodBaitCondition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -16,13 +17,16 @@ public class BaitItemBuilder extends ItemBuilder<Item, BaitItemBuilder> {
 
     private Function<LootPool.Builder, LootPool.Builder> additionalFishingLoot;
 
+    private String descriptionKey;
+
     public BaitItemBuilder(String name) {
         super();
         this.name(name);
         this.properties(new Item.Properties());
-        this.itemFactory(Item::new);
+        this.itemFactory((prop) -> new BaitItem(prop, this.descriptionKey));
         this.modelGenerator(ItemModelUtility.SimpleItemModelGenerator::new);
         this.sizeProvider(new GaussianSizeBand(0, 0));
+        this.descriptionKey = "";
 
         this.additionalFishingLoot = Function.identity();
     }
@@ -68,6 +72,11 @@ public class BaitItemBuilder extends ItemBuilder<Item, BaitItemBuilder> {
 
     public BaitItemBuilder fishingLoot(Function<LootPool.Builder, LootPool.Builder> additionalFishingLoot) {
         this.additionalFishingLoot = additionalFishingLoot;
+        return this;
+    }
+
+    public BaitItemBuilder descriptionKey(String descriptionKey) {
+        this.descriptionKey = descriptionKey;
         return this;
     }
 

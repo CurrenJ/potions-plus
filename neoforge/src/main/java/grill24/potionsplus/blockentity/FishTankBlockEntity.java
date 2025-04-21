@@ -1,12 +1,22 @@
 package grill24.potionsplus.blockentity;
 
+import com.google.gson.JsonElement;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.DataComponents;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Tags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Random;
 import org.joml.Vector3f;
 
@@ -16,6 +26,8 @@ import java.util.Optional;
 
 public class FishTankBlockEntity extends InventoryBlockEntity {
     Kelp[] kelpList;
+    private Direction fishFacing;
+    private boolean horizontalFlip;
 
     private static final float SAND_HEIGHT = 2 / 16F;
     private static final float BASE_KELP_SIZE = 0.2F;
@@ -26,6 +38,8 @@ public class FishTankBlockEntity extends InventoryBlockEntity {
         super(Blocks.FISH_TANK_BLOCK_ENTITY.value(), pos, state);
 
         kelpList = generateKelp(new Random(getBlockPos().hashCode()));
+        fishFacing = Direction.NORTH;
+        horizontalFlip = false;
     }
 
     private static Kelp[] generateKelp(Random random) {
@@ -65,6 +79,33 @@ public class FishTankBlockEntity extends InventoryBlockEntity {
         return false;
     }
 
+    public void onItemInserted(Player player, ItemStack itemStack) {
+        if (player != null) {
+            // Get direction between player and fish tank
+            Vec3 pos = player.position();
+            Vec3 fishTankPos = Vec3.atCenterOf(getBlockPos());
+            Vec3 direction = fishTankPos.subtract(pos).normalize();
+            // Get the direction of the fish tank
+            Direction fishTankDirection = Direction.getNearest(direction.x, 0, direction.z);
+            // Get the opposite direction of the fish tank
+            fishFacing = fishTankDirection.getOpposite();
+
+            horizontalFlip = player.getRandom().nextBoolean();
+
+            PotionsPlus.LOGGER.info("Fish tank facing: " + fishFacing);
+        }
+
+        super.setChanged();
+    }
+
+    public Direction getFishFacing() {
+        return fishFacing;
+    }
+
+    public boolean isHorizontalFlip() {
+        return horizontalFlip;
+    }
+
     public Optional<ItemStack> getFish() {
         for (int i = 0; i < getSlots(); i++) {
             ItemStack itemStack = getItem(i);
@@ -90,4 +131,23 @@ public class FishTankBlockEntity extends InventoryBlockEntity {
     }
 
     public record Kelp(Vector3f pos, float size, int height) { }
+
+    @Override
+    public void readPacketNbt(net.minecraft.nbt.CompoundTag tag, HolderLookup.Provider registryAccess) {
+        super.readPacketNbt(tag, registryAccess);
+
+        int facing = tag.getInt("fishFacing");
+        fishFacing = Direction.from3DDataValue(facing);
+
+        horizontalFlip = tag.getBoolean("horizontalFlip");
+    }
+
+    @Override
+    public void writePacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
+        super.writePacketNbt(tag, registryAccess);
+
+        tag.putInt("fishFacing", fishFacing.get3DDataValue());
+
+        tag.putBoolean("horizontalFlip", horizontalFlip);
+    }
 }

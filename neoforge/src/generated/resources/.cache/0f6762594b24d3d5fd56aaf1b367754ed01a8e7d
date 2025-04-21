@@ -1,4 +1,4 @@
-// 1.21.1	2025-04-20T00:04:49.3560559	Block States: potionsplus
+// 1.21.1	2025-04-21T01:23:35.9675192	Block States: potionsplus
 32f31cb42acc6abb5df45794da26abaf6f68cc6c assets/potionsplus/blockstates/abyssal_trove.json
 e1f97b37fbc358408652e49e551ef4c520ceda2d assets/potionsplus/blockstates/allium_versatile.json
 b8ea677105165afcba3c3b07bc02884195834fe0 assets/potionsplus/blockstates/azure_bluet_versatile.json
@@ -205,6 +205,7 @@ c107f573b93d1c562198ebeeb901bc62401e5ee6 assets/potionsplus/models/item/basic_lo
 de50a3b98fc33e94ca3d5b370a37c8058b098761 assets/potionsplus/models/item/basic_loot_red_flag.json
 7a66e3de256653c11ba861febb8d3e4921d0681e assets/potionsplus/models/item/basic_loot_yellow_flag.json
 87379bb9071cba95dadf4ed4bd1ba533cb4d5fde assets/potionsplus/models/item/black_coalla_lily.json
+6955d5cc7672906d80476b9d43d3d10cf6c422c6 assets/potionsplus/models/item/blazed_grub.json
 e89fdb9eab1ffa32895ce49754e331487a7ed4c3 assets/potionsplus/models/item/blueb_berries.json
 1f61ae30b5492d915c3016bcfbd58f71ca9d72c6 assets/potionsplus/models/item/blueb_berries_blueb_berries.json
 4c8d9702adb84697c1e1e148ffc67bd312d8147b assets/potionsplus/models/item/blueb_berries_blue_flag.json
@@ -230,7 +231,6 @@ ca2d0bec247e8bb37ebbf3e21c0230288b0954ed assets/potionsplus/models/item/coal_ore
 10d81344c908d92e919cffe9151f30ec25bd96dd assets/potionsplus/models/item/coal_ore_hat_4.json
 4ee17531df3b13dc9c6de26a164bb123647943ab assets/potionsplus/models/item/cooblestone.json
 5709903fa83cc34b37fcb2cf98e0db6c5014e6a7 assets/potionsplus/models/item/copper_chrysanthemum.json
-9b8989b0fa53355a48b85fcc24ed48bf4fd4e141 assets/potionsplus/models/item/copper_fishing_rod.json
 0f86efc9988e32c7926f75af23d063d378207c8e assets/potionsplus/models/item/copper_ore_hat_1.json
 f5a68c4bf180b364edb76e7b6d6979f37f490db1 assets/potionsplus/models/item/copper_ore_hat_2.json
 ddc75af5d93156b25f61f29c6b524f071bc2d3f1 assets/potionsplus/models/item/copper_ore_hat_3.json

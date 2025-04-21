@@ -323,9 +323,6 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         );
 
         Optional<String> blockTextureSuffix = subblocks.stream().map(modelData -> modelData.blockHolder().getKey().location().getPath()).reduce((a, b) -> a + "_" + b);
-        if (baseModel.baseModelShortId.getPath().contains("uranium")) {
-            PotionsPlus.LOGGER.info("uranium_debug");
-        }
         if (blockTextureSuffix.isPresent()) {
             // Split base model on '.' and replace the last part with the submodel suffix - basically add our suffix to model name
             String suffix = baseModel.getRuntimeModelNameSuffix();

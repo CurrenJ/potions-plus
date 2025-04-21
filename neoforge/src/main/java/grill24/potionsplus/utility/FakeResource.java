@@ -27,7 +27,6 @@ public class FakeResource extends Resource {
                 .map(transformer);
 
         if (string.isPresent()) {
-            PotionsPlus.LOGGER.info("FakeResource: {}", string.get());
             return new BufferedReader(new StringReader(string.get()));
         } else {
             throw new IOException("Failed to load FakeResource.");

@@ -4,6 +4,9 @@ import grill24.potionsplus.function.GaussianDistributionGenerator;
 import grill24.potionsplus.function.SetFishSizeFunction;
 import grill24.potionsplus.item.PotionsPlusFishItem;
 import grill24.potionsplus.loot.IsInBiomeCondition;
+import grill24.potionsplus.loot.IsInBiomeTagCondition;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -11,6 +14,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
@@ -30,6 +34,8 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
     private boolean glint;
     private SizeProvider sizeProvider;
     private List<ResourceKey<Biome>> biomes;
+    private TagKey<Biome> biomeTag;
+    private Holder<Item>[] requiredBait;
     private boolean canBeCaughtOutsideBiome;
     private boolean applyBiomeBonus;
     private int baseFishWeight;
@@ -44,6 +50,8 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
         this.modelGenerator(ItemModelUtility.SimpleItemModelGenerator::new);
         this.sizeProvider(GaussianSizeBand.MEDIUM);
         this.biomes(List.of());
+        this.biomeTag(null);
+        this.requiredBait();
         this.canBeCaughtOutsideBiome(true);
         this.applyBiomeBonus(true);
         this.baseFishWeight(1);
@@ -78,6 +86,17 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
     @SafeVarargs
     public final FishItemBuilder biomes(ResourceKey<Biome>... biomes) {
         this.biomes = List.of(biomes);
+        return this;
+    }
+
+    public FishItemBuilder biomeTag(TagKey<Biome> biomeTag) {
+        this.biomeTag = biomeTag;
+        return this;
+    }
+
+    @SafeVarargs
+    public final FishItemBuilder requiredBait(Holder<Item>... requiredBait) {
+        this.requiredBait = requiredBait;
         return this;
     }
 
@@ -126,24 +145,46 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
 
     public void addAsFishingLoot(LootPool.Builder builder, BaitItemBuilder bait) {
         // Anywhere rates
-        if (canBeCaughtOutsideBiome) {
-            builder.add(BaitItemBuilder.whenBaitConditionMet(bait, LootItem.lootTableItem(getValue())
-                    .setWeight(baseFishWeight)
-                    .setQuality(quality)
-                    .apply(new SetFishSizeFunction.Builder(bait.getSizeProvider(this).get())))
-            );
-        }
+        boolean meetsBaitRequirement = meetsBaitRequirement(bait);
 
-        // Biome specific rates
-        int weight = biomeBonusWeight + (canBeCaughtOutsideBiome ? 0 : baseFishWeight);
-        if (applyBiomeBonus) {
-            builder.add(BaitItemBuilder.whenBaitConditionMet(bait, LootItem.lootTableItem(getValue())
-                    .setWeight(weight)
-                    .setQuality(quality)
-                    .apply(new SetFishSizeFunction.Builder(bait.getSizeProvider(this).get()))
-                    .when(IsInBiomeCondition.isInBiome(biomes.toArray(new ResourceKey[0]))))
-            );
+        if (meetsBaitRequirement) {
+            if (canBeCaughtOutsideBiome) {
+                builder.add(BaitItemBuilder.whenBaitConditionMet(bait, LootItem.lootTableItem(getValue())
+                        .setWeight(baseFishWeight)
+                        .setQuality(quality)
+                        .apply(new SetFishSizeFunction.Builder(bait.getSizeProvider(this).get())))
+                );
+            }
+
+            // Biome specific rates
+            int weight = biomeBonusWeight + (canBeCaughtOutsideBiome ? 0 : baseFishWeight);
+            if (applyBiomeBonus) {
+                var loot = LootItem.lootTableItem(getValue())
+                        .setWeight(weight)
+                        .setQuality(quality)
+                        .apply(new SetFishSizeFunction.Builder(bait.getSizeProvider(this).get()))
+                        .when(IsInBiomeCondition.isInBiome(biomes.toArray(new ResourceKey[0])));
+                if (biomeTag != null) {
+                    loot.when(IsInBiomeTagCondition.isInBiomeTag(biomeTag));
+                }
+
+                builder.add(BaitItemBuilder.whenBaitConditionMet(bait, loot));
+            }
         }
+    }
+
+    private boolean meetsBaitRequirement(BaitItemBuilder bait) {
+        boolean meetsBaitRequirement = true;
+        if (requiredBait.length != 0) {
+            meetsBaitRequirement = false;
+            for (Holder<Item> baitItem : requiredBait) {
+                if (baitItem.equals(bait.getHolder())) {
+                    meetsBaitRequirement = true;
+                    break;
+                }
+            }
+        }
+        return meetsBaitRequirement;
     }
 
     @Override

@@ -29,7 +29,6 @@ public class ResourceListeners {
             Map<ResourceLocation, Resource> resources = event.getResources();
 
             if (resources.containsKey(targetResourceLocation)) {
-//                PotionsPlus.LOGGER.info("Injecting resource modification: {}", entry);
                 resources.put(newResourceLocation, entry.resource().getFirst());
             }
         }
@@ -43,7 +42,6 @@ public class ResourceListeners {
             Map<ResourceLocation, List<Resource>> resources = event.getResources();
 
             if (resources.containsKey(targetResourceLocation)) {
-//                PotionsPlus.LOGGER.info("Injecting resource stacks modification: {}", entry);
                 resources.put(newResourceLocation, entry.resource());
             }
         }

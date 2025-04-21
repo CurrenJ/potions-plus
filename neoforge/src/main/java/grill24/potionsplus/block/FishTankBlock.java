@@ -53,6 +53,7 @@ public class FishTankBlock extends Block implements EntityBlock {
         if (fishTankBlockEntity != null) {
             InvUtil.InteractionResult result = InvUtil.insertOnPlayerUseItem(level, pos, player, hand, SoundEvents.GENERIC_SPLASH);
             if (result != InvUtil.InteractionResult.PASS) {
+                fishTankBlockEntity.onItemInserted(player, stack);
                 return InvUtil.getMinecraftItemInteractionResult(result);
             }
         }

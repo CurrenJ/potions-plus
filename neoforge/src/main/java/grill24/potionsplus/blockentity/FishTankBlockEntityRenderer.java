@@ -126,9 +126,19 @@ public class FishTankBlockEntityRenderer implements BlockEntityRenderer<FishTank
         Vector3f positionOffset = renderType.getPosition();
         poseStack.translate(positionOffset.x(), positionOffset.y() + offsetY, positionOffset.z());
 
+        int fishFacingRotOffset = switch (fishTankBlockEntity.getFishFacing()) {
+            case NORTH -> 180;
+            case SOUTH -> 0;
+            case WEST -> 90;
+            case EAST -> -90;
+            default -> 0;
+        };
+        if (fishTankBlockEntity.isHorizontalFlip()) {
+            fishFacingRotOffset += 180;
+        }
         Vector3f rotationOffset = renderType.getRotationOffsetDegrees();
         float rotX = (float) (Math.toRadians(Math.sin(ticks / xRotation) * 10) + Math.toRadians(rotationOffset.x()));
-        float rotY = (float) (Math.toRadians(Math.cos(ticks / yRotation) * 8) + Math.toRadians(rotationOffset.y()));
+        float rotY = (float) (Math.toRadians(Math.cos(ticks / yRotation) * 8) + Math.toRadians(rotationOffset.y() + fishFacingRotOffset));
         float rotZ = (float) (Math.toRadians(Math.sin(ticks / 35F) * 3) + Math.toRadians(rotationOffset.z()));
         poseStack.mulPose(new Quaternionf().rotationXYZ(rotX, rotY, rotZ));
 

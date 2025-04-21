@@ -23,8 +23,6 @@ public class BlockStateProvider extends net.neoforged.neoforge.client.model.gene
     protected void registerStatesAndModels() {
         RegistrationUtility.generateItemModels(ModInfo.MOD_ID, this);
 
-        registerItemFromParentWithTextureOverride(FishItems.COPPER_FISHING_ROD.value(), mc("item/handheld_rod"), ppId("item/copper_fishing_rod"));
-
         Holder<Item>[][] blockHatItems = new Holder[][]{
                 HatItems.COAL_ORE_HATS,
                 HatItems.COPPER_ORE_HATS,

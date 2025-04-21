@@ -1,13 +1,19 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.core.items.DynamicIconItems;
+import grill24.potionsplus.core.items.FishItems;
 import grill24.potionsplus.core.items.SkillLootItems;
 import grill24.potionsplus.item.EdibleChoiceItem;
 import grill24.potionsplus.particle.*;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -42,7 +48,24 @@ public class ClientEvents {
                     net.minecraft.client.renderer.item.ItemProperties.register(item.value(), SkillLootItems.EDIBLE_CHOICE_ITEM_FLAG_PROPERTY_NAME, edibleChoiceItemPropertyFunction);
                 }
             }
+
+            net.minecraft.client.renderer.item.ItemProperties.register(FishItems.COPPER_FISHING_ROD.value(), ResourceLocation.withDefaultNamespace("cast"), (p_174585_, p_174586_, p_174587_, p_174588_) -> fishingRodCast(p_174585_, p_174587_));
+            net.minecraft.client.renderer.item.ItemProperties.register(FishItems.OBSIDIAN_FISHING_ROD.value(), ResourceLocation.withDefaultNamespace("cast"), (p_174585_, p_174586_, p_174587_, p_174588_) -> fishingRodCast(p_174585_, p_174587_));
         });
+    }
+
+    private static float fishingRodCast(ItemStack p_174585_, LivingEntity p_174587_) {
+        if (p_174587_ == null) {
+            return 0.0F;
+        } else {
+            boolean flag = p_174587_.getMainHandItem() == p_174585_;
+            boolean flag1 = p_174587_.getOffhandItem() == p_174585_;
+            if (p_174587_.getMainHandItem().getItem() instanceof FishingRodItem) {
+                flag1 = false;
+            }
+
+            return (flag || flag1) && p_174587_ instanceof Player && ((Player) p_174587_).fishing != null ? 1.0F : 0.0F;
+        }
     }
 
     @SubscribeEvent

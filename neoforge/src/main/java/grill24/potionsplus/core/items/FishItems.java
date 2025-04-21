@@ -1,8 +1,10 @@
 package grill24.potionsplus.core.items;
 
 import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.item.FishingRodItem;
 import grill24.potionsplus.item.PotionsPlusFishItem;
+import grill24.potionsplus.loot.IsInBiomeTagCondition;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.item.*;
@@ -10,6 +12,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biomes;
@@ -23,8 +26,8 @@ import java.util.function.Supplier;
 import static grill24.potionsplus.data.RecipeProvider.has;
 
 public class FishItems {
-    public static Holder<Item> COPPER_FISHING_ROD;
-    public static BaitItemBuilder NO_BAIT, WORMS, GUMMY_WORMS;
+    public static Holder<Item> COPPER_FISHING_ROD, OBSIDIAN_FISHING_ROD;
+    public static BaitItemBuilder NO_BAIT, WORMS, GUMMY_WORMS, BLAZED_GRUB;
 
     public static FishItemBuilder NORTHERN_PIKE, PARROTFISH, RAINFORDIA, GARDEN_EEL, ROYAL_GARDEN_EEL,
             LONGNOSE_GAR, SHRIMP, FRIED_SHRIMP, MOORISH_IDOL, MOLTEN_MOORISH_IDOL, OCEAN_SUNFISH,
@@ -49,6 +52,20 @@ public class FishItems {
                                 .unlockedBy("has_copper_ingot", has(net.minecraft.world.item.Items.COPPER_INGOT))))
         ).getHolder();
 
+        OBSIDIAN_FISHING_ROD = RegistrationUtility.register(register, SimpleItemBuilder.create("obsidian_fishing_rod")
+                .itemFactory(FishingRodItem::new)
+                .properties(Items.properties().durability(160))
+                .modelGenerator(null)
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
+                        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, h.value())
+                                .define('C', COPPER_FISHING_ROD.value())
+                                .define('O', net.minecraft.world.item.Items.OBSIDIAN)
+                                .pattern(" O ")
+                                .pattern("OCO")
+                                .pattern(" O ")
+                                .unlockedBy("has_obsidian", has(net.minecraft.world.item.Items.OBSIDIAN))))
+        ).getHolder();
+
         // No bait - register using our system but don't actually register a new item with the game.
         // Just used to link the fishing loot table for when the player has no bait.
         NO_BAIT = RegistrationUtility.register(register, BaitItemBuilder.create("no_bait")
@@ -57,13 +74,20 @@ public class FishItems {
                 .fishingLoot(builder -> builder
                         .add(BaitItemBuilder.whenBaitConditionMet(NO_BAIT, LootItem.lootTableItem(WORMS.getValue()).setWeight(95).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3)))))// 95% worms
                         .add(LootItem.lootTableItem(GUMMY_WORMS.getValue()).setWeight(5)) // 5% gummy worms = 1 in 20
+                        .add(LootItem.lootTableItem(BLAZED_GRUB.getValue()).when(IsInBiomeTagCondition.isInBiomeTag(BiomeTags.IS_NETHER)).setWeight(5))
                 )
                 .sizeProvider(new GaussianSizeBand(0, 0)));
         WORMS = RegistrationUtility.register(register, DefaultBaitItemBuilder.create("worms", 30)
-                .sizeProvider(new GaussianSizeBand(0, 0)));
+                .sizeProvider(new GaussianSizeBand(0, 0))
+                .descriptionKey(Translations.BAIT_POTIONSPLUS_WORMS_DESCRIPTION));
         GUMMY_WORMS = RegistrationUtility.register(register, DefaultBaitItemBuilder.create("gummy_worms", 10)
                 .properties(Items.properties().food(Foods.GOLDEN_CARROT).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))
-                .sizeProvider(new GaussianSizeBand(10, 5)));
+                .sizeProvider(new GaussianSizeBand(10, 5))
+                .descriptionKey(Translations.BAIT_POTIONSPLUS_GUMMY_WORMS_DESCRIPTION));
+        BLAZED_GRUB = RegistrationUtility.register(register, DefaultBaitItemBuilder.create("blazed_grub", 25)
+                .properties(Items.properties().food(Foods.COOKED_BEEF))
+                .sizeProvider(new GaussianSizeBand(5, -5))
+                .descriptionKey(Translations.BAIT_POTIONSPLUS_BLAZED_GRUB_DESCRIPTION));
 
         NORTHERN_PIKE = RegistrationUtility.register(register, FishItemBuilder.create("northern_pike")
                 .sizeProvider(GaussianSizeBand.LARGE)
@@ -96,7 +120,8 @@ public class FishItems {
         FRIED_SHRIMP = RegistrationUtility.register(register, FishItemBuilder.create("fried_shrimp", true)
                 .itemFactory(prop -> new PotionsPlusFishItem(prop, PotionsPlusFishItem.FishTankRenderType.NO_ROTATION))
                 .sizeProvider(GaussianSizeBand.SMALL)
-                .biomes(Biomes.MUSHROOM_FIELDS, grill24.potionsplus.core.Biomes.ARID_CAVE_KEY, Biomes.MANGROVE_SWAMP)
+                .biomeTag(BiomeTags.IS_NETHER)
+                .requiredBait(BLAZED_GRUB.getHolder())
                 .canBeCaughtOutsideBiome(false)
                 .baseFishWeight(5)
                 .biomeBonusWeight(0)
@@ -106,7 +131,7 @@ public class FishItems {
                 .biomes(Biomes.JUNGLE, Biomes.BAMBOO_JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BIRCH_FOREST, Biomes.PLAINS));
         MOLTEN_MOORISH_IDOL = RegistrationUtility.register(register, FishItemBuilder.create("molten_moorish_idol", true)
                 .sizeProvider(GaussianSizeBand.MEDIUM)
-                .biomes(grill24.potionsplus.core.Biomes.VOLCANIC_CAVE_KEY)
+                .biomes(grill24.potionsplus.core.Biomes.VOLCANIC_CAVE_KEY, Biomes.NETHER_WASTES, Biomes.CRIMSON_FOREST)
                 .canBeCaughtOutsideBiome(false)
                 .baseFishWeight(5)
                 .biomeBonusWeight(0)

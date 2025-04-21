@@ -338,9 +338,17 @@
   "item.potionsplus.wheel": "Wheel of Loot",
 
   "item.potionsplus.copper_fishing_rod": "Copper Fishing Rod",
+  "item.potionsplus.obsidian_fishing_rod": "Obsidian Fishing Rod",
 
   "item.potionsplus.worms": "Worms",
   "item.potionsplus.gummy_worms": "Gummy Worms",
+  "item.potionsplus.blazed_grub": "Blazed Grub",
+
+  "bait.potionsplus.worms.description": "Standard-issue §7bait. Attracts fish.",
+  "bait.potionsplus.gummy_worms.description": "§dRare §7bait. High chance to attract cooler fish. §r§a++Avg. size§7, §r§c+Variance",
+  "bait.potionsplus.blazed_grub.description": "Uncommon§7 bait. Found in Nether. §r§a+Avg. size§7, §r§a-Variance",
+
+
   "item.potionsplus.northern_pike": "Northern Pike",
   "item.potionsplus.parrotfish": "Parrotfish",
   "item.potionsplus.rainfordia": "Rainfordia",

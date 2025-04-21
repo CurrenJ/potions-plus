@@ -140,7 +140,7 @@ public class ItemTagProvider extends ItemTagsProvider {
                 SkillLootItems.WHEEL.getValue()
         );
 
-        tag(ItemTags.FISHING_ENCHANTABLE).add(FishItems.COPPER_FISHING_ROD.value());
+        tag(ItemTags.FISHING_ENCHANTABLE).add(FishItems.COPPER_FISHING_ROD.value()).add(FishItems.OBSIDIAN_FISHING_ROD.value());
 
         tag(Tags.Items.PP_FISH).add(
                 FishItems.NORTHERN_PIKE.getValue(),
@@ -162,7 +162,7 @@ public class ItemTagProvider extends ItemTagsProvider {
                 FishItems.LIZARDFISH.getValue()
         );
 
-        tag(Tags.Items.BAIT).add(FishItems.WORMS.getValue(), FishItems.GUMMY_WORMS.getValue());
+        tag(Tags.Items.BAIT).add(FishItems.WORMS.getValue(), FishItems.GUMMY_WORMS.getValue(), FishItems.BLAZED_GRUB.getValue());
         tag(ItemTags.FISHES).addTag(Tags.Items.PP_FISH);
         tag(net.neoforged.neoforge.common.Tags.Items.FOODS_RAW_FISH).addTag(Tags.Items.PP_FISH);
 
@@ -171,7 +171,8 @@ public class ItemTagProvider extends ItemTagsProvider {
                 Items.SALMON,
                 Items.TROPICAL_FISH,
                 Items.PUFFERFISH,
-                FishItems.WORMS.getValue()
+                FishItems.WORMS.getValue(),
+                FishItems.BLAZED_GRUB.getValue()
         );
         tag(Tags.Items.PP_FISHING_GOLD_FRAME).add(
                 FishItems.PARROTFISH.getValue(),

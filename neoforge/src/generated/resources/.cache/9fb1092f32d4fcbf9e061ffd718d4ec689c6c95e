@@ -1,4 +1,4 @@
-// 1.21.1	2025-04-20T00:11:46.9489086	Recipes
+// 1.21.1	2025-04-21T02:04:31.1891088	Recipes
 ee797629c30fe0ffe70bcdbbdc550a163cd0fbd6 data/potionsplus/advancement/all_potions_duration_increase.json
 1a340fc6ced4e7bbdb3e8d783b9ff5f2d7b0dd18 data/potionsplus/advancement/amplification_testing.json
 1cfdbbc9c07a88c0473ae8db8e2e73792cef6c85 data/potionsplus/advancement/black_coalla_lily_to_coal_block.json
@@ -83,6 +83,7 @@ d3ac5cf28a22b9c6358f9c976926eca048cbb64d data/potionsplus/advancement/recipes/re
 e6bed6953829c4ec1eb5c0820f8cd1fb16f82829 data/potionsplus/advancement/recipes/redstone/small_filter_hopper.json
 f20aac8c742aa6bc7be58d3377d76e60261106f3 data/potionsplus/advancement/recipes/redstone/upgrade_base.json
 328bc0d5f850935b02385692da0df88de803bb5f data/potionsplus/advancement/recipes/tools/copper_fishing_rod.json
+c43acdfdbc0fba9d5da4ef2007a8401d8d00a131 data/potionsplus/advancement/recipes/tools/obsidian_fishing_rod.json
 536c78e2592c614d8c6d607526a26e36c2be1766 data/potionsplus/advancement/redstone_rose_to_redstone_block.json
 78665a4e13460e70ec982ec99479505612b9766a data/potionsplus/advancement/rotten_flesh_to_leather.json
 d12b5dde74b0b9eb401ce278298d5698b95d313b data/potionsplus/advancement/soul_sand_to_sand.json
@@ -140,6 +141,7 @@ f8763cd20de05bcdc0026b808eaeeb3152ad6c15 data/potionsplus/recipe/mushroom_conver
 5f2687ebf6c2a5d5bbc9c5e4e90f194a7378b9ee data/potionsplus/recipe/netherite_ingot.json
 21a4a7f9a9081a0357039c69e9c4ca99f6f7cf44 data/potionsplus/recipe/northern_pike_no_size.json
 9da5406bc8a6bb42d777b58b12db58edab27c15d data/potionsplus/recipe/obsidian.json
+8ceacf9876e582948df903bf301a9942146900f0 data/potionsplus/recipe/obsidian_fishing_rod.json
 6c103f9bc3173da982ecf919ba4bd13e18e454db data/potionsplus/recipe/ocean_sunfish_no_size.json
 fc84e2fa2399ed3333f6d65286b694259bd3bc46 data/potionsplus/recipe/parrotfish_no_size.json
 2f0659dd495072eef0927c724ef452ea907bad01 data/potionsplus/recipe/particle_emitter.json
