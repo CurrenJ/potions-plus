@@ -1,12 +1,15 @@
 package grill24.potionsplus.core;
 
 import com.mojang.logging.LogUtils;
+import grill24.potionsplus.config.PotionsPlusConfig;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.server.MinecraftServer;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
@@ -21,7 +24,9 @@ public class PotionsPlus {
 
     public static long worldSeed = -1;
 
-    public PotionsPlus(IEventBus bus) {
+    public PotionsPlus(IEventBus bus, ModContainer container) {
+        container.registerConfig(ModConfig.Type.SERVER, PotionsPlusConfig.CONFIG_SPEC);
+
         Blocks.BLOCKS.register(bus);
         Blocks.BLOCK_ENTITIES.register(bus);
         ArmorMaterials.ARMOR_MATERIALS.register(bus);

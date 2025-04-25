@@ -1,4 +1,9 @@
 {
+  "configuration.potionsplus.enable_skills": "Enable Skills",
+  "configuration.potionsplus.potion_drink_time_ticks": "Potion Drink Time (in ticks)",
+  "configuration.potionsplus.potion_use_cooldown_time_ticks": "Potion Use Cooldown Time (in ticks)",
+  "configuration.potionsplus.generate_ore_variants": "Enable Ore Variants Generation",
+
   "block.potionsplus.particle_emitter": "Particle Emitter",
   "jei.potionsplus.particle_emitter.description": "Emits particles in an area around itself when powered by redstone. Interact with an empty hand to cycle through different particles. Interact with a dirt block, iron ingot, gold ingot, or diamond to set the particle spawn rate to 1x (default), 2x, 3x, 4x, respectively.",
   "block.potionsplus.precision_dispenser": "Precision Dispenser",

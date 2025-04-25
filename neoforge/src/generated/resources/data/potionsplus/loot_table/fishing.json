@@ -1901,7 +1901,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -1924,7 +1924,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 65.0,
+                "mean": 55.0,
                 "stdDev": 10.0
               }
             }
@@ -1947,7 +1947,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -1974,7 +1974,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 65.0,
+                "mean": 55.0,
                 "stdDev": 10.0
               }
             }
@@ -1997,7 +1997,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 95.0,
+                "mean": 85.0,
                 "stdDev": 10.0
               }
             }
@@ -2029,7 +2029,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 95.0,
+                "mean": 85.0,
                 "stdDev": 10.0
               }
             }
@@ -2053,7 +2053,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -2086,7 +2086,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -2110,7 +2110,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -2141,7 +2141,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -2165,7 +2165,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -2197,7 +2197,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -2230,7 +2230,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -2254,7 +2254,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 95.0,
+                "mean": 85.0,
                 "stdDev": 10.0
               }
             }
@@ -2286,7 +2286,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 95.0,
+                "mean": 85.0,
                 "stdDev": 10.0
               }
             }
@@ -2310,7 +2310,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -2341,7 +2341,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -2373,7 +2373,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -2397,7 +2397,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 65.0,
+                "mean": 55.0,
                 "stdDev": 10.0
               }
             }
@@ -2430,7 +2430,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 65.0,
+                "mean": 55.0,
                 "stdDev": 10.0
               }
             }
@@ -2462,7 +2462,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 65.0,
+                "mean": 55.0,
                 "stdDev": 10.0
               }
             }
@@ -2486,7 +2486,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 95.0,
+                "mean": 85.0,
                 "stdDev": 10.0
               }
             }
@@ -2521,7 +2521,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 95.0,
+                "mean": 85.0,
                 "stdDev": 10.0
               }
             }
@@ -2545,7 +2545,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 95.0,
+                "mean": 85.0,
                 "stdDev": 10.0
               }
             }
@@ -2576,7 +2576,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 95.0,
+                "mean": 85.0,
                 "stdDev": 10.0
               }
             }
@@ -2600,7 +2600,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 65.0,
+                "mean": 55.0,
                 "stdDev": 10.0
               }
             }
@@ -2632,7 +2632,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 65.0,
+                "mean": 55.0,
                 "stdDev": 10.0
               }
             }
@@ -2656,7 +2656,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -2687,7 +2687,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 45.0,
+                "mean": 35.0,
                 "stdDev": 10.0
               }
             }
@@ -2711,7 +2711,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 95.0,
+                "mean": 85.0,
                 "stdDev": 10.0
               }
             }
@@ -2742,7 +2742,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 95.0,
+                "mean": 85.0,
                 "stdDev": 10.0
               }
             }
@@ -2774,7 +2774,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 95.0,
+                "mean": 85.0,
                 "stdDev": 10.0
               }
             }
@@ -2798,7 +2798,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 65.0,
+                "mean": 55.0,
                 "stdDev": 10.0
               }
             }
@@ -2831,7 +2831,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 65.0,
+                "mean": 55.0,
                 "stdDev": 10.0
               }
             }

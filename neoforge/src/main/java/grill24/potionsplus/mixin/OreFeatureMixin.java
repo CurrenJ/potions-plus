@@ -3,6 +3,7 @@ package grill24.potionsplus.mixin;
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.block.OreFlowerBlock;
 import grill24.potionsplus.block.PotionsPlusOreBlock;
+import grill24.potionsplus.config.PotionsPlusConfig;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.blocks.OreBlocks;
@@ -138,8 +139,6 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
             BlockState ore = RuntimeTextureVariantModelGenerator.getTextureVariantBlockState(variantOreBlock,
                     new ItemStack(replacing.getBlock()), variantOreBlock.defaultBlockState(), PotionsPlusOreBlock.TEXTURE);
             potions_plus$tryPlaceBlockState(level, bulksectionaccess, ore, blockpos$mutableblockpos);
-
-            PotionsPlus.LOGGER.info("Placed {} at {}", ore, blockpos$mutableblockpos);
         }
     }
 

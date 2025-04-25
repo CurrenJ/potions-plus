@@ -1,5 +1,6 @@
 package grill24.potionsplus.core;
 
+import grill24.potionsplus.effect.LastPotionUsePlayerData;
 import grill24.potionsplus.effect.ShouldBouncePlayerData;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.skill.SkillsData;
@@ -23,5 +24,9 @@ public class DataAttachments {
 
     public static final Supplier<AttachmentType<ShouldBouncePlayerData>> SHOULD_BOUNCE_PLAYER_DATA = ATTACHMENT_TYPES.register(
             "saved_by_the_bounce_player_data", () -> AttachmentType.builder(ShouldBouncePlayerData::new).build()
+    );
+
+    public static final Supplier<AttachmentType<LastPotionUsePlayerData>> LAST_POTION_USE_PLAYER_DATA = ATTACHMENT_TYPES.register(
+            "last_potion_use_player_data", () -> AttachmentType.builder(h -> new LastPotionUsePlayerData(-1)).build()
     );
 }

@@ -2,6 +2,7 @@ package grill24.potionsplus.skill;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.config.PotionsPlusConfig;
 import grill24.potionsplus.core.DataAttachments;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.PotionsPlusRegistries;
@@ -103,7 +104,10 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         player.setData(DataAttachments.SKILL_PLAYER_DATA, skillsData);
     }
 
-    public static <E, C extends SkillPointSourceConfiguration> void triggerSkillPointSource(Player player, SkillPointSource<E, C> source, E evaluationData) {
+    public static <E, C extends SkillPointSourceConfiguration> void triggerSkillPointSource(Player player, SkillPointSource<E, C> source, E evaluationData)
+    {
+        if (!PotionsPlusConfig.CONFIG.enableSkills.get()) return;
+
         SkillsData skillsData = player.getData(DataAttachments.SKILL_PLAYER_DATA);
         Registry<ConfiguredSkill<?, ?>> configuredSkillsLookup = player.registryAccess().registryOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL);
 
@@ -314,5 +318,9 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
 
     public boolean hasPendingChoice(ResourceKey<ConfiguredGrantableReward<?, ?>> choice) {
         return this.pendingChoices.stream().anyMatch(pendingChoice -> pendingChoice.equals(choice));
+    }
+
+    public static boolean isSkillsSystemEnabled() {
+        return PotionsPlusConfig.CONFIG.enableSkills.get();
     }
 }
