@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -27,9 +26,11 @@ public class InvUtil {
             if (blockEntity instanceof InventoryBlockEntity inventoryBlockEntity) {
                 for (int i = 0; i < inventoryBlockEntity.getContainerSize(); i++) {
                     ItemStack stack = inventoryBlockEntity.getItem(i);
-                    if (!stack.isEmpty() && player.canTakeItem(stack)) {
-                        player.addItem(stack);
-                        inventoryBlockEntity.setItem(i, ItemStack.EMPTY);
+                    if (!stack.isEmpty()) {
+                        boolean placedAll = player.addItem(stack);
+                        if (placedAll) {
+                            inventoryBlockEntity.setItem(i, ItemStack.EMPTY);
+                        }
 
                         level.playSound(null, blockPos, remove, SoundSource.BLOCKS, 1.0F, 1.0F);
 
@@ -65,16 +66,12 @@ public class InvUtil {
         return InteractionResult.PASS;
     }
 
-    public static net.minecraft.world.ItemInteractionResult getMinecraftItemInteractionResult(InteractionResult result) {
-        if (result == InteractionResult.PASS) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-        } else {
-            return ItemInteractionResult.SUCCESS;
-        }
-    }
-
     public static net.minecraft.world.InteractionResult getMinecraftInteractionResult(InteractionResult result) {
-        return getMinecraftItemInteractionResult(result).result();
+        if (result == InteractionResult.PASS) {
+            return net.minecraft.world.InteractionResult.PASS;
+        } else {
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        }
     }
 
     public static void giveOrDropItem(Player player, ItemStack item) {

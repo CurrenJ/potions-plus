@@ -7,11 +7,11 @@ import grill24.potionsplus.core.LootItemConditions;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
@@ -42,16 +42,16 @@ public record IsInBiomeCondition(Set<ResourceKey<Biome>> biomes) implements Loot
     }
 
     @Override
-    public @NotNull Set<LootContextParam<?>> getReferencedContextParams() {
+    public @NotNull Set<ContextKey<?>> getReferencedContextParams() {
         return ImmutableSet.of(LootContextParams.THIS_ENTITY, LootContextParams.ATTACKING_ENTITY);
     }
 
     public boolean test(LootContext context) {
         List<Entity> entitiesToCheck = new ArrayList<>();
 
-        Optional.ofNullable(context.getParamOrNull(LootContextParams.THIS_ENTITY))
+        Optional.ofNullable(context.getOptionalParameter(LootContextParams.THIS_ENTITY))
                 .ifPresent(entitiesToCheck::add);
-        Optional.ofNullable(context.getParamOrNull(LootContextParams.ATTACKING_ENTITY))
+        Optional.ofNullable(context.getOptionalParameter(LootContextParams.ATTACKING_ENTITY))
                 .ifPresent(entitiesToCheck::add);
 
         Level level = context.getLevel();

@@ -6,9 +6,11 @@ import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
+import net.minecraft.util.profiling.Profiler;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3d;
@@ -31,11 +33,11 @@ public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<Abys
 
     public AbyssalTroveBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         blockRenderDispatcher = context.getBlockRenderDispatcher();
-        profiler = Minecraft.getInstance().getProfiler();
+        profiler = Profiler.get();
     }
 
     @Override
-    public void render(@NotNull AbyssalTroveBlockEntity blockEntity, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+    public void render(AbyssalTroveBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
         profiler.push("abyssal_trove_render");
 
         // For all entries in abyssal trove

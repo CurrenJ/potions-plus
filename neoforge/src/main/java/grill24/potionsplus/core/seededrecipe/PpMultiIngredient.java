@@ -9,28 +9,26 @@ import java.util.Comparator;
 import java.util.List;
 
 public class PpMultiIngredient extends PpIngredient {
-    protected PpMultiIngredient(Ingredient[] ingredients) {
+    protected PpMultiIngredient(List<ItemStack> stacks) {
         // Sort the ingredients by their name for consistent ordering
-        super(Arrays.stream(ingredients).sorted(Comparator.comparing(a -> PUtil.getNameOrVerbosePotionName(a.getItems()[0]))).toArray(Ingredient[]::new));
+        super(stacks.stream()
+                .sorted(Comparator.comparing(PUtil::getNameOrVerbosePotionName))
+                .toList());
     }
 
     public static PpMultiIngredient of(ItemStack... stacks) {
-        return new PpMultiIngredient(Arrays.stream(stacks).map(Ingredient::of).toArray(Ingredient[]::new));
+        return new PpMultiIngredient(Arrays.stream(stacks).toList());
     }
 
     public static PpMultiIngredient of(List<ItemStack> stacks) {
-        return PpMultiIngredient.of(stacks.stream().toArray(ItemStack[]::new));
-    }
-
-    public static PpMultiIngredient of(Ingredient... ingredients) {
-        return new PpMultiIngredient(ingredients);
+        return new PpMultiIngredient(stacks);
     }
 
     public List<PpIngredient> split() {
-        return Arrays.asList(this.ingredients).stream().map(PpIngredient::new).toList();
+        return this.matchStacks.stream().map(PpIngredient::new).toList();
     }
 
     public int size() {
-        return this.ingredients.length;
+        return this.matchStacks.size();
     }
 }

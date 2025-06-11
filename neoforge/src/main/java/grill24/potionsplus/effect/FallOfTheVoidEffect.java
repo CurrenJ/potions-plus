@@ -34,7 +34,7 @@ public class FallOfTheVoidEffect extends MobEffect implements IEffectTooltipDeta
                 livingDamageEvent.setNewDamage(0);
 
                 // Teleport to top of world
-                Vec3 blockPos = livingEntity.position().with(Direction.Axis.Y, livingDamageEvent.getEntity().level().getMaxBuildHeight());
+                Vec3 blockPos = livingEntity.position().with(Direction.Axis.Y, livingDamageEvent.getEntity().level().getMaxY());
                 livingEntity.teleportTo(blockPos.x, blockPos.y, blockPos.z);
 
                 // Remove effect

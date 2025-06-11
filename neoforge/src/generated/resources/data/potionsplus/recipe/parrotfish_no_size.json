@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "fish_no_size",
   "ingredients": [
-    {
-      "item": "potionsplus:parrotfish"
-    }
+    "potionsplus:parrotfish"
   ],
   "result": {
     "count": 1,

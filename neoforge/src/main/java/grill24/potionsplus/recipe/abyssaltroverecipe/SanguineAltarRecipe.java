@@ -27,20 +27,20 @@ import java.util.List;
 public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
 
     public SanguineAltarRecipe(SanguineAltarRecipe recipe) {
-        super(recipe.category, recipe.group, recipe.ingredients, recipe.result, recipe.processingTime, recipe.canShowInJei);
+        super(recipe.category, recipe.ingredients, recipe.result, recipe.processingTime, recipe.canShowInJei);
     }
 
-    public SanguineAltarRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei) {
-        super(category, group, ingredients, result, processingTime, canShowInJei);
+    public SanguineAltarRecipe(RecipeCategory category, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei) {
+        super(category, ingredients, result, processingTime, canShowInJei);
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<SanguineAltarRecipe> getSerializer() {
         return Recipes.SANGUINE_ALTAR_RECIPE_SERIALIZER.get();
     }
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<SanguineAltarRecipe> getType() {
         return Recipes.SANGUINE_ALTAR_RECIPE.get();
     }
 
@@ -52,7 +52,6 @@ public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
         public static final MapCodec<SanguineAltarRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 codecBuilder -> codecBuilder.group(
                         ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
-                        Codec.STRING.optionalFieldOf("group", "").forGetter(Recipe::getGroup),
                         PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
                         ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
                         Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
@@ -61,7 +60,6 @@ public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
         );
         public static StreamCodec<RegistryFriendlyByteBuf, SanguineAltarRecipe> STREAM_CODEC = StreamCodec.composite(
                 ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_STREAM_CODEC, ShapelessProcessingRecipe::getCategory,
-                ByteBufCodecs.STRING_UTF8, ShapelessProcessingRecipe::getGroup,
                 PpIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()), ShapelessProcessingRecipe::getPpIngredients,
                 ItemStack.STREAM_CODEC, ShapelessProcessingRecipe::getResult,
                 ByteBufCodecs.INT, ShapelessProcessingRecipe::getProcessingTime,

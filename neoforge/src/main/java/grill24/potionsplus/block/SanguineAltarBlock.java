@@ -11,7 +11,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -70,17 +69,21 @@ public class SanguineAltarBlock extends HorizontalDirectionalBlock implements En
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         Optional<SanguineAltarBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get());
         if (blockEntity.isEmpty()) {
-            return ItemInteractionResult.FAIL;
+            return InteractionResult.FAIL;
         }
         SanguineAltarBlockEntity sanguineAltarBlockEntity = blockEntity.get();
 
         if (player.isShiftKeyDown()) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         } else if (!player.getMainHandItem().isEmpty() && !sanguineAltarBlockEntity.canPlaceItem(0, player.getMainHandItem())) {
-            return ItemInteractionResult.FAIL;
+            return InteractionResult.FAIL;
+        }
+
+        if (stack.isEmpty()) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
 
         // Do interaction
@@ -89,7 +92,7 @@ public class SanguineAltarBlock extends HorizontalDirectionalBlock implements En
             updateStateAndNotify(sanguineAltarBlockEntity, level, pos, player, sanguineAltarBlockEntity::onPlayerInsertItem);
         }
 
-        return InvUtil.getMinecraftItemInteractionResult(result);
+        return InvUtil.getMinecraftInteractionResult(result);
     }
 
     @Override
@@ -129,13 +132,6 @@ public class SanguineAltarBlock extends HorizontalDirectionalBlock implements En
     public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
         Optional<SanguineAltarBlockEntity> SanguineAltarBlockEntity = level.getBlockEntity(blockPos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get());
         return 0;
-    }
-
-    @Override
-    @Deprecated
-    public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
-        Utility.dropContents(level, blockPos, blockState, newState);
-        super.onRemove(blockState, level, blockPos, newState, isMoving);
     }
 
     @Override

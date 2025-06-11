@@ -1,17 +1,19 @@
 package grill24.potionsplus.utility.registration;
 
 import grill24.potionsplus.data.BlockStateProvider;
+import grill24.potionsplus.data.RecipeProvider;
 import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
 import grill24.potionsplus.utility.Utility;
 import grill24.potionsplus.utility.registration.item.ItemBuilder;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.core.Holder;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.context.ContextKeySet;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,25 +75,25 @@ public class RegistrationUtility {
         return builder;
     }
 
-    public static void generateItemModels(String namespace, BlockStateProvider provider) {
+    public static void generateItemModels(String namespace, BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
         for (IModelGenerator<?> generator : ITEM_MODEL_GENERATORS) {
             Optional<ResourceLocation> itemId = Utility.getResourceLocation(generator.getHolder());
             if (itemId.isPresent() && itemId.get().getNamespace().equals(namespace)) {
-                generator.generate(provider);
+                generator.generate(blockModelGenerators, itemModelGenerators);
             }
         }
     }
 
-    public static void generateRecipes(String namespace, RecipeProvider provider, RecipeOutput recipeOutput) {
+    public static void generateRecipes(String namespace, RecipeProvider provider) {
         for (IRecipeGenerator<?> generator : RECIPE_GENERATORS) {
             Optional<ResourceLocation> itemId = Utility.getResourceLocation(generator.getHolder());
             if (itemId.isPresent() && itemId.get().getNamespace().equals(namespace)) {
-                generator.generate(provider, recipeOutput);
+                generator.generate(provider, provider.getOutput());
             }
         }
     }
 
-    public static void generateLootTables(String namespace, LootContextParamSet paramSet, LootTableSubProvider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+    public static void generateLootTables(String namespace, ContextKeySet paramSet, LootTableSubProvider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
         for (ILootGenerator<?> generator : LOOT_GENERATORS) {
             Optional<ResourceLocation> itemId = Utility.getResourceLocation(generator.getHolder());
             if (itemId.isPresent() && itemId.get().getNamespace().equals(namespace)) {

@@ -2,13 +2,16 @@ package grill24.potionsplus.utility.registration.block;
 
 import grill24.potionsplus.block.BloomingPlantBlock;
 import grill24.potionsplus.block.VersatilePlantBlock;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
-import oshi.util.tuples.Pair;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,21 +22,14 @@ import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class BloomingVersatilePlantBlockModelGenerator<T, B extends Block> extends VersatilePlantBlockModelGenerator<T, B> {
-    private final T[][] resources;
-    public BloomingVersatilePlantBlockModelGenerator(Supplier<Holder<B>> blockGetter, T[][] resources, Function<Direction, Pair<Integer, Integer>> texRotationFunction, ResourceLocation itemTexture, IModelFactory<T> modelRegisterer) {
-        super(blockGetter, null, texRotationFunction, itemTexture, modelRegisterer);
-        this.resources = resources;
+    private final ClientModelData<T> data;
+
+    public BloomingVersatilePlantBlockModelGenerator(Supplier<Holder<B>> blockGetter, ClientModelData<T> clientModelData) {
+        super(blockGetter, new VersatilePlantBlockModelGenerator.ClientModelData<>(null, clientModelData.texRotationFunction, clientModelData.itemTexture, clientModelData.itemModel, clientModelData.useTint, clientModelData.modelRegisterer));
+        this.data = clientModelData;
     }
 
-    /***
-     *
-     * @param provider
-     * @param holder
-     * @param textures Textures like this: ({"block/hanging_fern_base", "block/hanging_fern_tip"}, {"block/hanging_fern_base_blooming", "block/hanging_fern_tip_blooming"})
-     * @param texRotationFunction
-     * @param itemTexture
-     */
-    public static <T> void registerBloomingPlantBlock(BlockStateProvider provider, Holder<? extends Block> holder, T[][] textures, Function<Direction, Pair<Integer, Integer>> texRotationFunction, ResourceLocation itemTexture, VersatilePlantBlockModelGenerator.IModelFactory<T> modelGenerator) {
+    public static <T> void registerBloomingPlantBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Holder<? extends Block> holder, ClientModelData<T> data) {
         if (holder.value() instanceof BloomingPlantBlock block) {
             String name = holder.getKey().location().getPath();
 
@@ -47,49 +43,102 @@ public class BloomingVersatilePlantBlockModelGenerator<T, B extends Block> exten
                     if (!usedModels.contains(modelName)) {
                         usedModels.add(modelName);
 
-                        T tex = textures[blooming][textureIndex];
-                        modelGenerator.accept(provider, modelName, tex);
+                        T tex = data.resources[blooming][textureIndex];
+                        data.modelRegisterer.accept(blockModelGenerators, itemModelGenerators, modelName, tex);
                     }
                 }
             }
 
-            provider.getVariantBuilder(block).forAllStatesExcept(state -> {
-                int blooming = state.getValue(BloomingPlantBlock.BLOOMING);
-                if (blooming <= block.getMaxBlooming()) {
-                    Direction facing = state.getValue(VersatilePlantBlock.FACING);
-                    int textureIndex = state.getValue(VersatilePlantBlock.TEXTURE_INDEX);
-                    String modelName = getBloomingPlantModelName(name, blooming, textureIndex);
+            BlockModelDefinitionGenerator blockstateGenerator = MultiVariantGenerator.dispatch(block)
+                    .with(PropertyDispatch.initial(VersatilePlantBlock.FACING, VersatilePlantBlock.TEXTURE_INDEX, BloomingPlantBlock.BLOOMING)
+                            .generate((facing, textureIndex, blooming) -> {
+                                        String modelName = getBloomingPlantModelName(name, blooming, textureIndex);
 
-                    if (usedModels.contains(modelName)) {
-                        Pair<Integer, Integer> texRot = texRotationFunction.apply(facing);
-                        int xRotOffset = texRot.getA();
-                        int yRotOffset = texRot.getB();
+                                        if (usedModels.contains(modelName)) {
+                                            VariantMutator rotationMutator = data.texRotationFunction.apply(facing);
+                                            return BlockModelGenerators.plainVariant(ppId(modelName)).with(rotationMutator);
+                                        }
 
-                        return ConfiguredModel.builder()
-                                .rotationX(xRotOffset)
-                                .rotationY(yRotOffset)
-                                .modelFile(provider.models().getExistingFile(ppId(modelName)))
-                                .build();
-                    }
-                }
+                                        return BlockModelGenerators.plainVariant(mc("block/air"));
+                                    }
+                            ));
+            blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
 
-                return ConfiguredModel.builder().modelFile(provider.models().getExistingFile(mc("block/air"))).build();
-            }, VersatilePlantBlock.SEGMENT);
-
-            VersatilePlantBlockModelGenerator.registerItem(provider, block.asItem(), itemTexture);
+            VersatilePlantBlockModelGenerator.registerItem(blockModelGenerators, itemModelGenerators, block.asItem(), data.itemTexture, data.itemModel, data.useTint);
         }
     }
 
     public static String getBloomingPlantModelName(String name, int blooming, int textureIndex) {
         if (blooming >= 0 && textureIndex >= 0) {
-            return name + "_b" + blooming + "_t" + textureIndex;
+            return "block/" + name + "_b" + blooming + "_t" + textureIndex;
         }
 
-        return name + "_b0_t0";
+        return "block/" + name + "_b0_t0";
     }
 
     @Override
-    public void generate(BlockStateProvider provider) {
-        registerBloomingPlantBlock(provider, getHolder(), resources, texRotationFunction, itemTexture, modelRegisterer);
+    public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+        registerBloomingPlantBlock(blockModelGenerators, itemModelGenerators, getHolder(), data);
+    }
+
+    public record ClientModelData<T>(T[][] resources, Function<Direction, VariantMutator> texRotationFunction, ResourceLocation itemTexture, ResourceLocation itemModel, boolean useTint, IModelFactory<T> modelRegisterer) {
+        public static class Builder<T> {
+            private T[][] resources;
+            private Function<Direction, VariantMutator> texRotationFunction;
+            private ResourceLocation itemTexture;
+            private ResourceLocation itemModel;
+            private boolean useTint;
+            private IModelFactory<T> modelRegisterer;
+
+            public Builder<T> resources(T[][] resources) {
+                this.resources = resources;
+                return this;
+            }
+
+            public Builder<T> texRotationFunction(Function<Direction, VariantMutator> texRotationFunction) {
+                this.texRotationFunction = texRotationFunction;
+                return this;
+            }
+
+            public Builder<T> itemTexture(ResourceLocation itemTexture) {
+                this.itemTexture = itemTexture;
+                return this;
+            }
+
+            public Builder<T> itemModel(ResourceLocation itemModel) {
+                this.itemModel = itemModel;
+                return this;
+            }
+
+            public Builder<T> useTint(boolean useTint) {
+                this.useTint = useTint;
+                return this;
+            }
+
+            public Builder<T> modelRegisterer(IModelFactory<T> modelRegisterer) {
+                this.modelRegisterer = modelRegisterer;
+                return this;
+            }
+
+            public ClientModelData<T> build() {
+                if (resources == null || resources.length == 0) {
+                    throw new IllegalStateException("Resources must be provided and cannot be empty.");
+                }
+
+                if (texRotationFunction == null) {
+                    throw new IllegalStateException("Texture rotation function must be provided.");
+                }
+
+                if (itemTexture == null && itemModel == null) {
+                    throw new IllegalStateException("Either item texture or item model must be provided.");
+                }
+
+                if (modelRegisterer == null) {
+                    throw new IllegalStateException("Model registerer must be provided.");
+                }
+
+                return new ClientModelData<>(resources, texRotationFunction, itemTexture, itemModel, useTint, modelRegisterer);
+            }
+        }
     }
 }

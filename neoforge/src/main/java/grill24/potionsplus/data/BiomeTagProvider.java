@@ -10,7 +10,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -22,9 +21,8 @@ public class BiomeTagProvider extends TagsProvider<Biome> {
     TagKey<Biome> ICE_CAVE = tag(Biomes.ICE_CAVE_KEY);
     TagKey<Biome> ARID_CAVE = tag(Biomes.ARID_CAVE_KEY);
 
-    protected BiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> holderProvider,
-                                    ExistingFileHelper existingFileHelper) {
-        super(output, Registries.BIOME, holderProvider, ModInfo.MOD_ID, existingFileHelper);
+    protected BiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> holderProvider) {
+        super(output, Registries.BIOME, holderProvider, ModInfo.MOD_ID);
     }
 
     @Override

@@ -7,6 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -23,7 +24,7 @@ public class HarrowingHandsEffect extends MobEffect implements IEffectTooltipDet
     }
 
     private static List<AbstractSkeleton> getNearbySkeletons(LivingEntity entity) {
-        return entity.level().getNearbyEntities(AbstractSkeleton.class, TargetingConditions.DEFAULT, entity, entity.getBoundingBox().inflate(16));
+        return entity.level().getEntitiesOfClass(AbstractSkeleton.class, entity.getBoundingBox().inflate(16));
     }
 
     @Override
@@ -33,7 +34,7 @@ public class HarrowingHandsEffect extends MobEffect implements IEffectTooltipDet
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity entity, int amplifier) {
         if (!entity.hasEffect(MobEffects.HARROWING_HANDS))
             return false;
 

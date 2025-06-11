@@ -5,15 +5,14 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.core.LootItemConditions;
-import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.item.FishingRodDataComponent;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
@@ -36,12 +35,12 @@ public record HasFishingRodBaitCondition(Set<Holder<Item>> items) implements Loo
     }
 
     @Override
-    public @NotNull Set<LootContextParam<?>> getReferencedContextParams() {
+    public @NotNull Set<ContextKey<?>> getReferencedContextParams() {
         return ImmutableSet.of(LootContextParams.TOOL);
     }
 
     public boolean test(LootContext context) {
-        ItemStack stack = context.getParamOrNull(LootContextParams.TOOL);
+        ItemStack stack = context.getOptionalParameter(LootContextParams.TOOL);
         if (stack != null && stack.has(DataComponents.FISHING_ROD)) {
             FishingRodDataComponent fishingRodData = stack.get(DataComponents.FISHING_ROD);
             if (fishingRodData != null) {

@@ -87,7 +87,7 @@ public class BrewingTooltips {
                 if (SavedData.instance.getData(player).abyssalTroveContainsIngredient(player.level(), ppIngredient)) {
                     // Look at all the recipes that this ingredient is used in
                     for (RecipeHolder<BrewingCauldronRecipe> recipeHolder : Recipes.ALL_BCR_RECIPES_ANALYSIS.getRecipesForIngredient(ppIngredient)) {
-                        if (SavedData.instance.getData(player).isRecipeUnknown(recipeHolder.id().toString()))
+                        if (SavedData.instance.getData(player).isRecipeUnknown(recipeHolder.id()))
                             continue;
 
                         BrewingCauldronRecipe recipe = recipeHolder.value();

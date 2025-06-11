@@ -1,17 +1,23 @@
 {
   "variants": {
-    "facing=east": {
+    "direction=down": {
+      "model": "potionsplus:block/fishing_leaderboards"
+    },
+    "direction=east": {
       "model": "potionsplus:block/fishing_leaderboards",
       "y": 270
     },
-    "facing=north": {
+    "direction=north": {
       "model": "potionsplus:block/fishing_leaderboards",
       "y": 180
     },
-    "facing=south": {
+    "direction=south": {
       "model": "potionsplus:block/fishing_leaderboards"
     },
-    "facing=west": {
+    "direction=up": {
+      "model": "potionsplus:block/fishing_leaderboards"
+    },
+    "direction=west": {
       "model": "potionsplus:block/fishing_leaderboards",
       "y": 90
     }

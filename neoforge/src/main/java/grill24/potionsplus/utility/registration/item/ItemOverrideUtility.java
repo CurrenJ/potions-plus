@@ -1,23 +1,26 @@
 package grill24.potionsplus.utility.registration.item;
 
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.item.EdibleChoiceItem;
+import grill24.potionsplus.item.modelproperty.EdibleChoiceProperty;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.registration.IModelGenerator;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.renderer.item.BlockModelWrapper;
+import net.minecraft.client.renderer.item.RangeSelectItemModel;
+import net.minecraft.client.renderer.item.properties.numeric.Count;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Supplier;
 
 import static grill24.potionsplus.utility.Utility.mc;
@@ -43,60 +46,52 @@ public class ItemOverrideUtility {
         }
     }
 
-    public static class EdibleChoiceItemOverrideModelData extends ItemOverrideModelGenerator<EdibleChoiceItem> {
-        private final ResourceLocation layer0;
-        private final List<ResourceLocation> layer1;
-        private final Map<ResourceLocation, Integer> textureIndexMap;
+    public static class EdibleChoiceItemOverrideModelGenerator extends ItemOverrideModelGenerator<EdibleChoiceItem> {
+        private final ItemOverrideCommonUtility.EdibleChoiceItemOverrideData commonData;
 
-        public EdibleChoiceItemOverrideModelData(Supplier<Holder<Item>> itemGetter, ResourceLocation overridePropertyId, ResourceLocation layer0, List<ResourceLocation> layer1) {
-            super(itemGetter, overridePropertyId);
-            this.layer0 = layer0;
-            this.layer1 = layer1;
-            this.layer1.addFirst(layer0);
-            this.textureIndexMap = new HashMap<>();
-            for (int i = 0; i < layer1.size(); i++) {
-                textureIndexMap.put(this.layer1.get(i), i);
-            }
+        public EdibleChoiceItemOverrideModelGenerator(Supplier<Holder<Item>> itemGetter, ItemOverrideCommonUtility.EdibleChoiceItemOverrideData commonData) {
+            super(itemGetter, commonData.getOverridePropertyId());
+            this.commonData = commonData;
         }
 
-        private int getIndex(ResourceLocation textureLocation) {
-            return textureIndexMap.getOrDefault(textureLocation, 0);
-        }
-
-        public float getOverrideValue(ResourceLocation textureLocation) {
-            return getIndex(textureLocation) / 64F;
-        }
-
-        public ResourceLocation getRandomFlag(RandomSource randomSource) {
-            return layer1.get(randomSource.nextInt(layer1.size()-1)+1);
-        }
 
         @Override
-        public void generate(BlockStateProvider provider) {
-            ItemModelBuilder imb = null;
-
+        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
             Holder<? extends Item> item = getHolder();
-            for (ResourceLocation layer1Texture : layer1) {
-                ItemModelProvider itemModels = provider.itemModels();
-                if (imb == null) {
-                    imb = itemModels.getBuilder(item.getKey().location().getPath())
-                            .parent(provider.models().getExistingFile(mc("item/generated")))
-                            .texture("layer0", layer0);
-                }
 
-                // Each generic icon is a separate item model
-                // That is referenced in the overrides of the item we make in "imb"
+            TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, commonData.getLayer0());
+            ResourceLocation fallbackItemModelId = ppId(item.getKey().location().getPath() + "_fallback");
+            ResourceLocation fallbackItemModel = ModelTemplates.FLAT_ITEM.create(fallbackItemModelId, fallbackItemTextureMapping, itemModelGenerators.modelOutput);
+
+            List<RangeSelectItemModel.Entry> entries = commonData.getLayer1().stream().map(layer1Texture -> {
                 String str = layer1Texture.getPath();
                 String name = item.getKey().location().getPath() + "_" + str.substring(str.lastIndexOf('/') + 1);
-                itemModels.getBuilder(name)
-                        .parent(provider.models().getExistingFile(mc("item/generated")))
-                        .texture("layer0", layer0)
-                        .texture("layer1", layer1Texture);
+                ResourceLocation modelId = ppId("item/" + name);
 
-                // Add override to main model
-                float f = getOverrideValue(layer1Texture);
-                imb = imb.override().predicate(getOverridePropertyId(), f).model(itemModels.getExistingFile(ppId(name))).end();
-            }
+                TextureMapping textureMapping = new TextureMapping()
+                        .put(TextureSlot.LAYER0, commonData.getLayer0())
+                        .put(TextureSlot.LAYER1, layer1Texture);
+                ResourceLocation generatedItemModel = ModelTemplates.TWO_LAYERED_ITEM.create(modelId, textureMapping, itemModelGenerators.modelOutput);
+
+                float threshold = commonData.getOverrideValue(layer1Texture);
+
+                return new RangeSelectItemModel.Entry(
+                        threshold,
+                        new BlockModelWrapper.Unbaked(
+                                generatedItemModel,
+                                Collections.emptyList()
+                        )
+                );
+            }).toList();
+
+            RangeSelectItemModel.Unbaked rangeSelectItemModel = new RangeSelectItemModel.Unbaked(
+                    new EdibleChoiceProperty(),
+                    1,
+                    entries,
+                    Optional.of(new BlockModelWrapper.Unbaked(fallbackItemModel, Collections.emptyList()))
+            );
+
+            itemModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
         }
     }
 
@@ -106,80 +101,90 @@ public class ItemOverrideUtility {
         }
 
         @Override
-        public void generate(BlockStateProvider provider) {
-            ItemModelProvider itemModels = provider.itemModels();
-            ItemModelBuilder imb = null;
-
+        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
             Holder<Item> item = getHolder();
-            for (MobEffect mobEffect : PUtil.getAllMobEffects()) {
+
+            BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(mc("item/stick"), Collections.emptyList());
+
+            List<RangeSelectItemModel.Entry> entries = PUtil.getAllMobEffects().stream().map(mobEffect -> {
                 ResourceLocation registryName = BuiltInRegistries.MOB_EFFECT.getKey(mobEffect);
-                if (imb == null) {
-                    imb = itemModels.getBuilder(item.getKey().location().getPath())
-                            .parent(provider.models().getExistingFile(mc("item/generated")))
-                            .texture("layer0", registryName.getNamespace() + ":mob_effect/" + registryName.getPath());
-                }
-
-                // Each potion effect icon is a separate item model
-                // That is referenced in the overrides of the item we make in "imb"
                 String name = "potion_effect_icon_" + registryName.getPath();
-                itemModels.singleTexture(name, mc("item/generated"), "layer0", ResourceLocation.fromNamespaceAndPath(registryName.getNamespace(), "mob_effect/" + registryName.getPath()));
+                ResourceLocation modelId = ppId("item/" + name);
 
-                // Add override to main model
-                float f = (grill24.potionsplus.core.potion.MobEffects.POTION_ICON_INDEX_MAP.get().get(registryName) - 1) / 64F;
-                imb = imb.override().predicate(getOverridePropertyId(), f).model(itemModels.getExistingFile(ppId(name))).end();
-            }
+                TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, ResourceLocation.fromNamespaceAndPath(registryName.getNamespace(), "mob_effect/" + registryName.getPath()));
+                ResourceLocation generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, itemModelGenerators.modelOutput);
+
+                float threshold = (grill24.potionsplus.core.potion.MobEffects.POTION_ICON_INDEX_MAP.get().get(registryName) - 1) / 64F;
+                return new RangeSelectItemModel.Entry(
+                        threshold,
+                        new BlockModelWrapper.Unbaked(
+                                generatedItemModel,
+                                Collections.emptyList()
+                        )
+                );
+            }).toList();
+
+            RangeSelectItemModel.Unbaked rangeSelectItemModel = new RangeSelectItemModel.Unbaked(
+                    new Count(true),
+                    1,
+                    entries,
+                    Optional.of(fallbackItemModel)
+            );
+
+            itemModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
         }
     }
 
     public static class DynamicItemOverrideModelData extends ItemOverrideModelGenerator<Item> {
-        private final List<ResourceLocation> textureLocations;
+        private final ResourceLocation[] textures;
         private final Map<ResourceLocation, Integer> textureIndexMap;
 
-        public DynamicItemOverrideModelData(Supplier<Holder<Item>> itemSupplier, ResourceLocation overridePropertyId, List<ResourceLocation> textureLocations) {
+        public DynamicItemOverrideModelData(Supplier<Holder<Item>> itemSupplier, ResourceLocation overridePropertyId, ResourceLocation[] textures, Map<ResourceLocation, Integer> textureToItemStackCountMap) {
             super(itemSupplier, overridePropertyId);
-            this.textureLocations = textureLocations;
-            this.textureIndexMap = new HashMap<>();
-            for (int i = 0; i < textureLocations.size(); i++) {
-                textureIndexMap.put(textureLocations.get(i), i);
-            }
-        }
-
-        public int getIndex(ResourceLocation textureLocation) {
-            return textureIndexMap.getOrDefault(textureLocation, 0);
+            this.textureIndexMap = textureToItemStackCountMap;
+            this.textures = textures;
         }
 
         public int getItemStackCountForTexture(ResourceLocation textureLocation) {
-            return getIndex(textureLocation) + 1;
-        }
-
-        public ItemStack getItemStackForTexture(ItemLike itemLike, ResourceLocation textureLocation) {
-            return new ItemStack(itemLike, getItemStackCountForTexture(textureLocation));
+            return textureIndexMap.getOrDefault(textureLocation, 1);
         }
 
         @Override
-        public void generate(BlockStateProvider provider) {
-            ItemModelBuilder imb = null;
-
+        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
             Holder<Item> item = getHolder();
-            for (ResourceLocation rl : textureLocations) {
-                ItemModelProvider itemModels = provider.itemModels();
-                if (imb == null) {
-                    imb = itemModels.getBuilder(item.getKey().location().getPath())
-                            .parent(provider.models().getExistingFile(mc("item/generated")))
-                            .texture("layer0", rl);
-                }
 
+            TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, DynamicIconItems.UNKNOWN_TEX_LOC);
+            ResourceLocation fallbackItemModelLocation = ModelTemplates.FLAT_ITEM.create(ppId("unknown_generic_icon_fallback"), fallbackItemTextureMapping, itemModelGenerators.modelOutput);
+            BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(fallbackItemModelLocation, Collections.emptyList());
 
-                // Each generic icon is a separate item model
-                // That is referenced in the overrides of the item we make in "imb"
-                String str = rl.getPath();
+            List<RangeSelectItemModel.Entry> entries = Arrays.stream(textures).map(texture -> {
+                int itemStackCount = getItemStackCountForTexture(texture);
+
+                String str = texture.getPath();
                 String name = "generic_icon_" + str.substring(str.lastIndexOf('/') + 1);
-                itemModels.singleTexture(name, mc("item/generated"), "layer0", rl);
+                ResourceLocation modelId = ppId("item/" + name);
 
-                // Add override to main model
-                float f = getIndex(rl) / 64F;
-                imb = imb.override().predicate(getOverridePropertyId(), f).model(itemModels.getExistingFile(ppId(name))).end();
-            }
+                TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, texture);
+                ResourceLocation generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, itemModelGenerators.modelOutput);
+
+                float threshold = itemStackCount / 64F;
+                return new RangeSelectItemModel.Entry(
+                        threshold,
+                        new BlockModelWrapper.Unbaked(
+                                generatedItemModel,
+                                Collections.emptyList()
+                        )
+                );
+            }).toList();
+
+            RangeSelectItemModel.Unbaked rangeSelectItemModel = new RangeSelectItemModel.Unbaked(
+                    new Count(true),
+                    1,
+                    entries,
+                    Optional.of(fallbackItemModel)
+            );
+
+            itemModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
         }
 
         @Override

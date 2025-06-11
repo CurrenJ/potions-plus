@@ -24,6 +24,8 @@
 
   "block.potionsplus.dense_diamond_ore": "Dense Diamond Ore",
   "block.potionsplus.deepslate_dense_diamond_ore": "Dense Deepslate Diamond Ore",
+
+  "item.potionsplus.cooblestone": "Cooblestone",
   "block.potionsplus.cooblestone": "Cooblestone",
   "jei.potionsplus.cooblestone.description": "It's cobblestone, but cooler.",
 
@@ -361,6 +363,7 @@
   "item.potionsplus.royal_garden_eel": "Royal Garden Eel",
   "item.potionsplus.longnose_gar": "Longnose Gar",
   "item.potionsplus.shrimp": "Shrimp",
+  "item.potionsplus.fried_shrimp": "Fried Shrimp",
   "item.potionsplus.moorish_idol": "Moorish Idol",
   "item.potionsplus.molten_moorish_idol": "Molten Moorish Idol",
   "item.potionsplus.ocean_sunfish": "Ocean Sunfish",
@@ -370,6 +373,7 @@
   "item.potionsplus.giant_manta_ray": "Giant Manta Ray",
   "item.potionsplus.frozen_giant_manta_ray": "Frozen Giant Manta Ray",
   "item.potionsplus.lizardfish": "Lizardfish",
+  "item.potionsplus.starfish": "Starfish",
 
   "block.potionsplus.skill_journals": "Skill Journals",
   "block.potionsplus.fishing_leaderboards": "Fishing Leaderboards",
@@ -512,12 +516,12 @@
   "item.minecraft.tipped_arrow.effect.blindness": "Arrow of Blindness",
   "jei.potionsplus.blindness.description": "Blinds.",
 
-  "effect.potionsplus.confusion": "Confusion",
-  "item.minecraft.potion.effect.confusion": "Potion of Confusion",
-  "item.minecraft.splash_potion.effect.confusion": "Splash Potion of Confusion",
-  "item.minecraft.lingering_potion.effect.confusion": "Lingering Potion of Confusion",
-  "item.minecraft.tipped_arrow.effect.confusion": "Arrow of Confusion",
-  "jei.potionsplus.confusion.description": "Confuses.",
+  "effect.potionsplus.nausea": "Nausea",
+  "item.minecraft.potion.effect.nausea": "Potion of Nausea",
+  "item.minecraft.splash_potion.effect.nausea": "Splash Potion of Nausea",
+  "item.minecraft.lingering_potion.effect.nausea": "Lingering Potion of Nausea",
+  "item.minecraft.tipped_arrow.effect.nausea": "Arrow of Nausea",
+  "jei.potionsplus.confusion.description": "Properly nauseating.",
 
   "effect.potionsplus.hunger": "Hunger",
   "item.minecraft.potion.effect.hunger": "Potion of Hunger",
@@ -687,6 +691,8 @@
   "item.potionsplus.coal_ore_hat_1": "Coal Ore Hat (64)",
   "item.potionsplus.coal_ore_hat_2": "Coal Ore Hat (128)",
   "item.potionsplus.coal_ore_hat_3": "Coal Ore Hat (256)",
+  "item.potionsplus.coal_ore_hat_4": "Coal Ore Hat (512)",
+
   "advancements.potionsplus.ore_hat.mine_coal_ore_64.title": "Apprentice Coal Miner",
   "advancements.potionsplus.ore_hat.mine_coal_ore_64.description": "Mine 64 Coal Ore.",
   "advancements.potionsplus.ore_hat.mine_coal_ore_128.title": "Journeyman Coal Miner",
@@ -697,6 +703,8 @@
   "item.potionsplus.iron_ore_hat_1": "Iron Ore Hat (64)",
   "item.potionsplus.iron_ore_hat_2": "Iron Ore Hat (128)",
   "item.potionsplus.iron_ore_hat_3": "Iron Ore Hat (256)",
+  "item.potionsplus.iron_ore_hat_4": "Iron Ore Hat (512)",
+
   "advancements.potionsplus.ore_hat.mine_iron_ore_64.title": "Apprentice Iron Miner",
   "advancements.potionsplus.ore_hat.mine_iron_ore_64.description": "Mine 64 Iron Ore.",
   "advancements.potionsplus.ore_hat.mine_iron_ore_128.title": "Journeyman Iron Miner",
@@ -707,6 +715,8 @@
   "item.potionsplus.gold_ore_hat_1": "Gold Ore Hat (64)",
   "item.potionsplus.gold_ore_hat_2": "Gold Ore Hat (128)",
   "item.potionsplus.gold_ore_hat_3": "Gold Ore Hat (256)",
+  "item.potionsplus.gold_ore_hat_4": "Gold Ore Hat (512)",
+
   "advancements.potionsplus.ore_hat.mine_gold_ore_64.title": "Apprentice Gold Miner",
   "advancements.potionsplus.ore_hat.mine_gold_ore_64.description": "Mine 64 Gold Ore.",
   "advancements.potionsplus.ore_hat.mine_gold_ore_128.title": "Journeyman Gold Miner",
@@ -717,6 +727,8 @@
   "item.potionsplus.copper_ore_hat_1": "Copper Ore Hat (64)",
   "item.potionsplus.copper_ore_hat_2": "Copper Ore Hat (128)",
   "item.potionsplus.copper_ore_hat_3": "Copper Ore Hat (256)",
+  "item.potionsplus.copper_ore_hat_4": "Copper Ore Hat (512)",
+
   "advancements.potionsplus.ore_hat.mine_copper_ore_64.title": "Apprentice Copper Miner",
   "advancements.potionsplus.ore_hat.mine_copper_ore_64.description": "Mine 64 Copper Ore.",
   "advancements.potionsplus.ore_hat.mine_copper_ore_128.title": "Journeyman Copper Miner",
@@ -724,9 +736,11 @@
   "advancements.potionsplus.ore_hat.mine_copper_ore_256.title": "Royal Copper Miner",
   "advancements.potionsplus.ore_hat.mine_copper_ore_256.description": "Mine 256 Copper Ore.",
 
-"item.potionsplus.diamond_ore_hat_1": "Diamond Ore Hat (64)",
+  "item.potionsplus.diamond_ore_hat_1": "Diamond Ore Hat (64)",
   "item.potionsplus.diamond_ore_hat_2": "Diamond Ore Hat (128)",
   "item.potionsplus.diamond_ore_hat_3": "Diamond Ore Hat (256)",
+  "item.potionsplus.diamond_ore_hat_4": "Diamond Ore Hat (512)",
+
   "advancements.potionsplus.ore_hat.mine_diamond_ore_64.title": "Apprentice Diamond Miner",
   "advancements.potionsplus.ore_hat.mine_diamond_ore_64.description": "Mine 64 Diamond Ore.",
   "advancements.potionsplus.ore_hat.mine_diamond_ore_128.title": "Journeyman Diamond Miner",
@@ -737,6 +751,8 @@
   "item.potionsplus.emerald_ore_hat_1": "Emerald Ore Hat (64)",
   "item.potionsplus.emerald_ore_hat_2": "Emerald Ore Hat (128)",
   "item.potionsplus.emerald_ore_hat_3": "Emerald Ore Hat (256)",
+  "item.potionsplus.emerald_ore_hat_4": "Emerald Ore Hat (512)",
+
   "advancements.potionsplus.ore_hat.mine_emerald_ore_64.title": "Apprentice Emerald Miner",
   "advancements.potionsplus.ore_hat.mine_emerald_ore_64.description": "Mine 64 Emerald Ore.",
   "advancements.potionsplus.ore_hat.mine_emerald_ore_128.title": "Journeyman Emerald Miner",
@@ -748,6 +764,8 @@
   "alert.potionsplus.reward.unknown_potion_ingredient": "The brewing cauldron calls...",
 
   "item.potionsplus.froggy_hat": "Froggy Hat",
+  "item.potionsplus.hook_hat": "Hook Hat",
+  "item.potionsplus.apple_hat": "Apple Hat",
 
   "fish.size": "§7§oSize: %s cm",
   "fish.leaderboard.size": "[%s] %s: %s cm",

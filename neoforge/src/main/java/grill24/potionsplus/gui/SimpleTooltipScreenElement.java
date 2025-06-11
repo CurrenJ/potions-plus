@@ -5,13 +5,11 @@ import grill24.potionsplus.render.animation.keyframe.FloatAnimationCurve;
 import grill24.potionsplus.render.animation.keyframe.Interpolation;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.utility.RUtil;
-import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import org.joml.Vector3f;
-import org.joml.Vector4f;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -135,9 +133,9 @@ public class SimpleTooltipScreenElement extends DivScreenElement<TextComponentSc
     private float outlineWidth;
     private float outlineHeight;
 
-    private static final int OUTLINE_COLOR_DARK = RUtil.invertColor(FastColor.ARGB32.color(255, 85, 85, 85));
-    private static final int OUTLINE_COLOR_LIGHT = RUtil.invertColor(FastColor.ARGB32.color(255, 255, 255, 255));
-    private static final int BACKGROUND_COLOR = RUtil.invertColor(FastColor.ARGB32.color(255, 198, 198, 198));
+    private static final int OUTLINE_COLOR_DARK = RUtil.invertColor(ARGB.color(255, 85, 85, 85));
+    private static final int OUTLINE_COLOR_LIGHT = RUtil.invertColor(ARGB.color(255, 255, 255, 255));
+    private static final int BACKGROUND_COLOR = RUtil.invertColor(ARGB.color(255, 198, 198, 198));
     private static final int OUTLINE_Z = 110;
     private static final int FILL_Z = 109;
     @Override

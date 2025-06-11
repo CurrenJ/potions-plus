@@ -17,7 +17,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class Features {
     public static DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, ModInfo.MOD_ID);
 
@@ -38,14 +37,6 @@ public class Features {
 
     // ----- Misc. -----
     public static final Feature<VersatilePlantBlockFeatureConfiguration> VERSATILE_PLANT = Features.register("versatile_plant", new VersatilePlantBlockFeature());
-
-    @SubscribeEvent
-    public static void onGatherData(GatherDataEvent event)
-    {
-        DataGenerator generator = event.getGenerator();
-        PackOutput output = generator.getPackOutput();
-
-    }
 
     public static<C extends FeatureConfiguration, F extends Feature<C>> F register(String name, F feature)
     {

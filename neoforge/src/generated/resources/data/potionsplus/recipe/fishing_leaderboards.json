@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "fishing_leaderboards",
   "ingredients": [
-    {
-      "item": "minecraft:book"
-    },
-    {
-      "tag": "minecraft:fishes"
-    }
+    "minecraft:book",
+    "#minecraft:fishes"
   ],
   "result": {
     "count": 1,

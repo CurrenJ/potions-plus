@@ -46,24 +46,19 @@ public class FadeInRotateItemActivationAnimation extends ItemActivationAnimation
             scale += 50.0F;
             poseStack.scale(-scale, -scale, scale);
 
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, fadeInAlpha);
 
-            guiGraphics.drawManaged(
-                    () -> minecraft
-                            .getItemRenderer()
-                            .renderStatic(
-                                    this.itemStack,
-                                    ItemDisplayContext.FIXED,
-                                    15728880,
-                                    OverlayTexture.NO_OVERLAY,
-                                    poseStack,
-                                    guiGraphics.bufferSource(),
-                                    minecraft.level,
-                                    0
-                            )
-            );
+            guiGraphics.drawSpecial(bufferSource ->
+                    minecraft.getItemRenderer().renderStatic(
+                            this.itemStack,
+                            ItemDisplayContext.FIXED,
+                            15728880,
+                            OverlayTexture.NO_OVERLAY,
+                            poseStack,
+                            bufferSource,
+                            minecraft.level,
+                            0
+                    ));
 
             poseStack.popPose();
         }

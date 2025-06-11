@@ -3,10 +3,12 @@
   "category": "BREWING",
   "ingredients": [
     {
-      "ppIngredient": {
-        "count": 1,
-        "id": "minecraft:glass_bottle"
-      }
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "minecraft:glass_bottle"
+        }
+      ]
     }
   ],
   "matchingCriteria": [

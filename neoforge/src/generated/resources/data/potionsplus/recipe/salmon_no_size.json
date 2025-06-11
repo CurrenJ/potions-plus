@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:salmon"
-    }
+    "minecraft:salmon"
   ],
   "result": {
     "count": 1,

@@ -2,6 +2,7 @@ package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.items.DynamicIconItems;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3d;
@@ -26,7 +27,7 @@ public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<San
     }
 
     @Override
-    public void render(@NotNull SanguineAltarBlockEntity blockEntity, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+    public void render(@NotNull SanguineAltarBlockEntity blockEntity, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
         ItemStack stack = blockEntity.state == SanguineAltarBlockEntity.State.CONVERTED ? blockEntity.chainedIngredientToDisplay : blockEntity.getItem(0);
         if (stack.isEmpty()) {
             return;

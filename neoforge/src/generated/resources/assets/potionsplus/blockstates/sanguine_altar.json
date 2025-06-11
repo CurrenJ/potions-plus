@@ -1,17 +1,23 @@
 {
   "variants": {
-    "facing=east": {
+    "direction=down": {
+      "model": "potionsplus:block/sanguine_altar"
+    },
+    "direction=east": {
       "model": "potionsplus:block/sanguine_altar",
       "y": 270
     },
-    "facing=north": {
+    "direction=north": {
       "model": "potionsplus:block/sanguine_altar",
       "y": 180
     },
-    "facing=south": {
+    "direction=south": {
       "model": "potionsplus:block/sanguine_altar"
     },
-    "facing=west": {
+    "direction=up": {
+      "model": "potionsplus:block/sanguine_altar"
+    },
+    "direction=west": {
       "model": "potionsplus:block/sanguine_altar",
       "y": 90
     }

@@ -1,33 +1,35 @@
 package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.advancement.CraftRecipeTrigger;
-import grill24.potionsplus.core.Advancements;
-import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
-import grill24.potionsplus.persistence.SavedData;
-import grill24.potionsplus.utility.Utility;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.network.PacketDistributor;
-import org.joml.Vector3f;
 import grill24.potionsplus.block.ClotheslineBlock;
+import grill24.potionsplus.core.Advancements;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.network.PacketDistributor;
+import org.joml.Vector3f;
 
 import javax.annotation.Nonnull;
+import java.util.Optional;
 
 public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity {
     private final int[] progress;
@@ -38,10 +40,14 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
 
     private boolean recipeUpdateQueued = false;
 
+    private final RecipeManager.CachedCheck<RecipeInput, ClotheslineRecipe> recipeCheck;
+
     public ClotheslineBlockEntity(BlockPos pos, BlockState state) {
         super(Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), pos, state);
         progress = new int[this.getContainerSize()];
         activeRecipes = new RecipeHolder[this.getContainerSize()];
+
+        recipeCheck = RecipeManager.createCheck(Recipes.CLOTHESLINE_RECIPE.get());
     }
 
     public static int getItemsForClotheslineDistance(int distance) {
@@ -58,7 +64,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
         super.readPacketNbt(tag, registryAccess);
 
         for (int i = 0; i < progress.length; i++) {
-            progress[i] = tag.getInt("Progress" + i);
+            progress[i] = tag.getInt("Progress" + i).orElse(0);
         }
     }
 
@@ -87,14 +93,16 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
     }
 
     public void updateActiveRecipe() {
+        if (level == null) return;
+
         for (int i = 0; i < getContainerSize(); i++) {
-            ItemStack stack = getItem(i);
-            if (stack.isEmpty()) {
+            ItemStack inputStack = getItem(i);
+            if (inputStack.isEmpty()) {
                 activeRecipes[i] = null;
             } else {
-                activeRecipes[i] = getLevel().getRecipeManager().getAllRecipesFor(Recipes.CLOTHESLINE_RECIPE.get()).stream()
-                        .filter(recipe -> recipe.value().matches(stack))
-                        .findFirst().orElse(null);
+                SingleRecipeInput recipeInput = new SingleRecipeInput(inputStack);
+                Optional<RecipeHolder<ClotheslineRecipe>> recipeHolder = Recipes.recipes.getRecipesFor(Recipes.CLOTHESLINE_RECIPE.value(), recipeInput, level).findFirst();
+                activeRecipes[i] = recipeHolder.orElse(null);
             }
         }
     }
@@ -130,7 +138,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                 spawnCraftingSuccessParticles(level, slot);
             } else {
                 final ClotheslineRecipe activeRecipe = new ClotheslineRecipe(activeRecipes[slot].value());
-                ItemStack container = getItem(slot).getCraftingRemainingItem();
+                ItemStack container = getItem(slot).getCraftingRemainder();
                 ItemStack result = activeRecipe.getResult();
 
                 getItem(slot).shrink(1);
@@ -145,7 +153,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
 
                 PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(worldPosition, slot));
                 level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
-                    if(player instanceof ServerPlayer serverPlayer) {
+                    if (player instanceof ServerPlayer serverPlayer) {
                         Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
                     }
                 });

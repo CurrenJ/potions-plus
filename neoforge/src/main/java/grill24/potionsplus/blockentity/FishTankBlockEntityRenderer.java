@@ -17,6 +17,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 import org.joml.Random;
 import org.joml.Vector3f;
@@ -43,12 +44,12 @@ public class FishTankBlockEntityRenderer implements BlockEntityRenderer<FishTank
     float timestampChangeYBobTarget = 0F;
 
     @Override
-    public void render(FishTankBlockEntity fishTankBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int i, int i1) {
+    public void render(FishTankBlockEntity fishTankBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay, Vec3 cameraPos) {
         Optional<ItemStack> fish = fishTankBlockEntity.getFish();
         int kelp = fishTankBlockEntity.getKelp();
-        fish.ifPresent(stack -> renderFish(fishTankBlockEntity, partialTick, poseStack, bufferSource, i, i1, stack));
+        fish.ifPresent(stack -> renderFish(fishTankBlockEntity, partialTick, poseStack, bufferSource, light, overlay, stack));
 
-        renderKelp(poseStack, bufferSource, fishTankBlockEntity, i, i1, kelp);
+        renderKelp(poseStack, bufferSource, fishTankBlockEntity, light, overlay, kelp);
     }
 
     private void renderKelp(PoseStack poseStack, MultiBufferSource bufferSource, FishTankBlockEntity fishTankBlockEntity, int i, int i1, int kelp) {

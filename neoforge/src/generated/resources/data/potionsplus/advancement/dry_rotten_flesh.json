@@ -5,10 +5,12 @@
       "conditions": {
         "recipe": "potionsplus:clothesline_recipe",
         "recipe_id": {
-          "ppIngredient": {
-            "count": 1,
-            "id": "minecraft:leather"
-          }
+          "matchStacks": [
+            {
+              "count": 1,
+              "id": "minecraft:leather"
+            }
+          ]
         }
       },
       "trigger": "potionsplus:craft_recipe"

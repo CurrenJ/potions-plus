@@ -110,7 +110,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
                         if (sanguineAltarBlockEntity.healthDrained < HEALTH_DRAIN_REQUIRED_FOR_CONVERSION) {
                             // Common side, drain health of entities
                             // TODO: Custom damage source
-                            if (entity.hurt(level.damageSources().generic(), HEALTH_DRAIN_AMOUNT)) {
+                            if (level instanceof ServerLevel serverLevel && entity.hurtServer(serverLevel, level.damageSources().generic(), HEALTH_DRAIN_AMOUNT)) {
                                 sanguineAltarBlockEntity.healthDrained += HEALTH_DRAIN_AMOUNT;
                                 if (entity.isDeadOrDying()) {
                                     sanguineAltarBlockEntity.didEntityDie = true;

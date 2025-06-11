@@ -11,13 +11,15 @@ import java.util.ArrayList;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class EdibleChoiceItemBuilder extends ItemBuilder<EdibleChoiceItem, EdibleChoiceItemBuilder> {
+    private ItemOverrideCommonUtility.EdibleChoiceItemOverrideData commonData;
+
     public static EdibleChoiceItemBuilder create(String name, ResourceLocation textureLocation) {
         EdibleChoiceItemBuilder builder = new EdibleChoiceItemBuilder();
         builder.name(name);
         builder.itemFactory(EdibleChoiceItem::new);
         builder.properties(new Item.Properties().food(Foods.CHORUS_FRUIT));
-        builder.modelGenerator((itemSupplier -> new ItemOverrideUtility.EdibleChoiceItemOverrideModelData(
-                itemSupplier,
+
+        builder.commonData = new ItemOverrideCommonUtility.EdibleChoiceItemOverrideData(
                 SkillLootItems.EDIBLE_CHOICE_ITEM_FLAG_PROPERTY_NAME,
                 textureLocation,
                 new ArrayList<>() {{
@@ -26,13 +28,17 @@ public class EdibleChoiceItemBuilder extends ItemBuilder<EdibleChoiceItem, Edibl
                     add(ppId("item/blue_flag"));
                     add(ppId("item/yellow_flag"));
                     add(ppId("item/orange_flag"));
-                }})));
+                }});
+        builder.modelGenerator((itemSupplier ->
+                new ItemOverrideUtility.EdibleChoiceItemOverrideModelGenerator(
+                        itemSupplier,
+                        builder.commonData)));
 
         return builder;
     }
 
-    public ItemOverrideUtility.EdibleChoiceItemOverrideModelData getItemOverrideModelData() {
-        return (ItemOverrideUtility.EdibleChoiceItemOverrideModelData) getModelGenerator();
+    public ItemOverrideCommonUtility.EdibleChoiceItemOverrideData getItemOverrideData() {
+        return commonData;
     }
 
     @Override

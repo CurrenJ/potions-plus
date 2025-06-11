@@ -1,18 +1,18 @@
 package grill24.potionsplus.utility.registration.item;
 
 import grill24.potionsplus.utility.registration.IModelGenerator;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 
 import javax.annotation.Nullable;
 
 import java.util.function.Supplier;
-
-import static grill24.potionsplus.utility.Utility.mc;
-import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
 
 public class ItemModelUtility {
     /**
@@ -20,7 +20,7 @@ public class ItemModelUtility {
      */
     public static class SimpleItemModelGenerator<I extends Item> implements IModelGenerator<I> {
         @Nullable
-        private final ResourceLocation textureLocation;
+        protected final ResourceLocation textureLocation;
         private final Supplier<Holder<I>> itemGetter;
 
         public SimpleItemModelGenerator(Supplier<Holder<I>> itemGetter, ResourceLocation textureLocation) {
@@ -36,11 +36,14 @@ public class ItemModelUtility {
         }
 
         @Override
-        public void generate(BlockStateProvider provider) {
-            ResourceLocation modelLocation = getModelLocation(getHolder().value());
-            provider.itemModels().getBuilder(modelLocation.getPath())
-                    .parent(provider.models().getExistingFile(mc("item/generated")))
-                    .texture("layer0", textureLocation == null ? modelLocation : textureLocation);
+        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+            Item item = getHolder().value();
+
+            ResourceLocation modelLocation = ModelLocationUtils.getModelLocation(item);
+            ResourceLocation texture = textureLocation == null ? modelLocation : textureLocation;
+
+            ModelTemplates.FLAT_ITEM.create(modelLocation, new TextureMapping().put(TextureSlot.LAYER0, texture), itemModelGenerators.modelOutput);
+            itemModelGenerators.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelLocation));
         }
 
         @Override
@@ -66,11 +69,34 @@ public class ItemModelUtility {
         }
 
         @Override
-        public void generate(BlockStateProvider provider) {
-            ResourceLocation modelLocation = getModelLocation(getHolder().value());
-            ResourceLocation blockModelLocation = getModelLocation(block.get().value());
-            provider.itemModels().getBuilder(modelLocation.getPath())
-                    .parent(provider.models().getExistingFile(parentModel != null ? parentModel : blockModelLocation));
+        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+            ResourceLocation blockModelLocation = ModelLocationUtils.getModelLocation(block.get().value());
+
+            ItemModel.Unbaked itemModel = ItemModelUtils.plainModel(blockModelLocation);
+            itemModelGenerators.itemModelOutput.accept(getHolder().value(), itemModel);
+        }
+
+        @Override
+        public Holder<? extends I> getHolder() {
+            return itemGetter.get();
+        }
+    }
+
+    public static class ItemFromModelFileGenerator<I extends Item> implements IModelGenerator<I> {
+        private final Supplier<Holder<I>> itemGetter;
+        private final ResourceLocation modelFile;
+
+        public ItemFromModelFileGenerator(Supplier<Holder<I>> itemGetter, ResourceLocation modelFile) {
+            super();
+            this.itemGetter = itemGetter;
+            this.modelFile = modelFile;
+        }
+
+        @Override
+        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+            Item item = getHolder().value();
+
+            itemModelGenerators.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelFile));
         }
 
         @Override

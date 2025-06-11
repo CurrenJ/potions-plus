@@ -83,10 +83,10 @@ public class PlayerListeners {
             if (!learnedRecipes.isEmpty()) {
                 // Update the server-side recipe knowledge
                 for (RecipeHolder<BrewingCauldronRecipe> recipe : learnedRecipes) {
-                    playerBrewingKnowledge.addKnownRecipe(recipe.id().toString());
+                    playerBrewingKnowledge.addKnownRecipe(recipe.id());
                 }
                 // Sync new recipe knowledge to the client
-                packets.add(ClientboundSyncKnownBrewingRecipesPacket.of(learnedRecipes.stream().map(RecipeHolder::id).map(Object::toString).toList()));
+                packets.add(new ClientboundSyncKnownBrewingRecipesPacket(learnedRecipes.stream().map(RecipeHolder::id).toList()));
             }
             if (!alerts.isEmpty()) {
                 // Only send the highest priority alert
@@ -161,7 +161,7 @@ public class PlayerListeners {
                         customEffects.add(new MobEffectInstance(effect.getEffect(), remainingDuration, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false));
                     }
                 }
-                stack.set(DataComponents.POTION_CONTENTS, new PotionContents(potionContents.potion(), potionContents.customColor(), customEffects));
+                stack.set(DataComponents.POTION_CONTENTS, new PotionContents(potionContents.potion(), potionContents.customColor(), customEffects, Optional.empty()));
             }
         }
     }
@@ -182,7 +182,7 @@ public class PlayerListeners {
             // Sync known brewing cauldron recipe, sync paired abyssal trove, sync player skill data, and sync fishing leaderboard data.
             // TOOD: Sync whole saved data on join?
             PacketDistributor.sendToPlayer(player,
-                    ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()),
+                    new ClientboundSyncKnownBrewingRecipesPacket(SavedData.instance.getData(player).getKnownRecipeKeys()),
                     new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()),
                     new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)),
                     ClientboundSyncFishingLeaderboardsPacket.create() // Sync Fishing Leaderboard Data

@@ -5,9 +5,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -35,10 +33,9 @@ public class Sounds extends SoundDefinitionsProvider {
      *
      * @param output The {@linkplain PackOutput} instance provided by the data generator.
      * @param modId  The mod ID of the current mod.
-     * @param helper The existing file helper provided by the event you are initializing this provider in.
      */
-    public Sounds(PackOutput output, String modId, ExistingFileHelper helper) {
-        super(output, modId, helper);
+    public Sounds(PackOutput output, String modId) {
+        super(output, modId);
     }
 
 

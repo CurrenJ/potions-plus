@@ -11,6 +11,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -37,7 +38,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public int getHeight() {
+    public int getHeight(Font font) {
         return isShowing() ? this.backgroundHeight() + 4 : 0;
     }
 
@@ -55,7 +56,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public void renderImage(Font font, int x, int y, GuiGraphics guiGraphics) {
+    public void renderImage(Font font, int x, int y, int width, int height, GuiGraphics guiGraphics) {
         if(isShowing()) {
             int xMax = this.gridSizeX();
             int yMax = this.gridSizeY();
@@ -108,7 +109,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     private void blit(GuiGraphics guiGraphics, int x, int y, ClientItemStacksTooltip.Texture texture) {
-        guiGraphics.blitSprite(texture.sprite, x, y, 0, texture.w, texture.h);
+        guiGraphics.blitSprite(RenderType::guiTextured, texture.sprite, x, y, texture.w, texture.h);
     }
 
     private int gridSizeX() {
@@ -120,15 +121,14 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     @OnlyIn(Dist.CLIENT)
-    static enum Texture {
-        BLOCKED_SLOT(ResourceLocation.withDefaultNamespace("container/bundle/blocked_slot"), 18, 20),
-        SLOT(ResourceLocation.withDefaultNamespace("container/bundle/slot"), 18, 20);
+    enum Texture {
+        SLOT(ResourceLocation.withDefaultNamespace("container/slot"), 18, 20);
 
         public final ResourceLocation sprite;
         public final int w;
         public final int h;
 
-        private Texture(ResourceLocation sprite, int w, int h) {
+        Texture(ResourceLocation sprite, int w, int h) {
             this.sprite = sprite;
             this.w = w;
             this.h = h;

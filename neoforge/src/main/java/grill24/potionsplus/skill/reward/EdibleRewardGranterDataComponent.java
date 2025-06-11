@@ -51,7 +51,7 @@ public record EdibleRewardGranterDataComponent(Holder<ConfiguredGrantableReward<
             SkillsData data = SkillsData.getPlayerData(player);
 
             // If the choice item has a linked choice parent, do choice granting logic. This field can be null.
-            // If null, just grant the reward.
+            // If null, just grant the reward. Used for edible rewards that don't require a choice.
             if (choiceItemData.linkedChoiceParent() != null) {
                 if (data.hasPendingChoice(choiceItemData.linkedChoiceParent().getKey())) {
                     linkedOption.grant(choiceItemData.linkedOption(), player);
@@ -59,9 +59,10 @@ public record EdibleRewardGranterDataComponent(Holder<ConfiguredGrantableReward<
 
                     // Disable and remove all other choice items with the same parent
                     if (choiceItemData.linkedChoiceParent().value().config() instanceof EdibleChoiceRewardConfiguration config && config.rewards.size() > 1) {
-                        for (ItemStack slot : player.getInventory().items) {
+                        for (ItemStack slot : player.getInventory().getNonEquipmentItems()) {
                             if (slot.has(DataComponents.CHOICE_ITEM) && slot.get(DataComponents.CHOICE_ITEM).linkedChoiceParent().getKey().equals(choiceItemData.linkedChoiceParent().getKey())) {
                                 slot.remove(DataComponents.CHOICE_ITEM);
+                                slot.shrink(1);
                             }
                         }
                     }
@@ -87,7 +88,7 @@ public record EdibleRewardGranterDataComponent(Holder<ConfiguredGrantableReward<
             MutableComponent chooseText = Component.translatable(Translations.TOOLTIP_POTIONSPLUS_CHOICE).withStyle(ChatFormatting.GOLD);
             AnimatedItemTooltipEvent.TooltipLines chooseLine = AnimatedItemTooltipEvent.TooltipLines.of(ppId("choose_header"), TooltipPriorities.CHOICE, chooseText);
             event.addTooltipMessage(chooseLine);
-            if (SkillLootItems.BASIC_LOOT.getItemOverrideModelData().getOverrideValue(choiceItemData.flag()) > 0) {
+            if (SkillLootItems.BASIC_LOOT.getItemOverrideData().getOverrideValue(choiceItemData.flag()) > 0) {
                 MutableComponent chooseOne = Component.translatable(Translations.TOOLTIP_POTIONSPLUS_CHOOSE_ONE).withStyle(ChatFormatting.GRAY);
                 AnimatedItemTooltipEvent.TooltipLines chooseOneLine = AnimatedItemTooltipEvent.TooltipLines.of(ppId("choose_one"), TooltipPriorities.CHOICE, chooseOne);
                 event.addTooltipMessage(chooseOneLine);

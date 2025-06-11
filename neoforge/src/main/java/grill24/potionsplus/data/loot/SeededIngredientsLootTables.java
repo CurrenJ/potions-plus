@@ -8,6 +8,7 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
@@ -70,7 +71,6 @@ public class SeededIngredientsLootTables {
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, Tags.Items.SEEDS, blacklist));
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, Tags.Items.CROPS, blacklist));
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, ItemTags.FLOWERS, blacklist));
-        map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, ItemTags.TALL_FLOWERS, blacklist));
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, ItemTags.SMALL_FLOWERS, blacklist));
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, Tags.Items.FOODS_RAW_MEAT, blacklist));
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, Tags.Items.FOODS_RAW_FISH, blacklist));
@@ -211,8 +211,8 @@ public class SeededIngredientsLootTables {
 
     public static List<PpIngredient> getItemsInTags(TagKey<Item>... tags) {
         return Arrays.stream(tags)
-                .map((tag) -> Objects.requireNonNull(BuiltInRegistries.ITEM.getTag(tag)))
-                .flatMap((tag) -> tag.orElseThrow().stream())
+                .map((tag) -> Objects.requireNonNull(BuiltInRegistries.ITEM.getOrThrow(tag)))
+                .flatMap(HolderSet.ListBacked::stream)
                 .map(Holder::value)
                 .map(ItemStack::new)
                 .map(PpIngredient::of)

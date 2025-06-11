@@ -1,104 +1,72 @@
 package grill24.potionsplus.persistence;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import grill24.potionsplus.core.PotionsPlus;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.PpMultiIngredient;
 import grill24.potionsplus.event.PpFishCaughtEvent;
-import grill24.potionsplus.persistence.adapter.*;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.skill.SkillInstance;
-import grill24.potionsplus.utility.FishingLeaderboards;
-import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.PUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
+import grill24.potionsplus.utility.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.saveddata.SavedDataType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.function.Consumer;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     public static SavedData instance = new SavedData();
-    private static final String LOGGER_HEADER = "[Saved Data]";
 
     public static final String FILE_NAME = "potionsplus";
-    public static final String PLAYER_DATA_MAP_KEY = "player_data_map";
-    public static final String SEEDED_POTION_RECIPES_KEY = "seeded_potion_recipes";
-    public static final String FISHING_LEADERBOARDS_KEY = "fishing_leaderboards";
 
+    private final ServerLevel level;
     public Map<UUID, PlayerBrewingKnowledge> playerDataMap;
-
     public List<RecipeHolder<BrewingCauldronRecipe>> seededPotionRecipes;
-    public Map<PpIngredient, List<BrewingCauldronRecipe>> recipeResultsInSavedData;
-
+    public Map<String, List<BrewingCauldronRecipe>> recipeResultsInSavedData;
     public FishingLeaderboards fishingLeaderboards;
 
-    public SavedData() {
-        playerDataMap = new java.util.HashMap<>();
-        seededPotionRecipes = new java.util.ArrayList<>();
-        recipeResultsInSavedData = new java.util.HashMap<>();
-        fishingLeaderboards = new FishingLeaderboards();
+
+    public static final SavedDataType<SavedData> TYPE = new SavedDataType<>(FILE_NAME, SavedData::new, ctx ->
+            RecordCodecBuilder.create(builder -> builder.group(
+                    RecordCodecBuilder.point(ctx.levelOrThrow()),
+                    Codec.unboundedMap(PotionsPlusExtraCodecs.UUID_CODEC, PlayerBrewingKnowledge.CODEC).fieldOf("playerDataMap").forGetter(data -> data.playerDataMap),
+                    RecipeCodecs.BREWING_CAULDRON_RECIPE_HOLDER_CODEC.listOf().fieldOf("seededPotionRecipes").forGetter(data -> data.seededPotionRecipes),
+                    Codec.unboundedMap(Codec.STRING, RecipeCodecs.BREWING_CAULDRON_RECIPE_CODEC.listOf())
+                            .fieldOf("recipeResultsInSavedData").forGetter(data -> data.recipeResultsInSavedData),
+                    FishingLeaderboards.CODEC.fieldOf("fishingLeaderboards").forGetter(data -> data.fishingLeaderboards)
+            ).apply(builder, SavedData::new)));
+
+    public SavedData(net.minecraft.world.level.saveddata.SavedData.Context ctx) {
+        this(ctx.levelOrThrow(), new HashMap<>(), new ArrayList<>(), new HashMap<>(), new FishingLeaderboards());
     }
 
-    public static net.minecraft.world.level.saveddata.SavedData.Factory<SavedData> factory(ServerLevel level) {
-        return new net.minecraft.world.level.saveddata.SavedData.Factory<>(SavedData::new, SavedData::load, null);
+    /**
+     * Default constructor for creating an empty SavedData instance.
+     * This is used when the data is first created or when it needs to be reset.
+     * Also used when a client has no server data loaded yet, so it can still safely query the data.
+     */
+    private SavedData() {
+        this(null, new HashMap<>(), new ArrayList<>(), new HashMap<>(), new FishingLeaderboards());
     }
 
+    public SavedData(ServerLevel level, Map<UUID, PlayerBrewingKnowledge> playerDataMap,
+                     List<RecipeHolder<BrewingCauldronRecipe>> seededPotionRecipes,
+                     Map<String, List<BrewingCauldronRecipe>> recipeResultsInSavedData,
+                     FishingLeaderboards fishingLeaderboards) {
+        this.level = level;
+        this.playerDataMap = new HashMap<>(playerDataMap);
+        this.seededPotionRecipes = new ArrayList<>(seededPotionRecipes);
+        this.recipeResultsInSavedData = new HashMap<>(recipeResultsInSavedData);
+        this.fishingLeaderboards = fishingLeaderboards;
 
-    public static SavedData create() {
-        return new SavedData();
-    }
-
-    public static SavedData load(CompoundTag compoundTag, HolderLookup.Provider lookupProvider) {
-        Gson gson = createGson(lookupProvider);
-        SavedData data = create();
-
-        String json = compoundTag.getString(PLAYER_DATA_MAP_KEY);
-        Type playerDataMapType = new TypeToken<HashMap<UUID, PlayerBrewingKnowledge>>() {
-        }.getType();
-        data.playerDataMap = gson.fromJson(json, playerDataMapType);
-        if (data.playerDataMap == null) {
-            data.playerDataMap = new HashMap<>();
-            PotionsPlus.LOGGER.warn("{} Player data map is null, creating a new one.", LOGGER_HEADER);
-        }
-
-        PotionsPlus.LOGGER.info("{} Loaded {} player data entries from saved data.", LOGGER_HEADER, data.playerDataMap.size());
-
-        json = getJoinedString(compoundTag, SEEDED_POTION_RECIPES_KEY);
-        Type seededPotionRecipesType = new TypeToken<List<RecipeHolder>>() {
-        }.getType();
-        data.setBrewingCauldronRecipes(gson.fromJson(json, seededPotionRecipesType));
-        if (data.seededPotionRecipes == null) {
-            data.seededPotionRecipes = new ArrayList<>();
-            PotionsPlus.LOGGER.warn("{} Seeded potion recipes are null, creating a new one.", LOGGER_HEADER);
-        }
-        PotionsPlus.LOGGER.info("{} Loaded {} seeded potion recipes from saved data.", LOGGER_HEADER, data.seededPotionRecipes.size());
-
-        json = getJoinedString(compoundTag, FISHING_LEADERBOARDS_KEY);
-        Type fishingLeaderboardsType = new TypeToken<FishingLeaderboards>() {
-        }.getType();
-        data.fishingLeaderboards = gson.fromJson(json, fishingLeaderboardsType);
-        if (data.fishingLeaderboards == null) {
-            data.fishingLeaderboards = new FishingLeaderboards();
-            PotionsPlus.LOGGER.warn("{} Fishing leaderboards are null, creating a new one.", LOGGER_HEADER);
-        }
-        PotionsPlus.LOGGER.info("{} Loaded {} fishing player leaderboards from saved data.", LOGGER_HEADER, data.fishingLeaderboards.getFishingData().size());
-
-        return data;
+        // Ensure mutability by creating new collections. Map and list codecs load immutable collections by default.
     }
 
     public void setBrewingCauldronRecipes(List<RecipeHolder<BrewingCauldronRecipe>> recipes) {
@@ -108,7 +76,7 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
                 .forEach(recipe -> {
                     PpIngredient result = PpIngredient.of(recipe.getResultItemWithTransformations(recipe.getIngredientsAsItemStacks()));
 
-                    List<BrewingCauldronRecipe> recipesForResult = this.recipeResultsInSavedData.computeIfAbsent(result, key -> new ArrayList<>());
+                    List<BrewingCauldronRecipe> recipesForResult = this.recipeResultsInSavedData.computeIfAbsent(result.toString(), key -> new ArrayList<>());
                     recipesForResult.add(recipe);
                 });
         setDirty();
@@ -123,7 +91,7 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
         boolean isAmpOrDurUpgrade = recipe.isAmplifierUpgrade() || recipe.isDurationUpgrade();
         if (isAnyPotionEffect && isAmpOrDurUpgrade) {
             // If the recipe is an amplifier or duration upgrade, we care that the result AND the ingredients match. Otherwise, this is a different recipe in saved data.
-            List<BrewingCauldronRecipe> savedDataRecipes = recipeResultsInSavedData.getOrDefault(result, new ArrayList<>());
+            List<BrewingCauldronRecipe> savedDataRecipes = recipeResultsInSavedData.getOrDefault(result.toString(), new ArrayList<>());
 
             // Check if their are any recipes that match the ingredients (and the result) in saved data.
             return savedDataRecipes.stream().anyMatch(savedDataRecipe -> {
@@ -134,28 +102,12 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
         }
         // For the regular seeded potion recipes, we only care that the result matches. The input ingredients may be different, but we don't want more than one recipe for the same result potion.
         else {
-            return recipeResultsInSavedData.containsKey(PpIngredient.of(recipe.getResultItemWithTransformations(recipe.getIngredientsAsItemStacks())));
+            return recipeResultsInSavedData.containsKey(PpIngredient.of(recipe.getResultItemWithTransformations(recipe.getIngredientsAsItemStacks())).toString());
         }
     }
 
     public boolean isResultInRecipeSavedData(ItemStack result) {
-        return recipeResultsInSavedData.containsKey(PpIngredient.of(result));
-    }
-
-    @Override
-    public @NotNull CompoundTag save(@NotNull CompoundTag compoundTag, HolderLookup.Provider registries) {
-        Gson gson = createGson(registries);
-
-        String json = gson.toJson(playerDataMap);
-        compoundTag.putString(PLAYER_DATA_MAP_KEY, json);
-
-        json = gson.toJson(this.seededPotionRecipes);
-        putSplitString(json, compoundTag, SEEDED_POTION_RECIPES_KEY);
-
-        json = gson.toJson(this.fishingLeaderboards);
-        putSplitString(json, compoundTag, FISHING_LEADERBOARDS_KEY);
-
-        return compoundTag;
+        return recipeResultsInSavedData.containsKey(PpIngredient.of(result).toString());
     }
 
     @SubscribeEvent
@@ -177,21 +129,6 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
         setDirty();
     }
 
-    private static Gson createGson(HolderLookup.Provider registries) {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT, Modifier.STATIC);
-        gsonBuilder.registerTypeAdapter(ItemStack.class, new ItemStackTypeAdapter(registries));
-        gsonBuilder.registerTypeAdapter(BlockPos.class, new BlockPosTypeAdapter());
-        gsonBuilder.registerTypeAdapter(BlockPos.MutableBlockPos.class, new MutableBlockPosTypeAdapter());
-        gsonBuilder.registerTypeAdapter(BrewingCauldronRecipe.class, new BrewingCauldronRecipeTypeAdapter(registries));
-        gsonBuilder.registerTypeAdapter(RecipeHolder.class, new BrewingCauldronRecipeHolderTypeAdapter(registries));
-        gsonBuilder.registerTypeAdapter(String.class, new LargeStringTypeAdapter());
-        gsonBuilder.registerTypeHierarchyAdapter(SkillInstance.class, new SkillInstanceTypeAdapter());
-        gsonBuilder.registerTypeAdapter(FishingLeaderboards.class, new FishingLeaderboardsTypeAdapter());
-        gsonBuilder.enableComplexMapKeySerialization();
-        return gsonBuilder.create();
-    }
-
     public void updateDataForPlayer(Player player, Consumer<PlayerBrewingKnowledge> consumer) {
         PlayerBrewingKnowledge playerBrewingKnowledgeData = playerDataMap.computeIfAbsent(player.getUUID(), uuid -> new PlayerBrewingKnowledge());
         consumer.accept(playerBrewingKnowledgeData);
@@ -204,40 +141,5 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
 
     public PlayerBrewingKnowledge getData(UUID uuid) {
         return playerDataMap.computeIfAbsent(uuid, (key) -> new PlayerBrewingKnowledge());
-    }
-
-    private static void putSplitString(String string, CompoundTag tag, String key) {
-        String[] chunks = splitString(string, 65535);
-        for (int i = 0; i < chunks.length; i++) {
-            tag.putString(key + "_" + i, chunks[i]);
-        }
-    }
-
-    private static String getJoinedString(CompoundTag tag, String key) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; tag.contains(key + "_" + i); i++) {
-            sb.append(tag.getString(key + "_" + i));
-        }
-        return sb.toString();
-    }
-
-    private static String[] splitString(String string, int chunkSize) {
-        int len = string.length();
-        int chunkCount = (len + chunkSize - 1) / chunkSize;
-        String[] chunks = new String[chunkCount];
-        for (int i = 0; i < chunkCount; i++) {
-            int start = i * chunkSize;
-            int end = Math.min(len, start + chunkSize);
-            chunks[i] = string.substring(start, end);
-        }
-        return chunks;
-    }
-
-    private static String joinString(String[] chunks) {
-        StringBuilder sb = new StringBuilder();
-        for (String chunk : chunks) {
-            sb.append(chunk);
-        }
-        return sb.toString();
     }
 }

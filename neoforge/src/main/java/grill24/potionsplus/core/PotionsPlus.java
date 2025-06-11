@@ -29,12 +29,12 @@ public class PotionsPlus {
 
         Blocks.BLOCKS.register(bus);
         Blocks.BLOCK_ENTITIES.register(bus);
-        ArmorMaterials.ARMOR_MATERIALS.register(bus);
         Items.ITEMS.register(bus);
         Entities.ENTITIES.register(bus);
         Particles.PARTICLE_TYPES.register(bus);
         Recipes.RECIPE_TYPES.register(bus);
         Recipes.RECIPE_SERIALIZERS.register(bus);
+        Recipes.RECIPE_DISPLAYS.register(bus);
         MobEffects.EFFECTS.register(bus);
         Potions.POTIONS.register(bus);
         Sounds.SOUNDS.register(bus);

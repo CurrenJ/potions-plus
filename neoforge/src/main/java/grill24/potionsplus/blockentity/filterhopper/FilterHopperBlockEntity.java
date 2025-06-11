@@ -18,7 +18,6 @@ import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PotionItem;
@@ -76,7 +75,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
         updateCache();
 
-        this.cooldownTime = tag.getInt("TransferCooldown");
+        this.cooldownTime = tag.getInt("TransferCooldown").orElse(0);
     }
 
     private int getTotalSize() {
@@ -263,10 +262,9 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     public static boolean suckInItems(Level level, Hopper hopper) {
         BlockPos blockpos = BlockPos.containing(hopper.getLevelX(), hopper.getLevelY() + 1.0, hopper.getLevelZ());
         BlockState blockstate = level.getBlockState(blockpos);
-        Boolean ret = net.neoforged.neoforge.items.VanillaInventoryCodeHooks.extractHook(level, hopper);
-        if (ret != null) return ret;
-        Container container = getSourceContainer(level, hopper, blockpos, blockstate);
-        if (container != null) {
+        var containerOrHandler = getSourceContainerOrHandler(level, hopper, blockpos, blockstate);
+        if (containerOrHandler.container() != null) {
+            Container container = containerOrHandler.container();
             Direction direction = Direction.DOWN;
 
             for (int i : getSlots(container, direction)) {
@@ -276,10 +274,12 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
             }
 
             return false;
+        } else if (containerOrHandler.itemHandler() != null) {
+            return net.neoforged.neoforge.items.VanillaInventoryCodeHooks.extractHook(hopper, containerOrHandler.itemHandler());
         } else {
             boolean flag = hopper.isGridAligned()
-                && blockstate.isCollisionShapeFullBlock(level, blockpos)
-                && !blockstate.is(BlockTags.DOES_NOT_BLOCK_HOPPERS);
+                    && blockstate.isCollisionShapeFullBlock(level, blockpos)
+                    && !blockstate.is(BlockTags.DOES_NOT_BLOCK_HOPPERS);
             if (!flag) {
                 for (ItemEntity itementity : getItemsAtAndAbove(level, hopper)) {
                     if (addItem(hopper, itementity)) {
@@ -290,6 +290,28 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
             return false;
         }
+    }
+
+    private static net.neoforged.neoforge.items.ContainerOrHandler getSourceContainerOrHandler(Level p_155597_, Hopper p_155598_, BlockPos p_326315_, BlockState p_326093_) {
+        return getContainerOrHandlerAt(p_155597_, p_326315_, p_326093_, p_155598_.getLevelX(), p_155598_.getLevelY() + 1.0, p_155598_.getLevelZ(), Direction.DOWN);
+    }
+
+    public static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, @Nullable Direction side) {
+        return getContainerOrHandlerAt(
+                level, pos, level.getBlockState(pos), (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, side
+        );
+    }
+
+    private static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, BlockState state, double x, double y, double z, @Nullable Direction side) {
+        Container container = getBlockContainer(level, pos, state);
+        if (container != null) {
+            return new net.neoforged.neoforge.items.ContainerOrHandler(container, null);
+        }
+        var blockItemHandler = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK, pos, state, null, side);
+        if (blockItemHandler != null) {
+            return new net.neoforged.neoforge.items.ContainerOrHandler(null, blockItemHandler);
+        }
+        return net.neoforged.neoforge.items.VanillaInventoryCodeHooks.getEntityContainerOrHandler(level, x, y, z, side);
     }
 
     /**
@@ -534,8 +556,8 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
         boolean blacklist = upgradeItemsCache.contains(FilterHopperUpgradeItems.FILTER_HOPPER_UPGRADE_BLACKLIST.value());
         boolean isItemValid = this.filterItemsCache.contains(item)
-                || (allowArmor && item instanceof ArmorItem)
-                || (allowTools && stack.isDamageableItem() && !(item instanceof ArmorItem))
+                || (allowArmor && stack.has(DataComponents.EQUIPPABLE))
+                || (allowTools && stack.isDamageableItem() && !(stack.has(DataComponents.EQUIPPABLE)))
                 || (allowFood && stack.has(DataComponents.FOOD))
                 || (allowPotions && (stack.has(DataComponents.POTION_CONTENTS) || item instanceof PotionItem)
                 || (allowEnchanted && (!stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty()

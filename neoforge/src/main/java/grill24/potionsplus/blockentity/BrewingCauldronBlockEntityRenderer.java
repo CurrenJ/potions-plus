@@ -4,8 +4,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.utility.RUtil;
+import net.minecraft.util.profiling.Profiler;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -34,11 +36,11 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
 
 
     @Override
-    public void render(BrewingCauldronBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+    public void render(BrewingCauldronBlockEntity blockEntity, float partialTick, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
         double ticks = ClientTickHandler.total() * 2;
 
         // Profiler
-        ProfilerFiller profiler = Minecraft.getInstance().getProfiler();
+        ProfilerFiller profiler = Profiler.get();
         profiler.push("brewing_cauldron_render");
 
         matrices.pushPose();

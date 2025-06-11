@@ -10,7 +10,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.geom.Rectangle2D;
@@ -65,7 +65,7 @@ public class TextButtonScreenElement extends RenderableScreenElement {
         graphics.pose().pushPose();
         graphics.pose().translate(textX, textY, 100);
         graphics.pose().mulPose(Axis.ZP.rotationDegrees(renderRotation));
-        graphicsMixin.potions_plus$drawString(font, text, 0, 0, FastColor.ARGB32.colorFromFloat(1, 1, 1, 1));
+        graphicsMixin.potions_plus$drawString(font, text, 0, 0, ARGB.colorFromFloat(1, 1, 1, 1));
         graphics.pose().popPose();
     }
 

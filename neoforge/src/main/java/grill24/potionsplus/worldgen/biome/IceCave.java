@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Vec3i;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -25,7 +25,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class IceCave {
-    public static WeightedStateProvider ICE_SAMPLER = new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+    public static WeightedStateProvider ICE_SAMPLER = new WeightedStateProvider(WeightedList.<BlockState>builder()
             .add(Blocks.ICE.defaultBlockState(), 5)
             .add(Blocks.PACKED_ICE.defaultBlockState(), 4)
             .add(Blocks.BLUE_ICE.defaultBlockState(), 1)
@@ -49,9 +49,9 @@ public class IceCave {
 
     public static Biome iceCave(HolderGetter<PlacedFeature> placedFeatureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
         MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();
-        mobspawnsettings$builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SNOW_GOLEM, 10, 4, 6));
-        mobspawnsettings$builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 10, 4, 6));
-        mobspawnsettings$builder.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 25, 8, 8));
+        mobspawnsettings$builder.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(EntityType.SNOW_GOLEM, 4, 10));
+        mobspawnsettings$builder.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 4, 10));
+        mobspawnsettings$builder.addSpawn(MobCategory.WATER_AMBIENT, 8, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 8, 25));
         BiomeDefaultFeatures.commonSpawns(mobspawnsettings$builder);
 
         BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder(placedFeatureGetter, carverGetter);

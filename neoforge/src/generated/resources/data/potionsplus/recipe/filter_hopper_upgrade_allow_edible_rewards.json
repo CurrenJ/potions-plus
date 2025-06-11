@@ -3,12 +3,8 @@
   "category": "redstone",
   "group": "filter_hopper_upgrade_allow_edible_rewards",
   "ingredients": [
-    {
-      "item": "potionsplus:upgrade_base"
-    },
-    {
-      "tag": "potionsplus:edible_rewards"
-    }
+    "potionsplus:upgrade_base",
+    "#potionsplus:edible_rewards"
   ],
   "result": {
     "count": 1,

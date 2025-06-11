@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "D": {
-      "item": "minecraft:diamond"
-    },
-    "H": {
-      "item": "potionsplus:large_filter_hopper"
-    },
-    "U": {
-      "item": "potionsplus:uranium_ingot"
-    }
+    "D": "minecraft:diamond",
+    "H": "potionsplus:large_filter_hopper",
+    "U": "potionsplus:uranium_ingot"
   },
   "pattern": [
     "U",

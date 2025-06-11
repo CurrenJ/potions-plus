@@ -224,7 +224,7 @@ public class CommonCommands {
                         .requires((source) -> source.hasPermission(2))
                         .executes(context -> {
                             if (context.getSource().getEntity() instanceof ServerPlayer player) {
-                                List<ItemStack> itemStacks = player.getInventory().items.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
+                                List<ItemStack> itemStacks = player.getInventory().getNonEquipmentItems().stream().filter(itemStack -> !itemStack.isEmpty()).toList();
                                 int winnerIndex = player.getRandom().nextInt(itemStacks.size());
 
                                 PacketDistributor.sendToPlayer(player, new ClientboundDisplayWheelAnimationPacket(itemStacks, winnerIndex));

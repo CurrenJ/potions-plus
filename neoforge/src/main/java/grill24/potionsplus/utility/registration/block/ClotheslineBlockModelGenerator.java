@@ -3,14 +3,21 @@ package grill24.potionsplus.utility.registration.block;
 import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.block.ClotheslinePart;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 
-import java.util.Objects;
 import java.util.function.Supplier;
 
+import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class ClotheslineBlockModelGenerator<T extends Block> extends BlockModelUtility.BlockModelGenerator<T> {
@@ -18,21 +25,29 @@ public class ClotheslineBlockModelGenerator<T extends Block> extends BlockModelU
         super(blockGetter);
     }
 
-    public static void registerClothesline(BlockStateProvider provider) {
-        provider.getVariantBuilder(BlockEntityBlocks.CLOTHESLINE.value())
-                .partialState().with(ClotheslineBlock.PART, ClotheslinePart.LEFT).modelForState()
-                .modelFile(provider.models().getExistingFile(provider.mcLoc("oak_fence_post")))
-                .addModel()
-                .partialState().with(ClotheslineBlock.PART, ClotheslinePart.RIGHT).modelForState()
-                .modelFile(provider.models().getExistingFile(provider.mcLoc("oak_fence_post")))
-                .addModel();
+    public static void registerClothesline(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+        Block block = BlockEntityBlocks.CLOTHESLINE.value();
 
-        provider.itemModels().getBuilder(Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(BlockEntityBlocks.CLOTHESLINE.value())).getPath())
-                .parent(provider.models().getExistingFile(ppId("block/clothesline_inventory")));
+        ResourceLocation fencePostModelLocation = mc("block/oak_fence_post");
+
+        // Generate blockstate definition
+        MultiVariant fencePost = BlockModelGenerators.plainVariant(fencePostModelLocation);
+        BlockModelDefinitionGenerator blockstateGenerator = MultiVariantGenerator.dispatch(block)
+                .with(
+                        PropertyDispatch.initial(ClotheslineBlock.PART)
+                                .select(ClotheslinePart.LEFT, fencePost)
+                                .select(ClotheslinePart.RIGHT, fencePost)
+                );
+        blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+
+        // Generate client item definition from existing model
+        ResourceLocation clotheslineInventoryModelLocation = ppId("block/clothesline_inventory");
+        ItemModel.Unbaked itemModel = ItemModelUtils.plainModel(clotheslineInventoryModelLocation);
+        itemModelGenerators.itemModelOutput.accept(block.asItem(), itemModel);
     }
 
     @Override
-    public void generate(BlockStateProvider provider) {
-        registerClothesline(provider);
+    public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+        registerClothesline(blockModelGenerators, itemModelGenerators);
     }
 }

@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "fish_no_size",
   "ingredients": [
-    {
-      "item": "potionsplus:northern_pike"
-    }
+    "potionsplus:northern_pike"
   ],
   "result": {
     "count": 1,

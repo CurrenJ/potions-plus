@@ -29,9 +29,9 @@ public record ConfiguredGrantableReward<RC extends GrantableRewardConfiguration,
     }
 
     public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, ServerPlayer player) {
-        List<ItemStack> itemsBefore = player.getInventory().items.stream().map(ItemStack::copy).toList();
+        List<ItemStack> itemsBefore = player.getInventory().getNonEquipmentItems().stream().map(ItemStack::copy).toList();
         this.reward.grant(holder, this.config, player);
-        List<ItemStack> itemsAfter = player.getInventory().items;
+        List<ItemStack> itemsAfter = player.getInventory().getNonEquipmentItems();
 
         // Get difference between itemsBefore and itemsAfter
         List<ItemStack> newItems = new ArrayList<>();

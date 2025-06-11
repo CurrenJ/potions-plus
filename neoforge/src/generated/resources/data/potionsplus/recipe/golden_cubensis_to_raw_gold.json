@@ -3,10 +3,12 @@
   "category": "MISC",
   "ingredients": [
     {
-      "ppIngredient": {
-        "count": 1,
-        "id": "potionsplus:golden_cubensis"
-      }
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "potionsplus:golden_cubensis"
+        }
+      ]
     }
   ],
   "processingTime": 60,

@@ -1,6 +1,9 @@
 package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.core.*;
+import grill24.potionsplus.core.Advancements;
+import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.Particles;
+import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
@@ -16,17 +19,18 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
@@ -86,11 +90,11 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
         // Find the recipe we can craft with the current ingredients
         // Take the recipe with the longest processing time, as a pseudo-priority system
-        this.activeRecipe = this.level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()).stream()
+        this.activeRecipe = Recipes.recipes.byType(Recipes.BREWING_CAULDRON_RECIPE.get()).stream()
                 .filter(recipe -> recipe.value().matches(this, this.level))
                 .max(Comparator.comparingInt((recipe) -> recipe.value().getIngredientsAsItemStacks().size()));
 
-        if(this.activeRecipe.isEmpty()) {
+        if (this.activeRecipe.isEmpty()) {
             // ----- Potion MERGE Logic -----
 
             // Get all mobeffectinstances from the potions
@@ -112,22 +116,22 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
             if (potions.length > 1 && effectCount > 1) {
                 ItemStack potionStack = PUtil.setCustomEffects(new ItemStack(potions[0].getItem()), new ArrayList<>(effectMap.values()));
 
-                if(effectCount == 2) {
-                    potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_2_effects"));
+                if (effectCount == 2) {
+                    potionStack.set(DataComponents.ITEM_NAME, Component.translatable("item.potionsplus.merged_potions_2_effects"));
                 } else if (effectCount == 3) {
-                    potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_3_effects"));
+                    potionStack.set(DataComponents.ITEM_NAME, Component.translatable("item.potionsplus.merged_potions_3_effects"));
                 } else if (effectCount == 4) {
-                    potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_4_effects"));
+                    potionStack.set(DataComponents.ITEM_NAME, Component.translatable("item.potionsplus.merged_potions_4_effects"));
                 } else if (effectCount == 5) {
-                    potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_5_effects"));
+                    potionStack.set(DataComponents.ITEM_NAME, Component.translatable("item.potionsplus.merged_potions_5_effects"));
                 } else if (effectCount == 6) {
-                    potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_6_effects"));
+                    potionStack.set(DataComponents.ITEM_NAME, Component.translatable("item.potionsplus.merged_potions_6_effects"));
                 } else if (effectCount == 7) {
-                    potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_7_effects"));
+                    potionStack.set(DataComponents.ITEM_NAME, Component.translatable("item.potionsplus.merged_potions_7_effects"));
                 } else if (effectCount == 8) {
-                    potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_8_effects"));
+                    potionStack.set(DataComponents.ITEM_NAME, Component.translatable("item.potionsplus.merged_potions_8_effects"));
                 } else {
-                    potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_max"));
+                    potionStack.set(DataComponents.ITEM_NAME, Component.translatable("item.potionsplus.merged_potions_max"));
                 }
 
                 ItemStack[] ingredients = new ItemStack[potions.length];
@@ -152,7 +156,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                 customEffects.addAll(PUtil.getAllEffects(item.get()));
                 ItemStack result = PUtil.setCustomEffects(item.get(), customEffects).copy();
 
-                ItemStack[] ingredients = new ItemStack[] { item.get(), potion.get() };
+                ItemStack[] ingredients = new ItemStack[]{item.get(), potion.get()};
                 this.activeRecipe = Optional.of(
                         new BrewingCauldronRecipeBuilder()
                                 .result(result)
@@ -187,7 +191,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
             ItemStack result = activeRecipe.get().value().getResultItemWithTransformations(this.items);
             if (result.has(DataComponents.POTION_CONTENTS)) {
                 List<MobEffectInstance> effects = PUtil.getAllEffects(PUtil.getPotionContents(result));
-                Color potionColor = new Color(PotionContents.getColor(effects));
+                Color potionColor = new Color(PotionContents.getColorOptional(effects).orElse(ARGB.color(0, 0, 0)));
 
                 // Lerp water and potions
                 float lerp = (float) brewTime / activeRecipe.get().value().getProcessingTime();
@@ -211,7 +215,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
         if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
             if (activeRecipe.isEmpty()) return;
-            final ResourceLocation recipeId = activeRecipe.get().id();
+            final ResourceKey<Recipe<?>> recipeId = activeRecipe.get().id();
             final BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(activeRecipe.get().value());
 
             // Remove ingredients and add result
@@ -248,8 +252,8 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                     // Try add new recipe knowledge to saved data
                     // If the recipe was not already known, schedule a JEI update and play a sound
                     level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
-                        if(player instanceof ServerPlayer serverPlayer) {
-                            SavedData.instance.getData(player.getUUID()).tryAddKnownRecipeServer(serverPlayer, recipeId.toString(), result);
+                        if (player instanceof ServerPlayer serverPlayer) {
+                            SavedData.instance.getData(player.getUUID()).tryAddKnownRecipeServer(serverPlayer, recipeId, result);
                             Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, recipe.getType(), PpIngredient.of(result));
                         }
                     });
@@ -306,7 +310,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                     if (!players.isEmpty()) {
                         // Take xp from player that is standing in the cauldron and add to internal xp buffer
                         playerInCauldron = Optional.of(players.getFirst());
-                        if(playerInCauldron.get().experienceProgress > 0 || playerInCauldron.get().experienceLevel > 0 || playerInCauldron.get().isCreative()) {
+                        if (playerInCauldron.get().experienceProgress > 0 || playerInCauldron.get().experienceLevel > 0 || playerInCauldron.get().isCreative()) {
                             if (!playerInCauldron.get().isCreative()) {
                                 playerInCauldron.get().giveExperiencePoints(-1);
                             }

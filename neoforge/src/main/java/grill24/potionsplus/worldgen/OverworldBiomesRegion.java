@@ -62,7 +62,7 @@ public class OverworldBiomesRegion extends Region {
     public static void onModSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() ->
         {
-            Regions.register(new OverworldBiomesRegion(2));
+            Regions.register(new OverworldBiomesRegion(4));
         });
     }
 }

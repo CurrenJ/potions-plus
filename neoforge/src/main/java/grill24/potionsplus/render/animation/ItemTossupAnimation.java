@@ -1,12 +1,10 @@
 package grill24.potionsplus.render.animation;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Vector3f;
@@ -148,18 +146,16 @@ public class ItemTossupAnimation extends ItemActivationAnimation {
                 poseStack.mulPose(Axis.ZP.rotationDegrees(physicsItem.rotation.z * 360));
                 poseStack.scale(scale, scale, scale);
 
-                minecraft
-                        .getItemRenderer()
-                        .renderStatic(
-                                physicsItem.stack,
-                                ItemDisplayContext.FIXED,
-                                15728880,
-                                OverlayTexture.NO_OVERLAY,
-                                poseStack,
-                                guiGraphics.bufferSource(),
-                                minecraft.level,
-                                0
-                        );
+                guiGraphics.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                        physicsItem.stack,
+                        ItemDisplayContext.FIXED,
+                        15728880,
+                        OverlayTexture.NO_OVERLAY,
+                        poseStack,
+                        bufferSource,
+                        minecraft.level,
+                        0
+                ));
 
                 poseStack.popPose();
             }

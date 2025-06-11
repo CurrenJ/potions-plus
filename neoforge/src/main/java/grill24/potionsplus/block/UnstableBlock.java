@@ -7,7 +7,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,7 +18,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class UnstableBlock extends Block {
     public static BooleanProperty PRIMED = BooleanProperty.create("primed");
@@ -54,18 +54,28 @@ public class UnstableBlock extends Block {
     }
 
     @Override
-    public BlockState updateShape(BlockState myState, Direction direction, BlockState otherState, LevelAccessor levelAccessor, BlockPos myPos, BlockPos otherPos) {
-        if(!levelAccessor.isClientSide()) {
-            if (!(otherState.getBlock() instanceof UnstableBlock)) {
-                levelAccessor.scheduleTick(myPos, this, this.getDelayAfterPlace(myState));
+    protected BlockState updateShape(
+            BlockState state,
+            LevelReader level,
+            ScheduledTickAccess scheduledTickAccess,
+            BlockPos pos,
+            Direction direction,
+            BlockPos neighborPos,
+            BlockState neighborState,
+            RandomSource random
+    ) {
+        if (!level.isClientSide()) {
+            if (!(neighborState.getBlock() instanceof UnstableBlock)) {
+                scheduledTickAccess.scheduleTick(pos, this, this.getDelayAfterPlace(state));
             }
         }
-        return super.updateShape(myState, direction, otherState, levelAccessor, myPos, otherPos);
+
+        return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
     public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
-        if(blockState.getValue(PRIMED)) {
+        if (blockState.getValue(PRIMED)) {
             serverLevel.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 3);
             serverLevel.levelEvent(2001, blockPos, Block.getId(defaultBlockState()));
         } else {
