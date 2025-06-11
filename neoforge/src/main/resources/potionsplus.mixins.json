@@ -9,6 +9,7 @@
     "BoatMixin",
     "BootstrapMixin",
     "BucketItemMixin",
+    "ConsumableMixin",
     "EnchantedCountIncreaseFunctionMixin",
     "EntityMixin",
     "FallbackResourceManagerMixin",
@@ -26,6 +27,7 @@
     "OreFeatureMixin",
     "PlayerMixin",
     "PotionItemMixin",
+    "RecipeManagerMixin",
     "ReloadableResourceManagerMixin",
     "StateTestingPredicateMixin",
     "TemptGoalMixin"

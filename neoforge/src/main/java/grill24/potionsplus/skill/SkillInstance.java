@@ -67,7 +67,7 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
     }
 
     public ConfiguredSkill<SC, S> getConfiguredSkill(RegistryAccess registryAccess) {
-        return (ConfiguredSkill<SC, S>) registryAccess.registryOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL).get(getConfiguredSkillKey());
+        return (ConfiguredSkill<SC, S>) registryAccess.getOrThrow(getConfiguredSkillKey()).value();
     }
 
     public void addPointsWithGrindingPenalty(Player player, float points, PointEarningHistory pointEarningHistory) {

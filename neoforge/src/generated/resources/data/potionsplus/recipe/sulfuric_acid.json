@@ -3,21 +3,25 @@
   "category": "BREWING",
   "ingredients": [
     {
-      "ppIngredient": {
-        "components": {
-          "minecraft:potion_contents": {
-            "potion": "minecraft:water"
-          }
-        },
-        "count": 1,
-        "id": "minecraft:potion"
-      }
+      "matchStacks": [
+        {
+          "components": {
+            "minecraft:potion_contents": {
+              "potion": "minecraft:water"
+            }
+          },
+          "count": 1,
+          "id": "minecraft:potion"
+        }
+      ]
     },
     {
-      "ppIngredient": {
-        "count": 1,
-        "id": "potionsplus:sulfur_shard"
-      }
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "potionsplus:sulfur_shard"
+        }
+      ]
     }
   ],
   "matchingCriteria": [

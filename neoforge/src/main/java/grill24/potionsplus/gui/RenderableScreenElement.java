@@ -5,7 +5,7 @@ import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -172,9 +172,9 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         }
     }
 
-    private static final int BOUNDS_COLOR = FastColor.ARGB32.colorFromFloat(0.2F, 1, 1, 1);
-    private static final int GRID_COLOR = FastColor.ARGB32.colorFromFloat(0.3F, 0, 0, 1);
-    private static final int OUTLINE_COLOR = FastColor.ARGB32.colorFromFloat(0.3F, 1, 0, 0);
+    private static final int BOUNDS_COLOR = ARGB.colorFromFloat(0.2F, 1, 1, 1);
+    private static final int GRID_COLOR = ARGB.colorFromFloat(0.3F, 0, 0, 1);
+    private static final int OUTLINE_COLOR = ARGB.colorFromFloat(0.3F, 1, 0, 0);
     private void renderDebug(GuiGraphics graphics) {
         if (this.settings.showBounds) {
             Rectangle2D bounds = getGlobalBounds();

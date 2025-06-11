@@ -43,7 +43,7 @@ public class CraftRecipeTrigger extends SimpleCriterionTrigger<CraftRecipeTrigge
         public static final Codec<CraftRecipeTrigger.TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(triggerInstance -> triggerInstance.player),
                 ResourceKey.codec(BuiltInRegistries.RECIPE_TYPE.key()).optionalFieldOf("recipe").forGetter(triggerInstance -> triggerInstance.recipeType),
-                PpIngredient.CODEC.codec().optionalFieldOf("recipe_id").forGetter(triggerInstance -> triggerInstance.recipeResult),
+                PpIngredient.CODEC.optionalFieldOf("recipe_id").forGetter(triggerInstance -> triggerInstance.recipeResult),
                 BrewingCauldronRecipe.PotionMatchingCriteria.CODEC.listOf().optionalFieldOf("potion_matching_criteria").forGetter(triggerInstance -> triggerInstance.potionMatchingCriteria)
         ).apply(instance, TriggerInstance::new));
 

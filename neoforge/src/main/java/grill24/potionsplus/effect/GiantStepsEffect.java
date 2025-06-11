@@ -7,6 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -35,7 +36,7 @@ public class GiantStepsEffect extends MobEffect implements IEffectTooltipDetails
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
+    public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity livingEntity, int amplifier) {
         AttributeInstance attributeInstance = livingEntity.getAttribute(Attributes.STEP_HEIGHT);
         if (attributeInstance != null) {
             final AttributeModifier STEP_HEIGHT_MODIFIER = new AttributeModifier(STEP_HEIGHT_MODIFIER_ID, getStepHeight(amplifier), AttributeModifier.Operation.ADD_VALUE);

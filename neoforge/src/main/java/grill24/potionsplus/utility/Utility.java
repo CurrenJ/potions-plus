@@ -35,7 +35,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ResolvableProfile;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -43,6 +43,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -51,6 +53,7 @@ import java.io.StringReader;
 import java.util.*;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class Utility {
     // String utils
@@ -91,15 +94,15 @@ public class Utility {
     // ItemStack and NBT Utils
     public static ItemStack itemStackFromTagString(HolderLookup.Provider registryAccess, String tagString) {
         try {
-            CompoundTag tag = TagParser.parseTag(tagString);
-            return ItemStack.parseOptional(registryAccess, tag);
+            CompoundTag tag = TagParser.parseCompoundFully(tagString);
+            return ItemStack.parse(registryAccess, tag).orElse(ItemStack.EMPTY);
         } catch (CommandSyntaxException e) {
             throw new RuntimeException(e);
         }
     }
 
     public static Ingredient ingredientFromTagString(HolderLookup.Provider registryAccess, String tagString) {
-        return Ingredient.of(itemStackFromTagString(registryAccess, tagString));
+        return Ingredient.of(itemStackFromTagString(registryAccess, tagString).getItem());
     }
 
     // Block Entity
@@ -141,7 +144,7 @@ public class Utility {
 
     public static SimpleSoundInstance createSoundInstance(SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, boolean looping, int delay, SoundInstance.Attenuation attenuation, double x, double y, double z, boolean relative) {
         return new SimpleSoundInstance(
-                soundEvent.getLocation(),
+                soundEvent.location(),
                 soundSource,
                 volume,
                 pitch,
@@ -302,10 +305,6 @@ public class Utility {
         return formatEffectNumber(number, 0, suffix);
     }
 
-    public static <T> Registry<T> getRegistry(ResourceKey<Registry<T>> resourceKey) {
-        return (Registry<T>) BuiltInRegistries.REGISTRY.get(resourceKey.location());
-    }
-
     public static List<Component> splitOnLinebreaks(Component component) {
         List<Component> components = new ArrayList<>();
         String contents = component.getString();
@@ -369,12 +368,28 @@ public class Utility {
     public static <T> Optional<Holder<T>> getHolder(T value, DefaultedRegistry<T> registry) {
         Optional<ResourceKey<T>> key = registry.getResourceKey(value);
         if (key.isPresent()) {
-            Optional<Holder.Reference<T>> holder = registry.getHolder(key.get());
+            Optional<Holder.Reference<T>> holder = registry.get(key.get());
             if (holder.isPresent()) {
                 return Optional.of(holder.get());
             }
         }
 
         return Optional.empty();
+    }
+
+    public static <I extends RecipeInput, T extends Recipe<I>> Collection<RecipeHolder<T>> getAllRecipesFor(RecipeManager recipeManager, RecipeType<T> recipeType) {
+        Collection<RecipeHolder<?>> allRecipes = recipeManager.getRecipes();
+        return allRecipes.stream()
+                .filter(recipeHolder -> recipeHolder.value().getType() == recipeType)
+                .map(recipeHolder -> (RecipeHolder<T>) recipeHolder)
+                .toList();
+    }
+
+    public static <T> T clientOnly(Supplier<T> supplier) {
+        if (FMLEnvironment.dist != Dist.CLIENT) {
+            return null;
+        }
+
+        return supplier.get();
     }
 }

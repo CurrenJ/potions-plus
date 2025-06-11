@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:beacon"
-    },
-    "G": {
-      "item": "potionsplus:uranium_glass"
-    },
-    "O": {
-      "item": "minecraft:obsidian"
-    }
+    "B": "minecraft:beacon",
+    "G": "potionsplus:uranium_glass",
+    "O": "minecraft:obsidian"
   },
   "pattern": [
     "GGG",

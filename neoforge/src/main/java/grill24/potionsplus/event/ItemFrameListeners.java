@@ -11,10 +11,11 @@ import net.neoforged.neoforge.client.event.RenderItemInFrameEvent;
 public class ItemFrameListeners {
     @SubscribeEvent
     public static void onItemInFrameRender(final RenderItemInFrameEvent event) {
-        ItemStack itemStack = event.getItemStack();
-        if (itemStack.has(DataComponents.FISH_SIZE)) {
-            float scale = itemStack.get(DataComponents.FISH_SIZE).getItemFrameSizeMultiplier();
-            event.getPoseStack().scale(scale, scale, scale);
-        }
+        //TODO: Fix fish scale rendering in item frames
+//        ItemStack itemStack = event;
+//        if (itemStack.has(DataComponents.FISH_SIZE)) {
+//            float scale = itemStack.get(DataComponents.FISH_SIZE).getItemFrameSizeMultiplier();
+//            event.getPoseStack().scale(scale, scale, scale);
+//        }
     }
 }

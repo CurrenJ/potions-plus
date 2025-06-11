@@ -1,14 +1,19 @@
 package grill24.potionsplus.recipe;
 
 import com.google.common.collect.ImmutableList;
+import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeDisplay;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +23,7 @@ import java.util.List;
 
 public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
     protected final RecipeCategory category;
-    protected final String group;
+    protected PlacementInfo placementInfo;
     protected final ItemStack result;
     protected final List<PpIngredient> ingredients;
     protected final int processingTime;
@@ -26,9 +31,8 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
 
     private final NonNullList<Ingredient> nonNullIngredientList;
 
-    public ShapelessProcessingRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei) {
+    public ShapelessProcessingRecipe(RecipeCategory category, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei) {
         this.category = category;
-        this.group = group;
         this.ingredients = ImmutableList.copyOf(ingredients);
         this.result = result;
         this.processingTime = processingTime;
@@ -36,9 +40,13 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
 
         NonNullList<Ingredient> nonNullIngredientsList = NonNullList.create();
         for (PpIngredient ppIngredient : ingredients) {
-            nonNullIngredientsList.add(Ingredient.of(ppIngredient.getItemStack()));
+            nonNullIngredientsList.add(ppIngredient.asIngredient());
         }
         this.nonNullIngredientList = nonNullIngredientsList;
+
+        if (this.nonNullIngredientList.isEmpty()) {
+            PotionsPlus.LOGGER.warn("ShapelessProcessingRecipe created with no ingredients! This is likely a bug.");
+        }
     }
 
     public List<ItemStack> getIngredientsAsItemStacks() {
@@ -71,13 +79,30 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
-        return true;
+    public List<RecipeDisplay> display() {
+        return List.of(
+                new BrewingCauldronRecipeDisplay(
+                        this.ingredients.stream().map(PpIngredient::display).toList(),
+                        new SlotDisplay.ItemStackSlotDisplay(this.result),
+                        new SlotDisplay.ItemSlotDisplay(BlockEntityBlocks.BREWING_CAULDRON.value().asItem())
+                )
+        );
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider access) {
-        return getResult();
+    public PlacementInfo placementInfo() {
+        // This delegate is done as the HolderSet backing the ingredient may not be fully populated in the constructor
+        if (this.placementInfo == null) {
+            this.placementInfo = PlacementInfo.create(this.nonNullIngredientList);
+        }
+
+        return this.placementInfo;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        // Functions similar to the book category passed into the recipe builders during data generation
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
     public ItemStack getResult() {
@@ -86,11 +111,6 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
 
     public int getProcessingTime() {
         return this.processingTime;
-    }
-
-    @Override
-    public @NotNull NonNullList<Ingredient> getIngredients() {
-        return this.nonNullIngredientList;
     }
 
     public @NotNull List<PpIngredient> getPpIngredients() {

@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "fish_no_size",
   "ingredients": [
-    {
-      "item": "potionsplus:garden_eel"
-    }
+    "potionsplus:garden_eel"
   ],
   "result": {
     "count": 1,

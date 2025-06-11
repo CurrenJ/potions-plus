@@ -122,15 +122,15 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
                     String fieldName = field.getName();
 
                     if (field.getType() == int.class) {
-                        field.setInt(this, tag.getInt(fieldName));
+                        field.setInt(this, tag.getInt(fieldName).orElse(0));
                     } else if (field.getType() == float.class) {
-                        field.setFloat(this, tag.getFloat(fieldName));
+                        field.setFloat(this, tag.getFloat(fieldName).orElse(0F));
                     } else if (field.getType() == double.class) {
-                        field.setDouble(this, tag.getDouble(fieldName));
+                        field.setDouble(this, tag.getDouble(fieldName).orElse(0D));
                     } else if (field.getType() == long.class) {
-                        field.setLong(this, tag.getLong(fieldName));
+                        field.setLong(this, tag.getLong(fieldName).orElse(0L));
                     } else if (field.getType() == boolean.class) {
-                        field.setBoolean(this, tag.getBoolean(fieldName));
+                        field.setBoolean(this, tag.getBoolean(fieldName).orElse(false));
                     } else if (field.getType() == String.class) {
                         field.set(this, tag.getString(fieldName));
                     }

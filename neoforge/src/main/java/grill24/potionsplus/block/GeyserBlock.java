@@ -104,14 +104,14 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
 
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, net.minecraft.world.entity.Entity entity) {
-        if (entity instanceof Player) {
+        if (entity instanceof Player && level instanceof ServerLevel serverLevel) {
             level.setBlockAndUpdate(pos, state.setValue(ACTIVE, true));
             level.scheduleTick(pos, this, 0);
 
             if (!entity.fireImmune()) {
                 int i = entity.getRemainingFireTicks();
                 entity.igniteForTicks(5);
-                boolean flag = entity.hurt(level.damageSources().hotFloor(), 5.0F);
+                boolean flag = entity.hurtServer(serverLevel, level.damageSources().hotFloor(), 5.0F);
                 if (!flag) {
                     entity.setRemainingFireTicks(i);
                 }

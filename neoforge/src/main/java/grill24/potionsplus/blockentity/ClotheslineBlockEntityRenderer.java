@@ -2,6 +2,7 @@ package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.utility.RUtil;
+import net.minecraft.util.profiling.Profiler;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -45,11 +46,11 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
 
     public ClotheslineBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         blockRenderDispatcher = context.getBlockRenderDispatcher();
-        profiler = Minecraft.getInstance().getProfiler();
+        profiler = Profiler.get();
     }
 
     @Override
-    public void render(ClotheslineBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+    public void render(ClotheslineBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
         profiler.push("clothesline_render");
 
         if (blockEntity.getLevel() != null) {

@@ -3,7 +3,7 @@ package grill24.potionsplus.worldgen;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ClampedNormalInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Blocks;
@@ -27,7 +27,7 @@ public class VersatilePlantsWorldGenData {
             new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP, Direction.DOWN},
             SimpleStateProvider.simple(Blocks.MOSS_BLOCK),
             new WeightedStateProvider(
-                    SimpleWeightedRandomList.<BlockState>builder()
+                    WeightedList.<BlockState>builder()
                             .add(FlowerBlocks.SURVIVOR_STICK.value().defaultBlockState(), 1)
                             .add(FlowerBlocks.COWLICK_VINE.value().defaultBlockState(), 1)
                             .add(FlowerBlocks.HANGING_FERN.value().defaultBlockState(), 13)
@@ -48,7 +48,7 @@ public class VersatilePlantsWorldGenData {
             new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP, Direction.DOWN},
             SimpleStateProvider.simple(Blocks.MOSS_BLOCK),
             new WeightedStateProvider(
-                    SimpleWeightedRandomList.<BlockState>builder()
+                    WeightedList.<BlockState>builder()
                             .add(FlowerBlocks.DANDELION_VERSATILE.value().defaultBlockState(), 6)
                             .add(FlowerBlocks.TORCHFLOWER_VERSATILE.value().defaultBlockState(), 3)
                             .add(FlowerBlocks.POPPY_VERSATILE.value().defaultBlockState(), 6)

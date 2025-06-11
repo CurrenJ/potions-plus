@@ -5,6 +5,8 @@ import grill24.potionsplus.gui.HorizontalListScreenElement;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.Milestone;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
@@ -41,10 +43,10 @@ public class MilestonesScreenElement extends HorizontalListScreenElement<Milesto
             return;
         }
         RegistryAccess registryAccess = player.registryAccess();
-        Registry<ConfiguredSkill<?, ?>> skillRegistry = registryAccess.registryOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL);
-        Optional<ConfiguredSkill<?, ?>> skillHolder = skillRegistry.getOptional(skill);
+        HolderGetter<ConfiguredSkill<?, ?>> skillRegistry = registryAccess.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL);
+        Optional<Holder.Reference<ConfiguredSkill<?, ?>>> skillHolder = skillRegistry.get(skill);
         if (skillHolder.isPresent()) {
-            ConfiguredSkill<?, ?> configuredSkill = skillHolder.get();
+            ConfiguredSkill<?, ?> configuredSkill = skillHolder.get().value();
             this.setMilestones(configuredSkill.config().getData().milestones());
         }
     }

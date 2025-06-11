@@ -71,26 +71,4 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, net.neoforg
         displayStacks.addFirst(new ItemStack(BlockEntityBlocks.BREWING_CAULDRON.value()));
         return displayStacks;
     }
-
-    /**
-     * Redirects the canEat method to check if the player is the owner of the choice item.
-     * See {@link grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent} and {@link OwnerDataComponent}
-     * @param p the player
-     * @param canAlwaysEat if the food can be eaten regardless of the player's hunger
-     * @param level the level
-     * @param player the player
-     * @param hand the hand
-     * @return true if item eating should be allowed, false otherwisea
-     */
-    @Redirect(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;canEat(Z)Z"))
-    private boolean potions_plus$canEat(Player p, boolean canAlwaysEat, Level level, Player player, InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.has(DataComponents.CHOICE_ITEM) && itemStack.has(DataComponents.OWNER)) {
-            OwnerDataComponent ownerData = itemStack.get(DataComponents.OWNER);
-            if (ownerData != null) {
-                return ownerData.isOwner(player);
-            }
-        }
-        return player.canEat(canAlwaysEat);
-    }
 }

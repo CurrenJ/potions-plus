@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": {
-      "item": "minecraft:bone"
-    },
-    "L": {
-      "tag": "minecraft:leaves"
-    },
-    "T": {
-      "item": "minecraft:totem_of_undying"
-    }
+    "B": "minecraft:bone",
+    "L": "#minecraft:leaves",
+    "T": "minecraft:totem_of_undying"
   },
   "pattern": [
     "BLB",

@@ -3,12 +3,8 @@
   "category": "redstone",
   "group": "filter_hopper_upgrade_allow_armor",
   "ingredients": [
-    {
-      "item": "potionsplus:upgrade_base"
-    },
-    {
-      "tag": "c:armors"
-    }
+    "potionsplus:upgrade_base",
+    "#c:armors"
   ],
   "result": {
     "count": 1,

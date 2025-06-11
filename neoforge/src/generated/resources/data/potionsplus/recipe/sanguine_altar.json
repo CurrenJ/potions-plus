@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "minecraft:amethyst_shard"
-    },
-    "E": {
-      "item": "minecraft:end_rod"
-    },
-    "S": {
-      "item": "minecraft:soul_sand"
-    }
+    "A": "minecraft:amethyst_shard",
+    "E": "minecraft:end_rod",
+    "S": "minecraft:soul_sand"
   },
   "pattern": [
     "AEA",

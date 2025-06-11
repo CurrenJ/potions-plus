@@ -8,13 +8,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -77,9 +76,9 @@ public class UraniumOreBlock extends PotionsPlusOreBlock {
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        ItemInteractionResult result = super.useItemOn(stack, state, level, pos, player, hand, hitResult);
-        if (result != ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION) {
+    public InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+        if (result != InteractionResult.PASS) {
             return result;
         }
 
@@ -90,8 +89,8 @@ public class UraniumOreBlock extends PotionsPlusOreBlock {
             level.setBlock(pos, state.setValue(URANIUM_STATE, UraniumState.values()[state.getValue(URANIUM_STATE).ordinal() + 1]), 3);
             level.levelEvent(2001, pos, Block.getId(state));
             player.swing(hand);
-            return ItemInteractionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 }

@@ -20,15 +20,15 @@ public class AdvancementListeners {
             AdvancementProvider.CREATE_ABYSSAL_TROVE,
             AdvancementProvider.CREATE_SANGUINE_ALTAR
     );
+
     @SubscribeEvent
     public static void onAdvancementEarned(final AdvancementEvent.AdvancementEarnEvent event) {
-        if(ADVANCEMENTS_DROP_INGREDIENTS.contains(event.getAdvancement().id()) && event.getEntity() instanceof ServerPlayer player) {
+        if (ADVANCEMENTS_DROP_INGREDIENTS.contains(event.getAdvancement().id()) && event.getEntity() instanceof ServerPlayer player) {
             Set<PpIngredient> ingredients = Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getUniqueIngredients();
             PpIngredient ingredient = ingredients.stream().toList().get(player.level().getRandom().nextInt(ingredients.size()));
-            if (player.canTakeItem(ingredient.getItemStack())) {
-                player.addItem(ingredient.getItemStack());
-            } else {
-                player.drop(ingredient.getItemStack(), false);
+            ItemStack stack = ingredient.getItemStack().copy();
+            if (!player.addItem(stack)) {
+                player.drop(stack, false);
             }
         }
     }

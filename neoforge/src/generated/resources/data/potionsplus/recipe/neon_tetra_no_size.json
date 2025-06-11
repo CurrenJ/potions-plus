@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "fish_no_size",
   "ingredients": [
-    {
-      "item": "potionsplus:neon_tetra"
-    }
+    "potionsplus:neon_tetra"
   ],
   "result": {
     "count": 1,

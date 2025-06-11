@@ -1,24 +1,18 @@
 package grill24.potionsplus.utility.registration.block;
 
 import grill24.potionsplus.utility.registration.IModelGenerator;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 
-import java.util.Objects;
 import java.util.function.Supplier;
 
-import static grill24.potionsplus.utility.Utility.mc;
-import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
-
 public class BlockModelUtility {
-    public static ResourceLocation mcBlock(BlockStateProvider provider, Block block) {
-        return provider.mcLoc(Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block)).getPath());
-    }
-
     public abstract static class BlockModelGenerator<T extends Block> implements IModelGenerator<T> {
         private final Supplier<Holder<T>> blockGetter;
 
@@ -52,25 +46,26 @@ public class BlockModelUtility {
         }
 
         @Override
-        public void generate(BlockStateProvider provider) {
-            ResourceLocation modelLocation = getModelLocation(getHolder().value());
+        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+            Block block = getHolder().value();
+            ResourceLocation modelLocation = ModelLocationUtils.getModelLocation(block);
 
             if (generateBlockModel) {
-                // Generate the block model
-                provider.models().getBuilder(modelLocation.getPath())
-                        .parent(provider.models().getExistingFile(mc("block/cube_all")))
-                        .texture("all", textureLocation != null ? textureLocation : modelLocation);
+                ResourceLocation tex = textureLocation != null ? textureLocation : modelLocation;
+                TexturedModel.Provider textureModelProvider = TexturedModel.createDefault(b ->
+                        new TextureMapping()
+                                .put(TextureSlot.ALL, tex),
+                        ModelTemplates.CUBE_ALL);
+                modelLocation = textureModelProvider.create(block, blockModelGenerators.modelOutput);
             }
             if (generateBlockStates) {
-                // Generate the blockstates
-                provider.getVariantBuilder(getHolder().value()).forAllStates(state -> ConfiguredModel.builder()
-                        .modelFile(provider.models().getExistingFile(modelLocation))
-                        .build());
+                MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelLocation));
+                blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
             }
 
             if (generateItemModel) {
-                // Generate the item model
-                provider.simpleBlockItem(getHolder().value(), provider.models().getExistingFile(modelLocation));
+                ItemModel.Unbaked itemModel = ItemModelUtils.plainModel(modelLocation);
+                itemModelGenerators.itemModelOutput.accept(getHolder().value().asItem(), itemModel);
             }
         }
     }
@@ -102,17 +97,19 @@ public class BlockModelUtility {
         }
 
         @Override
-        public void generate(BlockStateProvider provider) {
+        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+            Block block = getHolder().value();
+
             // Generate the blockstates
             if (generateBlockStates) {
-                provider.getVariantBuilder(getHolder().value()).forAllStates(state -> ConfiguredModel.builder()
-                        .modelFile(provider.models().getExistingFile(modelLocation))
-                        .build());
+                MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelLocation));
+                blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
             }
 
             // Generate the item model
             if (generateItemModel) {
-                provider.simpleBlockItem(getHolder().value(), provider.models().getExistingFile(modelLocation));
+                ItemModel.Unbaked itemModel = ItemModelUtils.plainModel(modelLocation);
+                itemModelGenerators.itemModelOutput.accept(getHolder().value().asItem(), itemModel);
             }
         }
 

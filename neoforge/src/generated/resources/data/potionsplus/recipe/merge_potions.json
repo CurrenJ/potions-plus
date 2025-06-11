@@ -4,26 +4,30 @@
   "experienceRequired": 10.0,
   "ingredients": [
     {
-      "ppIngredient": {
-        "components": {
-          "minecraft:potion_contents": {
-            "potion": "potionsplus:any_potion"
-          }
-        },
-        "count": 1,
-        "id": "minecraft:potion"
-      }
+      "matchStacks": [
+        {
+          "components": {
+            "minecraft:potion_contents": {
+              "potion": "potionsplus:any_potion"
+            }
+          },
+          "count": 1,
+          "id": "minecraft:potion"
+        }
+      ]
     },
     {
-      "ppIngredient": {
-        "components": {
-          "minecraft:potion_contents": {
-            "potion": "potionsplus:any_other_potion"
-          }
-        },
-        "count": 1,
-        "id": "minecraft:potion"
-      }
+      "matchStacks": [
+        {
+          "components": {
+            "minecraft:potion_contents": {
+              "potion": "potionsplus:any_other_potion"
+            }
+          },
+          "count": 1,
+          "id": "minecraft:potion"
+        }
+      ]
     }
   ],
   "matchingCriteria": [
@@ -36,18 +40,10 @@
         "custom_effects": [
           {
             "id": "potionsplus:any_potion",
-            "neoforge:cures": [
-              "milk",
-              "protected_by_totem"
-            ],
             "show_icon": true
           },
           {
             "id": "potionsplus:any_other_potion",
-            "neoforge:cures": [
-              "milk",
-              "protected_by_totem"
-            ],
             "show_icon": true
           }
         ]

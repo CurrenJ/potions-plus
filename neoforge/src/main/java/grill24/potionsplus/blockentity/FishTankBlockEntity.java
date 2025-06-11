@@ -86,7 +86,7 @@ public class FishTankBlockEntity extends InventoryBlockEntity {
             Vec3 fishTankPos = Vec3.atCenterOf(getBlockPos());
             Vec3 direction = fishTankPos.subtract(pos).normalize();
             // Get the direction of the fish tank
-            Direction fishTankDirection = Direction.getNearest(direction.x, 0, direction.z);
+            Direction fishTankDirection = Direction.getApproximateNearest(direction.x, 0, direction.z);
             // Get the opposite direction of the fish tank
             fishFacing = fishTankDirection.getOpposite();
 
@@ -136,10 +136,10 @@ public class FishTankBlockEntity extends InventoryBlockEntity {
     public void readPacketNbt(net.minecraft.nbt.CompoundTag tag, HolderLookup.Provider registryAccess) {
         super.readPacketNbt(tag, registryAccess);
 
-        int facing = tag.getInt("fishFacing");
+        int facing = tag.getInt("fishFacing").orElse(0);
         fishFacing = Direction.from3DDataValue(facing);
 
-        horizontalFlip = tag.getBoolean("horizontalFlip");
+        horizontalFlip = tag.getBoolean("horizontalFlip").orElse(false);
     }
 
     @Override

@@ -1,5 +1,5 @@
 {
-  "type": "potionsplus:modifiers_while_bow_held",
+  "type": "potionsplus:modifiers_while_item_held",
   "config": {
     "attribute": "potionsplus:player.unbreaking_bonus",
     "baseConfig": {

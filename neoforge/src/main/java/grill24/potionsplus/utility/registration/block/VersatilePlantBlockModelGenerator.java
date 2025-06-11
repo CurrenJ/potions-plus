@@ -1,90 +1,103 @@
 package grill24.potionsplus.utility.registration.block;
 
+import com.mojang.math.Quadrant;
 import grill24.potionsplus.block.VersatilePlantBlock;
+import net.minecraft.client.color.item.GrassColorSource;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.block.model.VariantMutator;
+import net.minecraft.client.renderer.item.BlockModelWrapper;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import oshi.util.tuples.Pair;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.annotation.Nullable;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
-import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
 
 public class VersatilePlantBlockModelGenerator<T, I extends Block> extends BlockModelUtility.BlockModelGenerator<I> {
-    private final T[] resources;
-    protected final Function<Direction, Pair<Integer, Integer>> texRotationFunction;
-    protected final ResourceLocation itemTexture;
-    protected final IModelFactory<T> modelRegisterer;
+    private final ClientModelData<T> data;
 
-    public static final Function<Direction, Pair<Integer, Integer>> HANGING_PLANT_TEX_ORIENTATION = (facing) -> {
-        int xRotOffset = switch (facing) {
-            case UP -> 180;
-            case DOWN -> 0;
-            default -> 90;
+    public static final Function<Direction, VariantMutator> HANGING_PLANT_TEX_ORIENTATION = (facing) -> {
+        Quadrant xRotOffset = switch (facing) {
+            case UP -> Quadrant.R180;
+            case DOWN -> Quadrant.R0;
+            default -> Quadrant.R90;
         };
-        int yRotOffset = switch (facing) {
-            case NORTH -> 180;
-            case EAST -> 270;
-            case SOUTH -> 0;
-            case WEST -> 90;
-            default -> 0;
+        Quadrant yRotOffset = switch (facing) {
+            case NORTH -> Quadrant.R180;
+            case EAST -> Quadrant.R270;
+            case SOUTH -> Quadrant.R0;
+            case WEST -> Quadrant.R90;
+            default -> Quadrant.R0;
         };
-        return new Pair<>(xRotOffset, yRotOffset);
+        return VariantMutator.X_ROT.withValue(xRotOffset).then(VariantMutator.Y_ROT.withValue(yRotOffset));
     };
-    public static final Function<Direction, Pair<Integer, Integer>> UPRIGHT_PLANT_TEX_ORIENTATION = (facing) -> {
-        int xRotOffset = switch (facing) {
-            case UP -> 0;
-            case DOWN -> 180;
-            default -> 90;
+    public static final Function<Direction, VariantMutator> UPRIGHT_PLANT_TEX_ORIENTATION = (facing) -> {
+        Quadrant xRotOffset = switch (facing) {
+            case UP -> Quadrant.R0;
+            case DOWN -> Quadrant.R180;
+            default -> Quadrant.R90;
         };
-        int yRotOffset = switch (facing) {
-            case NORTH -> 0;
-            case EAST -> 90;
-            case SOUTH -> 180;
-            case WEST -> 270;
-            default -> 0;
+        Quadrant yRotOffset = switch (facing) {
+            case NORTH -> Quadrant.R0;
+            case EAST -> Quadrant.R90;
+            case SOUTH -> Quadrant.R180;
+            case WEST -> Quadrant.R270;
+            default -> Quadrant.R0;
         };
-        return new Pair<>(xRotOffset, yRotOffset);
+        return VariantMutator.X_ROT.withValue(xRotOffset).then(VariantMutator.Y_ROT.withValue(yRotOffset));
     };
 
     public interface IModelFactory<T> {
-        void accept(BlockStateProvider provider, String modelName, T resource);
+        void accept(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, String modelName, T resource);
     }
 
-    public static final IModelFactory<ResourceLocation> CROSS_MODEL_GENERATOR = (provider, modelName, resource) ->
-            provider.models().withExistingParent(modelName, provider.mcLoc("block/cross")).texture("cross", resource);
-    public static final VersatilePlantBlockModelGenerator.IModelFactory<Pair<ResourceLocation, Pair<ResourceLocation, ResourceLocation>>> LUMOSEED_MODEL_GENERATOR = (provider, modelName, resources) ->
-            provider.models().withExistingParent(modelName, resources.getA()).texture("vine", resources.getB().getA()).texture("sack", resources.getB().getB());
-    public static final VersatilePlantBlockModelGenerator.IModelFactory<ResourceLocation> PARENTED_MODEL_GENERATOR = (provider, modelName, parentModel) ->
-            provider.models().withExistingParent(modelName, parentModel);
+    public static final TextureSlot LUMOSEED_VINE = TextureSlot.create("vine", TextureSlot.ALL);
+    public static final TextureSlot LUMOSEED_SACK = TextureSlot.create("sack", TextureSlot.ALL);
+    public static final Function<ResourceLocation, ModelTemplate> LUMOSEED_MODEL_TEMPLATES = (parentModel) -> new ModelTemplate(
+            Optional.of(parentModel),
+            Optional.of("lumoseed"),
+            LUMOSEED_VINE,
+            LUMOSEED_SACK
+    );
+
+    public static final IModelFactory<ResourceLocation> CROSS_MODEL_GENERATOR = (blockModelGenerators, itemModelGenerators, modelName, resource) ->
+            ModelTemplates.CROSS.create(ppId(modelName), new TextureMapping().put(TextureSlot.CROSS, resource), blockModelGenerators.modelOutput);
+    public static final VersatilePlantBlockModelGenerator.IModelFactory<Pair<ResourceLocation, Pair<ResourceLocation, ResourceLocation>>> LUMOSEED_MODEL_GENERATOR = (blockModelGenerators, itemModelGenerators, modelName, resources) ->
+            LUMOSEED_MODEL_TEMPLATES.apply(resources.getA()).create(ppId(modelName),
+                    new TextureMapping().put(LUMOSEED_VINE, resources.getB().getA()).put(LUMOSEED_SACK, resources.getB().getB()),
+                    blockModelGenerators.modelOutput);
+    public static final VersatilePlantBlockModelGenerator.IModelFactory<ResourceLocation> PARENTED_MODEL_GENERATOR = (blockModelGenerators, itemModelGenerators, modelName, parentModel) ->
+            new ModelTemplate(Optional.of(parentModel), Optional.empty()).create(ppId(modelName), new TextureMapping(), blockModelGenerators.modelOutput);
 
 
-    public VersatilePlantBlockModelGenerator(Supplier<Holder<I>> blockGetter, T[] resources, Function<Direction, Pair<Integer, Integer>> texRotationFunction, ResourceLocation itemTexture, IModelFactory<T> modelRegisterer) {
+    public VersatilePlantBlockModelGenerator(Supplier<Holder<I>> blockGetter, ClientModelData<T> clientModelData) {
         super(blockGetter);
-        this.resources = resources;
-        this.texRotationFunction = texRotationFunction;
-        this.itemTexture = itemTexture;
-        this.modelRegisterer = modelRegisterer;
+        this.data = clientModelData;
     }
 
     public static String getVersatilePlantModelName(String name, int textureIndex) {
         if (textureIndex >= 0) {
-            return name + "_t" + textureIndex;
+            return "block/" + name + "_t" + textureIndex;
         }
 
-        return name + "_t0";
+        return "block/" + name + "_t0";
     }
 
-    public static <T> void registerVersatilePlantBlock(BlockStateProvider provider, Holder<? extends Block> holder, T[] resources, Function<Direction, Pair<Integer, Integer>> texRotationFunction, ResourceLocation itemTexture, IModelFactory<T> modelRegisterer) {
+    public static <T> void registerVersatilePlantBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Holder<? extends Block> holder, ClientModelData<T> data) {
         Block b = holder.value();
         if (b instanceof VersatilePlantBlock block) {
 
@@ -99,43 +112,123 @@ public class VersatilePlantBlockModelGenerator<T, I extends Block> extends Block
                 if (!usedModels.contains(modelName)) {
                     usedModels.add(modelName);
 
-                    T resource = resources[textureIndex];
-                    modelRegisterer.accept(provider, modelName, resource);
+                    T resource = data.resources[textureIndex];
+                    data.modelRegisterer.accept(blockModelGenerators, itemModelGenerators, modelName, resource);
                 }
             }
 
-            provider.getVariantBuilder(block).forAllStatesExcept(state -> {
-                Direction facing = state.getValue(VersatilePlantBlock.FACING);
-                int textureIndex = state.getValue(VersatilePlantBlock.TEXTURE_INDEX);
-                String modelName = getVersatilePlantModelName(name, textureIndex);
+            BlockModelDefinitionGenerator blockstateGenerator = MultiVariantGenerator.dispatch(block)
+                    .with(PropertyDispatch.initial(VersatilePlantBlock.FACING, VersatilePlantBlock.TEXTURE_INDEX)
+                            .generate((facing, textureIndex) -> {
+                                String modelName = getVersatilePlantModelName(name, textureIndex);
 
-                if (usedModels.contains(modelName)) {
-                    Pair<Integer, Integer> texRot = texRotationFunction.apply(facing);
-                    int xRotOffset = texRot.getA();
-                    int yRotOffset = texRot.getB();
+                                if (usedModels.contains(modelName)) {
+                                    VariantMutator rotationMutator = data.texRotationFunction.apply(facing);
+                                    return BlockModelGenerators.plainVariant(ppId(modelName)).with(rotationMutator);
+                                }
 
-                    return ConfiguredModel.builder()
-                            .rotationX(xRotOffset)
-                            .rotationY(yRotOffset)
-                            .modelFile(provider.models().getExistingFile(ppId(modelName)))
-                            .build();
-                }
-                return ConfiguredModel.builder().modelFile(provider.models().getExistingFile(mc("block/air"))).build();
-            }, VersatilePlantBlock.SEGMENT);
+                                return BlockModelGenerators.plainVariant(mc("block/air"));
+                            }));
+            blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
 
-            registerItem(provider, block.asItem(), itemTexture);
+            registerItem(blockModelGenerators, itemModelGenerators, block.asItem(), data.itemTexture, data.itemModel, data.useTint);
         }
     }
 
-    public static void registerItem(BlockStateProvider provider, Item item, ResourceLocation texture) {
-        ResourceLocation modelLocation = getModelLocation(item);
-        provider.itemModels().getBuilder(modelLocation.getPath())
-                .parent(provider.models().getExistingFile(provider.mcLoc("item/generated")))
-                .texture("layer0", texture);
+    public static void registerItem(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Item item, @Nullable ResourceLocation texture, @Nullable ResourceLocation model, boolean useTint) {
+        ResourceLocation modelLocation = ModelLocationUtils.getModelLocation(item);
+        if (texture != null) {
+            // Generate item model
+            ModelTemplates.FLAT_ITEM.create(modelLocation, new TextureMapping().put(TextureSlot.LAYER0, texture), blockModelGenerators.modelOutput);
+
+            // Generate client item definition
+            itemModelGenerators.itemModelOutput.accept(
+                    item,
+                    new BlockModelWrapper.Unbaked(
+                            modelLocation,
+                            useTint ? List.of(new GrassColorSource())
+                                    : Collections.emptyList()
+                    ));
+        } else if (model != null) {
+            // If no texture is provided, use block model as item model
+            if (item instanceof BlockItem blockItem) {
+                itemModelGenerators.itemModelOutput.accept(
+                        item,
+                        new BlockModelWrapper.Unbaked(
+                                model,
+                                useTint ? List.of(new GrassColorSource())
+                                        : Collections.emptyList()
+                        )
+                );
+            }
+        }
     }
 
     @Override
-    public void generate(BlockStateProvider provider) {
-        registerVersatilePlantBlock(provider, getHolder(), resources, texRotationFunction, itemTexture, modelRegisterer);
+    public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+        registerVersatilePlantBlock(blockModelGenerators, itemModelGenerators, getHolder(), data);
+    }
+
+    public record ClientModelData<T>(T[] resources, Function<Direction, VariantMutator> texRotationFunction,
+                                     @Nullable ResourceLocation itemTexture, @Nullable ResourceLocation itemModel,
+                                     boolean useTint, IModelFactory<T> modelRegisterer) {
+        public static class Builder<T> {
+            public T[] resources;
+            public Function<Direction, VariantMutator> texRotationFunction = VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION;
+            public ResourceLocation itemTexture = null;
+            public ResourceLocation itemModel = null;
+            public boolean useTint = false;
+            public IModelFactory<T> modelRegisterer;
+
+            public Builder<T> resources(T[] resources) {
+                this.resources = resources;
+                return this;
+            }
+
+            public Builder<T> texRotationFunction(Function<Direction, VariantMutator> texRotationFunction) {
+                this.texRotationFunction = texRotationFunction;
+                return this;
+            }
+
+            public Builder<T> itemTexture(ResourceLocation itemTexture) {
+                this.itemTexture = itemTexture;
+                return this;
+            }
+
+            public Builder<T> itemModel(ResourceLocation itemModel) {
+                this.itemModel = itemModel;
+                return this;
+            }
+
+            public Builder<T> useTint() {
+                this.useTint = true;
+                return this;
+            }
+
+            public Builder<T> modelRegisterer(IModelFactory<T> modelRegisterer) {
+                this.modelRegisterer = modelRegisterer;
+                return this;
+            }
+
+            public ClientModelData<T> build() {
+                if (resources == null || resources.length == 0) {
+                    throw new IllegalArgumentException("Resources must not be null or empty");
+                }
+
+                if (modelRegisterer == null) {
+                    throw new IllegalArgumentException("Model registerer must not be null");
+                }
+
+                if (texRotationFunction == null) {
+                    throw new IllegalArgumentException("Texture rotation function must not be null");
+                }
+
+                if (itemTexture == null && itemModel == null) {
+                    throw new IllegalArgumentException("Either itemTexture or itemModel must be provided");
+                }
+
+                return new ClientModelData<>(resources, texRotationFunction, itemTexture, itemModel, useTint, modelRegisterer);
+            }
+        }
     }
 }

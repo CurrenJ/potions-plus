@@ -1,17 +1,23 @@
 {
   "variants": {
-    "facing=east": {
+    "direction=down": {
+      "model": "potionsplus:block/skill_journals"
+    },
+    "direction=east": {
       "model": "potionsplus:block/skill_journals",
       "y": 270
     },
-    "facing=north": {
+    "direction=north": {
       "model": "potionsplus:block/skill_journals",
       "y": 180
     },
-    "facing=south": {
+    "direction=south": {
       "model": "potionsplus:block/skill_journals"
     },
-    "facing=west": {
+    "direction=up": {
+      "model": "potionsplus:block/skill_journals"
+    },
+    "direction=west": {
       "model": "potionsplus:block/skill_journals",
       "y": 90
     }

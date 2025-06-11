@@ -1,5 +1,6 @@
 package grill24.potionsplus.utility.registration.item;
 
+import grill24.potionsplus.data.RecipeProvider;
 import grill24.potionsplus.function.GaussianDistributionGenerator;
 import grill24.potionsplus.function.SetFishSizeFunction;
 import grill24.potionsplus.item.PotionsPlusFishItem;
@@ -8,15 +9,16 @@ import grill24.potionsplus.loot.IsInBiomeTagCondition;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -198,17 +200,18 @@ public class FishItemBuilder extends ItemBuilder<Item, FishItemBuilder> {
     }
 
     @Override
-    public void generate(RecipeProvider provider, RecipeOutput output) {
+    public void generate(RecipeProvider recipeProvider, RecipeOutput output) {
         if (this.recipeGenerators != null) {
-            super.generate(provider, output);
+            super.generate(recipeProvider, output);
         }
 
         ResourceLocation recipeId = ppId(getHolder().getKey().location().getPath() + "_no_size");
+        ResourceKey<Recipe<?>> recipeResourceKey = ResourceKey.create(Registries.RECIPE, recipeId);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, getValue())
+        recipeProvider.shapeless(RecipeCategory.FOOD, getValue())
                 .requires(getValue())
                 .group("fish_no_size")
-                .unlockedBy("has_item", grill24.potionsplus.data.RecipeProvider.has(getValue()))
-                .save(output, recipeId);
+                .unlockedBy("has_item", recipeProvider.has(getValue()))
+                .save(output, recipeResourceKey);
     }
 }

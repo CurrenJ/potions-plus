@@ -2,26 +2,19 @@ package grill24.potionsplus.block;
 
 import grill24.potionsplus.blockentity.PotionBeaconBlockEntity;
 import grill24.potionsplus.blockentity.HerbalistsLecternSounds;
-import grill24.potionsplus.blockentity.PotionBeaconBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
 import grill24.potionsplus.utility.InvUtil;
-import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -32,9 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -56,11 +46,11 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         // Cache items before interaction
         Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
         if (blockEntity.isEmpty()) {
-            return ItemInteractionResult.FAIL;
+            return InteractionResult.FAIL;
         }
         PotionBeaconBlockEntity potionBeaconBlockEntity = blockEntity.get();
 
@@ -84,7 +74,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
             }
         }
 
-        return InvUtil.getMinecraftItemInteractionResult(result);
+        return InvUtil.getMinecraftInteractionResult(result);
 
     }
 
@@ -123,13 +113,6 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
     public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
         Optional<PotionBeaconBlockEntity> PotionBeaconBlockEntity = level.getBlockEntity(blockPos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
         return PotionBeaconBlockEntity.filter(potionBeaconBlockEntity -> !potionBeaconBlockEntity.getItem(0).isEmpty()).map(potionBeaconBlockEntity -> 15).orElse(0);
-    }
-
-    @Override
-    @Deprecated
-    public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
-        Utility.dropContents(level, blockPos, blockState, newState);
-        super.onRemove(blockState, level, blockPos, newState, isMoving);
     }
 
     @Override

@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "D": {
-      "item": "minecraft:deepslate_brick_slab"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    },
-    "W": {
-      "tag": "minecraft:planks"
-    }
+    "D": "minecraft:deepslate_brick_slab",
+    "S": "minecraft:stick",
+    "W": "#minecraft:planks"
   },
   "pattern": [
     "WWW",

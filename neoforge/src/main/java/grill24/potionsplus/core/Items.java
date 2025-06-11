@@ -47,7 +47,7 @@ public class Items {
         } else {
             String name = id.get().getPath();
             RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple(name)
-                    .itemFactory(prop -> new BlockItem(block.value(), prop))
+                    .itemFactory(prop -> new BlockItem(block.value(), prop.useBlockDescriptionPrefix()))
                     .modelGenerator(null));
         }
     }
@@ -66,7 +66,7 @@ public class Items {
         } else {
             String name = id.get().getPath();
             RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple(name)
-                    .itemFactory(prop -> new BlockItem(block.value(), prop))
+                    .itemFactory(prop -> new BlockItem(block.value(), prop.useBlockDescriptionPrefix()))
                     .modelGenerator(holder -> new ItemModelUtility.SimpleItemModelGenerator<>(holder, texture)));
         }
     }
@@ -83,7 +83,7 @@ public class Items {
         } else {
             String name = id.get().getPath();
             RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple(name)
-                    .itemFactory(prop -> new BlockItem(block.get().value(), prop))
+                    .itemFactory(prop -> new BlockItem(block.get().value(), prop.useBlockDescriptionPrefix()))
                     .modelGenerator((holder) -> new ItemModelUtility.SimpleBlockItemModelGenerator<>(holder, block)));
         }
     }
@@ -95,7 +95,7 @@ public class Items {
         } else {
             String name = id.get().getPath();
             RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple(name)
-                    .itemFactory(prop -> new BlockItem(block.get().value(), prop))
+                    .itemFactory(prop -> new BlockItem(block.get().value(), prop.useBlockDescriptionPrefix()))
                     .modelGenerator((holder) -> new ItemModelUtility.SimpleBlockItemModelGenerator<>(holder, block, parent)));
         }
     }

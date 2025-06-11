@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "U": {
-      "item": "potionsplus:uranium_ingot"
-    }
+    "U": "potionsplus:uranium_ingot"
   },
   "pattern": [
     "UUU",

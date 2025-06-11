@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
 public abstract class ItemAttributeModifiersMixin implements IItemAttributeModifiersExtension {
     @Shadow @Final private List<ItemAttributeModifiers.Entry> modifiers;
 
-    @Shadow @Final private boolean showInTooltip;
-
     public ItemAttributeModifiers potions_plus$withModifierRemoved(AttributeModifier modifier) {
         return potions_plus$withModifiersRemoved(List.of(modifier));
     }
@@ -38,6 +36,6 @@ public abstract class ItemAttributeModifiersMixin implements IItemAttributeModif
             }
         }
 
-        return new ItemAttributeModifiers(builder.build(), this.showInTooltip);
+        return new ItemAttributeModifiers(builder.build());
     }
 }

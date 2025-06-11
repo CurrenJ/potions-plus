@@ -6,6 +6,7 @@ import grill24.potionsplus.utility.RUtil;
 import grill24.potionsplus.utility.ResourceUtility;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.util.ARGB;
 
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
@@ -123,17 +124,8 @@ public class TextureResourceModification implements IResourceModification {
         BufferedImage bufferedImage = new BufferedImage(nativeimage.getWidth(), nativeimage.getHeight(), BufferedImage.TYPE_INT_ARGB);
         for (int x = 0; x < nativeimage.getWidth(); x++) {
             for (int y = 0; y < nativeimage.getHeight(); y++) {
-                int color = nativeimage.getPixelRGBA(x, y);
-                // Convert RGBA to ARGB
-                int alpha = (color >> 24) & 0xFF;
-                int blue = (color >> 16) & 0xFF;
-                int green = (color >> 8) & 0xFF;
-                int red = color & 0xFF;
-
-                int argb = (alpha << 24) | (red << 16) | (green << 8) | blue;
-
-
-                bufferedImage.setRGB(x, y, argb);
+                int color = nativeimage.getPixel(x, y);
+                bufferedImage.setRGB(x, y, color);
             }
         }
 

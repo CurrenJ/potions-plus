@@ -14,19 +14,20 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 import org.joml.*;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+
+import javax.annotation.Nullable;
 
 @Mixin(GuiGraphics.class)
 public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
@@ -39,32 +40,28 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
     private PoseStack pose;
 
     @Shadow
-    public abstract MultiBufferSource.BufferSource bufferSource();
-
-    @Shadow
     public abstract void flush();
 
     @Shadow
     @Final
     private MultiBufferSource.BufferSource bufferSource;
 
-    @Shadow
-    @Deprecated
-    protected abstract void flushIfUnmanaged();
 
     @Shadow public abstract int drawString(Font font, FormattedCharSequence text, int x, int y, int color, boolean dropShadow);
 
     @Shadow public abstract int drawString(Font p_282636_, FormattedCharSequence p_281596_, float p_281586_, float p_282816_, int p_281743_, boolean p_282394_);
 
+    @Shadow @Final private ItemStackRenderState scratchItemStackRenderState;
     private static final float PIX = 16;
 
     @Override
-    public void potions_plus$renderItem(@Nullable LivingEntity entity, @Nullable Level level, ItemStack stack, Vector3f rotation, float x, float y, float zOffset, float scale, RenderableScreenElement.Anchor anchor, int seed, int guiOffset) {
+    public void potions_plus$renderItem(@Nullable LivingEntity entity, @Nullable Level level, ItemStack stack, Vector3f rotation, float x, float y, float scale, RenderableScreenElement.Anchor anchor, int seed, float guiOffset) {
         if (!stack.isEmpty()) {
-            BakedModel bakedmodel = this.minecraft.getItemRenderer().getModel(stack, level, entity, seed);
+            this.minecraft
+                    .getItemModelResolver()
+                    .updateForTopItem(this.scratchItemStackRenderState, stack, ItemDisplayContext.GUI, level, entity, seed);
             this.pose.pushPose();
-            Vector3f pos = new Vector3f(x, y, 150 + (bakedmodel.isGui3d() ? guiOffset : 0) + zOffset);
-            this.pose.translate(pos.x(), pos.y(), pos.z());
+            this.pose.translate(x, y, 150 + guiOffset);
 
             float actualScale = PIX * scale;
 
@@ -85,14 +82,13 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
 
             try {
                 this.pose.scale(actualScale, -actualScale, actualScale);
-                boolean flag = !bakedmodel.usesBlockLight();
+                boolean flag = !this.scratchItemStackRenderState.usesBlockLight();
                 if (flag) {
+                    this.flush();
                     Lighting.setupForFlatItems();
                 }
 
-                this.minecraft
-                        .getItemRenderer()
-                        .render(stack, ItemDisplayContext.GUI, false, this.pose, this.bufferSource(), 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
+                this.scratchItemStackRenderState.render(this.pose, this.bufferSource, 15728880, OverlayTexture.NO_OVERLAY);
                 this.flush();
                 if (flag) {
                     Lighting.setupFor3DItems();
@@ -112,12 +108,12 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
 
     @Override
     public void potions_plus$renderItem(ItemStack stack, Vector3f rotation, float x, float y, float scale, RenderableScreenElement.Anchor anchor) {
-        this.potions_plus$renderItem(this.minecraft.player, this.minecraft.level, stack, rotation, x, y, 0, scale, anchor, 0, 0);
+        this.potions_plus$renderItem(this.minecraft.player, this.minecraft.level, stack, rotation, x, y, scale, anchor, 0, 0);
     }
 
     @Override
     public void potions_plus$renderItem(ItemStack stack, Vector3f rotation, float x, float y, float zOffset, float scale, RenderableScreenElement.Anchor anchor) {
-        this.potions_plus$renderItem(this.minecraft.player, this.minecraft.level, stack, rotation, x, y, zOffset, scale, anchor, 0, 0);
+        this.potions_plus$renderItem(this.minecraft.player, this.minecraft.level, stack, rotation, x, y, scale, anchor, 0, zOffset);
     }
 
     @Override
@@ -147,7 +143,6 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
         for (Vector2f point : points) {
             vertexconsumer.addVertex(matrix4f, point.x(), point.y(), (float) z).setColor(color);
         }
-        this.flushIfUnmanaged();
     }
 
     @Override

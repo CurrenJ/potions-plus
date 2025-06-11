@@ -1,7 +1,7 @@
 {
   "type": "potionsplus:permanent_attribute_modifiers",
   "config": {
-    "attribute": "minecraft:player.sneaking_speed",
+    "attribute": "minecraft:sneaking_speed",
     "baseConfig": {
       "enabledByDefault": true,
       "parentSkill": "potionsplus:sneaking",

@@ -3,10 +3,12 @@
   "category": "MISC",
   "ingredients": [
     {
-      "ppIngredient": {
-        "count": 1,
-        "id": "potionsplus:redstone_rose"
-      }
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "potionsplus:redstone_rose"
+        }
+      ]
     }
   ],
   "processingTime": 60,

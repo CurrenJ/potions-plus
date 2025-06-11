@@ -3,12 +3,8 @@
   "category": "redstone",
   "group": "filter_hopper_upgrade_allow_food",
   "ingredients": [
-    {
-      "item": "potionsplus:upgrade_base"
-    },
-    {
-      "tag": "c:foods"
-    }
+    "potionsplus:upgrade_base",
+    "#c:foods"
   ],
   "result": {
     "count": 1,

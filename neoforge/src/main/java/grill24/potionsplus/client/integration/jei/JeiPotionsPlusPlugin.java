@@ -29,6 +29,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeMap;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -69,12 +70,12 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         if (Minecraft.getInstance().level != null) {
             // Register all brewing cauldron recipes
             registration.addRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE,
-                    Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.value())
+                    Recipes.recipes.byType(Recipes.BREWING_CAULDRON_RECIPE.value())
                             .stream().map(RecipeHolder::value).filter(BrewingCauldronRecipe::canShowInJei).toList());
 
             // Register all clothesline recipes
             registration.addRecipes(ClotheslineRecipeCategory.CLOTHESLINE_RECIPE_TYPE,
-                    Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.CLOTHESLINE_RECIPE.value())
+                    Recipes.recipes.byType(Recipes.CLOTHESLINE_RECIPE.value())
                             .stream().map(RecipeHolder::value).toList());
         }
     }
@@ -95,14 +96,16 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
     private static void tryUpdateJeiHiddenBrewingCauldronRecipes() {
         Level level = Minecraft.getInstance().level;
         Player player = Minecraft.getInstance().player;
-        if (JEI_RUNTIME != null && level != null && level.isClientSide && player != null) {
-            List<BrewingCauldronRecipe> brewingCauldronRecipeList = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.value()).stream().map(RecipeHolder::value).toList();
+
+
+        if (JEI_RUNTIME != null && level != null && level.isClientSide && player != null && Recipes.recipes != null) {
+            List<BrewingCauldronRecipe> brewingCauldronRecipeList = Recipes.recipes.byType(Recipes.BREWING_CAULDRON_RECIPE.value()).stream().map(RecipeHolder::value).toList();
             JEI_RUNTIME.getRecipeManager().hideRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE, brewingCauldronRecipeList);
 
             // Filter recipes to those that match known recipes and unhide them
-            Stream<BrewingCauldronRecipe> stream = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.value()).stream()
+            Stream<BrewingCauldronRecipe> stream = Recipes.recipes.byType(Recipes.BREWING_CAULDRON_RECIPE.value()).stream()
                     .filter(recipe ->
-                            (SavedData.instance.getData(player).isRecipeKnown(recipe.id().toString()) || !recipe.value().isSeededRuntimeRecipe() || PotionsPlus.Debug.shouldRevealAllRecipes)
+                            (SavedData.instance.getData(player).isRecipeKnown(recipe.id()) || !recipe.value().isSeededRuntimeRecipe() || PotionsPlus.Debug.shouldRevealAllRecipes)
                                     && recipe.value().canShowInJei()
                     ).map(RecipeHolder::value);
             JEI_RUNTIME.getRecipeManager().unhideRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE, stream.toList());
@@ -115,8 +118,8 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(BlockEntityBlocks.BREWING_CAULDRON.value()), BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(BlockEntityBlocks.CLOTHESLINE.value()), ClotheslineRecipeCategory.CLOTHESLINE_RECIPE_TYPE);
+        registration.addCraftingStation(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE, BlockEntityBlocks.BREWING_CAULDRON.value());
+        registration.addCraftingStation(ClotheslineRecipeCategory.CLOTHESLINE_RECIPE_TYPE, BlockEntityBlocks.CLOTHESLINE.value());
     }
 
     private static void registerAllPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsPlusPotionGenerationData... potionData) {

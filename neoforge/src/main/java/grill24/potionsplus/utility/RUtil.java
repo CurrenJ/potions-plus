@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.blockentity.ITimestampSupplier;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.*;
 import grill24.potionsplus.blockentity.ISingleStackDisplayer;
@@ -388,8 +388,8 @@ public class RUtil {
         return q;
     }
 
-    private static final int OUTLINE_COLOR_DARK = FastColor.ARGB32.color(255, 85, 85, 85);
-    private static final int OUTLINE_COLOR_LIGHT = FastColor.ARGB32.color(255, 255, 255, 255);
+    private static final int OUTLINE_COLOR_DARK = ARGB.color(255, 85, 85, 85);
+    private static final int OUTLINE_COLOR_LIGHT = ARGB.color(255, 255, 255, 255);
     private static final int OUTLINE_Z = 100;
     private static final int FILL_Z = 99;
     public static void drawInventoryBackgroundRect(GuiGraphics graphics, Rectangle2D rect, float rotationDegrees, float outlineWidth, float outlineHeight) {
@@ -408,7 +408,7 @@ public class RUtil {
         graphicsMixin.potions_plus$fill(minX, minY + height - outlineHeight, minX + width, minY + height, center, rotationDegrees, OUTLINE_Z, OUTLINE_COLOR_LIGHT);
 
         // Fill background
-        graphicsMixin.potions_plus$fill(minX, minY, minX + width, minY + height, center, rotationDegrees, FILL_Z, FastColor.ARGB32.color(255, 198, 198, 198));
+        graphicsMixin.potions_plus$fill(minX, minY, minX + width, minY + height, center, rotationDegrees, FILL_Z, ARGB.color(255, 198, 198, 198));
     }
 
     public static void rotatePointsAround(Vector2f[] points, Vector2f origin, float degrees) {
@@ -425,11 +425,11 @@ public class RUtil {
     }
 
     public static int invertColor(int color) {
-        int red = FastColor.ARGB32.red(color);
-        int green = FastColor.ARGB32.green(color);
-        int blue = FastColor.ARGB32.blue(color);
-        int alpha = FastColor.ARGB32.alpha(color);
-        return FastColor.ARGB32.color(alpha, 255 - red, 255 - green, 255 - blue);
+        int red = ARGB.red(color);
+        int green = ARGB.green(color);
+        int blue = ARGB.blue(color);
+        int alpha = ARGB.alpha(color);
+        return ARGB.color(alpha, 255 - red, 255 - green, 255 - blue);
     }
 
 

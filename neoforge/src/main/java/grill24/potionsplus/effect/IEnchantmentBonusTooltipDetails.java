@@ -20,7 +20,7 @@ public interface IEnchantmentBonusTooltipDetails extends IEffectTooltipDetails {
     @Override
     default AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
         List<Component> tooltip = new ArrayList<>();
-        Minecraft.getInstance().level.registryAccess().asGetterLookup().lookupOrThrow(Registries.ENCHANTMENT).get(getEffect()).ifPresent(enchantment -> {
+        Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(getEffect()).ifPresent(enchantment -> {
             tooltip.add(Utility.formatEffectNumber(getEnchantmentBonus(effectInstance), ""));
             tooltip.add(Component.literal(" "));
 

@@ -1,17 +1,23 @@
 {
   "variants": {
-    "facing=east": {
+    "direction=down": {
+      "model": "potionsplus:block/abyssal_trove"
+    },
+    "direction=east": {
       "model": "potionsplus:block/abyssal_trove",
       "y": 270
     },
-    "facing=north": {
+    "direction=north": {
       "model": "potionsplus:block/abyssal_trove",
       "y": 180
     },
-    "facing=south": {
+    "direction=south": {
       "model": "potionsplus:block/abyssal_trove"
     },
-    "facing=west": {
+    "direction=up": {
+      "model": "potionsplus:block/abyssal_trove"
+    },
+    "direction=west": {
       "model": "potionsplus:block/abyssal_trove",
       "y": 90
     }

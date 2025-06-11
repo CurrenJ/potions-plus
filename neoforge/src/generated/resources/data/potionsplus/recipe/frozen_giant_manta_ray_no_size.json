@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "fish_no_size",
   "ingredients": [
-    {
-      "item": "potionsplus:frozen_giant_manta_ray"
-    }
+    "potionsplus:frozen_giant_manta_ray"
   ],
   "result": {
     "count": 1,

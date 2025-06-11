@@ -41,8 +41,8 @@ public class WormrootLootModifier extends LootModifier {
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         final Block blockBroken;
-        if (context.hasParam(LootContextParams.BLOCK_STATE)) {
-            Block block = context.getParamOrNull(LootContextParams.BLOCK_STATE).getBlock();
+        if (context.hasParameter(LootContextParams.BLOCK_STATE)) {
+            Block block = context.getOptionalParameter(LootContextParams.BLOCK_STATE).getBlock();
             for (Block b : blocks) {
                 if (block == b) {
                     if (context.getRandom().nextInt(4) == 0) {

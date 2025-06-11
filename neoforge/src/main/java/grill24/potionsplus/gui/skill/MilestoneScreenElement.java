@@ -43,9 +43,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
             super.render(graphics, partialTick, mouseX, mouseY);
         } else {
         // Render item silhouette
-        graphics.setColor(0, 0, 0, 1);
         super.render(graphics, partialTick, mouseX, mouseY);
-        graphics.setColor(1, 1, 1, 1);
 
         if (this.screen.getMinecraft().player == null) {
             return;

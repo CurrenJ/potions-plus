@@ -3,7 +3,7 @@ package grill24.potionsplus.block;
 import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -25,7 +25,7 @@ public class PotionsPlusRedstoneOreBlock extends RedStoneOreBlock {
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         return RuntimeTextureVariantModelGenerator.trySetTextureVariant(this, stack, state, level, pos, PotionsPlusOreBlock.TEXTURE);
     }
 }

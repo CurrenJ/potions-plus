@@ -15,7 +15,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -60,12 +59,16 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         Optional<AbyssalTroveBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
         if (blockEntity.isEmpty()) {
-            return ItemInteractionResult.FAIL;
+            return InteractionResult.FAIL;
         }
         AbyssalTroveBlockEntity abyssalTroveBlockEntity = blockEntity.get();
+
+        if (stack.isEmpty()) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
+        }
 
         // Do interaction
         InvUtil.InteractionResult result = InvUtil.InteractionResult.PASS;
@@ -109,7 +112,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
             blockEntity.get().showGui();
         }
 
-        return InvUtil.getMinecraftItemInteractionResult(result);
+        return InvUtil.getMinecraftInteractionResult(result);
     }
 
     @Override
@@ -128,7 +131,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
                 }
                 level.playSound(player, pos, SoundEvents.HONEYCOMB_WAX_ON, player.getSoundSource(), 1.0F, 1.0F);
 
-                return InteractionResult.SUCCESS_NO_ITEM_USED;
+                return InteractionResult.SUCCESS;
             }
         }
 
@@ -139,13 +142,6 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return Utility.createTickerHelper(type, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), AbyssalTroveBlockEntity::tick);
-    }
-
-    @Override
-    @Deprecated
-    public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
-        Utility.dropContents(level, blockPos, blockState, newState);
-        super.onRemove(blockState, level, blockPos, newState, isMoving);
     }
 
     @Override

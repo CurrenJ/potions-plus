@@ -135,14 +135,12 @@ public class TextComponentScreenElement extends RenderableScreenElement {
 
             // Render text
             IGuiGraphicsExtension guiGraphics = (IGuiGraphicsExtension) graphics;
-            graphics.setColor(1F, 1F, 1F, this.currentColor.getAlpha() / 255F);
             graphics.pose().pushPose();
             graphics.pose().translate(x, y, 0);
             graphics.pose().scale(this.scale, this.scale, 1F);
             guiGraphics.potions_plus$drawString(this.screen.getMinecraft().font, animatedRow.getFirst(),
                     0, 0, this.currentColor.getRGB());
             graphics.pose().popPose();
-            graphics.setColor(1F, 1F, 1F, 1F);
 
             y += getRowHeight(row);
         }

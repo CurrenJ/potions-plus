@@ -1,6 +1,5 @@
 package grill24.potionsplus.render.animation;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimationData;
@@ -85,29 +84,22 @@ public class WheelItemActivationAnimation extends ItemActivationAnimation {
                 poseStack.translate(points[i].x, points[i].y, points[i].z);
                 poseStack.translate(positionOffset.x(), positionOffset.y(), positionOffset.z());
                 poseStack.mulPose(Axis.YP.rotationDegrees(rotation.y()));
-                poseStack.mulPose(Axis.XP.rotationDegrees(rotation.x()) );
+                poseStack.mulPose(Axis.XP.rotationDegrees(rotation.x()));
                 poseStack.mulPose(Axis.ZP.rotationDegrees(rotation.z()));
                 float scaleMultiplier = curves.getScale().evaluate(elapsedTicks);
                 poseStack.scale(-scale * scaleMultiplier, -scale * scaleMultiplier, scale * scaleMultiplier);
 
-                RenderSystem.enableBlend();
-                RenderSystem.defaultBlendFunc();
-
                 int finalI = i;
-                guiGraphics.drawManaged(
-                        () -> minecraft
-                                .getItemRenderer()
-                                .renderStatic(
-                                        this.wheelItems.get(finalI),
-                                        ItemDisplayContext.FIXED,
-                                        15728880,
-                                        OverlayTexture.NO_OVERLAY,
-                                        poseStack,
-                                        guiGraphics.bufferSource(),
-                                        minecraft.level,
-                                        0
-                                )
-                );
+                guiGraphics.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                        this.wheelItems.get(finalI),
+                        ItemDisplayContext.FIXED,
+                        15728880,
+                        OverlayTexture.NO_OVERLAY,
+                        poseStack,
+                        bufferSource,
+                        minecraft.level,
+                        0
+                ));
 
                 poseStack.popPose();
             }

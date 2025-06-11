@@ -73,16 +73,16 @@ public class SeededPotionRecipes {
         // ----- Prepare ingredients for duration and amplifier upgrades -----
 
         // Sample half of the ingredients in the tag
-        int durSize = (int) Math.ceil(BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_DURATION_UP_INGREDIENTS).get().size() / 2F);
-        List<PpIngredient> durationSamples = BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_DURATION_UP_INGREDIENTS).get().stream().map(ItemStack::new).map(PpIngredient::of).collect(Collectors.toCollection(ArrayList::new));
+        int durSize = (int) Math.ceil(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.POTION_DURATION_UP_INGREDIENTS).size() / 2F);
+        List<PpIngredient> durationSamples = BuiltInRegistries.ITEM.getOrThrow(Tags.Items.POTION_DURATION_UP_INGREDIENTS).stream().map(ItemStack::new).map(PpIngredient::of).collect(Collectors.toCollection(ArrayList::new));
         for(int d = 0; d < durSize && !durationSamples.isEmpty(); d++) {
             int randomIndex = randomSource.nextInt(0, durationSamples.size());
             durationSamples.remove(randomIndex);
         }
 
         // Sample half of the ingredients in the tag
-        int ampSize = (int) Math.ceil(BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).get().size() / 2F);
-        List<PpIngredient> amplifierSamples = BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).get().stream().map(ItemStack::new).map(PpIngredient::of).collect(Collectors.toCollection(ArrayList::new));
+        int ampSize = (int) Math.ceil(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).size() / 2F);
+        List<PpIngredient> amplifierSamples = BuiltInRegistries.ITEM.getOrThrow(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).stream().map(ItemStack::new).map(PpIngredient::of).collect(Collectors.toCollection(ArrayList::new));
         for(int a = 0; a < ampSize && !amplifierSamples.isEmpty(); a++) {
             int randomIndex = randomSource.nextInt(0, amplifierSamples.size());
             amplifierSamples.remove(randomIndex);

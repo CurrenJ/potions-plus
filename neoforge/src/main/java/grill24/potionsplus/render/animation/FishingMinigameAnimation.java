@@ -46,7 +46,7 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
 
         final float scaleInProgress = RUtil.getProgress(0, 10F, this.animationStartTimestamp, ClientTickHandler.total());
         final float size = Math.min(guiGraphics.guiWidth(), guiGraphics.guiHeight()) / 2.0F * SpatialAnimations.get(SpatialAnimations.SCALE_IN_BACK).getScale().evaluate(scaleInProgress) * 1.5F;
-        Vector3f offset = new Vector3f(-0.375F /* 12 / 32 pixel offset to center bar png */ , 0, 0);
+        Vector3f offset = new Vector3f(-0.375F /* 12 / 32 pixel offset to center bar png */, 0, 0);
 
         final float bottomPadding = 0.0625F;
         final float topPadding = 0.0625F;
@@ -71,29 +71,29 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         }
         barElementsTransform.translate(offset.x(), offset.y(), offset.z());
         barElementsTransform.mulPose(RUtil.rotate(this.rotation));
-        minecraft.getItemRenderer().renderStatic(
+        guiGraphics.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
                 DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.FISHING_BAR_TEX_LOC), // 21 is the fishing game bar icon
                 ItemDisplayContext.FIXED,
                 BRIGHTNESS,
                 OverlayTexture.NO_OVERLAY,
                 barElementsTransform,
-                guiGraphics.bufferSource(),
+                bufferSource,
                 minecraft.level,
                 0
-        );
+        ));
 
         barElementsTransform.pushPose();
         barElementsTransform.translate(0, barOffset, Z_OFFSET);
-        minecraft.getItemRenderer().renderStatic(
+        guiGraphics.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
                 DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.FISHING_BOBBER_TEX_LOC), // 22 is the capture bar icon
                 ItemDisplayContext.FIXED,
                 BRIGHTNESS,
                 OverlayTexture.NO_OVERLAY,
                 barElementsTransform,
-                guiGraphics.bufferSource(),
+                bufferSource,
                 minecraft.level,
                 0
-        );
+        ));
         barElementsTransform.popPose();
 
         barElementsTransform.popPose();
@@ -140,16 +140,17 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
 
         barElementsTransform.pushPose();
         barElementsTransform.scale(iconSize, iconSize, iconSize);
-        minecraft.getItemRenderer().renderStatic(
-                fishReward,
+        final ItemStack finalFishReward = fishReward;
+        guiGraphics.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                finalFishReward,
                 ItemDisplayContext.FIXED,
                 BRIGHTNESS,
                 OverlayTexture.NO_OVERLAY,
                 barElementsTransform,
-                guiGraphics.bufferSource(),
+                bufferSource,
                 minecraft.level,
                 0
-        );
+        ));
         barElementsTransform.popPose();
 
         barElementsTransform.pushPose();
@@ -157,7 +158,7 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
         final float frameIconSize = localFishingGame.getFishSize() * winnerEnlargement;
         barElementsTransform.scale(frameIconSize, frameIconSize, frameIconSize);
         float rotation = 0;
-        if(!localFishingGame.isOver() && localFishingGame.isCapturing()) {
+        if (!localFishingGame.isOver() && localFishingGame.isCapturing()) {
             rotation = (float) (Math.sin((ClientTickHandler.ticksInGame + partialTick) * 2) * 4);
         }
         barElementsTransform.mulPose(RUtil.rotate(new Vector3f(rotation, rotation, rotation)));
@@ -167,21 +168,22 @@ public class FishingMinigameAnimation extends ItemActivationAnimation {
             FishingGamePlayerAttachment fishingGamePlayerAttachment = minecraft.player.getData(DataAttachments.FISHING_GAME_DATA);
             frame = fishingGamePlayerAttachment.frameType();
         }
-        minecraft.getItemRenderer().renderStatic(
-                frame,
+        final ItemStack finalFrame = frame;
+        guiGraphics.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                finalFrame,
                 ItemDisplayContext.FIXED,
                 BRIGHTNESS,
                 OverlayTexture.NO_OVERLAY,
                 barElementsTransform,
-                guiGraphics.bufferSource(),
+                bufferSource,
                 minecraft.level,
                 0
-        );
+        ));
         barElementsTransform.popPose();
     }
 
     private void updateRotation(Minecraft minecraft, float partialTick) {
-        this.rotation.add(this.rotationSpeed.mul( 1 - (0.02F * partialTick)));
+        this.rotation.add(this.rotationSpeed.mul(1 - (0.02F * partialTick)));
         final float maxRot = 5;
         this.rotation.x = Math.min(maxRot, Math.max(-maxRot, this.rotation.x));
         this.rotation.y = Math.min(maxRot, Math.max(-maxRot, this.rotation.y));

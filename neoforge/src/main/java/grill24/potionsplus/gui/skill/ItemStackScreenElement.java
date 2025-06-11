@@ -54,8 +54,9 @@ public class ItemStackScreenElement extends RenderableScreenElement {
             return;
         }
 
+        // TODO: Fix silhouette
         if (onlyShowSilhouette) {
-            graphics.setColor(0, 0, 0, 1);
+//            graphics.setColor(0, 0, 0, 1);
         }
         Rectangle2D bounds = getGlobalBounds();
         // By default, send the item to the back of the screen render order because we want text and other elements to render on top of it.
@@ -69,7 +70,7 @@ public class ItemStackScreenElement extends RenderableScreenElement {
                 this.getCurrentScale(),
                 Anchor.DEFAULT);
         graphics.pose().popPose();
-        graphics.setColor(1, 1, 1, 1);
+//        graphics.setColor(1, 1, 1, 1);
 
         if (onlyShowSilhouette) {
             // Render question mark

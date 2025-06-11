@@ -30,21 +30,6 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayerExtensi
         super(entityType, level);
     }
 
-    @Inject(method = "Lnet/minecraft/world/entity/player/Player;eat(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/food/FoodProperties;)Lnet/minecraft/world/item/ItemStack;", at = @At("HEAD"))
-    private void onEat(Level level, ItemStack food, FoodProperties foodProperties, CallbackInfoReturnable<ItemStack> ci) {
-        if (level.isClientSide) {
-            return;
-        }
-
-        ServerPlayer player = (ServerPlayer) (Object) this;
-        EdibleRewardGranterDataComponent.tryEatEdibleChoiceItem(player, food);
-    }
-
-    @Inject(method = "jumpFromGround", at = @At("HEAD"))
-    private void onJumpFromGround(CallbackInfo ci) {
-        DoubleJumpAbility.onJumpFromGround((Player) (Object) this);
-    }
-
     /**
      * Copy of {@link Player#jumpFromGround()} but in our own method.
      * This is so we can still use the jumpFromGround mixin as a 'reset' because the player is actually jumping off ground.

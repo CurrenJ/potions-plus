@@ -1,7 +1,6 @@
 package grill24.potionsplus.block;
 
 import grill24.potionsplus.blockentity.FishTankBlockEntity;
-import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import grill24.potionsplus.utility.registration.*;
@@ -9,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -46,15 +44,18 @@ public class FishTankBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(
+    protected InteractionResult useItemOn(
             ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (stack.isEmpty()) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
+        }
         FishTankBlockEntity fishTankBlockEntity = (FishTankBlockEntity) level.getBlockEntity(pos);
 
         if (fishTankBlockEntity != null) {
             InvUtil.InteractionResult result = InvUtil.insertOnPlayerUseItem(level, pos, player, hand, SoundEvents.GENERIC_SPLASH);
             if (result != InvUtil.InteractionResult.PASS) {
                 fishTankBlockEntity.onItemInserted(player, stack);
-                return InvUtil.getMinecraftItemInteractionResult(result);
+                return InvUtil.getMinecraftInteractionResult(result);
             }
         }
 
@@ -66,12 +67,5 @@ public class FishTankBlock extends Block implements EntityBlock {
         InvUtil.InteractionResult result = InvUtil.extractOnPlayerUseWithoutItem(level, pos, player, true, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
 
         return InvUtil.getMinecraftInteractionResult(result);
-    }
-
-    @Override
-    @Deprecated
-    public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
-        Utility.dropContents(level, blockPos, blockState, newState);
-        super.onRemove(blockState, level, blockPos, newState, isMoving);
     }
 }

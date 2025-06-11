@@ -5,17 +5,23 @@ import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
 import grill24.potionsplus.skill.ability.instance.SimpleAbilityInstanceData;
+import grill24.potionsplus.skill.ability.util.AbilityContextualFactory;
+import grill24.potionsplus.skill.ability.util.RegistryAccessibleFactory;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.util.Lazy;
 
 import java.util.Set;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static grill24.potionsplus.utility.Utility.ppId;
@@ -62,7 +68,7 @@ public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguratio
         protected String translationKey;
         protected String longTranslationKey;
         protected ResourceKey<ConfiguredSkill<?, ?>> parentSkillKey;
-        protected ItemPredicate itemPredicate;
+        protected AbilityContextualFactory<ItemPredicate> itemPredicate;
         protected boolean enabledByDefault;
         protected A ability;
 
@@ -70,7 +76,7 @@ public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguratio
             this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ppId(key));
             this.translationKey = "";
             this.longTranslationKey = "";
-            this.itemPredicate = ItemPredicate.Builder.item().build();
+            this.itemPredicate = (context) -> ItemPredicate.Builder.item().build();
             this.enabledByDefault = true;
         }
 
@@ -89,8 +95,13 @@ public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguratio
             return self();
         }
 
-        public B itemPredicate(ItemPredicate itemPredicate) {
+        public B itemPredicateFromContext(AbilityContextualFactory<ItemPredicate> itemPredicate) {
             this.itemPredicate = itemPredicate;
+            return self();
+        }
+
+        public B itemPredicate(RegistryAccessibleFactory<ItemPredicate, Item> itemPredicateFactory) {
+            this.itemPredicate = (context) -> itemPredicateFactory.create(context.lookup(Registries.ITEM));
             return self();
         }
 
@@ -123,7 +134,7 @@ public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguratio
             }
 
             if (this.itemPredicate == null) {
-                this.itemPredicate = ItemPredicate.Builder.item().build();
+                this.itemPredicate = (c) -> ItemPredicate.Builder.item().build();
             }
 
             return true;
@@ -144,7 +155,7 @@ public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguratio
 
         protected PlayerAbilityConfiguration.PlayerAbilityConfigurationData buildBaseConfigurationData(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {
             HolderGetter<ConfiguredSkill<?, ?>> skillLookup = context.lookup(PotionsPlusRegistries.CONFIGURED_SKILL);
-            return new PlayerAbilityConfiguration.PlayerAbilityConfigurationData(translationKey, longTranslationKey, enabledByDefault, skillLookup.getOrThrow(parentSkillKey), itemPredicate);
+            return new PlayerAbilityConfiguration.PlayerAbilityConfigurationData(translationKey, longTranslationKey, enabledByDefault, skillLookup.getOrThrow(parentSkillKey), itemPredicate.create(context));
         }
 
         @Override

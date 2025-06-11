@@ -3,12 +3,8 @@
   "category": "redstone",
   "group": "filter_hopper_upgrade_allow_enchanted",
   "ingredients": [
-    {
-      "item": "potionsplus:upgrade_base"
-    },
-    {
-      "item": "minecraft:enchanted_book"
-    }
+    "potionsplus:upgrade_base",
+    "minecraft:enchanted_book"
   ],
   "result": {
     "count": 1,

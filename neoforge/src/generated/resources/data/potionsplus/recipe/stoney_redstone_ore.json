@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "potionsplus:stoney_redstone_ore"
-    }
+    "potionsplus:stoney_redstone_ore"
   ],
   "result": {
     "count": 1,

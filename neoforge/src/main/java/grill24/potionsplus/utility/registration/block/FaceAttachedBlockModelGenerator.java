@@ -1,13 +1,22 @@
 package grill24.potionsplus.utility.registration.block;
 
+import com.mojang.math.Quadrant;
 import grill24.potionsplus.block.FaceAttachedHorizontalDirectionalBlock;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.renderer.block.model.VariantMutator;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.minecraft.world.level.block.state.properties.AttachFace;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class FaceAttachedBlockModelGenerator<B extends Block> extends BlockModelUtility.BlockModelGenerator<B> {
@@ -15,32 +24,39 @@ public class FaceAttachedBlockModelGenerator<B extends Block> extends BlockModel
         super(blockGetter);
     }
 
-    public static void registerFaceAttachedHorizontalDirectionalBlock(BlockStateProvider provider, Block block) {
-        provider.getVariantBuilder(block).forAllStates(state -> {
-            int yRot = switch (state.getValue(HorizontalDirectionalBlock.FACING)) {
-                case NORTH -> 0;
-                case EAST -> 90;
-                case SOUTH -> 180;
-                case WEST -> 270;
-                default -> 0;
-            };
-            int xRot = switch (state.getValue(FaceAttachedHorizontalDirectionalBlock.FACE)) {
-                case FLOOR -> 0;
-                case WALL -> 90;
-                case CEILING -> 180;
-                default -> 0;
-            };
-            return ConfiguredModel.builder()
-                    .modelFile(provider.models().getExistingFile(BuiltInRegistries.BLOCK.getKey(block)))
-                    .rotationY(yRot)
-                    .rotationX(xRot)
-                    .uvLock(true)
-                    .build();
-        });
+    public static void registerFaceAttachedHorizontalDirectionalBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Block block) {
+        ResourceLocation modelName = ModelLocationUtils.getModelLocation(block);
+        BlockModelDefinitionGenerator blockstateGenerator = MultiVariantGenerator.dispatch(block)
+                .with(PropertyDispatch.initial(HorizontalDirectionalBlock.FACING, FaceAttachedHorizontalDirectionalBlock.FACE)
+                        .generate((facing, face) -> {
+                            VariantMutator rotationMutator = Y_ROT_MUTATOR.apply(facing).then(X_ROT_MUTATOR.apply(face)).then(VariantMutator.UV_LOCK.withValue(true));
+                            return BlockModelGenerators.plainVariant(modelName).with(rotationMutator);
+                        }));
+        blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
     }
 
+    private static final Function<Direction, VariantMutator> Y_ROT_MUTATOR = (facing) -> {
+        Quadrant yRotOffset = switch (facing) {
+            case NORTH -> Quadrant.R0;
+            case EAST -> Quadrant.R90;
+            case SOUTH -> Quadrant.R180;
+            case WEST -> Quadrant.R270;
+            default -> Quadrant.R0;
+        };
+        return VariantMutator.Y_ROT.withValue(yRotOffset);
+    };
+
+    private static final Function<AttachFace, VariantMutator> X_ROT_MUTATOR = (face) -> {
+        Quadrant xRotOffset = switch (face) {
+            case FLOOR -> Quadrant.R0;
+            case WALL -> Quadrant.R90;
+            case CEILING -> Quadrant.R180;
+        };
+        return VariantMutator.X_ROT.withValue(xRotOffset);
+    };
+
     @Override
-    public void generate(BlockStateProvider provider) {
-        registerFaceAttachedHorizontalDirectionalBlock(provider, getHolder().value());
+    public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+        registerFaceAttachedHorizontalDirectionalBlock(blockModelGenerators, itemModelGenerators, getHolder().value());
     }
 }

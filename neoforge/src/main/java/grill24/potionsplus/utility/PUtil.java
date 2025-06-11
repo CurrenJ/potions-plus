@@ -247,7 +247,7 @@ public class PUtil {
     }
 
     public static Holder<Potion> getPotionHolder(Potion potion) {
-        return BuiltInRegistries.POTION.getHolder(BuiltInRegistries.POTION.getKey(potion)).orElseThrow();
+        return BuiltInRegistries.POTION.wrapAsHolder(potion);
     }
 
     public static PotionContents getPotionContents(ItemStack itemStack) {
@@ -259,8 +259,8 @@ public class PUtil {
     }
 
     public static ItemStack setCustomEffects(ItemStack itemStack, List<MobEffectInstance> customEffects) {
-        PotionContents potionContents = itemStack.getOrDefault(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.empty(), Collections.emptyList()));
-        PotionContents newPotionContents = new PotionContents(potionContents.potion(), potionContents.customColor(), customEffects);
+        PotionContents potionContents = itemStack.getOrDefault(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.empty(), Collections.emptyList(), Optional.empty()));
+        PotionContents newPotionContents = new PotionContents(potionContents.potion(), potionContents.customColor(), customEffects, Optional.empty());
         itemStack.set(DataComponents.POTION_CONTENTS, newPotionContents);
         return itemStack;
     }
@@ -291,7 +291,7 @@ public class PUtil {
      */
     public static void addRandomPassivePotionEffect(LootContext context, ItemStack stack, Set<ResourceKey<MobEffect>> excludedEffects) {
         if (isItemEligibleForPassivePotionEffects(stack)) {
-            Registry<MobEffect> mobEffectRegistry = context.getLevel().registryAccess().registryOrThrow(Registries.MOB_EFFECT);
+            Registry<MobEffect> mobEffectRegistry = context.getLevel().registryAccess().getOrThrow(Registries.MOB_EFFECT).value();
             Optional<Holder.Reference<MobEffect>> optionalHolder = mobEffectRegistry.getRandom(context.getRandom());
             int attempts = 0;
             while (optionalHolder.isPresent() && excludedEffects.contains(optionalHolder.get().getKey()) && attempts < 3) {
@@ -315,7 +315,7 @@ public class PUtil {
             // TODO: Add potions HERE
             boolean isAnyPotion = PUtil.getAllEffects(itemStack).stream().anyMatch(instance -> instance.getEffect().is(MobEffects.ANY_POTION) || instance.getEffect().is(MobEffects.ANY_OTHER_POTION));
             if(isAnyPotion) {
-                return new ArrayList<>(BuiltInRegistries.POTION.holders().map(potion -> PUtil.createPotionItemStack(potion, PotionType.POTION)).toList());
+                return new ArrayList<>(BuiltInRegistries.POTION.registryKeySet().stream().map(BuiltInRegistries.POTION::getOrThrow).map(potion -> PUtil.createPotionItemStack(potion, PotionType.POTION)).toList());
             }
         }
 

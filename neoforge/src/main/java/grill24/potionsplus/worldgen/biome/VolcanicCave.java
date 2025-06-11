@@ -8,7 +8,7 @@ import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,14 +22,14 @@ import net.minecraft.world.level.material.Fluids;
 import java.util.List;
 
 public class VolcanicCave {
-    public static WeightedStateProvider VOLCANIC_CAVE_BLOCK_SAMPLER_FLOOR = new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+    public static WeightedStateProvider VOLCANIC_CAVE_BLOCK_SAMPLER_FLOOR = new WeightedStateProvider(WeightedList.<BlockState>builder()
             .add(Blocks.BLACKSTONE.defaultBlockState(), 4)
             .add(Blocks.BASALT.defaultBlockState(), 4)
             .add(Blocks.COBBLED_DEEPSLATE.defaultBlockState(), 3)
             .add(Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), 2)
             .add(Blocks.MAGMA_BLOCK.defaultBlockState(), 1)
     );
-    public static WeightedStateProvider VOLCANIC_CAVE_BLOCK_SAMPLER_CEILING = new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+    public static WeightedStateProvider VOLCANIC_CAVE_BLOCK_SAMPLER_CEILING = new WeightedStateProvider(WeightedList.<BlockState>builder()
             .add(Blocks.BLACKSTONE.defaultBlockState(), 4)
             .add(Blocks.BASALT.defaultBlockState(), 4)
             .add(Blocks.COBBLED_DEEPSLATE.defaultBlockState(), 3)

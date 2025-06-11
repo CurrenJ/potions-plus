@@ -5,10 +5,12 @@
       "conditions": {
         "recipe": "potionsplus:brewing_cauldron_recipe",
         "recipe_id": {
-          "ppIngredient": {
-            "count": 1,
-            "id": "potionsplus:sulfuric_acid"
-          }
+          "matchStacks": [
+            {
+              "count": 1,
+              "id": "potionsplus:sulfuric_acid"
+            }
+          ]
         }
       },
       "trigger": "potionsplus:craft_recipe"

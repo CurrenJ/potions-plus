@@ -3,10 +3,12 @@
   "category": "MISC",
   "ingredients": [
     {
-      "ppIngredient": {
-        "count": 1,
-        "id": "minecraft:potion"
-      }
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "minecraft:potion"
+        }
+      ]
     }
   ],
   "processingTime": 100,

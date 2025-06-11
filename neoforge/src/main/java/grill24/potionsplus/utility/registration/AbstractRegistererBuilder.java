@@ -1,16 +1,19 @@
 package grill24.potionsplus.utility.registration;
 
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.data.RecipeProvider;
 import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.core.Holder;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.context.ContextKeySet;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,7 @@ import java.util.function.Supplier;
 public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererBuilder<T, B>> implements IRegisterer<T>, IModelGenerator<T>, IRecipeGenerator<T>, ILootGenerator<T>, IRuntimeModelGenerator<T> {
     protected Holder<T> holder;
 
-    private String name;
+    protected String name;
     protected Supplier<T> factory;
 
     protected IModelGenerator<T> modelGenerator;
@@ -43,13 +46,8 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
         return self();
     }
 
-    public B factory(Supplier<T> factory) {
-        this.factory = factory;
-        return self();
-    }
-
     public B modelGenerator(Function<Supplier<Holder<T>>, IModelGenerator<T>> modelGenerator) {
-        if (modelGenerator == null) {
+        if (modelGenerator == null || FMLEnvironment.dist == Dist.DEDICATED_SERVER) {
             this.modelGenerator = null;
             return self();
         }
@@ -141,9 +139,9 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
     }
 
     @Override
-    public void generate(BlockStateProvider provider) {
+    public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
         if (this.modelGenerator != null) {
-            this.modelGenerator.generate(provider);
+            this.modelGenerator.generate(blockModelGenerators, itemModelGenerators);
         } else {
             PotionsPlus.LOGGER.warn("Tried to generate model for " + this.name + " but no model generator was set.");
         }
@@ -161,7 +159,7 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
     }
 
     @Override
-    public void tryGenerate(LootContextParamSet paramSet, LootTableSubProvider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+    public void tryGenerate(ContextKeySet paramSet, LootTableSubProvider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
         if (this.lootGenerator != null) {
             this.lootGenerator.tryGenerate(paramSet, provider, consumer);
         } else {
@@ -170,7 +168,7 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
     }
 
     @Override
-    public LootContextParamSet getParamSet() {
+    public ContextKeySet getParamSet() {
         if (this.lootGenerator != null) {
             return this.lootGenerator.getParamSet();
         }

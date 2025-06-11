@@ -7,8 +7,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.TriState;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -16,26 +18,25 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
-
 import java.util.Set;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 import static net.minecraft.world.level.block.DoublePlantBlock.copyWaterloggedFrom;
 
-public class VersatilePlantBlock extends BushBlock {
+public class VersatilePlantBlock extends VegetationBlock {
     public record VersatilePlantConfig(boolean requiresSupportBehind, boolean requiresSupportAfter, int minSegmentIndex,
                                        int maxSegmentIndex, VersatilePlantBlockTexturePattern texturePattern) {
     }
@@ -54,7 +55,7 @@ public class VersatilePlantBlock extends BushBlock {
     ).apply(codecBuilder, VersatilePlantBlock::new));
 
     public static final IntegerProperty SEGMENT = IntegerProperty.create("segment", 0, 15); // 0 is the "base" segment, max is the distance away from the base of the furthest segment
-    public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.values()); // UP = default plant orientation, down = hanging plant orientation, other directions are for plants mounted on walls
+    public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class); // UP = default plant orientation, down = hanging plant orientation, other directions are for plants mounted on walls
     public static final IntegerProperty TEXTURE_INDEX = IntegerProperty.create("texture_index", 0, 15);
 
     protected final VersatilePlantConfig config;
@@ -87,11 +88,20 @@ public class VersatilePlantBlock extends BushBlock {
     // ----- Methods below here need to be changed!!
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction updateFacing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-        if (!state.canSurvive(level, currentPos)) {
+    protected BlockState updateShape(
+            BlockState state,
+            LevelReader level,
+            ScheduledTickAccess scheduledTickAccess,
+            BlockPos pos,
+            Direction direction,
+            BlockPos neighborPos,
+            BlockState neighborState,
+            RandomSource random
+    ) {
+        if (!state.canSurvive(level, pos)) {
             return Blocks.AIR.defaultBlockState();
         }
-        return super.updateShape(state, updateFacing, facingState, level, currentPos, facingPos);
+        return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     @Nullable
@@ -104,7 +114,7 @@ public class VersatilePlantBlock extends BushBlock {
         // Check all segments can be placed and are withing build height
         for (int i = 0; i <= config.minSegmentIndex(); i++) {
             BlockPos currentPos = blockpos.relative(facing, i);
-            if (currentPos.getY() >= level.getMaxBuildHeight() || !level.getBlockState(currentPos).canBeReplaced(context)) {
+            if (currentPos.getY() > level.getMaxY() || !level.getBlockState(currentPos).canBeReplaced(context)) {
                 return null;
             }
         }
@@ -154,7 +164,7 @@ public class VersatilePlantBlock extends BushBlock {
     public boolean canSurviveFacing(BlockState state, LevelReader level, BlockPos pos, Direction facing) {
         BlockPos blockpos = pos.relative(facing.getOpposite());
         BlockState belowBlockState = level.getBlockState(blockpos);
-        net.neoforged.neoforge.common.util.TriState soilDecision = belowBlockState.canSustainPlant(level, blockpos, facing.getOpposite(), state);
+        TriState soilDecision = belowBlockState.canSustainPlant(level, blockpos, facing.getOpposite(), state);
         if (!soilDecision.isDefault()) return soilDecision.isTrue();
         return this.mayPlaceOn(belowBlockState, level, blockpos);
     }
@@ -184,7 +194,7 @@ public class VersatilePlantBlock extends BushBlock {
         BlockPos basePos = getBasePos(pos, state);
         int extendedLength = getCurrentPlantSegments(level, pos) + 1;
 
-        if (extendedLength <= getMaxSegmentIndex() + 1 && level.getBlockState(basePos.relative(state.getValue(FACING), extendedLength-1)).canBeReplaced()) {
+        if (extendedLength <= getMaxSegmentIndex() + 1 && level.getBlockState(basePos.relative(state.getValue(FACING), extendedLength - 1)).canBeReplaced()) {
             placeAt(level, state, basePos, extendedLength, flags);
             return true;
         } else {
@@ -233,7 +243,7 @@ public class VersatilePlantBlock extends BushBlock {
      * Given a versatile plant block state, set the textureIndex property to the correct value from the texture pattern.
      *
      * @param levelAccessor The level accessor
-     * @param pos The position of the block
+     * @param pos           The position of the block
      * @return The modified block state
      */
     protected BlockState setTextureIndex(LevelAccessor levelAccessor, BlockState state, BlockPos pos, int plantLength) {
@@ -268,7 +278,7 @@ public class VersatilePlantBlock extends BushBlock {
             // Update the textures of the remaining plant segments
             int currentPlantSegments = state.getValue(SEGMENT);
             forSegments(level, pos, (segmentIndex, blockPos) -> {
-                if(segmentIndex <= currentPlantSegments) {
+                if (segmentIndex <= currentPlantSegments) {
                     BlockState blockState = level.getBlockState(blockPos);
                     blockState = setTextureIndex(level, blockState, blockPos, currentPlantSegments);
                     level.setBlock(blockPos, blockState, 3);
@@ -296,17 +306,17 @@ public class VersatilePlantBlock extends BushBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (stack.is(this.asItem())) {
-            if(extend(level, state, pos, 3)) {
+            if (extend(level, state, pos, 3)) {
                 if (!player.isCreative()) {
                     stack.shrink(1);
                 }
                 level.playSound(null, pos, this.getSoundType(state, level, pos, player).getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
             }
 
-            return ItemInteractionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 }

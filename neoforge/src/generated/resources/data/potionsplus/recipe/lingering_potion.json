@@ -3,21 +3,25 @@
   "category": "BREWING",
   "ingredients": [
     {
-      "ppIngredient": {
-        "components": {
-          "minecraft:potion_contents": {
-            "potion": "potionsplus:any_potion"
-          }
-        },
-        "count": 1,
-        "id": "minecraft:splash_potion"
-      }
+      "matchStacks": [
+        {
+          "components": {
+            "minecraft:potion_contents": {
+              "potion": "potionsplus:any_potion"
+            }
+          },
+          "count": 1,
+          "id": "minecraft:splash_potion"
+        }
+      ]
     },
     {
-      "ppIngredient": {
-        "count": 1,
-        "id": "minecraft:dragon_breath"
-      }
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "minecraft:dragon_breath"
+        }
+      ]
     }
   ],
   "matchingCriteria": [

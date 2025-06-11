@@ -1,0 +1,54 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/wheel_wheel_0"
+        },
+        "threshold": 0.015625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/wheel_red_flag"
+        },
+        "threshold": 0.03125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/wheel_green_flag"
+        },
+        "threshold": 0.046875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/wheel_blue_flag"
+        },
+        "threshold": 0.0625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/wheel_yellow_flag"
+        },
+        "threshold": 0.078125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/wheel_orange_flag"
+        },
+        "threshold": 0.09375
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "potionsplus:wheel_fallback"
+    },
+    "property": "potionsplus:edible_choice"
+  }
+}

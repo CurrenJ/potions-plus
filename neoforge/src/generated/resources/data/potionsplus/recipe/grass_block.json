@@ -3,16 +3,20 @@
   "category": "BREWING",
   "ingredients": [
     {
-      "ppIngredient": {
-        "count": 1,
-        "id": "minecraft:dirt"
-      }
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "minecraft:dirt"
+        }
+      ]
     },
     {
-      "ppIngredient": {
-        "count": 1,
-        "id": "minecraft:moss_block"
-      }
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "minecraft:moss_block"
+        }
+      ]
     }
   ],
   "matchingCriteria": [

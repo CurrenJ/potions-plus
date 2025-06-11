@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "B": {
-      "item": "minecraft:water_bucket"
-    },
-    "G": {
-      "tag": "minecraft:logs"
-    }
+    "B": "minecraft:water_bucket",
+    "G": "#minecraft:logs"
   },
   "pattern": [
     " G ",

@@ -8,17 +8,19 @@ import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.*;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
@@ -81,7 +83,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
             blockState.updateNeighbourShapes(level, left, 3);
             blockState.updateNeighbourShapes(level, right, 3);
 
-            if(placer instanceof ServerPlayer serverPlayer) {
+            if (placer instanceof ServerPlayer serverPlayer) {
                 CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverPlayer, BlockEntityBlocks.CLOTHESLINE.value().defaultBlockState());
             }
         }
@@ -106,9 +108,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     }
 
     @Override
-    public void onRemove(BlockState before, Level level, BlockPos blockPos, BlockState after, boolean p_60519_) {
-        Utility.dropContents(level, blockPos, before, after);
-
+    public void affectNeighborsAfterRemoval(BlockState before, ServerLevel level, BlockPos blockPos, boolean p_60519_) {
         if (!level.isClientSide) {
             if (!this.areBothPartsValid(blockPos, level)) {
                 BlockPos middle = getOneTowardsMiddle(blockPos, before);
@@ -120,27 +120,37 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
                 BlockState otherMiddleBlockState = level.getBlockState(otherMiddle);
 
                 // Force an update on the middle block to trigger updateShape on both ends
-                level.blockUpdated(middle, Blocks.AIR);
+                level.updateNeighborsAt(middle, Blocks.AIR);
                 middleBlockState.updateNeighbourShapes(level, middle, 3);
 
-                level.blockUpdated(otherMiddle, Blocks.AIR);
+                level.updateNeighborsAt(otherMiddle, Blocks.AIR);
                 otherMiddleBlockState.updateNeighbourShapes(level, otherMiddle, 3);
             }
         }
 
-        super.onRemove(before, level, blockPos, after, p_60519_);
+        super.affectNeighborsAfterRemoval(before, level, blockPos, p_60519_);
     }
 
     public PushReaction getPistonPushReaction(BlockState p_49556_) {
         return PushReaction.DESTROY;
     }
 
-    public BlockState updateShape(BlockState me, Direction direction, BlockState other, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos mutableBlockPos) {
-        if (!this.areBothPartsValid(blockPos, levelAccessor)) {
+    @Override
+    protected BlockState updateShape(
+            BlockState state,
+            LevelReader level,
+            ScheduledTickAccess scheduledTickAccess,
+            BlockPos pos,
+            Direction direction,
+            BlockPos neighborPos,
+            BlockState neighborState,
+            RandomSource random
+    ) {
+        if (!this.areBothPartsValid(pos, level)) {
             return Blocks.AIR.defaultBlockState();
         }
 
-        return super.updateShape(me, direction, other, levelAccessor, blockPos, mutableBlockPos);
+        return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     public boolean areBothPartsValid(BlockPos pos, LevelReader levelAccessor) {
@@ -228,11 +238,15 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (stack.isEmpty()) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
+        }
+
         BlockPos left = getLeftEnd(pos, state);
         InvUtil.InteractionResult result = InvUtil.insertOnPlayerUseItem(level, left, player, hand, SoundEvents.ITEM_FRAME_ADD_ITEM);
 
-        return InvUtil.getMinecraftItemInteractionResult(result);
+        return InvUtil.getMinecraftInteractionResult(result);
     }
 
     @Override

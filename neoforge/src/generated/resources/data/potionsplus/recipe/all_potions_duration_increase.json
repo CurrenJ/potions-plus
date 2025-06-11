@@ -4,21 +4,25 @@
   "durationToAdd": 100,
   "ingredients": [
     {
-      "ppIngredient": {
-        "components": {
-          "minecraft:potion_contents": {
-            "potion": "potionsplus:any_potion"
-          }
-        },
-        "count": 1,
-        "id": "minecraft:potion"
-      }
+      "matchStacks": [
+        {
+          "components": {
+            "minecraft:potion_contents": {
+              "potion": "potionsplus:any_potion"
+            }
+          },
+          "count": 1,
+          "id": "minecraft:potion"
+        }
+      ]
     },
     {
-      "ppIngredient": {
-        "count": 1,
-        "id": "minecraft:quartz"
-      }
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "minecraft:quartz"
+        }
+      ]
     }
   ],
   "isSeededRuntimeRecipe": true,

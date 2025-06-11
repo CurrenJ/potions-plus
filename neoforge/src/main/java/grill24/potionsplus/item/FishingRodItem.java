@@ -11,7 +11,7 @@ import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
@@ -34,14 +34,14 @@ public class FishingRodItem extends net.minecraft.world.item.FishingRodItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         if (level.isClientSide) {
             LocalFishingGame.ensureValidStateOnClient();
         }
 
         if (isFishingGameActive(player)) {
             tryUseRodInMinigame(level);
-            return InteractionResultHolder.success(player.getItemInHand(usedHand));
+            return InteractionResult.SUCCESS;
         }
         return super.use(level, player, usedHand);
     }

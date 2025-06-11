@@ -4,21 +4,25 @@
   "category": "BREWING",
   "ingredients": [
     {
-      "ppIngredient": {
-        "components": {
-          "minecraft:potion_contents": {
-            "potion": "potionsplus:any_potion"
-          }
-        },
-        "count": 1,
-        "id": "minecraft:potion"
-      }
+      "matchStacks": [
+        {
+          "components": {
+            "minecraft:potion_contents": {
+              "potion": "potionsplus:any_potion"
+            }
+          },
+          "count": 1,
+          "id": "minecraft:potion"
+        }
+      ]
     },
     {
-      "ppIngredient": {
-        "count": 1,
-        "id": "potionsplus:uranium_ingot"
-      }
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "potionsplus:uranium_ingot"
+        }
+      ]
     }
   ],
   "isSeededRuntimeRecipe": true,

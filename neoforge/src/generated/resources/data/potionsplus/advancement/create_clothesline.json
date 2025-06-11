@@ -6,8 +6,8 @@
         "block": {
           "Name": "potionsplus:clothesline",
           "Properties": {
+            "direction": "down",
             "distance": "2",
-            "facing": "north",
             "part": "left"
           }
         }

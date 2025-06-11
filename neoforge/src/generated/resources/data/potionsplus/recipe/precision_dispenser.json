@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
   "ingredients": [
-    {
-      "item": "minecraft:dispenser"
-    },
-    {
-      "item": "minecraft:spyglass"
-    }
+    "minecraft:dispenser",
+    "minecraft:spyglass"
   ],
   "result": {
     "count": 1,
