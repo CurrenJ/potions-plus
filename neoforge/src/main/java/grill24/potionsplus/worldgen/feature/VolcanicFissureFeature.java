@@ -3,6 +3,7 @@ package grill24.potionsplus.worldgen.feature;
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
+import grill24.potionsplus.debug.Debug;
 import net.minecraft.util.random.WeightedList;
 import net.neoforged.neoforge.common.util.Lazy;
 import grill24.potionsplus.block.UnstableBlock;
@@ -69,7 +70,7 @@ public class VolcanicFissureFeature extends Feature<NoneFeatureConfiguration> {
             }
         }));
 
-        if(PotionsPlus.Debug.DEBUG) {
+        if(Debug.DEBUG) {
             PotionsPlus.LOGGER.info("Volcanic fissure generated at {}", context.origin());
         }
 

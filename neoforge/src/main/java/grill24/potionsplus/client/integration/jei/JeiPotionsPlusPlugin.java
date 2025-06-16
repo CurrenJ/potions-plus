@@ -8,6 +8,7 @@ import grill24.potionsplus.core.items.BrewingItems;
 import grill24.potionsplus.core.items.HatItems;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
@@ -105,7 +106,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
             // Filter recipes to those that match known recipes and unhide them
             Stream<BrewingCauldronRecipe> stream = Recipes.recipes.byType(Recipes.BREWING_CAULDRON_RECIPE.value()).stream()
                     .filter(recipe ->
-                            (SavedData.instance.getData(player).isRecipeKnown(recipe.id()) || !recipe.value().isSeededRuntimeRecipe() || PotionsPlus.Debug.shouldRevealAllRecipes)
+                            (SavedData.instance.getData(player).isRecipeKnown(recipe.id()) || !recipe.value().isSeededRuntimeRecipe() || Debug.shouldRevealAllRecipes)
                                     && recipe.value().canShowInJei()
                     ).map(RecipeHolder::value);
             JEI_RUNTIME.getRecipeManager().unhideRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE, stream.toList());

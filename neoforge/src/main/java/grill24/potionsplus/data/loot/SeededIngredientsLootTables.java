@@ -5,6 +5,7 @@ import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.seededrecipe.LootPoolSupplier;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.debug.Debug;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.Holder;
@@ -158,7 +159,7 @@ public class SeededIngredientsLootTables {
     private static Optional<ItemStack> sample(LootTable table, RandomSource random) {
         ObjectArrayList<ItemStack> items = table.getRandomItems(LOOT_PARAMS, random);
         if (items.isEmpty()) {
-            if(PotionsPlus.Debug.DEBUG) {
+            if(Debug.DEBUG) {
                 PotionsPlus.LOGGER.warn("Loot table returned no items: " + table);
             }
             return Optional.empty();

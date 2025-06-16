@@ -2,6 +2,7 @@ package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.debug.Debug;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -73,7 +74,9 @@ public class GiantSnowflakeFeature extends Feature<NoneFeatureConfiguration> {
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         BlockPos snowflakeOrigin = context.origin();
-        PotionsPlus.LOGGER.info("Placing SNOWFLAKE at " + snowflakeOrigin);
+        if (Debug.DEBUG) {
+            PotionsPlus.LOGGER.info("Placing SNOWFLAKE at " + snowflakeOrigin);
+        }
 
         for(BlockPos offset : snowflake) {
             BlockPos pos = snowflakeOrigin.offset(offset);

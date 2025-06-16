@@ -18,7 +18,7 @@ public class ServerPlayerHeldItemChangedEvent extends Event {
         this.lastHeldItem = lastHeldItem;
         this.heldItem = heldItem;
 
-        PotionsPlus.LOGGER.info(this.lastHeldItem + " -> " + this.heldItem);
+//        PotionsPlus.LOGGER.info(this.lastHeldItem + " -> " + this.heldItem);
     }
 
     public MinecraftServer getServer() {

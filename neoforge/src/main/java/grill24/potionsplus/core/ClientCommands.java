@@ -1,6 +1,7 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.Commands;
@@ -17,7 +18,7 @@ import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 public class ClientCommands {
     @SubscribeEvent
     public static void registerCommands(RegisterClientCommandsEvent event) {
-        if (!PotionsPlus.Debug.DEBUG) {
+        if (!Debug.DEBUG) {
             return;
         }
 
@@ -32,8 +33,8 @@ public class ClientCommands {
                                         return 0;
                                     }
                                     if (player.hasPermissions(2)) {
-                                        PotionsPlus.Debug.shouldRevealAllRecipes = !PotionsPlus.Debug.shouldRevealAllRecipes;
-                                        context.getSource().sendSuccess(() -> Component.literal(PotionsPlus.Debug.shouldRevealAllRecipes ? "true" : "false"), true);
+                                        Debug.shouldRevealAllRecipes = !Debug.shouldRevealAllRecipes;
+                                        context.getSource().sendSuccess(() -> Component.literal(Debug.shouldRevealAllRecipes ? "true" : "false"), true);
                                         JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
                                     }
                                     return 1;

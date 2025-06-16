@@ -8,6 +8,7 @@ import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.block.SkillJournalsBlock;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.potion.Potions;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.gui.fishing.FishingLeaderboardsMenu;
 import grill24.potionsplus.item.FishSizeDataComponent;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
@@ -63,7 +64,7 @@ public class CommonCommands {
 
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {
-        if (!PotionsPlus.Debug.DEBUG) return;
+        if (!Debug.DEBUG) return;
 
         event.getDispatcher().register(Commands.literal("potionsplus")
                 .then(Commands.literal("savedData")

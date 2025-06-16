@@ -67,6 +67,10 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         this.pendingChoices = new ArrayList<>(pendingChoices);
     }
 
+    public SkillsData(SkillsData skillsData) {
+        this(new HashMap<>(skillsData.skillData), new PointEarningHistory(skillsData.pointEarningHistory), new HashMap<>(skillsData.unlockedAbilities), new ArrayList<>(skillsData.pendingChoices));
+    }
+
     public void clear(ServerPlayer player) {
         skillData.clear();
 

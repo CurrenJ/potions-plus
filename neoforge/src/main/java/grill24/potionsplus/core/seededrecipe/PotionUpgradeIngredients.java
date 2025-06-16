@@ -5,6 +5,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
@@ -66,8 +67,8 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
         int attempts = 0;
         final int MAX_ATTEMPTS = 100;
         do {
-            if (ppMultiIngredient != null && attempts > 1 && PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
-                System.out.println("[BCR] Regenerating ingredients for recipe due to collision: " + ppMultiIngredient);
+            if (ppMultiIngredient != null && attempts > 1 && Debug.DEBUG && Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
+                PotionsPlus.LOGGER.info("[BCR] Regenerating ingredients for recipe due to collision: " + ppMultiIngredient);
             }
 
             List<ItemStack> ingredients = new ArrayList<>();

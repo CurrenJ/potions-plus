@@ -60,13 +60,4 @@ public class PotionsPlus {
 
         CreativeModeTabs.CREATIVE_MODE_TABS.register(bus);
     }
-
-    public static class Debug {
-        public static final boolean DEBUG = true;
-
-        public static final boolean DEBUG_POTION_INGREDIENTS_GENERATION = true;
-        public static final boolean DEBUG_POTION_RECIPE_GENERATION = true;
-
-        public static boolean shouldRevealAllRecipes = false;
-    }
 }

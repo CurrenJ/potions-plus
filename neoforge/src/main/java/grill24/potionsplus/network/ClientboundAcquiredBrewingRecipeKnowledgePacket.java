@@ -3,6 +3,7 @@ package grill24.potionsplus.network;
 import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Sounds;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -51,7 +52,7 @@ public record ClientboundAcquiredBrewingRecipeKnowledgePacket(ResourceKey<Recipe
                         clientPlayer.displayClientMessage(text, true);
                         clientPlayer.playSound(Sounds.RECIPE_UNLOCKED.value(), 1.0F, 1.0F);
 
-                        if (PotionsPlus.Debug.DEBUG) {
+                        if (Debug.DEBUG) {
                             PotionsPlus.LOGGER.info("Acquired new brewing recipe knowledge: {}", packet.recipeKey());
                         }
                     }

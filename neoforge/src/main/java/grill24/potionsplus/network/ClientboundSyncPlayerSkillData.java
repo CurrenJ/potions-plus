@@ -10,14 +10,20 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundSyncPlayerSkillData(SkillsData skillData) implements CustomPacketPayload {
+public class ClientboundSyncPlayerSkillData implements CustomPacketPayload {
     public static final Type<ClientboundSyncPlayerSkillData> TYPE = new Type<>(ppId("sync_skill_data"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundSyncPlayerSkillData> STREAM_CODEC = StreamCodec.composite(
             SkillsData.STREAM_CODEC,
-            ClientboundSyncPlayerSkillData::skillData,
+            packet -> packet.skillsData,
             ClientboundSyncPlayerSkillData::new
     );
+
+    public final SkillsData skillsData;
+
+    public ClientboundSyncPlayerSkillData(SkillsData skillData) {
+        this.skillsData = new SkillsData(skillData);
+    }
 
     @Override
     public Type<? extends CustomPacketPayload> type() {
@@ -33,8 +39,8 @@ public record ClientboundSyncPlayerSkillData(SkillsData skillData) implements Cu
                             return;
                         }
 
-                        if(packet.skillData != null) {
-                            context.player().setData(DataAttachments.SKILL_PLAYER_DATA, packet.skillData);
+                        if(packet.skillsData != null) {
+                            context.player().setData(DataAttachments.SKILL_PLAYER_DATA, packet.skillsData);
                         }
                     }
             );

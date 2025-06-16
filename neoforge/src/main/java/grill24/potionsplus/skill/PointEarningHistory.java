@@ -135,6 +135,10 @@ public class PointEarningHistory {
         this(new HashMap<>(), new LinkedList<>(), size);
     }
 
+    public PointEarningHistory(PointEarningHistory other) {
+        this(new HashMap<>(other.partialPoints), new LinkedList<>(other.pointEarningHistory), other.size);
+    }
+
     public void clear() {
         partialPoints.clear();
         pointEarningHistory.clear();

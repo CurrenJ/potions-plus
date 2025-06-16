@@ -7,6 +7,7 @@ import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
@@ -156,7 +157,7 @@ public class SeededPotionRecipes {
             // Generate all recipes
             List<RecipeHolder<BrewingCauldronRecipe>> generatedRecipes = potionsAmpDurMatrix.generateRecipes(usedRecipeInputs, random);
 
-            if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_RECIPE_GENERATION) {
+            if (Debug.DEBUG && Debug.DEBUG_POTION_RECIPE_GENERATION) {
                 for (RecipeHolder<BrewingCauldronRecipe> recipe : generatedRecipes) {
                     if (!SavedData.instance.isRecipeResultInSavedData(recipe)) {
                         PotionsPlus.LOGGER.info("[SPR] Generated new recipe: {}", recipe);

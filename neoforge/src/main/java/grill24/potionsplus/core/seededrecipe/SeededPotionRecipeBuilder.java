@@ -3,6 +3,7 @@ package grill24.potionsplus.core.seededrecipe;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
@@ -92,7 +93,7 @@ public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
     public List<RecipeHolder<BrewingCauldronRecipe>> generateRecipes(PotionBuilder.PotionsPlusPotionGenerationData generationData, Set<PpMultiIngredient> alreadyUsedRecipeInputs, RandomSource random) {
         // Don't try to generate recipes for potions that already exist in saved data.
         if(SavedData.instance.isResultInRecipeSavedData(PUtil.createPotionItemStack(generationData.potion, PUtil.PotionType.POTION))) {
-            if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
+            if (Debug.DEBUG && Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
                 PotionsPlus.LOGGER.info("[SPR] Skipping recipe generation for potion that already exists in saved data: {}", generationData.potion.getKey().location());
             }
             return Collections.emptyList();
@@ -125,7 +126,7 @@ public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
 
         PpMultiIngredient nonPotionIngredients = potionUpgradeIngredients.getBasePotionIngredients();
         if (nonPotionIngredients.size() == 0) {
-            if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
+            if (Debug.DEBUG && Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
                 PotionsPlus.LOGGER.error("[BCR] Ingredients for base potion are null: {}", potionsPlusPotionGenerationData.potion);
             }
         } else {

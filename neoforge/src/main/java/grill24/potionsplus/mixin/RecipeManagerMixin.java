@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.IRuntimeRecipeProvider;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -34,7 +35,7 @@ public class RecipeManagerMixin {
                 for (RecipeHolder<?> recipeHolder : recipes) {
                     if (recipeKeys.add(recipeHolder.id())) {
                         allRecipes.add(recipeHolder);
-                        if (recipeHolder.value() instanceof BrewingCauldronRecipe brewingCauldronRecipe) {
+                        if (recipeHolder.value() instanceof BrewingCauldronRecipe brewingCauldronRecipe && Debug.DEBUG) {
                             PotionsPlus.LOGGER.info(brewingCauldronRecipe.toString());
                         }
                     } else {

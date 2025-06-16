@@ -5,6 +5,7 @@ import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.ClientUtility;
 import grill24.potionsplus.utility.PUtil;
@@ -186,7 +187,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
 
             ItemStack icon = ingredient.getItemStack();
             List<ItemStack> subIcon = new ArrayList<>();
-            if (!PotionsPlus.Debug.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
+            if (!Debug.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
                 icon = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC);
             } else {
                 if (Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
