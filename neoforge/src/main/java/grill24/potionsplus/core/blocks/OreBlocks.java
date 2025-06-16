@@ -59,14 +59,14 @@ public class OreBlocks {
                 .blockFactory(prop -> new Block(prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(15.0F, 1200.0F).sound(SoundType.ANCIENT_DEBRIS)))
         ).getHolder();
         RegistrationUtility.register(registerItem, SimpleItemBuilder.create("remnant_debris")
-                .itemFactory(prop -> new BlockItem(OreBlocks.REMNANT_DEBRIS.value(), prop.useItemDescriptionPrefix()))
+                .itemFactory(prop -> new BlockItem(OreBlocks.REMNANT_DEBRIS.value(), prop.useBlockDescriptionPrefix()))
                 .properties(Items.properties().fireResistant().rarity(Rarity.UNCOMMON))
                 .modelGenerator(null)); /** Item model generated in {@link SimpleBlockBuilder}; */
         DEEPSLATE_REMNANT_DEBRIS = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("deepslate_remnant_debris")
                         .blockFactory(prop -> new Block(prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(15.0F, 1200.0F).sound(SoundType.ANCIENT_DEBRIS))))
                 .getHolder();
         RegistrationUtility.register(registerItem, SimpleItemBuilder.create("deepslate_remnant_debris")
-                .itemFactory(prop -> new BlockItem(OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value(), prop.useItemDescriptionPrefix()))
+                .itemFactory(prop -> new BlockItem(OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value(), prop.useBlockDescriptionPrefix()))
                 .properties(Items.properties().fireResistant().rarity(Rarity.UNCOMMON))
                 .modelGenerator(null)); /** Item model generated in {@link SimpleBlockBuilder}; */
 

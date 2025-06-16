@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "potionsplus:block/fish_tank"
+    "model": "potionsplus:block/fish_tank_logs"
   }
 }

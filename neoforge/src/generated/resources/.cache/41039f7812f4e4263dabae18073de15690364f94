@@ -1,4 +1,4 @@
-// 1.21.5	2025-05-28T19:40:28.3582134	Potions Plus Recipes
+// 1.21.5	2025-06-16T23:07:45.9833671	Potions Plus Recipes
 505bd3539c9adbc825f7c572d299154696327102 data/potionsplus/advancement/recipes/brewing/abyssal_trove.json
 ee797629c30fe0ffe70bcdbbdc550a163cd0fbd6 data/potionsplus/advancement/recipes/brewing/all_potions_duration_increase.json
 1a340fc6ced4e7bbdb3e8d783b9ff5f2d7b0dd18 data/potionsplus/advancement/recipes/brewing/amplification_testing.json
@@ -115,9 +115,9 @@ e38e5305b8d78dbabbf7ba0798c7c970c0eed095 data/potionsplus/recipe/filter_hopper_u
 a8db4b05202e6eaffc912953ad49ed12da3156e9 data/potionsplus/recipe/filter_hopper_upgrade_allow_tools.json
 664ec318ba442525f023faeeb1348496b553fea3 data/potionsplus/recipe/filter_hopper_upgrade_blacklist.json
 52a548a20e6b9151f1148a44c78de417eade210f data/potionsplus/recipe/fishing_leaderboards.json
-4807fe22e7f0bb37392ff3a318bcf2bf9925c225 data/potionsplus/recipe/fish_tank_logs.json
-2f8aa541a34744cd6b59312ceec226fcef20123a data/potionsplus/recipe/fish_tank_planks.json
-57a879c4f01214f93fd7fdd1f02683660319cc63 data/potionsplus/recipe/fish_tank_stones.json
+6dc4e3db9cdb513997b34ac657dd74e0298b3a91 data/potionsplus/recipe/fish_tank_logs.json
+876e9c1b9a718bd57427d0e103b8493e6074bc4a data/potionsplus/recipe/fish_tank_planks.json
+2874ed773e2f4ea8f3a03c91be5329b6b8316b8e data/potionsplus/recipe/fish_tank_stones.json
 9ca028d86b5e08be0d01828c23b4bbda571237f7 data/potionsplus/recipe/fried_shrimp_no_size.json
 7744bf57e9a1d253a24f0260cb2eebb9d535c32d data/potionsplus/recipe/frozen_giant_manta_ray_no_size.json
 c22a11340e50d99fb19d0be824448fc5f1358c56 data/potionsplus/recipe/garden_eel_no_size.json

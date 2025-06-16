@@ -1,14 +1,17 @@
 package grill24.potionsplus.block;
 
 import grill24.potionsplus.blockentity.FishTankBlockEntity;
+import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.utility.InvUtil;
-import grill24.potionsplus.utility.Utility;
-import grill24.potionsplus.utility.registration.*;
+import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenerator;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -18,15 +21,24 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import static grill24.potionsplus.utility.Utility.ppId;
+
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class FishTankBlock extends Block implements EntityBlock {
     public static final IntegerProperty FRAME_VARIANT = IntegerProperty.create("frame", 0, 63);
     public static final IntegerProperty SAND_VARIANT = IntegerProperty.create("sand", 0, 23);
 
-    public FishTankBlock(Properties properties) {
+    private final Component tooltip;
+
+    public FishTankBlock(Properties properties, Component tooltip) {
         super(properties);
+        this.tooltip = tooltip;
+
         registerDefaultState(this.stateDefinition.any().setValue(FRAME_VARIANT, 0).setValue(SAND_VARIANT, 0));
     }
 
@@ -67,5 +79,18 @@ public class FishTankBlock extends Block implements EntityBlock {
         InvUtil.InteractionResult result = InvUtil.extractOnPlayerUseWithoutItem(level, pos, player, true, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
 
         return InvUtil.getMinecraftInteractionResult(result);
+    }
+
+    public Component getAnimatedTooltip() {
+        return tooltip;
+    }
+
+    @SubscribeEvent
+    public static void onItemTooltip(final AnimatedItemTooltipEvent.Add event) {
+        ItemStack stack = event.getItemStack();
+        if (stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof FishTankBlock fishTankBlock) {
+            event.addTooltipMessage(AnimatedItemTooltipEvent.TooltipLines.of(
+                    ppId("fish_tank"), 0, fishTankBlock.getAnimatedTooltip()));
+        }
     }
 }

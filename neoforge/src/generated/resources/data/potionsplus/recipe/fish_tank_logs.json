@@ -3,12 +3,13 @@
   "category": "building",
   "key": {
     "B": "minecraft:water_bucket",
-    "G": "#minecraft:logs"
+    "G": "minecraft:glass",
+    "R": "#minecraft:logs"
   },
   "pattern": [
-    " G ",
+    "RGR",
     "GBG",
-    " G "
+    "RGR"
   ],
   "result": {
     "count": 1,

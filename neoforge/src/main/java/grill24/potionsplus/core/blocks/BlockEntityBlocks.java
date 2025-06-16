@@ -11,6 +11,7 @@ import grill24.potionsplus.utility.registration.item.ItemModelUtility;
 import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -267,29 +268,29 @@ public class BlockEntityBlocks {
                 .modelGenerator(h -> new ItemModelUtility.ItemFromModelFileGenerator<>(h, ppId("item/huge_filter_hopper"))));
 
         FISH_TANK_SUB_BLOCKS = new ArrayList<>();
-        FISH_TANK = registerFishTankSubBlock("fish_tank_planks", BlockTags.PLANKS, ItemTags.PLANKS, registerBlock, registerItem);
+        FISH_TANK = registerFishTankSubBlock("fish_tank_planks", Component.translatable("tooltip.potionsplus.fish_tank.planks"), ppId("block/fish_tank"), BlockTags.PLANKS, ItemTags.PLANKS, registerBlock, registerItem);
         FISH_TANK_SUB_BLOCKS.add(FISH_TANK);
-        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_logs", BlockTags.LOGS, ItemTags.LOGS, registerBlock, registerItem));
-        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_stones", Tags.Blocks.STONEY_ORE_REPLACEABLE, net.neoforged.neoforge.common.Tags.Items.STONES, registerBlock, registerItem));
+        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_logs", Component.translatable("tooltip.potionsplus.fish_tank.logs"), ppId("block/fish_tank_logs"), BlockTags.LOGS, ItemTags.LOGS, registerBlock, registerItem));
+        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_stones", Component.translatable("tooltip.potionsplus.fish_tank.stones"), ppId("block/fish_tank_stones"), Tags.Blocks.STONEY_ORE_REPLACEABLE, net.neoforged.neoforge.common.Tags.Items.STONES, registerBlock, registerItem));
     }
 
-    private static Holder<Block> registerFishTankSubBlock(String name, TagKey<Block> frameBlocks, TagKey<Item> recipeItem, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
-        ResourceLocation fishTankBaseModel = ppId("block/fish_tank");
+    private static Holder<Block> registerFishTankSubBlock(String name, Component tooltip, ResourceLocation baseModel, TagKey<Block> frameBlocks, TagKey<Item> recipeItem, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
         Holder<Block> blockHolderResult = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple(name)
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).noOcclusion())
-                .blockFactory(FishTankBlock::new)
-                .modelGenerator(p -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(p, fishTankBaseModel))
+                .blockFactory(p -> new FishTankBlock(p, tooltip))
+                .modelGenerator(p -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(p, baseModel))
                 .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                         (recipeProvider, h) ->
                                 recipeProvider.shaped(RecipeCategory.BUILDING_BLOCKS, h.value())
-                                        .pattern(" G ")
+                                        .pattern("RGR")
                                         .pattern("GBG")
-                                        .pattern(" G ")
-                                        .define('G', recipeItem)
+                                        .pattern("RGR")
+                                        .define('G', Blocks.GLASS)
+                                        .define('R', recipeItem)
                                         .define('B', Items.WATER_BUCKET)
                                         .unlockedBy("was_water_bucket", recipeProvider.has(Items.WATER_BUCKET))))
                 .renderType(BlockBuilder.RenderType.TRANSLUCENT)
-                .runtimeModelGenerator(holder -> new RuntimeTextureVariantModelGenerator(holder, fishTankBaseModel,
+                .runtimeModelGenerator(holder -> new RuntimeTextureVariantModelGenerator(holder, baseModel,
                         RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankBlock.FRAME_VARIANT, frameBlocks, "1"),
                         RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankBlock.SAND_VARIANT, Tags.Blocks.SANDY_ORE_REPLACEABLE, "2")
                 ))).getHolder();

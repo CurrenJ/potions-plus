@@ -774,5 +774,9 @@
   "fish.leaderboard.count": "[%s] %s %s",
   "fish.leaderboard.caught.chat": "%s caught a %s cm %s.",
   "fish.leaderboard.npr": "That's a §6§onew personal record!",
-  "item.fishing_rod.no_bait": "§7§oAdd bait to catch fish..."
+  "item.fishing_rod.no_bait": "§7§oAdd bait to catch fish...",
+
+  "tooltip.potionsplus.fish_tank.planks": "§7§oUse §r§6sand-like§r §7§oblocks, §r§6planks§r§7§o, or §r§6kelp§r §7§oto change its appearance!",
+  "tooltip.potionsplus.fish_tank.logs": "§7§oUse §r§6sand-like§r §7§oblocks, §r§6logs§r§7§o, or §r§6kelp§r §7§oto change its appearance!",
+  "tooltip.potionsplus.fish_tank.stones": "§7§oUse §r§6sand-like§r §7§oblocks, §r§6stones§r§7§o, or §r§6kelp§r to §7§ochange its appearance!"
 }
