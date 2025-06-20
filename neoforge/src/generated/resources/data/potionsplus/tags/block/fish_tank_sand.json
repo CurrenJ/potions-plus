@@ -1,0 +1,11 @@
+{
+  "values": [
+    "#minecraft:sand",
+    "#c:sands",
+    "minecraft:soul_sand",
+    "minecraft:soul_soil",
+    "#minecraft:dirt",
+    "#c:gravels",
+    "#minecraft:concrete_powder"
+  ]
+}

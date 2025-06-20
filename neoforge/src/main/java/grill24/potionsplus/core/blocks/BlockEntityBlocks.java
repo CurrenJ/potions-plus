@@ -9,11 +9,11 @@ import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenera
 import grill24.potionsplus.utility.registration.block.*;
 import grill24.potionsplus.utility.registration.item.ItemModelUtility;
 import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
@@ -26,7 +26,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
@@ -47,6 +49,8 @@ public class BlockEntityBlocks {
     public static Holder<Block> FISH_TANK;
 
     public static List<Holder<Block>> FISH_TANK_SUB_BLOCKS;
+    public static Map<Integer, Holder<Block>> FISH_TANK_FRAME_BLOCKS;
+    public static Map<Integer, Holder<Block>> FISH_TANK_SAND_BLOCKS;
 
     public static Holder<Block> SMALL_FILTER_HOPPER, LARGE_FILTER_HOPPER, HUGE_FILTER_HOPPER;
 
@@ -268,38 +272,119 @@ public class BlockEntityBlocks {
                 .modelGenerator(h -> new ItemModelUtility.ItemFromModelFileGenerator<>(h, ppId("item/huge_filter_hopper"))));
 
         FISH_TANK_SUB_BLOCKS = new ArrayList<>();
-        FISH_TANK = registerFishTankSubBlock("fish_tank_planks", Component.translatable("tooltip.potionsplus.fish_tank.planks"), ppId("block/fish_tank"), BlockTags.PLANKS, ItemTags.PLANKS, registerBlock, registerItem);
+        FISH_TANK_FRAME_BLOCKS = new HashMap<>();
+        FISH_TANK_SAND_BLOCKS = new HashMap<>();
+
+        FISH_TANK = registerFishTank("fish_tank", Component.translatable("tooltip.potionsplus.fish_tank"),
+                ppId("block/invisible_fish_tank"), ppId("item/fish_tank"), ItemTags.PLANKS, registerBlock, registerItem);
         FISH_TANK_SUB_BLOCKS.add(FISH_TANK);
-        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_logs", Component.translatable("tooltip.potionsplus.fish_tank.logs"), ppId("block/fish_tank_logs"), BlockTags.LOGS, ItemTags.LOGS, registerBlock, registerItem));
-        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_stones", Component.translatable("tooltip.potionsplus.fish_tank.stones"), ppId("block/fish_tank_stones"), Tags.Blocks.STONEY_ORE_REPLACEABLE, net.neoforged.neoforge.common.Tags.Items.STONES, registerBlock, registerItem));
+
+        registerFishTankMultiPartFrameSubBlock("fish_tank_frame", Tags.Blocks.FISH_TANK_FRAME, registerBlock, registerItem);
+        registerFishTankMultiPartSandSubBlock("fish_tank_sand", Tags.Blocks.FISH_TANK_SAND, registerBlock, registerItem);
     }
 
-    private static Holder<Block> registerFishTankSubBlock(String name, Component tooltip, ResourceLocation baseModel, TagKey<Block> frameBlocks, TagKey<Item> recipeItem, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
+    private static Map<Integer, Holder<Block>> registerFishTankMultiPartFrameSubBlock(String name, TagKey<Block> frameBlocks, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
+        return forAllFishTankPartModels(ppId("block/" + name), (model, id) -> {
+            Holder<Block> blockHolderResult = registerFishTankFrameSubBlock(model.getPath(), model, frameBlocks, registerBlock, registerItem);
+            FISH_TANK_FRAME_BLOCKS.put(id, blockHolderResult);
+            return blockHolderResult;
+        });
+    }
+
+    private static Map<Integer, Holder<Block>> registerFishTankMultiPartSandSubBlock(String name, TagKey<Block> frameBlocks, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
+        return forAllFishTankPartModels(ppId("block/" + name), (model, id) -> {
+            Holder<Block> blockHolderResult = registerFishTankSandSubBlock(model.getPath(), model, frameBlocks, registerBlock, registerItem);
+            FISH_TANK_SAND_BLOCKS.put(id, blockHolderResult);
+            return blockHolderResult;
+        });
+    }
+
+    private static Holder<Block> registerFishTankFrameSubBlock(String name, ResourceLocation baseModel, TagKey<Block> frameBlocks, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
         Holder<Block> blockHolderResult = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple(name)
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).noOcclusion())
-                .blockFactory(p -> new FishTankBlock(p, tooltip))
+                .blockFactory(FishTankFrameBlock::new)
                 .modelGenerator(p -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(p, baseModel))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                        (recipeProvider, h) ->
-                                recipeProvider.shaped(RecipeCategory.BUILDING_BLOCKS, h.value())
-                                        .pattern("RGR")
-                                        .pattern("GBG")
-                                        .pattern("RGR")
-                                        .define('G', Blocks.GLASS)
-                                        .define('R', recipeItem)
-                                        .define('B', Items.WATER_BUCKET)
-                                        .unlockedBy("was_water_bucket", recipeProvider.has(Items.WATER_BUCKET))))
                 .renderType(BlockBuilder.RenderType.TRANSLUCENT)
                 .runtimeModelGenerator(holder -> new RuntimeTextureVariantModelGenerator(holder, baseModel,
-                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankBlock.FRAME_VARIANT, frameBlocks, "1"),
-                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankBlock.SAND_VARIANT, Tags.Blocks.SANDY_ORE_REPLACEABLE, "2")
-                ))).getHolder();
+                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankFrameBlock.FRAME_VARIANT, frameBlocks, "frame")
+                ))
+        ).getHolder();
         grill24.potionsplus.core.Items.registerBlockItem(blockHolderResult, registerItem);
+
+        return blockHolderResult;
+    }
+
+    private static Holder<Block> registerFishTankSandSubBlock(String name, ResourceLocation baseModel, TagKey<Block> frameBlocks, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
+        Holder<Block> blockHolderResult = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple(name)
+                .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).noOcclusion())
+                .blockFactory(FishTankSandBlock::new)
+                .modelGenerator(p -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(p, baseModel))
+                .renderType(BlockBuilder.RenderType.TRANSLUCENT)
+                .runtimeModelGenerator(holder -> new RuntimeTextureVariantModelGenerator(holder, baseModel,
+                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankSandBlock.SAND_VARIANT, frameBlocks, "sand")
+                ))
+        ).getHolder();
+        grill24.potionsplus.core.Items.registerBlockItem(blockHolderResult, registerItem);
+
+        return blockHolderResult;
+    }
+
+    private static Holder<Block> registerFishTank(String name, Component tooltip, ResourceLocation baseModel, ResourceLocation itemModel, TagKey<Item> recipeItem, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
+        Holder<Block> blockHolderResult = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple(name)
+                        .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).noOcclusion())
+                        .blockFactory(p -> new FishTankBlock(p, tooltip))
+                        .modelGenerator(p -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(p, baseModel, true, false))
+                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
+                                (recipeProvider, h) ->
+                                        recipeProvider.shaped(RecipeCategory.BUILDING_BLOCKS, h.value())
+                                                .pattern("RGR")
+                                                .pattern("GBG")
+                                                .pattern("RGR")
+                                                .define('G', Blocks.GLASS)
+                                                .define('R', recipeItem)
+                                                .define('B', Items.WATER_BUCKET)
+                                                .unlockedBy("was_water_bucket", recipeProvider.has(Items.WATER_BUCKET))))
+                        .renderType(BlockBuilder.RenderType.TRANSLUCENT)
+        ).getHolder();
+        grill24.potionsplus.core.Items.registerBlockItemWithParentModel(() -> blockHolderResult, registerItem, itemModel);
 
         return blockHolderResult;
     }
 
     public static Block[] toArray(List<Holder<Block>> blocks) {
         return blocks.stream().map(Holder::value).toArray(Block[]::new);
+    }
+
+    public static ResourceLocation getFishTankPartModel(ResourceLocation name, Map<Direction, Boolean> faces) {
+        int modelIndex = getFishTankPartId(faces);
+        return ResourceLocation.fromNamespaceAndPath(name.getNamespace(), name.getPath() + "_" + Integer.toBinaryString(modelIndex));
+    }
+
+    private static Map<Integer, Holder<Block>> forAllFishTankPartModels(ResourceLocation name, BiFunction<ResourceLocation, Integer, Holder<Block>> registerer) {
+        HashMap<Integer, Holder<Block>> result = new HashMap<>();
+        for (int i = 0; i < 64; i++) {
+            Map<Direction, Boolean> faces = Map.of(
+                    Direction.UP, (i & 0b000001) != 0,
+                    Direction.DOWN, (i & 0b000010) != 0,
+                    Direction.NORTH, (i & 0b000100) != 0,
+                    Direction.SOUTH, (i & 0b001000) != 0,
+                    Direction.EAST, (i & 0b010000) != 0,
+                    Direction.WEST, (i & 0b100000) != 0
+            );
+
+            result.put(i, registerer.apply(getFishTankPartModel(name, faces), getFishTankPartId(faces)));
+        }
+
+        return result;
+    }
+
+    public static int getFishTankPartId(Map<Direction, Boolean> faces) {
+        int modelIndex = 0;
+        for (Map.Entry<Direction, Boolean> entry : faces.entrySet()) {
+            if (entry.getValue()) {
+                modelIndex |= (1 << entry.getKey().ordinal());
+            }
+        }
+        return modelIndex;
     }
 }

@@ -163,6 +163,7 @@ public class FishItems {
                 .sizeProvider(GaussianSizeBand.MEDIUM)
                 .biomes(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.MUSHROOM_FIELDS, Biomes.LUSH_CAVES, Biomes.SUNFLOWER_PLAINS));
         STARFISH = RegistrationUtility.register(register, FishItemBuilder.create("starfish")
+                .itemFactory(prop -> new PotionsPlusFishItem(prop, PotionsPlusFishItem.FishTankRenderType.LAY_FLAT_ON_GROUND))
                 .sizeProvider(GaussianSizeBand.MEDIUM)
                 .biomes(Biomes.PALE_GARDEN, Biomes.SUNFLOWER_PLAINS, Biomes.BEACH, Biomes.SNOWY_BEACH));
     }

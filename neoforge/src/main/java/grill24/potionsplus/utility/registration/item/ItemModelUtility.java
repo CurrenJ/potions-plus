@@ -70,7 +70,7 @@ public class ItemModelUtility {
 
         @Override
         public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
-            ResourceLocation blockModelLocation = ModelLocationUtils.getModelLocation(block.get().value());
+            ResourceLocation blockModelLocation = parentModel != null ? parentModel : ModelLocationUtils.getModelLocation(block.get().value());
 
             ItemModel.Unbaked itemModel = ItemModelUtils.plainModel(blockModelLocation);
             itemModelGenerators.itemModelOutput.accept(getHolder().value(), itemModel);

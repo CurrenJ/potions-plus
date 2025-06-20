@@ -55,7 +55,11 @@ public record ClientboundSyncKnownBrewingRecipesPacket(List<ResourceKey<Recipe<?
                         }
 
                         // Update JEI
-                        JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
+                        try {
+                            JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
+                        } catch (NoClassDefFoundError error) {
+                            PotionsPlus.LOGGER.warn("JEI is not loaded, cannot update brewing recipes knowledge in JEI.");
+                        }
 
                         PotionsPlus.LOGGER.info("Received {} brewing recipes knowledge from server " + (!packet.recipeKeys().isEmpty() ? ":D" : ":("), packet.recipeKeys().size());
                     }

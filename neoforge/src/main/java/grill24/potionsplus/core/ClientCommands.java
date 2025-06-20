@@ -35,7 +35,12 @@ public class ClientCommands {
                                     if (player.hasPermissions(2)) {
                                         Debug.shouldRevealAllRecipes = !Debug.shouldRevealAllRecipes;
                                         context.getSource().sendSuccess(() -> Component.literal(Debug.shouldRevealAllRecipes ? "true" : "false"), true);
-                                        JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
+
+                                        try {
+                                            JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
+                                        } catch (NoClassDefFoundError error) {
+                                            PotionsPlus.LOGGER.warn("JEI is not loaded, cannot update hidden brewing cauldron recipes", error);
+                                        }
                                     }
                                     return 1;
                                 }))

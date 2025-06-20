@@ -1,10 +1,8 @@
 package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.advancement.CraftRecipeTrigger;
 import grill24.potionsplus.core.*;
 import grill24.potionsplus.network.ClientboundSanguineAltarConversionProgressPacket;
 import grill24.potionsplus.network.ClientboundSanguineAltarConversionStatePacket;
-import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.crafting.RecipeHolder;

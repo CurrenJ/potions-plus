@@ -46,7 +46,12 @@ public record ClientboundAcquiredBrewingRecipeKnowledgePacket(ResourceKey<Recipe
                         }
 
                         Player clientPlayer = context.player();
-                        JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
+
+                        try {
+                            JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
+                        } catch (NoClassDefFoundError error) {
+                            PotionsPlus.LOGGER.warn("JEI is not loaded, cannot update brewing cauldron recipes", error);
+                        }
                         SavedData.instance.getData(clientPlayer).onNewRecipeKnowledgeAcquiredClient(packet.recipeKey());
                         MutableComponent text = Component.translatable("chat.potionsplus.brewing_cauldron_recipe_unlocked", packet.result.getHoverName());
                         clientPlayer.displayClientMessage(text, true);

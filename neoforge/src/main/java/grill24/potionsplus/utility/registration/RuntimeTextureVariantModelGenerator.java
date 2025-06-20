@@ -3,6 +3,7 @@ package grill24.potionsplus.utility.registration;
 import com.google.gson.JsonObject;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.blocks.OreBlocks;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
 import grill24.potionsplus.event.runtimeresource.modification.IResourceModification;
 import grill24.potionsplus.event.runtimeresource.modification.TextResourceModification;
@@ -105,19 +106,25 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
 
     @SafeVarargs
     public static BlockState getTextureVariantBlockState(Block block, ItemStack stack, BlockState state, Property<Integer>... textureVariantProperties) {
+        Optional<BlockState> optionalState = tryGetTextureVariantBlockState(block, stack, state, textureVariantProperties);
+        return optionalState.orElse(state);
+    }
+
+    @SafeVarargs
+    public static Optional<BlockState> tryGetTextureVariantBlockState(Block block, ItemStack stack, BlockState state, Property<Integer>... textureVariantProperties) {
         for (AbstractRegistererBuilder<?, ?> gen : RegistrationUtility.BUILDERS) {
             if (gen.getHolder() != null && gen.getHolder().value() == block
                     && gen.getRuntimeModelGenerator() instanceof RuntimeTextureVariantModelGenerator textureGen) {
                 for (Property<Integer> property : textureVariantProperties) {
                     int value = textureGen.getValueForProperty(property, stack);
                     if (value != -1) {
-                        return state.setValue(property, value);
+                        return Optional.of(state.setValue(property, value));
                     }
                 }
             }
         }
 
-        return state;
+        return Optional.empty();
     }
 
     public int getValueForProperty(Property<Integer> property, Holder<Item> item) {
@@ -256,24 +263,29 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         List<List<Integer>> permutations = generatePermutations(properties.stream().map(p -> new Pair<>(p.property(), p.property().getPossibleValues())).toList());
         // Variant blockstate key (e.g. "lit=true,some_int_property=5"), model short id (e.g "minecraft:block/cube_all")
         List<Pair<String, String>> blockStateVariantModels = new ArrayList<>();
+        long sysTime = System.currentTimeMillis();
         for (List<Integer> permutation : permutations) {
             ModelsAndTextureGenerationData modelsAndTextureGenerationData = prepareGenerationData(propertiesToGenerateTextureVariantsFor, permutation, properties);
 
             for (BaseModel<?> baseModel : baseModels) {
-                String blockStatePermutationKey = modelsAndTextureGenerationData.blockStatePermutationKey();
+                StringBuilder blockStatePermutationKey = new StringBuilder(modelsAndTextureGenerationData.blockStatePermutationKey());
                 if (baseModel.property.isPresent() && baseModel.propertyValue.isPresent()) {
-                    if (!blockStatePermutationKey.isBlank()) {
-                        blockStatePermutationKey += ",";
+                    if (!blockStatePermutationKey.isEmpty()) {
+                        blockStatePermutationKey.append(",");
                     }
-                    blockStatePermutationKey += baseModel.getBlockStateKey();
+                    blockStatePermutationKey.append(baseModel.getBlockStateKey());
                 }
+
                 List<IResourceModification> generatedModelsAndTextures = generateModelsAndTextures(
                         baseModel,
                         modelsAndTextureGenerationData.additionalModels(),
                         blockStateVariantModels,
-                        blockStatePermutationKey);
+                        blockStatePermutationKey.toString());
                 modifications.addAll(generatedModelsAndTextures);
             }
+        }
+        if (Debug.DEBUG_RUNTIME_RESOURCE_TIME) {
+            PotionsPlus.LOGGER.info("Generated {} modifications in {}ms", permutations.size(), System.currentTimeMillis() - sysTime);
         }
 
         // Generate the blockstate that maps the blockstate permutations to the models
@@ -393,7 +405,9 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
                             textures.addProperty(modelData.baseTextureKey(), modelData.texShortId().toString());
                         }
 
-                        PotionsPlus.LOGGER.info("NEW MODEL: {} | {}", subModelLongId, textures);
+                        if (Debug.DEBUG_RUNTIME_RESOURCE_INJECTION) {
+                            PotionsPlus.LOGGER.info("NEW MODEL: {} | {}", subModelLongId, textures);
+                        }
 
                         json.add("textures", textures);
                         return json;

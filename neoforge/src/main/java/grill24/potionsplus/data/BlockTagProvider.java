@@ -128,6 +128,23 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .addTag(grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE)
                 .addTag(grill24.potionsplus.core.Tags.Blocks.SANDY_ORE_REPLACEABLE)
                 .remove(Blocks.STONE);
+
+        tag(grill24.potionsplus.core.Tags.Blocks.FISH_TANK_FRAME)
+                .addTag(BlockTags.PLANKS)
+                .addTag(BlockTags.LOGS)
+                .addTag(Tags.Blocks.STONES)
+                .addTag(Tags.Blocks.COBBLESTONES)
+                .addTag(Tags.Blocks.GLAZED_TERRACOTTAS)
+                .addTag(BlockTags.TERRACOTTA)
+                .addTag(Tags.Blocks.CONCRETES);
+
+        tag(grill24.potionsplus.core.Tags.Blocks.FISH_TANK_SAND)
+                .addTag(BlockTags.SAND)
+                .addTag(Tags.Blocks.SANDS)
+                .add(Blocks.SOUL_SAND, Blocks.SOUL_SOIL)
+                .addTag(BlockTags.DIRT)
+                .addTag(Tags.Blocks.GRAVELS)
+                .addTag(BlockTags.CONCRETE_POWDER);
     }
 
     private void addBlocksToTags(TagKey<Block>[] tags, Block[] values) {
