@@ -84,6 +84,9 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         this.shownTimestamp = settings.hiddenByDefault ? -1 : ClientTickHandler.total();
         this.hiddenTimestamp = -1;
 
+        this.mouseEnteredTimestamp = -1;
+        this.mouseExitedTimestamp = -1;
+
         this.parent = parent;
         this.currentPosition = new Vector3f();
         this.targetPosition = new Vector3f();

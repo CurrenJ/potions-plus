@@ -146,7 +146,6 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
     private void renderPosts(PoseStack poseStack, MultiBufferSource bufferSource, ClotheslineBlockEntity fishTankBlockEntity, BlockPos leftRelative, BlockPos rightRelative, int light, int overlay) {
         Optional<BlockState> post = fishTankBlockEntity.getFencePostBlockState();
 
-
         poseStack.pushPose();
         poseStack.translate(leftRelative.getX(), leftRelative.getY(), leftRelative.getZ());
         post.ifPresent(state -> blockRenderDispatcher.renderSingleBlock(
