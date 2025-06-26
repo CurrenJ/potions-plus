@@ -361,7 +361,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                 Component.translatable("advancements.potionsplus.brewing_cauldron.title"),
                 Component.translatable("advancements.potionsplus.brewing_cauldron.description"),
                 // The background texture. Use null if you don't want a background texture (for non-root advancements).
-                ppId("textures/block/cooblestone.png"),
+                ppId("block/cooblestone"),
                 // The frame type. Valid values are AdvancementType.TASK, CHALLENGE, or GOAL.
                 AdvancementType.TASK,
                 // Whether to show the advancement toast or not.

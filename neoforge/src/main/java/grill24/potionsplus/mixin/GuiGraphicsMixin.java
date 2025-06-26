@@ -1,10 +1,11 @@
 package grill24.potionsplus.mixin;
 
 import com.mojang.blaze3d.platform.Lighting;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import grill24.potionsplus.gui.RenderableScreenElement;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
+import grill24.potionsplus.gui.RenderableScreenElement;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
@@ -17,17 +18,24 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.joml.*;
+import org.joml.Matrix4f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.function.Function;
 
 @Mixin(GuiGraphics.class)
 public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
@@ -47,11 +55,15 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
     private MultiBufferSource.BufferSource bufferSource;
 
 
-    @Shadow public abstract int drawString(Font font, FormattedCharSequence text, int x, int y, int color, boolean dropShadow);
+    @Shadow
+    public abstract int drawString(Font font, FormattedCharSequence text, int x, int y, int color, boolean dropShadow);
 
-    @Shadow public abstract int drawString(Font p_282636_, FormattedCharSequence p_281596_, float p_281586_, float p_282816_, int p_281743_, boolean p_282394_);
+    @Shadow
+    public abstract int drawString(Font p_282636_, FormattedCharSequence p_281596_, float p_281586_, float p_282816_, int p_281743_, boolean p_282394_);
 
-    @Shadow @Final private ItemStackRenderState scratchItemStackRenderState;
+    @Shadow
+    @Final
+    private ItemStackRenderState scratchItemStackRenderState;
     private static final float PIX = 16;
 
     @Override
@@ -60,7 +72,9 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
             this.minecraft
                     .getItemModelResolver()
                     .updateForTopItem(this.scratchItemStackRenderState, stack, ItemDisplayContext.GUI, level, entity, seed);
+
             this.pose.pushPose();
+
             this.pose.translate(x, y, 150 + guiOffset);
 
             float actualScale = PIX * scale;
@@ -169,5 +183,46 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
     @Override
     public int potions_plus$drawString(Font font, Component text, float x, float y, int color, boolean dropShadow) {
         return this.drawString(font, text.getVisualOrderText(), x, y, color, dropShadow);
+    }
+
+    @Override
+    public void potions_plus$blit(Function<ResourceLocation, RenderType> renderTypeGetter, ResourceLocation atlasLocation, float x, float y, float uOffset, float vOffset, float uWidth, float vHeight, int width, int height, int textureWidth, int textureHeight, int color) {
+        this.potions_plus$innerBlit(renderTypeGetter, atlasLocation, x, x + uWidth, y, y + vHeight, (uOffset + 0.0F) / (float) textureWidth, (uOffset + width) / (float) textureWidth, (vOffset + 0.0F) / (float) textureHeight, (vOffset + height) / (float) textureHeight, color);
+    }
+
+    @Unique
+    private void potions_plus$innerBlit(Function<ResourceLocation, RenderType> renderTypeGetter, ResourceLocation atlasLocation, float x1, float x2, float y1, float y2, float minU, float maxU, float minV, float maxV, int color) {
+        RenderType rendertype = renderTypeGetter.apply(atlasLocation);
+        Matrix4f matrix4f = this.pose.last().pose();
+        VertexConsumer vertexconsumer = this.bufferSource.getBuffer(rendertype);
+        vertexconsumer.addVertex(matrix4f, x1, y1, 0.0F).setUv(minU, minV).setColor(color);
+        vertexconsumer.addVertex(matrix4f, x1, y2, 0.0F).setUv(minU, maxV).setColor(color);
+        vertexconsumer.addVertex(matrix4f, x2, y2, 0.0F).setUv(maxU, maxV).setColor(color);
+        vertexconsumer.addVertex(matrix4f, x2, y1, 0.0F).setUv(maxU, minV).setColor(color);
+    }
+
+    @Override
+    public void potions_plus$fillQuad(RenderType renderType,
+                                      float x1, float y1,
+                                      float x2, float y2,
+                                      float x3, float y3,
+                                      float x4, float y4,
+                                      int z, int color) {
+        Matrix4f matrix4f = this.pose.last().pose();
+        VertexConsumer vertexconsumer = this.bufferSource.getBuffer(renderType);
+        vertexconsumer.addVertex(matrix4f, x1, y1, (float) z).setColor(color);
+        vertexconsumer.addVertex(matrix4f, x2, y2, (float) z).setColor(color);
+        vertexconsumer.addVertex(matrix4f, x3, y3, (float) z).setColor(color);
+        vertexconsumer.addVertex(matrix4f, x4, y4, (float) z).setColor(color);
+    }
+
+    @Override
+    public void potions_plus$setShaderColor(int color) {
+        this.flush();
+        RenderSystem.setShaderColor(
+                ARGB.redFloat(color),
+                ARGB.greenFloat(color),
+                ARGB.blueFloat(color),
+                ARGB.alphaFloat(color));
     }
 }

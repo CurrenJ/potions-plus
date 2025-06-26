@@ -28,7 +28,7 @@ public class ClotheslineBlockModelGenerator<T extends Block> extends BlockModelU
     public static void registerClothesline(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
         Block block = BlockEntityBlocks.CLOTHESLINE.value();
 
-        ResourceLocation fencePostModelLocation = mc("block/oak_fence_post");
+        ResourceLocation fencePostModelLocation = ppId("block/invisible_clothesline");
 
         // Generate blockstate definition
         MultiVariant fencePost = BlockModelGenerators.plainVariant(fencePostModelLocation);

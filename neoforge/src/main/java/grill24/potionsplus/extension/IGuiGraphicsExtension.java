@@ -4,6 +4,7 @@ import grill24.potionsplus.gui.RenderableScreenElement;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -11,6 +12,8 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.function.Function;
 
 public interface IGuiGraphicsExtension {
     void potions_plus$renderItem(@Nullable LivingEntity entity, @Nullable Level level, ItemStack stack, Vector3f rotation, float x, float y, float scale, RenderableScreenElement.Anchor anchor, int seed, float guiOffset);
@@ -24,4 +27,9 @@ public interface IGuiGraphicsExtension {
 
     int potions_plus$drawString(Font font, Component text, float x, float y, int color);
     int potions_plus$drawString(Font font, Component text, float x, float y, int color, boolean dropShadow);
+
+    void potions_plus$blit(Function<ResourceLocation, RenderType> renderTypeGetter, ResourceLocation atlasLocation, float x, float y, float uOffset, float vOffset, float uWidth, float vHeight, int width, int height, int textureWidth, int textureHeight, int color);
+    void potions_plus$fillQuad(RenderType renderType, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int z, int color);
+
+    void potions_plus$setShaderColor(int color);
 }

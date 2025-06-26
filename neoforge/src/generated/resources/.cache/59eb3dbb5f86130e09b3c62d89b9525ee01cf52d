@@ -1,7 +1,7 @@
-// 1.21.5	2025-06-20T23:02:14.7860993	Loot Tables
+// 1.21.5	2025-06-26T00:16:11.3377498	Loot Tables
 767576116fd07a81b32e7f2f0f1c900fb084b0a7 data/potionsplus/loot_table/advanced_skill_rewards.json
-2d44aafbb293d3996094661918bc4f3d0d12f6fc data/potionsplus/loot_table/all_potions.json
-cb70433dce950010e3e551ceb61a6b76910296ba data/potionsplus/loot_table/arid_cave_suspicious_sand.json
+1d80433644660055e257bdbbe5054bf079f06986 data/potionsplus/loot_table/all_potions.json
+7040057afbd2cbaa3def756e6925e530e5c0ee09 data/potionsplus/loot_table/arid_cave_suspicious_sand.json
 12af4d734f3484bb07c5d2c3cda6e0fb5e4aad2d data/potionsplus/loot_table/basic_skill_rewards.json
 2c3c35e61a35bc151966f3cc1b284518aa4185b6 data/potionsplus/loot_table/blocks/abyssal_trove.json
 e9169df479cec505e995d0f9117e7bf74b74fff4 data/potionsplus/loot_table/blocks/allium_versatile.json
@@ -230,7 +230,7 @@ fbbe7f3ce4fdfafadbea711cc5c4b7d2480608a6 data/potionsplus/loot_table/diamond_ore
 019ba09c807d1bd444410a93efabb7aa2f1d7539 data/potionsplus/loot_table/emerald_ore_hat_1.json
 e3eb70d0d4d0d1c313358cdc255d56103c911a94 data/potionsplus/loot_table/emerald_ore_hat_2.json
 cb3be338652f9a8b3eb8c0e5c0cd22b42d39c4d6 data/potionsplus/loot_table/emerald_ore_hat_3.json
-64626eac54537f4478384af77f9351941d36c514 data/potionsplus/loot_table/fishing.json
+bcf3f3f80ee307b5fa486b04940fdc18f40b18bb data/potionsplus/loot_table/fishing.json
 3f52d600927db4f06641df1a02711857e15c6525 data/potionsplus/loot_table/gems_and_ores.json
 ed99561e90b87075474e44d21e4a3a214b6b2184 data/potionsplus/loot_table/gold_ore_hat_0.json
 ae09887cecfd6c3d40fd3e88af429348aeacd6ec data/potionsplus/loot_table/gold_ore_hat_1.json

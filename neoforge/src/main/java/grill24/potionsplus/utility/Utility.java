@@ -1,5 +1,6 @@
 package grill24.potionsplus.utility;
 
+import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.IExperienceContainer;
@@ -344,6 +345,16 @@ public class Utility {
         ItemStack head = new ItemStack(Items.PLAYER_HEAD);
         head.set(DataComponents.PROFILE, new ResolvableProfile(player.getGameProfile()));
         return head;
+    }
+
+    public static ItemStack getPlayerHead(ResolvableProfile profile) {
+        ItemStack head = new ItemStack(Items.PLAYER_HEAD);
+        head.set(DataComponents.PROFILE, profile);
+        return head;
+    }
+
+    public static ResolvableProfile getPlayerProfile(UUID uuid, String name) {
+        return new ResolvableProfile(Optional.ofNullable(name), Optional.ofNullable(uuid), new PropertyMap());
     }
 
     public static Optional<ResourceLocation> getResourceLocation(Holder<?> holder) {

@@ -17,10 +17,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeInput;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,18 +39,24 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
 
     private boolean recipeUpdateQueued = false;
 
-    private final RecipeManager.CachedCheck<RecipeInput, ClotheslineRecipe> recipeCheck;
+    private ItemStack fencePostBlockItem;
+    private BlockState fencePostBlockState;
 
     public ClotheslineBlockEntity(BlockPos pos, BlockState state) {
         super(Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), pos, state);
         progress = new int[this.getContainerSize()];
         activeRecipes = new RecipeHolder[this.getContainerSize()];
 
-        recipeCheck = RecipeManager.createCheck(Recipes.CLOTHESLINE_RECIPE.get());
+        fencePostBlockItem = getDefaultFencePostBlockItem();
+        updateFencePostRenderData();
     }
 
     public static int getItemsForClotheslineDistance(int distance) {
         return Math.min(Math.max(distance, MIN_DISTANCE), MAX_DISTANCE) + 1;
+    }
+
+    public static ItemStack getDefaultFencePostBlockItem() {
+        return new ItemStack(net.minecraft.world.level.block.Blocks.OAK_FENCE.asItem());
     }
 
     @Override
@@ -66,6 +71,10 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
         for (int i = 0; i < progress.length; i++) {
             progress[i] = tag.getInt("Progress" + i).orElse(0);
         }
+
+        fencePostBlockItem = ItemStack.parse(registryAccess, tag.getCompoundOrEmpty("fencePostBlockItem"))
+                .orElse(getDefaultFencePostBlockItem());
+        updateFencePostRenderData();
     }
 
     @Override
@@ -74,6 +83,10 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
 
         for (int i = 0; i < progress.length; i++) {
             tag.putInt("Progress" + i, progress[i]);
+        }
+
+        if (fencePostBlockItem != null && !fencePostBlockItem.isEmpty()) {
+            tag.put("fencePostBlockItem", fencePostBlockItem.save(registryAccess));
         }
     }
 
@@ -182,4 +195,20 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
         return (float) progress[slot] / (float) activeRecipes[slot].value().getProcessingTime();
     }
 
+    public void updateFencePostRenderData() {
+        if (fencePostBlockItem.getItem() instanceof BlockItem blockItem) {
+            fencePostBlockState = blockItem.getBlock().defaultBlockState();
+        }
+
+        this.setChanged();
+    }
+
+    public void setFencePostBlockItem(ItemStack fencePostBlockItem) {
+        this.fencePostBlockItem = fencePostBlockItem;
+        updateFencePostRenderData();
+    }
+
+    public Optional<BlockState> getFencePostBlockState() {
+        return Optional.ofNullable(fencePostBlockState);
+    }
 }

@@ -27,6 +27,23 @@ public class BlockTagProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(BlockEntityBlocks.ABYSSAL_TROVE.value());
         tag(BlockTags.MINEABLE_WITH_AXE).add(BlockEntityBlocks.CLOTHESLINE.value(), BlockEntityBlocks.HERBALISTS_LECTERN.value());
 
+        tag(BlockTags.NEEDS_IRON_TOOL).add(
+                OreBlocks.REMNANT_DEBRIS.value(),
+                OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value(),
+                OreBlocks.STONEY_DIAMOND_ORE.value(),
+                OreBlocks.STONEY_EMERALD_ORE.value(),
+                OreBlocks.STONEY_GOLD_ORE.value(),
+                OreBlocks.SANDY_REDSTONE_ORE.value(),
+                OreBlocks.STONEY_URANIUM_ORE.value(),
+                OreBlocks.URANIUM_ORE.value(),
+                OreBlocks.DEEPSLATE_URANIUM_ORE.value()
+        );
+        tag(BlockTags.NEEDS_STONE_TOOL).add(
+                OreBlocks.STONEY_IRON_ORE.value(),
+                OreBlocks.STONEY_LAPIS_ORE.value(),
+                OreBlocks.STONEY_COPPER_ORE.value()
+        );
+
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.DENSE_DIAMOND_ORE.value(), OreBlocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), OreBlocks.REMNANT_DEBRIS.value(), OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.URANIUM_ORE.value(), OreBlocks.DEEPSLATE_URANIUM_ORE.value());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.SULFURIC_NETHER_QUARTZ_ORE.value());
@@ -78,7 +95,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
         tag(grill24.potionsplus.core.Tags.Blocks.CAVE_REPLACEABLE)
                 .addTag(BlockTags.MOSS_REPLACEABLE)
-                        .add(net.minecraft.world.level.block.Blocks.COAL_ORE,
+                .add(net.minecraft.world.level.block.Blocks.COAL_ORE,
                         net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE,
                         net.minecraft.world.level.block.Blocks.IRON_ORE,
                         net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE,

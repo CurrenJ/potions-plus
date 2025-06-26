@@ -1,4 +1,4 @@
-// 1.21.5	2025-06-19T23:27:10.3852056	Potions Plus block tags
+// 1.21.5	2025-06-26T00:16:11.3362522	Potions Plus block tags
 86e81f2accfb35eff8521bb02b1df0a4e1f38115 data/c/tags/block/ores.json
 c1912c4e564624bdb548b7ce47bb1f0729133cb1 data/c/tags/block/ores/coal.json
 5d9df9ed1bf9f821ff59e45c2838f8d3d9e41512 data/c/tags/block/ores/copper.json
@@ -21,6 +21,8 @@ f2a42891791061174becd96aeb01fca83a2f95c8 data/minecraft/tags/block/iron_ores.jso
 e27ff90d725b83b468a8c87e7cf0bd5c1fabe68b data/minecraft/tags/block/mineable/axe.json
 8f5b5942e9b53389165a8bbdbb1bd7cfaa741358 data/minecraft/tags/block/mineable/pickaxe.json
 844caccc749bff0bf527566f5eaf6cd9d4cf919e data/minecraft/tags/block/mineable/shovel.json
+a0bcb4f93542199aff3d1883bd6e396b88a97ec3 data/minecraft/tags/block/needs_iron_tool.json
+354d705c6a1e09e07c0f680f5831a1eb18f5fe38 data/minecraft/tags/block/needs_stone_tool.json
 e3949cfc970fa804453a4504bff1e6aa822bbeaa data/minecraft/tags/block/redstone_ores.json
 9bc809942ba96a8f0c8744b126e854911c90050e data/minecraft/tags/block/stone_ore_replaceables.json
 0de2f703978baeb8cf8553b066c031b5b5027d09 data/potionsplus/tags/block/cave_replaceable.json

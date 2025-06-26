@@ -121,31 +121,6 @@ public class FishTankBlockEntity extends InventoryBlockEntity {
             horizontalFlip = player.getRandom().nextBoolean();
         }
 
-        // TODO: Make better
-        FishSizeDataComponent fishSizeData = itemStack.get(DataComponents.FISH_SIZE);
-//        if(fishSizeData != null && level != null) {
-//            float size = fishSizeData.size();
-//            if(size > 100F) {
-//                BlockState left = level.getBlockState(getBlockPos().relative(fishFacing.getClockWise()));
-//                BlockState right = level.getBlockState(getBlockPos().relative(fishFacing.getCounterClockWise()));
-//                if (!(left.getBlock() instanceof FishTankBlock) || !(right.getBlock() instanceof FishTankBlock)) {
-//                    // Spit out the item if there is no space for the fish
-//                    // Find item in inventory and remove it
-//                    for (int i = 0; i < getSlots(); i++) {
-//                        if (getItem(i).is(itemStack.getItem())) {
-//                            removeItem(i, 1);
-//                            break;
-//                        }
-//                    }
-//
-//                    Containers.dropItemStack(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, itemStack);
-//                    if (player != null) {
-//                        player.displayClientMessage(Component.translatable("alert.fish_tank.too_small"), true);
-//                    }
-//                }
-//            }
-//        }
-
         this.setChanged();
     }
 

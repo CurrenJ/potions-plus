@@ -1,15 +1,11 @@
 package grill24.potionsplus.gui.skill;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.event.ItemListenersGame;
 import grill24.potionsplus.gui.*;
 import grill24.potionsplus.skill.ConfiguredSkill;
-import grill24.potionsplus.utility.ClientTickHandler;
-import net.minecraft.client.Options;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Inventory;
@@ -27,6 +23,7 @@ public class SkillsScreen extends PotionsPlusScreen<SkillsMenu> {
     private AbilitiesListScreenElement abilitiesRenderer;
     private MilestonesScreenElement milestoneRenderer;
     private SkillRewardsListScreenElement rewardsRenderer;
+    private AbilitySelectionTree abilitySelectionTree;
 
     private RenderableScreenElement allScreenElements;
 
@@ -75,23 +72,30 @@ public class SkillsScreen extends PotionsPlusScreen<SkillsMenu> {
         final RenderableScreenElement spacer = new FixedSizeDivScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.DEFAULT, null, 4, 4);
         final RenderableScreenElement spacer2 = new FixedSizeDivScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.DEFAULT, null, 4, 4);
         final RenderableScreenElement spacer3 = new FixedSizeDivScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.DEFAULT, null, 4, 4);
+        final RenderableScreenElement spacer4 = new FixedSizeDivScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.DEFAULT, null, 4, 4);
+
         // Abilities list
         this.abilitiesRenderer = new AbilitiesListScreenElement(this, RenderableScreenElement.Settings.DEFAULT);
         // Milestones
         this.milestoneRenderer = new MilestonesScreenElement(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.YAlignment.CENTER);
         // Rewards
         this.rewardsRenderer = new SkillRewardsListScreenElement(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.XAlignment.CENTER);
-        // Put abilities and milestones in a tab
+        // Ability selection tree
+        this.abilitySelectionTree = new AbilitySelectionTree<>(this, RenderableScreenElement.Settings.DEFAULT, this.width * 0.5F, Math.min(this.height * 0.5F, this.width * 0.28125F));
 
+        // Put abilities and milestones in a tab
         this.tabsRenderer = new TabsScreenElement<>(this, null, RenderableScreenElement.Settings.DEFAULT,
                 TabsScreenElement.TabData.verticalListTab(this, new ItemStack(Items.ENCHANTED_BOOK), 1F, 1.2F, spacer2, this.abilitiesRenderer, this.milestoneRenderer),
-                TabsScreenElement.TabData.verticalListTab(this, new ItemStack(Items.GOLD_INGOT), 1F, 1.2F, spacer3, this.rewardsRenderer));
+                TabsScreenElement.TabData.verticalListTab(this, new ItemStack(Items.GOLD_INGOT), 1F, 1.2F, spacer3, this.rewardsRenderer)
+//                TabsScreenElement.TabData.verticalListTab(this, new ItemStack(Items.PAPER), 1F, 1.2F, spacer4, abilitySelectionTree)
+        );
         this.tabsRenderer.hide(false, false);
 
         // Add all elements to a vertical list
         VerticalScrollListScreenElement<RenderableScreenElement> elementsList =
                 new VerticalScrollListScreenElement<>(this,
                         RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.XAlignment.CENTER,
+                        () -> !this.abilitySelectionTree.isHovering(),
                         this.skillTitleRenderer, skillsIconsRendererDiv, spacer, tabsRenderer);
         elementsList.setAllowClicksOutsideBounds(true);
 

@@ -33,7 +33,7 @@ public class TextButtonScreenElement extends RenderableScreenElement {
         this.clickedTimestamp = -1;
         this.renderRotation = 0;
         this.renderScale = 1;
-        addClickListener((mouseX, mouseY, element) -> {
+        addClickListener((mouseX, mouseY, button, element) -> {
             clickedTimestamp = ClientTickHandler.total();
         });
     }

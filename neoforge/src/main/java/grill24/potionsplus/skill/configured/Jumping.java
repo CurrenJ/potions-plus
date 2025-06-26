@@ -21,7 +21,7 @@ public class Jumping {
         return context.register(ConfiguredSkills.JUMPING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_JUMPING,
                         new TreeMap<>(Map.of(
-                                5, new ItemStack(Items.RABBIT_FOOT)
+                                0, new ItemStack(Items.RABBIT_FOOT)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.JUMP),
                         new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 0, 25),

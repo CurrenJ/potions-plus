@@ -1,10 +1,7 @@
 package grill24.potionsplus.block;
 
 import grill24.potionsplus.gui.fishing.FishingLeaderboardsMenu;
-import grill24.potionsplus.gui.skill.SkillsMenu;
 import grill24.potionsplus.network.ClientboundSyncFishingLeaderboardsPacket;
-import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
-import grill24.potionsplus.skill.SkillsData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;

@@ -42,7 +42,7 @@ public abstract class PotionsPlusScreen<M extends AbstractContainerMenu> extends
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        getRootElement().tryClick((int) mouseX, (int) mouseY);
+        getRootElement().tryClick((int) mouseX, (int) mouseY, button);
 
         return super.mouseClicked(mouseX, mouseY, button);
     }
@@ -52,6 +52,13 @@ public abstract class PotionsPlusScreen<M extends AbstractContainerMenu> extends
         getRootElement().tryScroll((int) mouseX, (int) mouseY, scrollY);
 
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
+    }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        getRootElement().tryDrag(mouseX, mouseY, button, dragX, dragY);
+
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
     }
 
     // ----- Debug -----

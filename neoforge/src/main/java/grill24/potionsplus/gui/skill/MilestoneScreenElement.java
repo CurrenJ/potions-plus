@@ -1,13 +1,14 @@
 package grill24.potionsplus.gui.skill;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import grill24.potionsplus.core.items.DynamicIconItems;
+import grill24.potionsplus.extension.IClientAdvancementsExtension;
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.gui.RenderableScreenElement;
 import grill24.potionsplus.gui.SimpleTooltipScreenElement;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
 import grill24.potionsplus.skill.Milestone;
 import grill24.potionsplus.utility.ClientTickHandler;
-import grill24.potionsplus.extension.IClientAdvancementsExtension;
-import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
@@ -39,29 +40,25 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
 
     @Override
     protected void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        if(this.isUnlocked) {
-            super.render(graphics, partialTick, mouseX, mouseY);
-        } else {
-        // Render item silhouette
         super.render(graphics, partialTick, mouseX, mouseY);
+        if (!this.isUnlocked) {
+            if (this.screen.getMinecraft().player == null) {
+                return;
+            }
 
-        if (this.screen.getMinecraft().player == null) {
-            return;
-        }
-
-        // Render question mark
-        Rectangle2D bounds = getGlobalBounds();
-        graphics.pose().pushPose();
-        graphics.pose().translate(0, 0, -100);
-        ((IGuiGraphicsExtension) graphics).potions_plus$renderItem(
-                DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC),
-                new Vector3f(0, 0, 0),
-                (float) (bounds.getMinX() + bounds.getWidth() / 4F), // The render method we are calling here renders an item centered at the given position. We align to top-left because that's how the screen elements assume bounds are positioned.
-                (float) (bounds.getMinY() + bounds.getHeight() / 4F),
-                10,
-                this.getCurrentScale() * 0.5F,
-                Anchor.DEFAULT);
-        graphics.pose().popPose();
+            // Render question mark
+            Rectangle2D bounds = getGlobalBounds();
+            graphics.pose().pushPose();
+            graphics.pose().translate(0, 0, -100);
+            ((IGuiGraphicsExtension) graphics).potions_plus$renderItem(
+                    DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC),
+                    new Vector3f(0, 0, 0),
+                    (float) (bounds.getMinX() + bounds.getWidth() / 4F), // The render method we are calling here renders an item centered at the given position. We align to top-left because that's how the screen elements assume bounds are positioned.
+                    (float) (bounds.getMinY() + bounds.getHeight() / 4F),
+                    10,
+                    this.getCurrentScale() * 0.5F,
+                    Anchor.DEFAULT);
+            graphics.pose().popPose();
         }
     }
 
@@ -89,6 +86,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
 
             setItemStack(stack);
             this.isUnlocked = isAdvancementUnlocked(this.milestone.advancementId());
+            this.setOnlyShowSilhouette(!this.isUnlocked);
             this.tooltip = new SimpleTooltipScreenElement(this.screen, Settings.DEFAULT.withAnchor(Anchor.BOTTOM_LEFT).withAnimationSpeed(1.0F).withHiddenByDefault(true), this.isUnlocked ? Color.GREEN : Color.RED, display.getDescription());
         } else {
             hide(false);
@@ -122,8 +120,8 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
         Optional<ClientAdvancements> advancements = getAdvancements();
         return advancements
                 .map(clientAdvancements -> ((IClientAdvancementsExtension) clientAdvancements).potions_plus$getAdvancementProgress(advancementId)
-                .map(AdvancementProgress::isDone)
-                .orElse(false))
+                        .map(AdvancementProgress::isDone)
+                        .orElse(false))
                 .orElse(false);
     }
 

@@ -18,12 +18,12 @@ import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -38,6 +38,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class ClotheslineBlock extends HorizontalDirectionalBlock implements EntityBlock, WorldlyContainerHolder {
     private static final VoxelShape CENTER_POST = Block.box(6, 0, 6, 10, 16, 10);
@@ -170,6 +171,11 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
             return blockPos;
         }
 
+        if (blockState.getValue(FACING).getAxis() == Direction.Axis.Y) {
+            PotionsPlus.LOGGER.warn("getOtherEnd called on " + blockState.getBlock() + " with a vertical facing. This is not supported.");
+            return blockPos;
+        }
+
         int distance = getDistance(blockState);
         if (blockState.getValue(PART) == ClotheslinePart.LEFT)
             return blockPos.relative(blockState.getValue(FACING).getClockWise(), distance);
@@ -221,6 +227,13 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+        Optional<ClotheslineBlockEntity> blockEntityOptional = blockGetter.getBlockEntity(getLeftEnd(blockPos, blockState), grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.value());
+        if (blockEntityOptional.isPresent()) {
+            Optional<BlockState> fencePostBlockStateOptional = blockEntityOptional.get().getFencePostBlockState();
+            if (fencePostBlockStateOptional.isPresent()) {
+                return fencePostBlockStateOptional.get().getShape(blockGetter, blockPos);
+            }
+        }
         return CENTER_POST;
     }
 
@@ -241,6 +254,18 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (stack.isEmpty()) {
             return InteractionResult.TRY_WITH_EMPTY_HAND;
+        }
+
+
+        if (stack.getItem() instanceof BlockItem blockItem) {
+            Block block = blockItem.getBlock();
+            if (block instanceof FenceBlock || block instanceof WallBlock) {
+                Optional<ClotheslineBlockEntity> blockEntityOptional = level.getBlockEntity(getLeftEnd(pos, state), grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.value());
+                if (blockEntityOptional.isPresent()) {
+                    blockEntityOptional.get().setFencePostBlockItem(stack);
+                    return InteractionResult.SUCCESS;
+                }
+            }
         }
 
         BlockPos left = getLeftEnd(pos, state);

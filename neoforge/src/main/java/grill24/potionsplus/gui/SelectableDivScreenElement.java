@@ -55,6 +55,10 @@ public class SelectableDivScreenElement extends DivScreenElement<RenderableScree
             scale = Math.max(0, (1 - hoverFrameAnimationProgress) * getChild().getCurrentScale());
             itemStack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.GOLD_SELECTION_FRAME_TEX_LOC);
         }
+
+        if (scale < 0.01F) {
+            return;
+        }
         graphicsExtension.potions_plus$renderItem(itemStack, new Vector3f(), x, y, -100, scale, Anchor.DEFAULT);
     }
 }

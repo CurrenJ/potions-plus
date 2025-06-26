@@ -1,5 +1,6 @@
 package grill24.potionsplus.gui;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import grill24.potionsplus.render.animation.keyframe.AnimationCurve;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
@@ -59,6 +60,7 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
      */
     protected Collection<MouseListener> clickListeners;
     protected Collection<ScrollListener> scrollListeners;
+    protected Collection<DragListener> dragListeners;
     protected Collection<MouseListener> mouseEnterListeners;
     protected Collection<MouseListener> mouseExitListeners;
     protected boolean allowClicksOutsideBounds = false;
@@ -88,6 +90,7 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
 
         this.clickListeners = new ArrayList<>();
         this.scrollListeners = new ArrayList<>();
+        this.dragListeners = new ArrayList<>();
         this.mouseEnterListeners = new ArrayList<>();
         this.mouseExitListeners = new ArrayList<>();
 
@@ -243,14 +246,14 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         if (hovering && isVisible()) {
             if (this.mouseEnteredTimestamp == -1) {
                 this.mouseEnteredTimestamp = ClientTickHandler.total();
-                this.mouseEnterListeners.forEach(listener -> listener.onClick(mouseX, mouseY, this));
+                this.mouseEnterListeners.forEach(listener -> listener.onClick(mouseX, mouseY, 0, this));
                 onMouseEnter(mouseX, mouseY);
             }
             this.mouseExitedTimestamp = -1;
         } else {
             if (this.mouseExitedTimestamp == -1) {
                 this.mouseExitedTimestamp = ClientTickHandler.total();
-                this.mouseExitListeners.forEach(listener -> listener.onClick(mouseX, mouseY, this));
+                this.mouseExitListeners.forEach(listener -> listener.onClick(mouseX, mouseY, 0, this));
                 onMouseExit(mouseX, mouseY);
             }
             this.mouseEnteredTimestamp = -1;
@@ -258,15 +261,15 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     }
 
     @Override
-    public void tryClick(int mouseX, int mouseY) {
+    public void tryClick(int mouseX, int mouseY, int button) {
         if (isVisible() && (this.allowClicksOutsideBounds || getGlobalBounds().contains(mouseX, mouseY))) {
-            onClick(mouseX, mouseY);
+            onClick(mouseX, mouseY, button);
         }
     }
 
     @Override
-    public void onClick(int mouseX, int mouseY) {
-        this.clickListeners.forEach(listener -> listener.onClick(mouseX, mouseY, this));
+    public void onClick(int mouseX, int mouseY, int button) {
+        this.clickListeners.forEach(listener -> listener.onClick(mouseX, mouseY, button, this));
     }
 
     @Override
@@ -279,6 +282,18 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     @Override
     public void onScroll(int mouseX, int mouseY, double scrollDelta) {
         this.scrollListeners.forEach(listener -> listener.onScroll(mouseX, mouseY, scrollDelta, this));
+    }
+
+    @Override
+    public void tryDrag(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (isVisible() && getGlobalBounds().contains(mouseX, mouseY)) {
+            onDrag(mouseX, mouseY, button, dragX, dragY);
+        }
+    }
+
+    @Override
+    public void onDrag(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        this.dragListeners.forEach(listener -> listener.onDrag(mouseX, mouseY, button, dragX, dragY, this));
     }
 
     protected void onMouseExit(int mouseX, int mouseY) {}

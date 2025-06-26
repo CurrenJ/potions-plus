@@ -21,7 +21,7 @@ public class Archery {
         return context.register(ConfiguredSkills.ARCHERY, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_ARCHERY,
                         new TreeMap<>(Map.of(
-                                5, new ItemStack(Items.BOW)
+                                0, new ItemStack(Items.BOW)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_BOW),
                         new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 10),

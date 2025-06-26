@@ -156,7 +156,7 @@ public class FishTankBlockEntityRenderer implements BlockEntityRenderer<FishTank
         poseStack.translate(positionOffset.x(), positionOffset.y() + offsetY, positionOffset.z());
 
 
-        if (renderType.shouldEnableWobbleAnimation()) {
+        if (renderType.isWobbleAnimationEnabled()) {
             int fishFacingRotOffset = switch (fishTankBlockEntity.getFishFacing()) {
                 case NORTH -> 180;
                 case SOUTH -> 0;

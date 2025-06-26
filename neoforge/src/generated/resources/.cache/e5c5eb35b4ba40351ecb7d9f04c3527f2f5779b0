@@ -1,4 +1,4 @@
-// 1.21.5	2025-05-28T19:40:28.3622123	Advancements
+// 1.21.5	2025-06-25T18:52:53.8187425	Advancements
 e53b85127932ec4e404737894de34746a2fe2f7d data/potionsplus/advancement/acquire_moss.json
 7b5ac5af1584783739c38572b32f653875265b8f data/potionsplus/advancement/acquire_ore_flower.json
 2828d5c6a4e87dbf99080909c8a44217933f9f3f data/potionsplus/advancement/acquire_raw_uranium.json
@@ -42,5 +42,5 @@ f6ad89c916e2167bedfc2af1a3cdb15e543926fd data/potionsplus/advancement/mine_iron_
 fff801d944c30e8d6015b32663ac85e7d1960743 data/potionsplus/advancement/mine_iron_ore_1.json
 781d727c3c9e17600dff91a64333015f68e5dcfd data/potionsplus/advancement/mine_iron_ore_2.json
 4e7942439a30a34a3161429920aea7c9a6abb132 data/potionsplus/advancement/mine_iron_ore_3.json
-ed2718cbda56df87b67c9c2bb3491404c9387a10 data/potionsplus/advancement/root.json
+f14fd468beef7528d6666595568dc70ed34ada79 data/potionsplus/advancement/root.json
 78bae84402a1eea7955d57312151ce92c881703f data/potionsplus/advancement/skill_journals.json

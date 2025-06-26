@@ -37,7 +37,7 @@ public class PotionsPlusFishItem extends Item {
             return bobY;
         }
 
-        public boolean shouldEnableWobbleAnimation() {
+        public boolean isWobbleAnimationEnabled() {
             return enableWobbleAnimation;
         }
     }

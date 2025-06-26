@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @OnlyIn(Dist.CLIENT)
@@ -80,6 +81,10 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
             ClotheslineBlockEntity leftBlockEntity = level.getBlockEntity(left, Blocks.CLOTHESLINE_BLOCK_ENTITY.get()).orElse(null);
             if (leftBlockEntity == null)
                 return;
+
+            BlockPos leftRelativeToRenderOrigin = left.subtract(blockEntity.getBlockPos());
+            BlockPos rightRelativeToRenderOrigin = right.subtract(blockEntity.getBlockPos());
+            renderPosts(matrices, vertexConsumers, leftBlockEntity, leftRelativeToRenderOrigin, rightRelativeToRenderOrigin, LightTexture.pack(blockLightStart, skyLightStart), overlay);
 
             // Render items on the clothesline
             for (int i = 0; i < leftBlockEntity.getContainerSize(); i++) {
@@ -136,5 +141,32 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS) {
             clotheslinesRendered.clear();
         }
+    }
+
+    private void renderPosts(PoseStack poseStack, MultiBufferSource bufferSource, ClotheslineBlockEntity fishTankBlockEntity, BlockPos leftRelative, BlockPos rightRelative, int light, int overlay) {
+        Optional<BlockState> post = fishTankBlockEntity.getFencePostBlockState();
+
+
+        poseStack.pushPose();
+        poseStack.translate(leftRelative.getX(), leftRelative.getY(), leftRelative.getZ());
+        post.ifPresent(state -> blockRenderDispatcher.renderSingleBlock(
+                state,
+                poseStack,
+                bufferSource,
+                light,
+                overlay
+        ));
+        poseStack.popPose();
+
+        poseStack.pushPose();
+        poseStack.translate(rightRelative.getX(), rightRelative.getY(), rightRelative.getZ());
+        post.ifPresent(state -> blockRenderDispatcher.renderSingleBlock(
+                state,
+                poseStack,
+                bufferSource,
+                light,
+                overlay
+        ));
+        poseStack.popPose();
     }
 }

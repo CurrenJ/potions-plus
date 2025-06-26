@@ -50,7 +50,7 @@ public class TabsScreenElement<E extends RenderableScreenElement> extends Vertic
         List<RenderableScreenElement> contents = new ArrayList<>();
         for (TabData tab : tabs) {
             SelectableDivScreenElement icon = tab.icon;
-            icon.addClickListener((x, y, button) -> {
+            icon.addClickListener((x, y, button, el) -> {
                 this.setSelectedTab(tab);
             });
             icons.add(icon);

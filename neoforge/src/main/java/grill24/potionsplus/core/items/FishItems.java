@@ -137,7 +137,7 @@ public class FishItems {
                 .biomeBonusWeight(0)
                 .quality(2));
         OCEAN_SUNFISH = RegistrationUtility.register(register, FishItemBuilder.create("ocean_sunfish")
-                .sizeProvider(GaussianSizeBand.LARGE)
+                .sizeProvider(GaussianSizeBand.EXTRA_LARGE)
                 .biomes(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.WARM_OCEAN, Biomes.COLD_OCEAN, Biomes.FROZEN_OCEAN, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS));
         PORTUGUESE_MAN_O_WAR = RegistrationUtility.register(register, FishItemBuilder.create("portuguese_man_o_war")
                 .itemFactory(prop -> new PotionsPlusFishItem(prop, PotionsPlusFishItem.FishTankRenderType.UPRIGHT_FISH))

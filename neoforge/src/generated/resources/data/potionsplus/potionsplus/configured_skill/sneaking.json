@@ -3,7 +3,7 @@
   "config": {
     "baseConfig": {
       "displayIconForLevel": {
-        "5": {
+        "0": {
           "count": 1,
           "id": "minecraft:leather_boots"
         }

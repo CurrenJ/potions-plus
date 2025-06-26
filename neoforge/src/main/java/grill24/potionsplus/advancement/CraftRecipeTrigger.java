@@ -63,7 +63,7 @@ public class CraftRecipeTrigger extends SimpleCriterionTrigger<CraftRecipeTrigge
         public boolean test(RecipeType<?> recipeType, PpIngredient result) {
             boolean matches = true;
             if (recipeType().isPresent()) {
-                matches &= recipeType.equals(BuiltInRegistries.RECIPE_TYPE.get(recipeType().get()));
+                matches &= recipeType.equals(BuiltInRegistries.RECIPE_TYPE.getOrThrow(recipeType().get()).value());
             }
             if (recipeResult().isPresent()) {
                 List<BrewingCauldronRecipe.PotionMatchingCriteria> criteria = potionMatchingCriteria().orElse(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH));

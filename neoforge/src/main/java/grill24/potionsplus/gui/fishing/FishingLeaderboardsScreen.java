@@ -34,7 +34,7 @@ public class FishingLeaderboardsScreen extends PotionsPlusScreen<FishingLeaderbo
                 TabsScreenElement.TabData.verticalListTab(this, DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.GLOBAL_TEX_LOC), 1F, 1.25F, globalMetricTabsRenderer),
                 TabsScreenElement.TabData.verticalListTab(this, Utility.getPlayerHead(minecraft.player), 1F, 1.25F, personalMetricTabsRenderer));
 
-        VerticalScrollListScreenElement<RenderableScreenElement> all = new VerticalScrollListScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.XAlignment.CENTER, scopeTabsRenderer);
+        VerticalScrollListScreenElement<RenderableScreenElement> all = new VerticalScrollListScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.XAlignment.CENTER, () -> true, scopeTabsRenderer);
         all.setAllowClicksOutsideBounds(true);
 
         this.root = new FullScreenDivScreenElement<>(this, RenderableScreenElement.Settings.DEFAULT, RenderableScreenElement.Anchor.CENTER, all);
