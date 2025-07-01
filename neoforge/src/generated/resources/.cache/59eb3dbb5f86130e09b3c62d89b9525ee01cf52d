@@ -1,7 +1,7 @@
-// 1.21.5	2025-06-26T00:16:11.3377498	Loot Tables
+// 1.21.5	2025-07-01T01:54:23.9148731	Loot Tables
 767576116fd07a81b32e7f2f0f1c900fb084b0a7 data/potionsplus/loot_table/advanced_skill_rewards.json
-1d80433644660055e257bdbbe5054bf079f06986 data/potionsplus/loot_table/all_potions.json
-7040057afbd2cbaa3def756e6925e530e5c0ee09 data/potionsplus/loot_table/arid_cave_suspicious_sand.json
+b3130e314cc95b7a87d5d3dd3d056b4b4c3c4361 data/potionsplus/loot_table/all_potions.json
+303b9a299f4c36e57dd7cf69a33fb2ea1835f0ac data/potionsplus/loot_table/arid_cave_suspicious_sand.json
 12af4d734f3484bb07c5d2c3cda6e0fb5e4aad2d data/potionsplus/loot_table/basic_skill_rewards.json
 2c3c35e61a35bc151966f3cc1b284518aa4185b6 data/potionsplus/loot_table/blocks/abyssal_trove.json
 e9169df479cec505e995d0f9117e7bf74b74fff4 data/potionsplus/loot_table/blocks/allium_versatile.json

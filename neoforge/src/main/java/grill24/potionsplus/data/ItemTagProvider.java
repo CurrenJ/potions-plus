@@ -181,7 +181,8 @@ public class ItemTagProvider extends ItemTagsProvider {
                 FishItems.LONGNOSE_GAR.getValue(),
                 FishItems.BLUEGILL.getValue(),
                 FishItems.NEON_TETRA.getValue(),
-                FishItems.GUMMY_WORMS.getValue()
+                FishItems.GUMMY_WORMS.getValue(),
+                FishItems.STARFISH.getValue()
         );
         tag(Tags.Items.PP_FISHING_DIAMOND_FRAME).add(
                 FishItems.GARDEN_EEL.getValue(),

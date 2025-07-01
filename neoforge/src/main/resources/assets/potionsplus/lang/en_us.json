@@ -775,5 +775,7 @@
   "item.fishing_rod.no_bait": "§7§oAdd bait to catch fish...",
 
   "tooltip.potionsplus.fish_tank": "§7§oUse §r§6sand-like§r §7§oblocks, §r§6woods§r§7§o, or §r§6kelp§r §7§oto change its appearance!",
-  "alert.fish_tank.too_small": "Not enough space! Add adjacent tanks."
+  "alert.fish_tank.too_small": "Not enough space! Add adjacent tanks.",
+
+  "entity.potionsplus.grungler": "Grungler"
 }
