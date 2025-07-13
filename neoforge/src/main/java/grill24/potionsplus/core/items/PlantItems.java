@@ -24,7 +24,7 @@ public class PlantItems {
      */
     public static void init(BiFunction<String, Supplier<Item>, Holder<Item>> register) {
         TOMATO = RegistrationUtility.register(register, SimpleItemBuilder.create("tomato")
-                .itemFactory(prop -> new TomatoItem(prop.food(Foods.CARROT).useItemDescriptionPrefix()))
+                .itemFactory(prop -> new TomatoItem(prop.food(Foods.CARROT)))
                 .modelGenerator(holder -> new ItemModelUtility.GeneticCropWeightOverrideModelGenerator<>(holder,
                         ppId("item/tomato_dithering"),
                         GeneticCropItemTintSource::new,

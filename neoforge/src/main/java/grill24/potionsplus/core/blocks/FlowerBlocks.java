@@ -478,7 +478,6 @@ public class FlowerBlocks {
                 .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.TOMATO, 25, 200, 5, 400, 0F))
                 .renderType(BlockBuilder.RenderType.CUTOUT)
         ).getHolder();
-        Items.registerBlockItem(TOMATO_PLANT, registerItem);
 
         BRASSICA_OLERACEA_PLANT = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.create("brassica_oleracea_plant")
                 .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,

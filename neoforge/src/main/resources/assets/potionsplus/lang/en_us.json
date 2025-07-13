@@ -788,5 +788,12 @@
   "tooltip.trait.lateral_leaf_buds": "§7§oLateral Leaf Buds: %s",
   "tooltip.trait.terminal_leaf_buds": "§7§oTerminal Leaf Buds: %s",
 
-  "item.potionsplus.tomato": "Tomato"
+  "item.potionsplus.tomato": "Tomato",
+  "item.potionsplus.brassica_oleracea": "Brassica Oleracea",
+  "item.potionsplus.cabbage": "Cabbage",
+  "item.potionsplus.cauliflower": "Cauliflower",
+  "item.potionsplus.kohlrabi": "Kohlrabi",
+  "item.potionsplus.broccoli": "Broccoli",
+  "item.potionsplus.kale": "Kale",
+  "item.potionsplus.brussels_sprouts": "Brussels Sprouts"
 }

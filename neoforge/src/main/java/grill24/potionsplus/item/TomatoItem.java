@@ -38,12 +38,10 @@ public class TomatoItem extends GeneticCropItem {
     }
 
     @Override
-    public ItemStack onGeneticDataChanged(ItemStack stack) {
-        int[] chromosomes = new int[Genotype.MAX_CHROMOSOMES];
-        chromosomes[GeneticCropItem.WEIGHT_CHROMOSOME_INDEX] = getChromosomeValue(stack, GeneticCropItem.WEIGHT_CHROMOSOME_INDEX);
-        chromosomes[GeneticCropItem.COLOR_CHROMOSOME_INDEX] = getChromosomeValue(stack, GeneticCropItem.COLOR_CHROMOSOME_INDEX);
-
-        stack.set(DataComponents.GENETIC_DATA, new Genotype(chromosomes));
-        return stack;
+    public int[] getUsedChromosomes() {
+        return new int[] {
+            GeneticCropItem.WEIGHT_CHROMOSOME_INDEX,
+            GeneticCropItem.COLOR_CHROMOSOME_INDEX
+        };
     }
 }

@@ -57,7 +57,6 @@ public class GeneticCropBlockModelGenerator<T extends Block> extends BlockModelU
         Block block = this.getHolder().value();
         if (block instanceof GeneticCropBlock && this.getHolder().getKey() != null) {
             ResourceLocation baseModelLocation = this.getHolder().getKey().location();
-            ResourceLocation fallbackModelLocation = ResourceLocation.fromNamespaceAndPath(baseModelLocation.getNamespace(), baseModelLocation.getPath() + "_0");
 
             // Generate blockstate definition
             BlockModelDefinitionGenerator blockstateGenerator = MultiVariantGenerator.dispatch(block)

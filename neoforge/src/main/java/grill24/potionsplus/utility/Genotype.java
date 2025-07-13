@@ -173,7 +173,6 @@ public class Genotype {
         for (int i = 0; i < BITS_IN_GENOTYPE; i++) {
             if (Math.random() < mutationRate) {
                 mutatedGenotype = mutate(g, i).getGenotype();
-                PotionsPlus.LOGGER.info("Mutating genotype at bit " + i);
             }
         }
 

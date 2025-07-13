@@ -40,13 +40,14 @@ public abstract class GeneticCropItem extends BlockItem {
 
     /**
      * Returns the maximum weight in grams that this crop can have. When chromosome value is 255, this is the weight.
+     *
      * @return the maximum weight in grams
      */
     public abstract int getMaxWeightInGrams();
 
     /**
-     *
      * Returns the minimum weight in grams that this crop can have. When chromosome value is 0, this is the weight.
+     *
      * @return the minimum weight in grams
      */
     public abstract int getMinWeightInGrams();
@@ -89,39 +90,55 @@ public abstract class GeneticCropItem extends BlockItem {
         return onGeneticDataChanged(stack);
     }
 
-    public abstract ItemStack onGeneticDataChanged(ItemStack stack);
+    /**
+     * Retrieves the chromosomes actively used by this crop item.
+     * We always have 16 chromosomes, but sometimes not all of them are used.
+     * This method should fill the provided array with the values of the used chromosomes.
+     *
+     * @return an array of indices representing the used chromosomes
+     */
+    public abstract int[] getUsedChromosomes();
+
+    /**
+     * To be called when the genetic data of the crop item changes.
+     * Used to update any necessary properties or states of the item.
+     * This method should be overridden by subclasses to implement specific behavior.
+     *
+     * @param stack
+     * @return the modified ItemStack with updated genetic data / properties
+     */
+    public ItemStack onGeneticDataChanged(ItemStack stack) {
+        int[] usedChromosomes = getUsedChromosomes();
+        int[] chromosomes = new int[Genotype.MAX_CHROMOSOMES];
+        for (int chromosomeIndex : usedChromosomes) {
+            int value = getChromosomeValue(stack, chromosomeIndex);
+            chromosomes[chromosomeIndex] = value;
+        }
+
+        stack.set(DataComponents.GENETIC_DATA, new Genotype(chromosomes));
+        return stack;
+    }
 
     @SubscribeEvent
     public static void onAnimatedTooltip(final AnimatedItemTooltipEvent.Add event) {
         ItemStack stack = event.getItemStack();
         if (stack.has(DataComponents.GENETIC_DATA) && stack.getItem() instanceof GeneticCropItem geneticCropItem) {
             int weight = geneticCropItem.getWeightInGrams(stack);
-            float color = geneticCropItem.getChromosomeValueNormalized(stack, GeneticCropItem.COLOR_CHROMOSOME_INDEX);
-
             AnimatedItemTooltipEvent.TooltipLines weightTrait = AnimatedItemTooltipEvent.TooltipLines.of(
                     grill24.potionsplus.utility.Utility.ppId("weight"),
                     TooltipPriorities.SIZE + 1,
                     Component.translatable(Translations.TOOLTIP_TRAIT_WEIGHT_GRAMS, weight)
             );
-
-            AnimatedItemTooltipEvent.TooltipLines colorTrait = createTraitTooltipLine(Translations.TOOLTIP_TRAIT_COLOR, geneticCropItem, stack, GeneticCropItem.COLOR_CHROMOSOME_INDEX);
-
-
             event.addTooltipMessage(weightTrait);
-            event.addTooltipMessage(colorTrait);
+
+            tryAddTraitTooltipLines(event, Translations.TOOLTIP_TRAIT_COLOR, geneticCropItem, stack, GeneticCropItem.COLOR_CHROMOSOME_INDEX);
 
             if (event.getItemStack().getItem() instanceof BrassicaOleraceaItem) {
-                AnimatedItemTooltipEvent.TooltipLines stemTrait = createTraitTooltipLine(Translations.TOOLTIP_TRAIT_STEM, geneticCropItem, stack, BrassicaOleraceaItem.STEM_TRAIT);
-                AnimatedItemTooltipEvent.TooltipLines leavesTrait = createTraitTooltipLine(Translations.TOOLTIP_TRAIT_LEAVES, geneticCropItem, stack, BrassicaOleraceaItem.LEAVES_TRAIT);
-                AnimatedItemTooltipEvent.TooltipLines flowerBudsTrait = createTraitTooltipLine(Translations.TOOLTIP_TRAIT_FLOWER_BUDS, geneticCropItem, stack, BrassicaOleraceaItem.FLOWER_BUDS_TRAIT);
-                AnimatedItemTooltipEvent.TooltipLines lateralLeafBuds = createTraitTooltipLine(Translations.TOOLTIP_TRAIT_LATERAL_LEAF_BUDS, geneticCropItem, stack, BrassicaOleraceaItem.LATERAL_LEAF_BUDS);
-                AnimatedItemTooltipEvent.TooltipLines terminalLeafBuds = createTraitTooltipLine(Translations.TOOLTIP_TRAIT_TERMINAL_LEAF_BUDS, geneticCropItem, stack, BrassicaOleraceaItem.TERMINAL_LEAF_BUDS);
-
-                event.addTooltipMessage(stemTrait);
-                event.addTooltipMessage(leavesTrait);
-                event.addTooltipMessage(flowerBudsTrait);
-                event.addTooltipMessage(lateralLeafBuds);
-                event.addTooltipMessage(terminalLeafBuds);
+                tryAddTraitTooltipLines(event, Translations.TOOLTIP_TRAIT_STEM, geneticCropItem, stack, BrassicaOleraceaItem.STEM_TRAIT);
+                tryAddTraitTooltipLines(event, Translations.TOOLTIP_TRAIT_LEAVES, geneticCropItem, stack, BrassicaOleraceaItem.LEAVES_TRAIT);
+                tryAddTraitTooltipLines(event, Translations.TOOLTIP_TRAIT_FLOWER_BUDS, geneticCropItem, stack, BrassicaOleraceaItem.FLOWER_BUDS_TRAIT);
+                tryAddTraitTooltipLines(event, Translations.TOOLTIP_TRAIT_LATERAL_LEAF_BUDS, geneticCropItem, stack, BrassicaOleraceaItem.LATERAL_LEAF_BUDS);
+                tryAddTraitTooltipLines(event, Translations.TOOLTIP_TRAIT_TERMINAL_LEAF_BUDS, geneticCropItem, stack, BrassicaOleraceaItem.TERMINAL_LEAF_BUDS);
             }
         }
     }
@@ -134,5 +151,11 @@ public abstract class GeneticCropItem extends BlockItem {
         String value = getTraitTooltipValue(item, stack, traitIndex);
         return AnimatedItemTooltipEvent.TooltipLines.of(
                 ppId(translationKey), TooltipPriorities.TRAITS, Component.translatable(translationKey, value));
+    }
+
+    private static void tryAddTraitTooltipLines(final AnimatedItemTooltipEvent event, String translationKey, GeneticCropItem item, ItemStack stack, int traitIndex) {
+        if (item.getChromosomeValue(stack, traitIndex) > 0) {
+            event.addTooltipMessage(createTraitTooltipLine(translationKey, item, stack, traitIndex));
+        }
     }
 }

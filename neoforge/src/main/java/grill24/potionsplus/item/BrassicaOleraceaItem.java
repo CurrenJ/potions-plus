@@ -38,12 +38,26 @@ public class BrassicaOleraceaItem extends GeneticCropItem {
     }
 
     @Override
+    public int[] getUsedChromosomes() {
+        return new int[] {
+            WEIGHT_CHROMOSOME_INDEX,
+            COLOR_CHROMOSOME_INDEX,
+            STEM_TRAIT,
+            LEAVES_TRAIT,
+            FLOWER_BUDS_TRAIT,
+            LATERAL_LEAF_BUDS,
+            TERMINAL_LEAF_BUDS
+        };
+    }
+
+    @Override
     public ItemStack onGeneticDataChanged(ItemStack stack) {
-        Variation variation = getVariation(stack);
+        ItemStack superModifiedStack = super.onGeneticDataChanged(stack);
+        Variation variation = getVariation(superModifiedStack);
 
         ItemStack result = new ItemStack(variation.getItem());
-        result.set(DataComponents.GENETIC_DATA, stack.getOrDefault(DataComponents.GENETIC_DATA, new Genotype()));
-        result.setCount(stack.getCount());
+        result.set(DataComponents.GENETIC_DATA, superModifiedStack.getOrDefault(DataComponents.GENETIC_DATA, new Genotype()));
+        result.setCount(superModifiedStack.getCount());
         return result;
     }
 
