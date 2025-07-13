@@ -2,13 +2,16 @@ package grill24.potionsplus.core.blocks;
 
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.items.PlantItems;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.block.*;
+import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -34,6 +37,9 @@ public class FlowerBlocks {
     public static Holder<Block> SUNFLOWER_VERSATILE, LILAC_VERSATILE, ROSE_BUSH_VERSATILE, PEONY_VERSATILE, TALL_GRASS_VERSATILE, LARGE_FERN_VERSATILE, PITCHER_PLANT_VERSATILE;
 
     public static Holder<Block> IRON_OXIDE_DAISY, COPPER_CHRYSANTHEMUM, LAPIS_LILAC, DIAMOUR, GOLDEN_CUBENSIS, REDSTONE_ROSE, BLACK_COALLA_LILY;
+
+    public static Holder<Block> TOMATO_PLANT, BRASSICA_OLERACEA_PLANT, CABBAGE_PLANT, KALE_PLANT, KOHLRABI_PLANT, BROCCOLLI_PLANT, CAULIFLOWER_PLANT, BRUSSELS_SPROUTS_PLANT;
+    public static List<Holder<Block>> GENETIC_CROP_PLANTS;
 
     public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
         LUNAR_BERRY_BUSH = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("lunar_berry_bush")
@@ -459,5 +465,96 @@ public class FlowerBlocks {
                         .build()
         )).getHolder();
         Items.registerBlockItem(PITCHER_PLANT_VERSATILE, registerItem);
+
+        TOMATO_PLANT = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.create("tomato_plant")
+                .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, ModelTemplates.CROP,
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_1"), ppId("block/tomatoes_pollinated_1")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_2"), ppId("block/tomatoes_pollinated_2")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_3"), ppId("block/tomatoes_pollinated_3")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_4"), ppId("block/tomatoes_pollinated_4")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_5"), ppId("block/tomatoes_pollinated_5"), ppId("block/tomatoes_5_ripe"))))
+                .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
+                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.TOMATO, 25, 200, 5, 400, 0F))
+                .renderType(BlockBuilder.RenderType.CUTOUT)
+        ).getHolder();
+        Items.registerBlockItem(TOMATO_PLANT, registerItem);
+
+        BRASSICA_OLERACEA_PLANT = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.create("brassica_oleracea_plant")
+                .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/brassica_oleracea_0"), ppId("block/brassica_oleracea_pollinated_0"), ppId("block/brassica_oleracea_ripe_0")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/brassica_oleracea_1"), ppId("block/brassica_oleracea_pollinated_1"), ppId("block/brassica_oleracea_ripe_1")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/brassica_oleracea_2"), ppId("block/brassica_oleracea_pollinated_2"), ppId("block/brassica_oleracea_ripe_2")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/brassica_oleracea_3"), ppId("block/brassica_oleracea_pollinated_3"), ppId("block/brassica_oleracea_ripe_3")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/brassica_oleracea_4"), ppId("block/brassica_oleracea_pollinated_4"), ppId("block/brassica_oleracea_ripe_4")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/brassica_oleracea_5"), ppId("block/brassica_oleracea_pollinated_5"), ppId("block/brassica_oleracea_ripe_5")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/brassica_oleracea_6"), ppId("block/brassica_oleracea_pollinated_6"), ppId("block/brassica_oleracea_ripe_6")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/brassica_oleracea_7"), ppId("block/brassica_oleracea_pollinated_7"), ppId("block/brassica_oleracea_ripe_7")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/brassica_oleracea_8"), ppId("block/brassica_oleracea_pollinated_8"), ppId("block/brassica_oleracea_ripe_8")),
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/brassica_oleracea_9"), ppId("block/brassica_oleracea_pollinated_9"), ppId("block/brassica_oleracea_ripe_9"))
+                ))
+                .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
+                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.BRASSICA_OLERACEA, 25, 200, 10, 400, 0.25F))
+                .renderType(BlockBuilder.RenderType.CUTOUT)
+        ).getHolder();
+
+        CABBAGE_PLANT = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.create("cabbage_plant")
+                .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
+                .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
+                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.CABBAGE, 25, 200, 10, 400, 0.25F))
+                .renderType(BlockBuilder.RenderType.CUTOUT)
+        ).getHolder();
+
+        KALE_PLANT = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.create("kale_plant")
+                .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
+                .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
+                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.KALE, 25, 200, 10, 400, 0.25F))
+                .renderType(BlockBuilder.RenderType.CUTOUT)
+        ).getHolder();
+
+        BROCCOLLI_PLANT = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.create("broccoli_plant")
+                .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
+                .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
+                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.BROCCOLLI, 25, 200, 10, 400, 0.25F))
+                .renderType(BlockBuilder.RenderType.CUTOUT)
+        ).getHolder();
+
+        CAULIFLOWER_PLANT = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.create("cauliflower_plant")
+                .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
+                .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
+                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.CAULIFLOWER, 25, 200, 10, 400, 0.25F))
+                .renderType(BlockBuilder.RenderType.CUTOUT)
+        ).getHolder();
+
+        KOHLRABI_PLANT = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.create("kohlrabi_plant")
+                .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
+                .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
+                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.KOHLRABI, 25, 200, 10, 400, 0.25F))
+                .renderType(BlockBuilder.RenderType.CUTOUT)
+        ).getHolder();
+
+        BRUSSELS_SPROUTS_PLANT = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.create("brussels_sprouts_plant")
+                .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
+                        new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
+                .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
+                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.BRUSSELS_SPROUTS, 25, 200, 10, 400, 0.25F))
+                .renderType(BlockBuilder.RenderType.CUTOUT)
+        ).getHolder();
+
+        GENETIC_CROP_PLANTS = List.of(
+                TOMATO_PLANT,
+                BRASSICA_OLERACEA_PLANT,
+                CABBAGE_PLANT,
+                KALE_PLANT,
+                BROCCOLLI_PLANT,
+                CAULIFLOWER_PLANT,
+                KOHLRABI_PLANT,
+                BRUSSELS_SPROUTS_PLANT
+        );
     }
 }

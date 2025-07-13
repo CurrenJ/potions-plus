@@ -1,12 +1,16 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.blockentity.*;
+import grill24.potionsplus.item.tintsource.AnyPotionTintSource;
+import grill24.potionsplus.item.tintsource.GeneticCropItemTintSource;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class Renderers {
@@ -22,5 +26,12 @@ public class Renderers {
         event.registerBlockEntityRenderer(Blocks.FISH_TANK_BLOCK_ENTITY.get(), FishTankBlockEntityRenderer::new);
 
         event.registerEntityRenderer(Entities.INVISIBLE_FIRE_DAMAGER.get(), NoopRenderer::new);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void registerItemColors(RegisterColorHandlersEvent.ItemTintSources event) {
+        event.register(AnyPotionTintSource.ID, AnyPotionTintSource.CODEC);
+        event.register(GeneticCropItemTintSource.ID, GeneticCropItemTintSource.CODEC);
     }
 }

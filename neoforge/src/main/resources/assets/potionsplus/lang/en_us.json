@@ -777,5 +777,16 @@
   "tooltip.potionsplus.fish_tank": "§7§oUse §r§6sand-like§r §7§oblocks, §r§6woods§r§7§o, or §r§6kelp§r §7§oto change its appearance!",
   "alert.fish_tank.too_small": "Not enough space! Add adjacent tanks.",
 
-  "entity.potionsplus.grungler": "Grungler"
+  "entity.potionsplus.grungler": "Grungler",
+
+  "tooltip.trait.weight.grams" : "§7§oWeight: %sg",
+  "tooltip.trait.color": "§7§oColor: %s",
+
+  "tooltip.trait.stem": "§7§oStem: %s",
+  "tooltip.trait.leaves": "§7§oLeaves: %s",
+  "tooltip.trait.flower_buds": "§7§oFlower Buds: %s",
+  "tooltip.trait.lateral_leaf_buds": "§7§oLateral Leaf Buds: %s",
+  "tooltip.trait.terminal_leaf_buds": "§7§oTerminal Leaf Buds: %s",
+
+  "item.potionsplus.tomato": "Tomato"
 }

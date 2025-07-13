@@ -1,6 +1,8 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.block.*;
+import grill24.potionsplus.block.GeneticCropBlockEntity;
+import grill24.potionsplus.block.VersatilePlantBlock;
+import grill24.potionsplus.block.VersatilePlantBlockTexturePattern;
 import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.blockentity.filterhopper.HugeFilterHopperBlockEntity;
 import grill24.potionsplus.blockentity.filterhopper.LargeFilterHopperBlockEntity;
@@ -9,15 +11,16 @@ import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
-import grill24.potionsplus.item.tintsource.AnyPotionTintSource;
-import grill24.potionsplus.utility.*;
+import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.GrassColor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -34,6 +37,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class Blocks {
@@ -59,6 +63,8 @@ public class Blocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LargeFilterHopperBlockEntity>> LARGE_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("large_filter_hopper_block_entity", () -> new BlockEntityType<>(LargeFilterHopperBlockEntity::new, BlockEntityBlocks.LARGE_FILTER_HOPPER.value()));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HugeFilterHopperBlockEntity>> HUGE_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("huge_filter_hopper_block_entity", () -> new BlockEntityType<>(HugeFilterHopperBlockEntity::new, BlockEntityBlocks.HUGE_FILTER_HOPPER.value()));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FishTankBlockEntity>> FISH_TANK_BLOCK_ENTITY = BLOCK_ENTITIES.register("fish_tank_block_entity", () -> new BlockEntityType<>(FishTankBlockEntity::new, BlockEntityBlocks.toArray(BlockEntityBlocks.FISH_TANK_SUB_BLOCKS)));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GeneticCropBlockEntity>> GENETIC_CROP_BLOCK_ENTITY = BLOCK_ENTITIES.register("genetic_crop_block_entity", () -> new BlockEntityType<>(GeneticCropBlockEntity::new,
+            FlowerBlocks.GENETIC_CROP_PLANTS.stream().map(Holder::value).collect(Collectors.toSet())));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -79,12 +85,6 @@ public class Blocks {
         event.register((state, blockAndTintGetter, blockPos, i) -> blockAndTintGetter != null && blockPos != null ?
                 BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos)
                 : GrassColor.getDefaultColor(), FlowerBlocks.TALL_GRASS_VERSATILE.value(), FlowerBlocks.LARGE_FERN_VERSATILE.value());
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public static void registerItemColors(RegisterColorHandlersEvent.ItemTintSources event) {
-        event.register(AnyPotionTintSource.ID, AnyPotionTintSource.CODEC);
     }
 
     @SubscribeEvent

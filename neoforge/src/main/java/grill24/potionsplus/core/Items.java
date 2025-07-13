@@ -28,6 +28,7 @@ public class Items {
         BrewingItems.init(ITEMS::register);
         FilterHopperUpgradeItems.init(ITEMS::register);
         DynamicIconItems.init(ITEMS::register);
+        PlantItems.init(ITEMS::register);
     }
 
     public static Item.Properties properties() {

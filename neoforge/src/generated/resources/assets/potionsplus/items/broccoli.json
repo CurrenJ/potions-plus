@@ -1,0 +1,32 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "chromosome_index": 0,
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/broccoli"
+        },
+        "threshold": 0.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/broccoli_medium"
+        },
+        "threshold": 0.5
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "potionsplus:item/broccoli",
+      "tints": [
+        {
+          "type": "potionsplus:genetic_crop_tint"
+        }
+      ]
+    },
+    "property": "potionsplus:genetic"
+  }
+}

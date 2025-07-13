@@ -403,4 +403,9 @@ public class Utility {
 
         return supplier.get();
     }
+
+    public static String formatPercentage(float value, int decimalPlaces) {
+        String formattedValue = trimToDecimalPlaces(value * 100, decimalPlaces);
+        return formattedValue + "%";
+    }
 }

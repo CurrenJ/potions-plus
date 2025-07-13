@@ -9,7 +9,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "potionsplus:harrowing_hands"
+              "id": "minecraft:long_fire_resistance"
             }
           ],
           "name": "minecraft:potion"
@@ -19,7 +19,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "minecraft:long_regeneration"
+              "id": "minecraft:thick"
             }
           ],
           "name": "minecraft:potion"
@@ -29,27 +29,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "potionsplus:water_breathing"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:oozing"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:strong_poison"
+              "id": "minecraft:luck"
             }
           ],
           "name": "minecraft:potion"
@@ -69,57 +49,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "minecraft:long_slow_falling"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:long_water_breathing"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:wither"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:infested"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:giant_steps"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:swiftness"
+              "id": "minecraft:slowness"
             }
           ],
           "name": "minecraft:potion"
@@ -139,127 +69,17 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
+              "id": "minecraft:strong_strength"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
               "id": "minecraft:leaping"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:bouncing"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:fire_resistance"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:long_night_vision"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:levitation"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:soul_mate"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:saturation"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:slow_falling"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:resistance"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:fortuitous_fate"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:invisibility"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:slip_n_slide"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:hunger"
             }
           ],
           "name": "minecraft:potion"
@@ -279,67 +99,67 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "minecraft:night_vision"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:geode_grace"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:looting"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:strong_strength"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:strength"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:strength"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
               "id": "potionsplus:fall_of_the_void"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:harrowing_hands"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:blindness"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_poison"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:resistance"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_night_vision"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_turtle_master"
             }
           ],
           "name": "minecraft:potion"
@@ -359,7 +179,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "potionsplus:reach_for_the_stars"
+              "id": "potionsplus:magnetic"
             }
           ],
           "name": "minecraft:potion"
@@ -369,7 +189,377 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "minecraft:long_swiftness"
+              "id": "minecraft:invisibility"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:invisibility"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:fire_resistance"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:infested"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:regeneration"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:bouncing"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_regeneration"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_slowness"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:botanical_boost"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:geode_grace"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:slow_falling"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:water_breathing"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:mundane"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_water_breathing"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strength"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:healing"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:oozing"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:flying_time"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:shepherds_serenade"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:teleportation"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:awkward"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_regeneration"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_leaping"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:looting"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:poison"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:slip_n_slide"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:soul_mate"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:weaving"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:giant_steps"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:metal_detecting"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:haste"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:turtle_master"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:fortuitous_fate"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:wind_charged"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_weakness"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_slowness"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:water"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:any_potion"
             }
           ],
           "name": "minecraft:potion"
@@ -380,6 +570,36 @@
             {
               "function": "minecraft:set_potion",
               "id": "minecraft:long_poison"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:saturation"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:nausea"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:strong_healing"
             }
           ],
           "name": "minecraft:potion"
@@ -409,147 +629,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "minecraft:healing"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:shepherds_serenade"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:long_turtle_master"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:thick"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:long_leaping"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:awkward"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:water"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:long_weakness"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:haste"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:teleportation"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:strong_regeneration"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:regeneration"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:long_fire_resistance"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:water_breathing"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:luck"
+              "id": "minecraft:night_vision"
             }
           ],
           "name": "minecraft:potion"
@@ -569,7 +649,27 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "minecraft:strong_healing"
+              "id": "potionsplus:hunger"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:water_breathing"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:long_swiftness"
             }
           ],
           "name": "minecraft:potion"
@@ -589,7 +689,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "potionsplus:flying_time"
+              "id": "minecraft:swiftness"
             }
           ],
           "name": "minecraft:potion"
@@ -599,7 +699,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "minecraft:slowness"
+              "id": "potionsplus:strength"
             }
           ],
           "name": "minecraft:potion"
@@ -609,7 +709,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "potionsplus:metal_detecting"
+              "id": "potionsplus:levitation"
             }
           ],
           "name": "minecraft:potion"
@@ -629,126 +729,6 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "minecraft:turtle_master"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:any_potion"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:strong_turtle_master"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:long_slowness"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:weaving"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:strong_slowness"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:invisibility"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:crop_collector"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:wind_charged"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:strong_leaping"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:mundane"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "potionsplus:nausea"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
               "id": "potionsplus:nautical_nitro"
             }
           ],
@@ -759,7 +739,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "potionsplus:blindness"
+              "id": "minecraft:long_leaping"
             }
           ],
           "name": "minecraft:potion"
@@ -769,7 +749,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "potionsplus:magnetic"
+              "id": "potionsplus:reach_for_the_stars"
             }
           ],
           "name": "minecraft:potion"
@@ -779,7 +759,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "minecraft:poison"
+              "id": "minecraft:long_turtle_master"
             }
           ],
           "name": "minecraft:potion"
@@ -789,7 +769,27 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "potionsplus:botanical_boost"
+              "id": "minecraft:long_slow_falling"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:wither"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "potionsplus:crop_collector"
             }
           ],
           "name": "minecraft:potion"

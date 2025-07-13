@@ -4,6 +4,8 @@ import grill24.potionsplus.block.FishTankFrameBlock;
 import grill24.potionsplus.block.FishTankSandBlock;
 import grill24.potionsplus.core.items.BrewingItems;
 import grill24.potionsplus.debug.Debug;
+import grill24.potionsplus.item.GeneticCropItem;
+import grill24.potionsplus.utility.Genotype;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -42,6 +44,14 @@ public class CreativeModeTabs {
                         (blockItem.getBlock() instanceof FishTankFrameBlock ||
                                 blockItem.getBlock() instanceof FishTankSandBlock)) {
                     // Skip Fish Tank Frame/Sand Block Permutations
+                    continue;
+                }
+
+                if (item.value() instanceof GeneticCropItem) {
+                    // Add Genetic Crop Items to the tab
+                    ItemStack stack = new ItemStack(item.value());
+                    stack.set(DataComponents.GENETIC_DATA, new Genotype());
+                    event.accept(stack);
                     continue;
                 }
 

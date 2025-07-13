@@ -2,7 +2,9 @@ package grill24.potionsplus.utility.registration.item;
 
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.item.EdibleChoiceItem;
+import grill24.potionsplus.item.GeneticCropItem;
 import grill24.potionsplus.item.modelproperty.EdibleChoiceProperty;
+import grill24.potionsplus.item.modelproperty.GeneticProperty;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.registration.IModelGenerator;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -17,8 +19,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ItemLike;
+import oshi.util.tuples.Pair;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -28,16 +29,10 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 public class ItemOverrideUtility {
     public abstract static class ItemOverrideModelGenerator<T extends Item> implements IModelGenerator<Item> {
-        protected ResourceLocation overridePropertyId;
         private final Supplier<Holder<Item>> itemGetter;
 
-        public ItemOverrideModelGenerator(Supplier<Holder<Item>> itemGetter, ResourceLocation overridePropertyId) {
-            this.overridePropertyId = overridePropertyId;
+        public ItemOverrideModelGenerator(Supplier<Holder<Item>> itemGetter) {
             this.itemGetter = itemGetter;
-        }
-
-        ResourceLocation getOverridePropertyId() {
-            return overridePropertyId;
         }
 
         @Override
@@ -50,10 +45,9 @@ public class ItemOverrideUtility {
         private final ItemOverrideCommonUtility.EdibleChoiceItemOverrideData commonData;
 
         public EdibleChoiceItemOverrideModelGenerator(Supplier<Holder<Item>> itemGetter, ItemOverrideCommonUtility.EdibleChoiceItemOverrideData commonData) {
-            super(itemGetter, commonData.getOverridePropertyId());
+            super(itemGetter);
             this.commonData = commonData;
         }
-
 
         @Override
         public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
@@ -97,7 +91,7 @@ public class ItemOverrideUtility {
 
     public static class PotionEffectIconOverrideModelData extends ItemOverrideModelGenerator<Item> {
         public PotionEffectIconOverrideModelData(Supplier<Holder<Item>> itemSupplier, ResourceLocation overridePropertyId) {
-            super(itemSupplier, overridePropertyId);
+            super(itemSupplier);
         }
 
         @Override
@@ -140,7 +134,7 @@ public class ItemOverrideUtility {
         private final Map<ResourceLocation, Integer> textureIndexMap;
 
         public DynamicItemOverrideModelData(Supplier<Holder<Item>> itemSupplier, ResourceLocation overridePropertyId, ResourceLocation[] textures, Map<ResourceLocation, Integer> textureToItemStackCountMap) {
-            super(itemSupplier, overridePropertyId);
+            super(itemSupplier);
             this.textureIndexMap = textureToItemStackCountMap;
             this.textures = textures;
         }
@@ -187,9 +181,51 @@ public class ItemOverrideUtility {
             itemModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
         }
 
+    }
+
+    public static class WeightItemOverrideModelData extends ItemOverrideModelGenerator<Item> {
+        private final Pair<Float, ResourceLocation>[] textureThresholds;
+
+        @SafeVarargs
+        public WeightItemOverrideModelData(Supplier<Holder<Item>> itemSupplier, Pair<Float, ResourceLocation>... textureThresholds) {
+            super(itemSupplier);
+            this.textureThresholds = textureThresholds;
+        }
+
         @Override
-        public ResourceLocation getOverridePropertyId() {
-            return overridePropertyId;
+        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+            // Use the weight property to determine the model
+
+            Holder<Item> item = getHolder();
+            TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, ResourceLocation.fromNamespaceAndPath("minecraft", "item/stone"));
+            ResourceLocation fallbackItemModelLocation = ModelTemplates.FLAT_ITEM.create(ppId("weight_fallback"), fallbackItemTextureMapping, itemModelGenerators.modelOutput);
+
+            BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(fallbackItemModelLocation, Collections.emptyList());
+            List<RangeSelectItemModel.Entry> entries = new ArrayList<>();
+            for (Pair<Float, ResourceLocation> pair : textureThresholds) {
+                float threshold = pair.getA();
+                ResourceLocation texture = pair.getB();
+
+                ResourceLocation modelId = texture;
+
+                TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, texture);
+                ResourceLocation generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, itemModelGenerators.modelOutput);
+
+                entries.add(new RangeSelectItemModel.Entry(
+                        threshold,
+                        new BlockModelWrapper.Unbaked(
+                                generatedItemModel,
+                                Collections.emptyList()
+                        )
+                ));
+            }
+
+            RangeSelectItemModel.Unbaked rangeSelectItemModel = new RangeSelectItemModel.Unbaked(
+                    new GeneticProperty(GeneticCropItem.WEIGHT_CHROMOSOME_INDEX),
+                    1,
+                    entries,
+                    Optional.of(fallbackItemModel)
+            );
         }
     }
 }
