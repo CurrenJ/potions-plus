@@ -42,12 +42,7 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
     public static final MapCodec<GeneticCropBlock> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
                     propertiesCodec(),
-                    BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("crop_item").forGetter(GeneticCropBlock::getCropItem),
-                    Codec.INT.fieldOf("max_age").orElse(25).forGetter(GeneticCropBlock::getMaxAge),
-                    Codec.INT.fieldOf("ticks_per_age").orElse(1200).forGetter(GeneticCropBlock::getTicksPerAge),
-                    Codec.INT.fieldOf("growth_ticks").orElse(1200).forGetter(GeneticCropBlock::getGrowthTicks),
-                    Codec.INT.fieldOf("min_harvest_age").orElse(0).forGetter(GeneticCropBlock::getMinHarvestAge),
-                    Codec.FLOAT.fieldOf("destroy_on_harvest_chance").orElse(0.0F).forGetter(GeneticCropBlock::getDestroyOnHarvestChance)
+                    CropProperties.CODEC.fieldOf("crop_properties").forGetter(cropBlock -> cropBlock.cropProperties)
             ).apply(instance, GeneticCropBlock::new)
     );
 
@@ -73,24 +68,33 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
         }
     }
 
-    private final Holder<Item> cropItem;
+    private final CropProperties cropProperties;
 
-    private final int maxAge;
-    private final int ticksPerAge;
-    private final int growthTicks;
-    private final int minHarvestAge;
-    private final float destroyOnHarvestChance;
+    public record CropProperties(Holder<Item> cropItem, int maxAge, int ticksPerAge, int minHarvestAge, int pollinatedToMatureTicks, float destroyOnHarvestChance,
+                                 boolean isSelfPollinating) {
+        public static final Codec<CropProperties> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("crop_item").forGetter(CropProperties::cropItem),
+                Codec.INT.fieldOf("max_age").orElse(25).forGetter(CropProperties::maxAge),
+                Codec.INT.fieldOf("ticks_per_age").orElse(1200).forGetter(CropProperties::ticksPerAge),
+                Codec.INT.fieldOf("min_harvest_age").orElse(0).forGetter(CropProperties::minHarvestAge),
+                Codec.INT.fieldOf("pollinated_to_mature_ticks").orElse(1200).forGetter(CropProperties::pollinatedToMatureTicks),
+                Codec.FLOAT.fieldOf("destroy_on_harvest_chance").orElse(0.0F).forGetter(CropProperties::destroyOnHarvestChance),
+                Codec.BOOL.fieldOf("is_self_pollinating").orElse(false).forGetter(CropProperties::isSelfPollinating)
+        ).apply(instance, CropProperties::new));
 
-    public GeneticCropBlock(Properties prop, Holder<Item> cropItem, int maxAge, int ticksPerAge, int minHarvestAge, int pollinatedToMatureTicks, float destroyOnHarvestChance) {
+        public static CropProperties of(Holder<Item> cropItem, int maxAge, int ticksPerAge, int minHarvestAge, int pollinatedToMatureTicks, float destroyOnHarvestChance) {
+            return new CropProperties(cropItem, maxAge, ticksPerAge, minHarvestAge, pollinatedToMatureTicks, destroyOnHarvestChance, false);
+        }
+
+        public static CropProperties of(Holder<Item> cropItem, int maxAge, int ticksPerAge, int minHarvestAge, int pollinatedToMatureTicks, float destroyOnHarvestChance, boolean isSelfPollinating) {
+            return new CropProperties(cropItem, maxAge, ticksPerAge, minHarvestAge, pollinatedToMatureTicks, destroyOnHarvestChance, isSelfPollinating);
+        }
+    }
+
+    public GeneticCropBlock(Properties prop, CropProperties cropProperties) {
         super(prop);
 
-        this.cropItem = cropItem;
-
-        this.maxAge = maxAge;
-        this.ticksPerAge = ticksPerAge;
-        this.growthTicks = pollinatedToMatureTicks;
-        this.minHarvestAge = minHarvestAge;
-        this.destroyOnHarvestChance = destroyOnHarvestChance;
+        this.cropProperties = cropProperties;
 
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(AGE, 0)
@@ -98,19 +102,23 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
     }
 
     public int getTicksPerAge() {
-        return ticksPerAge;
+        return cropProperties.ticksPerAge();
     }
 
     public int getGrowthTicks() {
-        return growthTicks;
+        return cropProperties.pollinatedToMatureTicks();
     }
 
     public int getMinHarvestAge() {
-        return minHarvestAge;
+        return cropProperties.minHarvestAge();
     }
 
     public float getDestroyOnHarvestChance() {
-        return destroyOnHarvestChance;
+        return cropProperties.destroyOnHarvestChance();
+    }
+
+    public boolean isSelfPollinating() {
+        return cropProperties.isSelfPollinating();
     }
 
     @Override
@@ -130,7 +138,7 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
 
     @Override
     public int getMaxAge() {
-        return maxAge;
+        return cropProperties.maxAge();
     }
 
     @Override
@@ -194,7 +202,7 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
                 .orElse(new Genotype());
 
         for (BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-1, 0, -1), pos.offset(1, 0, 1))) {
-            if (nearbyPos.equals(pos)) continue; // Skip the current crop block
+            if (!isSelfPollinating() && nearbyPos.equals(pos)) continue; // Skip the current crop block
 
             final float chance = 0.2F;
             if (level.random.nextFloat() > chance) continue; // Random chance to pollinate
@@ -214,7 +222,7 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
     }
 
     public Holder<Item> getCropItem() {
-        return cropItem;
+        return cropProperties.cropItem();
     }
 
     @Override

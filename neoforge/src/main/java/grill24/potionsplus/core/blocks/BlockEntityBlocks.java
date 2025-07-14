@@ -48,7 +48,7 @@ public class BlockEntityBlocks {
     public static Holder<Block> FISHING_LEADERBOARDS;
     public static Holder<Block> FISH_TANK;
 
-    public static List<Holder<Block>> FISH_TANK_SUB_BLOCKS;
+    public static List<Holder<Block>> FISH_TANK_BLOCKS;
     public static Map<Integer, Holder<Block>> FISH_TANK_FRAME_BLOCKS;
     public static Map<Integer, Holder<Block>> FISH_TANK_SAND_BLOCKS;
 
@@ -271,13 +271,13 @@ public class BlockEntityBlocks {
                 .itemFactory(prop -> new BlockItem(HUGE_FILTER_HOPPER.value(), prop.useBlockDescriptionPrefix()))
                 .modelGenerator(h -> new ItemModelUtility.ItemFromModelFileGenerator<>(h, ppId("item/huge_filter_hopper"))));
 
-        FISH_TANK_SUB_BLOCKS = new ArrayList<>();
+        FISH_TANK_BLOCKS = new ArrayList<>();
         FISH_TANK_FRAME_BLOCKS = new HashMap<>();
         FISH_TANK_SAND_BLOCKS = new HashMap<>();
 
         FISH_TANK = registerFishTank("fish_tank", Component.translatable("tooltip.potionsplus.fish_tank"),
                 ppId("block/invisible_fish_tank"), ppId("item/fish_tank"), ItemTags.PLANKS, registerBlock, registerItem);
-        FISH_TANK_SUB_BLOCKS.add(FISH_TANK);
+        FISH_TANK_BLOCKS.add(FISH_TANK);
 
         registerFishTankMultiPartFrameSubBlock("fish_tank_frame", Tags.Blocks.FISH_TANK_FRAME, registerBlock, registerItem);
         registerFishTankMultiPartSandSubBlock("fish_tank_sand", Tags.Blocks.FISH_TANK_SAND, registerBlock, registerItem);

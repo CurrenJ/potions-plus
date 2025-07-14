@@ -408,4 +408,13 @@ public class Utility {
         String formattedValue = trimToDecimalPlaces(value * 100, decimalPlaces);
         return formattedValue + "%";
     }
+
+    public static ResourceLocation stripPath(ResourceLocation resourceLocation) {
+        String path = resourceLocation.getPath();
+        int lastSlashIndex = path.lastIndexOf('/');
+        if (lastSlashIndex != -1) {
+            path = path.substring(lastSlashIndex + 1);
+        }
+        return ResourceLocation.fromNamespaceAndPath(resourceLocation.getNamespace(), path);
+    }
 }

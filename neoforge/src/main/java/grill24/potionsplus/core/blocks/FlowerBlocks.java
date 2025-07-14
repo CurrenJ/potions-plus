@@ -475,7 +475,7 @@ public class FlowerBlocks {
                         new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_4"), ppId("block/tomatoes_pollinated_4")),
                         new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_5"), ppId("block/tomatoes_pollinated_5"), ppId("block/tomatoes_5_ripe"))))
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
-                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.TOMATO, 25, 200, 5, 400, 0F))
+                .blockFactory(prop -> new GeneticCropBlock(prop, GeneticCropBlock.CropProperties.of(PlantItems.TOMATO, 25, 200, 5, 400, 0F, true)))
                 .renderType(BlockBuilder.RenderType.CUTOUT)
         ).getHolder();
 
@@ -493,7 +493,7 @@ public class FlowerBlocks {
                         new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/brassica_oleracea_9"), ppId("block/brassica_oleracea_pollinated_9"), ppId("block/brassica_oleracea_ripe_9"))
                 ))
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
-                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.BRASSICA_OLERACEA, 25, 200, 10, 400, 0.25F))
+                .blockFactory(prop -> new GeneticCropBlock(prop, GeneticCropBlock.CropProperties.of(PlantItems.BRASSICA_OLERACEA, 25, 200, 10, 400, 0.25F)))
                 .renderType(BlockBuilder.RenderType.CUTOUT)
         ).getHolder();
 
@@ -501,7 +501,7 @@ public class FlowerBlocks {
                 .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
                         new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
-                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.CABBAGE, 25, 200, 10, 400, 0.25F))
+                .blockFactory(prop -> new GeneticCropBlock(prop, GeneticCropBlock.CropProperties.of(PlantItems.CABBAGE, 25, 200, 10, 400, 0.25F)))
                 .renderType(BlockBuilder.RenderType.CUTOUT)
         ).getHolder();
 
@@ -509,7 +509,7 @@ public class FlowerBlocks {
                 .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
                         new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
-                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.KALE, 25, 200, 10, 400, 0.25F))
+                .blockFactory(prop -> new GeneticCropBlock(prop, GeneticCropBlock.CropProperties.of(PlantItems.KALE, 25, 200, 10, 400, 0.25F)))
                 .renderType(BlockBuilder.RenderType.CUTOUT)
         ).getHolder();
 
@@ -517,7 +517,7 @@ public class FlowerBlocks {
                 .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
                         new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
-                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.BROCCOLLI, 25, 200, 10, 400, 0.25F))
+                .blockFactory(prop -> new GeneticCropBlock(prop, GeneticCropBlock.CropProperties.of(PlantItems.BROCCOLLI, 25, 200, 10, 400, 0.25F)))
                 .renderType(BlockBuilder.RenderType.CUTOUT)
         ).getHolder();
 
@@ -525,7 +525,7 @@ public class FlowerBlocks {
                 .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
                         new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
-                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.CAULIFLOWER, 25, 200, 10, 400, 0.25F))
+                .blockFactory(prop -> new GeneticCropBlock(prop, GeneticCropBlock.CropProperties.of(PlantItems.CAULIFLOWER, 25, 200, 10, 400, 0.25F)))
                 .renderType(BlockBuilder.RenderType.CUTOUT)
         ).getHolder();
 
@@ -533,7 +533,7 @@ public class FlowerBlocks {
                 .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
                         new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
-                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.KOHLRABI, 25, 200, 10, 400, 0.25F))
+                .blockFactory(prop -> new GeneticCropBlock(prop, GeneticCropBlock.CropProperties.of(PlantItems.KOHLRABI, 25, 200, 10, 400, 0.25F)))
                 .renderType(BlockBuilder.RenderType.CUTOUT)
         ).getHolder();
 
@@ -541,7 +541,7 @@ public class FlowerBlocks {
                 .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
                         new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
-                .blockFactory(prop -> new GeneticCropBlock(prop, PlantItems.BRUSSELS_SPROUTS, 25, 200, 10, 400, 0.25F))
+                .blockFactory(prop -> new GeneticCropBlock(prop, GeneticCropBlock.CropProperties.of(PlantItems.BRUSSELS_SPROUTS, 25, 200, 10, 400, 0.25F)))
                 .renderType(BlockBuilder.RenderType.CUTOUT)
         ).getHolder();
 

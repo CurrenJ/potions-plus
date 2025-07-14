@@ -59,4 +59,11 @@ public class DataComponents {
                     .networkSynchronized(WeightDataComponent.STREAM_CODEC)
                     .cacheEncoding()
     );
+
+    public static final Supplier<DataComponentType<RuntimeVariantItemDataComponent>> RUNTIME_VARIANT_ITEM = DATA_COMPONENTS.registerComponentType(
+            "runtime_variant_item_data", builder -> builder
+                    .persistent(RuntimeVariantItemDataComponent.CODEC)
+                    .networkSynchronized(RuntimeVariantItemDataComponent.STREAM_CODEC)
+                    .cacheEncoding()
+    );
 }
