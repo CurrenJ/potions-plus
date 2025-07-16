@@ -1,4 +1,4 @@
-// 1.21.5	2025-07-11T17:15:17.4713364	Model Definitions - potionsplus
+// 1.21.5	2025-07-14T16:06:01.0586528	Model Definitions - potionsplus
 5dce44f22ae752753ba1749f01550e55f3e62d6f assets/minecraft/models/block/coal_ore1_block_hat.json
 88e46a4afdee55fbf70e22c95a86acc09928ca12 assets/minecraft/models/block/coal_ore2_block_hat.json
 ca2d0bec247e8bb37ebbf3e21c0230288b0954ed assets/minecraft/models/block/coal_ore3_block_hat.json
@@ -529,7 +529,6 @@ f5211ab9ceef320e4e58c9816f43dc5fc905e3d1 assets/potionsplus/items/sulfuric_acid.
 5686974a26d0cbc033537c99ce044255e9fc0637 assets/potionsplus/items/survivor_stick.json
 16acf37ba5d57b446c40837e5395d8e8c257ddaf assets/potionsplus/items/tall_grass_versatile.json
 1029a425425537b0b9cf3a2dc634fdcb449e4f0a assets/potionsplus/items/tomato.json
-2c06e81bbabe25f96d49c53ad6b88d267b9eaa24 assets/potionsplus/items/tomato_plant.json
 b5710617aeace32ab35bb7bbca93255fdaae7056 assets/potionsplus/items/torchflower_versatile.json
 45052ec5b6d804766222180ce0964620716b28c7 assets/potionsplus/items/unstable_blackstone.json
 1786d0c49eff10f04bb2a146f0d6a1de235f51ba assets/potionsplus/items/unstable_block.json

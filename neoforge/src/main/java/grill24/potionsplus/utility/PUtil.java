@@ -291,7 +291,7 @@ public class PUtil {
      */
     public static void addRandomPassivePotionEffect(LootContext context, ItemStack stack, Set<ResourceKey<MobEffect>> excludedEffects) {
         if (isItemEligibleForPassivePotionEffects(stack)) {
-            Registry<MobEffect> mobEffectRegistry = context.getLevel().registryAccess().getOrThrow(Registries.MOB_EFFECT).value();
+            Registry<MobEffect> mobEffectRegistry = BuiltInRegistries.MOB_EFFECT;
             Optional<Holder.Reference<MobEffect>> optionalHolder = mobEffectRegistry.getRandom(context.getRandom());
             int attempts = 0;
             while (optionalHolder.isPresent() && excludedEffects.contains(optionalHolder.get().getKey()) && attempts < 3) {
