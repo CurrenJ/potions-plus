@@ -1,11 +1,14 @@
 package grill24.potionsplus.data;
 
+import grill24.potionsplus.worldgen.ConfiguredFeatures;
+import grill24.potionsplus.worldgen.Placements;
 import grill24.potionsplus.worldgen.VersatilePlantsWorldGenData;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -20,6 +23,9 @@ public class BiomeModifierProvider {
     private static final ResourceKey<BiomeModifier> LUSH_CAVES_ADDITIONAL_PLANTS = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ppId("lush_cave_additional_plants"));
     private static final ResourceKey<BiomeModifier> LUSH_CAVES_VERSATILE_VANILLA_PLANTS = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ppId("lush_cave_versatile_vanilla_plants"));
 
+    private static final ResourceKey<BiomeModifier> TOMATO_PATCH = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ppId("tomato_patch"));
+    private static final ResourceKey<BiomeModifier> BRASSICA_OLERACEA_PATCH = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ppId("brassica_oleracea_patch"));
+
     public static void bootstrap(BootstrapContext<BiomeModifier> context) {
         HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
         HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
@@ -32,6 +38,16 @@ public class BiomeModifierProvider {
         context.register(LUSH_CAVES_VERSATILE_VANILLA_PLANTS, new BiomeModifiers.AddFeaturesBiomeModifier(
                 HolderSet.direct(biomes.getOrThrow(Biomes.LUSH_CAVES)),
                 VersatilePlantsWorldGenData.vanillaFlowers.get().getPlacedFeatures(placedFeatures),
+                GenerationStep.Decoration.VEGETAL_DECORATION));
+
+        context.register(TOMATO_PATCH, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.get(BiomeTags.IS_OVERWORLD).get(),
+                HolderSet.direct(placedFeatures.getOrThrow(Placements.TOMATO_PATCH_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION));
+
+        context.register(BRASSICA_OLERACEA_PATCH, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.get(BiomeTags.IS_FOREST).get(),
+                HolderSet.direct(placedFeatures.getOrThrow(Placements.BRASSICA_OLERACEA_PATCH_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION));
     }
 }

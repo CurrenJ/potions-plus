@@ -6,9 +6,16 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "potionsplus:item/kohlrabi"
+          "model": "potionsplus:item/kohlrabi_small"
         },
         "threshold": 0.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/kohlrabi"
+        },
+        "threshold": 0.6
       }
     ],
     "fallback": {

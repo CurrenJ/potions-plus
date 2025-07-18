@@ -6,9 +6,16 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "potionsplus:item/brassica_oleracea"
+          "model": "potionsplus:item/brassica_oleracea_small"
         },
         "threshold": 0.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/brassica_oleracea"
+        },
+        "threshold": 0.45
       }
     ],
     "fallback": {

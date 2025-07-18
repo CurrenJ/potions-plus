@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "potionsplus:genetic_crop",
+        "config": {
+          "genotype_upper_bound": 19250,
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "potionsplus:tomato_plant",
+                  "Properties": {
+                    "age": "25",
+                    "harvestable": "mature"
+                  }
+                },
+                "weight": 1
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    },
+    "tries": 32,
+    "xz_spread": 8,
+    "y_spread": 2
+  }
+}

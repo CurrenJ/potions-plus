@@ -30,9 +30,9 @@ public class PlantItems {
                         GeneticCropItemTintSource::new,
                         new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0, true,
                                 ppId("item/tomato_small_tint"), ppId("item/tomato_small_sheen"), ppId("item/tomato_small_stem")),
-                        new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.5F, true,
+                        new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.4F, true,
                                 ppId("item/tomato_medium_tint_dithered"), ppId("item/tomato_medium_sheen"), ppId("item/tomato_medium_stem")),
-                        new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.8F, true,
+                        new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.85F, true,
                                 ppId("item/tomato_tint_dithering"), ppId("item/tomato_sheen"), ppId("item/tomato_stem"))
                 ))
         ).getHolder();
@@ -43,6 +43,8 @@ public class PlantItems {
                         ppId("item/brassica_oleracea"),
                         GeneticCropItemTintSource::new,
                         new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0, false,
+                                ppId("item/brassica_oleracea_small")),
+                        new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.45F, false,
                                 ppId("item/brassica_oleracea"))
                 ))
         ).getHolder();
@@ -63,7 +65,11 @@ public class PlantItems {
                         ppId("item/kale"),
                         GeneticCropItemTintSource::new,
                         new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0, false,
-                                ppId("item/kale"))
+                                ppId("item/kale_small")),
+                        new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.4F, false,
+                                ppId("item/kale")),
+                        new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.85F, false,
+                                ppId("item/kale_large"))
                 ))
         ).getHolder();
 
@@ -75,7 +81,7 @@ public class PlantItems {
                         new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0, false,
                                 ppId("item/broccoli")),
                         new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.5F, false,
-                                ppId("item/broccoli_medium"))
+                                ppId("item/broccoli_large"))
                 ))
         ).getHolder();
 
@@ -96,9 +102,9 @@ public class PlantItems {
                         GeneticCropItemTintSource::new,
                         new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0, false,
                                 ppId("item/brussel_sprouts_small")),
-                        new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.5F, false,
+                        new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.4F, false,
                                 ppId("item/brussel_sprouts")),
-                        new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.8F, false,
+                        new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.85F, false,
                                 ppId("item/brussel_sprouts_large"))
                 ))
         ).getHolder();
@@ -109,6 +115,8 @@ public class PlantItems {
                         ppId("item/kohlrabi"),
                         GeneticCropItemTintSource::new,
                         new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0, false,
+                                ppId("item/kohlrabi_small")),
+                        new ItemModelUtility.GeneticCropWeightOverrideModelGenerator.ModelData(0.6F, false,
                                 ppId("item/kohlrabi"))
                 ))
         ).getHolder();

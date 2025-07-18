@@ -6,9 +6,23 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "potionsplus:item/kale"
+          "model": "potionsplus:item/kale_small"
         },
         "threshold": 0.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/kale"
+        },
+        "threshold": 0.4
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/kale_large"
+        },
+        "threshold": 0.85
       }
     ],
     "fallback": {

@@ -13,7 +13,7 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "potionsplus:item/broccoli_medium"
+          "model": "potionsplus:item/broccoli_large"
         },
         "threshold": 0.5
       }

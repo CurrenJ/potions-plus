@@ -35,8 +35,14 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
     }
 
     public int determineAge(int ticksPerAge) {
-        if (this.level == null || this.placementTime < 0) {
+        if (this.level == null) {
             return 0;
+        }
+
+        if (this.placementTime == -1) {
+            long currentAge = this.getBlockState().getValue(GeneticCropBlock.AGE);
+            this.placementTime = this.level.getGameTime() - (currentAge * ticksPerAge);
+            this.setChanged();
         }
 
         long ageTicks = this.level.getGameTime() - this.placementTime;
@@ -46,8 +52,12 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
     }
 
     public GeneticCropBlock.HarvestState getHarvestState(int minHarvestAge, int ticksPerAge, int growthTicks) {
+        if (this.getBlockState().getValue(GeneticCropBlock.HARVESTABLE) == GeneticCropBlock.HarvestState.MATURE) {
+            return GeneticCropBlock.HarvestState.MATURE;
+        }
+
         if (this.level == null || this.lastPollinationTime < 0) {
-            return GeneticCropBlock.HarvestState.IMMATURE;
+            return this.getBlockState().getValue(GeneticCropBlock.HARVESTABLE);
         }
 
         long timeSincePollination = this.level.getGameTime() - this.lastPollinationTime;
@@ -81,7 +91,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
             throw new IllegalArgumentException("Pollinator genotype cannot be null");
         }
 
-        if (this.level == null || this.pollinatorGenotype != null || this.getBlockState().getValue(GeneticCropBlock.HARVESTABLE) == GeneticCropBlock.HarvestState.POLLINATED) {
+        if (this.level == null || this.pollinatorGenotype != null || this.getBlockState().getValue(GeneticCropBlock.HARVESTABLE) != GeneticCropBlock.HarvestState.IMMATURE) {
             return false;
         }
 
@@ -101,6 +111,8 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
 
         // Reset pollination state on harvest
         this.lastPollinationTime = this.level.getGameTime();
+        BlockState newState = this.getBlockState().setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.POLLINATED);
+        this.level.setBlock(this.getBlockPos(), newState, 2);
         this.setChanged();
     }
 
@@ -109,15 +121,23 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
     }
 
     public ItemStack getOffspring() {
-        if (this.level == null || this.pollinatorGenotype == null || this.genotype == null) {
-            PotionsPlus.LOGGER.warn("GeneticCropBlockEntity: Cannot produce offspring, missing genotype or pollinator genotype.");
-            return ItemStack.EMPTY;
-        }
-
         Optional<GeneticCropBlock> cropBlock = this.getCropBlock();
         if (cropBlock.isEmpty()) {
             PotionsPlus.LOGGER.warn("GeneticCropBlockEntity: No crop block found for producing offspring.");
             return ItemStack.EMPTY;
+        }
+
+        if (this.level == null || this.pollinatorGenotype == null || this.genotype == null) {
+            PotionsPlus.LOGGER.warn("GeneticCropBlockEntity: Cannot produce offspring, missing genotype or pollinator genotype.");
+
+            Genotype genotype = new Genotype();
+            if (this.genotype != null) {
+                genotype = this.genotype;
+            }
+
+            ItemStack stack = new ItemStack(cropBlock.get());
+            stack.set(DataComponents.GENETIC_DATA, genotype);
+            return stack;
         }
 
         Genotype offspringGenotype = Genotype.crossover(this.genotype, this.pollinatorGenotype);
@@ -186,5 +206,23 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
 
         tag.putLong("placementTime", this.placementTime);
         tag.putLong("lastPollinationTime", this.lastPollinationTime);
+    }
+
+    /**
+     * Only for use during world-gen, not for player interaction.
+     * @param genotype the genotype of the crop
+     */
+    public void setGenotype(Genotype genotype) {
+        this.genotype = genotype;
+        this.setChanged();
+    }
+
+    /**
+     * Only for use during world-gen, not for player interaction.
+     * @param pollinatorGenotype the genotype of the pollinator that pollinated this crop
+     */
+    public void setPollinatorGenotype(Genotype pollinatorGenotype) {
+        this.pollinatorGenotype = pollinatorGenotype;
+        this.setChanged();
     }
 }

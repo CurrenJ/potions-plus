@@ -8,9 +8,11 @@ import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.utility.Genotype;
 import grill24.potionsplus.utility.InvUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
@@ -22,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.EntityBlock;
@@ -70,7 +73,8 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
 
     private final CropProperties cropProperties;
 
-    public record CropProperties(Holder<Item> cropItem, int maxAge, int ticksPerAge, int minHarvestAge, int pollinatedToMatureTicks, float destroyOnHarvestChance,
+    public record CropProperties(Holder<Item> cropItem, int maxAge, int ticksPerAge, int minHarvestAge,
+                                 int pollinatedToMatureTicks, float destroyOnHarvestChance,
                                  boolean isSelfPollinating) {
         public static final Codec<CropProperties> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("crop_item").forGetter(CropProperties::cropItem),
@@ -168,6 +172,19 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
     @Override
     protected boolean isRandomlyTicking(BlockState state) {
         return true;
+    }
+
+    @Override
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockState blockstate = level.getBlockState(pos.below());
+        if (blockstate.is(this)) {
+            return true;
+        } else {
+            var soilDecision = blockstate.canSustainPlant(level, pos.below(), Direction.UP, state);
+            if (!soilDecision.isDefault()) return soilDecision.isTrue();
+            return state.getValue(GeneticCropBlock.AGE) != 0 &&
+                    (blockstate.is(BlockTags.DIRT) || blockstate.is(BlockTags.SAND));
+        }
     }
 
     private void tryAge(BlockState state, ServerLevel level, BlockPos pos) {

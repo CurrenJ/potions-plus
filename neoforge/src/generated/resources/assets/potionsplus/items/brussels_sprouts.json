@@ -15,14 +15,14 @@
           "type": "minecraft:model",
           "model": "potionsplus:item/brussel_sprouts"
         },
-        "threshold": 0.5
+        "threshold": 0.4
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "potionsplus:item/brussel_sprouts_large"
         },
-        "threshold": 0.8
+        "threshold": 0.85
       }
     ],
     "fallback": {
