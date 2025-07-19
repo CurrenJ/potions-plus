@@ -22,13 +22,15 @@ public class PlayerAbilityConfiguration {
         return this.data;
     }
 
-    public record PlayerAbilityConfigurationData(@NonNull String translationKey, String longTranslationKey, boolean enabledByDefault, Holder<ConfiguredSkill<?, ?>> parentSkill, ItemPredicate itemPredicate) {
+    public record PlayerAbilityConfigurationData(@NonNull String translationKey, String longTranslationKey,
+                                                 boolean enabledByDefault, Holder<ConfiguredSkill<?, ?>> parentSkill,
+                                                 ItemPredicate itemPredicate) {
         public static final Codec<PlayerAbilityConfigurationData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.STRING.optionalFieldOf("translationKey", "").forGetter(PlayerAbilityConfigurationData::translationKey),
-            Codec.STRING.optionalFieldOf("longTranslationKey", "").forGetter(PlayerAbilityConfigurationData::longTranslationKey),
-            Codec.BOOL.fieldOf("enabledByDefault").forGetter(PlayerAbilityConfigurationData::enabledByDefault),
-            ConfiguredSkill.CODEC.fieldOf("parentSkill").forGetter(PlayerAbilityConfigurationData::parentSkill),
-            ItemPredicate.CODEC.optionalFieldOf("itemPredicate", ItemPredicate.Builder.item().build()).forGetter(PlayerAbilityConfigurationData::itemPredicate)
+                Codec.STRING.optionalFieldOf("translationKey", "").forGetter(PlayerAbilityConfigurationData::translationKey),
+                Codec.STRING.optionalFieldOf("longTranslationKey", "").forGetter(PlayerAbilityConfigurationData::longTranslationKey),
+                Codec.BOOL.fieldOf("enabledByDefault").forGetter(PlayerAbilityConfigurationData::enabledByDefault),
+                ConfiguredSkill.CODEC.fieldOf("parentSkill").forGetter(PlayerAbilityConfigurationData::parentSkill),
+                ItemPredicate.CODEC.optionalFieldOf("itemPredicate", ItemPredicate.Builder.item().build()).forGetter(PlayerAbilityConfigurationData::itemPredicate)
         ).apply(instance, PlayerAbilityConfigurationData::new));
     }
 }

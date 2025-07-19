@@ -1,12 +1,10 @@
 package grill24.potionsplus.utility;
 
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class ShapeUtility {
             shapes.add(Shapes.box(newMinX, newMinY, newMinZ, newMaxX, newMaxY, newMaxZ));
         });
 
-        if(shapes.size() > 1) {
+        if (shapes.size() > 1) {
             return Shapes.or(shapes.get(0), shapes.subList(1, shapes.size()).toArray(new VoxelShape[0]));
         }
         return shapes.get(0);
@@ -65,7 +63,7 @@ public class ShapeUtility {
         };
     }
 
-    public static Vec3 rotatePoint (Vec3 point, int angle, Direction.Axis axis) {
+    public static Vec3 rotatePoint(Vec3 point, int angle, Direction.Axis axis) {
         double[] rotated = rotatePoint(point.x, point.y, point.z, angle, axis);
         return new Vec3(rotated[0], rotated[1], rotated[2]);
     }

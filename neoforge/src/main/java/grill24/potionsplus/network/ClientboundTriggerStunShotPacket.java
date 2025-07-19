@@ -18,7 +18,8 @@ import java.util.Objects;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundTriggerStunShotPacket(int duration, BlockPos soundOrigin, List<Integer> entities) implements CustomPacketPayload {
+public record ClientboundTriggerStunShotPacket(int duration, BlockPos soundOrigin,
+                                               List<Integer> entities) implements CustomPacketPayload {
     public static final Type<ClientboundTriggerStunShotPacket> TYPE = new Type<>(ppId("trigger_stun_shot"));
 
     public static final StreamCodec<ByteBuf, ClientboundTriggerStunShotPacket> STREAM_CODEC = StreamCodec.composite(
@@ -37,7 +38,7 @@ public record ClientboundTriggerStunShotPacket(int duration, BlockPos soundOrigi
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundTriggerStunShotPacket packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundTriggerStunShotPacket packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

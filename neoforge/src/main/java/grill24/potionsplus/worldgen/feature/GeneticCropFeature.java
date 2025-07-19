@@ -5,7 +5,6 @@ import grill24.potionsplus.block.GeneticCropBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.utility.Genotype;
-import net.minecraft.client.color.item.Potion;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;

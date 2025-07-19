@@ -1,7 +1,7 @@
 package grill24.potionsplus.network;
 
-import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimationData;
+import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -11,7 +11,8 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundSyncSpatialAnimationDataPacket(ResourceLocation id, SpatialAnimationData spatialAnimationData) implements CustomPacketPayload {
+public record ClientboundSyncSpatialAnimationDataPacket(ResourceLocation id,
+                                                        SpatialAnimationData spatialAnimationData) implements CustomPacketPayload {
     public static final Type<ClientboundSyncSpatialAnimationDataPacket> TYPE = new Type<>(ppId("sync_spatial_animation_data"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundSyncSpatialAnimationDataPacket> STREAM_CODEC = StreamCodec.composite(
@@ -28,7 +29,7 @@ public record ClientboundSyncSpatialAnimationDataPacket(ResourceLocation id, Spa
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundSyncSpatialAnimationDataPacket packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundSyncSpatialAnimationDataPacket packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();
@@ -36,7 +37,7 @@ public record ClientboundSyncSpatialAnimationDataPacket(ResourceLocation id, Spa
                             return;
                         }
 
-                        if(packet.spatialAnimationData != null) {
+                        if (packet.spatialAnimationData != null) {
                             SpatialAnimations.get(packet.id).set(packet.spatialAnimationData);
                         }
                     }

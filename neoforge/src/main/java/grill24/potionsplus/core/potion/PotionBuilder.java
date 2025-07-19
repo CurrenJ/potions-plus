@@ -1,14 +1,15 @@
 package grill24.potionsplus.core.potion;
 
-import grill24.potionsplus.core.seededrecipe.*;
+import grill24.potionsplus.core.seededrecipe.ISeededPotionRecipeBuilder;
+import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
+import grill24.potionsplus.core.seededrecipe.PpMultiIngredient;
+import grill24.potionsplus.core.seededrecipe.SeededPotionRecipeBuilder;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import net.minecraft.core.Holder;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.ItemLike;
@@ -27,7 +28,7 @@ public class PotionBuilder {
     public static final int DEFAULT_DURATION = 1200; // 3 minutes
 
     public PotionBuilder() {
-         this.potionRecipeGenerator = SeededPotionRecipeBuilder.defaultPools();
+        this.potionRecipeGenerator = SeededPotionRecipeBuilder.defaultPools();
     }
 
     public PotionBuilder name(String name) {

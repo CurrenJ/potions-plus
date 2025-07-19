@@ -3,9 +3,10 @@ package grill24.potionsplus.skill.reward;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.network.chat.Component;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class SkillLevelUpRewardsConfiguration {

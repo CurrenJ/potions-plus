@@ -6,14 +6,11 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
@@ -128,7 +125,7 @@ public class PUtil {
     public static String getNameOrVerbosePotionName(ItemStack itemStack) {
         if (isPotion(itemStack)) {
             StringBuilder name = new StringBuilder();
-            if(PUtil.hasPotion(itemStack)) {
+            if (PUtil.hasPotion(itemStack)) {
                 name.append(PUtil.getPotionHolder(itemStack).getKey().location().getPath()).append("_");
             }
             for (MobEffectInstance mobEffectInstance : PUtil.getAllEffects(itemStack)) {
@@ -229,7 +226,7 @@ public class PUtil {
     }
 
     public static Potion getPotion(ItemStack itemStack) {
-        if(itemStack.has(DataComponents.POTION_CONTENTS)) {
+        if (itemStack.has(DataComponents.POTION_CONTENTS)) {
             Optional<Holder<Potion>> potion = getPotionContents(itemStack).potion();
 
             return potion.map(Holder::value).orElse(Potions.WATER.value());
@@ -239,7 +236,7 @@ public class PUtil {
     }
 
     public static Holder<Potion> getPotionHolder(ItemStack itemStack) {
-        if(itemStack.has(DataComponents.POTION_CONTENTS)) {
+        if (itemStack.has(DataComponents.POTION_CONTENTS)) {
             return itemStack.get(DataComponents.POTION_CONTENTS).potion().orElse(null);
         }
 
@@ -251,7 +248,7 @@ public class PUtil {
     }
 
     public static PotionContents getPotionContents(ItemStack itemStack) {
-        if(itemStack.has(DataComponents.POTION_CONTENTS)) {
+        if (itemStack.has(DataComponents.POTION_CONTENTS)) {
             return itemStack.get(DataComponents.POTION_CONTENTS);
         }
 
@@ -286,8 +283,9 @@ public class PUtil {
     /**
      * Used by loot modifier {@link grill24.potionsplus.behaviour.AddMobEffectsLootModifier} to add
      * random passive potion effects to an item stack.
+     *
      * @param context the loot context
-     * @param stack the item stack to add the effects to
+     * @param stack   the item stack to add the effects to
      */
     public static void addRandomPassivePotionEffect(LootContext context, ItemStack stack, Set<ResourceKey<MobEffect>> excludedEffects) {
         if (isItemEligibleForPassivePotionEffects(stack)) {
@@ -314,7 +312,7 @@ public class PUtil {
         if (PUtil.isPotion(itemStack)) {
             // TODO: Add potions HERE
             boolean isAnyPotion = PUtil.getAllEffects(itemStack).stream().anyMatch(instance -> instance.getEffect().is(MobEffects.ANY_POTION) || instance.getEffect().is(MobEffects.ANY_OTHER_POTION));
-            if(isAnyPotion) {
+            if (isAnyPotion) {
                 return new ArrayList<>(BuiltInRegistries.POTION.registryKeySet().stream().map(BuiltInRegistries.POTION::getOrThrow).map(potion -> PUtil.createPotionItemStack(potion, PotionType.POTION)).toList());
             }
         }
@@ -327,7 +325,7 @@ public class PUtil {
     }
 
     public static float diminishingReturns(float amplifier, float horizontalAsymptote) {
-        if(horizontalAsymptote < 0) {
+        if (horizontalAsymptote < 0) {
             throw new IllegalArgumentException("Horizontal asymptote must be greater than or equal to 0");
         }
         return 2 * (horizontalAsymptote * amplifier) / (horizontalAsymptote + amplifier);

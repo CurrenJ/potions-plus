@@ -23,7 +23,7 @@ public class LootItemModifiersBehaviour {
     private static int potions_plus$addBonusLevelsFromMobEffect(int levelIn, Holder<Enchantment> input, ResourceKey<Enchantment> targetEnchantment, Holder<MobEffect> mobEffect, Entity entitySource) {
         int enchantmentLevel = levelIn;
         if (input.is(targetEnchantment)) {
-            if (entitySource instanceof LivingEntity livingEntity ) {
+            if (entitySource instanceof LivingEntity livingEntity) {
                 if (livingEntity.hasEffect(mobEffect)) {
                     MobEffectInstance effect = livingEntity.getEffect(mobEffect);
                     if (effect.getEffect() instanceof IEnchantmentBonusTooltipDetails enchantmentBonus) {
@@ -63,7 +63,7 @@ public class LootItemModifiersBehaviour {
                 if (entry.attribute().getKey().equals(attribute.get().getKey())) {
                     double amount = entry.modifier().amount();
 
-                    enchantmentLevelWithBonuses += (int) Math.round( switch (entry.modifier().operation()) {
+                    enchantmentLevelWithBonuses += (int) Math.round(switch (entry.modifier().operation()) {
                         case ADD_VALUE -> amount;
                         case ADD_MULTIPLIED_BASE -> amount * enchantmentLevel;
                         case ADD_MULTIPLIED_TOTAL -> amount * enchantmentLevelWithBonuses;

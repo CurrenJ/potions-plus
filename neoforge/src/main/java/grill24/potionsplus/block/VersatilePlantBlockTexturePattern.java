@@ -9,11 +9,13 @@ import java.util.Set;
 
 /**
  * Represents the pattern of textures to use for the segments of a versatile plant block.
- * @param base The textures to use for the base (closest to attached soil block) segments
+ *
+ * @param base          The textures to use for the base (closest to attached soil block) segments
  * @param repeatingBody The texture pattern that repeats to make the body of the plant
- * @param tail The textures to use for the tail (tip of plant) segments
+ * @param tail          The textures to use for the tail (tip of plant) segments
  */
-public record VersatilePlantBlockTexturePattern(List<Integer> base, List<Integer> repeatingBody, List<Integer> tail, boolean tailPriority) {
+public record VersatilePlantBlockTexturePattern(List<Integer> base, List<Integer> repeatingBody, List<Integer> tail,
+                                                boolean tailPriority) {
     public static final Codec<VersatilePlantBlockTexturePattern> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             Codec.INT.listOf().fieldOf("base").forGetter(VersatilePlantBlockTexturePattern::base),
             Codec.INT.listOf().fieldOf("repeating_body").forGetter(VersatilePlantBlockTexturePattern::repeatingBody),
@@ -24,7 +26,7 @@ public record VersatilePlantBlockTexturePattern(List<Integer> base, List<Integer
     public int calculateTextureIndex(int segment, int plantLength) {
         if (tailPriority) {
             for (int i = 0; i < tail().size(); i++) {
-                if (segment == plantLength-1) {
+                if (segment == plantLength - 1) {
                     return tail().get(i);
                 }
             }
@@ -37,7 +39,7 @@ public record VersatilePlantBlockTexturePattern(List<Integer> base, List<Integer
         }
 
         for (int i = 0; i < tail().size(); i++) {
-            if (segment == plantLength-1) {
+            if (segment == plantLength - 1) {
                 return tail().get(i);
             }
         }

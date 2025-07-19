@@ -14,17 +14,17 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class PotionsPlusVegetationPatchConfiguration implements FeatureConfiguration {
     public static final Codec<PotionsPlusVegetationPatchConfiguration> CODEC = RecordCodecBuilder.create((codecBuilder) -> codecBuilder.group(
-            TagKey.hashedCodec(Registries.BLOCK).fieldOf("replaceable").forGetter((configuration) -> configuration.replaceable),
-            BlockStateProvider.CODEC.fieldOf("ground_state").forGetter((configuration) -> configuration.groundState),
-            PlacedFeature.CODEC.fieldOf("vegetation_feature").forGetter((configuration) -> configuration.vegetationFeature),
-            Direction.CODEC.fieldOf("facing").forGetter((configuration) -> configuration.facing),
-            IntProvider.codec(1, 128).fieldOf("depth").forGetter((configuration) -> configuration.depth),
-            Codec.floatRange(0.0F, 1.0F).fieldOf("extra_bottom_block_chance").forGetter((configuration) -> configuration.extraBottomBlockChance),
-            Codec.intRange(1, 256).fieldOf("vertical_range").forGetter((configuration) -> configuration.verticalRange),
-            Codec.floatRange(0.0F, 1.0F).fieldOf("vegetation_chance").forGetter((configuration) -> configuration.vegetationChance),
-            IntProvider.CODEC.fieldOf("xz_radius").forGetter((configuration) -> configuration.xzRadius),
-            Codec.floatRange(0.0F, 1.0F).fieldOf("extra_edge_column_chance").forGetter((configuration) -> configuration.extraEdgeColumnChance),
-            BlockStateProvider.CODEC.fieldOf("ore_base_block").forGetter(configuration -> configuration.oreBaseBlock))
+                    TagKey.hashedCodec(Registries.BLOCK).fieldOf("replaceable").forGetter((configuration) -> configuration.replaceable),
+                    BlockStateProvider.CODEC.fieldOf("ground_state").forGetter((configuration) -> configuration.groundState),
+                    PlacedFeature.CODEC.fieldOf("vegetation_feature").forGetter((configuration) -> configuration.vegetationFeature),
+                    Direction.CODEC.fieldOf("facing").forGetter((configuration) -> configuration.facing),
+                    IntProvider.codec(1, 128).fieldOf("depth").forGetter((configuration) -> configuration.depth),
+                    Codec.floatRange(0.0F, 1.0F).fieldOf("extra_bottom_block_chance").forGetter((configuration) -> configuration.extraBottomBlockChance),
+                    Codec.intRange(1, 256).fieldOf("vertical_range").forGetter((configuration) -> configuration.verticalRange),
+                    Codec.floatRange(0.0F, 1.0F).fieldOf("vegetation_chance").forGetter((configuration) -> configuration.vegetationChance),
+                    IntProvider.CODEC.fieldOf("xz_radius").forGetter((configuration) -> configuration.xzRadius),
+                    Codec.floatRange(0.0F, 1.0F).fieldOf("extra_edge_column_chance").forGetter((configuration) -> configuration.extraEdgeColumnChance),
+                    BlockStateProvider.CODEC.fieldOf("ore_base_block").forGetter(configuration -> configuration.oreBaseBlock))
             .apply(codecBuilder, PotionsPlusVegetationPatchConfiguration::new));
 
     public final TagKey<Block> replaceable;
@@ -42,7 +42,7 @@ public class PotionsPlusVegetationPatchConfiguration implements FeatureConfigura
     public PotionsPlusVegetationPatchConfiguration(TagKey<Block> replaceable, BlockStateProvider surfaceToPlace, Holder<PlacedFeature> vegetation, Direction facing, IntProvider depth, float extraBottomBlockChance, int verticalRange, float vegetationChance, IntProvider xzRadius, float extraEdgeColumnChance, BlockStateProvider oreBaseBlock) {
         this.replaceable = replaceable;
         this.groundState = surfaceToPlace;
-        this.vegetationFeature =  vegetation;
+        this.vegetationFeature = vegetation;
         this.facing = facing;
         this.depth = depth;
         this.extraBottomBlockChance = extraBottomBlockChance;

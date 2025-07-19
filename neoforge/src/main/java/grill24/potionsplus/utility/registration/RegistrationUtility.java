@@ -1,6 +1,5 @@
 package grill24.potionsplus.utility.registration;
 
-import grill24.potionsplus.data.BlockStateProvider;
 import grill24.potionsplus.data.RecipeProvider;
 import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
 import grill24.potionsplus.utility.Utility;
@@ -9,7 +8,6 @@ import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.core.Holder;
 import net.minecraft.data.loot.LootTableSubProvider;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.context.ContextKeySet;
@@ -37,6 +35,7 @@ public class RegistrationUtility {
      * Registers an {@link ItemBuilder} and a corresponding {@link IModelGenerator}.
      * This generates the Item instance, registers it and stores the holder.
      * The model generator (if present) is registered and called when data generation is run.
+     *
      * @param builder The ItemBuilder to register.
      * @return The registered ItemBuilder
      */
@@ -60,16 +59,16 @@ public class RegistrationUtility {
         builder.register(register);
         BUILDERS.add(builder);
 
-        if(builder.hasModelGenerator()) {
+        if (builder.hasModelGenerator()) {
             ITEM_MODEL_GENERATORS.add(builder);
         }
-        if(builder.hasRecipeGenerator()) {
+        if (builder.hasRecipeGenerator()) {
             RECIPE_GENERATORS.add(builder);
         }
-        if(builder.hasLootGenerator()) {
+        if (builder.hasLootGenerator()) {
             LOOT_GENERATORS.add(builder);
         }
-        if(builder.hasRuntimeModelGenerator()) {
+        if (builder.hasRuntimeModelGenerator()) {
             RUNTIME_RESOURCE_GENERATORS.add(builder);
         }
         return builder;

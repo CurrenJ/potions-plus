@@ -1,6 +1,8 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.blockentity.filterhopper.*;
+import grill24.potionsplus.blockentity.filterhopper.HugeFilterHopperMenu;
+import grill24.potionsplus.blockentity.filterhopper.LargeFilterHopperMenu;
+import grill24.potionsplus.blockentity.filterhopper.SmallFilterHopperMenu;
 import grill24.potionsplus.gui.fishing.FishingLeaderboardsMenu;
 import grill24.potionsplus.gui.skill.SkillsMenu;
 import grill24.potionsplus.utility.ModInfo;
@@ -9,7 +11,6 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.awt.*;
 import java.util.function.Supplier;
 
 public class MenuTypes {

@@ -7,7 +7,6 @@ import grill24.potionsplus.skill.Milestone;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +22,7 @@ public class MilestonesScreenElement extends HorizontalListScreenElement<Milesto
 
     public void setMilestones(List<Milestone> milestones) {
         List<MilestoneScreenElement> elements = new ArrayList<>();
-        for(int i = 0; i < milestones.size(); i++) {
+        for (int i = 0; i < milestones.size(); i++) {
             Milestone milestone = milestones.get(i);
             MilestoneScreenElement element = new MilestoneScreenElement(this.screen, this, this.settings, milestone, i * 2);
             elements.add(element);

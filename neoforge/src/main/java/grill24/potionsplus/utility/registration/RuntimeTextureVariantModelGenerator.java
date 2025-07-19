@@ -126,8 +126,7 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         return Optional.empty();
     }
 
-    public static ItemStack getTextureVariantItemStack(BlockState variantBlockState, Property<Integer> textureVariantProperties)
-    {
+    public static ItemStack getTextureVariantItemStack(BlockState variantBlockState, Property<Integer> textureVariantProperties) {
         return RuntimeVariantItemDataComponent.getStackFromBlockState(variantBlockState, textureVariantProperties);
     }
 

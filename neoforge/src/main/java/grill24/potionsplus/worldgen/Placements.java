@@ -18,7 +18,6 @@ import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;
-import java.util.Map;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 

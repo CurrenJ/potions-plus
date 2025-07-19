@@ -35,6 +35,7 @@ public class ServerLifecycleListeners {
     /**
      * Tell the server to sync our custom recipe types to the client.
      * Otherwise, they won't be sent to the client and client-side recipe functions will not work.
+     *
      * @param event The event that is fired when the server syncs data packs to the client.
      */
     @SubscribeEvent
@@ -45,6 +46,7 @@ public class ServerLifecycleListeners {
     /**
      * Post-process recipes after they have been received by the client.
      * This is where we can perform any additional processing on the recipes.
+     *
      * @param event The event that is fired when recipes are received by the client.
      */
     @SubscribeEvent

@@ -78,9 +78,9 @@ public class GiantSnowflakeFeature extends Feature<NoneFeatureConfiguration> {
             PotionsPlus.LOGGER.info("Placing SNOWFLAKE at " + snowflakeOrigin);
         }
 
-        for(BlockPos offset : snowflake) {
+        for (BlockPos offset : snowflake) {
             BlockPos pos = snowflakeOrigin.offset(offset);
-            if(context.level().getBlockState(pos).isAir())
+            if (context.level().getBlockState(pos).isAir())
                 context.level().setBlock(pos, Blocks.SNOW.defaultBlockState(), 2);
         }
 

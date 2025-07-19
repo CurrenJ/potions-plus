@@ -24,7 +24,8 @@ import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Recipes {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, ModInfo.MOD_ID);

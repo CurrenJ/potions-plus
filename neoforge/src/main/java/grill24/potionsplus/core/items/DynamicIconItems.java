@@ -1,9 +1,9 @@
 package grill24.potionsplus.core.items;
 
-import grill24.potionsplus.utility.registration.item.ItemOverrideUtility;
-import grill24.potionsplus.utility.registration.item.GenericIconItemBuilder;
-import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.item.GenericIconItemBuilder;
+import grill24.potionsplus.utility.registration.item.ItemOverrideUtility;
+import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

@@ -4,7 +4,9 @@ import grill24.potionsplus.gui.skill.SkillsScreen;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector3f;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -87,7 +89,7 @@ public class SpatialAnimations {
 
     public static ResourceLocation FISHING_REWARD_WIN_SPIN = register(ppId("fishing_reward_win_spin"), new SpatialAnimationData()
             .addKeyframe(SpatialAnimationData.Property.ROTATION, AnimationCurve.Keyframe.<Vector3f>builder().time(0).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(new Vector3f(0, 0, 0)).build())
-            .addKeyframe(SpatialAnimationData.Property.ROTATION, AnimationCurve.Keyframe.<Vector3f>builder().time(15).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(new Vector3f(0,  720, 0)).build())
+            .addKeyframe(SpatialAnimationData.Property.ROTATION, AnimationCurve.Keyframe.<Vector3f>builder().time(15).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(new Vector3f(0, 720, 0)).build())
             .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(0).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(1F).build())
             .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(20).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(5F).build())
             .addKeyframe(SpatialAnimationData.Property.SCALE, AnimationCurve.Keyframe.<Float>builder().time(70).interp(Interpolation.Mode.EASE_IN_OUT_QUAD).value(5F).build())

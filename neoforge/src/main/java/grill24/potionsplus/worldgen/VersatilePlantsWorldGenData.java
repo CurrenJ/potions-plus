@@ -106,8 +106,8 @@ public class VersatilePlantsWorldGenData {
     ));
 
 
-
     private static List<Lazy<MultiDirectionalVersatilePlantFeatureData>> ALL;
+
     private static Lazy<MultiDirectionalVersatilePlantFeatureData> register(Supplier<MultiDirectionalVersatilePlantFeatureData> data) {
         Lazy<MultiDirectionalVersatilePlantFeatureData> lazy = Lazy.of(data);
         if (ALL == null) {

@@ -1,4 +1,3 @@
-
 package grill24.potionsplus.gui;
 
 @FunctionalInterface

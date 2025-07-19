@@ -13,7 +13,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ProjectileDispenseBehavior.class)
 public abstract class AbstractProjectileDispenseBehaviorMixin implements IProjectileDispenseBehaviorExtension {
-    @Shadow @Final private ProjectileItem.DispenseConfig dispenseConfig;
+    @Shadow
+    @Final
+    private ProjectileItem.DispenseConfig dispenseConfig;
 
     @Redirect(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ProjectileItem$DispenseConfig;uncertainty()F"))
     public float potions_plus$getUncertainty(ProjectileItem.DispenseConfig instance, BlockSource blockSource) {

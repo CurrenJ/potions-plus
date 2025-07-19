@@ -53,8 +53,8 @@ public class BlockModelUtility {
             if (generateBlockModel) {
                 ResourceLocation tex = textureLocation != null ? textureLocation : modelLocation;
                 TexturedModel.Provider textureModelProvider = TexturedModel.createDefault(b ->
-                        new TextureMapping()
-                                .put(TextureSlot.ALL, tex),
+                                new TextureMapping()
+                                        .put(TextureSlot.ALL, tex),
                         ModelTemplates.CUBE_ALL);
                 modelLocation = textureModelProvider.create(block, blockModelGenerators.modelOutput);
             }

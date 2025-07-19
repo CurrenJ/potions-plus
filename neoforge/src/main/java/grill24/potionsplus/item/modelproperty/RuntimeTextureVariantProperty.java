@@ -22,6 +22,7 @@ public record RuntimeTextureVariantProperty() implements RangeSelectItemModelPro
     public static final ResourceLocation ID = ppId("runtime_texture_variant");
 
     public static final MapCodec<RuntimeTextureVariantProperty> MAP_CODEC = MapCodec.unit(new RuntimeTextureVariantProperty());
+
     @Override
     public float get(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int seed) {
         return stack.getOrDefault(DataComponents.RUNTIME_VARIANT_ITEM, new RuntimeVariantItemDataComponent(0.0F)).propertyValue();

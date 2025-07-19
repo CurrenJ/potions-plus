@@ -26,8 +26,8 @@ public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.Anima
 
     public static class AnimatedItemRewardConfiguration extends GrantableRewardConfiguration {
         public static final Codec<AnimatedItemRewardConfiguration> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
-            ItemStack.STRICT_CODEC.optionalFieldOf("displayItem", ItemStack.EMPTY).forGetter(instance -> instance.displayItem),
-            ItemStack.STRICT_CODEC.listOf().optionalFieldOf("itemRewards", List.of()).forGetter(instance -> instance.rewards)
+                ItemStack.STRICT_CODEC.optionalFieldOf("displayItem", ItemStack.EMPTY).forGetter(instance -> instance.displayItem),
+                ItemStack.STRICT_CODEC.listOf().optionalFieldOf("itemRewards", List.of()).forGetter(instance -> instance.rewards)
         ).apply(codecBuilder, AnimatedItemRewardConfiguration::new));
 
         public ItemStack displayItem;

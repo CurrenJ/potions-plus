@@ -1,17 +1,11 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.core.items.DynamicIconItems;
-import grill24.potionsplus.core.items.FishItems;
-import grill24.potionsplus.core.items.SkillLootItems;
-import grill24.potionsplus.item.EdibleChoiceItem;
 import grill24.potionsplus.particle.*;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.FishingRodItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -19,9 +13,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
-
-import static grill24.potionsplus.core.Items.*;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {

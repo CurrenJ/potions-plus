@@ -34,7 +34,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 import java.util.function.Function;
 
 @Mixin(GuiGraphics.class)

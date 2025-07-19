@@ -91,7 +91,7 @@ public class Packets {
                 ClientboundDisplayAlertWithItemStackName.TYPE,
                 ClientboundDisplayAlertWithItemStackName.STREAM_CODEC,
                 ClientboundDisplayAlertWithItemStackName.ClientPayloadHandler::handleDataOnMain
-                );
+        );
 
         // Alert
         registrar.playToClient(
@@ -112,7 +112,7 @@ public class Packets {
                 ClientboundSyncKnownBrewingRecipesPacket.TYPE,
                 ClientboundSyncKnownBrewingRecipesPacket.STREAM_CODEC,
                 ClientboundSyncKnownBrewingRecipesPacket.ClientPayloadHandler::handleDataOnMain
-                );
+        );
 
         // Sync Paired Abyssal Trove Packet
         registrar.playToClient(

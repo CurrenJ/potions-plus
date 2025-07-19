@@ -72,7 +72,9 @@ public abstract class AnimationCurve<T> implements ISerializable<AnimationCurve<
     }
 
     protected abstract T multiply(T a, float b);
+
     protected abstract T add(T a, T b);
+
     protected abstract T defaultValue();
 
     protected T interpolateLinear(Keyframe<T> prev, Keyframe<T> next, float t) {

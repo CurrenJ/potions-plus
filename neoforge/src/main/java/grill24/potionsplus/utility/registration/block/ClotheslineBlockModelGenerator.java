@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.function.Supplier;
 
-import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class ClotheslineBlockModelGenerator<T extends Block> extends BlockModelUtility.BlockModelGenerator<T> {

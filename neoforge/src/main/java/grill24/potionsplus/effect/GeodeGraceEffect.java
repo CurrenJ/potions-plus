@@ -71,7 +71,7 @@ public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails
     }
 
     public static float getActivationChance(int amplifier) {
-        return Math.min(0.1F, ACTIVATION_CHANCE * (amplifier+1));
+        return Math.min(0.1F, ACTIVATION_CHANCE * (amplifier + 1));
     }
 
     @SubscribeEvent
@@ -103,10 +103,10 @@ public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails
         final int backToOrigin = 16;
 
         while (attempt < maxAttempts) {
-            if(tryReplaceBlockWithBlock(stoneOreToSpawn, BuiltInRegistries.BLOCK.getOrThrow(BlockTags.STONE_ORE_REPLACEABLES), mutableBlockPos, level)) {
+            if (tryReplaceBlockWithBlock(stoneOreToSpawn, BuiltInRegistries.BLOCK.getOrThrow(BlockTags.STONE_ORE_REPLACEABLES), mutableBlockPos, level)) {
                 return true;
             }
-            if(tryReplaceBlockWithBlock(STONE_TO_DEEPSLATE.get(stoneOreToSpawn), BuiltInRegistries.BLOCK.getOrThrow(BlockTags.DEEPSLATE_ORE_REPLACEABLES), mutableBlockPos, level)) {
+            if (tryReplaceBlockWithBlock(STONE_TO_DEEPSLATE.get(stoneOreToSpawn), BuiltInRegistries.BLOCK.getOrThrow(BlockTags.DEEPSLATE_ORE_REPLACEABLES), mutableBlockPos, level)) {
                 return true;
             }
 
@@ -136,7 +136,7 @@ public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails
     @Override
     public Component getDisplayName() {
         String name = Minecraft.getInstance().player.getName().getContents().toString();
-        if(name.equals("Tulip58")) {
+        if (name.equals("Tulip58")) {
             return Component.literal("Gio's Grace");
         }
 

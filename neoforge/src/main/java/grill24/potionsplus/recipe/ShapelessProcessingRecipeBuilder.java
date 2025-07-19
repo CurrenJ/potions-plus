@@ -1,18 +1,17 @@
 package grill24.potionsplus.recipe;
 
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.utility.PUtil;
-import net.minecraft.advancements.*;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.ItemLike;
@@ -125,7 +124,7 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
 
         RecipeHolder<R> recipeHolder = build();
         this.advancement.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeResourceKey)).rewards(AdvancementRewards.Builder.recipe(recipeResourceKey)).requirements(AdvancementRequirements.Strategy.OR);
-        recipeOutput.accept(recipeResourceKey, recipeHolder.value(),  this.advancement.build(recipeResourceKey.location().withPrefix("recipes/" + this.category.getFolderName() + "/")));
+        recipeOutput.accept(recipeResourceKey, recipeHolder.value(), this.advancement.build(recipeResourceKey.location().withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
     @Override

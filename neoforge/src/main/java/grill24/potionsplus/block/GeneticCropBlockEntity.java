@@ -210,6 +210,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
 
     /**
      * Only for use during world-gen, not for player interaction.
+     *
      * @param genotype the genotype of the crop
      */
     public void setGenotype(Genotype genotype) {
@@ -219,6 +220,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
 
     /**
      * Only for use during world-gen, not for player interaction.
+     *
      * @param pollinatorGenotype the genotype of the pollinator that pollinated this crop
      */
     public void setPollinatorGenotype(Genotype pollinatorGenotype) {

@@ -1,13 +1,10 @@
 package grill24.potionsplus.utility.registration.item;
 
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.Item;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 
 public class ItemOverrideCommonUtility {
     public static class EdibleChoiceItemOverrideData {

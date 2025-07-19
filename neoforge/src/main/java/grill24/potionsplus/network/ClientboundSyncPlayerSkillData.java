@@ -31,7 +31,7 @@ public class ClientboundSyncPlayerSkillData implements CustomPacketPayload {
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundSyncPlayerSkillData packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundSyncPlayerSkillData packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();
@@ -39,7 +39,7 @@ public class ClientboundSyncPlayerSkillData implements CustomPacketPayload {
                             return;
                         }
 
-                        if(packet.skillsData != null) {
+                        if (packet.skillsData != null) {
                             context.player().setData(DataAttachments.SKILL_PLAYER_DATA, packet.skillsData);
                         }
                     }

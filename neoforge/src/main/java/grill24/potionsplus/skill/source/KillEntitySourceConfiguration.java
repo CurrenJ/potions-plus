@@ -23,6 +23,7 @@ public class KillEntitySourceConfiguration extends SkillPointSourceConfiguration
 
     private final List<EntitySkillPoints> entitySkillPoints;
     private final EntityPredicate playerEntityPredicate;
+
     public KillEntitySourceConfiguration(List<EntitySkillPoints> entitySkillPoints, EntityPredicate playerEntityPredicate) {
         this.entitySkillPoints = entitySkillPoints;
         this.playerEntityPredicate = playerEntityPredicate;
@@ -31,5 +32,8 @@ public class KillEntitySourceConfiguration extends SkillPointSourceConfiguration
     public List<EntitySkillPoints> getEntitySkillPoints() {
         return entitySkillPoints;
     }
-    public EntityPredicate getPlayerEntityPredicate() {return playerEntityPredicate; }
+
+    public EntityPredicate getPlayerEntityPredicate() {
+        return playerEntityPredicate;
+    }
 }

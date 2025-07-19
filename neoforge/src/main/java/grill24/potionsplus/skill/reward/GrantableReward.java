@@ -22,11 +22,13 @@ public abstract class GrantableReward<RC extends GrantableRewardConfiguration> {
 
     // Used for level rewards description. Should be un-styled, plain text.
     public abstract Optional<Component> getDescription(RC config);
+
     // Used for item tooltips (e.g. choice reward item descriptions)
     public List<List<Component>> getMultiLineRichDescription(RC config) {
         Optional<Component> description = getDescription(config);
         return description.map(component -> List.of(List.of(component))).orElseGet(List::of);
 
     }
+
     public abstract void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, RC config, ServerPlayer player);
 }

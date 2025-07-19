@@ -1,6 +1,5 @@
 package grill24.potionsplus.gui.skill;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.extension.IClientAdvancementsExtension;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;

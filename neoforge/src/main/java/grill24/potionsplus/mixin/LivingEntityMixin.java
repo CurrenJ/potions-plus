@@ -75,7 +75,8 @@ public abstract class LivingEntityMixin extends Entity {
     @Final
     protected EntityEquipment equipment;
 
-    @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot);
+    @Shadow
+    public abstract ItemStack getItemBySlot(EquipmentSlot slot);
 
     @Redirect(method = "travelInAir", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getFriction(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;)F"))
     public float getFriction(BlockState instance, LevelReader levelReader, BlockPos blockPos, Entity entity) {

@@ -38,14 +38,14 @@ public class BrassicaOleraceaItem extends GeneticCropItem {
 
     @Override
     public int[] getUsedChromosomes() {
-        return new int[] {
-            WEIGHT_CHROMOSOME_INDEX,
-            COLOR_CHROMOSOME_INDEX,
-            STEM_TRAIT,
-            LEAVES_TRAIT,
-            FLOWER_BUDS_TRAIT,
-            LATERAL_LEAF_BUDS,
-            TERMINAL_LEAF_BUDS
+        return new int[]{
+                WEIGHT_CHROMOSOME_INDEX,
+                COLOR_CHROMOSOME_INDEX,
+                STEM_TRAIT,
+                LEAVES_TRAIT,
+                FLOWER_BUDS_TRAIT,
+                LATERAL_LEAF_BUDS,
+                TERMINAL_LEAF_BUDS
         };
     }
 

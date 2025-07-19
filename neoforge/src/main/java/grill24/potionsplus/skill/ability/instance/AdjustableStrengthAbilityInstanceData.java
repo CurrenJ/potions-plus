@@ -15,11 +15,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.List;
-import java.util.Optional;
-
-public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstanceData
-{
+public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstanceData {
     protected float abilityStrength;
     protected float minAbilityStrength;
     protected float maxAbilityStrength;

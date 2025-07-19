@@ -18,7 +18,8 @@ import java.util.List;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundSyncKnownBrewingRecipesPacket(List<ResourceKey<Recipe<?>>> recipeKeys) implements CustomPacketPayload {
+public record ClientboundSyncKnownBrewingRecipesPacket(
+        List<ResourceKey<Recipe<?>>> recipeKeys) implements CustomPacketPayload {
     public static final Type<ClientboundSyncKnownBrewingRecipesPacket> TYPE = new Type<>(ppId("sync_known_brewing_recipes"));
 
     public static final StreamCodec<ByteBuf, ClientboundSyncKnownBrewingRecipesPacket> STREAM_CODEC = StreamCodec.composite(
@@ -33,7 +34,7 @@ public record ClientboundSyncKnownBrewingRecipesPacket(List<ResourceKey<Recipe<?
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundSyncKnownBrewingRecipesPacket packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundSyncKnownBrewingRecipesPacket packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();
@@ -41,7 +42,7 @@ public record ClientboundSyncKnownBrewingRecipesPacket(List<ResourceKey<Recipe<?
                             return;
                         }
 
-                        if(packet.recipeKeys().isEmpty()) {
+                        if (packet.recipeKeys().isEmpty()) {
                             PotionsPlus.LOGGER.warn("Received empty brewing recipes knowledge from server :(");
                             return;
                         }

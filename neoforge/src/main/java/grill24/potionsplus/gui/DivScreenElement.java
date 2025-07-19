@@ -1,6 +1,5 @@
 package grill24.potionsplus.gui;
 
-import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -41,7 +40,7 @@ public class DivScreenElement<E extends RenderableScreenElement> extends ScreenE
         float height = (float) bounds.getHeight();
 
 
-        if(!this.getChildren().isEmpty()) {
+        if (!this.getChildren().isEmpty()) {
             RenderableScreenElement child = this.getChildren().iterator().next();
             Rectangle2D childBounds = child.getGlobalBounds();
 

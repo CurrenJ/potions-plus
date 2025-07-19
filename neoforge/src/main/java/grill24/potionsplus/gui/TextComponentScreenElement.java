@@ -2,12 +2,11 @@ package grill24.potionsplus.gui;
 
 import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.event.ItemListenersGame;
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.render.animation.keyframe.AnimationCurve;
 import grill24.potionsplus.render.animation.keyframe.FloatAnimationCurve;
 import grill24.potionsplus.utility.ClientTickHandler;
-import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.utility.RUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -95,6 +94,7 @@ public class TextComponentScreenElement extends RenderableScreenElement {
     }
 
     private static final AnimationCurve<Float> defaultShownAnimation = new FloatAnimationCurve();
+
     static {
         defaultShownAnimation.addKeyframe(AnimationCurve.Keyframe.<Float>builder()
                 .time(0F)
@@ -105,7 +105,9 @@ public class TextComponentScreenElement extends RenderableScreenElement {
                 .value(1F)
                 .build());
     }
+
     private static final AnimationCurve<Float> defaultHiddenAnimation = new FloatAnimationCurve();
+
     static {
         defaultHiddenAnimation.addKeyframe(AnimationCurve.Keyframe.<Float>builder()
                 .time(0F)

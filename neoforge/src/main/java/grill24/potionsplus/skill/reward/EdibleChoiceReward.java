@@ -1,6 +1,9 @@
 package grill24.potionsplus.skill.reward;
 
-import grill24.potionsplus.core.*;
+import grill24.potionsplus.core.ConfiguredGrantableRewards;
+import grill24.potionsplus.core.GrantableRewards;
+import grill24.potionsplus.core.PotionsPlusRegistries;
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.items.SkillLootItems;
 import grill24.potionsplus.skill.SkillsData;
 import net.minecraft.core.Holder;

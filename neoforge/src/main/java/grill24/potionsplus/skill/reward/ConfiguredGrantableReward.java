@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public record ConfiguredGrantableReward<RC extends GrantableRewardConfiguration, R extends GrantableReward<RC>>(R reward, RC config) {
+public record ConfiguredGrantableReward<RC extends GrantableRewardConfiguration, R extends GrantableReward<RC>>(
+        R reward, RC config) {
     public static final Codec<ConfiguredGrantableReward<?, ?>> DIRECT_CODEC = PotionsPlusRegistries.GRANTABLE_REWARD
             .byNameCodec()
             .dispatch(configured -> configured.reward, GrantableReward::configuredCodec);
@@ -44,7 +45,7 @@ public record ConfiguredGrantableReward<RC extends GrantableRewardConfiguration,
         }
 
         // Display the item activation
-        if(!newItems.isEmpty()) {
+        if (!newItems.isEmpty()) {
             PacketDistributor.sendToPlayer(player, new ClientboundDisplayTossupAnimationPacket(newItems, 5, 0.75F));
         }
     }

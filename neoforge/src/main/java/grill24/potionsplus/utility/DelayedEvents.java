@@ -11,7 +11,9 @@ import java.util.List;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class DelayedEvents {
-    private record DelayedEvent(Runnable runnable, long executionTimestamp) { }
+    private record DelayedEvent(Runnable runnable, long executionTimestamp) {
+    }
+
     private static final List<DelayedEvent> delayedEvents = new ArrayList<>();
 
     protected static void tick(long timestamp) {

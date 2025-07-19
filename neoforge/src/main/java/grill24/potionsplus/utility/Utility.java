@@ -194,9 +194,10 @@ public class Utility {
 
     /**
      * Get a list of entities to chain to.
+     *
      * @param initialEntity The entity to start the chain from
-     * @param entityLimit The maximum number of entities to chain to
-     * @param range The range to search for entities to chain to
+     * @param entityLimit   The maximum number of entities to chain to
+     * @param range         The range to search for entities to chain to
      * @return A list of entities to chain lightning to
      */
     public static List<Entity> getEntitiesToChainOffensiveAbilityTo(Entity initialEntity, int entityLimit, float range) {

@@ -37,7 +37,7 @@ public abstract class FilterHopperScreen<M extends FilterHopperMenu> extends Abs
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
         this.addRenderableWidget(Button.builder(Component.literal(" "), (button) ->
-                PacketDistributor.sendToServer(new ServerboundSetupFilterHopperFromContainerPacket()))
+                        PacketDistributor.sendToServer(new ServerboundSetupFilterHopperFromContainerPacket()))
                 .pos(i + autoCreateFilterButtonX, j + autoCreateFilterButtonY).size(8, 8).build());
     }
 

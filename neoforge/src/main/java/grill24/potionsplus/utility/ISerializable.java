@@ -5,5 +5,6 @@ import net.minecraft.network.codec.StreamCodec;
 
 public interface ISerializable<T> {
     Codec<T> codec();
+
     StreamCodec<?, T> streamCodec();
 }

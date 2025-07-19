@@ -71,7 +71,7 @@ public class FaceAttachedHorizontalDirectionalBlock extends net.minecraft.world.
         return getDirectionalValue(state, shapes);
     }
 
-    protected  <T> T getDirectionalValue(BlockState state, T[] values) {
+    protected <T> T getDirectionalValue(BlockState state, T[] values) {
         return switch (state.getValue(FACE)) {
             case FLOOR -> values[0];
             case CEILING -> values[1];

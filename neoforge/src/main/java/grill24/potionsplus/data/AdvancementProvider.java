@@ -48,15 +48,16 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-import static grill24.potionsplus.utility.Utility.*;
+import static grill24.potionsplus.utility.Utility.enumerateResourceLocations;
+import static grill24.potionsplus.utility.Utility.ppId;
 
 public class AdvancementProvider extends net.minecraft.data.advancements.AdvancementProvider {
     /**
      * Constructs an advancement provider using the generators to write the
      * advancements to a file.
      *
-     * @param output             the target directory of the data generator
-     * @param registries         a future of a lookup for registries and their objects
+     * @param output     the target directory of the data generator
+     * @param registries a future of a lookup for registries and their objects
      */
     public AdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, List.of(new PotionsPlusAdvancementGenerator()));
@@ -128,53 +129,54 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         List<Block> copperOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COPPER_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE, OreBlocks.SANDY_COPPER_ORE.value(), OreBlocks.STONEY_COPPER_ORE.value());
         createOreHatAdvancement
                 (saver,
-                "mine_copper_ore",
-                HatInfo.hats(MINE_COPPER_ORES, HatItems.COPPER_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.COPPER_ORE_HATS),
-                copperOreBlocks,
-                skillJournals);
+                        "mine_copper_ore",
+                        HatInfo.hats(MINE_COPPER_ORES, HatItems.COPPER_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.COPPER_ORE_HATS),
+                        copperOreBlocks,
+                        skillJournals);
 
         List<Block> coalOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COAL_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE, OreBlocks.SANDY_COAL_ORE.value(), OreBlocks.STONEY_COAL_ORE.value());
         createOreHatAdvancement
                 (saver,
-                "mine_coal_ore",
-                HatInfo.hats(MINE_COAL_ORES, HatItems.COAL_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.COAL_ORE_HATS),
-                coalOreBlocks,
-                skillJournals);
+                        "mine_coal_ore",
+                        HatInfo.hats(MINE_COAL_ORES, HatItems.COAL_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.COAL_ORE_HATS),
+                        coalOreBlocks,
+                        skillJournals);
 
         List<Block> ironOreBlocks = List.of(net.minecraft.world.level.block.Blocks.IRON_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE, OreBlocks.SANDY_IRON_ORE.value(), OreBlocks.STONEY_IRON_ORE.value());
         createOreHatAdvancement
                 (saver,
-                "mine_iron_ore",
-                HatInfo.hats(MINE_IRON_ORES, HatItems.IRON_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.IRON_ORE_HATS),
-                ironOreBlocks,
-                skillJournals);
+                        "mine_iron_ore",
+                        HatInfo.hats(MINE_IRON_ORES, HatItems.IRON_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.IRON_ORE_HATS),
+                        ironOreBlocks,
+                        skillJournals);
 
         List<Block> goldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.GOLD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE, OreBlocks.SANDY_GOLD_ORE.value(), OreBlocks.STONEY_GOLD_ORE.value());
         createOreHatAdvancement
                 (saver,
-                "mine_gold_ore",
-                HatInfo.hats(MINE_GOLD_ORES, HatItems.GOLD_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.GOLD_ORE_HATS),
-                goldOreBlocks,
-                skillJournals);
+                        "mine_gold_ore",
+                        HatInfo.hats(MINE_GOLD_ORES, HatItems.GOLD_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.GOLD_ORE_HATS),
+                        goldOreBlocks,
+                        skillJournals);
 
         List<Block> diamondOreBlocks = List.of(net.minecraft.world.level.block.Blocks.DIAMOND_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE, OreBlocks.SANDY_DIAMOND_ORE.value(), OreBlocks.STONEY_DIAMOND_ORE.value());
         createOreHatAdvancement
                 (saver,
-                "mine_diamond_ore",
-                HatInfo.hats(MINE_DIAMOND_ORES, HatItems.DIAMOND_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.DIAMOND_ORE_HATS),
-                diamondOreBlocks,
-                skillJournals);
+                        "mine_diamond_ore",
+                        HatInfo.hats(MINE_DIAMOND_ORES, HatItems.DIAMOND_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.DIAMOND_ORE_HATS),
+                        diamondOreBlocks,
+                        skillJournals);
 
         List<Block> emeraldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.EMERALD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_EMERALD_ORE, OreBlocks.SANDY_EMERALD_ORE.value(), OreBlocks.STONEY_EMERALD_ORE.value());
         createOreHatAdvancement
                 (saver,
-                "mine_emerald_ore",
-                HatInfo.hats(MINE_EMERALD_ORES, HatItems.EMERALD_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.EMERALD_ORE_HATS),
-                emeraldOreBlocks,
-                skillJournals);
+                        "mine_emerald_ore",
+                        HatInfo.hats(MINE_EMERALD_ORES, HatItems.EMERALD_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.EMERALD_ORE_HATS),
+                        emeraldOreBlocks,
+                        skillJournals);
     }
 
-    private record HatInfo(ResourceLocation advancementId, ItemStack display, int amountRequired, ResourceKey<LootTable> rewards) {
+    private record HatInfo(ResourceLocation advancementId, ItemStack display, int amountRequired,
+                           ResourceKey<LootTable> rewards) {
         public HatInfo(ResourceLocation advancementId, ItemStack display, int amountRequired, ResourceKey<LootTable> rewards) {
             this.advancementId = advancementId;
             this.display = display;
@@ -199,6 +201,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
             return hatInfos;
         }
     }
+
     private static void createOreHatAdvancement(Consumer<AdvancementHolder> saver, String name, List<HatInfo> hatInfos, List<Block> acceptedBlocks, AdvancementHolder parent) {
         AdvancementHolder currentParent = parent;
         for (HatInfo hatInfo : hatInfos) {
@@ -354,28 +357,28 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 
     private static @NotNull AdvancementHolder createBrewingCauldronAdvancements(Consumer<AdvancementHolder> saver) {
         AdvancementHolder create_brewing_cauldron = Advancement.Builder.advancement()
-        .display(
-                // The advancement icon. Can be an ItemStack or an ItemLike.
-                new ItemStack(BlockEntityBlocks.BREWING_CAULDRON.value()),
-                // The advancement title and description. Don't forget to add translations for these!
-                Component.translatable("advancements.potionsplus.brewing_cauldron.title"),
-                Component.translatable("advancements.potionsplus.brewing_cauldron.description"),
-                // The background texture. Use null if you don't want a background texture (for non-root advancements).
-                ppId("block/cooblestone"),
-                // The frame type. Valid values are AdvancementType.TASK, CHALLENGE, or GOAL.
-                AdvancementType.TASK,
-                // Whether to show the advancement toast or not.
-                true,
-                // Whether to announce the advancement into chat or not.
-                true,
-                // Whether the advancement should be hidden or not.
-                false)
-        .rewards(
-                AdvancementRewards.Builder.experience(100)
-                .addLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath("minecraft", "chests/igloo"))))
-        .addCriterion("create_brewing_cauldron", CreatePotionsPlusBlockTrigger.TriggerInstance.create(BlockEntityBlocks.BREWING_CAULDRON.value().defaultBlockState()))
-        .requirements(AdvancementRequirements.allOf(List.of("create_brewing_cauldron")))
-        .save(saver, CREATE_BREWING_CAULDRON);
+                .display(
+                        // The advancement icon. Can be an ItemStack or an ItemLike.
+                        new ItemStack(BlockEntityBlocks.BREWING_CAULDRON.value()),
+                        // The advancement title and description. Don't forget to add translations for these!
+                        Component.translatable("advancements.potionsplus.brewing_cauldron.title"),
+                        Component.translatable("advancements.potionsplus.brewing_cauldron.description"),
+                        // The background texture. Use null if you don't want a background texture (for non-root advancements).
+                        ppId("block/cooblestone"),
+                        // The frame type. Valid values are AdvancementType.TASK, CHALLENGE, or GOAL.
+                        AdvancementType.TASK,
+                        // Whether to show the advancement toast or not.
+                        true,
+                        // Whether to announce the advancement into chat or not.
+                        true,
+                        // Whether the advancement should be hidden or not.
+                        false)
+                .rewards(
+                        AdvancementRewards.Builder.experience(100)
+                                .addLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath("minecraft", "chests/igloo"))))
+                .addCriterion("create_brewing_cauldron", CreatePotionsPlusBlockTrigger.TriggerInstance.create(BlockEntityBlocks.BREWING_CAULDRON.value().defaultBlockState()))
+                .requirements(AdvancementRequirements.allOf(List.of("create_brewing_cauldron")))
+                .save(saver, CREATE_BREWING_CAULDRON);
 
         AdvancementHolder brew_awkward_potion = Advancement.Builder.advancement()
                 .parent(create_brewing_cauldron)

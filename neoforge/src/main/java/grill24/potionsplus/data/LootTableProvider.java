@@ -5,7 +5,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider {

@@ -20,9 +20,9 @@ import java.util.Set;
 
 public class SetFishSizeFunction extends LootItemConditionalFunction {
     public static final MapCodec<SetFishSizeFunction> CODEC = RecordCodecBuilder.mapCodec(
-        codecBuilder -> commonFields(codecBuilder)
-                .and(NumberProviders.CODEC.fieldOf("size").forGetter(instance -> instance.size))
-                .apply(codecBuilder, SetFishSizeFunction::new)
+            codecBuilder -> commonFields(codecBuilder)
+                    .and(NumberProviders.CODEC.fieldOf("size").forGetter(instance -> instance.size))
+                    .apply(codecBuilder, SetFishSizeFunction::new)
     );
 
     private final NumberProvider size;

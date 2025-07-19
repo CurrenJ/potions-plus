@@ -28,7 +28,7 @@ import java.util.Set;
  */
 public record IsInBiomeTagCondition(TagKey<Biome> biomeTag) implements LootItemCondition {
     public static final MapCodec<IsInBiomeTagCondition> CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
-           TagKey.codec(Registries.BIOME).fieldOf("biomeTag").forGetter(IsInBiomeTagCondition::biomeTag)).apply(codecBuilder, IsInBiomeTagCondition::new)
+            TagKey.codec(Registries.BIOME).fieldOf("biomeTag").forGetter(IsInBiomeTagCondition::biomeTag)).apply(codecBuilder, IsInBiomeTagCondition::new)
     );
 
     @Override

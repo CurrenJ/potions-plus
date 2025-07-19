@@ -15,7 +15,6 @@ import net.minecraft.world.entity.player.Player;
 import org.joml.Vector4f;
 
 import java.awt.*;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

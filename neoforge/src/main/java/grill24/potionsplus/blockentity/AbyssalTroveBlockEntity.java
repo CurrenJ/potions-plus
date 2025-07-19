@@ -1,6 +1,7 @@
 package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.core.*;
+import grill24.potionsplus.core.Blocks;
+import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -52,7 +53,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
             ONLY_AMPLIFICATION_UPGRADES
         }
 
-        public static class AbyssalTroveRenderedItem{
+        public static class AbyssalTroveRenderedItem {
             public ItemStack icon;
             public List<ItemStack> subIcon;
             public Vector3d position;
@@ -160,7 +161,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     }
 
     public void showGui() {
-        if(rendererData.state == RendererData.State.HIDDEN) {
+        if (rendererData.state == RendererData.State.HIDDEN) {
             timeItemPlaced = (int) ClientTickHandler.total();
         }
 
@@ -181,7 +182,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         int index = 0;
         Set<PpIngredient> allIngredients = getAcceptedIngredients();
         int sideLength = (int) Math.max(Math.round(Math.sqrt(allIngredients.size())), 1);
-        for(PpIngredient ingredient : allIngredients) {
+        for (PpIngredient ingredient : allIngredients) {
             int rowIndex = index / sideLength;
             List<RendererData.AbyssalTroveRenderedItem> itemsInRow = data.renderedItemTiers.computeIfAbsent(rowIndex, k -> new ArrayList<>());
 
@@ -250,9 +251,11 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     }
 
     public static Set<PpIngredient> ABYSSAL_TROVE_INGREDIENTS = new HashSet<>();
+
     public static Set<PpIngredient> getAcceptedIngredients() {
         return ABYSSAL_TROVE_INGREDIENTS;
     }
+
     public static void computeAbyssalTroveIngredients() {
         ABYSSAL_TROVE_INGREDIENTS = Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getAllPotionBrewingIngredientsNoPotions().stream().sorted((a, b) -> {
             Function<PpIngredient, Integer> value = (ingredient) -> {

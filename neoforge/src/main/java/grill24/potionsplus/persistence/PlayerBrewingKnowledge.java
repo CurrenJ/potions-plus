@@ -4,23 +4,25 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import grill24.potionsplus.network.ClientboundAcquiredBrewingRecipeKnowledgePacket;
-import grill24.potionsplus.recipe.RecipeAnalysis;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.network.ClientboundAcquiredBrewingRecipeKnowledgePacket;
+import grill24.potionsplus.recipe.RecipeAnalysis;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 public class PlayerBrewingKnowledge {
     private BlockPos pairedAbyssalTrovePos = BlockPos.ZERO;

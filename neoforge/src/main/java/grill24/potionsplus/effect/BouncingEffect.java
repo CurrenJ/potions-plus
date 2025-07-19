@@ -39,8 +39,8 @@ public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
 
     private static void bounceUp(Entity entity, float bounceHeight) {
         Vec3 vec3 = entity.getDeltaMovement();
-        if (vec3.y < (double)0.0F) {
-            double d0 = entity instanceof LivingEntity ? (double)1.0F : 0.8;
+        if (vec3.y < (double) 0.0F) {
+            double d0 = entity instanceof LivingEntity ? (double) 1.0F : 0.8;
             entity.setDeltaMovement(vec3.x, -vec3.y * d0 * bounceHeight, vec3.z);
         }
     }

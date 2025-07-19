@@ -2,7 +2,6 @@ package grill24.potionsplus.utility.registration.block;
 
 import grill24.potionsplus.block.VersatilePlantBlock;
 import grill24.potionsplus.block.VersatilePlantBlockTexturePattern;
-import grill24.potionsplus.utility.Utility;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;

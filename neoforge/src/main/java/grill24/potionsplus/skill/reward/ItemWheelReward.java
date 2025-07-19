@@ -80,10 +80,10 @@ public class ItemWheelReward extends GrantableReward<ItemWheelRewardConfiguratio
             LootTable lootTable = player.getServer().reloadableRegistries().getLootTable(config.lootTableResourceKey);
             List<ItemStack> samples = new ArrayList<>();
             for (int i = 0; i < config.numToSample; i++) {
-                List<ItemStack> sample = lootTable.getRandomItems(new LootParams.Builder((ServerLevel)player.level())
+                List<ItemStack> sample = lootTable.getRandomItems(new LootParams.Builder((ServerLevel) player.level())
                         .withParameter(LootContextParams.ORIGIN, player.position())
                         .withParameter(LootContextParams.THIS_ENTITY, player)
-                    .create(lootTable.getParamSet()));
+                        .create(lootTable.getParamSet()));
                 if (!sample.isEmpty()) {
                     samples.add(sample.getFirst());
                 }
@@ -128,7 +128,9 @@ public class ItemWheelReward extends GrantableReward<ItemWheelRewardConfiguratio
             this.key = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(name));
         }
 
-        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {return key; }
+        public ResourceKey<ConfiguredGrantableReward<?, ?>> getKey() {
+            return key;
+        }
 
         public ItemWheelRewardBuilder translation(String translationKey) {
             this.translationKey = translationKey;

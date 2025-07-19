@@ -21,7 +21,7 @@ public record HolderCodecs<E>(
         Codec<List<Holder<E>>> holderListCodec,
         StreamCodec<RegistryFriendlyByteBuf, Holder<E>> holderStreamCodec,
         StreamCodec<RegistryFriendlyByteBuf, HolderSet<E>> holderSetStreamCodec,
-        StreamCodec<RegistryFriendlyByteBuf, List<Holder<E>>> holderListStreamCodec ) {
+        StreamCodec<RegistryFriendlyByteBuf, List<Holder<E>>> holderListStreamCodec) {
 
     public HolderCodecs(ResourceKey<? extends Registry<E>> registryKey, Codec<E> directCodec) {
         this(holder(registryKey, directCodec),

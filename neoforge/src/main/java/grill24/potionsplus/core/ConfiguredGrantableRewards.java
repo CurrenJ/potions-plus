@@ -23,7 +23,7 @@ public class ConfiguredGrantableRewards {
                     AdvancementRewards.Builder.loot(BuiltInLootTables.SIMPLE_DUNGEON).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_5));
 
-    public static final EdibleChoiceReward.ChoiceRewardBuilder[] SIMPLE_DUNGEON_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("simple_dungeon_loot_edible_"+i,
+    public static final EdibleChoiceReward.ChoiceRewardBuilder[] SIMPLE_DUNGEON_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("simple_dungeon_loot_edible_" + i,
             new Pair<>(new ItemStack(SkillLootItems.MOSSASHIMI.getValue()), SIMPLE_DUNGEON_LOOT.getKey())
     ), 25);
 
@@ -32,7 +32,7 @@ public class ConfiguredGrantableRewards {
                     AdvancementRewards.Builder.loot(BuiltInLootTables.ABANDONED_MINESHAFT).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_10));
 
-    public static final EdibleChoiceReward.ChoiceRewardBuilder[] ABANDONED_MINESHAFT_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("abandoned_mineshaft_loot_edible_"+i,
+    public static final EdibleChoiceReward.ChoiceRewardBuilder[] ABANDONED_MINESHAFT_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("abandoned_mineshaft_loot_edible_" + i,
             new Pair<>(new ItemStack(SkillLootItems.STONE_FRUIT.getValue()), ABANDONED_MINESHAFT_LOOT.getKey())
     ), 25);
 
@@ -41,7 +41,7 @@ public class ConfiguredGrantableRewards {
                     AdvancementRewards.Builder.loot(BuiltInLootTables.STRONGHOLD_LIBRARY).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_15));
 
-    public static final EdibleChoiceReward.ChoiceRewardBuilder[] STRONGHOLD_LIBRARY_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("stronghold_library_loot_edible_"+i,
+    public static final EdibleChoiceReward.ChoiceRewardBuilder[] STRONGHOLD_LIBRARY_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("stronghold_library_loot_edible_" + i,
             new Pair<>(new ItemStack(SkillLootItems.CHOCOLATE_BOOK.getValue()), STRONGHOLD_LIBRARY_LOOT.getKey())
     ), 25);
 
@@ -50,7 +50,7 @@ public class ConfiguredGrantableRewards {
                     AdvancementRewards.Builder.loot(BuiltInLootTables.DESERT_PYRAMID).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_20));
 
-    public static final EdibleChoiceReward.ChoiceRewardBuilder[] DESERT_PYRAMID_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("desert_pyramid_loot_edible_"+i,
+    public static final EdibleChoiceReward.ChoiceRewardBuilder[] DESERT_PYRAMID_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("desert_pyramid_loot_edible_" + i,
             new Pair<>(new ItemStack(SkillLootItems.PYRAMIDS_OF_SALT.getValue()), DESERT_PYRAMID_LOOT.getKey())
     ), 25);
 
@@ -59,7 +59,7 @@ public class ConfiguredGrantableRewards {
                     AdvancementRewards.Builder.loot(BuiltInLootTables.JUNGLE_TEMPLE).build())
                     .translation(Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING_REWARD_LEVEL_25));
 
-    public static final EdibleChoiceReward.ChoiceRewardBuilder[] JUNGLE_TEMPLE_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("jungle_temple_loot_edible_"+i,
+    public static final EdibleChoiceReward.ChoiceRewardBuilder[] JUNGLE_TEMPLE_LOOT_EDIBLE = register((i) -> new EdibleChoiceReward.ChoiceRewardBuilder("jungle_temple_loot_edible_" + i,
             new Pair<>(new ItemStack(SkillLootItems.ROASTED_BAMBOO.getValue()), JUNGLE_TEMPLE_LOOT.getKey())
     ), 25);
 
@@ -323,6 +323,7 @@ public class ConfiguredGrantableRewards {
     }
 
     private static List<IRewardBuilder> rewardBuilders;
+
     private static AbilityReward.AbilityRewardBuilder registerAbilityReward(ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredAbilityKey) {
         AbilityReward.AbilityRewardBuilder data = new AbilityReward.AbilityRewardBuilder(configuredAbilityKey);
         if (rewardBuilders == null) {
@@ -352,6 +353,7 @@ public class ConfiguredGrantableRewards {
 
     public interface IRewardBuilder {
         void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context);
+
         ResourceKey<ConfiguredGrantableReward<?, ?>> getKey();
     }
 }

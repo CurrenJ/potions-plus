@@ -6,6 +6,8 @@ import java.util.function.Supplier;
 
 public interface SizeProvider extends Supplier<NumberProvider> {
     SizeProvider modify(SizeProvider sizeProvider);
+
     float getMean();
+
     float getVariance();
 }

@@ -7,7 +7,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -21,7 +20,10 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DripstoneThickness;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -67,7 +69,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
     private static final VoxelShape SHAPE_MIDDLE = Block.column(10.0, 0.0, 16.0);
     private static final VoxelShape SHAPE_BASE = Block.column(12.0, 0.0, 16.0);
     private static final double STALACTITE_DRIP_START_PIXEL = SHAPE_TIP_DOWN.min(Direction.Axis.Y);
-    private static final float MAX_HORIZONTAL_OFFSET = (float)SHAPE_BASE.min(Direction.Axis.X);
+    private static final float MAX_HORIZONTAL_OFFSET = (float) SHAPE_BASE.min(Direction.Axis.X);
     private static final VoxelShape REQUIRED_SPACE_TO_DRIP_THROUGH_NON_SOLID_BLOCK = Block.column(4.0, 0.0, 16.0);
 
     public IcicleBlock(BlockBehaviour.Properties p_154025_) {
@@ -240,7 +242,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
 
     @Override
     protected VoxelShape getShape(BlockState p_154117_, BlockGetter p_154118_, BlockPos p_154119_, CollisionContext p_154120_) {
-        VoxelShape voxelshape = switch ((DripstoneThickness)p_154117_.getValue(THICKNESS)) {
+        VoxelShape voxelshape = switch ((DripstoneThickness) p_154117_.getValue(THICKNESS)) {
             case TIP_MERGE -> SHAPE_TIP_MERGE;
             case TIP -> p_154117_.getValue(TIP_DIRECTION) == Direction.DOWN ? SHAPE_TIP_DOWN : SHAPE_TIP_UP;
             case FRUSTUM -> SHAPE_FRUSTUM;
@@ -280,11 +282,11 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
     private static void spawnFallingStalactite(BlockState p_154098_, ServerLevel p_154099_, BlockPos p_154100_) {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = p_154100_.mutable();
 
-        for(BlockState blockstate = p_154098_; isStalactite(blockstate); blockstate = p_154099_.getBlockState(blockpos$mutableblockpos)) {
+        for (BlockState blockstate = p_154098_; isStalactite(blockstate); blockstate = p_154099_.getBlockState(blockpos$mutableblockpos)) {
             FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(p_154099_, blockpos$mutableblockpos, blockstate);
             if (isTip(blockstate, true)) {
                 int i = Math.max(1 + p_154100_.getY() - blockpos$mutableblockpos.getY(), 6);
-                float f = 1.0F * (float)i;
+                float f = 1.0F * (float) i;
                 fallingblockentity.setHurtsEntities(f, 40);
                 break;
             }
@@ -317,7 +319,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
     private static void growStalagmiteBelow(ServerLevel p_154033_, BlockPos p_154034_) {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = p_154034_.mutable();
 
-        for(int i = 0; i < 10; ++i) {
+        for (int i = 0; i < 10; ++i) {
             blockpos$mutableblockpos.move(Direction.DOWN);
             BlockState blockstate = p_154033_.getBlockState(blockpos$mutableblockpos);
             if (!blockstate.getFluidState().isEmpty()) {
@@ -401,7 +403,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
             };
             return findBlockVertical(p_154132_, p_154133_, direction.getAxisDirection(), bipredicate, (p_154168_) -> {
                 return isTip(p_154168_, p_154135_);
-            }, p_154134_).orElse((BlockPos)null);
+            }, p_154134_).orElse((BlockPos) null);
         }
     }
 
@@ -506,12 +508,12 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
     @Nullable
     private static BlockPos findFillableCauldronBelowStalactiteTip(Level p_154077_, BlockPos p_154078_, Fluid p_154079_) {
         Predicate<BlockState> predicate = (p_154162_) -> {
-            return p_154162_.getBlock() instanceof AbstractCauldronBlock && ((AbstractCauldronBlock)p_154162_.getBlock()).canReceiveStalactiteDrip(p_154079_);
+            return p_154162_.getBlock() instanceof AbstractCauldronBlock && ((AbstractCauldronBlock) p_154162_.getBlock()).canReceiveStalactiteDrip(p_154079_);
         };
         BiPredicate<BlockPos, BlockState> bipredicate = (p_202034_, p_202035_) -> {
             return canDripThrough(p_154077_, p_202034_, p_202035_);
         };
-        return findBlockVertical(p_154077_, p_154078_, Direction.DOWN.getAxisDirection(), bipredicate, predicate, 11).orElse((BlockPos)null);
+        return findBlockVertical(p_154077_, p_154078_, Direction.DOWN.getAxisDirection(), bipredicate, predicate, 11).orElse((BlockPos) null);
     }
 
     @Nullable
@@ -519,7 +521,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
         BiPredicate<BlockPos, BlockState> bipredicate = (p_202030_, p_202031_) -> {
             return canDripThrough(p_154056_, p_202030_, p_202031_);
         };
-        return findBlockVertical(p_154056_, p_154057_, Direction.UP.getAxisDirection(), bipredicate, IcicleBlock::canDrip, 11).orElse((BlockPos)null);
+        return findBlockVertical(p_154056_, p_154057_, Direction.UP.getAxisDirection(), bipredicate, IcicleBlock::canDrip, 11).orElse((BlockPos) null);
     }
 
     public static Fluid getCauldronFillFluidType(Level p_154179_, BlockPos p_154180_) {
@@ -552,7 +554,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
         Direction direction = Direction.get(p_202009_, Direction.Axis.Y);
         BlockPos.MutableBlockPos blockpos$mutableblockpos = p_202008_.mutable();
 
-        for(int i = 1; i < p_202012_; ++i) {
+        for (int i = 1; i < p_202012_; ++i) {
             blockpos$mutableblockpos.move(direction);
             BlockState blockstate = p_202007_.getBlockState(blockpos$mutableblockpos);
             if (p_202011_.test(blockstate)) {

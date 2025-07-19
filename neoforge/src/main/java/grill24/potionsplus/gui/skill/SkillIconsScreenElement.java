@@ -10,7 +10,6 @@ import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -114,17 +113,17 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
         int index = 0;
         for (ResourceKey<ConfiguredSkill<?, ?>> skill : skills) {
             itemDisplays.computeIfAbsent(index, k -> {
-                        // Create item display for the skill
-                        SkillIconScreenElement display = new SkillIconScreenElement(screen, Settings.DEFAULT.withAnchor(Anchor.CENTER), holderGetter.getOrThrow(skill), SkillIconsScreenElement.BASE_SCALE);
-                        // Parent to this element
-                        display.setParent(this);
-                        // Add click listener
-                        display.addClickListener(this::onElementClicked);
-                        display.addMouseEnterListener(this::onElementHovered);
-                        display.addMouseExitListener((x, y, button, element) -> onElementHovered(x, y, button, null));
+                // Create item display for the skill
+                SkillIconScreenElement display = new SkillIconScreenElement(screen, Settings.DEFAULT.withAnchor(Anchor.CENTER), holderGetter.getOrThrow(skill), SkillIconsScreenElement.BASE_SCALE);
+                // Parent to this element
+                display.setParent(this);
+                // Add click listener
+                display.addClickListener(this::onElementClicked);
+                display.addMouseEnterListener(this::onElementHovered);
+                display.addMouseExitListener((x, y, button, element) -> onElementHovered(x, y, button, null));
 
-                        return display;
-                    });
+                return display;
+            });
             index++;
         }
 
@@ -134,8 +133,9 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
 
     /**
      * Handle click event on a skill icon
-     * @param x The clicked position
-     * @param y The clicked position
+     *
+     * @param x       The clicked position
+     * @param y       The clicked position
      * @param element The clicked element (should be an ItemDisplay) for the skill icon
      */
     private void onElementClicked(int x, int y, int button, IRenderableScreenElement element) {
@@ -205,6 +205,7 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
 
     /**
      * Get the global position offset for GUI elements
+     *
      * @param additionalOffset Additional offset to apply (X: 1F = 1 screen width, Y: 1F = 1 screen height)
      * @return
      */

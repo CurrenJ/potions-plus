@@ -2,7 +2,6 @@ package grill24.potionsplus.skill.source;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.blockpredicates.StateTestingPredicate;
 
@@ -25,6 +24,7 @@ public class BreakBlockSourceConfiguration extends SkillPointSourceConfiguration
         public final StateTestingPredicate blockStatePredicate;
         public final boolean useXpDroppedAsPoints;
         public final float points;
+
         public BlockSkillPoints(BlockPredicate blockPredicate, boolean useXpDroppedAsPoints, float points) {
             if (blockPredicate instanceof StateTestingPredicate stateTestingPredicate) {
                 this.blockStatePredicate = stateTestingPredicate;
@@ -37,6 +37,7 @@ public class BreakBlockSourceConfiguration extends SkillPointSourceConfiguration
     }
 
     private final List<BlockSkillPoints> blockSkillPoints;
+
     public BreakBlockSourceConfiguration(List<BlockSkillPoints> blockSkillPoints) {
         this.blockSkillPoints = blockSkillPoints;
     }

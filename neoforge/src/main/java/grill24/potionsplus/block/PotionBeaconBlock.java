@@ -1,7 +1,7 @@
 package grill24.potionsplus.block;
 
-import grill24.potionsplus.blockentity.PotionBeaconBlockEntity;
 import grill24.potionsplus.blockentity.HerbalistsLecternSounds;
+import grill24.potionsplus.blockentity.PotionBeaconBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
 import grill24.potionsplus.utility.InvUtil;

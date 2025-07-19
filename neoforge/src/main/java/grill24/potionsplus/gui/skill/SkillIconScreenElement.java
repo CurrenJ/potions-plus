@@ -78,7 +78,6 @@ class SkillIconScreenElement extends ItemStackScreenElement {
     }
 
 
-
     private static final int DEFAULT_PIXEL_SIZE = 16;
 
     @Override

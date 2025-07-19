@@ -15,6 +15,7 @@ import java.io.IOException;
 
 public class BrewingCauldronRecipeTypeAdapter extends TypeAdapter<BrewingCauldronRecipe> {
     private final HolderLookup.Provider registries;
+
     public BrewingCauldronRecipeTypeAdapter(HolderLookup.Provider registries) {
         this.registries = registries;
     }

@@ -2,7 +2,6 @@ package grill24.potionsplus.core.seededrecipe;
 
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.Arrays;
 import java.util.Comparator;

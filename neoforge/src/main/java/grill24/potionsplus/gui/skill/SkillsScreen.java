@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import java.util.*;
+import java.util.Collections;
 import java.util.List;
 
 public class SkillsScreen extends PotionsPlusScreen<SkillsMenu> {

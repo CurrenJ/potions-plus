@@ -11,7 +11,8 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundSanguineAltarConversionProgressPacket(BlockPos pos, int healthDrained) implements CustomPacketPayload {
+public record ClientboundSanguineAltarConversionProgressPacket(BlockPos pos,
+                                                               int healthDrained) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<ClientboundSanguineAltarConversionProgressPacket> TYPE = new CustomPacketPayload.Type<>(ppId("sanguine_altar_conversion_progress"));
 
     public static final StreamCodec<ByteBuf, ClientboundSanguineAltarConversionProgressPacket> STREAM_CODEC = StreamCodec.composite(
@@ -28,7 +29,7 @@ public record ClientboundSanguineAltarConversionProgressPacket(BlockPos pos, int
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain ( final ClientboundSanguineAltarConversionProgressPacket packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundSanguineAltarConversionProgressPacket packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

@@ -22,7 +22,10 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedList;
-import net.minecraft.util.valueproviders.*;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
@@ -195,7 +198,7 @@ public class ConfiguredFeatures {
         VersatilePlantsWorldGenData.registerAllConfiguredFeatures(context);
     }
 
-    private static ResourceKey<ConfiguredFeature<?,?>> createKey(String key) {
+    private static ResourceKey<ConfiguredFeature<?, ?>> createKey(String key) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ppId(key));
     }
 

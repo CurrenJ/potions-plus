@@ -11,7 +11,8 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundSyncFishingLeaderboardsPacket(FishingLeaderboards fishingLeaderboards) implements CustomPacketPayload {
+public record ClientboundSyncFishingLeaderboardsPacket(
+        FishingLeaderboards fishingLeaderboards) implements CustomPacketPayload {
     public static final Type<ClientboundSyncFishingLeaderboardsPacket> TYPE = new Type<>(ppId("sync_fishing_leaderboards"));
 
     public static final StreamCodec<ByteBuf, ClientboundSyncFishingLeaderboardsPacket> STREAM_CODEC = StreamCodec.composite(
@@ -26,7 +27,7 @@ public record ClientboundSyncFishingLeaderboardsPacket(FishingLeaderboards fishi
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundSyncFishingLeaderboardsPacket packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundSyncFishingLeaderboardsPacket packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

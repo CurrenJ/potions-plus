@@ -17,11 +17,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.util.Lazy;
 
 import java.util.Set;
 import java.util.function.BiPredicate;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static grill24.potionsplus.utility.Utility.ppId;
@@ -43,16 +41,20 @@ public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguratio
     }
 
     @Override
-    public void onEnable(ServerPlayer player, PlayerAbilityConfiguration config, AbilityInstanceSerializable<?, ?> instance) {}
+    public void onEnable(ServerPlayer player, PlayerAbilityConfiguration config, AbilityInstanceSerializable<?, ?> instance) {
+    }
 
     @Override
-    public void onDisable(ServerPlayer player, PlayerAbilityConfiguration config) {}
+    public void onDisable(ServerPlayer player, PlayerAbilityConfiguration config) {
+    }
 
     @Override
-    public void onAbilityGranted(ServerPlayer player, PlayerAbilityConfiguration config, AbilityInstanceSerializable<?, ?> instance) {}
+    public void onAbilityGranted(ServerPlayer player, PlayerAbilityConfiguration config, AbilityInstanceSerializable<?, ?> instance) {
+    }
 
     @Override
-    public void onAbilityRevoked(ServerPlayer player, PlayerAbilityConfiguration config) {}
+    public void onAbilityRevoked(ServerPlayer player, PlayerAbilityConfiguration config) {
+    }
 
     @Override
     public boolean test(PlayerAbilityConfiguration playerAbilityConfiguration, ItemStack stack) {

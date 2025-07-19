@@ -1,10 +1,8 @@
 package grill24.potionsplus.item.consumeeffect;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.ConsumeEffects;
 import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,7 +23,7 @@ public class EdibleChoiceItemConsumeEffect implements ConsumeEffect {
 
     @Override
     public boolean apply(Level level, ItemStack stack, LivingEntity entity) {
-        if(entity instanceof ServerPlayer serverPlayer) {
+        if (entity instanceof ServerPlayer serverPlayer) {
             EdibleRewardGranterDataComponent.tryEatEdibleChoiceItem(serverPlayer, stack);
         }
         return true;

@@ -20,7 +20,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SeededPotionRecipes {
@@ -76,7 +79,7 @@ public class SeededPotionRecipes {
         // Sample half of the ingredients in the tag
         int durSize = (int) Math.ceil(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.POTION_DURATION_UP_INGREDIENTS).size() / 2F);
         List<PpIngredient> durationSamples = BuiltInRegistries.ITEM.getOrThrow(Tags.Items.POTION_DURATION_UP_INGREDIENTS).stream().map(ItemStack::new).map(PpIngredient::of).collect(Collectors.toCollection(ArrayList::new));
-        for(int d = 0; d < durSize && !durationSamples.isEmpty(); d++) {
+        for (int d = 0; d < durSize && !durationSamples.isEmpty(); d++) {
             int randomIndex = randomSource.nextInt(0, durationSamples.size());
             durationSamples.remove(randomIndex);
         }
@@ -84,7 +87,7 @@ public class SeededPotionRecipes {
         // Sample half of the ingredients in the tag
         int ampSize = (int) Math.ceil(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).size() / 2F);
         List<PpIngredient> amplifierSamples = BuiltInRegistries.ITEM.getOrThrow(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).stream().map(ItemStack::new).map(PpIngredient::of).collect(Collectors.toCollection(ArrayList::new));
-        for(int a = 0; a < ampSize && !amplifierSamples.isEmpty(); a++) {
+        for (int a = 0; a < ampSize && !amplifierSamples.isEmpty(); a++) {
             int randomIndex = randomSource.nextInt(0, amplifierSamples.size());
             amplifierSamples.remove(randomIndex);
         }
@@ -103,13 +106,13 @@ public class SeededPotionRecipes {
         for (PpIngredient ingredient : durationTagItems) {
             durationUpgradeRecipes.add(
                     new BrewingCauldronRecipeBuilder()
-                    .result(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION))
-                    .ingredients(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION), ingredient.getItemStack())
-                    .processingTime(30)
-                    .durationToAdd(randomSource.nextInt(100, 1800))
-                    .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
-                    .isSeededRuntimeRecipe()
-                    .build()
+                            .result(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION))
+                            .ingredients(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION), ingredient.getItemStack())
+                            .processingTime(30)
+                            .durationToAdd(randomSource.nextInt(100, 1800))
+                            .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
+                            .isSeededRuntimeRecipe()
+                            .build()
             );
         }
         Recipes.DURATION_UPGRADE_ANALYSIS.compute(durationUpgradeRecipes);

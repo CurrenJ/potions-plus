@@ -15,6 +15,7 @@ import java.util.List;
 
 public interface IEnchantmentBonusTooltipDetails extends IEffectTooltipDetails {
     int getEnchantmentBonus(MobEffectInstance effectInstance);
+
     ResourceKey<Enchantment> getEffect();
 
     @Override

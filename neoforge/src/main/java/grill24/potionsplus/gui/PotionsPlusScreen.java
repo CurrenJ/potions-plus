@@ -65,6 +65,7 @@ public abstract class PotionsPlusScreen<M extends AbstractContainerMenu> extends
 
     private boolean isShowingDebugBounds = false;
     private boolean isShowingGridLines = false;
+
     // In some Screen subclass
     @Override
     public boolean keyPressed(int key, int scancode, int mods) {

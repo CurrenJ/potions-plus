@@ -17,8 +17,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 
-import java.util.Collections;
-
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class FallOfTheVoidEffect extends MobEffect implements IEffectTooltipDetails {
     public FallOfTheVoidEffect(MobEffectCategory mobEffectCategory, int color) {

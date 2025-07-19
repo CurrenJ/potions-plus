@@ -9,5 +9,6 @@ import java.util.function.BiConsumer;
 
 public interface ILootGenerator<T> extends IDataGenerator<T> {
     void tryGenerate(ContextKeySet lootContextParamSet, LootTableSubProvider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer);
+
     ContextKeySet getParamSet();
 }

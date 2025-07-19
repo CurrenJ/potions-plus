@@ -118,7 +118,7 @@ public record PlayerLockedItemModifiersDataComponent(List<AttributeModifier> att
         ItemAttributeModifiers updated = extension.potions_plus$withModifiersRemoved(attributeModifiers());
         stack.set(net.minecraft.core.component.DataComponents.ATTRIBUTE_MODIFIERS, updated);
 
-        if(stack.has(DataComponents.OWNER)) {
+        if (stack.has(DataComponents.OWNER)) {
             stack.remove(DataComponents.OWNER);
         }
     }

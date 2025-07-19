@@ -21,10 +21,10 @@ import java.util.Set;
 public record LootItemBlockTagCondition(TagKey<Block> block) implements LootItemCondition {
     public static final MapCodec<LootItemBlockTagCondition> CODEC = RecordCodecBuilder.<LootItemBlockTagCondition>mapCodec(
             p_344716_ -> p_344716_.group(
-                        TagKey.codec(Registries.BLOCK).fieldOf("blockTag").forGetter(LootItemBlockTagCondition::block)
+                            TagKey.codec(Registries.BLOCK).fieldOf("blockTag").forGetter(LootItemBlockTagCondition::block)
                     )
                     .apply(p_344716_, LootItemBlockTagCondition::new)
-        );
+    );
 
     @Override
     public LootItemConditionType getType() {

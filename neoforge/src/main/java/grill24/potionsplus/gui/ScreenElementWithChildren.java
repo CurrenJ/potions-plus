@@ -25,6 +25,7 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
     /**
      * Default bounds calculation for a container element:
      * The bounds of the container is the minimum rectangle that contains all children and the origin point of the container.
+     *
      * @return The width of the container.
      */
     @Override
@@ -44,6 +45,7 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
     /**
      * Default bounds calculation for a container element:
      * The bounds of the container is the minimum rectangle that contains all children and the origin point of the container.
+     *
      * @return The height of the container.
      */
     @Override
@@ -66,7 +68,7 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
         super.onTick(partialTick, mouseX, mouseY);
 
         for (RenderableScreenElement child : getChildren()) {
-            if(child != null) {
+            if (child != null) {
                 child.tick(partialTick, mouseX, mouseY);
             }
         }

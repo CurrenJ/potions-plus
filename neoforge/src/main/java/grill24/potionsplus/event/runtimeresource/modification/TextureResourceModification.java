@@ -6,7 +6,6 @@ import grill24.potionsplus.utility.RUtil;
 import grill24.potionsplus.utility.ResourceUtility;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
-import net.minecraft.util.ARGB;
 
 import java.awt.image.BufferedImage;
 import java.io.InputStream;

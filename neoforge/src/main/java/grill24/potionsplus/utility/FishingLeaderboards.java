@@ -13,7 +13,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -188,7 +187,8 @@ public class FishingLeaderboards {
         return leaderboardEntries;
     }
 
-    public record LeaderboardEntry(Holder<Item> item, UUID uuid, String username, float value) {}
+    public record LeaderboardEntry(Holder<Item> item, UUID uuid, String username, float value) {
+    }
 
     public static class FishingData {
         private final String username;
@@ -211,8 +211,8 @@ public class FishingLeaderboards {
 
         public FishingData(Map<Holder<Item>, Float> highestFishSizesByItem,
                            Map<Holder<Item>, Integer> fishCaughtByItem,
-                            String username,
-                            UUID uuid) {
+                           String username,
+                           UUID uuid) {
             this.highestFishSizesByItem = new HashMap<>(highestFishSizesByItem);
             this.fishCaughtByItem = new HashMap<>(fishCaughtByItem);
             this.username = username;

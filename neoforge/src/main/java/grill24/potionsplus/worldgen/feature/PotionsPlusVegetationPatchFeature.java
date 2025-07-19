@@ -14,12 +14,16 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.neoforged.neoforge.common.Tags;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegetationPatchConfiguration> {
     private static final Map<Block, Map<Block, Supplier<BlockState>>> oreReplacements = new HashMap<>();
+
     static {
         var sandMap = oreReplacements.computeIfAbsent(Blocks.SAND, block -> new HashMap<>());
         sandMap.put(Blocks.COAL_ORE, () -> OreBlocks.SANDY_COAL_ORE.value().defaultBlockState());
@@ -66,10 +70,10 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
         Direction facing = configuration.facing;
         Set<BlockPos> set = new HashSet<>();
 
-        for(int i = -xRadius; i <= xRadius; ++i) {
+        for (int i = -xRadius; i <= xRadius; ++i) {
             boolean flag = i == -xRadius || i == xRadius;
 
-            for(int j = -zRadius; j <= zRadius; ++j) {
+            for (int j = -zRadius; j <= zRadius; ++j) {
                 boolean flag1 = j == -zRadius || j == zRadius;
                 boolean flag2 = flag || flag1;
                 boolean flag3 = flag && flag1;
@@ -88,11 +92,11 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
                             axis == Direction.Axis.Y ? 0 : (axis == Direction.Axis.Z ? j : i),
                             axis == Direction.Axis.Z ? 0 : j);
 
-                    for(int k = 0; p_160597_.isStateAtPosition(blockpos$mutableblockpos, (state) -> !state.isCollisionShapeFullBlock(p_160597_, blockpos$mutableblockpos)) && k < configuration.verticalRange; ++k) {
+                    for (int k = 0; p_160597_.isStateAtPosition(blockpos$mutableblockpos, (state) -> !state.isCollisionShapeFullBlock(p_160597_, blockpos$mutableblockpos)) && k < configuration.verticalRange; ++k) {
                         blockpos$mutableblockpos.move(facingOpposite);
                     }
 
-                    for(int i1 = 0; p_160597_.isStateAtPosition(blockpos$mutableblockpos, (p_204784_) -> p_204784_.isCollisionShapeFullBlock(p_160597_, blockpos$mutableblockpos)) && i1 < configuration.verticalRange; ++i1) {
+                    for (int i1 = 0; p_160597_.isStateAtPosition(blockpos$mutableblockpos, (p_204784_) -> p_204784_.isCollisionShapeFullBlock(p_160597_, blockpos$mutableblockpos)) && i1 < configuration.verticalRange; ++i1) {
                         blockpos$mutableblockpos.move(facing);
                     }
 
@@ -114,7 +118,7 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
     }
 
     protected void distributeVegetation(FeaturePlaceContext<PotionsPlusVegetationPatchConfiguration> p_160614_, WorldGenLevel p_160615_, PotionsPlusVegetationPatchConfiguration p_160616_, RandomSource p_160617_, Set<BlockPos> p_160618_, int p_160619_, int p_160620_) {
-        for(BlockPos blockpos : p_160618_) {
+        for (BlockPos blockpos : p_160618_) {
             if (p_160616_.vegetationChance > 0.0F && p_160617_.nextFloat() < p_160616_.vegetationChance) {
                 this.placeVegetation(p_160615_, p_160616_, p_160614_.chunkGenerator(), p_160617_, blockpos);
             }
@@ -127,7 +131,7 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
     }
 
     protected boolean placeGround(WorldGenLevel p_160605_, PotionsPlusVegetationPatchConfiguration p_160606_, Predicate<BlockState> p_160607_, RandomSource p_160608_, BlockPos.MutableBlockPos p_160609_, int p_160610_) {
-        for(int i = 0; i < p_160610_; ++i) {
+        for (int i = 0; i < p_160610_; ++i) {
             BlockState blockstate = p_160606_.groundState.getState(p_160608_, p_160609_);
             BlockState blockstate1 = p_160605_.getBlockState(p_160609_);
             if (!blockstate.is(blockstate1.getBlock())) {

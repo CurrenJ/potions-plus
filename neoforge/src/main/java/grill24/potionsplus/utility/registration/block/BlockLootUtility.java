@@ -2,7 +2,6 @@ package grill24.potionsplus.utility.registration.block;
 
 import grill24.potionsplus.block.VersatilePlantBlock;
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.data.PotionsPlusBlockLoot;
 import grill24.potionsplus.utility.registration.LootGenerator;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;

@@ -2,11 +2,7 @@ package grill24.potionsplus.skill.source;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stat;
-import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-
-import java.util.List;
 
 public class IncrementStatSourceConfiguration extends SkillPointSourceConfiguration {
     public static final Codec<IncrementStatSourceConfiguration> CODEC = RecordCodecBuilder.create(

@@ -14,7 +14,9 @@ import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.AttributeModifiersWhileHeldAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
-import grill24.potionsplus.utility.*;
+import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.utility.ServerTickHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -113,7 +115,8 @@ public class PlayerListeners {
     }
 
     @SubscribeEvent
-    public static void onServerTickEnd(final ServerTickEvent.Post event) {}
+    public static void onServerTickEnd(final ServerTickEvent.Post event) {
+    }
 
     @SubscribeEvent
     public static void onServerPlayerHeldItemChanged(final ServerPlayerHeldItemChangedEvent event) {

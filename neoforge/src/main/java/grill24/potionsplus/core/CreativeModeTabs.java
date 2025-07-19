@@ -3,7 +3,6 @@ package grill24.potionsplus.core;
 import grill24.potionsplus.block.FishTankFrameBlock;
 import grill24.potionsplus.block.FishTankSandBlock;
 import grill24.potionsplus.core.items.BrewingItems;
-import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.item.GeneticCropItem;
 import grill24.potionsplus.utility.Genotype;
 import grill24.potionsplus.utility.ModInfo;

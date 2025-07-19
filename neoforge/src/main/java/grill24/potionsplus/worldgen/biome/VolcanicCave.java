@@ -3,7 +3,8 @@ package grill24.potionsplus.worldgen.biome;
 import grill24.potionsplus.core.Biomes;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.worldgen.Placements;
-import net.minecraft.core.*;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.Vec3i;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
@@ -16,7 +17,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
-import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.Fluids;
 
 import java.util.List;
@@ -49,12 +50,12 @@ public class VolcanicCave {
     public static final BlockPredicate VOLCANIC_CAVE_CONTINUE_SCAN = BlockPredicate.anyOf(
             BlockPredicate.ONLY_IN_AIR_PREDICATE,
             BlockPredicate.matchesBlocks(List.of(
-                            DecorationBlocks.UNSTABLE_BLACKSTONE.value(),
-                            DecorationBlocks.UNSTABLE_DEEPSLATE.value(),
-                            DecorationBlocks.UNSTABLE_MOLTEN_BLACKSTONE.value(),
-                            DecorationBlocks.UNSTABLE_MOLTEN_DEEPSLATE.value())),
+                    DecorationBlocks.UNSTABLE_BLACKSTONE.value(),
+                    DecorationBlocks.UNSTABLE_DEEPSLATE.value(),
+                    DecorationBlocks.UNSTABLE_MOLTEN_BLACKSTONE.value(),
+                    DecorationBlocks.UNSTABLE_MOLTEN_DEEPSLATE.value())),
             BlockPredicate.matchesFluids(Vec3i.ZERO, Fluids.LAVA)
-            );
+    );
 
     public static Biome volcanicCave(HolderGetter<PlacedFeature> placedFeatureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
         MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();

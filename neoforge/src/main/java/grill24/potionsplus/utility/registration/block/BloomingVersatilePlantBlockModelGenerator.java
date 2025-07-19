@@ -81,7 +81,9 @@ public class BloomingVersatilePlantBlockModelGenerator<T, B extends Block> exten
         registerBloomingPlantBlock(blockModelGenerators, itemModelGenerators, getHolder(), data);
     }
 
-    public record ClientModelData<T>(T[][] resources, Function<Direction, VariantMutator> texRotationFunction, ResourceLocation itemTexture, ResourceLocation itemModel, boolean useTint, IModelFactory<T> modelRegisterer) {
+    public record ClientModelData<T>(T[][] resources, Function<Direction, VariantMutator> texRotationFunction,
+                                     ResourceLocation itemTexture, ResourceLocation itemModel, boolean useTint,
+                                     IModelFactory<T> modelRegisterer) {
         public static class Builder<T> {
             private T[][] resources;
             private Function<Direction, VariantMutator> texRotationFunction;

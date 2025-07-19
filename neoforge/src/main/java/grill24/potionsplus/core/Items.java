@@ -9,7 +9,8 @@ import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -74,6 +75,7 @@ public class Items {
 
     /**
      * Register a block item and generate an item model that is the same as the block model.
+     *
      * @param block
      * @param registerItem
      */

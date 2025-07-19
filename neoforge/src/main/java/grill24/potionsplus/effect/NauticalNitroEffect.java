@@ -22,7 +22,7 @@ public class NauticalNitroEffect extends MobEffect implements IEffectTooltipDeta
 
     @Override
     public AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance) {
-        Component percentage = Utility.formatEffectNumber((getSpeedMultiplier(effectInstance)-1F)* 100, 0, "%");
+        Component percentage = Utility.formatEffectNumber((getSpeedMultiplier(effectInstance) - 1F) * 100, 0, "%");
         List<Component> text = List.of(percentage, Component.translatable(Translations.EFFECT_POTIONSPLUS_NAUTICAL_NITRO_TOOLTIP).withStyle(ChatFormatting.LIGHT_PURPLE));
 
         return createTooltipLine(text);

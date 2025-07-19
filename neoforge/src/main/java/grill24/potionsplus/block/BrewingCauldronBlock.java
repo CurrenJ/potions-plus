@@ -66,7 +66,7 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
         return InvUtil.getMinecraftInteractionResult(result);
     }
 
-        @Override
+    @Override
     public boolean hasAnalogOutputSignal(@NotNull BlockState blockState) {
         return true;
     }
@@ -79,7 +79,7 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @javax.annotation.Nullable LivingEntity placer, ItemStack stack) {
-        if(placer instanceof ServerPlayer serverPlayer) {
+        if (placer instanceof ServerPlayer serverPlayer) {
             CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverPlayer, state);
         }
     }

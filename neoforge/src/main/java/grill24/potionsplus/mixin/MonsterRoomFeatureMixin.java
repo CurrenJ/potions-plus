@@ -5,26 +5,26 @@ import grill24.potionsplus.block.PotionsPlusOreBlock;
 import grill24.potionsplus.core.Biomes;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenerator;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.util.Lazy;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.MonsterRoomFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.util.Lazy;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -51,7 +51,7 @@ public abstract class MonsterRoomFeatureMixin extends Feature<NoneFeatureConfigu
         Block block = blockHolder.value();
         return RuntimeTextureVariantModelGenerator.getTextureVariantBlockState(block, new ItemStack(Blocks.MOSSY_COBBLESTONE), block.defaultBlockState(), PotionsPlusOreBlock.TEXTURE);
     }
-    
+
     public MonsterRoomFeatureMixin(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }

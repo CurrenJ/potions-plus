@@ -23,7 +23,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static grill24.potionsplus.utility.Utility.ppId;
@@ -33,8 +32,7 @@ public class BrewingTooltips {
     @SubscribeEvent
     public static void onBrewingTooltip(final AnimatedItemTooltipEvent.Add event) {
         PpIngredient ppIngredient = PpIngredient.of(event.getItemStack().copyWithCount(1));
-        if(AbyssalTroveBlockEntity.ABYSSAL_TROVE_INGREDIENTS.contains(ppIngredient))
-        {
+        if (AbyssalTroveBlockEntity.ABYSSAL_TROVE_INGREDIENTS.contains(ppIngredient)) {
             // If the item is not in the abyssal trove, display a message indicating that the ingredient is unknown
             if (!Utility.isItemInLinkedAbyssalTrove(event.getPlayer(), event.getItemStack())) {
                 MutableComponent text = Component.translatable("tooltip.potionsplus.unknown_ingredient");

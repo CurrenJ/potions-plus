@@ -1,9 +1,8 @@
 package grill24.potionsplus.gui.skill;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import grill24.potionsplus.core.items.DynamicIconItems;
-import grill24.potionsplus.gui.RenderableScreenElement;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
+import grill24.potionsplus.gui.RenderableScreenElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.util.ARGB;
@@ -12,7 +11,6 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 import java.awt.geom.Rectangle2D;
-import java.util.Optional;
 
 public class ItemStackScreenElement extends RenderableScreenElement {
     protected ItemStack stack;
@@ -53,6 +51,7 @@ public class ItemStackScreenElement extends RenderableScreenElement {
 
     private static final int BLACK = ARGB.color(0, 0, 0);
     private static final int WHITE = ARGB.white(1F);
+
     @Override
     protected void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         if (this.screen.getMinecraft().player == null || this.stack == null) {

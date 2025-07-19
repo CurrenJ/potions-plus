@@ -116,7 +116,7 @@ public class SanguineAltarBlock extends HorizontalDirectionalBlock implements En
         return InvUtil.getMinecraftInteractionResult(result);
     }
 
-        private void updateStateAndNotify(InventoryBlockEntity blockEntity, Level level, BlockPos blockPos, Player player, Consumer<Player> action) {
+    private void updateStateAndNotify(InventoryBlockEntity blockEntity, Level level, BlockPos blockPos, Player player, Consumer<Player> action) {
         blockEntity.setChanged();
         level.updateNeighborsAt(blockPos, this);
         action.accept(player);
@@ -136,7 +136,7 @@ public class SanguineAltarBlock extends HorizontalDirectionalBlock implements En
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @javax.annotation.Nullable LivingEntity placer, ItemStack stack) {
-        if(placer instanceof ServerPlayer serverPlayer) {
+        if (placer instanceof ServerPlayer serverPlayer) {
             CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverPlayer, state);
         }
     }

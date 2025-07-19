@@ -1,6 +1,8 @@
 package grill24.potionsplus.skill.ability;
 
-import grill24.potionsplus.core.*;
+import grill24.potionsplus.core.AbilityInstanceTypes;
+import grill24.potionsplus.core.ConfiguredPlayerAbilities;
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.extension.IPlayerExtension;
 import grill24.potionsplus.network.ServerboundSpawnDoubleJumpParticlesPacket;
 import grill24.potionsplus.skill.SkillsData;
@@ -62,7 +64,8 @@ public class DoubleJumpAbility extends SimplePlayerAbility {
         long gameTime = 0L;
         try (Level level = player.level()) {
             gameTime = level.getGameTime();
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
 
         SkillsData skillsData = SkillsData.getPlayerData(player);
         Optional<AbilityInstanceSerializable<?, ?>> inst = skillsData.getAbilityInstance(player.registryAccess(), ConfiguredPlayerAbilities.DOUBLE_JUMP.getKey());
@@ -70,7 +73,7 @@ public class DoubleJumpAbility extends SimplePlayerAbility {
             if (player.onGround()) {
                 data.resetJumps();
             }
-            if (event.getInput().keyPresses.jump() && player.isLocalPlayer() && data.hasFinishedCooldown(gameTime) && data.getJumpsLeft() > 0){
+            if (event.getInput().keyPresses.jump() && player.isLocalPlayer() && data.hasFinishedCooldown(gameTime) && data.getJumpsLeft() > 0) {
                 if (player.onGround()) {
                     data.onInitialJump(gameTime);
                 } else {

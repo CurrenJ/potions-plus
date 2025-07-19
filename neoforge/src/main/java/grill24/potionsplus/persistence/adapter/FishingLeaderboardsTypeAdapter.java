@@ -7,7 +7,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.JsonOps;
-import grill24.potionsplus.skill.SkillInstance;
 import grill24.potionsplus.utility.FishingLeaderboards;
 
 import java.io.IOException;

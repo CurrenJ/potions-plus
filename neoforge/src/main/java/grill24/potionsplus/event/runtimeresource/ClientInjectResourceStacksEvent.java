@@ -1,10 +1,7 @@
 package grill24.potionsplus.event.runtimeresource;
 
-import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.event.runtimeresource.modification.IResourceModification;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.neoforged.bus.api.Event;
 import net.neoforged.fml.event.IModBusEvent;
 

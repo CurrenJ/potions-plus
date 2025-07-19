@@ -4,4 +4,5 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.world.item.Item;
 
 @FunctionalInterface
-public interface ItemPredicateFactory extends RegistryAccessibleFactory<ItemPredicate, Item> { }
+public interface ItemPredicateFactory extends RegistryAccessibleFactory<ItemPredicate, Item> {
+}

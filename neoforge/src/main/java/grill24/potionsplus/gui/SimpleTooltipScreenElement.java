@@ -1,9 +1,9 @@
 package grill24.potionsplus.gui;
 
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.render.animation.keyframe.AnimationCurve;
 import grill24.potionsplus.render.animation.keyframe.FloatAnimationCurve;
 import grill24.potionsplus.render.animation.keyframe.Interpolation;
-import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -19,6 +19,7 @@ import java.util.function.Supplier;
 public class SimpleTooltipScreenElement extends DivScreenElement<TextComponentScreenElement> {
     private static final AnimationCurve<Float> shownAnimation = new FloatAnimationCurve();
     private static final AnimationCurve<Float> shownAnimationLinear = new FloatAnimationCurve();
+
     static {
         shownAnimation.addKeyframe(AnimationCurve.Keyframe.<Float>builder()
                 .time(0F)
@@ -43,6 +44,7 @@ public class SimpleTooltipScreenElement extends DivScreenElement<TextComponentSc
 
     private static final AnimationCurve<Float> hiddenAnimation = new FloatAnimationCurve();
     private static final AnimationCurve<Float> hiddenAnimationLinear = new FloatAnimationCurve();
+
     static {
         hiddenAnimation.addKeyframe(AnimationCurve.Keyframe.<Float>builder()
                 .time(0F)
@@ -138,6 +140,7 @@ public class SimpleTooltipScreenElement extends DivScreenElement<TextComponentSc
     private static final int BACKGROUND_COLOR = RUtil.invertColor(ARGB.color(255, 198, 198, 198));
     private static final int OUTLINE_Z = 110;
     private static final int FILL_Z = 109;
+
     @Override
     public void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         Rectangle2D bounds = getGlobalBounds();

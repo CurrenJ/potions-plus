@@ -34,5 +34,6 @@ public class HerbalistsLecternSounds {
         Utility.playSoundStopOther(this.disappearSound, this.appearSound);
     }
 
-    public HerbalistsLecternSounds() {}
+    public HerbalistsLecternSounds() {
+    }
 }

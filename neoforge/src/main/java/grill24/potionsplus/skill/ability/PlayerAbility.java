@@ -5,8 +5,8 @@ import com.mojang.serialization.MapCodec;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
 import grill24.potionsplus.skill.SkillsData;
-import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
+import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -43,7 +43,7 @@ public abstract class PlayerAbility<AC extends PlayerAbilityConfiguration> {
         return config.getData().longTranslationKey().isEmpty() ? Optional.empty() : Optional.of(components);
     }
 
-    public abstract AbilityInstanceSerializable<? ,?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability);
+    public abstract AbilityInstanceSerializable<?, ?> createInstance(ServerPlayer player, Holder<ConfiguredPlayerAbility<?, ?>> ability);
 
     private boolean isAllowedInstanceType(AbilityInstanceSerializable<?, ?> instance) {
         boolean valid = instance != null && allowedInstanceTypes.contains(instance.type());
@@ -74,6 +74,7 @@ public abstract class PlayerAbility<AC extends PlayerAbilityConfiguration> {
     }
 
     protected abstract void onEnable(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance);
+
     protected abstract void onDisable(ServerPlayer player, AC config);
 
     public void onInstanceChanged(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance) {
@@ -85,5 +86,6 @@ public abstract class PlayerAbility<AC extends PlayerAbilityConfiguration> {
     }
 
     public abstract void onAbilityGranted(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance);
+
     public abstract void onAbilityRevoked(ServerPlayer player, AC config);
 }

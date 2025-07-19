@@ -28,7 +28,7 @@ public record ClientboundBlockEntityCraftRecipePacket(BlockPos pos, int slot) im
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain ( final ClientboundBlockEntityCraftRecipePacket packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundBlockEntityCraftRecipePacket packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

@@ -18,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-import java.util.Collections;
 import java.util.UUID;
 
 import static grill24.potionsplus.utility.Utility.ppId;
@@ -27,6 +26,7 @@ import static grill24.potionsplus.utility.Utility.ppId;
  * Represents the owner of a given item. Used for tracking who owns an ItemStack.
  * Used with {@link EdibleRewardGranterDataComponent} to ensure that the player
  * who eats the item is the one who was earned the reward.
+ *
  * @param uuid
  * @param playerDisplayName
  */
@@ -65,6 +65,7 @@ public record OwnerDataComponent(UUID uuid, String playerDisplayName) {
 
     /**
      * Returns a tooltip component that displays the owner of the item.
+     *
      * @return the tooltip component
      */
     public MutableComponent getTooltipComponent() {

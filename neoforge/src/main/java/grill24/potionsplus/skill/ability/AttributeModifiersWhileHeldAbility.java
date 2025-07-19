@@ -3,11 +3,11 @@ package grill24.potionsplus.skill.ability;
 import grill24.potionsplus.core.AbilityInstanceTypes;
 import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.event.ServerPlayerHeldItemChangedEvent;
 import grill24.potionsplus.item.PlayerLockedItemModifiersDataComponent;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
-import grill24.potionsplus.event.ServerPlayerHeldItemChangedEvent;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
@@ -104,11 +104,12 @@ public class AttributeModifiersWhileHeldAbility extends PermanentAttributeModifi
     }
 
     // TODO: Auto pull abilities from registry
-    private static List<DeferredHolder<PlayerAbility<?>,? extends AttributeModifiersWhileHeldAbility>> getToolBonusAbilities() {
+    private static List<DeferredHolder<PlayerAbility<?>, ? extends AttributeModifiersWhileHeldAbility>> getToolBonusAbilities() {
         return List.of(
-            PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD
+                PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD
         );
     }
 
-    public record AttributeModifiersData(Holder<Attribute> attribute, Collection<AttributeModifier> modifiers) {}
+    public record AttributeModifiersData(Holder<Attribute> attribute, Collection<AttributeModifier> modifiers) {
+    }
 }

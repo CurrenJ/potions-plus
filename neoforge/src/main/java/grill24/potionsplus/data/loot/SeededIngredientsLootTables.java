@@ -18,7 +18,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -159,7 +158,7 @@ public class SeededIngredientsLootTables {
     private static Optional<ItemStack> sample(LootTable table, RandomSource random) {
         ObjectArrayList<ItemStack> items = table.getRandomItems(LOOT_PARAMS, random);
         if (items.isEmpty()) {
-            if(Debug.DEBUG) {
+            if (Debug.DEBUG) {
                 PotionsPlus.LOGGER.warn("Loot table returned no items: " + table);
             }
             return Optional.empty();
@@ -203,7 +202,7 @@ public class SeededIngredientsLootTables {
 
     public static void addItemsToPool(LootPool.Builder pool, WeightingMode weightingMode, int weight, List<PpIngredient> ingredients) {
         for (PpIngredient ingredient : ingredients) {
-             pool.add(LootItem
+            pool.add(LootItem
                     .lootTableItem(ingredient.getItemStack().getItem())
                     .setWeight(getWeight(weightingMode, weight, ingredients.size()))
             );

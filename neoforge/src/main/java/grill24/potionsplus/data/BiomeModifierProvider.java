@@ -1,6 +1,5 @@
 package grill24.potionsplus.data;
 
-import grill24.potionsplus.worldgen.ConfiguredFeatures;
 import grill24.potionsplus.worldgen.Placements;
 import grill24.potionsplus.worldgen.VersatilePlantsWorldGenData;
 import net.minecraft.core.HolderGetter;

@@ -16,7 +16,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 public class SpatialAnimationDataArgument implements ArgumentType<SpatialAnimationDataArgument.Info> {
-    public record Info (ResourceLocation id, SpatialAnimationData spatialAnimationData) {}
+    public record Info(ResourceLocation id, SpatialAnimationData spatialAnimationData) {
+    }
+
     private CommandBuildContext context;
 
     public SpatialAnimationDataArgument(CommandBuildContext context) {

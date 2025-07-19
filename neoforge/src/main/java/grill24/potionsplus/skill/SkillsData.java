@@ -6,7 +6,6 @@ import grill24.potionsplus.config.PotionsPlusConfig;
 import grill24.potionsplus.core.DataAttachments;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.PotionsPlusRegistries;
-import grill24.potionsplus.core.Skills;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbilityConfiguration;
@@ -27,7 +26,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -35,7 +33,10 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> unlockedAbilities, List<ResourceKey<ConfiguredGrantableReward<?, ?>>> pendingChoices) {
+public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData,
+                         PointEarningHistory pointEarningHistory,
+                         Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> unlockedAbilities,
+                         List<ResourceKey<ConfiguredGrantableReward<?, ?>>> pendingChoices) {
     public static final Codec<SkillsData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             Codec.unboundedMap(HolderCodecs.resourceKey(PotionsPlusRegistries.CONFIGURED_SKILL), SkillInstance.CODEC).optionalFieldOf("skillInstances", new HashMap<>()).forGetter(instance -> instance.skillData),
             PointEarningHistory.CODEC.optionalFieldOf("pointEarningHistory", new PointEarningHistory(1000)).forGetter(instance -> instance.pointEarningHistory),
@@ -107,8 +108,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         player.setData(DataAttachments.SKILL_PLAYER_DATA, skillsData);
     }
 
-    public static <E, C extends SkillPointSourceConfiguration> void triggerSkillPointSource(Player player, SkillPointSource<E, C> source, E evaluationData)
-    {
+    public static <E, C extends SkillPointSourceConfiguration> void triggerSkillPointSource(Player player, SkillPointSource<E, C> source, E evaluationData) {
         if (!PotionsPlusConfig.CONFIG.enableSkills.get()) return;
 
         SkillsData skillsData = player.getData(DataAttachments.SKILL_PLAYER_DATA);
@@ -289,11 +289,11 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         // Re-unlock all abilities
         this.skillData.forEach(
                 (key, skillInstance) -> {
-                   ConfiguredSkill<?, ?> skill = skillInstance.getConfiguredSkill(player.registryAccess());
-                   SkillLevelUpRewardsConfiguration skillLevelUpRewardsConfiguration = skill.config().getData().rewardsConfiguration();
-                   int currentLevel = skillInstance.getLevel(player.registryAccess());
-                   for (int i = 0; i <= currentLevel; i++) {
-                       if (skillLevelUpRewardsConfiguration.hasRewardForLevel(i)) {
+                    ConfiguredSkill<?, ?> skill = skillInstance.getConfiguredSkill(player.registryAccess());
+                    SkillLevelUpRewardsConfiguration skillLevelUpRewardsConfiguration = skill.config().getData().rewardsConfiguration();
+                    int currentLevel = skillInstance.getLevel(player.registryAccess());
+                    for (int i = 0; i <= currentLevel; i++) {
+                        if (skillLevelUpRewardsConfiguration.hasRewardForLevel(i)) {
                             Optional<SkillLevelUpRewardsData> rewards = skillLevelUpRewardsConfiguration.tryGetRewardForLevel(i);
                             for (Holder<ConfiguredGrantableReward<?, ?>> reward : rewards.get().rewards()) {
                                 // Re-grant all rewards that have to do with abilities. We don't want to regrant rewards that are not abilities, like loot rewards.
@@ -304,8 +304,8 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
                                     reward.value().grant(reward, player);
                                 }
                             }
-                       }
-                   }
+                        }
+                    }
                 });
     }
 

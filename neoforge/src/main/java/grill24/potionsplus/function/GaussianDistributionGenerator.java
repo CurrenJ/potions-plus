@@ -18,11 +18,11 @@ import java.util.Set;
  */
 public record GaussianDistributionGenerator(NumberProvider mean, NumberProvider stdDev) implements NumberProvider {
     public static final MapCodec<GaussianDistributionGenerator> CODEC = RecordCodecBuilder.mapCodec(
-        codecBuilder -> codecBuilder.group(
-                    NumberProviders.CODEC.fieldOf("mean").forGetter(GaussianDistributionGenerator::mean),
-                    NumberProviders.CODEC.fieldOf("stdDev").forGetter(GaussianDistributionGenerator::stdDev)
-                )
-                .apply(codecBuilder, GaussianDistributionGenerator::new)
+            codecBuilder -> codecBuilder.group(
+                            NumberProviders.CODEC.fieldOf("mean").forGetter(GaussianDistributionGenerator::mean),
+                            NumberProviders.CODEC.fieldOf("stdDev").forGetter(GaussianDistributionGenerator::stdDev)
+                    )
+                    .apply(codecBuilder, GaussianDistributionGenerator::new)
     );
 
     @Override
@@ -38,9 +38,9 @@ public record GaussianDistributionGenerator(NumberProvider mean, NumberProvider 
     @Override
     public float getFloat(LootContext lootContext) {
         return (float) Utility.nextGaussian(
-            this.mean.getFloat(lootContext),
-            this.stdDev.getFloat(lootContext),
-            lootContext.getRandom()
+                this.mean.getFloat(lootContext),
+                this.stdDev.getFloat(lootContext),
+                lootContext.getRandom()
         );
     }
 

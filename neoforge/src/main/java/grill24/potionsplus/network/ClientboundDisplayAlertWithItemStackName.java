@@ -14,7 +14,8 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundDisplayAlertWithItemStackName(String localizationKey, ItemStack param, Boolean playSound) implements CustomPacketPayload {
+public record ClientboundDisplayAlertWithItemStackName(String localizationKey, ItemStack param,
+                                                       Boolean playSound) implements CustomPacketPayload {
     public ClientboundDisplayAlertWithItemStackName(String localizationKey) {
         this(localizationKey, ItemStack.EMPTY, false);
     }
@@ -37,7 +38,7 @@ public record ClientboundDisplayAlertWithItemStackName(String localizationKey, I
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundDisplayAlertWithItemStackName packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundDisplayAlertWithItemStackName packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();
@@ -53,7 +54,7 @@ public record ClientboundDisplayAlertWithItemStackName(String localizationKey, I
                             text = Component.translatable(packet.localizationKey, packet.param.getHoverName());
                         }
                         clientPlayer.displayClientMessage(text, true);
-                        if(packet.playSound) {
+                        if (packet.playSound) {
                             clientPlayer.playSound(SoundEvents.PLAYER_LEVELUP, 0.75F, 1.0F);
                         }
                     }

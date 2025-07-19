@@ -1,16 +1,16 @@
 package grill24.potionsplus.utility;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import grill24.potionsplus.blockentity.ISingleStackDisplayer;
 import grill24.potionsplus.blockentity.ITimestampSupplier;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemDisplayContext;
-import org.joml.*;
-import grill24.potionsplus.blockentity.ISingleStackDisplayer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.item.ItemStack;
+import org.joml.*;
 
 import java.awt.geom.Rectangle2D;
 import java.lang.Math;
@@ -392,6 +392,7 @@ public class RUtil {
     private static final int OUTLINE_COLOR_LIGHT = ARGB.color(255, 255, 255, 255);
     private static final int OUTLINE_Z = 100;
     private static final int FILL_Z = 99;
+
     public static void drawInventoryBackgroundRect(GuiGraphics graphics, Rectangle2D rect, float rotationDegrees, float outlineWidth, float outlineHeight) {
         float minX = (float) rect.getMinX();
         float minY = (float) rect.getMinY();

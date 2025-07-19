@@ -100,14 +100,14 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
                 abyssalTroveBlockEntity.updateRendererData();
             }
 
-            if(result == InvUtil.InteractionResult.INSERT) {
+            if (result == InvUtil.InteractionResult.INSERT) {
                 blockEntity.get().setChanged();
                 level.updateNeighborsAt(pos, this);
                 level.sendBlockUpdated(pos, state, state, 3);
             }
         }
 
-        if(!player.isCrouching()) {
+        if (!player.isCrouching()) {
             result = InvUtil.InteractionResult.INTERACT;
             blockEntity.get().showGui();
         }
@@ -146,7 +146,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @javax.annotation.Nullable LivingEntity placer, ItemStack stack) {
-        if(placer instanceof ServerPlayer serverPlayer) {
+        if (placer instanceof ServerPlayer serverPlayer) {
             CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverPlayer, state);
         }
     }

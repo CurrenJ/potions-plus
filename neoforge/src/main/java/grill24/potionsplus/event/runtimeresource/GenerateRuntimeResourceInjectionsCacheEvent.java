@@ -8,10 +8,14 @@ import net.minecraft.server.packs.resources.Resource;
 import net.neoforged.bus.api.Event;
 import net.neoforged.fml.event.IModBusEvent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class GenerateRuntimeResourceInjectionsCacheEvent extends Event implements IModBusEvent {
-    public record ResourceInjectionCacheEntry(ResourceLocation targetResourceLocation, ResourceLocation newResourceLocation, List<Resource> resource) { }
+    public record ResourceInjectionCacheEntry(ResourceLocation targetResourceLocation,
+                                              ResourceLocation newResourceLocation, List<Resource> resource) {
+    }
 
     public static final List<ResourceInjectionCacheEntry> RESOURCE_INJECTION_CACHE = new ArrayList<>();
     public static final List<ResourceInjectionCacheEntry> RESOURCE_STACKS_INJECTION_CACHE = new ArrayList<>();

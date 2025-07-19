@@ -2,7 +2,6 @@ package grill24.potionsplus.block;
 
 import grill24.potionsplus.particle.ParticleConfigurations;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;

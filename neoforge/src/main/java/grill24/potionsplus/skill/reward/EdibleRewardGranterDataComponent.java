@@ -26,7 +26,9 @@ import java.util.List;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
-public record EdibleRewardGranterDataComponent(Holder<ConfiguredGrantableReward<?, ?>> linkedChoiceParent, Holder<ConfiguredGrantableReward<?, ?>> linkedOption, ResourceLocation flag) {
+public record EdibleRewardGranterDataComponent(Holder<ConfiguredGrantableReward<?, ?>> linkedChoiceParent,
+                                               Holder<ConfiguredGrantableReward<?, ?>> linkedOption,
+                                               ResourceLocation flag) {
     public static final Codec<EdibleRewardGranterDataComponent> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             ConfiguredGrantableReward.CODEC.fieldOf("linkedChoiceParent").forGetter(instance -> instance.linkedChoiceParent),
             ConfiguredGrantableReward.CODEC.fieldOf("linkedOption").forGetter(instance -> instance.linkedOption),

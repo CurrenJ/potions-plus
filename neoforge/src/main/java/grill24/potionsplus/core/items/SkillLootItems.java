@@ -1,7 +1,7 @@
 package grill24.potionsplus.core.items;
 
-import grill24.potionsplus.utility.registration.item.EdibleChoiceItemBuilder;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.item.EdibleChoiceItemBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

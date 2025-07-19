@@ -20,7 +20,8 @@ import java.util.*;
 
 @Mixin(RecipeManager.class)
 public class RecipeManagerMixin {
-    @Shadow private RecipeMap recipes;
+    @Shadow
+    private RecipeMap recipes;
 
     @Inject(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Lnet/minecraft/world/item/crafting/RecipeMap;", at = @At("TAIL"), cancellable = true)
     private void potions_plus$prepareMixin(ResourceManager resourceManager, ProfilerFiller profilerFiller, CallbackInfoReturnable<RecipeMap> cir) {
@@ -29,7 +30,7 @@ public class RecipeManagerMixin {
 
         Set<ResourceKey<Recipe<?>>> recipeKeys = new HashSet<>(existingRecipes.stream().map(RecipeHolder::id).toList());
 
-        if(PotionsPlus.SERVER != null) {
+        if (PotionsPlus.SERVER != null) {
             for (Pair<RecipeType<?>, IRuntimeRecipeProvider> pair : Recipes.RECIPE_INJECTION_FUNCTIONS) {
                 List<RecipeHolder<?>> recipes = pair.getSecond().getRuntimeRecipesToInject(PotionsPlus.SERVER);
                 for (RecipeHolder<?> recipeHolder : recipes) {

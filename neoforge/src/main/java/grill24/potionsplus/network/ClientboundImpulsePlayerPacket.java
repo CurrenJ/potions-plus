@@ -28,7 +28,7 @@ public record ClientboundImpulsePlayerPacket(double dx, double dy, double dz) im
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundImpulsePlayerPacket packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundImpulsePlayerPacket packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         if (Minecraft.getInstance().player != null) {

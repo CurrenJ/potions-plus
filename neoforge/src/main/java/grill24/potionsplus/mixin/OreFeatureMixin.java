@@ -3,7 +3,6 @@ package grill24.potionsplus.mixin;
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.block.OreFlowerBlock;
 import grill24.potionsplus.block.PotionsPlusOreBlock;
-import grill24.potionsplus.config.PotionsPlusConfig;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.blocks.OreBlocks;
@@ -11,7 +10,6 @@ import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenera
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
@@ -19,7 +17,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.BulkSectionAccess;
 import net.minecraft.world.level.chunk.LevelChunkSection;
@@ -112,6 +109,7 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
 
     /**
      * Check if a block position can see the sky. Water does not block this.
+     *
      * @param blockpos$mutableblockpos
      * @param level
      * @return

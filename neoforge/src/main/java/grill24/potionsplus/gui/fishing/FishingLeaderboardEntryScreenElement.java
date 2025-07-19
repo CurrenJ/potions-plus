@@ -16,7 +16,6 @@ import net.minecraft.world.item.component.ResolvableProfile;
 import java.awt.*;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 public class FishingLeaderboardEntryScreenElement extends HorizontalListScreenElement<RenderableScreenElement> {
     public FishingLeaderboardEntryScreenElement(Screen screen, ItemStack stack, ResolvableProfile profile, Component text, Component textHeader) {

@@ -27,7 +27,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import oshi.util.tuples.Pair;
@@ -71,6 +73,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
 
     /**
      * Returns the result of the recipe with the given ingredients, but with the duration of all effects increased by the given function. Also has some logic for merging multiple effects of the same type.
+     *
      * @param suppliedIngredients
      * @param transformDuration
      * @return The result of the recipe with the given ingredients, but with tthe duration transformed.

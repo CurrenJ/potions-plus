@@ -331,20 +331,20 @@ public class BlockEntityBlocks {
 
     private static Holder<Block> registerFishTank(String name, Component tooltip, ResourceLocation baseModel, ResourceLocation itemModel, TagKey<Item> recipeItem, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
         Holder<Block> blockHolderResult = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple(name)
-                        .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).noOcclusion())
-                        .blockFactory(p -> new FishTankBlock(p, tooltip))
-                        .modelGenerator(p -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(p, baseModel, true, false))
-                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                                (recipeProvider, h) ->
-                                        recipeProvider.shaped(RecipeCategory.BUILDING_BLOCKS, h.value())
-                                                .pattern("RGR")
-                                                .pattern("GBG")
-                                                .pattern("RGR")
-                                                .define('G', Blocks.GLASS)
-                                                .define('R', recipeItem)
-                                                .define('B', Items.WATER_BUCKET)
-                                                .unlockedBy("was_water_bucket", recipeProvider.has(Items.WATER_BUCKET))))
-                        .renderType(BlockBuilder.RenderType.TRANSLUCENT)
+                .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).noOcclusion())
+                .blockFactory(p -> new FishTankBlock(p, tooltip))
+                .modelGenerator(p -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(p, baseModel, true, false))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
+                        (recipeProvider, h) ->
+                                recipeProvider.shaped(RecipeCategory.BUILDING_BLOCKS, h.value())
+                                        .pattern("RGR")
+                                        .pattern("GBG")
+                                        .pattern("RGR")
+                                        .define('G', Blocks.GLASS)
+                                        .define('R', recipeItem)
+                                        .define('B', Items.WATER_BUCKET)
+                                        .unlockedBy("was_water_bucket", recipeProvider.has(Items.WATER_BUCKET))))
+                .renderType(BlockBuilder.RenderType.TRANSLUCENT)
         ).getHolder();
         grill24.potionsplus.core.Items.registerBlockItemWithParentModel(() -> blockHolderResult, registerItem, itemModel);
 

@@ -8,7 +8,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
-import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -34,15 +33,13 @@ public class OverworldBiomesRegion extends Region {
     }
 
     @Override
-    public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer)
-    {
+    public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer) {
         addUndergroundBiome(consumer, FROZEN_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, 0.0F, Biomes.ICE_CAVE_KEY);
         addUndergroundBiome(consumer, temperatures[4], FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, 0.0F, Biomes.VOLCANIC_CAVE_KEY);
         addUndergroundBiome(consumer, Climate.Parameter.span(0.2F, 1.0F), humidities[0], FULL_RANGE, FULL_RANGE, FULL_RANGE, 0.0F, Biomes.ARID_CAVE_KEY);
     }
 
-    protected void addUndergroundBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome)
-    {
+    protected void addUndergroundBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome) {
         VanillaParameterOverlayBuilder overlayBuilder = new VanillaParameterOverlayBuilder();
 
         new ParameterUtils.ParameterPointListBuilder()

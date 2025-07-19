@@ -7,7 +7,6 @@ import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Item;
 
 import java.util.function.BiFunction;
@@ -111,11 +110,11 @@ public class FilterHopperUpgradeItems {
                 .itemFactory(UpgradeBaseItem::new)
                 .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                         (recipeProvider, h) ->
-                        recipeProvider.shapeless(RecipeCategory.REDSTONE, FilterHopperUpgradeItems.FILTER_HOPPER_UPGRADE_ALLOW_EDIBLE_REWARDS.value())
-                                .requires(FilterHopperUpgradeItems.UPGRADE_BASE.value())
-                                .requires(Tags.Items.EDIBLE_REWARDS)
-                                .group("filter_hopper_upgrade_allow_edible_rewards")
-                                .unlockedBy("has_upgrade_base", recipeProvider.has(FilterHopperUpgradeItems.UPGRADE_BASE.value()))))
+                                recipeProvider.shapeless(RecipeCategory.REDSTONE, FilterHopperUpgradeItems.FILTER_HOPPER_UPGRADE_ALLOW_EDIBLE_REWARDS.value())
+                                        .requires(FilterHopperUpgradeItems.UPGRADE_BASE.value())
+                                        .requires(Tags.Items.EDIBLE_REWARDS)
+                                        .group("filter_hopper_upgrade_allow_edible_rewards")
+                                        .unlockedBy("has_upgrade_base", recipeProvider.has(FilterHopperUpgradeItems.UPGRADE_BASE.value()))))
         ).getHolder();
     }
 }

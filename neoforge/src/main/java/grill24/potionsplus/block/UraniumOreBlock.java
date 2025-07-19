@@ -83,7 +83,7 @@ public class UraniumOreBlock extends PotionsPlusOreBlock {
         }
 
         if (stack.is(OreItems.SULFURIC_ACID) && state.getValue(URANIUM_STATE) != UraniumState.FULLY_EXPOSED) {
-            if(!player.isCreative()) {
+            if (!player.isCreative()) {
                 stack.shrink(1);
             }
             level.setBlock(pos, state.setValue(URANIUM_STATE, UraniumState.values()[state.getValue(URANIUM_STATE).ordinal() + 1]), 3);

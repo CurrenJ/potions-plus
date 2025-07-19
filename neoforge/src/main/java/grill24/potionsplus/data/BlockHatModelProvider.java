@@ -25,10 +25,11 @@ public class BlockHatModelProvider {
                 HAT_BASE
         );
     }
+
     public static ModelTemplate[] createHatTemplates(ResourceLocation[] parentModels) {
         ModelTemplate[] templates = new ModelTemplate[parentModels.length];
         for (int i = 0; i < parentModels.length; i++) {
-            templates[i] = createHatTemplate(parentModels[i], Integer.toString(i+1));
+            templates[i] = createHatTemplate(parentModels[i], Integer.toString(i + 1));
         }
         return templates;
     }
@@ -40,6 +41,7 @@ public class BlockHatModelProvider {
                 template
         );
     }
+
     public static TexturedModel.Provider[] createHatTemplateProviders(ModelTemplate[] templates) {
         TexturedModel.Provider[] providers = new TexturedModel.Provider[templates.length];
         for (int i = 0; i < templates.length; i++) {

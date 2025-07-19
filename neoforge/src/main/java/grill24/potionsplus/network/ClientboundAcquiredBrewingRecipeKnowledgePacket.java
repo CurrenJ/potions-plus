@@ -20,7 +20,8 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundAcquiredBrewingRecipeKnowledgePacket(ResourceKey<Recipe<?>> recipeKey, ItemStack result) implements CustomPacketPayload {
+public record ClientboundAcquiredBrewingRecipeKnowledgePacket(ResourceKey<Recipe<?>> recipeKey,
+                                                              ItemStack result) implements CustomPacketPayload {
     public static final Type<ClientboundAcquiredBrewingRecipeKnowledgePacket> TYPE = new Type<>(ppId("brewing_recipe_knowledge"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundAcquiredBrewingRecipeKnowledgePacket> STREAM_CODEC = StreamCodec.composite(
@@ -37,7 +38,7 @@ public record ClientboundAcquiredBrewingRecipeKnowledgePacket(ResourceKey<Recipe
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundAcquiredBrewingRecipeKnowledgePacket packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundAcquiredBrewingRecipeKnowledgePacket packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

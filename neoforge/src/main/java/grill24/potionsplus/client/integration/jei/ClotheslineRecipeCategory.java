@@ -31,7 +31,7 @@ public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRec
     private final IDrawable background;
     private final IDrawable icon;
 
-    private static final ResourceLocation RECIPE_GUI = ppId( "textures/gui/brewing_cauldron_recipe.png");
+    private static final ResourceLocation RECIPE_GUI = ppId("textures/gui/brewing_cauldron_recipe.png");
 
     private static final Map<Integer, Point[]> INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT = new HashMap<>();
 

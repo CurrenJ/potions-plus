@@ -12,10 +12,8 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 
-import java.util.Collections;
 import java.util.List;
 
 public class HarrowingHandsEffect extends MobEffect implements IEffectTooltipDetails {
@@ -57,7 +55,7 @@ public class HarrowingHandsEffect extends MobEffect implements IEffectTooltipDet
     @Override
     public Component getDisplayName() {
         String name = Minecraft.getInstance().player.getName().getContents().toString();
-        if(name.equals("Harry4657")) {
+        if (name.equals("Harry4657")) {
             return Component.literal("Harry's Harrowing Hands");
         }
 

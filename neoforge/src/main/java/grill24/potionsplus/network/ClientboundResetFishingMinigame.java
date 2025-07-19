@@ -15,15 +15,15 @@ public record ClientboundResetFishingMinigame() implements CustomPacketPayload {
     public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundResetFishingMinigame> STREAM_CODEC = StreamCodec.of(
             (instance, buf) -> new ClientboundResetFishingMinigame(),
             (buf) -> new ClientboundResetFishingMinigame()
-        );
+    );
 
-                              @Override
+    @Override
     public Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundResetFishingMinigame packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundResetFishingMinigame packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

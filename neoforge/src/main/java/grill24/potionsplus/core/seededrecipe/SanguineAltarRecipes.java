@@ -1,8 +1,6 @@
 package grill24.potionsplus.core.seededrecipe;
 
-import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
 import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipeBuilder;
 import net.minecraft.world.item.crafting.RecipeHolder;
 

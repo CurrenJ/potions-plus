@@ -85,7 +85,7 @@ public class StunShotAbility extends CooldownTriggerableAbility<CriticalHitEvent
         nearbyEntities.addFirst(target);
 
         for (Entity entity : nearbyEntities) {
-            if(entity instanceof LivingEntity livingEntity) {
+            if (entity instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, duration, 4));
             }
         }

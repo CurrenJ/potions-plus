@@ -24,11 +24,11 @@ import static grill24.potionsplus.utility.Utility.ppId;
 public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbilityStrengthReward.IncreaseAbilityStrengthRewardConfiguration> {
     public static class IncreaseAbilityStrengthRewardConfiguration extends GrantableRewardConfiguration {
         public static final Codec<IncreaseAbilityStrengthRewardConfiguration> CODEC = RecordCodecBuilder.create(
-            codecBuilder -> codecBuilder.group(
-                ConfiguredPlayerAbility.HOLDER_CODECS.holderCodec().fieldOf("ability").forGetter(instance -> instance.ability),
-                Codec.FLOAT.fieldOf("strengthIncrease").forGetter(instance -> instance.strengthIncrease),
-                Codec.STRING.optionalFieldOf("translationKey", "").forGetter(instance -> instance.translationKey)
-            ).apply(codecBuilder, IncreaseAbilityStrengthRewardConfiguration::new)
+                codecBuilder -> codecBuilder.group(
+                        ConfiguredPlayerAbility.HOLDER_CODECS.holderCodec().fieldOf("ability").forGetter(instance -> instance.ability),
+                        Codec.FLOAT.fieldOf("strengthIncrease").forGetter(instance -> instance.strengthIncrease),
+                        Codec.STRING.optionalFieldOf("translationKey", "").forGetter(instance -> instance.translationKey)
+                ).apply(codecBuilder, IncreaseAbilityStrengthRewardConfiguration::new)
         );
 
         public final Holder<ConfiguredPlayerAbility<?, ?>> ability;

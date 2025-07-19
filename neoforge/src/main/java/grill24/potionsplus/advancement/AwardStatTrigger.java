@@ -9,9 +9,7 @@ import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nonnull;
 import java.util.Optional;
 
 import static grill24.potionsplus.utility.Utility.ppId;
@@ -20,7 +18,8 @@ public class AwardStatTrigger extends SimpleCriterionTrigger<AwardStatTrigger.Tr
     public static final ResourceLocation ID = ppId("award_stat");
     public static final AwardStatTrigger INSTANCE = new AwardStatTrigger();
 
-    private AwardStatTrigger() {}
+    private AwardStatTrigger() {
+    }
 
     public void trigger(ServerPlayer player, String statId, int totalStat) {
         trigger(player, triggerInstance -> triggerInstance.test(statId, totalStat));
@@ -31,7 +30,8 @@ public class AwardStatTrigger extends SimpleCriterionTrigger<AwardStatTrigger.Tr
         return AwardStatTrigger.TriggerInstance.CODEC;
     }
 
-    public record TriggerInstance(Optional<ContextAwarePredicate> player, String statId, int totalStats) implements SimpleInstance {
+    public record TriggerInstance(Optional<ContextAwarePredicate> player, String statId,
+                                  int totalStats) implements SimpleInstance {
         public static final Codec<AwardStatTrigger.TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(triggerInstance -> triggerInstance.player),
                 Codec.STRING.fieldOf("statId").forGetter(triggerInstance -> triggerInstance.statId),

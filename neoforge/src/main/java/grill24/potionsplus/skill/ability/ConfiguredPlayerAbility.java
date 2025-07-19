@@ -10,7 +10,8 @@ import net.minecraft.server.level.ServerPlayer;
 import java.util.List;
 import java.util.Optional;
 
-public record ConfiguredPlayerAbility<AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>>(A ability, AC config) {
+public record ConfiguredPlayerAbility<AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>>(A ability,
+                                                                                                          AC config) {
     public static final Codec<ConfiguredPlayerAbility<?, ?>> DIRECT_CODEC = PotionsPlusRegistries.PLAYER_ABILITY
             .byNameCodec()
             .dispatch(configured -> configured.ability, PlayerAbility::configuredCodec);

@@ -24,7 +24,7 @@ public class BlockLinkedEmitterParticle extends NoRenderParticle {
     public void tick() {
         super.tick();
 
-        if(level.getBlockState(SPAWN_POS).getBlock() instanceof IParticleEmitter emitter) {
+        if (level.getBlockState(SPAWN_POS).getBlock() instanceof IParticleEmitter emitter) {
             Vec3 position = emitter.getPosition(level, level.getBlockState(SPAWN_POS), SPAWN_POS);
             EmitterParticle.spawnParticles(position.x, position.y, position.z, emitter.getRange(level, level.getBlockState(SPAWN_POS), SPAWN_POS), emitter.getSpawnCount(level, level.getBlockState(SPAWN_POS), SPAWN_POS), emitter.getTicksPerSpawn(level, level.getBlockState(SPAWN_POS), SPAWN_POS), age, lifetime, random, emitter.getVelocity(level, level.getBlockState(SPAWN_POS), SPAWN_POS), false, false, level, (random) -> emitter.sampleParticleType(level, level.getBlockState(SPAWN_POS), SPAWN_POS));
         }

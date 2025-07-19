@@ -1,7 +1,8 @@
 package grill24.potionsplus.skill.ability;
 
-import grill24.potionsplus.core.*;
-import grill24.potionsplus.skill.ConfiguredSkill;
+import grill24.potionsplus.core.AbilityInstanceTypes;
+import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
@@ -9,7 +10,6 @@ import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
 import grill24.potionsplus.utility.DelayedEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -18,7 +18,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayload> extends SimplePlayerAbility implements ITriggerablePlayerAbility<E, P> {
@@ -128,9 +131,9 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
      * Trigger the ability for the player, from the server side, and notify the client of the ability's activation.
      * Only to be called from the server side.
      *
-     * @param player The player to trigger the ability for.
+     * @param player             The player to trigger the ability for.
      * @param abilityResourceKey The resource key of the ability type to trigger.
-     * @param eventData The event data to pass to the ability.
+     * @param eventData          The event data to pass to the ability.
      */
     public boolean triggerFromServer(Player player, ResourceKey<ConfiguredPlayerAbility<?, ?>> abilityResourceKey, E eventData) {
         Consumer<AbilityInstanceSerializable<?, ?>> runnable = (instance) -> {
@@ -147,9 +150,9 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
      * Trigger the ability for the player, from the client side, and notify the server of the ability's activation.
      * Only to be called from the client side.
      *
-     * @param player The player to trigger the ability for.
-     * @param abilityResourceKey  The resource key of the ability type to trigger.
-     * @param eventData The event data to pass to the ability.
+     * @param player             The player to trigger the ability for.
+     * @param abilityResourceKey The resource key of the ability type to trigger.
+     * @param eventData          The event data to pass to the ability.
      */
     public boolean triggerFromClient(Player player, ResourceKey<ConfiguredPlayerAbility<?, ?>> abilityResourceKey, E eventData) {
         Consumer<AbilityInstanceSerializable<?, ?>> runnable = (instance) -> {

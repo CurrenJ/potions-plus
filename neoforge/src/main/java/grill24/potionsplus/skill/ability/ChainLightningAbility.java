@@ -1,17 +1,17 @@
 package grill24.potionsplus.skill.ability;
 
-import grill24.potionsplus.core.*;
+import grill24.potionsplus.core.AbilityInstanceTypes;
+import grill24.potionsplus.core.ConfiguredPlayerAbilities;
+import grill24.potionsplus.core.Particles;
+import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.network.ClientboundTriggerChainLightningPacket;
-import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
 import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
@@ -97,7 +97,8 @@ public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHi
 
     /**
      * Perform the chain lightning ability.
-     * @param target The entity that was hit by the critical hit
+     *
+     * @param target   The entity that was hit by the critical hit
      * @param strength The strength of the ability. Strength = max number of mobs to affect, damage dealt to each mob,
      *                 radius of the ability, and chance to activate.
      */
@@ -114,9 +115,10 @@ public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHi
 
     /**
      * Spawn a line of particles between two entities.
-     * @param start The entity to start the line from
-     * @param end The entity to end the line at
-     * @param beamRadius The radius of the beam
+     *
+     * @param start                   The entity to start the line from
+     * @param end                     The entity to end the line at
+     * @param beamRadius              The radius of the beam
      * @param particleCountMultiplier The multiplier for the number of particles to spawn
      */
     public static void spawnLineOfParticlesBetweenEntities(Entity start, Entity end, double beamRadius, double particleCountMultiplier) {
@@ -156,6 +158,7 @@ public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHi
 
     /**
      * Get a random particle type for the chain lightning ability.
+     *
      * @param randomSource The random source to use
      * @return A random particle type of either {@link Particles#LIGHTNING_BOLT} or {@link Particles#LIGHTNING_BOLT_SMALL}
      */

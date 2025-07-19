@@ -4,7 +4,6 @@ import grill24.potionsplus.gui.skill.HoverItemStackScreenElement;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.Collection;

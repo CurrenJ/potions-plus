@@ -1,6 +1,5 @@
 package grill24.potionsplus.block;
 
-import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.items.BrewingItems;
 import net.minecraft.core.BlockPos;

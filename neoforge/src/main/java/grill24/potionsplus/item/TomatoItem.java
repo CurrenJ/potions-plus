@@ -2,7 +2,6 @@ package grill24.potionsplus.item;
 
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
-import grill24.potionsplus.utility.Genotype;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemStack;
 
@@ -39,9 +38,9 @@ public class TomatoItem extends GeneticCropItem {
 
     @Override
     public int[] getUsedChromosomes() {
-        return new int[] {
-            GeneticCropItem.WEIGHT_CHROMOSOME_INDEX,
-            GeneticCropItem.COLOR_CHROMOSOME_INDEX
+        return new int[]{
+                GeneticCropItem.WEIGHT_CHROMOSOME_INDEX,
+                GeneticCropItem.COLOR_CHROMOSOME_INDEX
         };
     }
 }

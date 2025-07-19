@@ -298,7 +298,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     public static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, @Nullable Direction side) {
         return getContainerOrHandlerAt(
-                level, pos, level.getBlockState(pos), (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, side
+                level, pos, level.getBlockState(pos), (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, side
         );
     }
 
@@ -316,6 +316,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     /**
      * Pulls from the specified slot in the container and places in any available slot in the hopper.
+     *
      * @return {@code true} if the entire stack was moved.
      */
     private static boolean tryTakeInItemFromSlot(Hopper hopper, Container container, int slot, Direction direction) {
@@ -354,6 +355,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     /**
      * Attempts to place the passed stack in the container, using as many slots as required.
+     *
      * @return any leftover stack
      */
     public static ItemStack addItem(@Nullable Container source, Container destination, ItemStack stack, @Nullable Direction direction) {
@@ -444,7 +446,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     @Nullable
     public static Container getContainerAt(Level level, BlockPos pos) {
         return getContainerAt(
-            level, pos, level.getBlockState(pos), (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5
+                level, pos, level.getBlockState(pos), (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5
         );
     }
 
@@ -462,10 +464,10 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     private static Container getBlockContainer(Level level, BlockPos pos, BlockState state) {
         Block block = state.getBlock();
         if (block instanceof WorldlyContainerHolder) {
-            return ((WorldlyContainerHolder)block).getContainer(state, level, pos);
+            return ((WorldlyContainerHolder) block).getContainer(state, level, pos);
         } else if (state.hasBlockEntity() && level.getBlockEntity(pos) instanceof Container container) {
             if (container instanceof ChestBlockEntity && block instanceof ChestBlock) {
-                container = ChestBlock.getContainer((ChestBlock)block, state, level, pos, true);
+                container = ChestBlock.getContainer((ChestBlock) block, state, level, pos, true);
             }
 
             return container;
@@ -477,11 +479,11 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     @Nullable
     private static Container getEntityContainer(Level level, double x, double y, double z) {
         List<Entity> list = level.getEntities(
-            (Entity)null,
-            new AABB(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5),
-            EntitySelector.CONTAINER_ENTITY_SELECTOR
+                (Entity) null,
+                new AABB(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5),
+                EntitySelector.CONTAINER_ENTITY_SELECTOR
         );
-        return !list.isEmpty() ? (Container)list.get(level.random.nextInt(list.size())) : null;
+        return !list.isEmpty() ? (Container) list.get(level.random.nextInt(list.size())) : null;
     }
 
     private static boolean canMergeItems(ItemStack stack1, ItemStack stack2) {
@@ -490,17 +492,17 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     @Override
     public double getLevelX() {
-        return (double)this.worldPosition.getX() + 0.5;
+        return (double) this.worldPosition.getX() + 0.5;
     }
 
     @Override
     public double getLevelY() {
-        return (double)this.worldPosition.getY() + 0.5;
+        return (double) this.worldPosition.getY() + 0.5;
     }
 
     @Override
     public double getLevelZ() {
-        return (double)this.worldPosition.getZ() + 0.5;
+        return (double) this.worldPosition.getZ() + 0.5;
     }
 
     @Override
@@ -532,9 +534,9 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     public static void entityInside(Level level, BlockPos pos, BlockState state, Entity entity, FilterHopperBlockEntity blockEntity) {
         if (entity instanceof ItemEntity itementity
-            && !itementity.getItem().isEmpty()
-            && entity.getBoundingBox()
-                .move((double)(-pos.getX()), (double)(-pos.getY()), (double)(-pos.getZ()))
+                && !itementity.getItem().isEmpty()
+                && entity.getBoundingBox()
+                .move((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()))
                 .intersects(blockEntity.getSuckAabb())) {
             tryMoveItems(level, pos, state, blockEntity, () -> addItem(blockEntity, itementity));
         }
@@ -561,7 +563,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
                 || (allowFood && stack.has(DataComponents.FOOD))
                 || (allowPotions && (stack.has(DataComponents.POTION_CONTENTS) || item instanceof PotionItem)
                 || (allowEnchanted && (!stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty()
-                            || !stack.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty()))
+                || !stack.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty()))
                 || (allowPotionIngredients && AbyssalTroveBlockEntity.isItemPotionIngredient(stack))
                 || (allowEdibleRewards && item instanceof EdibleChoiceItem)
         );
@@ -569,9 +571,13 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
         return blacklist != isItemValid;
     }
 
-    private void updateFilterItemsCache() { this.filterItemsCache = generateItemsSet(getFilterItems()); }
+    private void updateFilterItemsCache() {
+        this.filterItemsCache = generateItemsSet(getFilterItems());
+    }
 
-    private void updateUpgradeItemsCache() { this.upgradeItemsCache = generateItemsSet(getUpgradeItems()); }
+    private void updateUpgradeItemsCache() {
+        this.upgradeItemsCache = generateItemsSet(getUpgradeItems());
+    }
 
     private void updateCache() {
         updateFilterItemsCache();
@@ -588,7 +594,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     private Collection<ItemStack> getFilterItems() {
         List<ItemStack> filterItems = new ArrayList<>();
-        for(int i = 0; i < items.size(); i++) {
+        for (int i = 0; i < items.size(); i++) {
             if (isFilterItemSlot(i)) {
                 filterItems.add(this.items.get(i));
             }
@@ -598,7 +604,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     private Collection<ItemStack> getUpgradeItems() {
         List<ItemStack> upgradeItems = new ArrayList<>();
-        for(int i = 0; i < items.size(); i++) {
+        for (int i = 0; i < items.size(); i++) {
             if (isUpgradeItemSlot(i)) {
                 upgradeItems.add(this.items.get(i));
             }

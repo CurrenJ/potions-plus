@@ -1,6 +1,5 @@
 package grill24.potionsplus.utility;
 
-import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -58,7 +57,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
 
     @Override
     public void renderImage(Font font, int x, int y, int width, int height, GuiGraphics guiGraphics) {
-        if(isShowing()) {
+        if (isShowing()) {
             int xMax = this.gridSizeX();
             int yMax = this.gridSizeY();
             int k = 0;
@@ -97,7 +96,8 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
                         if (!isInAbyssalTrove && !isPotion && !Debug.shouldRevealAllRecipes && this.hideUnknownPotionIngredients) {
                             itemstack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC);
                         }
-                    } catch (IOException ignored) {}
+                    } catch (IOException ignored) {
+                    }
                 }
 
             }

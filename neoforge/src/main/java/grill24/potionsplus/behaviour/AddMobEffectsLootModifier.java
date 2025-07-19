@@ -5,12 +5,10 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.LootModifiers;
 import grill24.potionsplus.utility.PUtil;
-import grill24.potionsplus.utility.StreamCodecUtility;
 import grill24.potionsplus.utility.Utility;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -30,6 +28,7 @@ public class AddMobEffectsLootModifier extends LootModifier {
     ));
 
     private final Set<ResourceKey<MobEffect>> blacklistedEffects;
+
     public AddMobEffectsLootModifier(LootItemCondition[] conditionsIn, Set<ResourceKey<MobEffect>> blacklistedEffects) {
         super(conditionsIn);
         this.blacklistedEffects = blacklistedEffects;

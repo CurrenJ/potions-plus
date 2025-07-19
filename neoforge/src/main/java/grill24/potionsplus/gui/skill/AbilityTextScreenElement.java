@@ -55,13 +55,13 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
 
         buttonDecrease = new TextButtonScreenElement(screen, this, Settings.DEFAULT, Component.literal("-"), buttonSize, buttonSize);
         buttonDecrease.addClickListener((mouseX, mouseY, button, element) -> {
-            if(ability.get().data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrength) {
+            if (ability.get().data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrength) {
                 adjustableStrength.clientRequestDecreaseStrength(this.screen.getMinecraft().player);
             }
         });
         buttonIncrease = new TextButtonScreenElement(screen, this, Settings.DEFAULT, Component.literal("+"), buttonSize, buttonSize);
         buttonIncrease.addClickListener((mouseX, mouseY, button, element) -> {
-            if(ability.get().data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrength) {
+            if (ability.get().data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrength) {
                 adjustableStrength.clientRequestIncreaseStrength(this.screen.getMinecraft().player);
             }
         });

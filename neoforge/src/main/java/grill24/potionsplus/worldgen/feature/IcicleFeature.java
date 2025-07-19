@@ -66,7 +66,7 @@ public class IcicleFeature extends Feature<PointedDripstoneConfiguration> {
     private static void createPatchOfDripstoneBlocks(LevelAccessor p_191073_, RandomSource p_191074_, BlockPos p_191075_, PointedDripstoneConfiguration p_191076_) {
         IcicleUtils.placeIcicleBlockIfPossible(p_191073_, p_191075_);
 
-        for(Direction direction : Direction.Plane.HORIZONTAL) {
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
             if (!(p_191074_.nextFloat() > p_191076_.chanceOfDirectionalSpread)) {
                 BlockPos blockpos = p_191075_.relative(direction);
                 IcicleUtils.placeIcicleBlockIfPossible(p_191073_, blockpos);
