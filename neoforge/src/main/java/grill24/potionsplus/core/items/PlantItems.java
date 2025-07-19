@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class PlantItems {
-    public static Holder<Item> TOMATO, BRASSICA_OLERACEA, BRUSSELS_SPROUTS, CABBAGE, BROCCOLLI, CAULIFLOWER, KALE, KOHLRABI;
+    public static Holder<Item> TOMATO, BRASSICA_OLERACEA, BRUSSELS_SPROUTS, CABBAGE, BROCCOLI, CAULIFLOWER, KALE, KOHLRABI;
 
     /**
      * Force static fields to be initialized
@@ -73,7 +73,7 @@ public class PlantItems {
                 ))
         ).getHolder();
 
-        BROCCOLLI = RegistrationUtility.register(register, SimpleItemBuilder.create("broccoli")
+        BROCCOLI = RegistrationUtility.register(register, SimpleItemBuilder.create("broccoli")
                 .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BROCCOLLI_PLANT.value()))
                 .modelGenerator(holder -> new ItemModelUtility.GeneticCropWeightOverrideModelGenerator<>(holder,
                         ppId("item/broccoli"),

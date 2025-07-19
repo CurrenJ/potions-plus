@@ -517,7 +517,7 @@ public class FlowerBlocks {
                 .modelGenerator(h -> new GeneticCropBlockModelGenerator<>(h, GeneticCropBlockModelGenerator.CROP_CROSS,
                         new GeneticCropBlockModelGenerator.PlantTextures(ppId("block/tomatoes_0"), ppId("block/tomatoes_pollinated_0"))))
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT))
-                .blockFactory(prop -> new GeneticCropBlock(prop, GeneticCropBlock.CropProperties.of(PlantItems.BROCCOLLI, 25, 200, 10, 400, 0.25F)))
+                .blockFactory(prop -> new GeneticCropBlock(prop, GeneticCropBlock.CropProperties.of(PlantItems.BROCCOLI, 25, 200, 10, 400, 0.25F)))
                 .renderType(BlockBuilder.RenderType.CUTOUT)
         ).getHolder();
 

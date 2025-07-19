@@ -1,7 +1,6 @@
 package grill24.potionsplus.item;
 
 import grill24.potionsplus.core.DataComponents;
-import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.items.PlantItems;
 import grill24.potionsplus.utility.Genotype;
 import net.minecraft.core.Holder;
@@ -72,7 +71,7 @@ public class BrassicaOleraceaItem extends GeneticCropItem {
         BRASSICA_OLERACEA(PlantItems.BRASSICA_OLERACEA, 10, -1, -1), // -1 indicates a generic Brassica Oleracea without specific traits
         CABBAGE(PlantItems.CABBAGE, 9, VARIATION_THRESHOLD, TERMINAL_LEAF_BUDS), // Brassica Oleracea selected for terminal leaf buds = Cabbage
         KALE(PlantItems.KALE, 9, VARIATION_THRESHOLD, LEAVES_TRAIT), // Brassica Oleracea selected for leaves trait = Kale
-        BROCCOLI(PlantItems.BROCCOLLI, 8, VARIATION_THRESHOLD, STEM_TRAIT, FLOWER_BUDS_TRAIT), // Brassica Oleracea selected for stem and flower buds traits = Broccoli
+        BROCCOLI(PlantItems.BROCCOLI, 8, VARIATION_THRESHOLD, STEM_TRAIT, FLOWER_BUDS_TRAIT), // Brassica Oleracea selected for stem and flower buds traits = Broccoli
         CAULIFLOWER(PlantItems.CAULIFLOWER, 9, VARIATION_THRESHOLD, FLOWER_BUDS_TRAIT), // Brassica Oleracea selected for flower buds trait = Cauliflower
         BRUSSELS_SPROUTS(PlantItems.BRUSSELS_SPROUTS, 9, VARIATION_THRESHOLD, LATERAL_LEAF_BUDS), // Brassica Oleracea selected for lateral leaf buds = Brussels Sprouts
         KOHLRABI(PlantItems.KOHLRABI, 9, VARIATION_THRESHOLD, STEM_TRAIT); // Brassica Oleracea selected for stem trait = Kohlrabi
