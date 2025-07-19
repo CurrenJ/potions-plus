@@ -1,21 +1,17 @@
 package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.block.FishTankBlock;
 import grill24.potionsplus.block.FishTankFrameBlock;
 import grill24.potionsplus.block.FishTankSandBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
-import grill24.potionsplus.item.FishSizeDataComponent;
 import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
