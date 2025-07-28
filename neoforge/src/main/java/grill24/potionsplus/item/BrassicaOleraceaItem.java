@@ -11,11 +11,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 public class BrassicaOleraceaItem extends GeneticCropItem {
-    public static final int STEM_TRAIT = 2;
-    public static final int LEAVES_TRAIT = 3;
-    public static final int FLOWER_BUDS_TRAIT = 4;
-    public static final int LATERAL_LEAF_BUDS = 5;
-    public static final int TERMINAL_LEAF_BUDS = 6;
+    public static final int STEM_TRAIT = NUTRITION_CHROMOSOME_INDEX + 1;
+    public static final int LEAVES_TRAIT = STEM_TRAIT + 1;
+    public static final int FLOWER_BUDS_TRAIT = LEAVES_TRAIT + 1;
+    public static final int LATERAL_LEAF_BUDS = FLOWER_BUDS_TRAIT + 1;
+    public static final int TERMINAL_LEAF_BUDS = LATERAL_LEAF_BUDS + 1;
 
     public BrassicaOleraceaItem(Properties properties, Block block) {
         super(block, properties);
@@ -41,6 +41,7 @@ public class BrassicaOleraceaItem extends GeneticCropItem {
         return new int[]{
                 WEIGHT_CHROMOSOME_INDEX,
                 COLOR_CHROMOSOME_INDEX,
+                NUTRITION_CHROMOSOME_INDEX,
                 STEM_TRAIT,
                 LEAVES_TRAIT,
                 FLOWER_BUDS_TRAIT,

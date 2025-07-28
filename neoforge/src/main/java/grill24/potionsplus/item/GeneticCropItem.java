@@ -3,12 +3,16 @@ package grill24.potionsplus.item;
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
+import grill24.potionsplus.item.consumeeffect.GeneticCropItemConsumeEffect;
 import grill24.potionsplus.item.tooltip.TooltipPriorities;
 import grill24.potionsplus.utility.Genotype;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -17,12 +21,20 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 @EventBusSubscriber(modid = grill24.potionsplus.utility.ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public abstract class GeneticCropItem extends BlockItem {
-    public GeneticCropItem(Block block, Properties properties) {
-        super(block, properties);
-    }
-
     public static final int WEIGHT_CHROMOSOME_INDEX = 0;
-    public static final int COLOR_CHROMOSOME_INDEX = 1;
+    public static final int COLOR_CHROMOSOME_INDEX = WEIGHT_CHROMOSOME_INDEX + 1;
+    public static final int NUTRITION_CHROMOSOME_INDEX = COLOR_CHROMOSOME_INDEX + 1;
+
+    public GeneticCropItem(Block block, Properties properties) {
+        super(block, properties.component(net.minecraft.core.component.DataComponents.CONSUMABLE,
+                Consumable.builder()
+                        .consumeSeconds(0.75F)
+                        .animation(ItemUseAnimation.EAT)
+                        .sound(SoundEvents.GENERIC_EAT)
+                        .hasConsumeParticles(true)
+                        .onConsume(GeneticCropItemConsumeEffect.INSTANCE)
+                        .build()));
+    }
 
     public abstract int getColorARGB(ItemStack stack);
 
@@ -132,6 +144,7 @@ public abstract class GeneticCropItem extends BlockItem {
             event.addTooltipMessage(weightTrait);
 
             tryAddTraitTooltipLines(event, Translations.TOOLTIP_TRAIT_COLOR, geneticCropItem, stack, GeneticCropItem.COLOR_CHROMOSOME_INDEX);
+            tryAddTraitTooltipLines(event, Translations.TOOLTIP_TRAIT_NUTRITION, geneticCropItem, stack, GeneticCropItem.NUTRITION_CHROMOSOME_INDEX);
 
             if (event.getItemStack().getItem() instanceof BrassicaOleraceaItem) {
                 tryAddTraitTooltipLines(event, Translations.TOOLTIP_TRAIT_STEM, geneticCropItem, stack, BrassicaOleraceaItem.STEM_TRAIT);

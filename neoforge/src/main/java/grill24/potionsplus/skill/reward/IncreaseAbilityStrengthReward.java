@@ -51,7 +51,7 @@ public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbili
     }
 
     @Override
-    public Optional<Component> getDescription(IncreaseAbilityStrengthRewardConfiguration config) {
+    public Optional<Component> getDescription(RegistryAccess registryAccess, IncreaseAbilityStrengthRewardConfiguration config) {
         if (!config.translationKey.isEmpty()) {
             // Use the translation key if it is set
             return Optional.of(Component.translatable(config.translationKey));
@@ -63,7 +63,7 @@ public class IncreaseAbilityStrengthReward extends GrantableReward<IncreaseAbili
     }
 
     @Override
-    public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, IncreaseAbilityStrengthRewardConfiguration config, ServerPlayer player) {
+    public void grant(ResourceKey<ConfiguredGrantableReward<?, ?>> holder, IncreaseAbilityStrengthRewardConfiguration config, ServerPlayer player) {
         RegistryAccess registryAccess = player.registryAccess();
 
         SkillsData skillsData = SkillsData.getPlayerData(player);

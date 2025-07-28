@@ -5,7 +5,7 @@
       "feature": {
         "type": "potionsplus:genetic_crop",
         "config": {
-          "genotype_upper_bound": 50,
+          "genotype_upper_bound": 808452146,
           "to_place": {
             "type": "minecraft:weighted_state_provider",
             "entries": [

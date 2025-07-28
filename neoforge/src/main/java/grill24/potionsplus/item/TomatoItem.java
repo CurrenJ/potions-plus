@@ -40,7 +40,8 @@ public class TomatoItem extends GeneticCropItem {
     public int[] getUsedChromosomes() {
         return new int[]{
                 GeneticCropItem.WEIGHT_CHROMOSOME_INDEX,
-                GeneticCropItem.COLOR_CHROMOSOME_INDEX
+                GeneticCropItem.COLOR_CHROMOSOME_INDEX,
+                GeneticCropItem.NUTRITION_CHROMOSOME_INDEX
         };
     }
 }

@@ -56,6 +56,13 @@ public class Packets {
                 ServerboundSetupFilterHopperFromContainerPacket.ServerPayloadHandler::handleDataOnMain
         );
 
+        // Try Claim Skill Reward Packet
+        registrar.playToServer(
+                ServerboundTryClaimSkillReward.TYPE,
+                ServerboundTryClaimSkillReward.STREAM_CODEC,
+                ServerboundTryClaimSkillReward.ServerPayloadHandler::handleDataOnMain
+        );
+
 
         // ----- Clientbound Packets -----
 

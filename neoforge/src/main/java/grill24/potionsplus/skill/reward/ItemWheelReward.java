@@ -8,7 +8,7 @@ import grill24.potionsplus.network.ClientboundDisplayWheelAnimationPacket;
 import grill24.potionsplus.utility.DelayedEvents;
 import grill24.potionsplus.utility.InvUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -34,7 +34,7 @@ public class ItemWheelReward extends GrantableReward<ItemWheelRewardConfiguratio
     }
 
     @Override
-    public Optional<Component> getDescription(ItemWheelRewardConfiguration config) {
+    public Optional<Component> getDescription(RegistryAccess registryAccess, ItemWheelRewardConfiguration config) {
         // Condense the description to a single line
         List<List<Component>> multiLineRichDescription = getMultiLineRichDescription(config, false);
         MutableComponent description = Component.empty();
@@ -48,7 +48,7 @@ public class ItemWheelReward extends GrantableReward<ItemWheelRewardConfiguratio
     }
 
     @Override
-    public List<List<Component>> getMultiLineRichDescription(ItemWheelRewardConfiguration config) {
+    public List<List<Component>> getMultiLineRichDescription(RegistryAccess registryAccess, ItemWheelRewardConfiguration config) {
         return getMultiLineRichDescription(config, true);
     }
 
@@ -73,7 +73,7 @@ public class ItemWheelReward extends GrantableReward<ItemWheelRewardConfiguratio
     }
 
     @Override
-    public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, ItemWheelRewardConfiguration config, ServerPlayer player) {
+    public void grant(ResourceKey<ConfiguredGrantableReward<?, ?>> holder, ItemWheelRewardConfiguration config, ServerPlayer player) {
         List<ItemStack> possibleRewards = config.possibleRewards != null ? new ArrayList<>(config.possibleRewards) : new ArrayList<>();
         int winnerIndex;
         if (config.lootTableResourceKey != null && config.numToSample > 0) {

@@ -3,13 +3,19 @@ package grill24.potionsplus.core.items;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.item.BrassicaOleraceaItem;
 import grill24.potionsplus.item.TomatoItem;
+import grill24.potionsplus.item.consumeeffect.EdibleChoiceItemConsumeEffect;
+import grill24.potionsplus.item.consumeeffect.GeneticCropItemConsumeEffect;
 import grill24.potionsplus.item.tintsource.GeneticCropItemTintSource;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.item.ItemModelUtility;
 import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.component.Consumable;
 
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
@@ -24,7 +30,7 @@ public class PlantItems {
      */
     public static void init(BiFunction<String, Supplier<Item>, Holder<Item>> register) {
         TOMATO = RegistrationUtility.register(register, SimpleItemBuilder.create("tomato")
-                .itemFactory(prop -> new TomatoItem(prop.food(Foods.CARROT)))
+                .itemFactory(TomatoItem::new)
                 .modelGenerator(holder -> new ItemModelUtility.GeneticCropWeightOverrideModelGenerator<>(holder,
                         ppId("item/tomato_dithering"),
                         GeneticCropItemTintSource::new,

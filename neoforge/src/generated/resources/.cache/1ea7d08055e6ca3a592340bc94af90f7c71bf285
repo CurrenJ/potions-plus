@@ -1,4 +1,4 @@
-// 1.21.5	2025-07-18T20:10:47.2928436	Model Definitions - potionsplus
+// 1.21.5	2025-07-27T18:31:30.3416089	Model Definitions - potionsplus
 5dce44f22ae752753ba1749f01550e55f3e62d6f assets/minecraft/models/block/coal_ore1_block_hat.json
 88e46a4afdee55fbf70e22c95a86acc09928ca12 assets/minecraft/models/block/coal_ore2_block_hat.json
 ca2d0bec247e8bb37ebbf3e21c0230288b0954ed assets/minecraft/models/block/coal_ore3_block_hat.json
@@ -430,7 +430,7 @@ eb5eaca911ddcd68d0a4736454cda125e7f36d1d assets/potionsplus/items/fish_tank.json
 7b9f0cf50553f0c265b3a9405f35135289734715 assets/potionsplus/items/froggy_hat.json
 63e12f2f0af18cbc7a062d688b11832d892b8bb0 assets/potionsplus/items/frozen_giant_manta_ray.json
 ce30a992a1dda2a11fa4904016ed1df0de5bba92 assets/potionsplus/items/garden_eel.json
-dfdb0eddc84337ae96a580301f6176484377551d assets/potionsplus/items/generic_icon.json
+aefa6306e05da5a9d110717d42a81973f45cdedb assets/potionsplus/items/generic_icon.json
 03d2cf0468a96993634164e994a94ce11a4a733d assets/potionsplus/items/giant_manta_ray.json
 80bc70f354a9b838c4058e84ad774900b73d2a79 assets/potionsplus/items/golden_cubensis.json
 5b19c5339cff73591cdd1f56295af6a574a7cfac assets/potionsplus/items/gold_ore_hat_1.json
@@ -1254,6 +1254,7 @@ a8f35e5115b12fdf831857db02034db40c2bb55e assets/potionsplus/models/item/generic_
 0210c834f8d57c3100d9fe9f4b97ea1c58543033 assets/potionsplus/models/item/generic_icon_duration_upgrade.json
 879720b5d8a8a08b9b39d3e77922a7410d62faeb assets/potionsplus/models/item/generic_icon_fishing_bar.json
 f481f20f86d447b24dee739fe049b6d4f7cf9951 assets/potionsplus/models/item/generic_icon_fishing_bobber.json
+0501fa80eb52872f936751e588cd424ccce49d56 assets/potionsplus/models/item/generic_icon_gift.json
 3fc36108434004073f20d16b6f949aacab3369c9 assets/potionsplus/models/item/generic_icon_global.json
 405b774d7b0604e4a9318cc713f568739b54fea3 assets/potionsplus/models/item/generic_icon_gold_fishing_frame.json
 048f475428c8bfd26f6261f96c9babc7dc81d3c4 assets/potionsplus/models/item/generic_icon_gold_selection_frame.json

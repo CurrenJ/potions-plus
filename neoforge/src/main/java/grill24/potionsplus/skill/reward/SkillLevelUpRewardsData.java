@@ -8,6 +8,7 @@ import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
@@ -41,11 +42,11 @@ public record SkillLevelUpRewardsData(String translationKey, List<Holder<Configu
 
     public void grant(ServerPlayer player) {
         for (Holder<ConfiguredGrantableReward<?, ?>> reward : rewards) {
-            reward.value().grant(reward, player);
+            reward.value().grant(reward.getKey(), player);
         }
     }
 
-    public Component getDescription() {
+    public Component getDescription(RegistryAccess registryAccess) {
         MutableComponent component = Component.empty();
         boolean hasText = false;
 
@@ -55,12 +56,12 @@ public record SkillLevelUpRewardsData(String translationKey, List<Holder<Configu
         }
 
         for (Holder<ConfiguredGrantableReward<?, ?>> reward : rewards) {
-            if (reward.value().getDescription().isPresent()) {
+            if (reward.value().getDescription(registryAccess).isPresent()) {
                 if (hasText) {
                     component.append(Component.literal(", "));
                 }
 
-                component.append(reward.value().getDescription().get());
+                component.append(reward.value().getDescription(registryAccess).get());
                 hasText = true;
             }
         }

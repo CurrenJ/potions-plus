@@ -36,12 +36,12 @@ import java.util.stream.Collectors;
 public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData,
                          PointEarningHistory pointEarningHistory,
                          Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> unlockedAbilities,
-                         List<ResourceKey<ConfiguredGrantableReward<?, ?>>> pendingChoices) {
+                         PendingRewardsData pendingRewards) {
     public static final Codec<SkillsData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             Codec.unboundedMap(HolderCodecs.resourceKey(PotionsPlusRegistries.CONFIGURED_SKILL), SkillInstance.CODEC).optionalFieldOf("skillInstances", new HashMap<>()).forGetter(instance -> instance.skillData),
             PointEarningHistory.CODEC.optionalFieldOf("pointEarningHistory", new PointEarningHistory(1000)).forGetter(instance -> instance.pointEarningHistory),
             Codec.unboundedMap(HolderCodecs.resourceKey(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY), AbilityInstanceSerializable.DIRECT_CODEC.listOf()).optionalFieldOf("activeAbilities", new HashMap<>()).forGetter(instance -> instance.unlockedAbilities),
-            ResourceKey.codec(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD).listOf().optionalFieldOf("pendingChoices", new ArrayList<>()).forGetter(instance -> instance.pendingChoices)
+            PendingRewardsData.CODEC.optionalFieldOf("pendingRewards", new PendingRewardsData()).forGetter(instance -> instance.pendingRewards)
     ).apply(codecBuilder, SkillsData::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SkillsData> STREAM_CODEC = StreamCodec.composite(
@@ -51,25 +51,25 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
             (instance) -> instance.pointEarningHistory,
             ByteBufCodecs.map(Object2ObjectOpenHashMap::new, HolderCodecs.resourceKeyStream(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY), AbilityInstanceSerializable.STREAM_CODEC.apply(ByteBufCodecs.list())),
             (instance) -> instance.unlockedAbilities,
-            ResourceKey.streamCodec(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD).apply(ByteBufCodecs.list()),
-            (instance) -> instance.pendingChoices,
+            PendingRewardsData.STREAM_CODEC,
+            (instance) -> instance.pendingRewards,
             SkillsData::new
     );
 
     public SkillsData() {
-        this(new HashMap<>(), new PointEarningHistory(1000), new HashMap<>(), new ArrayList<>());
+        this(new HashMap<>(), new PointEarningHistory(1000), new HashMap<>(), new PendingRewardsData());
     }
 
-    public SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> unlockedAbilities, List<ResourceKey<ConfiguredGrantableReward<?, ?>>> pendingChoices) {
+    public SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> unlockedAbilities, PendingRewardsData pendingRewards) {
         this.skillData = new HashMap<>(skillData);
         this.unlockedAbilities = new HashMap<>();
         unlockedAbilities.forEach((key, value) -> this.unlockedAbilities.put(key, new ArrayList<>(value)));        // Deep copy, make sure lists are mutable
         this.pointEarningHistory = pointEarningHistory;
-        this.pendingChoices = new ArrayList<>(pendingChoices);
+        this.pendingRewards = pendingRewards;
     }
 
     public SkillsData(SkillsData skillsData) {
-        this(new HashMap<>(skillsData.skillData), new PointEarningHistory(skillsData.pointEarningHistory), new HashMap<>(skillsData.unlockedAbilities), new ArrayList<>(skillsData.pendingChoices));
+        this(new HashMap<>(skillsData.skillData), new PointEarningHistory(skillsData.pointEarningHistory), new HashMap<>(skillsData.unlockedAbilities), new PendingRewardsData(skillsData.pendingRewards));
     }
 
     public void clear(ServerPlayer player) {
@@ -84,7 +84,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
 
         pointEarningHistory.clear();
 
-        pendingChoices.clear();
+        pendingRewards.clear();
     }
 
     // ----- Helper Methods Skill Instances -----
@@ -299,9 +299,9 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
                                 // Re-grant all rewards that have to do with abilities. We don't want to regrant rewards that are not abilities, like loot rewards.
                                 GrantableReward<?> grantableReward = reward.value().reward();
                                 if (grantableReward instanceof AbilityReward) {
-                                    reward.value().grant(reward, player);
+                                    reward.value().grant(reward.getKey(), player);
                                 } else if (grantableReward instanceof IncreaseAbilityStrengthReward) {
-                                    reward.value().grant(reward, player);
+                                    reward.value().grant(reward.getKey(), player);
                                 }
                             }
                         }
@@ -315,18 +315,6 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
 
         event.getServer().getPlayerList().getPlayers().forEach(
                 player -> SkillsData.updatePlayerData(player, data -> data.pointEarningHistory().popOldestEntry()));
-    }
-
-    public void addPendingChoice(ResourceKey<ConfiguredGrantableReward<?, ?>> choice) {
-        this.pendingChoices.add(choice);
-    }
-
-    public void removePendingChoice(ResourceKey<ConfiguredGrantableReward<?, ?>> choice) {
-        this.pendingChoices.remove(choice);
-    }
-
-    public boolean hasPendingChoice(ResourceKey<ConfiguredGrantableReward<?, ?>> choice) {
-        return this.pendingChoices.stream().anyMatch(pendingChoice -> pendingChoice.equals(choice));
     }
 
     public static boolean isSkillsSystemEnabled() {

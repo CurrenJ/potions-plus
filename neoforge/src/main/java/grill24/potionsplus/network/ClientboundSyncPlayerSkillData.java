@@ -1,6 +1,7 @@
 package grill24.potionsplus.network;
 
 import grill24.potionsplus.core.DataAttachments;
+import grill24.potionsplus.gui.skill.SkillsScreen;
 import grill24.potionsplus.skill.SkillsData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -41,6 +42,10 @@ public class ClientboundSyncPlayerSkillData implements CustomPacketPayload {
 
                         if (packet.skillsData != null) {
                             context.player().setData(DataAttachments.SKILL_PLAYER_DATA, packet.skillsData);
+
+                            if (Minecraft.getInstance().screen instanceof SkillsScreen skillsScreen) {
+                                skillsScreen.onSkillsSync();
+                            }
                         }
                     }
             );

@@ -183,7 +183,7 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
         }
 
         Optional<SkillLevelUpRewardsData> rewardsData = getConfiguredSkill(registryAccess).config().getData().rewardsConfiguration().tryGetRewardForLevel(nextLevel);
-        rewardsData.ifPresent(skillLevelUpRewardsData -> component.append(skillLevelUpRewardsData.getDescription().copy().withStyle(ChatFormatting.GRAY)));
+        rewardsData.ifPresent(skillLevelUpRewardsData -> component.append(skillLevelUpRewardsData.getDescription(registryAccess).copy().withStyle(ChatFormatting.GRAY)));
 
         return component;
     }
@@ -206,7 +206,7 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
 
         if (includeRewards) {
             Optional<SkillLevelUpRewardsData> rewardsData = getConfiguredSkill(registryAccess).config().getData().rewardsConfiguration().tryGetRewardForLevel(level);
-            rewardsData.ifPresent(skillLevelUpRewardsData -> component.append(skillLevelUpRewardsData.getDescription().copy().withStyle(isUnlocked ? ChatFormatting.GREEN : ChatFormatting.GRAY)));
+            rewardsData.ifPresent(skillLevelUpRewardsData -> component.append(skillLevelUpRewardsData.getDescription(registryAccess).copy().withStyle(isUnlocked ? ChatFormatting.GREEN : ChatFormatting.GRAY)));
         }
 
         return component;

@@ -781,6 +781,7 @@
 
   "tooltip.trait.weight.grams" : "§7§oWeight: %sg",
   "tooltip.trait.color": "§7§oColor: %s",
+  "tooltip.trait.nutrition": "§7§oNutrition: %s",
 
   "tooltip.trait.stem": "§7§oStem: %s",
   "tooltip.trait.leaves": "§7§oLeaves: %s",

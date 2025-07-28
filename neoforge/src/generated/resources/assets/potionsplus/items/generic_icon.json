@@ -211,6 +211,13 @@
           "model": "potionsplus:item/generic_icon_count"
         },
         "threshold": 0.46875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_gift"
+        },
+        "threshold": 0.484375
       }
     ],
     "fallback": {

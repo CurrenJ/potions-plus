@@ -674,10 +674,18 @@ public class Translations {
     public static final String ENTITY_POTIONSPLUS_GRUNGLER = "entity.potionsplus.grungler";
     public static final String TOOLTIP_TRAIT_WEIGHT_GRAMS = "tooltip.trait.weight.grams";
     public static final String TOOLTIP_TRAIT_COLOR = "tooltip.trait.color";
+    public static final String TOOLTIP_TRAIT_NUTRITION = "tooltip.trait.nutrition";
     public static final String TOOLTIP_TRAIT_STEM = "tooltip.trait.stem";
     public static final String TOOLTIP_TRAIT_LEAVES = "tooltip.trait.leaves";
     public static final String TOOLTIP_TRAIT_FLOWER_BUDS = "tooltip.trait.flower_buds";
     public static final String TOOLTIP_TRAIT_LATERAL_LEAF_BUDS = "tooltip.trait.lateral_leaf_buds";
     public static final String TOOLTIP_TRAIT_TERMINAL_LEAF_BUDS = "tooltip.trait.terminal_leaf_buds";
     public static final String ITEM_POTIONSPLUS_TOMATO = "item.potionsplus.tomato";
+    public static final String ITEM_POTIONSPLUS_BRASSICA_OLERACEA = "item.potionsplus.brassica_oleracea";
+    public static final String ITEM_POTIONSPLUS_CABBAGE = "item.potionsplus.cabbage";
+    public static final String ITEM_POTIONSPLUS_CAULIFLOWER = "item.potionsplus.cauliflower";
+    public static final String ITEM_POTIONSPLUS_KOHLRABI = "item.potionsplus.kohlrabi";
+    public static final String ITEM_POTIONSPLUS_BROCCOLI = "item.potionsplus.broccoli";
+    public static final String ITEM_POTIONSPLUS_KALE = "item.potionsplus.kale";
+    public static final String ITEM_POTIONSPLUS_BRUSSELS_SPROUTS = "item.potionsplus.brussels_sprouts";
 }
