@@ -3,6 +3,7 @@ package grill24.potionsplus.core;
 import grill24.potionsplus.worldgen.biome.AridCave;
 import grill24.potionsplus.worldgen.biome.IceCave;
 import grill24.potionsplus.worldgen.biome.VolcanicCave;
+import grill24.potionsplus.worldgen.biome.WoodedCave;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -19,6 +20,7 @@ public class Biomes {
     public static final ResourceKey<Biome> ICE_CAVE_KEY = register("ice_cave");
     public static final ResourceKey<Biome> VOLCANIC_CAVE_KEY = register("volcanic_cave");
     public static final ResourceKey<Biome> ARID_CAVE_KEY = register("arid_cave");
+    public static final ResourceKey<Biome> WOODED_CAVE_KEY = register("wooded_cave");
 
     public static void bootstrap(BootstrapContext<Biome> context) {
         HolderGetter<PlacedFeature> placedFeatureGetter = context.lookup(Registries.PLACED_FEATURE);
@@ -27,6 +29,7 @@ public class Biomes {
         context.register(ICE_CAVE_KEY, IceCave.iceCave(placedFeatureGetter, carverGetter));
         context.register(VOLCANIC_CAVE_KEY, VolcanicCave.volcanicCave(placedFeatureGetter, carverGetter));
         context.register(ARID_CAVE_KEY, AridCave.aridCave(placedFeatureGetter, carverGetter));
+        context.register(WOODED_CAVE_KEY, WoodedCave.woodedCave(placedFeatureGetter, carverGetter));
     }
 
     private static ResourceKey<Biome> register(String key) {

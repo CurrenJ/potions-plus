@@ -10,6 +10,7 @@ import grill24.potionsplus.utility.Genotype;
 import grill24.potionsplus.worldgen.biome.AridCave;
 import grill24.potionsplus.worldgen.biome.IceCave;
 import grill24.potionsplus.worldgen.biome.VolcanicCave;
+import grill24.potionsplus.worldgen.biome.WoodedCave;
 import grill24.potionsplus.worldgen.feature.GeneticCropConfiguration;
 import grill24.potionsplus.worldgen.feature.PotionsPlusVegetationPatchConfiguration;
 import net.minecraft.core.Direction;
@@ -34,9 +35,12 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
@@ -84,6 +88,13 @@ public class ConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ARID_CAVE_FLOOR_KEY = ResourceKey.create(Registries.CONFIGURED_FEATURE, ppId("arid_cave_floor"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> ARID_CAVE_CEILING_KEY = ResourceKey.create(Registries.CONFIGURED_FEATURE, ppId("arid_cave_ceiling"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> ARID_CAVE_SUSPICOUS_SAND_KEY = ResourceKey.create(Registries.CONFIGURED_FEATURE, ppId("arid_cave_suspicious_sand"));
+
+    // ----- Wooded Cave -----
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WOODED_CAVE_VEGETATION_KEY = createKey("wooded_cave_vegetation");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WOODED_CAVE_CEILING_VEGETATION_KEY = createKey("wooded_cave_ceiling_vegetation");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WOODED_CAVE_TREES_KEY = createKey("wooded_cave_trees");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WOODED_CAVE_FLOOR_KEY = createKey("wooded_cave_floor");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WOODED_CAVE_CEILING_KEY = createKey("wooded_cave_ceiling");
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         HolderGetter<PlacedFeature> placedFeatureGetter = context.lookup(Registries.PLACED_FEATURE);
@@ -193,6 +204,39 @@ public class ConfiguredFeatures {
         final Holder<ConfiguredFeature<?, ?>> ARID_CAVE_CEILING = register(context, ARID_CAVE_CEILING_KEY, Features.POTIONS_PLUS_VEGETATION_PATCH,
                 new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, AridCave.BLOCK_SAMPLER_CEILING, PlacementUtils.inlinePlaced(ARID_CAVE_CEILING_VEGETATION), Direction.DOWN, UniformInt.of(5, 8), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F, BlockStateProvider.simple(Blocks.SAND)));
         final Holder<ConfiguredFeature<?, ?>> ARID_CAVE_SUSPICOUS_SAND = register(context, ARID_CAVE_SUSPICOUS_SAND_KEY, Features.ARID_CAVE_SUSPICIOUS_SAND);
+
+        // ----- Wooded Cave -----
+        final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_VEGETATION_CONFIGURED = register(context, WOODED_CAVE_VEGETATION_KEY, Feature.SIMPLE_BLOCK,
+                new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
+                        .add(Blocks.GRASS.defaultBlockState(), 3)
+                        .add(Blocks.FERN.defaultBlockState(), 2)
+                        .add(Blocks.DANDELION.defaultBlockState(), 1)
+                        .add(Blocks.POPPY.defaultBlockState(), 1)
+                        .add(Blocks.OXEYE_DAISY.defaultBlockState(), 1)
+                        .add(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 1)
+                ))
+        );
+        final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_FLOOR = register(context, WOODED_CAVE_FLOOR_KEY, Features.POTIONS_PLUS_VEGETATION_PATCH,
+                new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, WoodedCave.WOODED_CAVE_BLOCK_SAMPLER_FLOOR, PlacementUtils.inlinePlaced(WOODED_CAVE_VEGETATION_CONFIGURED), Direction.UP, UniformInt.of(4, 7), 0.0F, 5, 0.6F, UniformInt.of(3, 5), 0.4F, BlockStateProvider.simple(Blocks.DIRT)));
+
+        final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_CEILING_VEGETATION_CONFIGURED = register(context, WOODED_CAVE_CEILING_VEGETATION_KEY, Feature.SIMPLE_BLOCK,
+                new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
+                        .add(Blocks.VINE.defaultBlockState(), 2)
+                        .add(Blocks.MOSS_CARPET.defaultBlockState(), 1)
+                ))
+        );
+        final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_CEILING = register(context, WOODED_CAVE_CEILING_KEY, Features.POTIONS_PLUS_VEGETATION_PATCH,
+                new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, WoodedCave.WOODED_CAVE_BLOCK_SAMPLER_CEILING, PlacementUtils.inlinePlaced(WOODED_CAVE_CEILING_VEGETATION_CONFIGURED), Direction.DOWN, UniformInt.of(4, 7), 0.0F, 5, 0.4F, UniformInt.of(2, 4), 0.3F, BlockStateProvider.simple(Blocks.OAK_LOG)));
+
+        final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_TREES = register(context, WOODED_CAVE_TREES_KEY, Feature.TREE,
+                new TreeConfiguration.TreeConfigurationBuilder(
+                        BlockStateProvider.simple(Blocks.OAK_LOG),
+                        new StraightTrunkPlacer(4, 2, 0),
+                        BlockStateProvider.simple(Blocks.OAK_LEAVES),
+                        new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+                        new TwoLayersFeatureSize(1, 0, 1)
+                ).ignoreVines().build()
+        );
 
         // Registers all multi directional versatile plant features (configured features stage)
         VersatilePlantsWorldGenData.registerAllConfiguredFeatures(context);

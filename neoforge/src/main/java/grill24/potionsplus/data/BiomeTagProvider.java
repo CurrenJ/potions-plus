@@ -20,6 +20,7 @@ public class BiomeTagProvider extends TagsProvider<Biome> {
     TagKey<Biome> VOLCANIC_CAVE = tag(Biomes.VOLCANIC_CAVE_KEY);
     TagKey<Biome> ICE_CAVE = tag(Biomes.ICE_CAVE_KEY);
     TagKey<Biome> ARID_CAVE = tag(Biomes.ARID_CAVE_KEY);
+    TagKey<Biome> WOODED_CAVE = tag(Biomes.WOODED_CAVE_KEY);
 
     protected BiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> holderProvider) {
         super(output, Registries.BIOME, holderProvider, ModInfo.MOD_ID);
@@ -30,6 +31,7 @@ public class BiomeTagProvider extends TagsProvider<Biome> {
         tag(VOLCANIC_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_HOT);
         tag(ICE_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_COLD).addTag(Tags.Biomes.IS_COLD_OVERWORLD);
         tag(ARID_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_DRY);
+        tag(WOODED_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_TEMPERATE);
     }
 
     private static TagKey<Biome> tag(String name) {

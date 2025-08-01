@@ -53,6 +53,13 @@ public class Placements {
     public static final ResourceKey<PlacedFeature> ARID_CAVE_CEILING_KEY = createKey("arid_cave_ceiling");
     public static final ResourceKey<PlacedFeature> ARID_CAVE_SUSPICIOUS_SAND_KEY = createKey("arid_cave_suspicious_sand");
 
+    // ----- Wooded Cave -----
+    public static final ResourceKey<PlacedFeature> WOODED_CAVE_VEGETATION_KEY = createKey("wooded_cave_vegetation");
+    public static final ResourceKey<PlacedFeature> WOODED_CAVE_CEILING_VEGETATION_KEY = createKey("wooded_cave_ceiling_vegetation");
+    public static final ResourceKey<PlacedFeature> WOODED_CAVE_TREES_KEY = createKey("wooded_cave_trees");
+    public static final ResourceKey<PlacedFeature> WOODED_CAVE_FLOOR_KEY = createKey("wooded_cave_floor");
+    public static final ResourceKey<PlacedFeature> WOODED_CAVE_CEILING_KEY = createKey("wooded_cave_ceiling");
+
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatureGetter = context.lookup(Registries.CONFIGURED_FEATURE);
 
@@ -130,6 +137,27 @@ public class Placements {
         final Holder<ConfiguredFeature<?, ?>> ARID_CAVE_SUSPICIOUS_SAND = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.ARID_CAVE_SUSPICOUS_SAND_KEY);
         final Holder<PlacedFeature> ARID_CAVE_SUSPICIOUS_SAND_PLACED = register(context, ARID_CAVE_SUSPICIOUS_SAND_KEY,
                 ARID_CAVE_SUSPICIOUS_SAND, CountPlacement.of(48), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.not(BlockPredicate.solid()), 12), BiomeFilter.biome());
+
+        // ----- Wooded Cave -----
+        final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_VEGETATION_CONFIGURED = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.WOODED_CAVE_VEGETATION_KEY);
+        final Holder<PlacedFeature> WOODED_CAVE_VEGETATION_PLACED = register(context, WOODED_CAVE_VEGETATION_KEY,
+                WOODED_CAVE_VEGETATION_CONFIGURED, CountPlacement.of(128), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+
+        final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_CEILING_VEGETATION_CONFIGURED = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.WOODED_CAVE_CEILING_VEGETATION_KEY);
+        final Holder<PlacedFeature> WOODED_CAVE_CEILING_VEGETATION_PLACED = register(context, WOODED_CAVE_CEILING_VEGETATION_KEY,
+                WOODED_CAVE_CEILING_VEGETATION_CONFIGURED, CountPlacement.of(96), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(-1)), BiomeFilter.biome());
+
+        final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_TREES_CONFIGURED = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.WOODED_CAVE_TREES_KEY);
+        final Holder<PlacedFeature> WOODED_CAVE_TREES_PLACED = register(context, WOODED_CAVE_TREES_KEY,
+                WOODED_CAVE_TREES_CONFIGURED, CountPlacement.of(64), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+
+        final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_FLOOR_CONFIGURED = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.WOODED_CAVE_FLOOR_KEY);
+        final Holder<PlacedFeature> WOODED_CAVE_FLOOR_PLACED = register(context, WOODED_CAVE_FLOOR_KEY,
+                WOODED_CAVE_FLOOR_CONFIGURED, CountPlacement.of(200), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+
+        final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_CEILING_CONFIGURED = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.WOODED_CAVE_CEILING_KEY);
+        final Holder<PlacedFeature> WOODED_CAVE_CEILING_PLACED = register(context, WOODED_CAVE_CEILING_KEY,
+                WOODED_CAVE_CEILING_CONFIGURED, CountPlacement.of(200), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(-1)), BiomeFilter.biome());
 
         // ----- Misc. Vegetation -----
         /**
