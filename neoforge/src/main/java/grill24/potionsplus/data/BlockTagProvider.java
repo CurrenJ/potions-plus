@@ -1,6 +1,7 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.ModInfo;
@@ -125,6 +126,13 @@ public class BlockTagProvider extends BlockTagsProvider {
 
         tag(grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE)
                 .addTag(Tags.Blocks.STONES)
+                .add(Blocks.SANDSTONE)
+                .add(Blocks.BASALT)
+                .add(Blocks.BLACKSTONE)
+                .add(DecorationBlocks.UNSTABLE_BLACKSTONE.value())
+                .add(DecorationBlocks.UNSTABLE_MOLTEN_BLACKSTONE.value())
+                .add(DecorationBlocks.UNSTABLE_DEEPSLATE.value())
+                .add(DecorationBlocks.UNSTABLE_MOLTEN_DEEPSLATE.value())
                 .addTag(Tags.Blocks.COBBLESTONES);
 
         tag(grill24.potionsplus.core.Tags.Blocks.SANDY_ORE_REPLACEABLE)

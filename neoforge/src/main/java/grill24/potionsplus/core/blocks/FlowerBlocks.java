@@ -9,14 +9,17 @@ import grill24.potionsplus.utility.registration.block.*;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.neoforged.neoforge.common.Tags;
 import oshi.util.tuples.Pair;
 
 import java.util.List;
@@ -52,7 +55,8 @@ public class FlowerBlocks {
 
         IRON_OXIDE_DAISY = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("iron_oxide_daisy")
                 .blockFactory(prop -> new OreFlowerBlock(MobEffects.MAGNETIC, 200, prop.mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
-                        state -> state.is(net.minecraft.world.level.block.Blocks.IRON_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE),
+                        state -> state.is(BlockTags.DIRT) || state.getBlock() instanceof FarmBlock,
+                        state -> state.is(Tags.Blocks.ORES_IRON),
                         0.15f))
                 .modelGenerator(SimpleCrossBlockModelGenerator::new)
                 .renderType(BlockBuilder.RenderType.CUTOUT)
@@ -61,7 +65,8 @@ public class FlowerBlocks {
 
         COPPER_CHRYSANTHEMUM = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("copper_chrysanthemum")
                 .blockFactory(prop -> new OreFlowerBlock(MobEffects.FORTUITOUS_FATE, 200, prop.mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
-                        state -> state.is(net.minecraft.world.level.block.Blocks.COPPER_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE),
+                        state -> state.is(BlockTags.DIRT) || state.getBlock() instanceof FarmBlock,
+                        state -> state.is(Tags.Blocks.ORES_COPPER),
                         0.15f))
                 .modelGenerator(SimpleCrossBlockModelGenerator::new)
                 .renderType(BlockBuilder.RenderType.CUTOUT)
@@ -70,7 +75,8 @@ public class FlowerBlocks {
 
         LAPIS_LILAC = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("lapis_lilac")
                 .blockFactory(prop -> new OreFlowerBlock(MobEffects.LOOTING, 200, prop.mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
-                        state -> state.is(net.minecraft.world.level.block.Blocks.LAPIS_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_LAPIS_ORE),
+                        state -> state.is(BlockTags.DIRT) || state.getBlock() instanceof FarmBlock,
+                        state -> state.is(Tags.Blocks.ORES_LAPIS),
                         0.3f))
                 .modelGenerator(SimpleCrossBlockModelGenerator::new)
                 .renderType(BlockBuilder.RenderType.CUTOUT)
@@ -79,7 +85,8 @@ public class FlowerBlocks {
 
         DIAMOUR = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("diamour")
                 .blockFactory(prop -> new OreFlowerBlock(MobEffects.TELEPORTATION, 200, prop.mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
-                        state -> state.is(net.minecraft.world.level.block.Blocks.DIAMOND_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE),
+                        state -> state.is(BlockTags.DIRT) || state.getBlock() instanceof FarmBlock,
+                        state -> state.is(Tags.Blocks.ORES_DIAMOND),
                         0.15f))
                 .modelGenerator(SimpleCrossBlockModelGenerator::new)
                 .renderType(BlockBuilder.RenderType.CUTOUT)
@@ -88,7 +95,8 @@ public class FlowerBlocks {
 
         GOLDEN_CUBENSIS = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("golden_cubensis")
                 .blockFactory(prop -> new OreFlowerBlock(MobEffects.GEODE_GRACE, 200, prop.mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
-                        state -> state.is(net.minecraft.world.level.block.Blocks.GOLD_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE),
+                        state -> state.is(BlockTags.DIRT) || state.getBlock() instanceof FarmBlock,
+                        state -> state.is(Tags.Blocks.ORES_GOLD),
                         0.2f))
                 .modelGenerator(SimpleCrossBlockModelGenerator::new)
                 .renderType(BlockBuilder.RenderType.CUTOUT)
@@ -97,7 +105,9 @@ public class FlowerBlocks {
 
         REDSTONE_ROSE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("redstone_rose")
                 .blockFactory(prop -> new OreFlowerBlock(MobEffects.REACH_FOR_THE_STARS, 200, prop.mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
-                        state -> state.is(net.minecraft.world.level.block.Blocks.REDSTONE_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_REDSTONE_ORE),
+                        state -> state.is(BlockTags.DIRT) || state.getBlock() instanceof FarmBlock,
+                        state -> state.is(Tags.Blocks.ORES_REDSTONE),
+
                         0.1f))
                 .modelGenerator(SimpleCrossBlockModelGenerator::new)
                 .renderType(BlockBuilder.RenderType.CUTOUT)
@@ -106,7 +116,8 @@ public class FlowerBlocks {
 
         BLACK_COALLA_LILY = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("black_coalla_lily")
                 .blockFactory(prop -> new OreFlowerBlock(net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, 200, prop.mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS), false, null,
-                        state -> state.is(net.minecraft.world.level.block.Blocks.COAL_ORE) || state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE),
+                        state -> state.is(BlockTags.DIRT) || state.getBlock() instanceof FarmBlock,
+                        state -> state.is(Tags.Blocks.ORES_COAL),
                         0.1f))
                 .modelGenerator(SimpleCrossBlockModelGenerator::new)
                 .renderType(BlockBuilder.RenderType.CUTOUT)

@@ -17,13 +17,16 @@ import grill24.potionsplus.utility.registration.block.UraniumOreBlockModelGenera
 import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 
 import java.util.Optional;
@@ -424,5 +427,77 @@ public class OreBlocks {
                                 RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE, "all")))
         ).getHolder();
         Items.registerBlockItem(STONEY_URANIUM_ORE, registerItem);
+    }
+
+    public static Optional<BlockState> tryGetRuntimeOreVariant(BlockState vanillaOre, BlockState replacing) {
+        if (vanillaOre == null || replacing == null || vanillaOre.isEmpty() || replacing.isEmpty()) {
+            return Optional.empty();
+        }
+
+        BlockState oreVariantBlock = null;
+        if (vanillaOre.is(BlockTags.COAL_ORES)) {
+            Optional<BlockState> state = tryForBlocks(replacing, SANDY_COAL_ORE, STONEY_COAL_ORE);
+            if (state.isPresent()) {
+                oreVariantBlock = state.get();
+            }
+        } else if (vanillaOre.is(BlockTags.COPPER_ORES)) {
+            Optional<BlockState> state = tryForBlocks(replacing, SANDY_COPPER_ORE, STONEY_COPPER_ORE);
+            if (state.isPresent()) {
+                oreVariantBlock = state.get();
+            }
+        } else if (vanillaOre.is(BlockTags.IRON_ORES)) {
+            Optional<BlockState> state = tryForBlocks(replacing, SANDY_IRON_ORE, STONEY_IRON_ORE);
+            if (state.isPresent()) {
+                oreVariantBlock = state.get();
+            }
+        } else if (vanillaOre.is(BlockTags.GOLD_ORES)) {
+            Optional<BlockState> state = tryForBlocks(replacing, SANDY_GOLD_ORE, STONEY_GOLD_ORE);
+            if (state.isPresent()) {
+                oreVariantBlock = state.get();
+            }
+        } else if (vanillaOre.is(BlockTags.DIAMOND_ORES)) {
+            Optional<BlockState> state = tryForBlocks(replacing, SANDY_DIAMOND_ORE, STONEY_DIAMOND_ORE);
+            if (state.isPresent()) {
+                oreVariantBlock = state.get();
+            }
+        } else if (vanillaOre.is(BlockTags.REDSTONE_ORES)) {
+            Optional<BlockState> state = tryForBlocks(replacing, SANDY_REDSTONE_ORE, STONEY_REDSTONE_ORE);
+            if (state.isPresent()) {
+                oreVariantBlock = state.get();
+            }
+        } else if (vanillaOre.is(BlockTags.LAPIS_ORES)) {
+            Optional<BlockState> state = tryForBlocks(replacing, SANDY_LAPIS_ORE, STONEY_LAPIS_ORE);
+            if (state.isPresent()) {
+                oreVariantBlock = state.get();
+            }
+        } else if (vanillaOre.is(BlockTags.EMERALD_ORES)) {
+            Optional<BlockState> state = tryForBlocks(replacing, SANDY_EMERALD_ORE, STONEY_EMERALD_ORE);
+            if (state.isPresent()) {
+                oreVariantBlock = state.get();
+            }
+        } else if (vanillaOre.is(Tags.Blocks.ORES_URANIUM)) {
+            Optional<BlockState> state = tryForBlocks(replacing, SANDY_URANIUM_ORE, STONEY_URANIUM_ORE);
+            if (state.isPresent()) {
+                oreVariantBlock = state.get();
+            }
+        }
+
+        if (oreVariantBlock != null) {
+            return Optional.of(oreVariantBlock);
+        }
+        return Optional.empty();
+    }
+
+    private static Optional<BlockState> tryForBlocks(BlockState replacing, Holder<Block>... textureVariantBlocks) {
+        for (Holder<Block> block : textureVariantBlocks) {
+            Optional<BlockState> replaced = RuntimeTextureVariantModelGenerator.tryGetTextureVariantBlockState(block.value(),
+                    new ItemStack(replacing.getBlock()), block.value().defaultBlockState(), PotionsPlusOreBlock.TEXTURE);
+
+            if (replaced.isPresent()) {
+                return replaced;
+            }
+        }
+
+        return Optional.empty();
     }
 }

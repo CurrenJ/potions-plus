@@ -59,16 +59,32 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
             }
         }
 
+        if (potions_plus$tryPlaceRuntimeOreVariants(level, random, blockpos$mutableblockpos, bulksectionaccess, replacing, placing)) return;
+
+        // Place ore flowers atop ore blocks
+        BuiltInRegistries.BLOCK.getOrThrow(Tags.Blocks.ORE_FLOWERS).forEach(block -> {
+            if (block.value() instanceof OreFlowerBlock oreFlowerBlock && oreFlowerBlock.mayGenerateOn(placing)) {
+                BlockPos abovePos = new BlockPos(blockpos$mutableblockpos.getX(), blockpos$mutableblockpos.getY() + 1, blockpos$mutableblockpos.getZ());
+                BlockState above = bulksectionaccess.getBlockState(abovePos);
+                if (above.isAir() && random.nextFloat() < oreFlowerBlock.getGenerationChance()) {
+                    potions_plus$tryPlaceBlock(level, bulksectionaccess, oreFlowerBlock, abovePos);
+                }
+            }
+        });
+    }
+
+    @Unique
+    private static boolean potions_plus$tryPlaceRuntimeOreVariants(WorldGenLevel level, RandomSource random, BlockPos.MutableBlockPos blockpos$mutableblockpos, BulkSectionAccess bulksectionaccess, BlockState replacing, BlockState placingOre) {
         if (replacing.is(Tags.Blocks.STONEY_ORE_REPLACEABLE)) {
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.COAL_ORES, OreBlocks.STONEY_COAL_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.COPPER_ORES, OreBlocks.STONEY_COPPER_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.IRON_ORES, OreBlocks.STONEY_IRON_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.GOLD_ORES, OreBlocks.STONEY_GOLD_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.REDSTONE_ORES, OreBlocks.STONEY_REDSTONE_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.LAPIS_ORES, OreBlocks.STONEY_LAPIS_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.DIAMOND_ORES, OreBlocks.STONEY_DIAMOND_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.EMERALD_ORES, OreBlocks.STONEY_EMERALD_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, Tags.Blocks.ORES_URANIUM, OreBlocks.STONEY_URANIUM_ORE.value());
+            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.COAL_ORES, OreBlocks.STONEY_COAL_ORE.value());
+            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.COPPER_ORES, OreBlocks.STONEY_COPPER_ORE.value());
+            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.IRON_ORES, OreBlocks.STONEY_IRON_ORE.value());
+            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.GOLD_ORES, OreBlocks.STONEY_GOLD_ORE.value());
+            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.REDSTONE_ORES, OreBlocks.STONEY_REDSTONE_ORE.value());
+            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.LAPIS_ORES, OreBlocks.STONEY_LAPIS_ORE.value());
+            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.DIAMOND_ORES, OreBlocks.STONEY_DIAMOND_ORE.value());
+            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.EMERALD_ORES, OreBlocks.STONEY_EMERALD_ORE.value());
+            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, Tags.Blocks.ORES_URANIUM, OreBlocks.STONEY_URANIUM_ORE.value());
         }
 
         if (replacing.is(Tags.Blocks.SANDY_ORE_REPLACEABLE)) {
@@ -81,30 +97,20 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
             float randomValue = random.nextFloat();
             if (randomValue < failureChance) {
                 potions_plus$tryPlaceBlockState(level, bulksectionaccess, replacing, blockpos$mutableblockpos);
-                return;
+                return true;
             } else {
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.COAL_ORES, OreBlocks.SANDY_COAL_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.COPPER_ORES, OreBlocks.SANDY_COPPER_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.IRON_ORES, OreBlocks.SANDY_IRON_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.GOLD_ORES, OreBlocks.SANDY_GOLD_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.REDSTONE_ORES, OreBlocks.SANDY_REDSTONE_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.LAPIS_ORES, OreBlocks.SANDY_LAPIS_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.DIAMOND_ORES, OreBlocks.SANDY_DIAMOND_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.EMERALD_ORES, OreBlocks.SANDY_EMERALD_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, Tags.Blocks.ORES_URANIUM, OreBlocks.SANDY_URANIUM_ORE.value());
+                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.COAL_ORES, OreBlocks.SANDY_COAL_ORE.value());
+                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.COPPER_ORES, OreBlocks.SANDY_COPPER_ORE.value());
+                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.IRON_ORES, OreBlocks.SANDY_IRON_ORE.value());
+                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.GOLD_ORES, OreBlocks.SANDY_GOLD_ORE.value());
+                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.REDSTONE_ORES, OreBlocks.SANDY_REDSTONE_ORE.value());
+                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.LAPIS_ORES, OreBlocks.SANDY_LAPIS_ORE.value());
+                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.DIAMOND_ORES, OreBlocks.SANDY_DIAMOND_ORE.value());
+                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, BlockTags.EMERALD_ORES, OreBlocks.SANDY_EMERALD_ORE.value());
+                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placingOre, Tags.Blocks.ORES_URANIUM, OreBlocks.SANDY_URANIUM_ORE.value());
             }
         }
-
-        // Place ore flowers atop ore blocks
-        BuiltInRegistries.BLOCK.getOrThrow(Tags.Blocks.ORE_FLOWERS).forEach(block -> {
-            if (block.value() instanceof OreFlowerBlock oreFlowerBlock && oreFlowerBlock.mayPlaceOn(placing)) {
-                BlockPos abovePos = new BlockPos(blockpos$mutableblockpos.getX(), blockpos$mutableblockpos.getY() + 1, blockpos$mutableblockpos.getZ());
-                BlockState above = bulksectionaccess.getBlockState(abovePos);
-                if (above.isAir() && random.nextFloat() < oreFlowerBlock.getGenerationChance()) {
-                    potions_plus$tryPlaceBlock(level, bulksectionaccess, oreFlowerBlock, abovePos);
-                }
-            }
-        });
+        return false;
     }
 
     /**

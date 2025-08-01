@@ -1,49 +1,28 @@
 package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
+import grill24.potionsplus.block.PotionsPlusOreBlock;
 import grill24.potionsplus.core.blocks.OreBlocks;
+import grill24.potionsplus.mixin.OreFeatureMixin;
+import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.neoforged.neoforge.common.Tags;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegetationPatchConfiguration> {
-    private static final Map<Block, Map<Block, Supplier<BlockState>>> oreReplacements = new HashMap<>();
-
-    static {
-        var sandMap = oreReplacements.computeIfAbsent(Blocks.SAND, block -> new HashMap<>());
-        sandMap.put(Blocks.COAL_ORE, () -> OreBlocks.SANDY_COAL_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_COAL_ORE, () -> OreBlocks.SANDY_COAL_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.IRON_ORE, () -> OreBlocks.SANDY_IRON_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_IRON_ORE, () -> OreBlocks.SANDY_IRON_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.COPPER_ORE, () -> OreBlocks.SANDY_COPPER_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_COPPER_ORE, () -> OreBlocks.SANDY_COPPER_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.GOLD_ORE, () -> OreBlocks.SANDY_GOLD_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_GOLD_ORE, () -> OreBlocks.SANDY_GOLD_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DIAMOND_ORE, () -> OreBlocks.SANDY_DIAMOND_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_DIAMOND_ORE, () -> OreBlocks.SANDY_DIAMOND_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.EMERALD_ORE, () -> OreBlocks.SANDY_EMERALD_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_EMERALD_ORE, () -> OreBlocks.SANDY_EMERALD_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.LAPIS_ORE, () -> OreBlocks.SANDY_LAPIS_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_LAPIS_ORE, () -> OreBlocks.SANDY_LAPIS_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.REDSTONE_ORE, () -> OreBlocks.SANDY_REDSTONE_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_REDSTONE_ORE, () -> OreBlocks.SANDY_REDSTONE_ORE.value().defaultBlockState());
-    }
-
     public PotionsPlusVegetationPatchFeature(Codec<PotionsPlusVegetationPatchConfiguration> codec) {
         super(codec);
     }
@@ -130,33 +109,25 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
         return p_160593_.vegetationFeature.value().place(p_160592_, p_160594_, p_160595_, p_160596_.relative(p_160593_.facing));
     }
 
-    protected boolean placeGround(WorldGenLevel p_160605_, PotionsPlusVegetationPatchConfiguration p_160606_, Predicate<BlockState> p_160607_, RandomSource p_160608_, BlockPos.MutableBlockPos p_160609_, int p_160610_) {
+    protected boolean placeGround(WorldGenLevel level, PotionsPlusVegetationPatchConfiguration p_160606_, Predicate<BlockState> canReplace, RandomSource random, BlockPos.MutableBlockPos pos, int p_160610_) {
         for (int i = 0; i < p_160610_; ++i) {
-            BlockState blockstate = p_160606_.groundState.getState(p_160608_, p_160609_);
-            BlockState blockstate1 = p_160605_.getBlockState(p_160609_);
-            if (!blockstate.is(blockstate1.getBlock())) {
-                if (!p_160607_.test(blockstate1)) {
+            BlockState ground = p_160606_.groundState.getState(random, pos);
+            BlockState existing = level.getBlockState(pos);
+            if (!ground.is(existing.getBlock())) {
+                if (!canReplace.test(existing)) {
                     return i != 0;
                 }
 
                 // Don't replace ores with ground
-                if (blockstate1.is(Tags.Blocks.ORES))
-                    blockstate = blockstate1;
-
-                // If we can replace ore with some ore base block variant, do so
-                Block oreBaseBlock = blockstate.getBlock();
-                if (!oreReplacements.containsKey(oreBaseBlock)) {
-                    oreBaseBlock = p_160606_.oreBaseBlock.getState(p_160608_, p_160609_).getBlock();
-                }
-                if (oreReplacements.containsKey(oreBaseBlock)) {
-                    var replacementMap = oreReplacements.get(oreBaseBlock);
-                    if (replacementMap.containsKey(blockstate1.getBlock())) {
-                        blockstate = replacementMap.get(blockstate1.getBlock()).get();
+                if (existing.is(Tags.Blocks.ORES)) {
+                    Optional<BlockState> state = OreBlocks.tryGetRuntimeOreVariant(existing, ground);
+                    if (state.isPresent()) {
+                        ground = state.get();
                     }
                 }
 
-                p_160605_.setBlock(p_160609_, blockstate, 2 | 16);
-                p_160609_.move(p_160606_.facing.getOpposite());
+                level.setBlock(pos, ground, 2 | 16);
+                pos.move(p_160606_.facing.getOpposite());
             }
         }
 

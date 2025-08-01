@@ -104,7 +104,7 @@ public class Grungler extends Monster {
         BlockState blockState = event.getState();
         if (!event.getDrops().isEmpty() && blockState.is(Tags.Blocks.ORES)) {
             if (event.getBreaker() instanceof Player player && !player.isCreative() && player.level() instanceof ServerLevel serverLevel) {
-                float spawnChance = 0.025F; // 1/40 chance to spawn a Grungler
+                float spawnChance = 0.01F; // 1/40 chance to spawn a Grungler
                 if (serverLevel.getRandom().nextDouble() < spawnChance) {
                     // Check if the player has a Grungler entity nearby
                     Grungler grungler = Entities.GRUNGLER.get().spawn(serverLevel, event.getPos(), EntitySpawnReason.NATURAL);
