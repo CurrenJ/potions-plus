@@ -15,31 +15,32 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Fox;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class TeleportationEffect extends InstantenousMobEffect implements IEffectTooltipDetails{
+public class TeleportationEffect extends InstantenousMobEffect implements IEffectTooltipDetails {
     public TeleportationEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
+    public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity livingEntity, int amplifier) {
         teleport(livingEntity, amplifier);
         return true;
     }
 
     @Override
-    public void applyInstantenousEffect(@Nullable Entity source, @Nullable Entity indirectSource, LivingEntity livingEntity, int amplifier, double health) {
+    public void applyInstantenousEffect(ServerLevel serverLevel, @Nullable Entity source, @Nullable Entity indirectSource, LivingEntity livingEntity, int amplifier, double health) {
         teleport(livingEntity, amplifier);
     }
 
     private static void teleport(LivingEntity livingEntity, int amplifier) {
-        if(livingEntity.level().isClientSide) {
+        if (livingEntity.level().isClientSide) {
             return;
         }
 
@@ -52,16 +53,16 @@ public class TeleportationEffect extends InstantenousMobEffect implements IEffec
         for (int i = 0; i < 16; ++i) {
             // Taken from ChorusFruitItem
             double d3 = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5D) * stepLength;
-            double d4 = Mth.clamp(livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(stepLength) - 8), (double) livingEntity.level().getMinBuildHeight(), (double) (livingEntity.level().getMinBuildHeight() + ((ServerLevel) livingEntity.level()).getLogicalHeight() - 1));
+            double d4 = Mth.clamp(livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(stepLength) - 8), livingEntity.level().getMinY(), livingEntity.level().getMaxY() + ((ServerLevel) livingEntity.level()).getLogicalHeight() - 1);
             double d5 = livingEntity.getZ() + (livingEntity.getRandom().nextDouble() - 0.5D) * stepLength;
             if (livingEntity.isPassenger()) {
                 livingEntity.stopRiding();
             }
 
-            EntityTeleportEvent.ChorusFruit event = EventHooks.onChorusFruitTeleport(livingEntity, d3, d4, d5);
+            EntityTeleportEvent.ItemConsumption event = EventHooks.onItemConsumptionTeleport(livingEntity, new ItemStack(Items.CHORUS_FRUIT), d3, d4, d5);
             if (livingEntity.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true)) {
                 SoundEvent soundevent = livingEntity instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
-                livingEntity.level().playSound((Player) null, d0, d1, d2, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
+                livingEntity.level().playSound(null, d0, d1, d2, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
                 livingEntity.playSound(soundevent, 1.0F, 1.0F);
                 break;
             }

@@ -1,7 +1,7 @@
 {
-  "type": "potionsplus:modifiers_while_pickaxe_held",
+  "type": "potionsplus:modifiers_while_item_held",
   "config": {
-    "attribute": "minecraft:player.submerged_mining_speed",
+    "attribute": "minecraft:submerged_mining_speed",
     "baseConfig": {
       "enabledByDefault": true,
       "itemPredicate": {

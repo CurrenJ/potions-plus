@@ -19,7 +19,7 @@ public class ShepherdsSerenadeEffect extends MobEffect implements IEffectTooltip
     @Override
     public Component getDisplayName() {
         String name = Minecraft.getInstance().player.getName().getContents().toString();
-        if(name.equals("grill24") || name.equals("ThatDinoGuy")) {
+        if (name.equals("grill24") || name.equals("ThatDinoGuy")) {
             return Component.literal("Milkboat's Melody");
         }
 

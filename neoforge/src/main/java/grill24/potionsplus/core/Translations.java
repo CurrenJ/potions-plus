@@ -2,6 +2,10 @@ package grill24.potionsplus.core;
 
 public class Translations {
     // Auto-generated translations
+    public static final String CONFIGURATION_POTIONSPLUS_ENABLE_SKILLS = "configuration.potionsplus.enable_skills";
+    public static final String CONFIGURATION_POTIONSPLUS_POTION_DRINK_TIME_TICKS = "configuration.potionsplus.potion_drink_time_ticks";
+    public static final String CONFIGURATION_POTIONSPLUS_POTION_USE_COOLDOWN_TIME_TICKS = "configuration.potionsplus.potion_use_cooldown_time_ticks";
+    public static final String CONFIGURATION_POTIONSPLUS_GENERATE_ORE_VARIANTS = "configuration.potionsplus.generate_ore_variants";
     public static final String BLOCK_POTIONSPLUS_PARTICLE_EMITTER = "block.potionsplus.particle_emitter";
     public static final String JEI_POTIONSPLUS_PARTICLE_EMITTER_DESCRIPTION = "jei.potionsplus.particle_emitter.description";
     public static final String BLOCK_POTIONSPLUS_PRECISION_DISPENSER = "block.potionsplus.precision_dispenser";
@@ -20,6 +24,7 @@ public class Translations {
     public static final String BLOCK_POTIONSPLUS_REDSTONE_ROSE = "block.potionsplus.redstone_rose";
     public static final String BLOCK_POTIONSPLUS_DENSE_DIAMOND_ORE = "block.potionsplus.dense_diamond_ore";
     public static final String BLOCK_POTIONSPLUS_DEEPSLATE_DENSE_DIAMOND_ORE = "block.potionsplus.deepslate_dense_diamond_ore";
+    public static final String ITEM_POTIONSPLUS_COOBLESTONE = "item.potionsplus.cooblestone";
     public static final String BLOCK_POTIONSPLUS_COOBLESTONE = "block.potionsplus.cooblestone";
     public static final String JEI_POTIONSPLUS_COOBLESTONE_DESCRIPTION = "jei.potionsplus.cooblestone.description";
     public static final String BLOCK_POTIONSPLUS_UNSTABLE_BLOCK = "block.potionsplus.unstable_block";
@@ -177,9 +182,7 @@ public class Translations {
     public static final String BLOCK_POTIONSPLUS_STONEY_REDSTONE_ORE = "block.potionsplus.stoney_redstone_ore";
     public static final String BLOCK_POTIONSPLUS_STONEY_EMERALD_ORE = "block.potionsplus.stoney_emerald_ore";
     public static final String BLOCK_POTIONSPLUS_STONEY_URANIUM_ORE = "block.potionsplus.stoney_uranium_ore";
-    public static final String BLOCK_POTIONSPLUS_FISH_TANK_PLANKS = "block.potionsplus.fish_tank_planks";
-    public static final String BLOCK_POTIONSPLUS_FISH_TANK_LOGS = "block.potionsplus.fish_tank_logs";
-    public static final String BLOCK_POTIONSPLUS_FISH_TANK_STONES = "block.potionsplus.fish_tank_stones";
+    public static final String BLOCK_POTIONSPLUS_FISH_TANK = "block.potionsplus.fish_tank";
     public static final String BLOCK_POTIONSPLUS_HANGING_FERN = "block.potionsplus.hanging_fern";
     public static final String BLOCK_POTIONSPLUS_HANGING_FERN_DESCRIPTION = "block.potionsplus.hanging_fern.description";
     public static final String BLOCK_POTIONSPLUS_DROOPY_VINE = "block.potionsplus.droopy_vine";
@@ -304,6 +307,7 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_ROYAL_GARDEN_EEL = "item.potionsplus.royal_garden_eel";
     public static final String ITEM_POTIONSPLUS_LONGNOSE_GAR = "item.potionsplus.longnose_gar";
     public static final String ITEM_POTIONSPLUS_SHRIMP = "item.potionsplus.shrimp";
+    public static final String ITEM_POTIONSPLUS_FRIED_SHRIMP = "item.potionsplus.fried_shrimp";
     public static final String ITEM_POTIONSPLUS_MOORISH_IDOL = "item.potionsplus.moorish_idol";
     public static final String ITEM_POTIONSPLUS_MOLTEN_MOORISH_IDOL = "item.potionsplus.molten_moorish_idol";
     public static final String ITEM_POTIONSPLUS_OCEAN_SUNFISH = "item.potionsplus.ocean_sunfish";
@@ -313,6 +317,7 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_GIANT_MANTA_RAY = "item.potionsplus.giant_manta_ray";
     public static final String ITEM_POTIONSPLUS_FROZEN_GIANT_MANTA_RAY = "item.potionsplus.frozen_giant_manta_ray";
     public static final String ITEM_POTIONSPLUS_LIZARDFISH = "item.potionsplus.lizardfish";
+    public static final String ITEM_POTIONSPLUS_STARFISH = "item.potionsplus.starfish";
     public static final String BLOCK_POTIONSPLUS_SKILL_JOURNALS = "block.potionsplus.skill_journals";
     public static final String BLOCK_POTIONSPLUS_FISHING_LEADERBOARDS = "block.potionsplus.fishing_leaderboards";
     public static final String BLOCK_POTIONSPLUS_URANIUM_GLASS = "block.potionsplus.uranium_glass";
@@ -433,11 +438,11 @@ public class Translations {
     public static final String ITEM_MINECRAFT_LINGERING_POTION_EFFECT_BLINDNESS = "item.minecraft.lingering_potion.effect.blindness";
     public static final String ITEM_MINECRAFT_TIPPED_ARROW_EFFECT_BLINDNESS = "item.minecraft.tipped_arrow.effect.blindness";
     public static final String JEI_POTIONSPLUS_BLINDNESS_DESCRIPTION = "jei.potionsplus.blindness.description";
-    public static final String EFFECT_POTIONSPLUS_CONFUSION = "effect.potionsplus.confusion";
-    public static final String ITEM_MINECRAFT_POTION_EFFECT_CONFUSION = "item.minecraft.potion.effect.confusion";
-    public static final String ITEM_MINECRAFT_SPLASH_POTION_EFFECT_CONFUSION = "item.minecraft.splash_potion.effect.confusion";
-    public static final String ITEM_MINECRAFT_LINGERING_POTION_EFFECT_CONFUSION = "item.minecraft.lingering_potion.effect.confusion";
-    public static final String ITEM_MINECRAFT_TIPPED_ARROW_EFFECT_CONFUSION = "item.minecraft.tipped_arrow.effect.confusion";
+    public static final String EFFECT_POTIONSPLUS_NAUSEA = "effect.potionsplus.nausea";
+    public static final String ITEM_MINECRAFT_POTION_EFFECT_NAUSEA = "item.minecraft.potion.effect.nausea";
+    public static final String ITEM_MINECRAFT_SPLASH_POTION_EFFECT_NAUSEA = "item.minecraft.splash_potion.effect.nausea";
+    public static final String ITEM_MINECRAFT_LINGERING_POTION_EFFECT_NAUSEA = "item.minecraft.lingering_potion.effect.nausea";
+    public static final String ITEM_MINECRAFT_TIPPED_ARROW_EFFECT_NAUSEA = "item.minecraft.tipped_arrow.effect.nausea";
     public static final String JEI_POTIONSPLUS_CONFUSION_DESCRIPTION = "jei.potionsplus.confusion.description";
     public static final String EFFECT_POTIONSPLUS_HUNGER = "effect.potionsplus.hunger";
     public static final String ITEM_MINECRAFT_POTION_EFFECT_HUNGER = "item.minecraft.potion.effect.hunger";
@@ -594,6 +599,7 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_COAL_ORE_HAT_1 = "item.potionsplus.coal_ore_hat_1";
     public static final String ITEM_POTIONSPLUS_COAL_ORE_HAT_2 = "item.potionsplus.coal_ore_hat_2";
     public static final String ITEM_POTIONSPLUS_COAL_ORE_HAT_3 = "item.potionsplus.coal_ore_hat_3";
+    public static final String ITEM_POTIONSPLUS_COAL_ORE_HAT_4 = "item.potionsplus.coal_ore_hat_4";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_COAL_ORE_64_TITLE = "advancements.potionsplus.ore_hat.mine_coal_ore_64.title";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_COAL_ORE_64_DESCRIPTION = "advancements.potionsplus.ore_hat.mine_coal_ore_64.description";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_COAL_ORE_128_TITLE = "advancements.potionsplus.ore_hat.mine_coal_ore_128.title";
@@ -603,6 +609,7 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_IRON_ORE_HAT_1 = "item.potionsplus.iron_ore_hat_1";
     public static final String ITEM_POTIONSPLUS_IRON_ORE_HAT_2 = "item.potionsplus.iron_ore_hat_2";
     public static final String ITEM_POTIONSPLUS_IRON_ORE_HAT_3 = "item.potionsplus.iron_ore_hat_3";
+    public static final String ITEM_POTIONSPLUS_IRON_ORE_HAT_4 = "item.potionsplus.iron_ore_hat_4";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_IRON_ORE_64_TITLE = "advancements.potionsplus.ore_hat.mine_iron_ore_64.title";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_IRON_ORE_64_DESCRIPTION = "advancements.potionsplus.ore_hat.mine_iron_ore_64.description";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_IRON_ORE_128_TITLE = "advancements.potionsplus.ore_hat.mine_iron_ore_128.title";
@@ -612,6 +619,7 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_GOLD_ORE_HAT_1 = "item.potionsplus.gold_ore_hat_1";
     public static final String ITEM_POTIONSPLUS_GOLD_ORE_HAT_2 = "item.potionsplus.gold_ore_hat_2";
     public static final String ITEM_POTIONSPLUS_GOLD_ORE_HAT_3 = "item.potionsplus.gold_ore_hat_3";
+    public static final String ITEM_POTIONSPLUS_GOLD_ORE_HAT_4 = "item.potionsplus.gold_ore_hat_4";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_GOLD_ORE_64_TITLE = "advancements.potionsplus.ore_hat.mine_gold_ore_64.title";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_GOLD_ORE_64_DESCRIPTION = "advancements.potionsplus.ore_hat.mine_gold_ore_64.description";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_GOLD_ORE_128_TITLE = "advancements.potionsplus.ore_hat.mine_gold_ore_128.title";
@@ -621,6 +629,7 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_COPPER_ORE_HAT_1 = "item.potionsplus.copper_ore_hat_1";
     public static final String ITEM_POTIONSPLUS_COPPER_ORE_HAT_2 = "item.potionsplus.copper_ore_hat_2";
     public static final String ITEM_POTIONSPLUS_COPPER_ORE_HAT_3 = "item.potionsplus.copper_ore_hat_3";
+    public static final String ITEM_POTIONSPLUS_COPPER_ORE_HAT_4 = "item.potionsplus.copper_ore_hat_4";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_COPPER_ORE_64_TITLE = "advancements.potionsplus.ore_hat.mine_copper_ore_64.title";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_COPPER_ORE_64_DESCRIPTION = "advancements.potionsplus.ore_hat.mine_copper_ore_64.description";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_COPPER_ORE_128_TITLE = "advancements.potionsplus.ore_hat.mine_copper_ore_128.title";
@@ -630,6 +639,7 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_DIAMOND_ORE_HAT_1 = "item.potionsplus.diamond_ore_hat_1";
     public static final String ITEM_POTIONSPLUS_DIAMOND_ORE_HAT_2 = "item.potionsplus.diamond_ore_hat_2";
     public static final String ITEM_POTIONSPLUS_DIAMOND_ORE_HAT_3 = "item.potionsplus.diamond_ore_hat_3";
+    public static final String ITEM_POTIONSPLUS_DIAMOND_ORE_HAT_4 = "item.potionsplus.diamond_ore_hat_4";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_DIAMOND_ORE_64_TITLE = "advancements.potionsplus.ore_hat.mine_diamond_ore_64.title";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_DIAMOND_ORE_64_DESCRIPTION = "advancements.potionsplus.ore_hat.mine_diamond_ore_64.description";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_DIAMOND_ORE_128_TITLE = "advancements.potionsplus.ore_hat.mine_diamond_ore_128.title";
@@ -639,6 +649,7 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_EMERALD_ORE_HAT_1 = "item.potionsplus.emerald_ore_hat_1";
     public static final String ITEM_POTIONSPLUS_EMERALD_ORE_HAT_2 = "item.potionsplus.emerald_ore_hat_2";
     public static final String ITEM_POTIONSPLUS_EMERALD_ORE_HAT_3 = "item.potionsplus.emerald_ore_hat_3";
+    public static final String ITEM_POTIONSPLUS_EMERALD_ORE_HAT_4 = "item.potionsplus.emerald_ore_hat_4";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_EMERALD_ORE_64_TITLE = "advancements.potionsplus.ore_hat.mine_emerald_ore_64.title";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_EMERALD_ORE_64_DESCRIPTION = "advancements.potionsplus.ore_hat.mine_emerald_ore_64.description";
     public static final String ADVANCEMENTS_POTIONSPLUS_ORE_HAT_MINE_EMERALD_ORE_128_TITLE = "advancements.potionsplus.ore_hat.mine_emerald_ore_128.title";
@@ -648,6 +659,8 @@ public class Translations {
     public static final String TOOLTIP_POTIONSPLUS_REWARD_UNKNOWN_POTION_INGREDIENT_DESCRIPTION = "tooltip.potionsplus.reward.unknown_potion_ingredient.description";
     public static final String ALERT_POTIONSPLUS_REWARD_UNKNOWN_POTION_INGREDIENT = "alert.potionsplus.reward.unknown_potion_ingredient";
     public static final String ITEM_POTIONSPLUS_FROGGY_HAT = "item.potionsplus.froggy_hat";
+    public static final String ITEM_POTIONSPLUS_HOOK_HAT = "item.potionsplus.hook_hat";
+    public static final String ITEM_POTIONSPLUS_APPLE_HAT = "item.potionsplus.apple_hat";
     public static final String FISH_SIZE = "fish.size";
     public static final String FISH_LEADERBOARD_SIZE = "fish.leaderboard.size";
     public static final String FISH_SIZE_SIMPLE = "fish.size.simple";
@@ -656,4 +669,23 @@ public class Translations {
     public static final String FISH_LEADERBOARD_CAUGHT_CHAT = "fish.leaderboard.caught.chat";
     public static final String FISH_LEADERBOARD_NPR = "fish.leaderboard.npr";
     public static final String ITEM_FISHING_ROD_NO_BAIT = "item.fishing_rod.no_bait";
+    public static final String TOOLTIP_POTIONSPLUS_FISH_TANK = "tooltip.potionsplus.fish_tank";
+    public static final String ALERT_FISH_TANK_TOO_SMALL = "alert.fish_tank.too_small";
+    public static final String ENTITY_POTIONSPLUS_GRUNGLER = "entity.potionsplus.grungler";
+    public static final String TOOLTIP_TRAIT_WEIGHT_GRAMS = "tooltip.trait.weight.grams";
+    public static final String TOOLTIP_TRAIT_COLOR = "tooltip.trait.color";
+    public static final String TOOLTIP_TRAIT_NUTRITION = "tooltip.trait.nutrition";
+    public static final String TOOLTIP_TRAIT_STEM = "tooltip.trait.stem";
+    public static final String TOOLTIP_TRAIT_LEAVES = "tooltip.trait.leaves";
+    public static final String TOOLTIP_TRAIT_FLOWER_BUDS = "tooltip.trait.flower_buds";
+    public static final String TOOLTIP_TRAIT_LATERAL_LEAF_BUDS = "tooltip.trait.lateral_leaf_buds";
+    public static final String TOOLTIP_TRAIT_TERMINAL_LEAF_BUDS = "tooltip.trait.terminal_leaf_buds";
+    public static final String ITEM_POTIONSPLUS_TOMATO = "item.potionsplus.tomato";
+    public static final String ITEM_POTIONSPLUS_BRASSICA_OLERACEA = "item.potionsplus.brassica_oleracea";
+    public static final String ITEM_POTIONSPLUS_CABBAGE = "item.potionsplus.cabbage";
+    public static final String ITEM_POTIONSPLUS_CAULIFLOWER = "item.potionsplus.cauliflower";
+    public static final String ITEM_POTIONSPLUS_KOHLRABI = "item.potionsplus.kohlrabi";
+    public static final String ITEM_POTIONSPLUS_BROCCOLI = "item.potionsplus.broccoli";
+    public static final String ITEM_POTIONSPLUS_KALE = "item.potionsplus.kale";
+    public static final String ITEM_POTIONSPLUS_BRUSSELS_SPROUTS = "item.potionsplus.brussels_sprouts";
 }

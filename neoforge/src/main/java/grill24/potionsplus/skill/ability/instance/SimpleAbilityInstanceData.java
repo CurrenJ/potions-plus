@@ -13,9 +13,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-import java.util.List;
-import java.util.Optional;
-
 public class SimpleAbilityInstanceData {
     public static final Codec<SimpleAbilityInstanceData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             ConfiguredPlayerAbility.HOLDER_CODECS.holderCodec().fieldOf("type").forGetter(instance -> instance.ability),
@@ -37,7 +34,7 @@ public class SimpleAbilityInstanceData {
         this.isEnabled = isEnabled;
     }
 
-    public  <E, AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>> ConfiguredPlayerAbility<AC, A> getConfiguredAbility() {
+    public <E, AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>> ConfiguredPlayerAbility<AC, A> getConfiguredAbility() {
         return (ConfiguredPlayerAbility<AC, A>) ability.value();
     }
 
@@ -60,8 +57,8 @@ public class SimpleAbilityInstanceData {
     public Component getDescription(boolean showEnablementText) {
         MutableComponent component = Component.empty();
 
-        ClickEvent clickEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, getToggleCommand());
-        HoverEvent hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable(Translations.GENERIC_POTIONSPLUS_TOGGLE));
+        ClickEvent clickEvent = new ClickEvent.RunCommand(getToggleCommand());
+        HoverEvent hoverEvent = new HoverEvent.ShowText(Component.translatable(Translations.GENERIC_POTIONSPLUS_TOGGLE));
         Style style = Style.EMPTY.withHoverEvent(hoverEvent).withClickEvent(clickEvent).withColor(this.isEnabled ? ChatFormatting.GREEN : ChatFormatting.RED);
 
         if (showEnablementText) {

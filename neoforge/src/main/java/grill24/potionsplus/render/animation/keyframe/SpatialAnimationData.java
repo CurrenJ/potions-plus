@@ -15,12 +15,12 @@ import java.util.Arrays;
 
 public class SpatialAnimationData {
     public static final Codec<SpatialAnimationData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            AnimationCurveSerializers.VECTOR3F.value().codec.fieldOf("position").forGetter(SpatialAnimationData::getPosition),
-            AnimationCurveSerializers.VECTOR3F.value().codec.fieldOf("rotation").forGetter(SpatialAnimationData::getRotation),
-            AnimationCurveSerializers.FLOAT.value().codec.fieldOf("scale").forGetter(SpatialAnimationData::getScale),
-            AnimationCurveSerializers.VECTOR4F.value().codec.fieldOf("color").forGetter(SpatialAnimationData::getColor)
-    ).apply(instance, (position, rotation, scale, color) ->
-            new SpatialAnimationData((Vector3fAnimationCurve) position, (Vector3fAnimationCurve) rotation, (FloatAnimationCurve) scale, (Vector4fAnimationCurve) color))
+                    AnimationCurveSerializers.VECTOR3F.value().codec.fieldOf("position").forGetter(SpatialAnimationData::getPosition),
+                    AnimationCurveSerializers.VECTOR3F.value().codec.fieldOf("rotation").forGetter(SpatialAnimationData::getRotation),
+                    AnimationCurveSerializers.FLOAT.value().codec.fieldOf("scale").forGetter(SpatialAnimationData::getScale),
+                    AnimationCurveSerializers.VECTOR4F.value().codec.fieldOf("color").forGetter(SpatialAnimationData::getColor)
+            ).apply(instance, (position, rotation, scale, color) ->
+                    new SpatialAnimationData((Vector3fAnimationCurve) position, (Vector3fAnimationCurve) rotation, (FloatAnimationCurve) scale, (Vector4fAnimationCurve) color))
     );
     public static final StreamCodec<ByteBuf, SpatialAnimationData> STREAM_CODEC = StreamCodec.composite(
             AnimationCurveSerializers.VECTOR3F.value().streamCodec,
@@ -32,10 +32,11 @@ public class SpatialAnimationData {
             AnimationCurveSerializers.VECTOR4F.value().streamCodec,
             instance -> instance.color,
             (position, rotation, scale, color) ->
-            new SpatialAnimationData((Vector3fAnimationCurve) position, (Vector3fAnimationCurve) rotation, (FloatAnimationCurve) scale, (Vector4fAnimationCurve) color)
+                    new SpatialAnimationData((Vector3fAnimationCurve) position, (Vector3fAnimationCurve) rotation, (FloatAnimationCurve) scale, (Vector4fAnimationCurve) color)
     );
 
     public static final SuggestionProvider<CommandSourceStack> SUGGEST_SPATIAL_ANIMATION_PROPERTIES = (commandContext, suggestionsBuilder) -> SharedSuggestionProvider.suggest(Arrays.stream(Property.values()).map(Property::getName), suggestionsBuilder);
+
     public enum Property {
         POSITION("position"),
         ROTATION("rotation"),

@@ -2,7 +2,6 @@ package grill24.potionsplus.block;
 
 import grill24.potionsplus.blockentity.filterhopper.FilterHopperBlockEntity;
 import grill24.potionsplus.blockentity.filterhopper.HugeFilterHopperBlockEntity;
-import grill24.potionsplus.blockentity.filterhopper.LargeFilterHopperBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

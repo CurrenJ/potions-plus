@@ -10,7 +10,7 @@
     }
   },
   "display": {
-    "background": "potionsplus:textures/block/cooblestone.png",
+    "background": "potionsplus:block/cooblestone",
     "description": {
       "translate": "advancements.potionsplus.brewing_cauldron.description"
     },

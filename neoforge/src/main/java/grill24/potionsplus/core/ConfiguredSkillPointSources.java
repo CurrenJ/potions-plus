@@ -60,27 +60,27 @@ public class ConfiguredSkillPointSources {
                 grill24.potionsplus.core.Tags.Items.PP_FISHING_DIAMOND_FRAME, 6F,
                 grill24.potionsplus.core.Tags.Items.PP_FISHING_PURPLE_FRAME, 8F))));
 
-        EntityPredicate swordPredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ItemTags.SWORDS))).build();
+        EntityPredicate swordPredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(context.lookup(Registries.ITEM), ItemTags.SWORDS))).build();
         context.register(KILL_ENTITY_WITH_SWORD, new ConfiguredSkillPointSource<>(SkillPointSources.KILL_ENTITY.get(),
                 createKillEntitySourceConfiguration(swordPredicate)
         ));
 
-        EntityPredicate bowPredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(Items.BOW))).build();
+        EntityPredicate bowPredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(context.lookup(Registries.ITEM), Items.BOW))).build();
         context.register(KILL_ENTITY_WITH_BOW, new ConfiguredSkillPointSource<>(SkillPointSources.KILL_ENTITY.get(),
                 createKillEntitySourceConfiguration(bowPredicate)
         ));
 
-        EntityPredicate crossbowPredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(Items.CROSSBOW))).build();
+        EntityPredicate crossbowPredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(context.lookup(Registries.ITEM), Items.CROSSBOW))).build();
         context.register(KILL_ENTITY_WITH_CROSSBOW, new ConfiguredSkillPointSource<>(SkillPointSources.KILL_ENTITY.get(),
                 createKillEntitySourceConfiguration(crossbowPredicate)
         ));
 
-        EntityPredicate tridentPredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(Items.TRIDENT))).build();
+        EntityPredicate tridentPredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(context.lookup(Registries.ITEM), Items.TRIDENT))).build();
         context.register(KILL_ENTITY_WITH_TRIDENT, new ConfiguredSkillPointSource<>(SkillPointSources.KILL_ENTITY.get(),
                 createKillEntitySourceConfiguration(tridentPredicate)
         ));
 
-        EntityPredicate axePredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ItemTags.AXES))).build();
+        EntityPredicate axePredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(context.lookup(Registries.ITEM), ItemTags.AXES))).build();
         context.register(KILL_ENTITY_WITH_AXE, new ConfiguredSkillPointSource<>(SkillPointSources.KILL_ENTITY.get(),
                 createKillEntitySourceConfiguration(axePredicate)
         ));

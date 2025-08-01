@@ -6,7 +6,7 @@ import grill24.potionsplus.core.ConfiguredGrantableRewards;
 import grill24.potionsplus.core.GrantableRewards;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.network.ClientboundDisplayItemActivationPacket;
-import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -26,8 +26,8 @@ public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.Anima
 
     public static class AnimatedItemRewardConfiguration extends GrantableRewardConfiguration {
         public static final Codec<AnimatedItemRewardConfiguration> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
-            ItemStack.STRICT_CODEC.optionalFieldOf("displayItem", ItemStack.EMPTY).forGetter(instance -> instance.displayItem),
-            ItemStack.STRICT_CODEC.listOf().optionalFieldOf("itemRewards", List.of()).forGetter(instance -> instance.rewards)
+                ItemStack.STRICT_CODEC.optionalFieldOf("displayItem", ItemStack.EMPTY).forGetter(instance -> instance.displayItem),
+                ItemStack.STRICT_CODEC.listOf().optionalFieldOf("itemRewards", List.of()).forGetter(instance -> instance.rewards)
         ).apply(codecBuilder, AnimatedItemRewardConfiguration::new));
 
         public ItemStack displayItem;
@@ -40,12 +40,12 @@ public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.Anima
     }
 
     @Override
-    public Optional<Component> getDescription(AnimatedItemRewardConfiguration config) {
+    public Optional<Component> getDescription(RegistryAccess registryAccess, AnimatedItemRewardConfiguration config) {
         return Optional.empty();
     }
 
     @Override
-    public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, AnimatedItemRewardConfiguration config, ServerPlayer player) {
+    public void grant(ResourceKey<ConfiguredGrantableReward<?, ?>> holder, AnimatedItemRewardConfiguration config, ServerPlayer player) {
         if (!config.displayItem.isEmpty()) {
             PacketDistributor.sendToPlayer(player, new ClientboundDisplayItemActivationPacket(config.displayItem));
         }

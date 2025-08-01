@@ -24,7 +24,9 @@ import javax.annotation.Nullable;
 
 @Mixin(FishingHook.class)
 public abstract class FishingHookMixin extends Projectile {
-    @Shadow @Nullable public abstract Player getPlayerOwner();
+    @Shadow
+    @Nullable
+    public abstract Player getPlayerOwner();
 
     protected FishingHookMixin(EntityType<? extends Projectile> entityType, Level level) {
         super(entityType, level);

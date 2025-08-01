@@ -21,9 +21,13 @@ public class HoverItemStackScreenElement extends ItemStackScreenElement {
     public void onTick(float partialTick, int mouseX, int mouseY) {
         super.onTick(partialTick, mouseX, mouseY);
 
-        setCurrentScale(RUtil.lerp(
+        float scale = RUtil.lerp(
                 getCurrentScale(),
                 isHovering() ? hoverScale : defaultScale,
-                partialTick * this.settings.animationSpeed()));
+                partialTick * this.settings.animationSpeed());
+        if (Math.abs(scale) - 1 < 0.01F) {
+            scale = 1F;
+        }
+        setCurrentScale(scale);
     }
 }

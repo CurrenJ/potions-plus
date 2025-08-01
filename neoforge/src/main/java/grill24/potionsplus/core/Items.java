@@ -9,7 +9,8 @@ import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -28,6 +29,7 @@ public class Items {
         BrewingItems.init(ITEMS::register);
         FilterHopperUpgradeItems.init(ITEMS::register);
         DynamicIconItems.init(ITEMS::register);
+        PlantItems.init(ITEMS::register);
     }
 
     public static Item.Properties properties() {
@@ -47,7 +49,7 @@ public class Items {
         } else {
             String name = id.get().getPath();
             RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple(name)
-                    .itemFactory(prop -> new BlockItem(block.value(), prop))
+                    .itemFactory(prop -> new BlockItem(block.value(), prop.useBlockDescriptionPrefix()))
                     .modelGenerator(null));
         }
     }
@@ -66,13 +68,14 @@ public class Items {
         } else {
             String name = id.get().getPath();
             RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple(name)
-                    .itemFactory(prop -> new BlockItem(block.value(), prop))
+                    .itemFactory(prop -> new BlockItem(block.value(), prop.useBlockDescriptionPrefix()))
                     .modelGenerator(holder -> new ItemModelUtility.SimpleItemModelGenerator<>(holder, texture)));
         }
     }
 
     /**
      * Register a block item and generate an item model that is the same as the block model.
+     *
      * @param block
      * @param registerItem
      */
@@ -83,7 +86,7 @@ public class Items {
         } else {
             String name = id.get().getPath();
             RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple(name)
-                    .itemFactory(prop -> new BlockItem(block.get().value(), prop))
+                    .itemFactory(prop -> new BlockItem(block.get().value(), prop.useBlockDescriptionPrefix()))
                     .modelGenerator((holder) -> new ItemModelUtility.SimpleBlockItemModelGenerator<>(holder, block)));
         }
     }
@@ -95,7 +98,7 @@ public class Items {
         } else {
             String name = id.get().getPath();
             RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple(name)
-                    .itemFactory(prop -> new BlockItem(block.get().value(), prop))
+                    .itemFactory(prop -> new BlockItem(block.get().value(), prop.useBlockDescriptionPrefix()))
                     .modelGenerator((holder) -> new ItemModelUtility.SimpleBlockItemModelGenerator<>(holder, block, parent)));
         }
     }

@@ -3,10 +3,12 @@
   "category": "MISC",
   "ingredients": [
     {
-      "ppIngredient": {
-        "count": 1,
-        "id": "minecraft:bone"
-      }
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "minecraft:bone"
+        }
+      ]
     }
   ],
   "processingTime": 600,

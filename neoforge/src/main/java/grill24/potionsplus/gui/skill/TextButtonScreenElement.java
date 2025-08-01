@@ -1,16 +1,16 @@
 package grill24.potionsplus.gui.skill;
 
 import com.mojang.math.Axis;
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.gui.RenderableScreenElement;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
 import grill24.potionsplus.utility.ClientTickHandler;
-import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.geom.Rectangle2D;
@@ -33,7 +33,7 @@ public class TextButtonScreenElement extends RenderableScreenElement {
         this.clickedTimestamp = -1;
         this.renderRotation = 0;
         this.renderScale = 1;
-        addClickListener((mouseX, mouseY, element) -> {
+        addClickListener((mouseX, mouseY, button, element) -> {
             clickedTimestamp = ClientTickHandler.total();
         });
     }
@@ -65,7 +65,7 @@ public class TextButtonScreenElement extends RenderableScreenElement {
         graphics.pose().pushPose();
         graphics.pose().translate(textX, textY, 100);
         graphics.pose().mulPose(Axis.ZP.rotationDegrees(renderRotation));
-        graphicsMixin.potions_plus$drawString(font, text, 0, 0, FastColor.ARGB32.colorFromFloat(1, 1, 1, 1));
+        graphicsMixin.potions_plus$drawString(font, text, 0, 0, ARGB.colorFromFloat(1, 1, 1, 1));
         graphics.pose().popPose();
     }
 

@@ -84,7 +84,8 @@ public class FishingLeaderboards {
     }
 
     public List<LeaderboardEntry> getGlobalSizeHighscores() {
-        List<LeaderboardEntry> leaderboardEntries = new ArrayList<>();
+        Map<Holder<Item>, LeaderboardEntry> leaderboardEntries = new HashMap<>();
+
         for (Map.Entry<UUID, FishingData> entry : fishingDataByPlayer.entrySet()) {
             UUID uuid = entry.getKey();
             String username = entry.getValue().getUsername();
@@ -92,11 +93,21 @@ public class FishingLeaderboards {
             for (Map.Entry<Holder<Item>, Float> fishEntry : data.getHighestFishSizesByItem().entrySet()) {
                 Holder<Item> item = fishEntry.getKey();
                 float size = fishEntry.getValue();
-                leaderboardEntries.add(new LeaderboardEntry(item, uuid, username, size));
+
+                float currentHighestSize = 0;
+                if (leaderboardEntries.containsKey(item)) {
+                    currentHighestSize = leaderboardEntries.get(item).value;
+                }
+
+                if (size > currentHighestSize) {
+                    leaderboardEntries.put(item, new LeaderboardEntry(item, uuid, username, size));
+                }
             }
         }
 
-        leaderboardEntries.sort((entry1, entry2) -> {
+        // To list and sort by value (size)
+        List<LeaderboardEntry> leaderboardEntriesList = new ArrayList<>(leaderboardEntries.values());
+        leaderboardEntriesList.sort((entry1, entry2) -> {
             int sizeComparison = Float.compare(entry2.value, entry1.value);
             if (sizeComparison != 0) {
                 return sizeComparison;
@@ -104,11 +115,12 @@ public class FishingLeaderboards {
             return entry1.uuid.compareTo(entry2.uuid);
         });
 
-        return leaderboardEntries;
+        return leaderboardEntriesList;
     }
 
     public List<LeaderboardEntry> getGlobalCatchCountHighscores() {
-        List<LeaderboardEntry> leaderboardEntries = new ArrayList<>();
+        Map<Holder<Item>, LeaderboardEntry> leaderboardEntries = new HashMap<>();
+
         for (Map.Entry<UUID, FishingData> entry : fishingDataByPlayer.entrySet()) {
             UUID uuid = entry.getKey();
             String username = entry.getValue().getUsername();
@@ -116,48 +128,67 @@ public class FishingLeaderboards {
             for (Map.Entry<Holder<Item>, Integer> fishEntry : data.getFishCaughtByItem().entrySet()) {
                 Holder<Item> item = fishEntry.getKey();
                 int count = fishEntry.getValue();
-                leaderboardEntries.add(new LeaderboardEntry(item, uuid, username, count));
+
+                int currentHighestCount = 0;
+                if (leaderboardEntries.containsKey(item)) {
+                    currentHighestCount = (int) leaderboardEntries.get(item).value;
+                }
+                if (count > currentHighestCount) {
+                    leaderboardEntries.put(item, new LeaderboardEntry(item, uuid, username, count));
+                }
             }
         }
 
-        leaderboardEntries.sort((entry1, entry2) -> {
-            int countComparison = Integer.compare((int) entry2.value, (int) entry1.value);
+
+        // To list and sort by value (count)
+        List<LeaderboardEntry> leaderboardEntriesList = new ArrayList<>(leaderboardEntries.values());
+        leaderboardEntriesList.sort((entry1, entry2) -> {
+            int countComparison = Float.compare(entry2.value, entry1.value);
             if (countComparison != 0) {
                 return countComparison;
             }
             return entry1.uuid.compareTo(entry2.uuid);
         });
 
+        return leaderboardEntriesList;
+    }
+
+    public List<LeaderboardEntry> getPlayerSizeHighscores(UUID uuid) {
+        FishingData data = fishingDataByPlayer.get(uuid);
+        if (data == null) {
+            return Collections.emptyList();
+        }
+
+        List<LeaderboardEntry> leaderboardEntries = new ArrayList<>();
+        for (Map.Entry<Holder<Item>, Float> entry : data.getHighestFishSizesByItem().entrySet()) {
+            Holder<Item> item = entry.getKey();
+            float size = entry.getValue();
+            leaderboardEntries.add(new LeaderboardEntry(item, uuid, data.getUsername(), size));
+        }
+
+        leaderboardEntries.sort((entry1, entry2) -> Float.compare(entry2.value, entry1.value));
         return leaderboardEntries;
     }
 
-    public List<List<Component>> getGlobalSizeHighscoresAsComponents() {
-        List<LeaderboardEntry> highscores = getGlobalSizeHighscores();
-        List<List<Component>> components = new ArrayList<>();
-        for (LeaderboardEntry entry : highscores) {
-            String size = String.format("%f%%", entry.value);
-            components.add(List.of(
-                    Component.translatable(Translations.FISH_LEADERBOARD_SIZE, entry.username, entry.item.value().getName(new ItemStack(entry.item)), size)
-            ));
+    public List<LeaderboardEntry> getPlayerCatchCountHighscores(UUID uuid) {
+        FishingData data = fishingDataByPlayer.get(uuid);
+        if (data == null) {
+            return Collections.emptyList();
         }
 
-        return components;
-    }
-
-    public List<List<Component>> getGlobalCatchCountHighscoresAsComponents() {
-        List<LeaderboardEntry> highscores = getGlobalCatchCountHighscores();
-        List<List<Component>> components = new ArrayList<>();
-        for (LeaderboardEntry entry : highscores) {
-            String count = String.valueOf((int) entry.value);
-            components.add(List.of(
-                    Component.translatable(Translations.FISH_LEADERBOARD_COUNT, entry.username, count, entry.item.value().getName(new ItemStack(entry.item)))
-            ));
+        List<LeaderboardEntry> leaderboardEntries = new ArrayList<>();
+        for (Map.Entry<Holder<Item>, Integer> entry : data.getFishCaughtByItem().entrySet()) {
+            Holder<Item> item = entry.getKey();
+            int count = entry.getValue();
+            leaderboardEntries.add(new LeaderboardEntry(item, uuid, data.getUsername(), count));
         }
 
-        return components;
+        leaderboardEntries.sort((entry1, entry2) -> Float.compare(entry2.value, entry1.value));
+        return leaderboardEntries;
     }
 
-    public record LeaderboardEntry(Holder<Item> item, UUID uuid, String username, float value) {}
+    public record LeaderboardEntry(Holder<Item> item, UUID uuid, String username, float value) {
+    }
 
     public static class FishingData {
         private final String username;
@@ -180,8 +211,8 @@ public class FishingLeaderboards {
 
         public FishingData(Map<Holder<Item>, Float> highestFishSizesByItem,
                            Map<Holder<Item>, Integer> fishCaughtByItem,
-                            String username,
-                            UUID uuid) {
+                           String username,
+                           UUID uuid) {
             this.highestFishSizesByItem = new HashMap<>(highestFishSizesByItem);
             this.fishCaughtByItem = new HashMap<>(fishCaughtByItem);
             this.username = username;

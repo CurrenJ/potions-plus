@@ -17,8 +17,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 
-import java.util.Collections;
-
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class FallOfTheVoidEffect extends MobEffect implements IEffectTooltipDetails {
     public FallOfTheVoidEffect(MobEffectCategory mobEffectCategory, int color) {
@@ -34,7 +32,7 @@ public class FallOfTheVoidEffect extends MobEffect implements IEffectTooltipDeta
                 livingDamageEvent.setNewDamage(0);
 
                 // Teleport to top of world
-                Vec3 blockPos = livingEntity.position().with(Direction.Axis.Y, livingDamageEvent.getEntity().level().getMaxBuildHeight());
+                Vec3 blockPos = livingEntity.position().with(Direction.Axis.Y, livingDamageEvent.getEntity().level().getMaxY());
                 livingEntity.teleportTo(blockPos.x, blockPos.y, blockPos.z);
 
                 // Remove effect

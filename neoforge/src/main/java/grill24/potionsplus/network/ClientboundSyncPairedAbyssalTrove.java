@@ -1,18 +1,13 @@
 package grill24.potionsplus.network;
 
-import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.persistence.SavedData;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-
-import java.util.List;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -31,7 +26,7 @@ public record ClientboundSyncPairedAbyssalTrove(BlockPos pos) implements CustomP
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundSyncPairedAbyssalTrove packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundSyncPairedAbyssalTrove packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Player clientPlayer = context.player();

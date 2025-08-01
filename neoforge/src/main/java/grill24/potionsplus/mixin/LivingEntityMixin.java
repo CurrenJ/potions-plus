@@ -12,15 +12,14 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -40,30 +39,46 @@ public abstract class LivingEntityMixin extends Entity {
     public LivingEntityMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
-    
+
     // ----- SlipNSlideEffect -----
 
-    @Shadow public abstract Iterable<ItemStack> getArmorSlots();
+    @Shadow
+    protected abstract void serverAiStep();
 
-    @Shadow protected abstract void serverAiStep();
+    @Shadow
+    public abstract void setHealth(float p_21154_);
 
-    @Shadow public abstract void setHealth(float p_21154_);
+    @Shadow
+    public abstract boolean removeAllEffects();
 
-    @Shadow public abstract boolean removeAllEffects();
+    @Shadow
+    public abstract boolean addEffect(MobEffectInstance p_21165_);
 
-    @Shadow public abstract boolean addEffect(MobEffectInstance p_21165_);
+    @Shadow
+    @Nullable
+    public abstract MobEffectInstance getEffect(Holder<MobEffect> effect);
 
-    @Shadow @Nullable public abstract MobEffectInstance getEffect(Holder<MobEffect> effect);
+    @Shadow
+    public abstract boolean hasEffect(Holder<MobEffect> effect);
 
-    @Shadow public abstract boolean hasEffect(Holder<MobEffect> effect);
+    @Shadow
+    @Nullable
+    public abstract AttributeInstance getAttribute(Holder<Attribute> attribute);
 
-    @Shadow @Nullable public abstract AttributeInstance getAttribute(Holder<Attribute> attribute);
+    @Shadow
+    public abstract double getAttributeValue(Holder<Attribute> attribute);
 
-    @Shadow public abstract double getAttributeValue(Holder<Attribute> attribute);
+    @Shadow
+    public abstract AttributeMap getAttributes();
 
-    @Shadow public abstract AttributeMap getAttributes();
+    @Shadow
+    @Final
+    protected EntityEquipment equipment;
 
-    @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getFriction(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;)F"))
+    @Shadow
+    public abstract ItemStack getItemBySlot(EquipmentSlot slot);
+
+    @Redirect(method = "travelInAir", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getFriction(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;)F"))
     public float getFriction(BlockState instance, LevelReader levelReader, BlockPos blockPos, Entity entity) {
         if (hasEffect(MobEffects.SLIP_N_SLIDE)) {
             return SlipNSlideEffect.getFriction(getEffect(MobEffects.SLIP_N_SLIDE).getAmplifier());
@@ -72,7 +87,7 @@ public abstract class LivingEntityMixin extends Entity {
         return instance.getFriction(levelReader, blockPos, entity);
     }
 
-    @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(DDD)V", ordinal = 3))
+    @Redirect(method = "travelInAir", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(DDD)V", ordinal = 1))
     public void setDeltaMovement(LivingEntity livingEntity, double x, double y, double z) {
         if (hasEffect(MobEffects.SLIP_N_SLIDE) && livingEntity.onGround()) {
             double d = 0.91D;
@@ -87,12 +102,10 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "checkTotemDeathProtection", at = @At("TAIL"), cancellable = true)
     public void checkTotemDeathProtection(DamageSource p_21263_, CallbackInfoReturnable<Boolean> cir) {
         ItemStack wreathe = null;
-        for (ItemStack itemStack : getArmorSlots()) {
-            if(itemStack.is(HatItems.WREATH)) {
-                wreathe = itemStack.copy();
-                itemStack.shrink(1);
-                break;
-            }
+        ItemStack itemStack = this.getItemBySlot(EquipmentSlot.HEAD);
+        if (itemStack.is(HatItems.WREATH)) {
+            wreathe = itemStack.copy();
+            itemStack.shrink(1);
         }
 
         if (wreathe != null) {
@@ -106,10 +119,10 @@ public abstract class LivingEntityMixin extends Entity {
             this.addEffect(new MobEffectInstance(net.minecraft.world.effect.MobEffects.REGENERATION, 900, 1));
             this.addEffect(new MobEffectInstance(net.minecraft.world.effect.MobEffects.ABSORPTION, 100, 1));
             this.addEffect(new MobEffectInstance(net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, 800, 0));
-            this.level().broadcastEntityEvent(this, (byte)35);
+            this.level().broadcastEntityEvent(this, (byte) 35);
         }
 
-        if(wreathe != null) {
+        if (wreathe != null) {
             cir.setReturnValue(true);
         }
     }
@@ -121,7 +134,10 @@ public abstract class LivingEntityMixin extends Entity {
      * {@link grill24.potionsplus.core.Attributes#SPRINTING_SPEED}
      */
     @Unique
-    private static final List<Holder<Attribute>> SPRINT_SPEED_ATTRIBUTES = new ArrayList<>() {{ add(grill24.potionsplus.core.Attributes.SPRINTING_SPEED); }};
+    private static final List<Holder<Attribute>> SPRINT_SPEED_ATTRIBUTES = new ArrayList<>() {{
+        add(grill24.potionsplus.core.Attributes.SPRINTING_SPEED);
+    }};
+
     @Inject(method = "setSprinting", at = @At("TAIL"))
     public void setSprinting(boolean sprinting, CallbackInfo ci) {
         Holder<Attribute> movementSpeed = Attributes.MOVEMENT_SPEED;

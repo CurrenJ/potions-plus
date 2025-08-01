@@ -1,7 +1,7 @@
 {
-  "type": "potionsplus:modifiers_while_axe_held",
+  "type": "potionsplus:modifiers_while_item_held",
   "config": {
-    "attribute": "minecraft:player.mining_efficiency",
+    "attribute": "minecraft:mining_efficiency",
     "baseConfig": {
       "enabledByDefault": true,
       "itemPredicate": {

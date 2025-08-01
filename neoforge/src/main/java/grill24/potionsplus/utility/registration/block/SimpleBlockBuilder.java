@@ -15,7 +15,7 @@ public class SimpleBlockBuilder extends BlockBuilder<Block, SimpleBlockBuilder> 
         builder.name(name);
         builder.blockFactory(Block::new);
         builder.modelGenerator(BlockModelUtility.CubeAllBlockModelGenerator::new);
-        builder.lootGenerator(holder -> new BlockDropSelfLoot<>(LootContextParamSets.BLOCK, holder));
+        builder.lootGenerator(holder -> new BlockLootUtility.BlockDropSelfLoot<>(LootContextParamSets.BLOCK, holder));
         return builder;
     }
 

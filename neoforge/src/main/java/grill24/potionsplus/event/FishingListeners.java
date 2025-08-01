@@ -9,7 +9,7 @@ import grill24.potionsplus.network.ClientboundStartFishingMinigamePacket;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -61,10 +61,10 @@ public class FishingListeners {
     }
 
     private static ItemStack getFrame(RegistryAccess registryAccess, ItemStack reward) {
-        Iterable<Holder<Item>> copper = registryAccess.registryOrThrow(Registries.ITEM).getTagOrEmpty(Tags.Items.PP_FISHING_COPPER_FRAME);
-        Iterable<Holder<Item>> gold = registryAccess.registryOrThrow(Registries.ITEM).getTagOrEmpty(Tags.Items.PP_FISHING_GOLD_FRAME);
-        Iterable<Holder<Item>> diamond = registryAccess.registryOrThrow(Registries.ITEM).getTagOrEmpty(Tags.Items.PP_FISHING_DIAMOND_FRAME);
-        Iterable<Holder<Item>> purple = registryAccess.registryOrThrow(Registries.ITEM).getTagOrEmpty(Tags.Items.PP_FISHING_PURPLE_FRAME);
+        Iterable<Holder<Item>> copper = BuiltInRegistries.ITEM.getOrThrow(Tags.Items.PP_FISHING_COPPER_FRAME);
+        Iterable<Holder<Item>> gold = BuiltInRegistries.ITEM.getOrThrow(Tags.Items.PP_FISHING_GOLD_FRAME);
+        Iterable<Holder<Item>> diamond = BuiltInRegistries.ITEM.getOrThrow(Tags.Items.PP_FISHING_DIAMOND_FRAME);
+        Iterable<Holder<Item>> purple = BuiltInRegistries.ITEM.getOrThrow(Tags.Items.PP_FISHING_PURPLE_FRAME);
 
         if (reward.is(Tags.Items.PP_FISHING_COPPER_FRAME)) {
             return DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.COPPER_FISHING_FRAME_TEX_LOC);

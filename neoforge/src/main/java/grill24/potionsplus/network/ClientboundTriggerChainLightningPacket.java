@@ -18,7 +18,8 @@ import java.util.Objects;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundTriggerChainLightningPacket(BlockPos soundOrigin, List<Integer> entities) implements CustomPacketPayload {
+public record ClientboundTriggerChainLightningPacket(BlockPos soundOrigin,
+                                                     List<Integer> entities) implements CustomPacketPayload {
     public static final Type<ClientboundTriggerChainLightningPacket> TYPE = new Type<>(ppId("trigger_chain_lightning"));
 
     public static final StreamCodec<ByteBuf, ClientboundTriggerChainLightningPacket> STREAM_CODEC = StreamCodec.composite(
@@ -35,7 +36,7 @@ public record ClientboundTriggerChainLightningPacket(BlockPos soundOrigin, List<
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundTriggerChainLightningPacket packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundTriggerChainLightningPacket packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

@@ -14,6 +14,7 @@ public class Vector4fAnimationCurve extends AnimationCurve<Vector4f> {
         public Vector4f decode(ByteBuf byteBuf) {
             return readVector4f(byteBuf);
         }
+
         public void encode(ByteBuf byteBuf, Vector4f vector4f) {
             writeVector4f(byteBuf, vector4f);
         }

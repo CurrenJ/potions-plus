@@ -15,7 +15,8 @@ import java.util.List;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundDisplayAlertWithParameter(String localizationKey, Boolean playSound, List<String> params) implements CustomPacketPayload {
+public record ClientboundDisplayAlertWithParameter(String localizationKey, Boolean playSound,
+                                                   List<String> params) implements CustomPacketPayload {
     public ClientboundDisplayAlertWithParameter(String localizationKey, String... param) {
         this(localizationKey, false, List.of(param));
     }
@@ -42,7 +43,7 @@ public record ClientboundDisplayAlertWithParameter(String localizationKey, Boole
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundDisplayAlertWithParameter packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundDisplayAlertWithParameter packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();
@@ -58,7 +59,7 @@ public record ClientboundDisplayAlertWithParameter(String localizationKey, Boole
                             text = Component.translatable(packet.localizationKey, packet.params.toArray());
                         }
                         clientPlayer.displayClientMessage(text, true);
-                        if(packet.playSound) {
+                        if (packet.playSound) {
                             clientPlayer.playSound(SoundEvents.PLAYER_LEVELUP, 0.75F, 1.0F);
                         }
                     }

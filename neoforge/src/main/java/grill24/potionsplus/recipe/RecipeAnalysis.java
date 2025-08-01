@@ -4,11 +4,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.*;
 
@@ -30,6 +28,7 @@ public class RecipeAnalysis<R extends ShapelessProcessingRecipe> {
 
     /**
      * Analyze the given recipes and populate the internal data structures
+     *
      * @param recipes The recipes to analyze
      */
     public void compute(List<RecipeHolder<R>> recipes) {

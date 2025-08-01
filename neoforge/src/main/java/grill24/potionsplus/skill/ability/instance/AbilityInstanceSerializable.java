@@ -13,7 +13,8 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import java.util.List;
 import java.util.Optional;
 
-public record AbilityInstanceSerializable<D extends SimpleAbilityInstanceData, T extends AbilityInstanceType<D>>(T type, D data) {
+public record AbilityInstanceSerializable<D extends SimpleAbilityInstanceData, T extends AbilityInstanceType<D>>(T type,
+                                                                                                                 D data) {
     public static final Codec<AbilityInstanceSerializable<?, ?>> DIRECT_CODEC = PotionsPlusRegistries.ABILITY_INSTANCE_TYPE
             .byNameCodec()
             .dispatch(configured -> configured.type, AbilityInstanceType::dataCodec);

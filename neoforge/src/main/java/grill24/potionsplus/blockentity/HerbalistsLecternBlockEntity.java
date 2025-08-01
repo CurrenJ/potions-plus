@@ -1,33 +1,33 @@
 package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.core.items.DynamicIconItems;
-import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
-import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
-import grill24.potionsplus.utility.ClientUtility;
-import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import org.joml.Quaternionf;
-import org.joml.Vector3d;
-import org.joml.Vector3f;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
+import grill24.potionsplus.utility.ClientUtility;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Quaternionf;
+import org.joml.Vector3d;
+import org.joml.Vector3f;
 
 import java.util.*;
 
@@ -37,7 +37,8 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
     public RendererData rendererData = new RendererData();
 
     public static class RendererData {
-        public record IconData(PpIngredient displayStack, List<PpIngredient> subIcons) {}
+        public record IconData(PpIngredient displayStack, List<PpIngredient> subIcons) {
+        }
 
         private int timeItemPlaced;
         public Vector3f rotation = new Vector3f(90, 0, 0);
@@ -49,7 +50,8 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
         public List<IconData> allIcons = new ArrayList<>();
         ItemStack centerDisplayStack = ItemStack.EMPTY;
 
-        public RendererData() {}
+        public RendererData() {
+        }
 
         public void updateItemStacksToDisplay(HerbalistsLecternBlockEntity herbalistsLecternBlockEntity) {
             if (herbalistsLecternBlockEntity.level != null) {
@@ -108,7 +110,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
 
                 // Update the center display stacks - either common, rare, or N/A ingredient.
                 PpIngredient ingredient = PpIngredient.of(inputStack);
-                if(Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
+                if (Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
                     this.centerDisplayStack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.DUR_TEX_LOC);
                 } else if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
                     this.centerDisplayStack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.AMP_TEX_LOC);
@@ -180,7 +182,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, HerbalistsLecternBlockEntity blockEntity) {
-        if(level.isClientSide) {
+        if (level.isClientSide) {
             Player player = ClientUtility.getLocalPlayer();
             if (player != null) {
                 Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();

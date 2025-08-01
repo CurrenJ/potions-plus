@@ -1,10 +1,8 @@
 package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
-import grill24.potionsplus.core.PotionsPlus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -24,9 +22,9 @@ public class AquiferFreezeFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
         final int diameter = 16;
-        for(int y = 0; y < diameter; ++y) {
-            for(int x = 0; x < diameter; ++x) {
-                for(int z = 0; z < diameter; ++z) {
+        for (int y = 0; y < diameter; ++y) {
+            for (int x = 0; x < diameter; ++x) {
+                for (int z = 0; z < diameter; ++z) {
                     int k = blockpos.getX() + x;
                     int l = blockpos.getY() + y;
                     int m = blockpos.getZ() + z;

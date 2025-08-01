@@ -1,10 +1,11 @@
 package grill24.potionsplus.gui.skill;
 
 import grill24.potionsplus.core.items.DynamicIconItems;
-import grill24.potionsplus.gui.RenderableScreenElement;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
+import grill24.potionsplus.gui.RenderableScreenElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -48,28 +49,37 @@ public class ItemStackScreenElement extends RenderableScreenElement {
         return 16 * this.getCurrentScale();
     }
 
+    private static final int BLACK = ARGB.color(0, 0, 0);
+    private static final int WHITE = ARGB.white(1F);
+
     @Override
     protected void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         if (this.screen.getMinecraft().player == null || this.stack == null) {
             return;
         }
 
-        if (onlyShowSilhouette) {
-            graphics.setColor(0, 0, 0, 1);
-        }
+        IGuiGraphicsExtension graphicsExtension = (IGuiGraphicsExtension) graphics;
         Rectangle2D bounds = getGlobalBounds();
+
         // By default, send the item to the back of the screen render order because we want text and other elements to render on top of it.
         graphics.pose().pushPose();
-        graphics.pose().translate(0, 0, -100);
-        ((IGuiGraphicsExtension) graphics).potions_plus$renderItem(
-                this.stack,
-                new Vector3f(0, this.rotation, 0),
-                (float) (bounds.getMinX()),
-                (float) (bounds.getMinY()),
-                this.getCurrentScale(),
-                Anchor.DEFAULT);
+        graphics.pose().translate(bounds.getMinX(), bounds.getMinY(), -100);
+        if (this.getCurrentScale() > 0.01F) {
+            if (this.onlyShowSilhouette) {
+                graphicsExtension.potions_plus$setShaderColor(BLACK);
+            }
+
+            graphicsExtension.potions_plus$renderItem(
+                    this.stack,
+                    new Vector3f(0, this.rotation, 0),
+                    0,
+                    0,
+                    this.getCurrentScale(),
+                    Anchor.DEFAULT);
+
+            graphicsExtension.potions_plus$setShaderColor(WHITE);
+        }
         graphics.pose().popPose();
-        graphics.setColor(1, 1, 1, 1);
 
         if (onlyShowSilhouette) {
             // Render question mark
@@ -85,5 +95,6 @@ public class ItemStackScreenElement extends RenderableScreenElement {
                     Anchor.DEFAULT);
             graphics.pose().popPose();
         }
+
     }
 }

@@ -15,14 +15,13 @@ import net.minecraft.world.entity.player.Player;
 import org.joml.Vector4f;
 
 import java.awt.*;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 public class SkillTitleScreenElement extends VerticalListScreenElement<RenderableScreenElement> {
     private final TextComponentScreenElement title;
     private final TextComponentScreenElement level;
-    private final ProgressBarElement progressBar;
+    private final SpriteProgressBarElement progressBar;
 
     public SkillTitleScreenElement(Screen screen, ResourceKey<ConfiguredSkill<?, ?>> skill) {
         super(screen, Settings.DEFAULT, XAlignment.CENTER);
@@ -39,11 +38,7 @@ public class SkillTitleScreenElement extends VerticalListScreenElement<Renderabl
                 Color.WHITE,
                 Component.empty()
         );
-        this.progressBar = new ProgressBarElement(
-                this.screen,
-                Settings.DEFAULT,
-                0
-        );
+        this.progressBar = new SpriteProgressBarElement(this.screen, Settings.DEFAULT);
         this.setChildren(List.of(this.title, this.level, this.progressBar));
 
         setSelectedSkill(skill);
@@ -56,7 +51,7 @@ public class SkillTitleScreenElement extends VerticalListScreenElement<Renderabl
     public void setBlank() {
         this.title.setComponent(Component.empty(), false);
         this.level.setComponent(Component.empty(), false);
-        this.progressBar.setTargetWidth(0);
+        this.progressBar.hide(false);
     }
 
     public void setSelectedSkill(ResourceKey<ConfiguredSkill<?, ?>> skill) {
@@ -84,6 +79,7 @@ public class SkillTitleScreenElement extends VerticalListScreenElement<Renderabl
         this.level.setComponent(skillLevel, true);
 
         this.progressBar.setProgress(progressToNextLevel);
-        this.progressBar.setTargetWidth(this.progressBar.getDefaultWidth());
+        this.progressBar.setSkillLevel(level);
+        this.progressBar.show();
     }
 }

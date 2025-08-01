@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 /**
  * We apply the same mixin for {@link FallbackResourceManager} as we do for
  * {@link net.minecraft.server.packs.resources.ReloadableResourceManager} and {@link MultiPackResourceManager}.
- *
+ * <p>
  * Ideally, we would only apply this mixin to the interface, but it does not provide a default implementation of the
  * methods we need to inject into. So we have to apply it to the concrete classes.
  */

@@ -7,7 +7,8 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(MobEffectInstance.class)
 public abstract class MobEffectInstanceMixin implements IMobEffectInstanceExtension {
-    @Shadow private int duration;
+    @Shadow
+    private int duration;
 
     @Override
     public void potions_plus$setDuration(int duration) {

@@ -12,7 +12,9 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 
 import java.util.Map;
 
-public record VersatilePlantBlockFeatureConfiguration(BlockStateProvider toPlace, Map<ResourceKey<Block>, IntProvider> length, Direction facing) implements FeatureConfiguration {
+public record VersatilePlantBlockFeatureConfiguration(BlockStateProvider toPlace,
+                                                      Map<ResourceKey<Block>, IntProvider> length,
+                                                      Direction facing) implements FeatureConfiguration {
     public static final Codec<VersatilePlantBlockFeatureConfiguration> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             BlockStateProvider.CODEC.fieldOf("toPlace").forGetter(VersatilePlantBlockFeatureConfiguration::toPlace),
             Codec.unboundedMap(ResourceKey.codec(Registries.BLOCK), IntProvider.CODEC).fieldOf("length").forGetter(VersatilePlantBlockFeatureConfiguration::length),

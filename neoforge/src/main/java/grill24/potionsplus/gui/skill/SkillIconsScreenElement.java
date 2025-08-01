@@ -5,14 +5,17 @@ import grill24.potionsplus.gui.IRenderableScreenElement;
 import grill24.potionsplus.gui.ScreenElementWithChildren;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
 import grill24.potionsplus.skill.ConfiguredSkill;
+import grill24.potionsplus.skill.SkillInstance;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.player.Player;
 import org.joml.Vector3f;
 
 import java.awt.geom.Rectangle2D;
@@ -84,30 +87,43 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
     }
 
     private void initializeItemDisplays(Screen screen, RegistryAccess registryAccess) {
-        // Build skills list (icons we want to display)
-        Set<ResourceKey<ConfiguredSkill<?, ?>>> skills = new HashSet<>() {};
-        Collection<AbilityInstanceSerializable<?, ?>> abilities = getAbilities();
-        for (AbilityInstanceSerializable<?, ?> abilityInstance : abilities) {
-            ResourceKey<ConfiguredSkill<?, ?>> skill = abilityInstance.data().getConfiguredAbility().config().getData().parentSkill().getKey();
-            skills.add(skill);
+        HolderLookup.RegistryLookup<ConfiguredSkill<?, ?>> holderGetter = registryAccess.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL);
+
+        Player player = screen.getMinecraft().player;
+        if (player == null) {
+            return;
         }
+        SkillsData skillsData = SkillsData.getPlayerData(player);
+
+        // Build skills list (icons we want to display)
+        List<ResourceKey<ConfiguredSkill<?, ?>>> skills = holderGetter.listElements().filter(holder -> {
+            ResourceKey<ConfiguredSkill<?, ?>> key = holder.getKey();
+            if (key == null) {
+                return false; // Skip if the key is null
+            }
+            Optional<SkillInstance<?, ?>> skillInstance = skillsData.getOrCreate(registryAccess, key);
+            if (skillInstance.isEmpty()) {
+                return false; // Skip skills that are not present in the player's data
+            }
+            int level = skillInstance.get().getLevel(registryAccess);
+            return level >= 1;
+        }).map(Holder.Reference::getKey).toList();
 
         // Initialize item displays
-        HolderLookup.RegistryLookup<ConfiguredSkill<?, ?>> holderGetter = registryAccess.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL);
         int index = 0;
         for (ResourceKey<ConfiguredSkill<?, ?>> skill : skills) {
             itemDisplays.computeIfAbsent(index, k -> {
-                        // Create item display for the skill
-                        SkillIconScreenElement display = new SkillIconScreenElement(screen, Settings.DEFAULT.withAnchor(Anchor.CENTER), holderGetter.getOrThrow(skill), SkillIconsScreenElement.BASE_SCALE);
-                        // Parent to this element
-                        display.setParent(this);
-                        // Add click listener
-                        display.addClickListener(this::onElementClicked);
-                        display.addMouseEnterListener(this::onElementHovered);
-                        display.addMouseExitListener((x, y, element) -> onElementHovered(x, y, null));
+                // Create item display for the skill
+                SkillIconScreenElement display = new SkillIconScreenElement(screen, Settings.DEFAULT.withAnchor(Anchor.CENTER), holderGetter.getOrThrow(skill), SkillIconsScreenElement.BASE_SCALE);
+                // Parent to this element
+                display.setParent(this);
+                // Add click listener
+                display.addClickListener(this::onElementClicked);
+                display.addMouseEnterListener(this::onElementHovered);
+                display.addMouseExitListener((x, y, button, element) -> onElementHovered(x, y, button, null));
 
-                        return display;
-                    });
+                return display;
+            });
             index++;
         }
 
@@ -117,11 +133,12 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
 
     /**
      * Handle click event on a skill icon
-     * @param x The clicked position
-     * @param y The clicked position
+     *
+     * @param x       The clicked position
+     * @param y       The clicked position
      * @param element The clicked element (should be an ItemDisplay) for the skill icon
      */
-    private void onElementClicked(int x, int y, IRenderableScreenElement element) {
+    private void onElementClicked(int x, int y, int button, IRenderableScreenElement element) {
         if (element instanceof SkillIconScreenElement skillIconScreenElement) {
             if (selectedItem == element) {
                 selectedItem = null;
@@ -139,7 +156,7 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
         }
     }
 
-    private void onElementHovered(int x, int y, IRenderableScreenElement element) {
+    private void onElementHovered(int x, int y, int button, IRenderableScreenElement element) {
         if (element instanceof SkillIconScreenElement skillIconScreenElement) {
             hoveredItem = skillIconScreenElement;
         } else {
@@ -188,6 +205,7 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
 
     /**
      * Get the global position offset for GUI elements
+     *
      * @param additionalOffset Additional offset to apply (X: 1F = 1 screen width, Y: 1F = 1 screen height)
      * @return
      */

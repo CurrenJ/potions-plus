@@ -1,0 +1,238 @@
+{
+  "variants": {
+    "age=0,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_0_immature"
+    },
+    "age=0,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_0_mature"
+    },
+    "age=0,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_0_pollinated"
+    },
+    "age=1,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_1_immature"
+    },
+    "age=1,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_1_mature"
+    },
+    "age=1,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_1_pollinated"
+    },
+    "age=10,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_10_immature"
+    },
+    "age=10,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_10_mature"
+    },
+    "age=10,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_10_pollinated"
+    },
+    "age=11,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_11_immature"
+    },
+    "age=11,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_11_mature"
+    },
+    "age=11,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_11_pollinated"
+    },
+    "age=12,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_12_immature"
+    },
+    "age=12,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_12_mature"
+    },
+    "age=12,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_12_pollinated"
+    },
+    "age=13,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_13_immature"
+    },
+    "age=13,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_13_mature"
+    },
+    "age=13,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_13_pollinated"
+    },
+    "age=14,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_14_immature"
+    },
+    "age=14,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_14_mature"
+    },
+    "age=14,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_14_pollinated"
+    },
+    "age=15,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_15_immature"
+    },
+    "age=15,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_15_mature"
+    },
+    "age=15,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_15_pollinated"
+    },
+    "age=16,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_16_immature"
+    },
+    "age=16,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_16_mature"
+    },
+    "age=16,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_16_pollinated"
+    },
+    "age=17,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_17_immature"
+    },
+    "age=17,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_17_mature"
+    },
+    "age=17,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_17_pollinated"
+    },
+    "age=18,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_18_immature"
+    },
+    "age=18,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_18_mature"
+    },
+    "age=18,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_18_pollinated"
+    },
+    "age=19,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_19_immature"
+    },
+    "age=19,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_19_mature"
+    },
+    "age=19,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_19_pollinated"
+    },
+    "age=2,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_2_immature"
+    },
+    "age=2,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_2_mature"
+    },
+    "age=2,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_2_pollinated"
+    },
+    "age=20,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_20_immature"
+    },
+    "age=20,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_20_mature"
+    },
+    "age=20,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_20_pollinated"
+    },
+    "age=21,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_21_immature"
+    },
+    "age=21,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_21_mature"
+    },
+    "age=21,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_21_pollinated"
+    },
+    "age=22,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_22_immature"
+    },
+    "age=22,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_22_mature"
+    },
+    "age=22,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_22_pollinated"
+    },
+    "age=23,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_23_immature"
+    },
+    "age=23,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_23_mature"
+    },
+    "age=23,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_23_pollinated"
+    },
+    "age=24,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_24_immature"
+    },
+    "age=24,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_24_mature"
+    },
+    "age=24,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_24_pollinated"
+    },
+    "age=25,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_25_immature"
+    },
+    "age=25,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_25_mature"
+    },
+    "age=25,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_25_pollinated"
+    },
+    "age=3,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_3_immature"
+    },
+    "age=3,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_3_mature"
+    },
+    "age=3,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_3_pollinated"
+    },
+    "age=4,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_4_immature"
+    },
+    "age=4,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_4_mature"
+    },
+    "age=4,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_4_pollinated"
+    },
+    "age=5,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_5_immature"
+    },
+    "age=5,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_5_mature"
+    },
+    "age=5,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_5_pollinated"
+    },
+    "age=6,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_6_immature"
+    },
+    "age=6,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_6_mature"
+    },
+    "age=6,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_6_pollinated"
+    },
+    "age=7,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_7_immature"
+    },
+    "age=7,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_7_mature"
+    },
+    "age=7,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_7_pollinated"
+    },
+    "age=8,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_8_immature"
+    },
+    "age=8,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_8_mature"
+    },
+    "age=8,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_8_pollinated"
+    },
+    "age=9,harvestable=immature": {
+      "model": "potionsplus:kohlrabi_plant_9_immature"
+    },
+    "age=9,harvestable=mature": {
+      "model": "potionsplus:kohlrabi_plant_9_mature"
+    },
+    "age=9,harvestable=pollinated": {
+      "model": "potionsplus:kohlrabi_plant_9_pollinated"
+    }
+  }
+}

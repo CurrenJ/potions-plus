@@ -2,18 +2,21 @@ package grill24.potionsplus.utility.registration;
 
 import com.google.gson.JsonObject;
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
 import grill24.potionsplus.event.runtimeresource.modification.IResourceModification;
 import grill24.potionsplus.event.runtimeresource.modification.TextResourceModification;
 import grill24.potionsplus.event.runtimeresource.modification.TextureResourceModification;
+import grill24.potionsplus.item.RuntimeVariantItemDataComponent;
 import grill24.potionsplus.utility.ResourceUtility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
@@ -25,7 +28,6 @@ import oshi.util.tuples.Pair;
 
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -60,8 +62,8 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         }
     }
 
-    private Map<Property<Integer>, Map<Holder<Block>, Integer>> blockMappings = new HashMap<>();
-    private Map<Property<Integer>, Map<Integer, Holder<Block>>> blockMappingsByPropertyValue = new HashMap<>();
+    private final Map<Property<Integer>, Map<Holder<Block>, Integer>> blockMappings = new HashMap<>();
+    private final Map<Property<Integer>, Map<Integer, Holder<Block>>> blockMappingsByPropertyValue = new HashMap<>();
 
     private Map<Property<Integer>, Map<Holder<Item>, Integer>> itemMappings = new HashMap<>();
 
@@ -81,8 +83,8 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         this(blockHolder, new BaseModel[]{baseModels}, propertiesToGenerateTextureVariantsFor);
     }
 
-        @SafeVarargs
-    public static @NotNull ItemInteractionResult trySetTextureVariant(Block block, ItemStack stack, BlockState state, LevelAccessor level, BlockPos pos, Property<Integer>... textureVariantProperties) {
+    @SafeVarargs
+    public static @NotNull InteractionResult trySetTextureVariant(Block block, ItemStack stack, BlockState state, LevelAccessor level, BlockPos pos, Property<Integer>... textureVariantProperties) {
         for (AbstractRegistererBuilder<?, ?> gen : RegistrationUtility.BUILDERS) {
             if (gen.getHolder() != null && gen.getHolder().value() == block
                     && gen.getRuntimeModelGenerator() instanceof RuntimeTextureVariantModelGenerator textureGen) {
@@ -91,31 +93,41 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
                     if (value != -1) {
                         BlockState newState = state.setValue(property, value);
                         level.setBlock(pos, newState, 3);
-                        return ItemInteractionResult.SUCCESS;
+                        return InteractionResult.SUCCESS;
                     }
                 }
 
             }
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     @SafeVarargs
     public static BlockState getTextureVariantBlockState(Block block, ItemStack stack, BlockState state, Property<Integer>... textureVariantProperties) {
+        Optional<BlockState> optionalState = tryGetTextureVariantBlockState(block, stack, state, textureVariantProperties);
+        return optionalState.orElse(state);
+    }
+
+    @SafeVarargs
+    public static Optional<BlockState> tryGetTextureVariantBlockState(Block block, ItemStack stack, BlockState state, Property<Integer>... textureVariantProperties) {
         for (AbstractRegistererBuilder<?, ?> gen : RegistrationUtility.BUILDERS) {
             if (gen.getHolder() != null && gen.getHolder().value() == block
                     && gen.getRuntimeModelGenerator() instanceof RuntimeTextureVariantModelGenerator textureGen) {
                 for (Property<Integer> property : textureVariantProperties) {
                     int value = textureGen.getValueForProperty(property, stack);
                     if (value != -1) {
-                        return state.setValue(property, value);
+                        return Optional.of(state.setValue(property, value));
                     }
                 }
             }
         }
 
-        return state;
+        return Optional.empty();
+    }
+
+    public static ItemStack getTextureVariantItemStack(BlockState variantBlockState, Property<Integer> textureVariantProperties) {
+        return RuntimeVariantItemDataComponent.getStackFromBlockState(variantBlockState, textureVariantProperties);
     }
 
     public int getValueForProperty(Property<Integer> property, Holder<Item> item) {
@@ -181,7 +193,7 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
                 // Get the item from the block
                 Optional<ResourceKey<Item>> itemKey = BuiltInRegistries.ITEM.getResourceKey(block.value().asItem());
                 if (itemKey.isPresent()) {
-                    Optional<Holder.Reference<Item>> item = BuiltInRegistries.ITEM.getHolder(itemKey.get());
+                    Optional<Holder.Reference<Item>> item = BuiltInRegistries.ITEM.get(itemKey.get());
                     if (item.isPresent()) {
                         itemToValueMap.put(item.get(), value);
                     } else {
@@ -207,12 +219,24 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
             Supplier<Collection<Holder<Block>>> blocks,
             String textureKeyInBaseModel
     ) {
+        private static Supplier<Collection<Holder<Block>>> tagToBlocks(TagKey<Block> tagKey) {
+            return () -> {
+                Optional<HolderSet.Named<Block>> blockHolder = BuiltInRegistries.BLOCK.get(tagKey);
+                if (blockHolder.isPresent()) {
+                    return blockHolder.get().stream().toList();
+                } else {
+                    PotionsPlus.LOGGER.warn("Tag is null or not bound during runtime model mapping population. {}", tagKey);
+                    return Collections.emptyList();
+                }
+            };
+        }
+
         public static PropertyTexVariant fromTag(Property<Integer> property, TagKey<Block> tagKey, String textureKeyInBaseModel) {
-            return new PropertyTexVariant(property, () -> BuiltInRegistries.BLOCK.getOrCreateTag(tagKey).stream().toList(), textureKeyInBaseModel);
+            return new PropertyTexVariant(property, tagToBlocks(tagKey), textureKeyInBaseModel);
         }
 
         public static PropertyTexVariant fromTagWithOverlay(Property<Integer> property, TagKey<Block> tagKey, String textureKeyInBaseModel) {
-            return new PropertyTexVariant(property, () -> BuiltInRegistries.BLOCK.getOrCreateTag(tagKey).stream().toList(), textureKeyInBaseModel);
+            return new PropertyTexVariant(property, tagToBlocks(tagKey), textureKeyInBaseModel);
         }
 
         @Override
@@ -239,32 +263,41 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         List<PropertyTexVariant> properties = new ArrayList<>(Arrays.asList(propertiesToGenerateTextureVariantsFor));
 
         // Generate all permutations of properties that were provided
-        List<List<Integer>> permutations = generatePermutations(properties.stream().map(p -> new Pair<>(p.property(), p.property().getPossibleValues())).toList());
+        List<List<Integer>> permutations = ClientRuntimeTextureVariantUtility.generatePermutations(properties.stream().map(p -> new Pair<>(p.property(), p.property().getPossibleValues())).toList());
         // Variant blockstate key (e.g. "lit=true,some_int_property=5"), model short id (e.g "minecraft:block/cube_all")
         List<Pair<String, String>> blockStateVariantModels = new ArrayList<>();
+        long sysTime = System.currentTimeMillis();
         for (List<Integer> permutation : permutations) {
             ModelsAndTextureGenerationData modelsAndTextureGenerationData = prepareGenerationData(propertiesToGenerateTextureVariantsFor, permutation, properties);
 
             for (BaseModel<?> baseModel : baseModels) {
-                String blockStatePermutationKey = modelsAndTextureGenerationData.blockStatePermutationKey();
+                StringBuilder blockStatePermutationKey = new StringBuilder(modelsAndTextureGenerationData.blockStatePermutationKey());
                 if (baseModel.property.isPresent() && baseModel.propertyValue.isPresent()) {
-                    if (!blockStatePermutationKey.isBlank()) {
-                        blockStatePermutationKey += ",";
+                    if (!blockStatePermutationKey.isEmpty()) {
+                        blockStatePermutationKey.append(",");
                     }
-                    blockStatePermutationKey += baseModel.getBlockStateKey();
+                    blockStatePermutationKey.append(baseModel.getBlockStateKey());
                 }
+
                 List<IResourceModification> generatedModelsAndTextures = generateModelsAndTextures(
                         baseModel,
                         modelsAndTextureGenerationData.additionalModels(),
                         blockStateVariantModels,
-                        blockStatePermutationKey);
+                        blockStatePermutationKey.toString());
                 modifications.addAll(generatedModelsAndTextures);
             }
         }
+        if (Debug.DEBUG_RUNTIME_RESOURCE_TIME) {
+            PotionsPlus.LOGGER.info("Generated {} modifications in {}ms", permutations.size(), System.currentTimeMillis() - sysTime);
+        }
 
         // Generate the blockstate that maps the blockstate permutations to the models
-        IResourceModification generatedBlockState = generateBlockstate(blockHolder, blockStateVariantModels);
+        IResourceModification generatedBlockState = ClientRuntimeTextureVariantUtility.generateBlockstate(blockHolder, blockStateVariantModels);
         modifications.add(generatedBlockState);
+
+        // Generate the client item definition that maps the blockstate permutations to the item model
+        IResourceModification generatedClientItemDefinition = ClientRuntimeTextureVariantUtility.generateClientItemDefinition(blockHolder, blockStateVariantModels);
+        modifications.add(generatedClientItemDefinition);
 
         return modifications.toArray(new IResourceModification[0]);
     }
@@ -379,7 +412,9 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
                             textures.addProperty(modelData.baseTextureKey(), modelData.texShortId().toString());
                         }
 
-                        PotionsPlus.LOGGER.info("NEW MODEL: {} | {}", subModelLongId, textures);
+                        if (Debug.DEBUG_RUNTIME_RESOURCE_INJECTION) {
+                            PotionsPlus.LOGGER.info("NEW MODEL: {} | {}", subModelLongId, textures);
+                        }
 
                         json.add("textures", textures);
                         return json;
@@ -393,62 +428,4 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
         return generatedModelsAndTextures;
     }
 
-    private static IResourceModification generateBlockstate(Holder<? extends Block> blockHolder, List<Pair<String, String>> blockStateVariantModels) {
-        // Blockstates
-        UnaryOperator<String> generateBlockstatesJson = s -> {
-            JsonObject blockstates = new JsonObject();
-            JsonObject variants = new JsonObject();
-
-            // For permutations
-            for (Pair<String, String> pair : blockStateVariantModels) {
-                JsonObject variant = new JsonObject();
-                variant.addProperty("model", pair.getB());
-                variants.add(pair.getA(), variant);
-            }
-            blockstates.add("variants", variants);
-
-            return blockstates.toString();
-        };
-
-        ResourceLocation blockStateLongId = ResourceLocation.fromNamespaceAndPath(
-                blockHolder.getKey().location().getNamespace(),
-                "blockstates/" + blockHolder.getKey().location().getPath() + ".json"
-        );
-        return new TextResourceModification(
-                blockStateLongId, blockStateLongId,
-                generateBlockstatesJson
-        );
-    }
-
-    private static List<List<Integer>> generatePermutations(List<Pair<Property<Integer>, Collection<Integer>>> properties) {
-        List<List<Integer>> permutations = new ArrayList<>();
-        generatePermutationsRecursive(properties, 0, new ArrayList<>(), permutations);
-        return permutations;
-    }
-
-    /**
-     * Recursive function to generate all permutations of the given properties.
-     *
-     * @param properties
-     * @param index
-     * @param current
-     * @param result
-     */
-    private static void generatePermutationsRecursive(
-            List<Pair<Property<Integer>, Collection<Integer>>> properties,
-            int index,
-            List<Integer> current,
-            List<List<Integer>> result) {
-        if (index == properties.size()) {
-            result.add(new ArrayList<>(current));
-            return;
-        }
-
-        Pair<Property<Integer>, Collection<Integer>> property = properties.get(index);
-        for (Integer value : property.getB()) {
-            current.add(value);
-            generatePermutationsRecursive(properties, index + 1, current, result);
-            current.remove(current.size() - 1);
-        }
-    }
 }

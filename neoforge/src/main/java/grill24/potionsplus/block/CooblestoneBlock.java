@@ -24,7 +24,7 @@ public class CooblestoneBlock extends Block {
                 if (aboveState.is(DecorationBlocks.ICICLE.value())) {
                     BlockPos aboveAbove = above.above();
                     BlockState aboveAboveState = level.getBlockState(aboveAbove);
-                    if(!aboveAboveState.is(DecorationBlocks.ICICLE.value()) && !aboveAboveState.isAir()) {
+                    if (!aboveAboveState.is(DecorationBlocks.ICICLE.value()) && !aboveAboveState.isAir()) {
                         // Make icicle fall on player hehehehe
                         level.destroyBlock(above, true);
 

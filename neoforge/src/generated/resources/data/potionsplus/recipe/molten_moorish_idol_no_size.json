@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "fish_no_size",
   "ingredients": [
-    {
-      "item": "potionsplus:molten_moorish_idol"
-    }
+    "potionsplus:molten_moorish_idol"
   ],
   "result": {
     "count": 1,

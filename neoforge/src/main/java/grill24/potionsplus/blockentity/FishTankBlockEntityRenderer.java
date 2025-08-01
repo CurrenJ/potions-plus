@@ -2,6 +2,7 @@ package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.DataComponents;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.item.PotionsPlusFishItem;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
@@ -13,10 +14,10 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 import org.joml.Random;
 import org.joml.Vector3f;
@@ -43,12 +44,40 @@ public class FishTankBlockEntityRenderer implements BlockEntityRenderer<FishTank
     float timestampChangeYBobTarget = 0F;
 
     @Override
-    public void render(FishTankBlockEntity fishTankBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int i, int i1) {
+    public void render(FishTankBlockEntity fishTankBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay, Vec3 cameraPos) {
         Optional<ItemStack> fish = fishTankBlockEntity.getFish();
         int kelp = fishTankBlockEntity.getKelp();
-        fish.ifPresent(stack -> renderFish(fishTankBlockEntity, partialTick, poseStack, bufferSource, i, i1, stack));
+        fish.ifPresent(stack -> renderFish(fishTankBlockEntity, partialTick, poseStack, bufferSource, light, overlay, stack));
 
-        renderKelp(poseStack, bufferSource, fishTankBlockEntity, i, i1, kelp);
+        renderKelp(poseStack, bufferSource, fishTankBlockEntity, light, overlay, kelp);
+
+        renderFrame(poseStack, bufferSource, fishTankBlockEntity, light, overlay);
+        renderSand(poseStack, bufferSource, fishTankBlockEntity, light, overlay);
+    }
+
+    private void renderFrame(PoseStack poseStack, MultiBufferSource bufferSource, FishTankBlockEntity fishTankBlockEntity, int light, int overlay) {
+        if (fishTankBlockEntity.getFaces() == 0) {
+            PotionsPlus.LOGGER.warn("Fish tank at {} has no faces set! This is likely a bug in the mod or a mod conflict.", fishTankBlockEntity.getBlockPos());
+        }
+        Optional<BlockState> frame = fishTankBlockEntity.getRenderFrameState();
+        frame.ifPresent(state -> blockRenderDispatcher.renderSingleBlock(
+                state,
+                poseStack,
+                bufferSource,
+                light,
+                overlay
+        ));
+    }
+
+    private void renderSand(PoseStack poseStack, MultiBufferSource bufferSource, FishTankBlockEntity fishTankBlockEntity, int light, int overlay) {
+        Optional<BlockState> sand = fishTankBlockEntity.getRenderSandState();
+        sand.ifPresent(state -> blockRenderDispatcher.renderSingleBlock(
+                state,
+                poseStack,
+                bufferSource,
+                light,
+                overlay
+        ));
     }
 
     private void renderKelp(PoseStack poseStack, MultiBufferSource bufferSource, FishTankBlockEntity fishTankBlockEntity, int i, int i1, int kelp) {
@@ -126,25 +155,38 @@ public class FishTankBlockEntityRenderer implements BlockEntityRenderer<FishTank
         Vector3f positionOffset = renderType.getPosition();
         poseStack.translate(positionOffset.x(), positionOffset.y() + offsetY, positionOffset.z());
 
-        int fishFacingRotOffset = switch (fishTankBlockEntity.getFishFacing()) {
-            case NORTH -> 180;
-            case SOUTH -> 0;
-            case WEST -> 90;
-            case EAST -> -90;
-            default -> 0;
-        };
-        if (fishTankBlockEntity.isHorizontalFlip()) {
-            fishFacingRotOffset += 180;
+
+        if (renderType.isWobbleAnimationEnabled()) {
+            int fishFacingRotOffset = switch (fishTankBlockEntity.getFishFacing()) {
+                case NORTH -> 180;
+                case SOUTH -> 0;
+                case WEST -> 90;
+                case EAST -> -90;
+                default -> 0;
+            };
+            if (fishTankBlockEntity.isHorizontalFlip()) {
+                fishFacingRotOffset += 180;
+            }
+
+            Vector3f rotationOffset = renderType.getRotationOffsetDegrees();
+            float rotX = (float) (Math.toRadians(Math.sin(ticks / xRotation) * 10) + Math.toRadians(rotationOffset.x()));
+            float rotY = (float) (Math.toRadians(Math.cos(ticks / yRotation) * 8) + Math.toRadians(rotationOffset.y() + fishFacingRotOffset));
+            float rotZ = (float) (Math.toRadians(Math.sin(ticks / 35F) * 3) + Math.toRadians(rotationOffset.z()));
+            poseStack.mulPose(new Quaternionf().rotationXYZ(rotX, rotY, rotZ));
+        } else {
+            Vector3f rotationOffset = renderType.getRotationOffsetDegrees();
+            poseStack.mulPose(new Quaternionf().rotationXYZ(
+                    (float) Math.toRadians(rotationOffset.x()),
+                    (float) Math.toRadians(rotationOffset.y()),
+                    (float) Math.toRadians(rotationOffset.z() + (fishTankBlockEntity.isHorizontalFlip() ? 180 : 0))
+            ));
         }
-        Vector3f rotationOffset = renderType.getRotationOffsetDegrees();
-        float rotX = (float) (Math.toRadians(Math.sin(ticks / xRotation) * 10) + Math.toRadians(rotationOffset.x()));
-        float rotY = (float) (Math.toRadians(Math.cos(ticks / yRotation) * 8) + Math.toRadians(rotationOffset.y() + fishFacingRotOffset));
-        float rotZ = (float) (Math.toRadians(Math.sin(ticks / 35F) * 3) + Math.toRadians(rotationOffset.z()));
-        poseStack.mulPose(new Quaternionf().rotationXYZ(rotX, rotY, rotZ));
 
         poseStack.scale(finalScale, finalScale, finalScale);
         if (renderType == PotionsPlusFishItem.FishTankRenderType.GROUND_ANCHORED_NO_ROTATION) {
             poseStack.translate(0, 0.5F, 0);
+        } else if (renderType == PotionsPlusFishItem.FishTankRenderType.LAY_FLAT_ON_GROUND) {
+            poseStack.translate(0, 0, -1 / 32F); // Items are rendered as 1 "pixel thick", with 1 pixel = 1/16 block (regardless of texture size) Align bottom of item with ground level
         }
 
         Minecraft.getInstance().getItemRenderer().renderStatic(

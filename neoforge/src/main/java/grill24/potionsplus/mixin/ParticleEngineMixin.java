@@ -19,9 +19,14 @@ import java.util.Queue;
 
 @Mixin(ParticleEngine.class)
 public abstract class ParticleEngineMixin implements IParticleEngineExtension {
-    @Shadow @Final private Map<ResourceLocation, ParticleProvider<?>> providers;
-    @Shadow @Final private Queue<TrackingEmitter> trackingEmitters;
-    @Shadow protected ClientLevel level;
+    @Shadow
+    @Final
+    private Map<ResourceLocation, ParticleProvider<?>> providers;
+    @Shadow
+    @Final
+    private Queue<TrackingEmitter> trackingEmitters;
+    @Shadow
+    protected ClientLevel level;
 
     @Unique
     public Map<ResourceLocation, ParticleProvider<?>> potions_plus$getProviders() {

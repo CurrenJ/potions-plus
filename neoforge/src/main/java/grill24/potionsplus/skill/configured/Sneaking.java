@@ -21,7 +21,7 @@ public class Sneaking {
         return context.register(ConfiguredSkills.SNEAKING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_SNEAKING,
                         new TreeMap<>(Map.of(
-                                5, new ItemStack(Items.LEATHER_BOOTS)
+                                0, new ItemStack(Items.LEATHER_BOOTS)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.SNEAK),
                         new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 0, 25),

@@ -5,27 +5,27 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Vec3i;
-import net.minecraft.util.random.SimpleWeightedRandomList;
-import net.minecraft.world.level.biome.*;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
-import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class IceCave {
-    public static WeightedStateProvider ICE_SAMPLER = new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+    public static WeightedStateProvider ICE_SAMPLER = new WeightedStateProvider(WeightedList.<BlockState>builder()
             .add(Blocks.ICE.defaultBlockState(), 5)
             .add(Blocks.PACKED_ICE.defaultBlockState(), 4)
             .add(Blocks.BLUE_ICE.defaultBlockState(), 1)
@@ -35,11 +35,12 @@ public class IceCave {
             Direction.DOWN,
             BlockPredicate.allOf(matchesBlockInSquare(Blocks.ICE, 5, true, BlockPos.ZERO), matchesBlockInSquare(Blocks.AIR, 5, true, new BlockPos(0, 1, 0))),
             BlockPredicate.ONLY_IN_AIR_PREDICATE, 12);
+
     private static BlockPredicate matchesBlockInSquare(Block block, int expand, boolean requireAll, Vec3i offset) {
         int sideLength = expand * 2 + 1;
         BlockPredicate[] predicates = new BlockPredicate[sideLength * sideLength];
-        for(int x = -expand; x <= expand; x++) {
-            for(int z = -expand; z <= expand; z++) {
+        for (int x = -expand; x <= expand; x++) {
+            for (int z = -expand; z <= expand; z++) {
                 predicates[(x + expand) * sideLength + (z + expand)] = BlockPredicate.matchesBlocks(new Vec3i(x, 0, z).offset(offset), block);
             }
         }
@@ -49,9 +50,9 @@ public class IceCave {
 
     public static Biome iceCave(HolderGetter<PlacedFeature> placedFeatureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
         MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();
-        mobspawnsettings$builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SNOW_GOLEM, 10, 4, 6));
-        mobspawnsettings$builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 10, 4, 6));
-        mobspawnsettings$builder.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 25, 8, 8));
+        mobspawnsettings$builder.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(EntityType.SNOW_GOLEM, 4, 10));
+        mobspawnsettings$builder.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 4, 10));
+        mobspawnsettings$builder.addSpawn(MobCategory.WATER_AMBIENT, 8, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 8, 25));
         BiomeDefaultFeatures.commonSpawns(mobspawnsettings$builder);
 
         BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder(placedFeatureGetter, carverGetter);

@@ -2,17 +2,8 @@ package grill24.potionsplus.particle;
 
 import grill24.potionsplus.block.ParticleEmitterBlock;
 import grill24.potionsplus.core.Particles;
-import net.minecraft.core.Holder;
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
-
-import java.util.Optional;
-
-import static grill24.potionsplus.utility.Utility.mc;
 
 public class ParticleConfigurations {
     public static final ParticleEmitterBlock.ParticleEmitterConfiguration END_ROD_RAIN = new ParticleEmitterBlock.ParticleEmitterConfiguration(Blocks.END_STONE_BRICKS, 32, new ParticleEmitterBlock.ParticleEmitterConfiguration.WeightedParticleType(Particles.END_ROD_RAIN.value(), 1));

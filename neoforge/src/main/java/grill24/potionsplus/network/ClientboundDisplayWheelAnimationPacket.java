@@ -14,7 +14,8 @@ import java.util.List;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundDisplayWheelAnimationPacket(List<ItemStack> stacks, int winnerIndex) implements CustomPacketPayload {
+public record ClientboundDisplayWheelAnimationPacket(List<ItemStack> stacks,
+                                                     int winnerIndex) implements CustomPacketPayload {
     public static final Type<ClientboundDisplayWheelAnimationPacket> TYPE = new Type<>(ppId("display_wheel_animation"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundDisplayWheelAnimationPacket> STREAM_CODEC = StreamCodec.composite(
@@ -31,7 +32,7 @@ public record ClientboundDisplayWheelAnimationPacket(List<ItemStack> stacks, int
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundDisplayWheelAnimationPacket packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundDisplayWheelAnimationPacket packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();
@@ -39,7 +40,7 @@ public record ClientboundDisplayWheelAnimationPacket(List<ItemStack> stacks, int
                             return;
                         }
 
-                        if(packet.stacks != null) {
+                        if (packet.stacks != null) {
                             // Display the item activation
                             ((IGameRendererMixin) mc.gameRenderer).potions_plus$displayItemActivation(WheelItemActivationAnimation.withWinner(packet.stacks(), packet.winnerIndex()));
                         }

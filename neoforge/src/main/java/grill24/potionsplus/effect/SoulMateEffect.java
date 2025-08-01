@@ -7,6 +7,7 @@ import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
-public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails{
+public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails {
     public static Set<Integer> soulMates = new HashSet<>();
 
     public SoulMateEffect(MobEffectCategory mobEffectCategory, int color) {
@@ -46,8 +47,8 @@ public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails{
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-        if(!entity.level().isClientSide) {
+    public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity entity, int amplifier) {
+        if (!entity.level().isClientSide) {
             addEffect(entity);
         }
 
@@ -69,7 +70,7 @@ public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails{
 
             for (int soulMate : soulMates) {
                 Entity entity = livingHurtEvent.getEntity().level().getEntity(soulMate);
-                if(entity != null) {
+                if (entity != null) {
                     entity.hurt(livingHurtEvent.getSource(), damageToRedirectPerEntity);
                 }
             }
@@ -78,7 +79,7 @@ public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails{
 
     @SubscribeEvent
     public static void onEntityHeal(final LivingHealEvent livingHealEvent) {
-        if(livingHealEvent.getEntity() == null || soulMates.size() < 2) {
+        if (livingHealEvent.getEntity() == null || soulMates.size() < 2) {
             return;
         }
 
@@ -91,7 +92,7 @@ public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails{
 
             for (int soulMate : soulMates) {
                 Entity entity = livingHealEvent.getEntity().level().getEntity(soulMate);
-                if(entity instanceof LivingEntity livingEntity) {
+                if (entity instanceof LivingEntity livingEntity) {
                     if (healToRedirectPerEntity <= 0) return;
                     float health = livingEntity.getHealth();
                     if (health > 0.0F) {
@@ -123,13 +124,13 @@ public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails{
     }
 
     private static void removeEffect(LivingEntity entity) {
-        if(!entity.level().isClientSide) {
+        if (!entity.level().isClientSide) {
             soulMates.remove(entity.getId());
         }
     }
 
     private static void addEffect(LivingEntity entity) {
-        if(!entity.level().isClientSide) {
+        if (!entity.level().isClientSide) {
             soulMates.add(entity.getId());
         }
     }

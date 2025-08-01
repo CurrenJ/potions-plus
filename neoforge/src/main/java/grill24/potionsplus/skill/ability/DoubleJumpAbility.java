@@ -1,19 +1,16 @@
 package grill24.potionsplus.skill.ability;
 
-import grill24.potionsplus.core.*;
+import grill24.potionsplus.core.AbilityInstanceTypes;
+import grill24.potionsplus.core.ConfiguredPlayerAbilities;
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.extension.IPlayerExtension;
 import grill24.potionsplus.network.ServerboundSpawnDoubleJumpParticlesPacket;
-import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.DoubleJumpAbilityInstanceData;
 import grill24.potionsplus.utility.ModInfo;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -27,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import static grill24.potionsplus.utility.Utility.ppId;
 
 /**
  * Ability that allows the player to jump a second time in midair.
@@ -63,23 +58,14 @@ public class DoubleJumpAbility extends SimplePlayerAbility {
         return Optional.of(components);
     }
 
-    public static void onJumpFromGround(Player player) {
-        SkillsData skillsData = SkillsData.getPlayerData(player);
-        Optional<AbilityInstanceSerializable<?, ?>> inst = skillsData.getAbilityInstance(player.registryAccess(), ConfiguredPlayerAbilities.DOUBLE_JUMP.getKey());
-        if(inst.isPresent() && inst.get().data() instanceof DoubleJumpAbilityInstanceData data && player.isLocalPlayer()) {
-            try (Level level = player.level()) {
-                data.onInitialJump(level.getGameTime());
-            } catch (IOException ignored) {}
-        }
-    }
-
     @SubscribeEvent
     public static void onMovementInputUpdate(final MovementInputUpdateEvent event) {
         Player player = event.getEntity();
         long gameTime = 0L;
         try (Level level = player.level()) {
             gameTime = level.getGameTime();
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
 
         SkillsData skillsData = SkillsData.getPlayerData(player);
         Optional<AbilityInstanceSerializable<?, ?>> inst = skillsData.getAbilityInstance(player.registryAccess(), ConfiguredPlayerAbilities.DOUBLE_JUMP.getKey());
@@ -87,7 +73,7 @@ public class DoubleJumpAbility extends SimplePlayerAbility {
             if (player.onGround()) {
                 data.resetJumps();
             }
-            if (event.getInput().jumping && player.isLocalPlayer() && data.hasFinishedCooldown(gameTime) && data.getJumpsLeft() > 0){
+            if (event.getInput().keyPresses.jump() && player.isLocalPlayer() && data.hasFinishedCooldown(gameTime) && data.getJumpsLeft() > 0) {
                 if (player.onGround()) {
                     data.onInitialJump(gameTime);
                 } else {

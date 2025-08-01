@@ -23,7 +23,7 @@ public class LootItemModifiersBehaviour {
     private static int potions_plus$addBonusLevelsFromMobEffect(int levelIn, Holder<Enchantment> input, ResourceKey<Enchantment> targetEnchantment, Holder<MobEffect> mobEffect, Entity entitySource) {
         int enchantmentLevel = levelIn;
         if (input.is(targetEnchantment)) {
-            if (entitySource instanceof LivingEntity livingEntity ) {
+            if (entitySource instanceof LivingEntity livingEntity) {
                 if (livingEntity.hasEffect(mobEffect)) {
                     MobEffectInstance effect = livingEntity.getEffect(mobEffect);
                     if (effect.getEffect() instanceof IEnchantmentBonusTooltipDetails enchantmentBonus) {
@@ -37,12 +37,12 @@ public class LootItemModifiersBehaviour {
 
     public static int potions_plus$addBonusLevelsFromMobEffect(LivingEntity entity, Holder<Enchantment> input, ResourceKey<Enchantment> targetEnchantment, Holder<MobEffect> mobEffect, LootContext runParamContext) {
         int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(input, entity);
-        return potions_plus$addBonusLevelsFromMobEffect(enchantmentLevel, input, targetEnchantment, mobEffect, runParamContext.getParamOrNull(LootContextParams.ATTACKING_ENTITY));
+        return potions_plus$addBonusLevelsFromMobEffect(enchantmentLevel, input, targetEnchantment, mobEffect, runParamContext.getOptionalParameter(LootContextParams.ATTACKING_ENTITY));
     }
 
     public static int potions_plus$addBonusLevelsFromMobEffect(ItemStack stack, Holder<Enchantment> input, ResourceKey<Enchantment> targetEnchantment, Holder<MobEffect> mobEffect, LootContext runParamContext) {
         int enchantmentLevel = EnchantmentHelper.getTagEnchantmentLevel(input, stack);
-        return potions_plus$addBonusLevelsFromMobEffect(enchantmentLevel, input, targetEnchantment, mobEffect, runParamContext.getParamOrNull(LootContextParams.THIS_ENTITY));
+        return potions_plus$addBonusLevelsFromMobEffect(enchantmentLevel, input, targetEnchantment, mobEffect, runParamContext.getOptionalParameter(LootContextParams.THIS_ENTITY));
     }
 
     public static int getBonusLevelsFromAttributes(Holder<Enchantment> enchantment, Entity source, int enchantmentLevel) {
@@ -63,7 +63,7 @@ public class LootItemModifiersBehaviour {
                 if (entry.attribute().getKey().equals(attribute.get().getKey())) {
                     double amount = entry.modifier().amount();
 
-                    enchantmentLevelWithBonuses += (int) Math.round( switch (entry.modifier().operation()) {
+                    enchantmentLevelWithBonuses += (int) Math.round(switch (entry.modifier().operation()) {
                         case ADD_VALUE -> amount;
                         case ADD_MULTIPLIED_BASE -> amount * enchantmentLevel;
                         case ADD_MULTIPLIED_TOTAL -> amount * enchantmentLevelWithBonuses;

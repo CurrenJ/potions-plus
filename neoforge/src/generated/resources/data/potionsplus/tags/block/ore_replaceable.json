@@ -1,6 +1,13 @@
 {
   "values": [
     "#c:stones",
+    "minecraft:sandstone",
+    "minecraft:basalt",
+    "minecraft:blackstone",
+    "potionsplus:unstable_blackstone",
+    "potionsplus:unstable_molten_blackstone",
+    "potionsplus:unstable_deepslate",
+    "potionsplus:unstable_molten_deepslate",
     "#c:cobblestones"
   ]
 }

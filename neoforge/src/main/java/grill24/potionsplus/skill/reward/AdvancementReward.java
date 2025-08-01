@@ -6,7 +6,7 @@ import grill24.potionsplus.core.ConfiguredGrantableRewards;
 import grill24.potionsplus.core.GrantableRewards;
 import grill24.potionsplus.core.PotionsPlusRegistries;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -45,12 +45,12 @@ public class AdvancementReward extends GrantableReward<AdvancementReward.Advance
     }
 
     @Override
-    public Optional<Component> getDescription(AdvancementRewardConfiguration config) {
+    public Optional<Component> getDescription(RegistryAccess registryAccess, AdvancementRewardConfiguration config) {
         return config.translationKey.isBlank() ? Optional.empty() : Optional.of(Component.translatable(config.translationKey));
     }
 
     @Override
-    public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, AdvancementRewardConfiguration config, ServerPlayer player) {
+    public void grant(ResourceKey<ConfiguredGrantableReward<?, ?>> holder, AdvancementRewardConfiguration config, ServerPlayer player) {
         config.rewards.grant(player);
     }
 

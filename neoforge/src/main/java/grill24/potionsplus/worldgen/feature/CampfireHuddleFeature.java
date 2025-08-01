@@ -5,8 +5,6 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -66,7 +64,7 @@ public class CampfireHuddleFeature extends Feature<NoneFeatureConfiguration> {
             blockpos.move(Direction.DOWN);
         }
 
-        if(worldgenlevel.isEmptyBlock(blockpos) && worldgenlevel.getBlockState(blockpos.below()).isFaceSturdy(worldgenlevel, blockpos.below(), Direction.UP)){
+        if (worldgenlevel.isEmptyBlock(blockpos) && worldgenlevel.getBlockState(blockpos.below()).isFaceSturdy(worldgenlevel, blockpos.below(), Direction.UP)) {
             BlockState campfire = context.random().nextFloat() < 0.1F ? Blocks.SOUL_CAMPFIRE.defaultBlockState() : Blocks.CAMPFIRE.defaultBlockState();
             campfire = context.random().nextFloat() < 0.4F ? campfire.setValue(CampfireBlock.LIT, true) : campfire.setValue(CampfireBlock.LIT, false);
             campfire = context.random().nextFloat() < 0.02F ? Blocks.LAVA_CAULDRON.defaultBlockState() : campfire;

@@ -610,7 +610,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 80.0,
+                "mean": 150.0,
                 "stdDev": 15.0
               }
             }
@@ -645,7 +645,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 80.0,
+                "mean": 150.0,
                 "stdDev": 15.0
               }
             }
@@ -961,6 +961,62 @@
             }
           ],
           "name": "potionsplus:lizardfish",
+          "quality": 1,
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 50.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:starfish",
+          "quality": 1
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:beach",
+                "minecraft:pale_garden",
+                "minecraft:snowy_beach",
+                "minecraft:sunflower_plains"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:worms"
+              ]
+            }
+          ],
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 50.0,
+                "stdDev": 15.0
+              }
+            }
+          ],
+          "name": "potionsplus:starfish",
           "quality": 1,
           "weight": 4
         },
@@ -1532,7 +1588,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 90.0,
+                "mean": 160.0,
                 "stdDev": 20.0
               }
             }
@@ -1567,7 +1623,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 90.0,
+                "mean": 160.0,
                 "stdDev": 20.0
               }
             }
@@ -1883,6 +1939,62 @@
             }
           ],
           "name": "potionsplus:lizardfish",
+          "quality": 1,
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:gummy_worms"
+              ]
+            }
+          ],
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 60.0,
+                "stdDev": 20.0
+              }
+            }
+          ],
+          "name": "potionsplus:starfish",
+          "quality": 1
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:beach",
+                "minecraft:pale_garden",
+                "minecraft:snowy_beach",
+                "minecraft:sunflower_plains"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:gummy_worms"
+              ]
+            }
+          ],
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 60.0,
+                "stdDev": 20.0
+              }
+            }
+          ],
+          "name": "potionsplus:starfish",
           "quality": 1,
           "weight": 4
         },
@@ -2486,7 +2598,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 85.0,
+                "mean": 155.0,
                 "stdDev": 10.0
               }
             }
@@ -2521,7 +2633,7 @@
               "function": "potionsplus:set_fish_size",
               "size": {
                 "type": "potionsplus:gaussian_distribution",
-                "mean": 85.0,
+                "mean": 155.0,
                 "stdDev": 10.0
               }
             }
@@ -2837,6 +2949,62 @@
             }
           ],
           "name": "potionsplus:lizardfish",
+          "quality": 1,
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:blazed_grub"
+              ]
+            }
+          ],
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 55.0,
+                "stdDev": 10.0
+              }
+            }
+          ],
+          "name": "potionsplus:starfish",
+          "quality": 1
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "biomes": [
+                "minecraft:beach",
+                "minecraft:pale_garden",
+                "minecraft:snowy_beach",
+                "minecraft:sunflower_plains"
+              ],
+              "condition": "potionsplus:is_in_biome"
+            },
+            {
+              "condition": "potionsplus:has_fishing_rod_bait",
+              "items": [
+                "potionsplus:blazed_grub"
+              ]
+            }
+          ],
+          "functions": [
+            {
+              "function": "potionsplus:set_fish_size",
+              "size": {
+                "type": "potionsplus:gaussian_distribution",
+                "mean": 55.0,
+                "stdDev": 10.0
+              }
+            }
+          ],
+          "name": "potionsplus:starfish",
           "quality": 1,
           "weight": 4
         }

@@ -20,9 +20,10 @@ public class ClientboundStartFishingMinigamePacket implements CustomPacketPayloa
             ByteBufCodecs.fromCodec(FishingGamePlayerAttachment.CODEC),
             instance -> instance.attachmentData,
             ClientboundStartFishingMinigamePacket::new
-   );
+    );
 
     private final FishingGamePlayerAttachment attachmentData;
+
     private ClientboundStartFishingMinigamePacket(FishingGamePlayerAttachment attachmentData) {
         this.attachmentData = attachmentData;
     }
@@ -32,13 +33,13 @@ public class ClientboundStartFishingMinigamePacket implements CustomPacketPayloa
         return new ClientboundStartFishingMinigamePacket(attachmentData);
     }
 
-                              @Override
+    @Override
     public Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundStartFishingMinigamePacket packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundStartFishingMinigamePacket packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

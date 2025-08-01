@@ -1,13 +1,16 @@
 package grill24.potionsplus.worldgen;
 
+import grill24.potionsplus.block.GeneticCropBlock;
 import grill24.potionsplus.core.Features;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
+import grill24.potionsplus.utility.Genotype;
 import grill24.potionsplus.worldgen.biome.AridCave;
 import grill24.potionsplus.worldgen.biome.IceCave;
 import grill24.potionsplus.worldgen.biome.VolcanicCave;
+import grill24.potionsplus.worldgen.feature.GeneticCropConfiguration;
 import grill24.potionsplus.worldgen.feature.PotionsPlusVegetationPatchConfiguration;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -18,8 +21,11 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.random.SimpleWeightedRandomList;
-import net.minecraft.util.valueproviders.*;
+import net.minecraft.util.random.WeightedList;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
@@ -48,6 +54,8 @@ public class ConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_URANIUM_KEY = createKey("ore_uranium");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH_KEY = createKey("lunar_berry_bush");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TOMATO_PATCH_KEY = ResourceKey.create(Registries.CONFIGURED_FEATURE, ppId("tomato_patch"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> BRASSICA_OLERACEA_PATCH_KEY = ResourceKey.create(Registries.CONFIGURED_FEATURE, ppId("brassica_oleracea_patch"));
 
     // ----- Volcanic Cave -----
     public static final ResourceKey<ConfiguredFeature<?, ?>> VOLCANIC_PATCH_FLOOR_KEY = createKey("volcanic_cave_patch_floor");
@@ -102,14 +110,26 @@ public class ConfiguredFeatures {
         // ----- Lunar Berry Bush -----
         final Holder<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH = register(context, LUNAR_BERRY_BUSH_KEY, Feature.RANDOM_PATCH,
                 new RandomPatchConfiguration(32, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                        new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
                                 .add(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 3)
                                 .add(FlowerBlocks.LUNAR_BERRY_BUSH.value().defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 1)
                         )))));
 
+        // ----- Genetic Crop Patches -----
+        final Holder<ConfiguredFeature<?, ?>> TOMATO_PATCH = register(context, TOMATO_PATCH_KEY, Feature.RANDOM_PATCH,
+                new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
+                        new GeneticCropConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
+                                .add(FlowerBlocks.TOMATO_PLANT.value().defaultBlockState().setValue(GeneticCropBlock.AGE, 25).setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.MATURE), 1)),
+                                new Genotype(0, 0, 0, 0), new Genotype(50, 75, 32, 32)))));
+        final Holder<ConfiguredFeature<?, ?>> BRASSICA_OLERACEA_PATCH = register(context, BRASSICA_OLERACEA_PATCH_KEY, Feature.RANDOM_PATCH,
+                new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
+                        new GeneticCropConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
+                                .add(FlowerBlocks.BRASSICA_OLERACEA_PLANT.value().defaultBlockState().setValue(GeneticCropBlock.AGE, 25).setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.MATURE), 1)),
+                                new Genotype(0, 0, 0, 0), new Genotype(50, 0, 48, 48)))));
+
         // ----- Volcanic Cave -----
         final Holder<ConfiguredFeature<?, ?>> FLOOR_VEGETATION = register(context, FLOOR_VEGETATION_KEY, Feature.SIMPLE_BLOCK,
-                new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
                         .add(Blocks.CRIMSON_ROOTS.defaultBlockState(), 12)
                         .add(Blocks.CRIMSON_FUNGUS.defaultBlockState(), 1)
                         .add(Blocks.RED_MUSHROOM.defaultBlockState(), 1)
@@ -131,7 +151,7 @@ public class ConfiguredFeatures {
 
         // ----- Ice Cave -----
         final Holder<ConfiguredFeature<?, ?>> ICE_FLOOR_VEGETATION = register(context, ICE_FLOOR_VEGETATION_KEY, Feature.SIMPLE_BLOCK,
-                new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
                         .add(Blocks.SNOW.defaultBlockState(), 8)
                         .add(Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, 2), 4)
                         .add(Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, 3), 2)
@@ -140,7 +160,7 @@ public class ConfiguredFeatures {
         final Holder<ConfiguredFeature<?, ?>> ICE_CEILING_VEGETATION = register(context, ICE_CEILING_VEGETATION_KEY, Feature.BLOCK_COLUMN,
                 new BlockColumnConfiguration(List.of(
                         BlockColumnConfiguration.layer(
-                                new WeightedListInt(SimpleWeightedRandomList.<IntProvider>builder()
+                                new WeightedListInt(WeightedList.<IntProvider>builder()
                                         .add(UniformInt.of(0, 3), 5)
                                         .add(UniformInt.of(1, 7), 1).build()), BlockStateProvider.simple(Blocks.PACKED_ICE)),
                         BlockColumnConfiguration.layer(ConstantInt.of(1), BlockStateProvider.simple(Blocks.BLUE_ICE))), Direction.DOWN, BlockPredicate.ONLY_IN_AIR_PREDICATE, true));
@@ -159,7 +179,7 @@ public class ConfiguredFeatures {
 
         // ----- Arid Cave -----
         final Holder<ConfiguredFeature<?, ?>> ARID_CAVE_FLOOR_VEGETATION = register(context, ARID_CAVE_FLOOR_VEGETATION_KEY, Feature.SIMPLE_BLOCK,
-                new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
                         .add(Blocks.DEAD_BUSH.defaultBlockState(), 1)
                         .add(Blocks.CACTUS.defaultBlockState(), 1)
                 ))
@@ -178,7 +198,7 @@ public class ConfiguredFeatures {
         VersatilePlantsWorldGenData.registerAllConfiguredFeatures(context);
     }
 
-    private static ResourceKey<ConfiguredFeature<?,?>> createKey(String key) {
+    private static ResourceKey<ConfiguredFeature<?, ?>> createKey(String key) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ppId(key));
     }
 

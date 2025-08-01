@@ -1,24 +1,25 @@
 package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
+import grill24.potionsplus.block.UnstableBlock;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
-import net.neoforged.neoforge.common.util.Lazy;
-import grill24.potionsplus.block.UnstableBlock;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.utility.WorldGenUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.neoforged.neoforge.common.util.Lazy;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class VolcanicFissureFeature extends Feature<NoneFeatureConfiguration> {
-    public static Lazy<WeightedStateProvider> FILL_SAMPLER = Lazy.of(() -> new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+    public static Lazy<WeightedStateProvider> FILL_SAMPLER = Lazy.of(() -> new WeightedStateProvider(WeightedList.<BlockState>builder()
             .add(DecorationBlocks.UNSTABLE_BLACKSTONE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 2)
             .add(DecorationBlocks.UNSTABLE_DEEPSLATE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 2)
             .add(DecorationBlocks.UNSTABLE_MOLTEN_BLACKSTONE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 1)
@@ -43,13 +44,13 @@ public class VolcanicFissureFeature extends Feature<NoneFeatureConfiguration> {
         // Check validity
         AtomicBoolean valid = new AtomicBoolean(true);
         WorldGenUtil.iterateEllipsoidShape(shape, width, height, depth, (blockPos -> {
-            if(blockPos.getY() < height / 3) {
-                if(context.level().getBlockState(blockPos.offset(context.origin()).offset((int) -radiusX, (int) -radiusY, (int) -radiusY)).isAir()) {
+            if (blockPos.getY() < height / 3) {
+                if (context.level().getBlockState(blockPos.offset(context.origin()).offset((int) -radiusX, (int) -radiusY, (int) -radiusY)).isAir()) {
                     valid.set(false);
                 }
             }
         }));
-        if(!valid.get()) {
+        if (!valid.get()) {
             return false;
         }
 
@@ -58,18 +59,18 @@ public class VolcanicFissureFeature extends Feature<NoneFeatureConfiguration> {
             BlockPos pos = p.offset(context.origin()).offset((int) -radiusX, (int) -radiusY, (int) -radiusY);
             BlockState cavity = FILL_SAMPLER.get().getState(context.random(), pos);
 
-            if(!context.level().getBlockState(pos).isAir()) {
-            if(p.getY() <= height / 2) {
-                if(p.getY() < height / 4) {
-                    context.level().setBlock(pos, bottomLayer, 2 | 16);
-                } else {
-                    context.level().setBlock(p.offset(context.origin()).offset((int) -radiusX, (int) -radiusY, (int) -radiusY), cavity, 2 | 16);
+            if (!context.level().getBlockState(pos).isAir()) {
+                if (p.getY() <= height / 2) {
+                    if (p.getY() < height / 4) {
+                        context.level().setBlock(pos, bottomLayer, 2 | 16);
+                    } else {
+                        context.level().setBlock(p.offset(context.origin()).offset((int) -radiusX, (int) -radiusY, (int) -radiusY), cavity, 2 | 16);
+                    }
                 }
-            }
             }
         }));
 
-        if(PotionsPlus.Debug.DEBUG) {
+        if (Debug.DEBUG) {
             PotionsPlus.LOGGER.info("Volcanic fissure generated at {}", context.origin());
         }
 

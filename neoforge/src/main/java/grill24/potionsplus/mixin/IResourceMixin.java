@@ -12,7 +12,9 @@ import java.io.InputStream;
 
 @Mixin(Resource.class)
 public abstract class IResourceMixin implements IResourceExtension {
-    @Shadow @Final private IoSupplier<InputStream> streamSupplier;
+    @Shadow
+    @Final
+    private IoSupplier<InputStream> streamSupplier;
 
     @Unique
     @Override

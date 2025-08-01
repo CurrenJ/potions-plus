@@ -28,7 +28,7 @@ public abstract class LevelChunkMixin extends ChunkAccess {
     // Hack to suppress all generation-time updates to unstable blocks
     @Redirect(method = "postProcessGeneration", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;updateFromNeighbourShapes(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"))
     private BlockState postProcessGeneration(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos) {
-        if(blockState.getBlock() instanceof UnstableBlock unstableBlock)
+        if (blockState.getBlock() instanceof UnstableBlock unstableBlock)
             return blockState;
         return Block.updateFromNeighbourShapes(blockState, levelAccessor, blockPos);
     }

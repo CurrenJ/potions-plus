@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:tropical_fish"
-    }
+    "minecraft:tropical_fish"
   ],
   "result": {
     "count": 1,

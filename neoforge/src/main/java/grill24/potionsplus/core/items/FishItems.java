@@ -7,11 +7,11 @@ import grill24.potionsplus.item.PotionsPlusFishItem;
 import grill24.potionsplus.loot.IsInBiomeTagCondition;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.block.FishingRodItemModelGenerator;
 import grill24.potionsplus.utility.registration.item.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
@@ -23,15 +23,13 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-import static grill24.potionsplus.data.RecipeProvider.has;
-
 public class FishItems {
     public static Holder<Item> COPPER_FISHING_ROD, OBSIDIAN_FISHING_ROD;
     public static BaitItemBuilder NO_BAIT, WORMS, GUMMY_WORMS, BLAZED_GRUB;
 
     public static FishItemBuilder NORTHERN_PIKE, PARROTFISH, RAINFORDIA, GARDEN_EEL, ROYAL_GARDEN_EEL,
             LONGNOSE_GAR, SHRIMP, FRIED_SHRIMP, MOORISH_IDOL, MOLTEN_MOORISH_IDOL, OCEAN_SUNFISH,
-            PORTUGUESE_MAN_O_WAR, BLUEGILL, NEON_TETRA, GIANT_MANTA_RAY, FROZEN_GIANT_MANTA_RAY, LIZARDFISH;
+            PORTUGUESE_MAN_O_WAR, BLUEGILL, NEON_TETRA, GIANT_MANTA_RAY, FROZEN_GIANT_MANTA_RAY, LIZARDFISH, STARFISH;
 
     /**
      * Forces the static fields to be initialized.
@@ -40,30 +38,32 @@ public class FishItems {
         COPPER_FISHING_ROD = RegistrationUtility.register(register, SimpleItemBuilder.create("copper_fishing_rod")
                 .itemFactory(FishingRodItem::new)
                 .properties(Items.properties().durability(80))
-                .modelGenerator(null)
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
-                        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, h.value())
-                                .define('C', net.minecraft.world.item.Items.COPPER_INGOT)
-                                .define('S', net.minecraft.world.item.Items.STICK)
-                                .define('F', net.minecraft.world.item.Items.STRING)
-                                .pattern("  C")
-                                .pattern(" CF")
-                                .pattern("S F")
-                                .unlockedBy("has_copper_ingot", has(net.minecraft.world.item.Items.COPPER_INGOT))))
+                .modelGenerator(itemSupplier -> new FishingRodItemModelGenerator(itemSupplier))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
+                        (recipeProvider, h) ->
+                                recipeProvider.shaped(RecipeCategory.TOOLS, h.value())
+                                        .define('C', net.minecraft.world.item.Items.COPPER_INGOT)
+                                        .define('S', net.minecraft.world.item.Items.STICK)
+                                        .define('F', net.minecraft.world.item.Items.STRING)
+                                        .pattern("  C")
+                                        .pattern(" CF")
+                                        .pattern("S F")
+                                        .unlockedBy("has_copper_ingot", recipeProvider.has(net.minecraft.world.item.Items.COPPER_INGOT))))
         ).getHolder();
 
         OBSIDIAN_FISHING_ROD = RegistrationUtility.register(register, SimpleItemBuilder.create("obsidian_fishing_rod")
                 .itemFactory(FishingRodItem::new)
                 .properties(Items.properties().durability(160))
-                .modelGenerator(null)
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
-                        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, h.value())
-                                .define('C', COPPER_FISHING_ROD.value())
-                                .define('O', net.minecraft.world.item.Items.OBSIDIAN)
-                                .pattern(" O ")
-                                .pattern("OCO")
-                                .pattern(" O ")
-                                .unlockedBy("has_obsidian", has(net.minecraft.world.item.Items.OBSIDIAN))))
+                .modelGenerator(itemSupplier -> new FishingRodItemModelGenerator(itemSupplier))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
+                        (recipeProvider, h) ->
+                                recipeProvider.shaped(RecipeCategory.TOOLS, h.value())
+                                        .define('C', COPPER_FISHING_ROD.value())
+                                        .define('O', net.minecraft.world.item.Items.OBSIDIAN)
+                                        .pattern(" O ")
+                                        .pattern("OCO")
+                                        .pattern(" O ")
+                                        .unlockedBy("has_obsidian", recipeProvider.has(net.minecraft.world.item.Items.OBSIDIAN))))
         ).getHolder();
 
         // No bait - register using our system but don't actually register a new item with the game.
@@ -137,7 +137,7 @@ public class FishItems {
                 .biomeBonusWeight(0)
                 .quality(2));
         OCEAN_SUNFISH = RegistrationUtility.register(register, FishItemBuilder.create("ocean_sunfish")
-                .sizeProvider(GaussianSizeBand.LARGE)
+                .sizeProvider(GaussianSizeBand.EXTRA_LARGE)
                 .biomes(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.WARM_OCEAN, Biomes.COLD_OCEAN, Biomes.FROZEN_OCEAN, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS));
         PORTUGUESE_MAN_O_WAR = RegistrationUtility.register(register, FishItemBuilder.create("portuguese_man_o_war")
                 .itemFactory(prop -> new PotionsPlusFishItem(prop, PotionsPlusFishItem.FishTankRenderType.UPRIGHT_FISH))
@@ -162,5 +162,9 @@ public class FishItems {
         LIZARDFISH = RegistrationUtility.register(register, FishItemBuilder.create("lizardfish")
                 .sizeProvider(GaussianSizeBand.MEDIUM)
                 .biomes(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.MUSHROOM_FIELDS, Biomes.LUSH_CAVES, Biomes.SUNFLOWER_PLAINS));
+        STARFISH = RegistrationUtility.register(register, FishItemBuilder.create("starfish")
+                .itemFactory(prop -> new PotionsPlusFishItem(prop, PotionsPlusFishItem.FishTankRenderType.LAY_FLAT_ON_GROUND))
+                .sizeProvider(GaussianSizeBand.MEDIUM)
+                .biomes(Biomes.PALE_GARDEN, Biomes.SUNFLOWER_PLAINS, Biomes.BEACH, Biomes.SNOWY_BEACH));
     }
 }

@@ -2,6 +2,7 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.render.animation.keyframe.AnimationCurveSerializer;
 import grill24.potionsplus.skill.ConfiguredSkill;
+import grill24.potionsplus.skill.Skill;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
@@ -9,7 +10,6 @@ import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
 import grill24.potionsplus.skill.reward.GrantableReward;
 import grill24.potionsplus.skill.source.ConfiguredSkillPointSource;
 import grill24.potionsplus.skill.source.SkillPointSource;
-import grill24.potionsplus.skill.Skill;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -30,7 +30,7 @@ public class PotionsPlusRegistries {
             .create();
 
     public static final ResourceKey<Registry<SkillPointSource<?, ?>>> SKILL_POINT_SOURCE_REGISTRY_KEY = ResourceKey.createRegistryKey(ppId("skill_point_source"));
-    public  static final Registry<SkillPointSource<?, ?>> SKILL_POINT_SOURCE = new RegistryBuilder<>(SKILL_POINT_SOURCE_REGISTRY_KEY)
+    public static final Registry<SkillPointSource<?, ?>> SKILL_POINT_SOURCE = new RegistryBuilder<>(SKILL_POINT_SOURCE_REGISTRY_KEY)
             .sync(true)
             .create();
 

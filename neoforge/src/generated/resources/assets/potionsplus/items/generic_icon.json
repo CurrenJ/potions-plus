@@ -1,0 +1,229 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_amplifier_upgrade"
+        },
+        "threshold": 0.015625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_duration_upgrade"
+        },
+        "threshold": 0.03125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_i"
+        },
+        "threshold": 0.046875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_ii"
+        },
+        "threshold": 0.0625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_iii"
+        },
+        "threshold": 0.078125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_iv"
+        },
+        "threshold": 0.09375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_v"
+        },
+        "threshold": 0.109375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_vi"
+        },
+        "threshold": 0.125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_vii"
+        },
+        "threshold": 0.140625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_viii"
+        },
+        "threshold": 0.15625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_arrow"
+        },
+        "threshold": 0.171875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_unknown"
+        },
+        "threshold": 0.1875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_sga_a"
+        },
+        "threshold": 0.203125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_sga_b"
+        },
+        "threshold": 0.21875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_sga_c"
+        },
+        "threshold": 0.234375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_sga_d"
+        },
+        "threshold": 0.25
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_common"
+        },
+        "threshold": 0.265625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_rare"
+        },
+        "threshold": 0.28125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_no_experience"
+        },
+        "threshold": 0.296875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_no_heat"
+        },
+        "threshold": 0.3125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_fishing_bar"
+        },
+        "threshold": 0.328125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_fishing_bobber"
+        },
+        "threshold": 0.34375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_copper_fishing_frame"
+        },
+        "threshold": 0.359375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_gold_fishing_frame"
+        },
+        "threshold": 0.375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_diamond_fishing_frame"
+        },
+        "threshold": 0.390625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_purple_fishing_frame"
+        },
+        "threshold": 0.40625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_gold_selection_frame"
+        },
+        "threshold": 0.421875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_global"
+        },
+        "threshold": 0.4375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_ruler"
+        },
+        "threshold": 0.453125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_count"
+        },
+        "threshold": 0.46875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/generic_icon_gift"
+        },
+        "threshold": 0.484375
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "potionsplus:unknown_generic_icon_fallback"
+    },
+    "property": "minecraft:count"
+  }
+}

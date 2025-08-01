@@ -2,25 +2,25 @@ package grill24.potionsplus.utility.registration;
 
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.context.ContextKeySet;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 
 import java.util.function.BiConsumer;
 
 public abstract class LootGenerator<T> implements ILootGenerator<T> {
-    private LootContextParamSet paramSet;
+    private ContextKeySet paramSet;
 
-    public LootGenerator(LootContextParamSet paramSet) {
+    public LootGenerator(ContextKeySet paramSet) {
         this.paramSet = paramSet;
     }
 
     @Override
-    public LootContextParamSet getParamSet() {
+    public ContextKeySet getParamSet() {
         return this.paramSet;
     }
 
     @Override
-    public final void tryGenerate(LootContextParamSet paramSet, LootTableSubProvider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+    public final void tryGenerate(ContextKeySet paramSet, LootTableSubProvider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
         if (this.paramSet.equals(paramSet)) {
             generate(provider, consumer);
         }

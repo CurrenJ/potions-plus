@@ -12,10 +12,7 @@ import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nonnull;
 import java.util.Optional;
 
 import static grill24.potionsplus.utility.Utility.ppId;
@@ -24,7 +21,8 @@ public class AbyssalTroveTrigger extends SimpleCriterionTrigger<AbyssalTroveTrig
     public static final ResourceLocation ID = ppId("abyssal_trove_trigger");
     public static final AbyssalTroveTrigger INSTANCE = new AbyssalTroveTrigger();
 
-    private AbyssalTroveTrigger() {}
+    private AbyssalTroveTrigger() {
+    }
 
     public void trigger(ServerPlayer player, float fillPercentage, PpIngredient addedItem) {
         trigger(player, triggerInstance -> triggerInstance.test(fillPercentage, addedItem));
@@ -35,7 +33,8 @@ public class AbyssalTroveTrigger extends SimpleCriterionTrigger<AbyssalTroveTrig
         return AbyssalTroveTrigger.TriggerInstance.CODEC;
     }
 
-    public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<Float> fillPercentage, Optional<PotionUpgradeIngredients.Rarity> rarity) implements SimpleInstance {
+    public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<Float> fillPercentage,
+                                  Optional<PotionUpgradeIngredients.Rarity> rarity) implements SimpleInstance {
         public static final Codec<AbyssalTroveTrigger.TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(triggerInstance -> triggerInstance.player),
                 Codec.FLOAT.optionalFieldOf("fill_percentage").forGetter(triggerInstance -> triggerInstance.fillPercentage),

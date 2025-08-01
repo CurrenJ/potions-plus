@@ -3,7 +3,6 @@ package grill24.potionsplus.network;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -15,7 +14,8 @@ import net.neoforged.neoforge.network.handling.ServerPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ServerboundUpdateAbilityStrengthPacket(ResourceLocation abilityId, float amount, int operation) implements CustomPacketPayload {
+public record ServerboundUpdateAbilityStrengthPacket(ResourceLocation abilityId, float amount,
+                                                     int operation) implements CustomPacketPayload {
     public static class Operation {
         public static final int SET = 0;
         public static final int ADD = 1;
@@ -47,7 +47,8 @@ public record ServerboundUpdateAbilityStrengthPacket(ResourceLocation abilityId,
                     if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthInstance) {
                         switch (packet.operation) {
                             case Operation.SET -> adjustableStrengthInstance.setAbilityStrength(packet.amount);
-                            case Operation.ADD -> adjustableStrengthInstance.setAbilityStrength(adjustableStrengthInstance.getAbilityStrength() + packet.amount);
+                            case Operation.ADD ->
+                                    adjustableStrengthInstance.setAbilityStrength(adjustableStrengthInstance.getAbilityStrength() + packet.amount);
                         }
                         instance.onInstanceChanged(player);
 

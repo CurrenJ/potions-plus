@@ -5,6 +5,7 @@
 		"vine": "moss_block",
 		"sack": "glowstone"
 	},
+	"parent": "minecraft:block/block",
 	"elements": [
 		{
 			"from": [2, 0, 2],

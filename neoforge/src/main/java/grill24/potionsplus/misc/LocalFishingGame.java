@@ -106,7 +106,7 @@ public class LocalFishingGame {
     }
 
     private void onTick() {
-        if(!isOver()) {
+        if (!isOver()) {
             final float gravity = 0.007F;
 
             // Move the bobber by the speed

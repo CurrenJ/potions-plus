@@ -8,7 +8,7 @@ import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.skill.UnknownPotionIngredientRewardConfiguration;
 import grill24.potionsplus.utility.InvUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -27,12 +27,12 @@ public class UnknownPotionIngredientReward extends GrantableReward<UnknownPotion
     }
 
     @Override
-    public Optional<Component> getDescription(UnknownPotionIngredientRewardConfiguration config) {
+    public Optional<Component> getDescription(RegistryAccess registryAccess, UnknownPotionIngredientRewardConfiguration config) {
         return Optional.of(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_REWARD_UNKNOWN_POTION_INGREDIENT_DESCRIPTION));
     }
 
     @Override
-    public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, UnknownPotionIngredientRewardConfiguration config, ServerPlayer player) {
+    public void grant(ResourceKey<ConfiguredGrantableReward<?, ?>> holder, UnknownPotionIngredientRewardConfiguration config, ServerPlayer player) {
         BlockPos pos = SavedData.instance.getData(player).getPairedAbyssalTrovePos();
         player.level().getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.value()).ifPresentOrElse(
                 blockEntity -> {

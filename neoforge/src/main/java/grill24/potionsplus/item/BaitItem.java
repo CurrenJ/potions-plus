@@ -1,6 +1,5 @@
 package grill24.potionsplus.item;
 
-import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.network.chat.Component;

@@ -1,20 +1,12 @@
 package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import grill24.potionsplus.utility.RUtil;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.render.LeashRenderer;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -24,14 +16,24 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @OnlyIn(Dist.CLIENT)
@@ -45,11 +47,11 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
 
     public ClotheslineBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         blockRenderDispatcher = context.getBlockRenderDispatcher();
-        profiler = Minecraft.getInstance().getProfiler();
+        profiler = Profiler.get();
     }
 
     @Override
-    public void render(ClotheslineBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+    public void render(ClotheslineBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
         profiler.push("clothesline_render");
 
         if (blockEntity.getLevel() != null) {
@@ -79,6 +81,10 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
             ClotheslineBlockEntity leftBlockEntity = level.getBlockEntity(left, Blocks.CLOTHESLINE_BLOCK_ENTITY.get()).orElse(null);
             if (leftBlockEntity == null)
                 return;
+
+            BlockPos leftRelativeToRenderOrigin = left.subtract(blockEntity.getBlockPos());
+            BlockPos rightRelativeToRenderOrigin = right.subtract(blockEntity.getBlockPos());
+            renderPosts(matrices, vertexConsumers, leftBlockEntity, leftRelativeToRenderOrigin, rightRelativeToRenderOrigin, LightTexture.pack(blockLightStart, skyLightStart), overlay);
 
             // Render items on the clothesline
             for (int i = 0; i < leftBlockEntity.getContainerSize(); i++) {
@@ -135,5 +141,31 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS) {
             clotheslinesRendered.clear();
         }
+    }
+
+    private void renderPosts(PoseStack poseStack, MultiBufferSource bufferSource, ClotheslineBlockEntity fishTankBlockEntity, BlockPos leftRelative, BlockPos rightRelative, int light, int overlay) {
+        Optional<BlockState> post = fishTankBlockEntity.getFencePostBlockState();
+
+        poseStack.pushPose();
+        poseStack.translate(leftRelative.getX(), leftRelative.getY(), leftRelative.getZ());
+        post.ifPresent(state -> blockRenderDispatcher.renderSingleBlock(
+                state,
+                poseStack,
+                bufferSource,
+                light,
+                overlay
+        ));
+        poseStack.popPose();
+
+        poseStack.pushPose();
+        poseStack.translate(rightRelative.getX(), rightRelative.getY(), rightRelative.getZ());
+        post.ifPresent(state -> blockRenderDispatcher.renderSingleBlock(
+                state,
+                poseStack,
+                bufferSource,
+                light,
+                overlay
+        ));
+        poseStack.popPose();
     }
 }

@@ -1,5 +1,6 @@
 package grill24.potionsplus.utility;
 
+import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.IExperienceContainer;
@@ -35,7 +36,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ResolvableProfile;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -43,6 +44,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -51,6 +54,7 @@ import java.io.StringReader;
 import java.util.*;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class Utility {
     // String utils
@@ -91,15 +95,15 @@ public class Utility {
     // ItemStack and NBT Utils
     public static ItemStack itemStackFromTagString(HolderLookup.Provider registryAccess, String tagString) {
         try {
-            CompoundTag tag = TagParser.parseTag(tagString);
-            return ItemStack.parseOptional(registryAccess, tag);
+            CompoundTag tag = TagParser.parseCompoundFully(tagString);
+            return ItemStack.parse(registryAccess, tag).orElse(ItemStack.EMPTY);
         } catch (CommandSyntaxException e) {
             throw new RuntimeException(e);
         }
     }
 
     public static Ingredient ingredientFromTagString(HolderLookup.Provider registryAccess, String tagString) {
-        return Ingredient.of(itemStackFromTagString(registryAccess, tagString));
+        return Ingredient.of(itemStackFromTagString(registryAccess, tagString).getItem());
     }
 
     // Block Entity
@@ -141,7 +145,7 @@ public class Utility {
 
     public static SimpleSoundInstance createSoundInstance(SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, boolean looping, int delay, SoundInstance.Attenuation attenuation, double x, double y, double z, boolean relative) {
         return new SimpleSoundInstance(
-                soundEvent.getLocation(),
+                soundEvent.location(),
                 soundSource,
                 volume,
                 pitch,
@@ -190,9 +194,10 @@ public class Utility {
 
     /**
      * Get a list of entities to chain to.
+     *
      * @param initialEntity The entity to start the chain from
-     * @param entityLimit The maximum number of entities to chain to
-     * @param range The range to search for entities to chain to
+     * @param entityLimit   The maximum number of entities to chain to
+     * @param range         The range to search for entities to chain to
      * @return A list of entities to chain lightning to
      */
     public static List<Entity> getEntitiesToChainOffensiveAbilityTo(Entity initialEntity, int entityLimit, float range) {
@@ -302,10 +307,6 @@ public class Utility {
         return formatEffectNumber(number, 0, suffix);
     }
 
-    public static <T> Registry<T> getRegistry(ResourceKey<Registry<T>> resourceKey) {
-        return (Registry<T>) BuiltInRegistries.REGISTRY.get(resourceKey.location());
-    }
-
     public static List<Component> splitOnLinebreaks(Component component) {
         List<Component> components = new ArrayList<>();
         String contents = component.getString();
@@ -347,6 +348,16 @@ public class Utility {
         return head;
     }
 
+    public static ItemStack getPlayerHead(ResolvableProfile profile) {
+        ItemStack head = new ItemStack(Items.PLAYER_HEAD);
+        head.set(DataComponents.PROFILE, profile);
+        return head;
+    }
+
+    public static ResolvableProfile getPlayerProfile(UUID uuid, String name) {
+        return new ResolvableProfile(Optional.ofNullable(name), Optional.ofNullable(uuid), new PropertyMap());
+    }
+
     public static Optional<ResourceLocation> getResourceLocation(Holder<?> holder) {
         if (holder.getKey() == null) {
             return Optional.empty();
@@ -369,12 +380,42 @@ public class Utility {
     public static <T> Optional<Holder<T>> getHolder(T value, DefaultedRegistry<T> registry) {
         Optional<ResourceKey<T>> key = registry.getResourceKey(value);
         if (key.isPresent()) {
-            Optional<Holder.Reference<T>> holder = registry.getHolder(key.get());
+            Optional<Holder.Reference<T>> holder = registry.get(key.get());
             if (holder.isPresent()) {
                 return Optional.of(holder.get());
             }
         }
 
         return Optional.empty();
+    }
+
+    public static <I extends RecipeInput, T extends Recipe<I>> Collection<RecipeHolder<T>> getAllRecipesFor(RecipeManager recipeManager, RecipeType<T> recipeType) {
+        Collection<RecipeHolder<?>> allRecipes = recipeManager.getRecipes();
+        return allRecipes.stream()
+                .filter(recipeHolder -> recipeHolder.value().getType() == recipeType)
+                .map(recipeHolder -> (RecipeHolder<T>) recipeHolder)
+                .toList();
+    }
+
+    public static <T> T clientOnly(Supplier<T> supplier) {
+        if (FMLEnvironment.dist != Dist.CLIENT) {
+            return null;
+        }
+
+        return supplier.get();
+    }
+
+    public static String formatPercentage(float value, int decimalPlaces) {
+        String formattedValue = trimToDecimalPlaces(value * 100, decimalPlaces);
+        return formattedValue + "%";
+    }
+
+    public static ResourceLocation stripPath(ResourceLocation resourceLocation) {
+        String path = resourceLocation.getPath();
+        int lastSlashIndex = path.lastIndexOf('/');
+        if (lastSlashIndex != -1) {
+            path = path.substring(lastSlashIndex + 1);
+        }
+        return ResourceLocation.fromNamespaceAndPath(resourceLocation.getNamespace(), path);
     }
 }

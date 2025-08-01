@@ -3,7 +3,6 @@ package grill24.potionsplus.utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 
-import java.util.Random;
 import java.util.function.Consumer;
 
 public class WorldGenUtil {
@@ -32,9 +31,9 @@ public class WorldGenUtil {
             for (int x = 1; x < width - 1; ++x) {
                 for (int z = 1; z < depth - 1; ++z) {
                     for (int y = 1; y < height - 1; ++y) {
-                        double dx = ((double)x - ellipsoidCenterX) / (ellipsoidXRadius / 2.0D);
-                        double dy = ((double)y - ellipsoidCenterY) / (ellipsoidYRadius / 2.0D);
-                        double dz = ((double)z - ellipsoidCenterZ) / (ellipsoidZRadius / 2.0D);
+                        double dx = ((double) x - ellipsoidCenterX) / (ellipsoidXRadius / 2.0D);
+                        double dy = ((double) y - ellipsoidCenterY) / (ellipsoidYRadius / 2.0D);
+                        double dz = ((double) z - ellipsoidCenterZ) / (ellipsoidZRadius / 2.0D);
                         double distanceSquared = dx * dx + dy * dy + dz * dz;
                         if (distanceSquared < 1.0D) {
                             lakeShape[(x * depth + z) * height + y] = true; // Mark this block as part of the lake

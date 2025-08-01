@@ -1,0 +1,6 @@
+{
+  "parent": "potionsplus:block/crop_cross",
+  "textures": {
+    "crop": "potionsplus:block/tomatoes_pollinated_0"
+  }
+}

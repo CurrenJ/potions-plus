@@ -7,6 +7,7 @@ import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
@@ -19,7 +20,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SeededPotionRecipes {
@@ -73,17 +77,17 @@ public class SeededPotionRecipes {
         // ----- Prepare ingredients for duration and amplifier upgrades -----
 
         // Sample half of the ingredients in the tag
-        int durSize = (int) Math.ceil(BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_DURATION_UP_INGREDIENTS).get().size() / 2F);
-        List<PpIngredient> durationSamples = BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_DURATION_UP_INGREDIENTS).get().stream().map(ItemStack::new).map(PpIngredient::of).collect(Collectors.toCollection(ArrayList::new));
-        for(int d = 0; d < durSize && !durationSamples.isEmpty(); d++) {
+        int durSize = (int) Math.ceil(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.POTION_DURATION_UP_INGREDIENTS).size() / 2F);
+        List<PpIngredient> durationSamples = BuiltInRegistries.ITEM.getOrThrow(Tags.Items.POTION_DURATION_UP_INGREDIENTS).stream().map(ItemStack::new).map(PpIngredient::of).collect(Collectors.toCollection(ArrayList::new));
+        for (int d = 0; d < durSize && !durationSamples.isEmpty(); d++) {
             int randomIndex = randomSource.nextInt(0, durationSamples.size());
             durationSamples.remove(randomIndex);
         }
 
         // Sample half of the ingredients in the tag
-        int ampSize = (int) Math.ceil(BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).get().size() / 2F);
-        List<PpIngredient> amplifierSamples = BuiltInRegistries.ITEM.getTag(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).get().stream().map(ItemStack::new).map(PpIngredient::of).collect(Collectors.toCollection(ArrayList::new));
-        for(int a = 0; a < ampSize && !amplifierSamples.isEmpty(); a++) {
+        int ampSize = (int) Math.ceil(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).size() / 2F);
+        List<PpIngredient> amplifierSamples = BuiltInRegistries.ITEM.getOrThrow(Tags.Items.POTION_AMPLIFIER_UP_INGREDIENTS).stream().map(ItemStack::new).map(PpIngredient::of).collect(Collectors.toCollection(ArrayList::new));
+        for (int a = 0; a < ampSize && !amplifierSamples.isEmpty(); a++) {
             int randomIndex = randomSource.nextInt(0, amplifierSamples.size());
             amplifierSamples.remove(randomIndex);
         }
@@ -102,13 +106,13 @@ public class SeededPotionRecipes {
         for (PpIngredient ingredient : durationTagItems) {
             durationUpgradeRecipes.add(
                     new BrewingCauldronRecipeBuilder()
-                    .result(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION))
-                    .ingredients(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION), ingredient.getItemStack())
-                    .processingTime(30)
-                    .durationToAdd(randomSource.nextInt(100, 1800))
-                    .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
-                    .isSeededRuntimeRecipe()
-                    .build()
+                            .result(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION))
+                            .ingredients(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION), ingredient.getItemStack())
+                            .processingTime(30)
+                            .durationToAdd(randomSource.nextInt(100, 1800))
+                            .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
+                            .isSeededRuntimeRecipe()
+                            .build()
             );
         }
         Recipes.DURATION_UPGRADE_ANALYSIS.compute(durationUpgradeRecipes);
@@ -156,7 +160,7 @@ public class SeededPotionRecipes {
             // Generate all recipes
             List<RecipeHolder<BrewingCauldronRecipe>> generatedRecipes = potionsAmpDurMatrix.generateRecipes(usedRecipeInputs, random);
 
-            if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_RECIPE_GENERATION) {
+            if (Debug.DEBUG && Debug.DEBUG_POTION_RECIPE_GENERATION) {
                 for (RecipeHolder<BrewingCauldronRecipe> recipe : generatedRecipes) {
                     if (!SavedData.instance.isRecipeResultInSavedData(recipe)) {
                         PotionsPlus.LOGGER.info("[SPR] Generated new recipe: {}", recipe);

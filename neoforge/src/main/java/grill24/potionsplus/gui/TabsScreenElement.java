@@ -4,7 +4,6 @@ import grill24.potionsplus.gui.skill.HoverItemStackScreenElement;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,7 +49,7 @@ public class TabsScreenElement<E extends RenderableScreenElement> extends Vertic
         List<RenderableScreenElement> contents = new ArrayList<>();
         for (TabData tab : tabs) {
             SelectableDivScreenElement icon = tab.icon;
-            icon.addClickListener((x, y, button) -> {
+            icon.addClickListener((x, y, button, el) -> {
                 this.setSelectedTab(tab);
             });
             icons.add(icon);

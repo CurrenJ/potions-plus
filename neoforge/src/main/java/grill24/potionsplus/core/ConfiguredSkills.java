@@ -1,7 +1,8 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.data.AdvancementProvider;
-import grill24.potionsplus.skill.*;
+import grill24.potionsplus.skill.ConfiguredSkill;
+import grill24.potionsplus.skill.Milestone;
 import grill24.potionsplus.skill.configured.*;
 import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
@@ -11,7 +12,9 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static grill24.potionsplus.utility.Utility.ppId;
@@ -99,20 +102,20 @@ public class ConfiguredSkills {
         for (int i = 1; i < 25; i++) {
             builder.addRewardForLevel(i, b -> b.addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.getKey()));
         }
-        for(int i = 25; i < 50; i++) {
+        for (int i = 25; i < 50; i++) {
             builder.addRewardForLevel(i, b -> b.addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.getKey()));
         }
-        for(int i = 50; i < 75; i++) {
+        for (int i = 50; i < 75; i++) {
             builder.addRewardForLevel(i, b -> b.addReward(rewardLookup, ConfiguredGrantableRewards.ADVANCED_SKILL_LOOT_EDIBLE.getKey()));
         }
-        for(int i = 75; i < 90; i++) {
+        for (int i = 75; i < 90; i++) {
             builder.addRewardForLevel(i, b -> b.addReward(rewardLookup, ConfiguredGrantableRewards.EXPERT_SKILL_LOOT_EDIBLE.getKey()));
         }
-        for(int i = 90; i <= 100; i++) {
+        for (int i = 90; i <= 100; i++) {
             builder.addRewardForLevel(i, b -> b.addReward(rewardLookup, ConfiguredGrantableRewards.MASTER_SKILL_LOOT_EDIBLE.getKey()));
         }
 
-        for(int i = 1; i <= 20; i++) {
+        for (int i = 1; i <= 20; i++) {
             builder.addRewardForLevel(i * 5, b -> b.addReward(rewardLookup, ConfiguredGrantableRewards.EDIBLE_GEMS_AND_ORES_WHEEL.getKey()));
         }
 

@@ -9,6 +9,7 @@ import java.util.Map;
 
 public interface IParticleEngineExtension {
     Map<ResourceLocation, ParticleProvider<?>> potions_plus$getProviders();
+
     void potions_plus$createTrackingEmitter(Entity entity, ParticleOptions data, int lifetime, float count);
 }
 

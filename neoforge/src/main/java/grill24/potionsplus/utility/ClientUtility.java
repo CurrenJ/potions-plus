@@ -7,7 +7,7 @@ import org.joml.Vector3f;
 
 public class ClientUtility {
     public static Player getLocalPlayer() {
-        if(Minecraft.getInstance() == null || !(Minecraft.getInstance().player instanceof LocalPlayer)) {
+        if (Minecraft.getInstance() == null || !(Minecraft.getInstance().player instanceof LocalPlayer)) {
             throw new IllegalStateException("Cannot get local player in a non-client environment.");
         }
 

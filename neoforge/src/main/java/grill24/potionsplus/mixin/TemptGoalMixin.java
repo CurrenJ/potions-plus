@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class TemptGoalMixin {
     @Inject(method = "shouldFollow", at = @At("HEAD"), cancellable = true)
     private void shouldFollow(LivingEntity livingEntity, CallbackInfoReturnable<Boolean> cir) {
-        if(livingEntity.hasEffect(MobEffects.SHEPHERDS_SERENADE)) {
+        if (livingEntity.hasEffect(MobEffects.SHEPHERDS_SERENADE)) {
             cir.setReturnValue(true);
         }
     }

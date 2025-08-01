@@ -10,7 +10,6 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.TreeMap;
 
 public class SkillConfiguration {
@@ -93,6 +92,7 @@ public class SkillConfiguration {
             LINEAR,
             EXPONENTIAL
         }
+
         public static final Codec<Scale> SCALE_CODEC = EnumCodec.create(Scale.class, Scale::valueOf);
 
         public static final Codec<PointsLevelingScale> CODEC = RecordCodecBuilder.create(
@@ -142,6 +142,7 @@ public class SkillConfiguration {
             };
         }
     }
+
     private final SkillConfigurationData data;
 
     public SkillConfiguration(SkillConfigurationData data) {

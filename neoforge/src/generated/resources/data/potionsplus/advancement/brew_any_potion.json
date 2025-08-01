@@ -8,15 +8,17 @@
         ],
         "recipe": "potionsplus:brewing_cauldron_recipe",
         "recipe_id": {
-          "ppIngredient": {
-            "components": {
-              "minecraft:potion_contents": {
-                "potion": "potionsplus:any_potion"
-              }
-            },
-            "count": 1,
-            "id": "minecraft:potion"
-          }
+          "matchStacks": [
+            {
+              "components": {
+                "minecraft:potion_contents": {
+                  "potion": "potionsplus:any_potion"
+                }
+              },
+              "count": 1,
+              "id": "minecraft:potion"
+            }
+          ]
         }
       },
       "trigger": "potionsplus:craft_recipe"

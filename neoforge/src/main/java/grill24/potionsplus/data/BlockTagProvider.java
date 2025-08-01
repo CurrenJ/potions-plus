@@ -1,6 +1,7 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.ModInfo;
@@ -12,15 +13,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockTagProvider extends BlockTagsProvider {
-    public BlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, ModInfo.MOD_ID, existingFileHelper);
+    public BlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, ModInfo.MOD_ID);
     }
 
     @Override
@@ -28,6 +27,23 @@ public class BlockTagProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockEntityBlocks.BREWING_CAULDRON.value(), BlockEntityBlocks.ABYSSAL_TROVE.value(), BlockEntityBlocks.SANGUINE_ALTAR.value(), BlockEntityBlocks.PRECISION_DISPENSER.value(), BlockEntityBlocks.PARTICLE_EMITTER.value(), BlockEntityBlocks.SMALL_FILTER_HOPPER.value(), BlockEntityBlocks.LARGE_FILTER_HOPPER.value());
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(BlockEntityBlocks.ABYSSAL_TROVE.value());
         tag(BlockTags.MINEABLE_WITH_AXE).add(BlockEntityBlocks.CLOTHESLINE.value(), BlockEntityBlocks.HERBALISTS_LECTERN.value());
+
+        tag(BlockTags.NEEDS_IRON_TOOL).add(
+                OreBlocks.REMNANT_DEBRIS.value(),
+                OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value(),
+                OreBlocks.STONEY_DIAMOND_ORE.value(),
+                OreBlocks.STONEY_EMERALD_ORE.value(),
+                OreBlocks.STONEY_GOLD_ORE.value(),
+                OreBlocks.SANDY_REDSTONE_ORE.value(),
+                OreBlocks.STONEY_URANIUM_ORE.value(),
+                OreBlocks.URANIUM_ORE.value(),
+                OreBlocks.DEEPSLATE_URANIUM_ORE.value()
+        );
+        tag(BlockTags.NEEDS_STONE_TOOL).add(
+                OreBlocks.STONEY_IRON_ORE.value(),
+                OreBlocks.STONEY_LAPIS_ORE.value(),
+                OreBlocks.STONEY_COPPER_ORE.value()
+        );
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.DENSE_DIAMOND_ORE.value(), OreBlocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), OreBlocks.REMNANT_DEBRIS.value(), OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.URANIUM_ORE.value(), OreBlocks.DEEPSLATE_URANIUM_ORE.value());
@@ -80,7 +96,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
         tag(grill24.potionsplus.core.Tags.Blocks.CAVE_REPLACEABLE)
                 .addTag(BlockTags.MOSS_REPLACEABLE)
-                        .add(net.minecraft.world.level.block.Blocks.COAL_ORE,
+                .add(net.minecraft.world.level.block.Blocks.COAL_ORE,
                         net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE,
                         net.minecraft.world.level.block.Blocks.IRON_ORE,
                         net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE,
@@ -110,6 +126,13 @@ public class BlockTagProvider extends BlockTagsProvider {
 
         tag(grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE)
                 .addTag(Tags.Blocks.STONES)
+                .add(Blocks.SANDSTONE)
+                .add(Blocks.BASALT)
+                .add(Blocks.BLACKSTONE)
+                .add(DecorationBlocks.UNSTABLE_BLACKSTONE.value())
+                .add(DecorationBlocks.UNSTABLE_MOLTEN_BLACKSTONE.value())
+                .add(DecorationBlocks.UNSTABLE_DEEPSLATE.value())
+                .add(DecorationBlocks.UNSTABLE_MOLTEN_DEEPSLATE.value())
                 .addTag(Tags.Blocks.COBBLESTONES);
 
         tag(grill24.potionsplus.core.Tags.Blocks.SANDY_ORE_REPLACEABLE)
@@ -130,6 +153,23 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .addTag(grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE)
                 .addTag(grill24.potionsplus.core.Tags.Blocks.SANDY_ORE_REPLACEABLE)
                 .remove(Blocks.STONE);
+
+        tag(grill24.potionsplus.core.Tags.Blocks.FISH_TANK_FRAME)
+                .addTag(BlockTags.PLANKS)
+                .addTag(BlockTags.LOGS)
+                .addTag(Tags.Blocks.STONES)
+                .addTag(Tags.Blocks.COBBLESTONES)
+                .addTag(Tags.Blocks.GLAZED_TERRACOTTAS)
+                .addTag(BlockTags.TERRACOTTA)
+                .addTag(Tags.Blocks.CONCRETES);
+
+        tag(grill24.potionsplus.core.Tags.Blocks.FISH_TANK_SAND)
+                .addTag(BlockTags.SAND)
+                .addTag(Tags.Blocks.SANDS)
+                .add(Blocks.SOUL_SAND, Blocks.SOUL_SOIL)
+                .addTag(BlockTags.DIRT)
+                .addTag(Tags.Blocks.GRAVELS)
+                .addTag(BlockTags.CONCRETE_POWDER);
     }
 
     private void addBlocksToTags(TagKey<Block>[] tags, Block[] values) {

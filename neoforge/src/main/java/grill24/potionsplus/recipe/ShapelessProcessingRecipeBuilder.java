@@ -1,17 +1,17 @@
 package grill24.potionsplus.recipe;
 
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.utility.PUtil;
-import net.minecraft.advancements.*;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.ItemLike;
@@ -25,6 +25,7 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
     protected ItemStack result;
     protected List<PpIngredient> ingredients;
     protected int processingTime;
+    // TODO: Unused - find a way to use in recipe?
     protected String group;
     protected RecipeCategory category;
     protected boolean canShowInJei;
@@ -35,7 +36,6 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
         this.result = null;
         this.ingredients = null;
         this.processingTime = 0;
-        this.group = "";
         this.category = RecipeCategory.MISC;
         this.canShowInJei = true;
     }
@@ -44,7 +44,6 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
         this.result = recipe.result;
         this.ingredients = recipe.ingredients;
         this.processingTime = recipe.processingTime;
-        this.group = recipe.group;
         this.category = recipe.category;
     }
 
@@ -120,12 +119,12 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
     }
 
     @Override
-    public void save(RecipeOutput recipeOutput, ResourceLocation resourceLocation) {
+    public void save(RecipeOutput recipeOutput, ResourceKey<Recipe<?>> recipeResourceKey) {
         this.ensureValid();
 
         RecipeHolder<R> recipeHolder = build();
-        this.advancement.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceLocation)).rewards(AdvancementRewards.Builder.recipe(resourceLocation)).requirements(AdvancementRequirements.Strategy.OR);
-        recipeOutput.accept(resourceLocation, recipeHolder.value(), advancement.build(resourceLocation));
+        this.advancement.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeResourceKey)).rewards(AdvancementRewards.Builder.recipe(recipeResourceKey)).requirements(AdvancementRequirements.Strategy.OR);
+        recipeOutput.accept(recipeResourceKey, recipeHolder.value(), this.advancement.build(recipeResourceKey.location().withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
     @Override

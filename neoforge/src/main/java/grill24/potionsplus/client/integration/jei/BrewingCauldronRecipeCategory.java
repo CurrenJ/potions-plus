@@ -13,8 +13,8 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -31,13 +31,12 @@ import java.util.Map;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCauldronRecipe> {
-    public static final RecipeType<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE_TYPE = RecipeType.create(ModInfo.MOD_ID, "brewing_cauldron_recipe", BrewingCauldronRecipe.class);
+    public static final IRecipeType<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE_TYPE = IRecipeType.create(ModInfo.MOD_ID, "brewing_cauldron_recipe", BrewingCauldronRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
-    public static final ResourceLocation BREWING_CAULDRON_CATEGORY = ppId("brewing_cauldron");
 
-    private static final ResourceLocation RECIPE_GUI = ppId( "textures/gui/brewing_cauldron_recipe.png");
+    private static final ResourceLocation RECIPE_GUI = ppId("textures/gui/brewing_cauldron_recipe.png");
 
     private static final Map<Integer, Point[]> INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT = new HashMap<>();
 
@@ -54,7 +53,7 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     }
 
     @Override
-    public RecipeType<BrewingCauldronRecipe> getRecipeType() {
+    public IRecipeType<BrewingCauldronRecipe> getRecipeType() {
         return BREWING_CAULDRON_RECIPE_TYPE;
     }
 
@@ -64,13 +63,18 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public IDrawable getIcon() {
+        return icon;
     }
 
     @Override
-    public IDrawable getIcon() {
-        return icon;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -99,12 +103,12 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
         if (recipe.getExperienceRequired() > 0) {
             builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 111, 0)
                     .setSlotName("experience")
-                    .addItemStack(new ItemStack(Items.EXPERIENCE_BOTTLE));
+                    .add(new ItemStack(Items.EXPERIENCE_BOTTLE));
         }
 
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 38 - 8, 31 - 8)
                 .setSlotName("cauldron")
-                .addItemStack(new ItemStack(BlockEntityBlocks.BREWING_CAULDRON.value()));
+                .add(new ItemStack(BlockEntityBlocks.BREWING_CAULDRON.value()));
     }
 
     @Override

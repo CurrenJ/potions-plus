@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "G": {
-      "item": "potionsplus:uranium_glass"
-    },
-    "N": {
-      "item": "minecraft:nether_star"
-    },
-    "O": {
-      "item": "minecraft:obsidian"
-    }
+    "G": "potionsplus:uranium_glass",
+    "N": "minecraft:nether_star",
+    "O": "minecraft:obsidian"
   },
   "pattern": [
     "GGG",

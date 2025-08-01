@@ -10,8 +10,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-import static net.minecraft.world.level.block.DoublePlantBlock.copyWaterloggedFrom;
-
 public class BloomingPlantBlock extends VersatilePlantBlock {
     public static final MapCodec<BloomingPlantBlock> CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
             propertiesCodec(),

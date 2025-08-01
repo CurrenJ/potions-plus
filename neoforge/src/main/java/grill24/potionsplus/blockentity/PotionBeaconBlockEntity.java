@@ -1,5 +1,8 @@
 package grill24.potionsplus.blockentity;
 
+import com.google.gson.JsonElement;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.block.PotionBeaconBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.extension.IMobEffectInstanceExtension;
@@ -10,7 +13,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -29,7 +31,9 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISingleStackDisplayer, ICraftingBlockEntity {
     public List<MobEffectInstance> effects = new ArrayList<>();
@@ -47,6 +51,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
             public float lifetime;
             public float scale;
         }
+
         public List<ItemParticle> itemParticles = new ArrayList<>();
 
         private int timeItemPlaced;
@@ -58,7 +63,8 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
         public int innerBlockShownTimestamp;
         public int effectDurationWhenShown;
 
-        public RendererData() {}
+        public RendererData() {
+        }
     }
 
     public PotionBeaconBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -100,6 +106,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
 
     /**
      * Hijack block entity craft packet to set the timestamp of the inner block being shown - lazy...
+     *
      * @param maxEffectDuration
      */
     @Override
@@ -136,8 +143,8 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
             blockEntity.setItem(0, stack);
             blockEntity.setChanged();
 
-            if(level instanceof ServerLevel serverLevel) {
-                serverLevel.playSound(null, blockEntity.worldPosition, SoundEvents.GENERIC_DRINK, SoundSource.BLOCKS, 1.0F, 1.0F);
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.playSound(null, blockEntity.worldPosition, SoundEvents.GENERIC_DRINK.value(), SoundSource.BLOCKS, 1.0F, 1.0F);
                 updateLitStateServer(serverLevel, blockEntity);
             }
 
@@ -180,23 +187,8 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
             }
         }
 
-            //
-//            int count = level.random.nextInt(3) + 1;
-//            for (int i = 0; i < count; i++) {
-//                double x = pos.getX() + 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
-//                double y = pos.getY() + 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
-//                double z = pos.getZ() + 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
-//
-//                // Speed is away from center point (0.5, 0.5)
-//                double speed = 0.1 * level.random.nextDouble();
-//                double dx = (x - 0.5) * speed;
-//                double dy = (y - 0.5) * speed;
-//                double dz = (z - 0.5) * speed;
-//                level.addParticle(ParticleTypes.SPORE_BLOSSOM_AIR, x, y, z, dx, dy, dz);
-//            }
-
         // Apply effects
-        if(!level.isClientSide && level instanceof ServerLevel serverLevel) {
+        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
             final int TICK_INTERVAL = 60;
             List<MobEffectInstance> toRemove = new ArrayList<>();
             if (ServerTickHandler.ticksInGame % TICK_INTERVAL == 0) {
@@ -221,7 +213,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
                 }
 
                 blockEntity.effects.removeAll(toRemove);
-                if(!toRemove.isEmpty()) {
+                if (!toRemove.isEmpty()) {
                     updateLitStateServer(serverLevel, blockEntity);
                 }
             }
@@ -243,20 +235,23 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
     public void writePacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
         super.writePacketNbt(tag, registryAccess);
 
-        ListTag effectsTag = new ListTag();
-        for (MobEffectInstance effect : effects) {
-            effectsTag.add(effect.save());
-        }
-        tag.put("Effects", effectsTag);
+        DataResult<JsonElement> result = MobEffectInstance.CODEC.listOf().encodeStart(JsonOps.INSTANCE, effects);
+        String jsonString = result.result().orElse(JsonOps.INSTANCE.empty()).toString();
+
+        tag.putString("Effects", jsonString);
     }
 
     @Override
     public void readPacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
         super.readPacketNbt(tag, registryAccess);
 
-        ListTag effectsTag = tag.getList("Effects", 10);
-        for (int i = 0; i < effectsTag.size(); i++) {
-            effects.add(MobEffectInstance.load(effectsTag.getCompound(i)));
+        this.effects.clear();
+
+        if (tag.contains("Effects")) {
+            String jsonString = tag.getStringOr("Effects", "");
+            JsonElement jsonElement = JsonOps.INSTANCE.createString("");
+            DataResult<List<MobEffectInstance>> result = MobEffectInstance.CODEC.listOf().parse(JsonOps.INSTANCE, jsonElement);
+            result.result().ifPresent(effects -> this.effects.addAll(effects));
         }
     }
 

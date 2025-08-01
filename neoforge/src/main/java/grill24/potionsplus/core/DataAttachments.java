@@ -15,7 +15,7 @@ public class DataAttachments {
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, ModInfo.MOD_ID);
 
     public static final Supplier<AttachmentType<SkillsData>> SKILL_PLAYER_DATA = ATTACHMENT_TYPES.register(
-            "skill_data", () -> AttachmentType.builder(SkillsData::new).serialize(SkillsData.CODEC).copyOnDeath().build()
+            "skill_data", () -> AttachmentType.builder(() -> new SkillsData()).serialize(SkillsData.CODEC).copyOnDeath().build()
     );
 
     public static final Supplier<AttachmentType<FishingGamePlayerAttachment>> FISHING_GAME_DATA = ATTACHMENT_TYPES.register(

@@ -2,11 +2,6 @@ package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
@@ -14,8 +9,15 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.util.List;
 
@@ -27,12 +29,12 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
 
     public HerbalistsLecternBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         blockRenderDispatcher = context.getBlockRenderDispatcher();
-        profiler = Minecraft.getInstance().getProfiler();
+        profiler = Profiler.get();
     }
 
 
     @Override
-    public void render(HerbalistsLecternBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+    public void render(HerbalistsLecternBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
         double ticks = ClientTickHandler.total();
 
         //  Profiler
@@ -89,9 +91,9 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
 
                 // Render sub-icons
                 matrices.scale(0.2F, 0.2F, 0.2F);
-                Vector3f[] positions = new Vector3f[] {new Vector3f(1F, 1.25F, 0.25F), new Vector3f(1F, 0.7F, 0.25F), new Vector3f(1F, 0.15F, 0.25F)};
+                Vector3f[] positions = new Vector3f[]{new Vector3f(1F, 1.25F, 0.25F), new Vector3f(1F, 0.7F, 0.25F), new Vector3f(1F, 0.15F, 0.25F)};
                 List<PpIngredient> subIcons = iconsToDisplay.get(p).subIcons();
-                for (int s = 0;  s < subIcons.size() && s < positions.length; s++) {
+                for (int s = 0; s < subIcons.size() && s < positions.length; s++) {
                     matrices.pushPose();
                     Vector3f subIconPosition = positions[s];
                     matrices.translate(subIconPosition.x(), subIconPosition.y(), subIconPosition.z());

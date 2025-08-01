@@ -1,9 +1,6 @@
 package grill24.potionsplus.core.potion;
 
-import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
-import grill24.potionsplus.core.seededrecipe.SeededPotionRecipeBuilder;
-import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -21,8 +18,8 @@ public class Potions {
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(Registries.POTION, ModInfo.MOD_ID);
     public static final List<PotionBuilder.PotionsPlusPotionGenerationData> ALL_POTION_GENERATION_DATA = new ArrayList<>();
 
-    public static final Holder<Potion> ANY_POTION = POTIONS.register("any_potion", () -> new Potion(new net.minecraft.world.effect.MobEffectInstance(MobEffects.ANY_POTION, 1200, 0)));
-    public static final Holder<Potion> ANY_OTHER_POTION = POTIONS.register("any_other_potion", () -> new Potion(new net.minecraft.world.effect.MobEffectInstance(MobEffects.ANY_OTHER_POTION, 1200, 0)));
+    public static final Holder<Potion> ANY_POTION = POTIONS.register("any_potion", () -> new Potion("Any Potion", new net.minecraft.world.effect.MobEffectInstance(MobEffects.ANY_POTION, 1200, 0)));
+    public static final Holder<Potion> ANY_OTHER_POTION = POTIONS.register("any_other_potion", () -> new Potion("Any Other Potion", new net.minecraft.world.effect.MobEffectInstance(MobEffects.ANY_OTHER_POTION, 1200, 0)));
 
     public static final PotionBuilder.PotionsPlusPotionGenerationData GEODE_GRACE_POTIONS = new PotionBuilder()
             .name("geode_grace")
@@ -38,7 +35,7 @@ public class Potions {
 
     public static final PotionBuilder.PotionsPlusPotionGenerationData HASTE_POTIONS = new PotionBuilder()
             .name("haste")
-            .effect(net.minecraft.world.effect.MobEffects.DIG_SPEED)
+            .effect(net.minecraft.world.effect.MobEffects.HASTE)
             .withRarityCount(PotionUpgradeIngredients.Rarity.RARE, 1)
             .build(ALL_POTION_GENERATION_DATA::add);
 
@@ -120,9 +117,9 @@ public class Potions {
             .effect(net.minecraft.world.effect.MobEffects.BLINDNESS)
             .build(ALL_POTION_GENERATION_DATA::add);
 
-    public static final PotionBuilder.PotionsPlusPotionGenerationData CONFUSION_POTIONS = new PotionBuilder()
-            .name("confusion")
-            .effect(net.minecraft.world.effect.MobEffects.CONFUSION)
+    public static final PotionBuilder.PotionsPlusPotionGenerationData NAUSEA_POTIONS = new PotionBuilder()
+            .name("nausea")
+            .effect(net.minecraft.world.effect.MobEffects.NAUSEA)
             .build(ALL_POTION_GENERATION_DATA::add);
 
     public static final PotionBuilder.PotionsPlusPotionGenerationData HUNGER_POTIONS = new PotionBuilder()
@@ -154,13 +151,13 @@ public class Potions {
 
     public static final PotionBuilder.PotionsPlusPotionGenerationData STRENGTH_POTIONS = new PotionBuilder()
             .name("strength")
-            .effect(net.minecraft.world.effect.MobEffects.DAMAGE_BOOST)
+            .effect(net.minecraft.world.effect.MobEffects.STRENGTH)
             .withRarityCount(PotionUpgradeIngredients.Rarity.RARE, 1)
             .build(ALL_POTION_GENERATION_DATA::add);
 
     public static final PotionBuilder.PotionsPlusPotionGenerationData RESISTANCE_POTIONS = new PotionBuilder()
             .name("resistance")
-            .effect(net.minecraft.world.effect.MobEffects.DAMAGE_RESISTANCE)
+            .effect(net.minecraft.world.effect.MobEffects.RESISTANCE)
             .withRarityCount(PotionUpgradeIngredients.Rarity.RARE, 2)
             .build(ALL_POTION_GENERATION_DATA::add);
 

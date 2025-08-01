@@ -9,6 +9,7 @@ import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -41,12 +42,12 @@ public class AbilityReward extends GrantableReward<AbilityReward.AbilityRewardCo
     }
 
     @Override
-    public Optional<Component> getDescription(AbilityRewardConfiguration config) {
+    public Optional<Component> getDescription(RegistryAccess registryAccess, AbilityRewardConfiguration config) {
         return Optional.ofNullable(config.ability.value().getDescription());
     }
 
     @Override
-    public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, AbilityRewardConfiguration config, ServerPlayer player) {
+    public void grant(ResourceKey<ConfiguredGrantableReward<?, ?>> holder, AbilityRewardConfiguration config, ServerPlayer player) {
         SkillsData.updatePlayerData(player, data -> data.unlockAbility(player, config.ability.getKey()));
     }
 

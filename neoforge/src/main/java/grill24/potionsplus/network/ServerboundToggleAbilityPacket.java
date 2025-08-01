@@ -15,7 +15,8 @@ import net.neoforged.neoforge.network.handling.ServerPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ServerboundToggleAbilityPacket(ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredPlayerAbilityKey) implements CustomPacketPayload {
+public record ServerboundToggleAbilityPacket(
+        ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredPlayerAbilityKey) implements CustomPacketPayload {
     public static final Type<ServerboundToggleAbilityPacket> TYPE = new Type<>(ppId("toggle_ability"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ServerboundToggleAbilityPacket> STREAM_CODEC = StreamCodec.composite(
@@ -34,7 +35,7 @@ public record ServerboundToggleAbilityPacket(ResourceKey<ConfiguredPlayerAbility
             context.enqueueWork(() -> {
                 ServerPayloadContext serverContext = (ServerPayloadContext) context;
 
-                if(serverContext.player() instanceof ServerPlayer serverPlayer) {
+                if (serverContext.player() instanceof ServerPlayer serverPlayer) {
                     SkillsData.updatePlayerData(serverPlayer, data -> {
                         data.getAbilityInstance(serverContext.player().registryAccess(), packet.configuredPlayerAbilityKey.location()).ifPresent(abilityInstance -> {
                             abilityInstance.toggle(serverPlayer);

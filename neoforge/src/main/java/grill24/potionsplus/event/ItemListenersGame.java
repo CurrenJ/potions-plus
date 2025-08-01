@@ -3,7 +3,10 @@ package grill24.potionsplus.event;
 import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.core.Attributes;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.*;
+import grill24.potionsplus.utility.ClientTickHandler;
+import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.utility.RUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
@@ -100,7 +103,7 @@ public class ItemListenersGame {
             if (index < splitIndex) {
                 int splitIndexInComponent = Math.clamp(splitIndex - index, 0, text.length());
                 String truncatedText = text.substring(0, splitIndexInComponent);
-                if(!truncatedText.isEmpty()) {
+                if (!truncatedText.isEmpty()) {
                     MutableComponent mutableComponent = Component.literal(truncatedText).withStyle(c.getStyle());
                     components.add(mutableComponent);
                 }
@@ -122,14 +125,15 @@ public class ItemListenersGame {
 
     /**
      * This event is used to shorten the duration of the item use animation.
+     *
      * @param event the event
      */
     @SubscribeEvent
     public static void onLivingUseItem(final LivingEntityUseItemEvent.Tick event) {
         ItemStack itemStack = event.getItem();
-        for(ItemAttributeModifiers.Entry entry : itemStack.getAttributeModifiers().modifiers()) {
+        for (ItemAttributeModifiers.Entry entry : itemStack.getAttributeModifiers().modifiers()) {
             ResourceKey<Attribute> attributeKey = entry.attribute().getKey();
-            if(attributeKey != null && attributeKey.equals(Attributes.USE_SPEED_BONUS.getKey())) {
+            if (attributeKey != null && attributeKey.equals(Attributes.USE_SPEED_BONUS.getKey())) {
                 float useSpeedBonus = (float) entry.modifier().amount(); // 0.05 = 5% faster = skip every 20th tick
                 int skipTickEveryTicks = Math.round(1.0F / useSpeedBonus);
                 if (event.getDuration() % skipTickEveryTicks == 0) {

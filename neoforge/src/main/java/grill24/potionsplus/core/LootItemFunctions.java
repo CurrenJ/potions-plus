@@ -3,7 +3,6 @@ package grill24.potionsplus.core;
 import grill24.potionsplus.function.SetFishSizeFunction;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;

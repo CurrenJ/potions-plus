@@ -14,7 +14,9 @@ import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.AttributeModifiersWhileHeldAbility;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
-import grill24.potionsplus.utility.*;
+import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.utility.ServerTickHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -83,10 +85,10 @@ public class PlayerListeners {
             if (!learnedRecipes.isEmpty()) {
                 // Update the server-side recipe knowledge
                 for (RecipeHolder<BrewingCauldronRecipe> recipe : learnedRecipes) {
-                    playerBrewingKnowledge.addKnownRecipe(recipe.id().toString());
+                    playerBrewingKnowledge.addKnownRecipe(recipe.id());
                 }
                 // Sync new recipe knowledge to the client
-                packets.add(ClientboundSyncKnownBrewingRecipesPacket.of(learnedRecipes.stream().map(RecipeHolder::id).map(Object::toString).toList()));
+                packets.add(new ClientboundSyncKnownBrewingRecipesPacket(learnedRecipes.stream().map(RecipeHolder::id).toList()));
             }
             if (!alerts.isEmpty()) {
                 // Only send the highest priority alert
@@ -113,7 +115,8 @@ public class PlayerListeners {
     }
 
     @SubscribeEvent
-    public static void onServerTickEnd(final ServerTickEvent.Post event) {}
+    public static void onServerTickEnd(final ServerTickEvent.Post event) {
+    }
 
     @SubscribeEvent
     public static void onServerPlayerHeldItemChanged(final ServerPlayerHeldItemChangedEvent event) {
@@ -161,7 +164,7 @@ public class PlayerListeners {
                         customEffects.add(new MobEffectInstance(effect.getEffect(), remainingDuration, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false));
                     }
                 }
-                stack.set(DataComponents.POTION_CONTENTS, new PotionContents(potionContents.potion(), potionContents.customColor(), customEffects));
+                stack.set(DataComponents.POTION_CONTENTS, new PotionContents(potionContents.potion(), potionContents.customColor(), customEffects, Optional.empty()));
             }
         }
     }
@@ -182,7 +185,7 @@ public class PlayerListeners {
             // Sync known brewing cauldron recipe, sync paired abyssal trove, sync player skill data, and sync fishing leaderboard data.
             // TOOD: Sync whole saved data on join?
             PacketDistributor.sendToPlayer(player,
-                    ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()),
+                    new ClientboundSyncKnownBrewingRecipesPacket(SavedData.instance.getData(player).getKnownRecipeKeys()),
                     new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()),
                     new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)),
                     ClientboundSyncFishingLeaderboardsPacket.create() // Sync Fishing Leaderboard Data

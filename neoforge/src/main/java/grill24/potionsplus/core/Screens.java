@@ -1,6 +1,5 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.blockentity.filterhopper.FilterHopperScreen;
 import grill24.potionsplus.blockentity.filterhopper.HugeFilterHopperScreen;
 import grill24.potionsplus.blockentity.filterhopper.LargeFilterHopperScreen;
 import grill24.potionsplus.blockentity.filterhopper.SmallFilterHopperScreen;

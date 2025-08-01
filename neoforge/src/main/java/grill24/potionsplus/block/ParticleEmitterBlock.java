@@ -2,7 +2,6 @@ package grill24.potionsplus.block;
 
 import grill24.potionsplus.particle.ParticleConfigurations;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -11,7 +10,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -75,14 +74,14 @@ public class ParticleEmitterBlock extends Block {
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack stack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult useItemOn(ItemStack stack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide) {
             Item itemInHand = stack.getItem();
             if (PARTICLE_INTENSITY_MAP.containsKey(itemInHand)) {
                 int previousParticleIntensity = blockState.getValue(PARTICLE_INTENSITY);
                 int newParticleIntensity = PARTICLE_INTENSITY_MAP.get(itemInHand);
                 if (newParticleIntensity == previousParticleIntensity) {
-                    return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                    return InteractionResult.PASS;
                 } else {
                     level.setBlockAndUpdate(blockPos, blockState.setValue(PARTICLE_INTENSITY, newParticleIntensity));
 
@@ -104,7 +103,7 @@ public class ParticleEmitterBlock extends Block {
             }
         }
 
-        return ItemInteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 
     /**
@@ -144,7 +143,7 @@ public class ParticleEmitterBlock extends Block {
     }
 
     @Override
-    public void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, BlockPos blockPos1, boolean b) {
+    public void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, Orientation neighborOrientation, boolean b) {
         if (!level.isClientSide) {
             boolean flag = blockState.getValue(ENABLED);
             if (flag != level.hasNeighborSignal(blockPos)) {

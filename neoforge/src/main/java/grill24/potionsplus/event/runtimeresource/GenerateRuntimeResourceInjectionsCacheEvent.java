@@ -1,16 +1,21 @@
 package grill24.potionsplus.event.runtimeresource;
 
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.event.runtimeresource.modification.IResourceModification;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.neoforged.bus.api.Event;
 import net.neoforged.fml.event.IModBusEvent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class GenerateRuntimeResourceInjectionsCacheEvent extends Event implements IModBusEvent {
-    public record ResourceInjectionCacheEntry(ResourceLocation targetResourceLocation, ResourceLocation newResourceLocation, List<Resource> resource) { }
+    public record ResourceInjectionCacheEntry(ResourceLocation targetResourceLocation,
+                                              ResourceLocation newResourceLocation, List<Resource> resource) {
+    }
 
     public static final List<ResourceInjectionCacheEntry> RESOURCE_INJECTION_CACHE = new ArrayList<>();
     public static final List<ResourceInjectionCacheEntry> RESOURCE_STACKS_INJECTION_CACHE = new ArrayList<>();
@@ -24,13 +29,15 @@ public class GenerateRuntimeResourceInjectionsCacheEvent extends Event implement
         if (modification.getTargetResourceLocation() != null && modification.getNewResourceLocation() != null) {
             Optional<Resource> generatedResource = modification.generateResource();
             generatedResource.ifPresent(resource -> {
-                PotionsPlus.LOGGER.info("Runtime resource modification: {}", modification);
+                if (Debug.DEBUG_RUNTIME_RESOURCE_INJECTION) {
+                    PotionsPlus.LOGGER.info("Runtime resource modification: {}", modification);
+                }
                 RESOURCE_INJECTION_CACHE.add(new ResourceInjectionCacheEntry(modification.getTargetResourceLocation(), modification.getNewResourceLocation(), List.of(resource)));
             });
 
             List<Resource> generatedResources = modification.generateResourceStack();
             RESOURCE_STACKS_INJECTION_CACHE.add(new ResourceInjectionCacheEntry(modification.getTargetResourceLocation(), modification.getNewResourceLocation(), generatedResources));
-            if (generatedResources != null && !generatedResources.isEmpty()) {
+            if (generatedResources != null && !generatedResources.isEmpty() && Debug.DEBUG_RUNTIME_RESOURCE_INJECTION) {
                 PotionsPlus.LOGGER.info("Runtime resource stacks modification: {}", modification);
             }
         } else {

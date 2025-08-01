@@ -128,11 +128,15 @@ public class PointEarningHistory {
 
         windowLast100 = new Window(this.pointEarningHistory, 100);
         windowLast1000 = new Window(this.pointEarningHistory, 1000);
-        windows = new Window[] {windowLast100, windowLast1000};
+        windows = new Window[]{windowLast100, windowLast1000};
     }
 
     public PointEarningHistory(int size) {
         this(new HashMap<>(), new LinkedList<>(), size);
+    }
+
+    public PointEarningHistory(PointEarningHistory other) {
+        this(new HashMap<>(other.partialPoints), new LinkedList<>(other.pointEarningHistory), other.size);
     }
 
     public void clear() {

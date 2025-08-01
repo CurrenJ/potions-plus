@@ -27,7 +27,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import oshi.util.tuples.Pair;
@@ -46,7 +48,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
     protected final boolean isSeededRuntimeRecipe;
 
     public BrewingCauldronRecipe(BrewingCauldronRecipe recipe) {
-        super(recipe.category, recipe.group, recipe.ingredients, recipe.result, recipe.processingTime, recipe.canShowInJei);
+        super(recipe.category, recipe.ingredients, recipe.result, recipe.processingTime, recipe.canShowInJei);
         this.experienceReward = recipe.experienceReward;
         this.experienceRequired = recipe.experienceRequired;
         this.durationToAdd = recipe.durationToAdd;
@@ -55,8 +57,8 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
         this.isSeededRuntimeRecipe = recipe.isSeededRuntimeRecipe;
     }
 
-    public BrewingCauldronRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei, float experienceReward, float experienceRequired, int durationToAdd, int amplifierToAdd, List<PotionMatchingCriteria> matchingCriteria, boolean isSeededRuntimeRecipe) {
-        super(category, group, ingredients, result, processingTime, canShowInJei);
+    public BrewingCauldronRecipe(RecipeCategory category, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei, float experienceReward, float experienceRequired, int durationToAdd, int amplifierToAdd, List<PotionMatchingCriteria> matchingCriteria, boolean isSeededRuntimeRecipe) {
+        super(category, ingredients, result, processingTime, canShowInJei);
         this.experienceReward = experienceReward;
         this.experienceRequired = experienceRequired;
         this.durationToAdd = durationToAdd;
@@ -71,6 +73,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
 
     /**
      * Returns the result of the recipe with the given ingredients, but with the duration of all effects increased by the given function. Also has some logic for merging multiple effects of the same type.
+     *
      * @param suppliedIngredients
      * @param transformDuration
      * @return The result of the recipe with the given ingredients, but with tthe duration transformed.
@@ -113,12 +116,12 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             }
 
             // Get the name of the input potion
-            Component name = inputPotionOptional.get().getOrDefault(DataComponents.ITEM_NAME, Component.translatable(inputPotionOptional.get().getDescriptionId()));
+            Component name = inputPotionOptional.get().getOrDefault(DataComponents.ITEM_NAME, inputPotionOptional.get().getItemName());
 
             // Update data components of the transformed result
             transformedResult.set(DataComponents.ITEM_NAME, name);
             transformedResult.set(DataComponents.RARITY, Rarity.RARE);
-            transformedResult.set(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), potionContents.customColor(), customEffects));
+            transformedResult.set(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), potionContents.customColor(), customEffects, Optional.empty()));
         }
 
         return transformedResult;
@@ -195,13 +198,13 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<BrewingCauldronRecipe> getSerializer() {
         return Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.get();
     }
 
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<BrewingCauldronRecipe> getType() {
         return Recipes.BREWING_CAULDRON_RECIPE.get();
     }
 
@@ -282,7 +285,6 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
         public static final MapCodec<BrewingCauldronRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 codecBuilder -> codecBuilder.group(
                         ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
-                        Codec.STRING.optionalFieldOf("group", "").forGetter(Recipe::getGroup),
                         PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
                         ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
                         Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
@@ -297,7 +299,6 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
         );
         public static StreamCodec<RegistryFriendlyByteBuf, BrewingCauldronRecipe> STREAM_CODEC = StreamCodecUtility.composite(
                 ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_STREAM_CODEC, ShapelessProcessingRecipe::getCategory,
-                ByteBufCodecs.STRING_UTF8, ShapelessProcessingRecipe::getGroup,
                 PpIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()), ShapelessProcessingRecipe::getPpIngredients,
                 ItemStack.STREAM_CODEC, ShapelessProcessingRecipe::getResult,
                 ByteBufCodecs.INT, ShapelessProcessingRecipe::getProcessingTime,

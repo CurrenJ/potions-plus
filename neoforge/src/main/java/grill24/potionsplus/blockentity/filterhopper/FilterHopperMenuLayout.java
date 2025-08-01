@@ -29,7 +29,9 @@ public record FilterHopperMenuLayout(int playerInventoryTexX, int playerInventor
         private int upgradeSlotsPaddingBetweenRows = 0;
         private int upgradeSlotsPaddingBetweenColumns = 0;
 
-        public Builder() {}
+        public Builder() {
+        }
+
         public static Builder create() {
             return new Builder();
         }

@@ -33,7 +33,7 @@ public class ReachForTheStarsEffect extends MobEffect implements IEffectTooltipD
     @Override
     public Component getDisplayName() {
         String name = Minecraft.getInstance().player.getName().getContents().toString();
-        if(name.equals("ohriiiiiiita")) {
+        if (name.equals("ohriiiiiiita")) {
             return Component.literal("Rita for the Stars");
         }
 

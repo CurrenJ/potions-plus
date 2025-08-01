@@ -8,39 +8,35 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeSerializerHelper;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
 
     public SanguineAltarRecipe(SanguineAltarRecipe recipe) {
-        super(recipe.category, recipe.group, recipe.ingredients, recipe.result, recipe.processingTime, recipe.canShowInJei);
+        super(recipe.category, recipe.ingredients, recipe.result, recipe.processingTime, recipe.canShowInJei);
     }
 
-    public SanguineAltarRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei) {
-        super(category, group, ingredients, result, processingTime, canShowInJei);
+    public SanguineAltarRecipe(RecipeCategory category, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei) {
+        super(category, ingredients, result, processingTime, canShowInJei);
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<SanguineAltarRecipe> getSerializer() {
         return Recipes.SANGUINE_ALTAR_RECIPE_SERIALIZER.get();
     }
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<SanguineAltarRecipe> getType() {
         return Recipes.SANGUINE_ALTAR_RECIPE.get();
     }
 
@@ -52,7 +48,6 @@ public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
         public static final MapCodec<SanguineAltarRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 codecBuilder -> codecBuilder.group(
                         ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
-                        Codec.STRING.optionalFieldOf("group", "").forGetter(Recipe::getGroup),
                         PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
                         ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
                         Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
@@ -61,7 +56,6 @@ public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
         );
         public static StreamCodec<RegistryFriendlyByteBuf, SanguineAltarRecipe> STREAM_CODEC = StreamCodec.composite(
                 ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_STREAM_CODEC, ShapelessProcessingRecipe::getCategory,
-                ByteBufCodecs.STRING_UTF8, ShapelessProcessingRecipe::getGroup,
                 PpIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()), ShapelessProcessingRecipe::getPpIngredients,
                 ItemStack.STREAM_CODEC, ShapelessProcessingRecipe::getResult,
                 ByteBufCodecs.INT, ShapelessProcessingRecipe::getProcessingTime,

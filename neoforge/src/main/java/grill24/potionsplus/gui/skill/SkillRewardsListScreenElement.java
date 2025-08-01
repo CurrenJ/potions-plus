@@ -60,11 +60,11 @@ public class SkillRewardsListScreenElement extends VerticalListScreenElement<Ren
 
         List<RenderableScreenElement> text = new ArrayList<>();
         for (int i = currentLevel - 5; i < currentLevel + 10; i++) {
-            if(!rewardsConfiguration.hasRewardForLevel(i)) {
+            if (!rewardsConfiguration.hasRewardForLevel(i)) {
                 continue;
             } else {
                 Optional<SkillLevelUpRewardsData> rewards = rewardsConfiguration.tryGetRewardForLevel(i);
-                if(rewards.isPresent()) {
+                if (rewards.isPresent()) {
                     boolean isUnlocked = i <= currentLevel;
                     TextComponentScreenElement levelText = new TextComponentScreenElement(
                             this.screen,

@@ -7,25 +7,28 @@ import grill24.potionsplus.loot.HasPlayerAbilityCondition;
 import grill24.potionsplus.loot.LootItemBlockTagCondition;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.neoforged.neoforge.common.loot.AddTableLootModifier;
-import org.antlr.v4.runtime.tree.Tree;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 /**
  * Generates global loot modifier data.
@@ -38,21 +41,24 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
 
     @Override
     protected void start() {
+        HolderGetter<EntityType<?>> entityTypeHolderGetter = this.registries.lookupOrThrow(Registries.ENTITY_TYPE);
+
         // Wormroot Loot Modifier
         this.add(
                 "wormroot_loot_modifier",
                 new WormrootLootModifier(new LootItemCondition[0], List.of(Blocks.HANGING_ROOTS, Blocks.ROOTED_DIRT))
         );
 
+        Set<ResourceKey<MobEffect>> effectsBlacklist = BuiltInRegistries.MOB_EFFECT.entrySet().stream()
+                .filter(h -> h.getValue().isInstantenous() || h.getValue().getCategory() == MobEffectCategory.HARMFUL)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
+        effectsBlacklist.add(grill24.potionsplus.core.potion.MobEffects.ANY_POTION.getKey());
+
         // Add Passive Potion Effects Loot Modifier
-        this.add(
-                "add_mob_effects_to_tools_and_armor_loot_modifier",
-                new grill24.potionsplus.behaviour.AddMobEffectsLootModifier(new LootItemCondition[0],
-                        new TreeSet<>(Set.of(
-                                MobEffects.HARM.getKey(),
-                                grill24.potionsplus.core.potion.MobEffects.ANY_POTION.getKey(),
-                                MobEffects.HEAL.getKey()
-                        ))));
+        this.add("add_mob_effects_to_tools_and_armor_loot_modifier",
+                new grill24.potionsplus.behaviour.AddMobEffectsLootModifier(
+                        new LootItemCondition[0], new TreeSet<>(effectsBlacklist)));
 
 
         // Iron Ore Fortune Bonus Drops (Skill Ability)
@@ -111,7 +117,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 "creeper_loot_modifier",
                 new AddTableLootModifier(
                         new LootItemCondition[]{
-                                LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.CREEPER)).build(),
+                                LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityTypeHolderGetter, EntityType.CREEPER)).build(),
                                 new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.CREEPER_SAND_ADDITIONAL_LOOT.getKey())
                         },
                         LootTables.CREEPER_SAND_BONUS_DROPS
@@ -123,7 +129,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 "skeleton_bone_meal_loot_modifier",
                 new AddTableLootModifier(
                         new LootItemCondition[]{
-                                LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.SKELETON)).build(),
+                                LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityTypeHolderGetter, EntityType.SKELETON)).build(),
                                 new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.SKELETON_BONE_MEAL_ADDITIONAL_LOOT.getKey())
                         },
                         LootTables.SKELETON_BONE_MEAL_BONUS_DROPS
@@ -135,7 +141,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 "skeleton_bone_block_loot_modifier",
                 new AddTableLootModifier(
                         new LootItemCondition[]{
-                                LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.SKELETON)).build(),
+                                LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityTypeHolderGetter, EntityType.SKELETON)).build(),
                                 new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT.getKey())
                         },
                         LootTables.SKELETON_BONE_BLOCK_BONUS_DROPS

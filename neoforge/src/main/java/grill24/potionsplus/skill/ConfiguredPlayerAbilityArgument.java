@@ -18,7 +18,8 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.concurrent.CompletableFuture;
 
 public class ConfiguredPlayerAbilityArgument implements ArgumentType<ConfiguredPlayerAbilityArgument.AbilityInfo> {
-    public record AbilityInfo(Holder<ConfiguredPlayerAbility<?, ?>> holder) {}
+    public record AbilityInfo(Holder<ConfiguredPlayerAbility<?, ?>> holder) {
+    }
 
     private final CommandBuildContext context;
 
@@ -40,6 +41,7 @@ public class ConfiguredPlayerAbilityArgument implements ArgumentType<ConfiguredP
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
         return SharedSuggestionProvider.suggestResource(
                 this.context.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY).listElementIds()
-                .map(ResourceKey::location)
-                .toList(), builder);
-    }}
+                        .map(ResourceKey::location)
+                        .toList(), builder);
+    }
+}

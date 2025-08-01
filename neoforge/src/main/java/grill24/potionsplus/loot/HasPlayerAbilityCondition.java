@@ -11,10 +11,10 @@ import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
@@ -36,14 +36,14 @@ public record HasPlayerAbilityCondition(ResourceKey<ConfiguredPlayerAbility<?, ?
     }
 
     @Override
-    public Set<LootContextParam<?>> getReferencedContextParams() {
+    public Set<ContextKey<?>> getReferencedContextParams() {
         return ImmutableSet.of(LootContextParams.THIS_ENTITY);
     }
 
     public boolean test(LootContext context) {
-        Entity entity = context.getParamOrNull(LootContextParams.THIS_ENTITY);
+        Entity entity = context.getParameter(LootContextParams.THIS_ENTITY);
         if (!(entity instanceof Player)) {
-            entity = context.getParamOrNull(LootContextParams.LAST_DAMAGE_PLAYER);
+            entity = context.getOptionalParameter(LootContextParams.LAST_DAMAGE_PLAYER);
         }
         if (entity instanceof Player player) {
             SkillsData skillsData = player.getData(DataAttachments.SKILL_PLAYER_DATA);

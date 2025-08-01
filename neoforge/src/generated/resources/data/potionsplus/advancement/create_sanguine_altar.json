@@ -6,7 +6,7 @@
         "block": {
           "Name": "potionsplus:sanguine_altar",
           "Properties": {
-            "facing": "north"
+            "direction": "north"
           }
         }
       },

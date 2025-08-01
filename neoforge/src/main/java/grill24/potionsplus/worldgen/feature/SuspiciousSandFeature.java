@@ -2,9 +2,7 @@ package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.core.LootTables;
-import grill24.potionsplus.core.Tags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;

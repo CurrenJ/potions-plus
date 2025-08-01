@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface ITickingAreaTooltipDetails extends ITickingTooltipDetails {
     int getRadius(int amplifier);
+
     Component getVerb();
 
     @Override

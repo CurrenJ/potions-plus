@@ -5,8 +5,10 @@ import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.network.ClientboundDisplayTossupAnimationPacket;
 import grill24.potionsplus.utility.HolderCodecs;
 import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.RegistryFileCodec;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -15,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public record ConfiguredGrantableReward<RC extends GrantableRewardConfiguration, R extends GrantableReward<RC>>(R reward, RC config) {
+public record ConfiguredGrantableReward<RC extends GrantableRewardConfiguration, R extends GrantableReward<RC>> (
+        R reward, RC config) {
     public static final Codec<ConfiguredGrantableReward<?, ?>> DIRECT_CODEC = PotionsPlusRegistries.GRANTABLE_REWARD
             .byNameCodec()
             .dispatch(configured -> configured.reward, GrantableReward::configuredCodec);
@@ -28,10 +31,12 @@ public record ConfiguredGrantableReward<RC extends GrantableRewardConfiguration,
         return "Reward: " + this.reward + ": " + this.config;
     }
 
-    public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, ServerPlayer player) {
-        List<ItemStack> itemsBefore = player.getInventory().items.stream().map(ItemStack::copy).toList();
+    public void grant(ResourceKey<ConfiguredGrantableReward<?, ?>> holder, ServerPlayer player) {
+        List<ItemStack> itemsBefore = player.getInventory().getNonEquipmentItems().stream().map(ItemStack::copy).toList();
+
         this.reward.grant(holder, this.config, player);
-        List<ItemStack> itemsAfter = player.getInventory().items;
+
+        List<ItemStack> itemsAfter = player.getInventory().getNonEquipmentItems();
 
         // Get difference between itemsBefore and itemsAfter
         List<ItemStack> newItems = new ArrayList<>();
@@ -44,16 +49,16 @@ public record ConfiguredGrantableReward<RC extends GrantableRewardConfiguration,
         }
 
         // Display the item activation
-        if(!newItems.isEmpty()) {
+        if (!newItems.isEmpty()) {
             PacketDistributor.sendToPlayer(player, new ClientboundDisplayTossupAnimationPacket(newItems, 5, 0.75F));
         }
     }
 
-    public Optional<Component> getDescription() {
-        return this.reward.getDescription(config);
+    public Optional<Component> getDescription(RegistryAccess registryAccess) {
+        return this.reward.getDescription(registryAccess, config);
     }
 
-    public List<List<Component>> getMultiLineRichDescription() {
-        return this.reward.getMultiLineRichDescription(config);
+    public List<List<Component>> getMultiLineRichDescription(RegistryAccess registryAccess) {
+        return this.reward.getMultiLineRichDescription(registryAccess, config);
     }
 }

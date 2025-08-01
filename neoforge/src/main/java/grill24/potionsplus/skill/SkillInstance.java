@@ -7,8 +7,6 @@ import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.network.ClientboundDisplayAlert;
 import grill24.potionsplus.network.ClientboundDisplayAlertWithParameter;
 import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
-import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
-import grill24.potionsplus.skill.reward.GrantableReward;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsData;
 import io.netty.buffer.ByteBuf;
@@ -24,13 +22,14 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
     public static final Codec<SkillInstance<?, ?>> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             ResourceKey.codec(PotionsPlusRegistries.CONFIGURED_SKILL).fieldOf("configuredSkill").forGetter(SkillInstance::getConfiguredSkillKey),
             Codec.FLOAT.fieldOf("points").forGetter(SkillInstance::getPoints)
-            ).apply(codecBuilder, SkillInstance::new));
+    ).apply(codecBuilder, SkillInstance::new));
     public static final StreamCodec<ByteBuf, SkillInstance<?, ?>> STREAM_CODEC = StreamCodec.composite(
             ResourceKey.streamCodec(PotionsPlusRegistries.CONFIGURED_SKILL),
             SkillInstance::getConfiguredSkillKey,
@@ -58,7 +57,7 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
         points = 0;
     }
 
-    public ResourceKey<ConfiguredSkill<?,?>> getConfiguredSkillKey() {
+    public ResourceKey<ConfiguredSkill<?, ?>> getConfiguredSkillKey() {
         return configuredSkillId;
     }
 
@@ -67,7 +66,7 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
     }
 
     public ConfiguredSkill<SC, S> getConfiguredSkill(RegistryAccess registryAccess) {
-        return (ConfiguredSkill<SC, S>) registryAccess.registryOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL).get(getConfiguredSkillKey());
+        return (ConfiguredSkill<SC, S>) registryAccess.getOrThrow(getConfiguredSkillKey()).value();
     }
 
     public void addPointsWithGrindingPenalty(Player player, float points, PointEarningHistory pointEarningHistory) {
@@ -84,7 +83,7 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
     }
 
     public void addPoints(Player player, float points) {
-        if(points == 0)
+        if (points == 0)
             return;
 
         RegistryAccess registryAccess = player.registryAccess();
@@ -101,13 +100,13 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
             if (levelBefore != levelAfter && levelAfter == getConfiguredSkill(registryAccess).getLevelMax()) {
                 // Send alert
                 PacketDistributor.sendToPlayer(serverPlayer, new ClientboundDisplayAlertWithParameter(Translations.TOOLTIP_POTIONSPLUS_SKILL_MAX_LEVEL, true, Integer.toString(levelAfter)));
-            } else if(pointsBefore != this.points && this.points == configuredSkill.getPointsMax()) {
+            } else if (pointsBefore != this.points && this.points == configuredSkill.getPointsMax()) {
                 // Send alert
                 PacketDistributor.sendToPlayer(serverPlayer, new ClientboundDisplayAlertWithParameter(Translations.TOOLTIP_POTIONSPLUS_SKILL_MAX_POINTS, true, Integer.toString(levelAfter)));
             }
 
 
-            if(levelAfter > levelBefore) {
+            if (levelAfter > levelBefore) {
                 for (int i = levelBefore + 1; i <= levelAfter; i++) {
                     // Grant rewards
                     SkillLevelUpRewardsConfiguration rewardsConfiguration = configuredSkill.config().getData().rewardsConfiguration();
@@ -184,7 +183,7 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
         }
 
         Optional<SkillLevelUpRewardsData> rewardsData = getConfiguredSkill(registryAccess).config().getData().rewardsConfiguration().tryGetRewardForLevel(nextLevel);
-        rewardsData.ifPresent(skillLevelUpRewardsData -> component.append(skillLevelUpRewardsData.getDescription().copy().withStyle(ChatFormatting.GRAY)));
+        rewardsData.ifPresent(skillLevelUpRewardsData -> component.append(skillLevelUpRewardsData.getDescription(registryAccess).copy().withStyle(ChatFormatting.GRAY)));
 
         return component;
     }
@@ -207,7 +206,7 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
 
         if (includeRewards) {
             Optional<SkillLevelUpRewardsData> rewardsData = getConfiguredSkill(registryAccess).config().getData().rewardsConfiguration().tryGetRewardForLevel(level);
-            rewardsData.ifPresent(skillLevelUpRewardsData -> component.append(skillLevelUpRewardsData.getDescription().copy().withStyle(isUnlocked ? ChatFormatting.GREEN : ChatFormatting.GRAY)));
+            rewardsData.ifPresent(skillLevelUpRewardsData -> component.append(skillLevelUpRewardsData.getDescription(registryAccess).copy().withStyle(isUnlocked ? ChatFormatting.GREEN : ChatFormatting.GRAY)));
         }
 
         return component;

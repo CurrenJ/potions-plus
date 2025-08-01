@@ -10,7 +10,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -39,13 +38,6 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
         return new BrewingCauldronBlockEntity(blockPos, blockState);
     }
 
-    @Override
-    @Deprecated
-    public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
-        Utility.dropContents(level, blockPos, blockState, newState);
-        super.onRemove(blockState, level, blockPos, newState, isMoving);
-    }
-
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
@@ -53,14 +45,18 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (stack.isEmpty()) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
+        }
+
         InvUtil.InteractionResult result = InvUtil.insertOnPlayerUseItem(level, pos, player, hand, SoundEvents.GENERIC_SPLASH);
 
         if (result == InvUtil.InteractionResult.INSERT) {
             level.getBlockEntity(pos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get()).ifPresent(cauldronBlockEntity -> cauldronBlockEntity.onPlayerInsertItem(player));
         }
 
-        return InvUtil.getMinecraftItemInteractionResult(result);
+        return InvUtil.getMinecraftInteractionResult(result);
     }
 
     @Override
@@ -70,7 +66,7 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
         return InvUtil.getMinecraftInteractionResult(result);
     }
 
-        @Override
+    @Override
     public boolean hasAnalogOutputSignal(@NotNull BlockState blockState) {
         return true;
     }
@@ -83,7 +79,7 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @javax.annotation.Nullable LivingEntity placer, ItemStack stack) {
-        if(placer instanceof ServerPlayer serverPlayer) {
+        if (placer instanceof ServerPlayer serverPlayer) {
             CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverPlayer, state);
         }
     }

@@ -25,6 +25,7 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
     /**
      * Default bounds calculation for a container element:
      * The bounds of the container is the minimum rectangle that contains all children and the origin point of the container.
+     *
      * @return The width of the container.
      */
     @Override
@@ -44,6 +45,7 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
     /**
      * Default bounds calculation for a container element:
      * The bounds of the container is the minimum rectangle that contains all children and the origin point of the container.
+     *
      * @return The height of the container.
      */
     @Override
@@ -66,7 +68,7 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
         super.onTick(partialTick, mouseX, mouseY);
 
         for (RenderableScreenElement child : getChildren()) {
-            if(child != null) {
+            if (child != null) {
                 child.tick(partialTick, mouseX, mouseY);
             }
         }
@@ -80,14 +82,14 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
     }
 
     @Override
-    public void tryClick(int mouseX, int mouseY) {
+    public void tryClick(int mouseX, int mouseY, int button) {
         if (!this.allowClicksOutsideBounds && !getGlobalBounds().contains(mouseX, mouseY)) {
             return;
         }
 
-        onClick(mouseX, mouseY);
+        onClick(mouseX, mouseY, button);
         for (E element : getChildren()) {
-            element.tryClick(mouseX, mouseY);
+            element.tryClick(mouseX, mouseY, button);
         }
     }
 
@@ -104,19 +106,31 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
     }
 
     @Override
+    public void tryDrag(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (!this.allowClicksOutsideBounds && !getGlobalBounds().contains(mouseX, mouseY)) {
+            return;
+        }
+
+        onDrag(mouseX, mouseY, button, dragX, dragY);
+        for (E element : getChildren()) {
+            element.tryDrag(mouseX, mouseY, button, dragX, dragY);
+        }
+    }
+
+    @Override
     protected void updateHover(int mouseX, int mouseY) {
         boolean hovering = getGlobalBounds().contains(mouseX, mouseY);
         if (hovering && isVisible()) {
             if (this.mouseEnteredTimestamp == -1) {
                 this.mouseEnteredTimestamp = ClientTickHandler.total();
-                this.mouseEnterListeners.forEach(listener -> listener.onClick(mouseX, mouseY, this));
+                this.mouseEnterListeners.forEach(listener -> listener.onClick(mouseX, mouseY, 0, this));
                 onMouseEnter(mouseX, mouseY);
             }
             this.mouseExitedTimestamp = -1;
         } else {
             if (this.mouseExitedTimestamp == -1) {
                 this.mouseExitedTimestamp = ClientTickHandler.total();
-                this.mouseEnterListeners.forEach(listener -> listener.onClick(mouseX, mouseY, this));
+                this.mouseEnterListeners.forEach(listener -> listener.onClick(mouseX, mouseY, 0, this));
                 onMouseExit(mouseX, mouseY);
             }
             this.mouseEnteredTimestamp = -1;

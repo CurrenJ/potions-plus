@@ -1,12 +1,16 @@
 package grill24.potionsplus.utility.registration.block;
 
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 
-import java.util.Objects;
 import java.util.function.Supplier;
 
 public class SimpleCrossBlockModelGenerator<B extends Block> extends BlockModelUtility.BlockModelGenerator<B> {
@@ -14,21 +18,21 @@ public class SimpleCrossBlockModelGenerator<B extends Block> extends BlockModelU
         super(blockGetter);
     }
 
-    public static void registerFlowerBlock(BlockStateProvider provider, Block block, String texture) {
-        provider.models().withExistingParent(Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block)).getPath(), provider.mcLoc("block/cross"))
-                .texture("cross", texture);
+    public static void registerFlowerBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Block block, ResourceLocation texture) {
+        // Generate block model
+        ResourceLocation flowerModelLocation = ModelTemplates.CROSS.create(block, new TextureMapping().put(TextureSlot.CROSS, texture), blockModelGenerators.modelOutput);
 
-        provider.getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
-                .modelFile(provider.models().getExistingFile(BuiltInRegistries.BLOCK.getKey(block)))
-                .build());
+        // Generate blockstate definition
+        MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(flowerModelLocation));
+        blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
     }
 
-    public static void registerFlowerBlock(BlockStateProvider provider, Block block) {
-        registerFlowerBlock(provider, block, "block/" + Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block)).getPath());
+    public static void registerFlowerBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Block block) {
+        registerFlowerBlock(blockModelGenerators, itemModelGenerators, block, ModelLocationUtils.getModelLocation(block));
     }
 
     @Override
-    public void generate(BlockStateProvider provider) {
-        registerFlowerBlock(provider, getHolder().value());
+    public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+        registerFlowerBlock(blockModelGenerators, itemModelGenerators, getHolder().value());
     }
 }

@@ -4,8 +4,8 @@ import com.google.common.collect.Sets;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.utility.Utility;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.LootNumberProviderType;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
@@ -18,11 +18,11 @@ import java.util.Set;
  */
 public record GaussianDistributionGenerator(NumberProvider mean, NumberProvider stdDev) implements NumberProvider {
     public static final MapCodec<GaussianDistributionGenerator> CODEC = RecordCodecBuilder.mapCodec(
-        codecBuilder -> codecBuilder.group(
-                    NumberProviders.CODEC.fieldOf("mean").forGetter(GaussianDistributionGenerator::mean),
-                    NumberProviders.CODEC.fieldOf("stdDev").forGetter(GaussianDistributionGenerator::stdDev)
-                )
-                .apply(codecBuilder, GaussianDistributionGenerator::new)
+            codecBuilder -> codecBuilder.group(
+                            NumberProviders.CODEC.fieldOf("mean").forGetter(GaussianDistributionGenerator::mean),
+                            NumberProviders.CODEC.fieldOf("stdDev").forGetter(GaussianDistributionGenerator::stdDev)
+                    )
+                    .apply(codecBuilder, GaussianDistributionGenerator::new)
     );
 
     @Override
@@ -38,9 +38,9 @@ public record GaussianDistributionGenerator(NumberProvider mean, NumberProvider 
     @Override
     public float getFloat(LootContext lootContext) {
         return (float) Utility.nextGaussian(
-            this.mean.getFloat(lootContext),
-            this.stdDev.getFloat(lootContext),
-            lootContext.getRandom()
+                this.mean.getFloat(lootContext),
+                this.stdDev.getFloat(lootContext),
+                lootContext.getRandom()
         );
     }
 
@@ -49,7 +49,7 @@ public record GaussianDistributionGenerator(NumberProvider mean, NumberProvider 
     }
 
     @Override
-    public Set<LootContextParam<?>> getReferencedContextParams() {
+    public Set<ContextKey<?>> getReferencedContextParams() {
         return Sets.union(this.mean.getReferencedContextParams(), this.stdDev.getReferencedContextParams());
     }
 }

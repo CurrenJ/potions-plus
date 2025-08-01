@@ -30,7 +30,7 @@ public class PotionEffectTooltips {
             PotionContents potionContents = ppIngredient.getItemStack().get(DataComponents.POTION_CONTENTS);
             List<MobEffectInstance> potionEffectTextComponents = PUtil.getAllEffects(potionContents);
             for (MobEffectInstance effect : potionEffectTextComponents) {
-                if(effect.getEffect().value() instanceof IEffectTooltipDetails effectTooltipDetails) {
+                if (effect.getEffect().value() instanceof IEffectTooltipDetails effectTooltipDetails) {
                     event.addTooltipMessage(effectTooltipDetails.getTooltipDetails(effect));
                 }
             }

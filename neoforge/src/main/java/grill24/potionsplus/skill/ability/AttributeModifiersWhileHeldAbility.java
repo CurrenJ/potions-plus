@@ -3,17 +3,16 @@ package grill24.potionsplus.skill.ability;
 import grill24.potionsplus.core.AbilityInstanceTypes;
 import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.event.ServerPlayerHeldItemChangedEvent;
 import grill24.potionsplus.item.PlayerLockedItemModifiersDataComponent;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
-import grill24.potionsplus.event.ServerPlayerHeldItemChangedEvent;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -23,22 +22,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class AttributeModifiersWhileHeldAbility<T extends Item> extends PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration> {
-    private final Class<T> toolType;
+public class AttributeModifiersWhileHeldAbility extends PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration> {
 
-    public AttributeModifiersWhileHeldAbility(Class<T> toolType) {
+    public AttributeModifiersWhileHeldAbility() {
         super(AttributeModifiersAbilityConfiguration.CODEC);
-
-        this.toolType = toolType;
-    }
-
-    public Class<T> getItemType() {
-        return toolType;
     }
 
     public boolean isMatchingItemClass(AttributeModifiersAbilityConfiguration config, ItemStack stack) {
         boolean isPredicateMatched = config.getData().itemPredicate().test(stack);
-        return getItemType().isAssignableFrom(stack.getItem().getClass()) || isPredicateMatched;
+        return isPredicateMatched;
     }
 
     public Optional<AttributeModifiersData> getAttributeModifiersData(ItemStack stack, AttributeModifiersAbilityConfiguration config, float strength) {
@@ -50,7 +42,7 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
         return Optional.empty();
     }
 
-    private static <T extends AttributeModifiersWhileHeldAbility<?>> Collection<AttributeModifiersData> getActiveAttributeModifiers(ServerPlayer player, DeferredHolder<PlayerAbility<?>, T> abilityHolder, ItemStack stack) {
+    private static <T extends AttributeModifiersWhileHeldAbility> Collection<AttributeModifiersData> getActiveAttributeModifiers(ServerPlayer player, DeferredHolder<PlayerAbility<?>, T> abilityHolder, ItemStack stack) {
         SkillsData skillsData = SkillsData.getPlayerData(player);
         List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.unlockedAbilities().get(abilityHolder.getKey());
         if (configuredAbilities == null) return List.of();
@@ -112,20 +104,12 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
     }
 
     // TODO: Auto pull abilities from registry
-    private static List<DeferredHolder<PlayerAbility<?>,? extends AttributeModifiersWhileHeldAbility<? extends Item>>> getToolBonusAbilities() {
+    private static List<DeferredHolder<PlayerAbility<?>, ? extends AttributeModifiersWhileHeldAbility>> getToolBonusAbilities() {
         return List.of(
-            PlayerAbilities.MODIFIERS_WHILE_PICKAXE_HELD,
-            PlayerAbilities.MODIFIERS_WHILE_AXE_HELD,
-            PlayerAbilities.MODIFIERS_WHILE_HOE_HELD,
-            PlayerAbilities.MODIFIERS_WHILE_SHOVEL_HELD,
-            PlayerAbilities.MODIFIERS_WHILE_SWORD_HELD,
-            PlayerAbilities.MODIFIERS_WHILE_BOW_HELD,
-            PlayerAbilities.MODIFIERS_WHILE_CROSSBOW_HELD,
-            PlayerAbilities.MODIFIERS_WHILE_TRIDENT_HELD,
-            PlayerAbilities.MODIFIERS_WHILE_SHIELD_HELD,
-            PlayerAbilities.MODIFIERS_WHILE_FISHING_ROD_HELD
+                PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD
         );
     }
 
-    public record AttributeModifiersData(Holder<Attribute> attribute, Collection<AttributeModifier> modifiers) {}
+    public record AttributeModifiersData(Holder<Attribute> attribute, Collection<AttributeModifier> modifiers) {
+    }
 }

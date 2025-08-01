@@ -14,7 +14,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -39,7 +38,7 @@ public record ClientboundSanguineAltarConversionStatePacket(BlockPos pos,
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundSanguineAltarConversionStatePacket packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundSanguineAltarConversionStatePacket packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();
@@ -53,7 +52,7 @@ public record ClientboundSanguineAltarConversionStatePacket(BlockPos pos,
                                     blockEntity.state = SanguineAltarBlockEntity.State.values()[packet.state];
 
                                     // Display the appropriate particle effects, text alerts, and sounds to players within 16 blocks of the altar
-                                    if(context.player().position().distanceTo(new Vec3(packet.pos.getX(), packet.pos.getY(), packet.pos.getZ())) < 16) {
+                                    if (context.player().position().distanceTo(new Vec3(packet.pos.getX(), packet.pos.getY(), packet.pos.getZ())) < 16) {
                                         switch (blockEntity.state) {
                                             case CONVERTED -> {
                                                 mc.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, packet.pos.getX() + 0.5, packet.pos.getY() + 1, packet.pos.getZ() + 0.5, 0, 0, 0);

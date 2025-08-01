@@ -23,6 +23,7 @@ import java.util.Optional;
 public class ResourceUtility {
     /**
      * Gets the first texture found within a given Block's blockstate.
+     *
      * @param blockHolder
      * @return
      */
@@ -37,6 +38,7 @@ public class ResourceUtility {
 
     /**
      * Gets the first model found within a given Block's blockstate.
+     *
      * @param blockHolder
      * @return Model location in the format of "namespace:models/path/to/model.json", as parsable by the ResourceManager
      */
@@ -69,6 +71,7 @@ public class ResourceUtility {
 
     /**
      * Gets the first texture found within a given model.
+     *
      * @param modelLocation
      * @return Texture location in the format of "namespace:path/to/texture.png", as parsable by a block model definition .json.
      */

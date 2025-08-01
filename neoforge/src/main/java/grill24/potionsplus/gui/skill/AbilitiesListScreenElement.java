@@ -7,8 +7,10 @@ import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.resources.ResourceKey;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class AbilitiesListScreenElement extends VerticalListScreenElement<AbilityTextScreenElement> {
     private ResourceKey<ConfiguredSkill<?, ?>> selectedSkill;

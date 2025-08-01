@@ -1,9 +1,9 @@
 package grill24.potionsplus.core.items;
 
-import grill24.potionsplus.utility.registration.item.ItemOverrideUtility;
-import grill24.potionsplus.utility.registration.item.GenericIconItemBuilder;
-import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.item.GenericIconItemBuilder;
+import grill24.potionsplus.utility.registration.item.ItemOverrideUtility;
+import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -49,6 +49,7 @@ public class DynamicIconItems {
     public static final ResourceLocation GLOBAL_TEX_LOC = ppId("item/global");
     public static final ResourceLocation RULER_TEX_LOC = ppId("item/ruler");
     public static final ResourceLocation COUNT_TEX_LOC = ppId("item/count");
+    public static final ResourceLocation GIFT_TEX_LOC = ppId("item/gift");
     public static GenericIconItemBuilder GENERIC_ICON;
 
     /**
@@ -67,6 +68,6 @@ public class DynamicIconItems {
                 COPPER_FISHING_FRAME_TEX_LOC, GOLD_FISHING_FRAME_TEX_LOC,
                 DIAMOND_FISHING_FRAME_TEX_LOC, PURPLE_FISHING_FRAME_TEX_LOC,
                 GOLD_SELECTION_FRAME_TEX_LOC, GLOBAL_TEX_LOC,
-                RULER_TEX_LOC, COUNT_TEX_LOC).name("generic_icon"));
+                RULER_TEX_LOC, COUNT_TEX_LOC, GIFT_TEX_LOC).name("generic_icon"));
     }
 }

@@ -8,7 +8,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
@@ -19,8 +20,7 @@ public class Biomes {
     public static final ResourceKey<Biome> VOLCANIC_CAVE_KEY = register("volcanic_cave");
     public static final ResourceKey<Biome> ARID_CAVE_KEY = register("arid_cave");
 
-    public static void bootstrap(BootstrapContext<Biome> context)
-    {
+    public static void bootstrap(BootstrapContext<Biome> context) {
         HolderGetter<PlacedFeature> placedFeatureGetter = context.lookup(Registries.PLACED_FEATURE);
         HolderGetter<ConfiguredWorldCarver<?>> carverGetter = context.lookup(Registries.CONFIGURED_CARVER);
 
@@ -29,13 +29,11 @@ public class Biomes {
         context.register(ARID_CAVE_KEY, AridCave.aridCave(placedFeatureGetter, carverGetter));
     }
 
-    private static ResourceKey<Biome> register(String key)
-    {
+    private static ResourceKey<Biome> register(String key) {
         return ResourceKey.create(Registries.BIOME, ppId(key));
     }
 
-    public static void globalOverworldGeneration(BiomeGenerationSettings.Builder builder)
-    {
+    public static void globalOverworldGeneration(BiomeGenerationSettings.Builder builder) {
         BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
         BiomeDefaultFeatures.addDefaultMonsterRoom(builder);

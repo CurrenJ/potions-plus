@@ -1,9 +1,9 @@
 package grill24.potionsplus.utility;
 
-import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.client.Minecraft;
@@ -11,6 +11,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -37,7 +38,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public int getHeight() {
+    public int getHeight(Font font) {
         return isShowing() ? this.backgroundHeight() + 4 : 0;
     }
 
@@ -55,8 +56,8 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public void renderImage(Font font, int x, int y, GuiGraphics guiGraphics) {
-        if(isShowing()) {
+    public void renderImage(Font font, int x, int y, int width, int height, GuiGraphics guiGraphics) {
+        if (isShowing()) {
             int xMax = this.gridSizeX();
             int yMax = this.gridSizeY();
             int k = 0;
@@ -92,10 +93,11 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
                         PlayerBrewingKnowledge brewingKnowledge = SavedData.instance.getData(player);
                         boolean isInAbyssalTrove = brewingKnowledge.abyssalTroveContainsIngredient(level, PpIngredient.of(itemstack));
                         boolean isPotion = PUtil.isPotion(itemstack);
-                        if (!isInAbyssalTrove && !isPotion && !PotionsPlus.Debug.shouldRevealAllRecipes && this.hideUnknownPotionIngredients) {
+                        if (!isInAbyssalTrove && !isPotion && !Debug.shouldRevealAllRecipes && this.hideUnknownPotionIngredients) {
                             itemstack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC);
                         }
-                    } catch (IOException ignored) {}
+                    } catch (IOException ignored) {
+                    }
                 }
 
             }
@@ -108,7 +110,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     private void blit(GuiGraphics guiGraphics, int x, int y, ClientItemStacksTooltip.Texture texture) {
-        guiGraphics.blitSprite(texture.sprite, x, y, 0, texture.w, texture.h);
+        guiGraphics.blitSprite(RenderType::guiTextured, texture.sprite, x, y, texture.w, texture.h);
     }
 
     private int gridSizeX() {
@@ -120,15 +122,14 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     @OnlyIn(Dist.CLIENT)
-    static enum Texture {
-        BLOCKED_SLOT(ResourceLocation.withDefaultNamespace("container/bundle/blocked_slot"), 18, 20),
-        SLOT(ResourceLocation.withDefaultNamespace("container/bundle/slot"), 18, 20);
+    enum Texture {
+        SLOT(ResourceLocation.withDefaultNamespace("container/slot"), 18, 20);
 
         public final ResourceLocation sprite;
         public final int w;
         public final int h;
 
-        private Texture(ResourceLocation sprite, int w, int h) {
+        Texture(ResourceLocation sprite, int w, int h) {
             this.sprite = sprite;
             this.w = w;
             this.h = h;

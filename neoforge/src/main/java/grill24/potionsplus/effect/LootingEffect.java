@@ -7,7 +7,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 
-public class LootingEffect extends MobEffect implements IEnchantmentBonusTooltipDetails{
+public class LootingEffect extends MobEffect implements IEnchantmentBonusTooltipDetails {
     public LootingEffect(MobEffectCategory category, int color) {
         super(category, color);
     }

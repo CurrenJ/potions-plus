@@ -28,5 +28,7 @@ public class Skill<SC extends SkillConfiguration> {
         return Integer.MAX_VALUE;
     }
 
-    public int getLevelMax() { return Integer.MAX_VALUE; }
+    public int getLevelMax() {
+        return Integer.MAX_VALUE;
+    }
 }

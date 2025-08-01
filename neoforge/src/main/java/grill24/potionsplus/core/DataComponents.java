@@ -1,10 +1,9 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.item.FishSizeDataComponent;
-import grill24.potionsplus.item.FishingRodDataComponent;
-import grill24.potionsplus.item.PlayerLockedItemModifiersDataComponent;
+import grill24.potionsplus.item.*;
 import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
 import grill24.potionsplus.skill.reward.OwnerDataComponent;
+import grill24.potionsplus.utility.Genotype;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -44,6 +43,27 @@ public class DataComponents {
             "fishing_rod_data", builder -> builder
                     .persistent(FishingRodDataComponent.CODEC)
                     .networkSynchronized(FishingRodDataComponent.STREAM_CODEC)
+                    .cacheEncoding()
+    );
+
+    public static final Supplier<DataComponentType<Genotype>> GENETIC_DATA = DATA_COMPONENTS.registerComponentType(
+            "genetic_data", builder -> builder
+                    .persistent(Genotype.CODEC)
+                    .networkSynchronized(Genotype.STREAM_CODEC)
+                    .cacheEncoding()
+    );
+
+    public static final Supplier<DataComponentType<WeightDataComponent>> WEIGHT = DATA_COMPONENTS.registerComponentType(
+            "weight_data", builder -> builder
+                    .persistent(WeightDataComponent.CODEC)
+                    .networkSynchronized(WeightDataComponent.STREAM_CODEC)
+                    .cacheEncoding()
+    );
+
+    public static final Supplier<DataComponentType<RuntimeVariantItemDataComponent>> RUNTIME_VARIANT_ITEM = DATA_COMPONENTS.registerComponentType(
+            "runtime_variant_item_data", builder -> builder
+                    .persistent(RuntimeVariantItemDataComponent.CODEC)
+                    .networkSynchronized(RuntimeVariantItemDataComponent.STREAM_CODEC)
                     .cacheEncoding()
     );
 }

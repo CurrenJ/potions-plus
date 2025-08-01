@@ -5,7 +5,7 @@ import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -31,11 +31,11 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     protected RenderableScreenElement parent;
 
     /**
-     *  Current position of the element - always represented as a global position.
-     *  Managed by this class only, not children.
-     *  Use {@link #setTargetPosition(Vector3f, Scope, boolean)} to set the target position and move the element.
-     *  Use {@link #getGlobalBounds()} to get the position and bounds of the element for rendering / interaction purposes.
-     *  */
+     * Current position of the element - always represented as a global position.
+     * Managed by this class only, not children.
+     * Use {@link #setTargetPosition(Vector3f, Scope, boolean)} to set the target position and move the element.
+     * Use {@link #getGlobalBounds()} to get the position and bounds of the element for rendering / interaction purposes.
+     */
     private Vector3f currentPosition;
 
     public enum Scope {
@@ -59,6 +59,7 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
      */
     protected Collection<MouseListener> clickListeners;
     protected Collection<ScrollListener> scrollListeners;
+    protected Collection<DragListener> dragListeners;
     protected Collection<MouseListener> mouseEnterListeners;
     protected Collection<MouseListener> mouseExitListeners;
     protected boolean allowClicksOutsideBounds = false;
@@ -82,12 +83,16 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         this.shownTimestamp = settings.hiddenByDefault ? -1 : ClientTickHandler.total();
         this.hiddenTimestamp = -1;
 
+        this.mouseEnteredTimestamp = -1;
+        this.mouseExitedTimestamp = -1;
+
         this.parent = parent;
         this.currentPosition = new Vector3f();
         this.targetPosition = new Vector3f();
 
         this.clickListeners = new ArrayList<>();
         this.scrollListeners = new ArrayList<>();
+        this.dragListeners = new ArrayList<>();
         this.mouseEnterListeners = new ArrayList<>();
         this.mouseExitListeners = new ArrayList<>();
 
@@ -151,6 +156,7 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     /**
      * Set the scale of the element. Use of scale is up to the extending class.
      * Does not affect the bounds of the element by default.
+     *
      * @param scale
      */
     @Override
@@ -159,7 +165,9 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     }
 
     protected abstract void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY);
-    protected void renderTooltip(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {}
+
+    protected void renderTooltip(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    }
 
     @Override
     public final void tryRender(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
@@ -172,9 +180,10 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         }
     }
 
-    private static final int BOUNDS_COLOR = FastColor.ARGB32.colorFromFloat(0.2F, 1, 1, 1);
-    private static final int GRID_COLOR = FastColor.ARGB32.colorFromFloat(0.3F, 0, 0, 1);
-    private static final int OUTLINE_COLOR = FastColor.ARGB32.colorFromFloat(0.3F, 1, 0, 0);
+    private static final int BOUNDS_COLOR = ARGB.colorFromFloat(0.2F, 1, 1, 1);
+    private static final int GRID_COLOR = ARGB.colorFromFloat(0.3F, 0, 0, 1);
+    private static final int OUTLINE_COLOR = ARGB.colorFromFloat(0.3F, 1, 0, 0);
+
     private void renderDebug(GuiGraphics graphics) {
         if (this.settings.showBounds) {
             Rectangle2D bounds = getGlobalBounds();
@@ -243,14 +252,14 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         if (hovering && isVisible()) {
             if (this.mouseEnteredTimestamp == -1) {
                 this.mouseEnteredTimestamp = ClientTickHandler.total();
-                this.mouseEnterListeners.forEach(listener -> listener.onClick(mouseX, mouseY, this));
+                this.mouseEnterListeners.forEach(listener -> listener.onClick(mouseX, mouseY, 0, this));
                 onMouseEnter(mouseX, mouseY);
             }
             this.mouseExitedTimestamp = -1;
         } else {
             if (this.mouseExitedTimestamp == -1) {
                 this.mouseExitedTimestamp = ClientTickHandler.total();
-                this.mouseExitListeners.forEach(listener -> listener.onClick(mouseX, mouseY, this));
+                this.mouseExitListeners.forEach(listener -> listener.onClick(mouseX, mouseY, 0, this));
                 onMouseExit(mouseX, mouseY);
             }
             this.mouseEnteredTimestamp = -1;
@@ -258,15 +267,15 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     }
 
     @Override
-    public void tryClick(int mouseX, int mouseY) {
+    public void tryClick(int mouseX, int mouseY, int button) {
         if (isVisible() && (this.allowClicksOutsideBounds || getGlobalBounds().contains(mouseX, mouseY))) {
-            onClick(mouseX, mouseY);
+            onClick(mouseX, mouseY, button);
         }
     }
 
     @Override
-    public void onClick(int mouseX, int mouseY) {
-        this.clickListeners.forEach(listener -> listener.onClick(mouseX, mouseY, this));
+    public void onClick(int mouseX, int mouseY, int button) {
+        this.clickListeners.forEach(listener -> listener.onClick(mouseX, mouseY, button, this));
     }
 
     @Override
@@ -281,8 +290,23 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         this.scrollListeners.forEach(listener -> listener.onScroll(mouseX, mouseY, scrollDelta, this));
     }
 
-    protected void onMouseExit(int mouseX, int mouseY) {}
-    protected void onMouseEnter(int mouseX, int mouseY) {}
+    @Override
+    public void tryDrag(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (isVisible() && getGlobalBounds().contains(mouseX, mouseY)) {
+            onDrag(mouseX, mouseY, button, dragX, dragY);
+        }
+    }
+
+    @Override
+    public void onDrag(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        this.dragListeners.forEach(listener -> listener.onDrag(mouseX, mouseY, button, dragX, dragY, this));
+    }
+
+    protected void onMouseExit(int mouseX, int mouseY) {
+    }
+
+    protected void onMouseEnter(int mouseX, int mouseY) {
+    }
 
     @Override
     public void show() {
@@ -298,7 +322,8 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         this.shownTimestamp = -1;
     }
 
-    protected void onHide() {}
+    protected void onHide() {
+    }
 
     @Override
     public boolean isVisible() {
@@ -370,9 +395,11 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
      * It is queried constantly by the rendering system to determine the bounds of the element.
      * <p>
      * Do NOT call these methods directly; instead call {@link #getGlobalBounds()}. Global bounds take into account visibility.
+     *
      * @return Width and height of the element
      */
     abstract protected float getWidth();
+
     abstract protected float getHeight();
 
     public record Anchor(XAlignment xAlignment, YAlignment yAlignment) {
@@ -396,12 +423,14 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
             return new Vector3f(x, y, 0);
         }
     }
+
     // LEFT = root position on left bound of abilities text, etc.
     public enum XAlignment {
         CENTER,
         LEFT,
         RIGHT
     }
+
     // TOP = root position on top bound of abilities text, etc.
     public enum YAlignment {
         CENTER,
@@ -414,9 +443,9 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
      * Render settings for the element.
      */
     public record Settings(
-            Anchor anchor, 
-            Vector4f padding, 
-            float animationSpeed, 
+            Anchor anchor,
+            Vector4f padding,
+            float animationSpeed,
             float minWidth,
             float maxWidth,
             float minHeight,
@@ -434,6 +463,7 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
 
         /**
          * Set padding for the element.
+         *
          * @param padding (left, top, right, bottom)
          * @return New settings with padding applied
          */

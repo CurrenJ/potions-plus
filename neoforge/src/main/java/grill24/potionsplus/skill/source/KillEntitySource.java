@@ -13,8 +13,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
-import net.neoforged.neoforge.event.level.BlockDropsEvent;
-import oshi.util.tuples.Pair;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -57,12 +55,12 @@ public class KillEntitySource extends SkillPointSource<KillEntitySource.Evaluati
 
     @Override
     public float evaluateSkillPointsToAdd(KillEntitySourceConfiguration config, EvaluationData evaluationData) {
-        Entity killedEntity = evaluationData.context().getParamOrNull(LootContextParams.THIS_ENTITY);
+        Entity killedEntity = evaluationData.context().getOptionalParameter(LootContextParams.THIS_ENTITY);
         ServerPlayer player = evaluationData.player();
         if (config.getPlayerEntityPredicate().matches(player, player)) {
             return (float) config.getEntitySkillPoints().stream()
                     .filter(entitySkillPoints -> {
-                        Entity entity = evaluationData.context().getParamOrNull(LootContextParams.THIS_ENTITY);
+                        Entity entity = evaluationData.context().getOptionalParameter(LootContextParams.THIS_ENTITY);
                         return entitySkillPoints.entityPredicate().matches(player, entity);
                     })
                     .mapToDouble(KillEntitySourceConfiguration.EntitySkillPoints::points)

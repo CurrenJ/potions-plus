@@ -4,14 +4,11 @@ import grill24.potionsplus.advancement.AwardStatTrigger;
 import grill24.potionsplus.core.SkillPointSources;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.utility.ModInfo;
-import net.minecraft.client.gui.screens.achievement.StatsScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.WorldGenLevel;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.StatAwardEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
 import oshi.util.tuples.Pair;
 
 import static grill24.potionsplus.utility.Utility.ppId;

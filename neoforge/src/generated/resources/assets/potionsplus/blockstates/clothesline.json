@@ -1,10 +1,10 @@
 {
   "variants": {
     "part=left": {
-      "model": "minecraft:block/oak_fence_post"
+      "model": "potionsplus:block/invisible_clothesline"
     },
     "part=right": {
-      "model": "minecraft:block/oak_fence_post"
+      "model": "potionsplus:block/invisible_clothesline"
     }
   }
 }

@@ -1,6 +1,5 @@
 package grill24.potionsplus.utility;
 
-import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.extension.IResourceExtension;
 import net.minecraft.server.packs.resources.Resource;
 

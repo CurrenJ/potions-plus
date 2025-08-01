@@ -12,6 +12,7 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 public interface IEffectTooltipDetails {
     AnimatedItemTooltipEvent.TooltipLines getTooltipDetails(MobEffectInstance effectInstance);
+
     default AnimatedItemTooltipEvent.TooltipLines createTooltipLine(List<Component> text) {
         return AnimatedItemTooltipEvent.TooltipLines.of(ppId("effect_description"), TooltipPriorities.POTION_EFFECTS, text);
     }

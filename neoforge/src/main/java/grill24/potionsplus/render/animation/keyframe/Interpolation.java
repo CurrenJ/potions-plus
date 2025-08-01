@@ -11,8 +11,9 @@ import java.util.function.BiFunction;
 public class Interpolation {
     /**
      * Apply the easing function to the given value
+     *
      * @param mode Easing mode
-     * @param t Float value between 0 and 1
+     * @param t    Float value between 0 and 1
      * @return Eased value
      */
     public static float applyEasing(Mode mode, float t) {
@@ -92,7 +93,8 @@ public class Interpolation {
                     yield 7.5625f * postFix * t + 0.984375f;
                 }
             }
-            case EASE_IN_OUT_BOUNCE -> t < 0.5 ? 0.5f - 0.5f * applyEasing(Mode.EASE_OUT_BOUNCE, 1 - t * 2) : 0.5f * applyEasing(Mode.EASE_OUT_BOUNCE, t * 2 - 1) + 0.5f;
+            case EASE_IN_OUT_BOUNCE ->
+                    t < 0.5 ? 0.5f - 0.5f * applyEasing(Mode.EASE_OUT_BOUNCE, 1 - t * 2) : 0.5f * applyEasing(Mode.EASE_OUT_BOUNCE, t * 2 - 1) + 0.5f;
         };
     }
 
@@ -110,6 +112,7 @@ public class Interpolation {
     }
 
     public static final SuggestionProvider<CommandSourceStack> INTERPOLATION_COMMAND_SUGGESTIONS = (commandContext, suggestionsBuilder) -> SharedSuggestionProvider.suggest(Arrays.stream(Interpolation.Mode.values()).map(Interpolation.Mode::name).map(String::toLowerCase), suggestionsBuilder);
+
     public enum Mode implements StringRepresentable {
         LINEAR("linear"),
         EASE_IN_SINE("easeInSine"),

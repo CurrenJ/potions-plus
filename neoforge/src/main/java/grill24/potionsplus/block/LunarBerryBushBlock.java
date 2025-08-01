@@ -9,7 +9,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -55,14 +54,14 @@ public class LunarBerryBushBlock extends SweetBerryBushBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
-        return new ItemStack(getDropItem(blockState));
+    protected ItemStack getCloneItemStack(LevelReader p_304655_, BlockPos p_57257_, BlockState p_57258_, boolean p_388022_) {
+        return new ItemStack(BrewingItems.LUNAR_BERRIES);
     }
 
     @Override
     public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
         super.randomTick(blockState, serverLevel, blockPos, random);
-        boolean isBlooming = serverLevel.getRawBrightness(blockPos.above(), 15) < 9 && !serverLevel.isDay();
+        boolean isBlooming = serverLevel.getRawBrightness(blockPos.above(), 15) < 9 && serverLevel.isDarkOutside();
         serverLevel.setBlock(blockPos, blockState.setValue(BLOOMING, isBlooming), 2);
 
         if (isBlooming) {
@@ -79,13 +78,13 @@ public class LunarBerryBushBlock extends SweetBerryBushBlock {
 
 
     @Override
-    protected ItemInteractionResult useItemOn(
+    protected InteractionResult useItemOn(
             ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult
     ) {
         int i = state.getValue(AGE);
         boolean flag = i == 3;
         return !flag && stack.is(net.minecraft.world.item.Items.BONE_MEAL)
-                ? ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION
+                ? InteractionResult.PASS
                 : super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
@@ -103,7 +102,7 @@ public class LunarBerryBushBlock extends SweetBerryBushBlock {
             BlockState blockstate = state.setValue(AGE, Integer.valueOf(1));
             level.setBlock(pos, blockstate, 2);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockstate));
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return super.useWithoutItem(state, level, pos, player, hitResult);
         }

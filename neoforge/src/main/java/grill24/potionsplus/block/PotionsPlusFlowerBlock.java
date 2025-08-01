@@ -10,7 +10,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.Random;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -46,7 +45,7 @@ public class PotionsPlusFlowerBlock extends FlowerBlock {
 
         // spawn particles
         // particle, x, y, z, count, xSpeed, ySpeed, zSpeed, maxSpeed
-        if(spawnParticles)
+        if (spawnParticles)
             serverLevel.sendParticles(particles.get(), blockPos.getX() + 0.5D, blockPos.getY() + 1.1D, blockPos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0F);
     }
 }

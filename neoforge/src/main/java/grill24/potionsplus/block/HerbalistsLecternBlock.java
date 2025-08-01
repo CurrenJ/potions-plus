@@ -9,7 +9,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -75,13 +74,17 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         // Cache items before interaction
         Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
         if (blockEntity.isEmpty()) {
-            return ItemInteractionResult.FAIL;
+            return InteractionResult.FAIL;
         }
         HerbalistsLecternBlockEntity herbalistsLecternBlockEntity = blockEntity.get();
+
+        if (stack.isEmpty()) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
+        }
 
         // Do interaction
         InvUtil.InteractionResult result = InvUtil.insertOnPlayerUseItem(level, pos, player, hand, SoundEvents.ITEM_FRAME_ADD_ITEM);
@@ -100,7 +103,7 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
             }
         }
 
-        return InvUtil.getMinecraftItemInteractionResult(result);
+        return InvUtil.getMinecraftInteractionResult(result);
 
     }
 
@@ -135,12 +138,5 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
         Optional<HerbalistsLecternBlockEntity> herbalistsLecternBlockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
         return Math.min(herbalistsLecternBlockEntity.get().rendererData.allIcons.size(), 15);
-    }
-
-    @Override
-    @Deprecated
-    public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
-        Utility.dropContents(level, blockPos, blockState, newState);
-        super.onRemove(blockState, level, blockPos, newState, isMoving);
     }
 }

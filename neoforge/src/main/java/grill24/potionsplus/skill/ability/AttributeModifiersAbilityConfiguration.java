@@ -11,9 +11,9 @@ import java.util.List;
 
 public class AttributeModifiersAbilityConfiguration extends PlayerAbilityConfiguration {
     public static final Codec<AttributeModifiersAbilityConfiguration> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
-        PlayerAbilityConfigurationData.CODEC.fieldOf("baseConfig").forGetter(AttributeModifiersAbilityConfiguration::getData),
-        BuiltInRegistries.ATTRIBUTE.holderByNameCodec().fieldOf("attribute").forGetter(instance -> instance.attributeHolder),
-        AttributeModifier.CODEC.listOf().optionalFieldOf("modifiers", List.of()).forGetter(instance -> instance.modifiers)
+            PlayerAbilityConfigurationData.CODEC.fieldOf("baseConfig").forGetter(AttributeModifiersAbilityConfiguration::getData),
+            BuiltInRegistries.ATTRIBUTE.holderByNameCodec().fieldOf("attribute").forGetter(instance -> instance.attributeHolder),
+            AttributeModifier.CODEC.listOf().optionalFieldOf("modifiers", List.of()).forGetter(instance -> instance.modifiers)
     ).apply(codecBuilder, AttributeModifiersAbilityConfiguration::new));
 
     private final Holder<Attribute> attributeHolder;

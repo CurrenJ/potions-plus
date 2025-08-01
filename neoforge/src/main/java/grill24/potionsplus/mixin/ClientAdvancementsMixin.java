@@ -15,9 +15,13 @@ import java.util.Optional;
 
 @Mixin(ClientAdvancements.class)
 public abstract class ClientAdvancementsMixin implements IClientAdvancementsExtension {
-    @Shadow @Final private Map<AdvancementHolder, AdvancementProgress> progress;
+    @Shadow
+    @Final
+    private Map<AdvancementHolder, AdvancementProgress> progress;
 
-    @Shadow @Nullable public abstract AdvancementHolder get(ResourceLocation id);
+    @Shadow
+    @Nullable
+    public abstract AdvancementHolder get(ResourceLocation id);
 
     @Override
     public Optional<AdvancementProgress> potions_plus$getAdvancementProgress(ResourceLocation id) {

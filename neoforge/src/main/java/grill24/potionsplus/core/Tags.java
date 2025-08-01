@@ -18,6 +18,9 @@ public class Tags {
         public static final TagKey<Block> STONEY_ORE_REPLACEABLE = tag("ore_replaceable");
         public static final TagKey<Block> SANDY_ORE_REPLACEABLE = tag("sandy_ore_replaceable");
 
+        public static final TagKey<Block> FISH_TANK_FRAME = tag("fish_tank_frame");
+        public static final TagKey<Block> FISH_TANK_SAND = tag("fish_tank_sand");
+
         private static TagKey<Block> tag(String id) {
             return TagKey.create(Registries.BLOCK, ppId(id));
         }

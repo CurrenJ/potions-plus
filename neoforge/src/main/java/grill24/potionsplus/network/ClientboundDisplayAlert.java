@@ -1,27 +1,22 @@
 package grill24.potionsplus.network;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import javax.swing.text.html.Option;
-import java.util.List;
 import java.util.Optional;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundDisplayAlert(Component component, Optional<SoundEvent> sound, float volume) implements CustomPacketPayload {
+public record ClientboundDisplayAlert(Component component, Optional<SoundEvent> sound,
+                                      float volume) implements CustomPacketPayload {
     public ClientboundDisplayAlert(Component component) {
         this(component, Optional.empty(), 1.0F);
     }
@@ -48,7 +43,7 @@ public record ClientboundDisplayAlert(Component component, Optional<SoundEvent> 
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundDisplayAlert packet, final IPayloadContext context){
+        public static void handleDataOnMain(final ClientboundDisplayAlert packet, final IPayloadContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

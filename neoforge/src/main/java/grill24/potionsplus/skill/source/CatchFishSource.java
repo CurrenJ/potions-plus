@@ -41,7 +41,7 @@ public class CatchFishSource extends SkillPointSource<ItemStack, CatchFishSource
             if (config.getPointsPerFish().containsKey(tag)) {
                 float sizeBonus = 0F;
                 if (fish.has(DataComponents.FISH_SIZE)) {
-                    sizeBonus = fish.get(DataComponents.FISH_SIZE).size()/ 25F;
+                    sizeBonus = fish.get(DataComponents.FISH_SIZE).size() / 25F;
                 }
                 return config.getPointsPerFish().get(tag) * fish.getCount();
             }

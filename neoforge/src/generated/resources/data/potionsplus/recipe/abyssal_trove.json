@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "minecraft:amethyst_block"
-    },
-    "O": {
-      "item": "minecraft:soul_soil"
-    },
-    "S": {
-      "item": "minecraft:soul_sand"
-    }
+    "A": "minecraft:amethyst_block",
+    "O": "minecraft:soul_soil",
+    "S": "minecraft:soul_sand"
   },
   "pattern": [
     "OSO",

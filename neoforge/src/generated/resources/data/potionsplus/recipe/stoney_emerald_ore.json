@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "potionsplus:stoney_emerald_ore"
-    }
+    "potionsplus:stoney_emerald_ore"
   ],
   "result": {
     "count": 1,

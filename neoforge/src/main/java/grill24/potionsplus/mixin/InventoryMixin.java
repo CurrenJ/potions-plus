@@ -16,10 +16,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Inventory.class)
 public abstract class InventoryMixin {
-    @Shadow public int selected;
-    @Shadow @Final public Player player;
+    @Shadow
+    public int selected;
+    @Shadow
+    @Final
+    public Player player;
 
-    @Shadow public abstract ItemStack getItem(int index);
+    @Shadow
+    public abstract ItemStack getItem(int index);
 
     @Unique
     private int potions_plus$lastSelectedSlot = -1;

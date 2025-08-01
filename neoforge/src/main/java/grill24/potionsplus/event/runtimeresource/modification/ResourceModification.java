@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-public record ResourceModification(ResourceLocation targetResourceLocation, ResourceLocation newResourceLocation, Function<Resource, FakeResource> resource) implements IResourceModification {
+public record ResourceModification(ResourceLocation targetResourceLocation, ResourceLocation newResourceLocation,
+                                   Function<Resource, FakeResource> resource) implements IResourceModification {
     @Override
     public ResourceLocation getTargetResourceLocation() {
         return targetResourceLocation;

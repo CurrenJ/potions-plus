@@ -10,8 +10,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.item.ItemTossEvent;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
-public class ServerPlayerUtility
-{
+public class ServerPlayerUtility {
     @SubscribeEvent
     public static void onTossItemEvent(final ItemTossEvent event) {
         if (event.getPlayer() instanceof ServerPlayer serverPlayer) {

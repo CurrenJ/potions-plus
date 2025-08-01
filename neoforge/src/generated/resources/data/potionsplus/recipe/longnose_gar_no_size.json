@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "fish_no_size",
   "ingredients": [
-    {
-      "item": "potionsplus:longnose_gar"
-    }
+    "potionsplus:longnose_gar"
   ],
   "result": {
     "count": 1,

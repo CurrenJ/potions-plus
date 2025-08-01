@@ -4,9 +4,11 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.ConfiguredGrantableRewards;
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
-import net.minecraft.core.*;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
@@ -19,8 +21,8 @@ import java.util.Optional;
 
 public record SkillLevelUpRewardsData(String translationKey, List<Holder<ConfiguredGrantableReward<?, ?>>> rewards) {
     public static final Codec<SkillLevelUpRewardsData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
-        Codec.STRING.optionalFieldOf("translationKey", "").forGetter(SkillLevelUpRewardsData::translationKey),
-        ConfiguredGrantableReward.CODEC.listOf().optionalFieldOf("advancementRewards", List.of()).forGetter(SkillLevelUpRewardsData::rewards)
+            Codec.STRING.optionalFieldOf("translationKey", "").forGetter(SkillLevelUpRewardsData::translationKey),
+            ConfiguredGrantableReward.CODEC.listOf().optionalFieldOf("advancementRewards", List.of()).forGetter(SkillLevelUpRewardsData::rewards)
     ).apply(codecBuilder, SkillLevelUpRewardsData::new));
 
     public static HolderSet<ConfiguredPlayerAbility<?, ?>> tryBuildValidAbilityList(HolderGetter<ConfiguredPlayerAbility<?, ?>> lookup, Collection<ResourceKey<ConfiguredPlayerAbility<?, ?>>> keys) {
@@ -33,18 +35,18 @@ public record SkillLevelUpRewardsData(String translationKey, List<Holder<Configu
         return HolderSet.direct(validAbilities);
     }
 
-        @SafeVarargs
+    @SafeVarargs
     public static HolderSet<ConfiguredPlayerAbility<?, ?>> tryBuildValidAbilityList(HolderGetter<ConfiguredPlayerAbility<?, ?>> lookup, ResourceKey<ConfiguredPlayerAbility<?, ?>>... keys) {
         return tryBuildValidAbilityList(lookup, List.of(keys));
     }
 
     public void grant(ServerPlayer player) {
         for (Holder<ConfiguredGrantableReward<?, ?>> reward : rewards) {
-            reward.value().grant(reward, player);
+            reward.value().grant(reward.getKey(), player);
         }
     }
 
-    public Component getDescription() {
+    public Component getDescription(RegistryAccess registryAccess) {
         MutableComponent component = Component.empty();
         boolean hasText = false;
 
@@ -54,12 +56,12 @@ public record SkillLevelUpRewardsData(String translationKey, List<Holder<Configu
         }
 
         for (Holder<ConfiguredGrantableReward<?, ?>> reward : rewards) {
-            if (reward.value().getDescription().isPresent()) {
+            if (reward.value().getDescription(registryAccess).isPresent()) {
                 if (hasText) {
                     component.append(Component.literal(", "));
                 }
 
-                component.append(reward.value().getDescription().get());
+                component.append(reward.value().getDescription(registryAccess).get());
                 hasText = true;
             }
         }

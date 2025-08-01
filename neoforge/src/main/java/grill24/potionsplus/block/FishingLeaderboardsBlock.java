@@ -1,16 +1,12 @@
 package grill24.potionsplus.block;
 
 import grill24.potionsplus.gui.fishing.FishingLeaderboardsMenu;
-import grill24.potionsplus.gui.skill.SkillsMenu;
 import grill24.potionsplus.network.ClientboundSyncFishingLeaderboardsPacket;
-import grill24.potionsplus.network.ClientboundSyncPlayerSkillData;
-import grill24.potionsplus.skill.SkillsData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -29,9 +25,9 @@ public class FishingLeaderboardsBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         openSkillsMenu(player);
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

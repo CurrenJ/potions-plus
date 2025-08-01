@@ -3,10 +3,12 @@
   "category": "MISC",
   "ingredients": [
     {
-      "ppIngredient": {
-        "count": 1,
-        "id": "minecraft:soul_sand"
-      }
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "minecraft:soul_sand"
+        }
+      ]
     }
   ],
   "processingTime": 200,

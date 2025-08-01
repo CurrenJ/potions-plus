@@ -5,29 +5,24 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.core.LootItemFunctions;
 import grill24.potionsplus.item.FishSizeDataComponent;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.util.RandomSource;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public class SetFishSizeFunction extends LootItemConditionalFunction {
     public static final MapCodec<SetFishSizeFunction> CODEC = RecordCodecBuilder.mapCodec(
-        codecBuilder -> commonFields(codecBuilder)
-                .and(NumberProviders.CODEC.fieldOf("size").forGetter(instance -> instance.size))
-                .apply(codecBuilder, SetFishSizeFunction::new)
+            codecBuilder -> commonFields(codecBuilder)
+                    .and(NumberProviders.CODEC.fieldOf("size").forGetter(instance -> instance.size))
+                    .apply(codecBuilder, SetFishSizeFunction::new)
     );
 
     private final NumberProvider size;
@@ -43,7 +38,7 @@ public class SetFishSizeFunction extends LootItemConditionalFunction {
     }
 
     @Override
-    public Set<LootContextParam<?>> getReferencedContextParams() {
+    public Set<ContextKey<?>> getReferencedContextParams() {
         return this.size.getReferencedContextParams();
     }
 

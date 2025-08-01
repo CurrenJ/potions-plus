@@ -1,9 +1,13 @@
 package grill24.potionsplus.utility.registration.item;
 
 import grill24.potionsplus.utility.registration.AbstractRegistererBuilder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 
 import java.util.function.Function;
+
+import static grill24.potionsplus.utility.Utility.ppId;
 
 public abstract class ItemBuilder<I extends Item, B extends ItemBuilder<I, B>> extends AbstractRegistererBuilder<Item, B> {
     private Item.Properties properties;
@@ -25,8 +29,8 @@ public abstract class ItemBuilder<I extends Item, B extends ItemBuilder<I, B>> e
             this.factory = null;
             return self();
         }
-        
-        this.factory = () -> factory.apply(this.properties);
+
+        this.factory = () -> factory.apply(this.properties.setId(ResourceKey.create(Registries.ITEM, ppId(this.name))));
         return self();
     }
 }

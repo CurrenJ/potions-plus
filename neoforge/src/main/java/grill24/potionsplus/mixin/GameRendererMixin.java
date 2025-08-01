@@ -18,11 +18,15 @@ import java.util.List;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin implements IGameRendererMixin {
-    @Shadow @Final private Minecraft minecraft;
-    @Unique private ItemActivationAnimation activeAnimation = null;
+    @Shadow
+    @Final
+    private Minecraft minecraft;
+    @Unique
+    private ItemActivationAnimation activeAnimation = null;
 
     // Wheel data
-    @Unique private List<ItemStack> potions_plus$wheelItems;
+    @Unique
+    private List<ItemStack> potions_plus$wheelItems;
 
     @Override
     public void potions_plus$displayItemActivation(ItemActivationAnimation animation) {

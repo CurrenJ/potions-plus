@@ -7,14 +7,13 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 
-import java.util.Collections;
 import java.util.List;
 
 public class HarrowingHandsEffect extends MobEffect implements IEffectTooltipDetails {
@@ -23,7 +22,7 @@ public class HarrowingHandsEffect extends MobEffect implements IEffectTooltipDet
     }
 
     private static List<AbstractSkeleton> getNearbySkeletons(LivingEntity entity) {
-        return entity.level().getNearbyEntities(AbstractSkeleton.class, TargetingConditions.DEFAULT, entity, entity.getBoundingBox().inflate(16));
+        return entity.level().getEntitiesOfClass(AbstractSkeleton.class, entity.getBoundingBox().inflate(16));
     }
 
     @Override
@@ -33,7 +32,7 @@ public class HarrowingHandsEffect extends MobEffect implements IEffectTooltipDet
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity entity, int amplifier) {
         if (!entity.hasEffect(MobEffects.HARROWING_HANDS))
             return false;
 
@@ -56,7 +55,7 @@ public class HarrowingHandsEffect extends MobEffect implements IEffectTooltipDet
     @Override
     public Component getDisplayName() {
         String name = Minecraft.getInstance().player.getName().getContents().toString();
-        if(name.equals("Harry4657")) {
+        if (name.equals("Harry4657")) {
             return Component.literal("Harry's Harrowing Hands");
         }
 

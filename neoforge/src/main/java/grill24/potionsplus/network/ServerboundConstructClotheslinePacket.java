@@ -8,7 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.handling.ServerPayloadContext;
 
@@ -33,13 +33,13 @@ public record ServerboundConstructClotheslinePacket(BlockPos pos, BlockPos other
     public static class ServerPayloadHandler {
         public static void handleDataOnMain(ServerboundConstructClotheslinePacket packet, final IPayloadContext context) {
             context.enqueueWork(() -> {
-                            ServerPayloadContext serverContext = (ServerPayloadContext) context;
+                ServerPayloadContext serverContext = (ServerPayloadContext) context;
 
-                            Level level = serverContext.player().level();
+                ServerLevel level = serverContext.player().serverLevel();
 
-                            ClotheslineBehaviour.replaceWithClothelines(level, packet.pos, packet.otherPos);
-                            CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverContext.player(), BlockEntityBlocks.CLOTHESLINE.value().defaultBlockState());
-            }) .exceptionally(e -> {
+                ClotheslineBehaviour.replaceWithClothelines(level, packet.pos, packet.otherPos);
+                CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverContext.player(), BlockEntityBlocks.CLOTHESLINE.value().defaultBlockState());
+            }).exceptionally(e -> {
                 // Handle exception
                 context.disconnect(Component.translatable("my_mod.configuration.failed", e.getMessage()));
                 return null;

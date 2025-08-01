@@ -5,9 +5,11 @@ import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.seededrecipe.LootPoolSupplier;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.debug.Debug;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
@@ -16,7 +18,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -70,7 +71,6 @@ public class SeededIngredientsLootTables {
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, Tags.Items.SEEDS, blacklist));
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, Tags.Items.CROPS, blacklist));
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, ItemTags.FLOWERS, blacklist));
-        map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, ItemTags.TALL_FLOWERS, blacklist));
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, ItemTags.SMALL_FLOWERS, blacklist));
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, Tags.Items.FOODS_RAW_MEAT, blacklist));
         map.putAll(generateLootWeightsFromTag(WeightingMode.DISTRIBUTED, 1, Tags.Items.FOODS_RAW_FISH, blacklist));
@@ -158,7 +158,7 @@ public class SeededIngredientsLootTables {
     private static Optional<ItemStack> sample(LootTable table, RandomSource random) {
         ObjectArrayList<ItemStack> items = table.getRandomItems(LOOT_PARAMS, random);
         if (items.isEmpty()) {
-            if(PotionsPlus.Debug.DEBUG) {
+            if (Debug.DEBUG) {
                 PotionsPlus.LOGGER.warn("Loot table returned no items: " + table);
             }
             return Optional.empty();
@@ -202,7 +202,7 @@ public class SeededIngredientsLootTables {
 
     public static void addItemsToPool(LootPool.Builder pool, WeightingMode weightingMode, int weight, List<PpIngredient> ingredients) {
         for (PpIngredient ingredient : ingredients) {
-             pool.add(LootItem
+            pool.add(LootItem
                     .lootTableItem(ingredient.getItemStack().getItem())
                     .setWeight(getWeight(weightingMode, weight, ingredients.size()))
             );
@@ -211,8 +211,8 @@ public class SeededIngredientsLootTables {
 
     public static List<PpIngredient> getItemsInTags(TagKey<Item>... tags) {
         return Arrays.stream(tags)
-                .map((tag) -> Objects.requireNonNull(BuiltInRegistries.ITEM.getTag(tag)))
-                .flatMap((tag) -> tag.orElseThrow().stream())
+                .map((tag) -> Objects.requireNonNull(BuiltInRegistries.ITEM.getOrThrow(tag)))
+                .flatMap(HolderSet.ListBacked::stream)
                 .map(Holder::value)
                 .map(ItemStack::new)
                 .map(PpIngredient::of)

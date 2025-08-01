@@ -4,7 +4,10 @@ import grill24.potionsplus.core.Features;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.worldgen.feature.PotionsPlusVegetationPatchConfiguration;
 import grill24.potionsplus.worldgen.feature.VersatilePlantBlockFeatureConfiguration;
-import net.minecraft.core.*;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -100,7 +103,7 @@ public class MultiDirectionalVersatilePlantFeatureData {
         return configuredFeatures;
     }
 
-    public  Map<Direction, Holder<ConfiguredFeature<?, ?>>> registerVegetationPatchConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+    public Map<Direction, Holder<ConfiguredFeature<?, ?>>> registerVegetationPatchConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         Map<Direction, Holder<ConfiguredFeature<?, ?>>> versatilePlantConfiguredFeatures = registerVersatilePlantConfiguredFeatures(context);
 
         Map<Direction, Holder<ConfiguredFeature<?, ?>>> configuredFeatures = new HashMap<>();

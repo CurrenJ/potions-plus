@@ -6,6 +6,7 @@ public interface IRuntimeModelGenerator<T> extends IDataGenerator<T> {
     /**
      * Generate the client-side resources to be cached now and injected during resource reloading.
      * A runtime resource is a resource that is generated at runtime, such as a blockstate or item/block model.
+     *
      * @param event
      */
     void generateClient(final GenerateRuntimeResourceInjectionsCacheEvent event);

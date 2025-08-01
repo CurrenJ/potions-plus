@@ -2,7 +2,6 @@ package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.block.GeyserBlock;
-import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,7 +12,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 public class LavaGeyserFeature extends Feature<NoneFeatureConfiguration> {
-    Direction[] CHECK_ORDER = new Direction[] { Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP };
+    Direction[] CHECK_ORDER = new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP};
 
     public LavaGeyserFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
@@ -23,7 +22,7 @@ public class LavaGeyserFeature extends Feature<NoneFeatureConfiguration> {
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         BlockPos pos = context.origin();
         for (Direction direction : CHECK_ORDER) {
-            if(tryPlace(context, pos, direction)) {
+            if (tryPlace(context, pos, direction)) {
                 return true;
             }
         }

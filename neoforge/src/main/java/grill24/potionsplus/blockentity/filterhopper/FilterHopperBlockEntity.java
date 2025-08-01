@@ -18,7 +18,6 @@ import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PotionItem;
@@ -76,7 +75,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
         updateCache();
 
-        this.cooldownTime = tag.getInt("TransferCooldown");
+        this.cooldownTime = tag.getInt("TransferCooldown").orElse(0);
     }
 
     private int getTotalSize() {
@@ -263,10 +262,9 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     public static boolean suckInItems(Level level, Hopper hopper) {
         BlockPos blockpos = BlockPos.containing(hopper.getLevelX(), hopper.getLevelY() + 1.0, hopper.getLevelZ());
         BlockState blockstate = level.getBlockState(blockpos);
-        Boolean ret = net.neoforged.neoforge.items.VanillaInventoryCodeHooks.extractHook(level, hopper);
-        if (ret != null) return ret;
-        Container container = getSourceContainer(level, hopper, blockpos, blockstate);
-        if (container != null) {
+        var containerOrHandler = getSourceContainerOrHandler(level, hopper, blockpos, blockstate);
+        if (containerOrHandler.container() != null) {
+            Container container = containerOrHandler.container();
             Direction direction = Direction.DOWN;
 
             for (int i : getSlots(container, direction)) {
@@ -276,10 +274,12 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
             }
 
             return false;
+        } else if (containerOrHandler.itemHandler() != null) {
+            return net.neoforged.neoforge.items.VanillaInventoryCodeHooks.extractHook(hopper, containerOrHandler.itemHandler());
         } else {
             boolean flag = hopper.isGridAligned()
-                && blockstate.isCollisionShapeFullBlock(level, blockpos)
-                && !blockstate.is(BlockTags.DOES_NOT_BLOCK_HOPPERS);
+                    && blockstate.isCollisionShapeFullBlock(level, blockpos)
+                    && !blockstate.is(BlockTags.DOES_NOT_BLOCK_HOPPERS);
             if (!flag) {
                 for (ItemEntity itementity : getItemsAtAndAbove(level, hopper)) {
                     if (addItem(hopper, itementity)) {
@@ -292,8 +292,31 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
         }
     }
 
+    private static net.neoforged.neoforge.items.ContainerOrHandler getSourceContainerOrHandler(Level p_155597_, Hopper p_155598_, BlockPos p_326315_, BlockState p_326093_) {
+        return getContainerOrHandlerAt(p_155597_, p_326315_, p_326093_, p_155598_.getLevelX(), p_155598_.getLevelY() + 1.0, p_155598_.getLevelZ(), Direction.DOWN);
+    }
+
+    public static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, @Nullable Direction side) {
+        return getContainerOrHandlerAt(
+                level, pos, level.getBlockState(pos), (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, side
+        );
+    }
+
+    private static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, BlockState state, double x, double y, double z, @Nullable Direction side) {
+        Container container = getBlockContainer(level, pos, state);
+        if (container != null) {
+            return new net.neoforged.neoforge.items.ContainerOrHandler(container, null);
+        }
+        var blockItemHandler = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK, pos, state, null, side);
+        if (blockItemHandler != null) {
+            return new net.neoforged.neoforge.items.ContainerOrHandler(null, blockItemHandler);
+        }
+        return net.neoforged.neoforge.items.VanillaInventoryCodeHooks.getEntityContainerOrHandler(level, x, y, z, side);
+    }
+
     /**
      * Pulls from the specified slot in the container and places in any available slot in the hopper.
+     *
      * @return {@code true} if the entire stack was moved.
      */
     private static boolean tryTakeInItemFromSlot(Hopper hopper, Container container, int slot, Direction direction) {
@@ -332,6 +355,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     /**
      * Attempts to place the passed stack in the container, using as many slots as required.
+     *
      * @return any leftover stack
      */
     public static ItemStack addItem(@Nullable Container source, Container destination, ItemStack stack, @Nullable Direction direction) {
@@ -422,7 +446,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     @Nullable
     public static Container getContainerAt(Level level, BlockPos pos) {
         return getContainerAt(
-            level, pos, level.getBlockState(pos), (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5
+                level, pos, level.getBlockState(pos), (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5
         );
     }
 
@@ -440,10 +464,10 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     private static Container getBlockContainer(Level level, BlockPos pos, BlockState state) {
         Block block = state.getBlock();
         if (block instanceof WorldlyContainerHolder) {
-            return ((WorldlyContainerHolder)block).getContainer(state, level, pos);
+            return ((WorldlyContainerHolder) block).getContainer(state, level, pos);
         } else if (state.hasBlockEntity() && level.getBlockEntity(pos) instanceof Container container) {
             if (container instanceof ChestBlockEntity && block instanceof ChestBlock) {
-                container = ChestBlock.getContainer((ChestBlock)block, state, level, pos, true);
+                container = ChestBlock.getContainer((ChestBlock) block, state, level, pos, true);
             }
 
             return container;
@@ -455,11 +479,11 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     @Nullable
     private static Container getEntityContainer(Level level, double x, double y, double z) {
         List<Entity> list = level.getEntities(
-            (Entity)null,
-            new AABB(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5),
-            EntitySelector.CONTAINER_ENTITY_SELECTOR
+                (Entity) null,
+                new AABB(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5),
+                EntitySelector.CONTAINER_ENTITY_SELECTOR
         );
-        return !list.isEmpty() ? (Container)list.get(level.random.nextInt(list.size())) : null;
+        return !list.isEmpty() ? (Container) list.get(level.random.nextInt(list.size())) : null;
     }
 
     private static boolean canMergeItems(ItemStack stack1, ItemStack stack2) {
@@ -468,17 +492,17 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     @Override
     public double getLevelX() {
-        return (double)this.worldPosition.getX() + 0.5;
+        return (double) this.worldPosition.getX() + 0.5;
     }
 
     @Override
     public double getLevelY() {
-        return (double)this.worldPosition.getY() + 0.5;
+        return (double) this.worldPosition.getY() + 0.5;
     }
 
     @Override
     public double getLevelZ() {
-        return (double)this.worldPosition.getZ() + 0.5;
+        return (double) this.worldPosition.getZ() + 0.5;
     }
 
     @Override
@@ -510,9 +534,9 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     public static void entityInside(Level level, BlockPos pos, BlockState state, Entity entity, FilterHopperBlockEntity blockEntity) {
         if (entity instanceof ItemEntity itementity
-            && !itementity.getItem().isEmpty()
-            && entity.getBoundingBox()
-                .move((double)(-pos.getX()), (double)(-pos.getY()), (double)(-pos.getZ()))
+                && !itementity.getItem().isEmpty()
+                && entity.getBoundingBox()
+                .move((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()))
                 .intersects(blockEntity.getSuckAabb())) {
             tryMoveItems(level, pos, state, blockEntity, () -> addItem(blockEntity, itementity));
         }
@@ -534,12 +558,12 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
         boolean blacklist = upgradeItemsCache.contains(FilterHopperUpgradeItems.FILTER_HOPPER_UPGRADE_BLACKLIST.value());
         boolean isItemValid = this.filterItemsCache.contains(item)
-                || (allowArmor && item instanceof ArmorItem)
-                || (allowTools && stack.isDamageableItem() && !(item instanceof ArmorItem))
+                || (allowArmor && stack.has(DataComponents.EQUIPPABLE))
+                || (allowTools && stack.isDamageableItem() && !(stack.has(DataComponents.EQUIPPABLE)))
                 || (allowFood && stack.has(DataComponents.FOOD))
                 || (allowPotions && (stack.has(DataComponents.POTION_CONTENTS) || item instanceof PotionItem)
                 || (allowEnchanted && (!stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty()
-                            || !stack.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty()))
+                || !stack.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty()))
                 || (allowPotionIngredients && AbyssalTroveBlockEntity.isItemPotionIngredient(stack))
                 || (allowEdibleRewards && item instanceof EdibleChoiceItem)
         );
@@ -547,9 +571,13 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
         return blacklist != isItemValid;
     }
 
-    private void updateFilterItemsCache() { this.filterItemsCache = generateItemsSet(getFilterItems()); }
+    private void updateFilterItemsCache() {
+        this.filterItemsCache = generateItemsSet(getFilterItems());
+    }
 
-    private void updateUpgradeItemsCache() { this.upgradeItemsCache = generateItemsSet(getUpgradeItems()); }
+    private void updateUpgradeItemsCache() {
+        this.upgradeItemsCache = generateItemsSet(getUpgradeItems());
+    }
 
     private void updateCache() {
         updateFilterItemsCache();
@@ -566,7 +594,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     private Collection<ItemStack> getFilterItems() {
         List<ItemStack> filterItems = new ArrayList<>();
-        for(int i = 0; i < items.size(); i++) {
+        for (int i = 0; i < items.size(); i++) {
             if (isFilterItemSlot(i)) {
                 filterItems.add(this.items.get(i));
             }
@@ -576,7 +604,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
 
     private Collection<ItemStack> getUpgradeItems() {
         List<ItemStack> upgradeItems = new ArrayList<>();
-        for(int i = 0; i < items.size(); i++) {
+        for (int i = 0; i < items.size(); i++) {
             if (isUpgradeItemSlot(i)) {
                 upgradeItems.add(this.items.get(i));
             }

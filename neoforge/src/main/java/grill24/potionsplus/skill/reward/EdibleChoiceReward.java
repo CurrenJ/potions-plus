@@ -1,10 +1,14 @@
 package grill24.potionsplus.skill.reward;
 
-import grill24.potionsplus.core.*;
+import grill24.potionsplus.core.ConfiguredGrantableRewards;
+import grill24.potionsplus.core.GrantableRewards;
+import grill24.potionsplus.core.PotionsPlusRegistries;
+import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.items.SkillLootItems;
 import grill24.potionsplus.skill.SkillsData;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -26,20 +30,25 @@ public class EdibleChoiceReward extends GrantableReward<EdibleChoiceRewardConfig
     }
 
     @Override
-    public Optional<Component> getDescription(EdibleChoiceRewardConfiguration config) {
-        MutableComponent description = Component.empty();
+    public Optional<Component> getDescription(RegistryAccess registryAccess, EdibleChoiceRewardConfiguration config) {
+        // Lookup
+        HolderGetter<ConfiguredGrantableReward<?, ?>> lookup = registryAccess.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD);
 
+        MutableComponent description = Component.empty();
         boolean hasText = false;
         for (EdibleChoiceRewardOption reward : config.rewards) {
-            Optional<Component> rewardDescription = reward.linkedOption.value().getDescription();
-            if (rewardDescription.isPresent()) {
-                if (hasText) {
-                    description.append(Component.literal(" "));
-                    description.append(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_OR));
-                    description.append(Component.literal(" "));
+            Optional<Holder.Reference<ConfiguredGrantableReward<?, ?>>> optionalLinkedOption = lookup.get(reward.linkedOption());
+            if (optionalLinkedOption.isPresent()) {
+                Optional<Component> rewardDescription = optionalLinkedOption.get().value().getDescription(registryAccess);
+                if (rewardDescription.isPresent()) {
+                    if (hasText) {
+                        description.append(Component.literal(" "));
+                        description.append(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_OR));
+                        description.append(Component.literal(" "));
+                    }
+                    description.append(rewardDescription.get());
+                    hasText = true;
                 }
-                description.append(rewardDescription.get());
-                hasText = true;
             }
         }
 
@@ -47,13 +56,12 @@ public class EdibleChoiceReward extends GrantableReward<EdibleChoiceRewardConfig
     }
 
     @Override
-    public void grant(Holder<ConfiguredGrantableReward<?, ?>> holder, EdibleChoiceRewardConfiguration config, ServerPlayer player) {
-        ResourceLocation flag = config.rewards.size() > 1 ? SkillLootItems.BASIC_LOOT.getItemOverrideModelData().getRandomFlag(player.getRandom()) : ppId("");
-        for (EdibleChoiceRewardOption reward : config.rewards) {
-            reward.giveItem(player, flag);
-        }
+    public void grant(ResourceKey<ConfiguredGrantableReward<?, ?>> holder, EdibleChoiceRewardConfiguration config, ServerPlayer player) {
+        ResourceLocation flag = config.rewards.size() > 1 ? SkillLootItems.BASIC_LOOT.getItemOverrideData().getRandomFlag(player.getRandom()) : ppId("");
+        List<ItemStack> items = config.rewards.stream().map(r -> r.createItem(player, flag)).toList();
 
-        SkillsData.updatePlayerData(player, data -> data.addPendingChoice(holder.getKey()));
+        SkillsData.updatePlayerData(player, data -> data.pendingRewards()
+                .addPendingReward(holder, items));
     }
 
     public static class ChoiceRewardBuilder implements ConfiguredGrantableRewards.IRewardBuilder {
@@ -72,13 +80,11 @@ public class EdibleChoiceReward extends GrantableReward<EdibleChoiceRewardConfig
 
         @Override
         public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
-            HolderGetter<ConfiguredGrantableReward<?, ?>> lookup = context.lookup(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD);
-
             List<EdibleChoiceRewardOption> options = new ArrayList<>();
             for (Pair<ItemStack, ResourceKey<ConfiguredGrantableReward<?, ?>>> reward : rewards) {
                 ItemStack itemStack = reward.getA();
                 ResourceKey<ConfiguredGrantableReward<?, ?>> optionKey = reward.getB();
-                options.add(new EdibleChoiceRewardOption(lookup, key, optionKey, itemStack));
+                options.add(new EdibleChoiceRewardOption(key, optionKey, itemStack));
             }
 
             context.register(key, new ConfiguredGrantableReward<>(

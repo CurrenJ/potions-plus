@@ -3,9 +3,7 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 2.0,
-  "ingredient": {
-    "tag": "potionsplus:remnant_debris"
-  },
+  "ingredient": "#potionsplus:remnant_debris",
   "result": {
     "count": 1,
     "id": "potionsplus:netherite_remnant"

@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "fish_no_size",
   "ingredients": [
-    {
-      "item": "potionsplus:portuguese_man_o_war"
-    }
+    "potionsplus:portuguese_man_o_war"
   ],
   "result": {
     "count": 1,

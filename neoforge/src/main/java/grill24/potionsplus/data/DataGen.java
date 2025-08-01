@@ -14,7 +14,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
@@ -36,32 +35,26 @@ public class DataGen {
             .add(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ConfiguredGrantableRewards::generate);
 
     @SubscribeEvent
-    public static void onGatherData(GatherDataEvent event) {
+    public static void onGatherData(GatherDataEvent.Client event) {
         DataGenerator generator = event.getGenerator();
         PackOutput output = event.getGenerator().getPackOutput();
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         PotionsPlus.LOGGER.info("Generating data for Potions Plus");
 
-
-        generator.addProvider(event.includeServer(), new BlockStateProvider(output, existingFileHelper));
-        generator.addProvider(event.includeServer(), new RecipeProvider(output, lookupProvider));
-        generator.addProvider(event.includeServer(), new LootTableProvider(output, lookupProvider));
-        generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, BUILDER, Set.of(ModInfo.MOD_ID)));
-        generator.addProvider(event.includeServer(), new BiomeTagProvider(output, lookupProvider, existingFileHelper));
-        generator.addProvider(event.includeServer(), new AdvancementProvider(output, lookupProvider, existingFileHelper, null));
-        generator.addProvider(event.includeServer(), new GlobalLootModifierProvider(output, lookupProvider));
-
-        if (event.includeClient()) {
-//            generator.addProvider(true, new LangProvider(output, ModInfo.MOD_ID, "en_us"));
-        }
-
-        BlockTagsProvider blockTagsProvider = new BlockTagProvider(output, lookupProvider, existingFileHelper);
-        ItemTagProvider itemTagProvider = new ItemTagProvider(output, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper);
-        Sounds soundsProvider = new Sounds(output, ModInfo.MOD_ID, existingFileHelper);
+        BlockTagsProvider blockTagsProvider = new BlockTagProvider(output, lookupProvider);
+        ItemTagProvider itemTagProvider = new ItemTagProvider(output, lookupProvider, blockTagsProvider.contentsGetter());
+        Sounds soundsProvider = new Sounds(output, ModInfo.MOD_ID);
         generator.addProvider(true, blockTagsProvider);
         generator.addProvider(true, itemTagProvider);
         generator.addProvider(true, soundsProvider);
+
+        event.createProvider(BlockStateProvider::new);
+        event.createProvider(RecipeProvider.Runner::new);
+        event.createProvider(LootTableProvider::new);
+        generator.addProvider(true, new DatapackBuiltinEntriesProvider(output, lookupProvider, BUILDER, Set.of(ModInfo.MOD_ID)));
+        event.createProvider(BiomeTagProvider::new);
+        event.createProvider(AdvancementProvider::new);
+        event.createProvider(GlobalLootModifierProvider::new);
     }
 }

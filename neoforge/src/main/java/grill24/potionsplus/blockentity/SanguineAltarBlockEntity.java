@@ -1,30 +1,28 @@
 package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.advancement.CraftRecipeTrigger;
 import grill24.potionsplus.core.*;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.ClientboundSanguineAltarConversionProgressPacket;
 import grill24.potionsplus.network.ClientboundSanguineAltarConversionStatePacket;
-import grill24.potionsplus.persistence.SavedData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.neoforged.neoforge.network.PacketDistributor;
-import org.joml.Vector3d;
-import org.joml.Vector3f;
-import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.network.PacketDistributor;
+import org.joml.Vector3d;
+import org.joml.Vector3f;
 
 import java.util.HashMap;
 import java.util.List;
@@ -110,7 +108,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
                         if (sanguineAltarBlockEntity.healthDrained < HEALTH_DRAIN_REQUIRED_FOR_CONVERSION) {
                             // Common side, drain health of entities
                             // TODO: Custom damage source
-                            if (entity.hurt(level.damageSources().generic(), HEALTH_DRAIN_AMOUNT)) {
+                            if (level instanceof ServerLevel serverLevel && entity.hurtServer(serverLevel, level.damageSources().generic(), HEALTH_DRAIN_AMOUNT)) {
                                 sanguineAltarBlockEntity.healthDrained += HEALTH_DRAIN_AMOUNT;
                                 if (entity.isDeadOrDying()) {
                                     sanguineAltarBlockEntity.didEntityDie = true;
@@ -162,7 +160,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
             });
         }
 
-        if(!level.isClientSide()) {
+        if (!level.isClientSide()) {
             PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(), new ClientboundSanguineAltarConversionStatePacket(pos, state.ordinal()));
         }
     }

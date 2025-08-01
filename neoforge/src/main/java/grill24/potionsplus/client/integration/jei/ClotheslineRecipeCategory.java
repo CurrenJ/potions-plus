@@ -11,8 +11,8 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -26,13 +26,12 @@ import java.util.Map;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRecipe> {
-    public static final RecipeType<ClotheslineRecipe> CLOTHESLINE_RECIPE_TYPE = RecipeType.create(ModInfo.MOD_ID, "clothesline_recipe", ClotheslineRecipe.class);
+    public static final IRecipeType<ClotheslineRecipe> CLOTHESLINE_RECIPE_TYPE = IRecipeType.create(ModInfo.MOD_ID, "clothesline_recipe", ClotheslineRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
-    public static final ResourceLocation CLOTHESLINE_CATEGORY = ppId("clothesline");
 
-    private static final ResourceLocation RECIPE_GUI = ppId( "textures/gui/brewing_cauldron_recipe.png");
+    private static final ResourceLocation RECIPE_GUI = ppId("textures/gui/brewing_cauldron_recipe.png");
 
     private static final Map<Integer, Point[]> INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT = new HashMap<>();
 
@@ -49,7 +48,7 @@ public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRec
     }
 
     @Override
-    public RecipeType<ClotheslineRecipe> getRecipeType() {
+    public IRecipeType<ClotheslineRecipe> getRecipeType() {
         return CLOTHESLINE_RECIPE_TYPE;
     }
 
@@ -59,13 +58,18 @@ public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRec
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public IDrawable getIcon() {
+        return icon;
     }
 
     @Override
-    public IDrawable getIcon() {
-        return icon;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -87,7 +91,7 @@ public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRec
 
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 38 - 8, 31 - 8)
                 .setSlotName("cauldron")
-                .addItemStack(new ItemStack(BlockEntityBlocks.CLOTHESLINE.value()));
+                .add(new ItemStack(BlockEntityBlocks.CLOTHESLINE.value()));
     }
 
 }

@@ -13,10 +13,11 @@ import java.util.List;
 public abstract class AnimatedItemTooltipEvent extends Event {
     /**
      * Represents tooltip lines to display on an item.
-     * @param id Unique identifier for the tooltip - not used for any display logic.
-     *           Allows for easy identification of specific tooltips, for example if someone wants to modify a specific line in a tooltip.
+     *
+     * @param id       Unique identifier for the tooltip - not used for any display logic.
+     *                 Allows for easy identification of specific tooltips, for example if someone wants to modify a specific line in a tooltip.
      * @param priority Priority of the tooltip - lower numbers are displayed first.
-     * @param text The text to be displayed in the tooltip.
+     * @param text     The text to be displayed in the tooltip.
      */
     public record TooltipLines(ResourceLocation id, int priority, List<List<Component>> text) {
         public static TooltipLines of(ResourceLocation id, int priority, List<Component> text) {

@@ -9,11 +9,11 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
@@ -28,7 +28,7 @@ import java.util.Set;
  */
 public record IsInBiomeTagCondition(TagKey<Biome> biomeTag) implements LootItemCondition {
     public static final MapCodec<IsInBiomeTagCondition> CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
-           TagKey.codec(Registries.BIOME).fieldOf("biomeTag").forGetter(IsInBiomeTagCondition::biomeTag)).apply(codecBuilder, IsInBiomeTagCondition::new)
+            TagKey.codec(Registries.BIOME).fieldOf("biomeTag").forGetter(IsInBiomeTagCondition::biomeTag)).apply(codecBuilder, IsInBiomeTagCondition::new)
     );
 
     @Override
@@ -37,20 +37,20 @@ public record IsInBiomeTagCondition(TagKey<Biome> biomeTag) implements LootItemC
     }
 
     @Override
-    public Set<LootContextParam<?>> getReferencedContextParams() {
+    public Set<ContextKey<?>> getReferencedContextParams() {
         return ImmutableSet.of(LootContextParams.THIS_ENTITY, LootContextParams.ATTACKING_ENTITY);
     }
 
     public boolean test(LootContext context) {
         List<Entity> entitiesToCheck = new ArrayList<>();
 
-        Optional.ofNullable(context.getParamOrNull(LootContextParams.THIS_ENTITY))
+        Optional.ofNullable(context.getOptionalParameter(LootContextParams.THIS_ENTITY))
                 .ifPresent(entitiesToCheck::add);
-        Optional.ofNullable(context.getParamOrNull(LootContextParams.ATTACKING_ENTITY))
+        Optional.ofNullable(context.getOptionalParameter(LootContextParams.ATTACKING_ENTITY))
                 .ifPresent(entitiesToCheck::add);
 
         Level level = context.getLevel();
-        Iterable<Holder<Biome>> biomes = level.registryAccess().registryOrThrow(Registries.BIOME).getTagOrEmpty(biomeTag);
+        Iterable<Holder<Biome>> biomes = level.registryAccess().lookupOrThrow(Registries.BIOME).getTagOrEmpty(biomeTag);
         for (Holder<Biome> biome : biomes) {
             for (Entity entity : entitiesToCheck) {
                 Optional<ResourceKey<Biome>> currentBiome = Optional.ofNullable(level.getBiome(entity.blockPosition()).getKey());

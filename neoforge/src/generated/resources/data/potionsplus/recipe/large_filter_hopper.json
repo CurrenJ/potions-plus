@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "D": {
-      "item": "minecraft:diamond"
-    },
-    "G": {
-      "item": "minecraft:gold_ingot"
-    },
-    "H": {
-      "item": "potionsplus:small_filter_hopper"
-    }
+    "D": "minecraft:diamond",
+    "G": "minecraft:gold_ingot",
+    "H": "potionsplus:small_filter_hopper"
   },
   "pattern": [
     "D",

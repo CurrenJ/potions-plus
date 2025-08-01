@@ -4,16 +4,28 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GenericIconItemBuilder extends ItemBuilder<Item, GenericIconItemBuilder> {
+    private final Map<ResourceLocation, Integer> textureToItemStackCountData;
+
     public GenericIconItemBuilder(ResourceLocation overridePropertyName, ResourceLocation... iconTextureLocations) {
         super();
         this.itemFactory(Item::new);
+
+        this.textureToItemStackCountData = new HashMap<>();
+        int startingCount = 1;
+        for (ResourceLocation textureLocation : iconTextureLocations) {
+            this.textureToItemStackCountData.put(textureLocation, startingCount++);
+        }
+
         this.modelGenerator(itemSupplier -> new ItemOverrideUtility.DynamicItemOverrideModelData(
                 itemSupplier,
                 overridePropertyName,
-                Arrays.stream(iconTextureLocations).toList()));
+                iconTextureLocations,
+                textureToItemStackCountData)
+        );
     }
 
     public ItemOverrideUtility.DynamicItemOverrideModelData getItemModelGenerator() {
@@ -21,7 +33,7 @@ public class GenericIconItemBuilder extends ItemBuilder<Item, GenericIconItemBui
     }
 
     public ItemStack getItemStackForTexture(ResourceLocation textureLocation) {
-        return new ItemStack(getValue(), getItemModelGenerator().getItemStackCountForTexture(textureLocation));
+        return new ItemStack(getValue(), textureToItemStackCountData.getOrDefault(textureLocation, 0));
     }
 
     @Override

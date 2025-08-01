@@ -4,8 +4,8 @@ import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -13,12 +13,11 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class BoneBuddyEffect extends MobEffect {
-    private static final Predicate<LivingEntity> TARGET_PREDICATE = livingEntity -> !livingEntity.hasEffect(MobEffects.BONE_BUDDY);
+    private static final TargetingConditions.Selector TARGET_PREDICATE = (livingEntity, level) -> !livingEntity.hasEffect(MobEffects.BONE_BUDDY);
 
     public BoneBuddyEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);

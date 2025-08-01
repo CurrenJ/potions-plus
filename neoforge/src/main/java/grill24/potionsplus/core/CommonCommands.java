@@ -8,8 +8,10 @@ import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.block.SkillJournalsBlock;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.potion.Potions;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.gui.fishing.FishingLeaderboardsMenu;
 import grill24.potionsplus.item.FishSizeDataComponent;
+import grill24.potionsplus.item.GeneticCropItem;
 import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.network.*;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
@@ -20,10 +22,7 @@ import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
-import grill24.potionsplus.utility.DelayedEvents;
-import grill24.potionsplus.utility.FishingLeaderboards;
-import grill24.potionsplus.utility.InvUtil;
-import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.*;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -63,7 +62,7 @@ public class CommonCommands {
 
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {
-        if (!PotionsPlus.Debug.DEBUG) return;
+        if (!Debug.DEBUG) return;
 
         event.getDispatcher().register(Commands.literal("potionsplus")
                 .then(Commands.literal("savedData")
@@ -224,7 +223,7 @@ public class CommonCommands {
                         .requires((source) -> source.hasPermission(2))
                         .executes(context -> {
                             if (context.getSource().getEntity() instanceof ServerPlayer player) {
-                                List<ItemStack> itemStacks = player.getInventory().items.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
+                                List<ItemStack> itemStacks = player.getInventory().getNonEquipmentItems().stream().filter(itemStack -> !itemStack.isEmpty()).toList();
                                 int winnerIndex = player.getRandom().nextInt(itemStacks.size());
 
                                 PacketDistributor.sendToPlayer(player, new ClientboundDisplayWheelAnimationPacket(itemStacks, winnerIndex));
@@ -283,6 +282,69 @@ public class CommonCommands {
 
                                             return 1;
                                         }))
+                        )
+                )
+                .then(Commands.literal("genetics")
+                        .then(Commands.literal("set")
+                                .then(Commands.literal("color")
+                                        .then(Commands.argument("value", IntegerArgumentType.integer())
+                                                .requires((source) -> source.hasPermission(2))
+                                                .executes(context -> {
+                                                    if (context.getSource().getEntity() instanceof ServerPlayer player) {
+                                                        int value = IntegerArgumentType.getInteger(context, "value");
+                                                        if (player.getMainHandItem().getItem() instanceof GeneticCropItem cropItem) {
+                                                            cropItem.setColorChromosomeValue(player.getMainHandItem(), value);
+                                                            context.getSource().sendSuccess(() -> Component.literal("Set genetic data on main hand item."), true);
+                                                        }
+                                                    }
+
+                                                    return 1;
+                                                })
+                                        )
+                                )
+                                .then(Commands.literal("weight")
+                                        .then(Commands.argument("value", IntegerArgumentType.integer())
+                                                .requires((source) -> source.hasPermission(2))
+                                                .executes(context -> {
+                                                    if (context.getSource().getEntity() instanceof ServerPlayer player) {
+                                                        int value = IntegerArgumentType.getInteger(context, "value");
+                                                        if (player.getMainHandItem().getItem() instanceof GeneticCropItem cropItem) {
+                                                            cropItem.setWeightChromosomeValue(player.getMainHandItem(), value);
+                                                            context.getSource().sendSuccess(() -> Component.literal("Set genetic data on main hand item."), true);
+                                                        }
+                                                    }
+
+                                                    return 1;
+                                                })
+                                        )
+                                )
+                                .then(Commands.argument("chromosomeIndex", IntegerArgumentType.integer())
+                                        .then(Commands.argument("value", IntegerArgumentType.integer())
+                                                .executes(context -> {
+                                                    if (context.getSource().getEntity() instanceof ServerPlayer player) {
+                                                        ItemStack stack = player.getMainHandItem();
+                                                        if (stack.getItem() instanceof GeneticCropItem cropItem) {
+                                                            int chromosomeIndex = IntegerArgumentType.getInteger(context, "chromosomeIndex");
+                                                            int value = IntegerArgumentType.getInteger(context, "value");
+
+                                                            ItemStack result = cropItem.setChromosomeValue(stack, chromosomeIndex, value);
+                                                            player.setItemInHand(player.getUsedItemHand(), result);
+
+                                                            context.getSource().sendSuccess(() -> Component.literal("Randomized genetic data on main hand item."), true);
+                                                        }
+                                                    }
+
+                                                    return 1;
+                                                })
+                                        )
+                                )
+                        )
+                        .then(Commands.literal("createOffspring")
+                                .requires((source) -> source.hasPermission(2))
+                                .executes(context -> createOffspring(context, 1))
+                                .then(Commands.argument("repeat", IntegerArgumentType.integer())
+                                        .executes(context -> createOffspring(context, IntegerArgumentType.getInteger(context, "repeat")))
+                                )
                         )
                 )
                 .then(Commands.literal("tossup")
@@ -695,6 +757,45 @@ public class CommonCommands {
                         )
                 )
         );
+    }
+
+    private static int createOffspring(CommandContext<CommandSourceStack> context, int repeat) {
+        if (context.getSource().getEntity() instanceof ServerPlayer player) {
+            for (int i = 0; i < repeat; i++) {
+                // Check if player has items in both hands
+                ItemStack mainHandItem = player.getMainHandItem();
+                ItemStack offHandItem = player.getOffhandItem();
+                if (mainHandItem.isEmpty() || offHandItem.isEmpty()) {
+                    context.getSource().sendFailure(Component.literal("You must have items in both hands to create offspring."));
+                    return 0;
+                }
+
+                // Check if both items have genetic data
+                Genotype mainHandGenotype = mainHandItem.get(grill24.potionsplus.core.DataComponents.GENETIC_DATA);
+                Genotype offHandGenotype = offHandItem.get(grill24.potionsplus.core.DataComponents.GENETIC_DATA);
+                if (mainHandGenotype == null || offHandGenotype == null) {
+                    context.getSource().sendFailure(Component.literal("Both items must have genetic data to create offspring."));
+                    return 0;
+                }
+
+                // Do reproduction
+                ItemStack offspring = new ItemStack(mainHandItem.getItem());
+                Genotype offpsringGenotype = Genotype.crossover(mainHandGenotype, offHandGenotype);
+                offpsringGenotype = Genotype.tryUniformMutate(offpsringGenotype, 0.01F);
+
+                // Set the genetic data for the offspring
+                offspring.set(grill24.potionsplus.core.DataComponents.GENETIC_DATA, offpsringGenotype);
+                // Some genetic crop items may need to handle genetic data changes
+                if (offspring.getItem() instanceof GeneticCropItem geneticCropItem) {
+                    offspring = geneticCropItem.onGeneticDataChanged(offspring);
+                }
+
+                InvUtil.giveOrDropItem(player, offspring);
+            }
+            context.getSource().sendSuccess(() -> Component.literal("Created offspring item."), true);
+        }
+
+        return 1;
     }
 
     private static void tryConsumeSkillInstance(CommandContext<CommandSourceStack> context, Consumer<SkillInstance<?, ?>> consumer) {

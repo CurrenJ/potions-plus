@@ -18,7 +18,6 @@ import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;
-import java.util.Map;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -31,6 +30,9 @@ public class Placements {
 
     public static final ResourceKey<PlacedFeature> LUNAR_BERRY_BUSH_KEY = createKey("patch_lunar_berry_bush");
     public static final ResourceKey<PlacedFeature> LUNAR_BERRY_BUSH_RARE_KEY = createKey("patch_lunar_berry_bush_rare");
+
+    public static final ResourceKey<PlacedFeature> TOMATO_PATCH_KEY = createKey("tomato_patch");
+    public static final ResourceKey<PlacedFeature> BRASSICA_OLERACEA_PATCH_KEY = createKey("brassica_oleracea_patch");
 
     // ----- Volcanic Cave -----
     public static ResourceKey<PlacedFeature> VOLCANIC_PATCH_FLOOR_KEY = createKey("volcanic_patch_floor");
@@ -68,6 +70,14 @@ public class Placements {
                 LUNAR_BERRY_BUSH, RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         final Holder<PlacedFeature> LUNAR_BERRY_BUSH_RARE_PLACED = register(context, LUNAR_BERRY_BUSH_RARE_KEY,
                 LUNAR_BERRY_BUSH, RarityFilter.onAverageOnceEvery(384), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+
+        final Holder<ConfiguredFeature<?, ?>> TOMATO_PATCH = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.TOMATO_PATCH_KEY);
+        final Holder<PlacedFeature> TOMATO_PATCH_PLACED = register(context, TOMATO_PATCH_KEY,
+                TOMATO_PATCH, RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+
+        final Holder<ConfiguredFeature<?, ?>> BRASSICA_OLERACEA_PATCH = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.BRASSICA_OLERACEA_PATCH_KEY);
+        final Holder<PlacedFeature> BRASSICA_OLERACEA_PATCH_PLACED = register(context, BRASSICA_OLERACEA_PATCH_KEY,
+                BRASSICA_OLERACEA_PATCH, RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
         // ----- Volcanic Cave -----
         final Holder<ConfiguredFeature<?, ?>> VOLCANIC_PATCH_FLOOR_CONFIGURED = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.VOLCANIC_PATCH_FLOOR_KEY);

@@ -7,21 +7,21 @@ import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
-import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class AridCave {
-    public static WeightedStateProvider BLOCK_SAMPLER_FLOOR = new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+    public static WeightedStateProvider BLOCK_SAMPLER_FLOOR = new WeightedStateProvider(WeightedList.<BlockState>builder()
             .add(Blocks.SAND.defaultBlockState(), 4)
             .add(Blocks.SANDSTONE.defaultBlockState(), 1)
     );
-    public static WeightedStateProvider BLOCK_SAMPLER_CEILING = new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+    public static WeightedStateProvider BLOCK_SAMPLER_CEILING = new WeightedStateProvider(WeightedList.<BlockState>builder()
             .add(Blocks.SANDSTONE.defaultBlockState(), 1)
     );
 

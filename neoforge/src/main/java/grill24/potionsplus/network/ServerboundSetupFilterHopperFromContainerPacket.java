@@ -31,7 +31,7 @@ public record ServerboundSetupFilterHopperFromContainerPacket() implements Custo
             context.enqueueWork(() -> {
                 ServerPayloadContext serverContext = (ServerPayloadContext) context;
 
-                if(serverContext.player() instanceof ServerPlayer serverPlayer && serverPlayer.containerMenu instanceof FilterHopperMenu filterHopperMenu) {
+                if (serverContext.player() instanceof ServerPlayer serverPlayer && serverPlayer.containerMenu instanceof FilterHopperMenu filterHopperMenu) {
                     Optional<FilterHopperBlockEntity> filterHopper = filterHopperMenu.getFilterHopperBlockEntity();
                     filterHopper.ifPresent(FilterHopperBlockEntity::addConnectedContainerContentsToFilter);
                 }

@@ -3,9 +3,9 @@ package grill24.potionsplus.block;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.entity.InvisibleFireDamager;
+import grill24.potionsplus.extension.IParticleEngineExtension;
 import grill24.potionsplus.particle.EmitterParticle;
 import grill24.potionsplus.particle.ParticleConfigurations;
-import grill24.potionsplus.extension.IParticleEngineExtension;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleProvider;
@@ -38,7 +38,7 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
     private static final Vec3 PARTICLE_SPAWN_POINT = new Vec3(0.5D, 0.625D, 0.5D);
     private static final Vec3[] PARTICLE_SPAWN_POINTS = generateRotations(PARTICLE_SPAWN_POINT);
     private static final double VELOCITY = 1.0D;
-    private static final Vec3[] VELOCITIES = new Vec3[] {
+    private static final Vec3[] VELOCITIES = new Vec3[]{
             new Vec3(0.0D, 1, 0.0D), // UP
             new Vec3(0.0D, -1, 0.0D), // DOWN
             new Vec3(0.0D, 0.0D, -1), // NORTH
@@ -69,7 +69,7 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
 
         boolean active = blockState.getValue(ACTIVE);
 
-        if (!active){
+        if (!active) {
             serverLevel.setBlockAndUpdate(blockPos, blockState.setValue(ACTIVE, true));
         }
         serverLevel.scheduleTick(blockPos, this, 0);
@@ -92,11 +92,12 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
             Vec3 position = getDirectionalValue(blockState, PARTICLE_SPAWN_POINTS).add(blockPos.getX(), blockPos.getY(), blockPos.getZ());
             Vec3 velocity = getDirectionalValue(blockState, VELOCITIES).scale(VELOCITY);
             InvisibleFireDamager fireEntity = new InvisibleFireDamager(position.x, position.y, position.z, new Vec3(velocity.x, velocity.y, velocity.z), serverLevel);
-            serverLevel.addFreshEntity(Util.make(fireEntity, (entity) -> {}));
+            serverLevel.addFreshEntity(Util.make(fireEntity, (entity) -> {
+            }));
 
             serverLevel.scheduleTick(blockPos, this, 5);
 
-            if(random.nextFloat() < 0.04) {
+            if (random.nextFloat() < 0.04) {
                 serverLevel.setBlockAndUpdate(blockPos, blockState.setValue(ACTIVE, false));
             }
         }
@@ -104,14 +105,14 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
 
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, net.minecraft.world.entity.Entity entity) {
-        if (entity instanceof Player) {
+        if (entity instanceof Player && level instanceof ServerLevel serverLevel) {
             level.setBlockAndUpdate(pos, state.setValue(ACTIVE, true));
             level.scheduleTick(pos, this, 0);
 
             if (!entity.fireImmune()) {
                 int i = entity.getRemainingFireTicks();
                 entity.igniteForTicks(5);
-                boolean flag = entity.hurt(level.damageSources().hotFloor(), 5.0F);
+                boolean flag = entity.hurtServer(serverLevel, level.damageSources().hotFloor(), 5.0F);
                 if (!flag) {
                     entity.setRemainingFireTicks(i);
                 }
@@ -136,7 +137,7 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
         // This makes sure we don't spawn particle *spawners* with the geyser block if it is attached to the particle emitter. Instead, get that spawner's particle type and spawn it like usual.
         SimpleParticleType particleType = particleSampler.sampleParticleType(level.random);
         ParticleProvider<?> particleprovider = ((IParticleEngineExtension) Minecraft.getInstance().particleEngine).potions_plus$getProviders().get(BuiltInRegistries.PARTICLE_TYPE.getKey(particleType));
-        if(particleprovider instanceof EmitterParticle.Provider) {
+        if (particleprovider instanceof EmitterParticle.Provider) {
             return ((EmitterParticle.Provider) particleprovider).particleTypeSupplier.apply(level.random);
         }
 

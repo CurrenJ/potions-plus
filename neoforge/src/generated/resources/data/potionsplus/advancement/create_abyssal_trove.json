@@ -6,7 +6,7 @@
         "block": {
           "Name": "potionsplus:abyssal_trove",
           "Properties": {
-            "facing": "north"
+            "direction": "north"
           }
         }
       },
