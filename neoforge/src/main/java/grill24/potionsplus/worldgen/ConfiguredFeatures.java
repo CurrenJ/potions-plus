@@ -208,7 +208,7 @@ public class ConfiguredFeatures {
         // ----- Wooded Cave -----
         final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_VEGETATION_CONFIGURED = register(context, WOODED_CAVE_VEGETATION_KEY, Feature.SIMPLE_BLOCK,
                 new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
-                        .add(Blocks.GRASS.defaultBlockState(), 3)
+                        .add(Blocks.GRASS_BLOCK.defaultBlockState(), 3)
                         .add(Blocks.FERN.defaultBlockState(), 2)
                         .add(Blocks.DANDELION.defaultBlockState(), 1)
                         .add(Blocks.POPPY.defaultBlockState(), 1)
