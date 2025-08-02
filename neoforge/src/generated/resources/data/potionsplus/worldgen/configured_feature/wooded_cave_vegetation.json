@@ -6,18 +6,15 @@
       "entries": [
         {
           "data": {
-            "Name": "minecraft:grass_block",
-            "Properties": {
-              "snowy": "false"
-            }
+            "Name": "minecraft:bush"
           },
-          "weight": 3
+          "weight": 4
         },
         {
           "data": {
             "Name": "minecraft:fern"
           },
-          "weight": 2
+          "weight": 3
         },
         {
           "data": {

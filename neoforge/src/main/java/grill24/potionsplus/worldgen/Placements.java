@@ -162,7 +162,7 @@ public class Placements {
 
         final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_HOLLOW_TREES_CONFIGURED = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.WOODED_CAVE_HOLLOW_TREES_KEY);
         final Holder<PlacedFeature> WOODED_CAVE_HOLLOW_TREES_PLACED = register(context, WOODED_CAVE_HOLLOW_TREES_KEY,
-                WOODED_CAVE_HOLLOW_TREES_CONFIGURED, RarityFilter.onAverageOnceEvery(60), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+                WOODED_CAVE_HOLLOW_TREES_CONFIGURED, CountPlacement.of(16), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
         // ----- Misc. Vegetation -----
         /**

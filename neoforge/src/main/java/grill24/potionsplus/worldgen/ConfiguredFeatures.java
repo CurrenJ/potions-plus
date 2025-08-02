@@ -209,16 +209,16 @@ public class ConfiguredFeatures {
         // ----- Wooded Cave -----
         final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_VEGETATION_CONFIGURED = register(context, WOODED_CAVE_VEGETATION_KEY, Feature.SIMPLE_BLOCK,
                 new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
-                        .add(Blocks.GRASS.defaultBlockState(), 4)
+                        .add(Blocks.BUSH.defaultBlockState(), 4)
                         .add(Blocks.FERN.defaultBlockState(), 3)
                         .add(Blocks.DANDELION.defaultBlockState(), 1)
                         .add(Blocks.POPPY.defaultBlockState(), 1)
                         .add(Blocks.OXEYE_DAISY.defaultBlockState(), 1)
-                        .add(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 2)
+                        .add(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 1)
                 ))
         );
         final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_FLOOR = register(context, WOODED_CAVE_FLOOR_KEY, Features.POTIONS_PLUS_VEGETATION_PATCH,
-                new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, WoodedCave.WOODED_CAVE_BLOCK_SAMPLER_FLOOR, PlacementUtils.inlinePlaced(WOODED_CAVE_VEGETATION_CONFIGURED), Direction.UP, UniformInt.of(4, 7), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.6F, BlockStateProvider.simple(Blocks.DIRT)));
+                new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, WoodedCave.WOODED_CAVE_BLOCK_SAMPLER_FLOOR, PlacementUtils.inlinePlaced(WOODED_CAVE_VEGETATION_CONFIGURED), Direction.UP, UniformInt.of(4, 7), 0.0F, 5, 0.152F, UniformInt.of(4, 7), 0.6F, BlockStateProvider.simple(Blocks.DIRT)));
 
         final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_CEILING_VEGETATION_CONFIGURED = register(context, WOODED_CAVE_CEILING_VEGETATION_KEY, Feature.SIMPLE_BLOCK,
                 new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()

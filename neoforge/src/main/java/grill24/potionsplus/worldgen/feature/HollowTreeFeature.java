@@ -1,6 +1,7 @@
 package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
+import grill24.potionsplus.core.PotionsPlus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -26,11 +27,12 @@ public class HollowTreeFeature extends Feature<NoneFeatureConfiguration> {
 
         // Check if there's enough space for a giant tree (8x8 base, 12-15 blocks tall)
         int treeHeight = 12 + random.nextInt(4); // 12-15 blocks tall
-        int baseRadius = 4; // 8x8 base (radius 4)
-        int hollowRadius = 2; // 4x4 hollow center (radius 2)
+        int baseRadius = random.nextInt(2, 5); // 8x8 base (radius 4)
+        int hollowRadius = Math.clamp(random.nextInt(2), 1, baseRadius - 1); // Hollow radius (1 block less than base)
 
         // Check if we have a suitable location
         if (!isValidLocation(level, pos, treeHeight, baseRadius)) {
+            PotionsPlus.LOGGER.warn("Hollow tree generation failed at {}, not enough space.", pos);
             return false;
         }
 
@@ -45,26 +47,23 @@ public class HollowTreeFeature extends Feature<NoneFeatureConfiguration> {
             placeChest(level, pos.above(1), random);
         }
 
+        PotionsPlus.LOGGER.info("Hollow tree generated at {}", pos);
+
         return true;
     }
 
     private boolean isValidLocation(WorldGenLevel level, BlockPos pos, int height, int radius) {
         // Check if there's solid ground at the base
-        if (!level.getBlockState(pos.below()).isSolid()) {
+        if (!level.getBlockState(pos.below()).isFaceSturdy(level, pos.below(), Direction.UP)) {
+            PotionsPlus.LOGGER.warn("Hollow tree generation failed at {}, no solid ground below.", pos);
             return false;
         }
 
         // Check if there's enough space above
-        for (int y = 0; y <= height + 4; y++) {
-            for (int x = -radius - 1; x <= radius + 1; x++) {
-                for (int z = -radius - 1; z <= radius + 1; z++) {
-                    BlockPos checkPos = pos.offset(x, y, z);
-                    // Allow some blocks in the outer edges for more natural placement
-                    double distance = Math.sqrt(x * x + z * z);
-                    if (distance <= radius && y < height && level.getBlockState(checkPos).isSolid()) {
-                        return false;
-                    }
-                }
+        for (int y = 0; y <= height + 3; y++) {
+            if (!level.getBlockState(pos.above(y)).canBeReplaced()) {
+                PotionsPlus.LOGGER.warn("Hollow tree generation failed at {}, not enough vertical space.", pos);
+                return false;
             }
         }
 

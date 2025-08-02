@@ -7,7 +7,7 @@
       "min_inclusive": 4
     },
     "extra_bottom_block_chance": 0.0,
-    "extra_edge_column_chance": 0.4,
+    "extra_edge_column_chance": 0.6,
     "facing": "up",
     "ground_state": {
       "type": "minecraft:weighted_state_provider",
@@ -19,34 +19,25 @@
               "snowy": "false"
             }
           },
-          "weight": 4
+          "weight": 6
         },
         {
           "data": {
             "Name": "minecraft:dirt"
           },
-          "weight": 3
+          "weight": 1
         },
         {
           "data": {
             "Name": "minecraft:coarse_dirt"
           },
-          "weight": 2
+          "weight": 1
         },
         {
           "data": {
             "Name": "minecraft:moss_block"
           },
-          "weight": 2
-        },
-        {
-          "data": {
-            "Name": "minecraft:podzol",
-            "Properties": {
-              "snowy": "false"
-            }
-          },
-          "weight": 1
+          "weight": 3
         }
       ]
     },
@@ -57,7 +48,7 @@
       }
     },
     "replaceable": "#potionsplus:cave_replaceable",
-    "vegetation_chance": 0.6,
+    "vegetation_chance": 0.152,
     "vegetation_feature": {
       "feature": "potionsplus:wooded_cave_vegetation",
       "placement": []
@@ -65,8 +56,8 @@
     "vertical_range": 5,
     "xz_radius": {
       "type": "minecraft:uniform",
-      "max_inclusive": 5,
-      "min_inclusive": 3
+      "max_inclusive": 7,
+      "min_inclusive": 4
     }
   }
 }

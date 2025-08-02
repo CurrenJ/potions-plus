@@ -88,9 +88,8 @@
     ],
     [
       "minecraft:glow_lichen",
-      "potionsplus:wooded_cave_vegetation",
-      "potionsplus:wooded_cave_ceiling_vegetation",
-      "potionsplus:wooded_cave_trees"
+      "potionsplus:wooded_cave_trees",
+      "potionsplus:wooded_cave_hollow_trees"
     ],
     [
       "minecraft:freeze_top_layer"

@@ -20,11 +20,10 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class WoodedCave {
     public static WeightedStateProvider WOODED_CAVE_BLOCK_SAMPLER_FLOOR = new WeightedStateProvider(WeightedList.<BlockState>builder()
-            .add(Blocks.GRASS_BLOCK.defaultBlockState(), 4)
-            .add(Blocks.DIRT.defaultBlockState(), 3)
-            .add(Blocks.COARSE_DIRT.defaultBlockState(), 2)
-            .add(Blocks.MOSS_BLOCK.defaultBlockState(), 2)
-            .add(Blocks.PODZOL.defaultBlockState(), 1)
+            .add(Blocks.GRASS_BLOCK.defaultBlockState(), 6)
+            .add(Blocks.DIRT.defaultBlockState(), 1)
+            .add(Blocks.COARSE_DIRT.defaultBlockState(), 1)
+            .add(Blocks.MOSS_BLOCK.defaultBlockState(), 3)
     );
     
     public static WeightedStateProvider WOODED_CAVE_BLOCK_SAMPLER_CEILING = new WeightedStateProvider(WeightedList.<BlockState>builder()
