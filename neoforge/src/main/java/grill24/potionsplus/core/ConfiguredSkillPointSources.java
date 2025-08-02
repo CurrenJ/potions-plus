@@ -12,6 +12,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.neoforged.neoforge.common.Tags;
 
@@ -104,12 +105,42 @@ public class ConfiguredSkillPointSources {
         ));
 
         context.register(HARVEST_CROPS, new ConfiguredSkillPointSource<>(SkillPointSources.BREAK_BLOCK.get(), new BreakBlockSourceConfiguration(List.of(
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesBlocks(Blocks.WHEAT), false, 2),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesBlocks(Blocks.CARROTS), false, 2),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesBlocks(Blocks.POTATOES), false, 2),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesBlocks(Blocks.BEETROOTS), false, 2),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesBlocks(Blocks.NETHER_WART), false, 3),
-                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesBlocks(Blocks.COCOA), false, 3)
+                // Wheat (max age 7)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(
+                        BlockPredicate.allOf(
+                                BlockPredicate.matchesBlocks(Blocks.WHEAT),
+                                BlockPredicate.matchesProperty(BlockStateProperties.AGE_7, 7)
+                        ), false, 2),
+                // Carrots (max age 7)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(
+                        BlockPredicate.allOf(
+                                BlockPredicate.matchesBlocks(Blocks.CARROTS),
+                                BlockPredicate.matchesProperty(BlockStateProperties.AGE_7, 7)
+                        ), false, 2),
+                // Potatoes (max age 7)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(
+                        BlockPredicate.allOf(
+                                BlockPredicate.matchesBlocks(Blocks.POTATOES),
+                                BlockPredicate.matchesProperty(BlockStateProperties.AGE_7, 7)
+                        ), false, 2),
+                // Beetroots (max age 3)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(
+                        BlockPredicate.allOf(
+                                BlockPredicate.matchesBlocks(Blocks.BEETROOTS),
+                                BlockPredicate.matchesProperty(BlockStateProperties.AGE_3, 3)
+                        ), false, 2),
+                // Nether wart (max age 3)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(
+                        BlockPredicate.allOf(
+                                BlockPredicate.matchesBlocks(Blocks.NETHER_WART),
+                                BlockPredicate.matchesProperty(BlockStateProperties.AGE_3, 3)
+                        ), false, 3),
+                // Cocoa (max age 2)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(
+                        BlockPredicate.allOf(
+                                BlockPredicate.matchesBlocks(Blocks.COCOA),
+                                BlockPredicate.matchesProperty(BlockStateProperties.AGE_2, 2)
+                        ), false, 3)
         ))));
     }
 
