@@ -124,7 +124,7 @@ public class ConfiguredPlayerAbilities {
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("hoe_efficiency_modifier")
                     .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_EFFICIENCY)
-                    .parentSkill(ConfiguredSkills.MINING)
+                    .parentSkill(ConfiguredSkills.FARMING)
                     .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
                     .itemPredicate(hoePredicate)
                     .attribute(Attributes.MINING_EFFICIENCY)
