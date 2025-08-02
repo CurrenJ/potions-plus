@@ -95,6 +95,7 @@ public class ConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> WOODED_CAVE_TREES_KEY = createKey("wooded_cave_trees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> WOODED_CAVE_FLOOR_KEY = createKey("wooded_cave_floor");
     public static final ResourceKey<ConfiguredFeature<?, ?>> WOODED_CAVE_CEILING_KEY = createKey("wooded_cave_ceiling");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WOODED_CAVE_HOLLOW_TREES_KEY = createKey("wooded_cave_hollow_trees");
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         HolderGetter<PlacedFeature> placedFeatureGetter = context.lookup(Registries.PLACED_FEATURE);
@@ -208,25 +209,25 @@ public class ConfiguredFeatures {
         // ----- Wooded Cave -----
         final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_VEGETATION_CONFIGURED = register(context, WOODED_CAVE_VEGETATION_KEY, Feature.SIMPLE_BLOCK,
                 new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
-                        .add(Blocks.GRASS_BLOCK.defaultBlockState(), 3)
-                        .add(Blocks.FERN.defaultBlockState(), 2)
+                        .add(Blocks.GRASS.defaultBlockState(), 4)
+                        .add(Blocks.FERN.defaultBlockState(), 3)
                         .add(Blocks.DANDELION.defaultBlockState(), 1)
                         .add(Blocks.POPPY.defaultBlockState(), 1)
                         .add(Blocks.OXEYE_DAISY.defaultBlockState(), 1)
-                        .add(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 1)
+                        .add(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 2)
                 ))
         );
         final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_FLOOR = register(context, WOODED_CAVE_FLOOR_KEY, Features.POTIONS_PLUS_VEGETATION_PATCH,
-                new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, WoodedCave.WOODED_CAVE_BLOCK_SAMPLER_FLOOR, PlacementUtils.inlinePlaced(WOODED_CAVE_VEGETATION_CONFIGURED), Direction.UP, UniformInt.of(4, 7), 0.0F, 5, 0.6F, UniformInt.of(3, 5), 0.4F, BlockStateProvider.simple(Blocks.DIRT)));
+                new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, WoodedCave.WOODED_CAVE_BLOCK_SAMPLER_FLOOR, PlacementUtils.inlinePlaced(WOODED_CAVE_VEGETATION_CONFIGURED), Direction.UP, UniformInt.of(4, 7), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.6F, BlockStateProvider.simple(Blocks.DIRT)));
 
         final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_CEILING_VEGETATION_CONFIGURED = register(context, WOODED_CAVE_CEILING_VEGETATION_KEY, Feature.SIMPLE_BLOCK,
                 new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
-                        .add(Blocks.VINE.defaultBlockState(), 2)
-                        .add(Blocks.MOSS_CARPET.defaultBlockState(), 1)
+                        .add(Blocks.VINE.defaultBlockState(), 3)
+                        .add(Blocks.MOSS_CARPET.defaultBlockState(), 2)
                 ))
         );
         final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_CEILING = register(context, WOODED_CAVE_CEILING_KEY, Features.POTIONS_PLUS_VEGETATION_PATCH,
-                new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, WoodedCave.WOODED_CAVE_BLOCK_SAMPLER_CEILING, PlacementUtils.inlinePlaced(WOODED_CAVE_CEILING_VEGETATION_CONFIGURED), Direction.DOWN, UniformInt.of(4, 7), 0.0F, 5, 0.4F, UniformInt.of(2, 4), 0.3F, BlockStateProvider.simple(Blocks.OAK_LOG)));
+                new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, WoodedCave.WOODED_CAVE_BLOCK_SAMPLER_CEILING, PlacementUtils.inlinePlaced(WOODED_CAVE_CEILING_VEGETATION_CONFIGURED), Direction.DOWN, UniformInt.of(4, 7), 0.0F, 5, 0.6F, UniformInt.of(3, 6), 0.5F, BlockStateProvider.simple(Blocks.OAK_LOG)));
 
         final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_TREES = register(context, WOODED_CAVE_TREES_KEY, Feature.TREE,
                 new TreeConfiguration.TreeConfigurationBuilder(
@@ -236,6 +237,10 @@ public class ConfiguredFeatures {
                         new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                         new TwoLayersFeatureSize(1, 0, 1)
                 ).ignoreVines().build()
+        );
+        
+        final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_HOLLOW_TREES = register(context, WOODED_CAVE_HOLLOW_TREES_KEY, Features.HOLLOW_TREE,
+                new NoneFeatureConfiguration()
         );
 
         // Registers all multi directional versatile plant features (configured features stage)

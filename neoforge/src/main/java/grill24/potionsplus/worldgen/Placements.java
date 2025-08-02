@@ -59,6 +59,7 @@ public class Placements {
     public static final ResourceKey<PlacedFeature> WOODED_CAVE_TREES_KEY = createKey("wooded_cave_trees");
     public static final ResourceKey<PlacedFeature> WOODED_CAVE_FLOOR_KEY = createKey("wooded_cave_floor");
     public static final ResourceKey<PlacedFeature> WOODED_CAVE_CEILING_KEY = createKey("wooded_cave_ceiling");
+    public static final ResourceKey<PlacedFeature> WOODED_CAVE_HOLLOW_TREES_KEY = createKey("wooded_cave_hollow_trees");
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatureGetter = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -158,6 +159,10 @@ public class Placements {
         final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_CEILING_CONFIGURED = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.WOODED_CAVE_CEILING_KEY);
         final Holder<PlacedFeature> WOODED_CAVE_CEILING_PLACED = register(context, WOODED_CAVE_CEILING_KEY,
                 WOODED_CAVE_CEILING_CONFIGURED, CountPlacement.of(200), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(-1)), BiomeFilter.biome());
+
+        final Holder<ConfiguredFeature<?, ?>> WOODED_CAVE_HOLLOW_TREES_CONFIGURED = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.WOODED_CAVE_HOLLOW_TREES_KEY);
+        final Holder<PlacedFeature> WOODED_CAVE_HOLLOW_TREES_PLACED = register(context, WOODED_CAVE_HOLLOW_TREES_KEY,
+                WOODED_CAVE_HOLLOW_TREES_CONFIGURED, RarityFilter.onAverageOnceEvery(60), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
         // ----- Misc. Vegetation -----
         /**

@@ -48,9 +48,8 @@ public class WoodedCave {
         BiomeDefaultFeatures.addDefaultSoftDisks(biomegenerationsettings$builder);
 
         // Add wooded cave features
-        biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Placements.WOODED_CAVE_VEGETATION_KEY);
-        biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Placements.WOODED_CAVE_CEILING_VEGETATION_KEY);
         biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Placements.WOODED_CAVE_TREES_KEY);
+        biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Placements.WOODED_CAVE_HOLLOW_TREES_KEY);
         biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Placements.WOODED_CAVE_FLOOR_KEY);
         biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Placements.WOODED_CAVE_CEILING_KEY);
 
