@@ -55,11 +55,13 @@ public class HollowTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
 
         // Check if there's enough space above
-        for (int y = 0; y <= height + 3; y++) {
-            for (int x = -radius; x <= radius; x++) {
-                for (int z = -radius; z <= radius; z++) {
+        for (int y = 0; y <= height + 4; y++) {
+            for (int x = -radius - 1; x <= radius + 1; x++) {
+                for (int z = -radius - 1; z <= radius + 1; z++) {
                     BlockPos checkPos = pos.offset(x, y, z);
-                    if (level.getBlockState(checkPos).isSolid()) {
+                    // Allow some blocks in the outer edges for more natural placement
+                    double distance = Math.sqrt(x * x + z * z);
+                    if (distance <= radius && y < height && level.getBlockState(checkPos).isSolid()) {
                         return false;
                     }
                 }
@@ -135,9 +137,9 @@ public class HollowTreeFeature extends Feature<NoneFeatureConfiguration> {
                     
                     level.setBlock(chestPos, chestState, 2);
                     
-                    // Set chest loot table
+                    // Set chest loot table (use buried treasure loot for forest-themed items)
                     if (level.getBlockEntity(chestPos) instanceof net.minecraft.world.level.block.entity.ChestBlockEntity chest) {
-                        chest.setLootTable(BuiltInLootTables.ABANDONED_MINESHAFT, random.nextLong());
+                        chest.setLootTable(BuiltInLootTables.BURIED_TREASURE, random.nextLong());
                     }
                     
                     return; // Only place one chest
