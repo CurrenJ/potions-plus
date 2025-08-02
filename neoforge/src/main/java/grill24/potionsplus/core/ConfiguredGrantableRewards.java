@@ -130,6 +130,14 @@ public class ConfiguredGrantableRewards {
     public static final AbilityReward.AbilityRewardBuilder PICKAXE_DIAMOND_ORE_ADDITIONAL_EMERALDS_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS.getKey());
     public static final AbilityReward.AbilityRewardBuilder PICKAXE_DIAMOND_ORE_ADDITIONAL_LAPIS_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS.getKey());
 
+    // Crop additional loot rewards for farming skill
+    public static final AbilityReward.AbilityRewardBuilder WHEAT_ADDITIONAL_SEEDS_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.WHEAT_ADDITIONAL_LOOT.getKey());
+    public static final AbilityReward.AbilityRewardBuilder CARROT_GOLDEN_CARROT_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.CARROT_ADDITIONAL_LOOT.getKey());
+    public static final AbilityReward.AbilityRewardBuilder POTATO_POISONOUS_POTATO_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.POTATO_ADDITIONAL_LOOT.getKey());
+    public static final AbilityReward.AbilityRewardBuilder BEETROOT_SUGAR_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.BEETROOT_ADDITIONAL_LOOT.getKey());
+    public static final AbilityReward.AbilityRewardBuilder NETHER_WART_SOUL_SAND_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.NETHER_WART_ADDITIONAL_LOOT.getKey());
+    public static final AbilityReward.AbilityRewardBuilder COCOA_BROWN_DYE_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.COCOA_ADDITIONAL_LOOT.getKey());
+
     public static final IncreaseAbilityStrengthReward.Builder SMALL_AXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("axe_efficiency_increase")
             .ability(ConfiguredPlayerAbilities.AXE_EFFICIENCY_MODIFIER.getKey())
             .strength(0.05F));
@@ -139,6 +147,12 @@ public class ConfiguredGrantableRewards {
     public static final IncreaseAbilityStrengthReward.Builder SMALL_HOE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("hoe_efficiency_increase")
             .ability(ConfiguredPlayerAbilities.HOE_EFFICIENCY_MODIFIER.getKey())
             .strength(0.05F));
+    public static final IncreaseAbilityStrengthReward.Builder HOE_FORTUNE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("hoe_fortune_increase")
+            .ability(ConfiguredPlayerAbilities.HOE_FORTUNE_MODIFIER.getKey())
+            .strength(1.0F));
+    public static final IncreaseAbilityStrengthReward.Builder HOE_UNBREAKING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("hoe_unbreaking_increase")
+            .ability(ConfiguredPlayerAbilities.HOE_UNBREAKING_MODIFIER.getKey())
+            .strength(1.0F));
 
     public static final IncreaseAbilityStrengthReward.Builder SWORD_SHARPNESS_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("sword_sharpness_increase")
             .ability(ConfiguredPlayerAbilities.SWORD_SHARPNESS_MODIFIER.getKey())

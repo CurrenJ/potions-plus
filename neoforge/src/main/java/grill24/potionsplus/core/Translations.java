@@ -66,6 +66,12 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_IRON_ORE_ADDITIONAL_LOOT_GOLD_NUGGETS = "description.potionsplus.ability.iron_ore_additional_loot_gold_nuggets";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS = "description.potionsplus.ability.diamond_ore_additional_loot_emeralds";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS = "description.potionsplus.ability.diamond_ore_additional_loot_lapis";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_WHEAT_ADDITIONAL_LOOT = "description.potionsplus.ability.wheat_additional_loot";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_CARROT_ADDITIONAL_LOOT = "description.potionsplus.ability.carrot_additional_loot";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_POTATO_ADDITIONAL_LOOT = "description.potionsplus.ability.potato_additional_loot";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_BEETROOT_ADDITIONAL_LOOT = "description.potionsplus.ability.beetroot_additional_loot";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_NETHER_WART_ADDITIONAL_LOOT = "description.potionsplus.ability.nether_wart_additional_loot";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_COCOA_ADDITIONAL_LOOT = "description.potionsplus.ability.cocoa_additional_loot";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_FISHING_ROD_LUCK_OF_THE_SEA = "description.potionsplus.ability.fishing_rod_luck_of_the_sea";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_FISHING_ROD_LURE = "description.potionsplus.ability.fishing_rod_lure";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_FISHING_ROD_UNBREAKING = "description.potionsplus.ability.fishing_rod_unbreaking";
@@ -101,6 +107,7 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_AXE_EFFICIENCY = "description.potionsplus.ability.axe_efficiency";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SHOVEL_EFFICIENCY = "description.potionsplus.ability.shovel_efficiency";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_HOE_EFFICIENCY = "description.potionsplus.ability.hoe_efficiency";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_HOE_FORTUNE = "description.potionsplus.ability.hoe_fortune";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_CREEPER_ADDITIONAL_LOOT_SAND = "description.potionsplus.ability.creeper_additional_loot_sand";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SKELETON_BONE_MEAL_BONUS_DROPS = "description.potionsplus.ability.skeleton_bone_meal_bonus_drops";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SKELETON_BONE_BLOCK_BONUS_DROPS = "description.potionsplus.ability.skeleton_bone_block_bonus_drops";
