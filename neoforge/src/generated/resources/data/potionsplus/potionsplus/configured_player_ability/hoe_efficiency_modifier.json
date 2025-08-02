@@ -7,7 +7,7 @@
       "itemPredicate": {
         "items": "#minecraft:hoes"
       },
-      "parentSkill": "potionsplus:mining",
+      "parentSkill": "potionsplus:farming",
       "translationKey": "description.potionsplus.ability.hoe_efficiency"
     },
     "modifiers": [

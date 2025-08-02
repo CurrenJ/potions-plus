@@ -1,6 +1,7 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.skill.source.*;
+import grill24.potionsplus.utility.MatchingBlockStatePropertiesPredicate;
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -107,41 +108,23 @@ public class ConfiguredSkillPointSources {
         context.register(HARVEST_CROPS, new ConfiguredSkillPointSource<>(SkillPointSources.BREAK_BLOCK.get(), new BreakBlockSourceConfiguration(List.of(
                 // Wheat (max age 7)
                 new BreakBlockSourceConfiguration.BlockSkillPoints(
-                        BlockPredicate.allOf(
-                                BlockPredicate.matchesBlocks(Blocks.WHEAT),
-                                BlockPredicate.matchesProperty(BlockStateProperties.AGE_7, 7)
-                        ), false, 2),
+                        MatchingBlockStatePropertiesPredicate.of(Blocks.WHEAT.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7)), false, 2),
                 // Carrots (max age 7)
                 new BreakBlockSourceConfiguration.BlockSkillPoints(
-                        BlockPredicate.allOf(
-                                BlockPredicate.matchesBlocks(Blocks.CARROTS),
-                                BlockPredicate.matchesProperty(BlockStateProperties.AGE_7, 7)
-                        ), false, 2),
+                        MatchingBlockStatePropertiesPredicate.of(Blocks.CARROTS.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7)), false, 2),
                 // Potatoes (max age 7)
                 new BreakBlockSourceConfiguration.BlockSkillPoints(
-                        BlockPredicate.allOf(
-                                BlockPredicate.matchesBlocks(Blocks.POTATOES),
-                                BlockPredicate.matchesProperty(BlockStateProperties.AGE_7, 7)
-                        ), false, 2),
+                        MatchingBlockStatePropertiesPredicate.of(Blocks.POTATOES.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7)), false, 2),
                 // Beetroots (max age 3)
                 new BreakBlockSourceConfiguration.BlockSkillPoints(
-                        BlockPredicate.allOf(
-                                BlockPredicate.matchesBlocks(Blocks.BEETROOTS),
-                                BlockPredicate.matchesProperty(BlockStateProperties.AGE_3, 3)
-                        ), false, 2),
+                        MatchingBlockStatePropertiesPredicate.of(Blocks.BEETROOTS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3)), false, 2),
                 // Nether wart (max age 3)
                 new BreakBlockSourceConfiguration.BlockSkillPoints(
-                        BlockPredicate.allOf(
-                                BlockPredicate.matchesBlocks(Blocks.NETHER_WART),
-                                BlockPredicate.matchesProperty(BlockStateProperties.AGE_3, 3)
-                        ), false, 3),
+                        MatchingBlockStatePropertiesPredicate.of(Blocks.NETHER_WART.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3)), false, 2),
                 // Cocoa (max age 2)
                 new BreakBlockSourceConfiguration.BlockSkillPoints(
-                        BlockPredicate.allOf(
-                                BlockPredicate.matchesBlocks(Blocks.COCOA),
-                                BlockPredicate.matchesProperty(BlockStateProperties.AGE_2, 2)
-                        ), false, 3)
-        ))));
+                        MatchingBlockStatePropertiesPredicate.of(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.AGE_2, 2)), false, 2)
+                ))));
     }
 
     private static ResourceKey<ConfiguredSkillPointSource<?, ?>> register(String name) {

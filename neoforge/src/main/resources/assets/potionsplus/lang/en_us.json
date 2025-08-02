@@ -193,6 +193,7 @@
   "tooltip.potionsplus.skill.sprinting": "Sprinting",
   "tooltip.potionsplus.skill.sneaking": "Sneaking",
   "tooltip.potionsplus.skill.jumping": "Jumping",
+  "tooltip.potionsplus.skill.farming": "Farming",
 
   "generic.potionsplus.enabled" : "Enabled",
   "generic.potionsplus.enabled.rich": "§a§n§oEnabled",
