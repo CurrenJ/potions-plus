@@ -37,6 +37,7 @@ public class OverworldBiomesRegion extends Region {
         addUndergroundBiome(consumer, FROZEN_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, 0.0F, Biomes.ICE_CAVE_KEY);
         addUndergroundBiome(consumer, temperatures[4], FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, 0.0F, Biomes.VOLCANIC_CAVE_KEY);
         addUndergroundBiome(consumer, Climate.Parameter.span(0.2F, 1.0F), humidities[0], FULL_RANGE, FULL_RANGE, FULL_RANGE, 0.0F, Biomes.ARID_CAVE_KEY);
+        addUndergroundBiome(consumer, Climate.Parameter.span(-0.15F, 0.55F), Climate.Parameter.span(0.1F, 1.0F), FULL_RANGE, FULL_RANGE, FULL_RANGE, 0.0F, Biomes.WOODED_CAVE_KEY);
     }
 
     protected void addUndergroundBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome) {

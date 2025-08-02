@@ -39,9 +39,8 @@ Fabric/.vscode/*
 ## Private Stuffs
 /private.properties
 
-## Jars
-*.jar
-!/gradle/wrapper/gradle-wrapper.jar
+## Classes
+*.class
 
 ## OSX (adds a lot of garbage)
 .DS_Store

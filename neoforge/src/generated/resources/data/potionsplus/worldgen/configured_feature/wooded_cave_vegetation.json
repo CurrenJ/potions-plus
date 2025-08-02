@@ -1,0 +1,52 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "minecraft:grass_block",
+            "Properties": {
+              "snowy": "false"
+            }
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "minecraft:fern"
+          },
+          "weight": 2
+        },
+        {
+          "data": {
+            "Name": "minecraft:dandelion"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "minecraft:poppy"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "minecraft:oxeye_daisy"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "minecraft:sweet_berry_bush",
+            "Properties": {
+              "age": "3"
+            }
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}

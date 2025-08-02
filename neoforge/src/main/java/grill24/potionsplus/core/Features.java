@@ -34,6 +34,9 @@ public class Features {
     // ----- Arid Cave -----
     public static Feature<NoneFeatureConfiguration> ARID_CAVE_SUSPICIOUS_SAND = Features.register("arid_cave_suspicious_sand", new SuspiciousSandFeature(NoneFeatureConfiguration.CODEC));
 
+    // ----- Wooded Cave -----
+    public static Feature<NoneFeatureConfiguration> HOLLOW_TREE = Features.register("hollow_tree", new HollowTreeFeature(NoneFeatureConfiguration.CODEC));
+
     // ----- Misc. -----
     public static final Feature<VersatilePlantBlockFeatureConfiguration> VERSATILE_PLANT = Features.register("versatile_plant", new VersatilePlantBlockFeature());
 
