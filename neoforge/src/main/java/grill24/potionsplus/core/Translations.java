@@ -159,6 +159,7 @@ public class Translations {
     public static final String TOOLTIP_POTIONSPLUS_SKILL_SPRINTING = "tooltip.potionsplus.skill.sprinting";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_SNEAKING = "tooltip.potionsplus.skill.sneaking";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_JUMPING = "tooltip.potionsplus.skill.jumping";
+    public static final String TOOLTIP_POTIONSPLUS_SKILL_FARMING = "tooltip.potionsplus.skill.farming";
     public static final String GENERIC_POTIONSPLUS_ENABLED = "generic.potionsplus.enabled";
     public static final String GENERIC_POTIONSPLUS_ENABLED_RICH = "generic.potionsplus.enabled.rich";
     public static final String GENERIC_POTIONSPLUS_DISABLED = "generic.potionsplus.disabled";

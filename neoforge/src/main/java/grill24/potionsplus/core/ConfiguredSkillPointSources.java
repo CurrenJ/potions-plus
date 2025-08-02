@@ -11,6 +11,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.neoforged.neoforge.common.Tags;
 
@@ -37,6 +38,7 @@ public class ConfiguredSkillPointSources {
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> SPRINT = register("sprint");
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> SNEAK = register("sneak");
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> JUMP = register("jump");
+    public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> HARVEST_CROPS = register("harvest_crops");
 
     public static void generate(BootstrapContext<ConfiguredSkillPointSource<?, ?>> context) {
         context.register(MINE_ORE, new ConfiguredSkillPointSource<>(SkillPointSources.BREAK_BLOCK.get(), new BreakBlockSourceConfiguration(List.of(
@@ -100,6 +102,15 @@ public class ConfiguredSkillPointSources {
         context.register(JUMP, new ConfiguredSkillPointSource<>(SkillPointSources.INCREMENT_STAT.get(),
                 new IncrementStatSourceConfiguration(Stats.CUSTOM.get(Stats.JUMP), 1)
         ));
+
+        context.register(HARVEST_CROPS, new ConfiguredSkillPointSource<>(SkillPointSources.BREAK_BLOCK.get(), new BreakBlockSourceConfiguration(List.of(
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesBlocks(Blocks.WHEAT), false, 2),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesBlocks(Blocks.CARROTS), false, 2),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesBlocks(Blocks.POTATOES), false, 2),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesBlocks(Blocks.BEETROOTS), false, 2),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesBlocks(Blocks.NETHER_WART), false, 3),
+                new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesBlocks(Blocks.COCOA), false, 3)
+        ))));
     }
 
     private static ResourceKey<ConfiguredSkillPointSource<?, ?>> register(String name) {
