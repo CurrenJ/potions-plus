@@ -170,6 +170,49 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .addTag(BlockTags.DIRT)
                 .addTag(Tags.Blocks.GRAVELS)
                 .addTag(BlockTags.CONCRETE_POWDER);
+
+        /**
+         * DANDELION_VERSATILE, TORCHFLOWER_VERSATILE, POPPY_VERSATILE, BLUE_ORCHID_VERSATILE,
+         *             ALLIUM_VERSATILE, AZURE_BLUET_VERSATILE, RED_TULIP_VERSATILE, ORANGE_TULIP_VERSATILE,
+         *             WHITE_TULIP_VERSATILE, PINK_TULIP_VERSATILE, OXEYE_DAISY_VERSATILE, CORNFLOWER_VERSATILE,
+         *             WITHER_ROSE_VERSATILE, LILY_OF_THE_VALLEY_VERSATILE, BROWN_MUSHROOM_VERSATILE, RED_MUSHROOM_VERSATILE;
+         *     public static Holder<Block> SUNFLOWER_VERSATILE, LILAC_VERSATILE, ROSE_BUSH_VERSATILE, PEONY_VERSATILE, TALL_GRASS_VERSATILE, LARGE_FERN_VERSATILE, PITCHER_PLANT_VERSATIL
+         */
+        tag(grill24.potionsplus.core.Tags.Blocks.SMALL_VERSATILE_FLOWERS)
+                .add(FlowerBlocks.ALLIUM_VERSATILE.value())
+                .add(FlowerBlocks.AZURE_BLUET_VERSATILE.value())
+                .add(FlowerBlocks.BLUE_ORCHID_VERSATILE.value())
+                .add(FlowerBlocks.BROWN_MUSHROOM_VERSATILE.value())
+                .add(FlowerBlocks.CORNFLOWER_VERSATILE.value())
+                .add(FlowerBlocks.DANDELION_VERSATILE.value())
+                .add(FlowerBlocks.LILY_OF_THE_VALLEY_VERSATILE.value())
+                .add(FlowerBlocks.OXEYE_DAISY_VERSATILE.value())
+                .add(FlowerBlocks.PINK_TULIP_VERSATILE.value())
+                .add(FlowerBlocks.POPPY_VERSATILE.value())
+                .add(FlowerBlocks.RED_MUSHROOM_VERSATILE.value())
+                .add(FlowerBlocks.RED_TULIP_VERSATILE.value())
+                .add(FlowerBlocks.TORCHFLOWER_VERSATILE.value())
+                .add(FlowerBlocks.WHITE_TULIP_VERSATILE.value())
+                .add(FlowerBlocks.ORANGE_TULIP_VERSATILE.value())
+                .add(FlowerBlocks.WITHER_ROSE_VERSATILE.value());
+
+        tag(grill24.potionsplus.core.Tags.Blocks.LARGE_VERSATILE_FLOWERS)
+                .add(FlowerBlocks.SUNFLOWER_VERSATILE.value())
+                .add(FlowerBlocks.LILAC_VERSATILE.value())
+                .add(FlowerBlocks.ROSE_BUSH_VERSATILE.value())
+                .add(FlowerBlocks.PEONY_VERSATILE.value())
+                .add(FlowerBlocks.TALL_GRASS_VERSATILE.value())
+                .add(FlowerBlocks.LARGE_FERN_VERSATILE.value())
+                .add(FlowerBlocks.PITCHER_PLANT_VERSATILE.value());
+
+        tag(grill24.potionsplus.core.Tags.Blocks.PP_VERSATILE_PLANTS)
+                .addTag(grill24.potionsplus.core.Tags.Blocks.SMALL_VERSATILE_FLOWERS)
+                .addTag(grill24.potionsplus.core.Tags.Blocks.LARGE_VERSATILE_FLOWERS)
+                .add(FlowerBlocks.COWLICK_VINE.value())
+                .add(FlowerBlocks.HANGING_FERN.value())
+                .add(FlowerBlocks.DROOPY_VINE.value())
+                .add(FlowerBlocks.SURVIVOR_STICK.value())
+                .add(FlowerBlocks.LUMOSEED_SACKS.value());
     }
 
     private void addBlocksToTags(TagKey<Block>[] tags, Block[] values) {
