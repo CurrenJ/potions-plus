@@ -156,7 +156,7 @@ public class ConfiguredPlayerAbilities {
                     .parentSkill(ConfiguredSkills.FARMING)
                     .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
                     .itemPredicate(hoePredicate)
-                    .attribute(Attributes.FORTUNE_BONUS)
+                    .attribute(grill24.potionsplus.core.Attributes.FORTUNE_BONUS)
                     .operation(AttributeModifier.Operation.ADD_VALUE)
                     .enabledByDefault(true));
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_UNBREAKING_MODIFIER = register(() ->
@@ -165,7 +165,7 @@ public class ConfiguredPlayerAbilities {
                     .parentSkill(ConfiguredSkills.FARMING)
                     .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
                     .itemPredicate(hoePredicate)
-                    .attribute(Attributes.UNBREAKING_BONUS)
+                    .attribute(grill24.potionsplus.core.Attributes.UNBREAKING_BONUS)
                     .operation(AttributeModifier.Operation.ADD_VALUE)
                     .enabledByDefault(true));
 

@@ -46,7 +46,8 @@
           "10": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel"
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:wheat_additional_loot"
             ]
           },
           "100": {
@@ -89,7 +90,8 @@
           },
           "16": {
             "advancementRewards": [
-              "potionsplus:basic_skill_loot_edible"
+              "potionsplus:basic_skill_loot_edible",
+              "potionsplus:nether_wart_additional_loot"
             ]
           },
           "17": {
@@ -117,7 +119,8 @@
           "20": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_gems_and_ores_wheel"
+              "potionsplus:edible_gems_and_ores_wheel",
+              "potionsplus:hoe_fortune_increase"
             ]
           },
           "21": {
@@ -139,7 +142,8 @@
           "24": {
             "advancementRewards": [
               "potionsplus:basic_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:potato_additional_loot"
             ]
           },
           "25": {
@@ -162,7 +166,8 @@
           },
           "28": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:beetroot_additional_loot"
             ]
           },
           "29": {
@@ -190,7 +195,8 @@
           },
           "32": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:hoe_unbreaking_increase"
             ]
           },
           "33": {
@@ -223,7 +229,8 @@
           },
           "38": {
             "advancementRewards": [
-              "potionsplus:intermediate_skill_loot_edible"
+              "potionsplus:intermediate_skill_loot_edible",
+              "potionsplus:carrot_additional_loot"
             ]
           },
           "39": {
@@ -251,7 +258,8 @@
           "42": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:cocoa_additional_loot"
             ]
           },
           "43": {
@@ -284,7 +292,8 @@
           "48": {
             "advancementRewards": [
               "potionsplus:intermediate_skill_loot_edible",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:hoe_fortune_increase"
             ]
           },
           "49": {
@@ -364,7 +373,8 @@
             "advancementRewards": [
               "potionsplus:advanced_skill_loot_edible",
               "potionsplus:edible_gems_and_ores_wheel",
-              "potionsplus:edible_unknown_potion_ingredient"
+              "potionsplus:edible_unknown_potion_ingredient",
+              "potionsplus:hoe_unbreaking_increase"
             ]
           },
           "61": {

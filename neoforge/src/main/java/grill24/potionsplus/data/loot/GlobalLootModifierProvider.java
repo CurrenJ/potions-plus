@@ -7,7 +7,6 @@ import grill24.potionsplus.loot.HasPlayerAbilityCondition;
 import grill24.potionsplus.loot.LootItemBlockTagCondition;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -199,15 +198,15 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 )
         );
 
-        // Nether Wart Soul Sand Bonus
+        // Nether Wart Blaze Powder Bonus
         this.add(
-                "nether_wart_soul_sand_ability",
+                "nether_wart_blaze_powder_ability",
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.NETHER_WART).build(),
                                 new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.NETHER_WART_ADDITIONAL_LOOT.getKey())
                         },
-                        LootTables.NETHER_WART_SOUL_SAND_BONUS_DROPS
+                        LootTables.NETHER_WART_BLAZE_POWDER_BONUS_DROPS
                 )
         );
 
