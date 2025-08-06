@@ -1,0 +1,10 @@
+{
+  "type": "potionsplus:simple",
+  "config": {
+    "baseConfig": {
+      "enabledByDefault": true,
+      "parentSkill": "potionsplus:farming",
+      "translationKey": "description.potionsplus.ability.wheat_additional_loot"
+    }
+  }
+}

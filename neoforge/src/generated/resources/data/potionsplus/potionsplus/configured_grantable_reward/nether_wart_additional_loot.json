@@ -1,0 +1,6 @@
+{
+  "type": "potionsplus:ability",
+  "config": {
+    "configuredPlayerAbility": "potionsplus:nether_wart_additional_loot"
+  }
+}

@@ -1,6 +1,7 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.skill.source.*;
+import grill24.potionsplus.utility.MatchingBlockStatePropertiesPredicate;
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -11,6 +12,8 @@ import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.neoforged.neoforge.common.Tags;
 
@@ -37,6 +40,7 @@ public class ConfiguredSkillPointSources {
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> SPRINT = register("sprint");
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> SNEAK = register("sneak");
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> JUMP = register("jump");
+    public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> HARVEST_CROPS = register("harvest_crops");
 
     public static void generate(BootstrapContext<ConfiguredSkillPointSource<?, ?>> context) {
         context.register(MINE_ORE, new ConfiguredSkillPointSource<>(SkillPointSources.BREAK_BLOCK.get(), new BreakBlockSourceConfiguration(List.of(
@@ -100,6 +104,27 @@ public class ConfiguredSkillPointSources {
         context.register(JUMP, new ConfiguredSkillPointSource<>(SkillPointSources.INCREMENT_STAT.get(),
                 new IncrementStatSourceConfiguration(Stats.CUSTOM.get(Stats.JUMP), 1)
         ));
+
+        context.register(HARVEST_CROPS, new ConfiguredSkillPointSource<>(SkillPointSources.BREAK_BLOCK.get(), new BreakBlockSourceConfiguration(List.of(
+                // Wheat (max age 7)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(
+                        MatchingBlockStatePropertiesPredicate.of(Blocks.WHEAT.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7)), false, 2),
+                // Carrots (max age 7)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(
+                        MatchingBlockStatePropertiesPredicate.of(Blocks.CARROTS.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7)), false, 2),
+                // Potatoes (max age 7)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(
+                        MatchingBlockStatePropertiesPredicate.of(Blocks.POTATOES.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7)), false, 2),
+                // Beetroots (max age 3)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(
+                        MatchingBlockStatePropertiesPredicate.of(Blocks.BEETROOTS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3)), false, 2),
+                // Nether wart (max age 3)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(
+                        MatchingBlockStatePropertiesPredicate.of(Blocks.NETHER_WART.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3)), false, 2),
+                // Cocoa (max age 2)
+                new BreakBlockSourceConfiguration.BlockSkillPoints(
+                        MatchingBlockStatePropertiesPredicate.of(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.AGE_2, 2)), false, 2)
+                ))));
     }
 
     private static ResourceKey<ConfiguredSkillPointSource<?, ?>> register(String name) {

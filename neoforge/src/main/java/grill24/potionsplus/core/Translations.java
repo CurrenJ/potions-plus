@@ -104,6 +104,12 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_CREEPER_ADDITIONAL_LOOT_SAND = "description.potionsplus.ability.creeper_additional_loot_sand";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SKELETON_BONE_MEAL_BONUS_DROPS = "description.potionsplus.ability.skeleton_bone_meal_bonus_drops";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SKELETON_BONE_BLOCK_BONUS_DROPS = "description.potionsplus.ability.skeleton_bone_block_bonus_drops";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_WHEAT_ADDITIONAL_LOOT = "description.potionsplus.ability.wheat_additional_loot";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_CARROT_ADDITIONAL_LOOT = "description.potionsplus.ability.carrot_additional_loot";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_POTATO_ADDITIONAL_LOOT = "description.potionsplus.ability.potato_additional_loot";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_BEETROOT_ADDITIONAL_LOOT = "description.potionsplus.ability.beetroot_additional_loot";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_NETHER_WART_ADDITIONAL_LOOT = "description.potionsplus.ability.nether_wart_additional_loot";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_COCOA_ADDITIONAL_LOOT = "description.potionsplus.ability.cocoa_additional_loot";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_POWER_LEVEL = "description.potionsplus.attribute.power_level";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_PUNCH_LEVEL = "description.potionsplus.attribute.punch_level";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SHARPNESS_LEVEL = "description.potionsplus.attribute.sharpness_level";
@@ -122,6 +128,7 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_UNBREAKING = "description.potionsplus.ability.pickaxe_unbreaking";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SHOVEL_UNBREAKING = "description.potionsplus.ability.shovel_unbreaking";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_HOE_UNBREAKING = "description.potionsplus.ability.hoe_unbreaking";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_HOE_FORTUNE = "description.potionsplus.ability.hoe_fortune";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_SHARPNESS = "description.potionsplus.ability.sword_sharpness";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_LOOTING = "description.potionsplus.ability.sword_looting";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_UNBREAKING = "description.potionsplus.ability.sword_unbreaking";
@@ -159,6 +166,7 @@ public class Translations {
     public static final String TOOLTIP_POTIONSPLUS_SKILL_SPRINTING = "tooltip.potionsplus.skill.sprinting";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_SNEAKING = "tooltip.potionsplus.skill.sneaking";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_JUMPING = "tooltip.potionsplus.skill.jumping";
+    public static final String TOOLTIP_POTIONSPLUS_SKILL_FARMING = "tooltip.potionsplus.skill.farming";
     public static final String GENERIC_POTIONSPLUS_ENABLED = "generic.potionsplus.enabled";
     public static final String GENERIC_POTIONSPLUS_ENABLED_RICH = "generic.potionsplus.enabled.rich";
     public static final String GENERIC_POTIONSPLUS_DISABLED = "generic.potionsplus.disabled";

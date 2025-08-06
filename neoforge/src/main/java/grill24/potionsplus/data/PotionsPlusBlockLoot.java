@@ -149,6 +149,19 @@ public class PotionsPlusBlockLoot extends BlockLootSubProvider {
         // Diamond Ore Lapis Drops (Skill Ability)
         generateAdditionalOreDrops(LootTables.DIAMOND_ORE_LAPIS_BONUS_DROPS, consumer, Items.LAPIS_LAZULI, 2, 5, 0.25F, 0.266F, 0.283F, 0.3F);
 
+        // Wheat Additional Seed Drops (Skill Ability)
+        generateAdditionalMobDrops(LootTables.WHEAT_ADDITIONAL_SEEDS_BONUS_DROPS, consumer, Items.WHEAT_SEEDS, 1, 3, 0.5F, 0.6F, 0.7F, 0.8F);
+        // Carrot Additional Golden Carrot Drops (Skill Ability)
+        generateAdditionalMobDrops(LootTables.CARROT_GOLDEN_CARROT_BONUS_DROPS, consumer, Items.GOLDEN_CARROT, 1, 1, 0.05F, 0.1F, 0.15F, 0.8F);
+        // Potato Additional Poisonous Potato Drops (Skill Ability)
+        generateAdditionalMobDrops(LootTables.POTATO_POISONOUS_POTATO_BONUS_DROPS, consumer, Items.POISONOUS_POTATO, 1, 1, 0.05F, 0.1F, 0.15F, 0.2F);
+        // Beetroot Additional Sugar Drops (Skill Ability)
+        generateAdditionalMobDrops(LootTables.BEETROOT_SUGAR_BONUS_DROPS, consumer, Items.SUGAR, 1, 3, 0.2F, 0.25F, 0.3F, 0.35F);
+        // Nether Wart Additional Blaze Powder Drops (Skill Ability)
+        generateAdditionalMobDrops(LootTables.NETHER_WART_BLAZE_POWDER_BONUS_DROPS, consumer, Items.BLAZE_POWDER, 1, 1, 0.05F, 0.1F, 0.15F, 0.2F);
+        // Cocoa Bean Additional Cocoa Drops (Skill Ability)
+        generateAdditionalMobDrops(LootTables.COCOA_BROWN_DYE_BONUS_DROPS, consumer, Items.BROWN_DYE, 1, 3, 0.4F, 0.5F, 0.6F, 0.7F);
+
         // Creeper Additional Sand Drops (Skill Ability)
         generateAdditionalMobDrops(LootTables.CREEPER_SAND_BONUS_DROPS, consumer, Items.SAND, 1, 3, 0.5F, 0.6F, 0.7F, 0.8F);
         // Skeleton Additional Bone Meal Drops (Skill Ability)

@@ -40,6 +40,7 @@ public class PotionsPlus {
         Sounds.SOUNDS.register(bus);
         LootModifiers.LOOT_MODIFIERS.register(bus);
         Advancements.TRIGGERS.register(bus);
+        BlockPredicateTypes.BLOCK_PREDICATE_TYPES.register(bus);
 
         Features.FEATURES.register(bus);
         DataAttachments.ATTACHMENT_TYPES.register(bus);

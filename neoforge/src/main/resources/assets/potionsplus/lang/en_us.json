@@ -125,6 +125,12 @@
   "description.potionsplus.ability.skeleton_bone_meal_bonus_drops": "+Skeletons May Drop Bone Meal",
   "description.potionsplus.ability.skeleton_bone_block_bonus_drops": "+Skeletons May Drop Bone Blocks",
 
+  "description.potionsplus.ability.wheat_additional_loot": "+Wheat May Drop More Seeds",
+  "description.potionsplus.ability.carrot_additional_loot": "+Carrots May Drop Golden Carrots",
+  "description.potionsplus.ability.potato_additional_loot": "+Potatoes May Drop Poisonous Potatoes",
+  "description.potionsplus.ability.beetroot_additional_loot": "+Beetroots May Drop Sugar",
+  "description.potionsplus.ability.nether_wart_additional_loot": "+Nether Wart May Drop Nether Wart Blocks",
+  "description.potionsplus.ability.cocoa_additional_loot": "+Cocoa Beans May Drop Brown Dye",
 
   "description.potionsplus.attribute.power_level": "Power",
   "description.potionsplus.attribute.punch_level": "Punch",
@@ -145,6 +151,7 @@
   "description.potionsplus.ability.pickaxe_unbreaking": "%s Pickaxe Unbreaking Level",
   "description.potionsplus.ability.shovel_unbreaking": "%s Shovel Unbreaking Level",
   "description.potionsplus.ability.hoe_unbreaking": "%s Hoe Unbreaking Level",
+  "description.potionsplus.ability.hoe_fortune": "%s Hoe Fortune Level",
   "description.potionsplus.ability.sword_sharpness": "%s Sword Sharpness Level",
   "description.potionsplus.ability.sword_looting": "%s Sword Looting Level",
   "description.potionsplus.ability.sword_unbreaking": "%s Sword Unbreaking Level",
@@ -193,6 +200,7 @@
   "tooltip.potionsplus.skill.sprinting": "Sprinting",
   "tooltip.potionsplus.skill.sneaking": "Sneaking",
   "tooltip.potionsplus.skill.jumping": "Jumping",
+  "tooltip.potionsplus.skill.farming": "Farming",
 
   "generic.potionsplus.enabled" : "Enabled",
   "generic.potionsplus.enabled.rich": "§a§n§oEnabled",

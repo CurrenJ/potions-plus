@@ -8,7 +8,13 @@
     "potionsplus:diamond_ore_bonus_lapis_ability",
     "potionsplus:creeper_loot_modifier",
     "potionsplus:skeleton_bone_meal_loot_modifier",
-    "potionsplus:skeleton_bone_block_loot_modifier"
+    "potionsplus:skeleton_bone_block_loot_modifier",
+    "potionsplus:wheat_additional_seeds_ability",
+    "potionsplus:carrot_golden_carrot_ability",
+    "potionsplus:potato_poisonous_potato_ability",
+    "potionsplus:beetroot_sugar_ability",
+    "potionsplus:nether_wart_blaze_powder_ability",
+    "potionsplus:cocoa_brown_dye_ability"
   ],
   "replace": false
 }

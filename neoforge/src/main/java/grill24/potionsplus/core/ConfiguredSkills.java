@@ -35,6 +35,7 @@ public class ConfiguredSkills {
     public static final ResourceKey<ConfiguredSkill<?, ?>> SPRINTING = register("sprinting");
     public static final ResourceKey<ConfiguredSkill<?, ?>> SNEAKING = register("sneaking");
     public static final ResourceKey<ConfiguredSkill<?, ?>> JUMPING = register("jumping");
+    public static final ResourceKey<ConfiguredSkill<?, ?>> FARMING = register("farming");
 
     // Data Gen
     public static void generate(BootstrapContext<ConfiguredSkill<?, ?>> context) {
@@ -79,6 +80,9 @@ public class ConfiguredSkills {
 
         // Archery
         Archery.generate(context, sourceLookup, rewardLookup);
+
+        // Farming
+        Farming.generate(context, sourceLookup, rewardLookup);
     }
 
     private static ResourceKey<ConfiguredSkill<?, ?>> register(String name) {

@@ -1,0 +1,14 @@
+{
+  "type": "neoforge:add_table",
+  "conditions": [
+    {
+      "block": "minecraft:carrots",
+      "condition": "minecraft:block_state_property"
+    },
+    {
+      "condition": "potionsplus:has_player_ability",
+      "configuredPlayerAbility": "potionsplus:carrot_additional_loot"
+    }
+  ],
+  "table": "potionsplus:carrot_golden_carrot_bonus_drops"
+}

@@ -1,0 +1,14 @@
+{
+  "type": "neoforge:add_table",
+  "conditions": [
+    {
+      "block": "minecraft:nether_wart",
+      "condition": "minecraft:block_state_property"
+    },
+    {
+      "condition": "potionsplus:has_player_ability",
+      "configuredPlayerAbility": "potionsplus:nether_wart_additional_loot"
+    }
+  ],
+  "table": "potionsplus:nether_wart_blaze_powder_bonus_drops"
+}
