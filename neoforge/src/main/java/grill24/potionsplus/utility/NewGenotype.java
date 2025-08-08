@@ -6,29 +6,39 @@ import java.util.Arrays;
  * A flexible Genotype class that supports any number of chromosomes (8-bit unsigned integers).
  * This is an enhanced version of the original Genotype class that removes the 8-chromosome limitation.
  * 
- * Note: Serialization support (Codec/StreamCodec) is commented out until build environment is available.
- * Uncomment when integrating into the full Minecraft mod environment.
+ * Key improvements over the original Genotype:
+ * - Supports unlimited number of chromosomes (not just 8)
+ * - Maintains all genetic operations (crossover, mutation, uniform mutation)
+ * - Preserves binary string reducibility for genetic algorithms
+ * - Backward compatible interface with original Genotype methods
+ * - Enhanced crossover and mutation operations that work across different genome lengths
  */
 public class NewGenotype {
     private byte[] chromosomes;
 
     /*
-    // TODO: Uncomment when Minecraft dependencies are available
-    public static final Codec<NewGenotype> CODEC = Codec.BYTE_BUFFER.xmap(
-            buffer -> {
-                byte[] bytes = new byte[buffer.remaining()];
-                buffer.get(bytes);
-                return new NewGenotype(bytes);
-            },
-            genotype -> java.nio.ByteBuffer.wrap(genotype.chromosomes)
-    );
-
-    public static final StreamCodec<ByteBuf, NewGenotype> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.BYTE_ARRAY,
-            NewGenotype::getChromosomes,
-            NewGenotype::new
-    );
-    */
+     * TODO: Uncomment when Minecraft dependencies are available in build environment
+     * 
+     * import com.mojang.serialization.Codec;
+     * import io.netty.buffer.ByteBuf;
+     * import net.minecraft.network.codec.ByteBufCodecs;
+     * import net.minecraft.network.codec.StreamCodec;
+     * 
+     * public static final Codec<NewGenotype> CODEC = Codec.BYTE_BUFFER.xmap(
+     *         buffer -> {
+     *             byte[] bytes = new byte[buffer.remaining()];
+     *             buffer.get(bytes);
+     *             return new NewGenotype(bytes);
+     *         },
+     *         genotype -> java.nio.ByteBuffer.wrap(genotype.chromosomes)
+     * );
+     * 
+     * public static final StreamCodec<ByteBuf, NewGenotype> STREAM_CODEC = StreamCodec.composite(
+     *         ByteBufCodecs.BYTE_ARRAY,
+     *         NewGenotype::getChromosomes,
+     *         NewGenotype::new
+     * );
+     */
 
     /**
      * Creates a new Genotype with the specified chromosome values.
