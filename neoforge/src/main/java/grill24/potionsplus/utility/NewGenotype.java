@@ -76,6 +76,36 @@ public class NewGenotype {
 
     /**
      * Gets the chromosome array as integers (unsigned bytes).
+     * This method maintains compatibility with the original Genotype interface.
+     *
+     * @return Array of chromosome values as integers
+     */
+    public int[] getGenotypeAsIntArray() {
+        return getChromosomesAsIntArray();
+    }
+
+    /**
+     * Gets the chromosomes as a byte array.
+     * This method maintains compatibility with the original Genotype interface.
+     *
+     * @return Copy of the chromosome array
+     */
+    public byte[] getGenotypeAsBytes() {
+        return getChromosomes();
+    }
+
+    /**
+     * Sets the genotype from a byte array.
+     * This method maintains compatibility with the original Genotype interface.
+     *
+     * @param genotype New chromosome values
+     */
+    public void setGenotype(byte[] genotype) {
+        setChromosomes(genotype);
+    }
+
+    /**
+     * Gets the chromosome array as integers (unsigned bytes).
      *
      * @return Array of chromosome values as integers
      */
