@@ -6,7 +6,7 @@ import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
-import grill24.potionsplus.utility.Genotype;
+import grill24.potionsplus.utility.NewGenotype;
 import grill24.potionsplus.worldgen.biome.AridCave;
 import grill24.potionsplus.worldgen.biome.IceCave;
 import grill24.potionsplus.worldgen.biome.VolcanicCave;
@@ -120,12 +120,12 @@ public class ConfiguredFeatures {
                 new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
                         new GeneticCropConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
                                 .add(FlowerBlocks.TOMATO_PLANT.value().defaultBlockState().setValue(GeneticCropBlock.AGE, 25).setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.MATURE), 1)),
-                                new Genotype(0, 0, 0, 0), new Genotype(50, 75, 32, 32)))));
+                                new NewGenotype(0, 0, 0, 0), new NewGenotype(50, 75, 32, 32)))));
         final Holder<ConfiguredFeature<?, ?>> BRASSICA_OLERACEA_PATCH = register(context, BRASSICA_OLERACEA_PATCH_KEY, Feature.RANDOM_PATCH,
                 new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
                         new GeneticCropConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
                                 .add(FlowerBlocks.BRASSICA_OLERACEA_PLANT.value().defaultBlockState().setValue(GeneticCropBlock.AGE, 25).setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.MATURE), 1)),
-                                new Genotype(0, 0, 0, 0), new Genotype(50, 0, 48, 48)))));
+                                new NewGenotype(0, 0, 0, 0), new NewGenotype(50, 0, 48, 48)))));
 
         // ----- Volcanic Cave -----
         final Holder<ConfiguredFeature<?, ?>> FLOOR_VEGETATION = register(context, FLOOR_VEGETATION_KEY, Feature.SIMPLE_BLOCK,

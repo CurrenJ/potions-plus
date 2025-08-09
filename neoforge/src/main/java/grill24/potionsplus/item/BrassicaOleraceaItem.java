@@ -2,7 +2,7 @@ package grill24.potionsplus.item;
 
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.core.items.PlantItems;
-import grill24.potionsplus.utility.Genotype;
+import grill24.potionsplus.utility.NewGenotype;
 import net.minecraft.core.Holder;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.StringRepresentable;
@@ -56,7 +56,7 @@ public class BrassicaOleraceaItem extends GeneticCropItem {
         Variation variation = getVariation(superModifiedStack);
 
         ItemStack result = new ItemStack(variation.getItem());
-        result.set(DataComponents.GENETIC_DATA, superModifiedStack.getOrDefault(DataComponents.GENETIC_DATA, new Genotype()));
+        result.set(DataComponents.GENETIC_DATA, superModifiedStack.getOrDefault(DataComponents.GENETIC_DATA, new NewGenotype()));
         result.setCount(superModifiedStack.getCount());
         return result;
     }

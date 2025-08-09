@@ -1,5 +1,10 @@
 package grill24.potionsplus.utility;
 
+import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+
 import java.util.Arrays;
 
 /**
@@ -16,29 +21,20 @@ import java.util.Arrays;
 public class NewGenotype {
     private byte[] chromosomes;
 
-    /*
-     * TODO: Uncomment when Minecraft dependencies are available in build environment
-     * 
-     * import com.mojang.serialization.Codec;
-     * import io.netty.buffer.ByteBuf;
-     * import net.minecraft.network.codec.ByteBufCodecs;
-     * import net.minecraft.network.codec.StreamCodec;
-     * 
-     * public static final Codec<NewGenotype> CODEC = Codec.BYTE_BUFFER.xmap(
-     *         buffer -> {
-     *             byte[] bytes = new byte[buffer.remaining()];
-     *             buffer.get(bytes);
-     *             return new NewGenotype(bytes);
-     *         },
-     *         genotype -> java.nio.ByteBuffer.wrap(genotype.chromosomes)
-     * );
-     * 
-     * public static final StreamCodec<ByteBuf, NewGenotype> STREAM_CODEC = StreamCodec.composite(
-     *         ByteBufCodecs.BYTE_ARRAY,
-     *         NewGenotype::getChromosomes,
-     *         NewGenotype::new
-     * );
-     */
+    public static final Codec<NewGenotype> CODEC = Codec.BYTE_BUFFER.xmap(
+            buffer -> {
+                byte[] bytes = new byte[buffer.remaining()];
+                buffer.get(bytes);
+                return new NewGenotype(bytes);
+            },
+            genotype -> java.nio.ByteBuffer.wrap(genotype.chromosomes)
+    );
+
+    public static final StreamCodec<ByteBuf, NewGenotype> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.BYTE_ARRAY,
+            NewGenotype::getChromosomes,
+            NewGenotype::new
+    );
 
     /**
      * Creates a new Genotype with the specified chromosome values.

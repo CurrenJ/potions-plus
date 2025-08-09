@@ -23,6 +23,7 @@ import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
 import grill24.potionsplus.utility.*;
+import grill24.potionsplus.utility.NewGenotype;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -771,8 +772,8 @@ public class CommonCommands {
                 }
 
                 // Check if both items have genetic data
-                Genotype mainHandGenotype = mainHandItem.get(grill24.potionsplus.core.DataComponents.GENETIC_DATA);
-                Genotype offHandGenotype = offHandItem.get(grill24.potionsplus.core.DataComponents.GENETIC_DATA);
+                NewGenotype mainHandGenotype = mainHandItem.get(grill24.potionsplus.core.DataComponents.GENETIC_DATA);
+                NewGenotype offHandGenotype = offHandItem.get(grill24.potionsplus.core.DataComponents.GENETIC_DATA);
                 if (mainHandGenotype == null || offHandGenotype == null) {
                     context.getSource().sendFailure(Component.literal("Both items must have genetic data to create offspring."));
                     return 0;
@@ -780,8 +781,8 @@ public class CommonCommands {
 
                 // Do reproduction
                 ItemStack offspring = new ItemStack(mainHandItem.getItem());
-                Genotype offpsringGenotype = Genotype.crossover(mainHandGenotype, offHandGenotype);
-                offpsringGenotype = Genotype.tryUniformMutate(offpsringGenotype, 0.01F);
+                NewGenotype offpsringGenotype = NewGenotype.crossover(mainHandGenotype, offHandGenotype);
+                offpsringGenotype = NewGenotype.tryUniformMutate(offpsringGenotype, 0.01F);
 
                 // Set the genetic data for the offspring
                 offspring.set(grill24.potionsplus.core.DataComponents.GENETIC_DATA, offpsringGenotype);
