@@ -1,11 +1,12 @@
 package grill24.potionsplus.item;
 
+import java.util.Arrays;
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.item.consumeeffect.GeneticCropItemConsumeEffect;
 import grill24.potionsplus.item.tooltip.TooltipPriorities;
-import grill24.potionsplus.utility.Genotype;
+import grill24.potionsplus.utility.NewGenotype;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -70,7 +71,7 @@ public abstract class GeneticCropItem extends BlockItem {
     }
 
     public int getChromosomeValue(ItemStack stack, int index) {
-        Genotype genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new Genotype());
+        NewGenotype genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new NewGenotype());
         int[] genotypeArray = genotype.getGenotypeAsIntArray();
         if (index < 0 || index >= genotypeArray.length) {
             throw new IndexOutOfBoundsException("Chromosome index out of bounds: " + index);
@@ -84,13 +85,13 @@ public abstract class GeneticCropItem extends BlockItem {
     }
 
     public ItemStack setChromosomeValue(ItemStack stack, int index, int value) {
-        Genotype genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new Genotype());
+        NewGenotype genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new NewGenotype());
         int[] genotypeArray = genotype.getGenotypeAsIntArray();
         if (index < 0 || index >= genotypeArray.length) {
             throw new IndexOutOfBoundsException("Chromosome index out of bounds: " + index);
         }
         genotypeArray[index] = value;
-        stack.set(DataComponents.GENETIC_DATA, new Genotype(genotypeArray));
+        stack.set(DataComponents.GENETIC_DATA, new NewGenotype(genotypeArray));
 
         return onGeneticDataChanged(stack);
     }
@@ -121,13 +122,25 @@ public abstract class GeneticCropItem extends BlockItem {
      */
     public ItemStack onGeneticDataChanged(ItemStack stack) {
         int[] usedChromosomes = getUsedChromosomes();
-        int[] chromosomes = new int[Genotype.MAX_CHROMOSOMES];
+        NewGenotype currentGenotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new NewGenotype());
+        int[] currentChromosomes = currentGenotype.getGenotypeAsIntArray();
+        
+        // Create a new chromosome array with the proper length to accommodate used chromosomes
+        int maxChromosomeIndex = usedChromosomes.length > 0 ? Arrays.stream(usedChromosomes).max().orElse(0) : 0;
+        int chromosomeCount = Math.max(currentChromosomes.length, maxChromosomeIndex + 1);
+        int[] chromosomes = new int[chromosomeCount];
+        
+        // Copy existing chromosome values
+        System.arraycopy(currentChromosomes, 0, chromosomes, 0, Math.min(currentChromosomes.length, chromosomeCount));
+        
+        // Set values for used chromosomes
         for (int chromosomeIndex : usedChromosomes) {
-            int value = getChromosomeValue(stack, chromosomeIndex);
-            chromosomes[chromosomeIndex] = value;
+            if (chromosomeIndex < currentChromosomes.length) {
+                chromosomes[chromosomeIndex] = currentChromosomes[chromosomeIndex];
+            }
         }
 
-        stack.set(DataComponents.GENETIC_DATA, new Genotype(chromosomes));
+        stack.set(DataComponents.GENETIC_DATA, new NewGenotype(chromosomes));
         return stack;
     }
 

@@ -6,7 +6,7 @@ import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.item.GeneticCropItem;
-import grill24.potionsplus.utility.Genotype;
+import grill24.potionsplus.utility.NewGenotype;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -18,8 +18,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Optional;
 
 public class GeneticCropBlockEntity extends InventoryBlockEntity {
-    private Genotype genotype;
-    private Genotype pollinatorGenotype;
+    private NewGenotype genotype;
+    private NewGenotype pollinatorGenotype;
 
     private long placementTime;
     private long lastPollinationTime;
@@ -27,7 +27,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
     public GeneticCropBlockEntity(BlockPos pos, BlockState blockState) {
         super(Blocks.GENETIC_CROP_BLOCK_ENTITY.value(), pos, blockState);
 
-        this.genotype = new Genotype();
+        this.genotype = new NewGenotype();
         this.pollinatorGenotype = null;
 
         this.lastPollinationTime = -1;
@@ -80,13 +80,13 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
         }
 
         this.placementTime = this.level.getGameTime();
-        this.genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new Genotype());
+        this.genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new NewGenotype());
         this.lastPollinationTime = -1; // Reset pollination time on placement
         this.pollinatorGenotype = null; // Reset pollinator genotype on placement
         this.setChanged();
     }
 
-    public boolean onPollinate(Genotype pollinatorGenotype) {
+    public boolean onPollinate(NewGenotype pollinatorGenotype) {
         if (pollinatorGenotype == null) {
             throw new IllegalArgumentException("Pollinator genotype cannot be null");
         }
@@ -130,7 +130,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
         if (this.level == null || this.pollinatorGenotype == null || this.genotype == null) {
             PotionsPlus.LOGGER.warn("GeneticCropBlockEntity: Cannot produce offspring, missing genotype or pollinator genotype.");
 
-            Genotype genotype = new Genotype();
+            NewGenotype genotype = new NewGenotype();
             if (this.genotype != null) {
                 genotype = this.genotype;
             }
@@ -140,8 +140,8 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
             return stack;
         }
 
-        Genotype offspringGenotype = Genotype.crossover(this.genotype, this.pollinatorGenotype);
-        offspringGenotype = Genotype.tryUniformMutate(offspringGenotype, 0.02F);
+        NewGenotype offspringGenotype = NewGenotype.crossover(this.genotype, this.pollinatorGenotype);
+        offspringGenotype = NewGenotype.tryUniformMutate(offspringGenotype, 0.02F);
 
         ItemStack offspringStack = new ItemStack(cropBlock.get().getCropItem());
         offspringStack.set(DataComponents.GENETIC_DATA, offspringGenotype);
@@ -161,7 +161,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
         return Optional.empty();
     }
 
-    public Genotype getGenotype() {
+    public NewGenotype getGenotype() {
         return genotype;
     }
 
@@ -176,13 +176,13 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
 
         Tag genotypeTag = tag.get("genotype");
         if (genotypeTag != null) {
-            DataResult<Genotype> genotypeResult = Genotype.CODEC.parse(NbtOps.INSTANCE, genotypeTag);
-            genotypeResult.result().ifPresentOrElse(g -> this.genotype = g, () -> this.genotype = new Genotype());
+            DataResult<NewGenotype> genotypeResult = NewGenotype.CODEC.parse(NbtOps.INSTANCE, genotypeTag);
+            genotypeResult.result().ifPresentOrElse(g -> this.genotype = g, () -> this.genotype = new NewGenotype());
         }
 
         Tag pollinatorTag = tag.get("pollinatorGenotype");
         if (pollinatorTag != null) {
-            DataResult<Genotype> pollinatorResult = Genotype.CODEC.parse(NbtOps.INSTANCE, pollinatorTag);
+            DataResult<NewGenotype> pollinatorResult = NewGenotype.CODEC.parse(NbtOps.INSTANCE, pollinatorTag);
             pollinatorResult.result().ifPresentOrElse(g -> this.pollinatorGenotype = g, () -> this.pollinatorGenotype = null);
         }
 
@@ -195,12 +195,12 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
         super.writePacketNbt(tag, registryAccess);
 
         if (genotype != null) {
-            DataResult<Tag> genotypeTag = Genotype.CODEC.encodeStart(NbtOps.INSTANCE, this.genotype);
+            DataResult<Tag> genotypeTag = NewGenotype.CODEC.encodeStart(NbtOps.INSTANCE, this.genotype);
             genotypeTag.result().ifPresent(g -> tag.put("genotype", g));
         }
 
         if (this.pollinatorGenotype != null) {
-            DataResult<Tag> pollinatorTag = Genotype.CODEC.encodeStart(NbtOps.INSTANCE, this.pollinatorGenotype);
+            DataResult<Tag> pollinatorTag = NewGenotype.CODEC.encodeStart(NbtOps.INSTANCE, this.pollinatorGenotype);
             pollinatorTag.result().ifPresent(g -> tag.put("pollinatorGenotype", g));
         }
 
@@ -213,7 +213,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
      *
      * @param genotype the genotype of the crop
      */
-    public void setGenotype(Genotype genotype) {
+    public void setGenotype(NewGenotype genotype) {
         this.genotype = genotype;
         this.setChanged();
     }
@@ -223,7 +223,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
      *
      * @param pollinatorGenotype the genotype of the pollinator that pollinated this crop
      */
-    public void setPollinatorGenotype(Genotype pollinatorGenotype) {
+    public void setPollinatorGenotype(NewGenotype pollinatorGenotype) {
         this.pollinatorGenotype = pollinatorGenotype;
         this.setChanged();
     }

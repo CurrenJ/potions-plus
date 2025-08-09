@@ -5,7 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.DataComponents;
-import grill24.potionsplus.utility.Genotype;
+import grill24.potionsplus.utility.NewGenotype;
 import grill24.potionsplus.utility.InvUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -214,9 +214,9 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
 
     private void tryPollinateNearby(ServerLevel level, BlockPos pos) {
         // Pollinate nearby crops
-        Genotype myGenotype = level.getBlockEntity(pos, Blocks.GENETIC_CROP_BLOCK_ENTITY.value())
+        NewGenotype myGenotype = level.getBlockEntity(pos, Blocks.GENETIC_CROP_BLOCK_ENTITY.value())
                 .map(GeneticCropBlockEntity::getGenotype)
-                .orElse(new Genotype());
+                .orElse(new NewGenotype());
 
         for (BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-1, 0, -1), pos.offset(1, 0, 1))) {
             if (!isSelfPollinating() && nearbyPos.equals(pos)) continue; // Skip the current crop block
@@ -260,7 +260,7 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
 
     private InteractionResult tryPollinate(ItemStack stack, Level level, BlockPos pos) {
         if (stack.is(getCropItem())) {
-            Genotype genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new Genotype());
+            NewGenotype genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new NewGenotype());
             Optional<GeneticCropBlockEntity> cropBlockEntity = level.getBlockEntity(pos, Blocks.GENETIC_CROP_BLOCK_ENTITY.value());
             if (cropBlockEntity.isPresent()) {
                 GeneticCropBlockEntity entity = cropBlockEntity.get();

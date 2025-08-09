@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import grill24.potionsplus.block.GeneticCropBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.utility.Genotype;
+import grill24.potionsplus.utility.NewGenotype;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -56,8 +56,8 @@ public class GeneticCropFeature extends Feature<GeneticCropConfiguration> {
         Optional<GeneticCropBlockEntity> cropEntity = level.getBlockEntity(pos, Blocks.GENETIC_CROP_BLOCK_ENTITY.value());
         if (cropEntity.isPresent()) {
             RandomSource random = level.getRandom();
-            Genotype genotype = sampleRandomGenotype(random, config);
-            Genotype pollinatorGenotype = sampleRandomGenotype(random, config);
+            NewGenotype genotype = sampleRandomGenotype(random, config);
+            NewGenotype pollinatorGenotype = sampleRandomGenotype(random, config);
 
             GeneticCropBlockEntity entity = cropEntity.get();
             entity.setGenotype(genotype);
@@ -67,15 +67,16 @@ public class GeneticCropFeature extends Feature<GeneticCropConfiguration> {
         }
     }
 
-    private static Genotype sampleRandomGenotype(RandomSource random, GeneticCropConfiguration config) {
+    private static NewGenotype sampleRandomGenotype(RandomSource random, GeneticCropConfiguration config) {
         int[] lowerBounds = config.gLowerBound().getGenotypeAsIntArray();
         int[] upperBounds = config.gUpperBound().getGenotypeAsIntArray();
-        int[] result = new int[Genotype.MAX_CHROMOSOMES];
-        for (int i = 0; i < Genotype.MAX_CHROMOSOMES; i++) {
-            int lowerBound = lowerBounds[i];
-            int upperBound = upperBounds[i];
+        int chromosomeCount = Math.max(lowerBounds.length, upperBounds.length);
+        int[] result = new int[chromosomeCount];
+        for (int i = 0; i < chromosomeCount; i++) {
+            int lowerBound = i < lowerBounds.length ? lowerBounds[i] : 0;
+            int upperBound = i < upperBounds.length ? upperBounds[i] : 255;
             result[i] = random.nextInt(lowerBound, upperBound + 1);
         }
-        return new Genotype(result);
+        return new NewGenotype(result);
     }
 }

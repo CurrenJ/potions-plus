@@ -3,7 +3,7 @@ package grill24.potionsplus.core;
 import grill24.potionsplus.item.*;
 import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
 import grill24.potionsplus.skill.reward.OwnerDataComponent;
-import grill24.potionsplus.utility.Genotype;
+import grill24.potionsplus.utility.NewGenotype;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -46,10 +46,10 @@ public class DataComponents {
                     .cacheEncoding()
     );
 
-    public static final Supplier<DataComponentType<Genotype>> GENETIC_DATA = DATA_COMPONENTS.registerComponentType(
+    public static final Supplier<DataComponentType<NewGenotype>> GENETIC_DATA = DATA_COMPONENTS.registerComponentType(
             "genetic_data", builder -> builder
-                    .persistent(Genotype.CODEC)
-                    .networkSynchronized(Genotype.STREAM_CODEC)
+                    .persistent(NewGenotype.CODEC)
+                    .networkSynchronized(NewGenotype.STREAM_CODEC)
                     .cacheEncoding()
     );
 

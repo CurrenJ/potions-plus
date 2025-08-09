@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import grill24.potionsplus.core.ConsumeEffects;
 import grill24.potionsplus.core.DataComponents;
 import grill24.potionsplus.item.GeneticCropItem;
-import grill24.potionsplus.utility.Genotype;
+import grill24.potionsplus.utility.NewGenotype;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,10 +28,12 @@ public class GeneticCropItemConsumeEffect implements ConsumeEffect {
     @Override
     public boolean apply(Level level, ItemStack stack, LivingEntity entity) {
         if (stack.has(DataComponents.GENETIC_DATA) && entity instanceof ServerPlayer serverPlayer && stack.getItem() instanceof GeneticCropItem geneticCropItem) {
-            Genotype genotype = stack.get(DataComponents.GENETIC_DATA);
+            NewGenotype genotype = stack.get(DataComponents.GENETIC_DATA);
 
             // Get byte associated with nutrition chromosome
-            byte n = genotype.getGenotypeAsBytes()[GeneticCropItem.NUTRITION_CHROMOSOME_INDEX];
+            byte[] chromosomes = genotype.getGenotypeAsBytes();
+            byte n = chromosomes.length > GeneticCropItem.NUTRITION_CHROMOSOME_INDEX ? 
+                     chromosomes[GeneticCropItem.NUTRITION_CHROMOSOME_INDEX] : 0;
 
             float nutrition = geneticCropItem.getChromosomeValueNormalized(stack, GeneticCropItem.NUTRITION_CHROMOSOME_INDEX) * 9F + 1F;
 //            float saturation = geneticCropItem.getChromosomeValueNormalized(stack, GeneticCropItem.SATURATION_CHROMOSOME_INDEX);
