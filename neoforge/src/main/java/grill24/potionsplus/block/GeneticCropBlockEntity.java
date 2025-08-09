@@ -80,7 +80,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
         }
 
         this.placementTime = this.level.getGameTime();
-        this.genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new Genotype());
+        this.genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new NewGenotype());
         this.lastPollinationTime = -1; // Reset pollination time on placement
         this.pollinatorGenotype = null; // Reset pollinator genotype on placement
         this.setChanged();
@@ -130,7 +130,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
         if (this.level == null || this.pollinatorGenotype == null || this.genotype == null) {
             PotionsPlus.LOGGER.warn("GeneticCropBlockEntity: Cannot produce offspring, missing genotype or pollinator genotype.");
 
-            Genotype genotype = new Genotype();
+            NewGenotype genotype = new NewGenotype();
             if (this.genotype != null) {
                 genotype = this.genotype;
             }
@@ -140,8 +140,8 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
             return stack;
         }
 
-        Genotype offspringGenotype = Genotype.crossover(this.genotype, this.pollinatorGenotype);
-        offspringGenotype = Genotype.tryUniformMutate(offspringGenotype, 0.02F);
+        NewGenotype offspringGenotype = NewGenotype.crossover(this.genotype, this.pollinatorGenotype);
+        offspringGenotype = NewGenotype.tryUniformMutate(offspringGenotype, 0.02F);
 
         ItemStack offspringStack = new ItemStack(cropBlock.get().getCropItem());
         offspringStack.set(DataComponents.GENETIC_DATA, offspringGenotype);
