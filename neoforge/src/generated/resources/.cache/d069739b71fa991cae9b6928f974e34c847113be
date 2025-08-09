@@ -1,4 +1,4 @@
-// 1.21.5	2025-07-31T14:58:24.266114	Potions Plus block tags
+// 1.21.5	2025-08-09T00:08:25.070775927	Potions Plus block tags
 86e81f2accfb35eff8521bb02b1df0a4e1f38115 data/c/tags/block/ores.json
 c1912c4e564624bdb548b7ce47bb1f0729133cb1 data/c/tags/block/ores/coal.json
 5d9df9ed1bf9f821ff59e45c2838f8d3d9e41512 data/c/tags/block/ores/copper.json
@@ -19,7 +19,7 @@ f94c4a786175665640f6225694abd402dee89eef data/minecraft/tags/block/diamond_ores.
 f2a42891791061174becd96aeb01fca83a2f95c8 data/minecraft/tags/block/iron_ores.json
 91390c50f906b5b159f0992a7685f0fac75e3c1a data/minecraft/tags/block/lapis_ores.json
 e27ff90d725b83b468a8c87e7cf0bd5c1fabe68b data/minecraft/tags/block/mineable/axe.json
-8f5b5942e9b53389165a8bbdbb1bd7cfaa741358 data/minecraft/tags/block/mineable/pickaxe.json
+f35d0a8c86e176530409e764d5d6737efdeff32e data/minecraft/tags/block/mineable/pickaxe.json
 844caccc749bff0bf527566f5eaf6cd9d4cf919e data/minecraft/tags/block/mineable/shovel.json
 a0bcb4f93542199aff3d1883bd6e396b88a97ec3 data/minecraft/tags/block/needs_iron_tool.json
 354d705c6a1e09e07c0f680f5831a1eb18f5fe38 data/minecraft/tags/block/needs_stone_tool.json
@@ -29,7 +29,7 @@ e3949cfc970fa804453a4504bff1e6aa822bbeaa data/minecraft/tags/block/redstone_ores
 919fd03d6a5437f896058427962a2fa9251d1e62 data/potionsplus/tags/block/fish_tank_frame.json
 8323274a9b9bbf8efbd10ae1c000ce80928496ca data/potionsplus/tags/block/fish_tank_sand.json
 cf3608bd187922aeb48c566c19e8482b0dca34c7 data/potionsplus/tags/block/freezable.json
-25c2b337a98c53c45a7c3e4b1ab7e1ce63aab1c2 data/potionsplus/tags/block/ores/uranium.json
 d9648142ea095edd1549d371da4b741e9e1464f6 data/potionsplus/tags/block/ore_flowers.json
 f76e77287f750350168c201287a45b6b5d8f8e5b data/potionsplus/tags/block/ore_replaceable.json
+25c2b337a98c53c45a7c3e4b1ab7e1ce63aab1c2 data/potionsplus/tags/block/ores/uranium.json
 77af2f2735f38d99ad216d02a797b8e514cf4f18 data/potionsplus/tags/block/sandy_ore_replaceable.json

@@ -22,6 +22,7 @@
     "potionsplus:stoney_lapis_ore",
     "potionsplus:stoney_redstone_ore",
     "potionsplus:stoney_coal_ore",
-    "potionsplus:stoney_uranium_ore"
+    "potionsplus:stoney_uranium_ore",
+    "minecraft:obsidian"
   ]
 }
