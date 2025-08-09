@@ -91,6 +91,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(OreBlocks.SANDY_COPPER_ORE.value(), OreBlocks.SANDY_IRON_ORE.value(), OreBlocks.SANDY_GOLD_ORE.value(), OreBlocks.SANDY_DIAMOND_ORE.value(), OreBlocks.SANDY_EMERALD_ORE.value(), OreBlocks.SANDY_LAPIS_ORE.value(), OreBlocks.SANDY_REDSTONE_ORE.value(), OreBlocks.SANDY_COAL_ORE.value(), OreBlocks.SANDY_URANIUM_ORE.value());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.STONEY_COPPER_ORE.value(), OreBlocks.STONEY_IRON_ORE.value(), OreBlocks.STONEY_GOLD_ORE.value(), OreBlocks.STONEY_DIAMOND_ORE.value(), OreBlocks.STONEY_EMERALD_ORE.value(), OreBlocks.STONEY_LAPIS_ORE.value(), OreBlocks.STONEY_REDSTONE_ORE.value(), OreBlocks.STONEY_COAL_ORE.value(), OreBlocks.STONEY_URANIUM_ORE.value());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.OBSIDIAN); // Test change for clientData verification
 
         tag(grill24.potionsplus.core.Tags.Blocks.FREEZABLE).add(net.minecraft.world.level.block.Blocks.WATER);
 
