@@ -19,6 +19,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.neoforged.neoforge.common.loot.AddTableLootModifier;
@@ -145,6 +146,79 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                                 new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.SKELETON_BONE_BLOCK_ADDITIONAL_LOOT.getKey())
                         },
                         LootTables.SKELETON_BONE_BLOCK_BONUS_DROPS
+                )
+        );
+
+        // Farming crop bonus drops (Skill Abilities)
+        // Wheat Additional Seeds
+        this.add(
+                "wheat_additional_seeds_ability",
+                new AddTableLootModifier(
+                        new LootItemCondition[]{
+                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.WHEAT).build(),
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.WHEAT_ADDITIONAL_LOOT.getKey())
+                        },
+                        LootTables.WHEAT_ADDITIONAL_SEEDS_BONUS_DROPS
+                )
+        );
+
+        // Carrot Golden Carrot Bonus
+        this.add(
+                "carrot_golden_carrot_ability",
+                new AddTableLootModifier(
+                        new LootItemCondition[]{
+                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.CARROTS).build(),
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.CARROT_ADDITIONAL_LOOT.getKey())
+                        },
+                        LootTables.CARROT_GOLDEN_CARROT_BONUS_DROPS
+                )
+        );
+
+        // Potato Poisonous Potato Bonus
+        this.add(
+                "potato_poisonous_potato_ability",
+                new AddTableLootModifier(
+                        new LootItemCondition[]{
+                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.POTATOES).build(),
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.POTATO_ADDITIONAL_LOOT.getKey())
+                        },
+                        LootTables.POTATO_POISONOUS_POTATO_BONUS_DROPS
+                )
+        );
+
+        // Beetroot Sugar Bonus
+        this.add(
+                "beetroot_sugar_ability",
+                new AddTableLootModifier(
+                        new LootItemCondition[]{
+                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.BEETROOTS).build(),
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.BEETROOT_ADDITIONAL_LOOT.getKey())
+                        },
+                        LootTables.BEETROOT_SUGAR_BONUS_DROPS
+                )
+        );
+
+        // Nether Wart Blaze Powder Bonus
+        this.add(
+                "nether_wart_blaze_powder_ability",
+                new AddTableLootModifier(
+                        new LootItemCondition[]{
+                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.NETHER_WART).build(),
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.NETHER_WART_ADDITIONAL_LOOT.getKey())
+                        },
+                        LootTables.NETHER_WART_BLAZE_POWDER_BONUS_DROPS
+                )
+        );
+
+        // Cocoa Brown Dye Bonus
+        this.add(
+                "cocoa_cookie_ability",
+                new AddTableLootModifier(
+                        new LootItemCondition[]{
+                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.COCOA).build(),
+                                new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.COCOA_ADDITIONAL_LOOT.getKey())
+                        },
+                        LootTables.COCOA_COOKIE_BONUS_DROPS
                 )
         );
     }

@@ -1,19 +1,19 @@
 {
   "type": "potionsplus:modifiers_while_item_held",
   "config": {
-    "attribute": "minecraft:mining_efficiency",
+    "attribute": "potionsplus:player.unbreaking_bonus",
     "baseConfig": {
       "enabledByDefault": true,
       "itemPredicate": {
         "items": "#minecraft:hoes"
       },
       "parentSkill": "potionsplus:farming",
-      "translationKey": "description.potionsplus.ability.hoe_efficiency"
+      "translationKey": "description.potionsplus.ability.hoe_unbreaking"
     },
     "modifiers": [
       {
         "amount": 0.0,
-        "id": "potionsplus:hoe_efficiency_modifier_modifier",
+        "id": "potionsplus:hoe_unbreaking_modifier_modifier",
         "operation": "add_value"
       }
     ]

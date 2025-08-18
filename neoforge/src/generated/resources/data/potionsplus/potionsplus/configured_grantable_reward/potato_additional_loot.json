@@ -1,0 +1,6 @@
+{
+  "type": "potionsplus:ability",
+  "config": {
+    "configuredPlayerAbility": "potionsplus:potato_additional_loot"
+  }
+}

@@ -68,6 +68,26 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS)
             .parentSkill(ConfiguredSkills.MINING));
 
+    // Crop additional loot abilities for farming skill  
+    public static final SimplePlayerAbility.Builder WHEAT_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("wheat_additional_loot")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_WHEAT_ADDITIONAL_LOOT)
+            .parentSkill(ConfiguredSkills.FARMING));
+    public static final SimplePlayerAbility.Builder CARROT_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("carrot_additional_loot")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_CARROT_ADDITIONAL_LOOT)
+            .parentSkill(ConfiguredSkills.FARMING));
+    public static final SimplePlayerAbility.Builder POTATO_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("potato_additional_loot")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_POTATO_ADDITIONAL_LOOT)
+            .parentSkill(ConfiguredSkills.FARMING));
+    public static final SimplePlayerAbility.Builder BEETROOT_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("beetroot_additional_loot")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BEETROOT_ADDITIONAL_LOOT)
+            .parentSkill(ConfiguredSkills.FARMING));
+    public static final SimplePlayerAbility.Builder NETHER_WART_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("nether_wart_additional_loot")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_NETHER_WART_ADDITIONAL_LOOT)
+            .parentSkill(ConfiguredSkills.FARMING));
+    public static final SimplePlayerAbility.Builder COCOA_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("cocoa_additional_loot")
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_COCOA_ADDITIONAL_LOOT)
+            .parentSkill(ConfiguredSkills.FARMING));
+
     private static final ItemPredicateFactory axePredicate = (items) -> ItemPredicate.Builder.item().of(items, ItemTags.AXES).build();
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("axe_efficiency_modifier")
@@ -124,10 +144,28 @@ public class ConfiguredPlayerAbilities {
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("hoe_efficiency_modifier")
                     .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_EFFICIENCY)
-                    .parentSkill(ConfiguredSkills.MINING)
+                    .parentSkill(ConfiguredSkills.FARMING)
                     .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
                     .itemPredicate(hoePredicate)
                     .attribute(Attributes.MINING_EFFICIENCY)
+                    .operation(AttributeModifier.Operation.ADD_VALUE)
+                    .enabledByDefault(true));
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_FORTUNE_MODIFIER = register(() ->
+            new PermanentAttributeModifiersAbility.Builder<>("hoe_fortune_modifier")
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_FORTUNE)
+                    .parentSkill(ConfiguredSkills.FARMING)
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                    .itemPredicate(hoePredicate)
+                    .attribute(grill24.potionsplus.core.Attributes.FORTUNE_BONUS)
+                    .operation(AttributeModifier.Operation.ADD_VALUE)
+                    .enabledByDefault(true));
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_UNBREAKING_MODIFIER = register(() ->
+            new PermanentAttributeModifiersAbility.Builder<>("hoe_unbreaking_modifier")
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_UNBREAKING)
+                    .parentSkill(ConfiguredSkills.FARMING)
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                    .itemPredicate(hoePredicate)
+                    .attribute(grill24.potionsplus.core.Attributes.UNBREAKING_BONUS)
                     .operation(AttributeModifier.Operation.ADD_VALUE)
                     .enabledByDefault(true));
 
