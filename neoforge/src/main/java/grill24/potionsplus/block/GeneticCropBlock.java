@@ -5,8 +5,8 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.DataComponents;
-import grill24.potionsplus.utility.NewGenotype;
 import grill24.potionsplus.utility.InvUtil;
+import grill24.potionsplus.utility.NewGenotype;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -176,15 +176,13 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
 
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        BlockState blockstate = level.getBlockState(pos.below());
-        if (blockstate.is(this)) {
-            return true;
-        } else {
-            var soilDecision = blockstate.canSustainPlant(level, pos.below(), Direction.UP, state);
-            if (!soilDecision.isDefault()) return soilDecision.isTrue();
-            return state.getValue(GeneticCropBlock.AGE) != 0 &&
-                    (blockstate.is(BlockTags.DIRT) || blockstate.is(BlockTags.SAND));
-        }
+        var isDirtOrSand = level.getBlockState(pos.below()).is(BlockTags.DIRT) || level.getBlockState(pos.below()).is(BlockTags.SAND);
+        if (isDirtOrSand) return true;
+
+        var soilDecision = level.getBlockState(pos.below()).canSustainPlant(level, pos.below(), net.minecraft.core.Direction.UP, state);
+        if (!soilDecision.isDefault()) return soilDecision.isTrue();
+
+        return hasSufficientLight(level, pos) && super.canSurvive(state, level, pos);
     }
 
     private void tryAge(BlockState state, ServerLevel level, BlockPos pos) {

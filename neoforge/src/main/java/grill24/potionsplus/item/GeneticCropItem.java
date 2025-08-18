@@ -1,7 +1,7 @@
 package grill24.potionsplus.item;
 
-import java.util.Arrays;
 import grill24.potionsplus.core.DataComponents;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.item.consumeeffect.GeneticCropItemConsumeEffect;
@@ -18,6 +18,8 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
+import java.util.Arrays;
+
 import static grill24.potionsplus.utility.Utility.ppId;
 
 @EventBusSubscriber(modid = grill24.potionsplus.utility.ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
@@ -27,14 +29,15 @@ public abstract class GeneticCropItem extends BlockItem {
     public static final int NUTRITION_CHROMOSOME_INDEX = COLOR_CHROMOSOME_INDEX + 1;
 
     public GeneticCropItem(Block block, Properties properties) {
-        super(block, properties.component(net.minecraft.core.component.DataComponents.CONSUMABLE,
-                Consumable.builder()
-                        .consumeSeconds(0.75F)
-                        .animation(ItemUseAnimation.EAT)
-                        .sound(SoundEvents.GENERIC_EAT)
-                        .hasConsumeParticles(true)
-                        .onConsume(GeneticCropItemConsumeEffect.INSTANCE)
-                        .build()));
+        super(block, properties.useItemDescriptionPrefix()
+                .component(net.minecraft.core.component.DataComponents.CONSUMABLE,
+                        Consumable.builder()
+                                .consumeSeconds(0.75F)
+                                .animation(ItemUseAnimation.EAT)
+                                .sound(SoundEvents.GENERIC_EAT)
+                                .hasConsumeParticles(true)
+                                .onConsume(GeneticCropItemConsumeEffect.INSTANCE)
+                                .build()));
     }
 
     public abstract int getColorARGB(ItemStack stack);
@@ -74,7 +77,8 @@ public abstract class GeneticCropItem extends BlockItem {
         NewGenotype genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new NewGenotype());
         int[] genotypeArray = genotype.getGenotypeAsIntArray();
         if (index < 0 || index >= genotypeArray.length) {
-            throw new IndexOutOfBoundsException("Chromosome index out of bounds: " + index);
+            PotionsPlus.LOGGER.warn("Chromosome index out of bounds: {} for stack: {}", index, stack);
+            return 0; // Return a default value if index is out of bounds
         }
         return genotypeArray[index];
     }
@@ -88,7 +92,7 @@ public abstract class GeneticCropItem extends BlockItem {
         NewGenotype genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new NewGenotype());
         int[] genotypeArray = genotype.getGenotypeAsIntArray();
         if (index < 0 || index >= genotypeArray.length) {
-            throw new IndexOutOfBoundsException("Chromosome index out of bounds: " + index);
+            PotionsPlus.LOGGER.warn("Chromosome index out of bounds: {} for stack: {}", index, stack);
         }
         genotypeArray[index] = value;
         stack.set(DataComponents.GENETIC_DATA, new NewGenotype(genotypeArray));
@@ -124,15 +128,15 @@ public abstract class GeneticCropItem extends BlockItem {
         int[] usedChromosomes = getUsedChromosomes();
         NewGenotype currentGenotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new NewGenotype());
         int[] currentChromosomes = currentGenotype.getGenotypeAsIntArray();
-        
+
         // Create a new chromosome array with the proper length to accommodate used chromosomes
         int maxChromosomeIndex = usedChromosomes.length > 0 ? Arrays.stream(usedChromosomes).max().orElse(0) : 0;
         int chromosomeCount = Math.max(currentChromosomes.length, maxChromosomeIndex + 1);
         int[] chromosomes = new int[chromosomeCount];
-        
+
         // Copy existing chromosome values
         System.arraycopy(currentChromosomes, 0, chromosomes, 0, Math.min(currentChromosomes.length, chromosomeCount));
-        
+
         // Set values for used chromosomes
         for (int chromosomeIndex : usedChromosomes) {
             if (chromosomeIndex < currentChromosomes.length) {

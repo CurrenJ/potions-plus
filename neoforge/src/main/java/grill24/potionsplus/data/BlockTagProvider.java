@@ -135,6 +135,17 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .add(DecorationBlocks.UNSTABLE_MOLTEN_DEEPSLATE.value())
                 .addTag(Tags.Blocks.COBBLESTONES);
 
+        tag(grill24.potionsplus.core.Tags.Blocks.ORE_STONEY)
+                .add(OreBlocks.STONEY_COPPER_ORE.value())
+                .add(OreBlocks.STONEY_IRON_ORE.value())
+                .add(OreBlocks.STONEY_GOLD_ORE.value())
+                .add(OreBlocks.STONEY_DIAMOND_ORE.value())
+                .add(OreBlocks.STONEY_EMERALD_ORE.value())
+                .add(OreBlocks.STONEY_LAPIS_ORE.value())
+                .add(OreBlocks.STONEY_REDSTONE_ORE.value())
+                .add(OreBlocks.STONEY_COAL_ORE.value())
+                .add(OreBlocks.STONEY_URANIUM_ORE.value());
+
         tag(grill24.potionsplus.core.Tags.Blocks.SANDY_ORE_REPLACEABLE)
                 .addTag(Tags.Blocks.GRAVELS)
                 .addTag(BlockTags.DIRT)
@@ -144,6 +155,16 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .remove(Blocks.GRASS_BLOCK)
                 .remove(Blocks.PODZOL);
 
+        tag(grill24.potionsplus.core.Tags.Blocks.ORE_SANDY)
+                .add(OreBlocks.SANDY_COPPER_ORE.value())
+                .add(OreBlocks.SANDY_IRON_ORE.value())
+                .add(OreBlocks.SANDY_GOLD_ORE.value())
+                .add(OreBlocks.SANDY_DIAMOND_ORE.value())
+                .add(OreBlocks.SANDY_EMERALD_ORE.value())
+                .add(OreBlocks.SANDY_LAPIS_ORE.value())
+                .add(OreBlocks.SANDY_REDSTONE_ORE.value())
+                .add(OreBlocks.SANDY_COAL_ORE.value())
+                .add(OreBlocks.SANDY_URANIUM_ORE.value());
 
         tag(BlockTags.STONE_ORE_REPLACEABLES)
                 .addTag(grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE)
