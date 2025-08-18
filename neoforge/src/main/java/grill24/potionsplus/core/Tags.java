@@ -15,7 +15,11 @@ public class Tags {
         public static final TagKey<Block> FREEZABLE = tag("freezable");
         public static final TagKey<Block> CAVE_REPLACEABLE = tag("cave_replaceable");
         public static final TagKey<Block> ORE_FLOWERS = tag("ore_flowers");
+
+        public static final TagKey<Block> ORE_STONEY = tag("ore_stoney");
         public static final TagKey<Block> STONEY_ORE_REPLACEABLE = tag("ore_replaceable");
+
+        public static final TagKey<Block> ORE_SANDY = tag("ore_sandy");
         public static final TagKey<Block> SANDY_ORE_REPLACEABLE = tag("sandy_ore_replaceable");
 
         public static final TagKey<Block> FISH_TANK_FRAME = tag("fish_tank_frame");
