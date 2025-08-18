@@ -136,7 +136,7 @@ public class ConfiguredGrantableRewards {
     public static final AbilityReward.AbilityRewardBuilder POTATO_POISONOUS_POTATO_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.POTATO_ADDITIONAL_LOOT.getKey());
     public static final AbilityReward.AbilityRewardBuilder BEETROOT_SUGAR_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.BEETROOT_ADDITIONAL_LOOT.getKey());
     public static final AbilityReward.AbilityRewardBuilder NETHER_WART_BLAZE_POWDER_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.NETHER_WART_ADDITIONAL_LOOT.getKey());
-    public static final AbilityReward.AbilityRewardBuilder COCOA_BROWN_DYE_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.COCOA_ADDITIONAL_LOOT.getKey());
+    public static final AbilityReward.AbilityRewardBuilder COCOA_COOKIE_LOOT = registerAbilityReward(ConfiguredPlayerAbilities.COCOA_ADDITIONAL_LOOT.getKey());
 
     public static final IncreaseAbilityStrengthReward.Builder SMALL_AXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("axe_efficiency_increase")
             .ability(ConfiguredPlayerAbilities.AXE_EFFICIENCY_MODIFIER.getKey())

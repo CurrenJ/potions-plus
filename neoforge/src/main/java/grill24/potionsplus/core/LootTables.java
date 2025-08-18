@@ -35,7 +35,7 @@ public class LootTables {
     public static final ResourceKey<LootTable> POTATO_POISONOUS_POTATO_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("potato_poisonous_potato_bonus_drops"));
     public static final ResourceKey<LootTable> BEETROOT_SUGAR_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("beetroot_sugar_bonus_drops"));
     public static final ResourceKey<LootTable> NETHER_WART_BLAZE_POWDER_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("nether_wart_blaze_powder_bonus_drops"));
-    public static final ResourceKey<LootTable> COCOA_BROWN_DYE_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("cocoa_brown_dye_bonus_drops"));
+    public static final ResourceKey<LootTable> COCOA_COOKIE_BONUS_DROPS = ResourceKey.create(Registries.LOOT_TABLE, ppId("cocoa_cookie_bonus_drops"));
 
     public static final ResourceKey<LootTable>[] COPPER_ORE_HATS = Utility.enumerateLootTableKeys(ppId("copper_ore_hat"), HatItems.BLOCK_HAT_MODELS.length);
     public static final ResourceKey<LootTable>[] COAL_ORE_HATS = Utility.enumerateLootTableKeys(ppId("coal_ore_hat"), HatItems.BLOCK_HAT_MODELS.length);

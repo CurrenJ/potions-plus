@@ -49,7 +49,7 @@ public class Farming {
                         .addRewardForLevel(35, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_HOE_EFFICIENCY_INCREASE))
                         .addRewardForLevel(38, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CARROT_GOLDEN_CARROT_LOOT.getKey()))
                         .addRewardForLevel(40, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_LOOT_1.getKey()))
-                        .addRewardForLevel(42, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.COCOA_BROWN_DYE_LOOT.getKey()))
+                        .addRewardForLevel(42, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.COCOA_COOKIE_LOOT.getKey()))
                         .addRewardForLevel(45, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.ADVANCED_SKILL_LOOT_EDIBLE.getKey()))
                         .addRewardForLevel(48, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.HOE_FORTUNE_INCREASE))
                         .addRewardForLevel(55, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_HOE_EFFICIENCY_INCREASE))

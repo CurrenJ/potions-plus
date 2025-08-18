@@ -212,13 +212,13 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
 
         // Cocoa Brown Dye Bonus
         this.add(
-                "cocoa_brown_dye_ability",
+                "cocoa_cookie_ability",
                 new AddTableLootModifier(
                         new LootItemCondition[]{
                                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.COCOA).build(),
                                 new HasPlayerAbilityCondition(ConfiguredPlayerAbilities.COCOA_ADDITIONAL_LOOT.getKey())
                         },
-                        LootTables.COCOA_BROWN_DYE_BONUS_DROPS
+                        LootTables.COCOA_COOKIE_BONUS_DROPS
                 )
         );
     }
