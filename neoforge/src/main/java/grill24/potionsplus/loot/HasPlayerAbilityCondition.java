@@ -41,7 +41,7 @@ public record HasPlayerAbilityCondition(ResourceKey<ConfiguredPlayerAbility<?, ?
     }
 
     public boolean test(LootContext context) {
-        Entity entity = context.getParameter(LootContextParams.THIS_ENTITY);
+        Entity entity = context.getOptionalParameter(LootContextParams.THIS_ENTITY);
         if (!(entity instanceof Player)) {
             entity = context.getOptionalParameter(LootContextParams.LAST_DAMAGE_PLAYER);
         }
