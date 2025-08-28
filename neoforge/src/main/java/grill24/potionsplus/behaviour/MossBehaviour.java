@@ -1,10 +1,13 @@
 package grill24.potionsplus.behaviour;
 
+import grill24.potionsplus.block.GrowableMossyBlock;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.items.BrewingItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.ItemAbilities;
@@ -29,6 +32,36 @@ public class MossBehaviour {
         tryMossifyBlock(event, pos, Blocks.STONE_BRICK_SLAB, Blocks.MOSSY_STONE_BRICK_SLAB);
         tryMossifyBlock(event, pos, Blocks.STONE_BRICK_STAIRS, Blocks.MOSSY_STONE_BRICK_STAIRS);
         tryMossifyBlock(event, pos, Blocks.INFESTED_STONE_BRICKS, Blocks.INFESTED_MOSSY_STONE_BRICKS);
+
+        // Handle bone meal to create growable mossy blocks
+        tryBoneMealStoneBlock(event, pos);
+    }
+
+    private static void tryBoneMealStoneBlock(PlayerInteractEvent.RightClickBlock event, BlockPos pos) {
+        if (event.getItemStack().is(Items.BONE_MEAL)) {
+            // Check for cobblestone to growing mossy cobblestone conversion
+            if (GrowableMossyBlock.shouldConvertStoneBlock(event.getLevel(), pos, Blocks.COBBLESTONE, DecorationBlocks.GROWING_MOSSY_COBBLESTONE.value())) {
+                event.setCanceled(true);
+                event.getLevel().setBlockAndUpdate(pos, DecorationBlocks.GROWING_MOSSY_COBBLESTONE.value().defaultBlockState());
+                if (!event.getEntity().isCreative()) {
+                    event.getItemStack().shrink(1);
+                }
+                event.getEntity().swing(event.getHand());
+                event.getLevel().playSound(event.getEntity(), pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BONE_MEAL_USE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                return;
+            }
+            
+            // Check for stone bricks to growing mossy stone bricks conversion
+            if (GrowableMossyBlock.shouldConvertStoneBlock(event.getLevel(), pos, Blocks.STONE_BRICKS, DecorationBlocks.GROWING_MOSSY_STONE_BRICKS.value())) {
+                event.setCanceled(true);
+                event.getLevel().setBlockAndUpdate(pos, DecorationBlocks.GROWING_MOSSY_STONE_BRICKS.value().defaultBlockState());
+                if (!event.getEntity().isCreative()) {
+                    event.getItemStack().shrink(1);
+                }
+                event.getEntity().swing(event.getHand());
+                event.getLevel().playSound(event.getEntity(), pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BONE_MEAL_USE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+            }
+        }
     }
 
     private static void tryMossifyBlock(PlayerInteractEvent.RightClickBlock event, BlockPos pos, Block nonMossyBlock, Block mossyBlock) {

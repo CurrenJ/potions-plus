@@ -12,6 +12,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -26,6 +27,7 @@ public class DecorationBlocks {
     public static Holder<Block> COOBLESTONE, ICICLE;
     public static Holder<Block> UNSTABLE_BLOCK, UNSTABLE_MOLTEN_DEEPSLATE, UNSTABLE_DEEPSLATE, UNSTABLE_MOLTEN_BLACKSTONE, UNSTABLE_BLACKSTONE;
     public static Holder<Block> LAVA_GEYSER, DECORATIVE_FIRE;
+    public static Holder<Block> GROWING_MOSSY_COBBLESTONE, GROWING_MOSSY_STONE_BRICKS;
 
 
     public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
@@ -90,6 +92,18 @@ public class DecorationBlocks {
                 .modelGenerator(null) // Hand-made model
         ).getHolder();
         Items.registerBlockItemWithTexture(DECORATIVE_FIRE, registerItem, mc("block/fire_0"));
+
+        GROWING_MOSSY_COBBLESTONE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("growing_mossy_cobblestone")
+                .blockFactory(prop -> new GrowableMossyBlock(prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(2.0F, 6.0F).randomTicks(), Blocks.MOSSY_COBBLESTONE))
+                .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, mc("block/cobblestone"), true, true, false))
+        ).getHolder();
+        Items.registerBlockItem(GROWING_MOSSY_COBBLESTONE, registerItem);
+
+        GROWING_MOSSY_STONE_BRICKS = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("growing_mossy_stone_bricks")
+                .blockFactory(prop -> new GrowableMossyBlock(prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).randomTicks(), Blocks.MOSSY_STONE_BRICKS))
+                .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, mc("block/stone_bricks"), true, true, false))
+        ).getHolder();
+        Items.registerBlockItem(GROWING_MOSSY_STONE_BRICKS, registerItem);
     }
 
 }
