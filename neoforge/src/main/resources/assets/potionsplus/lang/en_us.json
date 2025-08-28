@@ -804,5 +804,8 @@
   "item.potionsplus.kohlrabi": "Kohlrabi",
   "item.potionsplus.broccoli": "Broccoli",
   "item.potionsplus.kale": "Kale",
-  "item.potionsplus.brussels_sprouts": "Brussels Sprouts"
+  "item.potionsplus.brussels_sprouts": "Brussels Sprouts",
+
+  "block.potionsplus.growing_mossy_cobblestone": "Growing Mossy Cobblestone",
+  "block.potionsplus.growing_mossy_stone_bricks": "Growing Mossy Stone Bricks"
 }

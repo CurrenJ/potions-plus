@@ -1,7 +1,7 @@
-// 1.21.5	2025-08-19T00:01:08.4424879	Loot Tables
+// 1.21.5	2025-08-29T00:45:23.7489141	Loot Tables
 767576116fd07a81b32e7f2f0f1c900fb084b0a7 data/potionsplus/loot_table/advanced_skill_rewards.json
-dbbf448fb5a270af3d4aaf803399fa837472cc2a data/potionsplus/loot_table/all_potions.json
-a28f2a015ab6e629d10c2e50e9afa7db97a95261 data/potionsplus/loot_table/arid_cave_suspicious_sand.json
+ce999c69f68522090a10890c6df0399fa7fb2d51 data/potionsplus/loot_table/all_potions.json
+a371a945233a6161e480f47d85b9e9b92c7c9b99 data/potionsplus/loot_table/arid_cave_suspicious_sand.json
 12af4d734f3484bb07c5d2c3cda6e0fb5e4aad2d data/potionsplus/loot_table/basic_skill_rewards.json
 2eabe4411f35c4bff1cf2460dac970398985d63c data/potionsplus/loot_table/beetroot_sugar_bonus_drops.json
 2c3c35e61a35bc151966f3cc1b284518aa4185b6 data/potionsplus/loot_table/blocks/abyssal_trove.json
@@ -151,6 +151,8 @@ a8598f7b5ad1c94f0790b336be7aa8df315d98f9 data/potionsplus/loot_table/blocks/deep
 542294ddc9602d9fbb400147b5c2404ef6db3093 data/potionsplus/loot_table/blocks/fishing_leaderboards.json
 e98c4a43c26db76f590e377db5d8f1d76d629bba data/potionsplus/loot_table/blocks/fish_tank.json
 83ba8df4b3420c7869a9fb3f791d6615ca649f10 data/potionsplus/loot_table/blocks/golden_cubensis.json
+7ff9b3ec8c32c263ef653ab4076cc9a1c5eef036 data/potionsplus/loot_table/blocks/growing_mossy_cobblestone.json
+e82791c21c0475c9d0cd9f13723c85c12a840d31 data/potionsplus/loot_table/blocks/growing_mossy_stone_bricks.json
 8cec7bfd8054032c776ed26c4f4e93f9f86fc970 data/potionsplus/loot_table/blocks/hanging_fern.json
 30948e9313e0fa3f02226515e2804e2b9fe80f89 data/potionsplus/loot_table/blocks/herbalists_lectern.json
 872d8f6a5334f6f888bea737014b0a1b9fd5485c data/potionsplus/loot_table/blocks/huge_filter_hopper.json

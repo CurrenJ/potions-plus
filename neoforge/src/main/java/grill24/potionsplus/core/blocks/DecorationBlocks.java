@@ -95,13 +95,13 @@ public class DecorationBlocks {
 
         GROWING_MOSSY_COBBLESTONE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("growing_mossy_cobblestone")
                 .blockFactory(prop -> new GrowableMossyBlock(prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(2.0F, 6.0F).randomTicks(), Blocks.MOSSY_COBBLESTONE))
-                .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, mc("block/cobblestone"), true, true, false))
+                .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, ppId("block/growing_mossy_cobblestone"), true, true, false))
         ).getHolder();
         Items.registerBlockItem(GROWING_MOSSY_COBBLESTONE, registerItem);
 
         GROWING_MOSSY_STONE_BRICKS = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("growing_mossy_stone_bricks")
                 .blockFactory(prop -> new GrowableMossyBlock(prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).randomTicks(), Blocks.MOSSY_STONE_BRICKS))
-                .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, mc("block/stone_bricks"), true, true, false))
+                .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, ppId("block/growing_mossy_stone_bricks"), true, true, false))
         ).getHolder();
         Items.registerBlockItem(GROWING_MOSSY_STONE_BRICKS, registerItem);
     }
