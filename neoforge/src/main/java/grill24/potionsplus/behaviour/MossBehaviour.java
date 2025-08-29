@@ -50,11 +50,71 @@ public class MossBehaviour {
                 event.getLevel().playSound(event.getEntity(), pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BONE_MEAL_USE, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 return;
             }
+
+            // Check for cobblestone slab to growing mossy cobblestone slab conversion
+            if (GrowableMossyBlock.shouldConvertStoneBlock(event.getLevel(), pos, Blocks.COBBLESTONE_SLAB, DecorationBlocks.GROWING_MOSSY_COBBLESTONE_SLAB.value())) {
+                event.setCanceled(true);
+                event.getLevel().setBlockAndUpdate(pos, DecorationBlocks.GROWING_MOSSY_COBBLESTONE_SLAB.value().defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.SlabBlock.TYPE, event.getLevel().getBlockState(pos).getValue(net.minecraft.world.level.block.SlabBlock.TYPE))
+                        .setValue(net.minecraft.world.level.block.SlabBlock.WATERLOGGED, event.getLevel().getBlockState(pos).getValue(net.minecraft.world.level.block.SlabBlock.WATERLOGGED)));
+                if (!event.getEntity().isCreative()) {
+                    event.getItemStack().shrink(1);
+                }
+                event.getEntity().swing(event.getHand());
+                event.getLevel().playSound(event.getEntity(), pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BONE_MEAL_USE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                return;
+            }
+
+            // Check for cobblestone stairs to growing mossy cobblestone stairs conversion
+            if (GrowableMossyBlock.shouldConvertStoneBlock(event.getLevel(), pos, Blocks.COBBLESTONE_STAIRS, DecorationBlocks.GROWING_MOSSY_COBBLESTONE_STAIRS.value())) {
+                event.setCanceled(true);
+                event.getLevel().setBlockAndUpdate(pos, DecorationBlocks.GROWING_MOSSY_COBBLESTONE_STAIRS.value().defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.StairBlock.FACING, event.getLevel().getBlockState(pos).getValue(net.minecraft.world.level.block.StairBlock.FACING))
+                        .setValue(net.minecraft.world.level.block.StairBlock.HALF, event.getLevel().getBlockState(pos).getValue(net.minecraft.world.level.block.StairBlock.HALF))
+                        .setValue(net.minecraft.world.level.block.StairBlock.SHAPE, event.getLevel().getBlockState(pos).getValue(net.minecraft.world.level.block.StairBlock.SHAPE))
+                        .setValue(net.minecraft.world.level.block.StairBlock.WATERLOGGED, event.getLevel().getBlockState(pos).getValue(net.minecraft.world.level.block.StairBlock.WATERLOGGED)));
+                if (!event.getEntity().isCreative()) {
+                    event.getItemStack().shrink(1);
+                }
+                event.getEntity().swing(event.getHand());
+                event.getLevel().playSound(event.getEntity(), pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BONE_MEAL_USE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                return;
+            }
             
             // Check for stone bricks to growing mossy stone bricks conversion
             if (GrowableMossyBlock.shouldConvertStoneBlock(event.getLevel(), pos, Blocks.STONE_BRICKS, DecorationBlocks.GROWING_MOSSY_STONE_BRICKS.value())) {
                 event.setCanceled(true);
                 event.getLevel().setBlockAndUpdate(pos, DecorationBlocks.GROWING_MOSSY_STONE_BRICKS.value().defaultBlockState());
+                if (!event.getEntity().isCreative()) {
+                    event.getItemStack().shrink(1);
+                }
+                event.getEntity().swing(event.getHand());
+                event.getLevel().playSound(event.getEntity(), pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BONE_MEAL_USE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                return;
+            }
+
+            // Check for stone brick slab to growing mossy stone brick slab conversion
+            if (GrowableMossyBlock.shouldConvertStoneBlock(event.getLevel(), pos, Blocks.STONE_BRICK_SLAB, DecorationBlocks.GROWING_MOSSY_STONE_BRICK_SLAB.value())) {
+                event.setCanceled(true);
+                event.getLevel().setBlockAndUpdate(pos, DecorationBlocks.GROWING_MOSSY_STONE_BRICK_SLAB.value().defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.SlabBlock.TYPE, event.getLevel().getBlockState(pos).getValue(net.minecraft.world.level.block.SlabBlock.TYPE))
+                        .setValue(net.minecraft.world.level.block.SlabBlock.WATERLOGGED, event.getLevel().getBlockState(pos).getValue(net.minecraft.world.level.block.SlabBlock.WATERLOGGED)));
+                if (!event.getEntity().isCreative()) {
+                    event.getItemStack().shrink(1);
+                }
+                event.getEntity().swing(event.getHand());
+                event.getLevel().playSound(event.getEntity(), pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BONE_MEAL_USE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                return;
+            }
+
+            // Check for stone brick stairs to growing mossy stone brick stairs conversion
+            if (GrowableMossyBlock.shouldConvertStoneBlock(event.getLevel(), pos, Blocks.STONE_BRICK_STAIRS, DecorationBlocks.GROWING_MOSSY_STONE_BRICK_STAIRS.value())) {
+                event.setCanceled(true);
+                event.getLevel().setBlockAndUpdate(pos, DecorationBlocks.GROWING_MOSSY_STONE_BRICK_STAIRS.value().defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.StairBlock.FACING, event.getLevel().getBlockState(pos).getValue(net.minecraft.world.level.block.StairBlock.FACING))
+                        .setValue(net.minecraft.world.level.block.StairBlock.HALF, event.getLevel().getBlockState(pos).getValue(net.minecraft.world.level.block.StairBlock.HALF))
+                        .setValue(net.minecraft.world.level.block.StairBlock.SHAPE, event.getLevel().getBlockState(pos).getValue(net.minecraft.world.level.block.StairBlock.SHAPE))
+                        .setValue(net.minecraft.world.level.block.StairBlock.WATERLOGGED, event.getLevel().getBlockState(pos).getValue(net.minecraft.world.level.block.StairBlock.WATERLOGGED)));
                 if (!event.getEntity().isCreative()) {
                     event.getItemStack().shrink(1);
                 }

@@ -1,9 +1,7 @@
 package grill24.potionsplus.block;
 
-import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -16,25 +14,28 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class GrowableMossyBlock extends Block {
+import java.util.function.Supplier;
+
+public class GrowableMossyStairs extends StairBlock {
     public static final BooleanProperty WATERED = BooleanProperty.create("watered");
 
     private final Block targetMossyBlock;
 
-    public GrowableMossyBlock(Properties properties, Block targetMossyBlock) {
-        super(properties);
+    public GrowableMossyStairs(Supplier<BlockState> baseBlockState, Properties properties, Block targetMossyBlock) {
+        super(baseBlockState.get(), properties);
         this.targetMossyBlock = targetMossyBlock;
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERED, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(WATERED, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(WATERED);
     }
 
@@ -46,8 +47,13 @@ public class GrowableMossyBlock extends Block {
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (state.getValue(WATERED) && random.nextInt(3) == 0) {
-            // Replace with the target mossy block
-            level.setBlockAndUpdate(pos, targetMossyBlock.defaultBlockState());
+            // Replace with the target mossy block, preserving stair properties
+            BlockState targetState = targetMossyBlock.defaultBlockState()
+                    .setValue(FACING, state.getValue(FACING))
+                    .setValue(HALF, state.getValue(HALF))
+                    .setValue(SHAPE, state.getValue(SHAPE))
+                    .setValue(WATERLOGGED, state.getValue(WATERLOGGED));
+            level.setBlockAndUpdate(pos, targetState);
             level.playSound(null, pos, SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 0.5F, 1.0F);
         }
     }
@@ -72,44 +78,5 @@ public class GrowableMossyBlock extends Block {
         }
 
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
-    }
-
-    /**
-     * Checks if a stone block should be converted to this growable mossy variant
-     * when bone meal is used on it and there's an adjacent mossy block.
-     */
-    public static boolean shouldConvertStoneBlock(Level level, BlockPos pos, Block stoneBlock, Block growableBlock) {
-        if (!level.getBlockState(pos).is(stoneBlock)) {
-            return false;
-        }
-
-        // Check if there's an adjacent mossy block
-        for (Direction direction : Direction.values()) {
-            BlockPos adjacentPos = pos.relative(direction);
-            BlockState adjacentState = level.getBlockState(adjacentPos);
-
-            // Check for mossy cobblestone variants
-            if (adjacentState.is(Blocks.MOSSY_COBBLESTONE) ||
-                    adjacentState.is(Blocks.MOSSY_COBBLESTONE_SLAB) ||
-                    adjacentState.is(Blocks.MOSSY_COBBLESTONE_STAIRS) ||
-                    adjacentState.is(DecorationBlocks.GROWING_MOSSY_COBBLESTONE.value()) ||
-                    adjacentState.is(DecorationBlocks.GROWING_MOSSY_COBBLESTONE_SLAB.value()) ||
-                    adjacentState.is(DecorationBlocks.GROWING_MOSSY_COBBLESTONE_STAIRS.value())) {
-                return true;
-            }
-
-            // Check for mossy stone brick variants
-            if (adjacentState.is(Blocks.MOSSY_STONE_BRICKS) ||
-                    adjacentState.is(Blocks.MOSSY_STONE_BRICK_SLAB) ||
-                    adjacentState.is(Blocks.MOSSY_STONE_BRICK_STAIRS) ||
-                    adjacentState.is(Blocks.INFESTED_MOSSY_STONE_BRICKS) ||
-                    adjacentState.is(DecorationBlocks.GROWING_MOSSY_STONE_BRICKS.value()) ||
-                    adjacentState.is(DecorationBlocks.GROWING_MOSSY_STONE_BRICK_SLAB.value()) ||
-                    adjacentState.is(DecorationBlocks.GROWING_MOSSY_STONE_BRICK_STAIRS.value())) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
