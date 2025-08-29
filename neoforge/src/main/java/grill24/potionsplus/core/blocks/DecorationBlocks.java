@@ -171,6 +171,15 @@ public class DecorationBlocks {
                         .sound(SoundType.GRASS)
                         .lightLevel(state -> 3)
                         .randomTicks()))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
+                        (provider, h) -> provider.shaped(RecipeCategory.DECORATIONS, h.value())
+                                .pattern("EGE")
+                                .pattern("GCG")
+                                .pattern("EGE")
+                                .define('E', net.minecraft.world.item.Items.EMERALD)
+                                .define('G', Blocks.GRASS_BLOCK)
+                                .define('C', net.minecraft.world.item.Items.CAULDRON)
+                                .unlockedBy("has_emerald", provider.has(net.minecraft.world.item.Items.EMERALD))))
         ).getHolder();
         Items.registerBlockItem(MYSTICAL_GARDEN, registerItem);
     }

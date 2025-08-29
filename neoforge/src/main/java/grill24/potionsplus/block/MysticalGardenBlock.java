@@ -4,6 +4,7 @@ import grill24.potionsplus.blockentity.MysticalGardenBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -64,6 +65,13 @@ public class MysticalGardenBlock extends Block implements EntityBlock {
                         level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                         return InteractionResult.SUCCESS;
                     }
+                }
+                // Show charge level when interacting with empty hand
+                else if (stack.isEmpty()) {
+                    int charge = gardenEntity.getCharge();
+                    Component message = Component.literal("Mystical Garden Charge: " + charge + "/1000");
+                    player.displayClientMessage(message, true); // Display as action bar message
+                    return InteractionResult.SUCCESS;
                 }
             }
         }

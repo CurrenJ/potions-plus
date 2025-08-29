@@ -68,31 +68,39 @@ public class MysticalGardenBlockEntity extends BlockEntity {
     }
 
     private void enhanceNearbyPlants(ServerLevel level, BlockPos gardenPos) {
+        int enhancementsThisTick = 0;
+        final int maxEnhancementsPerTick = 3; // Prevent lag by limiting operations per tick
+        
         for (BlockPos pos : BlockPos.betweenClosed(
                 gardenPos.offset(-EFFECT_RADIUS, -2, -EFFECT_RADIUS),
                 gardenPos.offset(EFFECT_RADIUS, 2, EFFECT_RADIUS))) {
             
             if (pos.equals(gardenPos)) continue;
             if (charge < GROWTH_BOOST_COST) break;
+            if (enhancementsThisTick >= maxEnhancementsPerTick) break;
 
             BlockState state = level.getBlockState(pos);
             Block block = state.getBlock();
 
             // Enhance VersatilePlantBlocks
             if (block instanceof VersatilePlantBlock) {
-                enhanceVersatilePlant(level, pos, state);
+                if (enhanceVersatilePlant(level, pos, state)) {
+                    enhancementsThisTick++;
+                }
             }
             // Enhance any bonemealable blocks
             else if (block instanceof BonemealableBlock bonemealable) {
                 if (bonemealable.isValidBonemealTarget(level, pos, state) && 
                     level.random.nextFloat() < 0.3f) {
-                    enhanceBonemealableBlock(level, pos, state, bonemealable);
+                    if (enhanceBonemealableBlock(level, pos, state, bonemealable)) {
+                        enhancementsThisTick++;
+                    }
                 }
             }
         }
     }
 
-    private void enhanceVersatilePlant(ServerLevel level, BlockPos pos, BlockState state) {
+    private boolean enhanceVersatilePlant(ServerLevel level, BlockPos pos, BlockState state) {
         // VersatilePlantBlocks can grow longer segments
         if (state.getBlock() instanceof VersatilePlantBlock versatilePlant) {
             // Try to grow the plant
@@ -116,19 +124,23 @@ public class MysticalGardenBlockEntity extends BlockEntity {
                             level.setBlockAndUpdate(newPos, newState);
                             charge -= GROWTH_BOOST_COST;
                             spawnGrowthEffect(level, newPos);
+                            return true;
                         }
                     }
                 }
             }
         }
+        return false;
     }
 
-    private void enhanceBonemealableBlock(ServerLevel level, BlockPos pos, BlockState state, BonemealableBlock bonemealable) {
+    private boolean enhanceBonemealableBlock(ServerLevel level, BlockPos pos, BlockState state, BonemealableBlock bonemealable) {
         if (bonemealable.isBonemealSuccess(level, level.random, pos, state)) {
             bonemealable.performBonemeal(level, level.random, pos, state);
             charge -= GROWTH_BOOST_COST;
             spawnGrowthEffect(level, pos);
+            return true;
         }
+        return false;
     }
 
     private void spawnGrowthEffect(ServerLevel level, BlockPos pos) {
