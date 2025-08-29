@@ -20,6 +20,8 @@ public class PlayerAbilities {
     public static final DeferredHolder<PlayerAbility<?>, SavedByTheBounceAbility> SAVED_BY_THE_BOUNCE = register("saved_by_the_bounce", SavedByTheBounceAbility::new);
     public static final DeferredHolder<PlayerAbility<?>, LastBreathAbility> LAST_BREATH = register("last_breath", LastBreathAbility::new);
     public static final DeferredHolder<PlayerAbility<?>, HotPotatoAbility> HOT_POTATO = register("hot_potato", HotPotatoAbility::new);
+    public static final DeferredHolder<PlayerAbility<?>, SneakInvisibilityAbility> SNEAK_INVISIBILITY = register("sneak_invisibility", SneakInvisibilityAbility::new);
+    public static final DeferredHolder<PlayerAbility<?>, SneakFallResistanceAbility> SNEAK_FALL_RESISTANCE = register("sneak_fall_resistance", SneakFallResistanceAbility::new);
 
     private static <S extends PlayerAbility<?>> DeferredHolder<PlayerAbility<?>, S> register(String name, Supplier<S> supplier) {
         return PLAYER_ABILITIES.register(name, supplier);
