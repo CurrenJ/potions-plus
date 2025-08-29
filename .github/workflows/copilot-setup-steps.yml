@@ -1,7 +1,7 @@
-name: copilot-setup-steps
+name: "Copilot Setup Steps"
 on: [ push, pull_request ]
 jobs:
-  build:
+  copilot-setup-steps:
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK
