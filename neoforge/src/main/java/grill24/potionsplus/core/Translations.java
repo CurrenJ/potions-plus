@@ -93,6 +93,15 @@ public class Translations {
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_HOT_POTATO_INCREASE = "description.potionsplus.ability.hot_potato_increase";
     public static final String COOLDOWN_POTIONSPLUS_ABILITY_HOT_POTATO = "cooldown.potionsplus.ability.hot_potato";
     public static final String DESCRIPTION_LONG_POTIONSPLUS_ABILITY_HOT_POTATO = "description.long.potionsplus.ability.hot_potato";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_INVISIBILITY = "description.potionsplus.ability.sneak_invisibility";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_INVISIBILITY_UNLOCK = "description.potionsplus.ability.sneak_invisibility_unlock";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_INVISIBILITY_INCREASE = "description.potionsplus.ability.sneak_invisibility_increase";
+    public static final String COOLDOWN_POTIONSPLUS_ABILITY_SNEAK_INVISIBILITY = "cooldown.potionsplus.ability.sneak_invisibility";
+    public static final String DESCRIPTION_LONG_POTIONSPLUS_ABILITY_SNEAK_INVISIBILITY = "description.long.potionsplus.ability.sneak_invisibility";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_FALL_RESISTANCE = "description.potionsplus.ability.sneak_fall_resistance";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_FALL_RESISTANCE_UNLOCK = "description.potionsplus.ability.sneak_fall_resistance_unlock";
+    public static final String DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_FALL_RESISTANCE_INCREASE = "description.potionsplus.ability.sneak_fall_resistance_increase";
+    public static final String DESCRIPTION_LONG_POTIONSPLUS_ABILITY_SNEAK_FALL_RESISTANCE = "description.long.potionsplus.ability.sneak_fall_resistance";
     public static final String TOOLTIP_POTIONSPLUS_ABILITY_TAG = "tooltip.potionsplus.ability.tag";
     public static final String COOLDOWN_POTIONSPLUS_ABILITY_ALERT = "cooldown.potionsplus.ability.alert";
     public static final String COOLDOWN_POTIONSPLUS_ABILITY_INFO = "cooldown.potionsplus.ability.info";
@@ -162,9 +171,7 @@ public class Translations {
     public static final String TOOLTIP_POTIONSPLUS_SKILL_SWORDSMANSHIP = "tooltip.potionsplus.skill.swordsmanship";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_ARCHERY = "tooltip.potionsplus.skill.archery";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_CHOPPING = "tooltip.potionsplus.skill.chopping";
-    public static final String TOOLTIP_POTIONSPLUS_SKILL_WALKING = "tooltip.potionsplus.skill.walking";
-    public static final String TOOLTIP_POTIONSPLUS_SKILL_SPRINTING = "tooltip.potionsplus.skill.sprinting";
-    public static final String TOOLTIP_POTIONSPLUS_SKILL_SNEAKING = "tooltip.potionsplus.skill.sneaking";
+    public static final String TOOLTIP_POTIONSPLUS_SKILL_TRAVERSAL = "tooltip.potionsplus.skill.traversal";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_JUMPING = "tooltip.potionsplus.skill.jumping";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_FARMING = "tooltip.potionsplus.skill.farming";
     public static final String GENERIC_POTIONSPLUS_ENABLED = "generic.potionsplus.enabled";
