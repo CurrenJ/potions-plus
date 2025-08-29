@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/block",
-  "textures": {
-    "edge": "potionsplus:block/empty",
-    "frame": "minecraft:block/oak_planks",
-    "glass": "potionsplus:block/borderless_blue_stained_glass",
-    "particle": "potionsplus:block/borderless_blue_stained_glass"
-  }
-}

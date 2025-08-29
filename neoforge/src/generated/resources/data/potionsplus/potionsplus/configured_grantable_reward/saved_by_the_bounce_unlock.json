@@ -1,8 +1,0 @@
-{
-  "type": "potionsplus:increase_ability_strength",
-  "config": {
-    "ability": "potionsplus:saved_by_the_bounce",
-    "strengthIncrease": 1.0,
-    "translationKey": "description.potionsplus.ability.saved_by_the_bounce_unlock"
-  }
-}

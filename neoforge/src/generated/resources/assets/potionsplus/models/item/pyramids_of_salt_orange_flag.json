@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "potionsplus:item/pyramids_of_salt",
-    "layer1": "potionsplus:item/orange_flag"
-  }
-}

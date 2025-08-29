@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "potionsplus:block/survivor_stick_blooming_1"
-  }
-}
