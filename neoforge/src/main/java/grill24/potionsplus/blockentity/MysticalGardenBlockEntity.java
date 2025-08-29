@@ -3,8 +3,10 @@ package grill24.potionsplus.blockentity;
 import grill24.potionsplus.block.VersatilePlantBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
+import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -25,6 +27,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class MysticalGardenBlockEntity extends BlockEntity {
@@ -32,6 +36,16 @@ public class MysticalGardenBlockEntity extends BlockEntity {
     private static final int MAX_CHARGE = 1000;
     private static final int CHARGE_DECAY_RATE = 1;
     private static final int GROWTH_BOOST_COST = 10;
+    private static final int PLANT_PLACEMENT_COST = 20;
+
+    // List of available versatile plants to place randomly
+    private static final List<Holder<Block>> AVAILABLE_VERSATILE_PLANTS = Arrays.asList(
+        FlowerBlocks.DANDELION_VERSATILE, FlowerBlocks.POPPY_VERSATILE, FlowerBlocks.BLUE_ORCHID_VERSATILE,
+        FlowerBlocks.ALLIUM_VERSATILE, FlowerBlocks.AZURE_BLUET_VERSATILE, FlowerBlocks.RED_TULIP_VERSATILE,
+        FlowerBlocks.ORANGE_TULIP_VERSATILE, FlowerBlocks.WHITE_TULIP_VERSATILE, FlowerBlocks.PINK_TULIP_VERSATILE,
+        FlowerBlocks.OXEYE_DAISY_VERSATILE, FlowerBlocks.CORNFLOWER_VERSATILE, FlowerBlocks.LILY_OF_THE_VALLEY_VERSATILE,
+        FlowerBlocks.BROWN_MUSHROOM_VERSATILE, FlowerBlocks.RED_MUSHROOM_VERSATILE
+    );
 
     private int charge = 0;
     private Optional<Potion> storedPotion = Optional.empty();
@@ -58,6 +72,11 @@ public class MysticalGardenBlockEntity extends BlockEntity {
             // Enhance nearby plants less frequently
             if (charge > 0 && tickCount % 120 == 0) {
                 enhanceNearbyPlants((ServerLevel) level, pos);
+            }
+
+            // Try to place random versatile plants on empty spawnable faces
+            if (charge > 0 && tickCount % 240 == 0) { // Less frequent than growth enhancement
+                tryPlaceRandomVersatilePlant((ServerLevel) level, pos);
             }
         } else {
             // Client-side particle effects - always spawn some, more when charged
@@ -96,6 +115,90 @@ public class MysticalGardenBlockEntity extends BlockEntity {
                 }
             }
         }
+    }
+
+    private void tryPlaceRandomVersatilePlant(ServerLevel level, BlockPos gardenPos) {
+        if (charge < PLANT_PLACEMENT_COST) return;
+
+        // Check all 6 directions around the garden for spawnable locations
+        Direction[] directions = Direction.values();
+        
+        for (Direction direction : directions) {
+            // Only try once per tick to avoid spam - early exit if we place something
+            if (charge < PLANT_PLACEMENT_COST) break;
+            
+            // Check positions in this direction within a reasonable range
+            for (int distance = 1; distance <= 3; distance++) {
+                BlockPos checkPos = gardenPos.relative(direction, distance);
+                
+                // Only place plants with a low chance to keep it balanced
+                if (level.random.nextFloat() < 0.05f && canPlaceVersatilePlantAt(level, checkPos)) {
+                    // Choose a random versatile plant
+                    Holder<Block> randomPlant = AVAILABLE_VERSATILE_PLANTS.get(
+                        level.random.nextInt(AVAILABLE_VERSATILE_PLANTS.size())
+                    );
+                    
+                    if (randomPlant.value() instanceof VersatilePlantBlock versatilePlant) {
+                        // Determine the best facing direction for the plant
+                        Direction plantFacing = determinePlantFacing(level, checkPos);
+                        
+                        // Create the plant state
+                        BlockState plantState = versatilePlant.defaultBlockState()
+                            .setValue(VersatilePlantBlock.FACING, plantFacing)
+                            .setValue(VersatilePlantBlock.SEGMENT, 0);
+                        
+                        // Check if the plant can survive at this position
+                        if (plantState.canSurvive(level, checkPos)) {
+                            level.setBlockAndUpdate(checkPos, plantState);
+                            charge -= PLANT_PLACEMENT_COST;
+                            spawnGrowthEffect(level, checkPos);
+                            setChanged();
+                            return; // Only place one plant per tick
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean canPlaceVersatilePlantAt(ServerLevel level, BlockPos pos) {
+        // Check if the position is empty (air block)
+        if (!level.isEmptyBlock(pos)) {
+            return false;
+        }
+        
+        // Check if position is within world bounds
+        if (pos.getY() < level.getMinY() || pos.getY() > level.getMaxY()) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    private Direction determinePlantFacing(ServerLevel level, BlockPos pos) {
+        // Default to upward facing (normal plant growth)
+        Direction bestFacing = Direction.UP;
+        
+        // Check if there's solid ground below for upward plants
+        BlockPos belowPos = pos.below();
+        BlockState belowState = level.getBlockState(belowPos);
+        if (belowState.isSolid()) {
+            return Direction.UP;
+        }
+        
+        // If no solid ground below, try other directions for wall-mounted plants
+        for (Direction direction : Direction.values()) {
+            if (direction == Direction.UP) continue; // Already checked
+            
+            BlockPos supportPos = pos.relative(direction.getOpposite());
+            BlockState supportState = level.getBlockState(supportPos);
+            if (supportState.isSolid()) {
+                bestFacing = direction;
+                break;
+            }
+        }
+        
+        return bestFacing;
     }
 
     private boolean enhanceVersatilePlant(ServerLevel level, BlockPos pos, BlockState state) {
