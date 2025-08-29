@@ -1,0 +1,32 @@
+{
+  "criteria": {
+    "has_potion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:potion"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "potionsplus:mushroom_conversions_b2r"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_potion",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "potionsplus:mushroom_conversions_b2r"
+    ]
+  },
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "direction=down": {
+      "model": "potionsplus:block/fishing_leaderboards"
+    },
+    "direction=east": {
+      "model": "potionsplus:block/fishing_leaderboards",
+      "y": 270
+    },
+    "direction=north": {
+      "model": "potionsplus:block/fishing_leaderboards",
+      "y": 180
+    },
+    "direction=south": {
+      "model": "potionsplus:block/fishing_leaderboards"
+    },
+    "direction=up": {
+      "model": "potionsplus:block/fishing_leaderboards"
+    },
+    "direction=west": {
+      "model": "potionsplus:block/fishing_leaderboards",
+      "y": 90
+    }
+  }
+}

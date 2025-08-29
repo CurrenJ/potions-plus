@@ -1,0 +1,33 @@
+{
+  "parent": "potionsplus:create_sanguine_altar",
+  "criteria": {
+    "convert_item_in_sanguine_altar": {
+      "conditions": {
+        "recipe": "potionsplus:sanguine_altar_recipe"
+      },
+      "trigger": "potionsplus:craft_recipe"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.convert_item_in_sanguine_altar.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:amethyst_shard"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.convert_item_in_sanguine_altar.title"
+    }
+  },
+  "requirements": [
+    [
+      "convert_item_in_sanguine_altar"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

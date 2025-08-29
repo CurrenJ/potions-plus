@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "potionsplus:block/cowlick_vine_tail"
+  }
+}

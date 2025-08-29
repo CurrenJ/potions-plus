@@ -1,0 +1,6 @@
+{
+  "parent": "potionsplus:item/block_hat_4",
+  "textures": {
+    "0": "minecraft:block/gold_ore"
+  }
+}

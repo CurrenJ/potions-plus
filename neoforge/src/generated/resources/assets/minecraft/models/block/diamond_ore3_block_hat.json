@@ -1,0 +1,6 @@
+{
+  "parent": "potionsplus:item/block_hat_3",
+  "textures": {
+    "0": "minecraft:block/diamond_ore"
+  }
+}

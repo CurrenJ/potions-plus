@@ -1,0 +1,7 @@
+{
+  "type": "potionsplus:increase_ability_strength",
+  "config": {
+    "ability": "potionsplus:axe_damage_modifier",
+    "strengthIncrease": 0.25
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "category": "MISC",
+  "ingredients": [
+    {
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "minecraft:lava_bucket"
+        }
+      ]
+    }
+  ],
+  "processingTime": 2400,
+  "result": {
+    "count": 1,
+    "id": "minecraft:obsidian"
+  }
+}

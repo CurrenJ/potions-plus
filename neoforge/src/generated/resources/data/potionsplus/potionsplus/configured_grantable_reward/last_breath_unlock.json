@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:increase_ability_strength",
+  "config": {
+    "ability": "potionsplus:last_breath",
+    "strengthIncrease": 1.0,
+    "translationKey": "description.potionsplus.ability.last_breath_unlock"
+  }
+}

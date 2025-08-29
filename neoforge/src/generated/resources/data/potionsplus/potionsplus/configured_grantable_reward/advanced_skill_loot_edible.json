@@ -1,0 +1,15 @@
+{
+  "type": "potionsplus:choice",
+  "config": {
+    "rewards": [
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:advanced_loot"
+        },
+        "linkedChoiceParent": "potionsplus:advanced_skill_loot_edible",
+        "linkedOption": "potionsplus:advanced_skill"
+      }
+    ]
+  }
+}

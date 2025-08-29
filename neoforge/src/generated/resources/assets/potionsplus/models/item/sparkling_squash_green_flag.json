@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "potionsplus:item/sparkling_squash",
+    "layer1": "potionsplus:item/green_flag"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "type": "potionsplus:break_block",
+  "config": {
+    "pointsPerBlock": [
+      {
+        "blockStatePredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/coal"
+        },
+        "points": 2.0
+      },
+      {
+        "blockStatePredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/copper"
+        },
+        "points": 4.0
+      },
+      {
+        "blockStatePredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/iron"
+        },
+        "points": 6.0
+      },
+      {
+        "blockStatePredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/gold"
+        },
+        "points": 9.0
+      },
+      {
+        "blockStatePredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/redstone"
+        },
+        "points": 7.0
+      },
+      {
+        "blockStatePredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/lapis"
+        },
+        "points": 8.0
+      },
+      {
+        "blockStatePredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/diamond"
+        },
+        "points": 12.0
+      },
+      {
+        "blockStatePredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/emerald"
+        },
+        "points": 16.0
+      },
+      {
+        "blockStatePredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores/quartz"
+        },
+        "points": 4.0
+      },
+      {
+        "blockStatePredicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "c:ores"
+        },
+        "points": 1.0
+      }
+    ]
+  }
+}

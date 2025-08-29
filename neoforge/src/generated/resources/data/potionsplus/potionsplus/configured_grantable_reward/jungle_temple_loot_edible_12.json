@@ -1,0 +1,15 @@
+{
+  "type": "potionsplus:choice",
+  "config": {
+    "rewards": [
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:roasted_bamboo"
+        },
+        "linkedChoiceParent": "potionsplus:jungle_temple_loot_edible_12",
+        "linkedOption": "potionsplus:jungle_temple_loot"
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "potionsplus:modifiers_while_item_held",
+  "config": {
+    "attribute": "potionsplus:player.smite_bonus",
+    "baseConfig": {
+      "enabledByDefault": true,
+      "itemPredicate": {
+        "items": "#minecraft:axes"
+      },
+      "parentSkill": "potionsplus:chopping",
+      "translationKey": "description.potionsplus.ability.axe_smite"
+    },
+    "modifiers": [
+      {
+        "amount": 0.0,
+        "id": "potionsplus:axe_smite_modifier_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

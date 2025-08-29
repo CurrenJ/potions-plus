@@ -1,0 +1,18 @@
+{
+  "type": "potionsplus:permanent_attribute_modifiers",
+  "config": {
+    "attribute": "minecraft:safe_fall_distance",
+    "baseConfig": {
+      "enabledByDefault": false,
+      "parentSkill": "potionsplus:jumping",
+      "translationKey": "description.potionsplus.ability.safe_fall_distance"
+    },
+    "modifiers": [
+      {
+        "amount": 0.0,
+        "id": "potionsplus:safe_fall_distance_modifier_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

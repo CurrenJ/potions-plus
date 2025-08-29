@@ -1,0 +1,7 @@
+{
+  "type": "potionsplus:increase_ability_strength",
+  "config": {
+    "ability": "potionsplus:submerged_pickaxe_efficiency_modifier",
+    "strengthIncrease": 0.05
+  }
+}

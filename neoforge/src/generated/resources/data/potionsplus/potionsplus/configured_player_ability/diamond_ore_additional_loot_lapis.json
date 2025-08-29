@@ -1,0 +1,10 @@
+{
+  "type": "potionsplus:simple",
+  "config": {
+    "baseConfig": {
+      "enabledByDefault": true,
+      "parentSkill": "potionsplus:mining",
+      "translationKey": "description.potionsplus.ability.diamond_ore_additional_loot_lapis"
+    }
+  }
+}

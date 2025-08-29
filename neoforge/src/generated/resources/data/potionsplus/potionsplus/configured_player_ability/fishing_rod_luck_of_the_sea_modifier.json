@@ -1,0 +1,21 @@
+{
+  "type": "potionsplus:modifiers_while_item_held",
+  "config": {
+    "attribute": "potionsplus:player.luck_of_the_sea_bonus",
+    "baseConfig": {
+      "enabledByDefault": true,
+      "itemPredicate": {
+        "items": "#c:tools/fishing_rod"
+      },
+      "parentSkill": "potionsplus:fishing",
+      "translationKey": "description.potionsplus.ability.fishing_rod_luck_of_the_sea"
+    },
+    "modifiers": [
+      {
+        "amount": 0.0,
+        "id": "potionsplus:fishing_rod_luck_of_the_sea_modifier_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

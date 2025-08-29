@@ -1,0 +1,21 @@
+{
+  "type": "potionsplus:modifiers_while_item_held",
+  "config": {
+    "attribute": "potionsplus:player.punch_bonus",
+    "baseConfig": {
+      "enabledByDefault": true,
+      "itemPredicate": {
+        "items": "#minecraft:axes"
+      },
+      "parentSkill": "potionsplus:archery",
+      "translationKey": "description.potionsplus.ability.bow_punch"
+    },
+    "modifiers": [
+      {
+        "amount": 0.0,
+        "id": "potionsplus:bow_punch_modifier_modifier",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

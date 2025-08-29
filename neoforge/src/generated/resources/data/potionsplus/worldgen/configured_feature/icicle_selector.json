@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "potionsplus:icicle",
+        "placement": []
+      },
+      {
+        "feature": "potionsplus:icicle_on_ceiling",
+        "placement": []
+      }
+    ]
+  }
+}

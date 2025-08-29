@@ -1,0 +1,6 @@
+{
+  "type": "potionsplus:ability",
+  "config": {
+    "configuredPlayerAbility": "potionsplus:wheat_additional_loot"
+  }
+}

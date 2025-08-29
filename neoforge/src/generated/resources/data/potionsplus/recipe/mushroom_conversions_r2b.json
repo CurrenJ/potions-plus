@@ -1,0 +1,30 @@
+{
+  "type": "potionsplus:brewing_cauldron_recipe",
+  "category": "BREWING",
+  "ingredients": [
+    {
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "minecraft:red_mushroom"
+        }
+      ]
+    },
+    {
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "minecraft:fermented_spider_eye"
+        }
+      ]
+    }
+  ],
+  "matchingCriteria": [
+    "exact_match"
+  ],
+  "processingTime": 20,
+  "result": {
+    "count": 1,
+    "id": "minecraft:brown_mushroom"
+  }
+}
