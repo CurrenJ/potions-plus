@@ -1,8 +1,0 @@
-{
-  "type": "potionsplus:increase_ability_strength",
-  "config": {
-    "ability": "potionsplus:hot_potato",
-    "strengthIncrease": 1.0,
-    "translationKey": "description.potionsplus.ability.hot_potato_unlock"
-  }
-}

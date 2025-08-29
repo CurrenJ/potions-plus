@@ -1,7 +1,0 @@
-{
-  "parent": "potionsplus:block/lumoseed_sack_tail",
-  "textures": {
-    "sack": "minecraft:block/moss_block",
-    "vine": "minecraft:block/moss_block"
-  }
-}

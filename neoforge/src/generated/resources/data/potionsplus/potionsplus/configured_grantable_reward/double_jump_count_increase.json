@@ -1,7 +1,0 @@
-{
-  "type": "potionsplus:increase_ability_strength",
-  "config": {
-    "ability": "potionsplus:double_jump",
-    "strengthIncrease": 1.0
-  }
-}

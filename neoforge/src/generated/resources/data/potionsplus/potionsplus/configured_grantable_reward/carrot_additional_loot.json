@@ -1,6 +1,0 @@
-{
-  "type": "potionsplus:ability",
-  "config": {
-    "configuredPlayerAbility": "potionsplus:carrot_additional_loot"
-  }
-}

@@ -111,7 +111,7 @@ public class DecorationBlocks {
 
         GROWING_MOSSY_COBBLESTONE_SLAB = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("growing_mossy_cobblestone_slab")
                 .blockFactory(prop -> new GrowableMossySlab(prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(2.0F, 6.0F).randomTicks(), Blocks.MOSSY_COBBLESTONE_SLAB))
-                .modelGenerator(null) // Use default slab models
+                .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, ppId("block/growing_mossy_cobblestone"), false, false, false))
                 .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, 
                     (provider, h) -> provider.shaped(RecipeCategory.BUILDING_BLOCKS, h.value(), 6)
                         .pattern("XXX")
@@ -122,7 +122,7 @@ public class DecorationBlocks {
 
         GROWING_MOSSY_COBBLESTONE_STAIRS = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("growing_mossy_cobblestone_stairs")
                 .blockFactory(prop -> new GrowableMossyStairs(() -> Blocks.COBBLESTONE.defaultBlockState(), prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(2.0F, 6.0F).randomTicks(), Blocks.MOSSY_COBBLESTONE_STAIRS))
-                .modelGenerator(null) // Use default stair models
+                .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, ppId("block/growing_mossy_cobblestone"), false, false, false))
                 .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, 
                     (provider, h) -> provider.shaped(RecipeCategory.BUILDING_BLOCKS, h.value(), 4)
                         .pattern("X  ")
@@ -135,7 +135,7 @@ public class DecorationBlocks {
 
         GROWING_MOSSY_STONE_BRICK_SLAB = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("growing_mossy_stone_brick_slab")
                 .blockFactory(prop -> new GrowableMossySlab(prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).randomTicks(), Blocks.MOSSY_STONE_BRICK_SLAB))
-                .modelGenerator(null) // Use default slab models
+                .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, ppId("block/growing_mossy_stone_bricks"), false, false, false))
                 .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, 
                     (provider, h) -> provider.shaped(RecipeCategory.BUILDING_BLOCKS, h.value(), 6)
                         .pattern("XXX")
@@ -146,7 +146,7 @@ public class DecorationBlocks {
 
         GROWING_MOSSY_STONE_BRICK_STAIRS = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("growing_mossy_stone_brick_stairs")
                 .blockFactory(prop -> new GrowableMossyStairs(() -> Blocks.STONE_BRICKS.defaultBlockState(), prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).randomTicks(), Blocks.MOSSY_STONE_BRICK_STAIRS))
-                .modelGenerator(null) // Use default stair models
+                .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, ppId("block/growing_mossy_stone_bricks"), false, false, false))
                 .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, 
                     (provider, h) -> provider.shaped(RecipeCategory.BUILDING_BLOCKS, h.value(), 4)
                         .pattern("X  ")
