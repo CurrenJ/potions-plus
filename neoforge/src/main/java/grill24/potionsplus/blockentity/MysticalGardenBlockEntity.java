@@ -55,21 +55,19 @@ public class MysticalGardenBlockEntity extends BlockEntity {
                 setChanged();
             }
 
-            // Enhance nearby plants every few seconds
-            if (charge > 0 && tickCount % 60 == 0) {
+            // Enhance nearby plants less frequently
+            if (charge > 0 && tickCount % 120 == 0) {
                 enhanceNearbyPlants((ServerLevel) level, pos);
             }
         } else {
-            // Client-side particle effects
-            if (charge > 0) {
-                spawnParticles(level, pos);
-            }
+            // Client-side particle effects - always spawn some, more when charged
+            spawnParticles(level, pos);
         }
     }
 
     private void enhanceNearbyPlants(ServerLevel level, BlockPos gardenPos) {
         int enhancementsThisTick = 0;
-        final int maxEnhancementsPerTick = 3; // Prevent lag by limiting operations per tick
+        final int maxEnhancementsPerTick = 1; // Only enhance 1 plant per cycle
         
         for (BlockPos pos : BlockPos.betweenClosed(
                 gardenPos.offset(-EFFECT_RADIUS, -2, -EFFECT_RADIUS),
@@ -155,16 +153,23 @@ public class MysticalGardenBlockEntity extends BlockEntity {
     }
 
     private void spawnParticles(Level level, BlockPos pos) {
-        if (tickCount % 10 == 0 && level.random.nextFloat() < 0.6f) {
-            double x = pos.getX() + 0.2 + level.random.nextFloat() * 0.6;
-            double y = pos.getY() + 0.8 + level.random.nextFloat() * 0.4;
-            double z = pos.getZ() + 0.2 + level.random.nextFloat() * 0.6;
-            
-            level.addParticle(net.minecraft.core.particles.ParticleTypes.ENCHANT,
-                x, y, z, 
-                (level.random.nextFloat() - 0.5) * 0.1,
-                0.05,
-                (level.random.nextFloat() - 0.5) * 0.1);
+        // Always spawn some ambient particles, but more when charged
+        boolean isCharged = charge > 0;
+        float baseChance = isCharged ? 0.6f : 0.2f; // More particles when charged
+        int particleCount = isCharged ? 2 : 1; // Spawn more particles when charged
+        
+        if (tickCount % 15 == 0 && level.random.nextFloat() < baseChance) {
+            for (int i = 0; i < particleCount; i++) {
+                double x = pos.getX() + 0.2 + level.random.nextFloat() * 0.6;
+                double y = pos.getY() + 0.8 + level.random.nextFloat() * 0.4;
+                double z = pos.getZ() + 0.2 + level.random.nextFloat() * 0.6;
+                
+                level.addParticle(net.minecraft.core.particles.ParticleTypes.ENCHANT,
+                    x, y, z, 
+                    (level.random.nextFloat() - 0.5) * 0.1,
+                    0.05,
+                    (level.random.nextFloat() - 0.5) * 0.1);
+            }
         }
     }
 
@@ -180,7 +185,7 @@ public class MysticalGardenBlockEntity extends BlockEntity {
             Optional<Holder<Potion>> potion = potionContents.potion();
             if (potion.isPresent()) {
                 this.storedPotion = potion.map(Holder::value);
-                this.charge = Math.min(MAX_CHARGE, charge + 300); // Add 300 charge
+                this.charge = Math.min(MAX_CHARGE, charge + 150); // Add 150 charge
                 setChanged();
                 return true;
             }
