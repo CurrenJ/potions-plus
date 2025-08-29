@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "filter_hopper_upgrade_allow_potions",
+  "ingredients": [
+    "potionsplus:upgrade_base",
+    "#c:potions"
+  ],
+  "result": {
+    "count": 1,
+    "id": "potionsplus:filter_hopper_upgrade_allow_potions"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:wheel",
+  "config": {
+    "lootTable": "minecraft:chests/end_city_treasure",
+    "numToSample": 8,
+    "translationKey": "tooltip.potionsplus.reward.end_city_loot"
+  }
+}

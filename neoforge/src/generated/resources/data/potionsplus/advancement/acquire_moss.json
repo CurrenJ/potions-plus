@@ -1,0 +1,36 @@
+{
+  "parent": "potionsplus:root",
+  "criteria": {
+    "acquire_moss": {
+      "conditions": {
+        "items": [
+          {
+            "items": "potionsplus:moss"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.acquire_moss.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "potionsplus:moss"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.acquire_moss.title"
+    }
+  },
+  "requirements": [
+    [
+      "acquire_moss"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": true
+}

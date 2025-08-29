@@ -1,0 +1,7 @@
+{
+  "type": "potionsplus:increase_ability_strength",
+  "config": {
+    "ability": "potionsplus:bow_punch_modifier",
+    "strengthIncrease": 1.0
+  }
+}

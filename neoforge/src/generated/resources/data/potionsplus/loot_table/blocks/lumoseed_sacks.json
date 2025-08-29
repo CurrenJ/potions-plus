@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "potionsplus:lumoseed_sacks",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "segment": "0"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "potionsplus:lumoseed_sacks"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "potionsplus:blocks/lumoseed_sacks"
+}

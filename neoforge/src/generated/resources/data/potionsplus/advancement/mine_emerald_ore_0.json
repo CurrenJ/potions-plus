@@ -1,0 +1,69 @@
+{
+  "parent": "potionsplus:skill_journals",
+  "criteria": {
+    "mine_emerald_ore_deepslate_emerald_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:minecraft.deepslate_emerald_ore",
+        "totalStats": 64
+      },
+      "trigger": "potionsplus:award_stat"
+    },
+    "mine_emerald_ore_emerald_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:minecraft.emerald_ore",
+        "totalStats": 64
+      },
+      "trigger": "potionsplus:award_stat"
+    },
+    "mine_emerald_ore_sandy_emerald_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:potionsplus.sandy_emerald_ore",
+        "totalStats": 64
+      },
+      "trigger": "potionsplus:award_stat"
+    },
+    "mine_emerald_ore_stoney_emerald_ore": {
+      "conditions": {
+        "statId": "minecraft.mined:potionsplus.stoney_emerald_ore",
+        "totalStats": 64
+      },
+      "trigger": "potionsplus:award_stat"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.ore_hat.mine_emerald_ore_64.description",
+      "with": [
+        {
+          "translate": "item.potionsplus.emerald_ore_hat_1"
+        }
+      ]
+    },
+    "icon": {
+      "count": 1,
+      "id": "potionsplus:emerald_ore_hat_1"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.ore_hat.mine_emerald_ore_64.title",
+      "with": [
+        {
+          "translate": "item.potionsplus.emerald_ore_hat_1"
+        }
+      ]
+    }
+  },
+  "requirements": [
+    [
+      "mine_emerald_ore_emerald_ore",
+      "mine_emerald_ore_deepslate_emerald_ore",
+      "mine_emerald_ore_sandy_emerald_ore",
+      "mine_emerald_ore_stoney_emerald_ore"
+    ]
+  ],
+  "rewards": {
+    "loot": [
+      "potionsplus:emerald_ore_hat_0"
+    ]
+  },
+  "sends_telemetry_event": true
+}

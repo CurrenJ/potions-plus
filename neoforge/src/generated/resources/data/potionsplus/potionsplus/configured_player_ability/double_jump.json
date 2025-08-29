@@ -1,0 +1,11 @@
+{
+  "type": "potionsplus:double_jump",
+  "config": {
+    "baseConfig": {
+      "enabledByDefault": true,
+      "longTranslationKey": "description.long.potionsplus.ability.double_jump",
+      "parentSkill": "potionsplus:jumping",
+      "translationKey": "description.potionsplus.ability.double_jump"
+    }
+  }
+}

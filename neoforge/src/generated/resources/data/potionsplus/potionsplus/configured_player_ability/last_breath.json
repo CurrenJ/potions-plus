@@ -1,0 +1,11 @@
+{
+  "type": "potionsplus:last_breath",
+  "config": {
+    "baseConfig": {
+      "enabledByDefault": true,
+      "longTranslationKey": "description.long.potionsplus.ability.last_breath",
+      "parentSkill": "potionsplus:mining",
+      "translationKey": "description.potionsplus.ability.last_breath"
+    }
+  }
+}

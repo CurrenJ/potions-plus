@@ -1,0 +1,20 @@
+{
+  "entries": [
+    "potionsplus:wormroot_loot_modifier",
+    "potionsplus:add_mob_effects_to_tools_and_armor_loot_modifier",
+    "potionsplus:iron_ore_bonus_drops_ability",
+    "potionsplus:copper_ore_bonus_drops_ability",
+    "potionsplus:diamond_ore_bonus_emerald_ability",
+    "potionsplus:diamond_ore_bonus_lapis_ability",
+    "potionsplus:creeper_loot_modifier",
+    "potionsplus:skeleton_bone_meal_loot_modifier",
+    "potionsplus:skeleton_bone_block_loot_modifier",
+    "potionsplus:wheat_additional_seeds_ability",
+    "potionsplus:carrot_golden_carrot_ability",
+    "potionsplus:potato_poisonous_potato_ability",
+    "potionsplus:beetroot_sugar_ability",
+    "potionsplus:nether_wart_blaze_powder_ability",
+    "potionsplus:cocoa_cookie_ability"
+  ],
+  "replace": false
+}

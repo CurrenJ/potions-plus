@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "potionsplus:item/intermediate",
+    "layer1": "potionsplus:item/intermediate"
+  }
+}

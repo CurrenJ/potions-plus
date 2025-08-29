@@ -1,0 +1,15 @@
+{
+  "type": "potionsplus:choice",
+  "config": {
+    "rewards": [
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:wheel"
+        },
+        "linkedChoiceParent": "potionsplus:edible_potions_wheel",
+        "linkedOption": "potionsplus:potions_wheel"
+      }
+    ]
+  }
+}

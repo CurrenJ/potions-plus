@@ -1,0 +1,43 @@
+{
+  "type": "potionsplus:brewing_cauldron_recipe",
+  "category": "BREWING",
+  "durationToAdd": 100,
+  "ingredients": [
+    {
+      "matchStacks": [
+        {
+          "components": {
+            "minecraft:potion_contents": {
+              "potion": "potionsplus:any_potion"
+            }
+          },
+          "count": 1,
+          "id": "minecraft:potion"
+        }
+      ]
+    },
+    {
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "minecraft:quartz"
+        }
+      ]
+    }
+  ],
+  "isSeededRuntimeRecipe": true,
+  "matchingCriteria": [
+    "ignore_potion_container",
+    "ignore_potion_effects_min_1_effect"
+  ],
+  "processingTime": 30,
+  "result": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "potionsplus:any_potion"
+      }
+    },
+    "count": 1,
+    "id": "minecraft:potion"
+  }
+}

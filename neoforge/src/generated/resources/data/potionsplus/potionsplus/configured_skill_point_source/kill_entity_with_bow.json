@@ -1,0 +1,13 @@
+{
+  "type": "potionsplus:kill_entity",
+  "config": {
+    "playerEntityPredicate": {
+      "equipment": {
+        "mainhand": {
+          "items": "minecraft:bow"
+        }
+      }
+    },
+    "pointsPerEntity": []
+  }
+}

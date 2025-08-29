@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:wheel",
+  "config": {
+    "lootTable": "potionsplus:all_potions",
+    "numToSample": 8,
+    "translationKey": ""
+  }
+}

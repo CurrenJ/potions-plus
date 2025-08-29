@@ -1,0 +1,27 @@
+{
+  "values": [
+    "potionsplus:brewing_cauldron",
+    "potionsplus:abyssal_trove",
+    "potionsplus:sanguine_altar",
+    "potionsplus:precision_dispenser",
+    "potionsplus:particle_emitter",
+    "potionsplus:small_filter_hopper",
+    "potionsplus:large_filter_hopper",
+    "potionsplus:dense_diamond_ore",
+    "potionsplus:deepslate_dense_diamond_ore",
+    "potionsplus:remnant_debris",
+    "potionsplus:deepslate_remnant_debris",
+    "potionsplus:uranium_ore",
+    "potionsplus:deepslate_uranium_ore",
+    "potionsplus:sulfuric_nether_quartz_ore",
+    "potionsplus:stoney_copper_ore",
+    "potionsplus:stoney_iron_ore",
+    "potionsplus:stoney_gold_ore",
+    "potionsplus:stoney_diamond_ore",
+    "potionsplus:stoney_emerald_ore",
+    "potionsplus:stoney_lapis_ore",
+    "potionsplus:stoney_redstone_ore",
+    "potionsplus:stoney_coal_ore",
+    "potionsplus:stoney_uranium_ore"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "potionsplus:advancement",
+  "config": {
+    "rewards": {
+      "loot": [
+        "potionsplus:master_skill_rewards"
+      ]
+    },
+    "translationKey": "tooltip.potionsplus.skill.reward.master"
+  }
+}

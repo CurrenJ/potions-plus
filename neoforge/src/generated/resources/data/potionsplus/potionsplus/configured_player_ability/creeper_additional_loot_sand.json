@@ -1,0 +1,10 @@
+{
+  "type": "potionsplus:simple",
+  "config": {
+    "baseConfig": {
+      "enabledByDefault": true,
+      "parentSkill": "potionsplus:swordsmanship",
+      "translationKey": "description.potionsplus.ability.creeper_additional_loot_sand"
+    }
+  }
+}

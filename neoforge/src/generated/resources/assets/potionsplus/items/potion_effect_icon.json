@@ -1,0 +1,439 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_absorption"
+        },
+        "threshold": 0.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_any_other_potion"
+        },
+        "threshold": 0.015625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_any_potion"
+        },
+        "threshold": 0.03125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_bad_omen"
+        },
+        "threshold": 0.046875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_blindness"
+        },
+        "threshold": 0.0625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_bone_buddy"
+        },
+        "threshold": 0.078125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_botanical_boost"
+        },
+        "threshold": 0.09375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_bouncing"
+        },
+        "threshold": 0.109375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_conduit_power"
+        },
+        "threshold": 0.125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_crop_collector"
+        },
+        "threshold": 0.140625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_darkness"
+        },
+        "threshold": 0.15625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_dolphins_grace"
+        },
+        "threshold": 0.171875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_exploding"
+        },
+        "threshold": 0.1875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_fall_of_the_void"
+        },
+        "threshold": 0.203125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_fire_resistance"
+        },
+        "threshold": 0.21875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_flying_time"
+        },
+        "threshold": 0.234375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_fortuitous_fate"
+        },
+        "threshold": 0.25
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_geode_grace"
+        },
+        "threshold": 0.265625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_giant_steps"
+        },
+        "threshold": 0.28125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_glowing"
+        },
+        "threshold": 0.296875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_harrowing_hands"
+        },
+        "threshold": 0.3125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_haste"
+        },
+        "threshold": 0.328125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_health_boost"
+        },
+        "threshold": 0.34375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_hero_of_the_village"
+        },
+        "threshold": 0.359375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_hunger"
+        },
+        "threshold": 0.375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_infested"
+        },
+        "threshold": 0.390625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_instant_damage"
+        },
+        "threshold": 0.40625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_instant_health"
+        },
+        "threshold": 0.421875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_invisibility"
+        },
+        "threshold": 0.4375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_jump_boost"
+        },
+        "threshold": 0.453125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_levitation"
+        },
+        "threshold": 0.46875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_looting"
+        },
+        "threshold": 0.484375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_luck"
+        },
+        "threshold": 0.5
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_magnetic"
+        },
+        "threshold": 0.515625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_metal_detecting"
+        },
+        "threshold": 0.53125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_mining_fatigue"
+        },
+        "threshold": 0.546875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_nausea"
+        },
+        "threshold": 0.5625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_nautical_nitro"
+        },
+        "threshold": 0.578125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_night_vision"
+        },
+        "threshold": 0.59375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_oozing"
+        },
+        "threshold": 0.609375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_poison"
+        },
+        "threshold": 0.625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_raid_omen"
+        },
+        "threshold": 0.640625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_reach_for_the_stars"
+        },
+        "threshold": 0.65625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_regeneration"
+        },
+        "threshold": 0.671875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_resistance"
+        },
+        "threshold": 0.6875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_saturation"
+        },
+        "threshold": 0.703125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_shepherds_serenade"
+        },
+        "threshold": 0.71875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_slip_n_slide"
+        },
+        "threshold": 0.734375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_slow_falling"
+        },
+        "threshold": 0.75
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_slowness"
+        },
+        "threshold": 0.765625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_soul_mate"
+        },
+        "threshold": 0.78125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_speed"
+        },
+        "threshold": 0.796875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_strength"
+        },
+        "threshold": 0.8125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_teleportation"
+        },
+        "threshold": 0.828125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_trial_omen"
+        },
+        "threshold": 0.84375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_unluck"
+        },
+        "threshold": 0.859375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_water_breathing"
+        },
+        "threshold": 0.875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_weakness"
+        },
+        "threshold": 0.890625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_weaving"
+        },
+        "threshold": 0.90625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_wind_charged"
+        },
+        "threshold": 0.921875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "potionsplus:item/potion_effect_icon_wither"
+        },
+        "threshold": 0.9375
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/stick"
+    },
+    "property": "minecraft:count"
+  }
+}

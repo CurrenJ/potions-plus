@@ -1,0 +1,40 @@
+{
+  "parent": "potionsplus:create_clothesline",
+  "criteria": {
+    "dry_rotten_flesh": {
+      "conditions": {
+        "recipe": "potionsplus:clothesline_recipe",
+        "recipe_id": {
+          "matchStacks": [
+            {
+              "count": 1,
+              "id": "minecraft:leather"
+            }
+          ]
+        }
+      },
+      "trigger": "potionsplus:craft_recipe"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.dry_rotten_flesh.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:rotten_flesh"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.dry_rotten_flesh.title"
+    }
+  },
+  "requirements": [
+    [
+      "dry_rotten_flesh"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

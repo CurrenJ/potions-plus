@@ -1,0 +1,32 @@
+{
+  "criteria": {
+    "has_golden_cubensis": {
+      "conditions": {
+        "items": [
+          {
+            "items": "potionsplus:golden_cubensis"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "potionsplus:golden_cubensis_to_raw_gold"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_golden_cubensis",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "potionsplus:golden_cubensis_to_raw_gold"
+    ]
+  },
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,7 @@
+{
+  "type": "potionsplus:increase_ability_strength",
+  "config": {
+    "ability": "potionsplus:safe_fall_distance_modifier",
+    "strengthIncrease": 0.5
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "potionsplus:clothesline_recipe",
+  "category": "MISC",
+  "ingredients": [
+    {
+      "matchStacks": [
+        {
+          "count": 1,
+          "id": "potionsplus:iron_oxide_daisy"
+        }
+      ]
+    }
+  ],
+  "processingTime": 60,
+  "result": {
+    "count": 3,
+    "id": "minecraft:raw_iron"
+  }
+}

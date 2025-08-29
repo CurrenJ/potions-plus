@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "D": "minecraft:diamond",
+    "G": "minecraft:gold_ingot",
+    "H": "potionsplus:small_filter_hopper"
+  },
+  "pattern": [
+    "D",
+    "H",
+    "G"
+  ],
+  "result": {
+    "count": 1,
+    "id": "potionsplus:large_filter_hopper"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "potionsplus:wither_rose_versatile",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "segment": "0"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "potionsplus:wither_rose_versatile"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "potionsplus:blocks/wither_rose_versatile"
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "fish_no_size",
+  "ingredients": [
+    "potionsplus:bluegill"
+  ],
+  "result": {
+    "count": 1,
+    "id": "potionsplus:bluegill"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "potionsplus:choice",
+  "config": {
+    "rewards": [
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:stone_fruit"
+        },
+        "linkedChoiceParent": "potionsplus:abandoned_mineshaft_loot_edible_24",
+        "linkedOption": "potionsplus:abandoned_mineshaft_loot"
+      }
+    ]
+  }
+}

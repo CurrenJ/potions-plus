@@ -1,0 +1,36 @@
+{
+  "parent": "potionsplus:root",
+  "criteria": {
+    "acquire_sulfur_shard": {
+      "conditions": {
+        "items": [
+          {
+            "items": "potionsplus:sulfur_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.potionsplus.acquire_sulfur_shard.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "potionsplus:sulfur_shard"
+    },
+    "title": {
+      "translate": "advancements.potionsplus.acquire_sulfur_shard.title"
+    }
+  },
+  "requirements": [
+    [
+      "acquire_sulfur_shard"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

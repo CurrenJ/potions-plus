@@ -1,0 +1,23 @@
+{
+  "type": "potionsplus:choice",
+  "config": {
+    "rewards": [
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:fortifying_fudge"
+        },
+        "linkedChoiceParent": "potionsplus:choose_pickaxe_efficiency_2",
+        "linkedOption": "potionsplus:small_pickaxe_efficiency_increase"
+      },
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:blueb_berries"
+        },
+        "linkedChoiceParent": "potionsplus:choose_pickaxe_efficiency_2",
+        "linkedOption": "potionsplus:small_submerged_pickaxe_efficiency_increase"
+      }
+    ]
+  }
+}

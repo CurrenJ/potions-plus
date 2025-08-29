@@ -1,0 +1,15 @@
+{
+  "type": "potionsplus:choice",
+  "config": {
+    "rewards": [
+      {
+        "activationFood": {
+          "count": 1,
+          "id": "potionsplus:pyramids_of_salt"
+        },
+        "linkedChoiceParent": "potionsplus:desert_pyramid_loot_edible_1",
+        "linkedOption": "potionsplus:desert_pyramid_loot"
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:increase_ability_strength",
+  "config": {
+    "ability": "potionsplus:chain_lightning",
+    "strengthIncrease": 2.0,
+    "translationKey": "description.potionsplus.ability.chain_lightning_increase_2x"
+  }
+}

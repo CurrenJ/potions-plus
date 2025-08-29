@@ -1,0 +1,6 @@
+{
+  "parent": "potionsplus:item/block_hat_1",
+  "textures": {
+    "0": "minecraft:block/coal_ore"
+  }
+}

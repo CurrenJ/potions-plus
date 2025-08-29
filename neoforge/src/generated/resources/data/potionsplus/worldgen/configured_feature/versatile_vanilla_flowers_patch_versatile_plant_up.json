@@ -1,0 +1,325 @@
+{
+  "type": "potionsplus:versatile_plant",
+  "config": {
+    "facing": "up",
+    "length": {
+      "potionsplus:allium_versatile": 1,
+      "potionsplus:azure_bluet_versatile": 1,
+      "potionsplus:blue_orchid_versatile": 1,
+      "potionsplus:brown_mushroom_versatile": 1,
+      "potionsplus:cornflower_versatile": 1,
+      "potionsplus:dandelion_versatile": 1,
+      "potionsplus:large_fern_versatile": {
+        "type": "minecraft:clamped_normal",
+        "deviation": 1.0,
+        "max_inclusive": 5,
+        "mean": 3.0,
+        "min_inclusive": 2
+      },
+      "potionsplus:lilac_versatile": {
+        "type": "minecraft:clamped_normal",
+        "deviation": 1.0,
+        "max_inclusive": 5,
+        "mean": 3.0,
+        "min_inclusive": 2
+      },
+      "potionsplus:lily_of_the_valley_versatile": 1,
+      "potionsplus:orange_tulip_versatile": 1,
+      "potionsplus:oxeye_daisy_versatile": 1,
+      "potionsplus:peony_versatile": {
+        "type": "minecraft:clamped_normal",
+        "deviation": 1.0,
+        "max_inclusive": 5,
+        "mean": 3.0,
+        "min_inclusive": 2
+      },
+      "potionsplus:pink_tulip_versatile": 1,
+      "potionsplus:pitcher_plant_versatile": 2,
+      "potionsplus:poppy_versatile": 1,
+      "potionsplus:red_mushroom_versatile": 1,
+      "potionsplus:red_tulip_versatile": 1,
+      "potionsplus:rose_bush_versatile": {
+        "type": "minecraft:clamped_normal",
+        "deviation": 1.0,
+        "max_inclusive": 5,
+        "mean": 3.0,
+        "min_inclusive": 2
+      },
+      "potionsplus:sunflower_versatile": {
+        "type": "minecraft:clamped_normal",
+        "deviation": 1.0,
+        "max_inclusive": 5,
+        "mean": 3.0,
+        "min_inclusive": 2
+      },
+      "potionsplus:tall_grass_versatile": {
+        "type": "minecraft:clamped_normal",
+        "deviation": 1.0,
+        "max_inclusive": 5,
+        "mean": 3.0,
+        "min_inclusive": 2
+      },
+      "potionsplus:torchflower_versatile": 1,
+      "potionsplus:white_tulip_versatile": 1,
+      "potionsplus:wither_rose_versatile": 1
+    },
+    "toPlace": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "potionsplus:dandelion_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 6
+        },
+        {
+          "data": {
+            "Name": "potionsplus:torchflower_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "potionsplus:poppy_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 6
+        },
+        {
+          "data": {
+            "Name": "potionsplus:blue_orchid_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 6
+        },
+        {
+          "data": {
+            "Name": "potionsplus:allium_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 6
+        },
+        {
+          "data": {
+            "Name": "potionsplus:azure_bluet_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 6
+        },
+        {
+          "data": {
+            "Name": "potionsplus:red_tulip_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 6
+        },
+        {
+          "data": {
+            "Name": "potionsplus:orange_tulip_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 7
+        },
+        {
+          "data": {
+            "Name": "potionsplus:white_tulip_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 10
+        },
+        {
+          "data": {
+            "Name": "potionsplus:pink_tulip_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 6
+        },
+        {
+          "data": {
+            "Name": "potionsplus:oxeye_daisy_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 10
+        },
+        {
+          "data": {
+            "Name": "potionsplus:cornflower_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 6
+        },
+        {
+          "data": {
+            "Name": "potionsplus:wither_rose_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "potionsplus:lily_of_the_valley_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 10
+        },
+        {
+          "data": {
+            "Name": "potionsplus:brown_mushroom_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 5
+        },
+        {
+          "data": {
+            "Name": "potionsplus:red_mushroom_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 5
+        },
+        {
+          "data": {
+            "Name": "potionsplus:sunflower_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 5
+        },
+        {
+          "data": {
+            "Name": "potionsplus:lilac_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 5
+        },
+        {
+          "data": {
+            "Name": "potionsplus:rose_bush_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 5
+        },
+        {
+          "data": {
+            "Name": "potionsplus:peony_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 5
+        },
+        {
+          "data": {
+            "Name": "potionsplus:tall_grass_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 10
+        },
+        {
+          "data": {
+            "Name": "potionsplus:large_fern_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 10
+        },
+        {
+          "data": {
+            "Name": "potionsplus:pitcher_plant_versatile",
+            "Properties": {
+              "facing": "down",
+              "segment": "0",
+              "texture_index": "0"
+            }
+          },
+          "weight": 2
+        }
+      ]
+    }
+  }
+}

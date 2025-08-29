@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:glass",
+    "potionsplus:uranium_ingot"
+  ],
+  "result": {
+    "count": 1,
+    "id": "potionsplus:uranium_glass"
+  }
+}
