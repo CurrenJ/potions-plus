@@ -807,5 +807,9 @@
   "item.potionsplus.brussels_sprouts": "Brussels Sprouts",
 
   "block.potionsplus.growing_mossy_cobblestone": "Growing Mossy Cobblestone",
-  "block.potionsplus.growing_mossy_stone_bricks": "Growing Mossy Stone Bricks"
+  "block.potionsplus.growing_mossy_cobblestone_slab": "Growing Mossy Cobblestone Slab",
+  "block.potionsplus.growing_mossy_cobblestone_stairs": "Growing Mossy Cobblestone Stairs",
+  "block.potionsplus.growing_mossy_stone_bricks": "Growing Mossy Stone Bricks",
+  "block.potionsplus.growing_mossy_stone_brick_slab": "Growing Mossy Stone Brick Slab",
+  "block.potionsplus.growing_mossy_stone_brick_stairs": "Growing Mossy Stone Brick Stairs"
 }

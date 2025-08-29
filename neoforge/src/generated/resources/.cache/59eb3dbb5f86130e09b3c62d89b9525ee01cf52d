@@ -1,7 +1,7 @@
-// 1.21.5	2025-08-29T02:03:44.1536723	Loot Tables
+// 1.21.5	2025-08-29T02:06:28.7126098	Loot Tables
 767576116fd07a81b32e7f2f0f1c900fb084b0a7 data/potionsplus/loot_table/advanced_skill_rewards.json
-33d13a3484927b3afc412561b61f08565ab6b1e9 data/potionsplus/loot_table/all_potions.json
-da2d1b5ea68396f8e607208489234960fef5bd5c data/potionsplus/loot_table/arid_cave_suspicious_sand.json
+a5db27a58d58de7652a9629b964b23d81828dd73 data/potionsplus/loot_table/all_potions.json
+daed4feda90b996bb1112bb16e5de1fb7aa34288 data/potionsplus/loot_table/arid_cave_suspicious_sand.json
 12af4d734f3484bb07c5d2c3cda6e0fb5e4aad2d data/potionsplus/loot_table/basic_skill_rewards.json
 2eabe4411f35c4bff1cf2460dac970398985d63c data/potionsplus/loot_table/beetroot_sugar_bonus_drops.json
 2c3c35e61a35bc151966f3cc1b284518aa4185b6 data/potionsplus/loot_table/blocks/abyssal_trove.json

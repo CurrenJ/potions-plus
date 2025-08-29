@@ -7,9 +7,11 @@ import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class BlockModelUtility {
@@ -116,6 +118,33 @@ public class BlockModelUtility {
         @Override
         public Holder<? extends T> getHolder() {
             return blockGetter.get();
+        }
+    }
+
+    public static class BlockFamilyModelGenerator<T extends Block> implements IModelGenerator<T> {
+        private final Supplier<Holder<T>> blockGetter;
+        private final Function<BlockFamily.Builder, BlockFamily.Builder> family;
+
+        public BlockFamilyModelGenerator(Supplier<Holder<T>> blockGetter, Function<BlockFamily.Builder, BlockFamily.Builder> family) {
+            this.blockGetter = blockGetter;
+            this.family = family;
+        }
+
+        @Override
+        public Holder<? extends T> getHolder() {
+            return blockGetter.get();
+        }
+
+        @Override
+        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+            Block block = getHolder().value();
+
+            BlockFamily.Builder builder = new BlockFamily.Builder(block);
+            BlockFamily.Builder modifiedBuilder = family.apply(builder);
+            BlockFamily blockFamily = modifiedBuilder.getFamily();
+
+            BlockModelGenerators.BlockFamilyProvider familyProvider = blockModelGenerators.family(block);
+            familyProvider.generateFor(blockFamily);
         }
     }
 }
