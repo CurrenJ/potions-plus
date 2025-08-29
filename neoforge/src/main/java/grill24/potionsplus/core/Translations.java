@@ -696,4 +696,10 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_BROCCOLI = "item.potionsplus.broccoli";
     public static final String ITEM_POTIONSPLUS_KALE = "item.potionsplus.kale";
     public static final String ITEM_POTIONSPLUS_BRUSSELS_SPROUTS = "item.potionsplus.brussels_sprouts";
+    public static final String BLOCK_POTIONSPLUS_GROWING_MOSSY_COBBLESTONE = "block.potionsplus.growing_mossy_cobblestone";
+    public static final String BLOCK_POTIONSPLUS_GROWING_MOSSY_COBBLESTONE_SLAB = "block.potionsplus.growing_mossy_cobblestone_slab";
+    public static final String BLOCK_POTIONSPLUS_GROWING_MOSSY_COBBLESTONE_STAIRS = "block.potionsplus.growing_mossy_cobblestone_stairs";
+    public static final String BLOCK_POTIONSPLUS_GROWING_MOSSY_STONE_BRICKS = "block.potionsplus.growing_mossy_stone_bricks";
+    public static final String BLOCK_POTIONSPLUS_GROWING_MOSSY_STONE_BRICK_SLAB = "block.potionsplus.growing_mossy_stone_brick_slab";
+    public static final String BLOCK_POTIONSPLUS_GROWING_MOSSY_STONE_BRICK_STAIRS = "block.potionsplus.growing_mossy_stone_brick_stairs";
 }
