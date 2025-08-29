@@ -65,6 +65,7 @@ public class Blocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FishTankBlockEntity>> FISH_TANK_BLOCK_ENTITY = BLOCK_ENTITIES.register("fish_tank_block_entity", () -> new BlockEntityType<>(FishTankBlockEntity::new, BlockEntityBlocks.toArray(BlockEntityBlocks.FISH_TANK_BLOCKS)));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GeneticCropBlockEntity>> GENETIC_CROP_BLOCK_ENTITY = BLOCK_ENTITIES.register("genetic_crop_block_entity", () -> new BlockEntityType<>(GeneticCropBlockEntity::new,
             FlowerBlocks.GENETIC_CROP_PLANTS.stream().map(Holder::value).collect(Collectors.toSet())));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MysticalGardenBlockEntity>> MYSTICAL_GARDEN_BLOCK_ENTITY = BLOCK_ENTITIES.register("mystical_garden_block_entity", () -> new BlockEntityType<>(MysticalGardenBlockEntity::new, DecorationBlocks.MYSTICAL_GARDEN.value()));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
