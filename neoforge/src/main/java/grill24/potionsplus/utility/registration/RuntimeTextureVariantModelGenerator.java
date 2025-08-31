@@ -85,18 +85,15 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
 
     @SafeVarargs
     public static @NotNull InteractionResult trySetTextureVariant(Block block, ItemStack stack, BlockState state, LevelAccessor level, BlockPos pos, Property<Integer>... textureVariantProperties) {
-        for (AbstractRegistererBuilder<?, ?> gen : RegistrationUtility.BUILDERS) {
-            if (gen.getHolder() != null && gen.getHolder().value() == block
-                    && gen.getRuntimeModelGenerator() instanceof RuntimeTextureVariantModelGenerator textureGen) {
-                for (Property<Integer> property : textureVariantProperties) {
-                    int value = textureGen.getValueForProperty(property, stack);
-                    if (value != -1) {
-                        BlockState newState = state.setValue(property, value);
-                        level.setBlock(pos, newState, 3);
-                        return InteractionResult.SUCCESS;
-                    }
+        RuntimeTextureVariantModelGenerator textureGen = RegistrationUtility.getTextureVariantGenerator(block);
+        if (textureGen != null) {
+            for (Property<Integer> property : textureVariantProperties) {
+                int value = textureGen.getValueForProperty(property, stack);
+                if (value != -1) {
+                    BlockState newState = state.setValue(property, value);
+                    level.setBlock(pos, newState, 3);
+                    return InteractionResult.SUCCESS;
                 }
-
             }
         }
 
@@ -111,14 +108,12 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
 
     @SafeVarargs
     public static Optional<BlockState> tryGetTextureVariantBlockState(Block block, ItemStack stack, BlockState state, Property<Integer>... textureVariantProperties) {
-        for (AbstractRegistererBuilder<?, ?> gen : RegistrationUtility.BUILDERS) {
-            if (gen.getHolder() != null && gen.getHolder().value() == block
-                    && gen.getRuntimeModelGenerator() instanceof RuntimeTextureVariantModelGenerator textureGen) {
-                for (Property<Integer> property : textureVariantProperties) {
-                    int value = textureGen.getValueForProperty(property, stack);
-                    if (value != -1) {
-                        return Optional.of(state.setValue(property, value));
-                    }
+        RuntimeTextureVariantModelGenerator textureGen = RegistrationUtility.getTextureVariantGenerator(block);
+        if (textureGen != null) {
+            for (Property<Integer> property : textureVariantProperties) {
+                int value = textureGen.getValueForProperty(property, stack);
+                if (value != -1) {
+                    return Optional.of(state.setValue(property, value));
                 }
             }
         }
@@ -332,9 +327,12 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
             // Get the texture to use as an override in the base model.
             // The utility method here searches for the first texture it can find in the provided block's model.
             ResourceLocation textureShortId = ResourceUtility.getDefaultTexture(variantBlock.get()).orElse(ppId("textures/item/unknown.png"));
+            
+            // Optimize ResourceLocation creation by avoiding string concatenation
+            String textureShortPath = textureShortId.getPath();
             ResourceLocation textureLongId = ResourceLocation.fromNamespaceAndPath(
                     textureShortId.getNamespace(),
-                    "textures/" + textureShortId.getPath() + ".png"
+                    textureShortPath.startsWith("textures/") ? textureShortPath + ".png" : "textures/" + textureShortPath + ".png"
             );
 
             // Populate additional models, for each property value in the permutation, so we can generate the model later.
@@ -355,17 +353,30 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
                 "models/" + baseModel.baseModelShortId().getPath() + ".json"
         );
 
-        Optional<String> blockTextureSuffix = subblocks.stream().map(modelData -> modelData.blockHolder().getKey().location().getPath()).reduce((a, b) -> a + "_" + b);
-        if (blockTextureSuffix.isPresent()) {
+        // Pre-calculate block texture suffix more efficiently
+        StringBuilder blockTextureSuffixBuilder = null;
+        for (AdditionalModel modelData : subblocks) {
+            if (blockTextureSuffixBuilder == null) {
+                blockTextureSuffixBuilder = new StringBuilder(modelData.blockHolder().getKey().location().getPath());
+            } else {
+                blockTextureSuffixBuilder.append('_').append(modelData.blockHolder().getKey().location().getPath());
+            }
+        }
+        
+        if (blockTextureSuffixBuilder != null) {
+            String blockTextureSuffix = blockTextureSuffixBuilder.toString();
             // Split base model on '.' and replace the last part with the submodel suffix - basically add our suffix to model name
             String suffix = baseModel.getRuntimeModelNameSuffix();
+            String baseModelPath = baseModelLongId.getPath();
+            int dotIndex = baseModelPath.lastIndexOf('.');
+            
             ResourceLocation subModelLongId = ResourceLocation.fromNamespaceAndPath(
                     baseModelLongId.getNamespace(),
-                    baseModelLongId.getPath().substring(0, baseModelLongId.getPath().lastIndexOf('.')) + "_" + blockTextureSuffix.get() + "_" + suffix + ".json"
+                    baseModelPath.substring(0, dotIndex) + "_" + blockTextureSuffix + "_" + suffix + ".json"
             );
             ResourceLocation subModelShortId = ResourceLocation.fromNamespaceAndPath(
                     baseModel.baseModelShortId().getNamespace(),
-                    baseModel.baseModelShortId().getPath() + "_" + blockTextureSuffix.get() + "_" + suffix
+                    baseModel.baseModelShortId().getPath() + "_" + blockTextureSuffix + "_" + suffix
             );
 
             // Store blockstate variant info for blockstate generation later

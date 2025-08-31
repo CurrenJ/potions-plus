@@ -98,34 +98,65 @@ public class ClientRuntimeTextureVariantUtility {
     }
 
     static List<List<Integer>> generatePermutations(List<Pair<Property<Integer>, List<Integer>>> properties) {
-        List<List<Integer>> permutations = new ArrayList<>();
-        generatePermutationsRecursive(properties, 0, new ArrayList<>(), permutations);
+        if (properties.isEmpty()) {
+            return List.of();
+        }
+        
+        // Calculate total number of permutations to pre-size array
+        int totalPermutations = 1;
+        for (Pair<Property<Integer>, List<Integer>> property : properties) {
+            totalPermutations *= property.getB().size();
+        }
+        
+        List<List<Integer>> permutations = new ArrayList<>(totalPermutations);
+        
+        // Use iterative approach instead of recursive to reduce memory allocation
+        generatePermutationsIterative(properties, permutations);
         return permutations;
     }
 
     /**
-     * Recursive function to generate all permutations of the given properties.
-     *
-     * @param properties
-     * @param index
-     * @param current
-     * @param result
+     * Iterative function to generate all permutations of the given properties.
+     * This is more memory efficient than the recursive approach as it doesn't 
+     * create deep call stacks and temporary array copies.
      */
-    private static void generatePermutationsRecursive(
+    private static void generatePermutationsIterative(
             List<Pair<Property<Integer>, List<Integer>>> properties,
-            int index,
-            List<Integer> current,
             List<List<Integer>> result) {
-        if (index == properties.size()) {
-            result.add(new ArrayList<>(current));
-            return;
+        
+        // Convert to arrays for faster access
+        List<Integer>[] propertyValues = new List[properties.size()];
+        int[] indices = new int[properties.size()];
+        
+        for (int i = 0; i < properties.size(); i++) {
+            propertyValues[i] = properties.get(i).getB();
         }
-
-        Pair<Property<Integer>, List<Integer>> property = properties.get(index);
-        for (Integer value : property.getB()) {
-            current.add(value);
-            generatePermutationsRecursive(properties, index + 1, current, result);
-            current.remove(current.size() - 1);
-        }
+        
+        // Generate all combinations using counter-like approach
+        do {
+            // Create current permutation
+            List<Integer> permutation = new ArrayList<>(properties.size());
+            for (int i = 0; i < properties.size(); i++) {
+                permutation.add(propertyValues[i].get(indices[i]));
+            }
+            result.add(permutation);
+            
+            // Increment indices like an odometer
+            int carry = 1;
+            for (int i = properties.size() - 1; i >= 0 && carry > 0; i--) {
+                indices[i] += carry;
+                if (indices[i] >= propertyValues[i].size()) {
+                    indices[i] = 0;
+                    carry = 1;
+                } else {
+                    carry = 0;
+                }
+            }
+            
+            // Stop when we've rolled over all counters
+            if (carry > 0) {
+                break;
+            }
+        } while (true);
     }
 }

@@ -11,10 +11,13 @@ import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.context.ContextKeySet;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -30,6 +33,9 @@ public class RegistrationUtility {
     public static List<IRecipeGenerator<?>> RECIPE_GENERATORS;
     public static List<ILootGenerator<?>> LOOT_GENERATORS;
     public static List<IRuntimeModelGenerator<?>> RUNTIME_RESOURCE_GENERATORS;
+    
+    // Performance optimization: Cache for fast block -> RuntimeTextureVariantModelGenerator lookup
+    private static Map<Block, RuntimeTextureVariantModelGenerator> blockToTextureGeneratorCache = null;
 
     /**
      * Registers an {@link ItemBuilder} and a corresponding {@link IModelGenerator}.
@@ -70,6 +76,8 @@ public class RegistrationUtility {
         }
         if (builder.hasRuntimeModelGenerator()) {
             RUNTIME_RESOURCE_GENERATORS.add(builder);
+            // Invalidate cache when new runtime model generators are added
+            blockToTextureGeneratorCache = null;
         }
         return builder;
     }
@@ -110,6 +118,36 @@ public class RegistrationUtility {
     public static void generateCommonRuntimeResourceMappings() {
         for (IRuntimeModelGenerator<?> generator : RUNTIME_RESOURCE_GENERATORS) {
             generator.generateCommon();
+        }
+        // Invalidate cache when mappings are regenerated
+        blockToTextureGeneratorCache = null;
+    }
+    
+    /**
+     * Fast lookup for RuntimeTextureVariantModelGenerator by block.
+     * Uses cached map to avoid O(n) linear search through all builders.
+     */
+    public static RuntimeTextureVariantModelGenerator getTextureVariantGenerator(Block block) {
+        if (blockToTextureGeneratorCache == null) {
+            buildTextureGeneratorCache();
+        }
+        return blockToTextureGeneratorCache.get(block);
+    }
+    
+    /**
+     * Builds the cache mapping blocks to their RuntimeTextureVariantModelGenerator.
+     * This replaces the O(n) linear search with O(1) HashMap lookup.
+     */
+    private static void buildTextureGeneratorCache() {
+        blockToTextureGeneratorCache = new HashMap<>();
+        if (BUILDERS != null) {
+            for (AbstractRegistererBuilder<?, ?> gen : BUILDERS) {
+                if (gen.getHolder() != null 
+                        && gen.getHolder().value() instanceof Block block
+                        && gen.getRuntimeModelGenerator() instanceof RuntimeTextureVariantModelGenerator textureGen) {
+                    blockToTextureGeneratorCache.put(block, textureGen);
+                }
+            }
         }
     }
 }
