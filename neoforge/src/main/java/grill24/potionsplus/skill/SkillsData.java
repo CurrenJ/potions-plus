@@ -36,12 +36,14 @@ import java.util.stream.Collectors;
 public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData,
                          PointEarningHistory pointEarningHistory,
                          Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> unlockedAbilities,
-                         PendingRewardsData pendingRewards) {
+                         PendingRewardsData pendingRewards,
+                         boolean hasOpenedSkillJournals) {
     public static final Codec<SkillsData> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             Codec.unboundedMap(HolderCodecs.resourceKey(PotionsPlusRegistries.CONFIGURED_SKILL), SkillInstance.CODEC).optionalFieldOf("skillInstances", new HashMap<>()).forGetter(instance -> instance.skillData),
             PointEarningHistory.CODEC.optionalFieldOf("pointEarningHistory", new PointEarningHistory(1000)).forGetter(instance -> instance.pointEarningHistory),
             Codec.unboundedMap(HolderCodecs.resourceKey(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY), AbilityInstanceSerializable.DIRECT_CODEC.listOf()).optionalFieldOf("activeAbilities", new HashMap<>()).forGetter(instance -> instance.unlockedAbilities),
-            PendingRewardsData.CODEC.optionalFieldOf("pendingRewards", new PendingRewardsData()).forGetter(instance -> instance.pendingRewards)
+            PendingRewardsData.CODEC.optionalFieldOf("pendingRewards", new PendingRewardsData()).forGetter(instance -> instance.pendingRewards),
+            Codec.BOOL.optionalFieldOf("hasOpenedSkillJournals", false).forGetter(instance -> instance.hasOpenedSkillJournals)
     ).apply(codecBuilder, SkillsData::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SkillsData> STREAM_CODEC = StreamCodec.composite(
@@ -53,23 +55,26 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
             (instance) -> instance.unlockedAbilities,
             PendingRewardsData.STREAM_CODEC,
             (instance) -> instance.pendingRewards,
+            ByteBufCodecs.BOOL,
+            (instance) -> instance.hasOpenedSkillJournals,
             SkillsData::new
     );
 
     public SkillsData() {
-        this(new HashMap<>(), new PointEarningHistory(1000), new HashMap<>(), new PendingRewardsData());
+        this(new HashMap<>(), new PointEarningHistory(1000), new HashMap<>(), new PendingRewardsData(), false);
     }
 
-    public SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> unlockedAbilities, PendingRewardsData pendingRewards) {
+    public SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?, ?>> skillData, PointEarningHistory pointEarningHistory, Map<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> unlockedAbilities, PendingRewardsData pendingRewards, boolean hasOpenedSkillJournals) {
         this.skillData = new HashMap<>(skillData);
         this.unlockedAbilities = new HashMap<>();
         unlockedAbilities.forEach((key, value) -> this.unlockedAbilities.put(key, new ArrayList<>(value)));        // Deep copy, make sure lists are mutable
         this.pointEarningHistory = pointEarningHistory;
         this.pendingRewards = pendingRewards;
+        this.hasOpenedSkillJournals = hasOpenedSkillJournals;
     }
 
     public SkillsData(SkillsData skillsData) {
-        this(new HashMap<>(skillsData.skillData), new PointEarningHistory(skillsData.pointEarningHistory), new HashMap<>(skillsData.unlockedAbilities), new PendingRewardsData(skillsData.pendingRewards));
+        this(new HashMap<>(skillsData.skillData), new PointEarningHistory(skillsData.pointEarningHistory), new HashMap<>(skillsData.unlockedAbilities), new PendingRewardsData(skillsData.pendingRewards), skillsData.hasOpenedSkillJournals);
     }
 
     public void clear(ServerPlayer player) {
@@ -319,5 +324,23 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
 
     public static boolean isSkillsSystemEnabled() {
         return PotionsPlusConfig.CONFIG.enableSkills.get();
+    }
+
+    /**
+     * Creates a new SkillsData with the hasOpenedSkillJournals flag set to true
+     */
+    public SkillsData withSkillJournalsOpened() {
+        return new SkillsData(skillData, pointEarningHistory, unlockedAbilities, pendingRewards, true);
+    }
+
+    /**
+     * Marks that the player has opened the skill journals GUI
+     */
+    public static void markSkillJournalsOpened(Player player) {
+        SkillsData skillsData = getPlayerData(player);
+        if (!skillsData.hasOpenedSkillJournals) {
+            SkillsData newData = skillsData.withSkillJournalsOpened();
+            player.setData(DataAttachments.SKILL_PLAYER_DATA, newData);
+        }
     }
 }

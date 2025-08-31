@@ -66,6 +66,7 @@
   "tooltip.potionsplus.skill.level": "[Lvl %s] ",
   "tooltip.potionsplus.skill.points_earned": "points earned",
   "tooltip.potionsplus.skill.journal.none": "Level up skills to unlock abilities here!",
+  "tooltip.potionsplus.skill.check_journals": " (Check Skill Journals!)",
 
   "description.potionsplus.ability.pickaxe_efficiency": "%s Pickaxe Mining Speed",
   "description.potionsplus.ability.pickaxe_fortune": "%s Pickaxe Fortune Level",
