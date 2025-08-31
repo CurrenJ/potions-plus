@@ -67,7 +67,11 @@ public class TextureResourceModification implements IResourceModification {
                     return createBufferedImageCached(ppId("textures/item/unknown.png"), 
                         ResourceUtility.getResource(ppId("textures/item/unknown.png")).get());
                 }
-                BufferedImage baseImage = createBufferedImageCached(baseTextureLongId, baseTextureResource.get());
+                BufferedImage cachedBaseImage = createBufferedImageCached(baseTextureLongId, baseTextureResource.get());
+                
+                // Create a copy of the cached image to avoid modifying the cached version
+                BufferedImage baseImage = new BufferedImage(cachedBaseImage.getWidth(), cachedBaseImage.getHeight(), cachedBaseImage.getType());
+                baseImage.getGraphics().drawImage(cachedBaseImage, 0, 0, null);
 
                 for (OverlayImage overlay : overlayImages) {
                     Optional<Resource> overlayTextureResource = ResourceUtility.getResource(overlay.getOverlayTextureLongId());
