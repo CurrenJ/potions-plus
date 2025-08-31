@@ -32,6 +32,7 @@ public class DecorationBlocks {
     public static Holder<Block> GROWING_MOSSY_COBBLESTONE, GROWING_MOSSY_STONE_BRICKS;
     public static Holder<Block> GROWING_MOSSY_COBBLESTONE_SLAB, GROWING_MOSSY_COBBLESTONE_STAIRS;
     public static Holder<Block> GROWING_MOSSY_STONE_BRICK_SLAB, GROWING_MOSSY_STONE_BRICK_STAIRS;
+    public static Holder<Block> MYSTICAL_GARDEN;
 
 
     public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
@@ -162,6 +163,25 @@ public class DecorationBlocks {
                                 .unlockedBy("has_growing_mossy_stone_bricks", provider.has(DecorationBlocks.GROWING_MOSSY_STONE_BRICKS.value()))))
         ).getHolder();
         Items.registerBlockItem(GROWING_MOSSY_STONE_BRICK_STAIRS, registerItem);
+
+        MYSTICAL_GARDEN = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("mystical_garden")
+                .blockFactory(prop -> new MysticalGardenBlock(prop
+                        .mapColor(MapColor.PLANT)
+                        .strength(2.0F, 3.0F)
+                        .sound(SoundType.GRASS)
+                        .lightLevel(state -> 3)
+                        .randomTicks()))
+                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
+                        (provider, h) -> provider.shaped(RecipeCategory.DECORATIONS, h.value())
+                                .pattern("EGE")
+                                .pattern("GCG")
+                                .pattern("EGE")
+                                .define('E', net.minecraft.world.item.Items.EMERALD)
+                                .define('G', Blocks.GRASS_BLOCK)
+                                .define('C', net.minecraft.world.item.Items.CAULDRON)
+                                .unlockedBy("has_emerald", provider.has(net.minecraft.world.item.Items.EMERALD))))
+        ).getHolder();
+        Items.registerBlockItem(MYSTICAL_GARDEN, registerItem);
     }
 
 }

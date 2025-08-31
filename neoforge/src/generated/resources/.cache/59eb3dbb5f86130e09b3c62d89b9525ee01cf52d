@@ -1,7 +1,7 @@
-// 1.21.5	2025-08-29T02:06:28.7126098	Loot Tables
+// 1.21.5	2025-08-29T03:35:15.5431665	Loot Tables
 767576116fd07a81b32e7f2f0f1c900fb084b0a7 data/potionsplus/loot_table/advanced_skill_rewards.json
-a5db27a58d58de7652a9629b964b23d81828dd73 data/potionsplus/loot_table/all_potions.json
-daed4feda90b996bb1112bb16e5de1fb7aa34288 data/potionsplus/loot_table/arid_cave_suspicious_sand.json
+a2f83908dd929e6b5ec461310420f8d5bd342b79 data/potionsplus/loot_table/all_potions.json
+419c0e86536fe8673cfa66d5b0084c63dfdee930 data/potionsplus/loot_table/arid_cave_suspicious_sand.json
 12af4d734f3484bb07c5d2c3cda6e0fb5e4aad2d data/potionsplus/loot_table/basic_skill_rewards.json
 2eabe4411f35c4bff1cf2460dac970398985d63c data/potionsplus/loot_table/beetroot_sugar_bonus_drops.json
 2c3c35e61a35bc151966f3cc1b284518aa4185b6 data/potionsplus/loot_table/blocks/abyssal_trove.json
@@ -169,6 +169,7 @@ c6f8de627f9657e3fda4e4de3b292400b86f1b71 data/potionsplus/loot_table/blocks/icic
 d4a2d4a68abdb2373e5ef9a8b68720b5b59da2a2 data/potionsplus/loot_table/blocks/lilac_versatile.json
 4a7e4e9e592877e57b1bd93706213dcb0f3c2e4b data/potionsplus/loot_table/blocks/lily_of_the_valley_versatile.json
 60e70fb313d82b3bcd3e00d214b0a0c0445250df data/potionsplus/loot_table/blocks/lumoseed_sacks.json
+9dd456f9ad93bdbb16d845152419cfff547c54f5 data/potionsplus/loot_table/blocks/mystical_garden.json
 e9fcfe3f3e603bd09e8cc0f4aa2625c1376e8a45 data/potionsplus/loot_table/blocks/orange_tulip_versatile.json
 a8e58e702a493266b04e160bb0a36eb5156836c3 data/potionsplus/loot_table/blocks/oxeye_daisy_versatile.json
 fef078c46ff4baf94060d75317628e771ac1fab1 data/potionsplus/loot_table/blocks/particle_emitter.json
