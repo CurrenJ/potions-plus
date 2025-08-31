@@ -7,6 +7,7 @@ import grill24.potionsplus.core.seededrecipe.IRuntimeRecipeProvider;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.SanguineAltarRecipes;
 import grill24.potionsplus.core.seededrecipe.SeededPotionRecipes;
+import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.BrewingCauldronRecipeAnalysis;
 import grill24.potionsplus.recipe.RecipeAnalysis;
 import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
@@ -36,6 +37,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+
+import static grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients.Rarity.COMMON;
+import static grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients.Rarity.RARE;
 
 public class Recipes {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, ModInfo.MOD_ID);
@@ -122,62 +126,64 @@ public class Recipes {
 
     private static List<RecipeHolder<?>> generateRuntimeClotheslineFishRecipes(MinecraftServer server) {
         List<RecipeHolder<?>> fishRecipes = new ArrayList<>();
-        
+
         // Get all items tagged as PP_FISH
         HolderGetter<Item> itemLookup = server.registryAccess().lookupOrThrow(Registries.ITEM);
         Optional<HolderSet.Named<Item>> fishTagOptional = itemLookup.get(Tags.Items.PP_FISH);
-        
+
         if (fishTagOptional.isPresent()) {
             HolderSet.Named<Item> fishItems = fishTagOptional.get();
-            
-            // Create a seeded random based on world seed for consistent fish -> resource mapping
-            Random seededRandom = new Random(PotionsPlus.worldSeed);
-            
-            // List of possible resources that fish can yield (small amounts)
-            ItemStack[] possibleResources = {
-                new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 1),
-                new ItemStack(net.minecraft.world.item.Items.KELP, 1),
-                new ItemStack(net.minecraft.world.item.Items.STRING, 1),
-                new ItemStack(net.minecraft.world.item.Items.PRISMARINE_SHARD, 1),
-                new ItemStack(net.minecraft.world.item.Items.INK_SAC, 1),
-                new ItemStack(net.minecraft.world.item.Items.SEA_PICKLE, 1),
-                new ItemStack(net.minecraft.world.item.Items.NAUTILUS_SHELL, 1),
-                new ItemStack(net.minecraft.world.item.Items.TURTLE_SCUTE, 1)
-            };
-            
-            // Generate recipe for each fish
-            for (Holder<Item> fishHolder : fishItems) {
-                Item fishItem = fishHolder.value();
-                
-                // Use the fish item's resource location hash with world seed for consistent mapping
+
+            // Only use items that are in the PP_FISH tag
+            List<Item> taggedFishItems = fishItems.stream().map(Holder::value).toList();
+
+            // Get all possible potion ingredients, excluding potions and fish
+            List<ItemStack> possibleIngredients = ALL_SEEDED_POTION_RECIPES_ANALYSIS.getAllPotionsPlusIngredientsNoPotions()
+                    .stream()
+                    .map(PpIngredient::getItemStack)
+                    .filter(stack -> !stack.is(Tags.Items.PP_FISH))
+                    .toList();
+
+            if (possibleIngredients.isEmpty()) {
+                // fallback: do nothing if no ingredients found
+                return fishRecipes;
+            }
+
+            // Generate recipe for each tagged fish
+            for (Item fishItem : taggedFishItems) {
                 Random fishRandom = new Random(PotionsPlus.worldSeed + fishItem.toString().hashCode());
-                ItemStack resource = possibleResources[fishRandom.nextInt(possibleResources.length)].copy();
-                
-                // Generate random success chance between 0.1 (10%) and 0.5 (50%)
-                float successChance = 0.1f + fishRandom.nextFloat() * 0.4f; // 0.1 to 0.5
-                
-                // Create clothesline recipe: fish -> resource
+                ItemStack ingredientStack = possibleIngredients.get(fishRandom.nextInt(possibleIngredients.size())).copy();
+
+                PpIngredient ingredient = PpIngredient.of(ingredientStack);
+                float successChance = fishRandom.nextFloat();
+                if (SeededIngredientsLootTables.isRarity(COMMON, ingredient)) {
+                    successChance *= 0.5f;
+                } else if (SeededIngredientsLootTables.isRarity(RARE, ingredient)) {
+                    successChance *= 0.15f;
+                } else {
+                    successChance *= 0.5f;
+                }
+
                 ClotheslineRecipe recipe = new ClotheslineRecipe(
-                    RecipeCategory.MISC,
-                    List.of(PpIngredient.of(new ItemStack(fishItem))),
-                    resource,
-                    2400, // 2 minutes processing time (120 seconds * 20 ticks)
-                    true, // Show in JEI
-                    successChance
+                        RecipeCategory.MISC,
+                        List.of(PpIngredient.of(new ItemStack(fishItem))),
+                        ingredientStack,
+                        2400,
+                        true,
+                        successChance
                 );
-                
-                // Create recipe holder with a unique ID
+
                 ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(
-                    Registries.RECIPE,
-                    ResourceLocation.fromNamespaceAndPath(
-                        "potionsplus", 
-                        "clothesline_fish_" + BuiltInRegistries.ITEM.getKey(fishItem).getPath()
-                    )
+                        Registries.RECIPE,
+                        ResourceLocation.fromNamespaceAndPath(
+                                "potionsplus",
+                                "clothesline_fish_" + BuiltInRegistries.ITEM.getKey(fishItem).getPath()
+                        )
                 );
                 fishRecipes.add(new RecipeHolder<>(recipeKey, recipe));
             }
         }
-        
+
         return fishRecipes;
     }
 
