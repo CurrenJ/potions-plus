@@ -1,6 +1,7 @@
 package grill24.potionsplus.utility;
 
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.utility.cache.TextureCache;
 import net.minecraft.server.packs.resources.Resource;
 
@@ -41,7 +42,9 @@ public class FakePngResource extends FakeResource {
             throw new IOException("Failed to encode BufferedImage to PNG bytes");
         }
 
-        PotionsPlus.LOGGER.info("FakePngResource: {}", image);
+        if (Debug.DEBUG_RUNTIME_RESOURCE_INJECTION) {
+            PotionsPlus.LOGGER.info("FakePngResource: {}", image);
+        }
 
         // Return an InputStream from the cached byte array
         return new ByteArrayInputStream(pngBytes);
