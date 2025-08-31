@@ -104,7 +104,7 @@ public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRec
             
             net.minecraft.client.Minecraft minecraft = net.minecraft.client.Minecraft.getInstance();
             int textColor = 0xFF55FF55; // Green color
-            int shadowColor = 0xFF000000;
+            int shadowColor = 0xFF000000 | (textColor & 0xFCFCFC) >> 2;
             int width = minecraft.font.width(successText);
             int x = background.getWidth() / 2 - width / 2; // Center horizontally
             int y = 50; // Near bottom

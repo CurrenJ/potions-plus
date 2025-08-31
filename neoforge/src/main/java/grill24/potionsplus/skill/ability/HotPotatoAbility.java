@@ -21,8 +21,10 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class HotPotatoAbility extends CooldownTriggerableAbility<LivingDamageEvent.Pre, CustomPacketPayload> {
@@ -60,6 +62,10 @@ public class HotPotatoAbility extends CooldownTriggerableAbility<LivingDamageEve
 
     // ----- ITriggerablePlayerAbility -----
 
+    // Add a static map to track last alert time per player
+    private static final Map<Player, Long> lastFailureAlertTime = new ConcurrentHashMap<>();
+    private static final long FAILURE_ALERT_COOLDOWN_MS = 10000; // 2 seconds
+
     @Override
     public Optional<CustomPacketPayload> onTriggeredFromServer(Player player, AbilityInstanceSerializable<?, ?> instance, LivingDamageEvent.Pre event) {
         if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthAbilityInstanceData) {
@@ -73,9 +79,14 @@ public class HotPotatoAbility extends CooldownTriggerableAbility<LivingDamageEve
                 player.getInventory().getItem(poisonousPotatoSlot).shrink(1);
                 return Optional.empty(); // Success case
             } else {
-                // Failure: no poisonous potato available, send chat alert
-                if (player instanceof ServerPlayer serverPlayer) {
-                    serverPlayer.sendSystemMessage(Component.translatable(Translations.CHAT_POTIONSPLUS_HOT_POTATO_NO_POTATO_WARNING).withStyle(ChatFormatting.RED));
+                // Failure: no poisonous potato available, send chat alert with cooldown
+                long now = System.currentTimeMillis();
+                Long lastAlert = lastFailureAlertTime.get(player);
+                if (lastAlert == null || now - lastAlert > FAILURE_ALERT_COOLDOWN_MS) {
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        serverPlayer.sendSystemMessage(Component.translatable(Translations.CHAT_POTIONSPLUS_HOT_POTATO_NO_POTATO_WARNING).withStyle(ChatFormatting.RED));
+                    }
+                    lastFailureAlertTime.put(player, now);
                 }
                 // Don't prevent the damage - ability fails
                 // Return null to indicate failure - this will prevent cooldown from being triggered
