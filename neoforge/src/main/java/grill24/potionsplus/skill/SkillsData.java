@@ -69,7 +69,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         this.unlockedAbilities = new HashMap<>();
         unlockedAbilities.forEach((key, value) -> this.unlockedAbilities.put(key, new ArrayList<>(value)));        // Deep copy, make sure lists are mutable
         this.pointEarningHistory = pointEarningHistory;
-        this.pendingRewards = pendingRewards;
+        this.pendingRewards = new PendingRewardsData(pendingRewards); // Create a copy to ensure isolation
         this.hasOpenedSkillJournals = hasOpenedSkillJournals;
     }
 
