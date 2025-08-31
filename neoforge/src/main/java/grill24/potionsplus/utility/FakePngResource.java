@@ -12,6 +12,7 @@ import java.io.InputStream;
 
 public class FakePngResource extends FakeResource {
     private final BufferedImage image;
+    private volatile byte[] cachedPngData;
 
     public FakePngResource(Resource base, BufferedImage image) {
         super(base, s -> s); // Pass null for base resource since we're mocking
@@ -24,14 +25,22 @@ public class FakePngResource extends FakeResource {
 
     @Override
     public InputStream open() throws IOException {
-        // Write the provided image to a ByteArrayOutputStream
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", outputStream);
+        // Use cached PNG data if available, otherwise generate and cache it
+        if (cachedPngData == null) {
+            synchronized (this) {
+                if (cachedPngData == null) {
+                    // Write the provided image to a ByteArrayOutputStream
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    ImageIO.write(image, "png", outputStream);
+                    cachedPngData = outputStream.toByteArray();
+                    
+                    PotionsPlus.LOGGER.info("FakePngResource: Generated and cached PNG data for {}", image);
+                }
+            }
+        }
 
-        PotionsPlus.LOGGER.info("FakePngResource: {}", image);
-
-        // Return an InputStream from the byte array
-        return new ByteArrayInputStream(outputStream.toByteArray());
+        // Return an InputStream from the cached byte array
+        return new ByteArrayInputStream(cachedPngData);
     }
 
     private static BufferedImage generateDebugImage() {
