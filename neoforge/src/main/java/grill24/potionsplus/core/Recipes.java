@@ -28,6 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -144,18 +145,31 @@ public class Recipes {
                     .filter(stack -> !stack.is(Tags.Items.PP_FISH))
                     .toList();
 
+            // Define fallback junk items (ocean/fish related)
+            List<ItemStack> fallbackJunk = List.of(
+                    new ItemStack(Items.KELP),
+                    new ItemStack(Items.BONE),
+                    new ItemStack(Items.LEATHER),
+                    new ItemStack(Items.ROTTEN_FLESH),
+                    new ItemStack(Items.STICK),
+                    new ItemStack(Items.SAND),
+                    new ItemStack(Items.STRING),
+                    new ItemStack(Items.GOLD_NUGGET)
+            );
+
             if (possibleIngredients.isEmpty()) {
-                // fallback: do nothing if no ingredients found
                 return fishRecipes;
             }
 
-            // Generate recipe for each tagged fish
             for (Item fishItem : taggedFishItems) {
                 Random fishRandom = new Random(PotionsPlus.worldSeed + fishItem.toString().hashCode());
                 ItemStack ingredientStack = possibleIngredients.get(fishRandom.nextInt(possibleIngredients.size())).copy();
 
+                // Pick a random fallback junk item
+                ItemStack fallbackStack = fallbackJunk.get(fishRandom.nextInt(fallbackJunk.size())).copy();
+
                 PpIngredient ingredient = PpIngredient.of(ingredientStack);
-                float successChance = fishRandom.nextFloat();
+                float successChance = Math.clamp(fishRandom.nextFloat(), 0.25f, 1.0f);
                 if (SeededIngredientsLootTables.isRarity(COMMON, ingredient)) {
                     successChance *= 0.5f;
                 } else if (SeededIngredientsLootTables.isRarity(RARE, ingredient)) {
@@ -170,7 +184,8 @@ public class Recipes {
                         ingredientStack,
                         2400,
                         true,
-                        successChance
+                        successChance,
+                        fallbackStack
                 );
 
                 ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(

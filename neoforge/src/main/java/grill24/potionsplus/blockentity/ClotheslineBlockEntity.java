@@ -160,17 +160,16 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                 spawnCraftingSuccessParticles(level, slot);
             } else {
                 final ClotheslineRecipe activeRecipe = new ClotheslineRecipe(activeRecipes[slot].value());
-                
-                // Check if recipe succeeds based on success chance
+
                 float successChance = activeRecipe.getSuccessChance();
                 boolean recipeSucceeds = level.random.nextFloat() < successChance;
-                
+
+                ItemStack container = getItem(slot).getCraftingRemainder();
+                getItem(slot).shrink(1);
+
                 if (recipeSucceeds) {
                     // Recipe succeeds - craft the item
-                    ItemStack container = getItem(slot).getCraftingRemainder();
                     ItemStack result = activeRecipe.getResult();
-
-                    getItem(slot).shrink(1);
                     setItem(slot, result);
 
                     if (!container.isEmpty() && !result.is(container.getItem())) {
@@ -187,9 +186,13 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                         }
                     });
                 } else {
-                    // Recipe fails - consume the item without giving result
-                    getItem(slot).shrink(1);
-                    // Play a different sound for failure
+                    // Recipe fails - give fallback result if present, else nothing
+                    ItemStack fallback = activeRecipe.getFallbackResult();
+                    if (!fallback.isEmpty()) {
+                        setItem(slot, fallback.copy());
+                    } else {
+                        setItem(slot, ItemStack.EMPTY);
+                    }
                     level.playSound(null, worldPosition, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5f, 1.5f);
                 }
             }

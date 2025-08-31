@@ -87,7 +87,15 @@ public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRec
 
         List<ItemStack> resultItemStacks = List.of(recipe.getResult());
         builder.addSlot(RecipeIngredientRole.OUTPUT, 111, 23)
+                .setSlotName("main_output")
                 .addItemStacks(resultItemStacks);
+
+        // Show fallback result if present
+        if (!recipe.getFallbackResult().isEmpty()) {
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 111, 43)
+                    .setSlotName("fallback_output")
+                    .addItemStacks(List.of(recipe.getFallbackResult()));
+        }
 
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 38 - 8, 31 - 8)
                 .setSlotName("cauldron")
@@ -100,20 +108,29 @@ public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRec
         float successChance = recipe.getSuccessChance();
         if (successChance < 1.0f) {
             int percentage = Math.round(successChance * 100);
-            String successText = percentage + "% Success";
+            String successText = percentage + "% Success:";
             
             net.minecraft.client.Minecraft minecraft = net.minecraft.client.Minecraft.getInstance();
             int textColor = 0xFF55FF55; // Green color
             int shadowColor = 0xFF000000 | (textColor & 0xFCFCFC) >> 2;
             int width = minecraft.font.width(successText);
-            int x = background.getWidth() / 2 - width / 2; // Center horizontally
-            int y = 50; // Near bottom
+            int x = 111 - width - 2; // Center horizontally
+            int y = 10; // Near bottom
             
             // Draw text with shadow
             guiGraphics.drawString(minecraft.font, successText, x + 1, y, shadowColor);
             guiGraphics.drawString(minecraft.font, successText, x, y + 1, shadowColor);
             guiGraphics.drawString(minecraft.font, successText, x + 1, y + 1, shadowColor);
             guiGraphics.drawString(minecraft.font, successText, x, y, textColor);
+
+            // Draw fallback label if present
+            if (!recipe.getFallbackResult().isEmpty()) {
+                String fallbackText = "Otherwise:";
+                int fallbackWidth = minecraft.font.width(fallbackText);
+                int fallbackX = 111 - fallbackWidth - 2;
+                int fallbackY = 43;
+                guiGraphics.drawString(minecraft.font, fallbackText, fallbackX, fallbackY, 0xFFAAAAAA);
+            }
         }
     }
 
