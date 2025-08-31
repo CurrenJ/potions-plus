@@ -1,6 +1,7 @@
 package grill24.potionsplus.utility;
 
 import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.utility.cache.TextureCache;
 import net.minecraft.server.packs.resources.Resource;
 
 import javax.imageio.ImageIO;
@@ -24,14 +25,26 @@ public class FakePngResource extends FakeResource {
 
     @Override
     public InputStream open() throws IOException {
-        // Write the provided image to a ByteArrayOutputStream
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", outputStream);
+        // Use cache to avoid repeated PNG encoding
+        byte[] pngBytes = TextureCache.getOrCreatePngBytes(image, img -> {
+            try {
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                ImageIO.write(img, "png", outputStream);
+                return outputStream.toByteArray();
+            } catch (IOException e) {
+                PotionsPlus.LOGGER.error("Failed to encode BufferedImage to PNG", e);
+                return null;
+            }
+        });
+
+        if (pngBytes == null) {
+            throw new IOException("Failed to encode BufferedImage to PNG bytes");
+        }
 
         PotionsPlus.LOGGER.info("FakePngResource: {}", image);
 
-        // Return an InputStream from the byte array
-        return new ByteArrayInputStream(outputStream.toByteArray());
+        // Return an InputStream from the cached byte array
+        return new ByteArrayInputStream(pngBytes);
     }
 
     private static BufferedImage generateDebugImage() {

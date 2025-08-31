@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.NativeImage;
 import grill24.potionsplus.utility.FakePngResource;
 import grill24.potionsplus.utility.RUtil;
 import grill24.potionsplus.utility.ResourceUtility;
+import grill24.potionsplus.utility.cache.TextureCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 
@@ -50,37 +51,49 @@ public class TextureResourceModification implements IResourceModification {
 
     public static Supplier<BufferedImage> overlay(ResourceLocation baseTextureLongId, OverlayImage... overlayImages) {
         return () -> {
-            Optional<Resource> baseTextureResource = ResourceUtility.getResource(baseTextureLongId);
-            if (baseTextureResource.isEmpty()) {
-                return createBufferedImage(ResourceUtility.getResource(ppId("textures/item/unknown.png")).get());
+            // Create overlay specifications for caching
+            TextureCache.OverlaySpec[] overlaySpecs = new TextureCache.OverlaySpec[overlayImages.length];
+            for (int i = 0; i < overlayImages.length; i++) {
+                overlaySpecs[i] = new TextureCache.OverlaySpec(
+                    overlayImages[i].getOverlayTextureLongId(), 
+                    overlayImages[i].getBlendMode().name()
+                );
             }
-            BufferedImage baseImage = createBufferedImage(baseTextureResource.get());
-
-
-            for (OverlayImage overlay : overlayImages) {
-                Optional<Resource> overlayTextureResource = ResourceUtility.getResource(overlay.getOverlayTextureLongId());
-                if (overlayTextureResource.isEmpty()) {
-                    continue;
+            
+            // Try to get from cache first
+            return TextureCache.getOrCreateOverlayResult(baseTextureLongId, overlaySpecs, () -> {
+                Optional<Resource> baseTextureResource = ResourceUtility.getResource(baseTextureLongId);
+                if (baseTextureResource.isEmpty()) {
+                    return createBufferedImageCached(ppId("textures/item/unknown.png"), 
+                        ResourceUtility.getResource(ppId("textures/item/unknown.png")).get());
                 }
-                BufferedImage overlayImage = createBufferedImage(overlayTextureResource.get());
+                BufferedImage baseImage = createBufferedImageCached(baseTextureLongId, baseTextureResource.get());
 
-                // Draw the overlay image onto the base image
-                for (int x = 0; x < baseImage.getWidth() && x < overlayImage.getWidth(); x++) {
-                    for (int y = 0; y < baseImage.getHeight() && y < overlayImage.getHeight(); y++) {
-                        int color = overlayImage.getRGB(x, y);
-                        // Check that the pixel is not fully transparent
-                        int alpha = (color >> 24) & 0xFF;
-                        if (alpha != 0) {
-                            // Blend the color with the base image
-                            int baseColor = baseImage.getRGB(x, y);
-                            int blendedColor = RUtil.blendColors(color, baseColor, overlay.getBlendMode());
-                            baseImage.setRGB(x, y, blendedColor);
+                for (OverlayImage overlay : overlayImages) {
+                    Optional<Resource> overlayTextureResource = ResourceUtility.getResource(overlay.getOverlayTextureLongId());
+                    if (overlayTextureResource.isEmpty()) {
+                        continue;
+                    }
+                    BufferedImage overlayImage = createBufferedImageCached(overlay.getOverlayTextureLongId(), overlayTextureResource.get());
+
+                    // Draw the overlay image onto the base image
+                    for (int x = 0; x < baseImage.getWidth() && x < overlayImage.getWidth(); x++) {
+                        for (int y = 0; y < baseImage.getHeight() && y < overlayImage.getHeight(); y++) {
+                            int color = overlayImage.getRGB(x, y);
+                            // Check that the pixel is not fully transparent
+                            int alpha = (color >> 24) & 0xFF;
+                            if (alpha != 0) {
+                                // Blend the color with the base image
+                                int baseColor = baseImage.getRGB(x, y);
+                                int blendedColor = RUtil.blendColors(color, baseColor, overlay.getBlendMode());
+                                baseImage.setRGB(x, y, blendedColor);
+                            }
                         }
                     }
                 }
-            }
 
-            return baseImage;
+                return baseImage;
+            });
         };
     }
 
@@ -109,6 +122,10 @@ public class TextureResourceModification implements IResourceModification {
             }
             return new FakePngResource(r, image);
         });
+    }
+
+    private static BufferedImage createBufferedImageCached(ResourceLocation location, Resource resource) {
+        return TextureCache.getOrCreateBufferedImage(location, resource, TextureResourceModification::createBufferedImage);
     }
 
     private static BufferedImage createBufferedImage(Resource resource) {
