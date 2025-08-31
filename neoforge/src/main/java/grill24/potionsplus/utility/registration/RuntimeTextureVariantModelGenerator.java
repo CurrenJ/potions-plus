@@ -153,6 +153,7 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
     @Override
     public void generateCommon() {
         this.blockMappings.clear();
+        this.blockMappingsByPropertyValue.clear();
         for (PropertyTexVariant propertyTexVariant : propertyTexVariants) {
             // Sort low to high
             List<Integer> possibleValues = propertyTexVariant.property().getPossibleValues().stream()
