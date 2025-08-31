@@ -37,6 +37,9 @@ public record TextResourceModification(ResourceLocation targetResourceLocation, 
 
     @Override
     public List<Resource> generateResourceStack() {
+        // Track the new resource for selective reload optimization
+        grill24.potionsplus.utility.performance.SelectiveResourceReloadUtility.trackModifiedResource(newResource);
+        
         return ResourceUtility.getResourceStack(targetResourceLocation)
                 .stream()
                 .map(getTransformer())
@@ -45,6 +48,9 @@ public record TextResourceModification(ResourceLocation targetResourceLocation, 
 
     @Override
     public Optional<Resource> generateResource() {
+        // Track the new resource for selective reload optimization
+        grill24.potionsplus.utility.performance.SelectiveResourceReloadUtility.trackModifiedResource(newResource);
+        
         Optional<Resource> targetResource = ResourceUtility.getResource(targetResourceLocation);
         return targetResource.map(resource -> getTransformer().apply(resource));
     }

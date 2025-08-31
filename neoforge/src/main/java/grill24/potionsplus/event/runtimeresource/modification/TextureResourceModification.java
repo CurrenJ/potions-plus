@@ -114,6 +114,9 @@ public class TextureResourceModification implements IResourceModification {
 
     @Override
     public Optional<Resource> generateResource() {
+        // Track the new resource for selective reload optimization
+        grill24.potionsplus.utility.performance.SelectiveResourceReloadUtility.trackModifiedResource(newResourceLocation);
+        
         Optional<Resource> targetResource = ResourceUtility.getResource(targetResourceLocation);
         return targetResource.map(r -> {
             BufferedImage image = textureGenerator.get();
