@@ -304,7 +304,7 @@ public class ConfiguredPlayerAbilities {
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> MOVEMENT_SPEED_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("movement_speed_modifier")
                     .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_MOVEMENT_SPEED)
-                    .parentSkill(ConfiguredSkills.WALKING)
+                    .parentSkill(ConfiguredSkills.TRAVERSAL)
                     .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
                     .attribute(Attributes.MOVEMENT_SPEED)
                     .operation(AttributeModifier.Operation.ADD_VALUE)
@@ -312,7 +312,7 @@ public class ConfiguredPlayerAbilities {
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SPRINT_SPEED_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("sprint_speed_modifier")
                     .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SPRINT_SPEED)
-                    .parentSkill(ConfiguredSkills.SPRINTING)
+                    .parentSkill(ConfiguredSkills.TRAVERSAL)
                     .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
                     .attribute(grill24.potionsplus.core.Attributes.SPRINTING_SPEED)
                     .operation(AttributeModifier.Operation.ADD_VALUE)
@@ -320,7 +320,7 @@ public class ConfiguredPlayerAbilities {
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SNEAK_SPEED_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("sneak_speed_modifier")
                     .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_SPEED)
-                    .parentSkill(ConfiguredSkills.SNEAKING)
+                    .parentSkill(ConfiguredSkills.TRAVERSAL)
                     .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
                     .attribute(Attributes.SNEAKING_SPEED)
                     .operation(AttributeModifier.Operation.ADD_VALUE)
@@ -378,6 +378,18 @@ public class ConfiguredPlayerAbilities {
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOT_POTATO)
             .longTranslationKey(Translations.DESCRIPTION_LONG_POTIONSPLUS_ABILITY_HOT_POTATO)
             .parentSkill(ConfiguredSkills.MINING));
+
+    public static final CooldownTriggerableAbility.Builder<SneakInvisibilityAbility> SNEAK_INVISIBILITY = register(() -> new CooldownTriggerableAbility.Builder<SneakInvisibilityAbility>("sneak_invisibility")
+            .ability(PlayerAbilities.SNEAK_INVISIBILITY.value())
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_INVISIBILITY)
+            .longTranslationKey(Translations.DESCRIPTION_LONG_POTIONSPLUS_ABILITY_SNEAK_INVISIBILITY)
+            .parentSkill(ConfiguredSkills.TRAVERSAL));
+
+    public static final SimplePlayerAbility.Builder SNEAK_FALL_RESISTANCE = register(() -> new SimplePlayerAbility.Builder("sneak_fall_resistance")
+            .ability(PlayerAbilities.SNEAK_FALL_RESISTANCE.value())
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_FALL_RESISTANCE)
+            .longTranslationKey(Translations.DESCRIPTION_LONG_POTIONSPLUS_ABILITY_SNEAK_FALL_RESISTANCE)
+            .parentSkill(ConfiguredSkills.TRAVERSAL));
 
     // Data Gen
     public static void generate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context) {

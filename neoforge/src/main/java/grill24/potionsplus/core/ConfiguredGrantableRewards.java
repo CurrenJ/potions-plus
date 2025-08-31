@@ -256,6 +256,24 @@ public class ConfiguredGrantableRewards {
             .strength(1.0F))
             .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOT_POTATO_INCREASE);
 
+    public static IncreaseAbilityStrengthReward.Builder SNEAK_INVISIBILITY_UNLOCK = register(() -> new IncreaseAbilityStrengthReward.Builder("sneak_invisibility_unlock")
+            .ability(ConfiguredPlayerAbilities.SNEAK_INVISIBILITY.getKey())
+            .strength(1.0F)
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_INVISIBILITY_UNLOCK));
+    public static IncreaseAbilityStrengthReward.Builder SNEAK_INVISIBILITY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("sneak_invisibility_increase")
+            .ability(ConfiguredPlayerAbilities.SNEAK_INVISIBILITY.getKey())
+            .strength(1.0F))
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_INVISIBILITY_INCREASE);
+
+    public static IncreaseAbilityStrengthReward.Builder SNEAK_FALL_RESISTANCE_UNLOCK = register(() -> new IncreaseAbilityStrengthReward.Builder("sneak_fall_resistance_unlock")
+            .ability(ConfiguredPlayerAbilities.SNEAK_FALL_RESISTANCE.getKey())
+            .strength(1.0F)
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_FALL_RESISTANCE_UNLOCK));
+    public static IncreaseAbilityStrengthReward.Builder SNEAK_FALL_RESISTANCE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("sneak_fall_resistance_increase")
+            .ability(ConfiguredPlayerAbilities.SNEAK_FALL_RESISTANCE.getKey())
+            .strength(1.0F))
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SNEAK_FALL_RESISTANCE_INCREASE);
+
     public static IncreaseAbilityStrengthReward.Builder CHAIN_LIGHTNING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("chain_lightning_increase")
             .ability(ConfiguredPlayerAbilities.CHAIN_LIGHTNING.getKey())
             .strength(1.0F)
