@@ -28,15 +28,21 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
     protected final List<PpIngredient> ingredients;
     protected final int processingTime;
     protected final boolean canShowInJei;
+    protected final float successChance; // 1.0 = 100% success
 
     private final NonNullList<Ingredient> nonNullIngredientList;
 
     public ShapelessProcessingRecipe(RecipeCategory category, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei) {
+        this(category, ingredients, result, processingTime, canShowInJei, 1.0f);
+    }
+
+    public ShapelessProcessingRecipe(RecipeCategory category, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei, float successChance) {
         this.category = category;
         this.ingredients = ImmutableList.copyOf(ingredients);
         this.result = result;
         this.processingTime = processingTime;
         this.canShowInJei = canShowInJei;
+        this.successChance = Math.max(0.0f, Math.min(1.0f, successChance)); // Clamp between 0 and 1
 
         NonNullList<Ingredient> nonNullIngredientsList = NonNullList.create();
         for (PpIngredient ppIngredient : ingredients) {
@@ -123,6 +129,10 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
 
     public boolean canShowInJei() {
         return this.canShowInJei;
+    }
+
+    public float getSuccessChance() {
+        return this.successChance;
     }
 
     public String getUniqueRecipeName() {

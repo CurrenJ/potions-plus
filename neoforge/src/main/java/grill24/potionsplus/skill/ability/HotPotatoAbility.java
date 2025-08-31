@@ -71,12 +71,15 @@ public class HotPotatoAbility extends CooldownTriggerableAbility<LivingDamageEve
                 event.setNewDamage(0);
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, getDurationTicks(strength), 0, false, true));
                 player.getInventory().getItem(poisonousPotatoSlot).shrink(1);
+                return Optional.empty(); // Success case
             } else {
                 // Failure: no poisonous potato available, send chat alert
                 if (player instanceof ServerPlayer serverPlayer) {
                     serverPlayer.sendSystemMessage(Component.translatable(Translations.CHAT_POTIONSPLUS_HOT_POTATO_NO_POTATO_WARNING).withStyle(ChatFormatting.RED));
                 }
                 // Don't prevent the damage - ability fails
+                // Return null to indicate failure - this will prevent cooldown from being triggered
+                return null;
             }
         }
 

@@ -94,4 +94,27 @@ public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRec
                 .add(new ItemStack(BlockEntityBlocks.CLOTHESLINE.value()));
     }
 
+    @Override
+    public void draw(ClotheslineRecipe recipe, mezz.jei.api.gui.ingredient.IRecipeSlotsView recipeSlotsView, net.minecraft.client.gui.GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        // Draw success percentage if less than 100%
+        float successChance = recipe.getSuccessChance();
+        if (successChance < 1.0f) {
+            int percentage = Math.round(successChance * 100);
+            String successText = percentage + "% Success";
+            
+            net.minecraft.client.Minecraft minecraft = net.minecraft.client.Minecraft.getInstance();
+            int textColor = 0xFF55FF55; // Green color
+            int shadowColor = 0xFF000000;
+            int width = minecraft.font.width(successText);
+            int x = background.getWidth() / 2 - width / 2; // Center horizontally
+            int y = 50; // Near bottom
+            
+            // Draw text with shadow
+            guiGraphics.drawString(minecraft.font, successText, x + 1, y, shadowColor);
+            guiGraphics.drawString(minecraft.font, successText, x, y + 1, shadowColor);
+            guiGraphics.drawString(minecraft.font, successText, x + 1, y + 1, shadowColor);
+            guiGraphics.drawString(minecraft.font, successText, x, y, textColor);
+        }
+    }
+
 }

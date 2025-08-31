@@ -23,11 +23,15 @@ import java.util.List;
 public class ClotheslineRecipe extends ShapelessProcessingRecipe {
 
     public ClotheslineRecipe(ClotheslineRecipe recipe) {
-        super(recipe.category, recipe.ingredients, recipe.result, recipe.processingTime, recipe.canShowInJei);
+        super(recipe.category, recipe.ingredients, recipe.result, recipe.processingTime, recipe.canShowInJei, recipe.successChance);
     }
 
     public ClotheslineRecipe(RecipeCategory category, List<PpIngredient> ingredients, ItemStack itemStack, int processingTime, boolean canShowInJei) {
-        super(category, ingredients, itemStack, processingTime, canShowInJei);
+        super(category, ingredients, itemStack, processingTime, canShowInJei, 1.0f);
+    }
+
+    public ClotheslineRecipe(RecipeCategory category, List<PpIngredient> ingredients, ItemStack itemStack, int processingTime, boolean canShowInJei, float successChance) {
+        super(category, ingredients, itemStack, processingTime, canShowInJei, successChance);
     }
 
     @Override
@@ -51,7 +55,8 @@ public class ClotheslineRecipe extends ShapelessProcessingRecipe {
                         PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
                         ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
                         Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
-                        Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei)
+                        Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei),
+                        Codec.FLOAT.optionalFieldOf("successChance", 1.0f).forGetter(ShapelessProcessingRecipe::getSuccessChance)
                 ).apply(codecBuilder, ClotheslineRecipe::new)
         );
         public static StreamCodec<RegistryFriendlyByteBuf, ClotheslineRecipe> STREAM_CODEC = StreamCodec.composite(
@@ -60,6 +65,7 @@ public class ClotheslineRecipe extends ShapelessProcessingRecipe {
                 ItemStack.STREAM_CODEC, ShapelessProcessingRecipe::getResult,
                 ByteBufCodecs.INT, ShapelessProcessingRecipe::getProcessingTime,
                 ByteBufCodecs.BOOL, ShapelessProcessingRecipe::canShowInJei,
+                ByteBufCodecs.FLOAT, ShapelessProcessingRecipe::getSuccessChance,
                 ClotheslineRecipe::new
         );
 

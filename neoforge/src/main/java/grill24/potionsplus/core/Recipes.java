@@ -153,13 +153,17 @@ public class Recipes {
                 Random fishRandom = new Random(PotionsPlus.worldSeed + fishItem.toString().hashCode());
                 ItemStack resource = possibleResources[fishRandom.nextInt(possibleResources.length)].copy();
                 
+                // Generate random success chance between 0.1 (10%) and 0.5 (50%)
+                float successChance = 0.1f + fishRandom.nextFloat() * 0.4f; // 0.1 to 0.5
+                
                 // Create clothesline recipe: fish -> resource
                 ClotheslineRecipe recipe = new ClotheslineRecipe(
                     RecipeCategory.MISC,
                     List.of(PpIngredient.of(new ItemStack(fishItem))),
                     resource,
                     2400, // 2 minutes processing time (120 seconds * 20 ticks)
-                    true  // Show in JEI
+                    true, // Show in JEI
+                    successChance
                 );
                 
                 // Create recipe holder with a unique ID

@@ -109,17 +109,7 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
             AbilityInstanceSerializable<?, ?> instance = instanceOpt.get();
             if (instance.data().isEnabled() && hasFinishedCooldown(instance, timestamp)) {
                 consumer.accept(instance);
-
-                if (getCooldownDurationForAbility(instance) > 0) {
-                    // Set timestamp after triggering ability
-                    updateLastTriggeredTime(instance, timestamp);
-
-                    // Notify client of cooldown
-                    player.displayClientMessage(getCooldownComponent(instance), true);
-                    // Schedule cooldown over notification
-                    scheduleCooldownDoneNotification(getCooldownOverComponent(instance), player, instance);
-                }
-
+                // Note: cooldown is now managed by the caller based on success/failure
                 return true;
             }
         }
@@ -136,14 +126,39 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
      * @param eventData          The event data to pass to the ability.
      */
     public boolean triggerFromServer(Player player, ResourceKey<ConfiguredPlayerAbility<?, ?>> abilityResourceKey, E eventData) {
+        final boolean[] abilitySucceeded = {false};
+        final AbilityInstanceSerializable<?, ?>[] instanceRef = {null};
         Consumer<AbilityInstanceSerializable<?, ?>> runnable = (instance) -> {
+            instanceRef[0] = instance;
             Optional<P> packet = onTriggeredFromServer(player, instance, eventData);
-            if (player instanceof ServerPlayer serverPlayer) {
-                packet.ifPresent(p -> PacketDistributor.sendToPlayersTrackingEntityAndSelf(serverPlayer, p));
+            // If packet is null, it means the ability failed and we shouldn't activate cooldown
+            if (packet != null) {
+                abilitySucceeded[0] = true;
+                if (player instanceof ServerPlayer serverPlayer) {
+                    packet.ifPresent(p -> PacketDistributor.sendToPlayersTrackingEntityAndSelf(serverPlayer, p));
+                }
             }
         };
 
-        return doForAbility(player, abilityResourceKey, runnable, eventData);
+        boolean wasExecuted = doForAbility(player, abilityResourceKey, runnable, eventData);
+        
+        // Only apply cooldown if ability was executed and succeeded
+        if (wasExecuted && abilitySucceeded[0] && instanceRef[0] != null) {
+            AbilityInstanceSerializable<?, ?> instance = instanceRef[0];
+            long timestamp = player.level().getGameTime();
+            
+            if (getCooldownDurationForAbility(instance) > 0) {
+                // Set timestamp after triggering ability
+                updateLastTriggeredTime(instance, timestamp);
+
+                // Notify client of cooldown
+                player.displayClientMessage(getCooldownComponent(instance), true);
+                // Schedule cooldown over notification
+                scheduleCooldownDoneNotification(getCooldownOverComponent(instance), player, instance);
+            }
+        }
+        
+        return wasExecuted && abilitySucceeded[0];
     }
 
     /**
@@ -155,14 +170,39 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
      * @param eventData          The event data to pass to the ability.
      */
     public boolean triggerFromClient(Player player, ResourceKey<ConfiguredPlayerAbility<?, ?>> abilityResourceKey, E eventData) {
+        final boolean[] abilitySucceeded = {false};
+        final AbilityInstanceSerializable<?, ?>[] instanceRef = {null};
         Consumer<AbilityInstanceSerializable<?, ?>> runnable = (instance) -> {
+            instanceRef[0] = instance;
             Optional<P> packet = onTriggeredFromClient(player, instance, eventData);
-            if (player.isLocalPlayer()) {
-                packet.ifPresent(PacketDistributor::sendToServer);
+            // If packet is null, it means the ability failed and we shouldn't activate cooldown
+            if (packet != null) {
+                abilitySucceeded[0] = true;
+                if (player.isLocalPlayer()) {
+                    packet.ifPresent(PacketDistributor::sendToServer);
+                }
             }
         };
 
-        return doForAbility(player, abilityResourceKey, runnable, eventData);
+        boolean wasExecuted = doForAbility(player, abilityResourceKey, runnable, eventData);
+        
+        // Only apply cooldown if ability was executed and succeeded
+        if (wasExecuted && abilitySucceeded[0] && instanceRef[0] != null) {
+            AbilityInstanceSerializable<?, ?> instance = instanceRef[0];
+            long timestamp = player.level().getGameTime();
+            
+            if (getCooldownDurationForAbility(instance) > 0) {
+                // Set timestamp after triggering ability
+                updateLastTriggeredTime(instance, timestamp);
+
+                // Notify client of cooldown
+                player.displayClientMessage(getCooldownComponent(instance), true);
+                // Schedule cooldown over notification
+                scheduleCooldownDoneNotification(getCooldownOverComponent(instance), player, instance);
+            }
+        }
+        
+        return wasExecuted && abilitySucceeded[0];
     }
 
     public static class Builder<A extends CooldownTriggerableAbility<?, ?>> extends CooldownTriggerableAbility.AbstractBuilder<PlayerAbilityConfiguration, A, Builder<A>> {
