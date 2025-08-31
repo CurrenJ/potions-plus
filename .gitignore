@@ -107,7 +107,3 @@ runs
 run-data
 
 repo
-
-# Compilation artifacts
-*.class
-javac.*.args

@@ -2,7 +2,6 @@ package grill24.potionsplus.event.runtimeresource.modification;
 
 import grill24.potionsplus.utility.FakeResource;
 import grill24.potionsplus.utility.ResourceUtility;
-import grill24.potionsplus.utility.performance.SelectiveResourceReloadUtility;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 
@@ -24,9 +23,6 @@ public record ResourceModification(ResourceLocation targetResourceLocation, Reso
 
     @Override
     public List<Resource> generateResourceStack() {
-        // Track the new resource for selective reload optimization
-        SelectiveResourceReloadUtility.trackModifiedResource(newResourceLocation);
-        
         return ResourceUtility.getResourceStack(targetResourceLocation)
                 .stream()
                 .map(resource)
@@ -36,9 +32,6 @@ public record ResourceModification(ResourceLocation targetResourceLocation, Reso
 
     @Override
     public Optional<Resource> generateResource() {
-        // Track the new resource for selective reload optimization
-        SelectiveResourceReloadUtility.trackModifiedResource(newResourceLocation);
-        
         Optional<Resource> targetResource = ResourceUtility.getResource(targetResourceLocation);
         return targetResource.map(resource);
     }
