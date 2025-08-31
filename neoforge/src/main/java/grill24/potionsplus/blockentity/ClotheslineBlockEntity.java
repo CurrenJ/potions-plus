@@ -72,8 +72,16 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
             progress[i] = tag.getInt("Progress" + i).orElse(0);
         }
 
-        fencePostBlockItem = ItemStack.parse(registryAccess, tag.getCompoundOrEmpty("fencePostBlockItem"))
-                .orElse(getDefaultFencePostBlockItem());
+        // Only fall back to default if no fence post data was saved at all
+        if (tag.contains("fencePostBlockItem")) {
+            fencePostBlockItem = ItemStack.parse(registryAccess, tag.getCompound("fencePostBlockItem").orElse(new CompoundTag()))
+                    .orElse(getDefaultFencePostBlockItem());
+        } else {
+            // If no fence post data exists, keep the current fence post item (preserves existing state)
+            if (fencePostBlockItem == null) {
+                fencePostBlockItem = getDefaultFencePostBlockItem();
+            }
+        }
         updateFencePostRenderData();
     }
 
@@ -85,7 +93,8 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
             tag.putInt("Progress" + i, progress[i]);
         }
 
-        if (fencePostBlockItem != null && !fencePostBlockItem.isEmpty()) {
+        // Always save fence post block item, even if empty, to preserve the choice
+        if (fencePostBlockItem != null) {
             tag.put("fencePostBlockItem", fencePostBlockItem.save(registryAccess));
         }
     }
