@@ -58,6 +58,7 @@ public class Translations {
     public static final String TOOLTIP_POTIONSPLUS_SKILL_LEVEL = "tooltip.potionsplus.skill.level";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_POINTS_EARNED = "tooltip.potionsplus.skill.points_earned";
     public static final String TOOLTIP_POTIONSPLUS_SKILL_JOURNAL_NONE = "tooltip.potionsplus.skill.journal.none";
+    public static final String TOOLTIP_POTIONSPLUS_SKILL_CHECK_JOURNALS = "tooltip.potionsplus.skill.check_journals";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_EFFICIENCY = "description.potionsplus.ability.pickaxe_efficiency";
     public static final String DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_FORTUNE = "description.potionsplus.ability.pickaxe_fortune";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_FORTUNE_LEVEL = "description.potionsplus.attribute.fortune_level";
@@ -509,6 +510,7 @@ public class Translations {
     public static final String JEI_POTIONSPLUS_AMP_UPGRADE = "jei.potionsplus.amp_upgrade";
     public static final String JEI_POTIONSPLUS_DUR_UPGRADE = "jei.potionsplus.dur_upgrade";
     public static final String CHAT_POTIONSPLUS_BREWING_CAULDRON_RECIPE_UNLOCKED = "chat.potionsplus.brewing_cauldron_recipe_unlocked";
+    public static final String CHAT_POTIONSPLUS_HOT_POTATO_NO_POTATO_WARNING = "chat.potionsplus.hot_potato.no_potato_warning";
     public static final String ITEM_POTIONSPLUS_MERGED_POTIONS_2_EFFECTS = "item.potionsplus.merged_potions_2_effects";
     public static final String ITEM_POTIONSPLUS_MERGED_POTIONS_3_EFFECTS = "item.potionsplus.merged_potions_3_effects";
     public static final String ITEM_POTIONSPLUS_MERGED_POTIONS_4_EFFECTS = "item.potionsplus.merged_potions_4_effects";

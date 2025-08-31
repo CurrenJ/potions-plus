@@ -114,7 +114,15 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
 
                     // Send chat message with reward description
                     if (getConfiguredSkill(registryAccess).config().getData().rewardsConfiguration().hasRewardForLevel(i)) {
-                        serverPlayer.sendSystemMessage(getRewardDescription(registryAccess, i));
+                        MutableComponent rewardDescription = getRewardDescription(registryAccess, i).copy();
+                        
+                        // Check if the player has never opened skill journals, and append reminder if so
+                        SkillsData skillsData = SkillsData.getPlayerData(serverPlayer);
+                        if (!skillsData.hasOpenedSkillJournals()) {
+                            rewardDescription.append(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_SKILL_CHECK_JOURNALS).withStyle(ChatFormatting.YELLOW));
+                        }
+                        
+                        serverPlayer.sendSystemMessage(rewardDescription);
                     }
                 }
 

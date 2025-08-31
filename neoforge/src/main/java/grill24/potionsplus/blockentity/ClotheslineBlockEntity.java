@@ -72,8 +72,16 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
             progress[i] = tag.getInt("Progress" + i).orElse(0);
         }
 
-        fencePostBlockItem = ItemStack.parse(registryAccess, tag.getCompoundOrEmpty("fencePostBlockItem"))
-                .orElse(getDefaultFencePostBlockItem());
+        // Only fall back to default if no fence post data was saved at all
+        if (tag.contains("fencePostBlockItem")) {
+            fencePostBlockItem = ItemStack.parse(registryAccess, tag.getCompound("fencePostBlockItem").orElse(new CompoundTag()))
+                    .orElse(getDefaultFencePostBlockItem());
+        } else {
+            // If no fence post data exists, keep the current fence post item (preserves existing state)
+            if (fencePostBlockItem == null) {
+                fencePostBlockItem = getDefaultFencePostBlockItem();
+            }
+        }
         updateFencePostRenderData();
     }
 
@@ -85,7 +93,8 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
             tag.putInt("Progress" + i, progress[i]);
         }
 
-        if (fencePostBlockItem != null && !fencePostBlockItem.isEmpty()) {
+        // Always save fence post block item, even if empty, to preserve the choice
+        if (fencePostBlockItem != null) {
             tag.put("fencePostBlockItem", fencePostBlockItem.save(registryAccess));
         }
     }
@@ -151,25 +160,41 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                 spawnCraftingSuccessParticles(level, slot);
             } else {
                 final ClotheslineRecipe activeRecipe = new ClotheslineRecipe(activeRecipes[slot].value());
+
+                float successChance = activeRecipe.getSuccessChance();
+                boolean recipeSucceeds = level.random.nextFloat() < successChance;
+
                 ItemStack container = getItem(slot).getCraftingRemainder();
-                ItemStack result = activeRecipe.getResult();
-
                 getItem(slot).shrink(1);
-                setItem(slot, result);
 
-                if (!container.isEmpty() && !result.is(container.getItem())) {
-                    Vector3f spotToPop = new Vector3f(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()); // TODO: FIX ME -> ClotheslineBlockEntityBakedRenderData.getItemPoint(getBlockPos(), getBlockState(), slot, true);
-                    ClotheslineBlock.popResource(level, new BlockPos(Math.round(spotToPop.x()), Math.round(spotToPop.y()), Math.round(spotToPop.z())), container);
-                }
+                if (recipeSucceeds) {
+                    // Recipe succeeds - craft the item
+                    ItemStack result = activeRecipe.getResult();
+                    setItem(slot, result);
 
-                level.playSound(null, worldPosition, SoundEvents.WEEPING_VINES_PLACE, SoundSource.BLOCKS, 1, 1);
-
-                PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(worldPosition, slot));
-                level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
-                    if (player instanceof ServerPlayer serverPlayer) {
-                        Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
+                    if (!container.isEmpty() && !result.is(container.getItem())) {
+                        Vector3f spotToPop = new Vector3f(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()); // TODO: FIX ME -> ClotheslineBlockEntityBakedRenderData.getItemPoint(getBlockPos(), getBlockState(), slot, true);
+                        ClotheslineBlock.popResource(level, new BlockPos(Math.round(spotToPop.x()), Math.round(spotToPop.y()), Math.round(spotToPop.z())), container);
                     }
-                });
+
+                    level.playSound(null, worldPosition, SoundEvents.WEEPING_VINES_PLACE, SoundSource.BLOCKS, 1, 1);
+
+                    PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(worldPosition, slot));
+                    level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
+                        if (player instanceof ServerPlayer serverPlayer) {
+                            Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
+                        }
+                    });
+                } else {
+                    // Recipe fails - give fallback result if present, else nothing
+                    ItemStack fallback = activeRecipe.getFallbackResult();
+                    if (!fallback.isEmpty()) {
+                        setItem(slot, fallback.copy());
+                    } else {
+                        setItem(slot, ItemStack.EMPTY);
+                    }
+                    level.playSound(null, worldPosition, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5f, 1.5f);
+                }
             }
         }
 

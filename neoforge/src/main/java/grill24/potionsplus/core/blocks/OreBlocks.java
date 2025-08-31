@@ -120,7 +120,7 @@ public class OreBlocks {
         Items.registerBlockItem(SULFURIC_NETHER_QUARTZ_ORE, registerItem);
 
         SANDY_COPPER_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_copper_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F).sound(SoundType.GRAVEL)))
                 .lootGenerator(null)// Hand-made loot table
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h,
@@ -133,7 +133,7 @@ public class OreBlocks {
         Items.registerBlockItem(SANDY_COPPER_ORE, registerItem);
 
         SANDY_IRON_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_iron_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), prop.mapColor(MapColor.STONE).strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), prop.mapColor(MapColor.STONE).strength(0.5F, 0.5F).sound(SoundType.GRAVEL)))
                 .lootGenerator(null) // Hand-made loot table
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_iron_ore"),
@@ -145,7 +145,7 @@ public class OreBlocks {
         Items.registerBlockItem(SANDY_IRON_ORE, registerItem);
 
         SANDY_GOLD_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_gold_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F).sound(SoundType.GRAVEL)))
                 .lootGenerator(null) // Hand-made loot table
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_gold_ore"),
@@ -157,7 +157,7 @@ public class OreBlocks {
         Items.registerBlockItem(SANDY_GOLD_ORE, registerItem);
 
         SANDY_DIAMOND_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_diamond_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F).sound(SoundType.GRAVEL)))
                 .lootGenerator(null) // Hand-made loot table
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_diamond_ore"),
@@ -169,7 +169,7 @@ public class OreBlocks {
         Items.registerBlockItem(SANDY_DIAMOND_ORE, registerItem);
 
         SANDY_REDSTONE_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_redstone_ore")
-                .blockFactory(prop -> new PotionsPlusRedstoneOreBlock(prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusRedstoneOreBlock(prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F).sound(SoundType.GRAVEL)))
                 .lootGenerator(null) // Hand-made loot table
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_redstone_ore"),
@@ -181,7 +181,7 @@ public class OreBlocks {
         Items.registerBlockItem(SANDY_REDSTONE_ORE, registerItem);
 
         SANDY_LAPIS_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_lapis_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(2, 5), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(2, 5), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F).sound(SoundType.GRAVEL)))
                 .lootGenerator(null) // Hand-made loot table
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_lapis_ore"),
@@ -193,7 +193,7 @@ public class OreBlocks {
         Items.registerBlockItem(SANDY_LAPIS_ORE, registerItem);
 
         SANDY_COAL_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_coal_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(0, 2), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(0, 2), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F).sound(SoundType.GRAVEL)))
                 .lootGenerator(null) // Hand-made loot table
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_coal_ore"),
@@ -205,7 +205,7 @@ public class OreBlocks {
         Items.registerBlockItem(SANDY_COAL_ORE, registerItem);
 
         SANDY_EMERALD_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_emerald_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F).sound(SoundType.GRAVEL)))
                 .lootGenerator(null) // Hand-made loot table
                 .runtimeModelGenerator(h ->
                         new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_emerald_ore"),
@@ -217,7 +217,7 @@ public class OreBlocks {
         Items.registerBlockItem(SANDY_EMERALD_ORE, registerItem);
 
         SANDY_URANIUM_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_uranium_ore")
-                .blockFactory(prop -> new UraniumOreBlock(UniformInt.of(4, 9), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F)))
+                .blockFactory(prop -> new UraniumOreBlock(UniformInt.of(4, 9), prop.mapColor(MapColor.SAND).strength(0.5F, 0.5F).sound(SoundType.GRAVEL)))
                 .modelGenerator(h -> new UraniumOreBlockModelGenerator<>(h, ppId("block/sandy_uranium_ore")))
                 .lootGenerator(null) // Hand-made loot table
                 .runtimeModelGenerator(h ->

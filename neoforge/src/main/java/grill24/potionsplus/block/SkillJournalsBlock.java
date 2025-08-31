@@ -45,6 +45,9 @@ public class SkillJournalsBlock extends HorizontalDirectionalBlock {
 
     public static void openSkillsMenu(Player player) {
         if (player instanceof ServerPlayer serverPlayer) {
+            // Mark that the player has opened the skill journals
+            SkillsData.markSkillJournalsOpened(serverPlayer);
+
             serverPlayer.openMenu(new SimpleMenuProvider(
                     (containerId, playerInventory, p) -> new SkillsMenu(containerId, playerInventory),
                     Component.literal("Skills!")
