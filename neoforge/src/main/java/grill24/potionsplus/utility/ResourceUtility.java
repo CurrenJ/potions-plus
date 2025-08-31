@@ -19,8 +19,45 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ResourceUtility {
+    // Cache for texture lookups to avoid expensive JSON parsing and resource loading
+    private static final ConcurrentHashMap<ResourceLocation, Optional<ResourceLocation>> BLOCK_TEXTURE_CACHE = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<ResourceLocation, Optional<ResourceLocation>> MODEL_TEXTURE_CACHE = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<ResourceLocation, String> RAW_JSON_CACHE = new ConcurrentHashMap<>();
+    
+    // Statistics for monitoring cache performance
+    private static long textureHits = 0;
+    private static long textureMisses = 0;
+    
+    /**
+     * Clears all caches. Called when resource packs are reloaded.
+     */
+    public static void clearCaches() {
+        long totalEntries = BLOCK_TEXTURE_CACHE.size() + MODEL_TEXTURE_CACHE.size() + RAW_JSON_CACHE.size();
+        BLOCK_TEXTURE_CACHE.clear();
+        MODEL_TEXTURE_CACHE.clear();
+        RAW_JSON_CACHE.clear();
+        
+        if (totalEntries > 0) {
+            PotionsPlus.LOGGER.info("ResourceUtility cleared {} cached entries", totalEntries);
+            logStatistics();
+            textureHits = textureMisses = 0;
+        }
+    }
+    
+    /**
+     * Logs cache performance statistics.
+     */
+    public static void logStatistics() {
+        long totalRequests = textureHits + textureMisses;
+        if (totalRequests > 0) {
+            double hitRate = (double) textureHits / totalRequests * 100;
+            PotionsPlus.LOGGER.info("ResourceUtility Cache: {} hits, {} misses, {:.1f}% hit rate", 
+                textureHits, textureMisses, hitRate);
+        }
+    }
     /**
      * Gets the first texture found within a given Block's blockstate.
      *
@@ -28,12 +65,27 @@ public class ResourceUtility {
      * @return
      */
     public static Optional<ResourceLocation> getDefaultTexture(Holder<? extends Block> blockHolder) {
-        Optional<ResourceLocation> defaultBlockModel = getDefaultModel(blockHolder);
-        if (defaultBlockModel.isPresent()) {
-            return getDefaultTexture(defaultBlockModel.get());
-        } else {
-            return Optional.empty();
+        ResourceLocation blockKey = blockHolder.getKey().location();
+        
+        // Check cache first
+        Optional<ResourceLocation> cached = BLOCK_TEXTURE_CACHE.get(blockKey);
+        if (cached != null) {
+            textureHits++;
+            return cached;
         }
+        
+        textureMisses++;
+        Optional<ResourceLocation> defaultBlockModel = getDefaultModel(blockHolder);
+        Optional<ResourceLocation> result;
+        if (defaultBlockModel.isPresent()) {
+            result = getDefaultTexture(defaultBlockModel.get());
+        } else {
+            result = Optional.empty();
+        }
+        
+        // Cache the result
+        BLOCK_TEXTURE_CACHE.put(blockKey, result);
+        return result;
     }
 
     /**
@@ -76,33 +128,76 @@ public class ResourceUtility {
      * @return Texture location in the format of "namespace:path/to/texture.png", as parsable by a block model definition .json.
      */
     private static Optional<ResourceLocation> getDefaultTexture(ResourceLocation modelLocation) {
+        // Check cache first
+        Optional<ResourceLocation> cached = MODEL_TEXTURE_CACHE.get(modelLocation);
+        if (cached != null) {
+            return cached;
+        }
+        
         ResourceManager rm = Minecraft.getInstance().getResourceManager();
 
         Optional<Resource> resource = rm.getResource(modelLocation);
+        Optional<ResourceLocation> result;
         if (resource.isPresent()) {
-            String json = getRawResourceJson(resource.get());
+            String json = getRawResourceJsonCached(resource.get(), modelLocation);
             if (json.isEmpty()) {
                 PotionsPlus.LOGGER.error("Couldn't find model JSON: {}", modelLocation);
-                Optional.empty();
+                result = Optional.empty();
+            } else {
+                result = parseTextureFromModelJson(json, modelLocation);
             }
+        } else {
+            PotionsPlus.LOGGER.error("No model found for: {}", modelLocation);
+            result = Optional.empty();
+        }
 
+        // Cache the result
+        MODEL_TEXTURE_CACHE.put(modelLocation, result);
+        return result;
+    }
+    
+    /**
+     * Optimized texture parsing from model JSON.
+     */
+    private static Optional<ResourceLocation> parseTextureFromModelJson(String json, ResourceLocation modelLocation) {
+        try {
             // Parse json to find the texture
             JsonObject jsonObject = GsonHelper.parse(json);
-            JsonObject textureObj = jsonObject.get("textures").getAsJsonObject();
-            List<JsonElement> textureEntries = textureObj.asMap().values().stream().toList();
-            if (textureEntries.isEmpty()) {
-                PotionsPlus.LOGGER.error("No textures found in JSON: {}", json);
+            if (!jsonObject.has("textures")) {
+                PotionsPlus.LOGGER.error("No textures object found in model JSON: {}", modelLocation);
                 return Optional.empty();
             }
-            String texturePath = textureEntries.getFirst().getAsString();
+            
+            JsonObject textureObj = jsonObject.get("textures").getAsJsonObject();
+            if (textureObj.size() == 0) {
+                PotionsPlus.LOGGER.error("No textures found in model JSON: {}", modelLocation);
+                return Optional.empty();
+            }
+            
+            // Get the first texture entry more efficiently
+            Map.Entry<String, JsonElement> firstEntry = textureObj.entrySet().iterator().next();
+            String texturePath = firstEntry.getValue().getAsString();
 
             ResourceLocation textureResourceLocation = ResourceLocation.parse(texturePath);
             return Optional.of(textureResourceLocation);
-        } else {
-            PotionsPlus.LOGGER.error("No model found for: {}", modelLocation);
+        } catch (Exception e) {
+            PotionsPlus.LOGGER.error("Error parsing model JSON for {}: {}", modelLocation, e.getMessage());
+            return Optional.empty();
         }
+    }
 
-        return Optional.empty();
+    /**
+     * Cached version of getRawResourceJson to avoid repeated file I/O.
+     */
+    private static String getRawResourceJsonCached(Resource resource, ResourceLocation location) {
+        String cached = RAW_JSON_CACHE.get(location);
+        if (cached != null) {
+            return cached;
+        }
+        
+        String json = getRawResourceJson(resource);
+        RAW_JSON_CACHE.put(location, json);
+        return json;
     }
 
     private static String getRawResourceJson(Resource resource) {

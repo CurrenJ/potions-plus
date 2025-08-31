@@ -2,6 +2,7 @@ package grill24.potionsplus.event.runtimeresource;
 
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.utility.ResourceUtility;
 import grill24.potionsplus.utility.cache.TextureCache;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import net.minecraft.resources.ResourceLocation;
@@ -19,8 +20,9 @@ public class ResourceListeners {
     public static void generateRuntimeResourcesCache(final GenerateRuntimeResourceInjectionsCacheEvent event) {
         PotionsPlus.LOGGER.info("Generating runtime resource cache");
         
-        // Clear texture cache when regenerating resources to ensure fresh textures
+        // Clear all caches when regenerating resources to ensure fresh data
         TextureCache.clearAll();
+        ResourceUtility.clearCaches();
         
         long sysTime = System.currentTimeMillis();
         RegistrationUtility.generateRuntimeResourceInjectionsCache(event);
