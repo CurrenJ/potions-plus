@@ -93,8 +93,8 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
             tag.putInt("Progress" + i, progress[i]);
         }
 
-        // Always save fence post block item, even if empty, to preserve the choice
-        if (fencePostBlockItem != null) {
+        // Only save fence post block item if not empty to avoid IllegalStateException
+        if (fencePostBlockItem != null && !fencePostBlockItem.isEmpty()) {
             tag.put("fencePostBlockItem", fencePostBlockItem.save(registryAccess));
         }
     }

@@ -11,6 +11,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
@@ -55,12 +57,18 @@ public class HotPotatoAbility extends CooldownTriggerableAbility<LivingDamageEve
 
     @SubscribeEvent
     public static void onLivingDamage(final LivingDamageEvent.Pre event) {
-        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+        DamageSource damage = event.getSource();
+        if (event.getEntity() instanceof ServerPlayer serverPlayer
+                && (damage.is(DamageTypes.LAVA) ||
+                damage.is(DamageTypes.FIREBALL) ||
+                damage.is(DamageTypes.IN_FIRE) ||
+                damage.is(DamageTypes.ON_FIRE) ||
+                damage.is(DamageTypes.CAMPFIRE))) {
             PlayerAbilities.HOT_POTATO.value().triggerFromServer(serverPlayer, ConfiguredPlayerAbilities.HOT_POTATO.getKey(), event);
         }
     }
 
-    // ----- ITriggerablePlayerAbility -----
+// ----- ITriggerablePlayerAbility -----
 
     // Add a static map to track last alert time per player
     private static final Map<Player, Long> lastFailureAlertTime = new ConcurrentHashMap<>();
