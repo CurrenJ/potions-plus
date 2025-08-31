@@ -314,13 +314,23 @@ public class RuntimeTextureVariantModelGenerator extends RuntimeBlockModelGenera
             }
             blockStatePermutationKey.append(variant.property().getName()).append("=").append(propertyValue);
 
-
+            // Get the blocks from the variant directly, not from shared mappings
+            // This ensures each ore type only uses its own designated texture blocks
             Collection<Holder<Block>> variantBlocks = variant.blocks().get();
-            Optional<Holder<Block>> variantBlock = Optional.ofNullable(blockMappingsByPropertyValue.getOrDefault(variant.property(), new HashMap<>()).getOrDefault(propertyValue, null));
+            List<Holder<Block>> blockList = variantBlocks.stream().toList();
+            
+            // Use direct index-based lookup instead of shared property mappings
+            // This prevents cross-contamination between different ore types
+            Optional<Holder<Block>> variantBlock = Optional.empty();
+            if (propertyValue < blockList.size()) {
+                variantBlock = Optional.of(blockList.get(propertyValue));
+            }
+            
             // Be safe and check if the block is null or not bound
             if (variantBlock.isEmpty()) {
                 if (propertyValue < variantBlocks.size()) {
-                    PotionsPlus.LOGGER.warn("Block is null or not bound during runtime model injection. | {}", Arrays.toString(propertiesToGenerateTextureVariantsFor));
+                    PotionsPlus.LOGGER.warn("Block is null or not bound during runtime model injection. Property: {}, Value: {}, Available blocks: {}", 
+                        variant.property().getName(), propertyValue, blockList.size());
                 }
                 continue;
             }
