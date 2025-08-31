@@ -510,6 +510,7 @@ public class Translations {
     public static final String JEI_POTIONSPLUS_AMP_UPGRADE = "jei.potionsplus.amp_upgrade";
     public static final String JEI_POTIONSPLUS_DUR_UPGRADE = "jei.potionsplus.dur_upgrade";
     public static final String CHAT_POTIONSPLUS_BREWING_CAULDRON_RECIPE_UNLOCKED = "chat.potionsplus.brewing_cauldron_recipe_unlocked";
+    public static final String CHAT_POTIONSPLUS_HOT_POTATO_NO_POTATO_WARNING = "chat.potionsplus.hot_potato.no_potato_warning";
     public static final String ITEM_POTIONSPLUS_MERGED_POTIONS_2_EFFECTS = "item.potionsplus.merged_potions_2_effects";
     public static final String ITEM_POTIONSPLUS_MERGED_POTIONS_3_EFFECTS = "item.potionsplus.merged_potions_3_effects";
     public static final String ITEM_POTIONSPLUS_MERGED_POTIONS_4_EFFECTS = "item.potionsplus.merged_potions_4_effects";

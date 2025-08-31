@@ -596,6 +596,7 @@
   "jei.potionsplus.amp_upgrade": "Amplifier Upgrade",
   "jei.potionsplus.dur_upgrade": "Duration Upgrade",
   "chat.potionsplus.brewing_cauldron_recipe_unlocked": "You have discovered the recipe for %s!",
+  "chat.potionsplus.hot_potato.no_potato_warning": "Hot Potato ability failed! Carry a poisonous potato to receive fire protection!",
 
   "item.potionsplus.merged_potions_2_effects": "Big Potion",
   "item.potionsplus.merged_potions_3_effects": "Bigger Potion",
