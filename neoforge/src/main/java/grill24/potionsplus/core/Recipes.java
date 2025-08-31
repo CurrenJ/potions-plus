@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
 import grill24.potionsplus.core.seededrecipe.IRuntimeRecipeProvider;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.SanguineAltarRecipes;
 import grill24.potionsplus.core.seededrecipe.SeededPotionRecipes;
 import grill24.potionsplus.recipe.BrewingCauldronRecipeAnalysis;
@@ -15,9 +16,16 @@ import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeDis
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
@@ -26,6 +34,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 public class Recipes {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, ModInfo.MOD_ID);
@@ -52,6 +62,7 @@ public class Recipes {
     static void registerRecipeInjectionFunctions() {
         RECIPE_INJECTION_FUNCTIONS.add(Pair.of(BREWING_CAULDRON_RECIPE.get(), Recipes::generateRuntimeBrewingCauldronRecipes));
         RECIPE_INJECTION_FUNCTIONS.add(Pair.of(SANGUINE_ALTAR_RECIPE.get(), (server) -> SanguineAltarRecipes.generateAllSanguineAltarRecipes(PotionsPlus.worldSeed)));
+        RECIPE_INJECTION_FUNCTIONS.add(Pair.of(CLOTHESLINE_RECIPE.get(), Recipes::generateRuntimeClotheslineFishRecipes));
     }
 
     public static RecipeMap recipes;
@@ -105,6 +116,65 @@ public class Recipes {
         }
 
         return vanillaBrewingRecipes;
+    }
+
+    // ----- Fish Clothesline Recipes -----
+
+    private static List<RecipeHolder<?>> generateRuntimeClotheslineFishRecipes(MinecraftServer server) {
+        List<RecipeHolder<?>> fishRecipes = new ArrayList<>();
+        
+        // Get all items tagged as PP_FISH
+        HolderGetter<Item> itemLookup = server.registryAccess().lookupOrThrow(Registries.ITEM);
+        Optional<HolderSet.Named<Item>> fishTagOptional = itemLookup.get(Tags.Items.PP_FISH);
+        
+        if (fishTagOptional.isPresent()) {
+            HolderSet.Named<Item> fishItems = fishTagOptional.get();
+            
+            // Create a seeded random based on world seed for consistent fish -> resource mapping
+            Random seededRandom = new Random(PotionsPlus.worldSeed);
+            
+            // List of possible resources that fish can yield (small amounts)
+            ItemStack[] possibleResources = {
+                new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 1),
+                new ItemStack(net.minecraft.world.item.Items.KELP, 1),
+                new ItemStack(net.minecraft.world.item.Items.STRING, 1),
+                new ItemStack(net.minecraft.world.item.Items.PRISMARINE_SHARD, 1),
+                new ItemStack(net.minecraft.world.item.Items.INK_SAC, 1),
+                new ItemStack(net.minecraft.world.item.Items.SEA_PICKLE, 1),
+                new ItemStack(net.minecraft.world.item.Items.NAUTILUS_SHELL, 1),
+                new ItemStack(net.minecraft.world.item.Items.TURTLE_SCUTE, 1)
+            };
+            
+            // Generate recipe for each fish
+            for (Holder<Item> fishHolder : fishItems) {
+                Item fishItem = fishHolder.value();
+                
+                // Use the fish item's resource location hash with world seed for consistent mapping
+                Random fishRandom = new Random(PotionsPlus.worldSeed + fishItem.toString().hashCode());
+                ItemStack resource = possibleResources[fishRandom.nextInt(possibleResources.length)].copy();
+                
+                // Create clothesline recipe: fish -> resource
+                ClotheslineRecipe recipe = new ClotheslineRecipe(
+                    RecipeCategory.MISC,
+                    List.of(PpIngredient.of(new ItemStack(fishItem))),
+                    resource,
+                    2400, // 2 minutes processing time (120 seconds * 20 ticks)
+                    true  // Show in JEI
+                );
+                
+                // Create recipe holder with a unique ID
+                ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(
+                    Registries.RECIPE,
+                    ResourceLocation.fromNamespaceAndPath(
+                        "potionsplus", 
+                        "clothesline_fish_" + BuiltInRegistries.ITEM.getKey(fishItem).getPath()
+                    )
+                );
+                fishRecipes.add(new RecipeHolder<>(recipeKey, recipe));
+            }
+        }
+        
+        return fishRecipes;
     }
 
     public static void postProcessRecipes(RecipeMap recipeMap) {
