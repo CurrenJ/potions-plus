@@ -2,9 +2,7 @@ package grill24.potionsplus.blockentity;
 
 import grill24.potionsplus.block.VersatilePlantBlock;
 import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
-import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -17,7 +15,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.Level;
@@ -100,8 +97,8 @@ public class MysticalGardenBlockEntity extends BlockEntity {
             Block block = state.getBlock();
 
             // Enhance VersatilePlantBlocks
-            if (block instanceof VersatilePlantBlock) {
-                if (enhanceVersatilePlant(level, pos, state)) {
+            if (block instanceof VersatilePlantBlock v) {
+                if (v.extend(level, state, pos, 3)) {
                     enhancementsThisTick++;
                 }
             }
@@ -199,39 +196,6 @@ public class MysticalGardenBlockEntity extends BlockEntity {
         }
         
         return bestFacing;
-    }
-
-    private boolean enhanceVersatilePlant(ServerLevel level, BlockPos pos, BlockState state) {
-        // VersatilePlantBlocks can grow longer segments
-        if (state.getBlock() instanceof VersatilePlantBlock versatilePlant) {
-            // Try to grow the plant
-            if (level.random.nextFloat() < 0.4f) {
-                // Find the tip of the plant and try to grow it
-                BlockPos tipPos = versatilePlant.getTailPos(level, pos, state);
-                BlockState tipState = level.getBlockState(tipPos);
-                
-                if (tipState.is(versatilePlant)) {
-                    // Try to place a new segment
-                    var facing = tipState.getValue(VersatilePlantBlock.FACING);
-                    BlockPos newPos = tipPos.relative(facing);
-                    
-                    if (level.isEmptyBlock(newPos) && 
-                        tipState.getValue(VersatilePlantBlock.SEGMENT) < versatilePlant.getMaxSegmentIndex()) {
-                        
-                        BlockState newState = tipState.setValue(VersatilePlantBlock.SEGMENT, 
-                            tipState.getValue(VersatilePlantBlock.SEGMENT) + 1);
-                        
-                        if (newState.canSurvive(level, newPos)) {
-                            level.setBlockAndUpdate(newPos, newState);
-                            charge -= GROWTH_BOOST_COST;
-                            spawnGrowthEffect(level, newPos);
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
     }
 
     private boolean enhanceBonemealableBlock(ServerLevel level, BlockPos pos, BlockState state, BonemealableBlock bonemealable) {

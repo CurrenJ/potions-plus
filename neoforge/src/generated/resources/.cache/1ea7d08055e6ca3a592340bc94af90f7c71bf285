@@ -1,4 +1,4 @@
-// 1.21.5	2025-08-29T02:03:44.130672	Model Definitions - potionsplus
+// 1.21.5	2025-08-29T03:35:15.4989766	Model Definitions - potionsplus
 5dce44f22ae752753ba1749f01550e55f3e62d6f assets/minecraft/models/block/coal_ore1_block_hat.json
 88e46a4afdee55fbf70e22c95a86acc09928ca12 assets/minecraft/models/block/coal_ore2_block_hat.json
 ca2d0bec247e8bb37ebbf3e21c0230288b0954ed assets/minecraft/models/block/coal_ore3_block_hat.json
@@ -195,6 +195,7 @@ eac57a37a4e148de7ecb5378cab99868b738dec7 assets/potionsplus/blockstates/large_fe
 8e6b3030a72394ae8677e9774ff29f02d7205faa assets/potionsplus/blockstates/lilac_versatile.json
 15e7673e16eb38cd4b58da2bc09b6546ace2eda1 assets/potionsplus/blockstates/lily_of_the_valley_versatile.json
 f8b75d63063d10a0ab387780ff03b7bce256eab0 assets/potionsplus/blockstates/lumoseed_sacks.json
+46fcbf2e49facb14ec581752630e6dd7ad731d09 assets/potionsplus/blockstates/mystical_garden.json
 fc85aaef1bffe11320a5a6d468017aa508c2995d assets/potionsplus/blockstates/orange_tulip_versatile.json
 660698a5011da9003077329b1d5de54312a5021f assets/potionsplus/blockstates/oxeye_daisy_versatile.json
 3e7937c19259e61c6478ab3ac0974be334dcede6 assets/potionsplus/blockstates/particle_emitter.json
@@ -480,6 +481,7 @@ ee69aca9edfdc67778fd98e650b465441ea1f9a2 assets/potionsplus/items/master_loot.js
 834a4da0fa64cae7ac3f1a2ba3003fd0930a47b4 assets/potionsplus/items/moorish_idol.json
 32d1d0b0542f0b9718ee9e8559b05f6979d475bc assets/potionsplus/items/moss.json
 38af0de5c00b0a5a44b90985cec299baef168974 assets/potionsplus/items/mossashimi.json
+bf0725c23865c11d489eb49034f82cb1a0412248 assets/potionsplus/items/mystical_garden.json
 97e4f170aabc907d54f5c83a35ad270f702a7ba6 assets/potionsplus/items/neon_tetra.json
 a48d055d469d9a2eb83bf7e68e7412c18378bdfa assets/potionsplus/items/netherite_remnant.json
 41f764a04607a622c6f5f3fbfeb8536c4330db71 assets/potionsplus/items/northern_pike.json
@@ -746,6 +748,7 @@ cc9e87218bb6984e786c89b4ea9232b2be0222d6 assets/potionsplus/models/block/lumosee
 5f0ff9a8b5522c4fda46be46d9cf70967415dfb3 assets/potionsplus/models/block/lumoseed_sacks_b0_t1.json
 49be1b1c4bf4206c853db6041ff4b0b05c0471be assets/potionsplus/models/block/lumoseed_sacks_b1_t0.json
 483af6f72bb1dc87adcf1a1890cab87b10890279 assets/potionsplus/models/block/lumoseed_sacks_b1_t1.json
+a191f2f9ea7720c6a4c429f930207488f5c97822 assets/potionsplus/models/block/mystical_garden.json
 de728e30ac0f6377e1891482bc9ca1aeae96b6c6 assets/potionsplus/models/block/orange_tulip_versatile_t0.json
 b6fb353f304377152026b84440d3f531f9e68060 assets/potionsplus/models/block/oxeye_daisy_versatile_t0.json
 8b11238e2fe953e27fe9d1d12ae9654fe3559082 assets/potionsplus/models/block/peony_versatile_t0.json
