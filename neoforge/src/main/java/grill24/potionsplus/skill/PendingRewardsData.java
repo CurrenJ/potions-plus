@@ -39,7 +39,16 @@ public class PendingRewardsData {
     }
 
     public PendingRewardsData(PendingRewardsData other) {
-        this.validRewards = new HashMap<>(other.validRewards);
+        this.validRewards = new HashMap<>();
+        // Deep copy the valid rewards to ensure each player has independent data
+        for (Map.Entry<ResourceKey<ConfiguredGrantableReward<?, ?>>, List<List<ItemStack>>> entry : other.validRewards.entrySet()) {
+            List<List<ItemStack>> items = new ArrayList<>();
+            for (List<ItemStack> itemList : entry.getValue()) {
+                List<ItemStack> copiedList = new ArrayList<>(itemList);
+                items.add(copiedList);
+            }
+            this.validRewards.put(entry.getKey(), items);
+        }
     }
 
     public PendingRewardsData(Map<ResourceKey<ConfiguredGrantableReward<?, ?>>, List<List<ItemStack>>> validRewards) {
