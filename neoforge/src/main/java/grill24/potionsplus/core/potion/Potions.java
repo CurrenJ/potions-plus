@@ -196,6 +196,37 @@ public class Potions {
             .effect(MobEffects.BOUNCING)
             .build(ALL_POTION_GENERATION_DATA::add);
 
+    // New fun potion effects for banterable gameplay
+    public static final PotionBuilder.PotionsPlusPotionGenerationData CHICKEN_FRENZY_POTIONS = new PotionBuilder()
+            .name("chicken_frenzy")
+            .effect(MobEffects.CHICKEN_FRENZY)
+            .withRarityCount(PotionUpgradeIngredients.Rarity.COMMON, 1)
+            .build(ALL_POTION_GENERATION_DATA::add);
+
+    public static final PotionBuilder.PotionsPlusPotionGenerationData BACKWARDS_DAY_POTIONS = new PotionBuilder()
+            .name("backwards_day")
+            .effect(MobEffects.BACKWARDS_DAY)
+            .withRarityCount(PotionUpgradeIngredients.Rarity.COMMON, 1)
+            .build(ALL_POTION_GENERATION_DATA::add);
+
+    public static final PotionBuilder.PotionsPlusPotionGenerationData SQUEAKY_VOICE_POTIONS = new PotionBuilder()
+            .name("squeaky_voice")
+            .effect(MobEffects.SQUEAKY_VOICE)
+            .withRarityCount(PotionUpgradeIngredients.Rarity.COMMON, 1)
+            .build(ALL_POTION_GENERATION_DATA::add);
+
+    public static final PotionBuilder.PotionsPlusPotionGenerationData DIZZY_SPELLS_POTIONS = new PotionBuilder()
+            .name("dizzy_spells")
+            .effect(MobEffects.DIZZY_SPELLS)
+            .withRarityCount(PotionUpgradeIngredients.Rarity.COMMON, 1)
+            .build(ALL_POTION_GENERATION_DATA::add);
+
+    public static final PotionBuilder.PotionsPlusPotionGenerationData MIDAS_TOUCH_POTIONS = new PotionBuilder()
+            .name("midas_touch")
+            .effect(MobEffects.MIDAS_TOUCH)
+            .withRarityCount(PotionUpgradeIngredients.Rarity.RARE, 1)
+            .build(ALL_POTION_GENERATION_DATA::add);
+
     @SubscribeEvent
     public static void onRegisterPotions(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {

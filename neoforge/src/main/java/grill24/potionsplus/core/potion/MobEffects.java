@@ -82,6 +82,22 @@ public class MobEffects {
     public static final Holder<MobEffect> BOUNCING = EFFECTS.register("bouncing", () ->
             new BouncingEffect(MobEffectCategory.BENEFICIAL, 0x035690));
 
+    // New fun potion effects
+    public static final Holder<MobEffect> CHICKEN_FRENZY = EFFECTS.register("chicken_frenzy", () ->
+            new ChickenFrenzyEffect(MobEffectCategory.NEUTRAL, 0xffc649));
+
+    public static final Holder<MobEffect> BACKWARDS_DAY = EFFECTS.register("backwards_day", () ->
+            new BackwardsDayEffect(MobEffectCategory.HARMFUL, 0x8b008b));
+
+    public static final Holder<MobEffect> SQUEAKY_VOICE = EFFECTS.register("squeaky_voice", () ->
+            new SqueakyVoiceEffect(MobEffectCategory.NEUTRAL, 0xff69b4));
+
+    public static final Holder<MobEffect> DIZZY_SPELLS = EFFECTS.register("dizzy_spells", () ->
+            new DizzySpellsEffect(MobEffectCategory.HARMFUL, 0x9932cc));
+
+    public static final Holder<MobEffect> MIDAS_TOUCH = EFFECTS.register("midas_touch", () ->
+            new MidasTouchEffect(MobEffectCategory.BENEFICIAL, 0xffd700));
+
 
     public static final Lazy<Map<ResourceLocation, Integer>> POTION_ICON_INDEX_MAP = Lazy.of(PUtil::getAllMobEffectsIconStackSizeMap);
     public static final int POTION_EFFECT_INDEX_PROPERTY_DIVIDEND = 64;

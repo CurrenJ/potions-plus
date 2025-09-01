@@ -10,6 +10,7 @@
 // Taken from Botania (and tweaked for my needs)! Thanks Vazkii!
 package grill24.potionsplus.utility;
 
+import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
