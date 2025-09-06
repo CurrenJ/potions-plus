@@ -5,12 +5,12 @@ license = "${mod_license}"
 [[mods]]
 modId = "potionsplus_shared"
 version = "${mod_version}"
-displayName = "PotionsPlus Shared Library"
+displayName = "Coo Core"
 authors = "${mod_authors}"
 credits = "${credits}"
 description = '''
-Shared library providing common utilities and base functionality for the PotionsPlus mod family.
-This mod is required by both the Brewing and Skills components of PotionsPlus.
+Core library providing common utilities and base functionality for modular Minecraft mods.
+This mod is required by both Potions Plus and Simple Skills.
 '''
 
 [[dependencies.potionsplus_shared]]

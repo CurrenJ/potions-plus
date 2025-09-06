@@ -5,12 +5,12 @@ license = "${mod_license}"
 [[mods]]
 modId = "potionsplus_skills"
 version = "${mod_version}"
-displayName = "PotionsPlus Skills"
+displayName = "Simple Skills"
 authors = "${mod_authors}"
 credits = "${credits}"
 description = '''
-Advanced skill and leveling system for Minecraft.
-Adds player skills, abilities, experience mechanics, and progression systems.
+Simple and intuitive skill system for Minecraft.
+Adds player skills, abilities, and progression mechanics with an easy-to-use interface.
 '''
 
 [[dependencies.potionsplus_skills]]

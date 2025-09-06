@@ -5,7 +5,7 @@ license = "${mod_license}"
 [[mods]]
 modId = "potionsplus_brewing"
 version = "${mod_version}"
-displayName = "PotionsPlus Brewing"
+displayName = "Potions Plus"
 authors = "${mod_authors}"
 credits = "${credits}"
 description = '''

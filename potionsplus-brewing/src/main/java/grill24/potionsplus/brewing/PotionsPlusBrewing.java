@@ -7,8 +7,8 @@ import net.neoforged.fml.common.Mod;
 import org.slf4j.Logger;
 
 /**
- * PotionsPlus Brewing mod - handles all brewing mechanics, potions, effects,
- * and related functionality.
+ * Potions Plus - Advanced brewing mechanics and potion systems.
+ * Handles all brewing mechanics, potions, effects, and related functionality.
  */
 @Mod("potionsplus_brewing")
 public class PotionsPlusBrewing {
@@ -16,7 +16,7 @@ public class PotionsPlusBrewing {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public PotionsPlusBrewing(IEventBus bus, ModContainer container) {
-        LOGGER.info("PotionsPlus Brewing mod initializing...");
+        LOGGER.info("Potions Plus initializing...");
         
         // TODO: Register brewing-related components here
         // - Brewing blocks (BrewingCauldron, HerbalistsLectern, etc.)
@@ -24,6 +24,6 @@ public class PotionsPlusBrewing {
         // - Potions and effects
         // - Brewing items
         
-        LOGGER.info("PotionsPlus Brewing mod initialized successfully!");
+        LOGGER.info("Potions Plus initialized successfully!");
     }
 }

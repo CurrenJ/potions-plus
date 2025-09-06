@@ -7,8 +7,8 @@ import net.neoforged.fml.common.Mod;
 import org.slf4j.Logger;
 
 /**
- * PotionsPlus Skills mod - handles skill systems, player abilities,
- * leveling mechanics, and related functionality.
+ * Simple Skills - Simple and intuitive skill system for Minecraft.
+ * Handles skill systems, player abilities, leveling mechanics, and related functionality.
  */
 @Mod("potionsplus_skills")
 public class PotionsPlusSkills {
@@ -16,7 +16,7 @@ public class PotionsPlusSkills {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public PotionsPlusSkills(IEventBus bus, ModContainer container) {
-        LOGGER.info("PotionsPlus Skills mod initializing...");
+        LOGGER.info("Simple Skills initializing...");
         
         // TODO: Register skill-related components here
         // - Skill system
@@ -25,6 +25,6 @@ public class PotionsPlusSkills {
         // - Skill blocks (SkillJournals)
         // - Skill items
         
-        LOGGER.info("PotionsPlus Skills mod initialized successfully!");
+        LOGGER.info("Simple Skills initialized successfully!");
     }
 }
