@@ -1,0 +1,5 @@
+{
+  "type": "neoforge:remove_features",
+  "biomes": "#c:is_tree/coniferous",
+  "features": ["minecraft:patch_berry_common","minecraft:patch_berry_rare"]
+}

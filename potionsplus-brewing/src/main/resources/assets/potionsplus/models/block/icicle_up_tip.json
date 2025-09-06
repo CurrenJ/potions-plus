@@ -1,0 +1,6 @@
+{
+  "parent": "potionsplus:block/icicle",
+  "textures": {
+    "cross": "potionsplus:block/icicle_up_tip"
+  }
+}

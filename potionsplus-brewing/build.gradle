@@ -1,0 +1,63 @@
+plugins {
+    id 'net.neoforged.moddev'
+}
+
+version = mod_version
+base {
+    archivesName = "potionsplus-brewing"
+}
+
+neoForge {
+    version = neoforge_version
+
+    parchment {
+        minecraftVersion = parchment_minecraft
+        mappingsVersion = parchment_version
+    }
+
+    accessTransformers {
+        file('src/main/resources/META-INF/accesstransformer.cfg')
+    }
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'potionsplus_brewing'
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'potionsplus_brewing'
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'potionsplus_brewing'
+        }
+
+        clientData {
+            clientData()
+            programArguments.addAll '--mod', 'potionsplus_brewing', '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        serverData {
+            serverData()
+            programArguments.addAll '--mod', 'potionsplus_brewing', '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+    }
+}
+
+dependencies {
+    implementation project(':potionsplus-shared-lib')
+    
+    // JEI integration
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    
+    // TerraBlender
+    implementation "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"
+    
+    // GlitchCore
+    implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${glitchcore_version}"
+}

@@ -1,0 +1,49 @@
+plugins {
+    id 'net.neoforged.moddev'
+}
+
+version = mod_version
+base {
+    archivesName = "potionsplus-skills"
+}
+
+neoForge {
+    version = neoforge_version
+
+    parchment {
+        minecraftVersion = parchment_minecraft
+        mappingsVersion = parchment_version
+    }
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'potionsplus_skills'
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'potionsplus_skills'
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'potionsplus_skills'
+        }
+
+        clientData {
+            clientData()
+            programArguments.addAll '--mod', 'potionsplus_skills', '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        serverData {
+            serverData()
+            programArguments.addAll '--mod', 'potionsplus_skills', '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+    }
+}
+
+dependencies {
+    implementation project(':potionsplus-shared-lib')
+}

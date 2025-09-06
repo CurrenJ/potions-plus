@@ -1,0 +1,32 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"sand": "block/sand",
+		"particle": "block/sand"
+	},
+	"elements": [
+		{
+			"name": "sand",
+			"from": [1, 1, 1],
+			"to": [15, 2, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [1, 1, 1]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 1], "texture": "#sand"},
+				"east": {"uv": [0, 0, 16, 1], "texture": "#sand"},
+				"south": {"uv": [0, 0, 16, 1], "texture": "#sand"},
+				"west": {"uv": [0, 0, 16, 1], "texture": "#sand"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#sand"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#sand"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "base",
+			"origin": [0, 0, 0],
+			"color": 0,
+			"children": [0]
+		}
+	]
+}

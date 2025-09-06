@@ -1,0 +1,6 @@
+{
+  "parent": "block/air",
+  "textures": {
+    "particle": "minecraft:block/blue_stained_glass"
+  }
+}

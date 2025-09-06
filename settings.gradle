@@ -15,3 +15,6 @@ plugins {
 include("forge")
 include("neoforge")
 include("common")
+include("potionsplus-shared-lib")
+include("potionsplus-brewing")
+include("potionsplus-skills")

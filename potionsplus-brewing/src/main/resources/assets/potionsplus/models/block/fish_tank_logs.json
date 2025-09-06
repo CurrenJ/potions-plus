@@ -1,0 +1,6 @@
+{
+  "parent": "potionsplus:block/fish_tank",
+  "textures": {
+    "1": "block/oak_log"
+  }
+}
