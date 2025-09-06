@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "${neoforge_loader_version_range}"
+license = "${mod_license}"
+
+[[mods]]
+modId = "potionsplus_shared"
+version = "${mod_version}"
+displayName = "PotionsPlus Shared Library"
+authors = "${mod_authors}"
+credits = "${credits}"
+description = '''
+Shared library providing common utilities and base functionality for the PotionsPlus mod family.
+This mod is required by both the Brewing and Skills components of PotionsPlus.
+'''
+
+[[dependencies.potionsplus_shared]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neo_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.potionsplus_shared]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"

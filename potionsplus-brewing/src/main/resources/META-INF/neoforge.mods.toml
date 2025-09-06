@@ -1,0 +1,35 @@
+modLoader = "javafml"
+loaderVersion = "${neoforge_loader_version_range}"
+license = "${mod_license}"
+
+[[mods]]
+modId = "potionsplus_brewing"
+version = "${mod_version}"
+displayName = "PotionsPlus Brewing"
+authors = "${mod_authors}"
+credits = "${credits}"
+description = '''
+Advanced brewing mechanics and potion systems for Minecraft.
+Adds brewing cauldrons, custom potions, potion effects, and more brewing-related content.
+'''
+
+[[dependencies.potionsplus_brewing]]
+modId = "potionsplus_shared"
+type = "required"
+versionRange = "${mod_version}"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.potionsplus_brewing]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neo_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.potionsplus_brewing]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"

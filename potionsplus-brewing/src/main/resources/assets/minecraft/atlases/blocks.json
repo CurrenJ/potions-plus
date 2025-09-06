@@ -1,0 +1,14 @@
+{
+    "sources": [
+        {
+            "type": "directory",
+            "source": "mob_effect",
+            "prefix": "mob_effect/"
+        },
+        {
+            "type": "directory",
+            "source": "particle",
+            "prefix": "particle/"
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "grill24.potionsplus.brewing.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "potionsplus_brewing.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,35 @@
+modLoader = "javafml"
+loaderVersion = "${neoforge_loader_version_range}"
+license = "${mod_license}"
+
+[[mods]]
+modId = "potionsplus_skills"
+version = "${mod_version}"
+displayName = "PotionsPlus Skills"
+authors = "${mod_authors}"
+credits = "${credits}"
+description = '''
+Advanced skill and leveling system for Minecraft.
+Adds player skills, abilities, experience mechanics, and progression systems.
+'''
+
+[[dependencies.potionsplus_skills]]
+modId = "potionsplus_shared"
+type = "required"
+versionRange = "${mod_version}"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.potionsplus_skills]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neo_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.potionsplus_skills]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"
