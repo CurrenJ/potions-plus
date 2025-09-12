@@ -2,6 +2,7 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.entity.Grungler;
 import grill24.potionsplus.entity.InvisibleFireDamager;
+import grill24.potionsplus.entity.PrimedSpecialCake;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -35,6 +36,14 @@ public class Entities {
                     .updateInterval(3)
                     .eyeHeight(1.25F)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE, ppId("grungler")))
+    );
+
+    public static final DeferredHolder<EntityType<?>, EntityType<PrimedSpecialCake>> PRIMED_SPECIAL_CAKE = ENTITIES.register("primed_special_cake",
+            () -> EntityType.Builder.<PrimedSpecialCake>of(PrimedSpecialCake::new, MobCategory.MISC)
+                    .sized(0.98F, 0.98F)
+                    .clientTrackingRange(10)
+                    .updateInterval(10)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, ppId("primed_special_cake")))
     );
 
     @SubscribeEvent // on the mod event bus
