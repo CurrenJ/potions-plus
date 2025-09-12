@@ -32,6 +32,7 @@ public class DecorationBlocks {
     public static Holder<Block> GROWING_MOSSY_COBBLESTONE, GROWING_MOSSY_STONE_BRICKS;
     public static Holder<Block> GROWING_MOSSY_COBBLESTONE_SLAB, GROWING_MOSSY_COBBLESTONE_STAIRS;
     public static Holder<Block> GROWING_MOSSY_STONE_BRICK_SLAB, GROWING_MOSSY_STONE_BRICK_STAIRS;
+    public static Holder<Block> SPECIAL_CAKE, SPECIAL_CANDLE_CAKE;
 
 
     public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
@@ -162,6 +163,17 @@ public class DecorationBlocks {
                                 .unlockedBy("has_growing_mossy_stone_bricks", provider.has(DecorationBlocks.GROWING_MOSSY_STONE_BRICKS.value()))))
         ).getHolder();
         Items.registerBlockItem(GROWING_MOSSY_STONE_BRICK_STAIRS, registerItem);
+
+        SPECIAL_CAKE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("special_cake")
+                .blockFactory(prop -> new SpecialCakeBlock(prop.mapColor(MapColor.SAND).strength(0.5F).sound(SoundType.WOOL)))
+        ).getHolder();
+        Items.registerBlockItem(SPECIAL_CAKE, registerItem);
+
+        SPECIAL_CANDLE_CAKE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("special_candle_cake")
+                .blockFactory(prop -> new SpecialCandleCakeBlock(prop.mapColor(MapColor.SAND).strength(0.5F).sound(SoundType.WOOL)))
+                .lootGenerator(null) // No normal drops - it explodes!
+        ).getHolder();
+        // Note: No item registration for special candle cake - it's created by placing candle on special cake
     }
 
 }

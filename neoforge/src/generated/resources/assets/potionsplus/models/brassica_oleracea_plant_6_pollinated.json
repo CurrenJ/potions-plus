@@ -1,6 +1,0 @@
-{
-  "parent": "potionsplus:block/crop_cross",
-  "textures": {
-    "crop": "potionsplus:block/brassica_oleracea_pollinated_6"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "potionsplus:block/black_coalla_lily"
-  }
-}

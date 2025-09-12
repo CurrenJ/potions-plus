@@ -1,7 +1,0 @@
-{
-  "type": "potionsplus:increase_ability_strength",
-  "config": {
-    "ability": "potionsplus:sword_looting_modifier",
-    "strengthIncrease": 1.0
-  }
-}

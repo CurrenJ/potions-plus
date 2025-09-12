@@ -1,7 +1,0 @@
-{
-  "type": "potionsplus:increment_stat",
-  "config": {
-    "pointsPerIncrement": 1.0,
-    "statName": "minecraft.custom:minecraft.jump"
-  }
-}
