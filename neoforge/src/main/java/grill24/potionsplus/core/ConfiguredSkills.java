@@ -31,9 +31,7 @@ public class ConfiguredSkills {
     public static final ResourceKey<ConfiguredSkill<?, ?>> ARCHERY = register("archery");
     public static final ResourceKey<ConfiguredSkill<?, ?>> CHOPPING = register("chopping");
 
-    public static final ResourceKey<ConfiguredSkill<?, ?>> WALKING = register("walking");
-    public static final ResourceKey<ConfiguredSkill<?, ?>> SPRINTING = register("sprinting");
-    public static final ResourceKey<ConfiguredSkill<?, ?>> SNEAKING = register("sneaking");
+    public static final ResourceKey<ConfiguredSkill<?, ?>> TRAVERSAL = register("traversal");
     public static final ResourceKey<ConfiguredSkill<?, ?>> JUMPING = register("jumping");
     public static final ResourceKey<ConfiguredSkill<?, ?>> FARMING = register("farming");
 
@@ -60,14 +58,8 @@ public class ConfiguredSkills {
         // Fishing
         Fishing.generate(context, sourceLookup, rewardLookup);
 
-        // Walking
-        Walking.generate(context, sourceLookup, rewardLookup);
-
-        // Sprinting
-        Sprinting.generate(context, sourceLookup, rewardLookup);
-
-        // Sneaking
-        Sneaking.generate(context, sourceLookup, rewardLookup);
+        // Traversal (merged Walking, Sprinting, Sneaking)
+        Traversal.generate(context, sourceLookup, rewardLookup);
 
         // Jumping
         Jumping.generate(context, sourceLookup, rewardLookup);
