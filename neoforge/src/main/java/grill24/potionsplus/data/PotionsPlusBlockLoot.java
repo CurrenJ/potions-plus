@@ -47,43 +47,6 @@ public class PotionsPlusBlockLoot extends BlockLootSubProvider {
 
         consumer.accept(OreBlocks.URANIUM_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
         consumer.accept(OreBlocks.DEEPSLATE_URANIUM_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.DEEPSLATE_URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
-        consumer.accept(OreBlocks.SANDY_URANIUM_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.SANDY_URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
-        consumer.accept(OreBlocks.STONEY_URANIUM_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.STONEY_URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
-
-        consumer.accept(OreBlocks.SANDY_COPPER_ORE.value().getLootTable().orElseThrow(), createCopperOreDrops(OreBlocks.SANDY_COPPER_ORE.value()));
-        consumer.accept(OreBlocks.SANDY_IRON_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.SANDY_IRON_ORE.value(), Items.RAW_IRON));
-        consumer.accept(OreBlocks.SANDY_GOLD_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.SANDY_GOLD_ORE.value(), Items.RAW_GOLD));
-        consumer.accept(OreBlocks.SANDY_DIAMOND_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.SANDY_DIAMOND_ORE.value(), Items.DIAMOND));
-        consumer.accept(OreBlocks.SANDY_REDSTONE_ORE.value().getLootTable().orElseThrow(), createRedstoneOreDrops(OreBlocks.SANDY_REDSTONE_ORE.value()));
-        consumer.accept(OreBlocks.SANDY_LAPIS_ORE.value().getLootTable().orElseThrow(), createLapisOreDrops(OreBlocks.SANDY_LAPIS_ORE.value()));
-        consumer.accept(OreBlocks.SANDY_COAL_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.SANDY_COAL_ORE.value(), Items.COAL));
-        consumer.accept(OreBlocks.SANDY_EMERALD_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.SANDY_EMERALD_ORE.value(), Items.EMERALD));
-
-        consumer.accept(OreBlocks.STONEY_COPPER_ORE.value().getLootTable().orElseThrow(), createCopperOreDrops(OreBlocks.STONEY_COPPER_ORE.value()));
-        consumer.accept(OreBlocks.STONEY_IRON_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.STONEY_IRON_ORE.value(), Items.RAW_IRON));
-        consumer.accept(OreBlocks.STONEY_GOLD_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.STONEY_GOLD_ORE.value(), Items.RAW_GOLD));
-        consumer.accept(OreBlocks.STONEY_DIAMOND_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.STONEY_DIAMOND_ORE.value(), Items.DIAMOND));
-        consumer.accept(OreBlocks.STONEY_REDSTONE_ORE.value().getLootTable().orElseThrow(), createRedstoneOreDrops(OreBlocks.STONEY_REDSTONE_ORE.value()));
-        consumer.accept(OreBlocks.STONEY_LAPIS_ORE.value().getLootTable().orElseThrow(), createLapisOreDrops(OreBlocks.STONEY_LAPIS_ORE.value()));
-        consumer.accept(OreBlocks.STONEY_COAL_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.STONEY_COAL_ORE.value(), Items.COAL));
-        consumer.accept(OreBlocks.STONEY_EMERALD_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.STONEY_EMERALD_ORE.value(), Items.EMERALD));
-
-        consumer.accept(
-                OreBlocks.SULFURIC_NETHER_QUARTZ_ORE.value().getLootTable().orElseThrow(),
-                LootTable.lootTable()
-                        .withPool(
-                                LootPool.lootPool()
-                                        .setRolls(ConstantValue.exactly(1.0F))
-                                        .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(1))
-                                        .apply(ApplyBonusCount.addOreBonusCount(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE)))
-                        ).withPool(
-                                LootPool.lootPool()
-                                        .setRolls(ConstantValue.exactly(1.0F))
-                                        .add(LootItem.lootTableItem(OreItems.SULFUR_SHARD.value()).setWeight(1))
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
-                                        .apply(ApplyBonusCount.addOreBonusCount(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE)))
-                        )
-        );
 
         consumer.accept(
                 LootTables.BASIC_SKILL_REWARDS,

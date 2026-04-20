@@ -10,7 +10,6 @@ import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
-import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.core.items.BrewingItems;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.items.HatItems;
@@ -126,7 +125,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                 .save(saver, SKILL_JOURNALS);
 
         // Ore Block Hat advancements
-        List<Block> copperOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COPPER_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE, OreBlocks.SANDY_COPPER_ORE.value(), OreBlocks.STONEY_COPPER_ORE.value());
+        List<Block> copperOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COPPER_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE);
         createOreHatAdvancement
                 (saver,
                         "mine_copper_ore",
@@ -134,7 +133,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                         copperOreBlocks,
                         skillJournals);
 
-        List<Block> coalOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COAL_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE, OreBlocks.SANDY_COAL_ORE.value(), OreBlocks.STONEY_COAL_ORE.value());
+        List<Block> coalOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COAL_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE);
         createOreHatAdvancement
                 (saver,
                         "mine_coal_ore",
@@ -142,7 +141,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                         coalOreBlocks,
                         skillJournals);
 
-        List<Block> ironOreBlocks = List.of(net.minecraft.world.level.block.Blocks.IRON_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE, OreBlocks.SANDY_IRON_ORE.value(), OreBlocks.STONEY_IRON_ORE.value());
+        List<Block> ironOreBlocks = List.of(net.minecraft.world.level.block.Blocks.IRON_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE);
         createOreHatAdvancement
                 (saver,
                         "mine_iron_ore",
@@ -150,7 +149,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                         ironOreBlocks,
                         skillJournals);
 
-        List<Block> goldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.GOLD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE, OreBlocks.SANDY_GOLD_ORE.value(), OreBlocks.STONEY_GOLD_ORE.value());
+        List<Block> goldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.GOLD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE);
         createOreHatAdvancement
                 (saver,
                         "mine_gold_ore",
@@ -158,7 +157,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                         goldOreBlocks,
                         skillJournals);
 
-        List<Block> diamondOreBlocks = List.of(net.minecraft.world.level.block.Blocks.DIAMOND_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE, OreBlocks.SANDY_DIAMOND_ORE.value(), OreBlocks.STONEY_DIAMOND_ORE.value());
+        List<Block> diamondOreBlocks = List.of(net.minecraft.world.level.block.Blocks.DIAMOND_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE);
         createOreHatAdvancement
                 (saver,
                         "mine_diamond_ore",
@@ -166,7 +165,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                         diamondOreBlocks,
                         skillJournals);
 
-        List<Block> emeraldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.EMERALD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_EMERALD_ORE, OreBlocks.SANDY_EMERALD_ORE.value(), OreBlocks.STONEY_EMERALD_ORE.value());
+        List<Block> emeraldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.EMERALD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_EMERALD_ORE);
         createOreHatAdvancement
                 (saver,
                         "mine_emerald_ore",

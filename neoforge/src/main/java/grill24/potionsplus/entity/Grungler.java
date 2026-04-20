@@ -1,9 +1,7 @@
 package grill24.potionsplus.entity;
 
-import grill24.potionsplus.block.PotionsPlusOreBlock;
 import grill24.potionsplus.core.Entities;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenerator;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -122,7 +120,7 @@ public class Grungler extends Monster {
             BlockState blockState = grungler.getBlockState();
             if (blockState != null && !blockState.isAir() && event.getEntity().level() instanceof ServerLevel serverLevel) {
                 // Drop the block state as an item when the Grungler dies
-                ItemStack itemStack = RuntimeTextureVariantModelGenerator.getTextureVariantItemStack(blockState, PotionsPlusOreBlock.TEXTURE);
+                ItemStack itemStack = new ItemStack(blockState.getBlock());
                 serverLevel.addFreshEntity(
                         new ItemEntity(serverLevel, grungler.getX(), grungler.getY(), grungler.getZ(),
                                 itemStack)

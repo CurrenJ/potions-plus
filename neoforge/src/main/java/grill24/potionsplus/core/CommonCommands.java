@@ -9,10 +9,7 @@ import grill24.potionsplus.block.SkillJournalsBlock;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.debug.Debug;
-import grill24.potionsplus.gui.fishing.FishingLeaderboardsMenu;
-import grill24.potionsplus.item.FishSizeDataComponent;
 import grill24.potionsplus.item.GeneticCropItem;
-import grill24.potionsplus.misc.FishingGamePlayerAttachment;
 import grill24.potionsplus.network.*;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
@@ -23,7 +20,6 @@ import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
 import grill24.potionsplus.utility.*;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -34,7 +30,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
@@ -42,10 +37,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
@@ -89,27 +80,6 @@ public class CommonCommands {
                                             return 1;
                                         })
                                 )
-                                .then(Commands.literal("fishingLeaderboards")
-                                        .executes(context -> {
-                                            Player player = context.getSource().getPlayer();
-                                            if (player != null) {
-                                                FishingLeaderboards fishingLeaderboards = SavedData.instance.fishingLeaderboards;
-                                                fishingLeaderboards.getFishingData().remove(player.getUUID());
-                                                context.getSource().sendSuccess(() -> Component.literal("Cleared fishing leaderboard data for " + player.getDisplayName().getString() + "."), true);
-                                                return 1;
-                                            } else {
-                                                context.getSource().sendFailure(Component.literal("You must be a player to use this command. To clear all fishing leaderboard data, use /potionsplus savedData clear fishingLeaderboards all"));
-                                                return 0;
-                                            }
-                                        })
-                                        .then(Commands.literal("all")
-                                                .executes(context -> {
-                                                    SavedData.instance.fishingLeaderboards.getFishingData().clear();
-                                                    context.getSource().sendSuccess(() -> Component.literal("Cleared all fishing leaderboard data."), true);
-                                                    return 1;
-                                                })
-                                        )
-                                )
                         )
                         .then(Commands.literal("info")
                                 .executes(context -> {
@@ -117,7 +87,6 @@ public class CommonCommands {
                                     context.getSource().sendSuccess(() -> Component.literal("Player data entries: " + savedData.playerDataMap.size()), true);
                                     context.getSource().sendSuccess(() -> Component.literal("Seeded potion recipes: " + savedData.seededPotionRecipes.size()), true);
                                     context.getSource().sendSuccess(() -> Component.literal("Item entity expiry time: " + expiryTime + " ticks"), true);
-                                    context.getSource().sendSuccess(() -> Component.literal("Players with Fishing Leaderboard data: " + savedData.fishingLeaderboards.getFishingData().size()), true);
                                     return 1;
                                 })
                                 .then(Commands.literal("playerData")
@@ -148,37 +117,6 @@ public class CommonCommands {
                                                     for (int i = 0; i < savedData.seededPotionRecipes.size(); i++) {
                                                         int finalI = i;
                                                         context.getSource().sendSuccess(() -> Component.literal((finalI + 1) + ". " + savedData.seededPotionRecipes.get(finalI)), true);
-                                                    }
-                                                    return 1;
-                                                })
-                                        )
-                                )
-                                .then(Commands.literal("fishingLeaderboards")
-                                        .executes(context -> {
-                                            Player player = context.getSource().getPlayer();
-                                            if (player != null) {
-                                                FishingLeaderboards fishingLeaderboards = SavedData.instance.fishingLeaderboards;
-                                                FishingLeaderboards.FishingData fishingData = fishingLeaderboards.getFishingData().get(player.getUUID());
-                                                if (fishingData != null) {
-                                                    context.getSource().sendSuccess(() -> Component.literal("Fishing data for " + player.getDisplayName().getString() + ": " + fishingData), true);
-                                                } else {
-                                                    context.getSource().sendSuccess(() -> Component.literal("No fishing data found for " + player.getDisplayName().getString()), true);
-                                                }
-                                            } else {
-                                                context.getSource().sendFailure(Component.literal("You must be a player to use this command."));
-                                            }
-                                            return 1;
-                                        })
-                                        .then(Commands.literal("gui")
-                                                .executes(context -> {
-                                                    Player player = context.getSource().getPlayer();
-                                                    if (player instanceof ServerPlayer serverPlayer) {
-                                                        serverPlayer.openMenu(new SimpleMenuProvider(
-                                                                (containerId, playerInventory, p) -> new FishingLeaderboardsMenu(containerId, playerInventory),
-                                                                Component.literal("Fishing Leaderboards GUI!")
-                                                        ));
-
-                                                        PacketDistributor.sendToPlayer(serverPlayer, ClientboundSyncFishingLeaderboardsPacket.create());
                                                     }
                                                     return 1;
                                                 })
@@ -245,44 +183,6 @@ public class CommonCommands {
                             }));
                             return 1;
                         })
-                )
-                .then(Commands.literal("fishing")
-                        .requires((source) -> source.hasPermission(2))
-                        .executes(context -> {
-                            if (context.getSource().getEntity() instanceof ServerPlayer player) {
-                                // Use offhand item as reward
-                                ItemStack reward = player.getOffhandItem().copy();
-                                // Else use fishing loot table
-                                if (reward.isEmpty()) {
-                                    LootParams lootParams = new LootParams.Builder(player.serverLevel()).withParameter(LootContextParams.ORIGIN, player.position()).withParameter(LootContextParams.TOOL, player.getMainHandItem()).create(LootContextParamSets.FISHING);
-                                    ObjectArrayList<ItemStack> samples = context.getSource().getServer().reloadableRegistries().getLootTable(BuiltInLootTables.FISHING_FISH).getRandomItems(lootParams);
-                                    if (!samples.isEmpty()) {
-                                        reward = samples.getFirst();
-                                    }
-                                }
-
-                                if (!reward.isEmpty()) {
-                                    PacketDistributor.sendToPlayer(player, ClientboundStartFishingMinigamePacket.create(
-                                            player,
-                                            new FishingGamePlayerAttachment(reward, new ItemStack(DynamicIconItems.GENERIC_ICON.getValue(), 23 + player.getRandom().nextInt(4)))
-                                    ));
-                                }
-                            }
-
-                            return 1;
-                        })
-                        .then(Commands.literal("size")
-                                .then(Commands.argument("cm", IntegerArgumentType.integer())
-                                        .requires((source) -> source.hasPermission(2))
-                                        .executes(context -> {
-                                            if (context.getSource().getEntity() instanceof ServerPlayer player) {
-                                                int cm = IntegerArgumentType.getInteger(context, "cm");
-                                                player.getMainHandItem().set(grill24.potionsplus.core.DataComponents.FISH_SIZE, new FishSizeDataComponent(cm));
-                                            }
-
-                                            return 1;
-                                        }))
-                        )
                 )
                 .then(Commands.literal("genetics")
                         .then(Commands.literal("set")

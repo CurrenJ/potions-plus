@@ -52,7 +52,6 @@ public class PotionsPlusRewardLoot implements LootTableSubProvider {
                                         .add(LootItem.lootTableItem(Items.COPPER_INGOT).setWeight(6))
                                         .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(6))
                                         .add(LootItem.lootTableItem(Items.NETHERITE_SCRAP).setWeight(6))
-                                        .add(LootItem.lootTableItem(OreItems.NETHERITE_REMNANT.value()).setWeight(6))
                                         .add(LootItem.lootTableItem(OreItems.URANIUM_INGOT.value()).setWeight(6))
                                         .add(LootItem.lootTableItem(Items.DIAMOND_BLOCK).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.GOLD_BLOCK).setWeight(1))

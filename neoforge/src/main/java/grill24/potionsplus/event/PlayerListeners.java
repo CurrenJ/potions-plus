@@ -187,8 +187,7 @@ public class PlayerListeners {
             PacketDistributor.sendToPlayer(player,
                     new ClientboundSyncKnownBrewingRecipesPacket(SavedData.instance.getData(player).getKnownRecipeKeys()),
                     new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()),
-                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)),
-                    ClientboundSyncFishingLeaderboardsPacket.create() // Sync Fishing Leaderboard Data
+                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player))
             );
 
             // Trigger an update for all abilities
@@ -198,8 +197,6 @@ public class PlayerListeners {
                 }
             }
 
-            // Reset Fishing Game
-            ServerboundEndFishingMinigame.ServerPayloadHandler.endGame(player, ServerboundEndFishingMinigame.Result.RESET);
         }
     }
 

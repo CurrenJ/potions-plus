@@ -18,7 +18,6 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.List;
-import java.util.Map;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -28,8 +27,6 @@ import static grill24.potionsplus.utility.Utility.ppId;
 public class ConfiguredSkillPointSources {
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> MINE_ORE = register("mine_ore");
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> MINE_LOG = register("mine_log");
-    public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> CATCH_FISH = register("catch_fish");
-
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> KILL_ENTITY_WITH_SWORD = register("kill_entity_with_sword");
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> KILL_ENTITY_WITH_BOW = register("kill_entity_with_bow");
     public static final ResourceKey<ConfiguredSkillPointSource<?, ?>> KILL_ENTITY_WITH_CROSSBOW = register("kill_entity_with_crossbow");
@@ -57,12 +54,6 @@ public class ConfiguredSkillPointSources {
 
         context.register(MINE_LOG, new ConfiguredSkillPointSource<>(SkillPointSources.BREAK_BLOCK.get(), new BreakBlockSourceConfiguration(
                 List.of(new BreakBlockSourceConfiguration.BlockSkillPoints(BlockPredicate.matchesTag(BlockTags.LOGS), false, 1)))));
-
-        context.register(CATCH_FISH, new ConfiguredSkillPointSource<>(SkillPointSources.CATCH_FISH.get(), new CatchFishSourceConfiguration(Map.of(
-                grill24.potionsplus.core.Tags.Items.PP_FISHING_COPPER_FRAME, 1F,
-                grill24.potionsplus.core.Tags.Items.PP_FISHING_GOLD_FRAME, 4F,
-                grill24.potionsplus.core.Tags.Items.PP_FISHING_DIAMOND_FRAME, 6F,
-                grill24.potionsplus.core.Tags.Items.PP_FISHING_PURPLE_FRAME, 8F))));
 
         EntityPredicate swordPredicate = EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(context.lookup(Registries.ITEM), ItemTags.SWORDS))).build();
         context.register(KILL_ENTITY_WITH_SWORD, new ConfiguredSkillPointSource<>(SkillPointSources.KILL_ENTITY.get(),

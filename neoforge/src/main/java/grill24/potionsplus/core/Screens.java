@@ -3,7 +3,6 @@ package grill24.potionsplus.core;
 import grill24.potionsplus.blockentity.filterhopper.HugeFilterHopperScreen;
 import grill24.potionsplus.blockentity.filterhopper.LargeFilterHopperScreen;
 import grill24.potionsplus.blockentity.filterhopper.SmallFilterHopperScreen;
-import grill24.potionsplus.gui.fishing.FishingLeaderboardsScreen;
 import grill24.potionsplus.gui.skill.SkillsScreen;
 import grill24.potionsplus.utility.ModInfo;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -16,7 +15,6 @@ public class Screens {
     private static void registerScreens(RegisterMenuScreensEvent event) {
         // Register menu screens here
         event.register(MenuTypes.SKILLS.get(), SkillsScreen::new);
-        event.register(MenuTypes.FISHING_LEADERBOARDS.get(), FishingLeaderboardsScreen::new);
         event.register(MenuTypes.SMALL_FILTER_HOPPER.get(), SmallFilterHopperScreen::new);
         event.register(MenuTypes.LARGE_FILTER_HOPPER.get(), LargeFilterHopperScreen::new);
         event.register(MenuTypes.HUGE_FILTER_HOPPER.get(), HugeFilterHopperScreen::new);

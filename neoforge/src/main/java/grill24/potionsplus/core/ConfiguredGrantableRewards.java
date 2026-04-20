@@ -180,16 +180,6 @@ public class ConfiguredGrantableRewards {
             .ability(ConfiguredPlayerAbilities.AXE_LOOTING_MODIFIER.getKey())
             .strength(1.0F));
 
-    public static final IncreaseAbilityStrengthReward.Builder FISHING_ROD_LUCK_OF_THE_SEA_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("fishing_rod_luck_of_the_sea_increase")
-            .ability(ConfiguredPlayerAbilities.FISHING_ROD_LUCK_OF_THE_SEA_MODIFIER.getKey())
-            .strength(1.0F));
-    public static final IncreaseAbilityStrengthReward.Builder FISHING_ROD_LURE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("fishing_rod_lure_increase")
-            .ability(ConfiguredPlayerAbilities.FISHING_ROD_LURE_MODIFIER.getKey())
-            .strength(1.0F));
-    public static final IncreaseAbilityStrengthReward.Builder FISHING_ROD_UNBREAKING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("fishing_rod_unbreaking_increase")
-            .ability(ConfiguredPlayerAbilities.FISHING_ROD_UNBREAKING_MODIFIER.getKey())
-            .strength(1.0F));
-
     public static final IncreaseAbilityStrengthReward.Builder BOW_POWER_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("bow_power_increase")
             .ability(ConfiguredPlayerAbilities.BOW_POWER_MODIFIER.getKey())
             .strength(1.0F));

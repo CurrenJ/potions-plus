@@ -1,6 +1,7 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.item.*;
+import grill24.potionsplus.item.PlayerLockedItemModifiersDataComponent;
+import grill24.potionsplus.item.WeightDataComponent;
 import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
 import grill24.potionsplus.skill.reward.OwnerDataComponent;
 import grill24.potionsplus.utility.Genotype;
@@ -33,19 +34,6 @@ public class DataComponents {
                     .networkSynchronized(PlayerLockedItemModifiersDataComponent.STREAM_CODEC)
     );
 
-    public static final Supplier<DataComponentType<FishSizeDataComponent>> FISH_SIZE = DATA_COMPONENTS.registerComponentType(
-            "fish_size_data", builder -> builder
-                    .persistent(FishSizeDataComponent.CODEC)
-                    .networkSynchronized(FishSizeDataComponent.STREAM_CODEC)
-    );
-
-    public static final Supplier<DataComponentType<FishingRodDataComponent>> FISHING_ROD = DATA_COMPONENTS.registerComponentType(
-            "fishing_rod_data", builder -> builder
-                    .persistent(FishingRodDataComponent.CODEC)
-                    .networkSynchronized(FishingRodDataComponent.STREAM_CODEC)
-                    .cacheEncoding()
-    );
-
     public static final Supplier<DataComponentType<Genotype>> GENETIC_DATA = DATA_COMPONENTS.registerComponentType(
             "genetic_data", builder -> builder
                     .persistent(Genotype.CODEC)
@@ -60,10 +48,4 @@ public class DataComponents {
                     .cacheEncoding()
     );
 
-    public static final Supplier<DataComponentType<RuntimeVariantItemDataComponent>> RUNTIME_VARIANT_ITEM = DATA_COMPONENTS.registerComponentType(
-            "runtime_variant_item_data", builder -> builder
-                    .persistent(RuntimeVariantItemDataComponent.CODEC)
-                    .networkSynchronized(RuntimeVariantItemDataComponent.STREAM_CODEC)
-                    .cacheEncoding()
-    );
 }

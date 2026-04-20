@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.PpMultiIngredient;
-import grill24.potionsplus.event.PpFishCaughtEvent;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.*;
 import net.minecraft.server.level.ServerLevel;
@@ -13,13 +12,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.saveddata.SavedDataType;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.*;
 import java.util.function.Consumer;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     public static SavedData instance = new SavedData();
 
@@ -29,7 +25,6 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     public Map<UUID, PlayerBrewingKnowledge> playerDataMap;
     public List<RecipeHolder<BrewingCauldronRecipe>> seededPotionRecipes;
     public Map<String, List<BrewingCauldronRecipe>> recipeResultsInSavedData;
-    public FishingLeaderboards fishingLeaderboards;
 
 
     public static final SavedDataType<SavedData> TYPE = new SavedDataType<>(FILE_NAME, SavedData::new, ctx ->
@@ -38,12 +33,11 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
                     Codec.unboundedMap(PotionsPlusExtraCodecs.UUID_CODEC, PlayerBrewingKnowledge.CODEC).fieldOf("playerDataMap").forGetter(data -> data.playerDataMap),
                     RecipeCodecs.BREWING_CAULDRON_RECIPE_HOLDER_CODEC.listOf().fieldOf("seededPotionRecipes").forGetter(data -> data.seededPotionRecipes),
                     Codec.unboundedMap(Codec.STRING, RecipeCodecs.BREWING_CAULDRON_RECIPE_CODEC.listOf())
-                            .fieldOf("recipeResultsInSavedData").forGetter(data -> data.recipeResultsInSavedData),
-                    FishingLeaderboards.CODEC.fieldOf("fishingLeaderboards").forGetter(data -> data.fishingLeaderboards)
+                            .fieldOf("recipeResultsInSavedData").forGetter(data -> data.recipeResultsInSavedData)
             ).apply(builder, SavedData::new)));
 
     public SavedData(net.minecraft.world.level.saveddata.SavedData.Context ctx) {
-        this(ctx.levelOrThrow(), new HashMap<>(), new ArrayList<>(), new HashMap<>(), new FishingLeaderboards());
+        this(ctx.levelOrThrow(), new HashMap<>(), new ArrayList<>(), new HashMap<>());
     }
 
     /**
@@ -52,18 +46,16 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
      * Also used when a client has no server data loaded yet, so it can still safely query the data.
      */
     private SavedData() {
-        this(null, new HashMap<>(), new ArrayList<>(), new HashMap<>(), new FishingLeaderboards());
+        this(null, new HashMap<>(), new ArrayList<>(), new HashMap<>());
     }
 
     public SavedData(ServerLevel level, Map<UUID, PlayerBrewingKnowledge> playerDataMap,
                      List<RecipeHolder<BrewingCauldronRecipe>> seededPotionRecipes,
-                     Map<String, List<BrewingCauldronRecipe>> recipeResultsInSavedData,
-                     FishingLeaderboards fishingLeaderboards) {
+                     Map<String, List<BrewingCauldronRecipe>> recipeResultsInSavedData) {
         this.level = level;
         this.playerDataMap = new HashMap<>(playerDataMap);
         this.seededPotionRecipes = new ArrayList<>(seededPotionRecipes);
         this.recipeResultsInSavedData = new HashMap<>(recipeResultsInSavedData);
-        this.fishingLeaderboards = fishingLeaderboards;
 
         // Ensure mutability by creating new collections. Map and list codecs load immutable collections by default.
     }
@@ -107,18 +99,6 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
 
     public boolean isResultInRecipeSavedData(ItemStack result) {
         return recipeResultsInSavedData.containsKey(PpIngredient.of(result).toString());
-    }
-
-    @SubscribeEvent
-    public static void onSizedFishCaught(final PpFishCaughtEvent event) {
-        Player player = event.getPlayer();
-        ItemStack fish = event.getFish();
-
-        if (player.level().isClientSide()) {
-            return;
-        }
-
-        SavedData.instance.fishingLeaderboards.onFishCaught(player, fish);
     }
 
     public void clear() {

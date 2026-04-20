@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep *)",
+      "Bash(find \"D:/GitHub/potions-plus/neoforge/src/main/resources/assets/potionsplus/textures/item\" \\\\\\( -name \"*fishing*\" -o -name \"*fish*\" \\\\\\) ! -path \"*/fish/*\" -exec rm {} \\\\;)",
+      "Bash(find \"D:/GitHub/potions-plus/neoforge/src/main/resources/assets/potionsplus/textures/block\" \\\\\\( -name \"*sandy*\" -o -name \"*stoney*\" -o -name \"*dense_diamond*\" -o -name \"*remnant_debris*\" -o -name \"*sulfuric_nether_quartz*\" -o -name \"mossy_coal_ore*\" -o -name \"mossy_copper_ore*\" -o -name \"mossy_diamond_ore*\" -o -name \"mossy_emerald_ore*\" -o -name \"mossy_gold_ore*\" -o -name \"mossy_iron_ore*\" -o -name \"mossy_lapis_ore*\" -o -name \"mossy_redstone_ore*\" -o -name \"mossy_uranium_ore*\" \\\\\\) -exec rm {} \\\\;)",
+      "Bash(grep -v \"\\\\.class$\")",
+      "Bash(./gradlew :neoforge:compileJava)",
+      "Bash(rm \"D:/GitHub/potions-plus/neoforge/src/generated/resources/data/potionsplus/potionsplus/configured_skill_point_source/catch_fish.json\")",
+      "Bash(rm \"D:/GitHub/potions-plus/neoforge/src/generated/resources/data/minecraft/tags/item/enchantable/fishing.json\")",
+      "Bash(git *)"
+    ]
+  }
+}

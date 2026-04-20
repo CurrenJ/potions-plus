@@ -22,9 +22,6 @@
   "block.potionsplus.black_coalla_lily": "Black Coalla Lily",
   "block.potionsplus.redstone_rose": "Redstone Rose",
 
-  "block.potionsplus.dense_diamond_ore": "Dense Diamond Ore",
-  "block.potionsplus.deepslate_dense_diamond_ore": "Dense Deepslate Diamond Ore",
-
   "item.potionsplus.cooblestone": "Cooblestone",
   "block.potionsplus.cooblestone": "Cooblestone",
   "jei.potionsplus.cooblestone.description": "It's cobblestone, but cooler.",
@@ -39,14 +36,9 @@
   "block.potionsplus.lava_geyser": "Lava Geyser",
   "jei.potionsplus.lava_geyser.description": "Yowch! Try attaching it to a Particle Emitter.",
 
-  "block.potionsplus.remnant_debris": "Remnant Debris",
-  "block.potionsplus.deepslate_remnant_debris": "Deepslate Remnant Debris",
-
   "block.potionsplus.uranium_ore.not_exposed": "Some sulfuric acid might loosen this up...",
   "block.potionsplus.uranium_ore": "Uranium Ore",
   "block.potionsplus.deepslate_uranium_ore": "Deepslate Uranium Ore",
-  "block.potionsplus.sulfuric_nether_quartz_ore": "Sulfuric Nether Quartz Ore",
-
   "block.potionsplus.uranium_block": "Uranium Block",
 
   "block.potionsplus.potion_beacon": "Potion Beacon",
@@ -76,10 +68,6 @@
   "description.potionsplus.ability.iron_ore_additional_loot_gold_nuggets": "+Iron Ore May Drop Gold",
   "description.potionsplus.ability.diamond_ore_additional_loot_emeralds": "+Diamond Ore May Drop Emeralds",
   "description.potionsplus.ability.diamond_ore_additional_loot_lapis": "+Diamond Ore May Drop Lapis",
-
-  "description.potionsplus.ability.fishing_rod_luck_of_the_sea": "%s Fishing Rod Luck of the Sea Level",
-  "description.potionsplus.ability.fishing_rod_lure": "%s Fishing Rod Lure Level",
-  "description.potionsplus.ability.fishing_rod_unbreaking": "%s Fishing Rod Unbreaking Level",
 
   "description.potionsplus.ability.double_jump": "+%s Additional Jump(s)",
   "description.long.potionsplus.ability.double_jump": "§l§dJump§r again in mid-air.",
@@ -190,7 +178,6 @@
   "tooltip.potionsplus.skill.reward.master": "Master Loot",
 
   "tooltip.potionsplus.skill.woodcutting": "Woodcutting",
-  "tooltip.potionsplus.skill.fishing": "Fishing",
 
   "tooltip.potionsplus.skill.swordsmanship": "Swordsmanship",
 
@@ -208,28 +195,6 @@
   "generic.potionsplus.disabled" : "Disabled",
   "generic.potionsplus.disabled.rich": "§c§n§oDisabled",
   "generic.potionsplus.toggle" : "[Toggle]",
-
-  "block.potionsplus.sandy_copper_ore": "Sandy Copper Ore",
-  "block.potionsplus.sandy_iron_ore": "Sandy Iron Ore",
-  "block.potionsplus.sandy_gold_ore": "Sandy Gold Ore",
-  "block.potionsplus.sandy_diamond_ore": "Sandy Diamond Ore",
-  "block.potionsplus.sandy_coal_ore": "Sandy Coal Ore",
-  "block.potionsplus.sandy_lapis_ore": "Sandy Lapis Ore",
-  "block.potionsplus.sandy_redstone_ore": "Sandy Redstone Ore",
-  "block.potionsplus.sandy_emerald_ore": "Sandy Emerald Ore",
-  "block.potionsplus.sandy_uranium_ore": "Sandy Uranium Ore",
-
-  "block.potionsplus.stoney_copper_ore": "Stoney Copper Ore",
-  "block.potionsplus.stoney_iron_ore": "Stoney Iron Ore",
-  "block.potionsplus.stoney_gold_ore": "Stoney Gold Ore",
-  "block.potionsplus.stoney_diamond_ore": "Stoney Diamond Ore",
-  "block.potionsplus.stoney_coal_ore": "Stoney Coal Ore",
-  "block.potionsplus.stoney_lapis_ore": "Stoney Lapis Ore",
-  "block.potionsplus.stoney_redstone_ore": "Stoney Redstone Ore",
-  "block.potionsplus.stoney_emerald_ore": "Stoney Emerald Ore",
-  "block.potionsplus.stoney_uranium_ore": "Stoney Uranium Ore",
-
-  "block.potionsplus.fish_tank": "Fish Tank",
 
   "block.potionsplus.hanging_fern": "Hanging Fern",
   "block.potionsplus.hanging_fern.description": "A fern that hangs from the ceiling. It's a little bit like a fern, but it's hanging.",
@@ -351,39 +316,7 @@
   "item.potionsplus.master_loot": "Master Loot",
   "item.potionsplus.wheel": "Wheel of Loot",
 
-  "item.potionsplus.copper_fishing_rod": "Copper Fishing Rod",
-  "item.potionsplus.obsidian_fishing_rod": "Obsidian Fishing Rod",
-
-  "item.potionsplus.worms": "Worms",
-  "item.potionsplus.gummy_worms": "Gummy Worms",
-  "item.potionsplus.blazed_grub": "Blazed Grub",
-
-  "bait.potionsplus.worms.description": "Standard-issue §7bait. Attracts fish.",
-  "bait.potionsplus.gummy_worms.description": "§dRare §7bait. High chance to attract cooler fish. §r§a++Avg. size§7, §r§c+Variance",
-  "bait.potionsplus.blazed_grub.description": "Uncommon§7 bait. Found in Nether. §r§a+Avg. size§7, §r§a-Variance",
-
-
-  "item.potionsplus.northern_pike": "Northern Pike",
-  "item.potionsplus.parrotfish": "Parrotfish",
-  "item.potionsplus.rainfordia": "Rainfordia",
-  "item.potionsplus.garden_eel": "Garden Eel",
-  "item.potionsplus.royal_garden_eel": "Royal Garden Eel",
-  "item.potionsplus.longnose_gar": "Longnose Gar",
-  "item.potionsplus.shrimp": "Shrimp",
-  "item.potionsplus.fried_shrimp": "Fried Shrimp",
-  "item.potionsplus.moorish_idol": "Moorish Idol",
-  "item.potionsplus.molten_moorish_idol": "Molten Moorish Idol",
-  "item.potionsplus.ocean_sunfish": "Ocean Sunfish",
-  "item.potionsplus.portuguese_man_o_war": "Portuguese Man O' War",
-  "item.potionsplus.bluegill": "Bluegill",
-  "item.potionsplus.neon_tetra": "Neon Tetra",
-  "item.potionsplus.giant_manta_ray": "Giant Manta Ray",
-  "item.potionsplus.frozen_giant_manta_ray": "Frozen Giant Manta Ray",
-  "item.potionsplus.lizardfish": "Lizardfish",
-  "item.potionsplus.starfish": "Starfish",
-
   "block.potionsplus.skill_journals": "Skill Journals",
-  "block.potionsplus.fishing_leaderboards": "Fishing Leaderboards",
   "block.potionsplus.uranium_glass": "Uranium Glass",
   "block.potionsplus.icicle": "Icicle",
 
@@ -774,18 +707,6 @@
   "item.potionsplus.froggy_hat": "Froggy Hat",
   "item.potionsplus.hook_hat": "Hook Hat",
   "item.potionsplus.apple_hat": "Apple Hat",
-
-  "fish.size": "§7§oSize: %s cm",
-  "fish.leaderboard.size": "[%s] %s: %s cm",
-  "fish.size.simple": "%s cm",
-  "fish.count.simple": "Caught %s times.",
-  "fish.leaderboard.count": "[%s] %s %s",
-  "fish.leaderboard.caught.chat": "%s caught a %s cm %s.",
-  "fish.leaderboard.npr": "That's a §6§onew personal record!",
-  "item.fishing_rod.no_bait": "§7§oAdd bait to catch fish...",
-
-  "tooltip.potionsplus.fish_tank": "§7§oUse §r§6sand-like§r §7§oblocks, §r§6woods§r§7§o, or §r§6kelp§r §7§oto change its appearance!",
-  "alert.fish_tank.too_small": "Not enough space! Add adjacent tanks.",
 
   "entity.potionsplus.grungler": "Grungler",
 

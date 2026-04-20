@@ -1,6 +1,11 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.blockentity.*;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntityRenderer;
+import grill24.potionsplus.blockentity.BrewingCauldronBlockEntityRenderer;
+import grill24.potionsplus.blockentity.ClotheslineBlockEntityRenderer;
+import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntityRenderer;
+import grill24.potionsplus.blockentity.PotionBeaconBlockEntityRenderer;
+import grill24.potionsplus.blockentity.SanguineAltarBlockEntityRenderer;
 import grill24.potionsplus.item.tintsource.AnyPotionTintSource;
 import grill24.potionsplus.item.tintsource.GeneticCropItemTintSource;
 import grill24.potionsplus.utility.ModInfo;
@@ -23,7 +28,6 @@ public class Renderers {
         event.registerBlockEntityRenderer(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), AbyssalTroveBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), ClotheslineBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(Blocks.POTION_BEACON_BLOCK_ENTITY.get(), PotionBeaconBlockEntityRenderer::new);
-        event.registerBlockEntityRenderer(Blocks.FISH_TANK_BLOCK_ENTITY.get(), FishTankBlockEntityRenderer::new);
 
         event.registerEntityRenderer(Entities.INVISIBLE_FIRE_DAMAGER.get(), NoopRenderer::new);
     }

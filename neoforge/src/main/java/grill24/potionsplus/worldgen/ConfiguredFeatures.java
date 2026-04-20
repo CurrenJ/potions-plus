@@ -49,9 +49,8 @@ import static grill24.potionsplus.utility.Utility.ppId;
 public class ConfiguredFeatures {
     // Misc.
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DENSE_DIAMOND_SMALL_KEY = createKey("ore_dense_diamond_small");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_REMNANT_DEBRIS_KEY = createKey("ore_remnant_debris");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_URANIUM_KEY = createKey("ore_uranium");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_REMNANT_DEBRIS_KEY = createKey("ore_remnant_debris");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH_KEY = createKey("lunar_berry_bush");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TOMATO_PATCH_KEY = ResourceKey.create(Registries.CONFIGURED_FEATURE, ppId("tomato_patch"));
@@ -91,20 +90,15 @@ public class ConfiguredFeatures {
         // Misc.
         RuleTest stoneOreReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateOreReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
-        final Holder<ConfiguredFeature<?, ?>> ORE_DENSE_DIAMOND_SMALL = register(context, ORE_DENSE_DIAMOND_SMALL_KEY, Feature.ORE,
+        final Holder<ConfiguredFeature<?, ?>> ORE_URANIUM = register(context, ORE_URANIUM_KEY, Feature.ORE,
                 new OreConfiguration(List.of(
-                        OreConfiguration.target(stoneOreReplaceables, OreBlocks.DENSE_DIAMOND_ORE.value().defaultBlockState()),
-                        OreConfiguration.target(deepslateOreReplaceables, OreBlocks.DEEPSLATE_DENSE_DIAMOND_ORE.value().defaultBlockState())
+                        OreConfiguration.target(stoneOreReplaceables, OreBlocks.URANIUM_ORE.value().defaultBlockState()),
+                        OreConfiguration.target(deepslateOreReplaceables, OreBlocks.DEEPSLATE_URANIUM_ORE.value().defaultBlockState())
                 ), 4, 0.5F));
         final Holder<ConfiguredFeature<?, ?>> ORE_REMNANT_DEBRIS = register(context, ORE_REMNANT_DEBRIS_KEY, Feature.ORE,
                 new OreConfiguration(List.of(
                         OreConfiguration.target(stoneOreReplaceables, OreBlocks.REMNANT_DEBRIS.value().defaultBlockState()),
                         OreConfiguration.target(deepslateOreReplaceables, OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value().defaultBlockState())
-                ), 4, 0.5F));
-        final Holder<ConfiguredFeature<?, ?>> ORE_URANIUM = register(context, ORE_URANIUM_KEY, Feature.ORE,
-                new OreConfiguration(List.of(
-                        OreConfiguration.target(stoneOreReplaceables, OreBlocks.URANIUM_ORE.value().defaultBlockState()),
-                        OreConfiguration.target(deepslateOreReplaceables, OreBlocks.DEEPSLATE_URANIUM_ORE.value().defaultBlockState())
                 ), 4, 0.5F));
 
         // ----- Lunar Berry Bush -----

@@ -15,11 +15,6 @@ public class Tags {
         public static final TagKey<Block> FREEZABLE = tag("freezable");
         public static final TagKey<Block> CAVE_REPLACEABLE = tag("cave_replaceable");
         public static final TagKey<Block> ORE_FLOWERS = tag("ore_flowers");
-        public static final TagKey<Block> STONEY_ORE_REPLACEABLE = tag("ore_replaceable");
-        public static final TagKey<Block> SANDY_ORE_REPLACEABLE = tag("sandy_ore_replaceable");
-
-        public static final TagKey<Block> FISH_TANK_FRAME = tag("fish_tank_frame");
-        public static final TagKey<Block> FISH_TANK_SAND = tag("fish_tank_sand");
 
         public static final TagKey<Block> SMALL_VERSATILE_FLOWERS = tag("small_versatile_flowers");
         public static final TagKey<Block> LARGE_VERSATILE_FLOWERS = tag("large_versatile_flowers");
@@ -51,16 +46,8 @@ public class Tags {
         public static final TagKey<Item> ORE_FLOWERS_RARE = tag("ore_flowers_rare");
 
         public static final TagKey<Item> URANIUM_ORE = tag("uranium_ore");
-        public static final TagKey<Item> REMNANT_DEBRIS = tag("remnant_debris");
 
         public static final TagKey<Item> EDIBLE_REWARDS = tag("edible_rewards");
-
-        public static final TagKey<Item> BAIT = tag("bait");
-        public static final TagKey<Item> PP_FISH = tag("pp_fish");
-        public static final TagKey<Item> PP_FISHING_COPPER_FRAME = tag("pp_fishing_copper_frame");
-        public static final TagKey<Item> PP_FISHING_GOLD_FRAME = tag("pp_fishing_gold_frame");
-        public static final TagKey<Item> PP_FISHING_DIAMOND_FRAME = tag("pp_fishing_diamond_frame");
-        public static final TagKey<Item> PP_FISHING_PURPLE_FRAME = tag("pp_fishing_purple_frame");
 
         private static TagKey<Item> tag(String id) {
             return ItemTags.create(ppId(id));

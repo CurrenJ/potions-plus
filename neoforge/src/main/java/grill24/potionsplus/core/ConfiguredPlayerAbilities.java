@@ -99,36 +99,6 @@ public class ConfiguredPlayerAbilities {
                     .operation(AttributeModifier.Operation.ADD_VALUE)
                     .enabledByDefault(true));
 
-    private static final ItemPredicateFactory fishingRodPredicate = (items) -> ItemPredicate.Builder.item().of(items, Tags.Items.TOOLS_FISHING_ROD).build();
-    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> FISHING_ROD_LUCK_OF_THE_SEA_MODIFIER = register(() ->
-            new PermanentAttributeModifiersAbility.Builder<>("fishing_rod_luck_of_the_sea_modifier")
-                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_FISHING_ROD_LUCK_OF_THE_SEA)
-                    .parentSkill(ConfiguredSkills.FISHING)
-                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
-                    .itemPredicate(fishingRodPredicate)
-                    .attribute(grill24.potionsplus.core.Attributes.LUCK_OF_THE_SEA_BONUS)
-                    .operation(AttributeModifier.Operation.ADD_VALUE)
-                    .enabledByDefault(true));
-    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> FISHING_ROD_LURE_MODIFIER = register(() ->
-            new PermanentAttributeModifiersAbility.Builder<>("fishing_rod_lure_modifier")
-                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_FISHING_ROD_LURE)
-                    .parentSkill(ConfiguredSkills.FISHING)
-                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
-                    .itemPredicate(fishingRodPredicate)
-                    .attribute(grill24.potionsplus.core.Attributes.LURE)
-                    .operation(AttributeModifier.Operation.ADD_VALUE)
-                    .enabledByDefault(true));
-    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> FISHING_ROD_UNBREAKING_MODIFIER = register(() ->
-            new PermanentAttributeModifiersAbility.Builder<>("fishing_rod_unbreaking_modifier")
-                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_FISHING_ROD_UNBREAKING)
-                    .parentSkill(ConfiguredSkills.FISHING)
-                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
-                    .itemPredicate(fishingRodPredicate)
-                    .attribute(grill24.potionsplus.core.Attributes.UNBREAKING_BONUS)
-                    .operation(AttributeModifier.Operation.ADD_VALUE)
-                    .enabledByDefault(true));
-
-
     private static final ItemPredicateFactory shovelPredicate = (items) -> ItemPredicate.Builder.item().of(items, ItemTags.SHOVELS).build();
     public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SHOVEL_EFFICIENCY_MODIFIER = register(() ->
             new PermanentAttributeModifiersAbility.Builder<>("shovel_efficiency_modifier")

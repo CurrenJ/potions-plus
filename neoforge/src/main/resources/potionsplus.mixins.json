@@ -13,7 +13,6 @@
     "EnchantedCountIncreaseFunctionMixin",
     "EntityMixin",
     "FallbackResourceManagerMixin",
-    "FishingHookMixin",
     "InventoryMixin",
     "IResourceMixin",
     "ItemAttributeModifiersMixin",

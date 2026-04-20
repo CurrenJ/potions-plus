@@ -65,7 +65,6 @@ public class VolcanicCave {
         Biomes.globalOverworldGeneration(biomegenerationsettings$builder);
         BiomeDefaultFeatures.addDefaultOres(biomegenerationsettings$builder);
         BiomeDefaultFeatures.addExtraGold(biomegenerationsettings$builder);
-        biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, Placements.ORE_REMNANT_DEBRIS_KEY);
         biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Placements.FISSURE_KEY);
         biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Placements.LAVA_GEYSER_KEY);
         biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Placements.VOLCANIC_PATCH_FLOOR_KEY);

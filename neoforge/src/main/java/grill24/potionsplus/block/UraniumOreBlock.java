@@ -3,7 +3,6 @@ package grill24.potionsplus.block;
 import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -14,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -21,7 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-public class UraniumOreBlock extends PotionsPlusOreBlock {
+public class UraniumOreBlock extends DropExperienceBlock {
     public enum UraniumState implements StringRepresentable {
         OBSCURED("obscured", 0),
         SLIGHTLY_EXPOSED("slightly_exposed", 1),
@@ -70,8 +70,6 @@ public class UraniumOreBlock extends PotionsPlusOreBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        Direction direction = context.getHorizontalDirection().getOpposite();
-
         return this.defaultBlockState().setValue(URANIUM_STATE, UraniumState.values()[context.getLevel().getRandom().nextInt(UraniumState.values().length)]);
     }
 

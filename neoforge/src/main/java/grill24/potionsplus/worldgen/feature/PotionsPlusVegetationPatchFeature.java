@@ -1,16 +1,10 @@
 package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
-import grill24.potionsplus.block.PotionsPlusOreBlock;
-import grill24.potionsplus.core.blocks.OreBlocks;
-import grill24.potionsplus.mixin.OreFeatureMixin;
-import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -18,7 +12,6 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -120,10 +113,7 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
 
                 // Don't replace ores with ground
                 if (existing.is(Tags.Blocks.ORES)) {
-                    Optional<BlockState> state = OreBlocks.tryGetRuntimeOreVariant(existing, ground);
-                    if (state.isPresent()) {
-                        ground = state.get();
-                    }
+                    return i != 0;
                 }
 
                 level.setBlock(pos, ground, 2 | 16);
