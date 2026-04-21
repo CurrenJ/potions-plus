@@ -14,7 +14,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,7 +26,7 @@ import java.util.Set;
  * A LootItemCondition that checks the {@linkplain LootContextParams#TOOL tool} against an {@link ItemPredicate}.
  */
 public record IsInBiomeCondition(Set<ResourceKey<Biome>> biomes) implements LootItemCondition {
-    public static final MapCodec<IsInBiomeCondition> CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
+    public static final MapCodec<IsInBiomeCondition> MAP_CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
             NeoForgeExtraCodecs.setOf(ResourceKey.codec(Registries.BIOME)).fieldOf("biomes").forGetter(IsInBiomeCondition::biomes)).apply(codecBuilder, IsInBiomeCondition::new)
     );
 
@@ -37,8 +36,8 @@ public record IsInBiomeCondition(Set<ResourceKey<Biome>> biomes) implements Loot
     }
 
     @Override
-    public @NotNull LootItemConditionType getType() {
-        return LootItemConditions.IS_IN_BIOME.value();
+    public @NotNull MapCodec<IsInBiomeCondition> codec() {
+        return MAP_CODEC;
     }
 
     @Override

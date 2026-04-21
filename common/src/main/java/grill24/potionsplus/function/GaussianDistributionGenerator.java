@@ -7,7 +7,6 @@ import grill24.potionsplus.utility.Utility;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.LootNumberProviderType;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 
@@ -17,7 +16,7 @@ import java.util.Set;
  * A number provider which generates a random number based on a Gaussian distribution.
  */
 public record GaussianDistributionGenerator(NumberProvider mean, NumberProvider stdDev) implements NumberProvider {
-    public static final MapCodec<GaussianDistributionGenerator> CODEC = RecordCodecBuilder.mapCodec(
+    public static final MapCodec<GaussianDistributionGenerator> MAP_CODEC = RecordCodecBuilder.mapCodec(
             codecBuilder -> codecBuilder.group(
                             NumberProviders.CODEC.fieldOf("mean").forGetter(GaussianDistributionGenerator::mean),
                             NumberProviders.CODEC.fieldOf("stdDev").forGetter(GaussianDistributionGenerator::stdDev)
@@ -26,8 +25,8 @@ public record GaussianDistributionGenerator(NumberProvider mean, NumberProvider 
     );
 
     @Override
-    public LootNumberProviderType getType() {
-        return grill24.potionsplus.core.NumberProviders.GAUSSIAN_DISTRIBUTION.value();
+    public MapCodec<GaussianDistributionGenerator> codec() {
+        return MAP_CODEC;
     }
 
     @Override

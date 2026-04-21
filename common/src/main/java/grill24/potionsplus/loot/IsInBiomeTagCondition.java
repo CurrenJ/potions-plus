@@ -16,7 +16,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +26,13 @@ import java.util.Set;
  * A LootItemCondition that checks the {@linkplain LootContextParams#TOOL tool} against an {@link ItemPredicate}.
  */
 public record IsInBiomeTagCondition(TagKey<Biome> biomeTag) implements LootItemCondition {
-    public static final MapCodec<IsInBiomeTagCondition> CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
+    public static final MapCodec<IsInBiomeTagCondition> MAP_CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
             TagKey.codec(Registries.BIOME).fieldOf("biomeTag").forGetter(IsInBiomeTagCondition::biomeTag)).apply(codecBuilder, IsInBiomeTagCondition::new)
     );
 
     @Override
-    public LootItemConditionType getType() {
-        return LootItemConditions.IS_IN_BIOME_TAG.value();
+    public MapCodec<IsInBiomeTagCondition> codec() {
+        return MAP_CODEC;
     }
 
     @Override

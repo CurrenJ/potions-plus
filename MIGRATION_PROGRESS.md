@@ -11,7 +11,7 @@
 | 2 | [Source Relocation](#chunk-2--source-relocation) | ✅ Done | |
 | 3 | [Metadata & Access Widener](#chunk-3--metadata--access-widener) | ✅ Done | |
 | 4 | [Mechanical API Renames](#chunk-4--mechanical-api-renames) | ✅ Done | |
-| 5 | [Loot + Data API Changes](#chunk-5--loot--data-api-changes) | ⬜ Pending | |
+| 5 | [Loot + Data API Changes](#chunk-5--loot--data-api-changes) | ✅ Done | |
 | 6 | [Platform Abstraction](#chunk-6--platform-abstraction) | ⬜ Pending | |
 | 7 | [Rendering Overhaul](#chunk-7--rendering-overhaul) | ⬜ Pending | |
 | 8 | [GUI Overhaul](#chunk-8--gui-overhaul) | ⬜ Pending | |
@@ -93,15 +93,15 @@
 **Goal:** Loot type unrolling complete; item model properties rewritten; no remaining DataComponent or PotionBrewing API breakage.
 
 ### Steps
-- [ ] 6.1–6.3 Loot type unrolling: 4 conditions + 1 number provider (`getType()` → `codec()`, registry holds `MapCodec` directly)
-- [ ] 6.4–6.5 Confirm `ConsumeEffect` and `RecipeType` getType() are NOT affected — skip
-- [ ] 7.1 DataComponents — confirm no `HIDE_ADDITIONAL_TOOLTIP` / `HIDE_TOOLTIP` usage, skip
-- [ ] 7.2 `Item#inventoryTick` signature change — confirm zero overrides, skip
-- [ ] 7.3 `BlockBehaviour#onRemove` split — confirm zero overrides, skip
-- [ ] 7.4 `PotionBrewing` API audit (`PotionBuilder.java`, `Potions.java`, `SeededPotionRecipeBuilder.java`)
-- [ ] 7.5 `RecipeManager` internals audit — verify AT fields still exist in 26.1.2
-- [ ] 7.6 Delete stale `ItemProperties` AT entry
-- [ ] 7.7 Rewrite 3 item model properties to `SelectItemModelProperty` / `ConditionalItemModelProperty`
+- [x] 6.1–6.3 Loot type unrolling: 4 conditions + 1 number provider (`getType()` → `codec()`, registry holds `MapCodec` directly); `LootItemConditionType` / `LootNumberProviderType` wrappers gone — registry now holds `MapCodec<? extends LootItemCondition/NumberProvider>` directly; updated `HasPlayerAbilityCondition`, `IsInBiomeCondition`, `IsInBiomeTagCondition`, `LootItemBlockTagCondition`, `GaussianDistributionGenerator`; updated `LootItemConditions.java`, `NumberProviders.java`, `LootItemFunctions.java` registries
+- [x] 6.4–6.5 Confirmed `ConsumeEffect` still uses `Type<>` wrapper (not unrolled) — no changes; `RecipeType` uses simple registry pattern — no changes
+- [x] 7.1 DataComponents — no `HIDE_ADDITIONAL_TOOLTIP` / `HIDE_TOOLTIP` usage found — skip
+- [x] 7.2 `Item#inventoryTick` — zero overrides in codebase — skip
+- [x] 7.3 `BlockBehaviour#onRemove` — zero overrides — skip
+- [x] 7.4 `PotionBrewing` fields (`potionMixes`, `containerMixes`) verified in AW; not directly accessed in mod code
+- [x] 7.5 `RecipeManagerMixin` verified: shadows `RecipeMap recipes` (correct 26.1.2 field); injects into `prepare()` returning `RecipeMap`; old `byType`/`byName` fields gone and not referenced
+- [x] 7.6 `ItemProperties` AT entry already deleted in Chunk 3
+- [x] 7.7 All 3 item model properties already use 26.1.2 API: `GeneticProperty` / `EdibleChoiceProperty` implement `RangeSelectItemModelProperty`; `BrassicaOleraceaProperty` implements `SelectItemModelProperty<Variation>`; registered via `RegisterRangeSelectItemModelPropertyEvent` / `RegisterSelectItemModelPropertyEvent`
 
 ---
 

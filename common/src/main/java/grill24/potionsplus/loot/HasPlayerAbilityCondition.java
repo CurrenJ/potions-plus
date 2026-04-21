@@ -17,7 +17,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 import java.util.Optional;
 import java.util.Set;
@@ -26,13 +25,13 @@ import java.util.Set;
  * A LootItemCondition that checks the {@linkplain LootContextParams#TOOL tool} against an {@link ItemPredicate}.
  */
 public record HasPlayerAbilityCondition(ResourceKey<ConfiguredPlayerAbility<?, ?>> key) implements LootItemCondition {
-    public static final MapCodec<HasPlayerAbilityCondition> CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
+    public static final MapCodec<HasPlayerAbilityCondition> MAP_CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
             ResourceKey.codec(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY).fieldOf("configuredPlayerAbility").forGetter(HasPlayerAbilityCondition::key)).apply(codecBuilder, HasPlayerAbilityCondition::new)
     );
 
     @Override
-    public LootItemConditionType getType() {
-        return LootItemConditions.HAS_PLAYER_ABILITY.value();
+    public MapCodec<HasPlayerAbilityCondition> codec() {
+        return MAP_CODEC;
     }
 
     @Override
