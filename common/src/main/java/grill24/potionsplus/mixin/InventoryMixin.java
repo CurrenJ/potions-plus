@@ -1,11 +1,10 @@
 package grill24.potionsplus.mixin;
 
-import grill24.potionsplus.event.ServerPlayerHeldItemChangedEvent;
+import grill24.potionsplus.platform.Platform;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.NeoForge;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -37,7 +36,7 @@ public abstract class InventoryMixin {
 
         if (selectedSlot != potions_plus$lastSelectedSlot || !ItemStack.isSameItemSameComponents(potions_plus$lastHeldItem, heldItem)) {
             if (this.player instanceof ServerPlayer serverPlayer) {
-                NeoForge.EVENT_BUS.post(new ServerPlayerHeldItemChangedEvent(serverPlayer.getServer(), serverPlayer, potions_plus$lastHeldItem, heldItem));
+                Platform.onServerPlayerHeldItemChanged(serverPlayer.getServer(), serverPlayer, potions_plus$lastHeldItem, heldItem);
             }
 
             potions_plus$lastSelectedSlot = selectedSlot;

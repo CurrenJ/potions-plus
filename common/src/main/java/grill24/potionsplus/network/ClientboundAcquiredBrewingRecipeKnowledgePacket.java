@@ -16,7 +16,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -38,7 +37,7 @@ public record ClientboundAcquiredBrewingRecipeKnowledgePacket(ResourceKey<Recipe
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain(final ClientboundAcquiredBrewingRecipeKnowledgePacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(final ClientboundAcquiredBrewingRecipeKnowledgePacket packet, final PacketContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

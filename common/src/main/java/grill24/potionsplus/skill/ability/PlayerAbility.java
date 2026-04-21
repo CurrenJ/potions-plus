@@ -11,7 +11,7 @@ import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -58,7 +58,7 @@ public abstract class PlayerAbility<AC extends PlayerAbilityConfiguration> {
             abilityInstance.data().setEnabled(true);
             onEnable(player, config, abilityInstance);
 
-            PacketDistributor.sendToPlayer(player, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
+            PacketNetwork.sendToPlayer(player, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
         } else {
             SkillsData.updatePlayerData(player, data -> data.resetAbilityInstance(player, abilityInstance.data().getHolder()));
         }
@@ -70,7 +70,7 @@ public abstract class PlayerAbility<AC extends PlayerAbilityConfiguration> {
             abilityInstance.data().setEnabled(false);
         }
 
-        PacketDistributor.sendToPlayer(player, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
+        PacketNetwork.sendToPlayer(player, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
     }
 
     protected abstract void onEnable(ServerPlayer player, AC config, AbilityInstanceSerializable<?, ?> abilityInstance);

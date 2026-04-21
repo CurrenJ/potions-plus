@@ -13,7 +13,8 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 
 public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstanceData {
     protected float abilityStrength;
@@ -103,10 +104,10 @@ public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstance
     }
 
     public void clientRequestDecreaseStrength(LocalPlayer player) {
-        PacketDistributor.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.getKey().identifier(), -stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
+        PacketNetwork.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.getKey().identifier(), -stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
     }
 
     public void clientRequestIncreaseStrength(LocalPlayer player) {
-        PacketDistributor.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.getKey().identifier(), stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
+        PacketNetwork.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.getKey().identifier(), stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
     }
 }

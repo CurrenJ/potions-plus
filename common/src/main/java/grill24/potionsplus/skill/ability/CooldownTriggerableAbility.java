@@ -16,7 +16,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,7 +135,7 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
             if (packet != null) {
                 abilitySucceeded[0] = true;
                 if (player instanceof ServerPlayer serverPlayer) {
-                    packet.ifPresent(p -> PacketDistributor.sendToPlayersTrackingEntityAndSelf(serverPlayer, p));
+                    packet.ifPresent(p -> PacketNetwork.sendToPlayersTrackingEntityAndSelf(serverPlayer, p));
                 }
             }
         };
@@ -179,7 +179,7 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
             if (packet != null) {
                 abilitySucceeded[0] = true;
                 if (player.isLocalPlayer()) {
-                    packet.ifPresent(PacketDistributor::sendToServer);
+                    packet.ifPresent(PacketNetwork::sendToServer);
                 }
             }
         };

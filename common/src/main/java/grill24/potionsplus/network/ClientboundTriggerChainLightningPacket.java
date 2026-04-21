@@ -11,7 +11,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
 import java.util.Objects;
@@ -36,7 +35,7 @@ public record ClientboundTriggerChainLightningPacket(BlockPos soundOrigin,
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain(final ClientboundTriggerChainLightningPacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(final ClientboundTriggerChainLightningPacket packet, final PacketContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

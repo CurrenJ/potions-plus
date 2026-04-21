@@ -3,7 +3,7 @@ package grill24.potionsplus.effect;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
-import grill24.potionsplus.utility.ModInfo;
+import grill24.potionsplus.platform.Platform;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -24,15 +24,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails {
     private static final WeightedList<Block> STONE_ORE_WEIGHTS = WeightedList.of(
             new Weighted<>(Blocks.COAL_ORE, 7),
@@ -45,7 +41,6 @@ public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails
             new Weighted<>(Blocks.DIAMOND_ORE, 1)
     );
 
-    // Map stone ore blocks to deepslate ore blocks
     private static final Map<Block, Block> STONE_TO_DEEPSLATE = new HashMap<>() {{
         put(Blocks.COAL_ORE, Blocks.DEEPSLATE_COAL_ORE);
         put(Blocks.COPPER_ORE, Blocks.DEEPSLATE_COPPER_ORE);
@@ -74,12 +69,11 @@ public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails
         return Math.min(0.1F, ACTIVATION_CHANCE * (amplifier + 1));
     }
 
-    @SubscribeEvent
-    public static void onLivingEntityDeath(final LivingDeathEvent livingDeathEvent) {
-        if (evaluateActivationConditions(livingDeathEvent.getEntity(), livingDeathEvent.getSource().getEntity())) {
-            BlockPos pos = livingDeathEvent.getEntity().blockPosition();
-            Level level = livingDeathEvent.getEntity().level();
-            MobEffectInstance geodeGraceInstance = livingDeathEvent.getEntity().getEffect(MobEffects.GEODE_GRACE);
+    public static void onEntityDeath(LivingEntity entity, @org.jetbrains.annotations.Nullable Entity killer) {
+        if (evaluateActivationConditions(entity, killer)) {
+            BlockPos pos = entity.blockPosition();
+            Level level = entity.level();
+            MobEffectInstance geodeGraceInstance = entity.getEffect(MobEffects.GEODE_GRACE);
             int amplifier = geodeGraceInstance != null ? geodeGraceInstance.getAmplifier() : 0;
 
             boolean doTrySpawnOres = level.random.nextFloat() < getActivationChance(amplifier);
@@ -135,11 +129,15 @@ public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails
 
     @Override
     public Component getDisplayName() {
-        String name = Minecraft.getInstance().player.getName().getContents().toString();
-        if (name.equals("Tulip58")) {
-            return Component.literal("Gio's Grace");
+        if (Platform.isClient()) {
+            Minecraft mc = Minecraft.getInstance();
+            if (mc != null && mc.player != null) {
+                String name = mc.player.getName().getContents().toString();
+                if (name.equals("Tulip58")) {
+                    return Component.literal("Gio's Grace");
+                }
+            }
         }
-
         return Component.translatable(this.getDescriptionId());
     }
 

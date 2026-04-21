@@ -11,12 +11,7 @@
 package grill24.potionsplus.utility;
 
 import net.minecraft.client.Minecraft;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.client.event.RenderFrameEvent;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public final class ClientTickHandler {
 
     private ClientTickHandler() {
@@ -29,13 +24,11 @@ public final class ClientTickHandler {
         return ticksInGame + partialTicks;
     }
 
-    @SubscribeEvent
-    public static void renderTick(final RenderFrameEvent.Post event) {
-        partialTicks = event.getPartialTick().getGameTimeDeltaPartialTick(true);
+    public static void renderTick(float partialTick) {
+        partialTicks = partialTick;
     }
 
-    @SubscribeEvent
-    public static void clientTickEnd(final ClientTickEvent.Post event) {
+    public static void clientTickEnd() {
         if (!Minecraft.getInstance().isPaused()) {
             ticksInGame++;
             partialTicks = 0;

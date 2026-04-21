@@ -11,7 +11,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
 import java.util.Objects;
@@ -38,7 +37,7 @@ public record ClientboundTriggerStunShotPacket(int duration, BlockPos soundOrigi
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain(final ClientboundTriggerStunShotPacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(final ClientboundTriggerStunShotPacket packet, final PacketContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

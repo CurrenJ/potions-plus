@@ -11,7 +11,6 @@ import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.item.tooltip.TooltipPriorities;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.utility.HolderCodecs;
-import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -25,15 +24,14 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
+
+
 
 import java.util.List;
 import java.util.Optional;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public record EdibleRewardGranterDataComponent(ResourceKey<ConfiguredGrantableReward<?, ?>> linkedChoiceParent,
                                                ResourceKey<ConfiguredGrantableReward<?, ?>> linkedOption,
                                                Identifier flag) {
@@ -108,7 +106,6 @@ public record EdibleRewardGranterDataComponent(ResourceKey<ConfiguredGrantableRe
         }
     }
 
-    @SubscribeEvent
     public static void onTooltip(final AnimatedItemTooltipEvent.Add event) {
         Player player = event.getPlayer();
 

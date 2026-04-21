@@ -20,7 +20,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -99,10 +100,10 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
         if (player instanceof ServerPlayer serverPlayer) {
             if (levelBefore != levelAfter && levelAfter == getConfiguredSkill(registryAccess).getLevelMax()) {
                 // Send alert
-                PacketDistributor.sendToPlayer(serverPlayer, new ClientboundDisplayAlertWithParameter(Translations.TOOLTIP_POTIONSPLUS_SKILL_MAX_LEVEL, true, Integer.toString(levelAfter)));
+                PacketNetwork.sendToPlayer(serverPlayer, new ClientboundDisplayAlertWithParameter(Translations.TOOLTIP_POTIONSPLUS_SKILL_MAX_LEVEL, true, Integer.toString(levelAfter)));
             } else if (pointsBefore != this.points && this.points == configuredSkill.getPointsMax()) {
                 // Send alert
-                PacketDistributor.sendToPlayer(serverPlayer, new ClientboundDisplayAlertWithParameter(Translations.TOOLTIP_POTIONSPLUS_SKILL_MAX_POINTS, true, Integer.toString(levelAfter)));
+                PacketNetwork.sendToPlayer(serverPlayer, new ClientboundDisplayAlertWithParameter(Translations.TOOLTIP_POTIONSPLUS_SKILL_MAX_POINTS, true, Integer.toString(levelAfter)));
             }
 
 
@@ -131,10 +132,8 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
                 levelUpAlert.append(getConfiguredSkill(registryAccess).getChatHeader());
                 levelUpAlert.append(Component.translatable(Translations.TOOLTIP_POTIONSPLUS_SKILL_LEVEL_UP, levelAfter).withStyle(ChatFormatting.WHITE));
 
-                PacketDistributor.sendToPlayer(serverPlayer,
-                        new ClientboundDisplayAlert(levelUpAlert), // Send alert
-                        new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)) // Sync skills data
-                );
+                PacketNetwork.sendToPlayer(serverPlayer, new ClientboundDisplayAlert(levelUpAlert));
+                PacketNetwork.sendToPlayer(serverPlayer, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
 
             }
         }

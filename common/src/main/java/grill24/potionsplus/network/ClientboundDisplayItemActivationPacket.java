@@ -7,7 +7,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -26,7 +25,7 @@ public record ClientboundDisplayItemActivationPacket(ItemStack stack) implements
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain(final ClientboundDisplayItemActivationPacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(final ClientboundDisplayItemActivationPacket packet, final PacketContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

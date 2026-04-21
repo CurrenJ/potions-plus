@@ -18,8 +18,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraft.world.level.LevelAccessor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 
 public class UraniumOreBlock extends DropExperienceBlock {
     public enum UraniumState implements StringRepresentable {
@@ -52,14 +53,15 @@ public class UraniumOreBlock extends DropExperienceBlock {
         super(xpRange, properties);
     }
 
-    public static void tryLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
-        BlockState blockState = event.getLevel().getBlockState(event.getPos());
-        if (blockState.getBlock() instanceof UraniumOreBlock && blockState.getValue(URANIUM_STATE) != UraniumState.FULLY_EXPOSED && !event.getEntity().isCreative()) {
-            event.setCanceled(true);
-            if (event.getEntity() instanceof ServerPlayer player) {
-                PacketDistributor.sendToPlayer(player, new ClientboundDisplayAlertWithItemStackName("block.potionsplus.uranium_ore.not_exposed"));
+    public static boolean tryLeftClickBlock(LevelAccessor level, BlockPos pos, Player player) {
+        BlockState blockState = level.getBlockState(pos);
+        if (blockState.getBlock() instanceof UraniumOreBlock && blockState.getValue(URANIUM_STATE) != UraniumState.FULLY_EXPOSED && !player.isCreative()) {
+            if (player instanceof ServerPlayer serverPlayer) {
+                PacketNetwork.sendToPlayer(serverPlayer, new ClientboundDisplayAlertWithItemStackName("block.potionsplus.uranium_ore.not_exposed"));
             }
+            return true;
         }
+        return false;
     }
 
     @Override

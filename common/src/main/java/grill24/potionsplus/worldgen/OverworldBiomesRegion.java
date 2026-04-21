@@ -2,22 +2,17 @@ package grill24.potionsplus.worldgen;
 
 import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.core.Biomes;
-import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import terrablender.api.*;
 
 import java.util.function.Consumer;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class OverworldBiomesRegion extends Region {
     public static final Identifier ID = ppId("overworld_biomes");
 
@@ -55,11 +50,7 @@ public class OverworldBiomesRegion extends Region {
         overlayBuilder.build().forEach(mapper);
     }
 
-    @SubscribeEvent
-    public static void onModSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() ->
-        {
-            Regions.register(new OverworldBiomesRegion(4));
-        });
+    public static void register() {
+        Regions.register(new OverworldBiomesRegion(4));
     }
 }

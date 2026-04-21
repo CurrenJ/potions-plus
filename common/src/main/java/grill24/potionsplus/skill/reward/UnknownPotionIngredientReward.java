@@ -13,7 +13,8 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -45,7 +46,7 @@ public class UnknownPotionIngredientReward extends GrantableReward<UnknownPotion
                 }
         );
 
-        PacketDistributor.sendToPlayer(player, new ClientboundDisplayAlert(Component.translatable(Translations.ALERT_POTIONSPLUS_REWARD_UNKNOWN_POTION_INGREDIENT)));
+        PacketNetwork.sendToPlayer(player, new ClientboundDisplayAlert(Component.translatable(Translations.ALERT_POTIONSPLUS_REWARD_UNKNOWN_POTION_INGREDIENT)));
     }
 
     private static void getUnknownPotionsIngredients(UnknownPotionIngredientRewardConfiguration config, ServerPlayer player, Set<PpIngredient> knownIngredients) {

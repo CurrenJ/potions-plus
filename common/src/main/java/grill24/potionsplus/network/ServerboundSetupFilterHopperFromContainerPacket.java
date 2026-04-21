@@ -6,8 +6,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.neoforged.neoforge.network.handling.ServerPayloadContext;
+
 
 import java.util.Optional;
 
@@ -27,11 +26,9 @@ public record ServerboundSetupFilterHopperFromContainerPacket() implements Custo
     }
 
     public static class ServerPayloadHandler {
-        public static void handleDataOnMain(ServerboundSetupFilterHopperFromContainerPacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(ServerboundSetupFilterHopperFromContainerPacket packet, final PacketContext context) {
             context.enqueueWork(() -> {
-                ServerPayloadContext serverContext = (ServerPayloadContext) context;
-
-                if (serverContext.player() instanceof ServerPlayer serverPlayer && serverPlayer.containerMenu instanceof FilterHopperMenu filterHopperMenu) {
+                if (context.player() instanceof ServerPlayer serverPlayer && serverPlayer.containerMenu instanceof FilterHopperMenu filterHopperMenu) {
                     Optional<FilterHopperBlockEntity> filterHopper = filterHopperMenu.getFilterHopperBlockEntity();
                     filterHopper.ifPresent(FilterHopperBlockEntity::addConnectedContainerContentsToFilter);
                 }

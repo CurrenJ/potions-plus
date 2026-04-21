@@ -8,7 +8,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +45,7 @@ public record AbilityInstanceSerializable<D extends SimpleAbilityInstanceData, T
     }
 
     public void toggleClient() {
-        PacketDistributor.sendToServer(ServerboundToggleAbilityPacket.of(this));
+        PacketNetwork.sendToServer(ServerboundToggleAbilityPacket.of(this));
     }
 
     public Optional<List<List<Component>>> getLongDescription() {

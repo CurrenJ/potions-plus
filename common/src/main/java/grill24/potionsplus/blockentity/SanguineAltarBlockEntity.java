@@ -20,7 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 import org.joml.Vector3d;
 import org.joml.Vector3f;
 
@@ -137,7 +138,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
                     }
 
                     if (!level.isClientSide) {
-                        PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(), new ClientboundSanguineAltarConversionProgressPacket(pos, sanguineAltarBlockEntity.healthDrained));
+                        PacketNetwork.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(), new ClientboundSanguineAltarConversionProgressPacket(pos, sanguineAltarBlockEntity.healthDrained));
                     }
                 }
             }
@@ -161,7 +162,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         }
 
         if (!level.isClientSide()) {
-            PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(), new ClientboundSanguineAltarConversionStatePacket(pos, state.ordinal()));
+            PacketNetwork.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(), new ClientboundSanguineAltarConversionStatePacket(pos, state.ordinal()));
         }
     }
 

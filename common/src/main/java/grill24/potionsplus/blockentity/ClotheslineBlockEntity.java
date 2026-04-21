@@ -24,7 +24,8 @@ import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 import org.joml.Vector3f;
 
 import javax.annotation.Nonnull;
@@ -179,7 +180,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
 
                     level.playSound(null, worldPosition, SoundEvents.WEEPING_VINES_PLACE, SoundSource.BLOCKS, 1, 1);
 
-                    PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(worldPosition, slot));
+                    PacketNetwork.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(worldPosition, slot));
                     level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
                         if (player instanceof ServerPlayer serverPlayer) {
                             Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));

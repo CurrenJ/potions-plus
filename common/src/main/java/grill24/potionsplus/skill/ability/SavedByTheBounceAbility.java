@@ -7,11 +7,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
-
 import java.util.Optional;
 
-public class SavedByTheBounceAbility extends CooldownTriggerableAbility<LivingFallEvent, CustomPacketPayload> {
+public class SavedByTheBounceAbility extends CooldownTriggerableAbility<SavedByTheBounceAbility.FallData, CustomPacketPayload> {
+    public record FallData(float distance) {}
     @Override
     public int getCooldownDurationForAbility(AbilityInstanceSerializable<?, ?> instance) {
         float strength = 0F;
@@ -27,12 +26,12 @@ public class SavedByTheBounceAbility extends CooldownTriggerableAbility<LivingFa
     }
 
     @Override
-    public Optional<CustomPacketPayload> onTriggeredFromServer(Player player, AbilityInstanceSerializable<?, ?> instance, LivingFallEvent eventData) {
+    public Optional<CustomPacketPayload> onTriggeredFromServer(Player player, AbilityInstanceSerializable<?, ?> instance, FallData eventData) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<CustomPacketPayload> onTriggeredFromClient(Player player, AbilityInstanceSerializable<?, ?> instance, LivingFallEvent eventData) {
+    public Optional<CustomPacketPayload> onTriggeredFromClient(Player player, AbilityInstanceSerializable<?, ?> instance, FallData eventData) {
         return Optional.empty();
     }
 }

@@ -7,10 +7,9 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
+import grill24.potionsplus.platform.PacketNetwork;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.neoforged.neoforge.network.handling.ServerPayloadContext;
+
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -39,10 +38,9 @@ public record ServerboundUpdateAbilityStrengthPacket(Identifier abilityId, float
     }
 
     public static class ServerPayloadHandler {
-        public static void handleDataOnMain(ServerboundUpdateAbilityStrengthPacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(ServerboundUpdateAbilityStrengthPacket packet, final PacketContext context) {
             context.enqueueWork(() -> {
-                ServerPayloadContext serverContext = (ServerPayloadContext) context;
-                ServerPlayer player = serverContext.player();
+                ServerPlayer player = (ServerPlayer) context.player();
                 SkillsData.getPlayerData(player).getAbilityInstance(player.registryAccess(), packet.abilityId).ifPresent(instance -> {
                     if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthInstance) {
                         switch (packet.operation) {
@@ -52,7 +50,7 @@ public record ServerboundUpdateAbilityStrengthPacket(Identifier abilityId, float
                         }
                         instance.onInstanceChanged(player);
 
-                        PacketDistributor.sendToPlayer(player, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
+                        PacketNetwork.sendToPlayer(player, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)));
                     }
                 });
             });

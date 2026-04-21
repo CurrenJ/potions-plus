@@ -12,7 +12,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +48,7 @@ public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.Anima
     @Override
     public void grant(ResourceKey<ConfiguredGrantableReward<?, ?>> holder, AnimatedItemRewardConfiguration config, ServerPlayer player) {
         if (!config.displayItem.isEmpty()) {
-            PacketDistributor.sendToPlayer(player, new ClientboundDisplayItemActivationPacket(config.displayItem));
+            PacketNetwork.sendToPlayer(player, new ClientboundDisplayItemActivationPacket(config.displayItem));
         }
 
         for (ItemStack reward : config.rewards) {

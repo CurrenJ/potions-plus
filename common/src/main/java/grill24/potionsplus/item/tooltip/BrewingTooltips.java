@@ -9,7 +9,6 @@ import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
@@ -19,17 +18,13 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class BrewingTooltips {
-    @SubscribeEvent
     public static void onBrewingTooltip(final AnimatedItemTooltipEvent.Add event) {
         PpIngredient ppIngredient = PpIngredient.of(event.getItemStack().copyWithCount(1));
         if (AbyssalTroveBlockEntity.ABYSSAL_TROVE_INGREDIENTS.contains(ppIngredient)) {

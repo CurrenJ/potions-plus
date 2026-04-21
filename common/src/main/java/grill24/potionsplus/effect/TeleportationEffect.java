@@ -2,6 +2,7 @@ package grill24.potionsplus.effect;
 
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
+import grill24.potionsplus.platform.Platform;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -17,8 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.event.EventHooks;
-import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -44,14 +44,12 @@ public class TeleportationEffect extends InstantenousMobEffect implements IEffec
             return;
         }
 
-        // Teleport to top of world
         double d0 = livingEntity.getX();
         double d1 = livingEntity.getY();
         double d2 = livingEntity.getZ();
 
         final int stepLength = getStepLength(amplifier);
         for (int i = 0; i < 16; ++i) {
-            // Taken from ChorusFruitItem
             double d3 = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5D) * stepLength;
             double d4 = Mth.clamp(livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(stepLength) - 8), livingEntity.level().getMinY(), livingEntity.level().getMaxY() + ((ServerLevel) livingEntity.level()).getLogicalHeight() - 1);
             double d5 = livingEntity.getZ() + (livingEntity.getRandom().nextDouble() - 0.5D) * stepLength;
@@ -59,8 +57,8 @@ public class TeleportationEffect extends InstantenousMobEffect implements IEffec
                 livingEntity.stopRiding();
             }
 
-            EntityTeleportEvent.ItemConsumption event = EventHooks.onItemConsumptionTeleport(livingEntity, new ItemStack(Items.CHORUS_FRUIT), d3, d4, d5);
-            if (livingEntity.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true)) {
+            Vec3 target = Platform.getChorusFruitTeleportTarget(livingEntity, new ItemStack(Items.CHORUS_FRUIT), d3, d4, d5);
+            if (livingEntity.randomTeleport(target.x, target.y, target.z, true)) {
                 SoundEvent soundevent = livingEntity instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
                 livingEntity.level().playSound(null, d0, d1, d2, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
                 livingEntity.playSound(soundevent, 1.0F, 1.0F);

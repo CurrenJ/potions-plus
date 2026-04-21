@@ -8,10 +8,9 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
+import grill24.potionsplus.platform.PacketNetwork;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.neoforged.neoforge.network.handling.ServerPayloadContext;
+
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -31,15 +30,13 @@ public record ServerboundToggleAbilityPacket(
     }
 
     public static class ServerPayloadHandler {
-        public static void handleDataOnMain(ServerboundToggleAbilityPacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(ServerboundToggleAbilityPacket packet, final PacketContext context) {
             context.enqueueWork(() -> {
-                ServerPayloadContext serverContext = (ServerPayloadContext) context;
-
-                if (serverContext.player() instanceof ServerPlayer serverPlayer) {
+                if (context.player() instanceof ServerPlayer serverPlayer) {
                     SkillsData.updatePlayerData(serverPlayer, data -> {
-                        data.getAbilityInstance(serverContext.player().registryAccess(), packet.configuredPlayerAbilityKey.identifier()).ifPresent(abilityInstance -> {
+                        data.getAbilityInstance(serverPlayer.registryAccess(), packet.configuredPlayerAbilityKey.identifier()).ifPresent(abilityInstance -> {
                             abilityInstance.toggle(serverPlayer);
-                            PacketDistributor.sendToPlayer(serverPlayer, new ClientboundSyncPlayerSkillData(data));
+                            PacketNetwork.sendToPlayer(serverPlayer, new ClientboundSyncPlayerSkillData(data));
                         });
                     });
                 }

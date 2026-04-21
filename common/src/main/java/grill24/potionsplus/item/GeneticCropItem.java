@@ -14,12 +14,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-@EventBusSubscriber(modid = grill24.potionsplus.utility.ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public abstract class GeneticCropItem extends BlockItem {
     public static final int WEIGHT_CHROMOSOME_INDEX = 0;
     public static final int COLOR_CHROMOSOME_INDEX = WEIGHT_CHROMOSOME_INDEX + 1;
@@ -131,7 +128,6 @@ public abstract class GeneticCropItem extends BlockItem {
         return stack;
     }
 
-    @SubscribeEvent
     public static void onAnimatedTooltip(final AnimatedItemTooltipEvent.Add event) {
         ItemStack stack = event.getItemStack();
         if (stack.has(DataComponents.GENETIC_DATA) && stack.getItem() instanceof GeneticCropItem geneticCropItem) {

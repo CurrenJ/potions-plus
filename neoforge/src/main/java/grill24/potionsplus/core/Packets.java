@@ -11,171 +11,148 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 public class Packets {
     @SubscribeEvent
     public static void register(final RegisterPayloadHandlersEvent event) {
+        final PayloadRegistrar registrar = event.registrar("1");
+
         // ----- Serverbound Packets -----
 
-        // Construct Clothesline Packet
-        final PayloadRegistrar registrar = event.registrar("1");
         registrar.playToServer(
                 ServerboundConstructClotheslinePacket.TYPE,
                 ServerboundConstructClotheslinePacket.STREAM_CODEC,
-                ServerboundConstructClotheslinePacket.ServerPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ServerboundConstructClotheslinePacket.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Update Ability Strength Packet
         registrar.playToServer(
                 ServerboundUpdateAbilityStrengthPacket.TYPE,
                 ServerboundUpdateAbilityStrengthPacket.STREAM_CODEC,
-                ServerboundUpdateAbilityStrengthPacket.ServerPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ServerboundUpdateAbilityStrengthPacket.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Toggle Ability
         registrar.playToServer(
                 ServerboundToggleAbilityPacket.TYPE,
                 ServerboundToggleAbilityPacket.STREAM_CODEC,
-                ServerboundToggleAbilityPacket.ServerPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ServerboundToggleAbilityPacket.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Spawn Double Jump Particles Packet
         registrar.playToServer(
                 ServerboundSpawnDoubleJumpParticlesPacket.TYPE,
                 ServerboundSpawnDoubleJumpParticlesPacket.STREAM_CODEC,
-                ServerboundSpawnDoubleJumpParticlesPacket.ServerPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ServerboundSpawnDoubleJumpParticlesPacket.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Setup Filter Hopper From Container Packet
         registrar.playToServer(
                 ServerboundSetupFilterHopperFromContainerPacket.TYPE,
                 ServerboundSetupFilterHopperFromContainerPacket.STREAM_CODEC,
-                ServerboundSetupFilterHopperFromContainerPacket.ServerPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ServerboundSetupFilterHopperFromContainerPacket.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Try Claim Skill Reward Packet
         registrar.playToServer(
                 ServerboundTryClaimSkillReward.TYPE,
                 ServerboundTryClaimSkillReward.STREAM_CODEC,
-                ServerboundTryClaimSkillReward.ServerPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ServerboundTryClaimSkillReward.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
-
 
         // ----- Clientbound Packets -----
 
-        // Block Entity Craft Recipe Packet
         registrar.playToClient(
                 ClientboundBlockEntityCraftRecipePacket.TYPE,
                 ClientboundBlockEntityCraftRecipePacket.STREAM_CODEC,
-                ClientboundBlockEntityCraftRecipePacket.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundBlockEntityCraftRecipePacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Sanguine Altar Conversion State Packet
         registrar.playToClient(
                 ClientboundSanguineAltarConversionStatePacket.TYPE,
                 ClientboundSanguineAltarConversionStatePacket.STREAM_CODEC,
-                ClientboundSanguineAltarConversionStatePacket.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundSanguineAltarConversionStatePacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
         registrar.playToClient(
                 ClientboundSanguineAltarConversionProgressPacket.TYPE,
                 ClientboundSanguineAltarConversionProgressPacket.STREAM_CODEC,
-                ClientboundSanguineAltarConversionProgressPacket.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundSanguineAltarConversionProgressPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Player Impulse Packet
         registrar.playToClient(
                 ClientboundImpulsePlayerPacket.TYPE,
                 ClientboundImpulsePlayerPacket.STREAM_CODEC,
-                ClientboundImpulsePlayerPacket.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundImpulsePlayerPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Alert w ItemStack
         registrar.playToClient(
                 ClientboundDisplayAlertWithItemStackName.TYPE,
                 ClientboundDisplayAlertWithItemStackName.STREAM_CODEC,
-                ClientboundDisplayAlertWithItemStackName.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundDisplayAlertWithItemStackName.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Alert
         registrar.playToClient(
                 ClientboundDisplayAlertWithParameter.TYPE,
                 ClientboundDisplayAlertWithParameter.STREAM_CODEC,
-                ClientboundDisplayAlertWithParameter.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundDisplayAlertWithParameter.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Acquired Brewing Recipe Knowledge Packet
         registrar.playToClient(
                 ClientboundAcquiredBrewingRecipeKnowledgePacket.TYPE,
                 ClientboundAcquiredBrewingRecipeKnowledgePacket.STREAM_CODEC,
-                ClientboundAcquiredBrewingRecipeKnowledgePacket.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundAcquiredBrewingRecipeKnowledgePacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Sync Known Brewing Recipes Packet
         registrar.playToClient(
                 ClientboundSyncKnownBrewingRecipesPacket.TYPE,
                 ClientboundSyncKnownBrewingRecipesPacket.STREAM_CODEC,
-                ClientboundSyncKnownBrewingRecipesPacket.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundSyncKnownBrewingRecipesPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Sync Paired Abyssal Trove Packet
         registrar.playToClient(
                 ClientboundSyncPairedAbyssalTrove.TYPE,
                 ClientboundSyncPairedAbyssalTrove.STREAM_CODEC,
-                ClientboundSyncPairedAbyssalTrove.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundSyncPairedAbyssalTrove.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Sync Player Skill Data Packet
         registrar.playToClient(
                 ClientboundSyncPlayerSkillData.TYPE,
                 ClientboundSyncPlayerSkillData.STREAM_CODEC,
-                ClientboundSyncPlayerSkillData.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundSyncPlayerSkillData.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Display Item Activation Packet
         registrar.playToClient(
                 ClientboundDisplayItemActivationPacket.TYPE,
                 ClientboundDisplayItemActivationPacket.STREAM_CODEC,
-                ClientboundDisplayItemActivationPacket.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundDisplayItemActivationPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Display Wheel Animation Packet
         registrar.playToClient(
                 ClientboundDisplayWheelAnimationPacket.TYPE,
                 ClientboundDisplayWheelAnimationPacket.STREAM_CODEC,
-                ClientboundDisplayWheelAnimationPacket.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundDisplayWheelAnimationPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Display Tossup Animation Packet
         registrar.playToClient(
                 ClientboundDisplayTossupAnimationPacket.TYPE,
                 ClientboundDisplayTossupAnimationPacket.STREAM_CODEC,
-                ClientboundDisplayTossupAnimationPacket.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundDisplayTossupAnimationPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Sync Spatial Animation Data Packet
         registrar.playToClient(
                 ClientboundSyncSpatialAnimationDataPacket.TYPE,
                 ClientboundSyncSpatialAnimationDataPacket.STREAM_CODEC,
-                ClientboundSyncSpatialAnimationDataPacket.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundSyncSpatialAnimationDataPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Display Alert Packet
         registrar.playToClient(
                 ClientboundDisplayAlert.TYPE,
                 ClientboundDisplayAlert.STREAM_CODEC,
-                ClientboundDisplayAlert.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundDisplayAlert.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Trigger Chain Lightning Packet
         registrar.playToClient(
                 ClientboundTriggerChainLightningPacket.TYPE,
                 ClientboundTriggerChainLightningPacket.STREAM_CODEC,
-                ClientboundTriggerChainLightningPacket.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundTriggerChainLightningPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        // Trigger Stun Shot Packet
         registrar.playToClient(
                 ClientboundTriggerStunShotPacket.TYPE,
                 ClientboundTriggerStunShotPacket.STREAM_CODEC,
-                ClientboundTriggerStunShotPacket.ClientPayloadHandler::handleDataOnMain
+                (pkt, ctx) -> ClientboundTriggerStunShotPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
-
     }
 }

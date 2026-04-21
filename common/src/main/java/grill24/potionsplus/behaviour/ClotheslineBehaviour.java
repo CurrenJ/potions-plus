@@ -15,11 +15,13 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 
 import java.util.Optional;
 
@@ -29,34 +31,34 @@ public class ClotheslineBehaviour {
     private static boolean firstBlockClicked = false;
     private static BlockPos firstBlockPos = BlockPos.ZERO;
 
-    public static void doClotheslineInteractions(PlayerInteractEvent.RightClickBlock event) {
-        BlockPos pos = event.getPos();
-        BlockState state = event.getLevel().getBlockState(pos);
-        Item item = event.getItemStack().getItem();
+    public static boolean doClotheslineInteractions(Level level, BlockPos pos, ItemStack itemStack, Player player, InteractionHand hand) {
+        BlockState state = level.getBlockState(pos);
+        Item item = itemStack.getItem();
         if ((state.is(BlockTags.FENCES) || state.is(BlockTags.WALLS)) && item == INTERACTION_ITEM) {
-            event.setCanceled(true);
-            if (!event.getLevel().isClientSide)
-                return;
-            event.getEntity().swing(event.getHand());
+            if (!level.isClientSide)
+                return true;
+            player.swing(hand);
 
             if (!firstBlockClicked) {
                 firstBlockPos = pos;
                 firstBlockClicked = true;
 
-                spawnParticles(event.getLevel(), firstBlockPos);
+                spawnParticles(level, firstBlockPos);
             } else {
                 // Check if the second block is in the same line as the first block
                 if (firstBlockPos.getX() == pos.getX() || firstBlockPos.getZ() == pos.getZ()) {
-                    spawnParticles(event.getLevel(), pos);
+                    spawnParticles(level, pos);
                     firstBlockClicked = false;
 
-                    PacketDistributor.sendToServer(new ServerboundConstructClotheslinePacket(firstBlockPos, pos));
+                    PacketNetwork.sendToServer(new ServerboundConstructClotheslinePacket(firstBlockPos, pos));
                 } else {
                     firstBlockPos = pos;
-                    spawnParticles(event.getLevel(), firstBlockPos);
+                    spawnParticles(level, firstBlockPos);
                 }
             }
+            return true;
         }
+        return false;
     }
 
     public static void replaceWithClothelines(ServerLevel level, BlockPos pos, BlockPos otherPos) {

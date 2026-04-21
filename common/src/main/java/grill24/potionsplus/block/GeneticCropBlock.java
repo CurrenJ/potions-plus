@@ -205,7 +205,7 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
                     BlockState newState = this.defaultBlockState().setValue(this.getAgeProperty(), Math.clamp(desiredAge, 0, getMaxAge())) // Get the new state for the desired age
                             .setValue(GeneticCropBlock.HARVESTABLE, harvestState); // Set the harvestable property
                     level.setBlock(pos, newState, 2);
-                    net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(level, pos, state);
+                    grill24.potionsplus.platform.Platform.fireCropGrowPost(level, pos, state);
                 }
 
             }

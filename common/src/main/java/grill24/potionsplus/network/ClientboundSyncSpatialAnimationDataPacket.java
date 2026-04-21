@@ -7,7 +7,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -29,7 +28,7 @@ public record ClientboundSyncSpatialAnimationDataPacket(Identifier id,
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain(final ClientboundSyncSpatialAnimationDataPacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(final ClientboundSyncSpatialAnimationDataPacket packet, final PacketContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

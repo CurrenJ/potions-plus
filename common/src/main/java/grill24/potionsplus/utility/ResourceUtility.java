@@ -3,8 +3,7 @@ package grill24.potionsplus.utility;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.event.runtimeresource.ClientInjectResourceStacksEvent;
-import grill24.potionsplus.event.runtimeresource.ClientInjectResourcesEvent;
+import grill24.potionsplus.platform.Platform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
@@ -12,7 +11,6 @@ import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.fml.ModLoader;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.IOException;
@@ -127,7 +125,7 @@ public class ResourceUtility {
     public static void postResourceEvent(CallbackInfoReturnable<Map<Identifier, Resource>> cir) {
         Map<Identifier, Resource> resources = cir.getReturnValue();
         if (resources != null) {
-            ModLoader.postEvent(new ClientInjectResourcesEvent(resources));
+            Platform.postClientInjectResourcesEvent(resources);
         } else {
             PotionsPlus.LOGGER.warn("Resources null - not injecting additional runtime resources.");
         }
@@ -136,7 +134,7 @@ public class ResourceUtility {
     public static void postResourceStackEvent(CallbackInfoReturnable<Map<Identifier, List<Resource>>> cir) {
         Map<Identifier, List<Resource>> resources = cir.getReturnValue();
         if (resources != null) {
-            ModLoader.postEvent(new ClientInjectResourceStacksEvent(resources));
+            Platform.postClientInjectResourceStacksEvent(resources);
         } else {
             PotionsPlus.LOGGER.warn("Resources null - not injecting additional runtime resource stacks.");
         }

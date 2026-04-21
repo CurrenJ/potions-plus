@@ -1,21 +1,18 @@
 package grill24.potionsplus.effect;
 
 import grill24.potionsplus.core.potion.MobEffects;
-import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 
 import java.util.stream.Stream;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class BoneBuddyEffect extends MobEffect {
     private static final TargetingConditions.Selector TARGET_PREDICATE = (livingEntity, level) -> !livingEntity.hasEffect(MobEffects.BONE_BUDDY);
 
@@ -23,12 +20,11 @@ public class BoneBuddyEffect extends MobEffect {
         super(mobEffectCategory, color);
     }
 
-    @SubscribeEvent
-    public static void onUsePotion(final MobEffectEvent.Added potionAddedEvent) {
-        if (potionAddedEvent.getEffectInstance().getEffect() != MobEffects.BONE_BUDDY)
+    public static void onPotionAdded(LivingEntity entity, @org.jetbrains.annotations.Nullable MobEffectInstance effectInstance) {
+        if (effectInstance == null || effectInstance.getEffect() != MobEffects.BONE_BUDDY)
             return;
 
-        if (potionAddedEvent.getEntity() instanceof AbstractSkeleton skeleton) {
+        if (entity instanceof AbstractSkeleton skeleton) {
             Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
                     .filter(goal -> goal.getGoal() instanceof NearestAttackableTargetGoal)
                     .map(goal -> (NearestAttackableTargetGoal<?>) goal.getGoal())
@@ -42,22 +38,11 @@ public class BoneBuddyEffect extends MobEffect {
         }
     }
 
-    @SubscribeEvent
-    public static void onRemovePotion(final MobEffectEvent.Expired potionRemoveEvent) {
-        if (potionRemoveEvent.getEffectInstance() != null && potionRemoveEvent.getEffectInstance().getEffect() != MobEffects.BONE_BUDDY)
+    public static void onPotionExpired(LivingEntity entity, @org.jetbrains.annotations.Nullable MobEffectInstance effectInstance) {
+        if (effectInstance != null && effectInstance.getEffect() != MobEffects.BONE_BUDDY)
             return;
 
-        if (potionRemoveEvent.getEntity() instanceof AbstractSkeleton skeleton) {
-            removeEffect(skeleton);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPotionExpiry(final MobEffectEvent.Expired potionExpiryEvent) {
-        if (potionExpiryEvent.getEffectInstance() != null && potionExpiryEvent.getEffectInstance().getEffect() != MobEffects.BONE_BUDDY)
-            return;
-
-        if (potionExpiryEvent.getEntity() instanceof AbstractSkeleton skeleton) {
+        if (entity instanceof AbstractSkeleton skeleton) {
             removeEffect(skeleton);
         }
     }

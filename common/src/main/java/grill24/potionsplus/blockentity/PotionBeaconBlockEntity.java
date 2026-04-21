@@ -27,7 +27,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 import org.joml.Vector3d;
 import org.joml.Vector3f;
 
@@ -223,7 +224,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
     private static void updateLitStateServer(ServerLevel serverLevel, PotionBeaconBlockEntity blockEntity) {
         serverLevel.setBlockAndUpdate(blockEntity.worldPosition, blockEntity.getBlockState().setValue(PotionBeaconBlock.LIT, !blockEntity.effects.isEmpty()));
         final int maxDuration = blockEntity.effects.stream().mapToInt(MobEffectInstance::getDuration).max().orElse(0);
-        PacketDistributor.sendToPlayersTrackingChunk(serverLevel, serverLevel.getChunkAt(blockEntity.worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(blockEntity.worldPosition, maxDuration));
+        PacketNetwork.sendToPlayersTrackingChunk(serverLevel, serverLevel.getChunkAt(blockEntity.worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(blockEntity.worldPosition, maxDuration));
     }
 
     @Override

@@ -9,7 +9,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
 
@@ -43,7 +42,7 @@ public record ClientboundDisplayAlertWithParameter(String localizationKey, Boole
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain(final ClientboundDisplayAlertWithParameter packet, final IPayloadContext context) {
+        public static void handleDataOnMain(final ClientboundDisplayAlertWithParameter packet, final PacketContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

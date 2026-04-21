@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Mixin(Item.class)
-public abstract class ItemMixin implements FeatureElement, ItemLike, net.neoforged.neoforge.common.extensions.IItemExtension {
+public abstract class ItemMixin implements FeatureElement, ItemLike {
     @Inject(method = "getTooltipImage", at = @At("RETURN"), cancellable = true)
     private void getTooltipImage(ItemStack stack, CallbackInfoReturnable<Optional<TooltipComponent>> cir) {
         List<List<ItemStack>> displayStacks = new ArrayList<>();

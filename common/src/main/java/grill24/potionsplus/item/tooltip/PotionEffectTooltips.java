@@ -4,7 +4,6 @@ import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.effect.IEffectTooltipDetails;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
-import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -12,17 +11,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
+
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class PotionEffectTooltips {
-    @SubscribeEvent
     public static void onPotionEffectTooltip(final AnimatedItemTooltipEvent.Add event) {
         // Potion Effect Details Tooltip
         PpIngredient ppIngredient = PpIngredient.of(event.getItemStack().copyWithCount(1));

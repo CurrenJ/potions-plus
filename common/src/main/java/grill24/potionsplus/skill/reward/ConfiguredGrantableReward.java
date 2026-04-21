@@ -11,7 +11,8 @@ import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public record ConfiguredGrantableReward<RC extends GrantableRewardConfiguration,
 
         // Display the item activation
         if (!newItems.isEmpty()) {
-            PacketDistributor.sendToPlayer(player, new ClientboundDisplayTossupAnimationPacket(newItems, 5, 0.75F));
+            PacketNetwork.sendToPlayer(player, new ClientboundDisplayTossupAnimationPacket(newItems, 5, 0.75F));
         }
     }
 

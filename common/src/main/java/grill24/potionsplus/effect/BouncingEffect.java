@@ -6,7 +6,6 @@ import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
-import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
@@ -17,13 +16,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
-
 import java.util.List;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
     public BouncingEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
@@ -67,16 +61,14 @@ public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
         return false;
     }
 
-    @SubscribeEvent
-    public static void onLivingFall(LivingFallEvent event) {
-        Entity entity = event.getEntity();
+    public static boolean onLivingFall(Entity entity, float distance) {
         if (entity instanceof Player player && !player.hasEffect(MobEffects.BOUNCING)) {
             float safeFallDistance = (float) player.getAttribute(Attributes.SAFE_FALL_DISTANCE).getValue();
-            if (event.getDistance() > safeFallDistance) {
-                boolean bounced = PlayerAbilities.SAVED_BY_THE_BOUNCE.value().triggerFromClient(player, ConfiguredPlayerAbilities.SAVED_BY_THE_BOUNCE.getKey(), event);
+            if (distance > safeFallDistance) {
+                boolean bounced = PlayerAbilities.SAVED_BY_THE_BOUNCE.value().triggerFromClient(
+                        player, ConfiguredPlayerAbilities.SAVED_BY_THE_BOUNCE.getKey(),
+                        new SavedByTheBounceAbility.FallData(distance));
                 if (bounced) {
-                    // Adding the effect on the clientside will cause the potion effect to not be removed when it expires.
-                    // But the client needs to know that it should bounce, and a packet would be too slow.
                     if (!player.isLocalPlayer()) {
                         player.addEffect(new MobEffectInstance(MobEffects.BOUNCING, 60, 0));
                     } else {
@@ -86,10 +78,8 @@ public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
             }
         }
 
-        if (entity instanceof LivingEntity livingEntity &&
-                (livingEntity.hasEffect(MobEffects.BOUNCING) || livingEntity.hasData(DataAttachments.SHOULD_BOUNCE_PLAYER_DATA))) {
-            event.setCanceled(true);
-        }
+        return entity instanceof LivingEntity livingEntity
+                && (livingEntity.hasEffect(MobEffects.BOUNCING) || livingEntity.hasData(DataAttachments.SHOULD_BOUNCE_PLAYER_DATA));
     }
 }
 

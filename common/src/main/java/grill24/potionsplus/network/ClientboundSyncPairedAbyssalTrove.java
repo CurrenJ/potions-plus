@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -26,7 +25,7 @@ public record ClientboundSyncPairedAbyssalTrove(BlockPos pos) implements CustomP
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain(final ClientboundSyncPairedAbyssalTrove packet, final IPayloadContext context) {
+        public static void handleDataOnMain(final ClientboundSyncPairedAbyssalTrove packet, final PacketContext context) {
             context.enqueueWork(
                     () -> {
                         Player clientPlayer = context.player();

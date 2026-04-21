@@ -18,7 +18,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 
 public class SkillJournalsBlock extends HorizontalDirectionalBlock {
     public SkillJournalsBlock(Properties properties) {
@@ -53,7 +54,7 @@ public class SkillJournalsBlock extends HorizontalDirectionalBlock {
                     Component.literal("Skills!")
             ));
 
-            PacketDistributor.sendToPlayer(serverPlayer, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(serverPlayer)));
+            PacketNetwork.sendToPlayer(serverPlayer, new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(serverPlayer)));
         }
     }
 }

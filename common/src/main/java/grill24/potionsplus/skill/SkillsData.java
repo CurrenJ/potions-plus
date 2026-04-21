@@ -25,7 +25,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.minecraft.server.MinecraftServer;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -314,11 +314,11 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
                 });
     }
 
-    public static void tickPointEarningHistory(ServerTickEvent event) {
+    public static void tickPointEarningHistory(MinecraftServer server) {
         final float frequencyHertz = 0.2F; // 1 every 5 seconds
         if (ServerTickHandler.ticksInGame % (20 / frequencyHertz) != 0) return;
 
-        event.getServer().getPlayerList().getPlayers().forEach(
+        server.getPlayerList().getPlayers().forEach(
                 player -> SkillsData.updatePlayerData(player, data -> data.pointEarningHistory().popOldestEntry()));
     }
 

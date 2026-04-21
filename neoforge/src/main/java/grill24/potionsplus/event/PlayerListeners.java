@@ -111,7 +111,7 @@ public class PlayerListeners {
     public static void onTick(final ServerTickEvent.Pre event) {
         applyAllPassiveItemPotionEffects(event.getServer().getPlayerList().getPlayers());
 
-        SkillsData.tickPointEarningHistory(event);
+        SkillsData.tickPointEarningHistory(event.getServer());
     }
 
     @SubscribeEvent
@@ -174,7 +174,9 @@ public class PlayerListeners {
         BlockPos pos = event.getPos();
 
         MossBehaviour.doMossInteractions(event, pos);
-        ClotheslineBehaviour.doClotheslineInteractions(event);
+        if (ClotheslineBehaviour.doClotheslineInteractions(event.getLevel(), pos, event.getItemStack(), event.getEntity(), event.getHand())) {
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent
@@ -202,6 +204,8 @@ public class PlayerListeners {
 
     @SubscribeEvent
     public static void onLeftClickBlock(final PlayerInteractEvent.LeftClickBlock event) {
-        UraniumOreBlock.tryLeftClickBlock(event);
+        if (UraniumOreBlock.tryLeftClickBlock(event.getLevel(), event.getPos(), event.getEntity())) {
+            event.setCanceled(true);
+        }
     }
 }

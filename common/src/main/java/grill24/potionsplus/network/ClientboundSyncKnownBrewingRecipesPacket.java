@@ -12,7 +12,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Recipe;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public record ClientboundSyncKnownBrewingRecipesPacket(
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain(final ClientboundSyncKnownBrewingRecipesPacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(final ClientboundSyncKnownBrewingRecipesPacket packet, final PacketContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

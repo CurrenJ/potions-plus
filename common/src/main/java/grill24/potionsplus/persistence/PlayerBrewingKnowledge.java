@@ -18,7 +18,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 
 import java.util.HashSet;
 import java.util.List;
@@ -70,7 +71,7 @@ public class PlayerBrewingKnowledge {
 
     private void onNewRecipeKnowledgeAcquiredServer(ServerPlayer player, ResourceKey<Recipe<?>> recipeId, ItemStack result) {
         addKnownRecipe(recipeId);
-        PacketDistributor.sendToPlayer(player, new ClientboundAcquiredBrewingRecipeKnowledgePacket(recipeId, result));
+        PacketNetwork.sendToPlayer(player, new ClientboundAcquiredBrewingRecipeKnowledgePacket(recipeId, result));
     }
 
     public void addKnownRecipe(ResourceKey<Recipe<?>> recipeId) {

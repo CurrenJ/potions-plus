@@ -10,7 +10,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -38,7 +37,7 @@ public record ClientboundDisplayAlertWithItemStackName(String localizationKey, I
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain(final ClientboundDisplayAlertWithItemStackName packet, final IPayloadContext context) {
+        public static void handleDataOnMain(final ClientboundDisplayAlertWithItemStackName packet, final PacketContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

@@ -1,14 +1,11 @@
 package grill24.potionsplus.skill.ability;
 
 import grill24.potionsplus.core.AbilityInstanceTypes;
-import grill24.potionsplus.core.ConfiguredPlayerAbilities;
 import grill24.potionsplus.core.Particles;
-import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.network.ClientboundTriggerChainLightningPacket;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
 import grill24.potionsplus.skill.ability.instance.CooldownAbilityInstanceData;
-import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
@@ -18,16 +15,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
-public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHitEvent, ClientboundTriggerChainLightningPacket> {
+public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHitData, ClientboundTriggerChainLightningPacket> {
     public ChainLightningAbility() {
         super(Set.of(AbilityInstanceTypes.COOLDOWN.value()));
     }
@@ -60,18 +53,10 @@ public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHi
         return super.getLongDescription(instance, config, params);
     }
 
-    @SubscribeEvent
-    public static void onCriticalHit(final CriticalHitEvent event) {
-        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
-            PlayerAbilities.CHAIN_LIGHTNING.value().triggerFromServer(serverPlayer, ConfiguredPlayerAbilities.CHAIN_LIGHTNING.getKey(), event);
-        }
-    }
-
     // ----- ITriggerablePlayerAbility -----
 
-
     @Override
-    public Optional<ClientboundTriggerChainLightningPacket> onTriggeredFromServer(Player player, AbilityInstanceSerializable<?, ?> instance, CriticalHitEvent event) {
+    public Optional<ClientboundTriggerChainLightningPacket> onTriggeredFromServer(Player player, AbilityInstanceSerializable<?, ?> instance, CriticalHitData event) {
         if (instance.data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrengthAbilityInstanceData) {
             final float strength = adjustableStrengthAbilityInstanceData.getAbilityStrength();
             float chanceToActivate = getActivationChance(strength);
@@ -89,7 +74,7 @@ public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHi
     }
 
     @Override
-    public Optional<ClientboundTriggerChainLightningPacket> onTriggeredFromClient(Player player, AbilityInstanceSerializable<?, ?> instance, CriticalHitEvent event) {
+    public Optional<ClientboundTriggerChainLightningPacket> onTriggeredFromClient(Player player, AbilityInstanceSerializable<?, ?> instance, CriticalHitData event) {
         return Optional.empty();
     }
 

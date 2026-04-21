@@ -7,8 +7,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.neoforged.neoforge.network.handling.ServerPayloadContext;
+
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -27,10 +26,9 @@ public record ServerboundSpawnDoubleJumpParticlesPacket(Vec3 pos) implements Cus
     }
 
     public static class ServerPayloadHandler {
-        public static void handleDataOnMain(ServerboundSpawnDoubleJumpParticlesPacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(ServerboundSpawnDoubleJumpParticlesPacket packet, final PacketContext context) {
             context.enqueueWork(() -> {
-                ServerPayloadContext serverContext = (ServerPayloadContext) context;
-                ServerPlayer serverPlayer = serverContext.player();
+                ServerPlayer serverPlayer = (ServerPlayer) context.player();
                 serverPlayer.serverLevel().sendParticles(
                         Particles.END_ROD_RAIN.get(),
                         serverPlayer.position().x,

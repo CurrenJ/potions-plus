@@ -2,7 +2,14 @@ package grill24.potionsplus.event;
 
 import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.core.Attributes;
+import grill24.potionsplus.item.BaitItem;
+import grill24.potionsplus.item.GeneticCropItem;
+import grill24.potionsplus.item.WeightDataComponent;
+import grill24.potionsplus.item.tooltip.BrewingTooltips;
+import grill24.potionsplus.item.tooltip.PotionEffectTooltips;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
+import grill24.potionsplus.skill.reward.OwnerDataComponent;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
@@ -17,7 +24,6 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
@@ -43,8 +49,14 @@ public class ItemListenersGame {
         List<AnimatedItemTooltipEvent.TooltipLines> tooltipMessages = new ArrayList<>();
         if (event.getEntity() instanceof Player player) {
             ItemStack itemStack = event.getItemStack();
-            NeoForge.EVENT_BUS.post(new AnimatedItemTooltipEvent.Add(player, itemStack, tooltipMessages));
-            NeoForge.EVENT_BUS.post(new AnimatedItemTooltipEvent.Modify(player, itemStack, tooltipMessages));
+            AnimatedItemTooltipEvent.Add addEvent = new AnimatedItemTooltipEvent.Add(player, itemStack, tooltipMessages);
+            BaitItem.onAnimateTooltip(addEvent);
+            GeneticCropItem.onAnimatedTooltip(addEvent);
+            WeightDataComponent.onTooltip(addEvent);
+            BrewingTooltips.onBrewingTooltip(addEvent);
+            PotionEffectTooltips.onPotionEffectTooltip(addEvent);
+            OwnerDataComponent.onTooltip(addEvent);
+            EdibleRewardGranterDataComponent.onTooltip(addEvent);
         }
 
         // Sort the tooltip messages by priority

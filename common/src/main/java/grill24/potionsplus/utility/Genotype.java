@@ -1,15 +1,9 @@
 package grill24.potionsplus.utility;
 
 import com.mojang.serialization.Codec;
-import grill24.potionsplus.core.PotionsPlus;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class Genotype {
     private long genotype;
 
@@ -47,20 +41,6 @@ public class Genotype {
 
     public Genotype(long genotype) {
         this.genotype = genotype;
-    }
-
-    @SubscribeEvent
-    public static void onModInit(FMLCommonSetupEvent event) {
-        Genotype g1 = new Genotype(1, 2, 3, 5, 8, 13, 21, 34);
-        PotionsPlus.LOGGER.info(g1.toString());
-        Genotype g2 = new Genotype(2, 3, 5, 8, 13, 21, 34, 55);
-        PotionsPlus.LOGGER.info(g2.toString());
-
-        Genotype crossoverGenotype = Genotype.crossover(g1, g2);
-        PotionsPlus.LOGGER.info("Crossover Genotype: " + crossoverGenotype);
-
-        Genotype mutatedGenotype = Genotype.tryUniformMutate(crossoverGenotype, (float) 4 / BITS_IN_GENOTYPE);
-        PotionsPlus.LOGGER.info("Mutated Genotype: " + mutatedGenotype);
     }
 
     /**

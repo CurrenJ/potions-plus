@@ -19,7 +19,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,7 +95,7 @@ public class ItemWheelReward extends GrantableReward<ItemWheelRewardConfiguratio
 
         winnerIndex = player.getRandom().nextInt(possibleRewards.size());
         // Play animation on client
-        PacketDistributor.sendToPlayer(player, new ClientboundDisplayWheelAnimationPacket(possibleRewards, winnerIndex));
+        PacketNetwork.sendToPlayer(player, new ClientboundDisplayWheelAnimationPacket(possibleRewards, winnerIndex));
         // Give item at right time during animation (server)
         DelayedEvents.queueDelayedEvent(() -> InvUtil.giveOrDropItem(player, possibleRewards.get(winnerIndex).copy()), 190);
     }

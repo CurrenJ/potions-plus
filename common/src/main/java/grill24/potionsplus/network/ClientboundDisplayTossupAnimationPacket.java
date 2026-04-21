@@ -8,7 +8,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public record ClientboundDisplayTossupAnimationPacket(List<ItemStack> stacks, in
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain(final ClientboundDisplayTossupAnimationPacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(final ClientboundDisplayTossupAnimationPacket packet, final PacketContext context) {
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

@@ -25,7 +25,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -97,7 +98,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
         }
 
         if (result == InvUtil.InteractionResult.PASS && player instanceof ServerPlayer serverPlayer) {
-            PacketDistributor.sendToPlayer(serverPlayer, new ClientboundDisplayAlertWithItemStackName("block.potionsplus.potion_beacon.hint"));
+            PacketNetwork.sendToPlayer(serverPlayer, new ClientboundDisplayAlertWithItemStackName("block.potionsplus.potion_beacon.hint"));
         }
 
         return InvUtil.getMinecraftInteractionResult(result);

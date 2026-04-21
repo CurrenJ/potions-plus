@@ -12,7 +12,7 @@
 | 3 | [Metadata & Access Widener](#chunk-3--metadata--access-widener) | ✅ Done | |
 | 4 | [Mechanical API Renames](#chunk-4--mechanical-api-renames) | ✅ Done | |
 | 5 | [Loot + Data API Changes](#chunk-5--loot--data-api-changes) | ✅ Done | |
-| 6 | [Platform Abstraction](#chunk-6--platform-abstraction) | ⬜ Pending | |
+| 6 | [Platform Abstraction](#chunk-6--platform-abstraction) | ✅ Done | 3 files deferred to Chunk 7 (renderer, GrunglerModel, FilterHopperBlockEntity) |
 | 7 | [Rendering Overhaul](#chunk-7--rendering-overhaul) | ⬜ Pending | |
 | 8 | [GUI Overhaul](#chunk-8--gui-overhaul) | ⬜ Pending | |
 | 9 | [Mixin Rewrites + Datagen + Verification](#chunk-9--mixin-rewrites--datagen--verification) | ⬜ Pending | |
@@ -112,10 +112,31 @@
 **Goal:** `common/` module has zero `net.neoforged.*` imports. Pragmatic first pass — registry classes stay in `neoforge/`.
 
 ### Steps
-- [ ] 5.1 Identify all `net.neoforged.*` imports remaining in `common/` after Chunk 2
-- [ ] 5.2 Leave registry classes (`Blocks.java`, `Items.java`, etc.) in `neoforge/`; expose static holders to common
-- [ ] 5.3 `ServerTickHandler` / `DelayedEvents` stay in `neoforge/` for now
+- [x] 5.1 Identify all `net.neoforged.*` imports remaining in `common/` after Chunk 2
+- [x] 5.2 Leave registry classes (`Blocks.java`, `Items.java`, etc.) in `neoforge/`; expose static holders to common
+- [x] 5.3 `ServerTickHandler` / `DelayedEvents` stay in `neoforge/` for now
 - [ ] 5.4 Scan common/ for `@OnlyIn` → convert to `@Environment(EnvType.CLIENT)`
+
+### What was done
+- Removed all `net.neoforged.*` imports from 30+ common/ files
+- Moved NeoForge `@EventBusSubscriber`/`@SubscribeEvent` handlers to neoforge/ event listeners:
+  - Created `AbilityListeners.java` (CriticalHitEvent → ChainLightning/StunShot, LivingDamageEvent.Pre → HotPotato, LivingDrownEvent → LastBreath)
+  - Created `SkillListeners.java` (BlockEvent.BreakEvent, BlockDropsEvent, LivingExperienceDropEvent, StatAwardEvent)
+  - Created `ClientGameListeners.java` (RenderFrameEvent → ClientTickHandler, ClientTickEvent → ClientTickHandler, MovementInputUpdateEvent → DoubleJumpAbility)
+  - Created `WorldGenListeners.java` (FMLCommonSetupEvent → OverworldBiomesRegion)
+  - Extended `EntityListeners.java` with ItemTossEvent → ServerPlayerHeldItemChangedEvent
+  - Extended `PlayerListeners.java`: `tickPointEarningHistory(MinecraftServer)`, `ClotheslineBehaviour.doClotheslineInteractions` and `UraniumOreBlock.tryLeftClickBlock` now take plain params
+- Tooltip handlers (`PotionEffectTooltips`, `OwnerDataComponent`, `EdibleRewardGranterDataComponent`, `BaitItem`, `WeightDataComponent`, `GeneticCropItem`, `BrewingTooltips`) now plain static methods called from `ItemListenersGame`
+- Effect handlers (`BoneBuddyEffect`, `BouncingEffect`, `ExplodingEffect`, `FallOfTheVoidEffect`, `FlyingTimeEffect`, `GeodeGraceEffect`, `SoulMateEffect`, `TeleportationEffect`) already cleaned in previous session
+- Packet handlers in common/ use `PacketContext` interface instead of `IPayloadContext`
+- Added `Platform.@ExpectPlatform` stubs for: `onServerPlayerHeldItemChanged`, `fireCropGrowPost`, `postClientInjectResourcesEvent`, `postClientInjectResourceStacksEvent`
+- Replaced `NeoForge.EVENT_BUS.post(new ServerPlayerHeldItemChangedEvent(...))` in `InventoryMixin` with `Platform.onServerPlayerHeldItemChanged`
+- Replaced `CommonHooks.fireCropGrowPost` in `GeneticCropBlock` with `Platform.fireCropGrowPost`
+- Replaced `ModLoader.postEvent(new ClientInjectResourcesEvent/StacksEvent)` in `ResourceUtility` with `Platform.*` methods
+- Replaced `extends AttachmentHolder` in `EntityMixin` with no extension
+- Replaced `implements IItemExtension` in `ItemMixin` with just MC interfaces
+- Removed `@EventBusSubscriber` debug handler from `Genotype`; moved TerraBlender registration from `OverworldBiomesRegion` to `WorldGenListeners`
+- 3 files still have NeoForge imports but are deferred: `ClotheslineBlockEntityRenderer` (RenderLevelStageEvent — Chunk 7), `GrunglerModel` (AnimationHolder — Chunk 7), `FilterHopperBlockEntity` (capabilities — deferred)
 
 ---
 

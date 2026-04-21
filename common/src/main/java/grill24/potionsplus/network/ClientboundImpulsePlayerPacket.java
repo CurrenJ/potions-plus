@@ -5,7 +5,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -28,7 +27,7 @@ public record ClientboundImpulsePlayerPacket(double dx, double dy, double dz) im
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain(final ClientboundImpulsePlayerPacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(final ClientboundImpulsePlayerPacket packet, final PacketContext context) {
             context.enqueueWork(
                     () -> {
                         if (Minecraft.getInstance().player != null) {

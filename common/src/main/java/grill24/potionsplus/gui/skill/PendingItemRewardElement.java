@@ -6,7 +6,8 @@ import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
+
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -26,7 +27,7 @@ public class PendingItemRewardElement extends SplashTextDivScreenElement {
             return;
         }
 
-        PacketDistributor.sendToServer(new ServerboundTryClaimSkillReward(rewardKey));
+        PacketNetwork.sendToServer(new ServerboundTryClaimSkillReward(rewardKey));
 
         // Decrease the count and update the display. This is "faux", because the pending reward will only be fully removed once the player consumes the item.
         // Why? Because the player might lose the item or misplace it before they can consume it.
