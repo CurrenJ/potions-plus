@@ -14,7 +14,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -27,7 +26,9 @@ import java.util.Set;
  */
 public record IsInBiomeCondition(Set<ResourceKey<Biome>> biomes) implements LootItemCondition {
     public static final MapCodec<IsInBiomeCondition> MAP_CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
-            NeoForgeExtraCodecs.setOf(ResourceKey.codec(Registries.BIOME)).fieldOf("biomes").forGetter(IsInBiomeCondition::biomes)).apply(codecBuilder, IsInBiomeCondition::new)
+            ResourceKey.codec(Registries.BIOME).listOf()
+                    .xmap(ImmutableSet::copyOf, list -> new ArrayList<>(list))
+                    .fieldOf("biomes").forGetter(IsInBiomeCondition::biomes)).apply(codecBuilder, IsInBiomeCondition::new)
     );
 
     public IsInBiomeCondition(Set<ResourceKey<Biome>> biomes) {

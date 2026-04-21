@@ -12,7 +12,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.MonsterRoomFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.neoforged.neoforge.common.Tags;
+import grill24.potionsplus.core.ConventionalTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -27,9 +27,9 @@ public abstract class MonsterRoomFeatureMixin extends Feature<NoneFeatureConfigu
     private void setEntityId(SpawnerBlockEntity spawnerBlockEntity, EntityType<?> entityType, RandomSource random, FeaturePlaceContext<NoneFeatureConfiguration> context) {
         Level level = context.level().getLevel();
         Holder<Biome> biome = level.getBiome(spawnerBlockEntity.getBlockPos());
-        if (biome.is(Tags.Biomes.IS_COLD) || biome.is(Tags.Biomes.IS_COLD_OVERWORLD) && entityType == EntityType.SKELETON) {
+        if (biome.is(ConventionalTags.Biomes.IS_COLD) || biome.is(ConventionalTags.Biomes.IS_COLD_OVERWORLD) && entityType == EntityType.SKELETON) {
             spawnerBlockEntity.setEntityId(EntityType.STRAY, level.getRandom());
-        } else if (biome.is(Tags.Biomes.IS_DRY) || biome.is(Tags.Biomes.IS_DRY_OVERWORLD) && entityType == EntityType.ZOMBIE) {
+        } else if (biome.is(ConventionalTags.Biomes.IS_DRY) || biome.is(ConventionalTags.Biomes.IS_DRY_OVERWORLD) && entityType == EntityType.ZOMBIE) {
             spawnerBlockEntity.setEntityId(EntityType.HUSK, level.getRandom());
         } else if (biome.is(Biomes.VOLCANIC_CAVE_KEY) && entityType == EntityType.SKELETON) {
             spawnerBlockEntity.setEntityId(EntityType.WITHER_SKELETON, level.getRandom());

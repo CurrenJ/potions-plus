@@ -1,5 +1,7 @@
 package grill24.potionsplus.worldgen.feature;
 
+import java.util.function.Supplier;
+
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.block.UnstableBlock;
 import grill24.potionsplus.core.PotionsPlus;
@@ -14,12 +16,12 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
-import net.neoforged.neoforge.common.util.Lazy;
+
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class VolcanicFissureFeature extends Feature<NoneFeatureConfiguration> {
-    public static Lazy<WeightedStateProvider> FILL_SAMPLER = Lazy.of(() -> new WeightedStateProvider(WeightedList.<BlockState>builder()
+    public static Supplier<WeightedStateProvider> FILL_SAMPLER = com.google.common.base.Suppliers.memoize(() -> new WeightedStateProvider(WeightedList.<BlockState>builder()
             .add(DecorationBlocks.UNSTABLE_BLACKSTONE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 2)
             .add(DecorationBlocks.UNSTABLE_DEEPSLATE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 2)
             .add(DecorationBlocks.UNSTABLE_MOLTEN_BLACKSTONE.value().defaultBlockState().setValue(UnstableBlock.PRIMED, true), 1)

@@ -12,8 +12,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.context.ContextKeySet;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.loading.FMLEnvironment;
+
+import grill24.potionsplus.platform.Platform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
     }
 
     public B modelGenerator(Function<Supplier<Holder<T>>, IModelGenerator<T>> modelGenerator) {
-        if (modelGenerator == null || FMLEnvironment.dist == Dist.DEDICATED_SERVER) {
+        if (modelGenerator == null || !Platform.isClient()) {
             this.modelGenerator = null;
             return self();
         }

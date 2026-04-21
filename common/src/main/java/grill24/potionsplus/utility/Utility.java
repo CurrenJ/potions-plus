@@ -44,8 +44,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.loading.FMLEnvironment;
+
+import grill24.potionsplus.platform.Platform;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -398,7 +398,7 @@ public class Utility {
     }
 
     public static <T> T clientOnly(Supplier<T> supplier) {
-        if (FMLEnvironment.dist != Dist.CLIENT) {
+        if (!Platform.isClient()) {
             return null;
         }
 

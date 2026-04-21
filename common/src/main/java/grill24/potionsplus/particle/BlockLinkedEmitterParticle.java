@@ -1,5 +1,8 @@
 package grill24.potionsplus.particle;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import grill24.potionsplus.block.IParticleEmitter;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
@@ -8,8 +11,8 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+
+
 
 public class BlockLinkedEmitterParticle extends NoRenderParticle {
     private final BlockPos SPAWN_POS;
@@ -30,7 +33,7 @@ public class BlockLinkedEmitterParticle extends NoRenderParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final int lifetime;
 

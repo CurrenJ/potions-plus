@@ -1,7 +1,6 @@
 package grill24.potionsplus.entity;
 
 import grill24.potionsplus.core.Entities;
-import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -22,13 +21,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.level.BlockDropsEvent;
+import grill24.potionsplus.core.ConventionalTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class Grungler extends Monster {
     public static final EntityDataAccessor<BlockState> DATA =
             SynchedEntityData.defineId(
@@ -97,33 +94,27 @@ public class Grungler extends Monster {
         return true;
     }
 
-    @SubscribeEvent
-    public static void onBreakBlock(final BlockDropsEvent event) {
-        BlockState blockState = event.getState();
-        if (!event.getDrops().isEmpty() && blockState.is(Tags.Blocks.ORES)) {
-            if (event.getBreaker() instanceof Player player && !player.isCreative() && player.level() instanceof ServerLevel serverLevel) {
-                float spawnChance = 0.01F; // 1/40 chance to spawn a Grungler
+    public static boolean onBreakBlock(BlockState blockState, java.util.List<ItemStack> drops, @org.jetbrains.annotations.Nullable Entity breaker, BlockPos pos) {
+        if (!drops.isEmpty() && blockState.is(ConventionalTags.Blocks.ORES)) {
+            if (breaker instanceof Player player && !player.isCreative() && player.level() instanceof ServerLevel serverLevel) {
+                float spawnChance = 0.01F;
                 if (serverLevel.getRandom().nextDouble() < spawnChance) {
-                    // Check if the player has a Grungler entity nearby
-                    Grungler grungler = Entities.GRUNGLER.get().spawn(serverLevel, event.getPos(), EntitySpawnReason.NATURAL);
+                    Grungler grungler = Entities.GRUNGLER.get().spawn(serverLevel, pos, EntitySpawnReason.NATURAL);
                     grungler.getEntityData().set(Grungler.DATA, blockState);
-
-                    event.setCanceled(true);
+                    return true;
                 }
             }
         }
+        return false;
     }
 
-    @SubscribeEvent
-    public static void onEntityDeath(final LivingDeathEvent event) {
-        if (event.getEntity() instanceof Grungler grungler) {
+    public static void onEntityDeath(LivingEntity entity) {
+        if (entity instanceof Grungler grungler) {
             BlockState blockState = grungler.getBlockState();
-            if (blockState != null && !blockState.isAir() && event.getEntity().level() instanceof ServerLevel serverLevel) {
-                // Drop the block state as an item when the Grungler dies
+            if (blockState != null && !blockState.isAir() && entity.level() instanceof ServerLevel serverLevel) {
                 ItemStack itemStack = new ItemStack(blockState.getBlock());
                 serverLevel.addFreshEntity(
-                        new ItemEntity(serverLevel, grungler.getX(), grungler.getY(), grungler.getZ(),
-                                itemStack)
+                        new ItemEntity(serverLevel, grungler.getX(), grungler.getY(), grungler.getZ(), itemStack)
                 );
             }
         }

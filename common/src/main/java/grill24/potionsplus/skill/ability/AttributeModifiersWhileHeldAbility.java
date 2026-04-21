@@ -3,7 +3,6 @@ package grill24.potionsplus.skill.ability;
 import grill24.potionsplus.core.AbilityInstanceTypes;
 import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.event.ServerPlayerHeldItemChangedEvent;
 import grill24.potionsplus.item.PlayerLockedItemModifiersDataComponent;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
@@ -15,8 +14,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Collection;
 import java.util.List;
@@ -42,7 +39,7 @@ public class AttributeModifiersWhileHeldAbility extends PermanentAttributeModifi
         return Optional.empty();
     }
 
-    private static <T extends AttributeModifiersWhileHeldAbility> Collection<AttributeModifiersData> getActiveAttributeModifiers(ServerPlayer player, DeferredHolder<PlayerAbility<?>, T> abilityHolder, ItemStack stack) {
+    private static <T extends AttributeModifiersWhileHeldAbility> Collection<AttributeModifiersData> getActiveAttributeModifiers(ServerPlayer player, Holder<PlayerAbility<?>> abilityHolder, ItemStack stack) {
         SkillsData skillsData = SkillsData.getPlayerData(player);
         List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.unlockedAbilities().get(abilityHolder.getKey());
         if (configuredAbilities == null) return List.of();
@@ -65,23 +62,22 @@ public class AttributeModifiersWhileHeldAbility extends PermanentAttributeModifi
                 new AdjustableStrengthAbilityInstanceData(ability, true));
     }
 
-    @SubscribeEvent
-    public static void onHeldItemChanged(final ServerPlayerHeldItemChangedEvent event) {
-        PlayerLockedItemModifiersDataComponent.clearModifiers(event.getPlayer(), event.getLastHeldItem());
-        PlayerLockedItemModifiersDataComponent.clearModifiers(event.getPlayer(), event.getHeldItem());
+    public static void onHeldItemChanged(final ServerPlayer player, final ItemStack lastHeldItem, final ItemStack heldItem) {
+        PlayerLockedItemModifiersDataComponent.clearModifiers(player, lastHeldItem);
+        PlayerLockedItemModifiersDataComponent.clearModifiers(player, heldItem);
 
         // Collect all active modifiers for the held stack
         Collection<AttributeModifiersData> allModifiersForHeldStack =
                 getToolBonusAbilities().stream().flatMap(
                         holder ->
-                                getActiveAttributeModifiers(event.getPlayer(), holder, event.getHeldItem())
+                                getActiveAttributeModifiers(player, holder, heldItem)
                                         .stream()).toList();
         // Add all modifiers to the ItemStack
         for (AttributeModifiersData data : allModifiersForHeldStack) {
-            PlayerLockedItemModifiersDataComponent.addModifiers(event.getPlayer(), event.getHeldItem(), data.attribute(), data.modifiers());
+            PlayerLockedItemModifiersDataComponent.addModifiers(player, heldItem, data.attribute(), data.modifiers());
         }
         // Update the stack. This clears the modifiers if player is not the owner of the abilities on this stack.
-        PlayerLockedItemModifiersDataComponent.updateStack(event.getPlayer(), event.getHeldItem());
+        PlayerLockedItemModifiersDataComponent.updateStack(player, heldItem);
     }
 
     private static void printModifiers(ItemStack stack) {
@@ -104,7 +100,7 @@ public class AttributeModifiersWhileHeldAbility extends PermanentAttributeModifi
     }
 
     // TODO: Auto pull abilities from registry
-    private static List<DeferredHolder<PlayerAbility<?>, ? extends AttributeModifiersWhileHeldAbility>> getToolBonusAbilities() {
+    private static List<Holder<PlayerAbility<?>>> getToolBonusAbilities() {
         return List.of(
                 PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD
         );

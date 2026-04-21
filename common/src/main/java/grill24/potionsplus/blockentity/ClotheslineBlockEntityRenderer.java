@@ -1,5 +1,8 @@
 package grill24.potionsplus.blockentity;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.core.Blocks;
@@ -24,8 +27,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+
+
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
@@ -36,7 +39,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<ClotheslineBlockEntity> {
     public final BlockRenderDispatcher blockRenderDispatcher;

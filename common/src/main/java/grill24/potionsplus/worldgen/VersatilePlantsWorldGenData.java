@@ -12,7 +12,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.neoforged.neoforge.common.util.Lazy;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class VersatilePlantsWorldGenData {
-    public static final Lazy<MultiDirectionalVersatilePlantFeatureData> lushCavesPlants = register(() -> new MultiDirectionalVersatilePlantFeatureData(
+    public static final Supplier<MultiDirectionalVersatilePlantFeatureData> lushCavesPlants = register(() -> new MultiDirectionalVersatilePlantFeatureData(
             new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP, Direction.DOWN},
             SimpleStateProvider.simple(Blocks.MOSS_BLOCK),
             new WeightedStateProvider(
@@ -44,7 +44,7 @@ public class VersatilePlantsWorldGenData {
             ppId("lush_caves_additional_plants")
     ));
 
-    public static final Lazy<MultiDirectionalVersatilePlantFeatureData> vanillaFlowers = register(() -> new MultiDirectionalVersatilePlantFeatureData(
+    public static final Supplier<MultiDirectionalVersatilePlantFeatureData> vanillaFlowers = register(() -> new MultiDirectionalVersatilePlantFeatureData(
             new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP, Direction.DOWN},
             SimpleStateProvider.simple(Blocks.MOSS_BLOCK),
             new WeightedStateProvider(
@@ -106,10 +106,10 @@ public class VersatilePlantsWorldGenData {
     ));
 
 
-    private static List<Lazy<MultiDirectionalVersatilePlantFeatureData>> ALL;
+    private static List<Supplier<MultiDirectionalVersatilePlantFeatureData>> ALL;
 
-    private static Lazy<MultiDirectionalVersatilePlantFeatureData> register(Supplier<MultiDirectionalVersatilePlantFeatureData> data) {
-        Lazy<MultiDirectionalVersatilePlantFeatureData> lazy = Lazy.of(data);
+    private static Supplier<MultiDirectionalVersatilePlantFeatureData> register(Supplier<MultiDirectionalVersatilePlantFeatureData> data) {
+        Supplier<MultiDirectionalVersatilePlantFeatureData> lazy = com.google.common.base.Suppliers.memoize(data);
         if (ALL == null) {
             ALL = new ArrayList<>();
         }

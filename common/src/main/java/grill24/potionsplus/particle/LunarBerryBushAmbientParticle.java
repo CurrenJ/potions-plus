@@ -1,13 +1,16 @@
 package grill24.potionsplus.particle;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SimpleAnimatedParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+
+
 
 public class LunarBerryBushAmbientParticle extends SimpleAnimatedParticle {
     protected LunarBerryBushAmbientParticle(ClientLevel clientLevel, double x, double y, double z, SpriteSet spriteSet, float gravity) {
@@ -17,7 +20,7 @@ public class LunarBerryBushAmbientParticle extends SimpleAnimatedParticle {
         setSpriteFromAge(spriteSet);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprites;
 

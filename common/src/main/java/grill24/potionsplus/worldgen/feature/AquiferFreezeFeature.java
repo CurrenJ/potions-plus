@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.neoforged.neoforge.common.Tags;
+import grill24.potionsplus.core.ConventionalTags;
 
 public class AquiferFreezeFeature extends Feature<NoneFeatureConfiguration> {
     public static int maxSoFar = 0;
@@ -30,7 +30,7 @@ public class AquiferFreezeFeature extends Feature<NoneFeatureConfiguration> {
                     int m = blockpos.getZ() + z;
                     blockpos$mutableblockpos.set(k, l, m);
 
-                    if (worldgenlevel.isOutsideBuildHeight(blockpos$mutableblockpos) || !worldgenlevel.ensureCanWrite(blockpos$mutableblockpos) || !worldgenlevel.getFluidState(blockpos$mutableblockpos).is(Tags.Fluids.WATER)) {
+                    if (worldgenlevel.isOutsideBuildHeight(blockpos$mutableblockpos) || !worldgenlevel.ensureCanWrite(blockpos$mutableblockpos) || !worldgenlevel.getFluidState(blockpos$mutableblockpos).is(ConventionalTags.Fluids.WATER)) {
                         continue;
                     }
 

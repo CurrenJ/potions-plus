@@ -120,7 +120,7 @@ public class PlayerListeners {
 
     @SubscribeEvent
     public static void onServerPlayerHeldItemChanged(final ServerPlayerHeldItemChangedEvent event) {
-        AttributeModifiersWhileHeldAbility.onHeldItemChanged(event);
+        AttributeModifiersWhileHeldAbility.onHeldItemChanged(event.getPlayer(), event.getLastHeldItem(), event.getHeldItem());
     }
 
     private static void applyAllPassiveItemPotionEffects(List<ServerPlayer> players) {

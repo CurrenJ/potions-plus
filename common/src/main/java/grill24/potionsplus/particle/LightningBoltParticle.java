@@ -1,15 +1,18 @@
 package grill24.potionsplus.particle;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SimpleAnimatedParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
+
+@Environment(EnvType.CLIENT)
 public class LightningBoltParticle extends SimpleAnimatedParticle {
     LightningBoltParticle(ClientLevel clientLevel, double x, double y, double z, double dx, double dy, double dz, SpriteSet spriteSet) {
         super(clientLevel, x, y, z, spriteSet, 0);
@@ -29,7 +32,7 @@ public class LightningBoltParticle extends SimpleAnimatedParticle {
         this.setLocationFromBoundingbox();
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprites;
 

@@ -1,13 +1,16 @@
 package grill24.potionsplus.particle;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
+
+@Environment(EnvType.CLIENT)
 public class WanderingHeartParticle extends TextureSheetParticle {
     WanderingHeartParticle(ClientLevel p_172403_, SpriteSet p_172404_, double p_172405_, double p_172406_, double p_172407_) {
         super(p_172403_, p_172405_, p_172406_ - 0.125D, p_172407_);
@@ -35,7 +38,7 @@ public class WanderingHeartParticle extends TextureSheetParticle {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public static class WanderingHeartProvider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
 

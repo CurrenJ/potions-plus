@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.neoforged.neoforge.common.Tags;
+import grill24.potionsplus.core.ConventionalTags;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -112,7 +112,7 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
                 }
 
                 // Don't replace ores with ground
-                if (existing.is(Tags.Blocks.ORES)) {
+                if (existing.is(ConventionalTags.Blocks.ORES)) {
                     return i != 0;
                 }
 

@@ -1,6 +1,9 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntityRenderer;
+import grill24.potionsplus.entity.GrunglerModel;
+import grill24.potionsplus.entity.GrunglerRenderer;
+import grill24.potionsplus.entity.LayerDefinitions;
 import grill24.potionsplus.blockentity.BrewingCauldronBlockEntityRenderer;
 import grill24.potionsplus.blockentity.ClotheslineBlockEntityRenderer;
 import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntityRenderer;
@@ -30,6 +33,12 @@ public class Renderers {
         event.registerBlockEntityRenderer(Blocks.POTION_BEACON_BLOCK_ENTITY.get(), PotionBeaconBlockEntityRenderer::new);
 
         event.registerEntityRenderer(Entities.INVISIBLE_FIRE_DAMAGER.get(), NoopRenderer::new);
+        event.registerEntityRenderer(Entities.GRUNGLER.get(), GrunglerRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterLayerDefinitions(final EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(LayerDefinitions.GRUNGLER, GrunglerModel::createBodyLayer);
     }
 
     @OnlyIn(Dist.CLIENT)

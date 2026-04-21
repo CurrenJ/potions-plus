@@ -1,5 +1,8 @@
 package grill24.potionsplus.core;
 
+import grill24.potionsplus.item.modelproperty.BrassicaOleraceaProperty;
+import grill24.potionsplus.item.modelproperty.EdibleChoiceProperty;
+import grill24.potionsplus.item.modelproperty.GeneticProperty;
 import grill24.potionsplus.particle.*;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
@@ -13,6 +16,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
+import net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
@@ -33,6 +38,17 @@ public class ClientEvents {
 
             return (flag || flag1) && p_174587_ instanceof Player && ((Player) p_174587_).fishing != null ? 1.0F : 0.0F;
         }
+    }
+
+    @SubscribeEvent
+    public static void onRegisterRangeSelectItemModelProperties(final RegisterRangeSelectItemModelPropertyEvent event) {
+        event.register(GeneticProperty.ID, GeneticProperty.MAP_CODEC);
+        event.register(EdibleChoiceProperty.ID, EdibleChoiceProperty.MAP_CODEC);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterSelectItemModelProperties(final RegisterSelectItemModelPropertyEvent event) {
+        event.register(BrassicaOleraceaProperty.ID, BrassicaOleraceaProperty.MAP_CODEC);
     }
 
     @SubscribeEvent

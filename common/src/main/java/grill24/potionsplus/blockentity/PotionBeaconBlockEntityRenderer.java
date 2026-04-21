@@ -1,5 +1,8 @@
 package grill24.potionsplus.blockentity;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.block.PotionBeaconBlock;
 import grill24.potionsplus.core.blocks.OreBlocks;
@@ -15,13 +18,13 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+
+
 import org.joml.Quaternionf;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class PotionBeaconBlockEntityRenderer implements BlockEntityRenderer<PotionBeaconBlockEntity> {
 
     public final BlockRenderDispatcher blockRenderDispatcher;

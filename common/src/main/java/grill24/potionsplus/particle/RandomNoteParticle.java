@@ -1,13 +1,16 @@
 package grill24.potionsplus.particle;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
+
+@Environment(EnvType.CLIENT)
 public class RandomNoteParticle extends TextureSheetParticle {
     RandomNoteParticle(ClientLevel p_107167_, double p_107168_, double p_107169_, double p_107170_, double p_107171_) {
         super(p_107167_, p_107168_, p_107169_, p_107170_, 0.0D, 0.0D, 0.0D);
@@ -32,7 +35,7 @@ public class RandomNoteParticle extends TextureSheetParticle {
         return this.quadSize * Mth.clamp(((float) this.age + p_107182_) / (float) this.lifetime * 32.0F, 0.0F, 1.0F);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
 
