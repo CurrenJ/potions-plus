@@ -1,8 +1,8 @@
 package grill24.potionsplus.skill;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public record Milestone(ResourceLocation advancementId) {
-    public static final Codec<Milestone> CODEC = ResourceLocation.CODEC.xmap(Milestone::new, Milestone::advancementId);
+public record Milestone(Identifier advancementId) {
+    public static final Codec<Milestone> CODEC = Identifier.CODEC.xmap(Milestone::new, Milestone::advancementId);
 }

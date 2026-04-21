@@ -22,7 +22,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -41,7 +41,7 @@ import static grill24.potionsplus.utility.Utility.ppId;
 @JeiPlugin
 public class JeiPotionsPlusPlugin implements IModPlugin {
     public static IJeiRuntime JEI_RUNTIME;
-    public static final ResourceLocation PLUGIN_UID = ppId("main");
+    public static final Identifier PLUGIN_UID = ppId("main");
 
     @Override
     public void registerRecipes(@NotNull IRecipeRegistration registration) {
@@ -151,7 +151,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
 
     @NotNull
     @Override
-    public ResourceLocation getPluginUid() {
+    public Identifier getPluginUid() {
         return PLUGIN_UID;
     }
 

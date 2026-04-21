@@ -12,7 +12,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -45,7 +45,7 @@ public class MultiDirectionalVersatilePlantFeatureData {
     private Map<Direction, ResourceKey<PlacedFeature>> placedFeatureResourceKeys;
 
 
-    public MultiDirectionalVersatilePlantFeatureData(Direction[] directions, BlockStateProvider surfaceBlock, BlockStateProvider plantProvider, Map<ResourceKey<Block>, IntProvider> length, ResourceLocation baseKey) {
+    public MultiDirectionalVersatilePlantFeatureData(Direction[] directions, BlockStateProvider surfaceBlock, BlockStateProvider plantProvider, Map<ResourceKey<Block>, IntProvider> length, Identifier baseKey) {
         this.directions = directions;
         this.surfaceBlock = surfaceBlock;
         this.plantProvider = plantProvider;
@@ -65,7 +65,7 @@ public class MultiDirectionalVersatilePlantFeatureData {
         this.oreBaseBlock = surfaceBlock;
     }
 
-    public MultiDirectionalVersatilePlantFeatureData(Direction[] directions, BlockStateProvider surfaceBlock, BlockStateProvider plantProvider, ResourceKey<Block> plantKey, IntProvider length, ResourceLocation baseKey,
+    public MultiDirectionalVersatilePlantFeatureData(Direction[] directions, BlockStateProvider surfaceBlock, BlockStateProvider plantProvider, ResourceKey<Block> plantKey, IntProvider length, Identifier baseKey,
                                                      IntProvider depth, float extraBottomBlockChance, int verticalRange, float vegetationChance, IntProvider xzRadius, float extraEdgeColumnChance, BlockStateProvider oreBaseBlock) {
         this(directions, surfaceBlock, plantProvider, Map.of(plantKey, length), baseKey);
 
@@ -78,7 +78,7 @@ public class MultiDirectionalVersatilePlantFeatureData {
         this.oreBaseBlock = oreBaseBlock;
     }
 
-    private Map<Direction, ResourceKey<ConfiguredFeature<?, ?>>> generateConfiguredFeatureResourceKeys(ResourceLocation baseKey) {
+    private Map<Direction, ResourceKey<ConfiguredFeature<?, ?>>> generateConfiguredFeatureResourceKeys(Identifier baseKey) {
         Map<Direction, ResourceKey<ConfiguredFeature<?, ?>>> keys = new HashMap<>();
         for (Direction direction : directions) {
             keys.put(direction, ResourceKey.create(Registries.CONFIGURED_FEATURE, baseKey.withSuffix("_" + direction.getName())));
@@ -86,7 +86,7 @@ public class MultiDirectionalVersatilePlantFeatureData {
         return keys;
     }
 
-    private Map<Direction, ResourceKey<PlacedFeature>> generatePlacedFeatureResourceKeys(ResourceLocation baseKey) {
+    private Map<Direction, ResourceKey<PlacedFeature>> generatePlacedFeatureResourceKeys(Identifier baseKey) {
         Map<Direction, ResourceKey<PlacedFeature>> keys = new HashMap<>();
         for (Direction direction : directions) {
             keys.put(direction, ResourceKey.create(Registries.PLACED_FEATURE, baseKey.withSuffix("_" + direction.getName())));

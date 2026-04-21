@@ -75,7 +75,7 @@ public class SimpleAbilityInstanceData {
     }
 
     protected String getToggleCommand() {
-        return "/potionsplus skill ability byId " + ability.getKey().location() + " toggle";
+        return "/potionsplus skill ability byId " + ability.getKey().identifier() + " toggle";
     }
 
     @Override

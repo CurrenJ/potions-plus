@@ -12,7 +12,7 @@ import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -22,7 +22,7 @@ import java.util.Optional;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class CraftRecipeTrigger extends SimpleCriterionTrigger<CraftRecipeTrigger.TriggerInstance> {
-    public static final ResourceLocation ID = ppId("craft_recipe");
+    public static final Identifier ID = ppId("craft_recipe");
     public static final CraftRecipeTrigger INSTANCE = new CraftRecipeTrigger();
 
     private CraftRecipeTrigger() {

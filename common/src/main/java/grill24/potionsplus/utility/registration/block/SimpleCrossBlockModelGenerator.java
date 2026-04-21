@@ -8,7 +8,7 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 
 import java.util.function.Supplier;
@@ -18,9 +18,9 @@ public class SimpleCrossBlockModelGenerator<B extends Block> extends BlockModelU
         super(blockGetter);
     }
 
-    public static void registerFlowerBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Block block, ResourceLocation texture) {
+    public static void registerFlowerBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Block block, Identifier texture) {
         // Generate block model
-        ResourceLocation flowerModelLocation = ModelTemplates.CROSS.create(block, new TextureMapping().put(TextureSlot.CROSS, texture), blockModelGenerators.modelOutput);
+        Identifier flowerModelLocation = ModelTemplates.CROSS.create(block, new TextureMapping().put(TextureSlot.CROSS, texture), blockModelGenerators.modelOutput);
 
         // Generate blockstate definition
         MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(flowerModelLocation));

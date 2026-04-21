@@ -62,7 +62,7 @@ public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.Anima
         public AnimatedItemRewardBuilder(ItemStack... itemStacks) {
             keys = new ResourceKey[itemStacks.length];
             for (int i = 0; i < itemStacks.length; i++) {
-                keys[i] = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId("display_" + itemStacks[i].getItemHolder().getKey().location().getPath()));
+                keys[i] = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId("display_" + itemStacks[i].getItemHolder().getKey().identifier().getPath()));
             }
             this.itemStacks = itemStacks;
         }

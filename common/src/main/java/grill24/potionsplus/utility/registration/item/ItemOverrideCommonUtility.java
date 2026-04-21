@@ -1,6 +1,6 @@
 package grill24.potionsplus.utility.registration.item;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 
 import java.util.List;
@@ -8,12 +8,12 @@ import java.util.Map;
 
 public class ItemOverrideCommonUtility {
     public static class EdibleChoiceItemOverrideData {
-        private final ResourceLocation overridePropertyId;
-        private final ResourceLocation layer0;
-        private final List<ResourceLocation> layer1;
-        private final Map<ResourceLocation, Integer> textureIndexMap;
+        private final Identifier overridePropertyId;
+        private final Identifier layer0;
+        private final List<Identifier> layer1;
+        private final Map<Identifier, Integer> textureIndexMap;
 
-        public EdibleChoiceItemOverrideData(ResourceLocation overridePropertyId, ResourceLocation layer0, List<ResourceLocation> layer1) {
+        public EdibleChoiceItemOverrideData(Identifier overridePropertyId, Identifier layer0, List<Identifier> layer1) {
             this.overridePropertyId = overridePropertyId;
             this.layer0 = layer0;
             this.layer1 = layer1;
@@ -25,27 +25,27 @@ public class ItemOverrideCommonUtility {
             }
         }
 
-        public ResourceLocation getRandomFlag(RandomSource randomSource) {
+        public Identifier getRandomFlag(RandomSource randomSource) {
             return layer1.get(randomSource.nextInt(layer1.size() - 1) + 1);
         }
 
-        public ResourceLocation getOverridePropertyId() {
+        public Identifier getOverridePropertyId() {
             return overridePropertyId;
         }
 
-        public ResourceLocation getLayer0() {
+        public Identifier getLayer0() {
             return layer0;
         }
 
-        public List<ResourceLocation> getLayer1() {
+        public List<Identifier> getLayer1() {
             return layer1;
         }
 
-        private int getIndex(ResourceLocation textureLocation) {
+        private int getIndex(Identifier textureLocation) {
             return textureIndexMap.getOrDefault(textureLocation, 0);
         }
 
-        public float getOverrideValue(ResourceLocation textureLocation) {
+        public float getOverrideValue(Identifier textureLocation) {
             return getIndex(textureLocation) / 64F;
         }
     }

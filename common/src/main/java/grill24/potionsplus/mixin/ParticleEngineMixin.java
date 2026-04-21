@@ -7,7 +7,7 @@ import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.TrackingEmitter;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +21,7 @@ import java.util.Queue;
 public abstract class ParticleEngineMixin implements IParticleEngineExtension {
     @Shadow
     @Final
-    private Map<ResourceLocation, ParticleProvider<?>> providers;
+    private Map<Identifier, ParticleProvider<?>> providers;
     @Shadow
     @Final
     private Queue<TrackingEmitter> trackingEmitters;
@@ -29,7 +29,7 @@ public abstract class ParticleEngineMixin implements IParticleEngineExtension {
     protected ClientLevel level;
 
     @Unique
-    public Map<ResourceLocation, ParticleProvider<?>> potions_plus$getProviders() {
+    public Map<Identifier, ParticleProvider<?>> potions_plus$getProviders() {
         return this.providers;
     }
 

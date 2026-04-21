@@ -6,7 +6,7 @@ import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -18,7 +18,7 @@ import java.util.List;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class ReachForTheStarsEffect extends MobEffect implements IEffectTooltipDetails {
-    private static final ResourceLocation REACH_MODIFIER_ID = ppId("effect.reach_for_the_stars");
+    private static final Identifier REACH_MODIFIER_ID = ppId("effect.reach_for_the_stars");
 
     public ReachForTheStarsEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);

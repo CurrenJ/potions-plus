@@ -1,7 +1,7 @@
 package grill24.potionsplus.mixin;
 
 import grill24.potionsplus.extension.IPlayerExtension;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +18,7 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayerExtensi
     public abstract void causeFoodExhaustion(float exhaustion);
 
     @Shadow
-    public abstract void awardStat(ResourceLocation statKey);
+    public abstract void awardStat(Identifier statKey);
 
     protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);

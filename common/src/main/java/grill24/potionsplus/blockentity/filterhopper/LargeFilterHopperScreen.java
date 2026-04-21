@@ -2,13 +2,13 @@ package grill24.potionsplus.blockentity.filterhopper;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class LargeFilterHopperScreen extends FilterHopperScreen<LargeFilterHopperMenu> {
-    private static final ResourceLocation TEX = ppId("textures/gui/container/filter_hopper_large.png");
+    private static final Identifier TEX = ppId("textures/gui/container/filter_hopper_large.png");
 
     public LargeFilterHopperScreen(LargeFilterHopperMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, 32, 23, 8, 6);
@@ -18,7 +18,7 @@ public class LargeFilterHopperScreen extends FilterHopperScreen<LargeFilterHoppe
     }
 
     @Override
-    ResourceLocation getTexture() {
+    Identifier getTexture() {
         return TEX;
     }
 

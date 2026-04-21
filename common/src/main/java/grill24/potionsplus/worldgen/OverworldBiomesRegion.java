@@ -5,7 +5,7 @@ import grill24.potionsplus.core.Biomes;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -19,7 +19,7 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class OverworldBiomesRegion extends Region {
-    public static final ResourceLocation ID = ppId("overworld_biomes");
+    public static final Identifier ID = ppId("overworld_biomes");
 
     private final Climate.Parameter FULL_RANGE = Climate.Parameter.span(-1.0F, 1.0F);
     private final Climate.Parameter[] temperatures = new Climate.Parameter[]{Climate.Parameter.span(-1.0F, -0.45F), Climate.Parameter.span(-0.45F, -0.15F), Climate.Parameter.span(-0.15F, 0.2F), Climate.Parameter.span(0.2F, 0.55F), Climate.Parameter.span(0.55F, 1.0F)};

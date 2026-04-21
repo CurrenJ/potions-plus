@@ -115,7 +115,7 @@ public class PotionBuilder {
         }
 
         public String getName() {
-            return potion.getKey().location().getPath();
+            return potion.getKey().identifier().getPath();
         }
     }
 }

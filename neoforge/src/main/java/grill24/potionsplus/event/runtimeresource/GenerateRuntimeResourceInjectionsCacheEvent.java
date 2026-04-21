@@ -3,7 +3,7 @@ package grill24.potionsplus.event.runtimeresource;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.event.runtimeresource.modification.IResourceModification;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.neoforged.bus.api.Event;
 import net.neoforged.fml.event.IModBusEvent;
@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class GenerateRuntimeResourceInjectionsCacheEvent extends Event implements IModBusEvent {
-    public record ResourceInjectionCacheEntry(ResourceLocation targetResourceLocation,
-                                              ResourceLocation newResourceLocation, List<Resource> resource) {
+    public record ResourceInjectionCacheEntry(Identifier targetResourceLocation,
+                                              Identifier newResourceLocation, List<Resource> resource) {
     }
 
     public static final List<ResourceInjectionCacheEntry> RESOURCE_INJECTION_CACHE = new ArrayList<>();

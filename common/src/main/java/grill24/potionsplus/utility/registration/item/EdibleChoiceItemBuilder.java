@@ -2,7 +2,7 @@ package grill24.potionsplus.utility.registration.item;
 
 import grill24.potionsplus.core.items.SkillLootItems;
 import grill24.potionsplus.item.EdibleChoiceItem;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 
@@ -13,7 +13,7 @@ import static grill24.potionsplus.utility.Utility.ppId;
 public class EdibleChoiceItemBuilder extends ItemBuilder<EdibleChoiceItem, EdibleChoiceItemBuilder> {
     private ItemOverrideCommonUtility.EdibleChoiceItemOverrideData commonData;
 
-    public static EdibleChoiceItemBuilder create(String name, ResourceLocation textureLocation) {
+    public static EdibleChoiceItemBuilder create(String name, Identifier textureLocation) {
         EdibleChoiceItemBuilder builder = new EdibleChoiceItemBuilder();
         builder.name(name);
         builder.itemFactory(EdibleChoiceItem::new);

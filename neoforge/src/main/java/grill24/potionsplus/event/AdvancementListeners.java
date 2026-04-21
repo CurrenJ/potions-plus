@@ -4,7 +4,7 @@ import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.AdvancementProvider;
 import grill24.potionsplus.utility.ModInfo;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -15,7 +15,7 @@ import java.util.Set;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class AdvancementListeners {
-    private static final Set<ResourceLocation> ADVANCEMENTS_DROP_INGREDIENTS = Set.of(
+    private static final Set<Identifier> ADVANCEMENTS_DROP_INGREDIENTS = Set.of(
             AdvancementProvider.CREATE_BREWING_CAULDRON,
             AdvancementProvider.CREATE_ABYSSAL_TROVE,
             AdvancementProvider.CREATE_SANGUINE_ALTAR

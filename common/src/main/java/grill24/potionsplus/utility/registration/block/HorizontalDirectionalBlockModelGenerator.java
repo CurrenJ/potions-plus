@@ -11,21 +11,21 @@ import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class HorizontalDirectionalBlockModelGenerator<T extends Block> extends BlockModelUtility.BlockModelGenerator<T> {
-    private final ResourceLocation modelLocation;
+    private final Identifier modelLocation;
 
     public HorizontalDirectionalBlockModelGenerator(Supplier<Holder<T>> blockGetter) {
         super(blockGetter);
         this.modelLocation = null;
     }
 
-    public HorizontalDirectionalBlockModelGenerator(Supplier<Holder<T>> blockGetter, ResourceLocation modelLocation) {
+    public HorizontalDirectionalBlockModelGenerator(Supplier<Holder<T>> blockGetter, Identifier modelLocation) {
         super(blockGetter);
         this.modelLocation = modelLocation;
     }
@@ -42,7 +42,7 @@ public class HorizontalDirectionalBlockModelGenerator<T extends Block> extends B
         return VariantMutator.Y_ROT.withValue(yRot);
     };
 
-    public static void registerHorizontalDirectionalBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Block block, ResourceLocation model) {
+    public static void registerHorizontalDirectionalBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Block block, Identifier model) {
         BlockModelDefinitionGenerator blockstateGenerator = MultiVariantGenerator.dispatch(block)
                 .with(PropertyDispatch.initial(HorizontalDirectionalBlock.FACING).generate(facing -> {
                     VariantMutator rotationMutator = Y_ROT_MUTATOR.apply(facing);

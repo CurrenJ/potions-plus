@@ -6,7 +6,7 @@ import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -23,7 +23,7 @@ import java.util.List;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class GiantStepsEffect extends MobEffect implements IEffectTooltipDetails {
-    private static final ResourceLocation STEP_HEIGHT_MODIFIER_ID = ppId("effect.giant_steps");
+    private static final Identifier STEP_HEIGHT_MODIFIER_ID = ppId("effect.giant_steps");
 
     public GiantStepsEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);

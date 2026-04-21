@@ -4,7 +4,7 @@ import grill24.potionsplus.extension.IClientAdvancementsExtension;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.multiplayer.ClientAdvancements;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,10 +21,10 @@ public abstract class ClientAdvancementsMixin implements IClientAdvancementsExte
 
     @Shadow
     @Nullable
-    public abstract AdvancementHolder get(ResourceLocation id);
+    public abstract AdvancementHolder get(Identifier id);
 
     @Override
-    public Optional<AdvancementProgress> potions_plus$getAdvancementProgress(ResourceLocation id) {
+    public Optional<AdvancementProgress> potions_plus$getAdvancementProgress(Identifier id) {
         AdvancementHolder holder = get(id);
         if (holder == null || !progress.containsKey(holder)) {
             return Optional.empty();

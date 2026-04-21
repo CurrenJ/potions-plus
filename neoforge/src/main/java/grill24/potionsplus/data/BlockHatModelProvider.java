@@ -6,7 +6,7 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -18,7 +18,7 @@ public class BlockHatModelProvider {
     public static final ModelTemplate[] BLOCK_HAT_TEMPLATES = createHatTemplates(HatItems.BLOCK_HAT_MODELS);
     public static final TexturedModel.Provider[] BLOCK_HAT_PROVIDERS = createHatTemplateProviders(BLOCK_HAT_TEMPLATES);
 
-    public static ModelTemplate createHatTemplate(ResourceLocation parentModel, String suffix) {
+    public static ModelTemplate createHatTemplate(Identifier parentModel, String suffix) {
         return new ModelTemplate(
                 Optional.of(parentModel),
                 Optional.of(suffix + "_block_hat"),
@@ -26,7 +26,7 @@ public class BlockHatModelProvider {
         );
     }
 
-    public static ModelTemplate[] createHatTemplates(ResourceLocation[] parentModels) {
+    public static ModelTemplate[] createHatTemplates(Identifier[] parentModels) {
         ModelTemplate[] templates = new ModelTemplate[parentModels.length];
         for (int i = 0; i < parentModels.length; i++) {
             templates[i] = createHatTemplate(parentModels[i], Integer.toString(i + 1));
@@ -57,7 +57,7 @@ public class BlockHatModelProvider {
                 TexturedModel.Provider provider = BLOCK_HAT_PROVIDERS[i];
 
                 // Generate the hat as a block model
-                ResourceLocation generatedModel = provider.create(blockTex, blockModelGenerators.modelOutput);
+                Identifier generatedModel = provider.create(blockTex, blockModelGenerators.modelOutput);
 
                 // Generate an item model from the block model
                 ItemModel.Unbaked itemModel = ItemModelUtils.plainModel(generatedModel);

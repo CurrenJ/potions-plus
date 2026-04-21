@@ -8,7 +8,7 @@ import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 
 import java.util.function.Function;
@@ -29,13 +29,13 @@ public class BlockModelUtility {
     }
 
     public static class CubeAllBlockModelGenerator<T extends Block> extends BlockModelGenerator<T> {
-        private final ResourceLocation textureLocation;
+        private final Identifier textureLocation;
 
         private final boolean generateBlockModel;
         private final boolean generateBlockStates;
         private final boolean generateItemModel;
 
-        public CubeAllBlockModelGenerator(Supplier<Holder<T>> blockGetter, ResourceLocation textureLocation, boolean generateBlockModel, boolean generateBlockStates, boolean generateItemModel) {
+        public CubeAllBlockModelGenerator(Supplier<Holder<T>> blockGetter, Identifier textureLocation, boolean generateBlockModel, boolean generateBlockStates, boolean generateItemModel) {
             super(blockGetter);
             this.textureLocation = textureLocation;
             this.generateBlockModel = generateBlockModel;
@@ -50,10 +50,10 @@ public class BlockModelUtility {
         @Override
         public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
             Block block = getHolder().value();
-            ResourceLocation modelLocation = ModelLocationUtils.getModelLocation(block);
+            Identifier modelLocation = ModelLocationUtils.getModelLocation(block);
 
             if (generateBlockModel) {
-                ResourceLocation tex = textureLocation != null ? textureLocation : modelLocation;
+                Identifier tex = textureLocation != null ? textureLocation : modelLocation;
                 TexturedModel.Provider textureModelProvider = TexturedModel.createDefault(b ->
                                 new TextureMapping()
                                         .put(TextureSlot.ALL, tex),
@@ -83,18 +83,18 @@ public class BlockModelUtility {
      */
     public static class FromModelFileBlockStateGenerator<T extends Block> implements IModelGenerator<T> {
         private final Supplier<Holder<T>> blockGetter;
-        private final ResourceLocation modelLocation;
+        private final Identifier modelLocation;
         private final boolean generateBlockStates;
         private final boolean generateItemModel;
 
-        public FromModelFileBlockStateGenerator(Supplier<Holder<T>> blockGetter, ResourceLocation modelLocation, boolean generateBlockStates, boolean generateItemModel) {
+        public FromModelFileBlockStateGenerator(Supplier<Holder<T>> blockGetter, Identifier modelLocation, boolean generateBlockStates, boolean generateItemModel) {
             this.blockGetter = blockGetter;
             this.modelLocation = modelLocation;
             this.generateItemModel = generateItemModel;
             this.generateBlockStates = generateBlockStates;
         }
 
-        public FromModelFileBlockStateGenerator(Supplier<Holder<T>> blockGetter, ResourceLocation modelLocation) {
+        public FromModelFileBlockStateGenerator(Supplier<Holder<T>> blockGetter, Identifier modelLocation) {
             this(blockGetter, modelLocation, true, true);
         }
 

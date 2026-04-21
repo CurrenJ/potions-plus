@@ -7,7 +7,7 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
@@ -15,7 +15,7 @@ import java.util.Optional;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class AwardStatTrigger extends SimpleCriterionTrigger<AwardStatTrigger.TriggerInstance> {
-    public static final ResourceLocation ID = ppId("award_stat");
+    public static final Identifier ID = ppId("award_stat");
     public static final AwardStatTrigger INSTANCE = new AwardStatTrigger();
 
     private AwardStatTrigger() {

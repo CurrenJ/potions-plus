@@ -31,7 +31,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -63,36 +63,36 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
     }
 
     // Brewing Cauldron advancements
-    public static final ResourceLocation CREATE_BREWING_CAULDRON = ppId("root");
-    public static final ResourceLocation BREW_AWKWARD_POTION = ppId("brew_awkward_potion");
-    public static final ResourceLocation BREW_ANY_POTION = ppId("brew_any_potion");
+    public static final Identifier CREATE_BREWING_CAULDRON = ppId("root");
+    public static final Identifier BREW_AWKWARD_POTION = ppId("brew_awkward_potion");
+    public static final Identifier BREW_ANY_POTION = ppId("brew_any_potion");
 
     // Abyssal Trove advancements
-    public static final ResourceLocation CREATE_ABYSSAL_TROVE = ppId("create_abyssal_trove");
-    public static final ResourceLocation ADD_FIRST_TO_ABYSSAL_TROVE = ppId("add_first_to_abyssal_trove");
-    public static final ResourceLocation ADD_COMMON_TO_ABYSSAL_TROVE = ppId("add_common_to_abyssal_trove");
-    public static final ResourceLocation ADD_RARE_TO_ABYSSAL_TROVE = ppId("add_rare_to_abyssal_trove");
+    public static final Identifier CREATE_ABYSSAL_TROVE = ppId("create_abyssal_trove");
+    public static final Identifier ADD_FIRST_TO_ABYSSAL_TROVE = ppId("add_first_to_abyssal_trove");
+    public static final Identifier ADD_COMMON_TO_ABYSSAL_TROVE = ppId("add_common_to_abyssal_trove");
+    public static final Identifier ADD_RARE_TO_ABYSSAL_TROVE = ppId("add_rare_to_abyssal_trove");
 
     // Sanguine Altar advancements
-    public static final ResourceLocation CREATE_SANGUINE_ALTAR = ppId("create_sanguine_altar");
+    public static final Identifier CREATE_SANGUINE_ALTAR = ppId("create_sanguine_altar");
 
     // Clothesline advancements
-    public static final ResourceLocation CREATE_CLOTHESLINE = ppId("create_clothesline");
-    public static final ResourceLocation DRY_ROTTEN_FLESH = ppId("dry_rotten_flesh");
+    public static final Identifier CREATE_CLOTHESLINE = ppId("create_clothesline");
+    public static final Identifier DRY_ROTTEN_FLESH = ppId("dry_rotten_flesh");
 
     // Biome advancements
-    public static final ResourceLocation ARID_CAVE = ppId("arid_cave");
-    public static final ResourceLocation ICE_CAVE = ppId("ice_cave");
-    public static final ResourceLocation VOLCANIC_CAVE = ppId("volcanic_cave");
+    public static final Identifier ARID_CAVE = ppId("arid_cave");
+    public static final Identifier ICE_CAVE = ppId("ice_cave");
+    public static final Identifier VOLCANIC_CAVE = ppId("volcanic_cave");
 
     // Skill advancements
-    public static final ResourceLocation SKILL_JOURNALS = ppId("skill_journals");
-    public static final ResourceLocation[] MINE_COPPER_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_copper_ore_" + count));
-    public static final ResourceLocation[] MINE_COAL_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_coal_ore_" + count));
-    public static final ResourceLocation[] MINE_IRON_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_iron_ore_" + count));
-    public static final ResourceLocation[] MINE_GOLD_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_gold_ore_" + count));
-    public static final ResourceLocation[] MINE_DIAMOND_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_diamond_ore_" + count));
-    public static final ResourceLocation[] MINE_EMERALD_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_emerald_ore_" + count));
+    public static final Identifier SKILL_JOURNALS = ppId("skill_journals");
+    public static final Identifier[] MINE_COPPER_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_copper_ore_" + count));
+    public static final Identifier[] MINE_COAL_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_coal_ore_" + count));
+    public static final Identifier[] MINE_IRON_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_iron_ore_" + count));
+    public static final Identifier[] MINE_GOLD_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_gold_ore_" + count));
+    public static final Identifier[] MINE_DIAMOND_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_diamond_ore_" + count));
+    public static final Identifier[] MINE_EMERALD_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_emerald_ore_" + count));
 
     private static final class PotionsPlusAdvancementGenerator implements AdvancementSubProvider {
         @Override
@@ -174,16 +174,16 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                         skillJournals);
     }
 
-    private record HatInfo(ResourceLocation advancementId, ItemStack display, int amountRequired,
+    private record HatInfo(Identifier advancementId, ItemStack display, int amountRequired,
                            ResourceKey<LootTable> rewards) {
-        public HatInfo(ResourceLocation advancementId, ItemStack display, int amountRequired, ResourceKey<LootTable> rewards) {
+        public HatInfo(Identifier advancementId, ItemStack display, int amountRequired, ResourceKey<LootTable> rewards) {
             this.advancementId = advancementId;
             this.display = display;
             this.amountRequired = amountRequired;
             this.rewards = rewards;
         }
 
-        public static List<HatInfo> hats(ResourceLocation[] advancementIds, Holder<Item>[] hatItems, int[] amountsRequired, ResourceKey<LootTable>[] rewards) {
+        public static List<HatInfo> hats(Identifier[] advancementIds, Holder<Item>[] hatItems, int[] amountsRequired, ResourceKey<LootTable>[] rewards) {
             if (hatItems.length != amountsRequired.length || hatItems.length != rewards.length || hatItems.length != advancementIds.length) {
                 throw new IllegalArgumentException("All arrays must be the same length");
             }
@@ -374,7 +374,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                         false)
                 .rewards(
                         AdvancementRewards.Builder.experience(100)
-                                .addLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath("minecraft", "chests/igloo"))))
+                                .addLootTable(ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("minecraft", "chests/igloo"))))
                 .addCriterion("create_brewing_cauldron", CreatePotionsPlusBlockTrigger.TriggerInstance.create(BlockEntityBlocks.BREWING_CAULDRON.value().defaultBlockState()))
                 .requirements(AdvancementRequirements.allOf(List.of("create_brewing_cauldron")))
                 .save(saver, CREATE_BREWING_CAULDRON);
@@ -592,7 +592,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 
         for (ResourceKey<Biome> resourcekey : biomes) {
             builder.addCriterion(
-                    resourcekey.location().toString(),
+                    resourcekey.identifier().toString(),
                     PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(holdergetter.getOrThrow(resourcekey)))
             );
         }

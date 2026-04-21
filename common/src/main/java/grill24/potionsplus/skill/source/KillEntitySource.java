@@ -4,7 +4,7 @@ import grill24.potionsplus.core.SkillPointSources;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -21,7 +21,7 @@ public class KillEntitySource extends SkillPointSource<KillEntitySource.Evaluati
     public record EvaluationData(ServerPlayer player, LootContext context, float defaultXpToAward) {
     }
 
-    public static final ResourceLocation ID = ppId("kill_entity");
+    public static final Identifier ID = ppId("kill_entity");
 
     public KillEntitySource() {
         super(KillEntitySourceConfiguration.CODEC);
@@ -49,7 +49,7 @@ public class KillEntitySource extends SkillPointSource<KillEntitySource.Evaluati
     }
 
     @Override
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return ID;
     }
 

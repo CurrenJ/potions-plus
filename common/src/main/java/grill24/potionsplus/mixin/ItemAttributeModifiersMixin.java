@@ -2,7 +2,7 @@ package grill24.potionsplus.mixin;
 
 import com.google.common.collect.ImmutableList;
 import grill24.potionsplus.extension.IItemAttributeModifiersExtension;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import org.spongepowered.asm.mixin.Final;
@@ -26,7 +26,7 @@ public abstract class ItemAttributeModifiersMixin implements IItemAttributeModif
 
     public ItemAttributeModifiers potions_plus$withModifiersRemoved(Collection<AttributeModifier> modifiersToRemove) {
         ImmutableList.Builder<ItemAttributeModifiers.Entry> builder = ImmutableList.builder();
-        Set<ResourceLocation> ids = modifiersToRemove.stream().map(AttributeModifier::id).collect(Collectors.toSet());
+        Set<Identifier> ids = modifiersToRemove.stream().map(AttributeModifier::id).collect(Collectors.toSet());
 
         for (ItemAttributeModifiers.Entry entry : this.modifiers) {
             if (!ids.contains(entry.modifier().id())) {

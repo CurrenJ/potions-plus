@@ -6,7 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Recipe;
 
 import javax.annotation.Nullable;
@@ -17,9 +17,9 @@ public class RecipeGeneratorUtility {
     public abstract static class AbstractRecipeGenerator<T> implements IRecipeGenerator<T> {
         protected final Supplier<Holder<T>> holder;
         @Nullable
-        protected final ResourceLocation id;
+        protected final Identifier id;
 
-        public AbstractRecipeGenerator(Supplier<Holder<T>> holder, @Nullable ResourceLocation id) {
+        public AbstractRecipeGenerator(Supplier<Holder<T>> holder, @Nullable Identifier id) {
             this.holder = holder;
             this.id = id;
         }
@@ -42,14 +42,14 @@ public class RecipeGeneratorUtility {
             this.recipeBuilder = recipeBuilder;
         }
 
-        public RecipeGenerator(Supplier<Holder<T>> holder, ResourceLocation id, BiFunction<grill24.potionsplus.data.RecipeProvider, Holder<? extends T>, RecipeBuilder> recipeBuilder) {
+        public RecipeGenerator(Supplier<Holder<T>> holder, Identifier id, BiFunction<grill24.potionsplus.data.RecipeProvider, Holder<? extends T>, RecipeBuilder> recipeBuilder) {
             super(holder, id);
             this.recipeBuilder = recipeBuilder;
         }
 
         @Override
         public void generate(RecipeProvider provider, RecipeOutput output) {
-            ResourceLocation id = this.id == null ? getHolder().getKey().location() : this.id;
+            Identifier id = this.id == null ? getHolder().getKey().identifier() : this.id;
             ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, id);
             recipeBuilder.apply(provider, getHolder()).save(output, recipeKey);
         }

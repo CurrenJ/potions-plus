@@ -18,7 +18,7 @@ import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +36,7 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     private final IDrawable background;
     private final IDrawable icon;
 
-    private static final ResourceLocation RECIPE_GUI = ppId("textures/gui/brewing_cauldron_recipe.png");
+    private static final Identifier RECIPE_GUI = ppId("textures/gui/brewing_cauldron_recipe.png");
 
     private static final Map<Integer, Point[]> INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT = new HashMap<>();
 

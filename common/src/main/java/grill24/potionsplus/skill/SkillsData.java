@@ -22,7 +22,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -160,13 +160,13 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         return player.getData(DataAttachments.SKILL_PLAYER_DATA);
     }
 
-    public Optional<SkillInstance<?, ?>> getOrCreate(RegistryAccess registryAccess, ResourceLocation resourceLocation) {
+    public Optional<SkillInstance<?, ?>> getOrCreate(RegistryAccess registryAccess, Identifier resourceLocation) {
         Optional<Holder.Reference<ConfiguredSkill<?, ?>>> configuredSkillReferenceOptional = registryAccess.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL).get(resourceLocation);
         return configuredSkillReferenceOptional.map(configuredSkill -> skillData.computeIfAbsent(configuredSkill.getKey(), SkillInstance::new));
     }
 
     public Optional<SkillInstance<?, ?>> getOrCreate(RegistryAccess registryAccess, ResourceKey<ConfiguredSkill<?, ?>> configuredSkillKey) {
-        return getOrCreate(registryAccess, configuredSkillKey.location());
+        return getOrCreate(registryAccess, configuredSkillKey.identifier());
     }
 
     public Optional<SkillInstance<?, ?>> getOrCreate(RegistryAccess registryAccess, ConfiguredSkill<?, ?> configuredSkill) {
@@ -180,7 +180,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
 
     // ----- Helper Methods Unlocked Abilities -----
 
-    public static <AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>> Optional<ConfiguredPlayerAbility<AC, A>> getConfiguredAbility(RegistryAccess registryAccess, ResourceLocation configuredAbilityId) {
+    public static <AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>> Optional<ConfiguredPlayerAbility<AC, A>> getConfiguredAbility(RegistryAccess registryAccess, Identifier configuredAbilityId) {
         Registry<ConfiguredPlayerAbility<?, ?>> lookup = registryAccess.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY);
 
         Optional<Holder.Reference<ConfiguredPlayerAbility<?, ?>>> opt = lookup.get(configuredAbilityId);
@@ -191,7 +191,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         return Optional.of((ConfiguredPlayerAbility<AC, A>) opt.get().value());
     }
 
-    public Optional<AbilityInstanceSerializable<?, ?>> getAbilityInstance(RegistryAccess registryAccess, ResourceLocation configuredAbilityId) {
+    public Optional<AbilityInstanceSerializable<?, ?>> getAbilityInstance(RegistryAccess registryAccess, Identifier configuredAbilityId) {
         Optional<ConfiguredPlayerAbility<PlayerAbilityConfiguration, PlayerAbility<PlayerAbilityConfiguration>>> configuredPlayerAbility = getConfiguredAbility(registryAccess, configuredAbilityId);
         if (configuredPlayerAbility.isPresent()) {
             Registry<PlayerAbility<?>> abilityLookup = registryAccess.lookupOrThrow(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY);
@@ -201,7 +201,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
             if (this.unlockedAbilities.containsKey(abilityKey)) {
                 return this.unlockedAbilities.get(abilityKey)
                         .stream()
-                        .filter(abilityInstance -> abilityInstance.data().getHolder().getKey().location().equals(configuredAbilityId))
+                        .filter(abilityInstance -> abilityInstance.data().getHolder().getKey().identifier().equals(configuredAbilityId))
                         .findFirst();
             }
         }
@@ -213,7 +213,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         if (configuredAbilityId == null) {
             return Optional.empty();
         }
-        return getAbilityInstance(registryAccess, configuredAbilityId.location());
+        return getAbilityInstance(registryAccess, configuredAbilityId.identifier());
     }
 
 

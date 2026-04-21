@@ -21,7 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -36,11 +36,11 @@ import static grill24.potionsplus.utility.Utility.ppId;
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public record EdibleRewardGranterDataComponent(ResourceKey<ConfiguredGrantableReward<?, ?>> linkedChoiceParent,
                                                ResourceKey<ConfiguredGrantableReward<?, ?>> linkedOption,
-                                               ResourceLocation flag) {
+                                               Identifier flag) {
     public static final Codec<EdibleRewardGranterDataComponent> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
             HolderCodecs.resourceKey(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD).fieldOf("linkedChoiceParent").forGetter(instance -> instance.linkedChoiceParent),
             HolderCodecs.resourceKey(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD).fieldOf("linkedOption").forGetter(instance -> instance.linkedOption),
-            ResourceLocation.CODEC.fieldOf("flag").forGetter(instance -> instance.flag)
+            Identifier.CODEC.fieldOf("flag").forGetter(instance -> instance.flag)
     ).apply(codecBuilder, EdibleRewardGranterDataComponent::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, EdibleRewardGranterDataComponent> STREAM_CODEC = StreamCodec.composite(
@@ -48,7 +48,7 @@ public record EdibleRewardGranterDataComponent(ResourceKey<ConfiguredGrantableRe
             instance -> instance.linkedChoiceParent,
             HolderCodecs.resourceKeyStream(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD),
             instance -> instance.linkedOption,
-            ResourceLocation.STREAM_CODEC,
+            Identifier.STREAM_CODEC,
             instance -> instance.flag,
             EdibleRewardGranterDataComponent::new
     );

@@ -88,7 +88,7 @@ public record SkillLevelUpRewardsData(String translationKey, List<Holder<Configu
             if (optional.isPresent()) {
                 this.rewards.add(optional.get());
             } else {
-                PotionsPlus.LOGGER.error("Failed to add reward {} to skill level up rewards data", reward.location());
+                PotionsPlus.LOGGER.error("Failed to add reward {} to skill level up rewards data", reward.identifier());
             }
             return this;
         }

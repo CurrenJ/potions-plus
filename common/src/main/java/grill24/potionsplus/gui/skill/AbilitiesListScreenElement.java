@@ -36,7 +36,7 @@ public class AbilitiesListScreenElement extends VerticalListScreenElement<Abilit
         return abilities.stream().map(abilityInstance ->
                 new AbilityTextScreenElement(
                         screen,
-                        abilityInstance.data().getHolder().getKey().location(),
+                        abilityInstance.data().getHolder().getKey().identifier(),
                         abilityInstance.data().getDescription()
                 )
         ).toList();

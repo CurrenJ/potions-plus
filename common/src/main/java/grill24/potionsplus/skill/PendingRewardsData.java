@@ -92,7 +92,7 @@ public class PendingRewardsData {
                 validRewards.put(reward, validRewards.get(reward).subList(1, count));
             }
         } else {
-            PotionsPlus.LOGGER.warn("Attempted to consume a reward that does not exist: {}", reward.location());
+            PotionsPlus.LOGGER.warn("Attempted to consume a reward that does not exist: {}", reward.identifier());
         }
     }
 
@@ -105,11 +105,11 @@ public class PendingRewardsData {
                     if (!item.isEmpty()) {
                         InvUtil.giveOrDropItem(serverPlayer, item.copy());
                     } else {
-                        PotionsPlus.LOGGER.warn("Attempted to give an empty item stack for reward: {}", reward.location());
+                        PotionsPlus.LOGGER.warn("Attempted to give an empty item stack for reward: {}", reward.identifier());
                     }
                 }
             } else {
-                PotionsPlus.LOGGER.warn("No items available to give for reward: {}", reward.location());
+                PotionsPlus.LOGGER.warn("No items available to give for reward: {}", reward.identifier());
             }
         }
     }

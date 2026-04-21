@@ -37,7 +37,7 @@ public class BiomeTagProvider extends TagsProvider<Biome> {
     }
 
     private static TagKey<Biome> tag(ResourceKey<Biome> key) {
-        return TagKey.create(Registries.BIOME, key.location());
+        return TagKey.create(Registries.BIOME, key.identifier());
     }
 }
 

@@ -13,7 +13,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -33,7 +33,7 @@ public class ConfiguredPlayerAbilityArgument implements ArgumentType<ConfiguredP
 
     @Override
     public AbilityInfo parse(StringReader reader) throws CommandSyntaxException {
-        ResourceLocation location = ResourceLocation.read(reader);
+        Identifier location = Identifier.read(reader);
         return new AbilityInfo(this.context.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY).get(ResourceKey.create(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, location)).orElseThrow());
     }
 

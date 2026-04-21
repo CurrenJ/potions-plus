@@ -7,7 +7,7 @@ import grill24.potionsplus.event.runtimeresource.ClientInjectResourceStacksEvent
 import grill24.potionsplus.event.runtimeresource.ClientInjectResourcesEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
@@ -27,8 +27,8 @@ public class ResourceUtility {
      * @param blockHolder
      * @return
      */
-    public static Optional<ResourceLocation> getDefaultTexture(Holder<? extends Block> blockHolder) {
-        Optional<ResourceLocation> defaultBlockModel = getDefaultModel(blockHolder);
+    public static Optional<Identifier> getDefaultTexture(Holder<? extends Block> blockHolder) {
+        Optional<Identifier> defaultBlockModel = getDefaultModel(blockHolder);
         if (defaultBlockModel.isPresent()) {
             return getDefaultTexture(defaultBlockModel.get());
         } else {
@@ -42,15 +42,15 @@ public class ResourceUtility {
      * @param blockHolder
      * @return Model location in the format of "namespace:models/path/to/model.json", as parsable by the ResourceManager
      */
-    private static Optional<ResourceLocation> getDefaultModel(Holder<? extends Block> blockHolder) {
+    private static Optional<Identifier> getDefaultModel(Holder<? extends Block> blockHolder) {
         ResourceManager rm = Minecraft.getInstance().getResourceManager();
 
-        ResourceLocation blockStateLocation = blockHolder.getKey().location().withPrefix("blockstates/").withSuffix(".json");
+        Identifier blockStateLocation = blockHolder.getKey().identifier().withPrefix("blockstates/").withSuffix(".json");
         List<Resource> resources = rm.getResourceStack(blockStateLocation);
         for (Resource resource : resources) {
             String json = getRawResourceJson(resource);
             if (json.isEmpty()) {
-                PotionsPlus.LOGGER.error("Couldn't find blockstate JSON for block: {}", blockHolder.getKey().location());
+                PotionsPlus.LOGGER.error("Couldn't find blockstate JSON for block: {}", blockHolder.getKey().identifier());
                 continue;
             }
 
@@ -59,7 +59,7 @@ public class ResourceUtility {
                 int startIndex = json.indexOf("\"", modelIndex + 7) + 1;
                 int endIndex = json.indexOf("\"", startIndex);
                 String modelPath = json.substring(startIndex, endIndex);
-                ResourceLocation modelLocation = ResourceLocation.parse(modelPath);
+                Identifier modelLocation = Identifier.parse(modelPath);
                 return Optional.of(modelLocation.withPrefix("models/").withSuffix(".json"));
             } else {
                 PotionsPlus.LOGGER.error("No model key found in JSON: {}", json);
@@ -75,7 +75,7 @@ public class ResourceUtility {
      * @param modelLocation
      * @return Texture location in the format of "namespace:path/to/texture.png", as parsable by a block model definition .json.
      */
-    private static Optional<ResourceLocation> getDefaultTexture(ResourceLocation modelLocation) {
+    private static Optional<Identifier> getDefaultTexture(Identifier modelLocation) {
         ResourceManager rm = Minecraft.getInstance().getResourceManager();
 
         Optional<Resource> resource = rm.getResource(modelLocation);
@@ -96,7 +96,7 @@ public class ResourceUtility {
             }
             String texturePath = textureEntries.getFirst().getAsString();
 
-            ResourceLocation textureResourceLocation = ResourceLocation.parse(texturePath);
+            Identifier textureResourceLocation = Identifier.parse(texturePath);
             return Optional.of(textureResourceLocation);
         } else {
             PotionsPlus.LOGGER.error("No model found for: {}", modelLocation);
@@ -114,18 +114,18 @@ public class ResourceUtility {
         }
     }
 
-    public static Optional<Resource> getResource(ResourceLocation longId) {
+    public static Optional<Resource> getResource(Identifier longId) {
         ResourceManager rm = Minecraft.getInstance().getResourceManager();
         return rm.getResource(longId);
     }
 
-    public static List<Resource> getResourceStack(ResourceLocation longId) {
+    public static List<Resource> getResourceStack(Identifier longId) {
         ResourceManager rm = Minecraft.getInstance().getResourceManager();
         return rm.getResourceStack(longId);
     }
 
-    public static void postResourceEvent(CallbackInfoReturnable<Map<ResourceLocation, Resource>> cir) {
-        Map<ResourceLocation, Resource> resources = cir.getReturnValue();
+    public static void postResourceEvent(CallbackInfoReturnable<Map<Identifier, Resource>> cir) {
+        Map<Identifier, Resource> resources = cir.getReturnValue();
         if (resources != null) {
             ModLoader.postEvent(new ClientInjectResourcesEvent(resources));
         } else {
@@ -133,8 +133,8 @@ public class ResourceUtility {
         }
     }
 
-    public static void postResourceStackEvent(CallbackInfoReturnable<Map<ResourceLocation, List<Resource>>> cir) {
-        Map<ResourceLocation, List<Resource>> resources = cir.getReturnValue();
+    public static void postResourceStackEvent(CallbackInfoReturnable<Map<Identifier, List<Resource>>> cir) {
+        Map<Identifier, List<Resource>> resources = cir.getReturnValue();
         if (resources != null) {
             ModLoader.postEvent(new ClientInjectResourceStacksEvent(resources));
         } else {

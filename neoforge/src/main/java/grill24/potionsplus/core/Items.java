@@ -9,7 +9,7 @@ import grill24.potionsplus.utility.registration.item.ItemModelUtility;
 import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -43,7 +43,7 @@ public class Items {
      * @param registerItem
      */
     public static void registerBlockItem(Holder<Block> block, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
-        Optional<ResourceLocation> id = Utility.getResourceLocation(block);
+        Optional<Identifier> id = Utility.getResourceLocation(block);
         if (id.isEmpty()) {
             throw new IllegalStateException("Couldn't get resource location for block: " + block + "! Skipping item registration.");
         } else {
@@ -61,8 +61,8 @@ public class Items {
      * @param registerItem
      * @param texture
      */
-    public static void registerBlockItemWithTexture(Holder<Block> block, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem, ResourceLocation texture) {
-        Optional<ResourceLocation> id = Utility.getResourceLocation(block);
+    public static void registerBlockItemWithTexture(Holder<Block> block, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem, Identifier texture) {
+        Optional<Identifier> id = Utility.getResourceLocation(block);
         if (id.isEmpty()) {
             throw new IllegalStateException("Couldn't get resource location for block: " + block + "! Skipping item registration.");
         } else {
@@ -80,7 +80,7 @@ public class Items {
      * @param registerItem
      */
     public static void registerBlockItemWithAutoModel(Supplier<Holder<Block>> block, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
-        Optional<ResourceLocation> id = Utility.getResourceLocation(block.get());
+        Optional<Identifier> id = Utility.getResourceLocation(block.get());
         if (id.isEmpty()) {
             throw new IllegalStateException("Couldn't get resource location for block: " + block + "! Skipping item registration.");
         } else {
@@ -91,8 +91,8 @@ public class Items {
         }
     }
 
-    public static void registerBlockItemWithParentModel(Supplier<Holder<Block>> block, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem, ResourceLocation parent) {
-        Optional<ResourceLocation> id = Utility.getResourceLocation(block.get());
+    public static void registerBlockItemWithParentModel(Supplier<Holder<Block>> block, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem, Identifier parent) {
+        Optional<Identifier> id = Utility.getResourceLocation(block.get());
         if (id.isEmpty()) {
             throw new IllegalStateException("Couldn't get resource targetLocation for block: " + block + "! Skipping item registration.");
         } else {

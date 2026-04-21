@@ -6,7 +6,7 @@ import grill24.potionsplus.gui.RenderableScreenElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector2f;
@@ -19,12 +19,12 @@ import java.util.HashMap;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class AbilitySelectionTree<E extends RenderableScreenElement> extends FixedSizeDivScreenElement<E> {
-    public static final ResourceLocation HEX_FRAME_TEXTURE = ppId("textures/gui/hex_frame.png");
-    public static final ResourceLocation HEX_BUBBLE_ICON_TEXTURE = ppId("textures/gui/hex_bubble_icon.png");
-    public static final ResourceLocation HEX_PICKAXE_ICON_TEXTURE = ppId("textures/gui/hex_pickaxe_icon.png");
-    public static final ResourceLocation HEX_JUMP_ICON_TEXTURE = ppId("textures/gui/hex_jump_icon.png");
-    public static final ResourceLocation HEX_SPEED_ICON_TEXTURE = ppId("textures/gui/hex_speed_icon.png");
-    public static final ResourceLocation HEX_FORTUNE_ICON_TEXTURE = ppId("textures/gui/hex_fortune_icon.png");
+    public static final Identifier HEX_FRAME_TEXTURE = ppId("textures/gui/hex_frame.png");
+    public static final Identifier HEX_BUBBLE_ICON_TEXTURE = ppId("textures/gui/hex_bubble_icon.png");
+    public static final Identifier HEX_PICKAXE_ICON_TEXTURE = ppId("textures/gui/hex_pickaxe_icon.png");
+    public static final Identifier HEX_JUMP_ICON_TEXTURE = ppId("textures/gui/hex_jump_icon.png");
+    public static final Identifier HEX_SPEED_ICON_TEXTURE = ppId("textures/gui/hex_speed_icon.png");
+    public static final Identifier HEX_FORTUNE_ICON_TEXTURE = ppId("textures/gui/hex_fortune_icon.png");
 
     public Vector2f cameraOffset;
     public Vector2f cameraVelocity;
@@ -205,7 +205,7 @@ public class AbilitySelectionTree<E extends RenderableScreenElement> extends Fix
         return new Vector2f((float) bounds.getMinX() + localX - cameraOffset.x + cameraVelocity.x * partialTick, (float) bounds.getMinY() + localY - cameraOffset.y + cameraVelocity.x + partialTick);
     }
 
-    public void blitSpriteWithinFrame(GuiGraphics graphics, float partialTick, ResourceLocation texture, float localX, float localY, int uOffset, int vOffset, int uWidth, int vHeight, int textureWidth, int textureHeight, int color) {
+    public void blitSpriteWithinFrame(GuiGraphics graphics, float partialTick, Identifier texture, float localX, float localY, int uOffset, int vOffset, int uWidth, int vHeight, int textureWidth, int textureHeight, int color) {
         IGuiGraphicsExtension graphicsExtension = (IGuiGraphicsExtension) graphics;
         Rectangle2D bounds = this.getGlobalBounds();
 

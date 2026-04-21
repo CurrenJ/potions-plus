@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.client.renderer.item.properties.numeric.Count;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 import java.util.*;
@@ -51,18 +51,18 @@ public class ItemOverrideUtility {
             Holder<? extends Item> item = getHolder();
 
             TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, commonData.getLayer0());
-            ResourceLocation fallbackItemModelId = ppId(item.getKey().location().getPath() + "_fallback");
-            ResourceLocation fallbackItemModel = ModelTemplates.FLAT_ITEM.create(fallbackItemModelId, fallbackItemTextureMapping, itemModelGenerators.modelOutput);
+            Identifier fallbackItemModelId = ppId(item.getKey().identifier().getPath() + "_fallback");
+            Identifier fallbackItemModel = ModelTemplates.FLAT_ITEM.create(fallbackItemModelId, fallbackItemTextureMapping, itemModelGenerators.modelOutput);
 
             List<RangeSelectItemModel.Entry> entries = commonData.getLayer1().stream().map(layer1Texture -> {
                 String str = layer1Texture.getPath();
-                String name = item.getKey().location().getPath() + "_" + str.substring(str.lastIndexOf('/') + 1);
-                ResourceLocation modelId = ppId("item/" + name);
+                String name = item.getKey().identifier().getPath() + "_" + str.substring(str.lastIndexOf('/') + 1);
+                Identifier modelId = ppId("item/" + name);
 
                 TextureMapping textureMapping = new TextureMapping()
                         .put(TextureSlot.LAYER0, commonData.getLayer0())
                         .put(TextureSlot.LAYER1, layer1Texture);
-                ResourceLocation generatedItemModel = ModelTemplates.TWO_LAYERED_ITEM.create(modelId, textureMapping, itemModelGenerators.modelOutput);
+                Identifier generatedItemModel = ModelTemplates.TWO_LAYERED_ITEM.create(modelId, textureMapping, itemModelGenerators.modelOutput);
 
                 float threshold = commonData.getOverrideValue(layer1Texture);
 
@@ -87,7 +87,7 @@ public class ItemOverrideUtility {
     }
 
     public static class PotionEffectIconOverrideModelData extends ItemOverrideModelGenerator<Item> {
-        public PotionEffectIconOverrideModelData(Supplier<Holder<Item>> itemSupplier, ResourceLocation overridePropertyId) {
+        public PotionEffectIconOverrideModelData(Supplier<Holder<Item>> itemSupplier, Identifier overridePropertyId) {
             super(itemSupplier);
         }
 
@@ -98,12 +98,12 @@ public class ItemOverrideUtility {
             BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(mc("item/stick"), Collections.emptyList());
 
             List<RangeSelectItemModel.Entry> entries = PUtil.getAllMobEffects().stream().map(mobEffect -> {
-                ResourceLocation registryName = BuiltInRegistries.MOB_EFFECT.getKey(mobEffect);
+                Identifier registryName = BuiltInRegistries.MOB_EFFECT.getKey(mobEffect);
                 String name = "potion_effect_icon_" + registryName.getPath();
-                ResourceLocation modelId = ppId("item/" + name);
+                Identifier modelId = ppId("item/" + name);
 
-                TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, ResourceLocation.fromNamespaceAndPath(registryName.getNamespace(), "mob_effect/" + registryName.getPath()));
-                ResourceLocation generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, itemModelGenerators.modelOutput);
+                TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, Identifier.fromNamespaceAndPath(registryName.getNamespace(), "mob_effect/" + registryName.getPath()));
+                Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, itemModelGenerators.modelOutput);
 
                 float threshold = (grill24.potionsplus.core.potion.MobEffects.POTION_ICON_INDEX_MAP.get().get(registryName) - 1) / 64F;
                 return new RangeSelectItemModel.Entry(
@@ -127,16 +127,16 @@ public class ItemOverrideUtility {
     }
 
     public static class DynamicItemOverrideModelData extends ItemOverrideModelGenerator<Item> {
-        private final ResourceLocation[] textures;
-        private final Map<ResourceLocation, Integer> textureIndexMap;
+        private final Identifier[] textures;
+        private final Map<Identifier, Integer> textureIndexMap;
 
-        public DynamicItemOverrideModelData(Supplier<Holder<Item>> itemSupplier, ResourceLocation overridePropertyId, ResourceLocation[] textures, Map<ResourceLocation, Integer> textureToItemStackCountMap) {
+        public DynamicItemOverrideModelData(Supplier<Holder<Item>> itemSupplier, Identifier overridePropertyId, Identifier[] textures, Map<Identifier, Integer> textureToItemStackCountMap) {
             super(itemSupplier);
             this.textureIndexMap = textureToItemStackCountMap;
             this.textures = textures;
         }
 
-        public int getItemStackCountForTexture(ResourceLocation textureLocation) {
+        public int getItemStackCountForTexture(Identifier textureLocation) {
             return textureIndexMap.getOrDefault(textureLocation, 1);
         }
 
@@ -145,7 +145,7 @@ public class ItemOverrideUtility {
             Holder<Item> item = getHolder();
 
             TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, DynamicIconItems.UNKNOWN_TEX_LOC);
-            ResourceLocation fallbackItemModelLocation = ModelTemplates.FLAT_ITEM.create(ppId("unknown_generic_icon_fallback"), fallbackItemTextureMapping, itemModelGenerators.modelOutput);
+            Identifier fallbackItemModelLocation = ModelTemplates.FLAT_ITEM.create(ppId("unknown_generic_icon_fallback"), fallbackItemTextureMapping, itemModelGenerators.modelOutput);
             BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(fallbackItemModelLocation, Collections.emptyList());
 
             List<RangeSelectItemModel.Entry> entries = Arrays.stream(textures).map(texture -> {
@@ -153,10 +153,10 @@ public class ItemOverrideUtility {
 
                 String str = texture.getPath();
                 String name = "generic_icon_" + str.substring(str.lastIndexOf('/') + 1);
-                ResourceLocation modelId = ppId("item/" + name);
+                Identifier modelId = ppId("item/" + name);
 
                 TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, texture);
-                ResourceLocation generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, itemModelGenerators.modelOutput);
+                Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, itemModelGenerators.modelOutput);
 
                 float threshold = itemStackCount / 64F;
                 return new RangeSelectItemModel.Entry(

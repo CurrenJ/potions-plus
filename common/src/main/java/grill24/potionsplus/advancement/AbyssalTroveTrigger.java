@@ -10,7 +10,7 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
@@ -18,7 +18,7 @@ import java.util.Optional;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class AbyssalTroveTrigger extends SimpleCriterionTrigger<AbyssalTroveTrigger.TriggerInstance> {
-    public static final ResourceLocation ID = ppId("abyssal_trove_trigger");
+    public static final Identifier ID = ppId("abyssal_trove_trigger");
     public static final AbyssalTroveTrigger INSTANCE = new AbyssalTroveTrigger();
 
     private AbyssalTroveTrigger() {

@@ -10,7 +10,7 @@ import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 
 import java.util.Optional;
@@ -19,13 +19,13 @@ import java.util.function.Supplier;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class GeneticCropBlockModelGenerator<T extends Block> extends BlockModelUtility.BlockModelGenerator<T> {
-    public record PlantTextures(ResourceLocation texture, ResourceLocation pollinatedTexture,
-                                ResourceLocation harvestableTexture) {
-        public PlantTextures(ResourceLocation texture) {
+    public record PlantTextures(Identifier texture, Identifier pollinatedTexture,
+                                Identifier harvestableTexture) {
+        public PlantTextures(Identifier texture) {
             this(texture, texture, texture);
         }
 
-        public PlantTextures(ResourceLocation texture, ResourceLocation pollinatedTexture) {
+        public PlantTextures(Identifier texture, Identifier pollinatedTexture) {
             this(texture, pollinatedTexture, pollinatedTexture);
         }
     }
@@ -53,16 +53,16 @@ public class GeneticCropBlockModelGenerator<T extends Block> extends BlockModelU
         // TODO: Crop block model generation
         Block block = this.getHolder().value();
         if (block instanceof GeneticCropBlock && this.getHolder().getKey() != null) {
-            ResourceLocation baseModelLocation = this.getHolder().getKey().location();
+            Identifier baseModelLocation = this.getHolder().getKey().identifier();
 
             // Generate blockstate definition
             BlockModelDefinitionGenerator blockstateGenerator = MultiVariantGenerator.dispatch(block)
                     .with(
                             PropertyDispatch.initial(GeneticCropBlock.AGE, GeneticCropBlock.HARVESTABLE)
                                     .generate((age, harvestState) -> {
-                                        ResourceLocation modelLocation = ResourceLocation.fromNamespaceAndPath(baseModelLocation.getNamespace(), baseModelLocation.getPath() + "_" + age + "_" + harvestState.getSerializedName());
+                                        Identifier modelLocation = Identifier.fromNamespaceAndPath(baseModelLocation.getNamespace(), baseModelLocation.getPath() + "_" + age + "_" + harvestState.getSerializedName());
 
-                                        ResourceLocation texture = getPlantTexture(age, harvestState);
+                                        Identifier texture = getPlantTexture(age, harvestState);
                                         TextureMapping textureMapping = new TextureMapping()
                                                 .put(TextureSlot.CROP, texture);
 
@@ -78,9 +78,9 @@ public class GeneticCropBlockModelGenerator<T extends Block> extends BlockModelU
         }
     }
 
-    private ResourceLocation getPlantTexture(Integer age, GeneticCropBlock.HarvestState harvestState) {
+    private Identifier getPlantTexture(Integer age, GeneticCropBlock.HarvestState harvestState) {
         PlantTextures textures = ageTextures[Math.clamp(age, 0, ageTextures.length - 1)];
-        ResourceLocation texture = switch (harvestState) {
+        Identifier texture = switch (harvestState) {
             case GeneticCropBlock.HarvestState.IMMATURE -> textures.texture;
             case GeneticCropBlock.HarvestState.POLLINATED -> textures.pollinatedTexture;
             case GeneticCropBlock.HarvestState.MATURE -> textures.harvestableTexture;

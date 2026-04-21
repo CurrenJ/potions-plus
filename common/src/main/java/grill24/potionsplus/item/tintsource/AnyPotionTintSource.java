@@ -7,7 +7,7 @@ import grill24.potionsplus.utility.PUtil;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class AnyPotionTintSource implements ItemTintSource {
-    public static final ResourceLocation ID = ppId("any_potion_tint");
+    public static final Identifier ID = ppId("any_potion_tint");
     public static final MapCodec<AnyPotionTintSource> CODEC = MapCodec.unit(new AnyPotionTintSource());
 
     @Override

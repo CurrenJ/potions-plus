@@ -9,7 +9,7 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.core.Holder;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.context.ContextKeySet;
 import net.minecraft.world.level.storage.loot.LootTable;
 
@@ -76,7 +76,7 @@ public class RegistrationUtility {
 
     public static void generateItemModels(String namespace, BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
         for (IModelGenerator<?> generator : ITEM_MODEL_GENERATORS) {
-            Optional<ResourceLocation> itemId = Utility.getResourceLocation(generator.getHolder());
+            Optional<Identifier> itemId = Utility.getResourceLocation(generator.getHolder());
             if (itemId.isPresent() && itemId.get().getNamespace().equals(namespace)) {
                 generator.generate(blockModelGenerators, itemModelGenerators);
             }
@@ -85,7 +85,7 @@ public class RegistrationUtility {
 
     public static void generateRecipes(String namespace, RecipeProvider provider) {
         for (IRecipeGenerator<?> generator : RECIPE_GENERATORS) {
-            Optional<ResourceLocation> itemId = Utility.getResourceLocation(generator.getHolder());
+            Optional<Identifier> itemId = Utility.getResourceLocation(generator.getHolder());
             if (itemId.isPresent() && itemId.get().getNamespace().equals(namespace)) {
                 generator.generate(provider, provider.getOutput());
             }
@@ -94,7 +94,7 @@ public class RegistrationUtility {
 
     public static void generateLootTables(String namespace, ContextKeySet paramSet, LootTableSubProvider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
         for (ILootGenerator<?> generator : LOOT_GENERATORS) {
-            Optional<ResourceLocation> itemId = Utility.getResourceLocation(generator.getHolder());
+            Optional<Identifier> itemId = Utility.getResourceLocation(generator.getHolder());
             if (itemId.isPresent() && itemId.get().getNamespace().equals(namespace)) {
                 generator.tryGenerate(paramSet, provider, consumer);
             }

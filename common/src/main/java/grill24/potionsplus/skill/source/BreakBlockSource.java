@@ -6,7 +6,7 @@ import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -24,7 +24,7 @@ public class BreakBlockSource extends SkillPointSource<BreakBlockSource.Evaluati
     public record EvaluationData(BlockState state, float experienceOrbsDropped) {
     }
 
-    public static final ResourceLocation ID = ppId("break_block");
+    public static final Identifier ID = ppId("break_block");
 
     public BreakBlockSource() {
         super(BreakBlockSourceConfiguration.CODEC);
@@ -48,7 +48,7 @@ public class BreakBlockSource extends SkillPointSource<BreakBlockSource.Evaluati
     }
 
     @Override
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return ID;
     }
 

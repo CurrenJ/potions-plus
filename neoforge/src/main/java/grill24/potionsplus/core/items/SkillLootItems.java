@@ -3,7 +3,7 @@ package grill24.potionsplus.core.items;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.item.EdibleChoiceItemBuilder;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 import java.util.function.BiFunction;
@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class SkillLootItems {
-    public static final ResourceLocation EDIBLE_CHOICE_ITEM_FLAG_PROPERTY_NAME = ppId("edible_choice_flag");
+    public static final Identifier EDIBLE_CHOICE_ITEM_FLAG_PROPERTY_NAME = ppId("edible_choice_flag");
     public static EdibleChoiceItemBuilder SPARKLING_SQUASH, BLUEB_BERRIES, FORTIFYING_FUDGE, GRASS_CLIPPINGS,
             STONE_FRUIT, CHOCOLATE_BOOK, ROASTED_BAMBOO, MOSSASHIMI, PYRAMIDS_OF_SALT;
     public static EdibleChoiceItemBuilder BASIC_LOOT, INTERMEDIATE_LOOT, ADVANCED_LOOT, MASTER_LOOT;
@@ -40,7 +40,7 @@ public class SkillLootItems {
         WHEEL = registerEdibleChoiceItem(register, "wheel", ppId("item/wheel_0"));
     }
 
-    private static EdibleChoiceItemBuilder registerEdibleChoiceItem(BiFunction<String, Supplier<Item>, Holder<Item>> register, String name, ResourceLocation model) {
+    private static EdibleChoiceItemBuilder registerEdibleChoiceItem(BiFunction<String, Supplier<Item>, Holder<Item>> register, String name, Identifier model) {
         EdibleChoiceItemBuilder builder = EdibleChoiceItemBuilder.create(name, model);
         return RegistrationUtility.register(register, builder);
     }

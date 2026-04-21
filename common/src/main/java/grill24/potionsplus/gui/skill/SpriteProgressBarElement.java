@@ -6,7 +6,7 @@ import grill24.potionsplus.gui.RenderableScreenElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 
 import java.awt.geom.Rectangle2D;
@@ -15,12 +15,12 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 public class SpriteProgressBarElement extends FixedSizeDivScreenElement<RenderableScreenElement> {
     // 10, 5 -> 63x19
-    public static final ResourceLocation BAR_BACKGROUND = ppId("textures/gui/progress_bar_background.png");
-    public static final ResourceLocation BAR_GOLD_OUTLINE = ppId("textures/gui/progress_bar_gold_outline.png");
-    public static final ResourceLocation BAR_FILLED_METER = ppId("textures/gui/progress_bar_filled_meter.png");
-    public static final ResourceLocation BAR_EMBELLISHMENT_1 = ppId("textures/gui/progress_bar_embellishment_1.png");
-    public static final ResourceLocation BAR_EMBELLISHMENT_2 = ppId("textures/gui/progress_bar_embellishment_2.png");
-    public static final ResourceLocation BAR_EMBELLISHMENT_3 = ppId("textures/gui/progress_bar_embellishment_3.png");
+    public static final Identifier BAR_BACKGROUND = ppId("textures/gui/progress_bar_background.png");
+    public static final Identifier BAR_GOLD_OUTLINE = ppId("textures/gui/progress_bar_gold_outline.png");
+    public static final Identifier BAR_FILLED_METER = ppId("textures/gui/progress_bar_filled_meter.png");
+    public static final Identifier BAR_EMBELLISHMENT_1 = ppId("textures/gui/progress_bar_embellishment_1.png");
+    public static final Identifier BAR_EMBELLISHMENT_2 = ppId("textures/gui/progress_bar_embellishment_2.png");
+    public static final Identifier BAR_EMBELLISHMENT_3 = ppId("textures/gui/progress_bar_embellishment_3.png");
 
     public static final int WIDTH = 63;
     public static final int HEIGHT = 19;
@@ -58,7 +58,7 @@ public class SpriteProgressBarElement extends FixedSizeDivScreenElement<Renderab
         blitProgressBarSprite(graphics, BAR_FILLED_METER, bounds, progress);
     }
 
-    public static void blitProgressBarSprite(GuiGraphics graphics, ResourceLocation sprite, Rectangle2D bounds, float progress) {
+    public static void blitProgressBarSprite(GuiGraphics graphics, Identifier sprite, Rectangle2D bounds, float progress) {
         IGuiGraphicsExtension extension = (IGuiGraphicsExtension) graphics;
         int filledWidth = (int) Math.ceil(WIDTH * progress);
 

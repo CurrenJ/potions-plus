@@ -26,7 +26,7 @@ public class CreativeModeTabs {
 
     public static ResourceKey<CreativeModeTab> POTIONS_PLUS_TAB_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB,
             ppId("potions_plus"));
-    public static final Holder<CreativeModeTab> POTIONS_PLUS_TAB = CREATIVE_MODE_TABS.register(POTIONS_PLUS_TAB_KEY.location().getPath(), () ->
+    public static final Holder<CreativeModeTab> POTIONS_PLUS_TAB = CREATIVE_MODE_TABS.register(POTIONS_PLUS_TAB_KEY.identifier().getPath(), () ->
             CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.potionsplus").withStyle(style -> style.withColor(ChatFormatting.LIGHT_PURPLE)))
                     .icon(() -> new ItemStack(BrewingItems.LUNAR_BERRIES.value()))

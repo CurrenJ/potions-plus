@@ -84,8 +84,8 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
             }
 
             if (ingredients.isEmpty()) {
-                PotionsPlus.LOGGER.warn("No ingredients were sampled for potion " + outputPotion.getKey().location());
-                throw new IllegalStateException("No ingredients were sampled for potion " + outputPotion.getKey().location());
+                PotionsPlus.LOGGER.warn("No ingredients were sampled for potion " + outputPotion.getKey().identifier());
+                throw new IllegalStateException("No ingredients were sampled for potion " + outputPotion.getKey().identifier());
             }
 
             ppMultiIngredient = PpMultiIngredient.of(ingredients);

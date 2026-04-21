@@ -1,7 +1,7 @@
 package grill24.potionsplus.mixin;
 
 import grill24.potionsplus.utility.ResourceUtility;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.FallbackResourceManager;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.server.packs.resources.Resource;
@@ -24,12 +24,12 @@ import java.util.function.Predicate;
 @Mixin(FallbackResourceManager.class)
 public abstract class FallbackResourceManagerMixin {
     @Inject(method = "listResources", at = @At(value = "RETURN"))
-    private void potions_plus$listResources(String par1, Predicate<ResourceLocation> par2, CallbackInfoReturnable<Map<ResourceLocation, Resource>> cir) {
+    private void potions_plus$listResources(String par1, Predicate<Identifier> par2, CallbackInfoReturnable<Map<Identifier, Resource>> cir) {
         ResourceUtility.postResourceEvent(cir);
     }
 
     @Inject(method = "listResourceStacks", at = @At(value = "RETURN"))
-    private void potions_plus$listResourceStacks(String par1, Predicate<ResourceLocation> par2, CallbackInfoReturnable<Map<ResourceLocation, List<Resource>>> cir) {
+    private void potions_plus$listResourceStacks(String par1, Predicate<Identifier> par2, CallbackInfoReturnable<Map<Identifier, List<Resource>>> cir) {
         ResourceUtility.postResourceStackEvent(cir);
     }
 }

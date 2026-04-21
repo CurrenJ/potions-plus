@@ -10,7 +10,7 @@ import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 
 import java.util.HashSet;
@@ -31,7 +31,7 @@ public class BloomingVersatilePlantBlockModelGenerator<T, B extends Block> exten
 
     public static <T> void registerBloomingPlantBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Holder<? extends Block> holder, ClientModelData<T> data) {
         if (holder.value() instanceof BloomingPlantBlock block) {
-            String name = holder.getKey().location().getPath();
+            String name = holder.getKey().identifier().getPath();
 
             // This loop generates a model for every texture used in the pattern
             Set<String> usedModels = new HashSet<>();
@@ -82,13 +82,13 @@ public class BloomingVersatilePlantBlockModelGenerator<T, B extends Block> exten
     }
 
     public record ClientModelData<T>(T[][] resources, Function<Direction, VariantMutator> texRotationFunction,
-                                     ResourceLocation itemTexture, ResourceLocation itemModel, boolean useTint,
+                                     Identifier itemTexture, Identifier itemModel, boolean useTint,
                                      IModelFactory<T> modelRegisterer) {
         public static class Builder<T> {
             private T[][] resources;
             private Function<Direction, VariantMutator> texRotationFunction;
-            private ResourceLocation itemTexture;
-            private ResourceLocation itemModel;
+            private Identifier itemTexture;
+            private Identifier itemModel;
             private boolean useTint;
             private IModelFactory<T> modelRegisterer;
 
@@ -102,12 +102,12 @@ public class BloomingVersatilePlantBlockModelGenerator<T, B extends Block> exten
                 return this;
             }
 
-            public Builder<T> itemTexture(ResourceLocation itemTexture) {
+            public Builder<T> itemTexture(Identifier itemTexture) {
                 this.itemTexture = itemTexture;
                 return this;
             }
 
-            public Builder<T> itemModel(ResourceLocation itemModel) {
+            public Builder<T> itemModel(Identifier itemModel) {
                 this.itemModel = itemModel;
                 return this;
             }

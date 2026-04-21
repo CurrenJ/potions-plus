@@ -11,7 +11,7 @@ import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -25,7 +25,7 @@ public class FaceAttachedBlockModelGenerator<B extends Block> extends BlockModel
     }
 
     public static void registerFaceAttachedHorizontalDirectionalBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Block block) {
-        ResourceLocation modelName = ModelLocationUtils.getModelLocation(block);
+        Identifier modelName = ModelLocationUtils.getModelLocation(block);
         BlockModelDefinitionGenerator blockstateGenerator = MultiVariantGenerator.dispatch(block)
                 .with(PropertyDispatch.initial(HorizontalDirectionalBlock.FACING, FaceAttachedHorizontalDirectionalBlock.FACE)
                         .generate((facing, face) -> {

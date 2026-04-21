@@ -16,7 +16,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientAdvancements;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -100,7 +100,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
         }
     }
 
-    private Optional<DisplayInfo> tryGetAdvancementDisplayInfo(ResourceLocation advancementId) {
+    private Optional<DisplayInfo> tryGetAdvancementDisplayInfo(Identifier advancementId) {
         Optional<ClientAdvancements> advancements = getAdvancements();
         if (!advancements.isPresent()) {
             return Optional.empty();
@@ -115,7 +115,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
         return Optional.empty();
     }
 
-    private boolean isAdvancementUnlocked(ResourceLocation advancementId) {
+    private boolean isAdvancementUnlocked(Identifier advancementId) {
         Optional<ClientAdvancements> advancements = getAdvancements();
         return advancements
                 .map(clientAdvancements -> ((IClientAdvancementsExtension) clientAdvancements).potions_plus$getAdvancementProgress(advancementId)

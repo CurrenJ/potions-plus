@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.LivingEntity;
@@ -185,12 +185,12 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
     }
 
     @Override
-    public void potions_plus$blit(Function<ResourceLocation, RenderType> renderTypeGetter, ResourceLocation atlasLocation, float x, float y, float uOffset, float vOffset, float uWidth, float vHeight, int width, int height, int textureWidth, int textureHeight, int color) {
+    public void potions_plus$blit(Function<Identifier, RenderType> renderTypeGetter, Identifier atlasLocation, float x, float y, float uOffset, float vOffset, float uWidth, float vHeight, int width, int height, int textureWidth, int textureHeight, int color) {
         this.potions_plus$innerBlit(renderTypeGetter, atlasLocation, x, x + uWidth, y, y + vHeight, (uOffset + 0.0F) / (float) textureWidth, (uOffset + width) / (float) textureWidth, (vOffset + 0.0F) / (float) textureHeight, (vOffset + height) / (float) textureHeight, color);
     }
 
     @Unique
-    private void potions_plus$innerBlit(Function<ResourceLocation, RenderType> renderTypeGetter, ResourceLocation atlasLocation, float x1, float x2, float y1, float y2, float minU, float maxU, float minV, float maxV, int color) {
+    private void potions_plus$innerBlit(Function<Identifier, RenderType> renderTypeGetter, Identifier atlasLocation, float x1, float x2, float y1, float y2, float minU, float maxU, float minV, float maxV, int color) {
         RenderType rendertype = renderTypeGetter.apply(atlasLocation);
         Matrix4f matrix4f = this.pose.last().pose();
         VertexConsumer vertexconsumer = this.bufferSource.getBuffer(rendertype);

@@ -6,7 +6,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.ServerPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ServerboundUpdateAbilityStrengthPacket(ResourceLocation abilityId, float amount,
+public record ServerboundUpdateAbilityStrengthPacket(Identifier abilityId, float amount,
                                                      int operation) implements CustomPacketPayload {
     public static class Operation {
         public static final int SET = 0;
@@ -24,7 +24,7 @@ public record ServerboundUpdateAbilityStrengthPacket(ResourceLocation abilityId,
     public static final Type<ServerboundUpdateAbilityStrengthPacket> TYPE = new Type<>(ppId("update_ability_strength"));
 
     public static final StreamCodec<ByteBuf, ServerboundUpdateAbilityStrengthPacket> STREAM_CODEC = StreamCodec.composite(
-            ResourceLocation.STREAM_CODEC,
+            Identifier.STREAM_CODEC,
             ServerboundUpdateAbilityStrengthPacket::abilityId,
             ByteBufCodecs.FLOAT,
             ServerboundUpdateAbilityStrengthPacket::amount,

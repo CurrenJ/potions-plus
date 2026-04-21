@@ -28,7 +28,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -297,7 +297,7 @@ public class CommonCommands {
                                                                         String propertyString = StringArgumentType.getString(context, "property");
                                                                         SpatialAnimationData.Property property = SpatialAnimationData.Property.valueOf(propertyString.toUpperCase());
                                                                         SpatialAnimationData spatialAnimationData = SpatialAnimationDataArgument.get(context, "id");
-                                                                        ResourceLocation id = SpatialAnimationDataArgument.getId(context, "id");
+                                                                        Identifier id = SpatialAnimationDataArgument.getId(context, "id");
                                                                         AnimationCurve<?> curve = spatialAnimationData.get(property);
                                                                         float time = FloatArgumentType.getFloat(context, "time");
 
@@ -317,7 +317,7 @@ public class CommonCommands {
                                                                                         String propertyString = StringArgumentType.getString(context, "property");
                                                                                         SpatialAnimationData.Property property = SpatialAnimationData.Property.valueOf(propertyString.toUpperCase());
                                                                                         SpatialAnimationData spatialAnimationData = SpatialAnimationDataArgument.get(context, "id");
-                                                                                        ResourceLocation id = SpatialAnimationDataArgument.getId(context, "id");
+                                                                                        Identifier id = SpatialAnimationDataArgument.getId(context, "id");
                                                                                         AnimationCurve<?> curve = spatialAnimationData.get(property);
 
                                                                                         String interpolationString = StringArgumentType.getString(context, "interpolation");
@@ -347,7 +347,7 @@ public class CommonCommands {
                                                                                                         String propertyString = StringArgumentType.getString(context, "property");
                                                                                                         SpatialAnimationData.Property property = SpatialAnimationData.Property.valueOf(propertyString.toUpperCase());
                                                                                                         SpatialAnimationData spatialAnimationData = SpatialAnimationDataArgument.get(context, "id");
-                                                                                                        ResourceLocation id = SpatialAnimationDataArgument.getId(context, "id");
+                                                                                                        Identifier id = SpatialAnimationDataArgument.getId(context, "id");
                                                                                                         AnimationCurve<?> curve = spatialAnimationData.get(property);
 
                                                                                                         String interpolationString = StringArgumentType.getString(context, "interpolation");
@@ -378,7 +378,7 @@ public class CommonCommands {
                                                                                                                 String propertyString = StringArgumentType.getString(context, "property");
                                                                                                                 SpatialAnimationData.Property property = SpatialAnimationData.Property.valueOf(propertyString.toUpperCase());
                                                                                                                 SpatialAnimationData spatialAnimationData = SpatialAnimationDataArgument.get(context, "id");
-                                                                                                                ResourceLocation id = SpatialAnimationDataArgument.getId(context, "id");
+                                                                                                                Identifier id = SpatialAnimationDataArgument.getId(context, "id");
                                                                                                                 AnimationCurve<?> curve = spatialAnimationData.get(property);
 
                                                                                                                 String interpolationString = StringArgumentType.getString(context, "interpolation");
@@ -453,7 +453,7 @@ public class CommonCommands {
                                                             }
 
                                                             if (context.getSource().getPlayer() instanceof ServerPlayer player) {
-                                                                ResourceLocation abilityId = ConfiguredPlayerAbilityArgument.getHolder(context, "abilityId").getKey().location();
+                                                                Identifier abilityId = ConfiguredPlayerAbilityArgument.getHolder(context, "abilityId").getKey().identifier();
                                                                 SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> {
                                                                     skillsData.getAbilityInstance(context.getSource().registryAccess(), abilityId).ifPresent(abilityInstance -> {
                                                                         abilityInstance.toggle(player);
@@ -473,7 +473,7 @@ public class CommonCommands {
                                                             }
 
                                                             if (context.getSource().getPlayer() instanceof ServerPlayer player) {
-                                                                ResourceLocation abilityId = ConfiguredPlayerAbilityArgument.getHolder(context, "abilityId").getKey().location();
+                                                                Identifier abilityId = ConfiguredPlayerAbilityArgument.getHolder(context, "abilityId").getKey().identifier();
                                                                 SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> {
                                                                     skillsData.getAbilityInstance(context.getSource().registryAccess(), abilityId).ifPresent(abilityInstance -> {
                                                                         if (abilityInstance.data() instanceof CooldownAbilityInstanceData data) {
@@ -492,7 +492,7 @@ public class CommonCommands {
                                                         return 0;
                                                     }
 
-                                                    ResourceLocation abilityId = ConfiguredPlayerAbilityArgument.getHolder(context, "abilityId").getKey().location();
+                                                    Identifier abilityId = ConfiguredPlayerAbilityArgument.getHolder(context, "abilityId").getKey().identifier();
                                                     SkillsData.updatePlayerData(context.getSource().getPlayer(), (skillsData -> {
                                                         MutableComponent component = Component.empty();
 

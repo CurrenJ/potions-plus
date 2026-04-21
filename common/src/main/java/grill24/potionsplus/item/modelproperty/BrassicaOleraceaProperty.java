@@ -7,7 +7,7 @@ import grill24.potionsplus.item.BrassicaOleraceaItem;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -22,7 +22,7 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public record BrassicaOleraceaProperty() implements SelectItemModelProperty<BrassicaOleraceaItem.Variation> {
-    public static final ResourceLocation ID = ppId("genetic");
+    public static final Identifier ID = ppId("genetic");
     public static final Type<BrassicaOleraceaProperty, BrassicaOleraceaItem.Variation> MAP_CODEC = Type.create(
             MapCodec.unit(BrassicaOleraceaProperty::new),
             StringRepresentable.fromEnum(BrassicaOleraceaItem.Variation::values)

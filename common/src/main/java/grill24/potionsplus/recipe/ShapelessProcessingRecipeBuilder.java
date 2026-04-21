@@ -124,7 +124,7 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
 
         RecipeHolder<R> recipeHolder = build();
         this.advancement.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeResourceKey)).rewards(AdvancementRewards.Builder.recipe(recipeResourceKey)).requirements(AdvancementRequirements.Strategy.OR);
-        recipeOutput.accept(recipeResourceKey, recipeHolder.value(), this.advancement.build(recipeResourceKey.location().withPrefix("recipes/" + this.category.getFolderName() + "/")));
+        recipeOutput.accept(recipeResourceKey, recipeHolder.value(), this.advancement.build(recipeResourceKey.identifier().withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
     @Override

@@ -11,7 +11,7 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Collection;
 import java.util.List;
@@ -32,7 +32,7 @@ public class ConfiguredSkillArgument implements ArgumentType<ConfiguredSkill<?, 
     }
 
     public ConfiguredSkill<?, ?> parse(StringReader reader) throws CommandSyntaxException {
-        return this.context.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL).get(ResourceKey.create(PotionsPlusRegistries.CONFIGURED_SKILL, ResourceLocation.read(reader))).orElseThrow().value();
+        return this.context.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL).get(ResourceKey.create(PotionsPlusRegistries.CONFIGURED_SKILL, Identifier.read(reader))).orElseThrow().value();
     }
 
     @Override

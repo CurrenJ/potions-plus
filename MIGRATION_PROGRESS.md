@@ -10,7 +10,7 @@
 | 1 | [Build Infrastructure](#chunk-1--build-infrastructure) | ✅ Done | |
 | 2 | [Source Relocation](#chunk-2--source-relocation) | ✅ Done | |
 | 3 | [Metadata & Access Widener](#chunk-3--metadata--access-widener) | ✅ Done | |
-| 4 | [Mechanical API Renames](#chunk-4--mechanical-api-renames) | ⬜ Pending | |
+| 4 | [Mechanical API Renames](#chunk-4--mechanical-api-renames) | ✅ Done | |
 | 5 | [Loot + Data API Changes](#chunk-5--loot--data-api-changes) | ⬜ Pending | |
 | 6 | [Platform Abstraction](#chunk-6--platform-abstraction) | ⬜ Pending | |
 | 7 | [Rendering Overhaul](#chunk-7--rendering-overhaul) | ⬜ Pending | |
@@ -78,11 +78,11 @@
 **Goal:** Bulk of "symbol not found" compile errors cleared.
 
 ### Steps
-- [ ] 4.1 `ResourceLocation` → `Identifier` (562 occurrences, 97 files); `ResourceKey#location()` → `#identifier()`
-- [ ] 4.2 `ClickEvent` / `HoverEvent` — check for constructor calls; convert to sealed interface pattern
-- [ ] 4.3 `registryOrThrow` → `lookupOrThrow` — confirmed zero uses, skip
-- [ ] 4.4 `WeightedList` / `Weighted` — already migrated, skip
-- [ ] 4.5 Remove `ItemBlockRenderTypes.setRenderLayer` from `core/BlockRenderLayers.java`
+- [x] 4.1 `ResourceLocation` → `Identifier` across 74 files (import + type rename via perl word-boundary); `ResourceKey#location()` → `#identifier()` (45 call sites); `soundEvent.location()` preserved (SoundEvent record accessor unchanged in 26.1.2)
+- [x] 4.2 `ClickEvent` / `HoverEvent` — already using sealed subtype pattern (`ClickEvent.RunCommand`, `HoverEvent.ShowText`); skip
+- [x] 4.3 `registryOrThrow` → `lookupOrThrow` — zero uses, skip
+- [x] 4.4 `WeightedList` / `Weighted` — already migrated, skip
+- [x] 4.5 `ItemBlockRenderTypes.setRenderLayer` removed from `BlockRenderLayers.java` (API gone in 26.1.2); Chunk 7 TODO to add `"render_type"` to block model JSONs
 
 ---
 

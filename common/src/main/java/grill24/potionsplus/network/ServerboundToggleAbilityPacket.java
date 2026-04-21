@@ -37,7 +37,7 @@ public record ServerboundToggleAbilityPacket(
 
                 if (serverContext.player() instanceof ServerPlayer serverPlayer) {
                     SkillsData.updatePlayerData(serverPlayer, data -> {
-                        data.getAbilityInstance(serverContext.player().registryAccess(), packet.configuredPlayerAbilityKey.location()).ifPresent(abilityInstance -> {
+                        data.getAbilityInstance(serverContext.player().registryAccess(), packet.configuredPlayerAbilityKey.identifier()).ifPresent(abilityInstance -> {
                             abilityInstance.toggle(serverPlayer);
                             PacketDistributor.sendToPlayer(serverPlayer, new ClientboundSyncPlayerSkillData(data));
                         });

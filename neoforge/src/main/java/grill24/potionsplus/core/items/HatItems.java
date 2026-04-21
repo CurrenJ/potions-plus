@@ -10,7 +10,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class HatItems {
-    public static ResourceLocation[] BLOCK_HAT_MODELS;
+    public static Identifier[] BLOCK_HAT_MODELS;
     public static Holder<Item>[] EMERALD_ORE_HATS, DIAMOND_ORE_HATS, GOLD_ORE_HATS, IRON_ORE_HATS, COPPER_ORE_HATS, COAL_ORE_HATS;
 
     public static Holder<Item> FROGGY_HAT, HOOK_HAT, APPLE_HAT;
@@ -43,7 +43,7 @@ public class HatItems {
      * Forces the static fields to be initialized.
      */
     public static void init(BiFunction<String, Supplier<Item>, Holder<Item>> register) {
-        BLOCK_HAT_MODELS = new ResourceLocation[]{ppId("item/block_hat_1"), ppId("item/block_hat_2"), ppId("item/block_hat_3"), ppId("item/block_hat_4")};
+        BLOCK_HAT_MODELS = new Identifier[]{ppId("item/block_hat_1"), ppId("item/block_hat_2"), ppId("item/block_hat_3"), ppId("item/block_hat_4")};
 
         final Function<String, Item> blockHatItemFactory = (name) -> new Item(Items.properties()
                 .equippable(EquipmentSlot.HEAD)

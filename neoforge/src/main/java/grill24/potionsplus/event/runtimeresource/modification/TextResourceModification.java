@@ -3,7 +3,7 @@ package grill24.potionsplus.event.runtimeresource.modification;
 import com.google.gson.JsonObject;
 import grill24.potionsplus.utility.FakeResource;
 import grill24.potionsplus.utility.ResourceUtility;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.util.GsonHelper;
 
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 
-public record TextResourceModification(ResourceLocation targetResourceLocation, ResourceLocation newResource,
+public record TextResourceModification(Identifier targetResourceLocation, Identifier newResource,
                                        UnaryOperator<String> transformer) implements IResourceModification {
     public UnaryOperator<Resource> getTransformer() {
         return resource -> new FakeResource(resource, transformer);
@@ -26,12 +26,12 @@ public record TextResourceModification(ResourceLocation targetResourceLocation, 
     }
 
     @Override
-    public ResourceLocation getTargetResourceLocation() {
+    public Identifier getTargetResourceLocation() {
         return targetResourceLocation;
     }
 
     @Override
-    public ResourceLocation getNewResourceLocation() {
+    public Identifier getNewResourceLocation() {
         return newResource;
     }
 

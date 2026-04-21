@@ -23,7 +23,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -170,26 +170,26 @@ public class Utility {
         return points;
     }
 
-    public static ResourceKey<LootTable>[] enumerateLootTableKeys(ResourceLocation location, int count) {
+    public static ResourceKey<LootTable>[] enumerateLootTableKeys(Identifier location, int count) {
         ResourceKey<LootTable>[] keys = new ResourceKey[count];
         for (int i = 0; i < count; i++) {
-            ResourceKey<LootTable> key = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(location.getNamespace(), location.getPath() + "_" + i));
+            ResourceKey<LootTable> key = ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath(location.getNamespace(), location.getPath() + "_" + i));
             keys[i] = key;
         }
         return keys;
     }
 
-    public static ResourceLocation[] enumerateResourceLocations(int count, Function<Integer, ResourceLocation> locationFunction) {
-        ResourceLocation[] keys = new ResourceLocation[count];
+    public static Identifier[] enumerateResourceLocations(int count, Function<Integer, Identifier> locationFunction) {
+        Identifier[] keys = new Identifier[count];
         for (int i = 0; i < count; i++) {
-            ResourceLocation key = locationFunction.apply(i);
+            Identifier key = locationFunction.apply(i);
             keys[i] = key;
         }
         return keys;
     }
 
-    public static ResourceLocation modifierId(ResourceKey<ConfiguredPlayerAbility<?, ?>> key) {
-        return ppId(key.location().getPath() + "_modifier");
+    public static Identifier modifierId(ResourceKey<ConfiguredPlayerAbility<?, ?>> key) {
+        return ppId(key.identifier().getPath() + "_modifier");
     }
 
     /**
@@ -279,12 +279,12 @@ public class Utility {
         return lower + (upper - lower) * randomSource.nextDouble();
     }
 
-    public static ResourceLocation ppId(String path) {
-        return ResourceLocation.fromNamespaceAndPath(ModInfo.MOD_ID, path);
+    public static Identifier ppId(String path) {
+        return Identifier.fromNamespaceAndPath(ModInfo.MOD_ID, path);
     }
 
-    public static ResourceLocation mc(String path) {
-        return ResourceLocation.withDefaultNamespace(path);
+    public static Identifier mc(String path) {
+        return Identifier.withDefaultNamespace(path);
     }
 
     public static String formatTicksAsSeconds(int ticks) {
@@ -358,11 +358,11 @@ public class Utility {
         return new ResolvableProfile(Optional.ofNullable(name), Optional.ofNullable(uuid), new PropertyMap());
     }
 
-    public static Optional<ResourceLocation> getResourceLocation(Holder<?> holder) {
+    public static Optional<Identifier> getResourceLocation(Holder<?> holder) {
         if (holder.getKey() == null) {
             return Optional.empty();
         }
-        return Optional.of(holder.getKey().location());
+        return Optional.of(holder.getKey().identifier());
     }
 
     public static BufferedReader stringToBufferedReader(String string) {
@@ -410,12 +410,12 @@ public class Utility {
         return formattedValue + "%";
     }
 
-    public static ResourceLocation stripPath(ResourceLocation resourceLocation) {
+    public static Identifier stripPath(Identifier resourceLocation) {
         String path = resourceLocation.getPath();
         int lastSlashIndex = path.lastIndexOf('/');
         if (lastSlashIndex != -1) {
             path = path.substring(lastSlashIndex + 1);
         }
-        return ResourceLocation.fromNamespaceAndPath(resourceLocation.getNamespace(), path);
+        return Identifier.fromNamespaceAndPath(resourceLocation.getNamespace(), path);
     }
 }

@@ -17,7 +17,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -61,7 +61,7 @@ public class SkillInstance<SC extends SkillConfiguration, S extends Skill<SC>> {
         return configuredSkillId;
     }
 
-    public boolean isConfiguredSkill(ResourceLocation configuredSkillId) {
+    public boolean isConfiguredSkill(Identifier configuredSkillId) {
         return getConfiguredSkillKey().equals(configuredSkillId);
     }
 

@@ -6,17 +6,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundSyncSpatialAnimationDataPacket(ResourceLocation id,
+public record ClientboundSyncSpatialAnimationDataPacket(Identifier id,
                                                         SpatialAnimationData spatialAnimationData) implements CustomPacketPayload {
     public static final Type<ClientboundSyncSpatialAnimationDataPacket> TYPE = new Type<>(ppId("sync_spatial_animation_data"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundSyncSpatialAnimationDataPacket> STREAM_CODEC = StreamCodec.composite(
-            ResourceLocation.STREAM_CODEC,
+            Identifier.STREAM_CODEC,
             ClientboundSyncSpatialAnimationDataPacket::id,
             SpatialAnimationData.STREAM_CODEC,
             ClientboundSyncSpatialAnimationDataPacket::spatialAnimationData,

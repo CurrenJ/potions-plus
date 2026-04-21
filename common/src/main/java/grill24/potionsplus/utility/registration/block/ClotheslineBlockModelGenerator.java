@@ -12,7 +12,7 @@ import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 
 import java.util.function.Supplier;
@@ -27,7 +27,7 @@ public class ClotheslineBlockModelGenerator<T extends Block> extends BlockModelU
     public static void registerClothesline(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
         Block block = BlockEntityBlocks.CLOTHESLINE.value();
 
-        ResourceLocation fencePostModelLocation = ppId("block/invisible_clothesline");
+        Identifier fencePostModelLocation = ppId("block/invisible_clothesline");
 
         // Generate blockstate definition
         MultiVariant fencePost = BlockModelGenerators.plainVariant(fencePostModelLocation);
@@ -40,7 +40,7 @@ public class ClotheslineBlockModelGenerator<T extends Block> extends BlockModelU
         blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
 
         // Generate client item definition from existing model
-        ResourceLocation clotheslineInventoryModelLocation = ppId("block/clothesline_inventory");
+        Identifier clotheslineInventoryModelLocation = ppId("block/clothesline_inventory");
         ItemModel.Unbaked itemModel = ItemModelUtils.plainModel(clotheslineInventoryModelLocation);
         itemModelGenerators.itemModelOutput.accept(block.asItem(), itemModel);
     }

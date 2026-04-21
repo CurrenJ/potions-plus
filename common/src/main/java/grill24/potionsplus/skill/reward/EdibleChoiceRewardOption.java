@@ -8,7 +8,7 @@ import grill24.potionsplus.core.PotionsPlusRegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
@@ -24,7 +24,7 @@ public record EdibleChoiceRewardOption(
             ItemStack.CODEC.fieldOf("activationFood").forGetter(instance -> instance.activationFood)
     ).apply(codecBuilder, EdibleChoiceRewardOption::new));
 
-    public ItemStack createItem(ServerPlayer player, ResourceLocation flag) {
+    public ItemStack createItem(ServerPlayer player, Identifier flag) {
         HolderGetter<ConfiguredGrantableReward<?, ?>> lookup = player.level().registryAccess().lookupOrThrow(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD);
         Optional<Holder.Reference<ConfiguredGrantableReward<?, ?>>> optionalLinkedChoiceParent = lookup.get(linkedChoiceParent);
         Optional<Holder.Reference<ConfiguredGrantableReward<?, ?>>> optionalLinkedOption = lookup.get(linkedOption);

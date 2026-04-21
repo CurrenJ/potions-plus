@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import grill24.potionsplus.item.GeneticCropItem;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class GeneticCropItemTintSource implements ItemTintSource {
-    public static final ResourceLocation ID = ppId("genetic_crop_tint");
+    public static final Identifier ID = ppId("genetic_crop_tint");
     public static final MapCodec<GeneticCropItemTintSource> CODEC = MapCodec.unit(new GeneticCropItemTintSource());
 
     @Override

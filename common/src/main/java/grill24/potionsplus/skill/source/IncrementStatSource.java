@@ -4,7 +4,7 @@ import grill24.potionsplus.advancement.AwardStatTrigger;
 import grill24.potionsplus.core.SkillPointSources;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.utility.ModInfo;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -15,7 +15,7 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class IncrementStatSource extends SkillPointSource<Pair<String, Integer>, IncrementStatSourceConfiguration> {
-    public static final ResourceLocation ID = ppId("increment_stat");
+    public static final Identifier ID = ppId("increment_stat");
 
     public IncrementStatSource() {
         super(IncrementStatSourceConfiguration.CODEC);
@@ -37,7 +37,7 @@ public class IncrementStatSource extends SkillPointSource<Pair<String, Integer>,
     }
 
     @Override
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return ID;
     }
 

@@ -5,7 +5,7 @@ import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -92,7 +92,7 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
     public RecipeHolder<BrewingCauldronRecipe> build(String namespace) {
         BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(category, ingredients, result, processingTime, canShowInJei, experienceReward, experienceRequired, durationToAdd, amplifierToAdd, potionMatchingCriteria, isSeededRuntimeRecipe);
         String id = recipe.getUniqueRecipeName();
-        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(namespace, id);
+        Identifier recipeId = Identifier.fromNamespaceAndPath(namespace, id);
         ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, recipeId);
         return new RecipeHolder<>(recipeKey, recipe);
     }

@@ -65,7 +65,7 @@ public class AbilityReward extends GrantableReward<AbilityReward.AbilityRewardCo
         }
 
         private static ResourceKey<ConfiguredGrantableReward<?, ?>> registerKey(ResourceKey<ConfiguredPlayerAbility<?, ?>> ability) {
-            return ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(ability.location().getPath()));
+            return ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId(ability.identifier().getPath()));
         }
 
         @Override

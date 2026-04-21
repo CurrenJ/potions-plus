@@ -1,6 +1,6 @@
 package grill24.potionsplus.event.runtimeresource.modification;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 
 import java.util.List;
@@ -17,9 +17,9 @@ public interface IResourceModification {
      *
      * @return the target resource location (long id, i.e. "modid:textures/item/resource.png")
      */
-    ResourceLocation getTargetResourceLocation();
+    Identifier getTargetResourceLocation();
 
-    ResourceLocation getNewResourceLocation();
+    Identifier getNewResourceLocation();
 
     List<Resource> generateResourceStack();
 

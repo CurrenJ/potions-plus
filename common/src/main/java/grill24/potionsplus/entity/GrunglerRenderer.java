@@ -7,12 +7,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import static grill24.potionsplus.utility.Utility.mc;
 
 public class GrunglerRenderer extends LivingEntityRenderer<Grungler, GrunglerRenderState, GrunglerModel> {
-    public static final ResourceLocation GRUNGLER_TEXTURE_LOCATION = mc("textures/block/stone.png");
+    public static final Identifier GRUNGLER_TEXTURE_LOCATION = mc("textures/block/stone.png");
 
     BlockRenderDispatcher blockRenderer;
 
@@ -23,7 +23,7 @@ public class GrunglerRenderer extends LivingEntityRenderer<Grungler, GrunglerRen
     }
 
     @Override
-    public ResourceLocation getTextureLocation(GrunglerRenderState entityRenderState) {
+    public Identifier getTextureLocation(GrunglerRenderState entityRenderState) {
         return GRUNGLER_TEXTURE_LOCATION;
     }
 

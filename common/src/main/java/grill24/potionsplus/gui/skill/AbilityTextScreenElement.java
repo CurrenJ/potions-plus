@@ -10,7 +10,7 @@ import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInsta
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector4f;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class AbilityTextScreenElement extends HorizontalListScreenElement<RenderableScreenElement> {
-    private ResourceLocation abilityId;
+    private Identifier abilityId;
 
     private static final Color ENABLED_COLOR = new Color(0x00FF00);
     private static final Color DISABLED_COLOR = new Color(0xFF0000);
@@ -31,11 +31,11 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
 
     private Component abilityTextComponent;
 
-    public AbilityTextScreenElement(Screen screen, ResourceLocation abilityId, List<Component> components) {
+    public AbilityTextScreenElement(Screen screen, Identifier abilityId, List<Component> components) {
         this(screen, abilityId, compactComponents(components));
     }
 
-    public AbilityTextScreenElement(Screen screen, ResourceLocation abilityId, Component abilityTextComponent) {
+    public AbilityTextScreenElement(Screen screen, Identifier abilityId, Component abilityTextComponent) {
         super(screen, Settings.DEFAULT, YAlignment.CENTER, 5);
 
         this.abilityId = abilityId;
@@ -113,7 +113,7 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
         return enabled ? ENABLED_COLOR : DISABLED_COLOR;
     }
 
-    public void setAbility(ResourceLocation abilityId) {
+    public void setAbility(Identifier abilityId) {
         this.abilityId = abilityId;
     }
 
@@ -125,7 +125,7 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
         return SkillsData.getPlayerData(player).getAbilityInstance(player.registryAccess(), abilityId);
     }
 
-    public ResourceLocation getAbilityId() {
+    public Identifier getAbilityId() {
         return abilityId;
     }
 

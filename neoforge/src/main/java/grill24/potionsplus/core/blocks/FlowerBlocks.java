@@ -8,7 +8,7 @@ import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.block.*;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -138,8 +138,8 @@ public class FlowerBlocks {
                         new VersatilePlantBlock.VersatilePlantConfig(true, false, 0, 9,
                                 new VersatilePlantBlockTexturePattern(List.of(0, 1), List.of(2, 3), List.of(4), true))))
                 .modelGenerator(holder -> new VersatilePlantBlockModelGenerator<>(holder,
-                        new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                                .resources(new ResourceLocation[]{
+                        new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                .resources(new Identifier[]{
                                         ppId("block/cowlick_vine_0"), ppId("block/cowlick_vine_1"),
                                         ppId("block/cowlick_vine_2"), ppId("block/cowlick_vine_3"),
                                         ppId("block/cowlick_vine_tail")})
@@ -159,10 +159,10 @@ public class FlowerBlocks {
                         new VersatilePlantBlock.VersatilePlantConfig(true, false, 1, 5,
                                 new VersatilePlantBlockTexturePattern(List.of(0), List.of(1), List.of(2), false)), 1))
                 .modelGenerator(holder -> new BloomingVersatilePlantBlockModelGenerator<>(holder,
-                        new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                                .resources(new ResourceLocation[][]{
-                                        new ResourceLocation[]{ppId("block/hanging_fern_upper"), ppId("block/hanging_fern_middle"), ppId("block/hanging_fern_lower")},
-                                        new ResourceLocation[]{ppId("block/hanging_fern_upper_blooming"), ppId("block/hanging_fern_middle_blooming"), ppId("block/hanging_fern_lower_blooming")}})
+                        new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                .resources(new Identifier[][]{
+                                        new Identifier[]{ppId("block/hanging_fern_upper"), ppId("block/hanging_fern_middle"), ppId("block/hanging_fern_lower")},
+                                        new Identifier[]{ppId("block/hanging_fern_upper_blooming"), ppId("block/hanging_fern_middle_blooming"), ppId("block/hanging_fern_lower_blooming")}})
                                 .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
                                 .itemTexture(ppId("block/hanging_fern_upper_blooming"))
                                 .modelRegisterer(VersatilePlantBlockModelGenerator.CROSS_MODEL_GENERATOR)
@@ -179,10 +179,10 @@ public class FlowerBlocks {
                         new VersatilePlantBlock.VersatilePlantConfig(true, false, 0, 7,
                                 new VersatilePlantBlockTexturePattern(List.of(), List.of(0, 1), List.of(2), false)), 1))
                 .modelGenerator(holder -> new BloomingVersatilePlantBlockModelGenerator<>(holder,
-                        new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                                .resources(new ResourceLocation[][]{
-                                        new ResourceLocation[]{ppId("block/droopy_vine_0"), ppId("block/droopy_vine_1"), ppId("block/droopy_vine_2")},
-                                        new ResourceLocation[]{ppId("block/droopy_vine_blooming_0"), ppId("block/droopy_vine_blooming_1"), ppId("block/droopy_vine_blooming_2")}})
+                        new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                .resources(new Identifier[][]{
+                                        new Identifier[]{ppId("block/droopy_vine_0"), ppId("block/droopy_vine_1"), ppId("block/droopy_vine_2")},
+                                        new Identifier[]{ppId("block/droopy_vine_blooming_0"), ppId("block/droopy_vine_blooming_1"), ppId("block/droopy_vine_blooming_2")}})
                                 .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
                                 .itemTexture(ppId("block/droopy_vine_blooming_2"))
                                 .modelRegisterer(VersatilePlantBlockModelGenerator.CROSS_MODEL_GENERATOR)
@@ -199,10 +199,10 @@ public class FlowerBlocks {
                         new VersatilePlantBlock.VersatilePlantConfig(true, false, 1, 6,
                                 new VersatilePlantBlockTexturePattern(List.of(), List.of(0), List.of(1), false)), 1))
                 .modelGenerator(holder -> new BloomingVersatilePlantBlockModelGenerator<>(holder,
-                        new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                                .resources(new ResourceLocation[][]{
-                                        new ResourceLocation[]{ppId("block/survivor_stick_0"), ppId("block/survivor_stick_1")},
-                                        new ResourceLocation[]{ppId("block/survivor_stick_blooming_0"), ppId("block/survivor_stick_blooming_1")},})
+                        new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                .resources(new Identifier[][]{
+                                        new Identifier[]{ppId("block/survivor_stick_0"), ppId("block/survivor_stick_1")},
+                                        new Identifier[]{ppId("block/survivor_stick_blooming_0"), ppId("block/survivor_stick_blooming_1")},})
                                 .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
                                 .itemTexture(ppId("block/survivor_stick_blooming_1"))
                                 .modelRegisterer(VersatilePlantBlockModelGenerator.CROSS_MODEL_GENERATOR)
@@ -219,7 +219,7 @@ public class FlowerBlocks {
                         new VersatilePlantBlock.VersatilePlantConfig(true, false, 0, 6,
                                 new VersatilePlantBlockTexturePattern(List.of(), List.of(0), List.of(1), false)), 1))
                 .modelGenerator(holder -> new BloomingVersatilePlantBlockModelGenerator<>(holder,
-                        new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Pair<ResourceLocation, Pair<ResourceLocation, ResourceLocation>>>()
+                        new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Pair<Identifier, Pair<Identifier, Identifier>>>()
                                 .resources(new Pair[][]{
                                         new Pair[]{
                                                 new Pair<>(ppId("block/lumoseed_sack"), new Pair<>(mc("block/moss_block"), mc("block/moss_block"))),
@@ -239,8 +239,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(LUMOSEED_SACKS, registerItem);
 
         DANDELION_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("dandelion_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/dandelion")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/dandelion")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/dandelion"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -249,8 +249,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(DANDELION_VERSATILE, registerItem);
 
         TORCHFLOWER_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("torchflower_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/torchflower")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/torchflower")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/torchflower"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -259,8 +259,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(TORCHFLOWER_VERSATILE, registerItem);
 
         POPPY_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("poppy_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/poppy")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/poppy")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/poppy"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -269,8 +269,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(POPPY_VERSATILE, registerItem);
 
         BLUE_ORCHID_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("blue_orchid_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/blue_orchid")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/blue_orchid")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/blue_orchid"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -279,8 +279,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(BLUE_ORCHID_VERSATILE, registerItem);
 
         ALLIUM_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("allium_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/allium")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/allium")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/allium"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -289,8 +289,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(ALLIUM_VERSATILE, registerItem);
 
         AZURE_BLUET_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("azure_bluet_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/azure_bluet")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/azure_bluet")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/azure_bluet"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -299,8 +299,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(AZURE_BLUET_VERSATILE, registerItem);
 
         RED_TULIP_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("red_tulip_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/red_tulip")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/red_tulip")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/red_tulip"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -309,8 +309,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(RED_TULIP_VERSATILE, registerItem);
 
         ORANGE_TULIP_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("orange_tulip_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/orange_tulip")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/orange_tulip")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/orange_tulip"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -319,8 +319,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(ORANGE_TULIP_VERSATILE, registerItem);
 
         WHITE_TULIP_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("white_tulip_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/white_tulip")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/white_tulip")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/white_tulip"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -329,8 +329,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(WHITE_TULIP_VERSATILE, registerItem);
 
         PINK_TULIP_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("pink_tulip_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/pink_tulip")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/pink_tulip")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/pink_tulip"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -339,8 +339,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(PINK_TULIP_VERSATILE, registerItem);
 
         OXEYE_DAISY_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("oxeye_daisy_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/oxeye_daisy")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/oxeye_daisy")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/oxeye_daisy"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -349,8 +349,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(OXEYE_DAISY_VERSATILE, registerItem);
 
         CORNFLOWER_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("cornflower_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/cornflower")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/cornflower")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/cornflower"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -359,8 +359,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(CORNFLOWER_VERSATILE, registerItem);
 
         WITHER_ROSE_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("wither_rose_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/wither_rose")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/wither_rose")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/wither_rose"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -369,8 +369,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(WITHER_ROSE_VERSATILE, registerItem);
 
         LILY_OF_THE_VALLEY_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("lily_of_the_valley_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/lily_of_the_valley")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/lily_of_the_valley")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/lily_of_the_valley"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -379,8 +379,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(LILY_OF_THE_VALLEY_VERSATILE, registerItem);
 
         BROWN_MUSHROOM_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("brown_mushroom_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/brown_mushroom")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/brown_mushroom")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/brown_mushroom"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -389,8 +389,8 @@ public class FlowerBlocks {
         Items.registerBlockItem(BROWN_MUSHROOM_VERSATILE, registerItem);
 
         RED_MUSHROOM_VERSATILE = RegistrationUtility.register(registerBlock, SimpleVersatilePlantBlockBuilder.create("red_mushroom_versatile",
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/red_mushroom")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/red_mushroom")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/red_mushroom"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -400,8 +400,8 @@ public class FlowerBlocks {
 
         SUNFLOWER_VERSATILE = RegistrationUtility.register(registerBlock, SimpleTallVersatilePlantBlockBuilder.create("sunflower_versatile",
                 true,
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/sunflower_bottom"), mc("block/sunflower_top")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/sunflower_bottom"), mc("block/sunflower_top")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/sunflower_front"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -411,8 +411,8 @@ public class FlowerBlocks {
 
         LILAC_VERSATILE = RegistrationUtility.register(registerBlock, SimpleTallVersatilePlantBlockBuilder.create("lilac_versatile",
                 true,
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/lilac_bottom"), mc("block/lilac_top")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/lilac_bottom"), mc("block/lilac_top")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/lilac_top"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -422,8 +422,8 @@ public class FlowerBlocks {
 
         ROSE_BUSH_VERSATILE = RegistrationUtility.register(registerBlock, SimpleTallVersatilePlantBlockBuilder.create("rose_bush_versatile",
                 true,
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/rose_bush_bottom"), mc("block/rose_bush_top")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/rose_bush_bottom"), mc("block/rose_bush_top")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/rose_bush_top"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -433,8 +433,8 @@ public class FlowerBlocks {
 
         PEONY_VERSATILE = RegistrationUtility.register(registerBlock, SimpleTallVersatilePlantBlockBuilder.create("peony_versatile",
                 true,
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/peony_bottom"), mc("block/peony_top")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/peony_bottom"), mc("block/peony_top")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/peony_top"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -444,8 +444,8 @@ public class FlowerBlocks {
 
         TALL_GRASS_VERSATILE = RegistrationUtility.register(registerBlock, SimpleTallVersatilePlantBlockBuilder.create("tall_grass_versatile",
                 true,
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/tall_grass_bottom"), mc("block/tall_grass_top")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/tall_grass_bottom"), mc("block/tall_grass_top")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/tall_grass_top"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -456,8 +456,8 @@ public class FlowerBlocks {
 
         LARGE_FERN_VERSATILE = RegistrationUtility.register(registerBlock, SimpleTallVersatilePlantBlockBuilder.create("large_fern_versatile",
                 true,
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/large_fern_bottom"), mc("block/large_fern_top")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/large_fern_bottom"), mc("block/large_fern_top")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("block/large_fern_top"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
@@ -468,8 +468,8 @@ public class FlowerBlocks {
 
         PITCHER_PLANT_VERSATILE = RegistrationUtility.register(registerBlock, SimpleTallVersatilePlantBlockBuilder.create("pitcher_plant_versatile",
                 false,
-                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<ResourceLocation>()
-                        .resources(new ResourceLocation[]{mc("block/pitcher_plant_bottom"), mc("block/pitcher_plant_top")})
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                        .resources(new Identifier[]{mc("block/pitcher_plant_bottom"), mc("block/pitcher_plant_top")})
                         .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
                         .itemTexture(mc("item/pitcher_plant"))
                         .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)

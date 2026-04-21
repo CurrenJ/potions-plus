@@ -13,7 +13,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import oshi.util.tuples.Pair;
@@ -57,7 +57,7 @@ public class EdibleChoiceReward extends GrantableReward<EdibleChoiceRewardConfig
 
     @Override
     public void grant(ResourceKey<ConfiguredGrantableReward<?, ?>> holder, EdibleChoiceRewardConfiguration config, ServerPlayer player) {
-        ResourceLocation flag = config.rewards.size() > 1 ? SkillLootItems.BASIC_LOOT.getItemOverrideData().getRandomFlag(player.getRandom()) : ppId("");
+        Identifier flag = config.rewards.size() > 1 ? SkillLootItems.BASIC_LOOT.getItemOverrideData().getRandomFlag(player.getRandom()) : ppId("");
         List<ItemStack> items = config.rewards.stream().map(r -> r.createItem(player, flag)).toList();
 
         SkillsData.updatePlayerData(player, data -> data.pendingRewards()

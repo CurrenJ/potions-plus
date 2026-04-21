@@ -18,13 +18,13 @@ public class Features {
     public static DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, ModInfo.MOD_ID);
 
     public static final ResourceKey<PlacedFeature> POTIONS_PLUS_VEGETATION_PATCH_KEY = ResourceKey.create(Registries.PLACED_FEATURE, ppId("no_update_vegetation_patch"));
-    public static Feature<PotionsPlusVegetationPatchConfiguration> POTIONS_PLUS_VEGETATION_PATCH = Features.register(POTIONS_PLUS_VEGETATION_PATCH_KEY.location().getPath(), new PotionsPlusVegetationPatchFeature(PotionsPlusVegetationPatchConfiguration.CODEC));
+    public static Feature<PotionsPlusVegetationPatchConfiguration> POTIONS_PLUS_VEGETATION_PATCH = Features.register(POTIONS_PLUS_VEGETATION_PATCH_KEY.identifier().getPath(), new PotionsPlusVegetationPatchFeature(PotionsPlusVegetationPatchConfiguration.CODEC));
 
     public static Feature<GeneticCropConfiguration> GENETIC_CROP = Features.register("genetic_crop", new GeneticCropFeature(GeneticCropConfiguration.CODEC));
 
     // ----- Volcanic Cave -----
-    public static Feature<?> FISSURE = Features.register(ConfiguredFeatures.FISSURE_KEY.location().getPath(), new VolcanicFissureFeature(NoneFeatureConfiguration.CODEC));
-    public static Feature<?> LAVA_GEYSER = Features.register(ConfiguredFeatures.LAVA_GEYSER_KEY.location().getPath(), new LavaGeyserFeature(NoneFeatureConfiguration.CODEC));
+    public static Feature<?> FISSURE = Features.register(ConfiguredFeatures.FISSURE_KEY.identifier().getPath(), new VolcanicFissureFeature(NoneFeatureConfiguration.CODEC));
+    public static Feature<?> LAVA_GEYSER = Features.register(ConfiguredFeatures.LAVA_GEYSER_KEY.identifier().getPath(), new LavaGeyserFeature(NoneFeatureConfiguration.CODEC));
 
     public static Feature<PointedDripstoneConfiguration> ICICLE = Features.register("icicle", new IcicleFeature(PointedDripstoneConfiguration.CODEC));
     public static Feature<NoneFeatureConfiguration> AQUIFER_FREEZE = Features.register("aquifer_freeze", new AquiferFreezeFeature(NoneFeatureConfiguration.CODEC));

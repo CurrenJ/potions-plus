@@ -10,7 +10,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
@@ -126,10 +126,10 @@ public class PUtil {
         if (isPotion(itemStack)) {
             StringBuilder name = new StringBuilder();
             if (PUtil.hasPotion(itemStack)) {
-                name.append(PUtil.getPotionHolder(itemStack).getKey().location().getPath()).append("_");
+                name.append(PUtil.getPotionHolder(itemStack).getKey().identifier().getPath()).append("_");
             }
             for (MobEffectInstance mobEffectInstance : PUtil.getAllEffects(itemStack)) {
-                name.append(mobEffectInstance.getEffect().getKey().location().getPath()).append("_")
+                name.append(mobEffectInstance.getEffect().getKey().identifier().getPath()).append("_")
                         .append("a").append(mobEffectInstance.getAmplifier()).append("_")
                         .append("d").append(mobEffectInstance.getDuration()).append("_");
             }
@@ -192,7 +192,7 @@ public class PUtil {
     public static List<MobEffect> getAllMobEffects() {
         List<MobEffect> effects = new ArrayList<>();
         for (Map.Entry<ResourceKey<MobEffect>, MobEffect> value : BuiltInRegistries.MOB_EFFECT.entrySet()) {
-            if (value.getKey().location().getNamespace().equals("minecraft") || value.getKey().location().getNamespace().equals(ModInfo.MOD_ID)) {
+            if (value.getKey().identifier().getNamespace().equals("minecraft") || value.getKey().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
                 effects.add(value.getValue());
             }
         }
@@ -204,8 +204,8 @@ public class PUtil {
         return effects;
     }
 
-    public static Map<ResourceLocation, Integer> getAllMobEffectsIconStackSizeMap() {
-        Map<ResourceLocation, Integer> effects = new HashMap<>();
+    public static Map<Identifier, Integer> getAllMobEffectsIconStackSizeMap() {
+        Map<Identifier, Integer> effects = new HashMap<>();
         int i = 0;
         for (MobEffect value : getAllMobEffects()) {
             ;

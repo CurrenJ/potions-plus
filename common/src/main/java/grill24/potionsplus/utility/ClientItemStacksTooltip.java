@@ -12,7 +12,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
@@ -123,13 +123,13 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
 
     @OnlyIn(Dist.CLIENT)
     enum Texture {
-        SLOT(ResourceLocation.withDefaultNamespace("container/slot"), 18, 20);
+        SLOT(Identifier.withDefaultNamespace("container/slot"), 18, 20);
 
-        public final ResourceLocation sprite;
+        public final Identifier sprite;
         public final int w;
         public final int h;
 
-        Texture(ResourceLocation sprite, int w, int h) {
+        Texture(Identifier sprite, int w, int h) {
             this.sprite = sprite;
             this.w = w;
             this.h = h;

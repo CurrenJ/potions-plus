@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.client.renderer.item.SelectItemModel;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -33,10 +33,10 @@ public class ItemModelUtility {
      */
     public static class SimpleItemModelGenerator<I extends Item> implements IModelGenerator<I> {
         @Nullable
-        protected final ResourceLocation textureLocation;
+        protected final Identifier textureLocation;
         private final Supplier<Holder<I>> itemGetter;
 
-        public SimpleItemModelGenerator(Supplier<Holder<I>> itemGetter, ResourceLocation textureLocation) {
+        public SimpleItemModelGenerator(Supplier<Holder<I>> itemGetter, Identifier textureLocation) {
             super();
             this.textureLocation = textureLocation;
             this.itemGetter = itemGetter;
@@ -52,8 +52,8 @@ public class ItemModelUtility {
         public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
             Item item = getHolder().value();
 
-            ResourceLocation modelLocation = ModelLocationUtils.getModelLocation(item);
-            ResourceLocation texture = textureLocation == null ? modelLocation : textureLocation;
+            Identifier modelLocation = ModelLocationUtils.getModelLocation(item);
+            Identifier texture = textureLocation == null ? modelLocation : textureLocation;
 
             ModelTemplates.FLAT_ITEM.create(modelLocation, new TextureMapping().put(TextureSlot.LAYER0, texture), itemModelGenerators.modelOutput);
             itemModelGenerators.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelLocation));
@@ -69,13 +69,13 @@ public class ItemModelUtility {
         private final Supplier<Holder<I>> itemGetter;
         private final Supplier<Holder<Block>> block;
         @Nullable
-        private final ResourceLocation parentModel;
+        private final Identifier parentModel;
 
         public SimpleBlockItemModelGenerator(Supplier<Holder<I>> itemGetter, Supplier<Holder<Block>> block) {
             this(itemGetter, block, null);
         }
 
-        public SimpleBlockItemModelGenerator(Supplier<Holder<I>> itemGetter, Supplier<Holder<Block>> block, ResourceLocation parentModel) {
+        public SimpleBlockItemModelGenerator(Supplier<Holder<I>> itemGetter, Supplier<Holder<Block>> block, Identifier parentModel) {
             super();
             this.itemGetter = itemGetter;
             this.block = block;
@@ -84,7 +84,7 @@ public class ItemModelUtility {
 
         @Override
         public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
-            ResourceLocation blockModelLocation = parentModel != null ? parentModel : ModelLocationUtils.getModelLocation(block.get().value());
+            Identifier blockModelLocation = parentModel != null ? parentModel : ModelLocationUtils.getModelLocation(block.get().value());
 
             ItemModel.Unbaked itemModel = ItemModelUtils.plainModel(blockModelLocation);
             itemModelGenerators.itemModelOutput.accept(getHolder().value(), itemModel);
@@ -98,9 +98,9 @@ public class ItemModelUtility {
 
     public static class ItemFromModelFileGenerator<I extends Item> implements IModelGenerator<I> {
         private final Supplier<Holder<I>> itemGetter;
-        private final ResourceLocation modelFile;
+        private final Identifier modelFile;
 
-        public ItemFromModelFileGenerator(Supplier<Holder<I>> itemGetter, ResourceLocation modelFile) {
+        public ItemFromModelFileGenerator(Supplier<Holder<I>> itemGetter, Identifier modelFile) {
             super();
             this.itemGetter = itemGetter;
             this.modelFile = modelFile;
@@ -123,8 +123,8 @@ public class ItemModelUtility {
         private final Supplier<Holder<I>> itemGetter;
 
         private final ItemTintSource itemTintSource;
-        private final ResourceLocation tintedLayerTextureLocation;
-        private final ResourceLocation[] untintedLayerTextureLocations;
+        private final Identifier tintedLayerTextureLocation;
+        private final Identifier[] untintedLayerTextureLocations;
 
 
         protected static final TextureSlot[] LAYERS = new TextureSlot[]{
@@ -153,7 +153,7 @@ public class ItemModelUtility {
                 3, THREE_LAYERS
         );
 
-        public TintedLayerItemModelGenerator(Supplier<Holder<I>> itemGetter, Supplier<ItemTintSource> itemTintSourceSupplier, ResourceLocation tintedLayerTextureLocation, ResourceLocation... untintedLayerTextureLocation) {
+        public TintedLayerItemModelGenerator(Supplier<Holder<I>> itemGetter, Supplier<ItemTintSource> itemTintSourceSupplier, Identifier tintedLayerTextureLocation, Identifier... untintedLayerTextureLocation) {
             super();
             this.itemGetter = itemGetter;
             this.itemTintSource = itemTintSourceSupplier.get();
@@ -165,7 +165,7 @@ public class ItemModelUtility {
         public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
             Item item = getHolder().value();
 
-            ResourceLocation modelLocation = ModelLocationUtils.getModelLocation(item);
+            Identifier modelLocation = ModelLocationUtils.getModelLocation(item);
             TextureMapping textureMapping = new TextureMapping();
 
             for (int i = 0; i < untintedLayerTextureLocations.length + 1 && i < LAYERS.length; i++) {
@@ -198,7 +198,7 @@ public class ItemModelUtility {
         private final Supplier<ItemTintSource> itemTintSourceSupplier;
         private final ModelData[] modelData;
 
-        private final ResourceLocation fallbackTexture;
+        private final Identifier fallbackTexture;
 
         @Override
         public Holder<? extends I> getHolder() {
@@ -207,13 +207,13 @@ public class ItemModelUtility {
 
         public record ModelData(float weightThreshold,
                                 boolean tintFirstLayer,
-                                ResourceLocation... untintedLayerTextureLocations) {
+                                Identifier... untintedLayerTextureLocations) {
             BlockModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, Supplier<ItemTintSource> itemTintSource) {
                 if (untintedLayerTextureLocations.length == 0) {
                     throw new IllegalArgumentException("At least one untinted layer texture location must be provided.");
                 }
 
-                ResourceLocation modelLocation = untintedLayerTextureLocations[0];
+                Identifier modelLocation = untintedLayerTextureLocations[0];
                 TextureMapping textureMapping = new TextureMapping();
 
                 for (int i = 0; i < untintedLayerTextureLocations.length; i++) {
@@ -234,7 +234,7 @@ public class ItemModelUtility {
             }
         }
 
-        public GeneticCropWeightOverrideModelGenerator(Supplier<Holder<I>> itemGetter, ResourceLocation fallbackTexture, Supplier<ItemTintSource> itemTintSourceSupplier, ModelData... data) {
+        public GeneticCropWeightOverrideModelGenerator(Supplier<Holder<I>> itemGetter, Identifier fallbackTexture, Supplier<ItemTintSource> itemTintSourceSupplier, ModelData... data) {
             super();
             this.itemGetter = itemGetter;
             this.itemTintSourceSupplier = itemTintSourceSupplier;
@@ -264,8 +264,8 @@ public class ItemModelUtility {
         }
 
         private BlockModelWrapper.Unbaked createFallbackModel(ItemModelGenerators itemModelGenerators) {
-            ResourceLocation itemModelLocation = ModelLocationUtils.getModelLocation(getHolder().value());
-            ResourceLocation fallbackModelLocation = ResourceLocation.fromNamespaceAndPath(itemModelLocation.getNamespace(), itemModelLocation.getPath() + "_fallback");
+            Identifier itemModelLocation = ModelLocationUtils.getModelLocation(getHolder().value());
+            Identifier fallbackModelLocation = Identifier.fromNamespaceAndPath(itemModelLocation.getNamespace(), itemModelLocation.getPath() + "_fallback");
 
             TextureMapping textureMapping = new TextureMapping();
             textureMapping.put(TextureSlot.LAYER0, fallbackModelLocation);
@@ -289,13 +289,13 @@ public class ItemModelUtility {
             this.modelData = modelData;
         }
 
-        public record ModelData(ResourceLocation brassicaOleraceaTextureLocation,
-                                ResourceLocation cabbageTextureLocation,
-                                ResourceLocation kaleTextureLocation,
-                                ResourceLocation broccoliTextureLocation,
-                                ResourceLocation cauliflowerTextureLocation,
-                                ResourceLocation brusselsSproutsTextureLocation,
-                                ResourceLocation kohlrabiTextureLocation) {
+        public record ModelData(Identifier brassicaOleraceaTextureLocation,
+                                Identifier cabbageTextureLocation,
+                                Identifier kaleTextureLocation,
+                                Identifier broccoliTextureLocation,
+                                Identifier cauliflowerTextureLocation,
+                                Identifier brusselsSproutsTextureLocation,
+                                Identifier kohlrabiTextureLocation) {
             Map<BrassicaOleraceaItem.Variation, BlockModelWrapper.Unbaked> createModels(ItemModelGenerators itemModelGenerators) {
                 return Map.of(
                         BrassicaOleraceaItem.Variation.BRASSICA_OLERACEA, createModel(itemModelGenerators, brassicaOleraceaTextureLocation),
@@ -308,8 +308,8 @@ public class ItemModelUtility {
                 );
             }
 
-            private BlockModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, ResourceLocation textureLocation) {
-                ResourceLocation modelLocation = textureLocation;
+            private BlockModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, Identifier textureLocation) {
+                Identifier modelLocation = textureLocation;
                 TextureMapping textureMapping = new TextureMapping();
                 textureMapping.put(TextureSlot.LAYER0, textureLocation);
 

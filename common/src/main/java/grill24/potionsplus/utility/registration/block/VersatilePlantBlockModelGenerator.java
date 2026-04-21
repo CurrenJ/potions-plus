@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.client.renderer.item.BlockModelWrapper;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -67,20 +67,20 @@ public class VersatilePlantBlockModelGenerator<T, I extends Block> extends Block
 
     public static final TextureSlot LUMOSEED_VINE = TextureSlot.create("vine", TextureSlot.ALL);
     public static final TextureSlot LUMOSEED_SACK = TextureSlot.create("sack", TextureSlot.ALL);
-    public static final Function<ResourceLocation, ModelTemplate> LUMOSEED_MODEL_TEMPLATES = (parentModel) -> new ModelTemplate(
+    public static final Function<Identifier, ModelTemplate> LUMOSEED_MODEL_TEMPLATES = (parentModel) -> new ModelTemplate(
             Optional.of(parentModel),
             Optional.of("lumoseed"),
             LUMOSEED_VINE,
             LUMOSEED_SACK
     );
 
-    public static final IModelFactory<ResourceLocation> CROSS_MODEL_GENERATOR = (blockModelGenerators, itemModelGenerators, modelName, resource) ->
+    public static final IModelFactory<Identifier> CROSS_MODEL_GENERATOR = (blockModelGenerators, itemModelGenerators, modelName, resource) ->
             ModelTemplates.CROSS.create(ppId(modelName), new TextureMapping().put(TextureSlot.CROSS, resource), blockModelGenerators.modelOutput);
-    public static final VersatilePlantBlockModelGenerator.IModelFactory<Pair<ResourceLocation, Pair<ResourceLocation, ResourceLocation>>> LUMOSEED_MODEL_GENERATOR = (blockModelGenerators, itemModelGenerators, modelName, resources) ->
+    public static final VersatilePlantBlockModelGenerator.IModelFactory<Pair<Identifier, Pair<Identifier, Identifier>>> LUMOSEED_MODEL_GENERATOR = (blockModelGenerators, itemModelGenerators, modelName, resources) ->
             LUMOSEED_MODEL_TEMPLATES.apply(resources.getA()).create(ppId(modelName),
                     new TextureMapping().put(LUMOSEED_VINE, resources.getB().getA()).put(LUMOSEED_SACK, resources.getB().getB()),
                     blockModelGenerators.modelOutput);
-    public static final VersatilePlantBlockModelGenerator.IModelFactory<ResourceLocation> PARENTED_MODEL_GENERATOR = (blockModelGenerators, itemModelGenerators, modelName, parentModel) ->
+    public static final VersatilePlantBlockModelGenerator.IModelFactory<Identifier> PARENTED_MODEL_GENERATOR = (blockModelGenerators, itemModelGenerators, modelName, parentModel) ->
             new ModelTemplate(Optional.of(parentModel), Optional.empty()).create(ppId(modelName), new TextureMapping(), blockModelGenerators.modelOutput);
 
 
@@ -101,7 +101,7 @@ public class VersatilePlantBlockModelGenerator<T, I extends Block> extends Block
         Block b = holder.value();
         if (b instanceof VersatilePlantBlock block) {
 
-            String name = holder.getKey().location().getPath();
+            String name = holder.getKey().identifier().getPath();
 
             // This loop generates a model for every texture used in the pattern
             Set<String> usedModels = new HashSet<>();
@@ -135,8 +135,8 @@ public class VersatilePlantBlockModelGenerator<T, I extends Block> extends Block
         }
     }
 
-    public static void registerItem(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Item item, @Nullable ResourceLocation texture, @Nullable ResourceLocation model, boolean useTint) {
-        ResourceLocation modelLocation = ModelLocationUtils.getModelLocation(item);
+    public static void registerItem(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Item item, @Nullable Identifier texture, @Nullable Identifier model, boolean useTint) {
+        Identifier modelLocation = ModelLocationUtils.getModelLocation(item);
         if (texture != null) {
             // Generate item model
             ModelTemplates.FLAT_ITEM.create(modelLocation, new TextureMapping().put(TextureSlot.LAYER0, texture), blockModelGenerators.modelOutput);
@@ -170,13 +170,13 @@ public class VersatilePlantBlockModelGenerator<T, I extends Block> extends Block
     }
 
     public record ClientModelData<T>(T[] resources, Function<Direction, VariantMutator> texRotationFunction,
-                                     @Nullable ResourceLocation itemTexture, @Nullable ResourceLocation itemModel,
+                                     @Nullable Identifier itemTexture, @Nullable Identifier itemModel,
                                      boolean useTint, IModelFactory<T> modelRegisterer) {
         public static class Builder<T> {
             public T[] resources;
             public Function<Direction, VariantMutator> texRotationFunction = VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION;
-            public ResourceLocation itemTexture = null;
-            public ResourceLocation itemModel = null;
+            public Identifier itemTexture = null;
+            public Identifier itemModel = null;
             public boolean useTint = false;
             public IModelFactory<T> modelRegisterer;
 
@@ -190,12 +190,12 @@ public class VersatilePlantBlockModelGenerator<T, I extends Block> extends Block
                 return this;
             }
 
-            public Builder<T> itemTexture(ResourceLocation itemTexture) {
+            public Builder<T> itemTexture(Identifier itemTexture) {
                 this.itemTexture = itemTexture;
                 return this;
             }
 
-            public Builder<T> itemModel(ResourceLocation itemModel) {
+            public Builder<T> itemModel(Identifier itemModel) {
                 this.itemModel = itemModel;
                 return this;
             }

@@ -4,7 +4,7 @@ import com.mojang.blaze3d.platform.NativeImage;
 import grill24.potionsplus.utility.FakePngResource;
 import grill24.potionsplus.utility.RUtil;
 import grill24.potionsplus.utility.ResourceUtility;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 
 import java.awt.image.BufferedImage;
@@ -16,30 +16,30 @@ import java.util.function.Supplier;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class TextureResourceModification implements IResourceModification {
-    protected final ResourceLocation targetResourceLocation;
-    protected final ResourceLocation newResourceLocation;
+    protected final Identifier targetResourceLocation;
+    protected final Identifier newResourceLocation;
     protected final Supplier<BufferedImage> textureGenerator;
 
-    public TextureResourceModification(ResourceLocation targetResourceLocation, ResourceLocation newResourceLocation, Supplier<BufferedImage> textureGenerator) {
+    public TextureResourceModification(Identifier targetResourceLocation, Identifier newResourceLocation, Supplier<BufferedImage> textureGenerator) {
         this.targetResourceLocation = targetResourceLocation;
         this.newResourceLocation = newResourceLocation;
         this.textureGenerator = textureGenerator;
     }
 
     public static class OverlayImage {
-        private final ResourceLocation overlayTextureLongId;
+        private final Identifier overlayTextureLongId;
         private final RUtil.BlendMode blendMode;
 
-        public OverlayImage(ResourceLocation overlayTextureLongId, RUtil.BlendMode blendMode) {
+        public OverlayImage(Identifier overlayTextureLongId, RUtil.BlendMode blendMode) {
             this.overlayTextureLongId = overlayTextureLongId;
             this.blendMode = blendMode;
         }
 
-        public OverlayImage(ResourceLocation overlayTextureLongId) {
+        public OverlayImage(Identifier overlayTextureLongId) {
             this(overlayTextureLongId, RUtil.BlendMode.DEFAULT);
         }
 
-        public ResourceLocation getOverlayTextureLongId() {
+        public Identifier getOverlayTextureLongId() {
             return overlayTextureLongId;
         }
 
@@ -48,7 +48,7 @@ public class TextureResourceModification implements IResourceModification {
         }
     }
 
-    public static Supplier<BufferedImage> overlay(ResourceLocation baseTextureLongId, OverlayImage... overlayImages) {
+    public static Supplier<BufferedImage> overlay(Identifier baseTextureLongId, OverlayImage... overlayImages) {
         return () -> {
             Optional<Resource> baseTextureResource = ResourceUtility.getResource(baseTextureLongId);
             if (baseTextureResource.isEmpty()) {
@@ -85,12 +85,12 @@ public class TextureResourceModification implements IResourceModification {
     }
 
     @Override
-    public ResourceLocation getTargetResourceLocation() {
+    public Identifier getTargetResourceLocation() {
         return targetResourceLocation;
     }
 
     @Override
-    public ResourceLocation getNewResourceLocation() {
+    public Identifier getNewResourceLocation() {
         return newResourceLocation;
     }
 

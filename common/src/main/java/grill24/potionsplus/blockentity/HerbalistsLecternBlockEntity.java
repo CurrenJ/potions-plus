@@ -15,7 +15,7 @@ import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -59,7 +59,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 PpIngredient inputIngredient = PpIngredient.of(inputStack);
 
                 List<RecipeHolder<BrewingCauldronRecipe>> recipesWithInputIngredient = Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getRecipesForIngredient(inputIngredient);
-                Map<ResourceLocation, IconData> potionIcons = new HashMap<>();
+                Map<Identifier, IconData> potionIcons = new HashMap<>();
                 List<IconData> additionalIcons = new ArrayList<>();
 
                 allIcons.clear();
@@ -76,7 +76,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                     }
                     // If the potion has effects, display the potion icon. No duplicates.
                     for (MobEffectInstance mobEffectInstance : outputEffects) {
-                        ResourceLocation mobEffectId = mobEffectInstance.getEffect().getKey().location();
+                        Identifier mobEffectId = mobEffectInstance.getEffect().getKey().identifier();
 
                         boolean isMobEffectInIconDataAlready = potionIcons.containsKey(mobEffectId);
                         boolean doesIconExistForMobEffect = MobEffects.POTION_ICON_INDEX_MAP.get().containsKey(mobEffectId);

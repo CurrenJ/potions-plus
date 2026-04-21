@@ -7,7 +7,7 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -17,7 +17,7 @@ import java.util.Optional;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class CreatePotionsPlusBlockTrigger extends SimpleCriterionTrigger<CreatePotionsPlusBlockTrigger.TriggerInstance> {
-    public static final ResourceLocation ID = ppId("create_pp_block");
+    public static final Identifier ID = ppId("create_pp_block");
     public static final CreatePotionsPlusBlockTrigger INSTANCE = new CreatePotionsPlusBlockTrigger();
 
     private CreatePotionsPlusBlockTrigger() {

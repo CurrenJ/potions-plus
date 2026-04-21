@@ -9,7 +9,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Holder;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -124,11 +124,11 @@ public record PlayerLockedItemModifiersDataComponent(List<AttributeModifier> att
     }
 
     public void clearPlayersModifiers(Player player) {
-        Set<ResourceLocation> ids = attributeModifiers().stream().map(AttributeModifier::id).collect(Collectors.toSet());
+        Set<Identifier> ids = attributeModifiers().stream().map(AttributeModifier::id).collect(Collectors.toSet());
 
         for (AttributeInstance instance : player.getAttributes().getSyncableAttributes()) {
             for (AttributeModifier attributeModifier : instance.getModifiers()) {
-                ResourceLocation id = attributeModifier.id();
+                Identifier id = attributeModifier.id();
                 if (ids.contains(id)) {
                     instance.removeModifier(id);
                 }

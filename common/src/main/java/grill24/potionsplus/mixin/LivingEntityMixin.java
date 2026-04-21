@@ -6,7 +6,7 @@ import grill24.potionsplus.effect.SlipNSlideEffect;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.damagesource.DamageSource;
@@ -145,7 +145,7 @@ public abstract class LivingEntityMixin extends Entity {
         for (Holder<Attribute> attribute : SPRINT_SPEED_ATTRIBUTES) {
             if (movementSpeedAttributeInstance != null) {
                 if (attribute.getKey() != null) {
-                    ResourceLocation key = attribute.getKey().location();
+                    Identifier key = attribute.getKey().identifier();
                     movementSpeedAttributeInstance.removeModifier(key);
                     if (sprinting && this.getAttributes().hasAttribute(attribute)) {
                         movementSpeedAttributeInstance.addTransientModifier(new AttributeModifier(key, this.getAttributeValue(attribute), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));

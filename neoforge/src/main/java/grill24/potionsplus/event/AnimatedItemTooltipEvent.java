@@ -1,7 +1,7 @@
 package grill24.potionsplus.event;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.Event;
@@ -19,12 +19,12 @@ public abstract class AnimatedItemTooltipEvent extends Event {
      * @param priority Priority of the tooltip - lower numbers are displayed first.
      * @param text     The text to be displayed in the tooltip.
      */
-    public record TooltipLines(ResourceLocation id, int priority, List<List<Component>> text) {
-        public static TooltipLines of(ResourceLocation id, int priority, List<Component> text) {
+    public record TooltipLines(Identifier id, int priority, List<List<Component>> text) {
+        public static TooltipLines of(Identifier id, int priority, List<Component> text) {
             return new TooltipLines(id, priority, Collections.singletonList(text));
         }
 
-        public static TooltipLines of(ResourceLocation id, int priority, Component text) {
+        public static TooltipLines of(Identifier id, int priority, Component text) {
             return TooltipLines.of(id, priority, Collections.singletonList(text));
         }
     }
@@ -47,11 +47,11 @@ public abstract class AnimatedItemTooltipEvent extends Event {
         this.tooltipMessages.add(tooltipLines);
     }
 
-    public void removeTooltipMessage(ResourceLocation id) {
+    public void removeTooltipMessage(Identifier id) {
         this.tooltipMessages.removeIf(tooltipLine -> tooltipLine.id().equals(id));
     }
 
-    public void setTooltipMessage(ResourceLocation id, TooltipLines tooltipLines) {
+    public void setTooltipMessage(Identifier id, TooltipLines tooltipLines) {
         this.tooltipMessages.removeIf(line -> line.id().equals(id));
         this.tooltipMessages.add(tooltipLines);
     }

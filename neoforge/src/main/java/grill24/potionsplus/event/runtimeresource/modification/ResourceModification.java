@@ -2,22 +2,22 @@ package grill24.potionsplus.event.runtimeresource.modification;
 
 import grill24.potionsplus.utility.FakeResource;
 import grill24.potionsplus.utility.ResourceUtility;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-public record ResourceModification(ResourceLocation targetResourceLocation, ResourceLocation newResourceLocation,
+public record ResourceModification(Identifier targetResourceLocation, Identifier newResourceLocation,
                                    Function<Resource, FakeResource> resource) implements IResourceModification {
     @Override
-    public ResourceLocation getTargetResourceLocation() {
+    public Identifier getTargetResourceLocation() {
         return targetResourceLocation;
     }
 
     @Override
-    public ResourceLocation getNewResourceLocation() {
+    public Identifier getNewResourceLocation() {
         return newResourceLocation;
     }
 
