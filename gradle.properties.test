@@ -16,7 +16,7 @@ mod_fabric_minecraft_version = ~${minecraft_version}
 maven_group = grill24.potionsplus
 archives_name = potionsplus
 # Fabric NOT enabled yet — add "fabric," when ready
-enabled_platforms = neoforge
+enabled_platforms = fabric,neoforge
 
 # Minecraft properties
 minecraft_version = 26.1.2

@@ -1,0 +1,44 @@
+accessWidener v2 named
+
+# MobEffect constructor (protected in vanilla)
+accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V
+
+# shouldDropExperience — protected in LivingEntity hierarchy
+accessible method net/minecraft/world/entity/LivingEntity shouldDropExperience ()Z
+accessible method net/minecraft/world/entity/monster/Monster shouldDropExperience ()Z
+accessible method net/minecraft/world/entity/monster/hoglin/Hoglin shouldDropExperience ()Z
+
+# PotionBrewing internals — private instance fields (old SRG names f_43494_/f_43495_ renamed)
+accessible field net/minecraft/world/item/alchemy/PotionBrewing potionMixes Ljava/util/List;
+accessible field net/minecraft/world/item/alchemy/PotionBrewing containerMixes Ljava/util/List;
+
+# AbstractCauldronBlock interaction map — protected final field; type changed to CauldronInteraction.Dispatcher
+accessible field net/minecraft/world/level/block/AbstractCauldronBlock interactions Lnet/minecraft/core/cauldron/CauldronInteraction$Dispatcher;
+mutable field net/minecraft/world/level/block/AbstractCauldronBlock interactions Lnet/minecraft/core/cauldron/CauldronInteraction$Dispatcher;
+
+# OrePlacements helpers — private static methods used in worldgen data gen
+accessible method net/minecraft/data/worldgen/placement/OrePlacements orePlacement (Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Ljava/util/List;
+accessible method net/minecraft/data/worldgen/placement/OrePlacements commonOrePlacement (ILnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Ljava/util/List;
+
+# NearestAttackableTargetGoal.targetType — protected field
+accessible field net/minecraft/world/entity/ai/goal/target/NearestAttackableTargetGoal targetType Ljava/lang/Class;
+
+# Cauldron stalactite drip — protected methods
+accessible method net/minecraft/world/level/block/AbstractCauldronBlock canReceiveStalactiteDrip (Lnet/minecraft/world/level/material/Fluid;)Z
+accessible method net/minecraft/world/level/block/CauldronBlock canReceiveStalactiteDrip (Lnet/minecraft/world/level/material/Fluid;)Z
+accessible method net/minecraft/world/level/block/LayeredCauldronBlock canReceiveStalactiteDrip (Lnet/minecraft/world/level/material/Fluid;)Z
+
+# MultiNoiseBiomeSource.parameters — private field (type: Either<ParameterList, Holder<ParameterList>>)
+accessible field net/minecraft/world/level/biome/MultiNoiseBiomeSource parameters Lcom/mojang/datafixers/util/Either;
+
+# OverworldBiomeBuilder.addBiomes — protected method
+accessible method net/minecraft/world/level/biome/OverworldBiomeBuilder addBiomes (Ljava/util/function/Consumer;)V
+
+# HolderSetCodec.homogenousListCodec — private field
+accessible field net/minecraft/resources/HolderSetCodec homogenousListCodec Lcom/mojang/serialization/Codec;
+
+# TrackingEmitter — private fields accessed by particle mixin
+accessible field net/minecraft/client/particle/TrackingEmitter entity Lnet/minecraft/world/entity/Entity;
+accessible field net/minecraft/client/particle/TrackingEmitter life I
+accessible field net/minecraft/client/particle/TrackingEmitter lifeTime I
+accessible field net/minecraft/client/particle/TrackingEmitter particleType Lnet/minecraft/core/particles/ParticleOptions;

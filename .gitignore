@@ -107,3 +107,5 @@ runs
 run-data
 
 repo
+/debug_src/
+/.claude/
