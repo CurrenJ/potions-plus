@@ -1,6 +1,7 @@
 package grill24.potionsplus.mixin;
 
 import com.mojang.datafixers.util.Pair;
+import grill24.potionsplus.core.ModState;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.IRuntimeRecipeProvider;
@@ -30,9 +31,9 @@ public class RecipeManagerMixin {
 
         Set<ResourceKey<Recipe<?>>> recipeKeys = new HashSet<>(existingRecipes.stream().map(RecipeHolder::id).toList());
 
-        if (PotionsPlus.SERVER != null) {
+        if (ModState.SERVER != null) {
             for (Pair<RecipeType<?>, IRuntimeRecipeProvider> pair : Recipes.RECIPE_INJECTION_FUNCTIONS) {
-                List<RecipeHolder<?>> recipes = pair.getSecond().getRuntimeRecipesToInject(PotionsPlus.SERVER);
+                List<RecipeHolder<?>> recipes = pair.getSecond().getRuntimeRecipesToInject(ModState.SERVER);
                 for (RecipeHolder<?> recipeHolder : recipes) {
                     if (recipeKeys.add(recipeHolder.id())) {
                         allRecipes.add(recipeHolder);

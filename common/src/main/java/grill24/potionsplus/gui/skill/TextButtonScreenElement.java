@@ -62,11 +62,8 @@ public class TextButtonScreenElement extends RenderableScreenElement {
         float textX = (float) bounds.getCenterX() - textWidth / 2F + outlineSize / 2F;
         float textY = (float) bounds.getCenterY() - textHeight / 2F + outlineSize / 2F;
 
-        graphics.pose().pushPose();
-        graphics.pose().translate(textX, textY, 100);
-        graphics.pose().mulPose(Axis.ZP.rotationDegrees(renderRotation));
+        graphics.pose().translate(textX, textY);
         graphicsMixin.potions_plus$drawString(font, text, 0, 0, ARGB.colorFromFloat(1, 1, 1, 1));
-        graphics.pose().popPose();
     }
 
     @Override

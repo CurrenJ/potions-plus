@@ -137,12 +137,10 @@ public class TextComponentScreenElement extends RenderableScreenElement {
 
             // Render text
             IGuiGraphicsExtension GuiGraphicsExtractor = (IGuiGraphicsExtension) graphics;
-            graphics.pose().pushPose();
-            graphics.pose().translate(x, y, 0);
-            graphics.pose().scale(this.scale, this.scale, 1F);
+            graphics.pose().translate(x, y);
+            graphics.pose().scale(this.scale, this.scale);
             GuiGraphicsExtractor.potions_plus$drawString(this.screen.getFont(), animatedRow.getFirst(),
                     0, 0, this.currentColor.getRGB());
-            graphics.pose().popPose();
 
             y += getRowHeight(row);
         }

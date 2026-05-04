@@ -1,39 +1,35 @@
 package grill24.potionsplus.mixin;
 
-import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.gui.RenderableScreenElement;
-import grill24.potionsplus.utility.RUtil;
-import net.minecraft.CrashReport;
-import net.minecraft.CrashReportCategory;
-import net.minecraft.ReportedException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.gui.render.TextureSetup;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.item.TrackingItemStackRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.state.gui.BlitRenderState;
+import net.minecraft.client.renderer.state.gui.ColoredRectangleRenderState;
+import net.minecraft.client.renderer.state.gui.GuiItemRenderState;
+import net.minecraft.client.renderer.state.gui.GuiRenderState;
+import net.minecraft.client.renderer.state.gui.GuiTextRenderState;
+import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.ARGB;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.joml.Matrix4f;
+import org.joml.Matrix3x2f;
+import org.joml.Matrix3x2fStack;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 
-import org.jspecify.annotations.Nullable;
 import java.util.function.Function;
 
 @Mixin(GuiGraphicsExtractor.class)
@@ -44,41 +40,25 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
 
     @Shadow
     @Final
-    private PoseStack pose;
-
-    @Shadow
-    public abstract void flush();
+    private Matrix3x2fStack pose;
 
     @Shadow
     @Final
-    private MultiBufferSource.BufferSource bufferSource;
-
-
-    @Shadow
-    public abstract int drawString(Font font, FormattedCharSequence text, int x, int y, int color, boolean dropShadow);
-
-    @Shadow
-    public abstract int drawString(Font p_282636_, FormattedCharSequence p_281596_, float p_281586_, float p_282816_, int p_281743_, boolean p_282394_);
+    public GuiRenderState guiRenderState;
 
     @Shadow
     @Final
-    private ItemStackRenderState scratchItemStackRenderState;
+    public GuiGraphicsExtractor.ScissorStack scissorStack;
+
     private static final float PIX = 16;
 
     @Override
     public void potions_plus$renderItem(@Nullable LivingEntity entity, @Nullable Level level, ItemStack stack, Vector3f rotation, float x, float y, float scale, RenderableScreenElement.Anchor anchor, int seed, float guiOffset) {
         if (!stack.isEmpty()) {
-            this.minecraft
-                    .getItemModelResolver()
-                    .updateForTopItem(this.scratchItemStackRenderState, stack, ItemDisplayContext.GUI, level, entity, seed);
-
-            this.pose.pushPose();
-
-            this.pose.translate(x, y, 150 + guiOffset);
+            this.pose.pushMatrix();
+            this.pose.translate(x, y);
 
             float actualScale = PIX * scale;
-
-            // Align the item's origin to the anchor point
             float xOffset = switch (anchor.xAlignment()) {
                 case LEFT -> actualScale / 2F;
                 case CENTER -> 0;
@@ -89,33 +69,19 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
                 case CENTER -> 0;
                 case BOTTOM -> -actualScale / 2F;
             };
-            this.pose.translate(xOffset, yOffset, 0);
+            this.pose.translate(xOffset, yOffset);
 
-            this.pose.mulPose(RUtil.rotate(rotation));
-
-            try {
-                this.pose.scale(actualScale, -actualScale, actualScale);
-                boolean flag = !this.scratchItemStackRenderState.usesBlockLight();
-                if (flag) {
-                    this.flush();
-                    Lighting.setupForFlatItems();
-                }
-
-                this.scratchItemStackRenderState.render(this.pose, this.bufferSource, 15728880, OverlayTexture.NO_OVERLAY);
-                this.flush();
-                if (flag) {
-                    Lighting.setupFor3DItems();
-                }
-            } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.forThrowable(throwable, "Rendering item");
-                CrashReportCategory crashreportcategory = crashreport.addCategory("Item being rendered");
-                crashreportcategory.setDetail("Item Type", () -> String.valueOf(stack.getItem()));
-                crashreportcategory.setDetail("Item Components", () -> String.valueOf(stack.getComponents()));
-                crashreportcategory.setDetail("Item Foil", () -> String.valueOf(stack.hasFoil()));
-                throw new ReportedException(crashreport);
+            if (rotation.z() != 0) {
+                this.pose.rotate(rotation.z() * (float) Math.PI / 180.0F);
             }
 
-            this.pose.popPose();
+            this.pose.scale(actualScale, -actualScale);
+
+            TrackingItemStackRenderState renderState = new TrackingItemStackRenderState();
+            this.minecraft.getItemModelResolver().updateForTopItem(renderState, stack, ItemDisplayContext.GUI, level, entity, seed);
+            this.guiRenderState.addItem(new GuiItemRenderState(new Matrix3x2f(this.pose), renderState, 0, 0, this.scissorStack.peek()));
+
+            this.pose.popMatrix();
         }
     }
 
@@ -131,47 +97,40 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
 
     @Override
     public void potions_plus$fill(RenderType renderType, float minX, float minY, float maxX, float maxY, Vector2f origin, float rotationDegrees, int z, int color) {
-        Matrix4f matrix4f = this.pose.last().pose();
-        if (minX < maxX) {
-            float i = minX;
-            minX = maxX;
-            maxX = i;
+        this.pose.pushMatrix();
+        this.pose.translate(origin.x(), origin.y());
+        if (rotationDegrees != 0) {
+            this.pose.rotate(rotationDegrees * (float) Math.PI / 180.0F);
         }
+        this.pose.translate(-origin.x(), -origin.y());
 
-        if (minY < maxY) {
-            float j = minY;
-            minY = maxY;
-            maxY = j;
-        }
+        this.guiRenderState.addGuiElement(new ColoredRectangleRenderState(
+                RenderPipelines.GUI, TextureSetup.noTexture(),
+                new Matrix3x2f(this.pose),
+                (int) minX, (int) minY, (int) maxX, (int) maxY,
+                color, color, this.scissorStack.peek()));
 
-        Vector2f[] points = {
-                new Vector2f(minX, minY),
-                new Vector2f(minX, maxY),
-                new Vector2f(maxX, maxY),
-                new Vector2f(maxX, minY)
-        };
-        RUtil.rotatePointsAround(points, origin, rotationDegrees);
-
-        VertexConsumer vertexconsumer = this.bufferSource.getBuffer(renderType);
-        for (Vector2f point : points) {
-            vertexconsumer.addVertex(matrix4f, point.x(), point.y(), (float) z).setColor(color);
-        }
-    }
-
-    @Override
-    public void potions_plus$fill(float minX, float minY, float maxX, float maxY, Vector2f origin, float rotationDegrees, int z, int color) {
-        this.potions_plus$fill(RenderType.gui(), minX, minY, maxX, maxY, origin, rotationDegrees, z, color);
+        this.pose.popMatrix();
     }
 
     @Override
     public void potions_plus$fill(float minX, float minY, float maxX, float maxY, float rotationDegrees, int z, int color) {
         Vector2f center = new Vector2f(minX + (maxX - minX) / 2, minY + (maxY - minY) / 2);
-        this.potions_plus$fill(minX, minY, maxX, maxY, center, rotationDegrees, z, color);
+        this.potions_plus$fill(null, minX, minY, maxX, maxY, center, rotationDegrees, z, color);
+    }
+
+    @Override
+    public void potions_plus$fill(float minX, float minY, float maxX, float maxY, Vector2f origin, float rotationDegrees, int z, int color) {
+        this.potions_plus$fill(null, minX, minY, maxX, maxY, origin, rotationDegrees, z, color);
     }
 
     @Override
     public void potions_plus$fill(float minX, float minY, float maxX, float maxY, int color) {
-        this.potions_plus$fill(minX, minY, maxX, maxY, 0, 0, color);
+        this.guiRenderState.addGuiElement(new ColoredRectangleRenderState(
+                RenderPipelines.GUI, TextureSetup.noTexture(),
+                new Matrix3x2f(this.pose),
+                (int) minX, (int) minY, (int) maxX, (int) maxY,
+                color, color, this.scissorStack.peek()));
     }
 
     @Override
@@ -181,47 +140,42 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
 
     @Override
     public int potions_plus$drawString(Font font, Component text, float x, float y, int color, boolean dropShadow) {
-        return this.drawString(font, text.getVisualOrderText(), x, y, color, dropShadow);
+        this.guiRenderState.addText(new GuiTextRenderState(
+                font, text.getVisualOrderText(), new Matrix3x2f(this.pose),
+                (int) x, (int) y, color, 0, dropShadow, false, this.scissorStack.peek()));
+        return (int) x + font.width(text);
     }
 
     @Override
     public void potions_plus$blit(Function<Identifier, RenderType> renderTypeGetter, Identifier atlasLocation, float x, float y, float uOffset, float vOffset, float uWidth, float vHeight, int width, int height, int textureWidth, int textureHeight, int color) {
-        this.potions_plus$innerBlit(renderTypeGetter, atlasLocation, x, x + uWidth, y, y + vHeight, (uOffset + 0.0F) / (float) textureWidth, (uOffset + width) / (float) textureWidth, (vOffset + 0.0F) / (float) textureHeight, (vOffset + height) / (float) textureHeight, color);
-    }
-
-    @Unique
-    private void potions_plus$innerBlit(Function<Identifier, RenderType> renderTypeGetter, Identifier atlasLocation, float x1, float x2, float y1, float y2, float minU, float maxU, float minV, float maxV, int color) {
-        RenderType rendertype = renderTypeGetter.apply(atlasLocation);
-        Matrix4f matrix4f = this.pose.last().pose();
-        VertexConsumer vertexconsumer = this.bufferSource.getBuffer(rendertype);
-        vertexconsumer.addVertex(matrix4f, x1, y1, 0.0F).setUv(minU, minV).setColor(color);
-        vertexconsumer.addVertex(matrix4f, x1, y2, 0.0F).setUv(minU, maxV).setColor(color);
-        vertexconsumer.addVertex(matrix4f, x2, y2, 0.0F).setUv(maxU, maxV).setColor(color);
-        vertexconsumer.addVertex(matrix4f, x2, y1, 0.0F).setUv(maxU, minV).setColor(color);
+        AbstractTexture texture = this.minecraft.getTextureManager().getTexture(atlasLocation);
+        this.guiRenderState.addGuiElement(new BlitRenderState(
+                RenderPipelines.GUI_TEXTURED,
+                TextureSetup.singleTexture(texture.getTextureView(), texture.getSampler()),
+                new Matrix3x2f(this.pose),
+                (int) x, (int) (x + uWidth), (int) y, (int) (y + vHeight),
+                (uOffset) / (float) textureWidth,
+                (uOffset + width) / (float) textureWidth,
+                (vOffset) / (float) textureHeight,
+                (vOffset + height) / (float) textureHeight,
+                color, this.scissorStack.peek()));
     }
 
     @Override
-    public void potions_plus$fillQuad(RenderType renderType,
-                                      float x1, float y1,
-                                      float x2, float y2,
-                                      float x3, float y3,
-                                      float x4, float y4,
-                                      int z, int color) {
-        Matrix4f matrix4f = this.pose.last().pose();
-        VertexConsumer vertexconsumer = this.bufferSource.getBuffer(renderType);
-        vertexconsumer.addVertex(matrix4f, x1, y1, (float) z).setColor(color);
-        vertexconsumer.addVertex(matrix4f, x2, y2, (float) z).setColor(color);
-        vertexconsumer.addVertex(matrix4f, x3, y3, (float) z).setColor(color);
-        vertexconsumer.addVertex(matrix4f, x4, y4, (float) z).setColor(color);
+    public void potions_plus$fillQuad(RenderType renderType, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int z, int color) {
+        float minX = Math.min(Math.min(Math.min(x1, x2), x3), x4);
+        float minY = Math.min(Math.min(Math.min(y1, y2), y3), y4);
+        float maxX = Math.max(Math.max(Math.max(x1, x2), x3), x4);
+        float maxY = Math.max(Math.max(Math.max(y1, y2), y3), y4);
+        this.guiRenderState.addGuiElement(new ColoredRectangleRenderState(
+                RenderPipelines.GUI, TextureSetup.noTexture(),
+                new Matrix3x2f(this.pose),
+                (int) minX, (int) minY, (int) maxX, (int) maxY,
+                color, color, this.scissorStack.peek()));
     }
 
     @Override
     public void potions_plus$setShaderColor(int color) {
-        this.flush();
-        RenderSystem.setShaderColor(
-                ARGB.redFloat(color),
-                ARGB.greenFloat(color),
-                ARGB.blueFloat(color),
-                ARGB.alphaFloat(color));
+        // No-op in MC 26.1.2. Color is embedded in render state.
     }
 }

@@ -18,7 +18,7 @@ public class TomatoItem extends GeneticCropItem {
         if (stack.has(DataComponents.GENETIC_DATA.get())) {
             // 0 = yellow tomato, 100 = red tomato
             float color = getChromosomeValueNormalized(stack, GeneticCropItem.COLOR_CHROMOSOME_INDEX);
-            return ARGB.lerp(color, YELLOW_TOMATO_COLOR, RED_TOMATO_COLOR);
+            return ARGB.linearLerp(color, YELLOW_TOMATO_COLOR, RED_TOMATO_COLOR);
         }
 
         // For now, we return a default color (white).

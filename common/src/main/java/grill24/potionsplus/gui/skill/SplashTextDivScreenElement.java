@@ -24,11 +24,7 @@ public class SplashTextDivScreenElement extends DivScreenElement<RenderableScree
 
         if (this.component != null) {
             IGuiGraphicsExtension graphicsExtension = (IGuiGraphicsExtension) graphics;
-            PoseStack poseStack = graphics.pose();
-            poseStack.pushPose();
-            poseStack.translate(0, 0, 100); // Ensure text is rendered above other elements
             graphicsExtension.potions_plus$drawString(this.screen.getFont(), this.component, (float) getGlobalBounds().getMinX(), (float) getGlobalBounds().getMinY(), 0xFFFFFF);
-            graphics.pose().popPose();
         }
     }
 }

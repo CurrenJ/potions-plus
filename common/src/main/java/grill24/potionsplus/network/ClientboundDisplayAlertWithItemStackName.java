@@ -52,7 +52,7 @@ public record ClientboundDisplayAlertWithItemStackName(String localizationKey, I
                         } else {
                             text = Component.translatable(packet.localizationKey, packet.param.getHoverName());
                         }
-                        clientPlayer.displayClientMessage(text, true);
+                        clientPlayer.sendSystemMessage(text);
                         if (packet.playSound) {
                             clientPlayer.playSound(SoundEvents.PLAYER_LEVELUP, 0.75F, 1.0F);
                         }

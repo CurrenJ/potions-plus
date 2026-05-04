@@ -164,9 +164,6 @@ public class SimpleTooltipScreenElement extends DivScreenElement<TextComponentSc
         graphicsMixin.potions_plus$fill(minX, minY, minX + width, minY + height, 0, FILL_Z, BACKGROUND_COLOR);
 
         // Render tooltip text in front of the background.
-        graphics.pose().pushPose();
-        graphics.pose().translate(0, 0, OUTLINE_Z);
         super.render(graphics, partialTick, mouseX, mouseY);
-        graphics.pose().popPose();
     }
 }

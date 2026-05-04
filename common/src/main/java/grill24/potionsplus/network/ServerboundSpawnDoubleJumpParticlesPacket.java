@@ -29,7 +29,7 @@ public record ServerboundSpawnDoubleJumpParticlesPacket(Vec3 pos) implements Cus
         public static void handleDataOnMain(ServerboundSpawnDoubleJumpParticlesPacket packet, final PacketContext context) {
             context.enqueueWork(() -> {
                 ServerPlayer serverPlayer = (ServerPlayer) context.player();
-                serverPlayer.serverLevel().sendParticles(
+                serverPlayer.level().sendParticles(
                         Particles.END_ROD_RAIN.value(),
                         serverPlayer.position().x,
                         serverPlayer.position().y,

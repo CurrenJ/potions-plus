@@ -3,18 +3,22 @@ package grill24.potionsplus.gui.skill;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.gui.FixedSizeDivScreenElement;
 import grill24.potionsplus.gui.RenderableScreenElement;
+import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.Util;
 
 import java.awt.geom.Rectangle2D;
+import java.util.function.Function;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class SpriteProgressBarElement extends FixedSizeDivScreenElement<RenderableScreenElement> {
-    // 10, 5 -> 63x19
     public static final Identifier BAR_BACKGROUND = ppId("textures/gui/progress_bar_background.png");
     public static final Identifier BAR_GOLD_OUTLINE = ppId("textures/gui/progress_bar_gold_outline.png");
     public static final Identifier BAR_FILLED_METER = ppId("textures/gui/progress_bar_filled_meter.png");
@@ -24,6 +28,13 @@ public class SpriteProgressBarElement extends FixedSizeDivScreenElement<Renderab
 
     public static final int WIDTH = 63;
     public static final int HEIGHT = 19;
+
+    private static final Function<Identifier, RenderType> GUI_TEXTURED = Util.memoize(
+            (Function<Identifier, RenderType>)(texture -> RenderType.create("pp_gui_textured",
+                    RenderSetup.builder(RenderPipelines.GUI_TEXTURED)
+                            .withTexture("Sampler0", texture)
+                            .createRenderSetup()))
+    );
 
     public float progress;
     public int skillLevel;
@@ -62,7 +73,7 @@ public class SpriteProgressBarElement extends FixedSizeDivScreenElement<Renderab
         IGuiGraphicsExtension extension = (IGuiGraphicsExtension) graphics;
         int filledWidth = (int) Math.ceil(WIDTH * progress);
 
-        extension.potions_plus$blit(RenderType::guiTextured, sprite,
+        extension.potions_plus$blit(GUI_TEXTURED, sprite,
                 (float) bounds.getMinX(), (float) bounds.getMinY(),
                 10, 5, filledWidth, HEIGHT, filledWidth, HEIGHT, 128, 128, ARGB.white(1F));
     }

@@ -48,8 +48,6 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
 
             // Render question mark
             Rectangle2D bounds = getGlobalBounds();
-            graphics.pose().pushPose();
-            graphics.pose().translate(0, 0, -100);
             ((IGuiGraphicsExtension) graphics).potions_plus$renderItem(
                     DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC),
                     new Vector3f(0, 0, 0),
@@ -58,7 +56,6 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
                     10,
                     this.getCurrentScale() * 0.5F,
                     Anchor.DEFAULT);
-            graphics.pose().popPose();
         }
     }
 
@@ -82,7 +79,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
         Optional<DisplayInfo> displayInfo = tryGetAdvancementDisplayInfo(this.milestone.advancementId());
         if (displayInfo.isPresent()) {
             DisplayInfo display = displayInfo.get();
-            ItemStack stack = display.getIcon();
+            ItemStack stack = display.getIcon().create();
 
             setItemStack(stack);
             this.isUnlocked = isAdvancementUnlocked(this.milestone.advancementId());

@@ -63,7 +63,7 @@ public record ClientboundSanguineAltarConversionStatePacket(BlockPos pos,
                                                     ItemStack displayItem = sanguineAltarBlockEntity.chainedIngredientToDisplay;
                                                     if (!displayItem.isEmpty()) {
                                                         MutableComponent text = Component.translatable("sanguine_altar.converted", displayItem.getHoverName());
-                                                        context.player().displayClientMessage(text, true);
+                                                        context.player().sendSystemMessage(text);
                                                     }
                                                 }
                                             }

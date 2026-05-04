@@ -78,13 +78,13 @@ public abstract class LivingEntityMixin extends Entity {
     @Shadow
     public abstract ItemStack getItemBySlot(EquipmentSlot slot);
 
-    @Redirect(method = "travelInAir", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getFriction(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;)F"))
-    public float getFriction(BlockState instance, LevelReader levelReader, BlockPos blockPos, Entity entity) {
+    @Redirect(method = "travelInAir", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;getFriction()F"))
+    public float getFriction(Block instance) {
         if (hasEffect(MobEffects.SLIP_N_SLIDE)) {
             return SlipNSlideEffect.getFriction(getEffect(MobEffects.SLIP_N_SLIDE).getAmplifier());
         }
 
-        return instance.getFriction(levelReader, blockPos, entity);
+        return instance.getFriction();
     }
 
     @Redirect(method = "travelInAir", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(DDD)V", ordinal = 1))

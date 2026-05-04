@@ -10,6 +10,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
 
@@ -41,7 +42,7 @@ public class BlockLinkedEmitterParticle extends NoRenderParticle {
             this.lifetime = lifetime;
         }
 
-        public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd) {
+        public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, RandomSource random) {
             return new BlockLinkedEmitterParticle(clientLevel, x, y, z, lifetime);
         }
     }

@@ -3,6 +3,7 @@ package grill24.potionsplus.gui.skill;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.event.ItemListenersGame;
+import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.gui.*;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillsData;
@@ -60,7 +61,7 @@ public class SkillsScreen extends PotionsPlusScreen<SkillsMenu> {
         this.skillTitleRenderer = new SkillTitleScreenElement(this);
         // Skills icons
         this.skillsIconsRenderer = new SkillIconsScreenElement(this, RenderableScreenElement.Settings.DEFAULT, itemDisplay -> {
-            ResourceKey<ConfiguredSkill<?, ?>> key = itemDisplay == null ? null : itemDisplay.skill.key();
+            ResourceKey<ConfiguredSkill<?, ?>> key = itemDisplay == null ? null : itemDisplay.skill.unwrapKey().orElse(null);
             this.skillTitleRenderer.setSelectedSkill(key);
             this.abilitiesRenderer.setSelectedSkill(key);
             this.milestoneRenderer.setSelectedSkill(key);
@@ -132,8 +133,8 @@ public class SkillsScreen extends PotionsPlusScreen<SkillsMenu> {
     }
 
     @Override
-    public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        super.render(graphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
 
         if (this.skillsIconsRenderer.getChildren().isEmpty()) {
             renderHelpText(graphics, mouseX, mouseY, partialTick);
@@ -152,7 +153,7 @@ public class SkillsScreen extends PotionsPlusScreen<SkillsMenu> {
         int y = (int) (this.height / 2F - textHeight / 2F);
 
         if (!animatedComponents.isEmpty()) {
-            graphics.drawString(font, animatedComponents.get(0), x, y, 0xFFFFFF);
+            ((IGuiGraphicsExtension) graphics).potions_plus$drawString(font, animatedComponents.get(0), x, y, 0xFFFFFF);
         }
     }
 

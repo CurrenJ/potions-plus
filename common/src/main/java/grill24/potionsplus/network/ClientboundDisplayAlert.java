@@ -51,7 +51,7 @@ public record ClientboundDisplayAlert(Component component, Optional<SoundEvent> 
                         }
 
                         Player clientPlayer = context.player();
-                        clientPlayer.displayClientMessage(packet.component, true);
+                        clientPlayer.sendSystemMessage(packet.component);
                         packet.sound.ifPresent(soundEvent -> clientPlayer.playSound(soundEvent, packet.volume, 1.0F));
                     }
             );

@@ -45,7 +45,7 @@ public record HasPlayerAbilityCondition(ResourceKey<ConfiguredPlayerAbility<?, ?
             entity = context.getOptionalParameter(LootContextParams.LAST_DAMAGE_PLAYER);
         }
         if (entity instanceof Player player) {
-            SkillsData skillsData = player.getData(DataAttachments.SKILL_PLAYER_DATA);
+            SkillsData skillsData = DataAttachments.getSkillsData(player);
             Optional<AbilityInstanceSerializable<?, ?>> abilityInstance = skillsData.getAbilityInstance(entity.registryAccess(), key.identifier());
             return abilityInstance.isPresent() && abilityInstance.get().data().isEnabled();
         }

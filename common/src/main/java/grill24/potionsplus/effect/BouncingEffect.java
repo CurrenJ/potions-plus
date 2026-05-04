@@ -6,6 +6,7 @@ import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
+import grill24.potionsplus.skill.ability.SavedByTheBounceAbility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;

@@ -20,7 +20,7 @@ public class GrunglerRenderer extends LivingEntityRenderer<Grungler, GrunglerRen
     public GrunglerRenderer(EntityRendererProvider.Context context) {
         super(context, new GrunglerModel(context.bakeLayer(LayerDefinitions.GRUNGLER)), 0.5F);
 
-        this.blockModelResolver = context.blockModelResolver();
+        this.blockModelResolver = context.getBlockModelResolver();
     }
 
     @Override

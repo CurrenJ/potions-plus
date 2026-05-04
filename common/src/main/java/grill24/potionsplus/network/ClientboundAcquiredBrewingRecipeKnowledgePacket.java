@@ -48,7 +48,7 @@ public record ClientboundAcquiredBrewingRecipeKnowledgePacket(ResourceKey<Recipe
 
                         SavedData.instance.getData(clientPlayer).onNewRecipeKnowledgeAcquiredClient(packet.recipeKey());
                         MutableComponent text = Component.translatable("chat.potionsplus.brewing_cauldron_recipe_unlocked", packet.result.getHoverName());
-                        clientPlayer.displayClientMessage(text, true);
+                        clientPlayer.sendSystemMessage(text);
                         clientPlayer.playSound(Sounds.RECIPE_UNLOCKED.value(), 1.0F, 1.0F);
 
                         if (Debug.DEBUG) {

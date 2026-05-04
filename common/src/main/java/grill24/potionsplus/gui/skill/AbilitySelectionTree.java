@@ -5,9 +5,12 @@ import grill24.potionsplus.gui.FixedSizeDivScreenElement;
 import grill24.potionsplus.gui.RenderableScreenElement;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector2f;
 import org.joml.Vector2i;
@@ -25,6 +28,14 @@ public class AbilitySelectionTree<E extends RenderableScreenElement> extends Fix
     public static final Identifier HEX_JUMP_ICON_TEXTURE = ppId("textures/gui/hex_jump_icon.png");
     public static final Identifier HEX_SPEED_ICON_TEXTURE = ppId("textures/gui/hex_speed_icon.png");
     public static final Identifier HEX_FORTUNE_ICON_TEXTURE = ppId("textures/gui/hex_fortune_icon.png");
+
+    private static final RenderType GUI_RENDER_TYPE = RenderType.create("pp_gui", RenderSetup.builder(RenderPipelines.GUI).createRenderSetup());
+    private static final java.util.function.Function<Identifier, RenderType> GUI_TEXTURED = Util.memoize(
+            (java.util.function.Function<Identifier, RenderType>)(texture -> RenderType.create("pp_gui_textured",
+                    RenderSetup.builder(RenderPipelines.GUI_TEXTURED)
+                            .withTexture("Sampler0", texture)
+                            .createRenderSetup()))
+    );
 
     public Vector2f cameraOffset;
     public Vector2f cameraVelocity;
@@ -212,7 +223,7 @@ public class AbilitySelectionTree<E extends RenderableScreenElement> extends Fix
         Vector2f cameraRelativePosition = localToGlobalCameraPosition(localX, localY, partialTick);
 
         graphics.enableScissor((int) bounds.getMinX(), (int) bounds.getMinY(), (int) bounds.getMaxX(), (int) bounds.getMaxY());
-        graphicsExtension.potions_plus$blit(RenderType::guiTextured, texture, cameraRelativePosition.x, cameraRelativePosition.y,
+        graphicsExtension.potions_plus$blit(GUI_TEXTURED, texture, cameraRelativePosition.x, cameraRelativePosition.y,
                 uOffset, vOffset, uWidth * this.zoom, vHeight * this.zoom, uWidth, vHeight, textureWidth, textureHeight, color);
         graphics.disableScissor();
     }
@@ -293,7 +304,7 @@ public class AbilitySelectionTree<E extends RenderableScreenElement> extends Fix
         Vector2f direction = new Vector2f(endPos).sub(startPos).normalize();
         Vector2f perpendicular = new Vector2f(-direction.y, direction.x).normalize().mul(thickness);
         graphicsExtension.potions_plus$fillQuad(
-                RenderType.gui(),
+                GUI_RENDER_TYPE,
                 startPos.x + perpendicular.x, startPos.y + perpendicular.y,
                 endPos.x + perpendicular.x, endPos.y + perpendicular.y,
                 endPos.x - perpendicular.x, endPos.y - perpendicular.y,

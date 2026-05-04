@@ -6,11 +6,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity {
@@ -21,9 +20,9 @@ public abstract class ItemEntityMixin extends Entity {
         super(entityType, level);
     }
 
-    // Redirect field access of lifespan var
-    @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/item/ItemEntity;lifespan:I", opcode = Opcodes.GETFIELD))
-    private int getLifespanValue(ItemEntity itemEntity) {
-        return CommonCommands.expiryTime == -1 ? itemEntity.lifespan : CommonCommands.expiryTime;
+    // Modify the lifetime constant (6000) used to determine when items despawn
+    @ModifyConstant(method = "tick", constant = @Constant(intValue = 6000))
+    private int getModifiedLifespan(int constant) {
+        return CommonCommands.expiryTime == -1 ? constant : CommonCommands.expiryTime;
     }
 }

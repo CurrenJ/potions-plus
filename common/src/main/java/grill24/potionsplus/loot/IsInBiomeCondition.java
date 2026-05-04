@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.LootItemConditions;
-import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.context.ContextKey;
@@ -27,13 +26,13 @@ import java.util.Set;
 public record IsInBiomeCondition(Set<ResourceKey<Biome>> biomes) implements LootItemCondition {
     public static final MapCodec<IsInBiomeCondition> MAP_CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
             ResourceKey.codec(Registries.BIOME).listOf()
-                    .xmap(ImmutableSet::copyOf, list -> new ArrayList<>(list))
+                    .xmap(ImmutableSet::copyOf, ArrayList::new)
                     .fieldOf("biomes").forGetter(IsInBiomeCondition::biomes)).apply(codecBuilder, IsInBiomeCondition::new)
     );
 
-    public IsInBiomeCondition(Set<ResourceKey<Biome>> biomes) {
+    public IsInBiomeCondition {
         // Sort the biomes to ensure consistent serialization - otherwise the order may change between runs
-        this.biomes = biomes.stream().sorted().collect(ImmutableSet.toImmutableSet());
+        biomes = biomes.stream().sorted().collect(ImmutableSet.toImmutableSet());
     }
 
     @Override

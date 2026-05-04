@@ -158,7 +158,7 @@ public class EmitterParticle extends NoRenderParticle {
 
         }
 
-        public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd) {
+        public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, RandomSource random) {
             return new EmitterParticle(clientLevel, x + offset.x, y + offset.y, z + offset.z, xd, yd, zd, particleTypeSupplier, lifeTime, ticksPerSpawn, spawnCount, range, velocity, shrinkWithTime, useGaussianRange);
         }
     }

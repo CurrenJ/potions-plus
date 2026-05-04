@@ -30,6 +30,10 @@ accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/wo
 accessible field net/minecraft/client/data/models/ItemModelGenerators modelOutput Ljava/util/function/BiConsumer;
 accessible field net/minecraft/client/data/models/ItemModelGenerators itemModelOutput Lnet/minecraft/client/data/models/ItemModelOutput;
 
+# BlockModelGenerators — fields are private in the common-module classpath
+accessible field net/minecraft/client/data/models/BlockModelGenerators modelOutput Ljava/util/function/BiConsumer;
+accessible field net/minecraft/client/data/models/BlockModelGenerators itemModelOutput Lnet/minecraft/client/data/models/ItemModelOutput;
+
 # Cauldron stalactite drip — protected methods
 accessible method net/minecraft/world/level/block/AbstractCauldronBlock canReceiveStalactiteDrip (Lnet/minecraft/world/level/material/Fluid;)Z
 accessible method net/minecraft/world/level/block/CauldronBlock canReceiveStalactiteDrip (Lnet/minecraft/world/level/material/Fluid;)Z

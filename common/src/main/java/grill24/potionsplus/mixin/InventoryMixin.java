@@ -36,7 +36,7 @@ public abstract class InventoryMixin {
 
         if (selectedSlot != potions_plus$lastSelectedSlot || !ItemStack.isSameItemSameComponents(potions_plus$lastHeldItem, heldItem)) {
             if (this.player instanceof ServerPlayer serverPlayer) {
-                Platform.onServerPlayerHeldItemChanged(serverPlayer.getServer(), serverPlayer, potions_plus$lastHeldItem, heldItem);
+                Platform.onServerPlayerHeldItemChanged(serverPlayer.level().getServer(), serverPlayer, potions_plus$lastHeldItem, heldItem);
             }
 
             potions_plus$lastSelectedSlot = selectedSlot;

@@ -105,12 +105,12 @@ class SkillIconScreenElement extends ItemStackScreenElement {
 
     public ItemStack getDisplayItem(Player player) {
         RegistryAccess registryAccess = player.registryAccess();
-        ResourceKey<ConfiguredSkill<?, ?>> skillKey = this.skill.key();
+        ResourceKey<ConfiguredSkill<?, ?>> skillKey = this.skill.unwrapKey().orElse(null);
         if (skillKey == null) {
             return ItemStack.EMPTY;
         }
 
-        Optional<SkillInstance<?, ?>> skillInstance = SkillsData.getPlayerData(player).getOrCreate(registryAccess, this.skill.key());
+        Optional<SkillInstance<?, ?>> skillInstance = SkillsData.getPlayerData(player).getOrCreate(registryAccess, this.skill.unwrapKey().orElse(null));
         if (skillInstance.isEmpty()) {
             return ItemStack.EMPTY;
         }

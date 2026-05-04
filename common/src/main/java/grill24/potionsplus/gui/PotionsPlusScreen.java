@@ -4,6 +4,8 @@ import com.mojang.blaze3d.platform.InputConstants;
 import grill24.potionsplus.utility.ClientTickHandler;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -20,8 +22,8 @@ public abstract class PotionsPlusScreen<M extends AbstractContainerMenu> extends
     protected abstract RenderableScreenElement getRootElement();
 
     @Override
-    public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        super.render(graphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
 
         if (ClientTickHandler.total() - lastTickTime > 0.25F) {
             getRootElement().tick(ClientTickHandler.total() - lastTickTime, mouseX, mouseY);
@@ -31,20 +33,10 @@ public abstract class PotionsPlusScreen<M extends AbstractContainerMenu> extends
     }
 
     @Override
-    protected void renderLabels(GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY) {
-        // Don't.
-    }
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        getRootElement().tryClick((int) event.x(), (int) event.y(), event.button());
 
-    @Override
-    protected void renderBg(GuiGraphicsExtractor GuiGraphicsExtractor, float partialTick, int mouseX, int mouseY) {
-        // Don't.
-    }
-
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        getRootElement().tryClick((int) mouseX, (int) mouseY, button);
-
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(event, doubleClick);
     }
 
     @Override
@@ -55,10 +47,10 @@ public abstract class PotionsPlusScreen<M extends AbstractContainerMenu> extends
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-        getRootElement().tryDrag(mouseX, mouseY, button, dragX, dragY);
+    public boolean mouseDragged(MouseButtonEvent event, double dragX, double dragY) {
+        getRootElement().tryDrag(event.x(), event.y(), event.button(), dragX, dragY);
 
-        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+        return super.mouseDragged(event, dragX, dragY);
     }
 
     // ----- Debug -----
@@ -66,21 +58,18 @@ public abstract class PotionsPlusScreen<M extends AbstractContainerMenu> extends
     private boolean isShowingDebugBounds = false;
     private boolean isShowingGridLines = false;
 
-    // In some Screen subclass
     @Override
-    public boolean keyPressed(int key, int scancode, int mods) {
-        InputConstants.Key keyPress = InputConstants.getKey(key, scancode);
-
-        if (keyPress.getValue() == InputConstants.KEY_8) {
+    public boolean keyPressed(KeyEvent event) {
+        if (event.key() == InputConstants.KEY_8) {
             isShowingDebugBounds = !isShowingDebugBounds;
             getRootElement().setShowBounds(!isShowingDebugBounds);
-        } else if (keyPress.getValue() == InputConstants.KEY_7) {
+        } else if (event.key() == InputConstants.KEY_7) {
             getRootElement().snapToTarget();
-        } else if (keyPress.getValue() == InputConstants.KEY_9) {
+        } else if (event.key() == InputConstants.KEY_9) {
             isShowingGridLines = !isShowingGridLines;
             getRootElement().setShowGridLines(isShowingGridLines);
         }
 
-        return super.keyPressed(key, scancode, mods);
+        return super.keyPressed(event);
     }
 }

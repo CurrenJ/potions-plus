@@ -108,7 +108,7 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
             }
             int level = skillInstance.get().getLevel(registryAccess);
             return level >= 1;
-        }).map(Holder.Reference::getKey).toList();
+        }).map(Holder.Reference::key).toList();
 
         // Initialize item displays
         int index = 0;

@@ -34,7 +34,7 @@ public record ServerboundConstructClotheslinePacket(BlockPos pos, BlockPos other
         public static void handleDataOnMain(ServerboundConstructClotheslinePacket packet, final PacketContext context) {
             context.enqueueWork(() -> {
                 ServerPlayer player = (ServerPlayer) context.player();
-                ServerLevel level = player.serverLevel();
+                ServerLevel level = player.level();
 
                 ClotheslineBehaviour.replaceWithClothelines(level, packet.pos, packet.otherPos);
                 CreatePotionsPlusBlockTrigger.INSTANCE.trigger(player, BlockEntityBlocks.CLOTHESLINE.value().defaultBlockState());

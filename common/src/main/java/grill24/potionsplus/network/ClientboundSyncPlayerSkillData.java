@@ -40,7 +40,7 @@ public class ClientboundSyncPlayerSkillData implements CustomPacketPayload {
                         }
 
                         if (packet.skillsData != null) {
-                            context.player().setData(DataAttachments.SKILL_PLAYER_DATA, packet.skillsData);
+                            DataAttachments.setSkillsData(context.player(), packet.skillsData);
 
                             if (Minecraft.getInstance().screen instanceof SkillsScreen skillsScreen) {
                                 skillsScreen.onSkillsSync();

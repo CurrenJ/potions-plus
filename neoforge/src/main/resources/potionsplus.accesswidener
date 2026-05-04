@@ -23,6 +23,9 @@ accessible method net/minecraft/data/worldgen/placement/OrePlacements commonOreP
 # NearestAttackableTargetGoal.targetType — protected field
 accessible field net/minecraft/world/entity/ai/goal/target/NearestAttackableTargetGoal targetType Ljava/lang/Class;
 
+# Mob.targetSelector — protected field used by BoneBuddyEffect
+accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+
 # Cauldron stalactite drip — protected methods
 accessible method net/minecraft/world/level/block/AbstractCauldronBlock canReceiveStalactiteDrip (Lnet/minecraft/world/level/material/Fluid;)Z
 accessible method net/minecraft/world/level/block/CauldronBlock canReceiveStalactiteDrip (Lnet/minecraft/world/level/material/Fluid;)Z
@@ -42,3 +45,7 @@ accessible field net/minecraft/client/particle/TrackingEmitter entity Lnet/minec
 accessible field net/minecraft/client/particle/TrackingEmitter life I
 accessible field net/minecraft/client/particle/TrackingEmitter lifeTime I
 accessible field net/minecraft/client/particle/TrackingEmitter particleType Lnet/minecraft/core/particles/ParticleOptions;
+
+# BlockModelGenerators — fields are private in the named classpath
+accessible field net/minecraft/client/data/models/BlockModelGenerators modelOutput Ljava/util/function/BiConsumer;
+accessible field net/minecraft/client/data/models/BlockModelGenerators itemModelOutput Lnet/minecraft/client/data/models/ItemModelOutput;

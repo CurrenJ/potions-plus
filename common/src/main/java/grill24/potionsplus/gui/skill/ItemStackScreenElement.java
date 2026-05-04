@@ -63,8 +63,7 @@ public class ItemStackScreenElement extends RenderableScreenElement {
         Rectangle2D bounds = getGlobalBounds();
 
         // By default, send the item to the back of the screen render order because we want text and other elements to render on top of it.
-        graphics.pose().pushPose();
-        graphics.pose().translate(bounds.getMinX(), bounds.getMinY(), -100);
+        graphics.pose().translate((float) bounds.getMinX(), (float) bounds.getMinY());
         if (this.getCurrentScale() > 0.01F) {
             if (this.onlyShowSilhouette) {
                 graphicsExtension.potions_plus$setShaderColor(BLACK);
@@ -80,12 +79,9 @@ public class ItemStackScreenElement extends RenderableScreenElement {
 
             graphicsExtension.potions_plus$setShaderColor(WHITE);
         }
-        graphics.pose().popPose();
 
         if (onlyShowSilhouette) {
             // Render question mark
-            graphics.pose().pushPose();
-            graphics.pose().translate(0, 0, -100);
             ((IGuiGraphicsExtension) graphics).potions_plus$renderItem(
                     DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC),
                     new Vector3f(0, 0, 0),
@@ -94,7 +90,6 @@ public class ItemStackScreenElement extends RenderableScreenElement {
                     10,
                     this.getCurrentScale() * 0.5F,
                     Anchor.DEFAULT);
-            graphics.pose().popPose();
         }
 
     }

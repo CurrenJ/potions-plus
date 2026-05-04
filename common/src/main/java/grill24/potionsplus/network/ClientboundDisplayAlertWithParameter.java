@@ -57,7 +57,7 @@ public record ClientboundDisplayAlertWithParameter(String localizationKey, Boole
                         } else {
                             text = Component.translatable(packet.localizationKey, packet.params.toArray());
                         }
-                        clientPlayer.displayClientMessage(text, true);
+                        clientPlayer.sendSystemMessage(text);
                         if (packet.playSound) {
                             clientPlayer.playSound(SoundEvents.PLAYER_LEVELUP, 0.75F, 1.0F);
                         }
