@@ -9,6 +9,7 @@ import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
@@ -64,7 +65,7 @@ public class GeneticCropBlockModelGenerator<T extends Block> extends BlockModelU
 
                                         Identifier texture = getPlantTexture(age, harvestState);
                                         TextureMapping textureMapping = new TextureMapping()
-                                                .put(TextureSlot.CROP, texture);
+                                                .put(TextureSlot.CROP, new Material(texture));
 
                                         template.create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
 

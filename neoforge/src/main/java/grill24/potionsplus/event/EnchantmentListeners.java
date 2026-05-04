@@ -20,7 +20,7 @@ import java.util.Set;
 public class EnchantmentListeners {
     @SubscribeEvent
     private static void onEnchantmentEvent(GetEnchantmentLevelEvent event) {
-        ItemStack stack = event.getStack();
+        ItemStack stack = (ItemStack) event.getStack();
         Set<Holder<Enchantment>> enchantments = new HashSet<>();
 
         var lookup = event.getLookup();
@@ -34,7 +34,7 @@ public class EnchantmentListeners {
         }
 
         for (Holder<Enchantment> enchantmentHolder : enchantments) {
-            int enchantmentLevelWithBonuses = LootItemModifiersBehaviour.getEnchantmentLevelFromItemAttributes(enchantmentHolder, event.getStack(), event.getEnchantments().getLevel(enchantmentHolder));
+            int enchantmentLevelWithBonuses = LootItemModifiersBehaviour.getEnchantmentLevelFromItemAttributes(enchantmentHolder, (ItemStack) event.getStack(), event.getEnchantments().getLevel(enchantmentHolder));
             event.getEnchantments().set(enchantmentHolder, enchantmentLevelWithBonuses);
         }
     }

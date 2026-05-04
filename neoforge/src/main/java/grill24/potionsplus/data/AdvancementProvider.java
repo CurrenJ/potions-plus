@@ -341,7 +341,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder convert_item_in_sanguine_altar = Advancement.Builder.advancement()
                 .parent(create_sanguine_altar)
                 .display(
-                        Items.AMETHYST_SHARD.value(),
+                        Items.AMETHYST_SHARD,
                         Component.translatable("advancements.potionsplus.convert_item_in_sanguine_altar.title"),
                         Component.translatable("advancements.potionsplus.convert_item_in_sanguine_altar.description"),
                         null,
@@ -383,7 +383,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder brew_awkward_potion = Advancement.Builder.advancement()
                 .parent(create_brewing_cauldron)
                 .display(
-                        Items.NETHER_WART.value(),
+                        Items.NETHER_WART,
                         Component.translatable("advancements.potionsplus.brew_awkward_potion.title"),
                         Component.translatable("advancements.potionsplus.brew_awkward_potion.description"),
                         null,
@@ -503,7 +503,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder dry_rotten_flesh = Advancement.Builder.advancement()
                 .parent(create_clothesline)
                 .display(
-                        Items.ROTTEN_FLESH.value(),
+                        Items.ROTTEN_FLESH,
                         Component.translatable("advancements.potionsplus.dry_rotten_flesh.title"),
                         Component.translatable("advancements.potionsplus.dry_rotten_flesh.description"),
                         null,

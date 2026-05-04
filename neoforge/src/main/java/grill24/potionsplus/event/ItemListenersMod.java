@@ -11,7 +11,7 @@ import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 public class ItemListenersMod {
     @SubscribeEvent
     private static void modifyDefaultComponents(final ModifyDefaultComponentsEvent event) {
-        event.modifyMatching((item) -> item instanceof PotionItem, (item) -> {
+        event.modifyMatching((item, components) -> item instanceof PotionItem, (item) -> {
             item.set(DataComponents.MAX_STACK_SIZE, 16);
         });
     }

@@ -26,11 +26,11 @@ import java.util.Map;
 
 public class PlatformImpl {
     public static boolean isClient() {
-        return FMLEnvironment.dist == Dist.CLIENT;
+        return FMLEnvironment.getDist() == Dist.CLIENT;
     }
 
     public static boolean isDevelopmentEnvironment() {
-        return !FMLEnvironment.production;
+        return !FMLEnvironment.isProduction();
     }
 
     public static Vec3 getChorusFruitTeleportTarget(LivingEntity entity, ItemStack stack, double x, double y, double z) {

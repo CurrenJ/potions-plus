@@ -6,7 +6,7 @@ import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
-import net.minecraft.data.recipes.CookingBookCategory;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.item.Item;
@@ -34,7 +34,7 @@ public class OreItems {
                                         Ingredient.of(OreItems.RAW_URANIUM.value()),
                                         RecipeCategory.MISC,
                                         CookingBookCategory.MISC,
-                                        new ItemStack(OreItems.URANIUM_INGOT.value()),
+                                        OreItems.URANIUM_INGOT.value(),
                                         2.0F,
                                         100
                                 ).unlockedBy("has_raw_uranium", recipeProvider.has(OreItems.RAW_URANIUM.value()))))
@@ -44,7 +44,7 @@ public class OreItems {
                                         Ingredient.of(OreItems.RAW_URANIUM.value()),
                                         RecipeCategory.MISC,
                                         CookingBookCategory.MISC,
-                                        new ItemStack(OreItems.URANIUM_INGOT.value()),
+                                        OreItems.URANIUM_INGOT.value(),
                                         2.0F,
                                         50
                                 ).unlockedBy("has_raw_uranium", recipeProvider.has(OreItems.RAW_URANIUM.value()))))
@@ -57,7 +57,7 @@ public class OreItems {
                                         recipeProvider.tag(Tags.Items.URANIUM_ORE),
                                         RecipeCategory.MISC,
                                         CookingBookCategory.MISC,
-                                        new ItemStack(h.value()),
+                                        h.value(),
                                         2.0F,
                                         100
                                 ).unlockedBy("has_uranium_ore", recipeProvider.has(Tags.Items.URANIUM_ORE))))
@@ -67,7 +67,7 @@ public class OreItems {
                                         recipeProvider.tag(Tags.Items.URANIUM_ORE),
                                         RecipeCategory.MISC,
                                         CookingBookCategory.MISC,
-                                        new ItemStack(h.value()),
+                                        h.value(),
                                         2.0F,
                                         50
                                 ).unlockedBy("has_uranium_ore", recipeProvider.has(Tags.Items.URANIUM_ORE))))

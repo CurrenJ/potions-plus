@@ -6,6 +6,7 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.Identifier;
@@ -56,7 +57,7 @@ public class BlockModelUtility {
                 Identifier tex = textureLocation != null ? textureLocation : modelLocation;
                 TexturedModel.Provider textureModelProvider = TexturedModel.createDefault(b ->
                                 new TextureMapping()
-                                        .put(TextureSlot.ALL, tex),
+                                        .put(TextureSlot.ALL, new Material(tex)),
                         ModelTemplates.CUBE_ALL);
                 modelLocation = textureModelProvider.create(block, blockModelGenerators.modelOutput);
             }

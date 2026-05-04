@@ -15,7 +15,6 @@ public class KeyMappings {
     public static final Lazy<KeyMapping> ACTIVATE_ABILITY = Lazy.of(() ->
             new KeyMapping(
                     "key.potionsplus.activate_ability",
-                    KeyConflictContext.IN_GAME,
                     InputConstants.Type.MOUSE,
                     GLFW.GLFW_MOUSE_BUTTON_2,
                     KeyMapping.Category.MISC));

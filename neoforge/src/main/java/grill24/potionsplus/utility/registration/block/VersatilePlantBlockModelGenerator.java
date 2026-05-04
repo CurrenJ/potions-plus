@@ -10,7 +10,8 @@ import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.block.dispatch.VariantMutator;
-import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
@@ -75,10 +76,10 @@ public class VersatilePlantBlockModelGenerator<T, I extends Block> extends Block
     );
 
     public static final IModelFactory<Identifier> CROSS_MODEL_GENERATOR = (blockModelGenerators, itemModelGenerators, modelName, resource) ->
-            ModelTemplates.CROSS.create(ppId(modelName), new TextureMapping().put(TextureSlot.CROSS, resource), blockModelGenerators.modelOutput);
+            ModelTemplates.CROSS.create(ppId(modelName), new TextureMapping().put(TextureSlot.CROSS, new Material(resource)), blockModelGenerators.modelOutput);
     public static final VersatilePlantBlockModelGenerator.IModelFactory<Pair<Identifier, Pair<Identifier, Identifier>>> LUMOSEED_MODEL_GENERATOR = (blockModelGenerators, itemModelGenerators, modelName, resources) ->
             LUMOSEED_MODEL_TEMPLATES.apply(resources.getA()).create(ppId(modelName),
-                    new TextureMapping().put(LUMOSEED_VINE, resources.getB().getA()).put(LUMOSEED_SACK, resources.getB().getB()),
+                    new TextureMapping().put(LUMOSEED_VINE, new Material(resources.getB().getA())).put(LUMOSEED_SACK, new Material(resources.getB().getB())),
                     blockModelGenerators.modelOutput);
     public static final VersatilePlantBlockModelGenerator.IModelFactory<Identifier> PARENTED_MODEL_GENERATOR = (blockModelGenerators, itemModelGenerators, modelName, parentModel) ->
             new ModelTemplate(Optional.of(parentModel), Optional.empty()).create(ppId(modelName), new TextureMapping(), blockModelGenerators.modelOutput);
@@ -139,27 +140,20 @@ public class VersatilePlantBlockModelGenerator<T, I extends Block> extends Block
         Identifier modelLocation = ModelLocationUtils.getModelLocation(item);
         if (texture != null) {
             // Generate item model
-            ModelTemplates.FLAT_ITEM.create(modelLocation, new TextureMapping().put(TextureSlot.LAYER0, texture), blockModelGenerators.modelOutput);
+            ModelTemplates.FLAT_ITEM.create(modelLocation, new TextureMapping().put(TextureSlot.LAYER0, new Material(texture)), blockModelGenerators.modelOutput);
 
             // Generate client item definition
-            itemModelGenerators.itemModelOutput.accept(
-                    item,
-                    new CuboidItemModelWrapper.Unbaked(
-                            modelLocation,
-                            useTint ? List.of(new GrassColorSource())
-                                    : Collections.emptyList()
-                    ));
+            ItemModel.Unbaked itemModel = useTint
+                    ? ItemModelUtils.tintedModel(modelLocation, new GrassColorSource())
+                    : ItemModelUtils.plainModel(modelLocation);
+            blockModelGenerators.itemModelOutput.accept(item, itemModel);
         } else if (model != null) {
             // If no texture is provided, use block model as item model
             if (item instanceof BlockItem blockItem) {
-                itemModelGenerators.itemModelOutput.accept(
-                        item,
-                        new CuboidItemModelWrapper.Unbaked(
-                                model,
-                                useTint ? List.of(new GrassColorSource())
-                                        : Collections.emptyList()
-                        )
-                );
+                ItemModel.Unbaked itemModel = useTint
+                        ? ItemModelUtils.tintedModel(model, new GrassColorSource())
+                        : ItemModelUtils.plainModel(model);
+                blockModelGenerators.itemModelOutput.accept(item, itemModel);
             }
         }
     }

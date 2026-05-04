@@ -4,6 +4,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.ChunkPos;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class PacketNetworkImpl {
@@ -11,11 +12,8 @@ public class PacketNetworkImpl {
         PacketDistributor.sendToPlayer(player, packet);
     }
 
-    public static void sendToPlayers(ServerPlayer player, CustomPacketPayload first, CustomPacketPayload[] rest) {
-        CustomPacketPayload[] all = new CustomPacketPayload[1 + rest.length];
-        all[0] = first;
-        System.arraycopy(rest, 0, all, 1, rest.length);
-        PacketDistributor.sendToPlayer(player, all);
+    public static void sendToPlayers(ServerPlayer player, CustomPacketPayload first, CustomPacketPayload... rest) {
+        PacketDistributor.sendToPlayer(player, first, rest);
     }
 
     public static void sendToPlayersTrackingEntityAndSelf(ServerPlayer player, CustomPacketPayload packet) {
@@ -23,7 +21,7 @@ public class PacketNetworkImpl {
     }
 
     public static void sendToServer(CustomPacketPayload packet) {
-        PacketDistributor.sendToServer(packet);
+        ClientPacketDistributor.sendToServer(packet);
     }
 
     public static void sendToPlayersTrackingChunk(ServerLevel level, ChunkPos chunkPos, CustomPacketPayload packet) {

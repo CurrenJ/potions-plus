@@ -8,6 +8,7 @@ import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -30,7 +31,7 @@ public class UraniumOreBlockModelGenerator<B extends Block> extends BlockModelUt
                 .with(PropertyDispatch.initial(UraniumOreBlock.URANIUM_STATE)
                         .generate(state -> {
                             Identifier textureLocation = Identifier.fromNamespaceAndPath(textureShortId.getNamespace(), textureShortId.getPath() + "_" + state.getSerializedName());
-                            TextureMapping textureMapping = new TextureMapping().put(TextureSlot.ALL, textureLocation);
+                            TextureMapping textureMapping = new TextureMapping().put(TextureSlot.ALL, new Material(textureLocation));
 
                             // Generate block model
                             Identifier model = ppId("block/" + BuiltInRegistries.BLOCK.getResourceKey(block).orElseThrow().identifier().getPath() + "_" + state.getSerializedName());

@@ -37,7 +37,7 @@ public class EffectListeners {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
             BouncingEffect.onFall(livingEntity);
         }
-        if (BouncingEffect.onLivingFall(event.getEntity(), event.getDistance())) {
+        if (BouncingEffect.onLivingFall(event.getEntity(), (float) event.getDistance())) {
             event.setCanceled(true);
         }
     }

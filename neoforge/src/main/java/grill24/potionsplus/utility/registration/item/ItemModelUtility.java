@@ -9,10 +9,10 @@ import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.client.renderer.item.SelectItemModel;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -55,7 +55,7 @@ public class ItemModelUtility {
             Identifier modelLocation = ModelLocationUtils.getModelLocation(item);
             Identifier texture = textureLocation == null ? modelLocation : textureLocation;
 
-            ModelTemplates.FLAT_ITEM.create(modelLocation, new TextureMapping().put(TextureSlot.LAYER0, texture), itemModelGenerators.modelOutput);
+            ModelTemplates.FLAT_ITEM.create(modelLocation, new TextureMapping().put(TextureSlot.LAYER0, new Material(texture)), itemModelGenerators.modelOutput);
             itemModelGenerators.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelLocation));
         }
 
@@ -170,19 +170,16 @@ public class ItemModelUtility {
 
             for (int i = 0; i < untintedLayerTextureLocations.length + 1 && i < LAYERS.length; i++) {
                 if (i == 0) {
-                    textureMapping.put(LAYERS[i], tintedLayerTextureLocation);
+                    textureMapping.put(LAYERS[i], new Material(tintedLayerTextureLocation));
                 } else {
-                    textureMapping.put(LAYERS[i], untintedLayerTextureLocations[i - 1]);
+                    textureMapping.put(LAYERS[i], new Material(untintedLayerTextureLocations[i - 1]));
                 }
             }
 
             LAYER_COUNT_TO_TEMPLATE.getOrDefault(untintedLayerTextureLocations.length, ModelTemplates.FLAT_ITEM)
                     .create(modelLocation, textureMapping, itemModelGenerators.modelOutput);
 
-            CuboidItemModelWrapper.Unbaked model = new CuboidItemModelWrapper.Unbaked(
-                    modelLocation,
-                    List.of(itemTintSource)
-            );
+            ItemModel.Unbaked model = ItemModelUtils.tintedModel(modelLocation, itemTintSource);
 
             itemModelGenerators.itemModelOutput.accept(item, model);
         }
@@ -208,7 +205,7 @@ public class ItemModelUtility {
         public record ModelData(float weightThreshold,
                                 boolean tintFirstLayer,
                                 Identifier... untintedLayerTextureLocations) {
-            CuboidItemModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, Supplier<ItemTintSource> itemTintSource) {
+            ItemModel.Unbaked createModel(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Supplier<ItemTintSource> itemTintSource) {
                 if (untintedLayerTextureLocations.length == 0) {
                     throw new IllegalArgumentException("At least one untinted layer texture location must be provided.");
                 }
@@ -217,20 +214,13 @@ public class ItemModelUtility {
                 TextureMapping textureMapping = new TextureMapping();
 
                 for (int i = 0; i < untintedLayerTextureLocations.length; i++) {
-                    textureMapping.put(TintedLayerItemModelGenerator.LAYERS[i], untintedLayerTextureLocations[i]);
+                    textureMapping.put(TintedLayerItemModelGenerator.LAYERS[i], new Material(untintedLayerTextureLocations[i]));
                 }
 
-                List<ItemTintSource> itemTintSources = tintFirstLayer ?
-                        List.of(itemTintSource.get()) :
-                        List.of();
-
                 TintedLayerItemModelGenerator.LAYER_COUNT_TO_TEMPLATE.getOrDefault(untintedLayerTextureLocations.length, ModelTemplates.FLAT_ITEM)
-                        .create(modelLocation, textureMapping, itemModelGenerators.modelOutput);
+                        .create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
 
-                return new CuboidItemModelWrapper.Unbaked(
-                        modelLocation,
-                        itemTintSources
-                );
+                return ItemModelUtils.plainModel(modelLocation);
             }
         }
 
@@ -247,35 +237,33 @@ public class ItemModelUtility {
             List<RangeSelectItemModel.Entry> entries = Arrays.stream(modelData)
                     .map(data -> new RangeSelectItemModel.Entry(
                             data.weightThreshold,
-                            data.createModel(itemModelGenerators, itemTintSourceSupplier)
+                            data.createModel(blockModelGenerators, itemModelGenerators, itemTintSourceSupplier)
                     ))
                     .toList();
 
             RangeSelectItemModel.Unbaked rangeSelectItemModel = new RangeSelectItemModel.Unbaked(
+                    Optional.empty(),
                     new GeneticProperty(GeneticCropItem.WEIGHT_CHROMOSOME_INDEX),
-                    1,
+                    1.0F,
                     entries,
-                    Optional.of(new CuboidItemModelWrapper.Unbaked(
+                    Optional.of(ItemModelUtils.tintedModel(
                             ModelLocationUtils.getModelLocation(getHolder().value()),
-                            List.of(itemTintSourceSupplier.get())))
+                            itemTintSourceSupplier.get()))
             );
 
-            itemModelGenerators.itemModelOutput.accept(getHolder().value(), rangeSelectItemModel);
+            blockModelGenerators.itemModelOutput.accept(getHolder().value(), rangeSelectItemModel);
         }
 
-        private CuboidItemModelWrapper.Unbaked createFallbackModel(ItemModelGenerators itemModelGenerators) {
+        private ItemModel.Unbaked createFallbackModel(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
             Identifier itemModelLocation = ModelLocationUtils.getModelLocation(getHolder().value());
             Identifier fallbackModelLocation = Identifier.fromNamespaceAndPath(itemModelLocation.getNamespace(), itemModelLocation.getPath() + "_fallback");
 
             TextureMapping textureMapping = new TextureMapping();
-            textureMapping.put(TextureSlot.LAYER0, fallbackModelLocation);
+            textureMapping.put(TextureSlot.LAYER0, new Material(fallbackModelLocation));
 
-            ModelTemplates.FLAT_ITEM.create(itemModelLocation, textureMapping, itemModelGenerators.modelOutput);
+            ModelTemplates.FLAT_ITEM.create(itemModelLocation, textureMapping, blockModelGenerators.modelOutput);
 
-            return new CuboidItemModelWrapper.Unbaked(
-                    fallbackModelLocation,
-                    List.of()
-            );
+            return ItemModelUtils.plainModel(fallbackModelLocation);
         }
     }
 
@@ -296,31 +284,31 @@ public class ItemModelUtility {
                                 Identifier cauliflowerTextureLocation,
                                 Identifier brusselsSproutsTextureLocation,
                                 Identifier kohlrabiTextureLocation) {
-            Map<BrassicaOleraceaItem.Variation, CuboidItemModelWrapper.Unbaked> createModels(ItemModelGenerators itemModelGenerators) {
+            Map<BrassicaOleraceaItem.Variation, ItemModel.Unbaked> createModels(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
                 return Map.of(
-                        BrassicaOleraceaItem.Variation.BRASSICA_OLERACEA, createModel(itemModelGenerators, brassicaOleraceaTextureLocation),
-                        BrassicaOleraceaItem.Variation.CABBAGE, createModel(itemModelGenerators, cabbageTextureLocation),
-                        BrassicaOleraceaItem.Variation.KALE, createModel(itemModelGenerators, kaleTextureLocation),
-                        BrassicaOleraceaItem.Variation.BROCCOLI, createModel(itemModelGenerators, broccoliTextureLocation),
-                        BrassicaOleraceaItem.Variation.CAULIFLOWER, createModel(itemModelGenerators, cauliflowerTextureLocation),
-                        BrassicaOleraceaItem.Variation.BRUSSELS_SPROUTS, createModel(itemModelGenerators, brusselsSproutsTextureLocation),
-                        BrassicaOleraceaItem.Variation.KOHLRABI, createModel(itemModelGenerators, kohlrabiTextureLocation)
+                        BrassicaOleraceaItem.Variation.BRASSICA_OLERACEA, createModel(blockModelGenerators, itemModelGenerators, brassicaOleraceaTextureLocation),
+                        BrassicaOleraceaItem.Variation.CABBAGE, createModel(blockModelGenerators, itemModelGenerators, cabbageTextureLocation),
+                        BrassicaOleraceaItem.Variation.KALE, createModel(blockModelGenerators, itemModelGenerators, kaleTextureLocation),
+                        BrassicaOleraceaItem.Variation.BROCCOLI, createModel(blockModelGenerators, itemModelGenerators, broccoliTextureLocation),
+                        BrassicaOleraceaItem.Variation.CAULIFLOWER, createModel(blockModelGenerators, itemModelGenerators, cauliflowerTextureLocation),
+                        BrassicaOleraceaItem.Variation.BRUSSELS_SPROUTS, createModel(blockModelGenerators, itemModelGenerators, brusselsSproutsTextureLocation),
+                        BrassicaOleraceaItem.Variation.KOHLRABI, createModel(blockModelGenerators, itemModelGenerators, kohlrabiTextureLocation)
                 );
             }
 
-            private CuboidItemModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, Identifier textureLocation) {
+            private ItemModel.Unbaked createModel(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Identifier textureLocation) {
                 Identifier modelLocation = textureLocation;
                 TextureMapping textureMapping = new TextureMapping();
-                textureMapping.put(TextureSlot.LAYER0, textureLocation);
+                textureMapping.put(TextureSlot.LAYER0, new Material(textureLocation));
 
-                ModelTemplates.FLAT_ITEM.create(modelLocation, textureMapping, itemModelGenerators.modelOutput);
-                return new CuboidItemModelWrapper.Unbaked(modelLocation, List.of());
+                ModelTemplates.FLAT_ITEM.create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
+                return ItemModelUtils.plainModel(modelLocation);
             }
         }
 
         @Override
         public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
-            Map<BrassicaOleraceaItem.Variation, CuboidItemModelWrapper.Unbaked> entries = modelData.createModels(itemModelGenerators);
+            Map<BrassicaOleraceaItem.Variation, ItemModel.Unbaked> entries = modelData.createModels(blockModelGenerators, itemModelGenerators);
             List<SelectItemModel.SwitchCase<BrassicaOleraceaItem.Variation>> cases = entries.entrySet().stream()
                     .map(entry -> new SelectItemModel.SwitchCase<>(
                             List.of(entry.getKey()),
@@ -333,11 +321,12 @@ public class ItemModelUtility {
             );
 
             SelectItemModel.Unbaked rangeSelectItemModel = new SelectItemModel.Unbaked(
+                    Optional.empty(),
                     selectItemModel,
                     Optional.of(entries.get(BrassicaOleraceaItem.Variation.BRASSICA_OLERACEA))
             );
 
-            itemModelGenerators.itemModelOutput.accept(getHolder().value(), rangeSelectItemModel);
+            blockModelGenerators.itemModelOutput.accept(getHolder().value(), rangeSelectItemModel);
         }
 
         @Override

@@ -7,6 +7,7 @@ import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
@@ -20,7 +21,7 @@ public class SimpleCrossBlockModelGenerator<B extends Block> extends BlockModelU
 
     public static void registerFlowerBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Block block, Identifier texture) {
         // Generate block model
-        Identifier flowerModelLocation = ModelTemplates.CROSS.create(block, new TextureMapping().put(TextureSlot.CROSS, texture), blockModelGenerators.modelOutput);
+        Identifier flowerModelLocation = ModelTemplates.CROSS.create(block, new TextureMapping().put(TextureSlot.CROSS, new Material(texture)), blockModelGenerators.modelOutput);
 
         // Generate blockstate definition
         MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(flowerModelLocation));

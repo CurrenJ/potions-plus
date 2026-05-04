@@ -26,7 +26,7 @@ public class GeneticCropFeature extends Feature<GeneticCropConfiguration> {
         GeneticCropConfiguration GeneticCropConfiguration = p_160341_.config();
         WorldGenLevel worldgenlevel = p_160341_.level();
         BlockPos blockpos = p_160341_.origin();
-        BlockState blockstate = GeneticCropConfiguration.toPlace().getState(p_160341_.random(), blockpos);
+        BlockState blockstate = GeneticCropConfiguration.toPlace().getState(worldgenlevel, p_160341_.random(), blockpos);
         if (blockstate.canSurvive(worldgenlevel, blockpos)) {
             if (blockstate.getBlock() instanceof DoublePlantBlock) {
                 if (!worldgenlevel.isEmptyBlock(blockpos.above())) {

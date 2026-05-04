@@ -66,6 +66,6 @@ public class GrunglerModel extends EntityModel<LivingEntityRenderState> {
     public void setupAnim(LivingEntityRenderState state) {
         super.setupAnim(state);
         // A specialized version of animate(), designed for walking animations.
-        this.animateWalk(WALKING_ANIMATION_LOCATION, state.walkAnimationPos, state.walkAnimationSpeed, 3, 1);
+        
     }
 }

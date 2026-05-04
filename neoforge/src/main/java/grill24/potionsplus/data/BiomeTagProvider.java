@@ -27,9 +27,9 @@ public class BiomeTagProvider extends TagsProvider<Biome> {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(VOLCANIC_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_HOT);
-        tag(ICE_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_COLD).addTag(Tags.Biomes.IS_COLD_OVERWORLD);
-        tag(ARID_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_DRY);
+        getOrCreateRawBuilder(VOLCANIC_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND.location()).addTag(Tags.Biomes.IS_HOT.location());
+        getOrCreateRawBuilder(ICE_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND.location()).addTag(Tags.Biomes.IS_COLD.location()).addTag(Tags.Biomes.IS_COLD_OVERWORLD.location());
+        getOrCreateRawBuilder(ARID_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND.location()).addTag(Tags.Biomes.IS_DRY.location());
     }
 
     private static TagKey<Biome> tag(String name) {
