@@ -1,11 +1,7 @@
 package grill24.potionsplus.render.animation;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Vector3f;
 import oshi.util.tuples.Pair;
@@ -134,30 +130,9 @@ public class ItemTossupAnimation extends ItemActivationAnimation {
 
             // Render physics items
             for (PhysicsItem physicsItem : this.physicsItems) {
-                PoseStack poseStack = new PoseStack();
-                poseStack.pushPose();
-                poseStack.translate(GuiGraphicsExtractor.guiWidth() / 2.0F, GuiGraphicsExtractor.guiHeight() / 2.0F, -50.0F);
-                poseStack.translate(physicsItem.position.x * scale, physicsItem.position.y * scale, physicsItem.position.z * scale);
-                // Assuming parabolic curve, rotate the item to face the direction of the velocity
-//                poseStack.mulPose(Axis.YP.rotationDegrees((float) Math.toDegrees(Math.atan2(physicsItem.velocity.x, physicsItem.velocity.z))));
-//                poseStack.mulPose(Axis.XP.rotationDegrees((float) Math.toDegrees(Math.atan2(physicsItem.velocity.y, Math.sqrt(physicsItem.velocity.x * physicsItem.velocity.x + physicsItem.velocity.z * physicsItem.velocity.z)))));
-                poseStack.mulPose(Axis.YP.rotationDegrees(physicsItem.rotation.x * 180));
-                poseStack.mulPose(Axis.XP.rotationDegrees(physicsItem.rotation.y * 180));
-                poseStack.mulPose(Axis.ZP.rotationDegrees(physicsItem.rotation.z * 360));
-                poseStack.scale(scale, scale, scale);
-
-                GuiGraphicsExtractor.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
-                        physicsItem.stack,
-                        ItemDisplayContext.FIXED,
-                        15728880,
-                        OverlayTexture.NO_OVERLAY,
-                        poseStack,
-                        bufferSource,
-                        minecraft.level,
-                        0
-                ));
-
-                poseStack.popPose();
+                int itemX = GuiGraphicsExtractor.guiWidth() / 2 + (int)(physicsItem.position.x * scale);
+                int itemY = GuiGraphicsExtractor.guiHeight() / 2 + (int)(physicsItem.position.y * scale);
+                GuiGraphicsExtractor.item(physicsItem.stack, itemX, itemY);
             }
         }
     }

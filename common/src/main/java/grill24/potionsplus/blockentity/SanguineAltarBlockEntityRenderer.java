@@ -54,7 +54,7 @@ public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<San
         // TODO: Submit rendering using state data via submitNodeCollector
     }
 
-    private static void drawRuneCircle(SanguineAltarBlockEntity blockEntity, Vector3f offset, Vector3f axis, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, float rollHertz, float itemScale, float radius, float spinDegrees) {
+    private static void drawRuneCircle(SanguineAltarBlockEntity blockEntity, Vector3f offset, Vector3f axis, PoseStack matrices, SubmitNodeCollector submitNodeCollector, int light, int overlay, float rollHertz, float itemScale, float radius, float spinDegrees) {
         // Get radians of rotation from spinHertz and total ticks (time)
 
         float healthDrain = blockEntity.getHealthDrainProgress();
@@ -66,7 +66,7 @@ public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<San
             Vector3f point = points[p];
             // Added 4 runes to the generic icon, so pick a different one for each point.
             ItemStack runeStack = RUNES[p % RUNES.length];
-            RUtil.renderItemWithYaw(blockEntity, runeStack, new Vector3d(point.x(), point.y(), point.z()), 20, 0, p * 10, itemScale, matrices, vertexConsumers, light, overlay);
+            RUtil.renderItemWithYaw(blockEntity, runeStack, new Vector3d(point.x(), point.y(), point.z()), 20, 0, p * 10, itemScale, matrices, submitNodeCollector, light, overlay);
         }
     }
 

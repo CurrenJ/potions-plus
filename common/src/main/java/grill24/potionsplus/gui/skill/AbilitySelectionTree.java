@@ -6,11 +6,10 @@ import grill24.potionsplus.gui.RenderableScreenElement;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
-import net.minecraft.util.Util;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector2f;
 import org.joml.Vector2i;
@@ -29,13 +28,8 @@ public class AbilitySelectionTree<E extends RenderableScreenElement> extends Fix
     public static final Identifier HEX_SPEED_ICON_TEXTURE = ppId("textures/gui/hex_speed_icon.png");
     public static final Identifier HEX_FORTUNE_ICON_TEXTURE = ppId("textures/gui/hex_fortune_icon.png");
 
-    private static final RenderType GUI_RENDER_TYPE = RenderType.create("pp_gui", RenderSetup.builder(RenderPipelines.GUI).createRenderSetup());
-    private static final java.util.function.Function<Identifier, RenderType> GUI_TEXTURED = Util.memoize(
-            (java.util.function.Function<Identifier, RenderType>)(texture -> RenderType.create("pp_gui_textured",
-                    RenderSetup.builder(RenderPipelines.GUI_TEXTURED)
-                            .withTexture("Sampler0", texture)
-                            .createRenderSetup()))
-    );
+    private static final RenderType GUI_RENDER_TYPE = RenderTypes.textBackground();
+    private static final java.util.function.Function<Identifier, RenderType> GUI_TEXTURED = texture -> RenderTypes.textBackground();
 
     public Vector2f cameraOffset;
     public Vector2f cameraVelocity;

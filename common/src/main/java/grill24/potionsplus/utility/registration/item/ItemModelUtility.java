@@ -315,7 +315,7 @@ public class ItemModelUtility {
             Map<BrassicaOleraceaItem.Variation, ItemModel.Unbaked> entries = modelData.createModels(blockModelGenerators, itemModelGenerators);
             List<SelectItemModel.SwitchCase<BrassicaOleraceaItem.Variation>> cases = entries.entrySet().stream()
                     .map(entry -> new SelectItemModel.SwitchCase<>(
-                            List.of(entry.key()),
+                            List.of(entry.getKey()),
                             entry.getValue()
                     ))
                     .toList();

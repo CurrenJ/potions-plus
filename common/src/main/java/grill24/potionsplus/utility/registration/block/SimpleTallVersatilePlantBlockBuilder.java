@@ -29,7 +29,7 @@ public class SimpleTallVersatilePlantBlockBuilder extends SimpleBlockBuilder {
 
     private static VersatilePlantBlock createBlock(BlockBehaviour.Properties prop, boolean extendable) {
         return new VersatilePlantBlock(prop.mapColor(MapColor.PLANT)
-                .noCollission()
+                .noCollision()
                 .instabreak()
                 .sound(SoundType.GRASS)
                 .ignitedByLava()

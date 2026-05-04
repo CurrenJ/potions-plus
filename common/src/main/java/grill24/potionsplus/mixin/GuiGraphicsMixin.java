@@ -5,6 +5,7 @@ import grill24.potionsplus.gui.RenderableScreenElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.item.TrackingItemStackRenderState;
@@ -46,11 +47,11 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
     @Final
     public GuiRenderState guiRenderState;
 
-    @Shadow
-    @Final
-    public GuiGraphicsExtractor.ScissorStack scissorStack;
-
     private static final float PIX = 16;
+
+    private ScreenRectangle scissorPeek() {
+        return ((GuiGraphicsExtractor) (Object) this).scissorStack.peek();
+    }
 
     @Override
     public void potions_plus$renderItem(@Nullable LivingEntity entity, @Nullable Level level, ItemStack stack, Vector3f rotation, float x, float y, float scale, RenderableScreenElement.Anchor anchor, int seed, float guiOffset) {
@@ -79,7 +80,7 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
 
             TrackingItemStackRenderState renderState = new TrackingItemStackRenderState();
             this.minecraft.getItemModelResolver().updateForTopItem(renderState, stack, ItemDisplayContext.GUI, level, entity, seed);
-            this.guiRenderState.addItem(new GuiItemRenderState(new Matrix3x2f(this.pose), renderState, 0, 0, this.scissorStack.peek()));
+            this.guiRenderState.addItem(new GuiItemRenderState(new Matrix3x2f(this.pose), renderState, 0, 0, this.scissorPeek()));
 
             this.pose.popMatrix();
         }
@@ -108,7 +109,7 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
                 RenderPipelines.GUI, TextureSetup.noTexture(),
                 new Matrix3x2f(this.pose),
                 (int) minX, (int) minY, (int) maxX, (int) maxY,
-                color, color, this.scissorStack.peek()));
+                color, color, this.scissorPeek()));
 
         this.pose.popMatrix();
     }
@@ -130,7 +131,7 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
                 RenderPipelines.GUI, TextureSetup.noTexture(),
                 new Matrix3x2f(this.pose),
                 (int) minX, (int) minY, (int) maxX, (int) maxY,
-                color, color, this.scissorStack.peek()));
+                color, color, this.scissorPeek()));
     }
 
     @Override
@@ -142,7 +143,7 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
     public int potions_plus$drawString(Font font, Component text, float x, float y, int color, boolean dropShadow) {
         this.guiRenderState.addText(new GuiTextRenderState(
                 font, text.getVisualOrderText(), new Matrix3x2f(this.pose),
-                (int) x, (int) y, color, 0, dropShadow, false, this.scissorStack.peek()));
+                (int) x, (int) y, color, 0, dropShadow, false, this.scissorPeek()));
         return (int) x + font.width(text);
     }
 
@@ -158,7 +159,7 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
                 (uOffset + width) / (float) textureWidth,
                 (vOffset) / (float) textureHeight,
                 (vOffset + height) / (float) textureHeight,
-                color, this.scissorStack.peek()));
+                color, this.scissorPeek()));
     }
 
     @Override
@@ -171,7 +172,7 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
                 RenderPipelines.GUI, TextureSetup.noTexture(),
                 new Matrix3x2f(this.pose),
                 (int) minX, (int) minY, (int) maxX, (int) maxY,
-                color, color, this.scissorStack.peek()));
+                color, color, this.scissorPeek()));
     }
 
     @Override

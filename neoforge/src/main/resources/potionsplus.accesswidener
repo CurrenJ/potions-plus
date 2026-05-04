@@ -49,3 +49,6 @@ accessible field net/minecraft/client/particle/TrackingEmitter particleType Lnet
 # BlockModelGenerators — fields are private in the named classpath
 accessible field net/minecraft/client/data/models/BlockModelGenerators modelOutput Ljava/util/function/BiConsumer;
 accessible field net/minecraft/client/data/models/BlockModelGenerators itemModelOutput Lnet/minecraft/client/data/models/ItemModelOutput;
+
+# ScissorStack — class has become non-public in MC 26.1.2
+accessible class net/minecraft/client/gui/ScissorStack

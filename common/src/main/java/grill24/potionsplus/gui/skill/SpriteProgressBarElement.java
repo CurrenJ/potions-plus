@@ -7,11 +7,10 @@ import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
-import net.minecraft.util.Util;
 
 import java.awt.geom.Rectangle2D;
 import java.util.function.Function;
@@ -29,12 +28,7 @@ public class SpriteProgressBarElement extends FixedSizeDivScreenElement<Renderab
     public static final int WIDTH = 63;
     public static final int HEIGHT = 19;
 
-    private static final Function<Identifier, RenderType> GUI_TEXTURED = Util.memoize(
-            (Function<Identifier, RenderType>)(texture -> RenderType.create("pp_gui_textured",
-                    RenderSetup.builder(RenderPipelines.GUI_TEXTURED)
-                            .withTexture("Sampler0", texture)
-                            .createRenderSetup()))
-    );
+    private static final Function<Identifier, RenderType> GUI_TEXTURED = texture -> RenderTypes.textBackground();
 
     public float progress;
     public int skillLevel;

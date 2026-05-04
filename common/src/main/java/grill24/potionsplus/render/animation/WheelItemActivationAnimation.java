@@ -1,16 +1,11 @@
 package grill24.potionsplus.render.animation;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import grill24.potionsplus.render.animation.keyframe.SpatialAnimationData;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Vector3f;
 
@@ -70,38 +65,9 @@ public class WheelItemActivationAnimation extends ItemActivationAnimation {
             positionOffset.mul(scale);
 
             for (int i = 0; i < this.wheelItems.size(); i++) {
-                SpatialAnimationData curves = i == winningItemStackIndex ?
-                        SpatialAnimations.get(SpatialAnimations.WHEEL_WINNER)
-                        : SpatialAnimations.get(SpatialAnimations.WHEEL_LOSERS);
-                Vector3f rotation = new Vector3f(curves.getRotation().evaluate(elapsedTicks));
-                if (i != winningItemStackIndex) {
-                    rotation.add(0, i * 15, 0);
-                }
-
-                PoseStack poseStack = new PoseStack();
-                poseStack.pushPose();
-                poseStack.translate(GuiGraphicsExtractor.guiWidth() / 2.0F, GuiGraphicsExtractor.guiHeight() / 2.0F, -50.0F);
-                poseStack.translate(points[i].x, points[i].y, points[i].z);
-                poseStack.translate(positionOffset.x(), positionOffset.y(), positionOffset.z());
-                poseStack.mulPose(Axis.YP.rotationDegrees(rotation.y()));
-                poseStack.mulPose(Axis.XP.rotationDegrees(rotation.x()));
-                poseStack.mulPose(Axis.ZP.rotationDegrees(rotation.z()));
-                float scaleMultiplier = curves.getScale().evaluate(elapsedTicks);
-                poseStack.scale(-scale * scaleMultiplier, -scale * scaleMultiplier, scale * scaleMultiplier);
-
-                int finalI = i;
-                GuiGraphicsExtractor.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
-                        this.wheelItems.get(finalI),
-                        ItemDisplayContext.FIXED,
-                        15728880,
-                        OverlayTexture.NO_OVERLAY,
-                        poseStack,
-                        bufferSource,
-                        minecraft.level,
-                        0
-                ));
-
-                poseStack.popPose();
+                int itemX = GuiGraphicsExtractor.guiWidth() / 2 + (int)(points[i].x + positionOffset.x());
+                int itemY = GuiGraphicsExtractor.guiHeight() / 2 + (int)(points[i].y + positionOffset.y());
+                GuiGraphicsExtractor.item(this.wheelItems.get(i), itemX, itemY);
             }
         }
     }

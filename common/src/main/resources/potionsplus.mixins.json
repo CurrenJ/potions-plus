@@ -9,6 +9,7 @@
     "BoatMixin",
     "BootstrapMixin",
     "BucketItemMixin",
+    "CauldronInteractionDispatcherAccessor",
     "ConsumableMixin",
     "EnchantedCountIncreaseFunctionMixin",
     "EntityMixin",

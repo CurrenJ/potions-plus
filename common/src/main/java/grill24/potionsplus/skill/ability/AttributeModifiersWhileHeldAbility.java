@@ -41,7 +41,7 @@ public class AttributeModifiersWhileHeldAbility extends PermanentAttributeModifi
 
     private static <T extends AttributeModifiersWhileHeldAbility> Collection<AttributeModifiersData> getActiveAttributeModifiers(ServerPlayer player, Holder<PlayerAbility<?>> abilityHolder, ItemStack stack) {
         SkillsData skillsData = SkillsData.getPlayerData(player);
-        List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.unlockedAbilities().get(abilityHolder.key());
+        List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.unlockedAbilities().get(abilityHolder.unwrapKey().orElseThrow());
         if (configuredAbilities == null) return List.of();
 
         return configuredAbilities.stream()

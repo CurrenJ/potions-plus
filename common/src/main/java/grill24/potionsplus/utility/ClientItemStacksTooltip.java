@@ -14,7 +14,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -105,15 +105,15 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
 
             }
 
-            GuiGraphicsExtractor.renderItem(itemstack, x + 1, y + 1, itemIndex);
+            GuiGraphicsExtractor.item(itemstack, x + 1, y + 1);
             if (this.renderItemDecorations) {
-                GuiGraphicsExtractor.renderItemDecorations(font, itemstack, x + 1, y + 1);
+                GuiGraphicsExtractor.itemDecorations(font, itemstack, x + 1, y + 1);
             }
         }
     }
 
     private void blit(GuiGraphicsExtractor GuiGraphicsExtractor, int x, int y, ClientItemStacksTooltip.Texture texture) {
-        GuiGraphicsExtractor.blitSprite(RenderType::guiTextured, texture.sprite, x, y, texture.w, texture.h);
+        GuiGraphicsExtractor.blitSprite(RenderPipelines.GUI_TEXTURED, texture.sprite, x, y, texture.w, texture.h);
     }
 
     private int gridSizeX() {

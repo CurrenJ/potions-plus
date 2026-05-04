@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
+import com.google.common.base.Supplier;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -109,7 +109,7 @@ public class VersatilePlantsWorldGenData {
     private static List<Supplier<MultiDirectionalVersatilePlantFeatureData>> ALL;
 
     private static Supplier<MultiDirectionalVersatilePlantFeatureData> register(Supplier<MultiDirectionalVersatilePlantFeatureData> data) {
-        Supplier<MultiDirectionalVersatilePlantFeatureData> lazy = com.google.common.base.Suppliers.memoize(data);
+        Supplier<MultiDirectionalVersatilePlantFeatureData> lazy = com.google.common.base.Suppliers.<MultiDirectionalVersatilePlantFeatureData>memoize(data);
         if (ALL == null) {
             ALL = new ArrayList<>();
         }

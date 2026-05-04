@@ -7,6 +7,7 @@ import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.registration.IModelGenerator;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.ItemModelOutput;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
@@ -27,6 +28,27 @@ import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class ItemOverrideUtility {
+    @SuppressWarnings("rawtypes")
+    private static java.util.function.BiConsumer getModelOutput(BlockModelGenerators generators) {
+        try {
+            var field = BlockModelGenerators.class.getDeclaredField("modelOutput");
+            field.setAccessible(true);
+            return (java.util.function.BiConsumer) field.get(generators);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to access modelOutput", e);
+        }
+    }
+
+    private static ItemModelOutput getItemModelOutput(BlockModelGenerators generators) {
+        try {
+            var field = BlockModelGenerators.class.getDeclaredField("itemModelOutput");
+            field.setAccessible(true);
+            return (ItemModelOutput) field.get(generators);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to access itemModelOutput", e);
+        }
+    }
+
     public abstract static class ItemOverrideModelGenerator<T extends Item> implements IModelGenerator<Item> {
         private final Supplier<Holder<Item>> itemGetter;
 
@@ -54,7 +76,7 @@ public class ItemOverrideUtility {
 
             TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, new Material(commonData.getLayer0()));
             Identifier fallbackItemModelId = ppId(item.unwrapKey().orElseThrow().identifier().getPath() + "_fallback");
-            Identifier fallbackItemModel = ModelTemplates.FLAT_ITEM.create(fallbackItemModelId, fallbackItemTextureMapping, blockModelGenerators.modelOutput);
+            Identifier fallbackItemModel = ModelTemplates.FLAT_ITEM.create(fallbackItemModelId, fallbackItemTextureMapping, getModelOutput(blockModelGenerators));
 
             List<RangeSelectItemModel.Entry> entries = commonData.getLayer1().stream().map(layer1Texture -> {
                 String str = layer1Texture.getPath();
@@ -64,7 +86,7 @@ public class ItemOverrideUtility {
                 TextureMapping textureMapping = new TextureMapping()
                         .put(TextureSlot.LAYER0, new Material(commonData.getLayer0()))
                         .put(TextureSlot.LAYER1, new Material(layer1Texture));
-                Identifier generatedItemModel = ModelTemplates.TWO_LAYERED_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                Identifier generatedItemModel = ModelTemplates.TWO_LAYERED_ITEM.create(modelId, textureMapping, getModelOutput(blockModelGenerators));
 
                 float threshold = commonData.getOverrideValue(layer1Texture);
 
@@ -82,7 +104,7 @@ public class ItemOverrideUtility {
                     Optional.of(ItemModelUtils.plainModel(fallbackItemModel))
             );
 
-            blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+            getItemModelOutput(blockModelGenerators).accept(item.value(), rangeSelectItemModel);
         }
     }
 
@@ -103,7 +125,7 @@ public class ItemOverrideUtility {
                 Identifier modelId = ppId("item/" + name);
 
                 TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, new Material(Identifier.fromNamespaceAndPath(registryName.getNamespace(), "mob_effect/" + registryName.getPath())));
-                Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, getModelOutput(blockModelGenerators));
 
                 float threshold = (grill24.potionsplus.core.potion.MobEffects.POTION_ICON_INDEX_MAP.get().get(registryName) - 1) / 64F;
                 return ItemModelUtils.override(ItemModelUtils.plainModel(generatedItemModel), threshold);
@@ -117,7 +139,7 @@ public class ItemOverrideUtility {
                     Optional.of(fallbackItemModel)
             );
 
-            blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+            getItemModelOutput(blockModelGenerators).accept(item.value(), rangeSelectItemModel);
         }
     }
 
@@ -140,7 +162,7 @@ public class ItemOverrideUtility {
             Holder<Item> item = getHolder();
 
             TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, new Material(DynamicIconItems.UNKNOWN_TEX_LOC));
-            Identifier fallbackItemModelLocation = ModelTemplates.FLAT_ITEM.create(ppId("unknown_generic_icon_fallback"), fallbackItemTextureMapping, blockModelGenerators.modelOutput);
+            Identifier fallbackItemModelLocation = ModelTemplates.FLAT_ITEM.create(ppId("unknown_generic_icon_fallback"), fallbackItemTextureMapping, getModelOutput(blockModelGenerators));
             ItemModel.Unbaked fallbackItemModel = ItemModelUtils.plainModel(fallbackItemModelLocation);
 
             List<RangeSelectItemModel.Entry> entries = Arrays.stream(textures).map(texture -> {
@@ -151,7 +173,7 @@ public class ItemOverrideUtility {
                 Identifier modelId = ppId("item/" + name);
 
                 TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, new Material(texture));
-                Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, getModelOutput(blockModelGenerators));
 
                 float threshold = itemStackCount / 64F;
                 return ItemModelUtils.override(ItemModelUtils.plainModel(generatedItemModel), threshold);
@@ -165,7 +187,7 @@ public class ItemOverrideUtility {
                     Optional.of(fallbackItemModel)
             );
 
-            blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+            getItemModelOutput(blockModelGenerators).accept(item.value(), rangeSelectItemModel);
         }
 
     }

@@ -41,7 +41,7 @@ public class ConfiguredPlayerAbilityArgument implements ArgumentType<ConfiguredP
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
         return SharedSuggestionProvider.suggestResource(
                 this.context.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY).listElementIds()
-                        .map(ResourceKey::location)
+                        .map(ResourceKey::identifier)
                         .toList(), builder);
     }
 }

@@ -6,7 +6,8 @@ import grill24.potionsplus.blockentity.ITimestampSupplier;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +18,7 @@ import java.lang.Math;
 import java.util.function.Function;
 
 public class RUtil {
-    public static void renderInputItemAnimation(ItemStack stack, float scale, int ticksDelay, boolean hideOnFinish, ISingleStackDisplayer iSingleStackDisplayer, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+    public static void renderInputItemAnimation(ItemStack stack, float scale, int ticksDelay, boolean hideOnFinish, ISingleStackDisplayer iSingleStackDisplayer, PoseStack matrices, SubmitNodeCollector submitNodeCollector, int light, int overlay) {
         float ticks = ClientTickHandler.total();
         float lerpFactor = (ticks - iSingleStackDisplayer.getTimeItemPlaced() - ticksDelay) / iSingleStackDisplayer.getInputAnimationDuration();
 
@@ -45,14 +46,15 @@ public class RUtil {
             matrices.mulPose(rotation);
             matrices.scale(scale, scale, scale);
 
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
-                    light, overlay, matrices, vertexConsumers, null, 0);
+            ItemStackRenderState renderState = new ItemStackRenderState();
+            Minecraft.getInstance().getItemModelResolver().updateForTopItem(renderState, stack, ItemDisplayContext.FIXED, null, null, 0);
+            renderState.submit(matrices, submitNodeCollector, light, overlay, 0);
 
             matrices.popPose();
         }
     }
 
-    public static void renderBobbingItem(ItemStack stack, Vector3d restingPosition, float yawDegrees, float scale, float bobbingHeight, float bobbingHertz, float tickDelay, float tickDelta, ISingleStackDisplayer singleStackDisplayer, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+    public static void renderBobbingItem(ItemStack stack, Vector3d restingPosition, float yawDegrees, float scale, float bobbingHeight, float bobbingHertz, float tickDelay, float tickDelta, ISingleStackDisplayer singleStackDisplayer, PoseStack matrices, SubmitNodeCollector submitNodeCollector, int light, int overlay) {
         float ticks = ClientTickHandler.total();
         if (!stack.isEmpty() && isAnimationActive(singleStackDisplayer, (int) tickDelay, (int) tickDelta)) {
             matrices.pushPose();
@@ -63,9 +65,9 @@ public class RUtil {
             matrices.mulPose(rotation);
             matrices.scale(scale, scale, scale);
 
-
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
-                    light, overlay, matrices, vertexConsumers, null, 0);
+            ItemStackRenderState renderState = new ItemStackRenderState();
+            Minecraft.getInstance().getItemModelResolver().updateForTopItem(renderState, stack, ItemDisplayContext.GROUND, null, null, 0);
+            renderState.submit(matrices, submitNodeCollector, light, overlay, 0);
             matrices.popPose();
         }
     }
@@ -79,7 +81,7 @@ public class RUtil {
         return 0;
     }
 
-    public static void renderItemWithYaw(ISingleStackDisplayer singleStackDisplayer, ItemStack stack, Vector3d position, int tickDelay, int tickDuration, float yawDegrees, float scale, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+    public static void renderItemWithYaw(ISingleStackDisplayer singleStackDisplayer, ItemStack stack, Vector3d position, int tickDelay, int tickDuration, float yawDegrees, float scale, PoseStack matrices, SubmitNodeCollector submitNodeCollector, int light, int overlay) {
         if (isAnimationActive(singleStackDisplayer, tickDelay, tickDuration)) {
             matrices.pushPose();
             Quaternionf rotation = RUtil.rotateY(yawDegrees);
@@ -87,8 +89,9 @@ public class RUtil {
             matrices.mulPose(rotation);
             matrices.scale(scale, scale, scale);
 
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
-                    light, overlay, matrices, vertexConsumers, null, 0);
+            ItemStackRenderState renderState = new ItemStackRenderState();
+            Minecraft.getInstance().getItemModelResolver().updateForTopItem(renderState, stack, ItemDisplayContext.FIXED, null, null, 0);
+            renderState.submit(matrices, submitNodeCollector, light, overlay, 0);
             matrices.popPose();
         }
     }

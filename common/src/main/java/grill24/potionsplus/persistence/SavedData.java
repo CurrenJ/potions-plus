@@ -28,7 +28,7 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
 
 
     public static final SavedDataType<SavedData> TYPE = new SavedDataType<>(
-            java.util.Objects.requireNonNull(net.minecraft.resources.Identifier.of(FILE_NAME)),
+            java.util.Objects.requireNonNull(net.minecraft.resources.Identifier.withDefaultNamespace(FILE_NAME)),
             () -> new SavedData(),
             RecordCodecBuilder.create(builder -> builder.group(
                     Codec.unboundedMap(PotionsPlusExtraCodecs.UUID_CODEC, PlayerBrewingKnowledge.CODEC).fieldOf("playerDataMap").forGetter(data -> data.playerDataMap),

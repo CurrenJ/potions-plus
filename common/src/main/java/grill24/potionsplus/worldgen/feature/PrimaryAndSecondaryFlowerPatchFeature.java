@@ -17,8 +17,8 @@ public class PrimaryAndSecondaryFlowerPatchFeature extends Feature<PrimaryAndSec
         PrimaryAndSecondaryFlowerFeatureConfig config = ctx.config();
         WorldGenLevel level = ctx.level();
         BlockPos pos = ctx.origin();
-        BlockState primary = config.primaryToPlace().getState(ctx.random(), pos);
-        BlockState secondary = config.secondaryToPlace().getState(ctx.random(), pos);
+        BlockState primary = config.primaryToPlace().getState(ctx.level(), ctx.random(), pos);
+        BlockState secondary = config.secondaryToPlace().getState(ctx.level(), ctx.random(), pos);
 
         float secondaryChance = config.secondaryChance();
         if (primary.canSurvive(level, pos)) {

@@ -2,6 +2,10 @@ architectury {
     common rootProject.enabled_platforms.split(',')
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/potionsplus.accesswidener")
+}
+
 dependencies {
     // Fabric Loader provides Fabric @Environment annotations.
     // Architectury remaps these to the correct annotations on each platform.

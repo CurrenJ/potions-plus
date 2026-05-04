@@ -2,9 +2,9 @@ package grill24.potionsplus.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.Lightmap;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
@@ -31,7 +31,7 @@ public class LeashRenderer {
         float invDistance = (float) (Mth.fastInvSqrt(deltaX * deltaX + deltaZ * deltaZ) * 0.025F / 2.0F);
         float deltaZInvDistance = deltaZ * invDistance;
         float deltaXInvDistance = deltaX * invDistance;
-        VertexConsumer vertexConsumer = bufferSource != null ? bufferSource.getBuffer(RenderType.leash()) : null;
+        VertexConsumer vertexConsumer = bufferSource != null ? bufferSource.getBuffer(RenderTypes.leash()) : null;
         Matrix4f matrix = poseStack != null ? poseStack.last().pose() : null;
 
         Vector3f[] leashPoints = new Vector3f[25];
@@ -49,7 +49,7 @@ public class LeashRenderer {
         float stepFraction = (float) step / 24.0F;
         int mixedBlockLight = (int) Mth.lerp(stepFraction, blockLightStart, blockLightEnd);
         int mixedSkyLight = (int) Mth.lerp(stepFraction, skyLightStart, skyLightEnd);
-        int packedLight = Lightmap.pack(mixedBlockLight, mixedSkyLight);
+        int packedLight = LightCoordsUtil.pack(mixedBlockLight, mixedSkyLight);
         float colorIntensity = step % 2 == (reverse ? 1 : 0) ? 0.7F : 1.0F;
         float red = 0.5F * colorIntensity;
         float green = 0.4F * colorIntensity;
@@ -71,7 +71,7 @@ public class LeashRenderer {
             float stepFraction = (float) i / 24.0F;
             int mixedBlockLight = (int) Mth.lerp(stepFraction, blockLightStart, blockLightEnd);
             int mixedSkyLight = (int) Mth.lerp(stepFraction, skyLightStart, skyLightEnd);
-            int packedLight = Lightmap.pack(mixedBlockLight, mixedSkyLight);
+            int packedLight = LightCoordsUtil.pack(mixedBlockLight, mixedSkyLight);
             float colorIntensity = i % 2 == (reverse ? 1 : 0) ? 0.7F : 1.0F;
             float red = 0.5F * colorIntensity;
             float green = 0.4F * colorIntensity;
@@ -86,16 +86,16 @@ public class LeashRenderer {
     }
 
     public static void renderLeashPoints(Vector3f[] leashPoints, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
-        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.leash());
+        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderTypes.leash());
         Matrix4f matrix = poseStack.last().pose();
         for (int i = 0; i <= 24; ++i) {
             Vector3f point = leashPoints[i];
-            vertexConsumer.addVertex(matrix, point.x(), point.y(), point.z()).setColor(0.5F, 0.4F, 0.3F, 1.0F).setLight(Lightmap.pack(blockLightStart, skyLightStart));
+            vertexConsumer.addVertex(matrix, point.x(), point.y(), point.z()).setColor(0.5F, 0.4F, 0.3F, 1.0F).setLight(LightCoordsUtil.pack(blockLightStart, skyLightStart));
         }
 
         for (int i = 24; i >= 0; --i) {
             Vector3f point = leashPoints[i];
-            vertexConsumer.addVertex(matrix, point.x(), point.y(), point.z()).setColor(0.5F, 0.4F, 0.3F, 1.0F).setLight(Lightmap.pack(blockLightEnd, skyLightEnd));
+            vertexConsumer.addVertex(matrix, point.x(), point.y(), point.z()).setColor(0.5F, 0.4F, 0.3F, 1.0F).setLight(LightCoordsUtil.pack(blockLightEnd, skyLightEnd));
         }
     }
 }

@@ -102,24 +102,21 @@ public class ConfiguredFeatures {
                 ), 4, 0.5F));
 
         // ----- Lunar Berry Bush -----
-        final Holder<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH = register(context, LUNAR_BERRY_BUSH_KEY, Feature.RANDOM_PATCH,
-                new RandomPatchConfiguration(32, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
-                                .add(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 3)
-                                .add(FlowerBlocks.LUNAR_BERRY_BUSH.value().defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 1)
-                        )))));
+        final Holder<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH = register(context, LUNAR_BERRY_BUSH_KEY, Feature.SIMPLE_BLOCK,
+                new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
+                        .add(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 3)
+                        .add(FlowerBlocks.LUNAR_BERRY_BUSH.value().defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 1)
+                )));
 
         // ----- Genetic Crop Patches -----
-        final Holder<ConfiguredFeature<?, ?>> TOMATO_PATCH = register(context, TOMATO_PATCH_KEY, Feature.RANDOM_PATCH,
-                new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
+        final Holder<ConfiguredFeature<?, ?>> TOMATO_PATCH = register(context, TOMATO_PATCH_KEY, Features.GENETIC_CROP,
                         new GeneticCropConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
                                 .add(FlowerBlocks.TOMATO_PLANT.value().defaultBlockState().setValue(GeneticCropBlock.AGE, 25).setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.MATURE), 1)),
-                                new Genotype(0, 0, 0, 0), new Genotype(50, 75, 32, 32)))));
-        final Holder<ConfiguredFeature<?, ?>> BRASSICA_OLERACEA_PATCH = register(context, BRASSICA_OLERACEA_PATCH_KEY, Feature.RANDOM_PATCH,
-                new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
+                                new Genotype(0, 0, 0, 0), new Genotype(50, 75, 32, 32)));
+        final Holder<ConfiguredFeature<?, ?>> BRASSICA_OLERACEA_PATCH = register(context, BRASSICA_OLERACEA_PATCH_KEY, Features.GENETIC_CROP,
                         new GeneticCropConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
                                 .add(FlowerBlocks.BRASSICA_OLERACEA_PLANT.value().defaultBlockState().setValue(GeneticCropBlock.AGE, 25).setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.MATURE), 1)),
-                                new Genotype(0, 0, 0, 0), new Genotype(50, 0, 48, 48)))));
+                                new Genotype(0, 0, 0, 0), new Genotype(50, 0, 48, 48)));
 
         // ----- Volcanic Cave -----
         final Holder<ConfiguredFeature<?, ?>> FLOOR_VEGETATION = register(context, FLOOR_VEGETATION_KEY, Feature.SIMPLE_BLOCK,

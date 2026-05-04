@@ -14,7 +14,7 @@ public class RecipeCodecs {
             ResourceKey.codec(Registries.RECIPE).fieldOf("recipe").forGetter(RecipeHolder::id),
             Recipe.CODEC.fieldOf("value").forGetter(RecipeHolder::value)
     ).apply(builder, RecipeHolder::new));
-    public static final Codec<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE_CODEC = Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.value().codec().codec();
+    public static final Codec<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE_CODEC = Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.codec().codec();
     public static final Codec<RecipeHolder<BrewingCauldronRecipe>> BREWING_CAULDRON_RECIPE_HOLDER_CODEC = RecordCodecBuilder.create(builder -> builder.group(
             ResourceKey.codec(Registries.RECIPE).fieldOf("recipe").forGetter(RecipeHolder::id),
             BREWING_CAULDRON_RECIPE_CODEC.fieldOf("value").forGetter(RecipeHolder::value)

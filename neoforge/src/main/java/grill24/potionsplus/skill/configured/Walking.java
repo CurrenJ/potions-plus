@@ -18,7 +18,7 @@ import java.util.TreeMap;
 
 public class Walking {
     public static Holder.@NotNull Reference<ConfiguredSkill<?, ?>> generate(BootstrapContext<ConfiguredSkill<?, ?>> context, HolderGetter<ConfiguredSkillPointSource<?, ?>> sourceLookup, HolderGetter<ConfiguredGrantableReward<?, ?>> rewardLookup) {
-        return context.register(ConfiguredSkills.WALKING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+        return context.register(ConfiguredSkills.WALKING, new ConfiguredSkill<>(Skills.GENERIC.value(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_WALKING,
                         new TreeMap<>(Map.of(
                                 0, new ItemStack(Items.LEATHER_BOOTS),

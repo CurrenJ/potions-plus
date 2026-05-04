@@ -151,9 +151,9 @@ public class PUtil {
         if (isPotion(output)) {
             Potion potion = getPotion(output);
 
-            if (potion == Potions.AWKWARD || potion == Potions.THICK || potion == Potions.MUNDANE) {
+            if (potion == Potions.AWKWARD.value() || potion == Potions.THICK.value() || potion == Potions.MUNDANE.value()) {
                 processingTime = (int) (processingTime * 0.5);
-                if (potion == Potions.THICK || potion == Potions.MUNDANE) {
+                if (potion == Potions.THICK.value() || potion == Potions.MUNDANE.value()) {
                     // Brewing Cauldron uses processing time as priority for recipe selection
                     // Thick and mundane potions are rarely made and should not take priority over awkward potion crafting
                     processingTime -= 1;
@@ -191,7 +191,7 @@ public class PUtil {
     public static List<MobEffect> getAllMobEffects() {
         List<MobEffect> effects = new ArrayList<>();
         for (Map.Entry<ResourceKey<MobEffect>, MobEffect> value : BuiltInRegistries.MOB_EFFECT.entrySet()) {
-            if (value.key().identifier().getNamespace().equals("minecraft") || value.key().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
+            if (value.getKey().identifier().getNamespace().equals("minecraft") || value.getKey().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
                 effects.add(value.getValue());
             }
         }

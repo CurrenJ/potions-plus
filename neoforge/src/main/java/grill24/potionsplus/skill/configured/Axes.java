@@ -18,7 +18,7 @@ import java.util.TreeMap;
 
 public class Axes {
     public static Holder.@NotNull Reference<ConfiguredSkill<?, ?>> generate(BootstrapContext<ConfiguredSkill<?, ?>> context, HolderGetter<ConfiguredSkillPointSource<?, ?>> sourceLookup, HolderGetter<ConfiguredGrantableReward<?, ?>> rewardLookup) {
-        return context.register(ConfiguredSkills.CHOPPING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+        return context.register(ConfiguredSkills.CHOPPING, new ConfiguredSkill<>(Skills.GENERIC.value(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_CHOPPING,
                         new TreeMap<>(Map.of(
                                 0, new ItemStack(Items.WOODEN_AXE),

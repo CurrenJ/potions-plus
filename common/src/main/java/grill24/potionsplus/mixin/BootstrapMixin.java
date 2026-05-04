@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+
 @Mixin(Bootstrap.class)
 public abstract class BootstrapMixin {
 
@@ -30,8 +31,8 @@ public abstract class BootstrapMixin {
     @Unique
     private static void potions_plus$bootStrapCauldronInteractions() {
         // Add custom cauldron interactions here
-        CauldronInteractions.WATER.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
-        CauldronInteractions.EMPTY.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+        ((CauldronInteractionDispatcherAccessor) (Object) CauldronInteractions.WATER).potions_plus$invokePut(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+        ((CauldronInteractionDispatcherAccessor) (Object) CauldronInteractions.EMPTY).potions_plus$invokePut(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
     }
 
     @Unique

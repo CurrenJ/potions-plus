@@ -104,7 +104,7 @@ public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegeta
 
     protected boolean placeGround(WorldGenLevel level, PotionsPlusVegetationPatchConfiguration p_160606_, Predicate<BlockState> canReplace, RandomSource random, BlockPos.MutableBlockPos pos, int p_160610_) {
         for (int i = 0; i < p_160610_; ++i) {
-            BlockState ground = p_160606_.groundState.getState(random, pos);
+            BlockState ground = p_160606_.groundState.getState(level, random, pos);
             BlockState existing = level.getBlockState(pos);
             if (!ground.is(existing.getBlock())) {
                 if (!canReplace.test(existing)) {

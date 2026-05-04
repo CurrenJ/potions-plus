@@ -20,10 +20,10 @@ public class VersatilePlantBlockFeature extends Feature<VersatilePlantBlockFeatu
         VersatilePlantBlockFeatureConfiguration configuration = context.config();
         WorldGenLevel worldgenlevel = context.level();
         BlockPos blockpos = context.origin();
-        BlockState blockstate = configuration.toPlace().getState(context.random(), blockpos).setValue(VersatilePlantBlock.FACING, configuration.facing());
+        BlockState blockstate = configuration.toPlace().getState(context.level(), context.random(), blockpos).setValue(VersatilePlantBlock.FACING, configuration.facing());
         Block block = blockstate.getBlock();
         if (block instanceof VersatilePlantBlock versatile && versatile.canSurviveFacing(blockstate, worldgenlevel, blockpos, configuration.facing())) {
-            int length = configuration.length().getOrDefault(blockstate.getBlockHolder().key(), UniformInt.of(0, 0)).sample(worldgenlevel.getRandom());
+            int length = configuration.length().getOrDefault(blockstate.getBlock().builtInRegistryHolder().key(), UniformInt.of(0, 0)).sample(worldgenlevel.getRandom());
             versatile.placeAt(worldgenlevel, blockstate, blockpos, length, 2);
 
             return true;

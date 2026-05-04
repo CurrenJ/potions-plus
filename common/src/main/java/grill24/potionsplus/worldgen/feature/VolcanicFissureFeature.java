@@ -59,7 +59,7 @@ public class VolcanicFissureFeature extends Feature<NoneFeatureConfiguration> {
         BlockState bottomLayer = Blocks.LAVA.defaultBlockState();
         WorldGenUtil.iterateEllipsoidShape(shape, width, height, depth, (p -> {
             BlockPos pos = p.offset(context.origin()).offset((int) -radiusX, (int) -radiusY, (int) -radiusY);
-            BlockState cavity = FILL_SAMPLER.get().getState(context.random(), pos);
+            BlockState cavity = FILL_SAMPLER.get().getState(context.level(), context.random(), pos);
 
             if (!context.level().getBlockState(pos).isAir()) {
                 if (p.getY() <= height / 2) {

@@ -19,7 +19,7 @@ import java.util.TreeMap;
 
 public class Mining {
     public static Holder.@NotNull Reference<ConfiguredSkill<?, ?>> generate(BootstrapContext<ConfiguredSkill<?, ?>> context, HolderGetter<ConfiguredSkillPointSource<?, ?>> sourceLookup, List<Milestone> allOreHats, HolderGetter<ConfiguredGrantableReward<?, ?>> rewardLookup) {
-        return context.register(ConfiguredSkills.MINING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration(
+        return context.register(ConfiguredSkills.MINING, new ConfiguredSkill<>(Skills.GENERIC.value(), new SkillConfiguration(
                 Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING,
                 new TreeMap<>(Map.of(
                         0, new ItemStack(Items.COAL_ORE),
@@ -35,11 +35,11 @@ public class Mining {
                 allOreHats,
                 ConfiguredSkills.createDefaultRewards(context)
                         .addRewardForLevel(5, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_PICKAXE_EFFICIENCY_INCREASE))
-                        .addRewardForLevel(6, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SIMPLE_DUNGEON_LOOT_EDIBLE[0].key()))
+                        .addRewardForLevel(6, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SIMPLE_DUNGEON_LOOT_EDIBLE[0].getKey()))
                         .addRewardForLevel(8, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.PICKAXE_COPPER_ORE_ADDITIONAL_LOOT))
                         .addRewardForLevel(9, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.LAST_BREATH_UNLOCK))
-                        .addRewardForLevel(10, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.ABANDONED_MINESHAFT_LOOT_EDIBLE[0].key()))
-                        .addRewardForLevel(11, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_LOOT_1.key()))
+                        .addRewardForLevel(10, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.ABANDONED_MINESHAFT_LOOT_EDIBLE[0].getKey()))
+                        .addRewardForLevel(11, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_LOOT_1.getKey()))
                         .addRewardForLevel(12, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_SUBMERGED_PICKAXE_EFFICIENCY_INCREASE))
                         .addRewardForLevel(14, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SMALL_PICKAXE_EFFICIENCY_INCREASE))
                         .addRewardForLevel(15, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.HOT_POTATO_UNLOCK))

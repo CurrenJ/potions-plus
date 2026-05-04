@@ -30,9 +30,14 @@ accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/wo
 accessible field net/minecraft/client/data/models/ItemModelGenerators modelOutput Ljava/util/function/BiConsumer;
 accessible field net/minecraft/client/data/models/ItemModelGenerators itemModelOutput Lnet/minecraft/client/data/models/ItemModelOutput;
 
-# BlockModelGenerators — fields are private in the common-module classpath
+# BlockModelGenerators — fields and methods are private in the common-module classpath
 accessible field net/minecraft/client/data/models/BlockModelGenerators modelOutput Ljava/util/function/BiConsumer;
 accessible field net/minecraft/client/data/models/BlockModelGenerators itemModelOutput Lnet/minecraft/client/data/models/ItemModelOutput;
+accessible field net/minecraft/client/data/models/BlockModelGenerators blockStateOutput Ljava/util/function/Consumer;
+accessible method net/minecraft/client/data/models/BlockModelGenerators plainVariant (Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/data/models/MultiVariant;
+accessible method net/minecraft/client/data/models/BlockModelGenerators createSimpleBlock (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/client/data/models/MultiVariant;)Lnet/minecraft/client/data/models/blockstates/MultiVariantGenerator;
+accessible method net/minecraft/client/data/models/BlockModelGenerators family (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/client/data/models/BlockModelGenerators$BlockFamilyProvider;
+accessible class net/minecraft/client/data/models/BlockModelGenerators$BlockFamilyProvider
 
 # Cauldron stalactite drip — protected methods
 accessible method net/minecraft/world/level/block/AbstractCauldronBlock canReceiveStalactiteDrip (Lnet/minecraft/world/level/material/Fluid;)Z
@@ -53,3 +58,16 @@ accessible field net/minecraft/client/particle/TrackingEmitter entity Lnet/minec
 accessible field net/minecraft/client/particle/TrackingEmitter life I
 accessible field net/minecraft/client/particle/TrackingEmitter lifeTime I
 accessible field net/minecraft/client/particle/TrackingEmitter particleType Lnet/minecraft/core/particles/ParticleOptions;
+
+# TexturedModel.createDefault — private method used for data gen block models
+accessible method net/minecraft/client/data/models/model/TexturedModel createDefault (Ljava/util/function/Function;Lnet/minecraft/client/data/models/model/ModelTemplate;)Lnet/minecraft/client/data/models/model/TexturedModel$Provider;
+
+# TextureSlot.create — private factory method used for custom texture slots
+accessible method net/minecraft/client/data/models/model/TextureSlot create (Ljava/lang/String;Lnet/minecraft/client/data/models/model/TextureSlot;)Lnet/minecraft/client/data/models/model/TextureSlot;
+
+# OverworldBiomes.globalOverworldGeneration — private in the common-module classpath but needed for worldgen data gen
+accessible method net/minecraft/data/worldgen/biome/OverworldBiomes globalOverworldGeneration (Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;)V
+
+# GuiGraphicsExtractor.scissorStack — private inner class accessed by custom rendering code
+accessible class net/minecraft/client/gui/GuiGraphicsExtractor$ScissorStack
+accessible field net/minecraft/client/gui/GuiGraphicsExtractor scissorStack Lnet/minecraft/client/gui/GuiGraphicsExtractor$ScissorStack;

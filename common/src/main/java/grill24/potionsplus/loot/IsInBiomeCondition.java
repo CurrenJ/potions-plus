@@ -23,7 +23,7 @@ import java.util.Set;
 /**
  * A LootItemCondition that checks the {@linkplain LootContextParams#TOOL tool} against an {@link ItemPredicate}.
  */
-public record IsInBiomeCondition(Set<ResourceKey<Biome>> biomes) implements LootItemCondition {
+public record IsInBiomeCondition(ImmutableSet<ResourceKey<Biome>> biomes) implements LootItemCondition {
     public static final MapCodec<IsInBiomeCondition> MAP_CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
             ResourceKey.codec(Registries.BIOME).listOf()
                     .xmap(ImmutableSet::copyOf, ArrayList::new)
@@ -66,6 +66,6 @@ public record IsInBiomeCondition(Set<ResourceKey<Biome>> biomes) implements Loot
 
     @SafeVarargs
     public static Builder isInBiome(ResourceKey<Biome>... key) {
-        return () -> new IsInBiomeCondition(Set.of(key));
+        return () -> new IsInBiomeCondition(ImmutableSet.copyOf(Set.of(key)));
     }
 }

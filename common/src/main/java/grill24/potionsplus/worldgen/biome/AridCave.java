@@ -8,6 +8,9 @@ import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.random.WeightedList;
+import net.minecraft.world.attribute.AmbientSounds;
+import net.minecraft.world.attribute.BackgroundMusic;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,13 +46,13 @@ public class AridCave {
                 .hasPrecipitation(false)
                 .downfall(0.0F)
                 .temperature(0.5F)
+                .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x050533)
+                .setAttribute(EnvironmentAttributes.FOG_COLOR, 0xc0d8ff)
+                .setAttribute(EnvironmentAttributes.SKY_COLOR, 0x77adff)
+                .setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, AmbientSounds.LEGACY_CAVE_SETTINGS)
+                .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(music))
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         .waterColor(0x3f76e4)
-                        .waterFogColor(0x050533)
-                        .fogColor(0xc0d8ff)
-                        .skyColor(0x77adff)
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-                        .backgroundMusic(music)
                         .build())
                 .mobSpawnSettings(mobspawnsettings$builder.build())
                 .generationSettings(biomegenerationsettings$builder.build())

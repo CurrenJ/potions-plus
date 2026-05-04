@@ -5,6 +5,8 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
@@ -16,6 +18,27 @@ import java.util.stream.Stream;
 public class BoneBuddyEffect extends MobEffect {
     private static final TargetingConditions.Selector TARGET_PREDICATE = (livingEntity, level) -> !livingEntity.hasEffect(MobEffects.BONE_BUDDY);
 
+    private static GoalSelector getTargetSelector(Mob mob) {
+        try {
+            var field = Mob.class.getDeclaredField("targetSelector");
+            field.setAccessible(true);
+            return (GoalSelector) field.get(mob);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to access targetSelector", e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T extends LivingEntity> Class<T> getTargetType(NearestAttackableTargetGoal<T> goal) {
+        try {
+            var field = NearestAttackableTargetGoal.class.getDeclaredField("targetType");
+            field.setAccessible(true);
+            return (Class<T>) field.get(goal);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to access targetType", e);
+        }
+    }
+
     public BoneBuddyEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
     }
@@ -25,16 +48,16 @@ public class BoneBuddyEffect extends MobEffect {
             return;
 
         if (entity instanceof AbstractSkeleton skeleton) {
-            Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
+            Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = getTargetSelector(skeleton).getAvailableGoals().stream()
                     .filter(goal -> goal.getGoal() instanceof NearestAttackableTargetGoal)
                     .map(goal -> (NearestAttackableTargetGoal<?>) goal.getGoal())
-                    .filter(goal -> goal.targetType == Player.class);
+                    .filter(goal -> getTargetType(goal) == Player.class);
 
             for (NearestAttackableTargetGoal<?> goal : goalsToRemove.toArray(NearestAttackableTargetGoal[]::new)) {
-                skeleton.targetSelector.removeGoal(goal);
+                getTargetSelector(skeleton).removeGoal(goal);
             }
 
-            skeleton.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(skeleton, Monster.class, false, TARGET_PREDICATE));
+            getTargetSelector(skeleton).addGoal(0, new NearestAttackableTargetGoal<>(skeleton, Monster.class, false, TARGET_PREDICATE));
         }
     }
 
@@ -48,15 +71,15 @@ public class BoneBuddyEffect extends MobEffect {
     }
 
     public static void removeEffect(AbstractSkeleton skeleton) {
-        Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
+        Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = getTargetSelector(skeleton).getAvailableGoals().stream()
                 .filter(goal -> goal.getGoal() instanceof NearestAttackableTargetGoal)
                 .map(goal -> (NearestAttackableTargetGoal<?>) goal.getGoal())
-                .filter(goal -> goal.targetType == Monster.class);
+                .filter(goal -> getTargetType(goal) == Monster.class);
 
         for (NearestAttackableTargetGoal<?> goal : goalsToRemove.toArray(NearestAttackableTargetGoal[]::new)) {
-            skeleton.targetSelector.removeGoal(goal);
+            getTargetSelector(skeleton).removeGoal(goal);
         }
 
-        skeleton.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(skeleton, Player.class, true));
+        getTargetSelector(skeleton).addGoal(2, new NearestAttackableTargetGoal<>(skeleton, Player.class, true));
     }
 }

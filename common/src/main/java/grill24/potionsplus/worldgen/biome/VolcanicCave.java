@@ -1,15 +1,18 @@
 package grill24.potionsplus.worldgen.biome;
 
-import grill24.potionsplus.core.Biomes;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.worldgen.Placements;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Vec3i;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.random.WeightedList;
+import net.minecraft.world.attribute.AmbientSounds;
+import net.minecraft.world.attribute.BackgroundMusic;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -62,7 +65,7 @@ public class VolcanicCave {
         BiomeDefaultFeatures.commonSpawns(mobspawnsettings$builder);
 
         BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder(placedFeatureGetter, carverGetter);
-        Biomes.globalOverworldGeneration(biomegenerationsettings$builder);
+        OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
         BiomeDefaultFeatures.addDefaultOres(biomegenerationsettings$builder);
         BiomeDefaultFeatures.addExtraGold(biomegenerationsettings$builder);
         biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Placements.FISSURE_KEY);
@@ -75,15 +78,16 @@ public class VolcanicCave {
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(true).temperature(0.5F)
                 .downfall(0F)
+                .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 11809282)
+                .setAttribute(EnvironmentAttributes.FOG_COLOR, 11809282)
+                .setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
+                .setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, AmbientSounds.LEGACY_CAVE_SETTINGS)
+                .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(music))
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         .waterColor(11809282)
-                        .waterFogColor(11809282)
-                        .fogColor(11809282)
                         .grassColorOverride(11809282)
                         .foliageColorOverride(11809282)
-                        .skyColor(0)
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-                        .backgroundMusic(music).build())
+                        .build())
                 .mobSpawnSettings(mobspawnsettings$builder.build())
                 .generationSettings(biomegenerationsettings$builder.build()).build();
     }

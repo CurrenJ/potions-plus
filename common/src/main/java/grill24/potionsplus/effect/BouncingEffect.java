@@ -66,7 +66,7 @@ public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
         if (entity instanceof Player player && !player.hasEffect(MobEffects.BOUNCING)) {
             float safeFallDistance = (float) player.getAttribute(Attributes.SAFE_FALL_DISTANCE).getValue();
             if (distance > safeFallDistance) {
-                boolean bounced = PlayerAbilities.SAVED_BY_THE_BOUNCE.triggerFromClient(
+                boolean bounced = PlayerAbilities.SAVED_BY_THE_BOUNCE.value().triggerFromClient(
                         player, ConfiguredPlayerAbilities.SAVED_BY_THE_BOUNCE.getKey(),
                         new SavedByTheBounceAbility.FallData(distance));
                 if (bounced) {
