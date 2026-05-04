@@ -34,6 +34,6 @@ public record BrewingCauldronRecipeDisplay(List<SlotDisplay> ingredients, SlotDi
 
     @Override
     public RecipeDisplay.Type<? extends RecipeDisplay> type() {
-        return Recipes.BREWING_CAULDRON_RECIPE_DISPLAY.value();
+        return TYPE;
     }
 }

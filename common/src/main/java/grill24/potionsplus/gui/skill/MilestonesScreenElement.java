@@ -4,6 +4,7 @@ import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.gui.HorizontalListScreenElement;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.Milestone;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -37,7 +38,7 @@ public class MilestonesScreenElement extends HorizontalListScreenElement<Milesto
             return;
         }
 
-        Player player = this.screen.getMinecraft().player;
+        Player player = Minecraft.getInstance().player;
         if (player == null) {
             return;
         }

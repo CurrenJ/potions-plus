@@ -7,6 +7,7 @@ import grill24.potionsplus.gui.TextComponentScreenElement;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.skill.ability.instance.AdjustableStrengthAbilityInstanceData;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -56,13 +57,13 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
         buttonDecrease = new TextButtonScreenElement(screen, this, Settings.DEFAULT, Component.literal("-"), buttonSize, buttonSize);
         buttonDecrease.addClickListener((mouseX, mouseY, button, element) -> {
             if (ability.get().data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrength) {
-                adjustableStrength.clientRequestDecreaseStrength(this.screen.getMinecraft().player);
+                adjustableStrength.clientRequestDecreaseStrength(Minecraft.getInstance().player);
             }
         });
         buttonIncrease = new TextButtonScreenElement(screen, this, Settings.DEFAULT, Component.literal("+"), buttonSize, buttonSize);
         buttonIncrease.addClickListener((mouseX, mouseY, button, element) -> {
             if (ability.get().data() instanceof AdjustableStrengthAbilityInstanceData adjustableStrength) {
-                adjustableStrength.clientRequestIncreaseStrength(this.screen.getMinecraft().player);
+                adjustableStrength.clientRequestIncreaseStrength(Minecraft.getInstance().player);
             }
         });
 
@@ -118,7 +119,7 @@ public class AbilityTextScreenElement extends HorizontalListScreenElement<Render
     }
 
     public Optional<AbilityInstanceSerializable<?, ?>> getAbility() {
-        Player player = this.screen.getMinecraft().player;
+        Player player = Minecraft.getInstance().player;
         if (player == null) {
             return Optional.empty();
         }

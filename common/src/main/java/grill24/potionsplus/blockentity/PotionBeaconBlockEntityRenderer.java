@@ -35,7 +35,7 @@ public class PotionBeaconBlockEntityRenderer implements BlockEntityRenderer<Poti
     private ProfilerFiller profiler;
 
     public PotionBeaconBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        BlockModelResolver = context.getBlockModelResolver();
+        BlockModelResolver = context.blockModelResolver();
         profiler = Profiler.get();
     }
 

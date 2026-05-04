@@ -169,7 +169,7 @@ public class SimplePlayerAbility extends PlayerAbility<PlayerAbilityConfiguratio
     public static class Builder extends AbstractBuilder<PlayerAbilityConfiguration, SimplePlayerAbility, Builder> {
         public Builder(String key) {
             super(key);
-            this.ability = PlayerAbilities.SIMPLE.value();
+            this.ability = (SimplePlayerAbility) PlayerAbilities.SIMPLE.value();
         }
 
         @Override

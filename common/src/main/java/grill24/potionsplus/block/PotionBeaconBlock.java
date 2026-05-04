@@ -7,6 +7,7 @@ import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -111,7 +112,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
+    protected int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, Direction direction) {
         Optional<PotionBeaconBlockEntity> PotionBeaconBlockEntity = level.getBlockEntity(blockPos, Blocks.POTION_BEACON_BLOCK_ENTITY.value());
         return PotionBeaconBlockEntity.filter(potionBeaconBlockEntity -> !potionBeaconBlockEntity.getItem(0).isEmpty()).map(potionBeaconBlockEntity -> 15).orElse(0);
     }

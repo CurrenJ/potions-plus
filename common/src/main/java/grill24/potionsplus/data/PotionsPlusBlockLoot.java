@@ -5,6 +5,6 @@ import net.minecraft.data.loot.LootTableSubProvider;
 
 public class PotionsPlusBlockLoot implements LootTableSubProvider {
     @Override
-    public void generate(java.util.function.BiConsumer<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>, net.minecraft.world.level.storage.loot.LootTable.Builder> output, HolderLookup.Provider registries) {
+    public void generate(java.util.function.BiConsumer<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>, net.minecraft.world.level.storage.loot.LootTable.Builder> output) {
     }
 }

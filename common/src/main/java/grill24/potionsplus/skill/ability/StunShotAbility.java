@@ -47,8 +47,8 @@ public class StunShotAbility extends CooldownTriggerableAbility<CriticalHitData,
             float chanceToActivate = getActivationChance(strength);
             if (player.getRandom().nextFloat() < chanceToActivate) {
                 final int duration = getDuration(strength);
-                List<Entity> entities = doStunShot(eventData.getTarget(), strength);
-                return Optional.of(new ClientboundTriggerStunShotPacket(Math.max(10, duration - 10), eventData.getTarget().blockPosition(), entities.stream().map(Entity::getId).toList()));
+                List<Entity> entities = doStunShot(eventData.target(), strength);
+                return Optional.of(new ClientboundTriggerStunShotPacket(Math.max(10, duration - 10), eventData.target().blockPosition(), entities.stream().map(Entity::getId).toList()));
             }
         }
 

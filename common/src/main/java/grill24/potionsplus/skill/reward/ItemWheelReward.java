@@ -78,7 +78,7 @@ public class ItemWheelReward extends GrantableReward<ItemWheelRewardConfiguratio
         List<ItemStack> possibleRewards = config.possibleRewards != null ? new ArrayList<>(config.possibleRewards) : new ArrayList<>();
         int winnerIndex;
         if (config.lootTableResourceKey != null && config.numToSample > 0) {
-            LootTable lootTable = player.getServer().reloadableRegistries().getLootTable(config.lootTableResourceKey);
+            LootTable lootTable = player.level().getServer().reloadableRegistries().getLootTable(config.lootTableResourceKey);
             List<ItemStack> samples = new ArrayList<>();
             for (int i = 0; i < config.numToSample; i++) {
                 List<ItemStack> sample = lootTable.getRandomItems(new LootParams.Builder((ServerLevel) player.level())
@@ -141,7 +141,7 @@ public class ItemWheelReward extends GrantableReward<ItemWheelRewardConfiguratio
         @Override
         public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
             context.register(key, new ConfiguredGrantableReward<>(
-                    GrantableRewards.WHEEL.value(),
+                    new ItemWheelReward(),
                     new ItemWheelRewardConfiguration(translationKey, itemStacks, Optional.ofNullable(lootTable), numToSample)
             ));
 

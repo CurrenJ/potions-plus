@@ -10,6 +10,7 @@ import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -48,8 +49,8 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
 
         this.onIconSelected = onIconSelected;
 
-        if (screen.getMinecraft().level != null) {
-            initializeItemDisplays(screen, screen.getMinecraft().level.registryAccess());
+        if (Minecraft.getInstance().level != null) {
+            initializeItemDisplays(screen, Minecraft.getInstance().level.registryAccess());
         }
     }
 
@@ -89,7 +90,7 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
     private void initializeItemDisplays(Screen screen, RegistryAccess registryAccess) {
         HolderLookup.RegistryLookup<ConfiguredSkill<?, ?>> holderGetter = registryAccess.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL);
 
-        Player player = screen.getMinecraft().player;
+        Player player = Minecraft.getInstance().player;
         if (player == null) {
             return;
         }
@@ -229,9 +230,9 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
     }
 
     private Collection<AbilityInstanceSerializable<?, ?>> getAbilities() {
-        if (this.screen.getMinecraft().player == null) {
+        if (Minecraft.getInstance().player == null) {
             return Collections.emptyList();
         }
-        return SkillsData.getPlayerData(this.screen.getMinecraft().player).unlockedAbilities().values().stream().flatMap(List::stream).toList();
+        return SkillsData.getPlayerData(Minecraft.getInstance().player).unlockedAbilities().values().stream().flatMap(List::stream).toList();
     }
 }

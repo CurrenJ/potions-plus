@@ -102,7 +102,7 @@ public class SkillsScreen extends PotionsPlusScreen<SkillsMenu> {
         this.pendingRewardItemsTab = TabsScreenElement.TabData.verticalListTab(this, DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.GIFT_TEX_LOC), 1F, 1.2F, spacer4, this.itemRewardsClaimRenderer);
 
         // Check if the player has any unclaimed rewards
-        Player player = this.getMinecraft().player;
+        Player player = this.minecraft.player;
         boolean hasAnyUnclaimedRewards = false;
         if (player != null) {
             SkillsData skillsData = SkillsData.getPlayerData(player);
@@ -142,7 +142,7 @@ public class SkillsScreen extends PotionsPlusScreen<SkillsMenu> {
 
     private void renderHelpText(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         // Render help text
-        Font font = this.getMinecraft().font;
+        Font font = this.getFont();
         Component component = Component.translatable(Translations.TOOLTIP_POTIONSPLUS_SKILL_JOURNAL_NONE);
         List<Component> animatedComponents = ItemListenersGame.animateComponentTextStartTime(Collections.singletonList(Collections.singletonList(component)), screenOpenedTimestamp);
 
@@ -167,7 +167,7 @@ public class SkillsScreen extends PotionsPlusScreen<SkillsMenu> {
 
     private boolean hasAnyUnclaimedRewards() {
         boolean hasAnyUnclaimedRewards = false;
-        Player player = this.getMinecraft().player;
+        Player player = this.minecraft.player;
         if (player != null) {
             SkillsData skillsData = SkillsData.getPlayerData(player);
             hasAnyUnclaimedRewards = skillsData.pendingRewards().hasAnyUnclaimedRewards();

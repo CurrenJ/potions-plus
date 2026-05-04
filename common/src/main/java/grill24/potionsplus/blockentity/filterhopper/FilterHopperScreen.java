@@ -7,7 +7,7 @@ import grill24.potionsplus.network.ServerboundSetupFilterHopperFromContainerPack
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -42,25 +42,18 @@ public abstract class FilterHopperScreen<M extends FilterHopperMenu> extends Abs
                 .pos(i + autoCreateFilterButtonX, j + autoCreateFilterButtonY).size(8, 8).build());
     }
 
-    /**
-     * Renders the graphical user interface (GUI) element.
-     *
-     * @param GuiGraphicsExtractor the GuiGraphicsExtractor object used for rendering.
-     * @param mouseX      the x-coordinate of the mouse cursor.
-     * @param mouseY      the y-coordinate of the mouse cursor.
-     * @param partialTick the partial tick time.
-     */
     @Override
-    public void render(GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
-        super.render(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
-        this.renderTooltip(GuiGraphicsExtractor, mouseX, mouseY);
+    public void extractRenderState(GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
+        this.extractTooltip(GuiGraphicsExtractor, mouseX, mouseY);
     }
 
     @Override
-    protected void renderBg(GuiGraphicsExtractor GuiGraphicsExtractor, float partialTick, int mouseX, int mouseY) {
+    public void extractContents(GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY, float partialTick) {
+        super.extractContents(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
-        GuiGraphicsExtractor.blit(RenderType::guiTextured, getTexture(), i, j, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+        GuiGraphicsExtractor.blit(RenderPipelines.GUI_TEXTURED, getTexture(), i, j, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
     }
 
     abstract Identifier getTexture();

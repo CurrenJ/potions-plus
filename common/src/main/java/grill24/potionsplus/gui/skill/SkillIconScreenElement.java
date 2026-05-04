@@ -6,6 +6,7 @@ import grill24.potionsplus.skill.SkillInstance;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -41,7 +42,7 @@ class SkillIconScreenElement extends ItemStackScreenElement {
     @Override
     protected void onTick(float partialTick, int mouseX, int mouseY) {
         // Update ItemStack
-        Player player = this.screen.getMinecraft().player;
+        Player player = Minecraft.getInstance().player;
         if (player == null) {
             return;
         }

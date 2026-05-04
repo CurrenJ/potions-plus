@@ -118,7 +118,7 @@ public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails
     }
 
     private static boolean tryReplaceBlockWithBlock(Block block, HolderSet.Named<Block> replaceableBlock, BlockPos pos, Level level) {
-        if (replaceableBlock.contains(level.getBlockState(pos).getBlockHolder())) {
+        if (replaceableBlock.contains(level.getBlockState(pos).getBlock().builtInRegistryHolder())) {
             level.setBlock(pos, block.defaultBlockState(), 3);
             level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.getX(), pos.above().getY(), pos.getZ(), 0, 0, 0);
 

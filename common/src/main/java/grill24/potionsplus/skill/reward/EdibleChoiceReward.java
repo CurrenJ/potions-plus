@@ -88,7 +88,7 @@ public class EdibleChoiceReward extends GrantableReward<EdibleChoiceRewardConfig
             }
 
             context.register(key, new ConfiguredGrantableReward<>(
-                    GrantableRewards.CHOICE.value(),
+                    new EdibleChoiceReward(),
                     new EdibleChoiceRewardConfiguration(options)
             ));
         }

@@ -126,7 +126,7 @@ public class SeededIngredientsLootTables {
     private static LootPool.Builder generateIngredientsPool(Map<PpIngredient, Integer> lootWeights, LootPool.Builder pool) {
         for (Map.Entry<PpIngredient, Integer> entry : lootWeights.entrySet()) {
             pool.add(LootItem
-                    .lootTableItem(entry.key().getItemStack().getItem())
+                    .lootTableItem(entry.getKey().getItemStack().getItem())
                     .setWeight(entry.getValue())
             );
         }
@@ -139,15 +139,15 @@ public class SeededIngredientsLootTables {
         for (Map.Entry<PotionUpgradeIngredients.Rarity, Map<PpIngredient, Integer>> lootWeight : lootWeights.entrySet()) {
             for (PpIngredient ingredient : lootWeight.getValue().keySet()) {
                 if (!allIngredients.add(ingredient)) {
-                    toRemove.computeIfAbsent(lootWeight.key(), (rarity) -> new HashSet<>()).add(ingredient);
+                    toRemove.computeIfAbsent(lootWeight.getKey(), (rarity) -> new HashSet<>()).add(ingredient);
                 }
             }
         }
 
         for (Map.Entry<PotionUpgradeIngredients.Rarity, Set<PpIngredient>> entry : toRemove.entrySet()) {
-            lootWeights.get(entry.key()).keySet().removeAll(entry.getValue());
+            lootWeights.get(entry.getKey()).keySet().removeAll(entry.getValue());
             for (PpIngredient ingredient : entry.getValue()) {
-                LOGGER.warn("Ingredient " + ingredient + " was present in multiple rarity pools. Removing from " + entry.key());
+                LOGGER.warn("Ingredient " + ingredient + " was present in multiple rarity pools. Removing from " + entry.getKey());
             }
         }
     }

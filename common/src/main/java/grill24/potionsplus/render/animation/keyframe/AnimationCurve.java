@@ -106,9 +106,9 @@ public abstract class AnimationCurve<T> implements ISerializable<AnimationCurve<
     }
 
     public void printInChat(Player player) {
-        player.displayClientMessage(Component.literal("Keyframes:").withStyle(ChatFormatting.BOLD), false);
+        player.sendSystemMessage(Component.literal("Keyframes:").withStyle(ChatFormatting.BOLD));
         for (Keyframe<T> keyframe : keyframes) {
-            player.displayClientMessage(keyframe.toComponent(), false);
+            player.sendSystemMessage(keyframe.toComponent());
         }
     }
 

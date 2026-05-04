@@ -13,6 +13,7 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientAdvancements;
 import net.minecraft.client.multiplayer.ClientPacketListener;
@@ -41,7 +42,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
     protected void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         super.render(graphics, partialTick, mouseX, mouseY);
         if (!this.isUnlocked) {
-            if (this.screen.getMinecraft().player == null) {
+            if (Minecraft.getInstance().player == null) {
                 return;
             }
 
@@ -125,7 +126,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
     }
 
     private Optional<ClientAdvancements> getAdvancements() {
-        ClientPacketListener connection = this.screen.getMinecraft().getConnection();
+        ClientPacketListener connection = Minecraft.getInstance().getConnection();
         if (connection == null) {
             return Optional.empty();
         }

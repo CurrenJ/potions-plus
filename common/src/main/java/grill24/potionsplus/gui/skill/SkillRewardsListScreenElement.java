@@ -11,6 +11,7 @@ import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsData;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -39,11 +40,11 @@ public class SkillRewardsListScreenElement extends VerticalListScreenElement<Ren
 
     public List<RenderableScreenElement> createRewardDisplays() {
         // Nothing to display when no skill is selected
-        if (this.skillKey == null || this.screen.getMinecraft().player == null) {
+        if (this.skillKey == null || Minecraft.getInstance().player == null) {
             return List.of();
         }
 
-        RegistryAccess registryAccess = this.screen.getMinecraft().player.registryAccess();
+        RegistryAccess registryAccess = Minecraft.getInstance().player.registryAccess();
         Optional<Holder.Reference<ConfiguredSkill<?, ?>>> configuredSkillRef = registryAccess.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL).get(skillKey);
         if (configuredSkillRef.isEmpty()) {
             return List.of();
@@ -51,7 +52,7 @@ public class SkillRewardsListScreenElement extends VerticalListScreenElement<Ren
 
         ConfiguredSkill<?, ?> configuredSkill = configuredSkillRef.get().value();
         SkillLevelUpRewardsConfiguration rewardsConfiguration = configuredSkill.config().getData().rewardsConfiguration();
-        SkillsData skillsData = SkillsData.getPlayerData(this.screen.getMinecraft().player);
+        SkillsData skillsData = SkillsData.getPlayerData(Minecraft.getInstance().player);
         Optional<SkillInstance<?, ?>> skillInstance = skillsData.getOrCreate(registryAccess, skillKey);
         if (skillInstance.isEmpty()) {
             return List.of();

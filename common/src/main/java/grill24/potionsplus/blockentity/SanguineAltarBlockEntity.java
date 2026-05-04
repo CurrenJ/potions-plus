@@ -156,7 +156,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         if (state == State.CONVERTED) {
             level.getEntitiesOfClass(Player.class, new AABB(pos).inflate(16.0)).forEach(player -> {
                 if (player instanceof ServerPlayer serverPlayer) {
-                    Advancements.CRAFT_RECIPE.trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE.value(), PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
+                    Advancements.CRAFT_RECIPE.trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE, PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
                 }
             });
         }

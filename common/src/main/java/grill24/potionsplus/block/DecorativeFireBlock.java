@@ -38,7 +38,7 @@ public class DecorativeFireBlock extends FireBlock {
     }
 
     @Override
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier p_404795_) {
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier p_404795_, boolean isPrecise) {
         // Do nothing
     }
 }

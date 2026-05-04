@@ -49,7 +49,7 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
     public static final Vector3f ITEM_OFFSET = new Vector3f(0, -0.2f, 0);
 
     public ClotheslineBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        BlockModelResolver = context.getBlockModelResolver();
+        BlockModelResolver = context.blockModelResolver();
         profiler = Profiler.get();
     }
 

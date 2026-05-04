@@ -61,7 +61,7 @@ public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHi
             final float strength = adjustableStrengthAbilityInstanceData.getAbilityStrength();
             float chanceToActivate = getActivationChance(strength);
             if (player.getRandom().nextFloat() < chanceToActivate) {
-                List<Entity> affected = doChainLightning(event.getTarget(), strength);
+                List<Entity> affected = doChainLightning(event.target(), strength);
 
                 return Optional.of(new ClientboundTriggerChainLightningPacket(
                         player.blockPosition(),
@@ -107,7 +107,7 @@ public class ChainLightningAbility extends CooldownTriggerableAbility<CriticalHi
      * @param particleCountMultiplier The multiplier for the number of particles to spawn
      */
     public static void spawnLineOfParticlesBetweenEntities(Entity start, Entity end, double beamRadius, double particleCountMultiplier) {
-        if (!start.isAddedToLevel()) {
+        if (!start.isAlive()) {
             return;
         }
         Level level = start.level();

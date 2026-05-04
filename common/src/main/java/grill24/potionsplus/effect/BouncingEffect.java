@@ -50,12 +50,12 @@ public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
     }
 
     public static boolean onFall(LivingEntity entity) {
-        if (entity.hasEffect(MobEffects.BOUNCING) || entity.hasData(DataAttachments.SHOULD_BOUNCE_PLAYER_DATA)) {
+        if (entity.hasEffect(MobEffects.BOUNCING) || DataAttachments.hasShouldBounceData(entity)) {
             MobEffectInstance effectInstance = entity.getEffect(MobEffects.BOUNCING);
             int amplifier = effectInstance != null ? effectInstance.getAmplifier() : 0;
             BouncingEffect.bounceUp(entity, BouncingEffect.getBounceHeight(amplifier));
 
-            entity.removeData(DataAttachments.SHOULD_BOUNCE_PLAYER_DATA);
+            DataAttachments.removeShouldBounceData(entity);
             return true;
         }
         return false;
@@ -65,21 +65,21 @@ public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
         if (entity instanceof Player player && !player.hasEffect(MobEffects.BOUNCING)) {
             float safeFallDistance = (float) player.getAttribute(Attributes.SAFE_FALL_DISTANCE).getValue();
             if (distance > safeFallDistance) {
-                boolean bounced = PlayerAbilities.SAVED_BY_THE_BOUNCE.value().triggerFromClient(
+                boolean bounced = PlayerAbilities.SAVED_BY_THE_BOUNCE.triggerFromClient(
                         player, ConfiguredPlayerAbilities.SAVED_BY_THE_BOUNCE.getKey(),
                         new SavedByTheBounceAbility.FallData(distance));
                 if (bounced) {
                     if (!player.isLocalPlayer()) {
                         player.addEffect(new MobEffectInstance(MobEffects.BOUNCING, 60, 0));
                     } else {
-                        player.setData(DataAttachments.SHOULD_BOUNCE_PLAYER_DATA, new ShouldBouncePlayerData());
+                        DataAttachments.setShouldBounceData(player, new ShouldBouncePlayerData());
                     }
                 }
             }
         }
 
         return entity instanceof LivingEntity livingEntity
-                && (livingEntity.hasEffect(MobEffects.BOUNCING) || livingEntity.hasData(DataAttachments.SHOULD_BOUNCE_PLAYER_DATA));
+                && (livingEntity.hasEffect(MobEffects.BOUNCING) || DataAttachments.hasShouldBounceData(livingEntity));
     }
 }
 

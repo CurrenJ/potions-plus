@@ -41,7 +41,7 @@ public class AdvancementReward extends GrantableReward<AdvancementReward.Advance
     }
 
     public static ConfiguredGrantableReward<AdvancementRewardConfiguration, AdvancementReward> advancementRewards(AdvancementRewards rewards) {
-        return new ConfiguredGrantableReward<>(GrantableRewards.ADVANCEMENT.value(), new AdvancementRewardConfiguration(rewards));
+        return new ConfiguredGrantableReward<>(new AdvancementReward(), new AdvancementRewardConfiguration(rewards));
     }
 
     @Override
@@ -77,7 +77,7 @@ public class AdvancementReward extends GrantableReward<AdvancementReward.Advance
         @Override
         public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
             context.register(key, new ConfiguredGrantableReward<>(
-                    GrantableRewards.ADVANCEMENT.value(),
+                    new AdvancementReward(),
                     new AdvancementRewardConfiguration(translationKey, rewards)
             ));
         }

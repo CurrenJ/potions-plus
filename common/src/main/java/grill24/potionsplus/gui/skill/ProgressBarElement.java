@@ -62,7 +62,7 @@ public class ProgressBarElement extends HorizontalListScreenElement<ColoredRecta
 
     @Override
     protected float getHeight() {
-        return getWidth() < 1F ? 0 : this.screen.getMinecraft().font.lineHeight;
+        return getWidth() < 1F ? 0 : this.screen.getFont().lineHeight;
     }
 
     @Override

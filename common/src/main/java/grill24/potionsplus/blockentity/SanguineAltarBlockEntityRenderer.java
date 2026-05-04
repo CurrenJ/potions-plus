@@ -30,7 +30,7 @@ public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<San
     private static final int CONVERTED_ITEM_SHRINK_DELAY_TICKS = 200;
 
     public SanguineAltarBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        BlockModelResolver = context.getBlockModelResolver();
+        BlockModelResolver = context.blockModelResolver();
     }
 
     @Deprecated

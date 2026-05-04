@@ -40,7 +40,7 @@ public class ParticleEmitterBlockModelGenerator<T extends Block> extends BlockMo
         blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
 
         ItemModel.Unbaked itemModel = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(Blocks.IRON_BLOCK));
-        itemModelGenerators.itemModelOutput.accept(block.asItem(), itemModel);
+        blockModelGenerators.itemModelOutput.accept(block.asItem(), itemModel);
     }
 
     @Override

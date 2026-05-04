@@ -6,6 +6,7 @@ import grill24.potionsplus.core.PlacementModifierTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.levelgen.placement.PlacementContext;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
@@ -14,9 +15,9 @@ import java.util.stream.Stream;
 
 public class OffsetPlacement extends PlacementModifier {
     public static final MapCodec<OffsetPlacement> CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
-            IntProvider.codec(-16, 16).fieldOf("x_spread").forGetter(instance -> instance.xSpread),
-            IntProvider.codec(-16, 16).fieldOf("y_spread").forGetter(instance -> instance.ySpread),
-            IntProvider.codec(-16, 16).fieldOf("z_spread").forGetter(instance -> instance.zSpread)
+            IntProviders.codec(-16, 16).fieldOf("x_spread").forGetter(instance -> instance.xSpread),
+            IntProviders.codec(-16, 16).fieldOf("y_spread").forGetter(instance -> instance.ySpread),
+            IntProviders.codec(-16, 16).fieldOf("z_spread").forGetter(instance -> instance.zSpread)
     ).apply(codecBuilder, OffsetPlacement::new));
 
     private final IntProvider xSpread;
@@ -41,7 +42,7 @@ public class OffsetPlacement extends PlacementModifier {
     }
 
     public PlacementModifierType<?> type() {
-        return PlacementModifierTypes.OFFSET.value();
+        return PlacementModifierTypes.OFFSET;
     }
 }
 

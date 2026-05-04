@@ -7,6 +7,7 @@ import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -129,7 +130,7 @@ public class SanguineAltarBlock extends HorizontalDirectionalBlock implements En
     }
 
     @Override
-    public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
+    protected int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, Direction direction) {
         Optional<SanguineAltarBlockEntity> SanguineAltarBlockEntity = level.getBlockEntity(blockPos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value());
         return 0;
     }

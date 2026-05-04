@@ -77,7 +77,7 @@ public class UnknownPotionIngredientReward extends GrantableReward<UnknownPotion
         @Override
         public void generate(BootstrapContext<ConfiguredGrantableReward<?, ?>> context) {
             context.register(key, new ConfiguredGrantableReward<>(
-                    GrantableRewards.UNKNOWN_POTION_INGREDIENT.value(),
+                    new UnknownPotionIngredientReward(),
                     new UnknownPotionIngredientRewardConfiguration(count)
             ));
         }

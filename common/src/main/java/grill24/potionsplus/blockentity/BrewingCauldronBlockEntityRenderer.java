@@ -37,7 +37,7 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
     public final BlockModelResolver BlockModelResolver;
 
     public BrewingCauldronBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        BlockModelResolver = context.getBlockModelResolver();
+        BlockModelResolver = context.blockModelResolver();
     }
 
 

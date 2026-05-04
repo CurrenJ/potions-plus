@@ -42,7 +42,7 @@ public class ClotheslineBlockModelGenerator<T extends Block> extends BlockModelU
         // Generate client item definition from existing model
         Identifier clotheslineInventoryModelLocation = ppId("block/clothesline_inventory");
         ItemModel.Unbaked itemModel = ItemModelUtils.plainModel(clotheslineInventoryModelLocation);
-        itemModelGenerators.itemModelOutput.accept(block.asItem(), itemModel);
+        blockModelGenerators.itemModelOutput.accept(block.asItem(), itemModel);
     }
 
     @Override

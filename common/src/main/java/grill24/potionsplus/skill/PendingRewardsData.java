@@ -47,7 +47,7 @@ public class PendingRewardsData {
                 List<ItemStack> copiedList = new ArrayList<>(itemList);
                 items.add(copiedList);
             }
-            this.validRewards.put(entry.key(), items);
+            this.validRewards.put(entry.getKey(), items);
         }
     }
 
@@ -60,7 +60,7 @@ public class PendingRewardsData {
                 List<ItemStack> copiedList = new ArrayList<>(itemList);
                 items.add(copiedList);
             }
-            this.validRewards.put(entry.key(), items);
+            this.validRewards.put(entry.getKey(), items);
         }
     }
 

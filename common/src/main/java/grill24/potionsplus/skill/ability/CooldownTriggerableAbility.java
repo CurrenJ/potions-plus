@@ -97,7 +97,7 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
     }
 
     protected void scheduleCooldownDoneNotification(Component component, Player player, AbilityInstanceSerializable<?, ?> instance) {
-        DelayedEvents.queueDelayedEvent(() -> player.displayClientMessage(component, true), this.getCooldownDurationForAbility(instance));
+        DelayedEvents.queueDelayedEvent(() -> player.sendSystemMessage(component), this.getCooldownDurationForAbility(instance));
     }
 
     public boolean doForAbility(Player player, ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredAbilityResourceKey, Consumer<AbilityInstanceSerializable<?, ?>> consumer, E eventData) {
@@ -152,7 +152,7 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
                 updateLastTriggeredTime(instance, timestamp);
 
                 // Notify client of cooldown
-                player.displayClientMessage(getCooldownComponent(instance), true);
+                player.sendSystemMessage(getCooldownComponent(instance));
                 // Schedule cooldown over notification
                 scheduleCooldownDoneNotification(getCooldownOverComponent(instance), player, instance);
             }
@@ -196,7 +196,7 @@ public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayloa
                 updateLastTriggeredTime(instance, timestamp);
 
                 // Notify client of cooldown
-                player.displayClientMessage(getCooldownComponent(instance), true);
+                player.sendSystemMessage(getCooldownComponent(instance));
                 // Schedule cooldown over notification
                 scheduleCooldownDoneNotification(getCooldownOverComponent(instance), player, instance);
             }

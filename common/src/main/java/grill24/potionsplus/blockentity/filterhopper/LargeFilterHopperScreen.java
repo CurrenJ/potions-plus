@@ -20,7 +20,7 @@ public class LargeFilterHopperScreen extends FilterHopperScreen<LargeFilterHoppe
     }
 
     @Override
-    protected void renderLabels(GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY) {
-        GuiGraphicsExtractor.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
+    protected void extractLabels(GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY) {
+        GuiGraphicsExtractor.text(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
     }
 }

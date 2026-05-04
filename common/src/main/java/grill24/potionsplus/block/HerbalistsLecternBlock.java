@@ -6,6 +6,7 @@ import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -135,7 +136,7 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
+    protected int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, Direction direction) {
         Optional<HerbalistsLecternBlockEntity> herbalistsLecternBlockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value());
         return Math.min(herbalistsLecternBlockEntity.get().rendererData.allIcons.size(), 15);
     }

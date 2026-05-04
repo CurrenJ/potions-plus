@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -387,7 +388,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
         double d2 = pos.getY() + STALACTITE_DRIP_START_PIXEL - 0.0625;
         double d3 = pos.getZ() + 0.5 + vec3.z;
         Fluid fluid = getDripFluid(level, p_fluid);
-        ParticleOptions particleoptions = fluid.getFluidType().getDripInfo() != null ? fluid.getFluidType().getDripInfo().dripParticle() : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
+        ParticleOptions particleoptions = fluid.is(FluidTags.LAVA) ? ParticleTypes.DRIPPING_DRIPSTONE_LAVA : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
         if (particleoptions != null)
             level.addParticle(particleoptions, d1, d2, d3, 0.0, 0.0, 0.0);
     }
@@ -550,7 +551,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
 
     private static Fluid getDripFluid(Level p_154053_, Fluid p_154054_) {
         if (p_154054_.isSame(Fluids.EMPTY)) {
-            return p_154053_.dimensionType().ultraWarm() ? Fluids.LAVA : Fluids.WATER;
+            return p_154053_.dimensionType().hasCeiling() ? Fluids.LAVA : Fluids.WATER;
         } else {
             return p_154054_;
         }

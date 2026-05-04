@@ -7,6 +7,7 @@ import grill24.potionsplus.gui.VerticalListScreenElement;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillInstance;
 import grill24.potionsplus.skill.SkillsData;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
@@ -55,14 +56,14 @@ public class SkillTitleScreenElement extends VerticalListScreenElement<Renderabl
     }
 
     public void setSelectedSkill(ResourceKey<ConfiguredSkill<?, ?>> skill) {
-        if (skill == null || this.screen.getMinecraft().player == null) {
+        if (skill == null || Minecraft.getInstance().player == null) {
             setBlank();
             return;
         }
 
-        Player player = this.screen.getMinecraft().player;
+        Player player = Minecraft.getInstance().player;
         RegistryAccess registryAccess = player.registryAccess();
-        Optional<SkillInstance<?, ?>> configuredSkill = SkillsData.getPlayerData(this.screen.getMinecraft().player).getOrCreate(registryAccess, skill);
+        Optional<SkillInstance<?, ?>> configuredSkill = SkillsData.getPlayerData(Minecraft.getInstance().player).getOrCreate(registryAccess, skill);
         if (configuredSkill.isEmpty()) {
             setBlank();
             return;

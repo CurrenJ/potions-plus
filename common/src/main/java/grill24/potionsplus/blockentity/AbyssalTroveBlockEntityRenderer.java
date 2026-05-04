@@ -38,69 +38,14 @@ public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<Abys
     private ProfilerFiller profiler;
 
     public AbyssalTroveBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        BlockModelResolver = context.getBlockModelResolver();
+        BlockModelResolver = context.blockModelResolver();
         profiler = Profiler.get();
     }
 
-    // Old render method - kept for reference. Rendering now uses state-based pipeline.
+    // Old render method - kept for reference. Rendering now uses state-based pipeline with extractRenderState() and submit().
     @Deprecated
     public void renderLegacy(AbyssalTroveBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
-        profiler.push("abyssal_trove_render");
-
-        // For all entries in abyssal trove
-        for (Map.Entry<Integer, List<AbyssalTroveBlockEntity.RendererData.AbyssalTroveRenderedItem>> items : blockEntity.rendererData.renderedItemTiers.entrySet()) {
-            int row = items.getKey();
-
-            float horizontalPaddingScalar = RUtil.ease(blockEntity, 0.5F, 1F, row * 4, 1F) * ICON_SCALE;
-            float verticalPaddingScalar = 1F * ICON_SCALE;
-
-            float verticalOffset = RUtil.ease(blockEntity, 1F, 1.25F, row * 4, 1F);
-
-            blockEntity.currentDisplayRotation = RUtil.lerpAngle(blockEntity.currentDisplayRotation, blockEntity.degreesTowardsPlayer, tickDelta * 0.02f);
-
-            for (AbyssalTroveBlockEntity.RendererData.AbyssalTroveRenderedItem item : items.getValue()) {
-                matrices.pushPose();
-
-                boolean isUnknownIngredient = item.icon.is(DynamicIconItems.GENERIC_ICON.getValue());
-
-                // Render ingredients and unknown ingredients
-                Vector3d position = new Vector3d(item.position.x * horizontalPaddingScalar, item.position.y * verticalPaddingScalar, item.position.z * horizontalPaddingScalar);
-                position.add(new Vector3d(0.5, verticalOffset, 0.5));
-                position = RUtil.rotateAroundY(position, blockEntity.currentDisplayRotation + 90, new Vector3d(0.5, 0.5, 0.5));
-                matrices.translate(position.x, position.y, position.z);
-
-                matrices.mulPose(RUtil.rotateY(-90 - blockEntity.currentDisplayRotation));
-
-                // Calculate scale based on state
-                int startTime = blockEntity.getTimeLastStateChange(blockEntity.rendererData.getState());
-                AbyssalTroveBlockEntity.RendererData.State state = blockEntity.rendererData.getState();
-                item.scale = RUtil.ease(() -> startTime, item.scale, getTargetScale(state, isUnknownIngredient, item.icon), getAnimationDuration(state, row), 1F);
-                item.subIconScale = RUtil.ease(() -> startTime, item.subIconScale, getTargetSubIconScale(state, isUnknownIngredient, item.icon), getAnimationDuration(state, row), 1F);
-
-                matrices.scale(item.scale, item.scale, item.scale);
-
-                Minecraft.getInstance().getItemRenderer().renderStatic(item.icon, ItemDisplayContext.FIXED,
-                        light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
-
-                // Render sub icons
-                if (item.subIconScale > 0) {
-                    for (ItemStack subIcon : item.subIcon) {
-                        matrices.scale(item.subIconScale, item.subIconScale, item.subIconScale);
-                        if (item.icon.getItem() instanceof BlockItem) {
-                            matrices.translate(SUB_ICON_OFFSET_BLOCK.x, SUB_ICON_OFFSET_BLOCK.y, SUB_ICON_OFFSET_BLOCK.z);
-                        } else {
-                            matrices.translate(SUB_ICON_OFFSET.x, SUB_ICON_OFFSET.y, SUB_ICON_OFFSET.z);
-                        }
-                        Minecraft.getInstance().getItemRenderer().renderStatic(subIcon, ItemDisplayContext.FIXED,
-                                light, overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
-                    }
-                }
-
-                matrices.popPose();
-            }
-        }
-
-        profiler.pop();
+        // Old render implementation removed. Rendering now uses state-based pipeline with extractRenderState() and submit().
     }
 
     @Override

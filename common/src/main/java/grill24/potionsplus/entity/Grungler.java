@@ -57,10 +57,7 @@ public class Grungler extends Monster {
     @Override
     public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
-        BlockState blockState = BlockState.CODEC.parse(NbtOps.INSTANCE, input.getOrThrow("BlockState"))
-                .resultOrPartial(error -> {
-                    throw new RuntimeException("Failed to decode BlockState: " + error);
-                })
+        BlockState blockState = input.read("BlockState", BlockState.CODEC)
                 .orElse(Blocks.AIR.defaultBlockState());
         this.getEntityData().set(DATA, blockState);
     }
@@ -69,11 +66,7 @@ public class Grungler extends Monster {
     public void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         BlockState blockState = this.getEntityData().get(DATA);
-        BlockState.CODEC.encodeStart(NbtOps.INSTANCE, blockState)
-                .resultOrPartial(error -> {
-                    throw new RuntimeException("Failed to encode BlockState: " + error);
-                })
-                .ifPresent(encodedBlockState -> output.put("BlockState", encodedBlockState));
+        output.store("BlockState", BlockState.CODEC, blockState);
     }
 
     @Override

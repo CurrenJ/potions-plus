@@ -4,6 +4,7 @@ import grill24.potionsplus.gui.VerticalListScreenElement;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.resources.ResourceKey;
 
@@ -48,9 +49,9 @@ public class AbilitiesListScreenElement extends VerticalListScreenElement<Abilit
     }
 
     private Collection<AbilityInstanceSerializable<?, ?>> getAbilities() {
-        if (this.screen.getMinecraft().player == null) {
+        if (Minecraft.getInstance().player == null) {
             return Collections.emptyList();
         }
-        return SkillsData.getPlayerData(this.screen.getMinecraft().player).unlockedAbilities().values().stream().flatMap(List::stream).toList();
+        return SkillsData.getPlayerData(Minecraft.getInstance().player).unlockedAbilities().values().stream().flatMap(List::stream).toList();
     }
 }

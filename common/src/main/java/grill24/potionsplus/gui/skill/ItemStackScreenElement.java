@@ -4,6 +4,7 @@ import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.gui.RenderableScreenElement;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemStack;
@@ -54,7 +55,7 @@ public class ItemStackScreenElement extends RenderableScreenElement {
 
     @Override
     protected void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
-        if (this.screen.getMinecraft().player == null || this.stack == null) {
+        if (Minecraft.getInstance().player == null || this.stack == null) {
             return;
         }
 

@@ -56,7 +56,7 @@ public class TextButtonScreenElement extends RenderableScreenElement {
         RUtil.drawInventoryBackgroundRect(graphics, bounds, this.renderRotation, 0.5F, 0.5F);
 
         // Draw text in the center of the button
-        Font font = screen.getMinecraft().font;
+        Font font = screen.getFont();
         float textWidth = font.width(text);
         float textHeight = font.lineHeight;
         float textX = (float) bounds.getCenterX() - textWidth / 2F + outlineSize / 2F;

@@ -126,7 +126,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                 activeRecipes[i] = null;
             } else {
                 SingleRecipeInput recipeInput = new SingleRecipeInput(inputStack);
-                Optional<RecipeHolder<ClotheslineRecipe>> recipeHolder = Recipes.recipes.getRecipesFor(Recipes.CLOTHESLINE_RECIPE.value(), recipeInput, level).findFirst();
+                Optional<RecipeHolder<ClotheslineRecipe>> recipeHolder = Recipes.recipes.getRecipesFor(Recipes.CLOTHESLINE_RECIPE, recipeInput, level).findFirst();
                 activeRecipes[i] = recipeHolder.orElse(null);
             }
         }
@@ -167,7 +167,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                 float successChance = activeRecipe.getSuccessChance();
                 boolean recipeSucceeds = level.getRandom().nextFloat() < successChance;
 
-                ItemStack container = getItem(slot).getCraftingRemainder();
+                ItemStack container = getItem(slot).getItem().getCraftingRemainder().create();
                 getItem(slot).shrink(1);
 
                 if (recipeSucceeds) {

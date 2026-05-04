@@ -38,7 +38,7 @@ public class AbilityReward extends GrantableReward<AbilityReward.AbilityRewardCo
 
     public static ConfiguredGrantableReward<AbilityRewardConfiguration, AbilityReward> ability(BootstrapContext<ConfiguredGrantableReward<?, ?>> context, ResourceKey<ConfiguredPlayerAbility<?, ?>> ability) {
         HolderGetter<ConfiguredPlayerAbility<?, ?>> lookup = context.lookup(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY);
-        return new ConfiguredGrantableReward<>(GrantableRewards.ABILITY.value(), new AbilityRewardConfiguration(lookup.getOrThrow(ability)));
+        return new ConfiguredGrantableReward<>(new AbilityReward(), new AbilityRewardConfiguration(lookup.getOrThrow(ability)));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AbilityReward extends GrantableReward<AbilityReward.AbilityRewardCo
 
     @Override
     public void grant(ResourceKey<ConfiguredGrantableReward<?, ?>> holder, AbilityRewardConfiguration config, ServerPlayer player) {
-        SkillsData.updatePlayerData(player, data -> data.unlockAbility(player, config.ability.key()));
+        SkillsData.updatePlayerData(player, data -> data.unlockAbility(player, config.ability.unwrapKey().orElseThrow()));
     }
 
     public static class AbilityRewardBuilder implements ConfiguredGrantableRewards.IRewardBuilder {

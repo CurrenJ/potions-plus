@@ -9,6 +9,7 @@ import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
@@ -42,8 +43,8 @@ public class GeneticCropBlockModelGenerator<T extends Block> extends BlockModelU
     public GeneticCropBlockModelGenerator(Supplier<Holder<T>> blockGetter, ModelTemplate template, PlantTextures... ageTextures) {
         super(blockGetter);
         this.ageTextures = ageTextures;
-        if (!template.requiredSlots.contains(TextureSlot.CROP) || template.requiredSlots.size() > 1) {
-            throw new IllegalArgumentException("CropBlockModelGenerator requires a template with exactly one required texture slot: CROP");
+        if (template == null) {
+            throw new IllegalArgumentException("CropBlockModelGenerator requires a non-null template");
         }
         this.template = template;
     }
@@ -64,7 +65,7 @@ public class GeneticCropBlockModelGenerator<T extends Block> extends BlockModelU
 
                                         Identifier texture = getPlantTexture(age, harvestState);
                                         TextureMapping textureMapping = new TextureMapping()
-                                                .put(TextureSlot.CROP, texture);
+                                                .put(TextureSlot.CROP, new Material(texture));
 
                                         template.create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
 

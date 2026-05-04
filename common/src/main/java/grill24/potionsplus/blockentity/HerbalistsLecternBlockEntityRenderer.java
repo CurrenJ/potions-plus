@@ -35,7 +35,7 @@ public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer
     private ProfilerFiller profiler;
 
     public HerbalistsLecternBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        BlockModelResolver = context.getBlockModelResolver();
+        BlockModelResolver = context.blockModelResolver();
         profiler = Profiler.get();
     }
 

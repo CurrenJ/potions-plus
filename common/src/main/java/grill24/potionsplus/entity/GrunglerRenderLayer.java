@@ -2,7 +2,7 @@ package grill24.potionsplus.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 
 public class GrunglerRenderLayer extends RenderLayer<GrunglerRenderState, GrunglerModel> {
@@ -14,6 +14,6 @@ public class GrunglerRenderLayer extends RenderLayer<GrunglerRenderState, Grungl
     }
 
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, GrunglerRenderState entityRenderState, float yRot, float xRot) {
+    public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int i, GrunglerRenderState entityRenderState, float yRot, float xRot) {
     }
 }

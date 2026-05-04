@@ -66,7 +66,7 @@ public class TextComponentScreenElement extends RenderableScreenElement {
 
     @Override
     protected float getWidth() {
-        Font font = screen.getMinecraft().font;
+        Font font = screen.getFont();
         float width = (float) (components.stream().map(row -> row.stream().mapToDouble(font::width).sum()).max(Double::compare).orElse(0D) * this.scale);
         return Float.max(Float.min(width, settings.maxWidth()), settings.minWidth());
     }
@@ -140,7 +140,7 @@ public class TextComponentScreenElement extends RenderableScreenElement {
             graphics.pose().pushPose();
             graphics.pose().translate(x, y, 0);
             graphics.pose().scale(this.scale, this.scale, 1F);
-            GuiGraphicsExtractor.potions_plus$drawString(this.screen.getMinecraft().font, animatedRow.getFirst(),
+            GuiGraphicsExtractor.potions_plus$drawString(this.screen.getFont(), animatedRow.getFirst(),
                     0, 0, this.currentColor.getRGB());
             graphics.pose().popPose();
 
@@ -151,7 +151,7 @@ public class TextComponentScreenElement extends RenderableScreenElement {
     }
 
     public float getRowHeight(List<Component> row) {
-        float height = this.screen.getMinecraft().font.lineHeight * this.scale;
+        float height = this.screen.getFont().lineHeight * this.scale;
         if (row.isEmpty()) {
             height *= 0.5F;
         }
