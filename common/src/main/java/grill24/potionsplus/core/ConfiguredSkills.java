@@ -1,6 +1,8 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.skill.ConfiguredSkill;
+import grill24.potionsplus.skill.Milestone;
+import grill24.potionsplus.skill.configured.*;
 import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
 import grill24.potionsplus.skill.source.ConfiguredSkillPointSource;
@@ -12,6 +14,8 @@ import net.minecraft.resources.ResourceKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static grill24.potionsplus.utility.Utility.ppId;
 
 public class ConfiguredSkills {
     public static ResourceKey<ConfiguredSkill<?, ?>> ARCHERY;
@@ -68,5 +72,30 @@ public class ConfiguredSkills {
         }
 
         return builder;
+    }
+
+    public static void generate(BootstrapContext<ConfiguredSkill<?, ?>> context) {
+        HolderGetter<ConfiguredSkillPointSource<?, ?>> sourceLookup = context.lookup(PotionsPlusRegistries.CONFIGURED_SKILL_POINT_SOURCE);
+        HolderGetter<ConfiguredGrantableReward<?, ?>> rewardLookup = context.lookup(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD);
+
+        List<Milestone> allOreHats = List.of(
+                new Milestone(ppId("mine_copper_ores")),
+                new Milestone(ppId("mine_coal_ores")),
+                new Milestone(ppId("mine_iron_ores")),
+                new Milestone(ppId("mine_gold_ores")),
+                new Milestone(ppId("mine_diamond_ores")),
+                new Milestone(ppId("mine_emerald_ores"))
+        );
+
+        Archery.generate(context, sourceLookup, rewardLookup);
+        Axes.generate(context, sourceLookup, rewardLookup);
+        Farming.generate(context, sourceLookup, rewardLookup);
+        Jumping.generate(context, sourceLookup, rewardLookup);
+        Mining.generate(context, sourceLookup, allOreHats, rewardLookup);
+        Sneaking.generate(context, sourceLookup, rewardLookup);
+        Sprinting.generate(context, sourceLookup, rewardLookup);
+        Swordsmanship.generate(context, sourceLookup, rewardLookup);
+        Walking.generate(context, sourceLookup, rewardLookup);
+        Woodcutting.generate(context, sourceLookup, rewardLookup);
     }
 }

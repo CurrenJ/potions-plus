@@ -1,6 +1,7 @@
 package grill24.potionsplus.core.blocks;
 
 import grill24.potionsplus.block.*;
+import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.block.SimpleBlockBuilder;
@@ -37,6 +38,10 @@ public class BlockEntityBlocks {
     public static Holder<Block> SKILL_JOURNALS;
 
     public static Holder<Block> SMALL_FILTER_HOPPER, LARGE_FILTER_HOPPER, HUGE_FILTER_HOPPER;
+
+    public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
+        init(registerBlock, registerItem, () -> OreItems.URANIUM_INGOT.value(), () -> OreBlocks.URANIUM_GLASS.value());
+    }
 
     public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem, Supplier<Item> uraniumIngot, Supplier<Block> uraniumGlass) {
         BREWING_CAULDRON = RegistrationUtility.register(
