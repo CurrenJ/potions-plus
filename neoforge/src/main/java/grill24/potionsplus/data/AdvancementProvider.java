@@ -35,6 +35,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.biome.Biome;
@@ -111,7 +112,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder skillJournals = Advancement.Builder.advancement()
                 .parent(root)
                 .display(
-                        new ItemStack(BlockEntityBlocks.SKILL_JOURNALS.value()),
+                        BlockEntityBlocks.SKILL_JOURNALS.value(),
                         Component.translatable(Translations.ADVANCEMENTS_POTIONSPLUS_SKILL_JOURNALS_TITLE),
                         Component.translatable(Translations.ADVANCEMENTS_POTIONSPLUS_SKILL_JOURNALS_DESCRIPTION),
                         null,
@@ -207,7 +208,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
             Advancement.Builder builder = Advancement.Builder.advancement();
             builder.parent(currentParent);
             builder.display(
-                    hatInfo.display(),
+                    ItemStackTemplate.fromNonEmptyStack(hatInfo.display()),
                     Component.translatable("advancements.potionsplus.ore_hat." + name + "_" + hatInfo.amountRequired() + ".title", hatInfo.display().getHoverName()),
                     Component.translatable("advancements.potionsplus.ore_hat." + name + "_" + hatInfo.amountRequired() + ".description", hatInfo.display().getHoverName()),
                     null,
@@ -234,7 +235,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         Advancement.Builder acquire_ore_flower = Advancement.Builder.advancement()
                 .parent(createBrewingCauldron)
                 .display(
-                        new ItemStack(FlowerBlocks.COPPER_CHRYSANTHEMUM.value()),
+                        FlowerBlocks.COPPER_CHRYSANTHEMUM.value(),
                         Component.translatable("advancements.potionsplus.acquire_ore_flower.title"),
                         Component.translatable("advancements.potionsplus.acquire_ore_flower.description"),
                         null,
@@ -258,7 +259,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder sulfurShard = Advancement.Builder.advancement()
                 .parent(createBrewingCauldron)
                 .display(
-                        new ItemStack(OreItems.SULFUR_SHARD),
+                        OreItems.SULFUR_SHARD.value(),
                         Component.translatable("advancements.potionsplus.acquire_sulfur_shard.title"),
                         Component.translatable("advancements.potionsplus.acquire_sulfur_shard.description"),
                         null,
@@ -274,7 +275,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder sulfuricAcid = Advancement.Builder.advancement()
                 .parent(sulfurShard)
                 .display(
-                        new ItemStack(OreItems.SULFURIC_ACID),
+                        OreItems.SULFURIC_ACID.value(),
                         Component.translatable("advancements.potionsplus.acquire_sulfuric_acid.title"),
                         Component.translatable("advancements.potionsplus.acquire_sulfuric_acid.description"),
                         null,
@@ -290,7 +291,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder acquireUraniumOre = Advancement.Builder.advancement()
                 .parent(sulfurShard)
                 .display(
-                        new ItemStack(OreItems.RAW_URANIUM),
+                        OreItems.RAW_URANIUM.value(),
                         Component.translatable("advancements.potionsplus.acquire_uranium_ore.title"),
                         Component.translatable("advancements.potionsplus.acquire_uranium_ore.description"),
                         null,
@@ -306,7 +307,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder acquireUraniumIngot = Advancement.Builder.advancement()
                 .parent(acquireUraniumOre)
                 .display(
-                        new ItemStack(OreItems.URANIUM_INGOT),
+                        OreItems.URANIUM_INGOT.value(),
                         Component.translatable("advancements.potionsplus.acquire_uranium_ingot.title"),
                         Component.translatable("advancements.potionsplus.acquire_uranium_ingot.description"),
                         null,
@@ -324,7 +325,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder create_sanguine_altar = Advancement.Builder.advancement()
                 .parent(create_brewing_cauldron)
                 .display(
-                        new ItemStack(BlockEntityBlocks.SANGUINE_ALTAR.value()),
+                        BlockEntityBlocks.SANGUINE_ALTAR.value(),
                         Component.translatable("advancements.potionsplus.sanguine_altar.title"),
                         Component.translatable("advancements.potionsplus.sanguine_altar.description"),
                         null,
@@ -340,7 +341,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder convert_item_in_sanguine_altar = Advancement.Builder.advancement()
                 .parent(create_sanguine_altar)
                 .display(
-                        new ItemStack(Items.AMETHYST_SHARD),
+                        Items.AMETHYST_SHARD.value(),
                         Component.translatable("advancements.potionsplus.convert_item_in_sanguine_altar.title"),
                         Component.translatable("advancements.potionsplus.convert_item_in_sanguine_altar.description"),
                         null,
@@ -357,8 +358,8 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
     private static @NotNull AdvancementHolder createBrewingCauldronAdvancements(Consumer<AdvancementHolder> saver) {
         AdvancementHolder create_brewing_cauldron = Advancement.Builder.advancement()
                 .display(
-                        // The advancement icon. Can be an ItemStack or an ItemLike.
-                        new ItemStack(BlockEntityBlocks.BREWING_CAULDRON.value()),
+                        // The advancement icon.
+                        BlockEntityBlocks.BREWING_CAULDRON.value(),
                         // The advancement title and description. Don't forget to add translations for these!
                         Component.translatable("advancements.potionsplus.brewing_cauldron.title"),
                         Component.translatable("advancements.potionsplus.brewing_cauldron.description"),
@@ -382,7 +383,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder brew_awkward_potion = Advancement.Builder.advancement()
                 .parent(create_brewing_cauldron)
                 .display(
-                        new ItemStack(Items.NETHER_WART),
+                        Items.NETHER_WART.value(),
                         Component.translatable("advancements.potionsplus.brew_awkward_potion.title"),
                         Component.translatable("advancements.potionsplus.brew_awkward_potion.description"),
                         null,
@@ -399,7 +400,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder brew_any_potion = Advancement.Builder.advancement()
                 .parent(brew_awkward_potion)
                 .display(
-                        PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION),
+                        ItemStackTemplate.fromNonEmptyStack(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION)),
                         Component.translatable("advancements.potionsplus.brew_any_potion.title"),
                         Component.translatable("advancements.potionsplus.brew_any_potion.description"),
                         null,
@@ -416,7 +417,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder acquire_moss = Advancement.Builder.advancement()
                 .parent(create_brewing_cauldron)
                 .display(
-                        new ItemStack(BrewingItems.MOSS),
+                        BrewingItems.MOSS.value(),
                         Component.translatable("advancements.potionsplus.acquire_moss.title"),
                         Component.translatable("advancements.potionsplus.acquire_moss.description"),
                         null,
@@ -432,7 +433,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder acquire_salt = Advancement.Builder.advancement()
                 .parent(acquire_moss)
                 .display(
-                        new ItemStack(BrewingItems.SALT),
+                        BrewingItems.SALT.value(),
                         Component.translatable("advancements.potionsplus.acquire_salt.title"),
                         Component.translatable("advancements.potionsplus.acquire_salt.description"),
                         null,
@@ -448,7 +449,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder acquire_wormroot = Advancement.Builder.advancement()
                 .parent(acquire_salt)
                 .display(
-                        new ItemStack(BrewingItems.WORMROOT),
+                        BrewingItems.WORMROOT.value(),
                         Component.translatable("advancements.potionsplus.acquire_wormroot.title"),
                         Component.translatable("advancements.potionsplus.acquire_wormroot.description"),
                         null,
@@ -464,7 +465,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder acquire_rotten_wormroot = Advancement.Builder.advancement()
                 .parent(acquire_wormroot)
                 .display(
-                        new ItemStack(BrewingItems.ROTTEN_WORMROOT),
+                        BrewingItems.ROTTEN_WORMROOT.value(),
                         Component.translatable("advancements.potionsplus.acquire_rotten_wormroot.title"),
                         Component.translatable("advancements.potionsplus.acquire_rotten_wormroot.description"),
                         null,
@@ -485,7 +486,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder create_clothesline = Advancement.Builder.advancement()
                 .parent(create_brewing_cauldron)
                 .display(
-                        new ItemStack(BlockEntityBlocks.CLOTHESLINE.value()),
+                        BlockEntityBlocks.CLOTHESLINE.value(),
                         Component.translatable("advancements.potionsplus.clothesline.title"),
                         Component.translatable("advancements.potionsplus.clothesline.description"),
                         null,
@@ -502,7 +503,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder dry_rotten_flesh = Advancement.Builder.advancement()
                 .parent(create_clothesline)
                 .display(
-                        new ItemStack(Items.ROTTEN_FLESH),
+                        Items.ROTTEN_FLESH.value(),
                         Component.translatable("advancements.potionsplus.dry_rotten_flesh.title"),
                         Component.translatable("advancements.potionsplus.dry_rotten_flesh.description"),
                         null,
@@ -521,7 +522,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder create_abyssal_trove = Advancement.Builder.advancement()
                 .parent(create_brewing_cauldron)
                 .display(
-                        new ItemStack(BlockEntityBlocks.ABYSSAL_TROVE.value()),
+                        BlockEntityBlocks.ABYSSAL_TROVE.value(),
                         Component.translatable("advancements.potionsplus.abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.abyssal_trove.description"),
                         null,
@@ -538,7 +539,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder add_first_ingredient_to_abyssal_trove = Advancement.Builder.advancement()
                 .parent(create_abyssal_trove)
                 .display(
-                        DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC),
+                        ItemStackTemplate.fromNonEmptyStack(DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC)),
                         Component.translatable("advancements.potionsplus.add_first_ingredient_to_abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.add_first_ingredient_to_abyssal_trove.description"),
                         null,
@@ -555,7 +556,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder add_common_ingredient_to_abyssal_trove = Advancement.Builder.advancement()
                 .parent(add_first_ingredient_to_abyssal_trove)
                 .display(
-                        DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.COMMON_TEX_LOC),
+                        ItemStackTemplate.fromNonEmptyStack(DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.COMMON_TEX_LOC)),
                         Component.translatable("advancements.potionsplus.add_common_ingredient_to_abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.add_common_ingredient_to_abyssal_trove.description"),
                         null,
@@ -572,7 +573,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
         AdvancementHolder add_rare_ingredient_to_abyssal_trove = Advancement.Builder.advancement()
                 .parent(add_common_ingredient_to_abyssal_trove)
                 .display(
-                        DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.RARE_TEX_LOC),
+                        ItemStackTemplate.fromNonEmptyStack(DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.RARE_TEX_LOC)),
                         Component.translatable("advancements.potionsplus.add_rare_ingredient_to_abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.add_rare_ingredient_to_abyssal_trove.description"),
                         null,

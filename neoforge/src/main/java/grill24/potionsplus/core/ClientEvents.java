@@ -53,15 +53,15 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void onParticleFactoryRegister(final RegisterParticleProvidersEvent event) {
-        event.registerSpecial(Particles.WANDERING_HEART.get(), WanderingHeartParticle.WanderingHeartProvider::new);
-        event.registerSpecial(Particles.END_ROD_RAIN.get(), EndRodRainParticle.Provider::new);
-        event.registerSpecial(Particles.RANDOM_NOTE.get(), RandomNoteParticle.Provider::new);
-        event.registerSpecial(Particles.BLOOD_GOB.get(), BloodGobParticle.Provider::new);
-        event.registerSpecial(Particles.LUNAR_BERRY_BUSH_AMBIENT.get(), LunarBerryBushAmbientParticle.Provider::new);
-        event.registerSpecial(Particles.LIGHTNING_BOLT.get(), LightningBoltParticle.Provider::new);
-        event.registerSpecial(Particles.LIGHTNING_BOLT_SMALL.get(), SmallLightningBoltParticle.Provider::new);
-        event.registerSpecial(Particles.ELECTRICAL_SPARK.get(), ElectricalSparkParticle.Provider::new);
-        event.registerSpecial(Particles.STUN_STARS.get(), StunStarsParticle.Provider::new);
+        event.registerSpriteSet(Particles.WANDERING_HEART.get(), WanderingHeartParticle.WanderingHeartProvider::new);
+        event.registerSpriteSet(Particles.END_ROD_RAIN.get(), EndRodRainParticle.Provider::new);
+        event.registerSpriteSet(Particles.RANDOM_NOTE.get(), RandomNoteParticle.Provider::new);
+        event.registerSpriteSet(Particles.BLOOD_GOB.get(), BloodGobParticle.Provider::new);
+        event.registerSpriteSet(Particles.LUNAR_BERRY_BUSH_AMBIENT.get(), LunarBerryBushAmbientParticle.Provider::new);
+        event.registerSpriteSet(Particles.LIGHTNING_BOLT.get(), LightningBoltParticle.Provider::new);
+        event.registerSpriteSet(Particles.LIGHTNING_BOLT_SMALL.get(), SmallLightningBoltParticle.Provider::new);
+        event.registerSpriteSet(Particles.ELECTRICAL_SPARK.get(), ElectricalSparkParticle.Provider::new);
+        event.registerSpriteSet(Particles.STUN_STARS.get(), StunStarsParticle.Provider::new);
 
         event.registerSpecial(Particles.END_ROD_RAIN_EMITTER.get(),
                 new EmitterParticle.Provider(ParticleConfigurations.END_ROD_RAIN::sampleParticleType));
