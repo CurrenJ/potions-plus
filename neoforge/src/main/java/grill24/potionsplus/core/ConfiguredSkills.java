@@ -1,6 +1,6 @@
 package grill24.potionsplus.core;
 
-import grill24.potionsplus.data.AdvancementProvider;
+import grill24.potionsplus.data.neoforge.AdvancementProvider;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.Milestone;
 import grill24.potionsplus.skill.configured.*;

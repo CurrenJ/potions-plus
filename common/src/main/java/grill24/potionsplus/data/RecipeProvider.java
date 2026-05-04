@@ -9,6 +9,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
 public abstract class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
@@ -52,5 +53,10 @@ public abstract class RecipeProvider extends net.minecraft.data.recipes.RecipePr
     @Override
     public Criterion<InventoryChangeTrigger.TriggerInstance> has(TagKey<Item> tag) {
         return super.has(tag);
+    }
+
+    @Override
+    public Ingredient tag(TagKey<Item> tag) {
+        return super.tag(tag);
     }
 }

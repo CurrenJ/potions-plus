@@ -7,8 +7,6 @@ architectury {
     neoForge()
 }
 
-println "[DEBUG] after architectury{}: " + project.configurations.names.sort().join(', ')
-
 configurations {
     common {
         canBeResolved = true
@@ -23,8 +21,6 @@ configurations {
         canBeConsumed = false
     }
 }
-
-println "[DEBUG] after configurations{}: " + project.configurations.names.sort().join(', ')
 
 repositories {
     maven {
@@ -47,11 +43,30 @@ dependencies {
     common(project(path: ':common')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
-    // JEI — compile-only API access
     compileOnly "mezz.jei:jei-1.21.5-neoforge:$rootProject.jei_version"
 
-    // TerraBlender — used for biome generation
     implementation "com.github.glitchfiend:TerraBlender-neoforge:$rootProject.minecraft_version-$rootProject.terrablender_version"
+}
+
+processResources {
+    inputs.property 'version', project.version
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from project(":common").sourceSets.main.resources
+
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand([
+            'version': project.version,
+            'mod_license': rootProject.mod_license,
+            'mod_id': rootProject.mod_id,
+            'mod_name': rootProject.mod_name,
+            'mod_authors': rootProject.mod_authors,
+            'mod_description': rootProject.mod_description,
+            'mod_icon': rootProject.mod_icon,
+            'mod_neoforge_version_range': "[${rootProject.neoforge_version},)",
+            'mod_minecraft_version_range': "[${rootProject.minecraft_version},)"
+        ])
+    }
 }
 
 jar {

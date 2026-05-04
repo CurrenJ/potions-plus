@@ -26,19 +26,19 @@ versionRange = "${mod_minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.potionsplus]]
-modId = "glitchcore"
-type = "required"
-versionRange = "[${glitchcore_version},)"
-ordering = "AFTER"
-side = "BOTH"
+# [[dependencies.potionsplus]]
+# modId = "glitchcore"
+# type = "required"
+# versionRange = "[2.5.0.1,)"
+# ordering = "AFTER"
+# side = "BOTH"
 
-[[dependencies.potionsplus]]
-modId = "terrablender"
-type = "required"
-versionRange = "[${terrablender_version},)"
-ordering = "AFTER"
-side = "BOTH"
+# [[dependencies.potionsplus]]
+# modId = "terrablender"
+# type = "required"
+# versionRange = "[4.0.0.0,)"
+# ordering = "AFTER"
+# side = "BOTH"
 
 [[mixins]]
 config = "potionsplus.mixins.json"

@@ -2,7 +2,7 @@ package grill24.potionsplus.event;
 
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.data.AdvancementProvider;
+import grill24.potionsplus.data.neoforge.AdvancementProvider;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
