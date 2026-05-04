@@ -2,7 +2,7 @@ package grill24.potionsplus.skill.source;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
 
 import java.util.List;
 

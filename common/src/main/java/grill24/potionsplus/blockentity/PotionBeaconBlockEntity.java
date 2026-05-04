@@ -69,7 +69,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
     }
 
     public PotionBeaconBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(Blocks.POTION_BEACON_BLOCK_ENTITY.get(), blockPos, blockState);
+        super(Blocks.POTION_BEACON_BLOCK_ENTITY.value(), blockPos, blockState);
     }
 
     @Override

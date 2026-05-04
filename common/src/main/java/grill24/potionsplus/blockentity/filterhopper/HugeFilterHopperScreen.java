@@ -1,6 +1,6 @@
 package grill24.potionsplus.blockentity.filterhopper;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,7 +23,7 @@ public class HugeFilterHopperScreen extends FilterHopperScreen<HugeFilterHopperM
     }
 
     @Override
-    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
+    protected void renderLabels(GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY) {
+        GuiGraphicsExtractor.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
     }
 }

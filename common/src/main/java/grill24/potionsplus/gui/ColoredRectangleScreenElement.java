@@ -1,6 +1,6 @@
 package grill24.potionsplus.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
 
@@ -43,7 +43,7 @@ public class ColoredRectangleScreenElement extends RenderableScreenElement {
     }
 
     @Override
-    public void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    public void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         Rectangle2D bounds = getGlobalBounds();
 
         int x = Math.round((float) bounds.getMinX());

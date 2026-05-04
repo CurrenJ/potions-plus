@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +23,7 @@ public class FadeInRotateItemActivationAnimation extends ItemActivationAnimation
     }
 
     @Override
-    public void render(Minecraft minecraft, GuiGraphics guiGraphics, float partialTick) {
+    public void render(Minecraft minecraft, GuiGraphicsExtractor GuiGraphicsExtractor, float partialTick) {
         if (this.itemStack != null && this.itemActivationTicksRemaining > 0) {
             int elapsedTicks = this.itemActivationMaxTicks - this.itemActivationTicksRemaining;
             float animationProgress = RUtil.getProgress(0, this.itemActivationMaxTicks, 0, elapsedTicks + partialTick);
@@ -38,7 +38,7 @@ public class FadeInRotateItemActivationAnimation extends ItemActivationAnimation
 
             PoseStack poseStack = new PoseStack();
             poseStack.pushPose();
-            poseStack.translate(guiGraphics.guiWidth() / 2.0F, guiGraphics.guiHeight() / 2.0F, -50.0F);
+            poseStack.translate(GuiGraphicsExtractor.guiWidth() / 2.0F, GuiGraphicsExtractor.guiHeight() / 2.0F, -50.0F);
             poseStack.mulPose(Axis.ZP.rotationDegrees(rotationAngleZ));
             poseStack.mulPose(Axis.YP.rotationDegrees(rotationAngleY));
             float scale = 175.0F * RUtil.lerp(0, 1, animationProgessFirstQuarter);
@@ -48,7 +48,7 @@ public class FadeInRotateItemActivationAnimation extends ItemActivationAnimation
 
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, fadeInAlpha);
 
-            guiGraphics.drawSpecial(bufferSource ->
+            GuiGraphicsExtractor.drawSpecial(bufferSource ->
                     minecraft.getItemRenderer().renderStatic(
                             this.itemStack,
                             ItemDisplayContext.FIXED,

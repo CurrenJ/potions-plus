@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.gui.DivScreenElement;
 import grill24.potionsplus.gui.RenderableScreenElement;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
@@ -19,7 +19,7 @@ public class SplashTextDivScreenElement extends DivScreenElement<RenderableScree
     }
 
     @Override
-    public void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    public void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         super.render(graphics, partialTick, mouseX, mouseY);
 
         if (this.component != null) {

@@ -8,7 +8,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.SoulSandBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -33,7 +33,7 @@ public class BotanicalBoostEffect extends MobEffect implements ITickingAreaToolt
         RandomSource random = livingEntity.getRandom();
         BlockPos origin = livingEntity.blockPosition();
         // If on farm-land or soul sand, origin is the block above
-        if (livingEntity.level().getBlockState(origin).getBlock() instanceof FarmBlock || livingEntity.level().getBlockState(origin).getBlock() instanceof SoulSandBlock) {
+        if (livingEntity.level().getBlockState(origin).getBlock() instanceof FarmlandBlock || livingEntity.level().getBlockState(origin).getBlock() instanceof SoulSandBlock) {
             origin = origin.above();
         }
 

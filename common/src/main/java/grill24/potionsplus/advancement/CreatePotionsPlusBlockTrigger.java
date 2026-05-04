@@ -4,14 +4,13 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.Advancements;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.criterion.ContextAwarePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nonnull;
 import java.util.Optional;
 
 import static grill24.potionsplus.utility.Utility.ppId;
@@ -43,7 +42,7 @@ public class CreatePotionsPlusBlockTrigger extends SimpleCriterionTrigger<Create
             return Advancements.BREWING_CAULDRON_CREATION.value().createCriterion(new CreatePotionsPlusBlockTrigger.TriggerInstance(Optional.empty(), blockState));
         }
 
-        public boolean test(ServerPlayer player, @Nonnull BlockState blockState) {
+        public boolean test(ServerPlayer player, BlockState blockState) {
             return blockState.is(block().getBlock());
         }
     }

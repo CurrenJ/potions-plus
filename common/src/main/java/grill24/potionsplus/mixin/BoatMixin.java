@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 @Mixin(AbstractBoat.class)
 public abstract class BoatMixin extends Entity {

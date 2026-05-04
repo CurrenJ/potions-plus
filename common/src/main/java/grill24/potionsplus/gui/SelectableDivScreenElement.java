@@ -4,7 +4,7 @@ import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
 import grill24.potionsplus.utility.ClientTickHandler;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +29,7 @@ public class SelectableDivScreenElement extends DivScreenElement<RenderableScree
     }
 
     @Override
-    public void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    public void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         super.render(graphics, partialTick, mouseX, mouseY);
 
         IGuiGraphicsExtension graphicsExtension = (IGuiGraphicsExtension) graphics;

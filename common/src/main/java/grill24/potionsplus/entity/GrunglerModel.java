@@ -9,13 +9,9 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.neoforged.neoforge.client.entity.animation.json.AnimationHolder;
-
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class GrunglerModel extends EntityModel<LivingEntityRenderState> {
-    // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final AnimationHolder WALKING_ANIMATION_LOCATION = EntityModel.getAnimation(ppId("grungler_scamper"));
 
     private final ModelPart bone;
     private final ModelPart bone2;
@@ -65,7 +61,5 @@ public class GrunglerModel extends EntityModel<LivingEntityRenderState> {
     @Override
     public void setupAnim(LivingEntityRenderState state) {
         super.setupAnim(state);
-        // A specialized version of animate(), designed for walking animations.
-        this.animateWalk(WALKING_ANIMATION_LOCATION, state.walkAnimationPos, state.walkAnimationSpeed, 3, 1);
     }
 }

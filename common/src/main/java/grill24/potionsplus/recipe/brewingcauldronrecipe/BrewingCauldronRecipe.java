@@ -199,7 +199,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
 
     @Override
     public @NotNull RecipeSerializer<BrewingCauldronRecipe> getSerializer() {
-        return Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.get();
+        return SERIALIZER;
     }
 
 
@@ -281,45 +281,34 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
         }
     }
 
-    public static class Serializer implements RecipeSerializer<BrewingCauldronRecipe> {
-        public static final MapCodec<BrewingCauldronRecipe> CODEC = RecordCodecBuilder.mapCodec(
-                codecBuilder -> codecBuilder.group(
-                        ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
-                        PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
-                        ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
-                        Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
-                        Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei),
-                        Codec.FLOAT.optionalFieldOf("experienceReward", 0F).forGetter(BrewingCauldronRecipe::getExperienceReward),
-                        Codec.FLOAT.optionalFieldOf("experienceRequired", 0F).forGetter(BrewingCauldronRecipe::getExperienceRequired),
-                        Codec.INT.optionalFieldOf("durationToAdd", 0).forGetter(BrewingCauldronRecipe::getDurationToAdd),
-                        Codec.INT.optionalFieldOf("amplifierToAdd", 0).forGetter(BrewingCauldronRecipe::getAmplifierToAdd),
-                        PotionMatchingCriteria.CODEC.listOf().fieldOf("matchingCriteria").forGetter(BrewingCauldronRecipe::getMatchingCriteria),
-                        Codec.BOOL.optionalFieldOf("isSeededRuntimeRecipe", false).forGetter(BrewingCauldronRecipe::isSeededRuntimeRecipe)
-                ).apply(codecBuilder, BrewingCauldronRecipe::new)
-        );
-        public static StreamCodec<RegistryFriendlyByteBuf, BrewingCauldronRecipe> STREAM_CODEC = StreamCodecUtility.composite(
-                ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_STREAM_CODEC, ShapelessProcessingRecipe::getCategory,
-                PpIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()), ShapelessProcessingRecipe::getPpIngredients,
-                ItemStack.STREAM_CODEC, ShapelessProcessingRecipe::getResult,
-                ByteBufCodecs.INT, ShapelessProcessingRecipe::getProcessingTime,
-                ByteBufCodecs.BOOL, ShapelessProcessingRecipe::canShowInJei,
-                ByteBufCodecs.FLOAT, BrewingCauldronRecipe::getExperienceReward,
-                ByteBufCodecs.FLOAT, BrewingCauldronRecipe::getExperienceRequired,
-                ByteBufCodecs.INT, BrewingCauldronRecipe::getDurationToAdd,
-                ByteBufCodecs.INT, BrewingCauldronRecipe::getAmplifierToAdd,
-                PotionMatchingCriteria.STREAM_CODEC.apply(ByteBufCodecs.list()), BrewingCauldronRecipe::getMatchingCriteria,
-                ByteBufCodecs.BOOL, BrewingCauldronRecipe::isSeededRuntimeRecipe,
-                BrewingCauldronRecipe::new
-        );
-
-        @Override
-        public MapCodec<BrewingCauldronRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, BrewingCauldronRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
+    public static final MapCodec<BrewingCauldronRecipe> CODEC = RecordCodecBuilder.mapCodec(
+            codecBuilder -> codecBuilder.group(
+                    ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
+                    PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
+                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
+                    Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
+                    Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei),
+                    Codec.FLOAT.optionalFieldOf("experienceReward", 0F).forGetter(BrewingCauldronRecipe::getExperienceReward),
+                    Codec.FLOAT.optionalFieldOf("experienceRequired", 0F).forGetter(BrewingCauldronRecipe::getExperienceRequired),
+                    Codec.INT.optionalFieldOf("durationToAdd", 0).forGetter(BrewingCauldronRecipe::getDurationToAdd),
+                    Codec.INT.optionalFieldOf("amplifierToAdd", 0).forGetter(BrewingCauldronRecipe::getAmplifierToAdd),
+                    PotionMatchingCriteria.CODEC.listOf().fieldOf("matchingCriteria").forGetter(BrewingCauldronRecipe::getMatchingCriteria),
+                    Codec.BOOL.optionalFieldOf("isSeededRuntimeRecipe", false).forGetter(BrewingCauldronRecipe::isSeededRuntimeRecipe)
+            ).apply(codecBuilder, BrewingCauldronRecipe::new)
+    );
+    public static final StreamCodec<RegistryFriendlyByteBuf, BrewingCauldronRecipe> STREAM_CODEC = StreamCodecUtility.composite(
+            ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_STREAM_CODEC, ShapelessProcessingRecipe::getCategory,
+            PpIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()), ShapelessProcessingRecipe::getPpIngredients,
+            ItemStack.STREAM_CODEC, ShapelessProcessingRecipe::getResult,
+            ByteBufCodecs.INT, ShapelessProcessingRecipe::getProcessingTime,
+            ByteBufCodecs.BOOL, ShapelessProcessingRecipe::canShowInJei,
+            ByteBufCodecs.FLOAT, BrewingCauldronRecipe::getExperienceReward,
+            ByteBufCodecs.FLOAT, BrewingCauldronRecipe::getExperienceRequired,
+            ByteBufCodecs.INT, BrewingCauldronRecipe::getDurationToAdd,
+            ByteBufCodecs.INT, BrewingCauldronRecipe::getAmplifierToAdd,
+            PotionMatchingCriteria.STREAM_CODEC.apply(ByteBufCodecs.list()), BrewingCauldronRecipe::getMatchingCriteria,
+            ByteBufCodecs.BOOL, BrewingCauldronRecipe::isSeededRuntimeRecipe,
+            BrewingCauldronRecipe::new
+    );
+    public static final RecipeSerializer<BrewingCauldronRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 }

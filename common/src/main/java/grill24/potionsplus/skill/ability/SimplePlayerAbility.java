@@ -7,7 +7,7 @@ import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
 import grill24.potionsplus.skill.ability.instance.SimpleAbilityInstanceData;
 import grill24.potionsplus.skill.ability.util.AbilityContextualFactory;
 import grill24.potionsplus.skill.ability.util.RegistryAccessibleFactory;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;

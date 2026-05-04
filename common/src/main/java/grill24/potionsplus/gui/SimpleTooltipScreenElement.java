@@ -5,7 +5,7 @@ import grill24.potionsplus.render.animation.keyframe.AnimationCurve;
 import grill24.potionsplus.render.animation.keyframe.FloatAnimationCurve;
 import grill24.potionsplus.render.animation.keyframe.Interpolation;
 import grill24.potionsplus.utility.RUtil;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ARGB;
@@ -142,7 +142,7 @@ public class SimpleTooltipScreenElement extends DivScreenElement<TextComponentSc
     private static final int FILL_Z = 109;
 
     @Override
-    public void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    public void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         Rectangle2D bounds = getGlobalBounds();
         float minX = (float) bounds.getMinX();
         float minY = (float) bounds.getMinY();

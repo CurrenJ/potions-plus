@@ -230,7 +230,7 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
     }
 
     @Override
-    public void setPlacedBy(Level level, BlockPos placedAt, BlockState blockState, @javax.annotation.Nullable LivingEntity placer, ItemStack itemStack) {
+    public void setPlacedBy(Level level, BlockPos placedAt, BlockState blockState, @org.jspecify.annotations.Nullable LivingEntity placer, ItemStack itemStack) {
         super.setPlacedBy(level, placedAt, blockState, placer, itemStack);
         Optional<GeneticCropBlockEntity> cropBlockEntity = level.getBlockEntity(placedAt, Blocks.GENETIC_CROP_BLOCK_ENTITY.value());
         cropBlockEntity.ifPresent(entity -> {

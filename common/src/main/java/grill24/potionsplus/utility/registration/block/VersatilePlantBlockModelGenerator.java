@@ -19,7 +19,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import oshi.util.tuples.Pair;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;

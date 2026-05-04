@@ -11,10 +11,10 @@ import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -59,7 +59,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public void renderImage(Font font, int x, int y, int width, int height, GuiGraphics guiGraphics) {
+    public void renderImage(Font font, int x, int y, int width, int height, GuiGraphicsExtractor GuiGraphicsExtractor) {
         if (isShowing()) {
             int xMax = this.gridSizeX();
             int yMax = this.gridSizeY();
@@ -69,7 +69,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
                 for (int xIndex = 0; xIndex < xMax; xIndex++) {
                     int j1 = x + xIndex * SLOT_SIZE_X + BORDER_WIDTH;
                     int k1 = y + yIndex * SLOT_SIZE_Y + BORDER_WIDTH;
-                    this.renderSlot(j1, k1, k++, guiGraphics, font);
+                    this.renderSlot(j1, k1, k++, GuiGraphicsExtractor, font);
                 }
             }
         }
@@ -80,7 +80,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
         return player != null;
     }
 
-    private void renderSlot(int x, int y, int itemIndex, GuiGraphics guiGraphics, Font font) {
+    private void renderSlot(int x, int y, int itemIndex, GuiGraphicsExtractor GuiGraphicsExtractor, Font font) {
         if (itemIndex < this.items.size()) {
             ItemStack itemstack = this.items.get(itemIndex);
             if (itemstack.isEmpty()) {
@@ -88,7 +88,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
             }
 
             if (!itemstack.is(BlockEntityBlocks.BREWING_CAULDRON.value().asItem())) {
-                this.blit(guiGraphics, x, y, ClientItemStacksTooltip.Texture.SLOT);
+                this.blit(GuiGraphicsExtractor, x, y, ClientItemStacksTooltip.Texture.SLOT);
 
                 LocalPlayer player = Minecraft.getInstance().player;
                 if (player != null) {
@@ -105,15 +105,15 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
 
             }
 
-            guiGraphics.renderItem(itemstack, x + 1, y + 1, itemIndex);
+            GuiGraphicsExtractor.renderItem(itemstack, x + 1, y + 1, itemIndex);
             if (this.renderItemDecorations) {
-                guiGraphics.renderItemDecorations(font, itemstack, x + 1, y + 1);
+                GuiGraphicsExtractor.renderItemDecorations(font, itemstack, x + 1, y + 1);
             }
         }
     }
 
-    private void blit(GuiGraphics guiGraphics, int x, int y, ClientItemStacksTooltip.Texture texture) {
-        guiGraphics.blitSprite(RenderType::guiTextured, texture.sprite, x, y, texture.w, texture.h);
+    private void blit(GuiGraphicsExtractor GuiGraphicsExtractor, int x, int y, ClientItemStacksTooltip.Texture texture) {
+        GuiGraphicsExtractor.blitSprite(RenderType::guiTextured, texture.sprite, x, y, texture.w, texture.h);
     }
 
     private int gridSizeX() {

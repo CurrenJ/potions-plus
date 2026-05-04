@@ -7,7 +7,7 @@ import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ARGB;
@@ -47,7 +47,7 @@ public class TextButtonScreenElement extends RenderableScreenElement {
     }
 
     @Override
-    protected void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    protected void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         Rectangle2D bounds = getGlobalBounds();
 
         IGuiGraphicsExtension graphicsMixin = (IGuiGraphicsExtension) graphics;

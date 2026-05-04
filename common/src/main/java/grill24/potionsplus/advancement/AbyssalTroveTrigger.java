@@ -7,9 +7,9 @@ import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.criterion.ContextAwarePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 

@@ -10,7 +10,7 @@ import grill24.potionsplus.skill.SkillInstance;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsConfiguration;
 import grill24.potionsplus.skill.reward.SkillLevelUpRewardsData;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -88,7 +88,7 @@ public class SkillRewardsListScreenElement extends VerticalListScreenElement<Ren
     }
 
     @Override
-    public void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    public void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         super.render(graphics, partialTick, mouseX, mouseY);
     }
 }

@@ -6,7 +6,7 @@ import grill24.potionsplus.render.animation.keyframe.SpatialAnimationData;
 import grill24.potionsplus.render.animation.keyframe.SpatialAnimations;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -50,7 +50,7 @@ public class WheelItemActivationAnimation extends ItemActivationAnimation {
     }
 
     @Override
-    public void render(Minecraft minecraft, GuiGraphics guiGraphics, float partialTick) {
+    public void render(Minecraft minecraft, GuiGraphicsExtractor GuiGraphicsExtractor, float partialTick) {
         if (this.itemActivationTicksRemaining > 0) {
             float elapsedTicks = this.itemActivationMaxTicks - this.itemActivationTicksRemaining + partialTick;
             float scale = 150.0F;
@@ -80,7 +80,7 @@ public class WheelItemActivationAnimation extends ItemActivationAnimation {
 
                 PoseStack poseStack = new PoseStack();
                 poseStack.pushPose();
-                poseStack.translate(guiGraphics.guiWidth() / 2.0F, guiGraphics.guiHeight() / 2.0F, -50.0F);
+                poseStack.translate(GuiGraphicsExtractor.guiWidth() / 2.0F, GuiGraphicsExtractor.guiHeight() / 2.0F, -50.0F);
                 poseStack.translate(points[i].x, points[i].y, points[i].z);
                 poseStack.translate(positionOffset.x(), positionOffset.y(), positionOffset.z());
                 poseStack.mulPose(Axis.YP.rotationDegrees(rotation.y()));
@@ -90,7 +90,7 @@ public class WheelItemActivationAnimation extends ItemActivationAnimation {
                 poseStack.scale(-scale * scaleMultiplier, -scale * scaleMultiplier, scale * scaleMultiplier);
 
                 int finalI = i;
-                guiGraphics.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                GuiGraphicsExtractor.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
                         this.wheelItems.get(finalI),
                         ItemDisplayContext.FIXED,
                         15728880,

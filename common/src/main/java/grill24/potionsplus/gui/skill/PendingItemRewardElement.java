@@ -10,13 +10,11 @@ import grill24.potionsplus.platform.PacketNetwork;
 
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-
 public class PendingItemRewardElement extends SplashTextDivScreenElement {
     private final ResourceKey<ConfiguredGrantableReward<?, ?>> rewardKey;
     private int countSplash;
 
-    public PendingItemRewardElement(Screen screen, @Nullable RenderableScreenElement parent, Settings settings, Anchor childAlignment, RenderableScreenElement child, int count, @Nonnull ResourceKey<ConfiguredGrantableReward<?, ?>> rewardKey) {
+    public PendingItemRewardElement(Screen screen, @Nullable RenderableScreenElement parent, Settings settings, Anchor childAlignment, RenderableScreenElement child, int count, ResourceKey<ConfiguredGrantableReward<?, ?>> rewardKey) {
         super(screen, parent, settings, childAlignment, child, Component.literal(String.valueOf(count)));
         this.rewardKey = rewardKey;
         this.countSplash = count;

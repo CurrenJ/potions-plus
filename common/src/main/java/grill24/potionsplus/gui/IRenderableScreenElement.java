@@ -1,6 +1,6 @@
 package grill24.potionsplus.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import org.joml.Vector3f;
 
 import java.awt.geom.Rectangle2D;
@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 public interface IRenderableScreenElement {
     void tick(float partialTick, int mouseX, int mouseY);
 
-    void tryRender(GuiGraphics graphics, float partialTick, int mouseX, int mouseY);
+    void tryRender(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY);
 
     void tryClick(int mouseX, int mouseY, int button);
 

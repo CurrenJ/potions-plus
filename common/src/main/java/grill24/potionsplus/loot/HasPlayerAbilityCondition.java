@@ -9,7 +9,7 @@ import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.entity.Entity;

@@ -6,7 +6,7 @@ import grill24.potionsplus.entity.InvisibleFireDamager;
 import grill24.potionsplus.extension.IParticleEngineExtension;
 import grill24.potionsplus.particle.EmitterParticle;
 import grill24.potionsplus.particle.ParticleConfigurations;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.core.BlockPos;

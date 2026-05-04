@@ -3,7 +3,7 @@ package grill24.potionsplus.render.animation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -124,7 +124,7 @@ public class ItemTossupAnimation extends ItemActivationAnimation {
     }
 
     @Override
-    public void render(Minecraft minecraft, GuiGraphics guiGraphics, float partialTick) {
+    public void render(Minecraft minecraft, GuiGraphicsExtractor GuiGraphicsExtractor, float partialTick) {
         if (this.itemActivationTicksRemaining > 0) {
             float scale = 150.0F;
 
@@ -136,7 +136,7 @@ public class ItemTossupAnimation extends ItemActivationAnimation {
             for (PhysicsItem physicsItem : this.physicsItems) {
                 PoseStack poseStack = new PoseStack();
                 poseStack.pushPose();
-                poseStack.translate(guiGraphics.guiWidth() / 2.0F, guiGraphics.guiHeight() / 2.0F, -50.0F);
+                poseStack.translate(GuiGraphicsExtractor.guiWidth() / 2.0F, GuiGraphicsExtractor.guiHeight() / 2.0F, -50.0F);
                 poseStack.translate(physicsItem.position.x * scale, physicsItem.position.y * scale, physicsItem.position.z * scale);
                 // Assuming parabolic curve, rotate the item to face the direction of the velocity
 //                poseStack.mulPose(Axis.YP.rotationDegrees((float) Math.toDegrees(Math.atan2(physicsItem.velocity.x, physicsItem.velocity.z))));
@@ -146,7 +146,7 @@ public class ItemTossupAnimation extends ItemActivationAnimation {
                 poseStack.mulPose(Axis.ZP.rotationDegrees(physicsItem.rotation.z * 360));
                 poseStack.scale(scale, scale, scale);
 
-                guiGraphics.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                GuiGraphicsExtractor.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
                         physicsItem.stack,
                         ItemDisplayContext.FIXED,
                         15728880,

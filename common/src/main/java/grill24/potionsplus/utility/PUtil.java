@@ -20,7 +20,6 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.storage.loot.LootContext;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 
 public class PUtil {
@@ -104,13 +103,13 @@ public class PUtil {
         }
     }
 
-    public static List<MobEffectInstance> getAllEffects(@Nonnull PotionContents potionContents) {
+    public static List<MobEffectInstance> getAllEffects(PotionContents potionContents) {
         List<MobEffectInstance> allEffects = new ArrayList<>();
         potionContents.getAllEffects().forEach(allEffects::add);
         return allEffects;
     }
 
-    public static List<MobEffectInstance> getAllEffects(@Nonnull ItemStack itemStack) {
+    public static List<MobEffectInstance> getAllEffects(ItemStack itemStack) {
         if (itemStack.has(DataComponents.POTION_CONTENTS)) {
             return getAllEffects(getPotionContents(itemStack));
         } else {

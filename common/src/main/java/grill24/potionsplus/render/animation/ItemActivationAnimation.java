@@ -1,7 +1,7 @@
 package grill24.potionsplus.render.animation;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 public abstract class ItemActivationAnimation {
     protected int itemActivationTicksRemaining;
@@ -22,5 +22,5 @@ public abstract class ItemActivationAnimation {
         }
     }
 
-    public abstract void render(Minecraft minecraft, GuiGraphics guiGraphics, float partialTick);
+    public abstract void render(Minecraft minecraft, GuiGraphicsExtractor GuiGraphicsExtractor, float partialTick);
 }

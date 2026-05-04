@@ -145,7 +145,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @javax.annotation.Nullable LivingEntity placer, ItemStack stack) {
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @org.jspecify.annotations.Nullable LivingEntity placer, ItemStack stack) {
         if (placer instanceof ServerPlayer serverPlayer) {
             CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverPlayer, state);
         }

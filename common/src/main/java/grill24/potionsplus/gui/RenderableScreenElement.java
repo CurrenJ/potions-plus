@@ -3,7 +3,7 @@ package grill24.potionsplus.gui;
 import grill24.potionsplus.render.animation.keyframe.AnimationCurve;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.Nullable;
@@ -164,13 +164,13 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
         this.currentScale = scale;
     }
 
-    protected abstract void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY);
+    protected abstract void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY);
 
-    protected void renderTooltip(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    protected void renderTooltip(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
     }
 
     @Override
-    public final void tryRender(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    public final void tryRender(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         if (isVisible()) {
             renderDebug(graphics);
             render(graphics, partialTick, mouseX, mouseY);
@@ -184,7 +184,7 @@ public abstract class RenderableScreenElement implements IRenderableScreenElemen
     private static final int GRID_COLOR = ARGB.colorFromFloat(0.3F, 0, 0, 1);
     private static final int OUTLINE_COLOR = ARGB.colorFromFloat(0.3F, 1, 0, 0);
 
-    private void renderDebug(GuiGraphics graphics) {
+    private void renderDebug(GuiGraphicsExtractor graphics) {
         if (this.settings.showBounds) {
             Rectangle2D bounds = getGlobalBounds();
             // Render the element

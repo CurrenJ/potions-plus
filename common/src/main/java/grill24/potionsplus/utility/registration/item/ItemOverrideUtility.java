@@ -10,7 +10,7 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
-import net.minecraft.client.renderer.item.BlockModelWrapper;
+import net.minecraft.client.renderer.block.model.SpecialBlockModelWrapper;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.client.renderer.item.properties.numeric.Count;
 import net.minecraft.core.Holder;
@@ -68,7 +68,7 @@ public class ItemOverrideUtility {
 
                 return new RangeSelectItemModel.Entry(
                         threshold,
-                        new BlockModelWrapper.Unbaked(
+                        new SpecialBlockModelWrapper.Unbaked(
                                 generatedItemModel,
                                 Collections.emptyList()
                         )
@@ -79,7 +79,7 @@ public class ItemOverrideUtility {
                     new EdibleChoiceProperty(),
                     1,
                     entries,
-                    Optional.of(new BlockModelWrapper.Unbaked(fallbackItemModel, Collections.emptyList()))
+                    Optional.of(new SpecialBlockModelWrapper.Unbaked(fallbackItemModel, Collections.emptyList()))
             );
 
             itemModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
@@ -95,7 +95,7 @@ public class ItemOverrideUtility {
         public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
             Holder<Item> item = getHolder();
 
-            BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(mc("item/stick"), Collections.emptyList());
+            SpecialBlockModelWrapper.Unbaked fallbackItemModel = new SpecialBlockModelWrapper.Unbaked(mc("item/stick"), Collections.emptyList());
 
             List<RangeSelectItemModel.Entry> entries = PUtil.getAllMobEffects().stream().map(mobEffect -> {
                 Identifier registryName = BuiltInRegistries.MOB_EFFECT.getKey(mobEffect);
@@ -108,7 +108,7 @@ public class ItemOverrideUtility {
                 float threshold = (grill24.potionsplus.core.potion.MobEffects.POTION_ICON_INDEX_MAP.get().get(registryName) - 1) / 64F;
                 return new RangeSelectItemModel.Entry(
                         threshold,
-                        new BlockModelWrapper.Unbaked(
+                        new SpecialBlockModelWrapper.Unbaked(
                                 generatedItemModel,
                                 Collections.emptyList()
                         )
@@ -146,7 +146,7 @@ public class ItemOverrideUtility {
 
             TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, DynamicIconItems.UNKNOWN_TEX_LOC);
             Identifier fallbackItemModelLocation = ModelTemplates.FLAT_ITEM.create(ppId("unknown_generic_icon_fallback"), fallbackItemTextureMapping, itemModelGenerators.modelOutput);
-            BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(fallbackItemModelLocation, Collections.emptyList());
+            SpecialBlockModelWrapper.Unbaked fallbackItemModel = new SpecialBlockModelWrapper.Unbaked(fallbackItemModelLocation, Collections.emptyList());
 
             List<RangeSelectItemModel.Entry> entries = Arrays.stream(textures).map(texture -> {
                 int itemStackCount = getItemStackCountForTexture(texture);
@@ -161,7 +161,7 @@ public class ItemOverrideUtility {
                 float threshold = itemStackCount / 64F;
                 return new RangeSelectItemModel.Entry(
                         threshold,
-                        new BlockModelWrapper.Unbaked(
+                        new SpecialBlockModelWrapper.Unbaked(
                                 generatedItemModel,
                                 Collections.emptyList()
                         )

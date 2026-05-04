@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class HugeFilterHopperBlock extends FilterHopperBlock {
     public HugeFilterHopperBlock(Properties properties) {

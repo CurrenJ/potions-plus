@@ -28,7 +28,6 @@ import grill24.potionsplus.platform.PacketNetwork;
 
 import org.joml.Vector3f;
 
-import javax.annotation.Nonnull;
 import java.util.Optional;
 
 public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity {
@@ -44,7 +43,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
     private BlockState fencePostBlockState;
 
     public ClotheslineBlockEntity(BlockPos pos, BlockState state) {
-        super(Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), pos, state);
+        super(Blocks.CLOTHESLINE_BLOCK_ENTITY.value(), pos, state);
         progress = new int[this.getContainerSize()];
         activeRecipes = new RecipeHolder[this.getContainerSize()];
 
@@ -101,7 +100,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
     }
 
     @Override
-    public boolean canPlaceItem(int slot, @Nonnull ItemStack stack) {
+    public boolean canPlaceItem(int slot, ItemStack stack) {
         boolean compatibleItems = ItemStack.isSameItemSameComponents(getItem(slot), stack) || getItem(slot).isEmpty();
         int newCount = getItem(slot).getCount() + stack.getCount();
         return super.canPlaceItem(slot, stack) && compatibleItems &&

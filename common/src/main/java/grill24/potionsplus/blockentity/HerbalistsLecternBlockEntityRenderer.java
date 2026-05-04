@@ -9,7 +9,7 @@ import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.Profiler;
@@ -27,11 +27,11 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
 
-    public final BlockRenderDispatcher blockRenderDispatcher;
+    public final BlockModelResolver BlockModelResolver;
     private ProfilerFiller profiler;
 
     public HerbalistsLecternBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        blockRenderDispatcher = context.getBlockRenderDispatcher();
+        BlockModelResolver = context.getBlockModelResolver();
         profiler = Profiler.get();
     }
 

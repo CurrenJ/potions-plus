@@ -8,7 +8,7 @@ import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
@@ -21,12 +21,12 @@ import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<SanguineAltarBlockEntity> {
-    private final BlockRenderDispatcher blockRenderDispatcher;
+    private final BlockModelResolver BlockModelResolver;
     private static final int CONVERTED_ITEM_DESCENT_TICKS = 20;
     private static final int CONVERTED_ITEM_SHRINK_DELAY_TICKS = 200;
 
     public SanguineAltarBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        blockRenderDispatcher = context.getBlockRenderDispatcher();
+        BlockModelResolver = context.getBlockModelResolver();
     }
 
     @Override

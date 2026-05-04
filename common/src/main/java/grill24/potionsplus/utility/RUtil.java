@@ -5,7 +5,7 @@ import grill24.potionsplus.blockentity.ISingleStackDisplayer;
 import grill24.potionsplus.blockentity.ITimestampSupplier;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -393,7 +393,7 @@ public class RUtil {
     private static final int OUTLINE_Z = 100;
     private static final int FILL_Z = 99;
 
-    public static void drawInventoryBackgroundRect(GuiGraphics graphics, Rectangle2D rect, float rotationDegrees, float outlineWidth, float outlineHeight) {
+    public static void drawInventoryBackgroundRect(GuiGraphicsExtractor graphics, Rectangle2D rect, float rotationDegrees, float outlineWidth, float outlineHeight) {
         float minX = (float) rect.getMinX();
         float minY = (float) rect.getMinY();
         float width = (float) rect.getWidth();

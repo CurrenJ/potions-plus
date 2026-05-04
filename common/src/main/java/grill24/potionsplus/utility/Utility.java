@@ -47,7 +47,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 
 import grill24.potionsplus.platform.Platform;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.StringReader;

@@ -32,7 +32,7 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -262,9 +262,8 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     public static boolean suckInItems(Level level, Hopper hopper) {
         BlockPos blockpos = BlockPos.containing(hopper.getLevelX(), hopper.getLevelY() + 1.0, hopper.getLevelZ());
         BlockState blockstate = level.getBlockState(blockpos);
-        var containerOrHandler = getSourceContainerOrHandler(level, hopper, blockpos, blockstate);
-        if (containerOrHandler.container() != null) {
-            Container container = containerOrHandler.container();
+        Container container = getSourceContainer(level, hopper, blockpos, blockstate);
+        if (container != null) {
             Direction direction = Direction.DOWN;
 
             for (int i : getSlots(container, direction)) {
@@ -274,8 +273,6 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
             }
 
             return false;
-        } else if (containerOrHandler.itemHandler() != null) {
-            return net.neoforged.neoforge.items.VanillaInventoryCodeHooks.extractHook(hopper, containerOrHandler.itemHandler());
         } else {
             boolean flag = hopper.isGridAligned()
                     && blockstate.isCollisionShapeFullBlock(level, blockpos)
@@ -292,26 +289,11 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
         }
     }
 
-    private static net.neoforged.neoforge.items.ContainerOrHandler getSourceContainerOrHandler(Level p_155597_, Hopper p_155598_, BlockPos p_326315_, BlockState p_326093_) {
-        return getContainerOrHandlerAt(p_155597_, p_326315_, p_326093_, p_155598_.getLevelX(), p_155598_.getLevelY() + 1.0, p_155598_.getLevelZ(), Direction.DOWN);
-    }
-
-    public static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, @Nullable Direction side) {
-        return getContainerOrHandlerAt(
-                level, pos, level.getBlockState(pos), (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, side
+    @Nullable
+    public static Container getContainerAt(Level level, BlockPos pos, @Nullable Direction side) {
+        return getContainerAt(
+                level, pos, level.getBlockState(pos), (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5
         );
-    }
-
-    private static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, BlockState state, double x, double y, double z, @Nullable Direction side) {
-        Container container = getBlockContainer(level, pos, state);
-        if (container != null) {
-            return new net.neoforged.neoforge.items.ContainerOrHandler(container, null);
-        }
-        var blockItemHandler = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK, pos, state, null, side);
-        if (blockItemHandler != null) {
-            return new net.neoforged.neoforge.items.ContainerOrHandler(null, blockItemHandler);
-        }
-        return net.neoforged.neoforge.items.VanillaInventoryCodeHooks.getEntityContainerOrHandler(level, x, y, z, side);
     }
 
     /**

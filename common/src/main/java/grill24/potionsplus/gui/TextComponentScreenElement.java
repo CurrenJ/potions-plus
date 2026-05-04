@@ -8,7 +8,7 @@ import grill24.potionsplus.render.animation.keyframe.FloatAnimationCurve;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -128,7 +128,7 @@ public class TextComponentScreenElement extends RenderableScreenElement {
     }
 
     @Override
-    public void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    public void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         Rectangle2D bounds = getGlobalBounds();
         float x = (float) bounds.getMinX();
         float y = (float) bounds.getMinY();
@@ -136,11 +136,11 @@ public class TextComponentScreenElement extends RenderableScreenElement {
             Pair<MutableComponent, Integer> animatedRow = ItemListenersGame.animateComponentText(row, getAnimationProgress(getShownAnimation(), getHiddenAnimation()));
 
             // Render text
-            IGuiGraphicsExtension guiGraphics = (IGuiGraphicsExtension) graphics;
+            IGuiGraphicsExtension GuiGraphicsExtractor = (IGuiGraphicsExtension) graphics;
             graphics.pose().pushPose();
             graphics.pose().translate(x, y, 0);
             graphics.pose().scale(this.scale, this.scale, 1F);
-            guiGraphics.potions_plus$drawString(this.screen.getMinecraft().font, animatedRow.getFirst(),
+            GuiGraphicsExtractor.potions_plus$drawString(this.screen.getMinecraft().font, animatedRow.getFirst(),
                     0, 0, this.currentColor.getRGB());
             graphics.pose().popPose();
 

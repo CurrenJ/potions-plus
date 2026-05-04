@@ -7,7 +7,7 @@ import grill24.potionsplus.gui.*;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillsData;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Inventory;
@@ -132,7 +132,7 @@ public class SkillsScreen extends PotionsPlusScreen<SkillsMenu> {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.render(graphics, mouseX, mouseY, partialTick);
 
         if (this.skillsIconsRenderer.getChildren().isEmpty()) {
@@ -140,7 +140,7 @@ public class SkillsScreen extends PotionsPlusScreen<SkillsMenu> {
         }
     }
 
-    private void renderHelpText(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    private void renderHelpText(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         // Render help text
         Font font = this.getMinecraft().font;
         Component component = Component.translatable(Translations.TOOLTIP_POTIONSPLUS_SKILL_JOURNAL_NONE);

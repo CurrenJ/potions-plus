@@ -32,7 +32,7 @@ public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
 
     @Override
     public @NotNull RecipeSerializer<SanguineAltarRecipe> getSerializer() {
-        return Recipes.SANGUINE_ALTAR_RECIPE_SERIALIZER.get();
+        return SERIALIZER;
     }
 
     @Override
@@ -44,33 +44,22 @@ public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
         return this.ingredients.stream().anyMatch(ingredient -> PUtil.isSameItemOrPotion(itemStack, ingredient.getItemStack(), List.of(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH)));
     }
 
-    public static class Serializer implements RecipeSerializer<SanguineAltarRecipe> {
-        public static final MapCodec<SanguineAltarRecipe> CODEC = RecordCodecBuilder.mapCodec(
-                codecBuilder -> codecBuilder.group(
-                        ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
-                        PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
-                        ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
-                        Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
-                        Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei)
-                ).apply(codecBuilder, SanguineAltarRecipe::new)
-        );
-        public static StreamCodec<RegistryFriendlyByteBuf, SanguineAltarRecipe> STREAM_CODEC = StreamCodec.composite(
-                ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_STREAM_CODEC, ShapelessProcessingRecipe::getCategory,
-                PpIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()), ShapelessProcessingRecipe::getPpIngredients,
-                ItemStack.STREAM_CODEC, ShapelessProcessingRecipe::getResult,
-                ByteBufCodecs.INT, ShapelessProcessingRecipe::getProcessingTime,
-                ByteBufCodecs.BOOL, ShapelessProcessingRecipe::canShowInJei,
-                SanguineAltarRecipe::new
-        );
-
-        @Override
-        public MapCodec<SanguineAltarRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, SanguineAltarRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
+    public static final MapCodec<SanguineAltarRecipe> CODEC = RecordCodecBuilder.mapCodec(
+            codecBuilder -> codecBuilder.group(
+                    ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
+                    PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
+                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
+                    Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
+                    Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei)
+            ).apply(codecBuilder, SanguineAltarRecipe::new)
+    );
+    public static final StreamCodec<RegistryFriendlyByteBuf, SanguineAltarRecipe> STREAM_CODEC = StreamCodec.composite(
+            ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_STREAM_CODEC, ShapelessProcessingRecipe::getCategory,
+            PpIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()), ShapelessProcessingRecipe::getPpIngredients,
+            ItemStack.STREAM_CODEC, ShapelessProcessingRecipe::getResult,
+            ByteBufCodecs.INT, ShapelessProcessingRecipe::getProcessingTime,
+            ByteBufCodecs.BOOL, ShapelessProcessingRecipe::canShowInJei,
+            SanguineAltarRecipe::new
+    );
+    public static final RecipeSerializer<SanguineAltarRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 }

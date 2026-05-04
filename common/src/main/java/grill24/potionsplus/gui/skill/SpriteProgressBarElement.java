@@ -3,9 +3,9 @@ package grill24.potionsplus.gui.skill;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.gui.FixedSizeDivScreenElement;
 import grill24.potionsplus.gui.RenderableScreenElement;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 
@@ -36,7 +36,7 @@ public class SpriteProgressBarElement extends FixedSizeDivScreenElement<Renderab
     }
 
     @Override
-    public void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    public void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         super.render(graphics, partialTick, mouseX, mouseY);
 
         Rectangle2D bounds = this.getGlobalBounds();
@@ -58,7 +58,7 @@ public class SpriteProgressBarElement extends FixedSizeDivScreenElement<Renderab
         blitProgressBarSprite(graphics, BAR_FILLED_METER, bounds, progress);
     }
 
-    public static void blitProgressBarSprite(GuiGraphics graphics, Identifier sprite, Rectangle2D bounds, float progress) {
+    public static void blitProgressBarSprite(GuiGraphicsExtractor graphics, Identifier sprite, Rectangle2D bounds, float progress) {
         IGuiGraphicsExtension extension = (IGuiGraphicsExtension) graphics;
         int filledWidth = (int) Math.ceil(WIDTH * progress);
 

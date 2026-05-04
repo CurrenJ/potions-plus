@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class UnstableBlock extends Block {
     public static BooleanProperty PRIMED = BooleanProperty.create("primed");

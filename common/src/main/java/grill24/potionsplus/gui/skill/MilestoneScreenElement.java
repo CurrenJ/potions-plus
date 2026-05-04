@@ -12,7 +12,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.DisplayInfo;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientAdvancements;
 import net.minecraft.client.multiplayer.ClientPacketListener;
@@ -38,7 +38,7 @@ public class MilestoneScreenElement extends ItemStackScreenElement {
     }
 
     @Override
-    protected void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    protected void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         super.render(graphics, partialTick, mouseX, mouseY);
         if (!this.isUnlocked) {
             if (this.screen.getMinecraft().player == null) {

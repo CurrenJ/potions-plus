@@ -128,7 +128,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
     }
 
     public HerbalistsLecternBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get(), blockPos, blockState);
+        super(Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value(), blockPos, blockState);
     }
 
     @Override

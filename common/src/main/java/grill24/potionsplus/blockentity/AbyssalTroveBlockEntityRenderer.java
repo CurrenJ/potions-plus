@@ -12,7 +12,7 @@ import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.Profiler;
@@ -30,11 +30,11 @@ import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<AbyssalTroveBlockEntity> {
-    private final BlockRenderDispatcher blockRenderDispatcher;
+    private final BlockModelResolver BlockModelResolver;
     private ProfilerFiller profiler;
 
     public AbyssalTroveBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        blockRenderDispatcher = context.getBlockRenderDispatcher();
+        BlockModelResolver = context.getBlockModelResolver();
         profiler = Profiler.get();
     }
 

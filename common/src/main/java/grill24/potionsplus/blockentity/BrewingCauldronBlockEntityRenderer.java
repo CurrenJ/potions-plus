@@ -10,7 +10,7 @@ import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.Profiler;
@@ -30,10 +30,10 @@ import java.util.stream.IntStream;
 @Environment(EnvType.CLIENT)
 public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<BrewingCauldronBlockEntity> {
 
-    public final BlockRenderDispatcher blockRenderDispatcher;
+    public final BlockModelResolver BlockModelResolver;
 
     public BrewingCauldronBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        blockRenderDispatcher = context.getBlockRenderDispatcher();
+        BlockModelResolver = context.getBlockModelResolver();
     }
 
 

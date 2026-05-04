@@ -3,9 +3,9 @@ package grill24.potionsplus.gui.skill;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.gui.FixedSizeDivScreenElement;
 import grill24.potionsplus.gui.RenderableScreenElement;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
@@ -80,7 +80,7 @@ public class AbilitySelectionTree<E extends RenderableScreenElement> extends Fix
     }
 
     @Override
-    public void render(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
+    public void render(GuiGraphicsExtractor graphics, float partialTicks, int mouseX, int mouseY) {
         // Custom rendering logic for the ability selection tree can be added here
         super.render(graphics, partialTicks, mouseX, mouseY);
         IGuiGraphicsExtension graphicsExtension = (IGuiGraphicsExtension) graphics;
@@ -205,7 +205,7 @@ public class AbilitySelectionTree<E extends RenderableScreenElement> extends Fix
         return new Vector2f((float) bounds.getMinX() + localX - cameraOffset.x + cameraVelocity.x * partialTick, (float) bounds.getMinY() + localY - cameraOffset.y + cameraVelocity.x + partialTick);
     }
 
-    public void blitSpriteWithinFrame(GuiGraphics graphics, float partialTick, Identifier texture, float localX, float localY, int uOffset, int vOffset, int uWidth, int vHeight, int textureWidth, int textureHeight, int color) {
+    public void blitSpriteWithinFrame(GuiGraphicsExtractor graphics, float partialTick, Identifier texture, float localX, float localY, int uOffset, int vOffset, int uWidth, int vHeight, int textureWidth, int textureHeight, int color) {
         IGuiGraphicsExtension graphicsExtension = (IGuiGraphicsExtension) graphics;
         Rectangle2D bounds = this.getGlobalBounds();
 
@@ -269,7 +269,7 @@ public class AbilitySelectionTree<E extends RenderableScreenElement> extends Fix
 
     private static final int CONNECTION_COLOR = ARGB.color(120, 222, 198, 255);
 
-    public void drawConnectionBetween(Vector2i coord1, Vector2i coord2, GuiGraphics graphics) {
+    public void drawConnectionBetween(Vector2i coord1, Vector2i coord2, GuiGraphicsExtractor graphics) {
         IGuiGraphicsExtension graphicsExtension = (IGuiGraphicsExtension) graphics;
         Vector2f pos1 = getHexGridLocalPosition(coord1.x, coord1.y, 20, 18, this.zoom);
         Vector2f pos2 = getHexGridLocalPosition(coord2.x, coord2.y, 20, 18, this.zoom);

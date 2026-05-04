@@ -3,7 +3,7 @@ package grill24.potionsplus.gui.skill;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import grill24.potionsplus.gui.RenderableScreenElement;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemStack;
@@ -53,7 +53,7 @@ public class ItemStackScreenElement extends RenderableScreenElement {
     private static final int WHITE = ARGB.white(1F);
 
     @Override
-    protected void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    protected void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         if (this.screen.getMinecraft().player == null || this.stack == null) {
             return;
         }

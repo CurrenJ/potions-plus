@@ -3,7 +3,7 @@ package grill24.potionsplus.mixin;
 import grill24.potionsplus.render.IGameRendererMixin;
 import grill24.potionsplus.render.animation.ItemActivationAnimation;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
@@ -51,9 +51,9 @@ public abstract class GameRendererMixin implements IGameRendererMixin {
     }
 
     @Inject(method = "renderItemActivationAnimation", at = @At("HEAD"), cancellable = true)
-    private void renderItemActivation(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void renderItemActivation(GuiGraphicsExtractor GuiGraphicsExtractor, float partialTick, CallbackInfo ci) {
         if (this.activeAnimation != null && this.activeAnimation.isActive()) { // If we have an active animation, render it
-            this.activeAnimation.render(this.minecraft, guiGraphics, partialTick);
+            this.activeAnimation.render(this.minecraft, GuiGraphicsExtractor, partialTick);
             ci.cancel();
         } // Else pass to the original method
     }

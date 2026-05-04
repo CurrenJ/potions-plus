@@ -78,7 +78,7 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
     }
 
     @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @javax.annotation.Nullable LivingEntity placer, ItemStack stack) {
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @org.jspecify.annotations.Nullable LivingEntity placer, ItemStack stack) {
         if (placer instanceof ServerPlayer serverPlayer) {
             CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverPlayer, state);
         }

@@ -1,7 +1,7 @@
 package grill24.potionsplus.gui;
 
 import grill24.potionsplus.utility.ClientTickHandler;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -75,7 +75,7 @@ public abstract class ScreenElementWithChildren<E extends RenderableScreenElemen
     }
 
     @Override
-    protected void render(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    protected void render(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
         for (IRenderableScreenElement child : getChildren()) {
             child.tryRender(graphics, partialTick, mouseX, mouseY);
         }

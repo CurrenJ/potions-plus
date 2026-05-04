@@ -2,7 +2,7 @@ package grill24.potionsplus.extension;
 
 import grill24.potionsplus.gui.RenderableScreenElement;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.function.Function;
 
 public interface IGuiGraphicsExtension {

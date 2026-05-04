@@ -2,7 +2,7 @@ package grill24.potionsplus.gui;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import grill24.potionsplus.utility.ClientTickHandler;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,7 +20,7 @@ public abstract class PotionsPlusScreen<M extends AbstractContainerMenu> extends
     protected abstract RenderableScreenElement getRootElement();
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.render(graphics, mouseX, mouseY, partialTick);
 
         if (ClientTickHandler.total() - lastTickTime > 0.25F) {
@@ -31,12 +31,12 @@ public abstract class PotionsPlusScreen<M extends AbstractContainerMenu> extends
     }
 
     @Override
-    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void renderLabels(GuiGraphicsExtractor GuiGraphicsExtractor, int mouseX, int mouseY) {
         // Don't.
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    protected void renderBg(GuiGraphicsExtractor GuiGraphicsExtractor, float partialTick, int mouseX, int mouseY) {
         // Don't.
     }
 
