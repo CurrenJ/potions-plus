@@ -100,9 +100,10 @@ public class AttributeModifiersWhileHeldAbility extends PermanentAttributeModifi
     }
 
     // TODO: Auto pull abilities from registry
+    @SuppressWarnings("unchecked")
     private static List<Holder<PlayerAbility<?>>> getToolBonusAbilities() {
         return List.of(
-                PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD
+                (Holder<PlayerAbility<?>>) (Holder<?>) PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD
         );
     }
 

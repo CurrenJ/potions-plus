@@ -44,7 +44,7 @@ public class DataGen {
 
         BlockTagsProvider blockTagsProvider = new BlockTagProvider(output, lookupProvider);
         ItemTagProvider itemTagProvider = new ItemTagProvider(output, lookupProvider);
-        Sounds soundsProvider = new Sounds(output, ModInfo.MOD_ID);
+        NeoSounds soundsProvider = new NeoSounds(output, ModInfo.MOD_ID);
         generator.addProvider(true, blockTagsProvider);
         generator.addProvider(true, itemTagProvider);
         generator.addProvider(true, soundsProvider);

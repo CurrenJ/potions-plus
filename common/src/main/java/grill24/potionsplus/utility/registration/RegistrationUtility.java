@@ -126,7 +126,7 @@ public class RegistrationUtility {
         register(registerItem, grill24.potionsplus.utility.registration.item.SimpleItemBuilder.createSimple(
                 block.unwrapKey().orElseThrow().identifier().getPath())
                 .itemFactory(prop -> new net.minecraft.world.item.BlockItem(block.value(), prop.useBlockDescriptionPrefix()))
-                .modelGenerator(null));
+                .modelGenerator(holder -> new grill24.potionsplus.utility.registration.item.ItemModelUtility.SimpleItemModelGenerator<>(holder, texture)));
     }
 
     public static void registerBlockItemWithAutoModel(Supplier<Holder<Block>> blockSupplier, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {

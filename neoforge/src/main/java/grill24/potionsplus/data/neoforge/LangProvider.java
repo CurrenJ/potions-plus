@@ -23,7 +23,7 @@ public class LangProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         addRegistered(grill24.potionsplus.core.Items.ITEMS, this::addItem);
-        addRegistered(MobEffects.EFFECTS, this::addEffect);
+        addRegistered(PotionsPlus.MOB_EFFECTS, this::addEffect);
     }
 
     private <T> void addRegistered(DeferredRegister<T> register, Consumer<T> consumer) {
