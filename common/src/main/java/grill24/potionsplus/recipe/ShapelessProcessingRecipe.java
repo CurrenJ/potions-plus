@@ -11,6 +11,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
@@ -80,7 +81,7 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registryAccess) {
+    public ItemStack assemble(RecipeInput container) {
         return getResult();
     }
 
@@ -89,7 +90,7 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
         return List.of(
                 new BrewingCauldronRecipeDisplay(
                         this.ingredients.stream().map(PpIngredient::display).toList(),
-                        new SlotDisplay.ItemStackSlotDisplay(this.result),
+                        new SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate.fromNonEmptyStack(this.result)),
                         new SlotDisplay.ItemSlotDisplay(BlockEntityBlocks.BREWING_CAULDRON.value().asItem())
                 )
         );

@@ -1,8 +1,5 @@
 package grill24.potionsplus.blockentity;
 
-import com.google.gson.JsonElement;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.block.PotionBeaconBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.extension.IMobEffectInstanceExtension;
@@ -10,9 +7,7 @@ import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.utility.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -25,6 +20,8 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import grill24.potionsplus.platform.PacketNetwork;
@@ -152,7 +149,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
             // Spawn potion particles while active... TODO
         }
 
-        if (level.isClientSide && blockEntity.getBlockState().getValue(PotionBeaconBlock.LIT)) {
+        if (level.isClientSide() && blockEntity.getBlockState().getValue(PotionBeaconBlock.LIT)) {
             float timeSincePlaced = ClientTickHandler.total() - blockEntity.rendererData.innerBlockShownTimestamp;
             float durationFactor = Math.clamp((blockEntity.rendererData.effectDurationWhenShown - timeSincePlaced) / 3600, 0, 1);
             int tickInterval = (int) RUtil.lerp(1, 4, durationFactor);
@@ -160,28 +157,28 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
                 blockEntity.rendererData.itemParticles.removeIf(itemParticle -> itemParticle.age > itemParticle.lifetime);
 
                 for (int i = 0; i < tickInterval; i++) {
-                    double x = 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
-                    double y = 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
-                    double z = 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
+                    double x = 0.5 + (level.getRandom().nextDouble() - 0.5) * 0.5;
+                    double y = 0.5 + (level.getRandom().nextDouble() - 0.5) * 0.5;
+                    double z = 0.5 + (level.getRandom().nextDouble() - 0.5) * 0.5;
 
                     // Speed is away from center point (0.5, 0.5)
-                    double speed = 0.1 * level.random.nextDouble();
+                    double speed = 0.1 * level.getRandom().nextDouble();
                     double dx = (x - 0.5) * speed;
                     double dy = (y - 0.5) * speed;
                     double dz = (z - 0.5) * speed;
 
                     // Rotation
-                    Vector3f rotationDegrees = new Vector3f((float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360));
+                    Vector3f rotationDegrees = new Vector3f((float) (level.getRandom().nextDouble() * 360), (float) (level.getRandom().nextDouble() * 360), (float) (level.getRandom().nextDouble() * 360));
                     final int ROTATIONAL_VELOCITY_STD_DEV = 5;
-                    Vector3f rotationalVelocity = new Vector3f((float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random));
+                    Vector3f rotationalVelocity = new Vector3f((float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.getRandom()), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.getRandom()), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.getRandom()));
 
                     RendererData.ItemParticle itemParticle = blockEntity.rendererData.new ItemParticle();
                     itemParticle.position = new Vector3d(x, y, z);
                     itemParticle.velocity = new Vector3d(dx, dy, dz);
                     itemParticle.rotation = rotationDegrees;
                     itemParticle.rotationalVelocity = rotationalVelocity;
-                    itemParticle.lifetime = (float) Utility.nextGaussian(100, 20, level.random);
-                    itemParticle.scale = (float) RUtil.lerp(0, Utility.nextGaussian(0.20, 0.1, level.random), durationFactor);
+                    itemParticle.lifetime = (float) Utility.nextGaussian(100, 20, level.getRandom());
+                    itemParticle.scale = (float) RUtil.lerp(0, Utility.nextGaussian(0.20, 0.1, level.getRandom()), durationFactor);
 
                     blockEntity.rendererData.itemParticles.add(itemParticle);
                 }
@@ -189,7 +186,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
         }
 
         // Apply effects
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+        if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             final int TICK_INTERVAL = 60;
             List<MobEffectInstance> toRemove = new ArrayList<>();
             if (ServerTickHandler.ticksInGame % TICK_INTERVAL == 0) {
@@ -233,27 +230,18 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
     }
 
     @Override
-    public void writePacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
-        super.writePacketNbt(tag, registryAccess);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
-        DataResult<JsonElement> result = MobEffectInstance.CODEC.listOf().encodeStart(JsonOps.INSTANCE, effects);
-        String jsonString = result.result().orElse(JsonOps.INSTANCE.empty()).toString();
-
-        tag.putString("Effects", jsonString);
+        this.effects.clear();
+        input.read("Effects", MobEffectInstance.CODEC.listOf()).ifPresent(effects -> this.effects.addAll(effects));
     }
 
     @Override
-    public void readPacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
-        super.readPacketNbt(tag, registryAccess);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
 
-        this.effects.clear();
-
-        if (tag.contains("Effects")) {
-            String jsonString = tag.getStringOr("Effects", "");
-            JsonElement jsonElement = JsonOps.INSTANCE.createString("");
-            DataResult<List<MobEffectInstance>> result = MobEffectInstance.CODEC.listOf().parse(JsonOps.INSTANCE, jsonElement);
-            result.result().ifPresent(effects -> this.effects.addAll(effects));
-        }
+        output.store("Effects", MobEffectInstance.CODEC.listOf(), this.effects);
     }
 
     public List<MobEffectInstance> getEffects() {

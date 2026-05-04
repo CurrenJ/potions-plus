@@ -16,7 +16,7 @@ public class LunarBerryBushAmbientParticle extends SimpleAnimatedParticle {
     protected LunarBerryBushAmbientParticle(ClientLevel clientLevel, double x, double y, double z, SpriteSet spriteSet, float gravity) {
         super(clientLevel, x, y, z, spriteSet, gravity);
         setColor(955135);
-        scale(clientLevel.random.nextFloat() * 0.5f + 0.5f);
+        scale(clientLevel.getRandom().nextFloat() * 0.5f + 0.5f);
         setSpriteFromAge(spriteSet);
     }
 

@@ -38,7 +38,7 @@ public class MagneticEffect extends MobEffect implements ITickingTooltipDetails 
     public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity livingEntity, int amplifier) {
         final int range = 6;
         List<ItemEntity> entities = livingEntity.level().getEntitiesOfClass(ItemEntity.class, new AABB(livingEntity.blockPosition()).inflate(range, range, range));
-        if (!livingEntity.level().isClientSide) {
+        if (!livingEntity.level().isClientSide()) {
             for (Entity entity : entities) {
                 if (entity instanceof ItemEntity) {
                     // pull item towards player

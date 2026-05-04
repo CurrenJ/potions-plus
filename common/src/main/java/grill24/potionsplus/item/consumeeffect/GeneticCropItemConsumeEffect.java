@@ -27,8 +27,8 @@ public class GeneticCropItemConsumeEffect implements ConsumeEffect {
 
     @Override
     public boolean apply(Level level, ItemStack stack, LivingEntity entity) {
-        if (stack.has(DataComponents.GENETIC_DATA) && entity instanceof ServerPlayer serverPlayer && stack.getItem() instanceof GeneticCropItem geneticCropItem) {
-            Genotype genotype = stack.get(DataComponents.GENETIC_DATA);
+        if (stack.has(DataComponents.GENETIC_DATA.get()) && entity instanceof ServerPlayer serverPlayer && stack.getItem() instanceof GeneticCropItem geneticCropItem) {
+            Genotype genotype = stack.get(DataComponents.GENETIC_DATA.get());
 
             // Get byte associated with nutrition chromosome
             byte n = genotype.getGenotypeAsBytes()[GeneticCropItem.NUTRITION_CHROMOSOME_INDEX];

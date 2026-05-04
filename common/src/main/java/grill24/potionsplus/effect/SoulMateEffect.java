@@ -41,7 +41,7 @@ public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails {
 
     @Override
     public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity entity, int amplifier) {
-        if (!entity.level().isClientSide) {
+        if (!entity.level().isClientSide()) {
             addEffect(entity);
         }
 
@@ -117,13 +117,13 @@ public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails {
     }
 
     private static void removeEffect(LivingEntity entity) {
-        if (!entity.level().isClientSide) {
+        if (!entity.level().isClientSide()) {
             soulMates.remove(entity.getId());
         }
     }
 
     private static void addEffect(LivingEntity entity) {
-        if (!entity.level().isClientSide) {
+        if (!entity.level().isClientSide()) {
             soulMates.add(entity.getId());
         }
     }

@@ -1,6 +1,6 @@
 package grill24.potionsplus.utility;
 
-import com.mojang.authlib.properties.PropertyMap;
+import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.IExperienceContainer;
@@ -20,6 +20,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -96,7 +97,7 @@ public class Utility {
     public static ItemStack itemStackFromTagString(HolderLookup.Provider registryAccess, String tagString) {
         try {
             CompoundTag tag = TagParser.parseCompoundFully(tagString);
-            return ItemStack.parse(registryAccess, tag).orElse(ItemStack.EMPTY);
+            return ItemStack.CODEC.parse(registryAccess.createSerializationContext(NbtOps.INSTANCE), tag).result().orElse(ItemStack.EMPTY);
         } catch (CommandSyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -258,7 +259,7 @@ public class Utility {
     }
 
     public static void dropContents(Level level, BlockPos blockPos, BlockState before, BlockState after) {
-        if (!before.is(after.getBlock()) && !level.isClientSide && level instanceof ServerLevel serverLevel) {
+        if (!before.is(after.getBlock()) && !level.isClientSide() && level instanceof ServerLevel serverLevel) {
             BlockEntity blockentity = level.getBlockEntity(blockPos);
             if (blockentity instanceof InventoryBlockEntity inventoryBlockEntity) {
                 Containers.dropContents(level, blockPos, inventoryBlockEntity);
@@ -266,7 +267,7 @@ public class Utility {
             }
 
             if (blockentity instanceof IExperienceContainer experienceContainer) {
-                after.getBlock().popExperience(serverLevel, blockPos, (int) experienceContainer.getStoredExperience());
+                net.minecraft.world.entity.ExperienceOrb.award(serverLevel, net.minecraft.world.phys.Vec3.atCenterOf(blockPos), (int) experienceContainer.getStoredExperience());
             }
         }
     }
@@ -344,7 +345,7 @@ public class Utility {
 
     public static ItemStack getPlayerHead(Player player) {
         ItemStack head = new ItemStack(Items.PLAYER_HEAD);
-        head.set(DataComponents.PROFILE, new ResolvableProfile(player.getGameProfile()));
+        head.set(DataComponents.PROFILE, ResolvableProfile.createResolved(player.getGameProfile()));
         return head;
     }
 
@@ -355,14 +356,11 @@ public class Utility {
     }
 
     public static ResolvableProfile getPlayerProfile(UUID uuid, String name) {
-        return new ResolvableProfile(Optional.ofNullable(name), Optional.ofNullable(uuid), new PropertyMap());
+        return ResolvableProfile.createResolved(new GameProfile(uuid, name));
     }
 
     public static Optional<Identifier> getResourceLocation(Holder<?> holder) {
-        if (holder.key() == null) {
-            return Optional.empty();
-        }
-        return Optional.of(holder.key().identifier());
+        return holder.unwrapKey().map(ResourceKey::identifier);
     }
 
     public static BufferedReader stringToBufferedReader(String string) {

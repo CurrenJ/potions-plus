@@ -33,7 +33,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
         if (PUtil.isPotion(stack)) {
             List<MobEffectInstance> effects = PUtil.getAllEffects(stack);
             if (effects.size() == 1) {
-                ResourceKey<MobEffect> mobEffect = effects.getFirst().getEffect().key();
+                ResourceKey<MobEffect> mobEffect = effects.getFirst().getEffect().unwrapKey().orElseThrow();
                 List<RecipeHolder<BrewingCauldronRecipe>> recipes = Recipes.ALL_BCR_RECIPES_ANALYSIS.getRecipesForMobEffect(mobEffect);
                 if (!recipes.isEmpty()) {
                     RecipeHolder<BrewingCauldronRecipe> recipe = recipes.getFirst();

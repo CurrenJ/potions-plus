@@ -39,7 +39,7 @@ public class CreatePotionsPlusBlockTrigger extends SimpleCriterionTrigger<Create
         ).apply(instance, TriggerInstance::new));
 
         public static Criterion<CreatePotionsPlusBlockTrigger.TriggerInstance> create(BlockState blockState) {
-            return Advancements.BREWING_CAULDRON_CREATION.value().createCriterion(new CreatePotionsPlusBlockTrigger.TriggerInstance(Optional.empty(), blockState));
+            return Advancements.BREWING_CAULDRON_CREATION.createCriterion(new CreatePotionsPlusBlockTrigger.TriggerInstance(Optional.empty(), blockState));
         }
 
         public boolean test(ServerPlayer player, BlockState blockState) {

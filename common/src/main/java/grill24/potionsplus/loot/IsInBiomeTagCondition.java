@@ -52,7 +52,7 @@ public record IsInBiomeTagCondition(TagKey<Biome> biomeTag) implements LootItemC
         Iterable<Holder<Biome>> biomes = level.registryAccess().lookupOrThrow(Registries.BIOME).getTagOrEmpty(biomeTag);
         for (Holder<Biome> biome : biomes) {
             for (Entity entity : entitiesToCheck) {
-                Optional<ResourceKey<Biome>> currentBiome = Optional.ofNullable(level.getBiome(entity.blockPosition()).key());
+                Optional<ResourceKey<Biome>> currentBiome = level.getBiome(entity.blockPosition()).unwrapKey();
                 if (currentBiome.isPresent() && biome.is(currentBiome.get())) {
                     return true;
                 }

@@ -8,6 +8,8 @@ import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.core.Holder;
 import net.minecraft.data.loot.LootTableSubProvider;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.context.ContextKeySet;
@@ -111,5 +113,27 @@ public class RegistrationUtility {
         for (IRuntimeModelGenerator<?> generator : RUNTIME_RESOURCE_GENERATORS) {
             generator.generateCommon();
         }
+    }
+
+    public static void registerBlockItem(Holder<Block> block, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
+        register(registerItem, grill24.potionsplus.utility.registration.item.SimpleItemBuilder.createSimple(
+                block.unwrapKey().orElseThrow().identifier().getPath())
+                .itemFactory(prop -> new net.minecraft.world.item.BlockItem(block.value(), prop.useBlockDescriptionPrefix()))
+                .modelGenerator(null));
+    }
+
+    public static void registerBlockItemWithTexture(Holder<Block> block, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem, Identifier texture) {
+        register(registerItem, grill24.potionsplus.utility.registration.item.SimpleItemBuilder.createSimple(
+                block.unwrapKey().orElseThrow().identifier().getPath())
+                .itemFactory(prop -> new net.minecraft.world.item.BlockItem(block.value(), prop.useBlockDescriptionPrefix()))
+                .modelGenerator(null));
+    }
+
+    public static void registerBlockItemWithAutoModel(Supplier<Holder<Block>> blockSupplier, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
+        Holder<Block> block = blockSupplier.get();
+        register(registerItem, grill24.potionsplus.utility.registration.item.SimpleItemBuilder.createSimple(
+                block.unwrapKey().orElseThrow().identifier().getPath())
+                .itemFactory(prop -> new net.minecraft.world.item.BlockItem(block.value(), prop.useBlockDescriptionPrefix()))
+                .modelGenerator(null));
     }
 }

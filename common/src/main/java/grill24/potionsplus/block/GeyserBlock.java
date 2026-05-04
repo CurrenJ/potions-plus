@@ -80,7 +80,7 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
         super.animateTick(blockState, level, blockPos, random);
 
         if (blockState.getValue(ACTIVE)) {
-            level.addParticle(Particles.LAVA_GEYSER_BLOCK_LINKED_EMITTER.get(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0, 0);
+            level.addParticle(Particles.LAVA_GEYSER_BLOCK_LINKED_EMITTER.value(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0, 0);
         }
     }
 
@@ -135,10 +135,10 @@ public class GeyserBlock extends FaceAttachedHorizontalDirectionalBlock implemen
         ParticleEmitterBlock.ParticleEmitterConfiguration particleSampler = getActiveParticleConfiguration(level, pos);
 
         // This makes sure we don't spawn particle *spawners* with the geyser block if it is attached to the particle emitter. Instead, get that spawner's particle type and spawn it like usual.
-        SimpleParticleType particleType = particleSampler.sampleParticleType(level.random);
+        SimpleParticleType particleType = particleSampler.sampleParticleType(level.getRandom());
         ParticleProvider<?> particleprovider = ((IParticleEngineExtension) Minecraft.getInstance().particleEngine).potions_plus$getProviders().get(BuiltInRegistries.PARTICLE_TYPE.getKey(particleType));
         if (particleprovider instanceof EmitterParticle.Provider) {
-            return ((EmitterParticle.Provider) particleprovider).particleTypeSupplier.apply(level.random);
+            return ((EmitterParticle.Provider) particleprovider).particleTypeSupplier.apply(level.getRandom());
         }
 
         return particleType;

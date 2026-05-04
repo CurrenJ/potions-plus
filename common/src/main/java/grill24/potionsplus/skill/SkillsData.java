@@ -201,7 +201,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
             if (this.unlockedAbilities.containsKey(abilityKey)) {
                 return this.unlockedAbilities.get(abilityKey)
                         .stream()
-                        .filter(abilityInstance -> abilityInstance.data().getHolder().key().identifier().equals(configuredAbilityId))
+                        .filter(abilityInstance -> abilityInstance.data().getHolder().unwrapKey().orElseThrow().identifier().equals(configuredAbilityId))
                         .findFirst();
             }
         }

@@ -71,7 +71,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     @Override
     public void setPlacedBy(Level level, BlockPos placedAt, BlockState blockState, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.setPlacedBy(level, placedAt, blockState, placer, itemStack);
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             int distance = getDistance(blockState);
             BlockPos left = placedAt.relative(blockState.getValue(FACING).getCounterClockWise(), distance / 2);
             BlockPos right = placedAt.relative(blockState.getValue(FACING).getClockWise(), (int) Math.ceil(distance / 2f));
@@ -91,7 +91,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos blockPos, BlockState blockState, Player player) {
-        if (!level.isClientSide && player.isCreative()) {
+        if (!level.isClientSide() && player.isCreative()) {
             // Prevent creative drops
             ClotheslinePart clotheslinePart = blockState.getValue(PART);
             if (clotheslinePart == ClotheslinePart.RIGHT) {
@@ -109,7 +109,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
 
     @Override
     public void affectNeighborsAfterRemoval(BlockState before, ServerLevel level, BlockPos blockPos, boolean p_60519_) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             if (!this.areBothPartsValid(blockPos, level)) {
                 BlockPos middle = getOneTowardsMiddle(blockPos, before);
                 BlockState middleBlockState = level.getBlockState(middle);
@@ -285,7 +285,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         if (isLeftEnd(state))
-            return Utility.createTickerHelper(type, grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), ClotheslineBlockEntity::tick);
+            return Utility.createTickerHelper(type, grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.value(), ClotheslineBlockEntity::tick);
 
         return null;
     }

@@ -10,8 +10,6 @@ import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -23,6 +21,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import grill24.potionsplus.platform.PacketNetwork;
 
@@ -65,17 +65,20 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
     }
 
     @Override
-    public void readPacketNbt(net.minecraft.nbt.CompoundTag tag, HolderLookup.Provider registryAccess) {
-        super.readPacketNbt(tag, registryAccess);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
         for (int i = 0; i < progress.length; i++) {
-            progress[i] = tag.getInt("Progress" + i).orElse(0);
+            progress[i] = input.getIntOr("Progress" + i, 0);
         }
 
         // Only fall back to default if no fence post data was saved at all
-        if (tag.contains("fencePostBlockItem")) {
-            fencePostBlockItem = ItemStack.parse(registryAccess, tag.getCompound("fencePostBlockItem").orElse(new CompoundTag()))
-                    .orElse(getDefaultFencePostBlockItem());
+        if (input.read("fencePostBlockItem", ItemStack.CODEC).isPresent()) {
+            input.read("fencePostBlockItem", ItemStack.CODEC).ifPresent(stack -> {
+                if (!stack.isEmpty()) {
+                    fencePostBlockItem = stack;
+                }
+            });
         } else {
             // If no fence post data exists, keep the current fence post item (preserves existing state)
             if (fencePostBlockItem == null) {
@@ -86,16 +89,16 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
     }
 
     @Override
-    public void writePacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
-        super.writePacketNbt(tag, registryAccess);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
 
         for (int i = 0; i < progress.length; i++) {
-            tag.putInt("Progress" + i, progress[i]);
+            output.putInt("Progress" + i, progress[i]);
         }
 
-        // Only save fence post block item if not empty to avoid IllegalStateException
+        // Only save fence post block item if not empty
         if (fencePostBlockItem != null && !fencePostBlockItem.isEmpty()) {
-            tag.put("fencePostBlockItem", fencePostBlockItem.save(registryAccess));
+            output.store("fencePostBlockItem", ItemStack.CODEC, fencePostBlockItem);
         }
     }
 
@@ -139,7 +142,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
             if (blockEntity.activeRecipes[i] != null) {
                 blockEntity.progress[i]++;
 
-                if (!level.isClientSide) {
+                if (!level.isClientSide()) {
                     int processingTime = blockEntity.activeRecipes[i].value().getProcessingTime();
                     if (blockEntity.progress[i] >= processingTime) {
                         blockEntity.craft(i);
@@ -156,13 +159,13 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
 
     public void craft(int slot) {
         if (level != null) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 spawnCraftingSuccessParticles(level, slot);
             } else {
                 final ClotheslineRecipe activeRecipe = new ClotheslineRecipe(activeRecipes[slot].value());
 
                 float successChance = activeRecipe.getSuccessChance();
-                boolean recipeSucceeds = level.random.nextFloat() < successChance;
+                boolean recipeSucceeds = level.getRandom().nextFloat() < successChance;
 
                 ItemStack container = getItem(slot).getCraftingRemainder();
                 getItem(slot).shrink(1);
@@ -182,7 +185,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                     PacketNetwork.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(worldPosition, slot));
                     level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
                         if (player instanceof ServerPlayer serverPlayer) {
-                            Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
+                            Advancements.CRAFT_RECIPE.trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
                         }
                     });
                 } else {
@@ -204,12 +207,12 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
 
     private void spawnCraftingSuccessParticles(Level level, int slot) {
         Vector3f pos = ClotheslineBlockEntityBakedRenderData.getItemPoint(getBlockPos(), getBlockState(), slot, true);
-        final int count = level.random.nextInt(3, 6);
+        final int count = level.getRandom().nextInt(3, 6);
         for (int i = 0; i < count; i++) {
-            level.addParticle(Particles.END_ROD_RAIN.get(),
-                    pos.x() + Utility.nextGaussian(0, 0.1, level.random),
-                    pos.y() + Utility.nextGaussian(0, 0.1, level.random),
-                    pos.z() + Utility.nextGaussian(0, 0.1, level.random),
+            level.addParticle(Particles.END_ROD_RAIN.value(),
+                    pos.x() + Utility.nextGaussian(0, 0.1, level.getRandom()),
+                    pos.y() + Utility.nextGaussian(0, 0.1, level.getRandom()),
+                    pos.z() + Utility.nextGaussian(0, 0.1, level.getRandom()),
                     0, 0, 0);
         }
     }

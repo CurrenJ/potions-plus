@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 
 public abstract class CooldownTriggerableAbility<E, P extends CustomPacketPayload> extends SimplePlayerAbility implements ITriggerablePlayerAbility<E, P> {
     public CooldownTriggerableAbility() {
-        super(Set.of(AbilityInstanceTypes.COOLDOWN.get()));
+        super(Set.of(AbilityInstanceTypes.COOLDOWN.value()));
     }
 
     @Override

@@ -87,7 +87,7 @@ public class MetalDetectingEffect extends MobEffect implements ITickingAreaToolt
         }
 
         final float volume = 0.75F;
-        if (!detectedBlockPos.isEmpty() && !livingEntity.level().isClientSide) {
+        if (!detectedBlockPos.isEmpty() && !livingEntity.level().isClientSide()) {
             BlockPos soundPos = detectedBlockPos.get(livingEntity.getRandom().nextInt(0, detectedBlockPos.size()));
 
             if (detectedBlocks.contains(Blocks.COPPER_ORE) || detectedBlocks.contains(Blocks.DEEPSLATE_COPPER_ORE)) {

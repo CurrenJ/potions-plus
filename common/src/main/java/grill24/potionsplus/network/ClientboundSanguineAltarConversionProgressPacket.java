@@ -36,7 +36,7 @@ public record ClientboundSanguineAltarConversionProgressPacket(BlockPos pos,
                             return;
                         }
 
-                        mc.level.getBlockEntity(packet.pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get()).ifPresent(
+                        mc.level.getBlockEntity(packet.pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value()).ifPresent(
                                 blockEntity -> {
                                     blockEntity.setHealthDrained(packet.healthDrained);
                                 }

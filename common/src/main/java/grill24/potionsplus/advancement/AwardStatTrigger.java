@@ -39,7 +39,7 @@ public class AwardStatTrigger extends SimpleCriterionTrigger<AwardStatTrigger.Tr
         ).apply(instance, TriggerInstance::new));
 
         public static Criterion<AwardStatTrigger.TriggerInstance> create(String statId, int totalStats) {
-            return Advancements.AWARD_STAT_TRIGGER.value().createCriterion(new AwardStatTrigger.TriggerInstance(Optional.empty(), statId, totalStats));
+            return Advancements.AWARD_STAT_TRIGGER.createCriterion(new AwardStatTrigger.TriggerInstance(Optional.empty(), statId, totalStats));
         }
 
         public boolean test(String statId, int totalStat) {

@@ -52,8 +52,8 @@ public class GeneticCropBlockModelGenerator<T extends Block> extends BlockModelU
     public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
         // TODO: Crop block model generation
         Block block = this.getHolder().value();
-        if (block instanceof GeneticCropBlock && this.getHolder().key() != null) {
-            Identifier baseModelLocation = this.getHolder().key().identifier();
+        if (block instanceof GeneticCropBlock && this.getHolder().unwrapKey().isPresent()) {
+            Identifier baseModelLocation = this.getHolder().unwrapKey().orElseThrow().identifier();
 
             // Generate blockstate definition
             BlockModelDefinitionGenerator blockstateGenerator = MultiVariantGenerator.dispatch(block)

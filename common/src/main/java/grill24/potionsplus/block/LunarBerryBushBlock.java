@@ -67,7 +67,7 @@ public class LunarBerryBushBlock extends SweetBerryBushBlock {
         if (isBlooming) {
             // spawn particles
             // particle, x, y, z, count, xSpeed, ySpeed, zSpeed, maxSpeed
-            serverLevel.sendParticles(Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.get(), blockPos.getX() + 0.5D, blockPos.getY() + 1.1D, blockPos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0F);
+            serverLevel.sendParticles(Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.value(), blockPos.getX() + 0.5D, blockPos.getY() + 1.1D, blockPos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0F);
         }
     }
 
@@ -94,10 +94,10 @@ public class LunarBerryBushBlock extends SweetBerryBushBlock {
         int i = state.getValue(AGE);
         boolean flag = i == 3;
         if (i > 1) {
-            int j = 1 + level.random.nextInt(2);
+            int j = 1 + level.getRandom().nextInt(2);
             popResource(level, pos, new ItemStack(getDropItem(state), j + (flag ? 1 : 0)));
             level.playSound(
-                    null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F
+                    null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.getRandom().nextFloat() * 0.4F
             );
             BlockState blockstate = state.setValue(AGE, Integer.valueOf(1));
             level.setBlock(pos, blockstate, 2);

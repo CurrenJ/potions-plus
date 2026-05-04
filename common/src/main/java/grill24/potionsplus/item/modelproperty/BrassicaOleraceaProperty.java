@@ -24,7 +24,7 @@ public record BrassicaOleraceaProperty() implements SelectItemModelProperty<Bras
 
     @Override
     public @Nullable BrassicaOleraceaItem.Variation get(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int seed, ItemDisplayContext itemDisplayContext) {
-        if (stack.has(DataComponents.GENETIC_DATA) && stack.getItem() instanceof BrassicaOleraceaItem brassicaOleraceaItem) {
+        if (stack.has(DataComponents.GENETIC_DATA.get()) && stack.getItem() instanceof BrassicaOleraceaItem brassicaOleraceaItem) {
             return brassicaOleraceaItem.getVariation(stack);
         }
 

@@ -49,7 +49,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         // Cache items before interaction
-        Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+        Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.value());
         if (blockEntity.isEmpty()) {
             return InteractionResult.FAIL;
         }
@@ -67,7 +67,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
             level.updateNeighborsAt(pos, this);
             potionBeaconBlockEntity.onPlayerInsertItem(player);
 
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 if (potionBeaconBlockEntity.sounds == null) {
                     potionBeaconBlockEntity.sounds = new HerbalistsLecternSounds();
                 }
@@ -82,7 +82,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 // Cache items before interaction
-        Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+        Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.value());
         if (blockEntity.isEmpty()) {
             return InteractionResult.FAIL;
         }
@@ -90,7 +90,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
 
         // Do interaction
         InvUtil.InteractionResult result = InvUtil.extractOnPlayerUseWithoutItem(level, pos, player, true, SoundEvents.ITEM_FRAME_ADD_ITEM);
-        if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide) {
+        if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide()) {
             if (PotionBeaconBlockEntity.sounds == null) {
                 PotionBeaconBlockEntity.sounds = new HerbalistsLecternSounds();
             }
@@ -107,12 +107,12 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return Utility.createTickerHelper(type, Blocks.POTION_BEACON_BLOCK_ENTITY.get(), PotionBeaconBlockEntity::tick);
+        return Utility.createTickerHelper(type, Blocks.POTION_BEACON_BLOCK_ENTITY.value(), PotionBeaconBlockEntity::tick);
     }
 
     @Override
     public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
-        Optional<PotionBeaconBlockEntity> PotionBeaconBlockEntity = level.getBlockEntity(blockPos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+        Optional<PotionBeaconBlockEntity> PotionBeaconBlockEntity = level.getBlockEntity(blockPos, Blocks.POTION_BEACON_BLOCK_ENTITY.value());
         return PotionBeaconBlockEntity.filter(potionBeaconBlockEntity -> !potionBeaconBlockEntity.getItem(0).isEmpty()).map(potionBeaconBlockEntity -> 15).orElse(0);
     }
 

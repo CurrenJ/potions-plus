@@ -75,7 +75,7 @@ public class SimpleAbilityInstanceData {
     }
 
     protected String getToggleCommand() {
-        return "/potionsplus skill ability byId " + ability.key().identifier() + " toggle";
+        return ability.unwrapKey().map(key -> "/potionsplus skill ability byId " + key.identifier() + " toggle").orElse("");
     }
 
     @Override
@@ -86,6 +86,6 @@ public class SimpleAbilityInstanceData {
         SimpleAbilityInstanceData that = (SimpleAbilityInstanceData) o;
 
         if (isEnabled != that.isEnabled) return false;
-        return ability.key() != null && ability.key().equals(that.ability.key());
+        return ability.unwrapKey().isPresent() && ability.unwrapKey().get().equals(that.ability.unwrapKey().orElse(null));
     }
 }

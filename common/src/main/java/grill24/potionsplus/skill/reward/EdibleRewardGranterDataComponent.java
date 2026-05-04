@@ -52,11 +52,11 @@ public record EdibleRewardGranterDataComponent(ResourceKey<ConfiguredGrantableRe
     );
 
     public static void tryEatEdibleChoiceItem(ServerPlayer player, ItemStack food) {
-        if (food.has(DataComponents.CHOICE_ITEM)) {
+        if (food.has(DataComponents.CHOICE_ITEM.get())) {
             RegistryAccess registryAccess = player.registryAccess();
             HolderGetter<ConfiguredGrantableReward<?, ?>> lookup = registryAccess.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD);
 
-            EdibleRewardGranterDataComponent choiceItemData = food.get(DataComponents.CHOICE_ITEM);
+            EdibleRewardGranterDataComponent choiceItemData = food.get(DataComponents.CHOICE_ITEM.get());
             if (choiceItemData == null) {
                 return;
             }
@@ -86,12 +86,12 @@ public record EdibleRewardGranterDataComponent(ResourceKey<ConfiguredGrantableRe
                     // Disable and remove all other choice items with the same parent
                     if (optionalLinkedChoiceParent.get().value().config() instanceof EdibleChoiceRewardConfiguration config && config.rewards.size() > 1) {
                         for (ItemStack slot : player.getInventory().getNonEquipmentItems()) {
-                            EdibleRewardGranterDataComponent slotChoiceItemData = slot.get(DataComponents.CHOICE_ITEM);
+                            EdibleRewardGranterDataComponent slotChoiceItemData = slot.get(DataComponents.CHOICE_ITEM.get());
                             Optional<ResourceKey<ConfiguredGrantableReward<?, ?>>> slotChoiceParent = slotChoiceItemData != null ?
                                     Optional.ofNullable(slotChoiceItemData.linkedChoiceParent()) : Optional.empty();
 
                             if (slotChoiceParent.isPresent() && slotChoiceParent.get().equals(choiceItemData.linkedChoiceParent())) {
-                                slot.remove(DataComponents.CHOICE_ITEM);
+                                slot.remove(DataComponents.CHOICE_ITEM.get());
                                 slot.shrink(1);
                             }
                         }
@@ -111,8 +111,8 @@ public record EdibleRewardGranterDataComponent(ResourceKey<ConfiguredGrantableRe
 
         // Choice Reward Item Tooltip
         ItemStack stack = event.getItemStack();
-        if (stack.has(grill24.potionsplus.core.DataComponents.CHOICE_ITEM)) {
-            EdibleRewardGranterDataComponent choiceItemData = stack.get(grill24.potionsplus.core.DataComponents.CHOICE_ITEM);
+        if (stack.has(grill24.potionsplus.core.DataComponents.CHOICE_ITEM.get())) {
+            EdibleRewardGranterDataComponent choiceItemData = stack.get(grill24.potionsplus.core.DataComponents.CHOICE_ITEM.get());
 
             HolderGetter<ConfiguredGrantableReward<?, ?>> lookup = player.registryAccess().lookupOrThrow(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD);
             Optional<Holder.Reference<ConfiguredGrantableReward<?, ?>>> linkedOption = choiceItemData.linkedOption() == null ?

@@ -2,6 +2,7 @@ package grill24.potionsplus.behaviour;
 
 import grill24.potionsplus.core.Attributes;
 import grill24.potionsplus.effect.IEnchantmentBonusTooltipDetails;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffect;
@@ -41,13 +42,13 @@ public class LootItemModifiersBehaviour {
     }
 
     public static int potions_plus$addBonusLevelsFromMobEffect(ItemStack stack, Holder<Enchantment> input, ResourceKey<Enchantment> targetEnchantment, Holder<MobEffect> mobEffect, LootContext runParamContext) {
-        int enchantmentLevel = EnchantmentHelper.getTagEnchantmentLevel(input, stack);
+        int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(input, stack);
         return potions_plus$addBonusLevelsFromMobEffect(enchantmentLevel, input, targetEnchantment, mobEffect, runParamContext.getOptionalParameter(LootContextParams.THIS_ENTITY));
     }
 
     public static int getBonusLevelsFromAttributes(Holder<Enchantment> enchantment, Entity source, int enchantmentLevel) {
         if (source instanceof Player player) {
-            Optional<Holder<Attribute>> attribute = Attributes.getAttributeForEnchantmentBonus(enchantment.key());
+            Optional<Holder<Attribute>> attribute = Attributes.getAttributeForEnchantmentBonus(enchantment.unwrapKey().orElseThrow());
             if (attribute.isPresent()) {
                 enchantmentLevel += (int) player.getAttributeValue(attribute.get());
             }
@@ -56,11 +57,12 @@ public class LootItemModifiersBehaviour {
     }
 
     public static int getEnchantmentLevelFromItemAttributes(Holder<Enchantment> enchantment, ItemStack itemStack, int enchantmentLevel) {
-        Optional<Holder<Attribute>> attribute = Attributes.getAttributeForEnchantmentBonus(enchantment.key());
+        Optional<Holder<Attribute>> attribute = Attributes.getAttributeForEnchantmentBonus(enchantment.unwrapKey().orElseThrow());
         int enchantmentLevelWithBonuses = enchantmentLevel;
         if (attribute.isPresent()) {
-            for (ItemAttributeModifiers.Entry entry : itemStack.getAttributeModifiers().modifiers()) {
-                if (entry.attribute().key().equals(attribute.get().key())) {
+            ItemAttributeModifiers modifiers = itemStack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+            for (ItemAttributeModifiers.Entry entry : modifiers.modifiers()) {
+                if (entry.attribute().unwrapKey().orElseThrow().equals(attribute.get().unwrapKey().orElseThrow())) {
                     double amount = entry.modifier().amount();
 
                     enchantmentLevelWithBonuses += (int) Math.round(switch (entry.modifier().operation()) {

@@ -60,7 +60,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        Optional<AbyssalTroveBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
+        Optional<AbyssalTroveBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.value());
         if (blockEntity.isEmpty()) {
             return InteractionResult.FAIL;
         }
@@ -76,11 +76,11 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
             ItemStack itemInHand = player.getItemInHand(hand).copy();
             result = InvUtil.insertOnPlayerUseItem(level, pos, player, hand, SoundEvents.ITEM_FRAME_ADD_ITEM);
             if (result == InvUtil.InteractionResult.INSERT) {
-                if (level.isClientSide) {
+                if (level.isClientSide()) {
                     // Spawn success particles, and play sound
                     Vec3 posVec = new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
                     for (int i = 0; i < 10; i++) {
-                        Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                        Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.getRandom()), 0.8 + Utility.nextDouble(-0.125, 0.125, level.getRandom()), Utility.nextGaussian(0, 0.5, level.getRandom()));
                         level.addParticle(ParticleTypes.HAPPY_VILLAGER, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
                     }
                     level.playSound(player, pos, Sounds.ABYSSAL_TROVE_DEPOSIT.value(), player.getSoundSource(), 1.0F, 1.0F);
@@ -125,7 +125,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
 
                 Vec3 posVec = new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
                 for (int i = 0; i < 20; i++) {
-                    Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                    Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.getRandom()), 0.8 + Utility.nextDouble(-0.125, 0.125, level.getRandom()), Utility.nextGaussian(0, 0.5, level.getRandom()));
                     Vec3 away = particlePos.subtract(posVec).normalize().scale(0.5);
                     level.addParticle(ParticleTypes.ENCHANT, particlePos.x, particlePos.y, particlePos.z, away.x, away.y, away.z);
                 }
@@ -141,7 +141,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return Utility.createTickerHelper(type, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), AbyssalTroveBlockEntity::tick);
+        return Utility.createTickerHelper(type, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.value(), AbyssalTroveBlockEntity::tick);
     }
 
     @Override

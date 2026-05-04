@@ -63,7 +63,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
     public State state = State.IDLE;
 
     public SanguineAltarBlockEntity(BlockPos pos, BlockState state) {
-        super(Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get(), pos, state);
+        super(Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value(), pos, state);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
             level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), Sounds.SANGUINE_ALTAR_CONVERSION.value(), SoundSource.BLOCKS, 0.5F, 1, false);
         } else if (sanguineAltarBlockEntity.state == State.CONVERTING) {
             if (sanguineAltarBlockEntity.conversionProgressTicks >= CONVERSION_TICKS) {
-                if (!level.isClientSide) {
+                if (!level.isClientSide()) {
                     // Server side, finish conversion and send packet
                     if (sanguineAltarBlockEntity.healthDrained >= HEALTH_DRAIN_REQUIRED_FOR_CONVERSION) {
                         changeState(level, pos, sanguineAltarBlockEntity, State.CONVERTED, true);
@@ -116,20 +116,20 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
                                 }
                             }
 
-                            if (level.isClientSide && sanguineAltarBlockEntity.getHealthDrainProgress() < 1.0f) {
+                            if (level.isClientSide() && sanguineAltarBlockEntity.getHealthDrainProgress() < 1.0f) {
                                 if (!(entity instanceof Player player) || (!player.isInvulnerable() && !player.isCreative() && !player.isSpectator())) {
                                     // Client side, spawn particles
                                     Vec3 towardsBlock = blockPos.subtract(entity.position()).normalize();
                                     // spawn particles
-                                    for (int p = 0; p < level.random.nextInt(5); p++) {
-                                        double velocity = level.random.nextDouble() * 0.15 + 0.1;
+                                    for (int p = 0; p < level.getRandom().nextInt(5); p++) {
+                                        double velocity = level.getRandom().nextDouble() * 0.15 + 0.1;
                                         Vec3 vector = towardsBlock.multiply(velocity, velocity, velocity);
                                         Vec3 center = entity.getBoundingBox().getCenter();
-                                        level.addParticle(Particles.BLOOD_EMITTER.get(), center.x, center.y, center.z, vector.x, vector.y, vector.z);
+                                        level.addParticle(Particles.BLOOD_EMITTER.value(), center.x, center.y, center.z, vector.x, vector.y, vector.z);
                                     }
                                 }
                             }
-                        } else if (!level.isClientSide) {
+                        } else if (!level.isClientSide()) {
                             // If we have enough health drained, convert and send packet
                             // Disabled for now, animation is better without this
 //                                changeState(level, pos, sanguineAltarBlockEntity, State.CONVERTED, true);
@@ -137,7 +137,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
                         }
                     }
 
-                    if (!level.isClientSide) {
+                    if (!level.isClientSide()) {
                         PacketNetwork.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(), new ClientboundSanguineAltarConversionProgressPacket(pos, sanguineAltarBlockEntity.healthDrained));
                     }
                 }
@@ -156,7 +156,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         if (state == State.CONVERTED) {
             level.getEntitiesOfClass(Player.class, new AABB(pos).inflate(16.0)).forEach(player -> {
                 if (player instanceof ServerPlayer serverPlayer) {
-                    Advancements.CRAFT_RECIPE.get().trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE.value(), PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
+                    Advancements.CRAFT_RECIPE.trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE.value(), PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
                 }
             });
         }
@@ -182,11 +182,11 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
     }
 
     private static void spawnParticles(Level level, BlockPos pos) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             Vec3 posVec = new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
             for (int i = 0; i < 1; i++) {
-                if (level.random.nextDouble() < 0.1) {
-                    Vec3 particlePos = posVec.add(level.random.nextGaussian() * 0.5, 0.25 + level.random.nextDouble() * 0.25 - 0.125, level.random.nextGaussian() * 0.5);
+                if (level.getRandom().nextDouble() < 0.1) {
+                    Vec3 particlePos = posVec.add(level.getRandom().nextGaussian() * 0.5, 0.25 + level.getRandom().nextDouble() * 0.25 - 0.125, level.getRandom().nextGaussian() * 0.5);
                     level.addParticle(ParticleTypes.PORTAL, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
                 }
             }

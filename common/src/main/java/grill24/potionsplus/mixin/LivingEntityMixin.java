@@ -144,8 +144,8 @@ public abstract class LivingEntityMixin extends Entity {
         AttributeInstance movementSpeedAttributeInstance = this.getAttribute(movementSpeed);
         for (Holder<Attribute> attribute : SPRINT_SPEED_ATTRIBUTES) {
             if (movementSpeedAttributeInstance != null) {
-                if (attribute.key() != null) {
-                    Identifier key = attribute.key().identifier();
+                if (attribute.unwrapKey().isPresent()) {
+                    Identifier key = attribute.unwrapKey().get().identifier();
                     movementSpeedAttributeInstance.removeModifier(key);
                     if (sprinting && this.getAttributes().hasAttribute(attribute)) {
                         movementSpeedAttributeInstance.addTransientModifier(new AttributeModifier(key, this.getAttributeValue(attribute), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));

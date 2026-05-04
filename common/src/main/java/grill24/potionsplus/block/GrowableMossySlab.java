@@ -59,7 +59,7 @@ public class GrowableMossySlab extends SlabBlock {
         // Check if using water bottle
         if (PUtil.isPotion(stack) && PUtil.getPotion(stack) == Potions.WATER.value()) {
             if (!state.getValue(WATERED)) {
-                if (!level.isClientSide) {
+                if (!level.isClientSide()) {
                     level.setBlock(pos, state.setValue(WATERED, true), 3);
                     level.playSound(null, pos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.25F, 1.0F);
 

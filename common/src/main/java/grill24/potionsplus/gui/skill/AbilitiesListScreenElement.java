@@ -30,13 +30,13 @@ public class AbilitiesListScreenElement extends VerticalListScreenElement<Abilit
 
         // Get all unlocked abilities for currently selected skill
         Collection<AbilityInstanceSerializable<?, ?>> abilities = getAbilities().stream().filter(
-                abilityInstance -> Objects.equals(abilityInstance.data().getConfiguredAbility().config().getData().parentSkill().key(), selectedSkill)).toList();
+                abilityInstance -> abilityInstance.data().getConfiguredAbility().config().getData().parentSkill().unwrapKey().orElseThrow().equals(selectedSkill)).toList();
 
         // Create type displays from unlocked abilities
         return abilities.stream().map(abilityInstance ->
                 new AbilityTextScreenElement(
                         screen,
-                        abilityInstance.data().getHolder().key().identifier(),
+                        abilityInstance.data().getHolder().unwrapKey().orElseThrow().identifier(),
                         abilityInstance.data().getDescription()
                 )
         ).toList();

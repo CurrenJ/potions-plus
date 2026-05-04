@@ -59,7 +59,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public void renderImage(Font font, int x, int y, int width, int height, GuiGraphicsExtractor GuiGraphicsExtractor) {
+    public void extractImage(Font font, int x, int y, int width, int height, GuiGraphicsExtractor GuiGraphicsExtractor) {
         if (isShowing()) {
             int xMax = this.gridSizeX();
             int yMax = this.gridSizeY();

@@ -27,18 +27,18 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     public Map<String, List<BrewingCauldronRecipe>> recipeResultsInSavedData;
 
 
-    public static final SavedDataType<SavedData> TYPE = new SavedDataType<>(FILE_NAME, SavedData::new, ctx ->
+    public static final SavedDataType<SavedData> TYPE = new SavedDataType<>(
+            java.util.Objects.requireNonNull(net.minecraft.resources.Identifier.of(FILE_NAME)),
+            () -> new SavedData(),
             RecordCodecBuilder.create(builder -> builder.group(
-                    RecordCodecBuilder.point(ctx.levelOrThrow()),
                     Codec.unboundedMap(PotionsPlusExtraCodecs.UUID_CODEC, PlayerBrewingKnowledge.CODEC).fieldOf("playerDataMap").forGetter(data -> data.playerDataMap),
                     RecipeCodecs.BREWING_CAULDRON_RECIPE_HOLDER_CODEC.listOf().fieldOf("seededPotionRecipes").forGetter(data -> data.seededPotionRecipes),
                     Codec.unboundedMap(Codec.STRING, RecipeCodecs.BREWING_CAULDRON_RECIPE_CODEC.listOf())
                             .fieldOf("recipeResultsInSavedData").forGetter(data -> data.recipeResultsInSavedData)
-            ).apply(builder, SavedData::new)));
-
-    public SavedData(net.minecraft.world.level.saveddata.SavedData.Context ctx) {
-        this(ctx.levelOrThrow(), new HashMap<>(), new ArrayList<>(), new HashMap<>());
-    }
+            ).apply(builder, (playerDataMap, seededPotionRecipes, recipeResultsInSavedData) ->
+                    new SavedData(null, playerDataMap, seededPotionRecipes, recipeResultsInSavedData))),
+            net.minecraft.util.datafix.DataFixTypes.LEVEL
+    );
 
     /**
      * Default constructor for creating an empty SavedData instance.

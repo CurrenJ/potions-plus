@@ -76,7 +76,7 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         // Cache items before interaction
-        Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
+        Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value());
         if (blockEntity.isEmpty()) {
             return InteractionResult.FAIL;
         }
@@ -95,7 +95,7 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
             level.updateNeighborsAt(pos, this);
             herbalistsLecternBlockEntity.onPlayerInsertItem(player);
 
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 if (herbalistsLecternBlockEntity.sounds == null) {
                     herbalistsLecternBlockEntity.sounds = new HerbalistsLecternSounds();
                 }
@@ -110,7 +110,7 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 // Cache items before interaction
-        Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
+        Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value());
         if (blockEntity.isEmpty()) {
             return InteractionResult.FAIL;
         }
@@ -118,7 +118,7 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
 
         // Do interaction
         InvUtil.InteractionResult result = InvUtil.extractOnPlayerUseWithoutItem(level, pos, player, true, SoundEvents.ITEM_FRAME_ADD_ITEM);
-        if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide) {
+        if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide()) {
             if (herbalistsLecternBlockEntity.sounds == null) {
                 herbalistsLecternBlockEntity.sounds = new HerbalistsLecternSounds();
             }
@@ -131,12 +131,12 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return Utility.createTickerHelper(type, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get(), HerbalistsLecternBlockEntity::tick);
+        return Utility.createTickerHelper(type, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value(), HerbalistsLecternBlockEntity::tick);
     }
 
     @Override
     public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
-        Optional<HerbalistsLecternBlockEntity> herbalistsLecternBlockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
+        Optional<HerbalistsLecternBlockEntity> herbalistsLecternBlockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value());
         return Math.min(herbalistsLecternBlockEntity.get().rendererData.allIcons.size(), 15);
     }
 }

@@ -27,8 +27,8 @@ public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.Anima
 
     public static class AnimatedItemRewardConfiguration extends GrantableRewardConfiguration {
         public static final Codec<AnimatedItemRewardConfiguration> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
-                ItemStack.STRICT_CODEC.optionalFieldOf("displayItem", ItemStack.EMPTY).forGetter(instance -> instance.displayItem),
-                ItemStack.STRICT_CODEC.listOf().optionalFieldOf("itemRewards", List.of()).forGetter(instance -> instance.rewards)
+                ItemStack.CODEC.optionalFieldOf("displayItem", ItemStack.EMPTY).forGetter(instance -> instance.displayItem),
+                ItemStack.CODEC.listOf().optionalFieldOf("itemRewards", List.of()).forGetter(instance -> instance.rewards)
         ).apply(codecBuilder, AnimatedItemRewardConfiguration::new));
 
         public ItemStack displayItem;
@@ -63,7 +63,7 @@ public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.Anima
         public AnimatedItemRewardBuilder(ItemStack... itemStacks) {
             keys = new ResourceKey[itemStacks.length];
             for (int i = 0; i < itemStacks.length; i++) {
-                keys[i] = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId("display_" + itemStacks[i].getItemHolder().key().identifier().getPath()));
+                keys[i] = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId("display_" + itemStacks[i].getItemHolder().unwrapKey().orElseThrow().identifier().getPath()));
             }
             this.itemStacks = itemStacks;
         }

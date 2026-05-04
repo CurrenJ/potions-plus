@@ -58,7 +58,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
     private ItemStack statusIcon = ItemStack.EMPTY;
 
     public BrewingCauldronBlockEntity(BlockPos pos, BlockState state) {
-        super(Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get(), pos, state);
+        super(Blocks.BREWING_CAULDRON_BLOCK_ENTITY.value(), pos, state);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
         // Find the recipe we can craft with the current ingredients
         // Take the recipe with the longest processing time, as a pseudo-priority system
-        this.activeRecipe = Recipes.recipes.byType(Recipes.BREWING_CAULDRON_RECIPE.get()).stream()
+        this.activeRecipe = Recipes.recipes.byType(Recipes.BREWING_CAULDRON_RECIPE).stream()
                 .filter(recipe -> recipe.value().matches(this, this.level))
                 .max(Comparator.comparingInt((recipe) -> recipe.value().getIngredientsAsItemStacks().size()));
 
@@ -107,7 +107,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
             Map<ResourceKey<MobEffect>, MobEffectInstance> effectMap = new HashMap<>();
             for (MobEffectInstance effect : allEffects) {
-                ResourceKey<MobEffect> key = effect.getEffect().key();
+                ResourceKey<MobEffect> key = effect.getEffect().unwrapKey().orElseThrow();
                 if (!effectMap.containsKey(key) || effect.getAmplifier() > effectMap.get(key).getAmplifier()) {
                     effectMap.put(key, effect);
                 }
@@ -214,7 +214,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
     private void craft() {
         if (level == null) return;
 
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+        if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             if (activeRecipe.isEmpty()) return;
             final ResourceKey<Recipe<?>> recipeId = activeRecipe.get().id();
             final BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(activeRecipe.get().value());
@@ -255,7 +255,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                     level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
                         if (player instanceof ServerPlayer serverPlayer) {
                             SavedData.instance.getData(player.getUUID()).tryAddKnownRecipeServer(serverPlayer, recipeId, result);
-                            Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, recipe.getType(), PpIngredient.of(result));
+                            Advancements.CRAFT_RECIPE.trigger(serverPlayer, recipe.getType(), PpIngredient.of(result));
                         }
                     });
                     break;
@@ -286,12 +286,12 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
             return;
 
         for (int i = 0; i < 10; i++) {
-            level.addParticle(Particles.END_ROD_RAIN.get(), worldPosition.getX() + level.random.nextDouble() * 0.8 + 0.2, worldPosition.getY() + 2, worldPosition.getZ() + level.random.nextDouble() * 0.8 + 0.2, 0, 0, 0);
+            level.addParticle(Particles.END_ROD_RAIN.value(), worldPosition.getX() + level.getRandom().nextDouble() * 0.8 + 0.2, worldPosition.getY() + 2, worldPosition.getZ() + level.getRandom().nextDouble() * 0.8 + 0.2, 0, 0, 0);
         }
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, BrewingCauldronBlockEntity blockEntity) {
-        boolean isClientSide = level.isClientSide;
+        boolean isClientSide = level.isClientSide();
         BlockPos below = pos.below();
         boolean hasHeatSource = level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.FIRE)
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.LAVA)
@@ -357,11 +357,11 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
     }
 
     private static void spawnBoilingParticles(Level level, BlockPos pos, double particles) {
-        if (level.random.nextDouble() < particles) {
-            final int particleCount = level.random.nextInt(1, 5);
+        if (level.getRandom().nextDouble() < particles) {
+            final int particleCount = level.getRandom().nextInt(1, 5);
             for (int i = 0; i < particleCount; i++) {
                 SimpleParticleType particle = null;
-                switch (level.random.nextInt(3)) {
+                switch (level.getRandom().nextInt(3)) {
                     case 0:
                         particle = ParticleTypes.BUBBLE_COLUMN_UP;
                         break;
@@ -375,9 +375,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
                 level.addParticle(
                         particle,
-                        pos.getX() + level.random.nextDouble() * 0.8 + 0.2,
-                        pos.getY() + 0.85 + level.random.nextDouble() * 0.2,
-                        pos.getZ() + level.random.nextDouble() * 0.8 + 0.2,
+                        pos.getX() + level.getRandom().nextDouble() * 0.8 + 0.2,
+                        pos.getY() + 0.85 + level.getRandom().nextDouble() * 0.2,
+                        pos.getZ() + level.getRandom().nextDouble() * 0.8 + 0.2,
                         0, 0.1, 0);
             }
         }

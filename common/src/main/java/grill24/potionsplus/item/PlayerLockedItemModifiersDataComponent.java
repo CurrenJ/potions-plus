@@ -54,8 +54,8 @@ public record PlayerLockedItemModifiersDataComponent(List<AttributeModifier> att
     // ----- Implementation Logic -----
 
     public static void updateStack(Player player, ItemStack stack) {
-        OwnerDataComponent owner = stack.get(DataComponents.OWNER);
-        PlayerLockedItemModifiersDataComponent playerLockedItemModifiers = stack.get(DataComponents.PLAYER_LOCKED_ITEM_MODIFIERS);
+        OwnerDataComponent owner = stack.get(DataComponents.OWNER.get());
+        PlayerLockedItemModifiersDataComponent playerLockedItemModifiers = stack.get(DataComponents.PLAYER_LOCKED_ITEM_MODIFIERS.get());
 
         if (playerLockedItemModifiers == null) {
             return;
@@ -73,9 +73,9 @@ public record PlayerLockedItemModifiersDataComponent(List<AttributeModifier> att
         addItemModifiers(stack, attributeHolder, modifiers);
 
         // Update component on item stack
-        PlayerLockedItemModifiersDataComponent comp = stack.getOrDefault(DataComponents.PLAYER_LOCKED_ITEM_MODIFIERS, PlayerLockedItemModifiersDataComponent.empty())
+        PlayerLockedItemModifiersDataComponent comp = stack.getOrDefault(DataComponents.PLAYER_LOCKED_ITEM_MODIFIERS.get(), PlayerLockedItemModifiersDataComponent.empty())
                 .with(modifiers);
-        stack.set(DataComponents.PLAYER_LOCKED_ITEM_MODIFIERS, comp);
+        stack.set(DataComponents.PLAYER_LOCKED_ITEM_MODIFIERS.get(), comp);
 
         // Set owner data - we use this in updateStack()
         OwnerDataComponent.addOwnerToStack(player, stack);
@@ -98,14 +98,14 @@ public record PlayerLockedItemModifiersDataComponent(List<AttributeModifier> att
     }
 
     public static void clearModifiers(Player player, ItemStack stack) {
-        PlayerLockedItemModifiersDataComponent playerLockedItemModifiers = stack.get(DataComponents.PLAYER_LOCKED_ITEM_MODIFIERS);
+        PlayerLockedItemModifiersDataComponent playerLockedItemModifiers = stack.get(DataComponents.PLAYER_LOCKED_ITEM_MODIFIERS.get());
         if (playerLockedItemModifiers == null) {
             return;
         }
 
         playerLockedItemModifiers.clearPlayersModifiers(player);
         playerLockedItemModifiers.clearItemModifiers(stack);
-        stack.remove(DataComponents.PLAYER_LOCKED_ITEM_MODIFIERS);
+        stack.remove(DataComponents.PLAYER_LOCKED_ITEM_MODIFIERS.get());
     }
 
     public void clearItemModifiers(ItemStack stack) {
@@ -118,8 +118,8 @@ public record PlayerLockedItemModifiersDataComponent(List<AttributeModifier> att
         ItemAttributeModifiers updated = extension.potions_plus$withModifiersRemoved(attributeModifiers());
         stack.set(net.minecraft.core.component.DataComponents.ATTRIBUTE_MODIFIERS, updated);
 
-        if (stack.has(DataComponents.OWNER)) {
-            stack.remove(DataComponents.OWNER);
+        if (stack.has(DataComponents.OWNER.get())) {
+            stack.remove(DataComponents.OWNER.get());
         }
     }
 

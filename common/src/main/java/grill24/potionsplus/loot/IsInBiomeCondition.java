@@ -56,7 +56,7 @@ public record IsInBiomeCondition(Set<ResourceKey<Biome>> biomes) implements Loot
 
         Level level = context.getLevel();
         for (Entity entity : entitiesToCheck) {
-            Optional<ResourceKey<Biome>> currentBiome = Optional.ofNullable(level.getBiome(entity.blockPosition()).key());
+            Optional<ResourceKey<Biome>> currentBiome = level.getBiome(entity.blockPosition()).unwrapKey();
             if (currentBiome.isPresent() && biomes.contains(currentBiome.get())) {
                 return true;
             }

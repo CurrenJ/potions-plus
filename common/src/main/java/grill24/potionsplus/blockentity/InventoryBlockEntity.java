@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -24,6 +23,8 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Modifier;
@@ -48,7 +49,7 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
             if (packet != null) {
                 BlockPos pos = tile.getBlockPos();
                 ((ServerChunkCache) tile.getLevel().getChunkSource()).chunkMap
-                        .getPlayers(new ChunkPos(pos), false)
+                        .getPlayers(ChunkPos.containing(pos), false)
                         .forEach(e -> e.connection.send(packet));
             }
         }
@@ -58,52 +59,44 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
     public void setChanged() {
         super.setChanged();
         if (level != null) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 updateTileEntityForNearbyPlayers(this);
             }
         }
     }
 
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registryAccess) {
-        super.loadAdditional(tag, registryAccess);
-        readPacketNbt(tag, registryAccess);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        // Items are loaded via DataComponents (CONTAINER) in the base class.
+        loadSerializableFields(input);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registryAccess) {
-        super.saveAdditional(tag, registryAccess);
-        writePacketNbt(tag, registryAccess);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        // Items are saved via DataComponents (CONTAINER) in the base class.
+        saveSerializableFields(output);
     }
 
-    @Override
-    public final CompoundTag getUpdateTag(HolderLookup.Provider registryAccess) {
-        CompoundTag tag = new CompoundTag();
-        writePacketNbt(tag, registryAccess);
-        return tag;
-    }
-
-    public void writePacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
-        ContainerHelper.saveAllItems(tag, this.items, registryAccess);
-
+    private void loadSerializableFields(ValueInput input) {
         try {
             for (var field : getClass().getDeclaredFields()) {
                 if (!Modifier.isStatic(field.getModifiers()) && field.isAnnotationPresent(BlockEntitySerializableData.class)) {
                     String fieldName = field.getName();
-                    Object fieldValue = field.get(this);
 
-                    if (fieldValue instanceof Integer) {
-                        tag.putInt(fieldName, (int) fieldValue);
-                    } else if (fieldValue instanceof Float) {
-                        tag.putFloat(fieldName, (float) fieldValue);
-                    } else if (fieldValue instanceof Double) {
-                        tag.putDouble(fieldName, (double) fieldValue);
-                    } else if (fieldValue instanceof Long) {
-                        tag.putLong(fieldName, (long) fieldValue);
-                    } else if (fieldValue instanceof Boolean) {
-                        tag.putBoolean(fieldName, (boolean) fieldValue);
-                    } else if (fieldValue instanceof String) {
-                        tag.putString(fieldName, (String) fieldValue);
+                    if (field.getType() == int.class) {
+                        field.setInt(this, input.getIntOr(fieldName, 0));
+                    } else if (field.getType() == float.class) {
+                        field.setFloat(this, input.getFloatOr(fieldName, 0F));
+                    } else if (field.getType() == double.class) {
+                        field.setDouble(this, input.getDoubleOr(fieldName, 0D));
+                    } else if (field.getType() == long.class) {
+                        field.setLong(this, input.getLongOr(fieldName, 0L));
+                    } else if (field.getType() == boolean.class) {
+                        field.setBoolean(this, input.getBooleanOr(fieldName, false));
+                    } else if (field.getType() == String.class) {
+                        field.set(this, input.getStringOr(fieldName, null));
                     }
                 }
             }
@@ -112,32 +105,40 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
         }
     }
 
-    public void readPacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
-        this.items = NonNullList.withSize(getSlots(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, this.items, registryAccess);
-
+    private void saveSerializableFields(ValueOutput output) {
         try {
             for (var field : getClass().getDeclaredFields()) {
                 if (!Modifier.isStatic(field.getModifiers()) && field.isAnnotationPresent(BlockEntitySerializableData.class)) {
                     String fieldName = field.getName();
+                    Object fieldValue = field.get(this);
 
-                    if (field.getType() == int.class) {
-                        field.setInt(this, tag.getInt(fieldName).orElse(0));
-                    } else if (field.getType() == float.class) {
-                        field.setFloat(this, tag.getFloat(fieldName).orElse(0F));
-                    } else if (field.getType() == double.class) {
-                        field.setDouble(this, tag.getDouble(fieldName).orElse(0D));
-                    } else if (field.getType() == long.class) {
-                        field.setLong(this, tag.getLong(fieldName).orElse(0L));
-                    } else if (field.getType() == boolean.class) {
-                        field.setBoolean(this, tag.getBoolean(fieldName).orElse(false));
-                    } else if (field.getType() == String.class) {
-                        field.set(this, tag.getString(fieldName));
+                    if (fieldValue instanceof Integer intVal) {
+                        output.putInt(fieldName, intVal);
+                    } else if (fieldValue instanceof Float floatVal) {
+                        output.putFloat(fieldName, floatVal);
+                    } else if (fieldValue instanceof Double doubleVal) {
+                        output.putDouble(fieldName, doubleVal);
+                    } else if (fieldValue instanceof Long longVal) {
+                        output.putLong(fieldName, longVal);
+                    } else if (fieldValue instanceof Boolean boolVal) {
+                        output.putBoolean(fieldName, boolVal);
+                    } else if (fieldValue instanceof String strVal) {
+                        output.putString(fieldName, strVal);
                     }
                 }
             }
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public final CompoundTag getUpdateTag(HolderLookup.Provider registryAccess) {
+        var reporter = new net.minecraft.util.ProblemReporter.ScopedCollector(this.problemPath(), org.slf4j.LoggerFactory.getLogger(BlockEntity.class));
+        try (reporter) {
+            var output = net.minecraft.world.level.storage.TagValueOutput.createWithContext(reporter, registryAccess);
+            this.saveAdditional(output);
+            return output.buildResult();
         }
     }
 
@@ -237,19 +238,20 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    // Sync on chunk load
-    @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
-        super.handleUpdateTag(tag, registries);
-        setChanged();
+    // Legacy NBT serialization for subclasses (e.g. GeneticCropBlockEntity)
+    // Uses CompoundTag for network sync. For disk persistence, use loadAdditional/saveAdditional with ValueInput/ValueOutput.
+    public void writePacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
+        // @BlockEntitySerializableData fields are now handled via saveAdditional(ValueOutput).
+        // Subclasses should override loadAdditional/saveAdditional for new code.
+    }
+
+    public void readPacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
+        // @BlockEntitySerializableData fields are now handled via loadAdditional(ValueInput).
+        // Subclasses should override loadAdditional/saveAdditional for new code.
     }
 
     // Sync on block update
-    @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider registries) {
-        super.onDataPacket(connection, packet, registries);
-        setChanged();
-    }
+    // Packet handling is now automatic via loadWithComponents in the base class.
 
     protected abstract int getSlots();
 

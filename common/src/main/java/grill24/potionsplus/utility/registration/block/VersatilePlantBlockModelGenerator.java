@@ -101,7 +101,7 @@ public class VersatilePlantBlockModelGenerator<T, I extends Block> extends Block
         Block b = holder.value();
         if (b instanceof VersatilePlantBlock block) {
 
-            String name = holder.key().identifier().getPath();
+            String name = holder.unwrapKey().orElseThrow().identifier().getPath();
 
             // This loop generates a model for every texture used in the pattern
             Set<String> usedModels = new HashSet<>();

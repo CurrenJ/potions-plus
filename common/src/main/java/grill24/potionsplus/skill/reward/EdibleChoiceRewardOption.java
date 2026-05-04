@@ -33,8 +33,8 @@ public record EdibleChoiceRewardOption(
         if (optionalLinkedChoiceParent.isPresent() && optionalLinkedOption.isPresent() &&
                 optionalLinkedChoiceParent.get().value().reward() instanceof EdibleChoiceReward) {
             ItemStack item = this.activationFood.copy();
-            item.set(DataComponents.CHOICE_ITEM, new EdibleRewardGranterDataComponent(linkedChoiceParent, linkedOption, flag));
-            item.set(DataComponents.OWNER, OwnerDataComponent.fromPlayer(player));
+            item.set(DataComponents.CHOICE_ITEM.get(), new EdibleRewardGranterDataComponent(linkedChoiceParent, linkedOption, flag));
+            item.set(DataComponents.OWNER.get(), OwnerDataComponent.fromPlayer(player));
             item.set(net.minecraft.core.component.DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
 
             return item;

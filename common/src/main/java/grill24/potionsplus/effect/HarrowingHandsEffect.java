@@ -45,7 +45,7 @@ public class HarrowingHandsEffect extends MobEffect implements IEffectTooltipDet
 
     public static void applyEffect(int duration, AbstractSkeleton... skeletons) {
         for (AbstractSkeleton skeleton : skeletons) {
-            if (skeleton.level().isClientSide || skeleton.hasEffect(MobEffects.BONE_BUDDY))
+            if (skeleton.level().isClientSide() || skeleton.hasEffect(MobEffects.BONE_BUDDY))
                 return;
 
             skeleton.addEffect(new MobEffectInstance(MobEffects.BONE_BUDDY, duration, 0, false, false, true));

@@ -29,8 +29,8 @@ public record WeightDataComponent(float weight) {
     public static void onTooltip(final AnimatedItemTooltipEvent.Add event) {
         // Fish Size Data Component Tooltip
         ItemStack stack = event.getItemStack();
-        if (stack.has(grill24.potionsplus.core.DataComponents.WEIGHT)) {
-            WeightDataComponent weightData = stack.get(grill24.potionsplus.core.DataComponents.WEIGHT);
+        if (stack.has(grill24.potionsplus.core.DataComponents.WEIGHT.get())) {
+            WeightDataComponent weightData = stack.get(grill24.potionsplus.core.DataComponents.WEIGHT.get());
             if (weightData != null) {
                 AnimatedItemTooltipEvent.TooltipLines tooltipLines = AnimatedItemTooltipEvent.TooltipLines.of(ppId("weight"), TooltipPriorities.SIZE, weightData.getWeightText());
                 event.addTooltipMessage(tooltipLines);

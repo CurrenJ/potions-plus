@@ -46,11 +46,11 @@ public class AbyssalTroveTrigger extends SimpleCriterionTrigger<AbyssalTroveTrig
         }
 
         public static Criterion<AbyssalTroveTrigger.TriggerInstance> create(float fillPercentage) {
-            return Advancements.ABYSSAL_TROVE_TRIGGER.value().createCriterion(new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.of(fillPercentage), Optional.empty()));
+            return Advancements.ABYSSAL_TROVE_TRIGGER.createCriterion(new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.of(fillPercentage), Optional.empty()));
         }
 
         public static Criterion<AbyssalTroveTrigger.TriggerInstance> create(PotionUpgradeIngredients.Rarity rarity) {
-            return Advancements.ABYSSAL_TROVE_TRIGGER.value().createCriterion(new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.empty(), Optional.of(rarity)));
+            return Advancements.ABYSSAL_TROVE_TRIGGER.createCriterion(new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.empty(), Optional.of(rarity)));
         }
 
         public boolean test(float fillPercentage, PpIngredient addedItem) {

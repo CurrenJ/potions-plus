@@ -40,7 +40,7 @@ public abstract class BootstrapMixin {
         level.setBlockAndUpdate(blockPos, BlockEntityBlocks.BREWING_CAULDRON.value().defaultBlockState());
         level.playSound(player, blockPos, SoundEvents.MOOSHROOM_CONVERT, player.getSoundSource(), 1.0F, 1.0F);
         if (player instanceof ServerPlayer serverplayer) {
-            Advancements.BREWING_CAULDRON_CREATION.value().trigger(serverplayer, BlockEntityBlocks.BREWING_CAULDRON.value().defaultBlockState());
+            Advancements.BREWING_CAULDRON_CREATION.trigger(serverplayer, BlockEntityBlocks.BREWING_CAULDRON.value().defaultBlockState());
         }
         return InteractionResult.CONSUME;
     }

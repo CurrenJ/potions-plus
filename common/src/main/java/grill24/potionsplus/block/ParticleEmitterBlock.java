@@ -75,7 +75,7 @@ public class ParticleEmitterBlock extends Block {
 
     @Override
     public InteractionResult useItemOn(ItemStack stack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             Item itemInHand = stack.getItem();
             if (PARTICLE_INTENSITY_MAP.containsKey(itemInHand)) {
                 int previousParticleIntensity = blockState.getValue(PARTICLE_INTENSITY);
@@ -144,7 +144,7 @@ public class ParticleEmitterBlock extends Block {
 
     @Override
     public void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, Orientation neighborOrientation, boolean b) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             boolean flag = blockState.getValue(ENABLED);
             if (flag != level.hasNeighborSignal(blockPos)) {
                 if (flag) {

@@ -8,7 +8,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.TriState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -164,8 +163,6 @@ public class VersatilePlantBlock extends VegetationBlock {
     public boolean canSurviveFacing(BlockState state, LevelReader level, BlockPos pos, Direction facing) {
         BlockPos blockpos = pos.relative(facing.getOpposite());
         BlockState belowBlockState = level.getBlockState(blockpos);
-        TriState soilDecision = belowBlockState.canSustainPlant(level, blockpos, facing.getOpposite(), state);
-        if (!soilDecision.isDefault()) return soilDecision.isTrue();
         return this.mayPlaceOn(belowBlockState, level, blockpos);
     }
 
@@ -267,7 +264,7 @@ public class VersatilePlantBlock extends VegetationBlock {
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             if (player.isCreative()) {
                 // TODO: Implement this method
                 // preventDropFromNonBaseSegments(level, pos, state, player);
@@ -312,7 +309,7 @@ public class VersatilePlantBlock extends VegetationBlock {
                 if (!player.isCreative()) {
                     stack.shrink(1);
                 }
-                level.playSound(null, pos, this.getSoundType(state, level, pos, player).getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.playSound(null, pos, this.getSoundType(state).getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
             }
 
             return InteractionResult.CONSUME;

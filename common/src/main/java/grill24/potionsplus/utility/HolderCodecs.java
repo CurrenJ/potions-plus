@@ -9,9 +9,9 @@ import net.minecraft.core.RegistryCodecs;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.HolderSetCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.ExtraCodecs;
 
 import java.util.List;
 
@@ -39,7 +39,9 @@ public record HolderCodecs<E>(
     }
 
     public static <E> Codec<List<Holder<E>>> holderList(ResourceKey<? extends Registry<E>> registryKey, Codec<E> directCodec) {
-        return ((HolderSetCodec<E>) HolderSetCodec.create(registryKey, holder(registryKey, directCodec), false)).homogenousListCodec;
+        Codec<Holder<E>> holderCodec = holder(registryKey, directCodec);
+        Codec<List<Holder<E>>> listCodec = holderCodec.listOf().validate(ExtraCodecs.ensureHomogenous(Holder::kind));
+        return ExtraCodecs.compactListCodec(holderCodec, listCodec);
     }
 
     public static <E> Codec<HolderSet<E>> holderSet(ResourceKey<? extends Registry<E>> registryKey) {

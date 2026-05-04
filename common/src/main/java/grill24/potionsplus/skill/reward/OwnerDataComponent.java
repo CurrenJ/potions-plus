@@ -58,7 +58,7 @@ public record OwnerDataComponent(UUID uuid, String playerDisplayName) {
     }
 
     public static void addOwnerToStack(Player player, ItemStack stack) {
-        stack.set(DataComponents.OWNER, OwnerDataComponent.fromPlayer(player, false));
+        stack.set(DataComponents.OWNER.get(), OwnerDataComponent.fromPlayer(player, false));
     }
 
     /**
@@ -73,8 +73,8 @@ public record OwnerDataComponent(UUID uuid, String playerDisplayName) {
     public static void onTooltip(final AnimatedItemTooltipEvent.Add event) {
         // Owner Data Component Tooltip
         ItemStack stack = event.getItemStack();
-        if (stack.has(grill24.potionsplus.core.DataComponents.OWNER)) {
-            OwnerDataComponent ownerData = stack.get(grill24.potionsplus.core.DataComponents.OWNER);
+        if (stack.has(grill24.potionsplus.core.DataComponents.OWNER.get())) {
+            OwnerDataComponent ownerData = stack.get(grill24.potionsplus.core.DataComponents.OWNER.get());
             if (ownerData != null && ownerData.shouldShowTooltip()) {
                 boolean isOwner = ownerData.isOwner(event.getPlayer());
                 MutableComponent ownerText = ownerData.getTooltipComponent();

@@ -20,8 +20,8 @@ public class ConsumableMixin {
     @Inject(method = "canConsume", at = @At(value = "HEAD"), cancellable = true)
     private void potions_plus$canEat(LivingEntity entity, ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (entity instanceof Player player) {
-            if (stack.has(DataComponents.CHOICE_ITEM) && stack.has(DataComponents.OWNER)) {
-                OwnerDataComponent ownerData = stack.get(DataComponents.OWNER);
+            if (stack.has(DataComponents.CHOICE_ITEM.get()) && stack.has(DataComponents.OWNER.get())) {
+                OwnerDataComponent ownerData = stack.get(DataComponents.OWNER.get());
                 if (ownerData != null) {
                     cir.setReturnValue(ownerData.isOwner(player));
                 }

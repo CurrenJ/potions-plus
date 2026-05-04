@@ -76,11 +76,11 @@ public class GeodeGraceEffect extends MobEffect implements IEffectTooltipDetails
             MobEffectInstance geodeGraceInstance = entity.getEffect(MobEffects.GEODE_GRACE);
             int amplifier = geodeGraceInstance != null ? geodeGraceInstance.getAmplifier() : 0;
 
-            boolean doTrySpawnOres = level.random.nextFloat() < getActivationChance(amplifier);
+            boolean doTrySpawnOres = level.getRandom().nextFloat() < getActivationChance(amplifier);
             if (doTrySpawnOres) {
-                Block stoneOreToSpawn = STONE_ORE_WEIGHTS.getRandom(level.random).get();
+                Block stoneOreToSpawn = STONE_ORE_WEIGHTS.getRandom(level.getRandom()).get();
 
-                int numToSpawn = ORE_COUNT_WEIGHTS.getRandom(level.random).get();
+                int numToSpawn = ORE_COUNT_WEIGHTS.getRandom(level.getRandom()).get();
                 for (int i = 0; i < numToSpawn; i++) {
                     BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
                     if (tryGenerateBlock(level, pos, mutableBlockPos, stoneOreToSpawn)) {

@@ -8,7 +8,7 @@ import grill24.potionsplus.item.GeneticCropItem;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperty;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,8 +21,8 @@ public record GeneticProperty(int chromosomeIndex) implements RangeSelectItemMod
     ).apply(instance, GeneticProperty::new));
 
     @Override
-    public float get(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int seed) {
-        if (stack.has(DataComponents.GENETIC_DATA) && stack.getItem() instanceof GeneticCropItem geneticCropItem) {
+    public float get(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable ItemOwner livingEntity, int seed) {
+        if (stack.has(DataComponents.GENETIC_DATA.get()) && stack.getItem() instanceof GeneticCropItem geneticCropItem) {
             return geneticCropItem.getChromosomeValueNormalized(stack, chromosomeIndex);
         }
         return 0.0F;

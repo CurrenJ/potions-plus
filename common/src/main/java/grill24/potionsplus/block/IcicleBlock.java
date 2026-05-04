@@ -126,7 +126,7 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
 
     @Override
     protected void onProjectileHit(Level p_154042_, BlockState p_154043_, BlockHitResult p_154044_, Projectile p_154045_) {
-        if (!p_154042_.isClientSide) {
+        if (!p_154042_.isClientSide()) {
             BlockPos blockpos = p_154044_.getBlockPos();
             if (p_154042_ instanceof ServerLevel serverlevel
                     && p_154045_.mayInteract(serverlevel, blockpos)
@@ -508,7 +508,13 @@ public class IcicleBlock extends Block implements Fallable, SimpleWaterloggedBlo
     @Nullable
     private static BlockPos findFillableCauldronBelowStalactiteTip(Level p_154077_, BlockPos p_154078_, Fluid p_154079_) {
         Predicate<BlockState> predicate = (p_154162_) -> {
-            return p_154162_.getBlock() instanceof AbstractCauldronBlock && ((AbstractCauldronBlock) p_154162_.getBlock()).canReceiveStalactiteDrip(p_154079_);
+            Block block = p_154162_.getBlock();
+            if (block instanceof CauldronBlock) {
+                return true;
+            } else if (block instanceof LayeredCauldronBlock) {
+                return p_154079_ == Fluids.WATER;
+            }
+            return false;
         };
         BiPredicate<BlockPos, BlockState> bipredicate = (p_202034_, p_202035_) -> {
             return canDripThrough(p_154077_, p_202034_, p_202035_);

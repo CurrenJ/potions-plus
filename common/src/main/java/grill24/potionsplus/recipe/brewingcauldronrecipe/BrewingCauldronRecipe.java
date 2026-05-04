@@ -99,7 +99,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             Map<ResourceKey<MobEffect>, MobEffectInstance> totaledEffects = new HashMap<>();
             // Combine effects for each effect type. Take max duration and amplifier.
             for (MobEffectInstance mobEffectInstance : allInputEffects) {
-                ResourceKey<MobEffect> key = mobEffectInstance.getEffect().key();
+                ResourceKey<MobEffect> key = mobEffectInstance.getEffect().unwrapKey().orElseThrow();
 
                 MobEffectInstance totalEffect = totaledEffects.getOrDefault(key, new MobEffectInstance(mobEffectInstance.getEffect(), mobEffectInstance.getDuration(), mobEffectInstance.getAmplifier(), mobEffectInstance.isAmbient(), mobEffectInstance.isVisible(), mobEffectInstance.showIcon()));
                 MobEffectInstance effect = new MobEffectInstance(mobEffectInstance.getEffect(), Math.max(totalEffect.getDuration(), mobEffectInstance.getDuration()), Math.max(totalEffect.getAmplifier(), mobEffectInstance.getAmplifier()), mobEffectInstance.isAmbient(), mobEffectInstance.isVisible(), mobEffectInstance.showIcon());
@@ -205,7 +205,17 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
 
     @Override
     public @NotNull RecipeType<BrewingCauldronRecipe> getType() {
-        return Recipes.BREWING_CAULDRON_RECIPE.get();
+        return Recipes.BREWING_CAULDRON_RECIPE;
+    }
+
+    @Override
+    public String group() {
+        return "";
+    }
+
+    @Override
+    public boolean showNotification() {
+        return false;
     }
 
     @Override
@@ -285,7 +295,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             codecBuilder -> codecBuilder.group(
                     ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
                     PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
-                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
+                    ItemStack.CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
                     Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
                     Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei),
                     Codec.FLOAT.optionalFieldOf("experienceReward", 0F).forGetter(BrewingCauldronRecipe::getExperienceReward),

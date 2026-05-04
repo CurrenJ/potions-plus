@@ -42,7 +42,7 @@ public record SkillLevelUpRewardsData(String translationKey, List<Holder<Configu
 
     public void grant(ServerPlayer player) {
         for (Holder<ConfiguredGrantableReward<?, ?>> reward : rewards) {
-            reward.value().grant(reward.key(), player);
+            reward.unwrapKey().ifPresent(key -> reward.value().grant(key, player));
         }
     }
 
@@ -95,7 +95,7 @@ public record SkillLevelUpRewardsData(String translationKey, List<Holder<Configu
 
         public Builder addReward(HolderGetter<ConfiguredGrantableReward<?, ?>> lookup, ConfiguredGrantableRewards.IRewardBuilder... rewards) {
             for (ConfiguredGrantableRewards.IRewardBuilder reward : rewards) {
-                addReward(lookup, reward.key());
+                addReward(lookup, reward.getKey());
             }
             return this;
 

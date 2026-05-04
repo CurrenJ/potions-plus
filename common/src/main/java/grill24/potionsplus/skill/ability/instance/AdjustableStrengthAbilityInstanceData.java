@@ -104,10 +104,10 @@ public class AdjustableStrengthAbilityInstanceData extends SimpleAbilityInstance
     }
 
     public void clientRequestDecreaseStrength(LocalPlayer player) {
-        PacketNetwork.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.key().identifier(), -stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
+        PacketNetwork.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.unwrapKey().orElseThrow().identifier(), -stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
     }
 
     public void clientRequestIncreaseStrength(LocalPlayer player) {
-        PacketNetwork.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.key().identifier(), stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
+        PacketNetwork.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.unwrapKey().orElseThrow().identifier(), stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
     }
 }

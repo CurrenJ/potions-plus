@@ -13,9 +13,13 @@ import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Lightmap;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -49,80 +53,25 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
         profiler = Profiler.get();
     }
 
+    @Deprecated
+    public void renderLegacy(ClotheslineBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
+        // Old render implementation removed. Rendering now uses state-based pipeline with extractRenderState() and submit().
+    }
+
     @Override
-    public void render(ClotheslineBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
-        profiler.push("clothesline_render");
+    public ClotheslineRenderState createRenderState() {
+        return new ClotheslineRenderState();
+    }
 
-        if (blockEntity.getLevel() != null) {
-            BlockPos left = ClotheslineBlock.getLeftEnd(blockEntity.getBlockPos(), blockEntity.getBlockState());
-            BlockPos right = ClotheslineBlock.getOtherEnd(left, blockEntity.getLevel().getBlockState(left));
+    @Override
+    public void extractRenderState(final ClotheslineBlockEntity blockEntity, final ClotheslineRenderState state, final float partialTicks, final Vec3 cameraPosition, final ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay breakProgress) {
+        BlockEntityRenderState.extractBase(blockEntity, state, breakProgress);
+        // TODO: Extract clothesline data from blockEntity into state
+    }
 
-            // Prevent rendering the same clothesline twice (once for each end)
-            if (clotheslinesRendered.contains(left) || clotheslinesRendered.contains(right))
-                return;
-            clotheslinesRendered.add(blockEntity.getBlockPos());
-
-            // Render the "clothesline" (repurposed lead rendering code from vanilla) between the two posts
-            Level level = blockEntity.getLevel();
-            int blockLightStart = 0, blockLightEnd = 0, skyLightStart = 0, skyLightEnd = 0;
-            if (level != null) {
-                blockLightStart = level.getBrightness(LightLayer.BLOCK, left);
-                blockLightEnd = level.getBrightness(LightLayer.BLOCK, right);
-                skyLightStart = level.getBrightness(LightLayer.SKY, left);
-                skyLightEnd = level.getBrightness(LightLayer.SKY, right);
-            }
-
-            LeashRenderer.renderLeashBetweenPoints(blockEntity.getBlockPos(),
-                    Vec3.atLowerCornerOf(left).add(OFFSET_IN_POST_BLOCKS.x(), OFFSET_IN_POST_BLOCKS.y(), OFFSET_IN_POST_BLOCKS.z()),
-                    Vec3.atLowerCornerOf(right).add(OFFSET_IN_POST_BLOCKS.x(), OFFSET_IN_POST_BLOCKS.y(), OFFSET_IN_POST_BLOCKS.z()),
-                    matrices, vertexConsumers, blockLightStart, blockLightEnd, skyLightStart, skyLightEnd);
-
-            ClotheslineBlockEntity leftBlockEntity = level.getBlockEntity(left, Blocks.CLOTHESLINE_BLOCK_ENTITY.value()).orElse(null);
-            if (leftBlockEntity == null)
-                return;
-
-            BlockPos leftRelativeToRenderOrigin = left.subtract(blockEntity.getBlockPos());
-            BlockPos rightRelativeToRenderOrigin = right.subtract(blockEntity.getBlockPos());
-            renderPosts(matrices, vertexConsumers, leftBlockEntity, leftRelativeToRenderOrigin, rightRelativeToRenderOrigin, Lightmap.pack(blockLightStart, skyLightStart), overlay);
-
-            // Render items on the clothesline
-            for (int i = 0; i < leftBlockEntity.getContainerSize(); i++) {
-                ItemStack stack = leftBlockEntity.getItem(i);
-                if (!stack.isEmpty()) {
-                    matrices.pushPose();
-
-                    Vector3f position = ClotheslineBlockEntityBakedRenderData.getItemPoint(blockEntity.getBlockPos(), blockEntity.getBlockState(), i, false);
-
-                    // If this is the right end, adjust the position to the left end
-                    if (!ClotheslineBlock.isLeftEnd(blockEntity.getBlockState())) {
-                        BlockPos difference = ClotheslineBlock.getOtherEnd(blockEntity.getBlockPos(), blockEntity.getBlockState()).subtract(blockEntity.getBlockPos());
-                        position.add(difference.getX(), difference.getY(), difference.getZ());
-                    }
-
-                    // Render the item
-                    matrices.translate(position.x(), position.y(), position.z());
-                    matrices.scale(0.5f, 0.5f, 0.5f);
-                    matrices.mulPose(orientItemToClotheslineOrientation(blockEntity.getBlockState()));
-                    // Swing the item a bit :)
-                    float amplitude = 15 * (1 - leftBlockEntity.getProgress(i));
-
-                    float swing = (float) (Math.sin(ClientTickHandler.total() / 10 + i * 7) * amplitude);
-                    matrices.mulPose(RUtil.rotateX(swing));
-                    matrices.translate(ITEM_OFFSET.x(), ITEM_OFFSET.y(), ITEM_OFFSET.z());
-
-                    // TODO: Duplicate code from leashrenderer - optimize
-                    float stepFraction = (i + 1f) / (leftBlockEntity.getContainerSize() + 1);
-                    int mixedBlockLight = (int) Mth.lerp(stepFraction, blockLightStart, blockLightEnd);
-                    int mixedSkyLight = (int) Mth.lerp(stepFraction, skyLightStart, skyLightEnd);
-
-                    Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
-                            Lightmap.pack(mixedBlockLight, mixedSkyLight), overlay, matrices, vertexConsumers, blockEntity.getLevel(), 0);
-                    matrices.popPose();
-                }
-            }
-        }
-
-        profiler.pop();
+    @Override
+    public void submit(final ClotheslineRenderState state, final PoseStack poseStack, final SubmitNodeCollector submitNodeCollector, final CameraRenderState camera) {
+        // TODO: Submit rendering using state data via submitNodeCollector
     }
 
     private Quaternionf orientItemToClotheslineOrientation(BlockState clothesLine) {
@@ -133,31 +82,4 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
         return new Quaternionf().identity();
     }
 
-    private static final Set<BlockPos> clotheslinesRendered = java.util.concurrent.ConcurrentHashMap.newKeySet();
-
-    private void renderPosts(PoseStack poseStack, MultiBufferSource bufferSource, ClotheslineBlockEntity fishTankBlockEntity, BlockPos leftRelative, BlockPos rightRelative, int light, int overlay) {
-        Optional<BlockState> post = fishTankBlockEntity.getFencePostBlockState();
-
-        poseStack.pushPose();
-        poseStack.translate(leftRelative.getX(), leftRelative.getY(), leftRelative.getZ());
-        post.ifPresent(state -> BlockModelResolver.renderSingleBlock(
-                state,
-                poseStack,
-                bufferSource,
-                light,
-                overlay
-        ));
-        poseStack.popPose();
-
-        poseStack.pushPose();
-        poseStack.translate(rightRelative.getX(), rightRelative.getY(), rightRelative.getZ());
-        post.ifPresent(state -> BlockModelResolver.renderSingleBlock(
-                state,
-                poseStack,
-                bufferSource,
-                light,
-                overlay
-        ));
-        poseStack.popPose();
-    }
 }

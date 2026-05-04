@@ -20,7 +20,7 @@ public class HugeFilterHopperBlock extends FilterHopperBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.HUGE_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+        return level.isClientSide() ? null : createTickerHelper(blockEntityType, Blocks.HUGE_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
     }
 
     @Override

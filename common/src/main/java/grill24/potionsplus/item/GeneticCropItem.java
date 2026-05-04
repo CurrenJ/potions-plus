@@ -67,7 +67,7 @@ public abstract class GeneticCropItem extends BlockItem {
     }
 
     public int getChromosomeValue(ItemStack stack, int index) {
-        Genotype genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new Genotype());
+        Genotype genotype = stack.getOrDefault(DataComponents.GENETIC_DATA.get(), new Genotype());
         int[] genotypeArray = genotype.getGenotypeAsIntArray();
         if (index < 0 || index >= genotypeArray.length) {
             throw new IndexOutOfBoundsException("Chromosome index out of bounds: " + index);
@@ -81,13 +81,13 @@ public abstract class GeneticCropItem extends BlockItem {
     }
 
     public ItemStack setChromosomeValue(ItemStack stack, int index, int value) {
-        Genotype genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new Genotype());
+        Genotype genotype = stack.getOrDefault(DataComponents.GENETIC_DATA.get(), new Genotype());
         int[] genotypeArray = genotype.getGenotypeAsIntArray();
         if (index < 0 || index >= genotypeArray.length) {
             throw new IndexOutOfBoundsException("Chromosome index out of bounds: " + index);
         }
         genotypeArray[index] = value;
-        stack.set(DataComponents.GENETIC_DATA, new Genotype(genotypeArray));
+        stack.set(DataComponents.GENETIC_DATA.get(), new Genotype(genotypeArray));
 
         return onGeneticDataChanged(stack);
     }
@@ -124,13 +124,13 @@ public abstract class GeneticCropItem extends BlockItem {
             chromosomes[chromosomeIndex] = value;
         }
 
-        stack.set(DataComponents.GENETIC_DATA, new Genotype(chromosomes));
+        stack.set(DataComponents.GENETIC_DATA.get(), new Genotype(chromosomes));
         return stack;
     }
 
     public static void onAnimatedTooltip(final AnimatedItemTooltipEvent.Add event) {
         ItemStack stack = event.getItemStack();
-        if (stack.has(DataComponents.GENETIC_DATA) && stack.getItem() instanceof GeneticCropItem geneticCropItem) {
+        if (stack.has(DataComponents.GENETIC_DATA.get()) && stack.getItem() instanceof GeneticCropItem geneticCropItem) {
             int weight = geneticCropItem.getWeightInGrams(stack);
             AnimatedItemTooltipEvent.TooltipLines weightTrait = AnimatedItemTooltipEvent.TooltipLines.of(
                     grill24.potionsplus.utility.Utility.ppId("weight"),

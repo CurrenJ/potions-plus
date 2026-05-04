@@ -37,7 +37,17 @@ public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
 
     @Override
     public @NotNull RecipeType<SanguineAltarRecipe> getType() {
-        return Recipes.SANGUINE_ALTAR_RECIPE.get();
+        return Recipes.SANGUINE_ALTAR_RECIPE;
+    }
+
+    @Override
+    public String group() {
+        return "";
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
     }
 
     public boolean matches(ItemStack itemStack) {
@@ -48,7 +58,7 @@ public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
             codecBuilder -> codecBuilder.group(
                     ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
                     PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
-                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
+                    ItemStack.CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
                     Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
                     Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei)
             ).apply(codecBuilder, SanguineAltarRecipe::new)

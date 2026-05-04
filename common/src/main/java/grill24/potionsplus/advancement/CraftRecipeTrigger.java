@@ -49,15 +49,15 @@ public class CraftRecipeTrigger extends SimpleCriterionTrigger<CraftRecipeTrigge
 
         // In the create method, we need to pass in the recipe type and the recipe id
         public static Criterion<CraftRecipeTrigger.TriggerInstance> create(ResourceKey<RecipeType<?>> recipeType, PpIngredient recipeResult, List<BrewingCauldronRecipe.PotionMatchingCriteria> potionMatchingCriteria) {
-            return Advancements.CRAFT_RECIPE.value().createCriterion(new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.of(recipeResult), Optional.of(potionMatchingCriteria)));
+            return Advancements.CRAFT_RECIPE.createCriterion(new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.of(recipeResult), Optional.of(potionMatchingCriteria)));
         }
 
         public static Criterion<CraftRecipeTrigger.TriggerInstance> create(ResourceKey<RecipeType<?>> recipeType, PpIngredient recipeResult) {
-            return Advancements.CRAFT_RECIPE.value().createCriterion(new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.of(recipeResult), Optional.empty()));
+            return Advancements.CRAFT_RECIPE.createCriterion(new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.of(recipeResult), Optional.empty()));
         }
 
         public static Criterion<CraftRecipeTrigger.TriggerInstance> create(ResourceKey<RecipeType<?>> recipeType) {
-            return Advancements.CRAFT_RECIPE.value().createCriterion(new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.empty(), Optional.empty()));
+            return Advancements.CRAFT_RECIPE.createCriterion(new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.empty(), Optional.empty()));
         }
 
         public boolean test(RecipeType<?> recipeType, PpIngredient result) {

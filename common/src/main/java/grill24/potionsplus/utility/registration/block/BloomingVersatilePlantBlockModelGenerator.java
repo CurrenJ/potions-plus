@@ -31,7 +31,7 @@ public class BloomingVersatilePlantBlockModelGenerator<T, B extends Block> exten
 
     public static <T> void registerBloomingPlantBlock(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Holder<? extends Block> holder, ClientModelData<T> data) {
         if (holder.value() instanceof BloomingPlantBlock block) {
-            String name = holder.key().identifier().getPath();
+            String name = holder.unwrapKey().orElseThrow().identifier().getPath();
 
             // This loop generates a model for every texture used in the pattern
             Set<String> usedModels = new HashSet<>();

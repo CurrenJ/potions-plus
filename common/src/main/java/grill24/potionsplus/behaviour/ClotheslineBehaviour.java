@@ -35,7 +35,7 @@ public class ClotheslineBehaviour {
         BlockState state = level.getBlockState(pos);
         Item item = itemStack.getItem();
         if ((state.is(BlockTags.FENCES) || state.is(BlockTags.WALLS)) && item == INTERACTION_ITEM) {
-            if (!level.isClientSide)
+            if (!level.isClientSide())
                 return true;
             player.swing(hand);
 
@@ -87,10 +87,10 @@ public class ClotheslineBehaviour {
     private static void spawnParticles(Level level, BlockPos blockPos) {
         Vec3 pos = Vec3.atCenterOf(blockPos);
         for (int i = 0; i < 5; i++) {
-            level.addParticle(Particles.END_ROD_RAIN.get(),
-                    pos.x + Utility.nextGaussian(0, 0.1, level.random),
-                    pos.y + 0.5 + Utility.nextGaussian(0, 0.1, level.random),
-                    pos.z + Utility.nextGaussian(0, 0.1, level.random),
+            level.addParticle(Particles.END_ROD_RAIN.value(),
+                    pos.x + Utility.nextGaussian(0, 0.1, level.getRandom()),
+                    pos.y + 0.5 + Utility.nextGaussian(0, 0.1, level.getRandom()),
+                    pos.z + Utility.nextGaussian(0, 0.1, level.getRandom()),
                     0, 0, 0);
         }
     }

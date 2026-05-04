@@ -57,7 +57,17 @@ public class ClotheslineRecipe extends ShapelessProcessingRecipe {
 
     @Override
     public @NotNull RecipeType<ClotheslineRecipe> getType() {
-        return Recipes.CLOTHESLINE_RECIPE.get();
+        return Recipes.CLOTHESLINE_RECIPE;
+    }
+
+    @Override
+    public String group() {
+        return "";
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
     }
 
     public boolean matches(ItemStack itemStack) {
@@ -68,7 +78,7 @@ public class ClotheslineRecipe extends ShapelessProcessingRecipe {
             codecBuilder -> codecBuilder.group(
                     ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
                     PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
-                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
+                    ItemStack.CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
                     Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
                     Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei),
                     Codec.FLOAT.optionalFieldOf("successChance", 1.0f).forGetter(ShapelessProcessingRecipe::getSuccessChance),

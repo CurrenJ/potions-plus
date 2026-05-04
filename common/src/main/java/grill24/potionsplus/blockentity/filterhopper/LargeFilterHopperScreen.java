@@ -11,10 +11,7 @@ public class LargeFilterHopperScreen extends FilterHopperScreen<LargeFilterHoppe
     private static final Identifier TEX = ppId("textures/gui/container/filter_hopper_large.png");
 
     public LargeFilterHopperScreen(LargeFilterHopperMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title, 32, 23, 8, 6);
-
-        this.imageWidth = 195;
-        this.imageHeight = 233;
+        super(menu, playerInventory, title, 195, 233, 32, 23, 8, 6);
     }
 
     @Override

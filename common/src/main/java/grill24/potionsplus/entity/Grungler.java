@@ -1,9 +1,10 @@
 package grill24.potionsplus.entity;
 
 import grill24.potionsplus.core.Entities;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -54,27 +55,25 @@ public class Grungler extends Monster {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        if (compoundTag.contains("BlockState")) {
-            BlockState blockState = BlockState.CODEC.parse(NbtOps.INSTANCE, compoundTag.get("BlockState"))
-                    .resultOrPartial(error -> {
-                        throw new RuntimeException("Failed to decode BlockState: " + error);
-                    })
-                    .orElse(Blocks.AIR.defaultBlockState());
-            this.getEntityData().set(DATA, blockState);
-        }
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        BlockState blockState = BlockState.CODEC.parse(NbtOps.INSTANCE, input.getOrThrow("BlockState"))
+                .resultOrPartial(error -> {
+                    throw new RuntimeException("Failed to decode BlockState: " + error);
+                })
+                .orElse(Blocks.AIR.defaultBlockState());
+        this.getEntityData().set(DATA, blockState);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
         BlockState blockState = this.getEntityData().get(DATA);
         BlockState.CODEC.encodeStart(NbtOps.INSTANCE, blockState)
                 .resultOrPartial(error -> {
                     throw new RuntimeException("Failed to encode BlockState: " + error);
                 })
-                .ifPresent(encodedBlockState -> compoundTag.put("BlockState", encodedBlockState));
+                .ifPresent(encodedBlockState -> output.put("BlockState", encodedBlockState));
     }
 
     @Override
@@ -99,7 +98,7 @@ public class Grungler extends Monster {
             if (breaker instanceof Player player && !player.isCreative() && player.level() instanceof ServerLevel serverLevel) {
                 float spawnChance = 0.01F;
                 if (serverLevel.getRandom().nextDouble() < spawnChance) {
-                    Grungler grungler = Entities.GRUNGLER.get().spawn(serverLevel, pos, EntitySpawnReason.NATURAL);
+                    Grungler grungler = Entities.GRUNGLER.value().spawn(serverLevel, pos, EntitySpawnReason.NATURAL);
                     grungler.getEntityData().set(Grungler.DATA, blockState);
                     return true;
                 }

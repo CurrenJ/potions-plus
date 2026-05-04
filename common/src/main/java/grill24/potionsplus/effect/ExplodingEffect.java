@@ -26,7 +26,7 @@ public class ExplodingEffect extends MobEffect implements IEffectTooltipDetails 
     }
 
     public static void onPotionExpiry(LivingEntity entity, @org.jetbrains.annotations.Nullable MobEffectInstance effectInstance) {
-        if (!entity.level().isClientSide && Objects.requireNonNull(effectInstance).getEffect() == MobEffects.EXPLODING) {
+        if (!entity.level().isClientSide() && Objects.requireNonNull(effectInstance).getEffect() == MobEffects.EXPLODING) {
             boolean isPlayer = entity instanceof Player;
             int amplifier = effectInstance.getAmplifier() + 1;
 

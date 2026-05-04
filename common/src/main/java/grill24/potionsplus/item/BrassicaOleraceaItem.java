@@ -56,7 +56,7 @@ public class BrassicaOleraceaItem extends GeneticCropItem {
         Variation variation = getVariation(superModifiedStack);
 
         ItemStack result = new ItemStack(variation.getItem());
-        result.set(DataComponents.GENETIC_DATA, superModifiedStack.getOrDefault(DataComponents.GENETIC_DATA, new Genotype()));
+        result.set(DataComponents.GENETIC_DATA.get(), superModifiedStack.getOrDefault(DataComponents.GENETIC_DATA.get(), new Genotype()));
         result.setCount(superModifiedStack.getCount());
         return result;
     }

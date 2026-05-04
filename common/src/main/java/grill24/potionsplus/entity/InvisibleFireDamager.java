@@ -21,15 +21,15 @@ import net.minecraft.world.phys.Vec3;
 public class InvisibleFireDamager extends Fireball {
 
     public InvisibleFireDamager(Level level) {
-        super(Entities.INVISIBLE_FIRE_DAMAGER.get(), level);
+        super(Entities.INVISIBLE_FIRE_DAMAGER.value(), level);
     }
 
     public InvisibleFireDamager(double x, double y, double z, Vec3 movement, Level level) {
-        super(Entities.INVISIBLE_FIRE_DAMAGER.get(), x, y, z, movement, level);
+        super(Entities.INVISIBLE_FIRE_DAMAGER.value(), x, y, z, movement, level);
     }
 
     public InvisibleFireDamager(LivingEntity owner, Vec3 movement, Level level) {
-        super(Entities.INVISIBLE_FIRE_DAMAGER.get(), owner, movement, level);
+        super(Entities.INVISIBLE_FIRE_DAMAGER.value(), owner, movement, level);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class InvisibleFireDamager extends Fireball {
     @Override
     protected void onHitEntity(EntityHitResult entityHitResult) {
         super.onHitEntity(entityHitResult);
-        if (!this.level().isClientSide && this.level() instanceof ServerLevel serverLevel) {
+        if (!this.level().isClientSide() && this.level() instanceof ServerLevel serverLevel) {
             Entity entity = entityHitResult.getEntity();
             if (!entity.fireImmune()) {
                 Entity entity1 = this.getOwner();
@@ -58,7 +58,7 @@ public class InvisibleFireDamager extends Fireball {
     @Override
     protected void onHitBlock(BlockHitResult blockHitResult) {
         super.onHitBlock(blockHitResult);
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             Entity entity = this.getOwner();
             if (!(entity instanceof Mob)) {
                 BlockPos blockpos = blockHitResult.getBlockPos().relative(blockHitResult.getDirection());
@@ -73,7 +73,7 @@ public class InvisibleFireDamager extends Fireball {
     @Override
     protected void onHit(HitResult hitResult) {
         super.onHit(hitResult);
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.discard();
         }
 

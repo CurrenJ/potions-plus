@@ -21,11 +21,8 @@ public abstract class FilterHopperScreen<M extends FilterHopperMenu> extends Abs
     private final int autoCreateFilterButtonX;
     private final int autoCreateFilterButtonY;
 
-    public FilterHopperScreen(M menu, Inventory playerInventory, Component title, int autoCreateFilterButtonX, int autoCreateFilterButtonY, int titleX, int titleY) {
-        super(menu, playerInventory, title);
-
-        this.imageHeight = 205;
-        this.inventoryLabelY = this.imageHeight - 94;
+    public FilterHopperScreen(M menu, Inventory playerInventory, Component title, int imageWidth, int imageHeight, int autoCreateFilterButtonX, int autoCreateFilterButtonY, int titleX, int titleY) {
+        super(menu, playerInventory, title, imageWidth, imageHeight);
 
         this.autoCreateFilterButtonX = autoCreateFilterButtonX;
         this.autoCreateFilterButtonY = autoCreateFilterButtonY;

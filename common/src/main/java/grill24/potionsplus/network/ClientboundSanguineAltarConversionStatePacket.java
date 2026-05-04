@@ -45,7 +45,7 @@ public record ClientboundSanguineAltarConversionStatePacket(BlockPos pos,
                             return;
                         }
 
-                        mc.level.getBlockEntity(packet.pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get()).ifPresent(
+                        mc.level.getBlockEntity(packet.pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value()).ifPresent(
                                 blockEntity -> {
                                     // parse int to enum
                                     blockEntity.state = SanguineAltarBlockEntity.State.values()[packet.state];

@@ -70,7 +70,7 @@ public class SanguineAltarBlock extends HorizontalDirectionalBlock implements En
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        Optional<SanguineAltarBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get());
+        Optional<SanguineAltarBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value());
         if (blockEntity.isEmpty()) {
             return InteractionResult.FAIL;
         }
@@ -97,7 +97,7 @@ public class SanguineAltarBlock extends HorizontalDirectionalBlock implements En
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        Optional<SanguineAltarBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get());
+        Optional<SanguineAltarBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value());
         if (blockEntity.isEmpty()) {
             return InteractionResult.FAIL;
         }
@@ -125,12 +125,12 @@ public class SanguineAltarBlock extends HorizontalDirectionalBlock implements En
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return Utility.createTickerHelper(type, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get(), SanguineAltarBlockEntity::tick);
+        return Utility.createTickerHelper(type, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value(), SanguineAltarBlockEntity::tick);
     }
 
     @Override
     public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
-        Optional<SanguineAltarBlockEntity> SanguineAltarBlockEntity = level.getBlockEntity(blockPos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get());
+        Optional<SanguineAltarBlockEntity> SanguineAltarBlockEntity = level.getBlockEntity(blockPos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value());
         return 0;
     }
 

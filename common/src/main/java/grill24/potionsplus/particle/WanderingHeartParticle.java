@@ -5,17 +5,19 @@ import net.fabricmc.api.Environment;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 
 
 
 @Environment(EnvType.CLIENT)
 public class WanderingHeartParticle extends SingleQuadParticle {
-    WanderingHeartParticle(ClientLevel p_172403_, SpriteSet p_172404_, double p_172405_, double p_172406_, double p_172407_) {
-        super(p_172403_, p_172405_, p_172406_ - 0.125D, p_172407_);
+    WanderingHeartParticle(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite) {
+        super(level, x, y - 0.125D, z, sprite);
         this.setSize(0.01F, 0.01F);
-        this.pickSprite(p_172404_);
+        this.setSprite(sprite);
         this.quadSize *= this.random.nextFloat() * 0.6F + 0.2F;
         this.lifetime = (int) (16.0D / (Math.random() * 0.8D + 0.2D));
         this.hasPhysics = false;
@@ -23,10 +25,10 @@ public class WanderingHeartParticle extends SingleQuadParticle {
         this.gravity = 0.0F;
     }
 
-    WanderingHeartParticle(ClientLevel clientLevel, SpriteSet spriteSet, double x, double y, double z, double dx, double dy, double dz) {
-        super(clientLevel, x, y - 0.125D, z, dx, dy, dz);
+    WanderingHeartParticle(ClientLevel clientLevel, double x, double y, double z, double dx, double dy, double dz, TextureAtlasSprite sprite) {
+        super(clientLevel, x, y - 0.125D, z, dx, dy, dz, sprite);
         this.setSize(0.01F, 0.01F);
-        this.pickSprite(spriteSet);
+        this.setSprite(sprite);
         this.quadSize *= this.random.nextFloat() * 0.6F + 0.6F;
         this.lifetime = (int) (16.0D / (Math.random() * 0.8D + 0.2D));
         this.hasPhysics = false;
@@ -34,21 +36,22 @@ public class WanderingHeartParticle extends SingleQuadParticle {
         this.gravity = 0.0F;
     }
 
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+    @Override
+    protected SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.TRANSLUCENT;
     }
 
     @Environment(EnvType.CLIENT)
     public static class WanderingHeartProvider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
 
-        public WanderingHeartProvider(SpriteSet p_172419_) {
-            this.sprite = p_172419_;
+        public WanderingHeartProvider(SpriteSet spriteSet) {
+            this.sprite = spriteSet;
         }
 
-        public Particle createParticle(SimpleParticleType p_172430_, ClientLevel p_172431_, double p_172432_, double p_172433_, double p_172434_, double p_172435_, double p_172436_, double p_172437_) {
-            WanderingHeartParticle wanderingHeartParticle = new WanderingHeartParticle(p_172431_, this.sprite, p_172432_, p_172433_, p_172434_, p_172435_, p_172436_, p_172437_);
-            wanderingHeartParticle.lifetime = Mth.randomBetweenInclusive(p_172431_.random, 500, 1000);
+        public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xa, double ya, double za, RandomSource random) {
+            WanderingHeartParticle wanderingHeartParticle = new WanderingHeartParticle(level, x, y, z, xa, ya, za, this.sprite.get(random));
+            wanderingHeartParticle.lifetime = Mth.randomBetweenInclusive(level.getRandom(), 500, 1000);
             wanderingHeartParticle.gravity = 0.01F;
             wanderingHeartParticle.setPower(0.5F);
             return wanderingHeartParticle;

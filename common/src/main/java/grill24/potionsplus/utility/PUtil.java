@@ -125,10 +125,10 @@ public class PUtil {
         if (isPotion(itemStack)) {
             StringBuilder name = new StringBuilder();
             if (PUtil.hasPotion(itemStack)) {
-                name.append(PUtil.getPotionHolder(itemStack).key().identifier().getPath()).append("_");
+                name.append(PUtil.getPotionHolder(itemStack).unwrapKey().orElseThrow().identifier().getPath()).append("_");
             }
             for (MobEffectInstance mobEffectInstance : PUtil.getAllEffects(itemStack)) {
-                name.append(mobEffectInstance.getEffect().key().identifier().getPath()).append("_")
+                name.append(mobEffectInstance.getEffect().unwrapKey().orElseThrow().identifier().getPath()).append("_")
                         .append("a").append(mobEffectInstance.getAmplifier()).append("_")
                         .append("d").append(mobEffectInstance.getDuration()).append("_");
             }

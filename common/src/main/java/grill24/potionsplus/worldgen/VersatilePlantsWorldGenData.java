@@ -35,11 +35,11 @@ public class VersatilePlantsWorldGenData {
                             .add(FlowerBlocks.LUMOSEED_SACKS.value().defaultBlockState(), 1)
             ),
             Map.of(
-                    FlowerBlocks.SURVIVOR_STICK.key(), ClampedNormalInt.of(2, 2, 2, 6),
-                    FlowerBlocks.COWLICK_VINE.key(), ClampedNormalInt.of(5, 2, 3, 9),
-                    FlowerBlocks.HANGING_FERN.key(), ClampedNormalInt.of(2, 1, 2, 5),
-                    FlowerBlocks.DROOPY_VINE.key(), ClampedNormalInt.of(3, 1, 2, 7),
-                    FlowerBlocks.LUMOSEED_SACKS.key(), ClampedNormalInt.of(4, 1, 2, 8)
+                    FlowerBlocks.SURVIVOR_STICK.unwrapKey().orElseThrow(), ClampedNormalInt.of(2, 2, 2, 6),
+                    FlowerBlocks.COWLICK_VINE.unwrapKey().orElseThrow(), ClampedNormalInt.of(5, 2, 3, 9),
+                    FlowerBlocks.HANGING_FERN.unwrapKey().orElseThrow(), ClampedNormalInt.of(2, 1, 2, 5),
+                    FlowerBlocks.DROOPY_VINE.unwrapKey().orElseThrow(), ClampedNormalInt.of(3, 1, 2, 7),
+                    FlowerBlocks.LUMOSEED_SACKS.unwrapKey().orElseThrow(), ClampedNormalInt.of(4, 1, 2, 8)
             ),
             ppId("lush_caves_additional_plants")
     ));
@@ -76,31 +76,31 @@ public class VersatilePlantsWorldGenData {
                             .add(FlowerBlocks.PITCHER_PLANT_VERSATILE.value().defaultBlockState(), 2)
             ),
             new HashMap<>() {{
-                put(FlowerBlocks.DANDELION_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.TORCHFLOWER_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.POPPY_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.BLUE_ORCHID_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.ALLIUM_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.AZURE_BLUET_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.RED_TULIP_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.ORANGE_TULIP_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.WHITE_TULIP_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.PINK_TULIP_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.OXEYE_DAISY_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.CORNFLOWER_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.WITHER_ROSE_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.LILY_OF_THE_VALLEY_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.BROWN_MUSHROOM_VERSATILE.key(), ConstantInt.of(1));
-                put(FlowerBlocks.RED_MUSHROOM_VERSATILE.key(), ConstantInt.of(1));
+                put(FlowerBlocks.DANDELION_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.TORCHFLOWER_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.POPPY_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.BLUE_ORCHID_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.ALLIUM_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.AZURE_BLUET_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.RED_TULIP_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.ORANGE_TULIP_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.WHITE_TULIP_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.PINK_TULIP_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.OXEYE_DAISY_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.CORNFLOWER_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.WITHER_ROSE_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.LILY_OF_THE_VALLEY_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.BROWN_MUSHROOM_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                put(FlowerBlocks.RED_MUSHROOM_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
 
-                put(FlowerBlocks.SUNFLOWER_VERSATILE.key(), ClampedNormalInt.of(3, 1, 2, 5));
-                put(FlowerBlocks.LILAC_VERSATILE.key(), ClampedNormalInt.of(3, 1, 2, 5));
-                put(FlowerBlocks.ROSE_BUSH_VERSATILE.key(), ClampedNormalInt.of(3, 1, 2, 5));
-                put(FlowerBlocks.PEONY_VERSATILE.key(), ClampedNormalInt.of(3, 1, 2, 5));
+                put(FlowerBlocks.SUNFLOWER_VERSATILE.unwrapKey().orElseThrow(), ClampedNormalInt.of(3, 1, 2, 5));
+                put(FlowerBlocks.LILAC_VERSATILE.unwrapKey().orElseThrow(), ClampedNormalInt.of(3, 1, 2, 5));
+                put(FlowerBlocks.ROSE_BUSH_VERSATILE.unwrapKey().orElseThrow(), ClampedNormalInt.of(3, 1, 2, 5));
+                put(FlowerBlocks.PEONY_VERSATILE.unwrapKey().orElseThrow(), ClampedNormalInt.of(3, 1, 2, 5));
 
-                put(FlowerBlocks.TALL_GRASS_VERSATILE.key(), ClampedNormalInt.of(3, 1, 2, 5));
-                put(FlowerBlocks.LARGE_FERN_VERSATILE.key(), ClampedNormalInt.of(3, 1, 2, 5));
-                put(FlowerBlocks.PITCHER_PLANT_VERSATILE.key(), ConstantInt.of(2));
+                put(FlowerBlocks.TALL_GRASS_VERSATILE.unwrapKey().orElseThrow(), ClampedNormalInt.of(3, 1, 2, 5));
+                put(FlowerBlocks.LARGE_FERN_VERSATILE.unwrapKey().orElseThrow(), ClampedNormalInt.of(3, 1, 2, 5));
+                put(FlowerBlocks.PITCHER_PLANT_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(2));
             }},
             ppId("versatile_vanilla_flowers_patch")
     ));

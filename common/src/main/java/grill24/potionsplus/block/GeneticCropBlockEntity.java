@@ -1,6 +1,5 @@
 package grill24.potionsplus.block;
 
-import com.mojang.serialization.DataResult;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.DataComponents;
@@ -8,12 +7,10 @@ import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.item.GeneticCropItem;
 import grill24.potionsplus.utility.Genotype;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.Optional;
 
@@ -80,7 +77,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
         }
 
         this.placementTime = this.level.getGameTime();
-        this.genotype = stack.getOrDefault(DataComponents.GENETIC_DATA, new Genotype());
+        this.genotype = stack.getOrDefault(DataComponents.GENETIC_DATA.get(), new Genotype());
         this.lastPollinationTime = -1; // Reset pollination time on placement
         this.pollinatorGenotype = null; // Reset pollinator genotype on placement
         this.setChanged();
@@ -95,7 +92,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
             return false;
         }
 
-        if (this.level != null && !this.level.isClientSide) {
+        if (this.level != null && !this.level.isClientSide()) {
             this.lastPollinationTime = this.level.getGameTime();
             this.pollinatorGenotype = pollinatorGenotype;
             this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.POLLINATED), 2);
@@ -136,7 +133,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
             }
 
             ItemStack stack = new ItemStack(cropBlock.get());
-            stack.set(DataComponents.GENETIC_DATA, genotype);
+            stack.set(DataComponents.GENETIC_DATA.get(), genotype);
             return stack;
         }
 
@@ -144,7 +141,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
         offspringGenotype = Genotype.tryUniformMutate(offspringGenotype, 0.02F);
 
         ItemStack offspringStack = new ItemStack(cropBlock.get().getCropItem());
-        offspringStack.set(DataComponents.GENETIC_DATA, offspringGenotype);
+        offspringStack.set(DataComponents.GENETIC_DATA.get(), offspringGenotype);
 
         if (offspringStack.getItem() instanceof GeneticCropItem geneticCropItem) {
             offspringStack = geneticCropItem.onGeneticDataChanged(offspringStack);
@@ -171,41 +168,30 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
     }
 
     @Override
-    public void readPacketNbt(net.minecraft.nbt.CompoundTag tag, HolderLookup.Provider registryAccess) {
-        super.readPacketNbt(tag, registryAccess);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
-        Tag genotypeTag = tag.get("genotype");
-        if (genotypeTag != null) {
-            DataResult<Genotype> genotypeResult = Genotype.CODEC.parse(NbtOps.INSTANCE, genotypeTag);
-            genotypeResult.result().ifPresentOrElse(g -> this.genotype = g, () -> this.genotype = new Genotype());
-        }
+        input.read("genotype", Genotype.CODEC).ifPresentOrElse(g -> this.genotype = g, () -> this.genotype = new Genotype());
+        input.read("pollinatorGenotype", Genotype.CODEC).ifPresentOrElse(g -> this.pollinatorGenotype = g, () -> this.pollinatorGenotype = null);
 
-        Tag pollinatorTag = tag.get("pollinatorGenotype");
-        if (pollinatorTag != null) {
-            DataResult<Genotype> pollinatorResult = Genotype.CODEC.parse(NbtOps.INSTANCE, pollinatorTag);
-            pollinatorResult.result().ifPresentOrElse(g -> this.pollinatorGenotype = g, () -> this.pollinatorGenotype = null);
-        }
-
-        this.placementTime = tag.getLongOr("placementTime", -1L);
-        this.lastPollinationTime = tag.getLongOr("lastPollinationTime", -1L);
+        this.placementTime = input.getLongOr("placementTime", -1L);
+        this.lastPollinationTime = input.getLongOr("lastPollinationTime", -1L);
     }
 
     @Override
-    public void writePacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
-        super.writePacketNbt(tag, registryAccess);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
 
         if (genotype != null) {
-            DataResult<Tag> genotypeTag = Genotype.CODEC.encodeStart(NbtOps.INSTANCE, this.genotype);
-            genotypeTag.result().ifPresent(g -> tag.put("genotype", g));
+            output.store("genotype", Genotype.CODEC, this.genotype);
         }
 
         if (this.pollinatorGenotype != null) {
-            DataResult<Tag> pollinatorTag = Genotype.CODEC.encodeStart(NbtOps.INSTANCE, this.pollinatorGenotype);
-            pollinatorTag.result().ifPresent(g -> tag.put("pollinatorGenotype", g));
+            output.store("pollinatorGenotype", Genotype.CODEC, this.pollinatorGenotype);
         }
 
-        tag.putLong("placementTime", this.placementTime);
-        tag.putLong("lastPollinationTime", this.lastPollinationTime);
+        output.putLong("placementTime", this.placementTime);
+        output.putLong("lastPollinationTime", this.lastPollinationTime);
     }
 
     /**

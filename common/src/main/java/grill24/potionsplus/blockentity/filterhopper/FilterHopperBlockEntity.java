@@ -30,6 +30,8 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.Hopper;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 
 import org.jspecify.annotations.Nullable;
@@ -66,16 +68,15 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
         this.items = NonNullList.withSize(getTotalSize(), ItemStack.EMPTY);
-        if (!this.tryLoadLootTable(tag)) {
-            ContainerHelper.loadAllItems(tag, this.items, registries);
-        }
+        // Loot tables are handled via DataComponents (CONTAINER_LOOT) in the base class.
+        ContainerHelper.loadAllItems(input, this.items);
 
         updateCache();
 
-        this.cooldownTime = tag.getInt("TransferCooldown").orElse(0);
+        this.cooldownTime = input.getIntOr("TransferCooldown", 0);
     }
 
     private int getTotalSize() {
@@ -83,13 +84,12 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        if (!this.trySaveLootTable(tag)) {
-            ContainerHelper.saveAllItems(tag, this.items, registries);
-        }
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        // Loot tables are handled via DataComponents (CONTAINER_LOOT) in the base class.
+        ContainerHelper.saveAllItems(output, this.items);
 
-        tag.putInt("TransferCooldown", this.cooldownTime);
+        output.putInt("TransferCooldown", this.cooldownTime);
     }
 
     @Override
@@ -146,7 +146,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
     }
 
     private static boolean tryMoveItems(Level level, BlockPos pos, BlockState state, FilterHopperBlockEntity blockEntity, BooleanSupplier validator) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return false;
         } else {
             if (!blockEntity.isOnCooldown() && state.getValue(FilterHopperBlock.ENABLED)) {
@@ -465,7 +465,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
                 new AABB(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5),
                 EntitySelector.CONTAINER_ENTITY_SELECTOR
         );
-        return !list.isEmpty() ? (Container) list.get(level.random.nextInt(list.size())) : null;
+        return !list.isEmpty() ? (Container) list.get(level.getRandom().nextInt(list.size())) : null;
     }
 
     private static boolean canMergeItems(ItemStack stack1, ItemStack stack2) {

@@ -40,7 +40,7 @@ public class TeleportationEffect extends InstantenousMobEffect implements IEffec
     }
 
     private static void teleport(LivingEntity livingEntity, int amplifier) {
-        if (livingEntity.level().isClientSide) {
+        if (livingEntity.level().isClientSide()) {
             return;
         }
 
