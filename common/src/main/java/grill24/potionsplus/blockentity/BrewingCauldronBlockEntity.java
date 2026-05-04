@@ -107,7 +107,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
             Map<ResourceKey<MobEffect>, MobEffectInstance> effectMap = new HashMap<>();
             for (MobEffectInstance effect : allEffects) {
-                ResourceKey<MobEffect> key = effect.getEffect().getKey();
+                ResourceKey<MobEffect> key = effect.getEffect().key();
                 if (!effectMap.containsKey(key) || effect.getAmplifier() > effectMap.get(key).getAmplifier()) {
                     effectMap.put(key, effect);
                 }

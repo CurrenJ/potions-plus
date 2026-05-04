@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
-public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<AbyssalTroveBlockEntity> {
+public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<AbyssalTroveBlockEntity, AbyssalTroveRenderState> {
     private final BlockModelResolver BlockModelResolver;
     private ProfilerFiller profiler;
 
@@ -44,7 +44,7 @@ public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<Abys
 
         // For all entries in abyssal trove
         for (Map.Entry<Integer, List<AbyssalTroveBlockEntity.RendererData.AbyssalTroveRenderedItem>> items : blockEntity.rendererData.renderedItemTiers.entrySet()) {
-            int row = items.getKey();
+            int row = items.key();
 
             float horizontalPaddingScalar = RUtil.ease(blockEntity, 0.5F, 1F, row * 4, 1F) * ICON_SCALE;
             float verticalPaddingScalar = 1F * ICON_SCALE;

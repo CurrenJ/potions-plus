@@ -11,7 +11,7 @@ import net.minecraft.util.Mth;
 
 
 @Environment(EnvType.CLIENT)
-public class WanderingHeartParticle extends TextureSheetParticle {
+public class WanderingHeartParticle extends SingleQuadParticle {
     WanderingHeartParticle(ClientLevel p_172403_, SpriteSet p_172404_, double p_172405_, double p_172406_, double p_172407_) {
         super(p_172403_, p_172405_, p_172406_ - 0.125D, p_172407_);
         this.setSize(0.01F, 0.01F);

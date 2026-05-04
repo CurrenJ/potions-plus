@@ -25,7 +25,7 @@ import org.joml.Vector3d;
 import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
-public class PotionBeaconBlockEntityRenderer implements BlockEntityRenderer<PotionBeaconBlockEntity> {
+public class PotionBeaconBlockEntityRenderer implements BlockEntityRenderer<PotionBeaconBlockEntity, PotionBeaconRenderState> {
 
     public final BlockModelResolver BlockModelResolver;
     private ProfilerFiller profiler;

@@ -28,7 +28,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 @Environment(EnvType.CLIENT)
-public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<BrewingCauldronBlockEntity> {
+public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<BrewingCauldronBlockEntity, BrewingCauldronRenderState> {
 
     public final BlockModelResolver BlockModelResolver;
 

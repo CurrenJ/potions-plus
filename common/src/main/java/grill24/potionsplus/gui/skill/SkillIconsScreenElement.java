@@ -97,7 +97,7 @@ public class SkillIconsScreenElement extends ScreenElementWithChildren<SkillIcon
 
         // Build skills list (icons we want to display)
         List<ResourceKey<ConfiguredSkill<?, ?>>> skills = holderGetter.listElements().filter(holder -> {
-            ResourceKey<ConfiguredSkill<?, ?>> key = holder.getKey();
+            ResourceKey<ConfiguredSkill<?, ?>> key = holder.key();
             if (key == null) {
                 return false; // Skip if the key is null
             }

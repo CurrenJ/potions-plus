@@ -37,7 +37,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Environment(EnvType.CLIENT)
-public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<ClotheslineBlockEntity> {
+public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<ClotheslineBlockEntity, ClotheslineRenderState> {
     public final BlockModelResolver BlockModelResolver;
     private ProfilerFiller profiler;
 

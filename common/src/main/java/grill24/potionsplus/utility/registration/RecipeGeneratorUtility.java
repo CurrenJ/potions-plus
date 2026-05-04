@@ -49,7 +49,7 @@ public class RecipeGeneratorUtility {
 
         @Override
         public void generate(RecipeProvider provider, RecipeOutput output) {
-            Identifier id = this.id == null ? getHolder().getKey().identifier() : this.id;
+            Identifier id = this.id == null ? getHolder().key().identifier() : this.id;
             ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, id);
             recipeBuilder.apply(provider, getHolder()).save(output, recipeKey);
         }

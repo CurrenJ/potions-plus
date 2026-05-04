@@ -9,8 +9,8 @@ import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerato
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.block.model.VariantMutator;
-import net.minecraft.client.renderer.item.BlockModelWrapper;
+import net.minecraft.client.renderer.block.dispatch.VariantMutator;
+import net.minecraft.client.renderer.block.model.SpecialBlockModelWrapper;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
@@ -101,7 +101,7 @@ public class VersatilePlantBlockModelGenerator<T, I extends Block> extends Block
         Block b = holder.value();
         if (b instanceof VersatilePlantBlock block) {
 
-            String name = holder.getKey().identifier().getPath();
+            String name = holder.key().identifier().getPath();
 
             // This loop generates a model for every texture used in the pattern
             Set<String> usedModels = new HashSet<>();
@@ -144,7 +144,7 @@ public class VersatilePlantBlockModelGenerator<T, I extends Block> extends Block
             // Generate client item definition
             itemModelGenerators.itemModelOutput.accept(
                     item,
-                    new BlockModelWrapper.Unbaked(
+                    new SpecialBlockModelWrapper.Unbaked(
                             modelLocation,
                             useTint ? List.of(new GrassColorSource())
                                     : Collections.emptyList()
@@ -154,7 +154,7 @@ public class VersatilePlantBlockModelGenerator<T, I extends Block> extends Block
             if (item instanceof BlockItem blockItem) {
                 itemModelGenerators.itemModelOutput.accept(
                         item,
-                        new BlockModelWrapper.Unbaked(
+                        new SpecialBlockModelWrapper.Unbaked(
                                 model,
                                 useTint ? List.of(new GrassColorSource())
                                         : Collections.emptyList()

@@ -43,12 +43,12 @@ public class ResourceUtility {
     private static Optional<Identifier> getDefaultModel(Holder<? extends Block> blockHolder) {
         ResourceManager rm = Minecraft.getInstance().getResourceManager();
 
-        Identifier blockStateLocation = blockHolder.getKey().identifier().withPrefix("blockstates/").withSuffix(".json");
+        Identifier blockStateLocation = blockHolder.key().identifier().withPrefix("blockstates/").withSuffix(".json");
         List<Resource> resources = rm.getResourceStack(blockStateLocation);
         for (Resource resource : resources) {
             String json = getRawResourceJson(resource);
             if (json.isEmpty()) {
-                PotionsPlus.LOGGER.error("Couldn't find blockstate JSON for block: {}", blockHolder.getKey().identifier());
+                PotionsPlus.LOGGER.error("Couldn't find blockstate JSON for block: {}", blockHolder.key().identifier());
                 continue;
             }
 

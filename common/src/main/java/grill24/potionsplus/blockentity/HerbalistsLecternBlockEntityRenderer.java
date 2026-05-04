@@ -25,7 +25,7 @@ import org.joml.Vector3f;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
+public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity, HerbalistsLecternRenderState> {
 
     public final BlockModelResolver BlockModelResolver;
     private ProfilerFiller profiler;

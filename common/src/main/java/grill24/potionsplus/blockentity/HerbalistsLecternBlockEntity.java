@@ -76,7 +76,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                     }
                     // If the potion has effects, display the potion icon. No duplicates.
                     for (MobEffectInstance mobEffectInstance : outputEffects) {
-                        Identifier mobEffectId = mobEffectInstance.getEffect().getKey().identifier();
+                        Identifier mobEffectId = mobEffectInstance.getEffect().key().identifier();
 
                         boolean isMobEffectInIconDataAlready = potionIcons.containsKey(mobEffectId);
                         boolean doesIconExistForMobEffect = MobEffects.POTION_ICON_INDEX_MAP.get().containsKey(mobEffectId);

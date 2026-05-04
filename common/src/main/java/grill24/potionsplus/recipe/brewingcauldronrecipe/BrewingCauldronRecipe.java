@@ -99,7 +99,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             Map<ResourceKey<MobEffect>, MobEffectInstance> totaledEffects = new HashMap<>();
             // Combine effects for each effect type. Take max duration and amplifier.
             for (MobEffectInstance mobEffectInstance : allInputEffects) {
-                ResourceKey<MobEffect> key = mobEffectInstance.getEffect().getKey();
+                ResourceKey<MobEffect> key = mobEffectInstance.getEffect().key();
 
                 MobEffectInstance totalEffect = totaledEffects.getOrDefault(key, new MobEffectInstance(mobEffectInstance.getEffect(), mobEffectInstance.getDuration(), mobEffectInstance.getAmplifier(), mobEffectInstance.isAmbient(), mobEffectInstance.isVisible(), mobEffectInstance.showIcon()));
                 MobEffectInstance effect = new MobEffectInstance(mobEffectInstance.getEffect(), Math.max(totalEffect.getDuration(), mobEffectInstance.getDuration()), Math.max(totalEffect.getAmplifier(), mobEffectInstance.getAmplifier()), mobEffectInstance.isAmbient(), mobEffectInstance.isVisible(), mobEffectInstance.showIcon());

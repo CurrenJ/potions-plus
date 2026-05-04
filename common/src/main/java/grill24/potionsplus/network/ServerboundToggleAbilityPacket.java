@@ -45,6 +45,6 @@ public record ServerboundToggleAbilityPacket(
     }
 
     public static ServerboundToggleAbilityPacket of(AbilityInstanceSerializable<?, ?> abilityInstance) {
-        return new ServerboundToggleAbilityPacket(abilityInstance.data().getHolder().getKey());
+        return new ServerboundToggleAbilityPacket(abilityInstance.data().getHolder().key());
     }
 }

@@ -60,7 +60,7 @@ public class SkillsScreen extends PotionsPlusScreen<SkillsMenu> {
         this.skillTitleRenderer = new SkillTitleScreenElement(this);
         // Skills icons
         this.skillsIconsRenderer = new SkillIconsScreenElement(this, RenderableScreenElement.Settings.DEFAULT, itemDisplay -> {
-            ResourceKey<ConfiguredSkill<?, ?>> key = itemDisplay == null ? null : itemDisplay.skill.getKey();
+            ResourceKey<ConfiguredSkill<?, ?>> key = itemDisplay == null ? null : itemDisplay.skill.key();
             this.skillTitleRenderer.setSelectedSkill(key);
             this.abilitiesRenderer.setSelectedSkill(key);
             this.milestoneRenderer.setSelectedSkill(key);

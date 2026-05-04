@@ -48,7 +48,7 @@ public class AbilityReward extends GrantableReward<AbilityReward.AbilityRewardCo
 
     @Override
     public void grant(ResourceKey<ConfiguredGrantableReward<?, ?>> holder, AbilityRewardConfiguration config, ServerPlayer player) {
-        SkillsData.updatePlayerData(player, data -> data.unlockAbility(player, config.ability.getKey()));
+        SkillsData.updatePlayerData(player, data -> data.unlockAbility(player, config.ability.key()));
     }
 
     public static class AbilityRewardBuilder implements ConfiguredGrantableRewards.IRewardBuilder {

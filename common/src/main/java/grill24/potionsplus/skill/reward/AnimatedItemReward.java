@@ -63,7 +63,7 @@ public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.Anima
         public AnimatedItemRewardBuilder(ItemStack... itemStacks) {
             keys = new ResourceKey[itemStacks.length];
             for (int i = 0; i < itemStacks.length; i++) {
-                keys[i] = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId("display_" + itemStacks[i].getItemHolder().getKey().identifier().getPath()));
+                keys[i] = ResourceKey.create(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ppId("display_" + itemStacks[i].getItemHolder().key().identifier().getPath()));
             }
             this.itemStacks = itemStacks;
         }
@@ -80,7 +80,7 @@ public class AnimatedItemReward extends GrantableReward<AnimatedItemReward.Anima
                 }
             }
 
-            throw new IllegalArgumentException(itemStack.getItemHolder().getKey() + " is not a registered animation item stack");
+            throw new IllegalArgumentException(itemStack.getItemHolder().key() + " is not a registered animation item stack");
         }
 
         @Override

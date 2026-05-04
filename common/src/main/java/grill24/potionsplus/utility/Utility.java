@@ -125,7 +125,7 @@ public class Utility {
 
     public static boolean isItemInLinkedAbyssalTrove(Player player, ItemStack stack) {
         BlockPos pos = SavedData.instance.getData(player).getPairedAbyssalTrovePos();
-        Optional<AbyssalTroveBlockEntity> abyssalTrove = player.level().getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
+        Optional<AbyssalTroveBlockEntity> abyssalTrove = player.level().getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.value());
         return abyssalTrove.map(abyssalTroveBlockEntity -> abyssalTroveBlockEntity.getStoredIngredients().contains(PpIngredient.of(stack))).orElse(false);
     }
 
@@ -359,10 +359,10 @@ public class Utility {
     }
 
     public static Optional<Identifier> getResourceLocation(Holder<?> holder) {
-        if (holder.getKey() == null) {
+        if (holder.key() == null) {
             return Optional.empty();
         }
-        return Optional.of(holder.getKey().identifier());
+        return Optional.of(holder.key().identifier());
     }
 
     public static BufferedReader stringToBufferedReader(String string) {

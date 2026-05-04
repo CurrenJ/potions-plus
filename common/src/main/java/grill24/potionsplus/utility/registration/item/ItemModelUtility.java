@@ -9,7 +9,7 @@ import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.item.BlockModelWrapper;
+import net.minecraft.client.renderer.block.model.SpecialBlockModelWrapper;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.client.renderer.item.SelectItemModel;
@@ -179,7 +179,7 @@ public class ItemModelUtility {
             LAYER_COUNT_TO_TEMPLATE.getOrDefault(untintedLayerTextureLocations.length, ModelTemplates.FLAT_ITEM)
                     .create(modelLocation, textureMapping, itemModelGenerators.modelOutput);
 
-            BlockModelWrapper.Unbaked model = new BlockModelWrapper.Unbaked(
+            SpecialBlockModelWrapper.Unbaked model = new SpecialBlockModelWrapper.Unbaked(
                     modelLocation,
                     List.of(itemTintSource)
             );
@@ -208,7 +208,7 @@ public class ItemModelUtility {
         public record ModelData(float weightThreshold,
                                 boolean tintFirstLayer,
                                 Identifier... untintedLayerTextureLocations) {
-            BlockModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, Supplier<ItemTintSource> itemTintSource) {
+            SpecialBlockModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, Supplier<ItemTintSource> itemTintSource) {
                 if (untintedLayerTextureLocations.length == 0) {
                     throw new IllegalArgumentException("At least one untinted layer texture location must be provided.");
                 }
@@ -227,7 +227,7 @@ public class ItemModelUtility {
                 TintedLayerItemModelGenerator.LAYER_COUNT_TO_TEMPLATE.getOrDefault(untintedLayerTextureLocations.length, ModelTemplates.FLAT_ITEM)
                         .create(modelLocation, textureMapping, itemModelGenerators.modelOutput);
 
-                return new BlockModelWrapper.Unbaked(
+                return new SpecialBlockModelWrapper.Unbaked(
                         modelLocation,
                         itemTintSources
                 );
@@ -255,7 +255,7 @@ public class ItemModelUtility {
                     new GeneticProperty(GeneticCropItem.WEIGHT_CHROMOSOME_INDEX),
                     1,
                     entries,
-                    Optional.of(new BlockModelWrapper.Unbaked(
+                    Optional.of(new SpecialBlockModelWrapper.Unbaked(
                             ModelLocationUtils.getModelLocation(getHolder().value()),
                             List.of(itemTintSourceSupplier.get())))
             );
@@ -263,7 +263,7 @@ public class ItemModelUtility {
             itemModelGenerators.itemModelOutput.accept(getHolder().value(), rangeSelectItemModel);
         }
 
-        private BlockModelWrapper.Unbaked createFallbackModel(ItemModelGenerators itemModelGenerators) {
+        private SpecialBlockModelWrapper.Unbaked createFallbackModel(ItemModelGenerators itemModelGenerators) {
             Identifier itemModelLocation = ModelLocationUtils.getModelLocation(getHolder().value());
             Identifier fallbackModelLocation = Identifier.fromNamespaceAndPath(itemModelLocation.getNamespace(), itemModelLocation.getPath() + "_fallback");
 
@@ -272,7 +272,7 @@ public class ItemModelUtility {
 
             ModelTemplates.FLAT_ITEM.create(itemModelLocation, textureMapping, itemModelGenerators.modelOutput);
 
-            return new BlockModelWrapper.Unbaked(
+            return new SpecialBlockModelWrapper.Unbaked(
                     fallbackModelLocation,
                     List.of()
             );
@@ -296,7 +296,7 @@ public class ItemModelUtility {
                                 Identifier cauliflowerTextureLocation,
                                 Identifier brusselsSproutsTextureLocation,
                                 Identifier kohlrabiTextureLocation) {
-            Map<BrassicaOleraceaItem.Variation, BlockModelWrapper.Unbaked> createModels(ItemModelGenerators itemModelGenerators) {
+            Map<BrassicaOleraceaItem.Variation, SpecialBlockModelWrapper.Unbaked> createModels(ItemModelGenerators itemModelGenerators) {
                 return Map.of(
                         BrassicaOleraceaItem.Variation.BRASSICA_OLERACEA, createModel(itemModelGenerators, brassicaOleraceaTextureLocation),
                         BrassicaOleraceaItem.Variation.CABBAGE, createModel(itemModelGenerators, cabbageTextureLocation),
@@ -308,22 +308,22 @@ public class ItemModelUtility {
                 );
             }
 
-            private BlockModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, Identifier textureLocation) {
+            private SpecialBlockModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, Identifier textureLocation) {
                 Identifier modelLocation = textureLocation;
                 TextureMapping textureMapping = new TextureMapping();
                 textureMapping.put(TextureSlot.LAYER0, textureLocation);
 
                 ModelTemplates.FLAT_ITEM.create(modelLocation, textureMapping, itemModelGenerators.modelOutput);
-                return new BlockModelWrapper.Unbaked(modelLocation, List.of());
+                return new SpecialBlockModelWrapper.Unbaked(modelLocation, List.of());
             }
         }
 
         @Override
         public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
-            Map<BrassicaOleraceaItem.Variation, BlockModelWrapper.Unbaked> entries = modelData.createModels(itemModelGenerators);
+            Map<BrassicaOleraceaItem.Variation, SpecialBlockModelWrapper.Unbaked> entries = modelData.createModels(itemModelGenerators);
             List<SelectItemModel.SwitchCase<BrassicaOleraceaItem.Variation>> cases = entries.entrySet().stream()
                     .map(entry -> new SelectItemModel.SwitchCase<>(
-                            List.of(entry.getKey()),
+                            List.of(entry.key()),
                             entry.getValue()
                     ))
                     .toList();

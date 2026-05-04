@@ -47,7 +47,7 @@ public class LootItemModifiersBehaviour {
 
     public static int getBonusLevelsFromAttributes(Holder<Enchantment> enchantment, Entity source, int enchantmentLevel) {
         if (source instanceof Player player) {
-            Optional<Holder<Attribute>> attribute = Attributes.getAttributeForEnchantmentBonus(enchantment.getKey());
+            Optional<Holder<Attribute>> attribute = Attributes.getAttributeForEnchantmentBonus(enchantment.key());
             if (attribute.isPresent()) {
                 enchantmentLevel += (int) player.getAttributeValue(attribute.get());
             }
@@ -56,11 +56,11 @@ public class LootItemModifiersBehaviour {
     }
 
     public static int getEnchantmentLevelFromItemAttributes(Holder<Enchantment> enchantment, ItemStack itemStack, int enchantmentLevel) {
-        Optional<Holder<Attribute>> attribute = Attributes.getAttributeForEnchantmentBonus(enchantment.getKey());
+        Optional<Holder<Attribute>> attribute = Attributes.getAttributeForEnchantmentBonus(enchantment.key());
         int enchantmentLevelWithBonuses = enchantmentLevel;
         if (attribute.isPresent()) {
             for (ItemAttributeModifiers.Entry entry : itemStack.getAttributeModifiers().modifiers()) {
-                if (entry.attribute().getKey().equals(attribute.get().getKey())) {
+                if (entry.attribute().key().equals(attribute.get().key())) {
                     double amount = entry.modifier().amount();
 
                     enchantmentLevelWithBonuses += (int) Math.round(switch (entry.modifier().operation()) {

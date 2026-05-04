@@ -20,7 +20,7 @@ import org.joml.Vector3d;
 import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
-public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<SanguineAltarBlockEntity> {
+public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<SanguineAltarBlockEntity, SanguineAltarRenderState> {
     private final BlockModelResolver BlockModelResolver;
     private static final int CONVERTED_ITEM_DESCENT_TICKS = 20;
     private static final int CONVERTED_ITEM_SHRINK_DELAY_TICKS = 200;

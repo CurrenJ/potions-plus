@@ -51,7 +51,7 @@ public class RewardsClaimScreenElement extends VerticalListScreenElement<Rendera
                 Anchor.CENTER,
                 new HoverItemStackScreenElement(this.screen, null, Settings.DEFAULT, stack, 1.0f, 1.2f),
                 rewards.getValue().size(),
-                rewards.getKey()
+                rewards.key()
         );
 
         // Add click listener to claim the reward

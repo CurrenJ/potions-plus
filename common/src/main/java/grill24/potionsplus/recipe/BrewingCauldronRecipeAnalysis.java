@@ -54,7 +54,7 @@ public class BrewingCauldronRecipeAnalysis extends RecipeAnalysis<BrewingCauldro
                 if (recipe.value().getDurationToAdd() == 0 && recipe.value().getAmplifierToAdd() == 0 && recipe.value().getResult().is(Items.POTION)) {
                     List<MobEffectInstance> effects = PUtil.getAllEffects(result);
                     if (effects.size() == 1) {
-                        mobEffectToBasePotionRecipes.computeIfAbsent(effects.get(0).getEffect().getKey(), k -> new ArrayList<>()).add(recipe);
+                        mobEffectToBasePotionRecipes.computeIfAbsent(effects.get(0).getEffect().key(), k -> new ArrayList<>()).add(recipe);
                     }
                 }
             }

@@ -11,7 +11,7 @@ import net.minecraft.util.Mth;
 
 
 @Environment(EnvType.CLIENT)
-public class RandomNoteParticle extends TextureSheetParticle {
+public class RandomNoteParticle extends SingleQuadParticle {
     RandomNoteParticle(ClientLevel p_107167_, double p_107168_, double p_107169_, double p_107170_, double p_107171_) {
         super(p_107167_, p_107168_, p_107169_, p_107170_, 0.0D, 0.0D, 0.0D);
         this.friction = 0.94F;

@@ -86,7 +86,7 @@ public class BrewingTooltips {
                         BrewingCauldronRecipe recipe = recipeHolder.value();
                         ItemStack recipeResult = recipe.getResult();
                         if (!PUtil.isPotion(recipeResult) || !PUtil.hasPotion(recipeResult)
-                                || Potions.ANY_POTION.is(PUtil.getPotionHolder(recipeResult).getKey()) || Potions.ANY_OTHER_POTION.is(PUtil.getPotionHolder(recipeResult).getKey())
+                                || Potions.ANY_POTION.is(PUtil.getPotionHolder(recipeResult).key()) || Potions.ANY_OTHER_POTION.is(PUtil.getPotionHolder(recipeResult).key())
                                 || !recipe.canShowInJei())
                             continue;
                         List<MobEffectInstance> potionEffects = PUtil.getPotion(recipeResult).getEffects();

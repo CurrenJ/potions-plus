@@ -125,10 +125,10 @@ public class PUtil {
         if (isPotion(itemStack)) {
             StringBuilder name = new StringBuilder();
             if (PUtil.hasPotion(itemStack)) {
-                name.append(PUtil.getPotionHolder(itemStack).getKey().identifier().getPath()).append("_");
+                name.append(PUtil.getPotionHolder(itemStack).key().identifier().getPath()).append("_");
             }
             for (MobEffectInstance mobEffectInstance : PUtil.getAllEffects(itemStack)) {
-                name.append(mobEffectInstance.getEffect().getKey().identifier().getPath()).append("_")
+                name.append(mobEffectInstance.getEffect().key().identifier().getPath()).append("_")
                         .append("a").append(mobEffectInstance.getAmplifier()).append("_")
                         .append("d").append(mobEffectInstance.getDuration()).append("_");
             }
@@ -191,7 +191,7 @@ public class PUtil {
     public static List<MobEffect> getAllMobEffects() {
         List<MobEffect> effects = new ArrayList<>();
         for (Map.Entry<ResourceKey<MobEffect>, MobEffect> value : BuiltInRegistries.MOB_EFFECT.entrySet()) {
-            if (value.getKey().identifier().getNamespace().equals("minecraft") || value.getKey().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
+            if (value.key().identifier().getNamespace().equals("minecraft") || value.key().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
                 effects.add(value.getValue());
             }
         }
@@ -291,12 +291,12 @@ public class PUtil {
             Registry<MobEffect> mobEffectRegistry = BuiltInRegistries.MOB_EFFECT;
             Optional<Holder.Reference<MobEffect>> optionalHolder = mobEffectRegistry.getRandom(context.getRandom());
             int attempts = 0;
-            while (optionalHolder.isPresent() && excludedEffects.contains(optionalHolder.get().getKey()) && attempts < 3) {
+            while (optionalHolder.isPresent() && excludedEffects.contains(optionalHolder.get().key()) && attempts < 3) {
                 optionalHolder = mobEffectRegistry.getRandom(context.getRandom());
                 attempts++;
             }
 
-            if (optionalHolder.isPresent() && !excludedEffects.contains(optionalHolder.get().getKey())) {
+            if (optionalHolder.isPresent() && !excludedEffects.contains(optionalHolder.get().key())) {
                 List<MobEffectInstance> customEffects = new ArrayList<>(PUtil.getAllEffects(stack));
                 int amplifier = (int) Math.round(Math.clamp(Utility.nextGaussian(1, 1, context.getRandom()), 1F, 3F));
                 int duration = context.getRandom().nextInt(4800) + 300;

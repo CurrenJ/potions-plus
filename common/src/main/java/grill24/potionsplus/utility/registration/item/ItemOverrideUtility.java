@@ -51,12 +51,12 @@ public class ItemOverrideUtility {
             Holder<? extends Item> item = getHolder();
 
             TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, commonData.getLayer0());
-            Identifier fallbackItemModelId = ppId(item.getKey().identifier().getPath() + "_fallback");
+            Identifier fallbackItemModelId = ppId(item.key().identifier().getPath() + "_fallback");
             Identifier fallbackItemModel = ModelTemplates.FLAT_ITEM.create(fallbackItemModelId, fallbackItemTextureMapping, itemModelGenerators.modelOutput);
 
             List<RangeSelectItemModel.Entry> entries = commonData.getLayer1().stream().map(layer1Texture -> {
                 String str = layer1Texture.getPath();
-                String name = item.getKey().identifier().getPath() + "_" + str.substring(str.lastIndexOf('/') + 1);
+                String name = item.key().identifier().getPath() + "_" + str.substring(str.lastIndexOf('/') + 1);
                 Identifier modelId = ppId("item/" + name);
 
                 TextureMapping textureMapping = new TextureMapping()

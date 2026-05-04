@@ -1,6 +1,5 @@
 package grill24.potionsplus.network;
 
-import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.debug.Debug;
@@ -47,11 +46,6 @@ public record ClientboundAcquiredBrewingRecipeKnowledgePacket(ResourceKey<Recipe
 
                         Player clientPlayer = context.player();
 
-                        try {
-                            JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
-                        } catch (NoClassDefFoundError error) {
-                            PotionsPlus.LOGGER.warn("JEI is not loaded, cannot update brewing cauldron recipes", error);
-                        }
                         SavedData.instance.getData(clientPlayer).onNewRecipeKnowledgeAcquiredClient(packet.recipeKey());
                         MutableComponent text = Component.translatable("chat.potionsplus.brewing_cauldron_recipe_unlocked", packet.result.getHoverName());
                         clientPlayer.displayClientMessage(text, true);

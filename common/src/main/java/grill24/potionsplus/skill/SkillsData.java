@@ -162,7 +162,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
 
     public Optional<SkillInstance<?, ?>> getOrCreate(RegistryAccess registryAccess, Identifier resourceLocation) {
         Optional<Holder.Reference<ConfiguredSkill<?, ?>>> configuredSkillReferenceOptional = registryAccess.lookupOrThrow(PotionsPlusRegistries.CONFIGURED_SKILL).get(resourceLocation);
-        return configuredSkillReferenceOptional.map(configuredSkill -> skillData.computeIfAbsent(configuredSkill.getKey(), SkillInstance::new));
+        return configuredSkillReferenceOptional.map(configuredSkill -> skillData.computeIfAbsent(configuredSkill.key(), SkillInstance::new));
     }
 
     public Optional<SkillInstance<?, ?>> getOrCreate(RegistryAccess registryAccess, ResourceKey<ConfiguredSkill<?, ?>> configuredSkillKey) {
@@ -201,7 +201,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
             if (this.unlockedAbilities.containsKey(abilityKey)) {
                 return this.unlockedAbilities.get(abilityKey)
                         .stream()
-                        .filter(abilityInstance -> abilityInstance.data().getHolder().getKey().identifier().equals(configuredAbilityId))
+                        .filter(abilityInstance -> abilityInstance.data().getHolder().key().identifier().equals(configuredAbilityId))
                         .findFirst();
             }
         }
@@ -226,9 +226,9 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
             List<AbilityInstanceSerializable<?, ?>> abilityInstances = unlockedAbilities
                     .computeIfAbsent(abilityKey, (key) -> new ArrayList<>());
             Set<ResourceKey<ConfiguredPlayerAbility<?, ?>>> unlockedAbilityKeys = abilityInstances.stream()
-                    .map(instance -> instance.data().getHolder().getKey())
+                    .map(instance -> instance.data().getHolder().key())
                     .collect(Collectors.toSet());
-            if (!unlockedAbilityKeys.contains(abilityInstance.data().getHolder().getKey())) {
+            if (!unlockedAbilityKeys.contains(abilityInstance.data().getHolder().key())) {
                 abilityInstances.add(abilityInstance);
 
                 if (configuredAbility.value().config().getData().enabledByDefault()) {
@@ -244,12 +244,12 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
 
         unlockedAbilities
                 .computeIfPresent(abilityKey, (key, value) -> {
-                    value.removeIf(abilityInstance -> abilityInstance.data().getHolder().getKey() != null && abilityInstance.data().getHolder().getKey().equals(configuredAbility.getKey()));
+                    value.removeIf(abilityInstance -> abilityInstance.data().getHolder().key() != null && abilityInstance.data().getHolder().key().equals(configuredAbility.key()));
                     return value;
                 });
-        unlockAbility(player, configuredAbility.getKey());
+        unlockAbility(player, configuredAbility.key());
 
-        PotionsPlus.LOGGER.warn("Reset ability instance for player: " + player.getName().getString() + " with ability: " + configuredAbility.getKey());
+        PotionsPlus.LOGGER.warn("Reset ability instance for player: " + player.getName().getString() + " with ability: " + configuredAbility.key());
     }
 
     public void unlockAbility(ServerPlayer player, ResourceKey<ConfiguredPlayerAbility<?, ?>> configuredPlayerAbility) {
@@ -277,7 +277,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
 
         unlockedAbilities
                 .computeIfPresent(abilityKey, (key, value) -> {
-                    value.removeIf(abilityInstance -> abilityInstance.data().getHolder().getKey() != null && abilityInstance.data().getHolder().getKey().equals(configuredAbilityKey));
+                    value.removeIf(abilityInstance -> abilityInstance.data().getHolder().key() != null && abilityInstance.data().getHolder().key().equals(configuredAbilityKey));
                     return value;
                 });
 
@@ -288,7 +288,7 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
         // Clear and revoke all unlocked abilities
         List<AbilityInstanceSerializable<?, ?>> allUnlockedAbilities = this.unlockedAbilities.values().stream().flatMap(List::stream).toList();
         for (AbilityInstanceSerializable<?, ?> instance : allUnlockedAbilities) {
-            removeUnlockedAbilities(player, instance.data().getHolder().getKey());
+            removeUnlockedAbilities(player, instance.data().getHolder().key());
         }
 
         // Re-unlock all abilities
@@ -304,9 +304,9 @@ public record SkillsData(Map<ResourceKey<ConfiguredSkill<?, ?>>, SkillInstance<?
                                 // Re-grant all rewards that have to do with abilities. We don't want to regrant rewards that are not abilities, like loot rewards.
                                 GrantableReward<?> grantableReward = reward.value().reward();
                                 if (grantableReward instanceof AbilityReward) {
-                                    reward.value().grant(reward.getKey(), player);
+                                    reward.value().grant(reward.key(), player);
                                 } else if (grantableReward instanceof IncreaseAbilityStrengthReward) {
-                                    reward.value().grant(reward.getKey(), player);
+                                    reward.value().grant(reward.key(), player);
                                 }
                             }
                         }

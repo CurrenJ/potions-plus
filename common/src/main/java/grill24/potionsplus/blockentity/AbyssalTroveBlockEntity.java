@@ -220,7 +220,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         // Set positions
         for (Map.Entry<Integer, List<RendererData.AbyssalTroveRenderedItem>> entry : data.renderedItemTiers.entrySet()) {
             List<RendererData.AbyssalTroveRenderedItem> items = entry.getValue();
-            int tier = entry.getKey();
+            int tier = entry.key();
             for (int indexInRow = 0; indexInRow < items.size(); indexInRow++) {
                 RendererData.AbyssalTroveRenderedItem item = items.get(indexInRow);
                 item.position = new Vector3d(indexInRow * itemSpacing, tier * tierSpacing, 0);

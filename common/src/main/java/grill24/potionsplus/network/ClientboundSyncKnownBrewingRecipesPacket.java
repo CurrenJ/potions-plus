@@ -1,6 +1,5 @@
 package grill24.potionsplus.network;
 
-import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.persistence.SavedData;
 import io.netty.buffer.ByteBuf;
@@ -52,13 +51,6 @@ public record ClientboundSyncKnownBrewingRecipesPacket(
                         // Split string into array of recipe ids by comma
                         for (ResourceKey<Recipe<?>> recipeResourceKey : packet.recipeKeys()) {
                             SavedData.instance.getData(clientPlayer).addKnownRecipe(recipeResourceKey);
-                        }
-
-                        // Update JEI
-                        try {
-                            JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes();
-                        } catch (NoClassDefFoundError error) {
-                            PotionsPlus.LOGGER.warn("JEI is not loaded, cannot update brewing recipes knowledge in JEI.");
                         }
 
                         PotionsPlus.LOGGER.info("Received {} brewing recipes knowledge from server " + (!packet.recipeKeys().isEmpty() ? ":D" : ":("), packet.recipeKeys().size());

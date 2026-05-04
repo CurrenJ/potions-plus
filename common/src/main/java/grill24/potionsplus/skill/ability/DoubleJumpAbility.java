@@ -62,7 +62,7 @@ public class DoubleJumpAbility extends SimplePlayerAbility {
         }
 
         SkillsData skillsData = SkillsData.getPlayerData(player);
-        Optional<AbilityInstanceSerializable<?, ?>> inst = skillsData.getAbilityInstance(player.registryAccess(), ConfiguredPlayerAbilities.DOUBLE_JUMP.getKey());
+        Optional<AbilityInstanceSerializable<?, ?>> inst = skillsData.getAbilityInstance(player.registryAccess(), ConfiguredPlayerAbilities.DOUBLE_JUMP.key());
         if (inst.isPresent() && inst.get().data().isEnabled() && inst.get().data() instanceof DoubleJumpAbilityInstanceData data) {
             if (player.onGround()) {
                 data.resetJumps();
