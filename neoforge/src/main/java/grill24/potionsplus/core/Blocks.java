@@ -12,8 +12,10 @@ import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.ModInfo;
-import net.minecraft.client.color.block.BlockColor;
+import java.util.List;
+import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
@@ -39,7 +41,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class Blocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, ModInfo.MOD_ID);
 
@@ -67,23 +69,41 @@ public class Blocks {
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
-        BlockColor cauldronWater = (blockState, world, pos, i) -> {
-            if (world != null && pos != null) {
-                Optional<BrewingCauldronBlockEntity> brewingCauldron = world.getBlockEntity(pos, BREWING_CAULDRON_BLOCK_ENTITY.value());
-                if (brewingCauldron.isPresent()) {
-                    return brewingCauldron.get().getWaterColor(world, pos);
-                }
+    public static void registerBlockColors(RegisterColorHandlersEvent.BlockTintSources event) {
+        // Cauldron water color
+        event.register(List.of(new BlockTintSource() {
+            @Override
+            public int color(BlockState state) {
+                return 0; // Default fallback
             }
-            // No block entity or world, just return the biome color. This can happen bc block entity creation is lazy and can be null up until first interaction with it.
-            return BiomeColors.getAverageWaterColor(world, pos);
-        };
-        event.register(cauldronWater, BlockEntityBlocks.BREWING_CAULDRON.value());
+
+            @Override
+            public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                if (level != null && pos != null) {
+                    BlockEntity be = level.getBlockEntity(pos);
+                    if (be instanceof BrewingCauldronBlockEntity brewingCauldron) {
+                        return brewingCauldron.getWaterColor(level, pos);
+                    }
+                }
+                // No block entity or world, just return the biome color. This can happen bc block entity creation is lazy and can be null up until first interaction with it.
+                return BiomeColors.getAverageWaterColor(level, pos);
+            }
+        }), BlockEntityBlocks.BREWING_CAULDRON.value());
 
         // Register grass color for versatile plants that require it
-        event.register((state, blockAndTintGetter, blockPos, i) -> blockAndTintGetter != null && blockPos != null ?
-                BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos)
-                : GrassColor.getDefaultColor(), FlowerBlocks.TALL_GRASS_VERSATILE.value(), FlowerBlocks.LARGE_FERN_VERSATILE.value());
+        event.register(List.of(new BlockTintSource() {
+            @Override
+            public int color(BlockState state) {
+                return GrassColor.getDefaultColor();
+            }
+
+            @Override
+            public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                return level != null && pos != null ?
+                        BiomeColors.getAverageGrassColor(level, pos)
+                        : GrassColor.getDefaultColor();
+            }
+        }), FlowerBlocks.TALL_GRASS_VERSATILE.value(), FlowerBlocks.LARGE_FERN_VERSATILE.value());
     }
 
     @SubscribeEvent
@@ -110,7 +130,7 @@ public class Blocks {
     private static DeferredHolder<Block, VersatilePlantBlock> registerTallFlowerAsVersatilePlant(final String name, boolean extendable) {
         return register(name, () ->
                 new VersatilePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT)
-                        .noCollission()
+                        .noCollision()
                         .instabreak()
                         .sound(SoundType.GRASS)
                         .ignitedByLava()

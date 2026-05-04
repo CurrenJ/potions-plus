@@ -5,7 +5,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderItemInFrameEvent;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class ItemFrameListeners {
     @SubscribeEvent
     public static void onItemInFrameRender(final RenderItemInFrameEvent event) {

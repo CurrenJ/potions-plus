@@ -12,7 +12,7 @@ import net.neoforged.neoforge.event.entity.item.ItemTossEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.level.BlockDropsEvent;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class EntityListeners {
     @SubscribeEvent
     public static void onBreakBlock(final BlockDropsEvent event) {

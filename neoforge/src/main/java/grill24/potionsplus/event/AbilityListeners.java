@@ -15,7 +15,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDrownEvent;
 import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class AbilityListeners {
     @SubscribeEvent
     public static void onCriticalHitChainLightning(final CriticalHitEvent event) {

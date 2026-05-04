@@ -14,7 +14,7 @@ import net.neoforged.neoforge.items.wrapper.InvWrapper;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class Capabilities {
     public static final BlockCapability<IItemHandler, Direction> CLOTHESLINE_ITEM_HANDLER =
             BlockCapability.createSided(

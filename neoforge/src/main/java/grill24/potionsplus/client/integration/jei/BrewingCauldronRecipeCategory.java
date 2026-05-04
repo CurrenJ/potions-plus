@@ -16,7 +16,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -112,19 +112,19 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     }
 
     @Override
-    public void draw(BrewingCauldronRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(BrewingCauldronRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
         int mainColor = 0xFF80FF20;
-        String amplifierOrDurationText = "";
+        Component amplifierOrDurationText = Component.empty();
         if (recipe.isAmplifierUpgrade()) {
-            amplifierOrDurationText = Component.translatable("jei.potionsplus.amp_upgrade").getString();
+            amplifierOrDurationText = Component.translatable("jei.potionsplus.amp_upgrade");
             mainColor = 0xFFfe70e2;
         } else if (recipe.isDurationUpgrade()) {
-            amplifierOrDurationText = Component.translatable("jei.potionsplus.dur_upgrade").getString();
+            amplifierOrDurationText = Component.translatable("jei.potionsplus.dur_upgrade");
             mainColor = 0xFF5bb6ef;
         }
 
         Minecraft minecraft = Minecraft.getInstance();
-        if (!amplifierOrDurationText.isBlank()) {
+        if (!amplifierOrDurationText.getString().isBlank()) {
 
             // ARGB
             int shadowColor = 0xFF000000 | (mainColor & 0xFCFCFC) >> 2;
@@ -133,24 +133,24 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
             int y = 44;
 
             // TODO 1.13 match the new GuiRepair style
-            guiGraphics.drawString(minecraft.font, amplifierOrDurationText, x + 1, y, shadowColor);
-            guiGraphics.drawString(minecraft.font, amplifierOrDurationText, x, y + 1, shadowColor);
-            guiGraphics.drawString(minecraft.font, amplifierOrDurationText, x + 1, y + 1, shadowColor);
-            guiGraphics.drawString(minecraft.font, amplifierOrDurationText, x, y, mainColor);
+            graphics.text(minecraft.font, amplifierOrDurationText, x + 1, y, shadowColor, false);
+            graphics.text(minecraft.font, amplifierOrDurationText, x, y + 1, shadowColor, false);
+            graphics.text(minecraft.font, amplifierOrDurationText, x + 1, y + 1, shadowColor, false);
+            graphics.text(minecraft.font, amplifierOrDurationText, x, y, mainColor, false);
         }
 
         if (recipe.getExperienceRequired() > 0) {
-            String xpText = Component.translatable("jei.potionsplus.requires_xp", String.format("%.1f", recipe.getExperienceRequired())).getString();
+            Component xpText = Component.translatable("jei.potionsplus.requires_xp", String.format("%.1f", recipe.getExperienceRequired()));
             int width = minecraft.font.width(xpText);
             int xpTextColour = 0xddaa44cc;
             int shadowColor = 0xFF000000 | (xpTextColour & 0xFCFCFC) >> 2;
             int x = 111 - 2 - width;
             int y = 4;
 
-            guiGraphics.drawString(minecraft.font, xpText, x + 1, y, shadowColor);
-            guiGraphics.drawString(minecraft.font, xpText, x, y + 1, shadowColor);
-            guiGraphics.drawString(minecraft.font, xpText, x + 1, y + 1, shadowColor);
-            guiGraphics.drawString(minecraft.font, xpText, x, y, xpTextColour);
+            graphics.text(minecraft.font, xpText, x + 1, y, shadowColor, false);
+            graphics.text(minecraft.font, xpText, x, y + 1, shadowColor, false);
+            graphics.text(minecraft.font, xpText, x + 1, y + 1, shadowColor, false);
+            graphics.text(minecraft.font, xpText, x, y, xpTextColour, false);
         }
     }
 

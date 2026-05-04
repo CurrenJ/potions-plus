@@ -8,7 +8,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 // Chunk 7 TODO: register render types per block via "render_type" in block model JSONs.
 // ItemBlockRenderTypes.setRenderLayer was removed in 26.1.2.
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = ModInfo.MOD_ID, value = Dist.CLIENT)
 public class BlockRenderLayers {
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent event) {

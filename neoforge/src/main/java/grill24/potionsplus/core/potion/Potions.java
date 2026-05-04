@@ -13,7 +13,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.ArrayList;
 import java.util.List;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class Potions {
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(Registries.POTION, ModInfo.MOD_ID);
     public static final List<PotionBuilder.PotionsPlusPotionGenerationData> ALL_POTION_GENERATION_DATA = new ArrayList<>();

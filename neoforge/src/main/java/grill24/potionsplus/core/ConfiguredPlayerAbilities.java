@@ -2,7 +2,7 @@ package grill24.potionsplus.core;
 
 import grill24.potionsplus.skill.ability.*;
 import grill24.potionsplus.skill.ability.util.ItemPredicateFactory;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;

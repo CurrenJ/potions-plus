@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class EnchantmentListeners {
     @SubscribeEvent
     private static void onEnchantmentEvent(GetEnchantmentLevelEvent event) {

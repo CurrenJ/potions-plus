@@ -91,7 +91,7 @@ public class DecorationBlocks {
         Items.registerBlockItem(LAVA_GEYSER, registerItem);
 
         DECORATIVE_FIRE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("decorative_fire")
-                .blockFactory(prop -> new DecorativeFireBlock(prop.mapColor(MapColor.FIRE).noCollission().instabreak().lightLevel((state) -> 15).sound(SoundType.WOOL)))
+                .blockFactory(prop -> new DecorativeFireBlock(prop.mapColor(MapColor.FIRE).noCollision().instabreak().lightLevel((state) -> 15).sound(SoundType.WOOL)))
                 .lootGenerator(null) // Hand-made loot table
                 .modelGenerator(null) // Hand-made model
         ).getHolder();

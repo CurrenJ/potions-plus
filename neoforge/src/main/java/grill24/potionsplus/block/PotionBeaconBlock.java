@@ -7,6 +7,7 @@ import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -67,7 +68,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
             level.updateNeighborsAt(pos, this);
             potionBeaconBlockEntity.onPlayerInsertItem(player);
 
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 if (potionBeaconBlockEntity.sounds == null) {
                     potionBeaconBlockEntity.sounds = new HerbalistsLecternSounds();
                 }
@@ -90,7 +91,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
 
         // Do interaction
         InvUtil.InteractionResult result = InvUtil.extractOnPlayerUseWithoutItem(level, pos, player, true, SoundEvents.ITEM_FRAME_ADD_ITEM);
-        if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide) {
+        if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide()) {
             if (PotionBeaconBlockEntity.sounds == null) {
                 PotionBeaconBlockEntity.sounds = new HerbalistsLecternSounds();
             }
@@ -111,8 +112,8 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
-        Optional<PotionBeaconBlockEntity> PotionBeaconBlockEntity = level.getBlockEntity(blockPos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
+        Optional<PotionBeaconBlockEntity> PotionBeaconBlockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
         return PotionBeaconBlockEntity.filter(potionBeaconBlockEntity -> !potionBeaconBlockEntity.getItem(0).isEmpty()).map(potionBeaconBlockEntity -> 15).orElse(0);
     }
 

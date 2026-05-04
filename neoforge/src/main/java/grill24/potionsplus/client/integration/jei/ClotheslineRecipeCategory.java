@@ -103,33 +103,33 @@ public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRec
     }
 
     @Override
-    public void draw(ClotheslineRecipe recipe, mezz.jei.api.gui.ingredient.IRecipeSlotsView recipeSlotsView, net.minecraft.client.gui.GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(ClotheslineRecipe recipe, mezz.jei.api.gui.ingredient.IRecipeSlotsView recipeSlotsView, net.minecraft.client.gui.GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         // Draw success percentage if less than 100%
         float successChance = recipe.getSuccessChance();
         if (successChance < 1.0f) {
             int percentage = Math.round(successChance * 100);
-            String successText = percentage + "% Success:";
-            
+            net.minecraft.network.chat.Component successText = net.minecraft.network.chat.Component.literal(percentage + "% Success:");
+
             net.minecraft.client.Minecraft minecraft = net.minecraft.client.Minecraft.getInstance();
             int textColor = 0xFF55FF55; // Green color
             int shadowColor = 0xFF000000 | (textColor & 0xFCFCFC) >> 2;
             int width = minecraft.font.width(successText);
             int x = 111 - width - 2; // Center horizontally
             int y = 10; // Near bottom
-            
+
             // Draw text with shadow
-            guiGraphics.drawString(minecraft.font, successText, x + 1, y, shadowColor);
-            guiGraphics.drawString(minecraft.font, successText, x, y + 1, shadowColor);
-            guiGraphics.drawString(minecraft.font, successText, x + 1, y + 1, shadowColor);
-            guiGraphics.drawString(minecraft.font, successText, x, y, textColor);
+            guiGraphics.text(minecraft.font, successText, x + 1, y, shadowColor, false);
+            guiGraphics.text(minecraft.font, successText, x, y + 1, shadowColor, false);
+            guiGraphics.text(minecraft.font, successText, x + 1, y + 1, shadowColor, false);
+            guiGraphics.text(minecraft.font, successText, x, y, textColor, false);
 
             // Draw fallback label if present
             if (!recipe.getFallbackResult().isEmpty()) {
-                String fallbackText = "Otherwise:";
+                net.minecraft.network.chat.Component fallbackText = net.minecraft.network.chat.Component.literal("Otherwise:");
                 int fallbackWidth = minecraft.font.width(fallbackText);
                 int fallbackX = 111 - fallbackWidth - 2;
                 int fallbackY = 43;
-                guiGraphics.drawString(minecraft.font, fallbackText, fallbackX, fallbackY, 0xFFAAAAAA);
+                guiGraphics.text(minecraft.font, fallbackText, fallbackX, fallbackY, 0xFFAAAAAA, false);
             }
         }
     }

@@ -6,6 +6,7 @@ import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -67,13 +68,13 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
     }
 
     @Override
-    public boolean hasAnalogOutputSignal(@NotNull BlockState blockState) {
+    protected boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
     @Override
-    public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
-        Optional<BrewingCauldronBlockEntity> brewingCauldronBlockEntity = level.getBlockEntity(blockPos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get());
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
+        Optional<BrewingCauldronBlockEntity> brewingCauldronBlockEntity = level.getBlockEntity(pos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get());
         return brewingCauldronBlockEntity.map(AbstractContainerMenu::getRedstoneSignalFromContainer).orElse(0);
     }
 

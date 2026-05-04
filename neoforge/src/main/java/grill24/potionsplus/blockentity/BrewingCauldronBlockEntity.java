@@ -32,7 +32,7 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -214,7 +214,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
     private void craft() {
         if (level == null) return;
 
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+        if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             if (activeRecipe.isEmpty()) return;
             final ResourceKey<Recipe<?>> recipeId = activeRecipe.get().id();
             final BrewingCauldronRecipe recipe = new BrewingCauldronRecipe(activeRecipe.get().value());
@@ -286,12 +286,12 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
             return;
 
         for (int i = 0; i < 10; i++) {
-            level.addParticle(Particles.END_ROD_RAIN.get(), worldPosition.getX() + level.random.nextDouble() * 0.8 + 0.2, worldPosition.getY() + 2, worldPosition.getZ() + level.random.nextDouble() * 0.8 + 0.2, 0, 0, 0);
+            level.addParticle(Particles.END_ROD_RAIN.get(), worldPosition.getX() + level.getRandom().nextDouble() * 0.8 + 0.2, worldPosition.getY() + 2, worldPosition.getZ() + level.getRandom().nextDouble() * 0.8 + 0.2, 0, 0, 0);
         }
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, BrewingCauldronBlockEntity blockEntity) {
-        boolean isClientSide = level.isClientSide;
+        boolean isClientSide = level.isClientSide();
         BlockPos below = pos.below();
         boolean hasHeatSource = level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.FIRE)
                 || level.getBlockState(below).is(net.minecraft.world.level.block.Blocks.LAVA)
@@ -357,11 +357,11 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
     }
 
     private static void spawnBoilingParticles(Level level, BlockPos pos, double particles) {
-        if (level.random.nextDouble() < particles) {
-            final int particleCount = level.random.nextInt(1, 5);
+        if (level.getRandom().nextDouble() < particles) {
+            final int particleCount = level.getRandom().nextInt(1, 5);
             for (int i = 0; i < particleCount; i++) {
                 SimpleParticleType particle = null;
-                switch (level.random.nextInt(3)) {
+                switch (level.getRandom().nextInt(3)) {
                     case 0:
                         particle = ParticleTypes.BUBBLE_COLUMN_UP;
                         break;
@@ -375,9 +375,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
                 level.addParticle(
                         particle,
-                        pos.getX() + level.random.nextDouble() * 0.8 + 0.2,
-                        pos.getY() + 0.85 + level.random.nextDouble() * 0.2,
-                        pos.getZ() + level.random.nextDouble() * 0.8 + 0.2,
+                        pos.getX() + level.getRandom().nextDouble() * 0.8 + 0.2,
+                        pos.getY() + 0.85 + level.getRandom().nextDouble() * 0.2,
+                        pos.getZ() + level.getRandom().nextDouble() * 0.8 + 0.2,
                         0, 0.1, 0);
             }
         }

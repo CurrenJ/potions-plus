@@ -8,7 +8,7 @@ import net.neoforged.fml.ModLoader;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.TagsUpdatedEvent;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class TagUpdateListeners {
     @SubscribeEvent
     public static void onTagUpdate(final TagsUpdatedEvent event) {

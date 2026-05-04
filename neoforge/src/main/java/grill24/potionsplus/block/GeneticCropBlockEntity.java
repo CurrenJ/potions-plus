@@ -95,7 +95,7 @@ public class GeneticCropBlockEntity extends InventoryBlockEntity {
             return false;
         }
 
-        if (this.level != null && !this.level.isClientSide) {
+        if (this.level != null && !this.level.isClientSide()) {
             this.lastPollinationTime = this.level.getGameTime();
             this.pollinatorGenotype = pollinatorGenotype;
             this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.POLLINATED), 2);

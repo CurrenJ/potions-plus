@@ -12,7 +12,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import java.util.List;
 import java.util.Map;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = ModInfo.MOD_ID, value = Dist.CLIENT)
 public class ResourceListeners {
     @SubscribeEvent
     public static void generateRuntimeResourcesCache(final GenerateRuntimeResourceInjectionsCacheEvent event) {

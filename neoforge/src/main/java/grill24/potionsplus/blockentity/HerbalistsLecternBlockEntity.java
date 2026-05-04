@@ -182,7 +182,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, HerbalistsLecternBlockEntity blockEntity) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             Player player = ClientUtility.getLocalPlayer();
             if (player != null) {
                 Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();
@@ -202,7 +202,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
             boolean hasEligibleIngredient = Recipes.ALL_BCR_RECIPES_ANALYSIS.isIngredientUsed(PpIngredient.of(heldItem));
 
             if (hasEligibleIngredient) {
-                if (level.random.nextInt(12) == 0)
+                if (level.getRandom().nextInt(12) == 0)
                     player.level().addParticle(ParticleTypes.END_ROD, pos.getX() + 0.5 + level.getRandom().nextDouble() - 0.5, pos.getY() + 1.25, pos.getZ() + 0.5 + level.getRandom().nextDouble() - 0.5, 0, 0, 0);
             }
         }
@@ -213,7 +213,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
         super.setChanged();
 
         // Pre-process the renderer data for the client so we don't have to do it every frame.
-        if (level != null && level.isClientSide) {
+        if (level != null && level.isClientSide()) {
             rendererData.updateItemStacksToDisplay(this);
         }
     }

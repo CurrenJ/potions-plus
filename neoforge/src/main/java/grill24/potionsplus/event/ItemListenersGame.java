@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(modid = ModInfo.MOD_ID, value = Dist.CLIENT)
 public class ItemListenersGame {
     private static float animationStartTimestamp = 0;
     private static float lastTooltipTimestamp = 0;

@@ -16,7 +16,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.*;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class Attributes {
     private static final Map<ResourceKey<Enchantment>, Holder<Attribute>> ATTRIBUTES_BY_ENCHANTMENT = new HashMap<>();
     private static final Map<ResourceKey<Attribute>, ResourceKey<Enchantment>> ENCHANTMENTS_BY_ATTRIBUTE = new HashMap<>();

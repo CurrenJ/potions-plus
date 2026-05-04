@@ -13,7 +13,7 @@ import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
 
 import java.util.Set;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class AdvancementListeners {
     private static final Set<Identifier> ADVANCEMENTS_DROP_INGREDIENTS = Set.of(
             AdvancementProvider.CREATE_BREWING_CAULDRON,

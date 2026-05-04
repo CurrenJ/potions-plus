@@ -5,7 +5,7 @@ import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.repository.PackRepository;
-import net.minecraft.world.level.storage.DimensionDataStorage;
+import net.minecraft.world.level.storage.SavedDataStorage;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
 import java.util.Collection;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class ServerLifecycleListeners {
 
     @SubscribeEvent
@@ -26,7 +26,7 @@ public class ServerLifecycleListeners {
         initializeSavedData(server);
 
         // Store world seed - used for generating runtime recipes. Important to do this before any recipes are generated or loot tables are initialized.
-        PotionsPlus.worldSeed = server.getWorldData().worldGenOptions().seed();
+        PotionsPlus.worldSeed = server.getWorldGenSettings().options().seed();
 
         // Inject runtime recipes (seeded brewing cauldron recipes, sanguine alter recipes, etc.)
         injectRuntimeRecipes(server);
@@ -56,7 +56,7 @@ public class ServerLifecycleListeners {
 
     private static void initializeSavedData(MinecraftServer server) {
         ServerLevel level = server.overworld();
-        DimensionDataStorage dataStorage = level.getDataStorage();
+        SavedDataStorage dataStorage = level.getDataStorage();
         SavedData.instance = dataStorage.computeIfAbsent(SavedData.TYPE);
     }
 

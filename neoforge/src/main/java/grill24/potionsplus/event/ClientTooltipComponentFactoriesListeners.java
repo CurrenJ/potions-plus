@@ -8,7 +8,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = ModInfo.MOD_ID, value = Dist.CLIENT)
 public class ClientTooltipComponentFactoriesListeners {
     @SubscribeEvent
     public static void on(final RegisterClientTooltipComponentFactoriesEvent event) {

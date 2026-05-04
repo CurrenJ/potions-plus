@@ -9,7 +9,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class DelayedEvents {
     private record DelayedEvent(Runnable runnable, long executionTimestamp) {
     }

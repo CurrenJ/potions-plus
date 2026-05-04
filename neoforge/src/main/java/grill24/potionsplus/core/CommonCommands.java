@@ -28,6 +28,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.permissions.Permissions;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -47,7 +48,7 @@ import org.joml.Vector4f;
 import java.util.*;
 import java.util.function.Consumer;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class CommonCommands {
     public static int expiryTime = 6000;
 
@@ -57,7 +58,7 @@ public class CommonCommands {
 
         event.getDispatcher().register(Commands.literal("potionsplus")
                 .then(Commands.literal("savedData")
-                        .requires((source) -> source.hasPermission(2))
+                        .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                         .then(Commands.literal("clear")
                                 .executes(context -> {
                                     SavedData.instance.clear();
@@ -126,7 +127,7 @@ public class CommonCommands {
                 )
                 // Takes in integer argument
                 .then(Commands.literal("quickItemExpiry")
-                        .requires((source) -> source.hasPermission(2))
+                        .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                         .then(Commands.argument("expiryTime", IntegerArgumentType.integer(-1))
                                 .executes(context -> {
                                     expiryTime = IntegerArgumentType.getInteger(context, "expiryTime");
@@ -137,7 +138,7 @@ public class CommonCommands {
                         )
                 )
                 .then(Commands.literal("caveDiver")
-                        .requires((source) -> source.hasPermission(2))
+                        .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                         .executes(context -> {
                             if (context.getSource().getEntity() instanceof ServerPlayer player) {
                                 player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 6000, 0, false, false, false));
@@ -148,7 +149,7 @@ public class CommonCommands {
                         })
                 )
                 .then(Commands.literal("potionHand")
-                        .requires((source) -> source.hasPermission(2))
+                        .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                         .executes(context -> {
                             if (context.getSource().getEntity() instanceof ServerPlayer player) {
                                 player.getMainHandItem().set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.FLYING_TIME_POTIONS.potion));
@@ -158,7 +159,7 @@ public class CommonCommands {
                         })
                 )
                 .then(Commands.literal("wheel")
-                        .requires((source) -> source.hasPermission(2))
+                        .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                         .executes(context -> {
                             if (context.getSource().getEntity() instanceof ServerPlayer player) {
                                 List<ItemStack> itemStacks = player.getInventory().getNonEquipmentItems().stream().filter(itemStack -> !itemStack.isEmpty()).toList();
@@ -188,7 +189,7 @@ public class CommonCommands {
                         .then(Commands.literal("set")
                                 .then(Commands.literal("color")
                                         .then(Commands.argument("value", IntegerArgumentType.integer())
-                                                .requires((source) -> source.hasPermission(2))
+                                                .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                                                 .executes(context -> {
                                                     if (context.getSource().getEntity() instanceof ServerPlayer player) {
                                                         int value = IntegerArgumentType.getInteger(context, "value");
@@ -204,7 +205,7 @@ public class CommonCommands {
                                 )
                                 .then(Commands.literal("weight")
                                         .then(Commands.argument("value", IntegerArgumentType.integer())
-                                                .requires((source) -> source.hasPermission(2))
+                                                .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                                                 .executes(context -> {
                                                     if (context.getSource().getEntity() instanceof ServerPlayer player) {
                                                         int value = IntegerArgumentType.getInteger(context, "value");
@@ -240,7 +241,7 @@ public class CommonCommands {
                                 )
                         )
                         .then(Commands.literal("createOffspring")
-                                .requires((source) -> source.hasPermission(2))
+                                .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                                 .executes(context -> createOffspring(context, 1))
                                 .then(Commands.argument("repeat", IntegerArgumentType.integer())
                                         .executes(context -> createOffspring(context, IntegerArgumentType.getInteger(context, "repeat")))
@@ -248,7 +249,7 @@ public class CommonCommands {
                         )
                 )
                 .then(Commands.literal("tossup")
-                        .requires((source) -> source.hasPermission(2))
+                        .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                         .executes(context -> {
                             if (context.getSource().getEntity() instanceof ServerPlayer player) {
                                 List<ItemStack> itemStacks = new ArrayList<>();
@@ -266,7 +267,7 @@ public class CommonCommands {
                         })
                 )
                 .then(Commands.literal("skillsMenu")
-                        .requires((source) -> source.hasPermission(2))
+                        .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                         .executes(context -> {
                             if (context.getSource().getEntity() instanceof ServerPlayer serverPlayer) {
                                 //
@@ -430,7 +431,7 @@ public class CommonCommands {
                             return 1;
                         })
                         .then(Commands.literal("clear")
-                                .requires((source) -> source.hasPermission(2))
+                                .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                                 .executes(context -> {
                                     if (context.getSource().getPlayer() == null) {
                                         return 0;
@@ -551,7 +552,7 @@ public class CommonCommands {
 
                                             return 1;
                                         })
-                                        .requires((source) -> source.hasPermission(2))
+                                        .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                                         .then(Commands.literal("add")
                                                 .then(Commands.argument("points", IntegerArgumentType.integer())
                                                         .executes(context -> {
@@ -569,7 +570,7 @@ public class CommonCommands {
                                                         })
                                                 )
                                         )
-                                        .requires((source) -> source.hasPermission(2))
+                                        .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                                         .then(Commands.literal("set")
                                                 .then(Commands.argument("points", IntegerArgumentType.integer())
                                                         .executes(context -> {

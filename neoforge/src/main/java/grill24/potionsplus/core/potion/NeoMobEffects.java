@@ -1,6 +1,5 @@
 package grill24.potionsplus.core.potion;
 
-import com.google.common.base.Suppliers;
 import grill24.potionsplus.effect.*;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
@@ -9,6 +8,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.Map;
@@ -84,6 +84,6 @@ public class NeoMobEffects {
         MobEffects.SOUL_MATE = SOUL_MATE;
         MobEffects.FLYING_TIME = FLYING_TIME;
         MobEffects.BOUNCING = BOUNCING;
-        MobEffects.POTION_ICON_INDEX_MAP = Suppliers.memoize(PUtil::getAllMobEffectsIconStackSizeMap);
+        MobEffects.POTION_ICON_INDEX_MAP = Lazy.of(PUtil::getAllMobEffectsIconStackSizeMap);
     }
 }

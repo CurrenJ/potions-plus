@@ -10,7 +10,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
 import net.neoforged.neoforge.client.event.RenderFrameEvent;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(modid = ModInfo.MOD_ID, value = Dist.CLIENT)
 public class ClientGameListeners {
     @SubscribeEvent
     public static void renderTick(final RenderFrameEvent.Post event) {

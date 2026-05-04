@@ -20,7 +20,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class DataGen {
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             // World Gen
@@ -43,7 +43,7 @@ public class DataGen {
         PotionsPlus.LOGGER.info("Generating data for Potions Plus");
 
         BlockTagsProvider blockTagsProvider = new BlockTagProvider(output, lookupProvider);
-        ItemTagProvider itemTagProvider = new ItemTagProvider(output, lookupProvider, blockTagsProvider.contentsGetter());
+        ItemTagProvider itemTagProvider = new ItemTagProvider(output, lookupProvider);
         Sounds soundsProvider = new Sounds(output, ModInfo.MOD_ID);
         generator.addProvider(true, blockTagsProvider);
         generator.addProvider(true, itemTagProvider);

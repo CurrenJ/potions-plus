@@ -4,7 +4,7 @@ import grill24.potionsplus.block.VersatilePlantBlock;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.data.PotionsPlusBlockLoot;
 import grill24.potionsplus.utility.registration.LootGenerator;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;

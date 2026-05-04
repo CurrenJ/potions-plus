@@ -97,7 +97,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         Player player = Minecraft.getInstance().player;
 
 
-        if (JEI_RUNTIME != null && level != null && level.isClientSide && player != null && Recipes.recipes != null) {
+        if (JEI_RUNTIME != null && level != null && level.isClientSide() && player != null && Recipes.recipes != null) {
             List<BrewingCauldronRecipe> brewingCauldronRecipeList = Recipes.recipes.byType(Recipes.BREWING_CAULDRON_RECIPE.value()).stream().map(RecipeHolder::value).toList();
             JEI_RUNTIME.getRecipeManager().hideRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE, brewingCauldronRecipeList);
 

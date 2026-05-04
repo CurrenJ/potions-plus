@@ -6,7 +6,7 @@ import grill24.potionsplus.skill.SkillsData;
 import grill24.potionsplus.skill.source.BreakBlockSource;
 import grill24.potionsplus.skill.source.KillEntitySource;
 import grill24.potionsplus.utility.ModInfo;
-import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,7 +21,7 @@ import net.neoforged.neoforge.event.level.BlockDropsEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import oshi.util.tuples.Pair;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class SkillListeners {
     @SubscribeEvent
     public static void onBreakBlock(final BlockEvent.BreakEvent event) {

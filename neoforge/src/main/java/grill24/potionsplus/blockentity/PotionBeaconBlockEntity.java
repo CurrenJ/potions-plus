@@ -152,7 +152,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
             // Spawn potion particles while active... TODO
         }
 
-        if (level.isClientSide && blockEntity.getBlockState().getValue(PotionBeaconBlock.LIT)) {
+        if (level.isClientSide() && blockEntity.getBlockState().getValue(PotionBeaconBlock.LIT)) {
             float timeSincePlaced = ClientTickHandler.total() - blockEntity.rendererData.innerBlockShownTimestamp;
             float durationFactor = Math.clamp((blockEntity.rendererData.effectDurationWhenShown - timeSincePlaced) / 3600, 0, 1);
             int tickInterval = (int) RUtil.lerp(1, 4, durationFactor);
@@ -160,28 +160,28 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
                 blockEntity.rendererData.itemParticles.removeIf(itemParticle -> itemParticle.age > itemParticle.lifetime);
 
                 for (int i = 0; i < tickInterval; i++) {
-                    double x = 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
-                    double y = 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
-                    double z = 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
+                    double x = 0.5 + (level.getRandom().nextDouble() - 0.5) * 0.5;
+                    double y = 0.5 + (level.getRandom().nextDouble() - 0.5) * 0.5;
+                    double z = 0.5 + (level.getRandom().nextDouble() - 0.5) * 0.5;
 
                     // Speed is away from center point (0.5, 0.5)
-                    double speed = 0.1 * level.random.nextDouble();
+                    double speed = 0.1 * level.getRandom().nextDouble();
                     double dx = (x - 0.5) * speed;
                     double dy = (y - 0.5) * speed;
                     double dz = (z - 0.5) * speed;
 
                     // Rotation
-                    Vector3f rotationDegrees = new Vector3f((float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360));
+                    Vector3f rotationDegrees = new Vector3f((float) (level.getRandom().nextDouble() * 360), (float) (level.getRandom().nextDouble() * 360), (float) (level.getRandom().nextDouble() * 360));
                     final int ROTATIONAL_VELOCITY_STD_DEV = 5;
-                    Vector3f rotationalVelocity = new Vector3f((float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random));
+                    Vector3f rotationalVelocity = new Vector3f((float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.getRandom()), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.getRandom()), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.getRandom()));
 
                     RendererData.ItemParticle itemParticle = blockEntity.rendererData.new ItemParticle();
                     itemParticle.position = new Vector3d(x, y, z);
                     itemParticle.velocity = new Vector3d(dx, dy, dz);
                     itemParticle.rotation = rotationDegrees;
                     itemParticle.rotationalVelocity = rotationalVelocity;
-                    itemParticle.lifetime = (float) Utility.nextGaussian(100, 20, level.random);
-                    itemParticle.scale = (float) RUtil.lerp(0, Utility.nextGaussian(0.20, 0.1, level.random), durationFactor);
+                    itemParticle.lifetime = (float) Utility.nextGaussian(100, 20, level.getRandom());
+                    itemParticle.scale = (float) RUtil.lerp(0, Utility.nextGaussian(0.20, 0.1, level.getRandom()), durationFactor);
 
                     blockEntity.rendererData.itemParticles.add(itemParticle);
                 }
@@ -189,7 +189,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
         }
 
         // Apply effects
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+        if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             final int TICK_INTERVAL = 60;
             List<MobEffectInstance> toRemove = new ArrayList<>();
             if (ServerTickHandler.ticksInGame % TICK_INTERVAL == 0) {

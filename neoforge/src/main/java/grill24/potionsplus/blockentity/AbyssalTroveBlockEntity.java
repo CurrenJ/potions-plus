@@ -111,7 +111,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, AbyssalTroveBlockEntity blockEntity) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             Player player = ClientUtility.getLocalPlayer();
             if (player != null) {
                 Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();

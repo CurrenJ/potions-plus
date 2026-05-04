@@ -40,7 +40,7 @@ import oshi.util.tuples.Pair;
 
 import java.util.*;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class PlayerListeners {
 
     @SubscribeEvent

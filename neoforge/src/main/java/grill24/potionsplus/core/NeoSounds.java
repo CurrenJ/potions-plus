@@ -13,6 +13,22 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 public class NeoSounds extends SoundDefinitionsProvider {
 
+    public static DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, ModInfo.MOD_ID);
+    public static Holder<SoundEvent> ABYSSAL_TROVE_DEPOSIT = SOUNDS.register("abyssal_trove_deposit", () -> SoundEvent.createVariableRangeEvent(ppId("abyssal_trove_deposit")));
+    public static Holder<SoundEvent> HERBALISTS_LECTERN_APPEAR = SOUNDS.register("herbalists_lectern_appear", () -> SoundEvent.createVariableRangeEvent(ppId("herbalists_lectern_appear")));
+    public static Holder<SoundEvent> HERBALISTS_LECTERN_DISAPPEAR = SOUNDS.register("herbalists_lectern_disappear", () -> SoundEvent.createVariableRangeEvent(ppId("herbalists_lectern_disappear")));
+    public static Holder<SoundEvent> PING_0 = SOUNDS.register("ping_0", () -> SoundEvent.createVariableRangeEvent(ppId("ping_0")));
+    public static Holder<SoundEvent> PING_1 = SOUNDS.register("ping_1", () -> SoundEvent.createVariableRangeEvent(ppId("ping_1")));
+    public static Holder<SoundEvent> PING_2 = SOUNDS.register("ping_2", () -> SoundEvent.createVariableRangeEvent(ppId("ping_2")));
+    public static Holder<SoundEvent> PING_3 = SOUNDS.register("ping_3", () -> SoundEvent.createVariableRangeEvent(ppId("ping_3")));
+    public static Holder<SoundEvent> GIANT_STEPS = SOUNDS.register("giant_steps", () -> SoundEvent.createVariableRangeEvent(ppId("giant_steps")));
+    public static Holder<SoundEvent> RECIPE_UNLOCKED = SOUNDS.register("recipe_unlocked", () -> SoundEvent.createVariableRangeEvent(ppId("recipe_unlocked")));
+    public static Holder<SoundEvent> MUTED_PLUCKS_0 = SOUNDS.register("muted_plucks_0", () -> SoundEvent.createVariableRangeEvent(ppId("muted_plucks_0")));
+    public static Holder<SoundEvent> MUTED_PLUCKS_1 = SOUNDS.register("muted_plucks_1", () -> SoundEvent.createVariableRangeEvent(ppId("muted_plucks_1")));
+    public static Holder<SoundEvent> SANGUINE_ALTAR_CONVERSION = SOUNDS.register("sanguine_altar_conversion", () -> SoundEvent.createVariableRangeEvent(ppId("sanguine_altar_conversion")));
+    public static Holder<SoundEvent> LIGHTNING_BOLT_ABILITY = SOUNDS.register("lightning_bolt_ability", () -> SoundEvent.createVariableRangeEvent(ppId("lightning_bolt_ability")));
+    public static Holder<SoundEvent> HEAVY_IMPACT = SOUNDS.register("heavy_impact", () -> SoundEvent.createVariableRangeEvent(ppId("heavy_impact")));
+
     static {
         Sounds.ABYSSAL_TROVE_DEPOSIT = ABYSSAL_TROVE_DEPOSIT;
         Sounds.HERBALISTS_LECTERN_APPEAR = HERBALISTS_LECTERN_APPEAR;
@@ -29,21 +45,6 @@ public class NeoSounds extends SoundDefinitionsProvider {
         Sounds.LIGHTNING_BOLT_ABILITY = LIGHTNING_BOLT_ABILITY;
         Sounds.HEAVY_IMPACT = HEAVY_IMPACT;
     }
-    public static DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, ModInfo.MOD_ID);
-    public static Holder<SoundEvent> ABYSSAL_TROVE_DEPOSIT = SOUNDS.register("abyssal_trove_deposit", () -> SoundEvent.createVariableRangeEvent(ppId("abyssal_trove_deposit")));
-    public static Holder<SoundEvent> HERBALISTS_LECTERN_APPEAR = SOUNDS.register("herbalists_lectern_appear", () -> SoundEvent.createVariableRangeEvent(ppId("herbalists_lectern_appear")));
-    public static Holder<SoundEvent> HERBALISTS_LECTERN_DISAPPEAR = SOUNDS.register("herbalists_lectern_disappear", () -> SoundEvent.createVariableRangeEvent(ppId("herbalists_lectern_disappear")));
-    public static Holder<SoundEvent> PING_0 = SOUNDS.register("ping_0", () -> SoundEvent.createVariableRangeEvent(ppId("ping_0")));
-    public static Holder<SoundEvent> PING_1 = SOUNDS.register("ping_1", () -> SoundEvent.createVariableRangeEvent(ppId("ping_1")));
-    public static Holder<SoundEvent> PING_2 = SOUNDS.register("ping_2", () -> SoundEvent.createVariableRangeEvent(ppId("ping_2")));
-    public static Holder<SoundEvent> PING_3 = SOUNDS.register("ping_3", () -> SoundEvent.createVariableRangeEvent(ppId("ping_3")));
-    public static Holder<SoundEvent> GIANT_STEPS = SOUNDS.register("giant_steps", () -> SoundEvent.createVariableRangeEvent(ppId("giant_steps")));
-    public static Holder<SoundEvent> RECIPE_UNLOCKED = SOUNDS.register("recipe_unlocked", () -> SoundEvent.createVariableRangeEvent(ppId("recipe_unlocked")));
-    public static Holder<SoundEvent> MUTED_PLUCKS_0 = SOUNDS.register("muted_plucks_0", () -> SoundEvent.createVariableRangeEvent(ppId("muted_plucks_0")));
-    public static Holder<SoundEvent> MUTED_PLUCKS_1 = SOUNDS.register("muted_plucks_1", () -> SoundEvent.createVariableRangeEvent(ppId("muted_plucks_1")));
-    public static Holder<SoundEvent> SANGUINE_ALTAR_CONVERSION = SOUNDS.register("sanguine_altar_conversion", () -> SoundEvent.createVariableRangeEvent(ppId("sanguine_altar_conversion")));
-    public static Holder<SoundEvent> LIGHTNING_BOLT_ABILITY = SOUNDS.register("lightning_bolt_ability", () -> SoundEvent.createVariableRangeEvent(ppId("lightning_bolt_ability")));
-    public static Holder<SoundEvent> HEAVY_IMPACT = SOUNDS.register("heavy_impact", () -> SoundEvent.createVariableRangeEvent(ppId("heavy_impact")));
 
     /**
      * Creates a new instance of this data provider.

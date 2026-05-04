@@ -11,7 +11,7 @@ import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.common.util.Lazy;
 import org.lwjgl.glfw.GLFW;
 
-@EventBusSubscriber(value = Dist.CLIENT, modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(value = Dist.CLIENT, modid = ModInfo.MOD_ID)
 public class KeyMappings {
     public static final Lazy<KeyMapping> ACTIVATE_ABILITY = Lazy.of(() ->
             new KeyMapping(
@@ -19,7 +19,7 @@ public class KeyMappings {
                     KeyConflictContext.IN_GAME,
                     InputConstants.Type.MOUSE,
                     GLFW.GLFW_MOUSE_BUTTON_2,
-                    "key.categories.potionsplus"));
+                    KeyMapping.Category.MISC));
 
     @SubscribeEvent
     public static void registerBindings(final RegisterKeyMappingsEvent event) {

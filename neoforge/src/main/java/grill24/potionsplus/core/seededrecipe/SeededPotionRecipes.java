@@ -38,7 +38,7 @@ public class SeededPotionRecipes {
     }
 
     public SeededPotionRecipes(MinecraftServer server) {
-        long seed = server.getWorldData().worldGenOptions().seed();
+        long seed = server.getWorldGenSettings().options().seed();
         this.random = RandomSource.create(seed);
         this.recipes = new ArrayList<>();
 

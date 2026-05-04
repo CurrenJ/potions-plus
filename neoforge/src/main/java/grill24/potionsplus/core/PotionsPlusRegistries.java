@@ -21,7 +21,7 @@ import net.neoforged.neoforge.registries.RegistryBuilder;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class PotionsPlusRegistries {
     // Registries
     public static final ResourceKey<Registry<Skill<?>>> SKILL_REGISTRY_KEY = ResourceKey.createRegistryKey(ppId("source"));

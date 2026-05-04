@@ -1,6 +1,6 @@
 package grill24.potionsplus.core;
 
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;

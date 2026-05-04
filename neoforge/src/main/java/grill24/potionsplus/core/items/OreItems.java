@@ -6,6 +6,7 @@ import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
+import net.minecraft.data.recipes.CookingBookCategory;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.item.Item;
@@ -32,6 +33,7 @@ public class OreItems {
                                 SimpleCookingRecipeBuilder.smelting(
                                         Ingredient.of(OreItems.RAW_URANIUM.value()),
                                         RecipeCategory.MISC,
+                                        CookingBookCategory.MISC,
                                         new ItemStack(OreItems.URANIUM_INGOT.value()),
                                         2.0F,
                                         100
@@ -41,6 +43,7 @@ public class OreItems {
                                 SimpleCookingRecipeBuilder.blasting(
                                         Ingredient.of(OreItems.RAW_URANIUM.value()),
                                         RecipeCategory.MISC,
+                                        CookingBookCategory.MISC,
                                         new ItemStack(OreItems.URANIUM_INGOT.value()),
                                         2.0F,
                                         50
@@ -53,6 +56,7 @@ public class OreItems {
                                 SimpleCookingRecipeBuilder.smelting(
                                         recipeProvider.tag(Tags.Items.URANIUM_ORE),
                                         RecipeCategory.MISC,
+                                        CookingBookCategory.MISC,
                                         new ItemStack(h.value()),
                                         2.0F,
                                         100
@@ -62,6 +66,7 @@ public class OreItems {
                                 SimpleCookingRecipeBuilder.blasting(
                                         recipeProvider.tag(Tags.Items.URANIUM_ORE),
                                         RecipeCategory.MISC,
+                                        CookingBookCategory.MISC,
                                         new ItemStack(h.value()),
                                         2.0F,
                                         50

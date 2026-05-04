@@ -20,7 +20,7 @@ public class PpIngredient {
     // Use toString() as a simple unique identifier for the ingredient.
 
     public static final Codec<PpIngredient> CODEC = RecordCodecBuilder.create(codecBuilder -> codecBuilder.group(
-            ItemStack.STRICT_CODEC.listOf().fieldOf("matchStacks").forGetter(data -> data.matchStacks)
+            ItemStack.CODEC.listOf().fieldOf("matchStacks").forGetter(data -> data.matchStacks)
     ).apply(codecBuilder, PpIngredient::new));
 
 

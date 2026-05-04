@@ -10,7 +10,7 @@ import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;

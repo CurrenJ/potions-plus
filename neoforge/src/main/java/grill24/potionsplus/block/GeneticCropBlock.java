@@ -222,7 +222,7 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
             if (!isSelfPollinating() && nearbyPos.equals(pos)) continue; // Skip the current crop block
 
             final float chance = 0.2F;
-            if (level.random.nextFloat() > chance) continue; // Random chance to pollinate
+            if (level.getRandom().nextFloat() > chance) continue; // Random chance to pollinate
 
             Optional<GeneticCropBlockEntity> cropBlockEntity = level.getBlockEntity(nearbyPos, Blocks.GENETIC_CROP_BLOCK_ENTITY.value());
             cropBlockEntity.ifPresent(blockEntity -> blockEntity.onPollinate(myGenotype));
@@ -265,7 +265,7 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
             if (cropBlockEntity.isPresent()) {
                 GeneticCropBlockEntity entity = cropBlockEntity.get();
 
-                if (entity.onPollinate(genotype) && !level.isClientSide) {
+                if (entity.onPollinate(genotype) && !level.isClientSide()) {
                     stack.shrink(1); // Remove one seed from the stack
                     return InteractionResult.SUCCESS;
                 }
@@ -278,7 +278,7 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
     private static InteractionResult tryHarvest(BlockState state, Level level, BlockPos pos, Player player) {
         if (state.getValue(HARVESTABLE) == HarvestState.MATURE) {
             Optional<GeneticCropBlockEntity> cropBlockEntity = level.getBlockEntity(pos, Blocks.GENETIC_CROP_BLOCK_ENTITY.value());
-            if (cropBlockEntity.isPresent() && state.getBlock() instanceof GeneticCropBlock geneticCropBlock && !level.isClientSide) {
+            if (cropBlockEntity.isPresent() && state.getBlock() instanceof GeneticCropBlock geneticCropBlock && !level.isClientSide()) {
                 ItemStack harvestedItem = cropBlockEntity.get().getOffspring();
                 InvUtil.giveOrDropItem(player, harvestedItem);
 
@@ -287,7 +287,7 @@ public class GeneticCropBlock extends CropBlock implements EntityBlock {
 
                 HarvestState newHarvestState = entity.getHarvestState(geneticCropBlock.getMinHarvestAge(), geneticCropBlock.getTicksPerAge(), geneticCropBlock.getGrowthTicks());
                 level.setBlock(pos, state.setValue(GeneticCropBlock.HARVESTABLE, newHarvestState), 3);
-                if (geneticCropBlock.getDestroyOnHarvestChance() > 0.0F && level.random.nextFloat() < geneticCropBlock.getDestroyOnHarvestChance()) {
+                if (geneticCropBlock.getDestroyOnHarvestChance() > 0.0F && level.getRandom().nextFloat() < geneticCropBlock.getDestroyOnHarvestChance()) {
                     // If multiple harvests are not allowed, destroy the crop block
                     level.destroyBlock(pos, true);
                 }

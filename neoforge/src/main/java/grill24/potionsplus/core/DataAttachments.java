@@ -14,7 +14,7 @@ public class DataAttachments {
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, ModInfo.MOD_ID);
 
     public static final Supplier<AttachmentType<SkillsData>> SKILL_PLAYER_DATA = ATTACHMENT_TYPES.register(
-            "skill_data", () -> AttachmentType.builder(() -> new SkillsData()).serialize(SkillsData.CODEC).copyOnDeath().build()
+            "skill_data", () -> AttachmentType.builder(() -> new SkillsData()).serialize(SkillsData.CODEC.fieldOf("skill_data")).copyOnDeath().build()
     );
 
     public static final Supplier<AttachmentType<ShouldBouncePlayerData>> SHOULD_BOUNCE_PLAYER_DATA = ATTACHMENT_TYPES.register(

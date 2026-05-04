@@ -6,7 +6,7 @@ import grill24.potionsplus.core.LootTables;
 import grill24.potionsplus.loot.HasPlayerAbilityCondition;
 import grill24.potionsplus.loot.LootItemBlockTagCondition;
 import grill24.potionsplus.utility.ModInfo;
-import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
