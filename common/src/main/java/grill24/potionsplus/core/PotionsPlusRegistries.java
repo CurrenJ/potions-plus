@@ -39,4 +39,20 @@ public class PotionsPlusRegistries {
     public static final ResourceKey<Registry<ConfiguredSkillPointSource<?, ?>>> CONFIGURED_SKILL_POINT_SOURCE = ResourceKey.createRegistryKey(ppId("configured_skill_point_source"));
     public static final ResourceKey<Registry<ConfiguredPlayerAbility<?, ?>>> CONFIGURED_PLAYER_ABILITY = ResourceKey.createRegistryKey(ppId("configured_player_ability"));
     public static final ResourceKey<Registry<ConfiguredGrantableReward<?, ?>>> CONFIGURED_GRANTABLE_REWARD = ResourceKey.createRegistryKey(ppId("configured_grantable_reward"));
+
+    public static void init(
+            Registry<Skill<?>> skill,
+            Registry<SkillPointSource<?, ?>> skillPointSource,
+            Registry<PlayerAbility<?>> playerAbility,
+            Registry<GrantableReward<?>> grantableReward,
+            Registry<AnimationCurveSerializer<?>> animationCurveSerializer,
+            Registry<AbilityInstanceType<?>> abilityInstanceType
+    ) {
+        SKILL = skill;
+        SKILL_POINT_SOURCE = skillPointSource;
+        PLAYER_ABILITY = playerAbility;
+        GRANTABLE_REWARD = grantableReward;
+        ANIMATION_CURVE_SERIALIZER = animationCurveSerializer;
+        ABILITY_INSTANCE_TYPE = abilityInstanceType;
+    }
 }

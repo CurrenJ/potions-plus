@@ -32,8 +32,8 @@ public class Renderers {
         event.registerBlockEntityRenderer(Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), ClotheslineBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(Blocks.POTION_BEACON_BLOCK_ENTITY.get(), PotionBeaconBlockEntityRenderer::new);
 
-        event.registerEntityRenderer(Entities.INVISIBLE_FIRE_DAMAGER.get(), NoopRenderer::new);
-        event.registerEntityRenderer(Entities.GRUNGLER.get(), GrunglerRenderer::new);
+        event.registerEntityRenderer(Entities.INVISIBLE_FIRE_DAMAGER.value(), NoopRenderer::new);
+        event.registerEntityRenderer(Entities.GRUNGLER.value(), GrunglerRenderer::new);
     }
 
     @SubscribeEvent

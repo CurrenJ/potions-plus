@@ -13,6 +13,7 @@ configurations {
         canBeConsumed = false
     }
     compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
     developmentNeoForge.extendsFrom common
 
     shadowBundle {
