@@ -1,6 +1,6 @@
 package grill24.potionsplus.data.neoforge;
 
-import grill24.potionsplus.core.blocks.FlowerBlocks;
+import grill24.potionsplus.core.neoforge.blocks.FlowerBlocks;
 import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;

@@ -1,6 +1,6 @@
 package grill24.potionsplus.data.neoforge;
 
-import grill24.potionsplus.core.PotionsPlus;
+import grill24.potionsplus.core.neoforge.PotionsPlus;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
@@ -22,7 +22,7 @@ public class LangProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        addRegistered(grill24.potionsplus.core.Items.ITEMS, this::addItem);
+        addRegistered(grill24.potionsplus.core.neoforge.Items.ITEMS, this::addItem);
         addRegistered(PotionsPlus.MOB_EFFECTS, this::addEffect);
     }
 

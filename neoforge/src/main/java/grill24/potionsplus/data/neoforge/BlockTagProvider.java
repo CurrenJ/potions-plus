@@ -2,7 +2,7 @@ package grill24.potionsplus.data.neoforge;
 
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
-import grill24.potionsplus.core.blocks.FlowerBlocks;
+import grill24.potionsplus.core.neoforge.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.HolderLookup;

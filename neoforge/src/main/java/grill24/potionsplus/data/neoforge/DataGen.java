@@ -1,6 +1,8 @@
 package grill24.potionsplus.data.neoforge;
 
 import grill24.potionsplus.core.*;
+import grill24.potionsplus.core.neoforge.ConfiguredPlayerAbilities;
+import grill24.potionsplus.core.neoforge.NeoSounds;
 import grill24.potionsplus.data.loot.neoforge.GlobalLootModifierProvider;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.worldgen.ConfiguredFeatures;
