@@ -1,6 +1,7 @@
 package grill24.potionsplus.skill.configured;
 
 import grill24.potionsplus.core.*;
+import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillConfiguration;
 import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
@@ -21,7 +22,7 @@ public class Archery {
         return context.register(ConfiguredSkills.ARCHERY, new ConfiguredSkill<>(Skills.GENERIC.value(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_ARCHERY,
                         new TreeMap<>(Map.of(
-                                0, new ItemStack(Items.BOW)
+                                0, PUtil.safeStack(Items.BOW)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_BOW),
                         new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 10),

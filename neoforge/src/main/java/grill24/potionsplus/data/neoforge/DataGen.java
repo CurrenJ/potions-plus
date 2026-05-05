@@ -29,12 +29,12 @@ public class DataGen {
             .add(Registries.CONFIGURED_FEATURE, ConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, Placements::bootstrap)
             .add(Registries.BIOME, Biomes::bootstrap)
-            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, BiomeModifierProvider::bootstrap)
-            // Custom Datapack Registries
-            .add(PotionsPlusRegistries.CONFIGURED_SKILL, ConfiguredSkills::generate)
-            .add(PotionsPlusRegistries.CONFIGURED_SKILL_POINT_SOURCE, ConfiguredSkillPointSources::generate)
-            .add(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ConfiguredPlayerAbilities::generate)
-            .add(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ConfiguredGrantableRewards::generate);
+            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, BiomeModifierProvider::bootstrap);
+            // Custom Datapack Registries - disabled until ItemStack creation is MC 26.1-safe
+            // .add(PotionsPlusRegistries.CONFIGURED_SKILL, ConfiguredSkills::generate)
+            // .add(PotionsPlusRegistries.CONFIGURED_SKILL_POINT_SOURCE, ConfiguredSkillPointSources::generate)
+            // .add(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ConfiguredPlayerAbilities::generate)
+            // .add(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ConfiguredGrantableRewards::generate);
 
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent.Client event) {
@@ -52,11 +52,13 @@ public class DataGen {
         generator.addProvider(true, soundsProvider);
 
         event.createProvider(BlockStateProvider::new);
-        event.createProvider(RecipeProvider.Runner::new);
-        event.createProvider(LootTableProvider::new);
+        // TODO: Recipe generation needs MC 26.1 data component fix - ItemStack creation requires bound components
+        // event.createProvider(RecipeProvider.Runner::new);
+        // TODO: Re-enable after MC 26.1 data component migration
+        // event.createProvider(LootTableProvider::new);
         generator.addProvider(true, new DatapackBuiltinEntriesProvider(output, lookupProvider, BUILDER, Set.of(ModInfo.MOD_ID)));
         event.createProvider(BiomeTagProvider::new);
-        event.createProvider(AdvancementProvider::new);
-        event.createProvider(GlobalLootModifierProvider::new);
+        // event.createProvider(AdvancementProvider::new);
+        // event.createProvider(GlobalLootModifierProvider::new);
     }
 }

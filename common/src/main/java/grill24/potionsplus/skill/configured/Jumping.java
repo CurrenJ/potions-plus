@@ -1,6 +1,7 @@
 package grill24.potionsplus.skill.configured;
 
 import grill24.potionsplus.core.*;
+import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillConfiguration;
 import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
@@ -21,7 +22,7 @@ public class Jumping {
         return context.register(ConfiguredSkills.JUMPING, new ConfiguredSkill<>(Skills.GENERIC.value(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_JUMPING,
                         new TreeMap<>(Map.of(
-                                0, new ItemStack(Items.RABBIT_FOOT)
+                                0, PUtil.safeStack(Items.RABBIT_FOOT)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.JUMP),
                         new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 0, 25),

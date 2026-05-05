@@ -1,6 +1,7 @@
 package grill24.potionsplus.skill.configured;
 
 import grill24.potionsplus.core.*;
+import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillConfiguration;
 import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
@@ -21,12 +22,12 @@ public class Walking {
         return context.register(ConfiguredSkills.WALKING, new ConfiguredSkill<>(Skills.GENERIC.value(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_WALKING,
                         new TreeMap<>(Map.of(
-                                0, new ItemStack(Items.LEATHER_BOOTS),
-                                20, new ItemStack(Items.CHAINMAIL_BOOTS),
-                                40, new ItemStack(Items.IRON_BOOTS),
-                                60, new ItemStack(Items.GOLDEN_BOOTS),
-                                80, new ItemStack(Items.DIAMOND_BOOTS),
-                                100, new ItemStack(Items.NETHERITE_BOOTS)
+                                0, PUtil.safeStack(Items.LEATHER_BOOTS),
+                                20, PUtil.safeStack(Items.CHAINMAIL_BOOTS),
+                                40, PUtil.safeStack(Items.IRON_BOOTS),
+                                60, PUtil.safeStack(Items.GOLDEN_BOOTS),
+                                80, PUtil.safeStack(Items.DIAMOND_BOOTS),
+                                100, PUtil.safeStack(Items.NETHERITE_BOOTS)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.WALK),
                         new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 0, 100),

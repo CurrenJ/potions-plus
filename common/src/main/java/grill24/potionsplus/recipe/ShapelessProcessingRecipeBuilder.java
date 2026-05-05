@@ -64,7 +64,13 @@ public abstract class ShapelessProcessingRecipeBuilder<R extends Recipe<?>, T ex
     }
 
     public T ingredients(ItemLike... ingredients) {
-        return ingredients(Arrays.stream(ingredients).map(ItemStack::new).toArray(ItemStack[]::new));
+        return ingredients(Arrays.stream(ingredients).map(i -> {
+            try {
+                return new ItemStack(i);
+            } catch (Exception e) {
+                return ItemStack.EMPTY;
+            }
+        }).toArray(ItemStack[]::new));
     }
 
     public T ingredients(PpIngredient... ingredients) {

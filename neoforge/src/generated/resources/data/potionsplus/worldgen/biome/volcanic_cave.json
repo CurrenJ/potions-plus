@@ -1,4 +1,24 @@
 {
+  "attributes": {
+    "minecraft:audio/ambient_sounds": {
+      "mood": {
+        "block_search_extent": 8,
+        "offset": 2.0,
+        "sound": "minecraft:ambient.cave",
+        "tick_delay": 6000
+      }
+    },
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "minecraft:music.overworld.lush_caves"
+      }
+    },
+    "minecraft:visual/fog_color": "#b43202",
+    "minecraft:visual/sky_color": "#000000",
+    "minecraft:visual/water_fog_color": "#b43202"
+  },
   "carvers": [
     "minecraft:cave",
     "minecraft:cave_extra_underground",
@@ -6,30 +26,9 @@
   ],
   "downfall": 0.0,
   "effects": {
-    "fog_color": 11809282,
-    "foliage_color": 11809282,
-    "grass_color": 11809282,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2.0,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "music": [
-      {
-        "data": {
-          "max_delay": 24000,
-          "min_delay": 12000,
-          "replace_current_music": false,
-          "sound": "minecraft:music.overworld.lush_caves"
-        },
-        "weight": 1
-      }
-    ],
-    "music_volume": 1.0,
-    "sky_color": 0,
-    "water_color": 11809282,
-    "water_fog_color": 11809282
+    "foliage_color": "#b43202",
+    "grass_color": "#b43202",
+    "water_color": "#b43202"
   },
   "features": [
     [],
@@ -73,8 +72,7 @@
       "minecraft:ore_lapis_buried",
       "minecraft:ore_copper",
       "minecraft:underwater_magma",
-      "minecraft:ore_gold_extra",
-      "potionsplus:ore_remnant_debris"
+      "minecraft:ore_gold_extra"
     ],
     [
       "potionsplus:fissure",

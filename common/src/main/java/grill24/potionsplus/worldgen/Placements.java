@@ -57,9 +57,9 @@ public class Placements {
 
         // Misc.
         final Holder<PlacedFeature> ORE_URANIUM = register(context, ORE_URANIUM_KEY, configuredFeatureGetter.getOrThrow(ConfiguredFeatures.ORE_URANIUM_KEY),
-                OrePlacements.commonOrePlacement(6, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))).toArray(new PlacementModifier[0]));
+                CountPlacement.of(6), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)), BiomeFilter.biome());
         final Holder<PlacedFeature> ORE_REMNANT_DEBRIS = register(context, ORE_REMNANT_DEBRIS_KEY, configuredFeatureGetter.getOrThrow(ConfiguredFeatures.ORE_REMNANT_DEBRIS_KEY),
-                OrePlacements.commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))).toArray(new PlacementModifier[0]));
+                CountPlacement.of(7), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)), BiomeFilter.biome());
 
         final Holder<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.LUNAR_BERRY_BUSH_KEY);
         final Holder<PlacedFeature> LUNAR_BERRY_BUSH_PLACED = register(context, LUNAR_BERRY_BUSH_KEY,

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "potionsplus:block/sandy_lapis_ore"
-  }
-}

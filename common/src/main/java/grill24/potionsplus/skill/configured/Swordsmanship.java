@@ -1,6 +1,7 @@
 package grill24.potionsplus.skill.configured;
 
 import grill24.potionsplus.core.*;
+import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillConfiguration;
 import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
@@ -21,11 +22,11 @@ public class Swordsmanship {
         return context.register(ConfiguredSkills.SWORDSMANSHIP, new ConfiguredSkill<>(Skills.GENERIC.value(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_SWORDSMANSHIP,
                         new TreeMap<>(Map.of(
-                                0, new ItemStack(Items.WOODEN_SWORD),
-                                10, new ItemStack(Items.STONE_SWORD),
-                                15, new ItemStack(Items.IRON_SWORD),
-                                20, new ItemStack(Items.GOLDEN_SWORD),
-                                25, new ItemStack(Items.DIAMOND_SWORD)
+                                0, PUtil.safeStack(Items.WOODEN_SWORD),
+                                10, PUtil.safeStack(Items.STONE_SWORD),
+                                15, PUtil.safeStack(Items.IRON_SWORD),
+                                20, PUtil.safeStack(Items.GOLDEN_SWORD),
+                                25, PUtil.safeStack(Items.DIAMOND_SWORD)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_SWORD),
                         new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 10),

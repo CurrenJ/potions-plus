@@ -33,7 +33,12 @@ public class AridCave {
         BiomeDefaultFeatures.commonSpawns(mobspawnsettings$builder);
 
         BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder(placedFeatureGetter, carverGetter);
-        OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+        BiomeDefaultFeatures.addDefaultCarversAndLakes(biomegenerationsettings$builder);
+        BiomeDefaultFeatures.addDefaultCrystalFormations(biomegenerationsettings$builder);
+        BiomeDefaultFeatures.addDefaultMonsterRoom(biomegenerationsettings$builder);
+        BiomeDefaultFeatures.addDefaultUndergroundVariety(biomegenerationsettings$builder);
+        BiomeDefaultFeatures.addDefaultSprings(biomegenerationsettings$builder);
+        BiomeDefaultFeatures.addSurfaceFreezing(biomegenerationsettings$builder);
         BiomeDefaultFeatures.addDefaultOres(biomegenerationsettings$builder, true);
         BiomeDefaultFeatures.addExtraGold(biomegenerationsettings$builder);
 

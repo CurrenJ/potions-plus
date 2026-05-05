@@ -1,6 +1,7 @@
 package grill24.potionsplus.skill.configured;
 
 import grill24.potionsplus.core.*;
+import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.Milestone;
 import grill24.potionsplus.skill.SkillConfiguration;
@@ -22,13 +23,13 @@ public class Mining {
         return context.register(ConfiguredSkills.MINING, new ConfiguredSkill<>(Skills.GENERIC.value(), new SkillConfiguration(
                 Translations.TOOLTIP_POTIONSPLUS_SKILL_MINING,
                 new TreeMap<>(Map.of(
-                        0, new ItemStack(Items.COAL_ORE),
-                        15, new ItemStack(Items.COPPER_ORE),
-                        30, new ItemStack(Items.IRON_ORE),
-                        45, new ItemStack(Items.GOLD_ORE),
-                        60, new ItemStack(Items.DIAMOND_ORE),
-                        75, new ItemStack(Items.EMERALD_ORE),
-                        100, new ItemStack(Items.ANCIENT_DEBRIS)
+                        0, PUtil.safeStack(Items.COAL_ORE),
+                        15, PUtil.safeStack(Items.COPPER_ORE),
+                        30, PUtil.safeStack(Items.IRON_ORE),
+                        45, PUtil.safeStack(Items.GOLD_ORE),
+                        60, PUtil.safeStack(Items.DIAMOND_ORE),
+                        75, PUtil.safeStack(Items.EMERALD_ORE),
+                        100, PUtil.safeStack(Items.ANCIENT_DEBRIS)
                 )),
                 ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.MINE_ORE),
                 new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 25),

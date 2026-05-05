@@ -11,6 +11,7 @@ import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -36,6 +37,27 @@ import static grill24.potionsplus.utility.Utility.ppId;
 public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
     protected RecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
         super(registries, output);
+    }
+
+    private static ItemStack safeStack(ItemLike item, int count) {
+        try {
+            return new ItemStack(item, count);
+        } catch (Exception e) {
+            return ItemStack.EMPTY;
+        }
+    }
+
+    private static ItemStack safeStack(ItemLike item) {
+        return safeStack(item, 1);
+    }
+
+    @SuppressWarnings("deprecation")
+    private static ItemStack safeStack(Holder<Item> h, int count) {
+        try {
+            return new ItemStack(h, count);
+        } catch (Exception e) {
+            return ItemStack.EMPTY;
+        }
     }
 
     @Override
@@ -72,7 +94,7 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
 
         // Water Bucket
         new BrewingCauldronRecipeBuilder()
-                .result(new ItemStack(net.minecraft.world.item.Items.BUCKET))
+                .result(safeStack(net.minecraft.world.item.Items.BUCKET))
                 .ingredients(net.minecraft.world.item.Items.WATER_BUCKET)
                 .processingTime(40)
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
@@ -80,7 +102,7 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
 
         // Obsidian
         new BrewingCauldronRecipeBuilder()
-                .result(new ItemStack(net.minecraft.world.item.Items.OBSIDIAN))
+                .result(safeStack(net.minecraft.world.item.Items.OBSIDIAN))
                 .ingredients(net.minecraft.world.item.Items.LAVA_BUCKET)
                 .processingTime(200)
                 .unlockedBy("has_lava_bucket", has(net.minecraft.world.item.Items.LAVA_BUCKET))
@@ -88,7 +110,7 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
 
         // Clay
         new BrewingCauldronRecipeBuilder()
-                .result(new ItemStack(net.minecraft.world.item.Items.CLAY_BALL))
+                .result(safeStack(net.minecraft.world.item.Items.CLAY_BALL))
                 .ingredients(net.minecraft.world.item.Items.SAND, net.minecraft.world.item.Items.GRAVEL)
                 .processingTime(50)
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
@@ -96,13 +118,13 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
 
         // Mushroom Conversions
         new BrewingCauldronRecipeBuilder()
-                .result(new ItemStack(net.minecraft.world.item.Items.BROWN_MUSHROOM))
+                .result(safeStack(net.minecraft.world.item.Items.BROWN_MUSHROOM))
                 .ingredients(net.minecraft.world.item.Items.RED_MUSHROOM, net.minecraft.world.item.Items.FERMENTED_SPIDER_EYE)
                 .processingTime(20)
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer, recipeKey("mushroom_conversions_r2b"));
         new BrewingCauldronRecipeBuilder()
-                .result(new ItemStack(net.minecraft.world.item.Items.RED_MUSHROOM))
+                .result(safeStack(net.minecraft.world.item.Items.RED_MUSHROOM))
                 .ingredients(net.minecraft.world.item.Items.BROWN_MUSHROOM, net.minecraft.world.item.Items.FERMENTED_SPIDER_EYE)
                 .processingTime(20)
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
@@ -110,7 +132,7 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
 
         // Grass
         new BrewingCauldronRecipeBuilder()
-                .result(new ItemStack(net.minecraft.world.item.Items.GRASS_BLOCK))
+                .result(safeStack(net.minecraft.world.item.Items.GRASS_BLOCK))
                 .ingredients(net.minecraft.world.item.Items.DIRT, net.minecraft.world.item.Items.MOSS_BLOCK)
                 .processingTime(40)
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
@@ -118,8 +140,8 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
 
         // Sulfuric Acid
         new BrewingCauldronRecipeBuilder()
-                .result(new ItemStack(OreItems.SULFURIC_ACID))
-                .ingredients(PUtil.createPotionItemStack(net.minecraft.world.item.alchemy.Potions.WATER, PUtil.PotionType.POTION), new ItemStack(OreItems.SULFUR_SHARD))
+                .result(safeStack(OreItems.SULFURIC_ACID.value()))
+                .ingredients(PUtil.createPotionItemStack(net.minecraft.world.item.alchemy.Potions.WATER, PUtil.PotionType.POTION), safeStack(OreItems.SULFUR_SHARD.value()))
                 .processingTime(40)
                 .unlockedBy("has_sulfur_shard", has(OreItems.SULFUR_SHARD.value()))
                 .save(recipeConsumer, recipeKey("sulfuric_acid"));
@@ -128,7 +150,7 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
         List<BrewingCauldronRecipe.PotionMatchingCriteria> upgradePotionMatchingCriteria = List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT);
         new BrewingCauldronRecipeBuilder()
                 .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION))
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), new ItemStack(net.minecraft.world.item.Items.QUARTZ))
+                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), safeStack(net.minecraft.world.item.Items.QUARTZ))
                 .processingTime(30)
                 .durationToAdd(100)
                 .potionMatchingCriteria(upgradePotionMatchingCriteria)
@@ -139,7 +161,7 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
         // Amplification Increase [1 level] [Recipe is constant in all worlds]
         new BrewingCauldronRecipeBuilder()
                 .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION))
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), new ItemStack(OreItems.URANIUM_INGOT.value()))
+                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), safeStack(OreItems.URANIUM_INGOT.value()))
                 .processingTime(30)
                 .amplifierToAdd(1)
                 .potionMatchingCriteria(upgradePotionMatchingCriteria)
@@ -148,7 +170,7 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
                 .save(recipeConsumer, recipeKey("amplification_testing"));
 
         // Merge Potions
-        ItemStack mergedPotionResult = new ItemStack(net.minecraft.world.item.Items.POTION);
+        ItemStack mergedPotionResult = safeStack(net.minecraft.world.item.Items.POTION);
         PUtil.setCustomEffects(mergedPotionResult, List.of(new MobEffectInstance(MobEffects.ANY_POTION), new MobEffectInstance(MobEffects.ANY_OTHER_POTION)));
         new BrewingCauldronRecipeBuilder()
                 .result(mergedPotionResult)
@@ -162,7 +184,7 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
         // Splash Potion
         new BrewingCauldronRecipeBuilder()
                 .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.SPLASH_POTION))
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), new ItemStack(net.minecraft.world.item.Items.GUNPOWDER))
+                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), safeStack(net.minecraft.world.item.Items.GUNPOWDER))
                 .processingTime(30)
                 .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS))
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
@@ -171,7 +193,7 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
         // Lingering Potion
         new BrewingCauldronRecipeBuilder()
                 .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.LINGERING_POTION))
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.SPLASH_POTION), new ItemStack(net.minecraft.world.item.Items.DRAGON_BREATH))
+                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.SPLASH_POTION), safeStack(net.minecraft.world.item.Items.DRAGON_BREATH))
                 .processingTime(30)
                 .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS))
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
@@ -180,7 +202,7 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
         // Tipped Arrow
         new BrewingCauldronRecipeBuilder()
                 .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.TIPPED_ARROW))
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), new ItemStack(net.minecraft.world.item.Items.ARROW))
+                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), safeStack(net.minecraft.world.item.Items.ARROW))
                 .processingTime(30)
                 .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS))
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
@@ -191,14 +213,14 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
 
         new ClotheslineRecipeBuilder()
                 .ingredients(net.minecraft.world.item.Items.ROTTEN_FLESH)
-                .result(new ItemStack(net.minecraft.world.item.Items.LEATHER))
+                .result(safeStack(net.minecraft.world.item.Items.LEATHER))
                 .processingTime(100)
                 .unlockedBy("has_rotten_flesh", has(net.minecraft.world.item.Items.ROTTEN_FLESH))
                 .save(recipeConsumer, recipeKey("rotten_flesh_to_leather"));
 
         new ClotheslineRecipeBuilder()
                 .ingredients(net.minecraft.world.item.Items.BONE)
-                .result(new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 4))
+                .result(safeStack(net.minecraft.world.item.Items.BONE_MEAL, 4))
                 .processingTime(600)
                 .unlockedBy("has_bone", has(net.minecraft.world.item.Items.BONE))
                 .save(recipeConsumer, recipeKey("bone_to_bone_meal"));
@@ -240,49 +262,49 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
 
         new ClotheslineRecipeBuilder()
                 .ingredient(FlowerBlocks.IRON_OXIDE_DAISY.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.RAW_IRON, 3))
+                .result(safeStack(net.minecraft.world.item.Items.RAW_IRON, 3))
                 .processingTime(60)
                 .unlockedBy("has_iron_oxide_daisy", has(FlowerBlocks.IRON_OXIDE_DAISY.value()))
                 .save(recipeConsumer, recipeKey("iron_oxide_daisy_to_raw_iron"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(FlowerBlocks.COPPER_CHRYSANTHEMUM.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.RAW_COPPER, 6))
+                .result(safeStack(net.minecraft.world.item.Items.RAW_COPPER, 6))
                 .processingTime(60)
                 .unlockedBy("has_copper_chrysanthemum", has(FlowerBlocks.COPPER_CHRYSANTHEMUM.value()))
                 .save(recipeConsumer, recipeKey("copper_chrysanthemum_to_raw_copper"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(FlowerBlocks.GOLDEN_CUBENSIS.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.RAW_GOLD, 3))
+                .result(safeStack(net.minecraft.world.item.Items.RAW_GOLD, 3))
                 .processingTime(60)
                 .unlockedBy("has_golden_cubensis", has(FlowerBlocks.GOLDEN_CUBENSIS.value()))
                 .save(recipeConsumer, recipeKey("golden_cubensis_to_raw_gold"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(FlowerBlocks.LAPIS_LILAC.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.LAPIS_BLOCK, 1))
+                .result(safeStack(net.minecraft.world.item.Items.LAPIS_BLOCK, 1))
                 .processingTime(60)
                 .unlockedBy("has_lapis_lilac", has(FlowerBlocks.LAPIS_LILAC.value()))
                 .save(recipeConsumer, recipeKey("lapis_lilac_to_lapis_block"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(FlowerBlocks.DIAMOUR.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.DIAMOND, 2))
+                .result(safeStack(net.minecraft.world.item.Items.DIAMOND, 2))
                 .processingTime(60)
                 .unlockedBy("has_diamour", has(FlowerBlocks.DIAMOUR.value()))
                 .save(recipeConsumer, recipeKey("diamour_to_diamonds"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(FlowerBlocks.BLACK_COALLA_LILY.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.COAL_BLOCK, 1))
+                .result(safeStack(net.minecraft.world.item.Items.COAL_BLOCK, 1))
                 .processingTime(60)
                 .unlockedBy("has_black_coalla_lily", has(FlowerBlocks.BLACK_COALLA_LILY.value()))
                 .save(recipeConsumer, recipeKey("black_coalla_lily_to_coal_block"));
 
         new ClotheslineRecipeBuilder()
                 .ingredient(FlowerBlocks.REDSTONE_ROSE.value())
-                .result(new ItemStack(net.minecraft.world.item.Items.REDSTONE_BLOCK, 1))
+                .result(safeStack(net.minecraft.world.item.Items.REDSTONE_BLOCK, 1))
                 .processingTime(60)
                 .unlockedBy("has_redstone_rose", has(FlowerBlocks.REDSTONE_ROSE.value()))
                 .save(recipeConsumer, recipeKey("redstone_rose_to_redstone_block"));

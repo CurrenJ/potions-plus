@@ -15,6 +15,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
@@ -39,6 +40,14 @@ public class PUtil {
             };
             potionItem.setCount(count);
             return potionItem;
+        } catch (Exception e) {
+            return ItemStack.EMPTY;
+        }
+    }
+
+    public static ItemStack safeStack(ItemLike item) {
+        try {
+            return new ItemStack(item);
         } catch (Exception e) {
             return ItemStack.EMPTY;
         }

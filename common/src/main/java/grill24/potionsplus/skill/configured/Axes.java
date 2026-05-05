@@ -1,6 +1,7 @@
 package grill24.potionsplus.skill.configured;
 
 import grill24.potionsplus.core.*;
+import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillConfiguration;
 import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
@@ -21,11 +22,11 @@ public class Axes {
         return context.register(ConfiguredSkills.CHOPPING, new ConfiguredSkill<>(Skills.GENERIC.value(), new SkillConfiguration
                 (Translations.TOOLTIP_POTIONSPLUS_SKILL_CHOPPING,
                         new TreeMap<>(Map.of(
-                                0, new ItemStack(Items.WOODEN_AXE),
-                                20, new ItemStack(Items.STONE_AXE),
-                                40, new ItemStack(Items.IRON_AXE),
-                                60, new ItemStack(Items.GOLDEN_AXE),
-                                80, new ItemStack(Items.DIAMOND_AXE)
+                                0, PUtil.safeStack(Items.WOODEN_AXE),
+                                20, PUtil.safeStack(Items.STONE_AXE),
+                                40, PUtil.safeStack(Items.IRON_AXE),
+                                60, PUtil.safeStack(Items.GOLDEN_AXE),
+                                80, PUtil.safeStack(Items.DIAMOND_AXE)
                         )),
                         ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_AXE),
                         new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 10),

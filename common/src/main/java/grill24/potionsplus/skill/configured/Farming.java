@@ -1,6 +1,7 @@
 package grill24.potionsplus.skill.configured;
 
 import grill24.potionsplus.core.*;
+import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.skill.ConfiguredSkill;
 import grill24.potionsplus.skill.SkillConfiguration;
 import grill24.potionsplus.skill.reward.ConfiguredGrantableReward;
@@ -21,12 +22,12 @@ public class Farming {
         return context.register(ConfiguredSkills.FARMING, new ConfiguredSkill<>(Skills.GENERIC.value(), new SkillConfiguration(
                 Translations.TOOLTIP_POTIONSPLUS_SKILL_FARMING,
                 new TreeMap<>(Map.of(
-                        0, new ItemStack(Items.WOODEN_HOE),
-                        15, new ItemStack(Items.STONE_HOE),
-                        30, new ItemStack(Items.IRON_HOE),
-                        45, new ItemStack(Items.GOLDEN_HOE),
-                        60, new ItemStack(Items.DIAMOND_HOE),
-                        75, new ItemStack(Items.NETHERITE_HOE)
+                        0, PUtil.safeStack(Items.WOODEN_HOE),
+                        15, PUtil.safeStack(Items.STONE_HOE),
+                        30, PUtil.safeStack(Items.IRON_HOE),
+                        45, PUtil.safeStack(Items.GOLDEN_HOE),
+                        60, PUtil.safeStack(Items.DIAMOND_HOE),
+                        75, PUtil.safeStack(Items.NETHERITE_HOE)
                 )),
                 ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.HARVEST_CROPS),
                 new SkillConfiguration.PointsLevelingScale(-1, 100, SkillConfiguration.PointsLevelingScale.Scale.EXPONENTIAL, 2, 1.2F, 4, 15),

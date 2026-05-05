@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "potionsplus:item/tomato_small_tint",
-    "layer1": "potionsplus:item/tomato_small_sheen",
-    "layer2": "potionsplus:item/tomato_small_stem"
-  }
-}
