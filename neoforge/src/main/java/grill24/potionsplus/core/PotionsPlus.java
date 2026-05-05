@@ -10,6 +10,7 @@ import grill24.potionsplus.skill.Skill;
 import grill24.potionsplus.skill.ability.PlayerAbility;
 import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
 import grill24.potionsplus.skill.reward.GrantableReward;
+import grill24.potionsplus.skill.source.SkillPointSource;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Holder;
@@ -64,6 +65,7 @@ public class PotionsPlus {
     public static final DeferredRegister<PlayerAbility<?>> PLAYER_ABILITIES = DeferredRegister.create(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY, ModInfo.MOD_ID);
     public static final DeferredRegister<Skill<?>> SKILLS = DeferredRegister.create(PotionsPlusRegistries.SKILL_REGISTRY_KEY, ModInfo.MOD_ID);
     public static final DeferredRegister<MapCodec<? extends LootItemCondition>> LOOT_ITEM_CONDITIONS = DeferredRegister.create(BuiltInRegistries.LOOT_CONDITION_TYPE, ModInfo.MOD_ID);
+    public static final DeferredRegister<SkillPointSource<?, ?>> SKILL_POINT_SOURCES = DeferredRegister.create(PotionsPlusRegistries.SKILL_POINT_SOURCE_REGISTRY_KEY, ModInfo.MOD_ID);
 
     static {
         // Set up PotionBuilder factory before Potions class loads (its static fields trigger registration)
@@ -89,6 +91,7 @@ public class PotionsPlus {
         grill24.potionsplus.core.potion.MobEffects.initIconIndexMap();
         grill24.potionsplus.core.PlayerAbilities.init(PLAYER_ABILITIES::register);
         grill24.potionsplus.core.Skills.init(SKILLS::register);
+        grill24.potionsplus.core.SkillPointSources.init(SKILL_POINT_SOURCES::register);
 
         // Register platform-specific percentage attributes (NeoForge PercentageAttribute)
         {
@@ -124,7 +127,7 @@ public class PotionsPlus {
         BLOCK_PREDICATE_TYPES.register(bus);
         FEATURES.register(bus);
         SKILLS.register(bus);
-        SkillPointSources.SKILL_POINT_SOURCES.register(bus);
+        SKILL_POINT_SOURCES.register(bus);
         PLAYER_ABILITIES.register(bus);
         ABILITY_INSTANCE_TYPE.register(bus);
         CommandArgumentTypes.COMMAND_ARGUMENT_TYPES.register(bus);

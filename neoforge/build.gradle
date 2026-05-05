@@ -13,8 +13,13 @@ configurations {
         canBeConsumed = false
     }
     compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
     developmentNeoForge.extendsFrom common
+
+    modLocalRuntime {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    modLocalRuntime.extendsFrom common
 
     shadowBundle {
         canBeResolved = true

@@ -10,6 +10,15 @@ import net.minecraft.world.level.material.Fluid;
 public class ConventionalTags {
     public static class Blocks {
         public static final TagKey<Block> ORES = block("ores");
+        public static final TagKey<Block> ORES_COAL = block("ores/coal");
+        public static final TagKey<Block> ORES_COPPER = block("ores/copper");
+        public static final TagKey<Block> ORES_IRON = block("ores/iron");
+        public static final TagKey<Block> ORES_GOLD = block("ores/gold");
+        public static final TagKey<Block> ORES_REDSTONE = block("ores/redstone");
+        public static final TagKey<Block> ORES_LAPIS = block("ores/lapis");
+        public static final TagKey<Block> ORES_DIAMOND = block("ores/diamond");
+        public static final TagKey<Block> ORES_EMERALD = block("ores/emerald");
+        public static final TagKey<Block> ORES_QUARTZ = block("ores/quartz");
         public static final TagKey<Block> CAVE_REPLACEABLE = block("cave_replaceable");
 
         private static TagKey<Block> block(String id) {

@@ -9,7 +9,6 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import static grill24.potionsplus.utility.Utility.ppId;
 
 public class GrunglerModel extends EntityModel<LivingEntityRenderState> {
 
