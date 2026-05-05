@@ -1,8 +1,8 @@
 package grill24.potionsplus.core.neoforge;
 
 import com.mojang.serialization.MapCodec;
-import grill24.potionsplus.behaviour.AddMobEffectsLootModifier;
-import grill24.potionsplus.behaviour.WormrootLootModifier;
+import grill24.potionsplus.behaviour.neoforge.AddMobEffectsLootModifier;
+import grill24.potionsplus.behaviour.neoforge.WormrootLootModifier;
 import grill24.potionsplus.utility.ModInfo;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.registries.DeferredHolder;

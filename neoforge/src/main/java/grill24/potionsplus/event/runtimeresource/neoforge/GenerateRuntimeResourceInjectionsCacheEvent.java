@@ -1,16 +1,19 @@
-package grill24.potionsplus.event.runtimeresource;
+package grill24.potionsplus.event.runtimeresource.neoforge;
 
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.debug.Debug;
+import grill24.potionsplus.event.runtimeresource.IGenerateRuntimeResourceInjectionsCacheEvent;
 import grill24.potionsplus.event.runtimeresource.modification.IResourceModification;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
+import net.neoforged.bus.api.Event;
+import net.neoforged.fml.event.IModBusEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class GenerateRuntimeResourceInjectionsCacheEvent implements IGenerateRuntimeResourceInjectionsCacheEvent {
+public class GenerateRuntimeResourceInjectionsCacheEvent extends Event implements IModBusEvent, IGenerateRuntimeResourceInjectionsCacheEvent {
     public record ResourceInjectionCacheEntry(Identifier targetResourceLocation,
                                               Identifier newResourceLocation, List<Resource> resource) {
     }

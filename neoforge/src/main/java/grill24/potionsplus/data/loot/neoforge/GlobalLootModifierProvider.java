@@ -1,6 +1,6 @@
 package grill24.potionsplus.data.loot.neoforge;
 
-import grill24.potionsplus.behaviour.WormrootLootModifier;
+import grill24.potionsplus.behaviour.neoforge.WormrootLootModifier;
 import grill24.potionsplus.core.ConfiguredPlayerAbilities;
 import grill24.potionsplus.core.LootTables;
 import grill24.potionsplus.loot.HasPlayerAbilityCondition;
@@ -58,7 +58,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
 
         // Add Passive Potion Effects Loot Modifier
         this.add("add_mob_effects_to_tools_and_armor_loot_modifier",
-                new grill24.potionsplus.behaviour.AddMobEffectsLootModifier(
+                new grill24.potionsplus.behaviour.neoforge.AddMobEffectsLootModifier(
                         new LootItemCondition[0], new TreeSet<>(effectsBlacklist)));
 
 

@@ -1,7 +1,7 @@
 package grill24.potionsplus.utility.registration;
 
 import grill24.potionsplus.data.RecipeProvider;
-import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
+import grill24.potionsplus.event.runtimeresource.IGenerateRuntimeResourceInjectionsCacheEvent;
 import grill24.potionsplus.utility.Utility;
 import grill24.potionsplus.utility.registration.item.ItemBuilder;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -103,7 +103,7 @@ public class RegistrationUtility {
         }
     }
 
-    public static void generateRuntimeResourceInjectionsCache(final GenerateRuntimeResourceInjectionsCacheEvent event) {
+    public static void generateRuntimeResourceInjectionsCache(final IGenerateRuntimeResourceInjectionsCacheEvent event) {
         for (IRuntimeModelGenerator<?> generator : RUNTIME_RESOURCE_GENERATORS) {
             generator.generateClient(event);
         }

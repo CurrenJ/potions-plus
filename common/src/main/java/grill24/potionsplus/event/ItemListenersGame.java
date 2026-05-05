@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ItemListenersGame {
-    static final int durationUpgradeTextAnimationDurationTicks = 10;
+    public static final int durationUpgradeTextAnimationDurationTicks = 10;
 
     public static List<Component> animateComponentTextStartTime(List<List<Component>> components, float animationStartTimestamp) {
         List<Component> animatedComponents = new ArrayList<>();
@@ -24,7 +24,7 @@ public class ItemListenersGame {
         return animatedComponents;
     }
 
-    static Pair<MutableComponent, Integer> animateComponentText(List<Component> component, float duration, int delayTicks, float animationStartTimestamp) {
+    public static Pair<MutableComponent, Integer> animateComponentText(List<Component> component, float duration, int delayTicks, float animationStartTimestamp) {
         float f = RUtil.lerp(0.0F, 1.0F, RUtil.easeOutSine(Math.clamp((ClientTickHandler.total() - animationStartTimestamp - delayTicks) / duration, 0.0F, 1.0F)));
         f = Math.clamp(f, 0.0F, 1.0F);
         return animateComponentText(component, f);
