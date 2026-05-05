@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "potionsplus:item/large_filter_hopper"
+    "model": "potionsplus:block/large_filter_hopper"
   }
 }

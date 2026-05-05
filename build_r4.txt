@@ -1,0 +1,906 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :neoforge:processResources UP-TO-DATE
+> Task :neoforge:processIncludeJars UP-TO-DATE
+> Task :neoforge:sourcesJar
+> Task :neoforge:processTestResources NO-SOURCE
+> Task :neoforge:validateAccessWidener NO-SOURCE
+
+> Task :common:compileJava FAILED
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:18: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:18: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:15: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:15: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:22: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:22: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\brewingcauldronrecipe\BrewingCauldronRecipe.java:10: error: cannot find symbol
+import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
+                                 ^
+  symbol:   class ShapelessProcessingRecipe
+  location: package grill24.potionsplus.recipe
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\brewingcauldronrecipe\BrewingCauldronRecipe.java:42: error: cannot find symbol
+public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
+                                           ^
+  symbol: class ShapelessProcessingRecipe
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:17: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:17: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeyserBlock.java:9: error: cannot find symbol
+import net.minecraft.Util;
+                    ^
+  symbol:   class Util
+  location: package net.minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:16: error: cannot find symbol
+import net.minecraft.world.entity.projectile.ThrownTrident;
+                                            ^
+  symbol:   class ThrownTrident
+  location: package net.minecraft.world.entity.projectile
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SkillJournalsBlock.java:5: error: cannot find symbol
+import grill24.potionsplus.skill.SkillsData;
+                                ^
+  symbol:   class SkillsData
+  location: package grill24.potionsplus.skill
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:15: error: cannot find symbol
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                          ^
+  symbol:   class BlockRenderDispatcher
+  location: package net.minecraft.client.renderer.block
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:32: error: cannot find symbol
+public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<AbyssalTroveBlockEntity> {
+                                                                            ^
+  symbol: class AbyssalTroveBlockEntity
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:32: error: wrong number of type arguments; required 2
+public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<AbyssalTroveBlockEntity> {
+                                                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:33: error: cannot find symbol
+    private final BlockRenderDispatcher blockRenderDispatcher;
+                  ^
+  symbol:   class BlockRenderDispatcher
+  location: class AbyssalTroveBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:42: error: cannot find symbol
+    public void render(AbyssalTroveBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
+                       ^
+  symbol:   class AbyssalTroveBlockEntity
+  location: class AbyssalTroveBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:108: error: package AbyssalTroveBlockEntity.RendererData does not exist
+    private float getTargetScale(AbyssalTroveBlockEntity.RendererData.State state, boolean isUnknownIngredient, ItemStack icon) {
+                                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:124: error: package AbyssalTroveBlockEntity.RendererData does not exist
+    private float getTargetSubIconScale(AbyssalTroveBlockEntity.RendererData.State state, boolean isUnknownIngredient, ItemStack icon) {
+                                                                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:132: error: package AbyssalTroveBlockEntity.RendererData does not exist
+    private int getAnimationDuration(AbyssalTroveBlockEntity.RendererData.State state, int row) {
+                                                                         ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:13: error: cannot find symbol
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                          ^
+  symbol:   class BlockRenderDispatcher
+  location: package net.minecraft.client.renderer.block
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:31: error: cannot find symbol
+public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<BrewingCauldronBlockEntity> {
+                                                                               ^
+  symbol: class BrewingCauldronBlockEntity
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:31: error: wrong number of type arguments; required 2
+public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<BrewingCauldronBlockEntity> {
+                                                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:33: error: cannot find symbol
+    public final BlockRenderDispatcher blockRenderDispatcher;
+                 ^
+  symbol:   class BlockRenderDispatcher
+  location: class BrewingCauldronBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:41: error: cannot find symbol
+    public void render(BrewingCauldronBlockEntity blockEntity, float partialTick, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
+                       ^
+  symbol:   class BrewingCauldronBlockEntity
+  location: class BrewingCauldronBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:4: error: cannot find symbol
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+                                      ^
+  symbol:   class AbyssalTroveBlockEntity
+  location: package grill24.potionsplus.blockentity
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:295: error: package net.neoforged.neoforge.items does not exist
+    private static net.neoforged.neoforge.items.ContainerOrHandler getSourceContainerOrHandler(Level p_155597_, Hopper p_155598_, BlockPos p_326315_, BlockState p_326093_) {
+                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:299: error: package net.neoforged.neoforge.items does not exist
+    public static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, @Nullable Direction side) {
+                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:305: error: package net.neoforged.neoforge.items does not exist
+    private static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, BlockState state, double x, double y, double z, @Nullable Direction side) {
+                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:7: error: cannot find symbol
+import net.minecraft.client.gui.GuiGraphics;
+                               ^
+  symbol:   class GuiGraphics
+  location: package net.minecraft.client.gui
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:57: error: cannot find symbol
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+                       ^
+  symbol:   class GuiGraphics
+  location: class FilterHopperScreen<M>
+  where M is a type-variable:
+    M extends FilterHopperMenu declared in class FilterHopperScreen
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:63: error: cannot find symbol
+    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+                            ^
+  symbol:   class GuiGraphics
+  location: class FilterHopperScreen<M>
+  where M is a type-variable:
+    M extends FilterHopperMenu declared in class FilterHopperScreen
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:3: error: cannot find symbol
+import net.minecraft.client.gui.GuiGraphics;
+                               ^
+  symbol:   class GuiGraphics
+  location: package net.minecraft.client.gui
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:8: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:8: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:26: error: cannot find symbol
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+                                ^
+  symbol:   class GuiGraphics
+  location: class HugeFilterHopperScreen
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:3: error: cannot find symbol
+import net.minecraft.client.gui.GuiGraphics;
+                               ^
+  symbol:   class GuiGraphics
+  location: package net.minecraft.client.gui
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:8: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:8: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:26: error: cannot find symbol
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+                                ^
+  symbol:   class GuiGraphics
+  location: class LargeFilterHopperScreen
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\SmallFilterHopperScreen.java:7: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\SmallFilterHopperScreen.java:7: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:12: error: cannot find symbol
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                          ^
+  symbol:   class BlockRenderDispatcher
+  location: package net.minecraft.client.renderer.block
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:28: error: cannot find symbol
+public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
+                                                                                 ^
+  symbol: class HerbalistsLecternBlockEntity
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:28: error: wrong number of type arguments; required 2
+public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:30: error: cannot find symbol
+    public final BlockRenderDispatcher blockRenderDispatcher;
+                 ^
+  symbol:   class BlockRenderDispatcher
+  location: class HerbalistsLecternBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:40: error: cannot find symbol
+    public void render(HerbalistsLecternBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
+                       ^
+  symbol:   class HerbalistsLecternBlockEntity
+  location: class HerbalistsLecternBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternSounds.java:4: error: cannot find symbol
+import grill24.potionsplus.utility.Utility;
+                                  ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:7: error: cannot find symbol
+import grill24.potionsplus.block.PotionBeaconBlock;
+                                ^
+  symbol:   class PotionBeaconBlock
+  location: package grill24.potionsplus.block
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:13: error: cannot find symbol
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                          ^
+  symbol:   class BlockRenderDispatcher
+  location: package net.minecraft.client.renderer.block
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:28: error: cannot find symbol
+public class PotionBeaconBlockEntityRenderer implements BlockEntityRenderer<PotionBeaconBlockEntity> {
+                                                                            ^
+  symbol: class PotionBeaconBlockEntity
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:28: error: wrong number of type arguments; required 2
+public class PotionBeaconBlockEntityRenderer implements BlockEntityRenderer<PotionBeaconBlockEntity> {
+                                                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:30: error: cannot find symbol
+    public final BlockRenderDispatcher blockRenderDispatcher;
+                 ^
+  symbol:   class BlockRenderDispatcher
+  location: class PotionBeaconBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:40: error: cannot find symbol
+    public void render(PotionBeaconBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
+                       ^
+  symbol:   class PotionBeaconBlockEntity
+  location: class PotionBeaconBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconRenderState.java:38: error: package PotionBeaconBlockEntity.RendererData does not exist
+        public ParticleEntry(PotionBeaconBlockEntity.RendererData.ItemParticle src) {
+                                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntity.java:5: error: cannot find symbol
+import grill24.potionsplus.network.ClientboundSanguineAltarConversionProgressPacket;
+                                  ^
+  symbol:   class ClientboundSanguineAltarConversionProgressPacket
+  location: package grill24.potionsplus.network
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntity.java:6: error: cannot find symbol
+import grill24.potionsplus.network.ClientboundSanguineAltarConversionStatePacket;
+                                  ^
+  symbol:   class ClientboundSanguineAltarConversionStatePacket
+  location: package grill24.potionsplus.network
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntity.java:9: error: cannot find symbol
+import grill24.potionsplus.utility.Utility;
+                                  ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\abyssaltroverecipe\SanguineAltarRecipe.java:8: error: cannot find symbol
+import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
+                                 ^
+  symbol:   class ShapelessProcessingRecipe
+  location: package grill24.potionsplus.recipe
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\abyssaltroverecipe\SanguineAltarRecipe.java:23: error: cannot find symbol
+public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
+                                         ^
+  symbol: class ShapelessProcessingRecipe
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntityRenderer.java:11: error: cannot find symbol
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                          ^
+  symbol:   class BlockRenderDispatcher
+  location: package net.minecraft.client.renderer.block
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntityRenderer.java:23: error: wrong number of type arguments; required 2
+public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<SanguineAltarBlockEntity> {
+                                                                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntityRenderer.java:24: error: cannot find symbol
+    private final BlockRenderDispatcher blockRenderDispatcher;
+                  ^
+  symbol:   class BlockRenderDispatcher
+  location: class SanguineAltarBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\SimpleAbilityInstanceData.java:7: error: cannot find symbol
+import grill24.potionsplus.skill.ability.PlayerAbility;
+                                        ^
+  symbol:   class PlayerAbility
+  location: package grill24.potionsplus.skill.ability
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\AdjustableStrengthAbilityInstanceData.java:8: error: cannot find symbol
+import grill24.potionsplus.utility.Utility;
+                                  ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\ConfiguredPlayerAbility.java:13: error: cannot find symbol
+public record ConfiguredPlayerAbility<AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>>(A ability,
+                                                                                       ^
+  symbol: class PlayerAbility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\SkillInstance.java:11: error: cannot find symbol
+import grill24.potionsplus.skill.reward.SkillLevelUpRewardsData;
+                                       ^
+  symbol:   class SkillLevelUpRewardsData
+  location: package grill24.potionsplus.skill.reward
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\SkillLevelUpRewardsConfiguration.java:19: error: cannot find symbol
+    public final Map<String, SkillLevelUpRewardsData> rewardsDataMap;
+                             ^
+  symbol:   class SkillLevelUpRewardsData
+  location: class SkillLevelUpRewardsConfiguration
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\SkillLevelUpRewardsConfiguration.java:21: error: cannot find symbol
+    public SkillLevelUpRewardsConfiguration(Map<String, SkillLevelUpRewardsData> levelRewards) {
+                                                        ^
+  symbol:   class SkillLevelUpRewardsData
+  location: class SkillLevelUpRewardsConfiguration
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\SkillLevelUpRewardsConfiguration.java:29: error: cannot find symbol
+    public Optional<SkillLevelUpRewardsData> tryGetRewardForLevel(int level) {
+                    ^
+  symbol:   class SkillLevelUpRewardsData
+  location: class SkillLevelUpRewardsConfiguration
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\SimpleAbilityInstanceData.java:37: error: cannot find symbol
+    public <E, AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>> ConfiguredPlayerAbility<AC, A> getConfiguredAbility() {
+                                                                ^
+  symbol:   class PlayerAbility
+  location: class SimpleAbilityInstanceData
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ArmorMaterials.java:13: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ArmorMaterials.java:13: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Biomes.java:16: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Biomes.java:16: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:25: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.mc;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:25: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.mc;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:26: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:26: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:21: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.mc;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:21: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.mc;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:22: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:22: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AdvancementReward.java:6: error: cannot find symbol
+import grill24.potionsplus.core.GrantableRewards;
+                               ^
+  symbol:   class GrantableRewards
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AdvancementReward.java:17: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AdvancementReward.java:17: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\EdibleChoiceReward.java:4: error: cannot find symbol
+import grill24.potionsplus.core.GrantableRewards;
+                               ^
+  symbol:   class GrantableRewards
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\EdibleChoiceReward.java:8: error: cannot find symbol
+import grill24.potionsplus.skill.SkillsData;
+                                ^
+  symbol:   class SkillsData
+  location: package grill24.potionsplus.skill
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\EdibleChoiceReward.java:25: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\EdibleChoiceReward.java:25: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AnimatedItemReward.java:6: error: cannot find symbol
+import grill24.potionsplus.core.GrantableRewards;
+                               ^
+  symbol:   class GrantableRewards
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AnimatedItemReward.java:21: error: cannot find symbol
+import static grill24.potionsplus.utility.Utility.ppId;
+                                         ^
+  symbol:   class Utility
+  location: package grill24.potionsplus.utility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AnimatedItemReward.java:21: error: static import only from classes and interfaces
+import static grill24.potionsplus.utility.Utility.ppId;
+^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:113: error: package IncreaseAbilityStrengthReward does not exist
+    public static final IncreaseAbilityStrengthReward.Builder SMALL_PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("small_pickaxe_efficiency_increase")
+                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:116: error: package IncreaseAbilityStrengthReward does not exist
+    public static final IncreaseAbilityStrengthReward.Builder MEDIUM_PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("medium_pickaxe_efficiency_increase")
+                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:119: error: package IncreaseAbilityStrengthReward does not exist
+    public static final IncreaseAbilityStrengthReward.Builder SMALL_SUBMERGED_PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("small_submerged_pickaxe_efficiency_increase")
+                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:122: error: package IncreaseAbilityStrengthReward does not exist
+    public static final IncreaseAbilityStrengthReward.Builder PICKAXE_FORTUNE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("pickaxe_fortune_increase")
+                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:125: error: package IncreaseAbilityStrengthReward does not exist
+    public static final IncreaseAbilityStrengthReward.Builder PICKAXE_UNBREAKING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("pickaxe_unbreaking_increase")
+                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AbilityReward.java:6: error: cannot find symbol
+import grill24.potionsplus.core.GrantableRewards;
+                               ^
+  symbol:   class GrantableRewards
+  location: package grill24.potionsplus.core
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:18: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:15: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:22: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:17: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:8: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:8: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\SmallFilterHopperScreen.java:7: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ArmorMaterials.java:13: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Biomes.java:16: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:25: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.mc;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:26: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:21: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.mc;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:22: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AdvancementReward.java:17: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\EdibleChoiceReward.java:25: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AnimatedItemReward.java:21: error: static import only from classes and interfaces
+  import static grill24.potionsplus.utility.Utility.ppId;
+  ^
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:32: error: wrong number of type arguments; required 2
+  public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<AbyssalTroveBlockEntity> {
+                                                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:31: error: wrong number of type arguments; required 2
+  public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<BrewingCauldronBlockEntity> {
+                                                                                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:28: error: wrong number of type arguments; required 2
+  public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:28: error: wrong number of type arguments; required 2
+  public class PotionBeaconBlockEntityRenderer implements BlockEntityRenderer<PotionBeaconBlockEntity> {
+                                                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntityRenderer.java:23: error: wrong number of type arguments; required 2
+  public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<SanguineAltarBlockEntity> {
+                                                                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:18: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:15: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:22: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\brewingcauldronrecipe\BrewingCauldronRecipe.java:10: error: cannot find symbol
+  import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
+                                   ^
+    symbol:   class ShapelessProcessingRecipe
+    location: package grill24.potionsplus.recipe
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:17: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeyserBlock.java:9: error: cannot find symbol
+  import net.minecraft.Util;
+                      ^
+    symbol:   class Util
+    location: package net.minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:16: error: cannot find symbol
+  import net.minecraft.world.entity.projectile.ThrownTrident;
+                                              ^
+    symbol:   class ThrownTrident
+    location: package net.minecraft.world.entity.projectile
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SkillJournalsBlock.java:5: error: cannot find symbol
+  import grill24.potionsplus.skill.SkillsData;
+                                  ^
+    symbol:   class SkillsData
+    location: package grill24.potionsplus.skill
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:15: error: cannot find symbol
+  import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                            ^
+    symbol:   class BlockRenderDispatcher
+    location: package net.minecraft.client.renderer.block
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:33: error: cannot find symbol
+      private final BlockRenderDispatcher blockRenderDispatcher;
+                    ^
+    symbol:   class BlockRenderDispatcher
+    location: class AbyssalTroveBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:42: error: cannot find symbol
+      public void render(AbyssalTroveBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
+                         ^
+    symbol:   class AbyssalTroveBlockEntity
+    location: class AbyssalTroveBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:13: error: cannot find symbol
+  import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                            ^
+    symbol:   class BlockRenderDispatcher
+    location: package net.minecraft.client.renderer.block
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:33: error: cannot find symbol
+      public final BlockRenderDispatcher blockRenderDispatcher;
+                   ^
+    symbol:   class BlockRenderDispatcher
+    location: class BrewingCauldronBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:41: error: cannot find symbol
+      public void render(BrewingCauldronBlockEntity blockEntity, float partialTick, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
+                         ^
+    symbol:   class BrewingCauldronBlockEntity
+    location: class BrewingCauldronBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:4: error: cannot find symbol
+  import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+                                        ^
+    symbol:   class AbyssalTroveBlockEntity
+    location: package grill24.potionsplus.blockentity
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:7: error: cannot find symbol
+  import net.minecraft.client.gui.GuiGraphics;
+                                 ^
+    symbol:   class GuiGraphics
+    location: package net.minecraft.client.gui
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:57: error: cannot find symbol
+      public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+                         ^
+    symbol:   class GuiGraphics
+    location: class FilterHopperScreen<M>
+    where M is a type-variable:
+      M extends FilterHopperMenu declared in class FilterHopperScreen
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:63: error: cannot find symbol
+      protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+                              ^
+    symbol:   class GuiGraphics
+    location: class FilterHopperScreen<M>
+    where M is a type-variable:
+      M extends FilterHopperMenu declared in class FilterHopperScreen
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:3: error: cannot find symbol
+  import net.minecraft.client.gui.GuiGraphics;
+                                 ^
+    symbol:   class GuiGraphics
+    location: package net.minecraft.client.gui
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:8: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:26: error: cannot find symbol
+      protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+                                  ^
+    symbol:   class GuiGraphics
+    location: class HugeFilterHopperScreen
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:3: error: cannot find symbol
+  import net.minecraft.client.gui.GuiGraphics;
+                                 ^
+    symbol:   class GuiGraphics
+    location: package net.minecraft.client.gui
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:8: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:26: error: cannot find symbol
+      protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+                                  ^
+    symbol:   class GuiGraphics
+    location: class LargeFilterHopperScreen
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\SmallFilterHopperScreen.java:7: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:12: error: cannot find symbol
+  import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                            ^
+    symbol:   class BlockRenderDispatcher
+    location: package net.minecraft.client.renderer.block
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:30: error: cannot find symbol
+      public final BlockRenderDispatcher blockRenderDispatcher;
+                   ^
+    symbol:   class BlockRenderDispatcher
+    location: class HerbalistsLecternBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:40: error: cannot find symbol
+      public void render(HerbalistsLecternBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
+                         ^
+    symbol:   class HerbalistsLecternBlockEntity
+    location: class HerbalistsLecternBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternSounds.java:4: error: cannot find symbol
+  import grill24.potionsplus.utility.Utility;
+                                    ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:7: error: cannot find symbol
+  import grill24.potionsplus.block.PotionBeaconBlock;
+                                  ^
+    symbol:   class PotionBeaconBlock
+    location: package grill24.potionsplus.block
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:13: error: cannot find symbol
+  import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                            ^
+    symbol:   class BlockRenderDispatcher
+    location: package net.minecraft.client.renderer.block
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:30: error: cannot find symbol
+      public final BlockRenderDispatcher blockRenderDispatcher;
+                   ^
+    symbol:   class BlockRenderDispatcher
+    location: class PotionBeaconBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:40: error: cannot find symbol
+      public void render(PotionBeaconBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
+                         ^
+    symbol:   class PotionBeaconBlockEntity
+    location: class PotionBeaconBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntity.java:5: error: cannot find symbol
+  import grill24.potionsplus.network.ClientboundSanguineAltarConversionProgressPacket;
+                                    ^
+    symbol:   class ClientboundSanguineAltarConversionProgressPacket
+    location: package grill24.potionsplus.network
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntity.java:6: error: cannot find symbol
+  import grill24.potionsplus.network.ClientboundSanguineAltarConversionStatePacket;
+                                    ^
+    symbol:   class ClientboundSanguineAltarConversionStatePacket
+    location: package grill24.potionsplus.network
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntity.java:9: error: cannot find symbol
+  import grill24.potionsplus.utility.Utility;
+                                    ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\abyssaltroverecipe\SanguineAltarRecipe.java:8: error: cannot find symbol
+  import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
+                                   ^
+    symbol:   class ShapelessProcessingRecipe
+    location: package grill24.potionsplus.recipe
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntityRenderer.java:11: error: cannot find symbol
+  import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                            ^
+    symbol:   class BlockRenderDispatcher
+    location: package net.minecraft.client.renderer.block
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntityRenderer.java:24: error: cannot find symbol
+      private final BlockRenderDispatcher blockRenderDispatcher;
+                    ^
+    symbol:   class BlockRenderDispatcher
+    location: class SanguineAltarBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\SimpleAbilityInstanceData.java:7: error: cannot find symbol
+  import grill24.potionsplus.skill.ability.PlayerAbility;
+                                          ^
+    symbol:   class PlayerAbility
+    location: package grill24.potionsplus.skill.ability
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\AdjustableStrengthAbilityInstanceData.java:8: error: cannot find symbol
+  import grill24.potionsplus.utility.Utility;
+                                    ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\SkillInstance.java:11: error: cannot find symbol
+  import grill24.potionsplus.skill.reward.SkillLevelUpRewardsData;
+                                         ^
+    symbol:   class SkillLevelUpRewardsData
+    location: package grill24.potionsplus.skill.reward
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\SkillLevelUpRewardsConfiguration.java:19: error: cannot find symbol
+      public final Map<String, SkillLevelUpRewardsData> rewardsDataMap;
+                               ^
+    symbol:   class SkillLevelUpRewardsData
+    location: class SkillLevelUpRewardsConfiguration
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\SkillLevelUpRewardsConfiguration.java:21: error: cannot find symbol
+      public SkillLevelUpRewardsConfiguration(Map<String, SkillLevelUpRewardsData> levelRewards) {
+                                                          ^
+    symbol:   class SkillLevelUpRewardsData
+    location: class SkillLevelUpRewardsConfiguration
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\SkillLevelUpRewardsConfiguration.java:29: error: cannot find symbol
+      public Optional<SkillLevelUpRewardsData> tryGetRewardForLevel(int level) {
+                      ^
+    symbol:   class SkillLevelUpRewardsData
+    location: class SkillLevelUpRewardsConfiguration
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\SimpleAbilityInstanceData.java:37: error: cannot find symbol
+      public <E, AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>> ConfiguredPlayerAbility<AC, A> getConfiguredAbility() {
+                                                                  ^
+    symbol:   class PlayerAbility
+    location: class SimpleAbilityInstanceData
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ArmorMaterials.java:13: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Biomes.java:16: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:25: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.mc;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:26: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:21: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.mc;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:22: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AdvancementReward.java:6: error: cannot find symbol
+  import grill24.potionsplus.core.GrantableRewards;
+                                 ^
+    symbol:   class GrantableRewards
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AdvancementReward.java:17: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\EdibleChoiceReward.java:4: error: cannot find symbol
+  import grill24.potionsplus.core.GrantableRewards;
+                                 ^
+    symbol:   class GrantableRewards
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\EdibleChoiceReward.java:8: error: cannot find symbol
+  import grill24.potionsplus.skill.SkillsData;
+                                  ^
+    symbol:   class SkillsData
+    location: package grill24.potionsplus.skill
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\EdibleChoiceReward.java:25: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AnimatedItemReward.java:6: error: cannot find symbol
+  import grill24.potionsplus.core.GrantableRewards;
+                                 ^
+    symbol:   class GrantableRewards
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AnimatedItemReward.java:21: error: cannot find symbol
+  import static grill24.potionsplus.utility.Utility.ppId;
+                                           ^
+    symbol:   class Utility
+    location: package grill24.potionsplus.utility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\AbilityReward.java:6: error: cannot find symbol
+  import grill24.potionsplus.core.GrantableRewards;
+                                 ^
+    symbol:   class GrantableRewards
+    location: package grill24.potionsplus.core
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\brewingcauldronrecipe\BrewingCauldronRecipe.java:42: error: cannot find symbol
+  public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
+                                             ^
+    symbol: class ShapelessProcessingRecipe
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:32: error: cannot find symbol
+  public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<AbyssalTroveBlockEntity> {
+                                                                              ^
+    symbol: class AbyssalTroveBlockEntity
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:31: error: cannot find symbol
+  public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<BrewingCauldronBlockEntity> {
+                                                                                 ^
+    symbol: class BrewingCauldronBlockEntity
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:28: error: cannot find symbol
+  public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
+                                                                                   ^
+    symbol: class HerbalistsLecternBlockEntity
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:28: error: cannot find symbol
+  public class PotionBeaconBlockEntityRenderer implements BlockEntityRenderer<PotionBeaconBlockEntity> {
+                                                                              ^
+    symbol: class PotionBeaconBlockEntity
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\abyssaltroverecipe\SanguineAltarRecipe.java:23: error: cannot find symbol
+  public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
+                                           ^
+    symbol: class ShapelessProcessingRecipe
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\ConfiguredPlayerAbility.java:13: error: cannot find symbol
+  public record ConfiguredPlayerAbility<AC extends PlayerAbilityConfiguration, A extends PlayerAbility<AC>>(A ability,
+                                                                                         ^
+    symbol: class PlayerAbility
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:108: error: package AbyssalTroveBlockEntity.RendererData does not exist
+      private float getTargetScale(AbyssalTroveBlockEntity.RendererData.State state, boolean isUnknownIngredient, ItemStack icon) {
+                                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:124: error: package AbyssalTroveBlockEntity.RendererData does not exist
+      private float getTargetSubIconScale(AbyssalTroveBlockEntity.RendererData.State state, boolean isUnknownIngredient, ItemStack icon) {
+                                                                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:132: error: package AbyssalTroveBlockEntity.RendererData does not exist
+      private int getAnimationDuration(AbyssalTroveBlockEntity.RendererData.State state, int row) {
+                                                                           ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:295: error: package net.neoforged.neoforge.items does not exist
+      private static net.neoforged.neoforge.items.ContainerOrHandler getSourceContainerOrHandler(Level p_155597_, Hopper p_155598_, BlockPos p_326315_, BlockState p_326093_) {
+                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:299: error: package net.neoforged.neoforge.items does not exist
+      public static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, @Nullable Direction side) {
+                                                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:305: error: package net.neoforged.neoforge.items does not exist
+      private static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, BlockState state, double x, double y, double z, @Nullable Direction side) {
+                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconRenderState.java:38: error: package PotionBeaconBlockEntity.RendererData does not exist
+          public ParticleEntry(PotionBeaconBlockEntity.RendererData.ItemParticle src) {
+                                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:113: error: package IncreaseAbilityStrengthReward does not exist
+      public static final IncreaseAbilityStrengthReward.Builder SMALL_PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("small_pickaxe_efficiency_increase")
+                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:116: error: package IncreaseAbilityStrengthReward does not exist
+      public static final IncreaseAbilityStrengthReward.Builder MEDIUM_PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("medium_pickaxe_efficiency_increase")
+                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:119: error: package IncreaseAbilityStrengthReward does not exist
+      public static final IncreaseAbilityStrengthReward.Builder SMALL_SUBMERGED_PICKAXE_EFFICIENCY_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("small_submerged_pickaxe_efficiency_increase")
+                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:122: error: package IncreaseAbilityStrengthReward does not exist
+      public static final IncreaseAbilityStrengthReward.Builder PICKAXE_FORTUNE_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("pickaxe_fortune_increase")
+                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:125: error: package IncreaseAbilityStrengthReward does not exist
+      public static final IncreaseAbilityStrengthReward.Builder PICKAXE_UNBREAKING_INCREASE = register(() -> new IncreaseAbilityStrengthReward.Builder("pickaxe_unbreaking_increase")
+                                                       ^
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+4 actionable tasks: 2 executed, 2 up-to-date

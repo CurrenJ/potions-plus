@@ -1,0 +1,862 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :common:compileJava FAILED
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:112: error: type annotation @org.jspecify.annotations.Nullable is not expected here
+    public void extractRenderState(final AbyssalTroveBlockEntity blockEntity, final AbyssalTroveRenderState state, final float partialTicks, final Vec3 cameraPosition, @org.jspecify.annotations.Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+                                                                                                                                                                                                                                     ^
+  (to annotate a qualified type, write ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:55: error: type annotation @org.jspecify.annotations.Nullable is not expected here
+    public void extractRenderState(final BrewingCauldronBlockEntity blockEntity, final BrewingCauldronRenderState state, final float partialTicks, final Vec3 cameraPosition, @org.jspecify.annotations.Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+                                                                                                                                                                                                                                           ^
+  (to annotate a qualified type, write ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:67: error: type annotation @org.jspecify.annotations.Nullable is not expected here
+    public void extractRenderState(final ClotheslineBlockEntity blockEntity, final ClotheslineRenderState state, final float partialTicks, final Vec3 cameraPosition, @org.jspecify.annotations.Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+                                                                                                                                                                                                                                   ^
+  (to annotate a qualified type, write ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:54: error: type annotation @org.jspecify.annotations.Nullable is not expected here
+    public void extractRenderState(final HerbalistsLecternBlockEntity blockEntity, final HerbalistsLecternRenderState state, final float partialTicks, final Vec3 cameraPosition, @org.jspecify.annotations.Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+                                                                                                                                                                                                                                               ^
+  (to annotate a qualified type, write ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:54: error: type annotation @org.jspecify.annotations.Nullable is not expected here
+    public void extractRenderState(final PotionBeaconBlockEntity blockEntity, final PotionBeaconRenderState state, final float partialTicks, final Vec3 cameraPosition, @org.jspecify.annotations.Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+                                                                                                                                                                                                                                     ^
+  (to annotate a qualified type, write ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntityRenderer.java:47: error: type annotation @org.jspecify.annotations.Nullable is not expected here
+    public void extractRenderState(final SanguineAltarBlockEntity blockEntity, final SanguineAltarRenderState state, final float partialTicks, final Vec3 cameraPosition, @org.jspecify.annotations.Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+                                                                                                                                                                                                                                       ^
+  (to annotate a qualified type, write ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:49: error: cannot find symbol
+            return Advancements.ABYSSAL_TROVE_TRIGGER.value().createCriterion(new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.of(fillPercentage), Optional.empty()));
+                                                     ^
+  symbol:   method value()
+  location: variable ABYSSAL_TROVE_TRIGGER of type AbyssalTroveTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:53: error: cannot find symbol
+            return Advancements.ABYSSAL_TROVE_TRIGGER.value().createCriterion(new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.empty(), Optional.of(rarity)));
+                                                     ^
+  symbol:   method value()
+  location: variable ABYSSAL_TROVE_TRIGGER of type AbyssalTroveTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\SimpleAbilityInstanceData.java:78: error: cannot find symbol
+        return "/potionsplus skill ability byId " + ability.key().identifier() + " toggle";
+                                                           ^
+  symbol:   method key()
+  location: variable ability of type Holder<ConfiguredPlayerAbility<?,?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\SimpleAbilityInstanceData.java:89: error: cannot find symbol
+        return ability.key() != null && ability.key().equals(that.ability.key());
+                      ^
+  symbol:   method key()
+  location: variable ability of type Holder<ConfiguredPlayerAbility<?,?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\SimpleAbilityInstanceData.java:89: error: cannot find symbol
+        return ability.key() != null && ability.key().equals(that.ability.key());
+                                               ^
+  symbol:   method key()
+  location: variable ability of type Holder<ConfiguredPlayerAbility<?,?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\SimpleAbilityInstanceData.java:89: error: cannot find symbol
+        return ability.key() != null && ability.key().equals(that.ability.key());
+                                                                         ^
+  symbol:   method key()
+  location: variable ability of type Holder<ConfiguredPlayerAbility<?,?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\SkillLevelUpRewardsData.java:45: error: cannot find symbol
+            reward.value().grant(reward.key(), player);
+                                       ^
+  symbol:   method key()
+  location: variable reward of type Holder<ConfiguredGrantableReward<?,?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\SkillLevelUpRewardsData.java:98: error: cannot find symbol
+                addReward(lookup, reward.key());
+                                        ^
+  symbol:   method key()
+  location: variable reward of type IRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:42: error: cannot find symbol
+            return Advancements.AWARD_STAT_TRIGGER.value().createCriterion(new AwardStatTrigger.TriggerInstance(Optional.empty(), statId, totalStats));
+                                                  ^
+  symbol:   method value()
+  location: variable AWARD_STAT_TRIGGER of type AwardStatTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:52: error: cannot find symbol
+            return Advancements.CRAFT_RECIPE.value().createCriterion(new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.of(recipeResult), Optional.of(potionMatchingCriteria)));
+                                            ^
+  symbol:   method value()
+  location: variable CRAFT_RECIPE of type CraftRecipeTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:56: error: cannot find symbol
+            return Advancements.CRAFT_RECIPE.value().createCriterion(new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.of(recipeResult), Optional.empty()));
+                                            ^
+  symbol:   method value()
+  location: variable CRAFT_RECIPE of type CraftRecipeTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:60: error: cannot find symbol
+            return Advancements.CRAFT_RECIPE.value().createCriterion(new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.empty(), Optional.empty()));
+                                            ^
+  symbol:   method value()
+  location: variable CRAFT_RECIPE of type CraftRecipeTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\brewingcauldronrecipe\BrewingCauldronRecipe.java:102: error: cannot find symbol
+                ResourceKey<MobEffect> key = mobEffectInstance.getEffect().key();
+                                                                          ^
+  symbol:   method key()
+  location: interface Holder<MobEffect>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\brewingcauldronrecipe\BrewingCauldronRecipe.java:208: error: cannot find symbol
+        return Recipes.BREWING_CAULDRON_RECIPE.get();
+                                              ^
+  symbol:   method get()
+  location: variable BREWING_CAULDRON_RECIPE of type RecipeType<BrewingCauldronRecipe>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:42: error: cannot find symbol
+            return Advancements.BREWING_CAULDRON_CREATION.value().createCriterion(new CreatePotionsPlusBlockTrigger.TriggerInstance(Optional.empty(), blockState));
+                                                         ^
+  symbol:   method value()
+  location: variable BREWING_CAULDRON_CREATION of type CreatePotionsPlusBlockTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:91: error: random has protected access in Level
+                    pos.x + Utility.nextGaussian(0, 0.1, level.random),
+                                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:92: error: random has protected access in Level
+                    pos.y + 0.5 + Utility.nextGaussian(0, 0.1, level.random),
+                                                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:93: error: random has protected access in Level
+                    pos.z + Utility.nextGaussian(0, 0.1, level.random),
+                                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:90: error: cannot find symbol
+            level.addParticle(Particles.END_ROD_RAIN.get(),
+                                                    ^
+  symbol:   method get()
+  location: variable END_ROD_RAIN of type Holder<SimpleParticleType>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:44: error: cannot find symbol
+        int enchantmentLevel = EnchantmentHelper.getTagEnchantmentLevel(input, stack);
+                                                ^
+  symbol:   method getTagEnchantmentLevel(Holder<Enchantment>,ItemStack)
+  location: class EnchantmentHelper
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:50: error: cannot find symbol
+            Optional<Holder<Attribute>> attribute = Attributes.getAttributeForEnchantmentBonus(enchantment.key());
+                                                                                                          ^
+  symbol:   method key()
+  location: variable enchantment of type Holder<Enchantment>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:59: error: cannot find symbol
+        Optional<Holder<Attribute>> attribute = Attributes.getAttributeForEnchantmentBonus(enchantment.key());
+                                                                                                      ^
+  symbol:   method key()
+  location: variable enchantment of type Holder<Enchantment>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:62: error: cannot find symbol
+            for (ItemAttributeModifiers.Entry entry : itemStack.getAttributeModifiers().modifiers()) {
+                                                               ^
+  symbol:   method getAttributeModifiers()
+  location: variable itemStack of type ItemStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:63: error: cannot find symbol
+                if (entry.attribute().key().equals(attribute.get().key())) {
+                                     ^
+  symbol:   method key()
+  location: interface Holder<Attribute>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:63: error: cannot find symbol
+                if (entry.attribute().key().equals(attribute.get().key())) {
+                                                                  ^
+  symbol:   method key()
+  location: interface Holder<Attribute>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:63: error: cannot find symbol
+        Optional<AbyssalTroveBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
+                                                                                                                   ^
+  symbol:   method get()
+  location: variable ABYSSAL_TROVE_BLOCK_ENTITY of type Holder<BlockEntityType<AbyssalTroveBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:79: error: isClientSide has private access in Level
+                if (level.isClientSide) {
+                         ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:83: error: random has protected access in Level
+                        Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:83: error: random has protected access in Level
+                        Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:83: error: random has protected access in Level
+                        Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                                                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:128: error: random has protected access in Level
+                    Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:128: error: random has protected access in Level
+                    Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:128: error: random has protected access in Level
+                    Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                                                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:144: error: cannot find symbol
+        return Utility.createTickerHelper(type, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), AbyssalTroveBlockEntity::tick);
+                                                                                 ^
+  symbol:   method get()
+  location: variable ABYSSAL_TROVE_BLOCK_ENTITY of type Holder<BlockEntityType<AbyssalTroveBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:167: error: cannot find symbol
+        TriState soilDecision = belowBlockState.canSustainPlant(level, blockpos, facing.getOpposite(), state);
+                                               ^
+  symbol:   method canSustainPlant(LevelReader,BlockPos,Direction,BlockState)
+  location: variable belowBlockState of type BlockState
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:168: error: cannot find symbol
+        if (!soilDecision.isDefault()) return soilDecision.isTrue();
+                         ^
+  symbol:   method isDefault()
+  location: variable soilDecision of type TriState
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:168: error: cannot find symbol
+        if (!soilDecision.isDefault()) return soilDecision.isTrue();
+                                                          ^
+  symbol:   method isTrue()
+  location: variable soilDecision of type TriState
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:270: error: isClientSide has private access in Level
+        if (!level.isClientSide) {
+                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:44: error: cannot find symbol
+        return Utility.createTickerHelper(type, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get(), BrewingCauldronBlockEntity::tick);
+                                                                                    ^
+  symbol:   method get()
+  location: variable BREWING_CAULDRON_BLOCK_ENTITY of type Holder<BlockEntityType<BrewingCauldronBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:56: error: cannot find symbol
+            level.getBlockEntity(pos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get()).ifPresent(cauldronBlockEntity -> cauldronBlockEntity.onPlayerInsertItem(player));
+                                                                          ^
+  symbol:   method get()
+  location: variable BREWING_CAULDRON_BLOCK_ENTITY of type Holder<BlockEntityType<BrewingCauldronBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:74: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:76: error: cannot find symbol
+        Optional<BrewingCauldronBlockEntity> brewingCauldronBlockEntity = level.getBlockEntity(blockPos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get());
+                                                                                                                                             ^
+  symbol:   method get()
+  location: variable BREWING_CAULDRON_BLOCK_ENTITY of type Holder<BlockEntityType<BrewingCauldronBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:74: error: isClientSide has private access in Level
+        if (!level.isClientSide) {
+                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:94: error: isClientSide has private access in Level
+        if (!level.isClientSide && player.isCreative()) {
+                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:112: error: isClientSide has private access in Level
+        if (!level.isClientSide) {
+                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:288: error: cannot find symbol
+            return Utility.createTickerHelper(type, grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), ClotheslineBlockEntity::tick);
+                                                                                                            ^
+  symbol:   method get()
+  location: variable CLOTHESLINE_BLOCK_ENTITY of type Holder<BlockEntityType<ClotheslineBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\DecorativeFireBlock.java:40: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\FilterHopperBlock.java:21: error: isClientSide has private access in Level
+        if (level.isClientSide) {
+                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:165: error: cannot find symbol
+        if (!level.isAreaLoaded(pos, 1))
+                  ^
+  symbol:   method isAreaLoaded(BlockPos,int)
+  location: variable level of type ServerLevel
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:183: error: cannot find symbol
+            var soilDecision = blockstate.canSustainPlant(level, pos.below(), Direction.UP, state);
+                                         ^
+  symbol:   method canSustainPlant(LevelReader,BlockPos,Direction,BlockState)
+  location: variable blockstate of type BlockState
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:225: error: random has protected access in Level
+            if (level.random.nextFloat() > chance) continue; // Random chance to pollinate
+                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:290: error: random has protected access in Level
+                if (geneticCropBlock.getDestroyOnHarvestChance() > 0.0F && level.random.nextFloat() < geneticCropBlock.getDestroyOnHarvestChance()) {
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeyserBlock.java:83: error: cannot find symbol
+            level.addParticle(Particles.LAVA_GEYSER_BLOCK_LINKED_EMITTER.get(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0, 0);
+                                                                        ^
+  symbol:   method get()
+  location: variable LAVA_GEYSER_BLOCK_LINKED_EMITTER of type Holder<SimpleParticleType>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeyserBlock.java:138: error: random has protected access in Level
+        SimpleParticleType particleType = particleSampler.sampleParticleType(level.random);
+                                                                                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeyserBlock.java:141: error: random has protected access in Level
+            return ((EmitterParticle.Provider) particleprovider).particleTypeSupplier.apply(level.random);
+                                                                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ParticleEmitterBlock.java:78: error: isClientSide has private access in Level
+        if (!level.isClientSide) {
+                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ParticleEmitterBlock.java:147: error: isClientSide has private access in Level
+        if (!level.isClientSide) {
+                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GrowableMossyBlock.java:60: error: isClientSide has private access in Level
+                if (!level.isClientSide) {
+                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GrowableMossySlab.java:62: error: isClientSide has private access in Level
+                if (!level.isClientSide) {
+                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GrowableMossyStairs.java:66: error: isClientSide has private access in Level
+                if (!level.isClientSide) {
+                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:79: error: cannot find symbol
+        Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
+                                                                                                                             ^
+  symbol:   method get()
+  location: variable HERBALISTS_LECTERN_BLOCK_ENTITY of type Holder<BlockEntityType<HerbalistsLecternBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:98: error: isClientSide has private access in Level
+            if (level.isClientSide) {
+                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:113: error: cannot find symbol
+        Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
+                                                                                                                             ^
+  symbol:   method get()
+  location: variable HERBALISTS_LECTERN_BLOCK_ENTITY of type Holder<BlockEntityType<HerbalistsLecternBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:121: error: isClientSide has private access in Level
+        if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide) {
+                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:134: error: cannot find symbol
+        return Utility.createTickerHelper(type, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get(), HerbalistsLecternBlockEntity::tick);
+                                                                                      ^
+  symbol:   method get()
+  location: variable HERBALISTS_LECTERN_BLOCK_ENTITY of type Holder<BlockEntityType<HerbalistsLecternBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:137: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:139: error: cannot find symbol
+        Optional<HerbalistsLecternBlockEntity> herbalistsLecternBlockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
+                                                                                                                                                   ^
+  symbol:   method get()
+  location: variable HERBALISTS_LECTERN_BLOCK_ENTITY of type Holder<BlockEntityType<HerbalistsLecternBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HugeFilterHopperBlock.java:23: error: isClientSide has private access in Level
+        return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.HUGE_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:129: error: isClientSide has private access in Level
+        if (!p_154042_.isClientSide) {
+                      ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:390: error: cannot find symbol
+        ParticleOptions particleoptions = fluid.getFluidType().getDripInfo() != null ? fluid.getFluidType().getDripInfo().dripParticle() : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
+                                               ^
+  symbol:   method getFluidType()
+  location: variable fluid of type Fluid
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:390: error: cannot find symbol
+        ParticleOptions particleoptions = fluid.getFluidType().getDripInfo() != null ? fluid.getFluidType().getDripInfo().dripParticle() : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
+                                                                                            ^
+  symbol:   method getFluidType()
+  location: variable fluid of type Fluid
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:511: error: canReceiveStalactiteDrip(Fluid) has protected access in AbstractCauldronBlock
+            return p_154162_.getBlock() instanceof AbstractCauldronBlock && ((AbstractCauldronBlock) p_154162_.getBlock()).canReceiveStalactiteDrip(p_154079_);
+                                                                                                                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:547: error: cannot find symbol
+            return p_154053_.dimensionType().ultraWarm() ? Fluids.LAVA : Fluids.WATER;
+                                            ^
+  symbol:   method ultraWarm()
+  location: class DimensionType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LargeFilterHopperBlock.java:23: error: isClientSide has private access in Level
+        return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.LARGE_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LunarBerryBushBlock.java:70: error: cannot find symbol
+            serverLevel.sendParticles(Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.get(), blockPos.getX() + 0.5D, blockPos.getY() + 1.1D, blockPos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0F);
+                                                                                ^
+  symbol:   method get()
+  location: variable LUNAR_BERRY_BUSH_AMBIENT_EMITTER of type Holder<SimpleParticleType>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LunarBerryBushBlock.java:97: error: random has protected access in Level
+            int j = 1 + level.random.nextInt(2);
+                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LunarBerryBushBlock.java:100: error: random has protected access in Level
+                    null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F
+                                                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:52: error: cannot find symbol
+        Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+                                                                                                                   ^
+  symbol:   method get()
+  location: variable POTION_BEACON_BLOCK_ENTITY of type Holder<BlockEntityType<PotionBeaconBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:70: error: isClientSide has private access in Level
+            if (level.isClientSide) {
+                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:85: error: cannot find symbol
+        Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+                                                                                                                   ^
+  symbol:   method get()
+  location: variable POTION_BEACON_BLOCK_ENTITY of type Holder<BlockEntityType<PotionBeaconBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:93: error: isClientSide has private access in Level
+        if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide) {
+                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:110: error: cannot find symbol
+        return Utility.createTickerHelper(type, Blocks.POTION_BEACON_BLOCK_ENTITY.get(), PotionBeaconBlockEntity::tick);
+                                                                                 ^
+  symbol:   method get()
+  location: variable POTION_BEACON_BLOCK_ENTITY of type Holder<BlockEntityType<PotionBeaconBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:113: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:115: error: cannot find symbol
+        Optional<PotionBeaconBlockEntity> PotionBeaconBlockEntity = level.getBlockEntity(blockPos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+                                                                                                                                    ^
+  symbol:   method get()
+  location: variable POTION_BEACON_BLOCK_ENTITY of type Holder<BlockEntityType<PotionBeaconBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:73: error: cannot find symbol
+        Optional<SanguineAltarBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get());
+                                                                                                                     ^
+  symbol:   method get()
+  location: variable SANGUINE_ALTAR_BLOCK_ENTITY of type Holder<BlockEntityType<SanguineAltarBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:100: error: cannot find symbol
+        Optional<SanguineAltarBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get());
+                                                                                                                     ^
+  symbol:   method get()
+  location: variable SANGUINE_ALTAR_BLOCK_ENTITY of type Holder<BlockEntityType<SanguineAltarBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:128: error: cannot find symbol
+        return Utility.createTickerHelper(type, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get(), SanguineAltarBlockEntity::tick);
+                                                                                  ^
+  symbol:   method get()
+  location: variable SANGUINE_ALTAR_BLOCK_ENTITY of type Holder<BlockEntityType<SanguineAltarBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:131: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:133: error: cannot find symbol
+        Optional<SanguineAltarBlockEntity> SanguineAltarBlockEntity = level.getBlockEntity(blockPos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get());
+                                                                                                                                       ^
+  symbol:   method get()
+  location: variable SANGUINE_ALTAR_BLOCK_ENTITY of type Holder<BlockEntityType<SanguineAltarBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SmallFilterHopperBlock.java:23: error: isClientSide has private access in Level
+        return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.SMALL_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:98: error: cannot find symbol
+        super(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), pos, state);
+                                               ^
+  symbol:   method get()
+  location: variable ABYSSAL_TROVE_BLOCK_ENTITY of type Holder<BlockEntityType<AbyssalTroveBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:114: error: isClientSide has private access in Level
+        if (level.isClientSide) {
+                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:223: error: cannot find symbol
+            int tier = entry.key();
+                            ^
+  symbol:   method key()
+  location: variable entry of type Entry<Integer,List<AbyssalTroveRenderedItem>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:41: error: cannot find symbol
+        BlockModelResolver = context.getBlockModelResolver();
+                                    ^
+  symbol:   method getBlockModelResolver()
+  location: variable context of type Context
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:91: error: random has protected access in Level
+                      pos.x + Utility.nextGaussian(0, 0.1, level.random),
+                                                                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:92: error: random has protected access in Level
+                      pos.y + 0.5 + Utility.nextGaussian(0, 0.1, level.random),
+                                                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:93: error: random has protected access in Level
+                      pos.z + Utility.nextGaussian(0, 0.1, level.random),
+                                                                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:79: error: isClientSide has private access in Level
+                  if (level.isClientSide) {
+                           ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:83: error: random has protected access in Level
+                          Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:83: error: random has protected access in Level
+                          Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:83: error: random has protected access in Level
+                          Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                                                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:128: error: random has protected access in Level
+                      Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:128: error: random has protected access in Level
+                      Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:128: error: random has protected access in Level
+                      Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                                                                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:270: error: isClientSide has private access in Level
+          if (!level.isClientSide) {
+                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:74: error: isClientSide has private access in Level
+          if (!level.isClientSide) {
+                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:94: error: isClientSide has private access in Level
+          if (!level.isClientSide && player.isCreative()) {
+                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:112: error: isClientSide has private access in Level
+          if (!level.isClientSide) {
+                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\FilterHopperBlock.java:21: error: isClientSide has private access in Level
+          if (level.isClientSide) {
+                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:225: error: random has protected access in Level
+              if (level.random.nextFloat() > chance) continue; // Random chance to pollinate
+                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:290: error: random has protected access in Level
+                  if (geneticCropBlock.getDestroyOnHarvestChance() > 0.0F && level.random.nextFloat() < geneticCropBlock.getDestroyOnHarvestChance()) {
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeyserBlock.java:138: error: random has protected access in Level
+          SimpleParticleType particleType = particleSampler.sampleParticleType(level.random);
+                                                                                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeyserBlock.java:141: error: random has protected access in Level
+              return ((EmitterParticle.Provider) particleprovider).particleTypeSupplier.apply(level.random);
+                                                                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ParticleEmitterBlock.java:78: error: isClientSide has private access in Level
+          if (!level.isClientSide) {
+                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ParticleEmitterBlock.java:147: error: isClientSide has private access in Level
+          if (!level.isClientSide) {
+                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GrowableMossyBlock.java:60: error: isClientSide has private access in Level
+                  if (!level.isClientSide) {
+                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GrowableMossySlab.java:62: error: isClientSide has private access in Level
+                  if (!level.isClientSide) {
+                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GrowableMossyStairs.java:66: error: isClientSide has private access in Level
+                  if (!level.isClientSide) {
+                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:98: error: isClientSide has private access in Level
+              if (level.isClientSide) {
+                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:121: error: isClientSide has private access in Level
+          if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide) {
+                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HugeFilterHopperBlock.java:23: error: isClientSide has private access in Level
+          return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.HUGE_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:129: error: isClientSide has private access in Level
+          if (!p_154042_.isClientSide) {
+                        ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:511: error: canReceiveStalactiteDrip(Fluid) has protected access in AbstractCauldronBlock
+              return p_154162_.getBlock() instanceof AbstractCauldronBlock && ((AbstractCauldronBlock) p_154162_.getBlock()).canReceiveStalactiteDrip(p_154079_);
+                                                                                                                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LargeFilterHopperBlock.java:23: error: isClientSide has private access in Level
+          return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.LARGE_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LunarBerryBushBlock.java:97: error: random has protected access in Level
+              int j = 1 + level.random.nextInt(2);
+                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LunarBerryBushBlock.java:100: error: random has protected access in Level
+                      null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F
+                                                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:70: error: isClientSide has private access in Level
+              if (level.isClientSide) {
+                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:93: error: isClientSide has private access in Level
+          if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide) {
+                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SmallFilterHopperBlock.java:23: error: isClientSide has private access in Level
+          return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.SMALL_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:114: error: isClientSide has private access in Level
+          if (level.isClientSide) {
+                   ^
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:74: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\DecorativeFireBlock.java:40: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:137: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:113: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:131: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:49: error: cannot find symbol
+              return Advancements.ABYSSAL_TROVE_TRIGGER.value().createCriterion(new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.of(fillPercentage), Optional.empty()));
+                                                       ^
+    symbol:   method value()
+    location: variable ABYSSAL_TROVE_TRIGGER of type AbyssalTroveTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:53: error: cannot find symbol
+              return Advancements.ABYSSAL_TROVE_TRIGGER.value().createCriterion(new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.empty(), Optional.of(rarity)));
+                                                       ^
+    symbol:   method value()
+    location: variable ABYSSAL_TROVE_TRIGGER of type AbyssalTroveTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\SimpleAbilityInstanceData.java:78: error: cannot find symbol
+          return "/potionsplus skill ability byId " + ability.key().identifier() + " toggle";
+                                                             ^
+    symbol:   method key()
+    location: variable ability of type Holder<ConfiguredPlayerAbility<?,?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\SimpleAbilityInstanceData.java:89: error: cannot find symbol
+          return ability.key() != null && ability.key().equals(that.ability.key());
+                        ^
+    symbol:   method key()
+    location: variable ability of type Holder<ConfiguredPlayerAbility<?,?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\SimpleAbilityInstanceData.java:89: error: cannot find symbol
+          return ability.key() != null && ability.key().equals(that.ability.key());
+                                                 ^
+    symbol:   method key()
+    location: variable ability of type Holder<ConfiguredPlayerAbility<?,?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\SimpleAbilityInstanceData.java:89: error: cannot find symbol
+          return ability.key() != null && ability.key().equals(that.ability.key());
+                                                                           ^
+    symbol:   method key()
+    location: variable ability of type Holder<ConfiguredPlayerAbility<?,?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\SkillLevelUpRewardsData.java:45: error: cannot find symbol
+              reward.value().grant(reward.key(), player);
+                                         ^
+    symbol:   method key()
+    location: variable reward of type Holder<ConfiguredGrantableReward<?,?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\SkillLevelUpRewardsData.java:98: error: cannot find symbol
+                  addReward(lookup, reward.key());
+                                          ^
+    symbol:   method key()
+    location: variable reward of type IRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:42: error: cannot find symbol
+              return Advancements.AWARD_STAT_TRIGGER.value().createCriterion(new AwardStatTrigger.TriggerInstance(Optional.empty(), statId, totalStats));
+                                                    ^
+    symbol:   method value()
+    location: variable AWARD_STAT_TRIGGER of type AwardStatTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:52: error: cannot find symbol
+              return Advancements.CRAFT_RECIPE.value().createCriterion(new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.of(recipeResult), Optional.of(potionMatchingCriteria)));
+                                              ^
+    symbol:   method value()
+    location: variable CRAFT_RECIPE of type CraftRecipeTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:56: error: cannot find symbol
+              return Advancements.CRAFT_RECIPE.value().createCriterion(new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.of(recipeResult), Optional.empty()));
+                                              ^
+    symbol:   method value()
+    location: variable CRAFT_RECIPE of type CraftRecipeTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:60: error: cannot find symbol
+              return Advancements.CRAFT_RECIPE.value().createCriterion(new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.empty(), Optional.empty()));
+                                              ^
+    symbol:   method value()
+    location: variable CRAFT_RECIPE of type CraftRecipeTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\brewingcauldronrecipe\BrewingCauldronRecipe.java:102: error: cannot find symbol
+                  ResourceKey<MobEffect> key = mobEffectInstance.getEffect().key();
+                                                                            ^
+    symbol:   method key()
+    location: interface Holder<MobEffect>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\brewingcauldronrecipe\BrewingCauldronRecipe.java:208: error: cannot find symbol
+          return Recipes.BREWING_CAULDRON_RECIPE.get();
+                                                ^
+    symbol:   method get()
+    location: variable BREWING_CAULDRON_RECIPE of type RecipeType<BrewingCauldronRecipe>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:42: error: cannot find symbol
+              return Advancements.BREWING_CAULDRON_CREATION.value().createCriterion(new CreatePotionsPlusBlockTrigger.TriggerInstance(Optional.empty(), blockState));
+                                                           ^
+    symbol:   method value()
+    location: variable BREWING_CAULDRON_CREATION of type CreatePotionsPlusBlockTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:90: error: cannot find symbol
+              level.addParticle(Particles.END_ROD_RAIN.get(),
+                                                      ^
+    symbol:   method get()
+    location: variable END_ROD_RAIN of type Holder<SimpleParticleType>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:44: error: cannot find symbol
+          int enchantmentLevel = EnchantmentHelper.getTagEnchantmentLevel(input, stack);
+                                                  ^
+    symbol:   method getTagEnchantmentLevel(Holder<Enchantment>,ItemStack)
+    location: class EnchantmentHelper
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:50: error: cannot find symbol
+              Optional<Holder<Attribute>> attribute = Attributes.getAttributeForEnchantmentBonus(enchantment.key());
+                                                                                                            ^
+    symbol:   method key()
+    location: variable enchantment of type Holder<Enchantment>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:59: error: cannot find symbol
+          Optional<Holder<Attribute>> attribute = Attributes.getAttributeForEnchantmentBonus(enchantment.key());
+                                                                                                        ^
+    symbol:   method key()
+    location: variable enchantment of type Holder<Enchantment>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:62: error: cannot find symbol
+              for (ItemAttributeModifiers.Entry entry : itemStack.getAttributeModifiers().modifiers()) {
+                                                                 ^
+    symbol:   method getAttributeModifiers()
+    location: variable itemStack of type ItemStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:63: error: cannot find symbol
+                  if (entry.attribute().key().equals(attribute.get().key())) {
+                                       ^
+    symbol:   method key()
+    location: interface Holder<Attribute>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:63: error: cannot find symbol
+                  if (entry.attribute().key().equals(attribute.get().key())) {
+                                                                    ^
+    symbol:   method key()
+    location: interface Holder<Attribute>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:63: error: cannot find symbol
+          Optional<AbyssalTroveBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
+                                                                                                                     ^
+    symbol:   method get()
+    location: variable ABYSSAL_TROVE_BLOCK_ENTITY of type Holder<BlockEntityType<AbyssalTroveBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:144: error: cannot find symbol
+          return Utility.createTickerHelper(type, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), AbyssalTroveBlockEntity::tick);
+                                                                                   ^
+    symbol:   method get()
+    location: variable ABYSSAL_TROVE_BLOCK_ENTITY of type Holder<BlockEntityType<AbyssalTroveBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:167: error: cannot find symbol
+          TriState soilDecision = belowBlockState.canSustainPlant(level, blockpos, facing.getOpposite(), state);
+                                                 ^
+    symbol:   method canSustainPlant(LevelReader,BlockPos,Direction,BlockState)
+    location: variable belowBlockState of type BlockState
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:168: error: cannot find symbol
+          if (!soilDecision.isDefault()) return soilDecision.isTrue();
+                           ^
+    symbol:   method isDefault()
+    location: variable soilDecision of type TriState
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:168: error: cannot find symbol
+          if (!soilDecision.isDefault()) return soilDecision.isTrue();
+                                                            ^
+    symbol:   method isTrue()
+    location: variable soilDecision of type TriState
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:44: error: cannot find symbol
+          return Utility.createTickerHelper(type, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get(), BrewingCauldronBlockEntity::tick);
+                                                                                      ^
+    symbol:   method get()
+    location: variable BREWING_CAULDRON_BLOCK_ENTITY of type Holder<BlockEntityType<BrewingCauldronBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:56: error: cannot find symbol
+              level.getBlockEntity(pos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get()).ifPresent(cauldronBlockEntity -> cauldronBlockEntity.onPlayerInsertItem(player));
+                                                                            ^
+    symbol:   method get()
+    location: variable BREWING_CAULDRON_BLOCK_ENTITY of type Holder<BlockEntityType<BrewingCauldronBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:76: error: cannot find symbol
+          Optional<BrewingCauldronBlockEntity> brewingCauldronBlockEntity = level.getBlockEntity(blockPos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get());
+                                                                                                                                               ^
+    symbol:   method get()
+    location: variable BREWING_CAULDRON_BLOCK_ENTITY of type Holder<BlockEntityType<BrewingCauldronBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:288: error: cannot find symbol
+              return Utility.createTickerHelper(type, grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), ClotheslineBlockEntity::tick);
+                                                                                                              ^
+    symbol:   method get()
+    location: variable CLOTHESLINE_BLOCK_ENTITY of type Holder<BlockEntityType<ClotheslineBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:165: error: cannot find symbol
+          if (!level.isAreaLoaded(pos, 1))
+                    ^
+    symbol:   method isAreaLoaded(BlockPos,int)
+    location: variable level of type ServerLevel
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:183: error: cannot find symbol
+              var soilDecision = blockstate.canSustainPlant(level, pos.below(), Direction.UP, state);
+                                           ^
+    symbol:   method canSustainPlant(LevelReader,BlockPos,Direction,BlockState)
+    location: variable blockstate of type BlockState
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeyserBlock.java:83: error: cannot find symbol
+              level.addParticle(Particles.LAVA_GEYSER_BLOCK_LINKED_EMITTER.get(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0, 0);
+                                                                          ^
+    symbol:   method get()
+    location: variable LAVA_GEYSER_BLOCK_LINKED_EMITTER of type Holder<SimpleParticleType>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:79: error: cannot find symbol
+          Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
+                                                                                                                               ^
+    symbol:   method get()
+    location: variable HERBALISTS_LECTERN_BLOCK_ENTITY of type Holder<BlockEntityType<HerbalistsLecternBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:113: error: cannot find symbol
+          Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
+                                                                                                                               ^
+    symbol:   method get()
+    location: variable HERBALISTS_LECTERN_BLOCK_ENTITY of type Holder<BlockEntityType<HerbalistsLecternBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:134: error: cannot find symbol
+          return Utility.createTickerHelper(type, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get(), HerbalistsLecternBlockEntity::tick);
+                                                                                        ^
+    symbol:   method get()
+    location: variable HERBALISTS_LECTERN_BLOCK_ENTITY of type Holder<BlockEntityType<HerbalistsLecternBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:139: error: cannot find symbol
+          Optional<HerbalistsLecternBlockEntity> herbalistsLecternBlockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
+                                                                                                                                                     ^
+    symbol:   method get()
+    location: variable HERBALISTS_LECTERN_BLOCK_ENTITY of type Holder<BlockEntityType<HerbalistsLecternBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:390: error: cannot find symbol
+          ParticleOptions particleoptions = fluid.getFluidType().getDripInfo() != null ? fluid.getFluidType().getDripInfo().dripParticle() : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
+                                                 ^
+    symbol:   method getFluidType()
+    location: variable fluid of type Fluid
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:390: error: cannot find symbol
+          ParticleOptions particleoptions = fluid.getFluidType().getDripInfo() != null ? fluid.getFluidType().getDripInfo().dripParticle() : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
+                                                                                              ^
+    symbol:   method getFluidType()
+    location: variable fluid of type Fluid
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:547: error: cannot find symbol
+              return p_154053_.dimensionType().ultraWarm() ? Fluids.LAVA : Fluids.WATER;
+                                              ^
+    symbol:   method ultraWarm()
+    location: class DimensionType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LunarBerryBushBlock.java:70: error: cannot find symbol
+              serverLevel.sendParticles(Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.get(), blockPos.getX() + 0.5D, blockPos.getY() + 1.1D, blockPos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0F);
+                                                                                  ^
+    symbol:   method get()
+    location: variable LUNAR_BERRY_BUSH_AMBIENT_EMITTER of type Holder<SimpleParticleType>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:52: error: cannot find symbol
+          Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+                                                                                                                     ^
+    symbol:   method get()
+    location: variable POTION_BEACON_BLOCK_ENTITY of type Holder<BlockEntityType<PotionBeaconBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:85: error: cannot find symbol
+          Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+                                                                                                                     ^
+    symbol:   method get()
+    location: variable POTION_BEACON_BLOCK_ENTITY of type Holder<BlockEntityType<PotionBeaconBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:110: error: cannot find symbol
+          return Utility.createTickerHelper(type, Blocks.POTION_BEACON_BLOCK_ENTITY.get(), PotionBeaconBlockEntity::tick);
+                                                                                   ^
+    symbol:   method get()
+    location: variable POTION_BEACON_BLOCK_ENTITY of type Holder<BlockEntityType<PotionBeaconBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:115: error: cannot find symbol
+          Optional<PotionBeaconBlockEntity> PotionBeaconBlockEntity = level.getBlockEntity(blockPos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+                                                                                                                                      ^
+    symbol:   method get()
+    location: variable POTION_BEACON_BLOCK_ENTITY of type Holder<BlockEntityType<PotionBeaconBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:73: error: cannot find symbol
+          Optional<SanguineAltarBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get());
+                                                                                                                       ^
+    symbol:   method get()
+    location: variable SANGUINE_ALTAR_BLOCK_ENTITY of type Holder<BlockEntityType<SanguineAltarBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:100: error: cannot find symbol
+          Optional<SanguineAltarBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get());
+                                                                                                                       ^
+    symbol:   method get()
+    location: variable SANGUINE_ALTAR_BLOCK_ENTITY of type Holder<BlockEntityType<SanguineAltarBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:128: error: cannot find symbol
+          return Utility.createTickerHelper(type, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get(), SanguineAltarBlockEntity::tick);
+                                                                                    ^
+    symbol:   method get()
+    location: variable SANGUINE_ALTAR_BLOCK_ENTITY of type Holder<BlockEntityType<SanguineAltarBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:133: error: cannot find symbol
+          Optional<SanguineAltarBlockEntity> SanguineAltarBlockEntity = level.getBlockEntity(blockPos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get());
+                                                                                                                                         ^
+    symbol:   method get()
+    location: variable SANGUINE_ALTAR_BLOCK_ENTITY of type Holder<BlockEntityType<SanguineAltarBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:98: error: cannot find symbol
+          super(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), pos, state);
+                                                 ^
+    symbol:   method get()
+    location: variable ABYSSAL_TROVE_BLOCK_ENTITY of type Holder<BlockEntityType<AbyssalTroveBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:223: error: cannot find symbol
+              int tier = entry.key();
+                              ^
+    symbol:   method key()
+    location: variable entry of type Entry<Integer,List<AbyssalTroveRenderedItem>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:41: error: cannot find symbol
+          BlockModelResolver = context.getBlockModelResolver();
+                                      ^
+    symbol:   method getBlockModelResolver()
+    location: variable context of type Context
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:112: error: type annotation @org.jspecify.annotations.Nullable is not expected here
+      public void extractRenderState(final AbyssalTroveBlockEntity blockEntity, final AbyssalTroveRenderState state, final float partialTicks, final Vec3 cameraPosition, @org.jspecify.annotations.Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+                                                                                                                                                                                                                                       ^
+    (to annotate a qualified type, write ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:55: error: type annotation @org.jspecify.annotations.Nullable is not expected here
+      public void extractRenderState(final BrewingCauldronBlockEntity blockEntity, final BrewingCauldronRenderState state, final float partialTicks, final Vec3 cameraPosition, @org.jspecify.annotations.Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+                                                                                                                                                                                                                                             ^
+    (to annotate a qualified type, write ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:67: error: type annotation @org.jspecify.annotations.Nullable is not expected here
+      public void extractRenderState(final ClotheslineBlockEntity blockEntity, final ClotheslineRenderState state, final float partialTicks, final Vec3 cameraPosition, @org.jspecify.annotations.Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+                                                                                                                                                                                                                                     ^
+    (to annotate a qualified type, write ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:54: error: type annotation @org.jspecify.annotations.Nullable is not expected here
+      public void extractRenderState(final HerbalistsLecternBlockEntity blockEntity, final HerbalistsLecternRenderState state, final float partialTicks, final Vec3 cameraPosition, @org.jspecify.annotations.Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+                                                                                                                                                                                                                                                 ^
+    (to annotate a qualified type, write ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:54: error: type annotation @org.jspecify.annotations.Nullable is not expected here
+      public void extractRenderState(final PotionBeaconBlockEntity blockEntity, final PotionBeaconRenderState state, final float partialTicks, final Vec3 cameraPosition, @org.jspecify.annotations.Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+                                                                                                                                                                                                                                       ^
+    (to annotate a qualified type, write ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntityRenderer.java:47: error: type annotation @org.jspecify.annotations.Nullable is not expected here
+      public void extractRenderState(final SanguineAltarBlockEntity blockEntity, final SanguineAltarRenderState state, final float partialTicks, final Vec3 cameraPosition, @org.jspecify.annotations.Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+                                                                                                                                                                                                                                         ^
+    (to annotate a qualified type, write ModelFeatureRenderer.@org.jspecify.annotations.Nullable CrumblingOverlay)
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+1 actionable task: 1 executed

@@ -1,7 +1,5 @@
 package grill24.potionsplus.blockentity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import org.joml.Quaternionf;
@@ -10,7 +8,7 @@ import org.joml.Vector3f;
 import java.util.ArrayList;
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
+
 public class HerbalistsLecternRenderState extends BlockEntityRenderState {
     public boolean hasInputItem = false;
     public final ItemStackRenderState inputItem = new ItemStackRenderState();

@@ -48,4 +48,11 @@ public class DataComponents {
                     .cacheEncoding()
     );
 
+    static {
+        grill24.potionsplus.core.DataComponents.CHOICE_ITEM = CHOICE_ITEM;
+        grill24.potionsplus.core.DataComponents.OWNER = OWNER;
+        grill24.potionsplus.core.DataComponents.PLAYER_LOCKED_ITEM_MODIFIERS = PLAYER_LOCKED_ITEM_MODIFIERS;
+        grill24.potionsplus.core.DataComponents.GENETIC_DATA = GENETIC_DATA;
+        grill24.potionsplus.core.DataComponents.WEIGHT = WEIGHT;
+    }
 }

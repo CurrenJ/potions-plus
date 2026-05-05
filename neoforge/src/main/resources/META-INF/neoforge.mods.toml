@@ -42,3 +42,6 @@ side = "BOTH"
 
 [[mixins]]
 config = "potionsplus.mixins.json"
+
+[[mixins]]
+config = "potionsplus.neoforge.mixins.json"

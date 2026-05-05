@@ -14,7 +14,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 
-@OnlyIn(Dist.CLIENT)
+
 @EventBusSubscriber(modid = ModInfo.MOD_ID, value = Dist.CLIENT)
 public class ClientCommands {
     @SubscribeEvent

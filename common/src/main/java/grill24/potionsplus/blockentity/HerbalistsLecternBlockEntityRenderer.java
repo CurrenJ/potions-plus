@@ -1,7 +1,5 @@
 package grill24.potionsplus.blockentity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -28,7 +26,7 @@ import org.joml.Vector3f;
 
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
+
 public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity, HerbalistsLecternRenderState> {
 
     public final BlockModelResolver BlockModelResolver;

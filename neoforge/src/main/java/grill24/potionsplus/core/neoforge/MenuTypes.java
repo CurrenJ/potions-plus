@@ -20,5 +20,10 @@ public class MenuTypes {
     public static final Supplier<MenuType<LargeFilterHopperMenu>> LARGE_FILTER_HOPPER = MENU_TYPES.register("large_filter_hopper", () -> new MenuType<>(LargeFilterHopperMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final Supplier<MenuType<HugeFilterHopperMenu>> HUGE_FILTER_HOPPER = MENU_TYPES.register("huge_filter_hopper", () -> new MenuType<>(HugeFilterHopperMenu::new, FeatureFlags.DEFAULT_FLAGS));
 
-
+    static {
+        grill24.potionsplus.core.MenuTypes.SKILLS = SKILLS;
+        grill24.potionsplus.core.MenuTypes.SMALL_FILTER_HOPPER = SMALL_FILTER_HOPPER;
+        grill24.potionsplus.core.MenuTypes.LARGE_FILTER_HOPPER = LARGE_FILTER_HOPPER;
+        grill24.potionsplus.core.MenuTypes.HUGE_FILTER_HOPPER = HUGE_FILTER_HOPPER;
+    }
 }

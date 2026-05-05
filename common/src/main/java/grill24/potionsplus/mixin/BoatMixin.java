@@ -25,15 +25,15 @@ public abstract class BoatMixin extends Entity {
         super(entityType, level);
     }
 
-    @ModifyVariable(method = "controlBoat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/AbstractBoat;getDeltaMovement()Lnet/minecraft/world/phys/Vec3;"))
-    private float controlBoat(float f) {
+    @ModifyVariable(method = "controlBoat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;getDeltaMovement()Lnet/minecraft/world/phys/Vec3;"), ordinal = 0)
+    private float modifyAcceleration(float acceleration) {
         LivingEntity livingEntity = this.getControllingPassenger();
-        if (livingEntity.hasEffect(MobEffects.NAUTICAL_NITRO)) {
+        if (livingEntity != null && livingEntity.hasEffect(MobEffects.NAUTICAL_NITRO)) {
             MobEffectInstance effect = livingEntity.getEffect(MobEffects.NAUTICAL_NITRO);
             if (effect != null && effect.getEffect().value() instanceof NauticalNitroEffect nauticalNitroEffect) {
-                return f * nauticalNitroEffect.getSpeedMultiplier(effect);
+                return acceleration * nauticalNitroEffect.getSpeedMultiplier(effect);
             }
         }
-        return f;
+        return acceleration;
     }
 }

@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "minecraft:block/iron_block"
+    "model": "potionsplus:block/particle_emitter"
   }
 }

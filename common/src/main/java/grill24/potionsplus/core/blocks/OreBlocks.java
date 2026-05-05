@@ -26,14 +26,14 @@ public class OreBlocks {
                 .properties(() -> BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(3.0F, 3.0F).sound(SoundType.STONE))
                 .modelGenerator(h -> new grill24.potionsplus.utility.registration.block.UraniumOreBlockModelGenerator<>(h, ppId("block/uranium_ore")))
         ).getHolder();
-        RegistrationUtility.registerBlockItemWithTexture(URANIUM_ORE, registerItem, ppId("block/uranium_ore_fully_exposed"));
+        RegistrationUtility.registerBlockItem(URANIUM_ORE, registerItem);
 
         DEEPSLATE_URANIUM_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("deepslate_uranium_ore")
                 .blockFactory(prop -> new UraniumOreBlock(UniformInt.of(5, 10), prop))
                 .properties(() -> BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE))
                 .modelGenerator(h -> new grill24.potionsplus.utility.registration.block.UraniumOreBlockModelGenerator<>(h, ppId("block/deepslate_uranium_ore")))
         ).getHolder();
-        RegistrationUtility.registerBlockItemWithTexture(DEEPSLATE_URANIUM_ORE, registerItem, ppId("block/deepslate_uranium_ore_fully_exposed"));
+        RegistrationUtility.registerBlockItem(DEEPSLATE_URANIUM_ORE, registerItem);
 
         URANIUM_BLOCK = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("uranium_block")
                 .properties(() -> BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL))

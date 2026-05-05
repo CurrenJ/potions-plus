@@ -3,6 +3,7 @@ package grill24.potionsplus.mixin;
 import grill24.potionsplus.behaviour.LootItemModifiersBehaviour;
 import grill24.potionsplus.core.potion.MobEffects;
 import net.minecraft.core.Holder;
+import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -22,10 +23,10 @@ public abstract class ApplyBonusCountMixin extends LootItemConditionalFunction {
         super(predicates);
     }
 
-    @Redirect(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getItemEnchantmentLevel(Lnet/minecraft/core/Holder;Lnet/minecraft/world/item/ItemStack;)I"))
-    private int run(Holder<Enchantment> enchantment, ItemStack stack, ItemStack runParamStack, LootContext runParamContext) {
+    @Redirect(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getItemEnchantmentLevel(Lnet/minecraft/core/Holder;Lnet/minecraft/world/item/ItemInstance;)I"))
+    private int run(Holder<Enchantment> enchantment, ItemInstance stack, ItemStack runParamStack, LootContext runParamContext) {
         int enchantmentLevel = 0;
-        enchantmentLevel += LootItemModifiersBehaviour.potions_plus$addBonusLevelsFromMobEffect(stack, enchantment, Enchantments.FORTUNE, MobEffects.FORTUITOUS_FATE, runParamContext);
+        enchantmentLevel += LootItemModifiersBehaviour.potions_plus$addBonusLevelsFromMobEffect((ItemStack) stack, enchantment, Enchantments.FORTUNE, MobEffects.FORTUITOUS_FATE, runParamContext);
 
         return enchantmentLevel;
     }

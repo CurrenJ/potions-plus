@@ -1,0 +1,894 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :neoforge:processResources UP-TO-DATE
+> Task :neoforge:processIncludeJars UP-TO-DATE
+> Task :neoforge:sourcesJar UP-TO-DATE
+> Task :neoforge:processTestResources NO-SOURCE
+> Task :neoforge:validateAccessWidener NO-SOURCE
+
+> Task :common:compileJava FAILED
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:10: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:11: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.EntityPredicate;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:12: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\Utility.java:8: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\Utility.java:9: error: cannot find symbol
+import grill24.potionsplus.core.PotionsPlus;
+                               ^
+  symbol:   class PotionsPlus
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\Utility.java:50: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:20: error: cannot find symbol
+public class AbyssalTroveTrigger extends SimpleCriterionTrigger<AbyssalTroveTrigger.TriggerInstance> {
+                                         ^
+  symbol: class SimpleCriterionTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:37: error: cannot find symbol
+                                  Optional<PotionUpgradeIngredients.Rarity> rarity) implements SimpleInstance {
+                                                                                               ^
+  symbol:   class SimpleInstance
+  location: class AbyssalTroveTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:36: error: cannot find symbol
+    public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<Float> fillPercentage,
+                                           ^
+  symbol:   class ContextAwarePredicate
+  location: class TriggerInstance
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\PlayerAbilityConfiguration.java:6: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.ItemPredicate;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\PlayerAbilityConfiguration.java:8: error: package org.checkerframework.checker.nullness.qual does not exist
+import org.checkerframework.checker.nullness.qual.NonNull;
+                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\PlayerAbility.java:5: error: cannot find symbol
+import grill24.potionsplus.core.PotionsPlus;
+                               ^
+  symbol:   class PotionsPlus
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\PlayerAbilityConfiguration.java:27: error: cannot find symbol
+                                                 ItemPredicate itemPredicate) {
+                                                 ^
+  symbol:   class ItemPredicate
+  location: class PlayerAbilityConfigurationData
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\SkillLevelUpRewardsData.java:6: error: cannot find symbol
+import grill24.potionsplus.core.PotionsPlus;
+                               ^
+  symbol:   class PotionsPlus
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:7: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:8: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.EntityPredicate;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:9: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:17: error: cannot find symbol
+public class AwardStatTrigger extends SimpleCriterionTrigger<AwardStatTrigger.TriggerInstance> {
+                                      ^
+  symbol: class SimpleCriterionTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:34: error: cannot find symbol
+                                  int totalStats) implements SimpleInstance {
+                                                             ^
+  symbol:   class SimpleInstance
+  location: class AwardStatTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:33: error: cannot find symbol
+    public record TriggerInstance(Optional<ContextAwarePredicate> player, String statId,
+                                           ^
+  symbol:   class ContextAwarePredicate
+  location: class TriggerInstance
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:10: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:11: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.EntityPredicate;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:12: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:24: error: cannot find symbol
+public class CraftRecipeTrigger extends SimpleCriterionTrigger<CraftRecipeTrigger.TriggerInstance> {
+                                        ^
+  symbol: class SimpleCriterionTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:42: error: cannot find symbol
+                                  Optional<List<BrewingCauldronRecipe.PotionMatchingCriteria>> potionMatchingCriteria) implements SimpleInstance {
+                                                                                                                                  ^
+  symbol:   class SimpleInstance
+  location: class CraftRecipeTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:40: error: cannot find symbol
+    public record TriggerInstance(Optional<ContextAwarePredicate> player,
+                                           ^
+  symbol:   class ContextAwarePredicate
+  location: class TriggerInstance
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\ShapelessProcessingRecipe.java:4: error: cannot find symbol
+import grill24.potionsplus.core.PotionsPlus;
+                               ^
+  symbol:   class PotionsPlus
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:7: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:8: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.EntityPredicate;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:9: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:14: error: package javax.annotation does not exist
+import javax.annotation.Nonnull;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:19: error: cannot find symbol
+public class CreatePotionsPlusBlockTrigger extends SimpleCriterionTrigger<CreatePotionsPlusBlockTrigger.TriggerInstance> {
+                                                   ^
+  symbol: class SimpleCriterionTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:36: error: package SimpleCriterionTrigger does not exist
+                                  BlockState block) implements SimpleCriterionTrigger.SimpleInstance {
+                                                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:35: error: cannot find symbol
+    public record TriggerInstance(Optional<ContextAwarePredicate> player,
+                                           ^
+  symbol:   class ContextAwarePredicate
+  location: class TriggerInstance
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:6: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:6: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:33: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:5: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:5: error: cannot find symbol
+import grill24.potionsplus.core.PotionsPlus;
+                               ^
+  symbol:   class PotionsPlus
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:39: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:6: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlockEntity.java:5: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlockEntity.java:7: error: cannot find symbol
+import grill24.potionsplus.core.PotionsPlus;
+                               ^
+  symbol:   class PotionsPlus
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeyserBlock.java:9: error: cannot find symbol
+import net.minecraft.Util;
+                    ^
+  symbol:   class Util
+  location: package net.minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ParticleEmitterBlock.java:29: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:5: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HugeFilterHopperBlock.java:5: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HugeFilterHopperBlock.java:13: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:16: error: cannot find symbol
+import net.minecraft.world.entity.projectile.ThrownTrident;
+                                            ^
+  symbol:   class ThrownTrident
+  location: package net.minecraft.world.entity.projectile
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:39: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LargeFilterHopperBlock.java:5: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LargeFilterHopperBlock.java:13: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:5: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:6: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SmallFilterHopperBlock.java:5: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SmallFilterHopperBlock.java:13: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\UnstableBlock.java:20: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:3: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:15: error: cannot find symbol
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                          ^
+  symbol:   class BlockRenderDispatcher
+  location: package net.minecraft.client.renderer.block
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:32: error: wrong number of type arguments; required 2
+public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<AbyssalTroveBlockEntity> {
+                                                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:33: error: cannot find symbol
+    private final BlockRenderDispatcher blockRenderDispatcher;
+                  ^
+  symbol:   class BlockRenderDispatcher
+  location: class AbyssalTroveBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:4: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:35: error: cannot find symbol
+import net.minecraft.world.level.BlockAndTintGetter;
+                                ^
+  symbol:   class BlockAndTintGetter
+  location: package net.minecraft.world.level
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:188: error: cannot find symbol
+    public int getWaterColor(BlockAndTintGetter world, BlockPos pos) {
+                             ^
+  symbol:   class BlockAndTintGetter
+  location: class BrewingCauldronBlockEntity
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:13: error: cannot find symbol
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                          ^
+  symbol:   class BlockRenderDispatcher
+  location: package net.minecraft.client.renderer.block
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:31: error: wrong number of type arguments; required 2
+public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<BrewingCauldronBlockEntity> {
+                                                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:33: error: cannot find symbol
+    public final BlockRenderDispatcher blockRenderDispatcher;
+                 ^
+  symbol:   class BlockRenderDispatcher
+  location: class BrewingCauldronBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:5: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:31: error: package javax.annotation does not exist
+import javax.annotation.Nonnull;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityBakedRenderData.java:4: error: cannot find symbol
+import grill24.potionsplus.core.PotionsPlus;
+                               ^
+  symbol:   class PotionsPlus
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:8: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:14: error: cannot find symbol
+import net.minecraft.client.renderer.LightTexture;
+                                    ^
+  symbol:   class LightTexture
+  location: package net.minecraft.client.renderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:16: error: cannot find symbol
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                          ^
+  symbol:   class BlockRenderDispatcher
+  location: package net.minecraft.client.renderer.block
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:32: error: package net.neoforged.bus.api does not exist
+import net.neoforged.bus.api.SubscribeEvent;
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:33: error: package net.neoforged.fml.common does not exist
+import net.neoforged.fml.common.EventBusSubscriber;
+                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:34: error: package net.neoforged.neoforge.client.event does not exist
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+                                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:43: error: cannot find symbol
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+ ^
+  symbol: class EventBusSubscriber
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:44: error: wrong number of type arguments; required 2
+public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<ClotheslineBlockEntity> {
+                                                                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:45: error: cannot find symbol
+    public final BlockRenderDispatcher blockRenderDispatcher;
+                 ^
+  symbol:   class BlockRenderDispatcher
+  location: class ClotheslineBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:143: error: cannot find symbol
+    public static void onRender(final RenderLevelStageEvent event) {
+                                      ^
+  symbol:   class RenderLevelStageEvent
+  location: class ClotheslineBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:35: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:295: error: package net.neoforged.neoforge.items does not exist
+    private static net.neoforged.neoforge.items.ContainerOrHandler getSourceContainerOrHandler(Level p_155597_, Hopper p_155598_, BlockPos p_326315_, BlockState p_326093_) {
+                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:299: error: package net.neoforged.neoforge.items does not exist
+    public static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, @Nullable Direction side) {
+                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:305: error: package net.neoforged.neoforge.items does not exist
+    private static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, BlockState state, double x, double y, double z, @Nullable Direction side) {
+                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:7: error: cannot find symbol
+import net.minecraft.client.gui.GuiGraphics;
+                               ^
+  symbol:   class GuiGraphics
+  location: package net.minecraft.client.gui
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:57: error: cannot find symbol
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+                       ^
+  symbol:   class GuiGraphics
+  location: class FilterHopperScreen<M>
+  where M is a type-variable:
+    M extends FilterHopperMenu declared in class FilterHopperScreen
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:63: error: cannot find symbol
+    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+                            ^
+  symbol:   class GuiGraphics
+  location: class FilterHopperScreen<M>
+  where M is a type-variable:
+    M extends FilterHopperMenu declared in class FilterHopperScreen
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperBlockEntity.java:3: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:3: error: cannot find symbol
+import net.minecraft.client.gui.GuiGraphics;
+                               ^
+  symbol:   class GuiGraphics
+  location: package net.minecraft.client.gui
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:26: error: cannot find symbol
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+                                ^
+  symbol:   class GuiGraphics
+  location: class HugeFilterHopperScreen
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperBlockEntity.java:3: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:3: error: cannot find symbol
+import net.minecraft.client.gui.GuiGraphics;
+                               ^
+  symbol:   class GuiGraphics
+  location: package net.minecraft.client.gui
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:26: error: cannot find symbol
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+                                ^
+  symbol:   class GuiGraphics
+  location: class LargeFilterHopperScreen
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\SmallFilterHopperBlockEntity.java:3: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntity.java:3: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:12: error: cannot find symbol
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                          ^
+  symbol:   class BlockRenderDispatcher
+  location: package net.minecraft.client.renderer.block
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:28: error: wrong number of type arguments; required 2
+public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:30: error: cannot find symbol
+    public final BlockRenderDispatcher blockRenderDispatcher;
+                 ^
+  symbol:   class BlockRenderDispatcher
+  location: class HerbalistsLecternBlockEntityRenderer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:7: error: cannot find symbol
+import grill24.potionsplus.core.Blocks;
+                               ^
+  symbol:   class Blocks
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:13: error: cannot find symbol
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                          ^
+  symbol:   class BlockRenderDispatcher
+  location: package net.minecraft.client.renderer.block
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:32: error: wrong number of type arguments; required 2
+  public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<AbyssalTroveBlockEntity> {
+                                                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:31: error: wrong number of type arguments; required 2
+  public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<BrewingCauldronBlockEntity> {
+                                                                                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:44: error: wrong number of type arguments; required 2
+  public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<ClotheslineBlockEntity> {
+                                                                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:28: error: wrong number of type arguments; required 2
+  public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\Utility.java:8: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\Utility.java:9: error: cannot find symbol
+  import grill24.potionsplus.core.PotionsPlus;
+                                 ^
+    symbol:   class PotionsPlus
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:37: error: cannot find symbol
+                                    Optional<PotionUpgradeIngredients.Rarity> rarity) implements SimpleInstance {
+                                                                                                 ^
+    symbol:   class SimpleInstance
+    location: class AbyssalTroveTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:36: error: cannot find symbol
+      public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<Float> fillPercentage,
+                                             ^
+    symbol:   class ContextAwarePredicate
+    location: class TriggerInstance
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\PlayerAbility.java:5: error: cannot find symbol
+  import grill24.potionsplus.core.PotionsPlus;
+                                 ^
+    symbol:   class PotionsPlus
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\PlayerAbilityConfiguration.java:27: error: cannot find symbol
+                                                   ItemPredicate itemPredicate) {
+                                                   ^
+    symbol:   class ItemPredicate
+    location: class PlayerAbilityConfigurationData
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\reward\SkillLevelUpRewardsData.java:6: error: cannot find symbol
+  import grill24.potionsplus.core.PotionsPlus;
+                                 ^
+    symbol:   class PotionsPlus
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:34: error: cannot find symbol
+                                    int totalStats) implements SimpleInstance {
+                                                               ^
+    symbol:   class SimpleInstance
+    location: class AwardStatTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:33: error: cannot find symbol
+      public record TriggerInstance(Optional<ContextAwarePredicate> player, String statId,
+                                             ^
+    symbol:   class ContextAwarePredicate
+    location: class TriggerInstance
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:42: error: cannot find symbol
+                                    Optional<List<BrewingCauldronRecipe.PotionMatchingCriteria>> potionMatchingCriteria) implements SimpleInstance {
+                                                                                                                                    ^
+    symbol:   class SimpleInstance
+    location: class CraftRecipeTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:40: error: cannot find symbol
+      public record TriggerInstance(Optional<ContextAwarePredicate> player,
+                                             ^
+    symbol:   class ContextAwarePredicate
+    location: class TriggerInstance
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\ShapelessProcessingRecipe.java:4: error: cannot find symbol
+  import grill24.potionsplus.core.PotionsPlus;
+                                 ^
+    symbol:   class PotionsPlus
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:35: error: cannot find symbol
+      public record TriggerInstance(Optional<ContextAwarePredicate> player,
+                                             ^
+    symbol:   class ContextAwarePredicate
+    location: class TriggerInstance
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:6: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:6: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:5: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:5: error: cannot find symbol
+  import grill24.potionsplus.core.PotionsPlus;
+                                 ^
+    symbol:   class PotionsPlus
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:6: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlockEntity.java:5: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlockEntity.java:7: error: cannot find symbol
+  import grill24.potionsplus.core.PotionsPlus;
+                                 ^
+    symbol:   class PotionsPlus
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeyserBlock.java:9: error: cannot find symbol
+  import net.minecraft.Util;
+                      ^
+    symbol:   class Util
+    location: package net.minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:5: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HugeFilterHopperBlock.java:5: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:16: error: cannot find symbol
+  import net.minecraft.world.entity.projectile.ThrownTrident;
+                                              ^
+    symbol:   class ThrownTrident
+    location: package net.minecraft.world.entity.projectile
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LargeFilterHopperBlock.java:5: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:5: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:6: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SmallFilterHopperBlock.java:5: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:3: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:15: error: cannot find symbol
+  import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                            ^
+    symbol:   class BlockRenderDispatcher
+    location: package net.minecraft.client.renderer.block
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:33: error: cannot find symbol
+      private final BlockRenderDispatcher blockRenderDispatcher;
+                    ^
+    symbol:   class BlockRenderDispatcher
+    location: class AbyssalTroveBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:4: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:35: error: cannot find symbol
+  import net.minecraft.world.level.BlockAndTintGetter;
+                                  ^
+    symbol:   class BlockAndTintGetter
+    location: package net.minecraft.world.level
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:188: error: cannot find symbol
+      public int getWaterColor(BlockAndTintGetter world, BlockPos pos) {
+                               ^
+    symbol:   class BlockAndTintGetter
+    location: class BrewingCauldronBlockEntity
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:13: error: cannot find symbol
+  import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                            ^
+    symbol:   class BlockRenderDispatcher
+    location: package net.minecraft.client.renderer.block
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:33: error: cannot find symbol
+      public final BlockRenderDispatcher blockRenderDispatcher;
+                   ^
+    symbol:   class BlockRenderDispatcher
+    location: class BrewingCauldronBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:5: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityBakedRenderData.java:4: error: cannot find symbol
+  import grill24.potionsplus.core.PotionsPlus;
+                                 ^
+    symbol:   class PotionsPlus
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:8: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:14: error: cannot find symbol
+  import net.minecraft.client.renderer.LightTexture;
+                                      ^
+    symbol:   class LightTexture
+    location: package net.minecraft.client.renderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:16: error: cannot find symbol
+  import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                            ^
+    symbol:   class BlockRenderDispatcher
+    location: package net.minecraft.client.renderer.block
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:45: error: cannot find symbol
+      public final BlockRenderDispatcher blockRenderDispatcher;
+                   ^
+    symbol:   class BlockRenderDispatcher
+    location: class ClotheslineBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:143: error: cannot find symbol
+      public static void onRender(final RenderLevelStageEvent event) {
+                                        ^
+    symbol:   class RenderLevelStageEvent
+    location: class ClotheslineBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:7: error: cannot find symbol
+  import net.minecraft.client.gui.GuiGraphics;
+                                 ^
+    symbol:   class GuiGraphics
+    location: package net.minecraft.client.gui
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:57: error: cannot find symbol
+      public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+                         ^
+    symbol:   class GuiGraphics
+    location: class FilterHopperScreen<M>
+    where M is a type-variable:
+      M extends FilterHopperMenu declared in class FilterHopperScreen
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:63: error: cannot find symbol
+      protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+                              ^
+    symbol:   class GuiGraphics
+    location: class FilterHopperScreen<M>
+    where M is a type-variable:
+      M extends FilterHopperMenu declared in class FilterHopperScreen
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperBlockEntity.java:3: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:3: error: cannot find symbol
+  import net.minecraft.client.gui.GuiGraphics;
+                                 ^
+    symbol:   class GuiGraphics
+    location: package net.minecraft.client.gui
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:26: error: cannot find symbol
+      protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+                                  ^
+    symbol:   class GuiGraphics
+    location: class HugeFilterHopperScreen
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperBlockEntity.java:3: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:3: error: cannot find symbol
+  import net.minecraft.client.gui.GuiGraphics;
+                                 ^
+    symbol:   class GuiGraphics
+    location: package net.minecraft.client.gui
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:26: error: cannot find symbol
+      protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+                                  ^
+    symbol:   class GuiGraphics
+    location: class LargeFilterHopperScreen
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\SmallFilterHopperBlockEntity.java:3: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntity.java:3: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:12: error: cannot find symbol
+  import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                            ^
+    symbol:   class BlockRenderDispatcher
+    location: package net.minecraft.client.renderer.block
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:30: error: cannot find symbol
+      public final BlockRenderDispatcher blockRenderDispatcher;
+                   ^
+    symbol:   class BlockRenderDispatcher
+    location: class HerbalistsLecternBlockEntityRenderer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:7: error: cannot find symbol
+  import grill24.potionsplus.core.Blocks;
+                                 ^
+    symbol:   class Blocks
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:13: error: cannot find symbol
+  import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                            ^
+    symbol:   class BlockRenderDispatcher
+    location: package net.minecraft.client.renderer.block
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:20: error: cannot find symbol
+  public class AbyssalTroveTrigger extends SimpleCriterionTrigger<AbyssalTroveTrigger.TriggerInstance> {
+                                           ^
+    symbol: class SimpleCriterionTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:17: error: cannot find symbol
+  public class AwardStatTrigger extends SimpleCriterionTrigger<AwardStatTrigger.TriggerInstance> {
+                                        ^
+    symbol: class SimpleCriterionTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:24: error: cannot find symbol
+  public class CraftRecipeTrigger extends SimpleCriterionTrigger<CraftRecipeTrigger.TriggerInstance> {
+                                          ^
+    symbol: class SimpleCriterionTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:19: error: cannot find symbol
+  public class CreatePotionsPlusBlockTrigger extends SimpleCriterionTrigger<CreatePotionsPlusBlockTrigger.TriggerInstance> {
+                                                     ^
+    symbol: class SimpleCriterionTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:43: error: cannot find symbol
+  @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+   ^
+    symbol: class EventBusSubscriber
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:10: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.ContextAwarePredicate;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:11: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.EntityPredicate;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:12: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\Utility.java:50: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\PlayerAbilityConfiguration.java:6: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.ItemPredicate;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\PlayerAbilityConfiguration.java:8: error: package org.checkerframework.checker.nullness.qual does not exist
+  import org.checkerframework.checker.nullness.qual.NonNull;
+                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:7: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.ContextAwarePredicate;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:8: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.EntityPredicate;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:9: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:10: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.ContextAwarePredicate;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:11: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.EntityPredicate;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:12: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:7: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.ContextAwarePredicate;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:8: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.EntityPredicate;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:9: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:14: error: package javax.annotation does not exist
+  import javax.annotation.Nonnull;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:36: error: package SimpleCriterionTrigger does not exist
+                                    BlockState block) implements SimpleCriterionTrigger.SimpleInstance {
+                                                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:33: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:39: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\ParticleEmitterBlock.java:29: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HugeFilterHopperBlock.java:13: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:39: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LargeFilterHopperBlock.java:13: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SmallFilterHopperBlock.java:13: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\UnstableBlock.java:20: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:31: error: package javax.annotation does not exist
+  import javax.annotation.Nonnull;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:32: error: package net.neoforged.bus.api does not exist
+  import net.neoforged.bus.api.SubscribeEvent;
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:33: error: package net.neoforged.fml.common does not exist
+  import net.neoforged.fml.common.EventBusSubscriber;
+                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:34: error: package net.neoforged.neoforge.client.event does not exist
+  import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+                                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:35: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:295: error: package net.neoforged.neoforge.items does not exist
+      private static net.neoforged.neoforge.items.ContainerOrHandler getSourceContainerOrHandler(Level p_155597_, Hopper p_155598_, BlockPos p_326315_, BlockState p_326093_) {
+                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:299: error: package net.neoforged.neoforge.items does not exist
+      public static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, @Nullable Direction side) {
+                                                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperBlockEntity.java:305: error: package net.neoforged.neoforge.items does not exist
+      private static net.neoforged.neoforge.items.ContainerOrHandler getContainerOrHandlerAt(Level level, BlockPos pos, BlockState state, double x, double y, double z, @Nullable Direction side) {
+                                                 ^
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+4 actionable tasks: 1 executed, 3 up-to-date

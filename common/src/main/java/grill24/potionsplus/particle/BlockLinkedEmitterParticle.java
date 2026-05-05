@@ -1,7 +1,5 @@
 package grill24.potionsplus.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import grill24.potionsplus.block.IParticleEmitter;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -34,7 +32,7 @@ public class BlockLinkedEmitterParticle extends NoRenderParticle {
         }
     }
 
-    @Environment(EnvType.CLIENT)
+    
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final int lifetime;
 

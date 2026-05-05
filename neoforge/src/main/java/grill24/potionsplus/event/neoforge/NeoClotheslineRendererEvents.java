@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * NeoForge-specific event handlers for clothesline rendering.
  */
-@OnlyIn(Dist.CLIENT)
+
 @EventBusSubscriber(modid = ModInfo.MOD_ID, value = Dist.CLIENT)
 public class NeoClotheslineRendererEvents {
     private static final Set<BlockPos> clotheslinesRendered = new HashSet<>();

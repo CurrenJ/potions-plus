@@ -17,9 +17,6 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -78,15 +75,6 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Shadow
     public abstract ItemStack getItemBySlot(EquipmentSlot slot);
-
-    @Redirect(method = "travelInAir", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;getFriction()F"))
-    public float getFriction(Block instance) {
-        if (hasEffect(MobEffects.SLIP_N_SLIDE)) {
-            return SlipNSlideEffect.getFriction(getEffect(MobEffects.SLIP_N_SLIDE).getAmplifier());
-        }
-
-        return instance.getFriction();
-    }
 
     @Redirect(method = "travelInAir", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(DDD)V", ordinal = 1))
     public void setDeltaMovement(LivingEntity livingEntity, double x, double y, double z) {

@@ -1,7 +1,5 @@
 package grill24.potionsplus.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import grill24.potionsplus.utility.RUtil;
 import grill24.potionsplus.utility.Utility;
@@ -19,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Function;
 
-@Environment(EnvType.CLIENT)
+
 public class EmitterParticle extends NoRenderParticle {
     private final Function<RandomSource, ParticleOptions> PARTICLE_TYPE_SUPPLIER;
     protected final int TICKS_PER_SPAWN;
@@ -90,7 +88,7 @@ public class EmitterParticle extends NoRenderParticle {
         level.addParticle(particleType, x, y, z, xd, yd, zd);
     }
 
-    @Environment(EnvType.CLIENT)
+    
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         public final Function<RandomSource, ParticleOptions> particleTypeSupplier;
         private int lifeTime = 100;

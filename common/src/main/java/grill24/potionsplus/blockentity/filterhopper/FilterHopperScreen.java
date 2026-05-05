@@ -1,7 +1,5 @@
 package grill24.potionsplus.blockentity.filterhopper;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import grill24.potionsplus.network.ServerboundSetupFilterHopperFromContainerPacket;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -16,7 +14,7 @@ import net.minecraft.world.entity.player.Inventory;
 import grill24.potionsplus.platform.PacketNetwork;
 
 
-@Environment(EnvType.CLIENT)
+
 public abstract class FilterHopperScreen<M extends FilterHopperMenu> extends AbstractContainerScreen<M> {
     private final int autoCreateFilterButtonX;
     private final int autoCreateFilterButtonY;

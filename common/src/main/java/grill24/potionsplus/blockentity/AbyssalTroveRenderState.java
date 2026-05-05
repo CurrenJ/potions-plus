@@ -1,7 +1,5 @@
 package grill24.potionsplus.blockentity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import org.joml.Vector3d;
@@ -11,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-@Environment(EnvType.CLIENT)
+
 public class AbyssalTroveRenderState extends BlockEntityRenderState {
     public float currentDisplayRotation = 0f;
     public final Map<Integer, List<RenderedItem>> renderedItemTiers = new TreeMap<>();

@@ -1,7 +1,5 @@
 package grill24.potionsplus.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -13,7 +11,7 @@ import net.minecraft.util.RandomSource;
 
 
 
-@Environment(EnvType.CLIENT)
+
 public class EndRodRainParticle extends SimpleAnimatedParticle {
     EndRodRainParticle(ClientLevel p_106531_, double p_106532_, double p_106533_, double p_106534_, double p_106535_, double p_106536_, double p_106537_, SpriteSet p_106538_) {
         super(p_106531_, p_106532_, p_106533_, p_106534_, p_106538_, 0.0125F);
@@ -31,7 +29,7 @@ public class EndRodRainParticle extends SimpleAnimatedParticle {
         this.setLocationFromBoundingbox();
     }
 
-    @Environment(EnvType.CLIENT)
+    
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprites;
 

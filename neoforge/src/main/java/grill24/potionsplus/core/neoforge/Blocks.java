@@ -43,6 +43,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("unchecked")
 @EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class Blocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, ModInfo.MOD_ID);
@@ -69,7 +70,20 @@ public class Blocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GeneticCropBlockEntity>> GENETIC_CROP_BLOCK_ENTITY = BLOCK_ENTITIES.register("genetic_crop_block_entity", () -> new BlockEntityType<>(GeneticCropBlockEntity::new,
             FlowerBlocks.GENETIC_CROP_PLANTS.stream().map(Holder::value).collect(Collectors.toSet())));
 
-    @OnlyIn(Dist.CLIENT)
+    static {
+        grill24.potionsplus.core.Blocks.BREWING_CAULDRON_BLOCK_ENTITY = (Holder) (Object) BREWING_CAULDRON_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY = (Holder) (Object) HERBALISTS_LECTERN_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.SANGUINE_ALTAR_BLOCK_ENTITY = (Holder) (Object) SANGUINE_ALTAR_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.ABYSSAL_TROVE_BLOCK_ENTITY = (Holder) (Object) ABYSSAL_TROVE_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY = (Holder) (Object) CLOTHESLINE_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.POTION_BEACON_BLOCK_ENTITY = (Holder) (Object) POTION_BEACON_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.SMALL_FILTER_HOPPER_BLOCK_ENTITY = (Holder) (Object) SMALL_FILTER_HOPPER_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.LARGE_FILTER_HOPPER_BLOCK_ENTITY = (Holder) (Object) LARGE_FILTER_HOPPER_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.HUGE_FILTER_HOPPER_BLOCK_ENTITY = (Holder) (Object) HUGE_FILTER_HOPPER_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.GENETIC_CROP_BLOCK_ENTITY = (Holder) (Object) GENETIC_CROP_BLOCK_ENTITY;
+    }
+
+    
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.BlockTintSources event) {
         // Cauldron water color

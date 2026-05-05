@@ -12,4 +12,3 @@ public interface IParticleEngineExtension {
 
     void potions_plus$createTrackingEmitter(Entity entity, ParticleOptions data, int lifetime, float count);
 }
-

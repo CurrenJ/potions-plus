@@ -1,13 +1,11 @@
 package grill24.potionsplus.blockentity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
 
-@Environment(EnvType.CLIENT)
+
 public class SanguineAltarRenderState extends BlockEntityRenderState {
     public SanguineAltarBlockEntity.State altarState = SanguineAltarBlockEntity.State.IDLE;
 

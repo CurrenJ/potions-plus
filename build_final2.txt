@@ -1,0 +1,208 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Task :common:compileJava
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\LootItemConditions.java:21: error: incompatible types: MapCodec<HasPlayerAbilityCondition> cannot be converted to Supplier<MapCodec<? extends LootItemCondition>>
+        HAS_PLAYER_ABILITY = register.apply("has_player_ability", HasPlayerAbilityCondition.MAP_CODEC);
+                                                                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\LootItemConditions.java:22: error: incompatible types: MapCodec<LootItemBlockTagCondition> cannot be converted to Supplier<MapCodec<? extends LootItemCondition>>
+        LOOT_ITEM_BLOCK_TAG = register.apply("loot_item_block_tag", LootItemBlockTagCondition.MAP_CODEC);
+                                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\LootItemConditions.java:23: error: incompatible types: MapCodec<IsInBiomeCondition> cannot be converted to Supplier<MapCodec<? extends LootItemCondition>>
+        IS_IN_BIOME = register.apply("is_in_biome", IsInBiomeCondition.MAP_CODEC);
+                                                                      ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\LootItemConditions.java:24: error: incompatible types: MapCodec<IsInBiomeTagCondition> cannot be converted to Supplier<MapCodec<? extends LootItemCondition>>
+        IS_IN_BIOME_TAG = register.apply("is_in_biome_tag", IsInBiomeTagCondition.MAP_CODEC);
+                                                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:19: error: <T>MenuType(MenuSupplier<T>,FeatureFlagSet) has private access in MenuType
+        SKILLS = (Supplier<MenuType<SkillsMenu>>) (Supplier<?>) register.apply("skills", () -> new MenuType<>(SkillsMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                               ^
+  where T is a type-variable:
+    T extends AbstractContainerMenu declared in class MenuType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:19: error: MenuSupplier has private access in MenuType
+        SKILLS = (Supplier<MenuType<SkillsMenu>>) (Supplier<?>) register.apply("skills", () -> new MenuType<>(SkillsMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:20: error: <T>MenuType(MenuSupplier<T>,FeatureFlagSet) has private access in MenuType
+        SMALL_FILTER_HOPPER = (Supplier<MenuType<SmallFilterHopperMenu>>) (Supplier<?>) register.apply("filter_hopper", () -> new MenuType<>(SmallFilterHopperMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                              ^
+  where T is a type-variable:
+    T extends AbstractContainerMenu declared in class MenuType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:20: error: MenuSupplier has private access in MenuType
+        SMALL_FILTER_HOPPER = (Supplier<MenuType<SmallFilterHopperMenu>>) (Supplier<?>) register.apply("filter_hopper", () -> new MenuType<>(SmallFilterHopperMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:21: error: <T>MenuType(MenuSupplier<T>,FeatureFlagSet) has private access in MenuType
+        LARGE_FILTER_HOPPER = (Supplier<MenuType<LargeFilterHopperMenu>>) (Supplier<?>) register.apply("large_filter_hopper", () -> new MenuType<>(LargeFilterHopperMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                                    ^
+  where T is a type-variable:
+    T extends AbstractContainerMenu declared in class MenuType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:21: error: MenuSupplier has private access in MenuType
+        LARGE_FILTER_HOPPER = (Supplier<MenuType<LargeFilterHopperMenu>>) (Supplier<?>) register.apply("large_filter_hopper", () -> new MenuType<>(LargeFilterHopperMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                                                   ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:22: error: <T>MenuType(MenuSupplier<T>,FeatureFlagSet) has private access in MenuType
+        HUGE_FILTER_HOPPER = (Supplier<MenuType<HugeFilterHopperMenu>>) (Supplier<?>) register.apply("huge_filter_hopper", () -> new MenuType<>(HugeFilterHopperMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                                 ^
+  where T is a type-variable:
+    T extends AbstractContainerMenu declared in class MenuType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:22: error: MenuSupplier has private access in MenuType
+        HUGE_FILTER_HOPPER = (Supplier<MenuType<HugeFilterHopperMenu>>) (Supplier<?>) register.apply("huge_filter_hopper", () -> new MenuType<>(HugeFilterHopperMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:29: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        WANDERING_HEART = (Holder<SimpleParticleType>) (Holder<?>) register.apply("wandering_heart", () -> new SimpleParticleType(false));
+                                                                                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:30: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        END_ROD_RAIN = (Holder<SimpleParticleType>) (Holder<?>) register.apply("end_rod_rain", () -> new SimpleParticleType(false));
+                                                                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:31: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        RANDOM_NOTE = (Holder<SimpleParticleType>) (Holder<?>) register.apply("random_note", () -> new SimpleParticleType(false));
+                                                                                                   ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:32: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        BLOOD_GOB = (Holder<SimpleParticleType>) (Holder<?>) register.apply("blood_gob", () -> new SimpleParticleType(false));
+                                                                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:33: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        LUNAR_BERRY_BUSH_AMBIENT = (Holder<SimpleParticleType>) (Holder<?>) register.apply("lunar_berry_bush_ambient", () -> new SimpleParticleType(false));
+                                                                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:34: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        LIGHTNING_BOLT = (Holder<SimpleParticleType>) (Holder<?>) register.apply("lightning_bolt", () -> new SimpleParticleType(false));
+                                                                                                         ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:35: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        LIGHTNING_BOLT_SMALL = (Holder<SimpleParticleType>) (Holder<?>) register.apply("lightning_bolt_small", () -> new SimpleParticleType(false));
+                                                                                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:36: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        ELECTRICAL_SPARK = (Holder<SimpleParticleType>) (Holder<?>) register.apply("electrical_spark", () -> new SimpleParticleType(false));
+                                                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:37: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        STUN_STARS = (Holder<SimpleParticleType>) (Holder<?>) register.apply("stun_stars", () -> new SimpleParticleType(false));
+                                                                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:39: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        END_ROD_RAIN_EMITTER = (Holder<SimpleParticleType>) (Holder<?>) register.apply("end_rod_rain_emitter", () -> new SimpleParticleType(false));
+                                                                                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:40: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        FIREY_EMITTER = (Holder<SimpleParticleType>) (Holder<?>) register.apply("firey_emitter", () -> new SimpleParticleType(false));
+                                                                                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:41: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        BLOOD_EMITTER = (Holder<SimpleParticleType>) (Holder<?>) register.apply("blood_emitter", () -> new SimpleParticleType(false));
+                                                                                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:42: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        LUNAR_BERRY_BUSH_AMBIENT_EMITTER = (Holder<SimpleParticleType>) (Holder<?>) register.apply("lunar_berry_bush_ambient_emitter", () -> new SimpleParticleType(false));
+                                                                                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:43: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+        LAVA_GEYSER_BLOCK_LINKED_EMITTER = (Holder<SimpleParticleType>) (Holder<?>) register.apply("lava_geyser_emitter", () -> new SimpleParticleType(false));
+                                                                                                                                ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+26 errors
+
+> Task :common:compileJava FAILED
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\LootItemConditions.java:21: error: incompatible types: MapCodec<HasPlayerAbilityCondition> cannot be converted to Supplier<MapCodec<? extends LootItemCondition>>
+          HAS_PLAYER_ABILITY = register.apply("has_player_ability", HasPlayerAbilityCondition.MAP_CODEC);
+                                                                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\LootItemConditions.java:22: error: incompatible types: MapCodec<LootItemBlockTagCondition> cannot be converted to Supplier<MapCodec<? extends LootItemCondition>>
+          LOOT_ITEM_BLOCK_TAG = register.apply("loot_item_block_tag", LootItemBlockTagCondition.MAP_CODEC);
+                                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\LootItemConditions.java:23: error: incompatible types: MapCodec<IsInBiomeCondition> cannot be converted to Supplier<MapCodec<? extends LootItemCondition>>
+          IS_IN_BIOME = register.apply("is_in_biome", IsInBiomeCondition.MAP_CODEC);
+                                                                        ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\LootItemConditions.java:24: error: incompatible types: MapCodec<IsInBiomeTagCondition> cannot be converted to Supplier<MapCodec<? extends LootItemCondition>>
+          IS_IN_BIOME_TAG = register.apply("is_in_biome_tag", IsInBiomeTagCondition.MAP_CODEC);
+                                                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:19: error: <T>MenuType(MenuSupplier<T>,FeatureFlagSet) has private access in MenuType
+          SKILLS = (Supplier<MenuType<SkillsMenu>>) (Supplier<?>) register.apply("skills", () -> new MenuType<>(SkillsMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                 ^
+    where T is a type-variable:
+      T extends AbstractContainerMenu declared in class MenuType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:19: error: MenuSupplier has private access in MenuType
+          SKILLS = (Supplier<MenuType<SkillsMenu>>) (Supplier<?>) register.apply("skills", () -> new MenuType<>(SkillsMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:20: error: <T>MenuType(MenuSupplier<T>,FeatureFlagSet) has private access in MenuType
+          SMALL_FILTER_HOPPER = (Supplier<MenuType<SmallFilterHopperMenu>>) (Supplier<?>) register.apply("filter_hopper", () -> new MenuType<>(SmallFilterHopperMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                                ^
+    where T is a type-variable:
+      T extends AbstractContainerMenu declared in class MenuType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:20: error: MenuSupplier has private access in MenuType
+          SMALL_FILTER_HOPPER = (Supplier<MenuType<SmallFilterHopperMenu>>) (Supplier<?>) register.apply("filter_hopper", () -> new MenuType<>(SmallFilterHopperMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:21: error: <T>MenuType(MenuSupplier<T>,FeatureFlagSet) has private access in MenuType
+          LARGE_FILTER_HOPPER = (Supplier<MenuType<LargeFilterHopperMenu>>) (Supplier<?>) register.apply("large_filter_hopper", () -> new MenuType<>(LargeFilterHopperMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                                      ^
+    where T is a type-variable:
+      T extends AbstractContainerMenu declared in class MenuType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:21: error: MenuSupplier has private access in MenuType
+          LARGE_FILTER_HOPPER = (Supplier<MenuType<LargeFilterHopperMenu>>) (Supplier<?>) register.apply("large_filter_hopper", () -> new MenuType<>(LargeFilterHopperMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                                                     ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:22: error: <T>MenuType(MenuSupplier<T>,FeatureFlagSet) has private access in MenuType
+          HUGE_FILTER_HOPPER = (Supplier<MenuType<HugeFilterHopperMenu>>) (Supplier<?>) register.apply("huge_filter_hopper", () -> new MenuType<>(HugeFilterHopperMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                                   ^
+    where T is a type-variable:
+      T extends AbstractContainerMenu declared in class MenuType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\MenuTypes.java:22: error: MenuSupplier has private access in MenuType
+          HUGE_FILTER_HOPPER = (Supplier<MenuType<HugeFilterHopperMenu>>) (Supplier<?>) register.apply("huge_filter_hopper", () -> new MenuType<>(HugeFilterHopperMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+                                                                                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:29: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          WANDERING_HEART = (Holder<SimpleParticleType>) (Holder<?>) register.apply("wandering_heart", () -> new SimpleParticleType(false));
+                                                                                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:30: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          END_ROD_RAIN = (Holder<SimpleParticleType>) (Holder<?>) register.apply("end_rod_rain", () -> new SimpleParticleType(false));
+                                                                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:31: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          RANDOM_NOTE = (Holder<SimpleParticleType>) (Holder<?>) register.apply("random_note", () -> new SimpleParticleType(false));
+                                                                                                     ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:32: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          BLOOD_GOB = (Holder<SimpleParticleType>) (Holder<?>) register.apply("blood_gob", () -> new SimpleParticleType(false));
+                                                                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:33: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          LUNAR_BERRY_BUSH_AMBIENT = (Holder<SimpleParticleType>) (Holder<?>) register.apply("lunar_berry_bush_ambient", () -> new SimpleParticleType(false));
+                                                                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:34: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          LIGHTNING_BOLT = (Holder<SimpleParticleType>) (Holder<?>) register.apply("lightning_bolt", () -> new SimpleParticleType(false));
+                                                                                                           ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:35: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          LIGHTNING_BOLT_SMALL = (Holder<SimpleParticleType>) (Holder<?>) register.apply("lightning_bolt_small", () -> new SimpleParticleType(false));
+                                                                                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:36: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          ELECTRICAL_SPARK = (Holder<SimpleParticleType>) (Holder<?>) register.apply("electrical_spark", () -> new SimpleParticleType(false));
+                                                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:37: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          STUN_STARS = (Holder<SimpleParticleType>) (Holder<?>) register.apply("stun_stars", () -> new SimpleParticleType(false));
+                                                                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:39: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          END_ROD_RAIN_EMITTER = (Holder<SimpleParticleType>) (Holder<?>) register.apply("end_rod_rain_emitter", () -> new SimpleParticleType(false));
+                                                                                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:40: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          FIREY_EMITTER = (Holder<SimpleParticleType>) (Holder<?>) register.apply("firey_emitter", () -> new SimpleParticleType(false));
+                                                                                                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:41: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          BLOOD_EMITTER = (Holder<SimpleParticleType>) (Holder<?>) register.apply("blood_emitter", () -> new SimpleParticleType(false));
+                                                                                                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:42: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          LUNAR_BERRY_BUSH_AMBIENT_EMITTER = (Holder<SimpleParticleType>) (Holder<?>) register.apply("lunar_berry_bush_ambient_emitter", () -> new SimpleParticleType(false));
+                                                                                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\Particles.java:43: error: SimpleParticleType(boolean) has protected access in SimpleParticleType
+          LAVA_GEYSER_BLOCK_LINKED_EMITTER = (Holder<SimpleParticleType>) (Holder<?>) register.apply("lava_geyser_emitter", () -> new SimpleParticleType(false));
+                                                                                                                                  ^
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  Note: Some input files use unchecked or unsafe operations.
+  26 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 4s
+1 actionable task: 1 executed

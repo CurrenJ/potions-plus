@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "potionsplus:item/icicle"
+    "model": "potionsplus:block/icicle"
   }
 }

@@ -1,7 +1,5 @@
 package grill24.potionsplus.blockentity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.block.ClotheslineBlock;
@@ -40,7 +38,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@Environment(EnvType.CLIENT)
+
 public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<ClotheslineBlockEntity, ClotheslineRenderState> {
     public final BlockModelResolver BlockModelResolver;
     private ProfilerFiller profiler;

@@ -566,5 +566,45 @@ public class FlowerBlocks {
                 KOHLRABI_PLANT,
                 BRUSSELS_SPROUTS_PLANT
         );
+
+        // Populate common stubs
+        grill24.potionsplus.core.blocks.FlowerBlocks.TOMATO_PLANT = TOMATO_PLANT;
+        grill24.potionsplus.core.blocks.FlowerBlocks.BRASSICA_OLERACEA_PLANT = BRASSICA_OLERACEA_PLANT;
+        grill24.potionsplus.core.blocks.FlowerBlocks.CABBAGE_PLANT = CABBAGE_PLANT;
+        grill24.potionsplus.core.blocks.FlowerBlocks.KALE_PLANT = KALE_PLANT;
+        grill24.potionsplus.core.blocks.FlowerBlocks.BROCCOLLI_PLANT = BROCCOLLI_PLANT;
+        grill24.potionsplus.core.blocks.FlowerBlocks.CAULIFLOWER_PLANT = CAULIFLOWER_PLANT;
+        grill24.potionsplus.core.blocks.FlowerBlocks.BRUSSELS_SPROUTS_PLANT = BRUSSELS_SPROUTS_PLANT;
+        grill24.potionsplus.core.blocks.FlowerBlocks.KOHLRABI_PLANT = KOHLRABI_PLANT;
+        grill24.potionsplus.core.blocks.FlowerBlocks.SURVIVOR_STICK = SURVIVOR_STICK;
+        grill24.potionsplus.core.blocks.FlowerBlocks.COWLICK_VINE = COWLICK_VINE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.HANGING_FERN = HANGING_FERN;
+        grill24.potionsplus.core.blocks.FlowerBlocks.DROOPY_VINE = DROOPY_VINE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.LUMOSEED_SACKS = LUMOSEED_SACKS;
+        grill24.potionsplus.core.blocks.FlowerBlocks.LUNAR_BERRY_BUSH = LUNAR_BERRY_BUSH;
+        grill24.potionsplus.core.blocks.FlowerBlocks.TALL_GRASS_VERSATILE = TALL_GRASS_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.LARGE_FERN_VERSATILE = LARGE_FERN_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.DANDELION_VERSATILE = DANDELION_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.TORCHFLOWER_VERSATILE = TORCHFLOWER_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.POPPY_VERSATILE = POPPY_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.BLUE_ORCHID_VERSATILE = BLUE_ORCHID_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.ALLIUM_VERSATILE = ALLIUM_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.AZURE_BLUET_VERSATILE = AZURE_BLUET_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.RED_TULIP_VERSATILE = RED_TULIP_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.ORANGE_TULIP_VERSATILE = ORANGE_TULIP_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.WHITE_TULIP_VERSATILE = WHITE_TULIP_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.PINK_TULIP_VERSATILE = PINK_TULIP_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.OXEYE_DAISY_VERSATILE = OXEYE_DAISY_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.CORNFLOWER_VERSATILE = CORNFLOWER_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.WITHER_ROSE_VERSATILE = WITHER_ROSE_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.LILY_OF_THE_VALLEY_VERSATILE = LILY_OF_THE_VALLEY_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.BROWN_MUSHROOM_VERSATILE = BROWN_MUSHROOM_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.RED_MUSHROOM_VERSATILE = RED_MUSHROOM_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.SUNFLOWER_VERSATILE = SUNFLOWER_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.LILAC_VERSATILE = LILAC_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.ROSE_BUSH_VERSATILE = ROSE_BUSH_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.PEONY_VERSATILE = PEONY_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.PITCHER_PLANT_VERSATILE = PITCHER_PLANT_VERSATILE;
+        grill24.potionsplus.core.blocks.FlowerBlocks.GENETIC_CROP_PLANTS = GENETIC_CROP_PLANTS;
     }
 }

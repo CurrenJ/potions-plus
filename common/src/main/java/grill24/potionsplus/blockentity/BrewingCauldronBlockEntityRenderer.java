@@ -1,7 +1,5 @@
 package grill24.potionsplus.blockentity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -31,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-@Environment(EnvType.CLIENT)
+
 public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<BrewingCauldronBlockEntity, BrewingCauldronRenderState> {
 
     public final BlockModelResolver BlockModelResolver;

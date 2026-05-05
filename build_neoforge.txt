@@ -1,0 +1,913 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :common:compileJava UP-TO-DATE
+
+> Task :neoforge:compileJava FAILED
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\AnimatedItemTooltipEvent.java:14: error: class NeoAnimatedItemTooltipEvent is public, should be declared in a file named NeoAnimatedItemTooltipEvent.java
+public class NeoAnimatedItemTooltipEvent extends Event {
+       ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:35: error: cannot find symbol
+import net.minecraft.world.level.BlockAndTintGetter;
+                                ^
+  symbol:   class BlockAndTintGetter
+  location: package net.minecraft.world.level
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:188: error: cannot find symbol
+    public int getWaterColor(BlockAndTintGetter world, BlockPos pos) {
+                             ^
+  symbol:   class BlockAndTintGetter
+  location: class BrewingCauldronBlockEntity
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:3: error: package net.fabricmc.api does not exist
+import net.fabricmc.api.EnvType;
+                       ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:4: error: package net.fabricmc.api does not exist
+import net.fabricmc.api.Environment;
+                       ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:14: error: cannot find symbol
+import net.minecraft.client.renderer.LightTexture;
+                                    ^
+  symbol:   class LightTexture
+  location: package net.minecraft.client.renderer
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:16: error: cannot find symbol
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                          ^
+  symbol:   class BlockRenderDispatcher
+  location: package net.minecraft.client.renderer.block
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:42: error: cannot find symbol
+@Environment(EnvType.CLIENT)
+ ^
+  symbol: class Environment
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:44: error: wrong number of type arguments; required 2
+public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<ClotheslineBlockEntity> {
+                                                                          ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:45: error: cannot find symbol
+    public final BlockRenderDispatcher blockRenderDispatcher;
+                 ^
+  symbol:   class BlockRenderDispatcher
+  location: class ClotheslineBlockEntityRenderer
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:10: error: package mezz.jei.api.gui.builder does not exist
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+                               ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:11: error: package mezz.jei.api.gui.drawable does not exist
+import mezz.jei.api.gui.drawable.IDrawable;
+                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:12: error: package mezz.jei.api.gui.ingredient does not exist
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+                                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:13: error: package mezz.jei.api.helpers does not exist
+import mezz.jei.api.helpers.IGuiHelper;
+                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:14: error: package mezz.jei.api.recipe does not exist
+import mezz.jei.api.recipe.IFocusGroup;
+                          ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:15: error: package mezz.jei.api.recipe does not exist
+import mezz.jei.api.recipe.RecipeIngredientRole;
+                          ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:16: error: package mezz.jei.api.recipe.category does not exist
+import mezz.jei.api.recipe.category.IRecipeCategory;
+                                   ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:17: error: package mezz.jei.api.recipe.types does not exist
+import mezz.jei.api.recipe.types.IRecipeType;
+                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:19: error: cannot find symbol
+import net.minecraft.client.gui.GuiGraphics;
+                               ^
+  symbol:   class GuiGraphics
+  location: package net.minecraft.client.gui
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:33: error: cannot find symbol
+public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCauldronRecipe> {
+                                                      ^
+  symbol: class IRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:34: error: cannot find symbol
+    public static final IRecipeType<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE_TYPE = IRecipeType.create(ModInfo.MOD_ID, "brewing_cauldron_recipe", BrewingCauldronRecipe.class);
+                        ^
+  symbol:   class IRecipeType
+  location: class BrewingCauldronRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:36: error: cannot find symbol
+    private final IDrawable background;
+                  ^
+  symbol:   class IDrawable
+  location: class BrewingCauldronRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:37: error: cannot find symbol
+    private final IDrawable icon;
+                  ^
+  symbol:   class IDrawable
+  location: class BrewingCauldronRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:49: error: cannot find symbol
+    public BrewingCauldronRecipeCategory(IGuiHelper guiHelper) {
+                                         ^
+  symbol:   class IGuiHelper
+  location: class BrewingCauldronRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:56: error: cannot find symbol
+    public IRecipeType<BrewingCauldronRecipe> getRecipeType() {
+           ^
+  symbol:   class IRecipeType
+  location: class BrewingCauldronRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:66: error: cannot find symbol
+    public IDrawable getIcon() {
+           ^
+  symbol:   class IDrawable
+  location: class BrewingCauldronRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:81: error: cannot find symbol
+    public void setRecipe(IRecipeLayoutBuilder builder, BrewingCauldronRecipe recipe, @NotNull IFocusGroup focuses) {
+                          ^
+  symbol:   class IRecipeLayoutBuilder
+  location: class BrewingCauldronRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:81: error: cannot find symbol
+    public void setRecipe(IRecipeLayoutBuilder builder, BrewingCauldronRecipe recipe, @NotNull IFocusGroup focuses) {
+                                                                                               ^
+  symbol:   class IFocusGroup
+  location: class BrewingCauldronRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:115: error: cannot find symbol
+    public void draw(BrewingCauldronRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+                                                   ^
+  symbol:   class IRecipeSlotsView
+  location: class BrewingCauldronRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:115: error: cannot find symbol
+    public void draw(BrewingCauldronRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+                                                                                     ^
+  symbol:   class GuiGraphics
+  location: class BrewingCauldronRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:9: error: package mezz.jei.api.gui.builder does not exist
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+                               ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:10: error: package mezz.jei.api.gui.drawable does not exist
+import mezz.jei.api.gui.drawable.IDrawable;
+                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:11: error: package mezz.jei.api.helpers does not exist
+import mezz.jei.api.helpers.IGuiHelper;
+                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:12: error: package mezz.jei.api.recipe does not exist
+import mezz.jei.api.recipe.IFocusGroup;
+                          ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:13: error: package mezz.jei.api.recipe does not exist
+import mezz.jei.api.recipe.RecipeIngredientRole;
+                          ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:14: error: package mezz.jei.api.recipe.category does not exist
+import mezz.jei.api.recipe.category.IRecipeCategory;
+                                   ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:15: error: package mezz.jei.api.recipe.types does not exist
+import mezz.jei.api.recipe.types.IRecipeType;
+                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:28: error: cannot find symbol
+public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRecipe> {
+                                                  ^
+  symbol: class IRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:29: error: cannot find symbol
+    public static final IRecipeType<ClotheslineRecipe> CLOTHESLINE_RECIPE_TYPE = IRecipeType.create(ModInfo.MOD_ID, "clothesline_recipe", ClotheslineRecipe.class);
+                        ^
+  symbol:   class IRecipeType
+  location: class ClotheslineRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:31: error: cannot find symbol
+    private final IDrawable background;
+                  ^
+  symbol:   class IDrawable
+  location: class ClotheslineRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:32: error: cannot find symbol
+    private final IDrawable icon;
+                  ^
+  symbol:   class IDrawable
+  location: class ClotheslineRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:44: error: cannot find symbol
+    public ClotheslineRecipeCategory(IGuiHelper guiHelper) {
+                                     ^
+  symbol:   class IGuiHelper
+  location: class ClotheslineRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:51: error: cannot find symbol
+    public IRecipeType<ClotheslineRecipe> getRecipeType() {
+           ^
+  symbol:   class IRecipeType
+  location: class ClotheslineRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:61: error: cannot find symbol
+    public IDrawable getIcon() {
+           ^
+  symbol:   class IDrawable
+  location: class ClotheslineRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:76: error: cannot find symbol
+    public void setRecipe(IRecipeLayoutBuilder builder, ClotheslineRecipe recipe, @NotNull IFocusGroup focuses) {
+                          ^
+  symbol:   class IRecipeLayoutBuilder
+  location: class ClotheslineRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:76: error: cannot find symbol
+    public void setRecipe(IRecipeLayoutBuilder builder, ClotheslineRecipe recipe, @NotNull IFocusGroup focuses) {
+                                                                                           ^
+  symbol:   class IFocusGroup
+  location: class ClotheslineRecipeCategory
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:106: error: package mezz.jei.api.gui.ingredient does not exist
+    public void draw(ClotheslineRecipe recipe, mezz.jei.api.gui.ingredient.IRecipeSlotsView recipeSlotsView, net.minecraft.client.gui.GuiGraphics guiGraphics, double mouseX, double mouseY) {
+                                                                          ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:106: error: cannot find symbol
+    public void draw(ClotheslineRecipe recipe, mezz.jei.api.gui.ingredient.IRecipeSlotsView recipeSlotsView, net.minecraft.client.gui.GuiGraphics guiGraphics, double mouseX, double mouseY) {
+                                                                                                                                     ^
+  symbol:   class GuiGraphics
+  location: package net.minecraft.client.gui
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:14: error: package mezz.jei.api does not exist
+import mezz.jei.api.IModPlugin;
+                   ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:15: error: package mezz.jei.api does not exist
+import mezz.jei.api.JeiPlugin;
+                   ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:16: error: package mezz.jei.api.registration does not exist
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
+                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:17: error: package mezz.jei.api.registration does not exist
+import mezz.jei.api.registration.IRecipeCategoryRegistration;
+                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:18: error: package mezz.jei.api.registration does not exist
+import mezz.jei.api.registration.IRecipeRegistration;
+                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:19: error: package mezz.jei.api.runtime does not exist
+import mezz.jei.api.runtime.IJeiRuntime;
+                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:42: error: cannot find symbol
+public class JeiPotionsPlusPlugin implements IModPlugin {
+                                             ^
+  symbol: class IModPlugin
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:41: error: cannot find symbol
+@JeiPlugin
+ ^
+  symbol: class JeiPlugin
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:43: error: cannot find symbol
+    public static IJeiRuntime JEI_RUNTIME;
+                  ^
+  symbol:   class IJeiRuntime
+  location: class JeiPotionsPlusPlugin
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:47: error: cannot find symbol
+    public void registerRecipes(@NotNull IRecipeRegistration registration) {
+                                         ^
+  symbol:   class IRecipeRegistration
+  location: class JeiPotionsPlusPlugin
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:83: error: cannot find symbol
+    public void registerCategories(@NotNull IRecipeCategoryRegistration registration) {
+                                            ^
+  symbol:   class IRecipeCategoryRegistration
+  location: class JeiPotionsPlusPlugin
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:89: error: cannot find symbol
+    public void onRuntimeAvailable(@NotNull IJeiRuntime jeiRuntime) {
+                                            ^
+  symbol:   class IJeiRuntime
+  location: class JeiPotionsPlusPlugin
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:119: error: cannot find symbol
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+                                        ^
+  symbol:   class IRecipeCatalystRegistration
+  location: class JeiPotionsPlusPlugin
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:124: error: cannot find symbol
+    private static void registerAllPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsPlusPotionGenerationData... potionData) {
+                                               ^
+  symbol:   class IRecipeRegistration
+  location: class JeiPotionsPlusPlugin
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:135: error: cannot find symbol
+    private static void registerPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsPlusPotionGenerationData potionData, Component... descriptionComponents) {
+                                            ^
+  symbol:   class IRecipeRegistration
+  location: class JeiPotionsPlusPlugin
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:142: error: cannot find symbol
+    private static void registerPotionInfo(IRecipeRegistration registration, Potion potion, Component... descriptionComponents) {
+                                           ^
+  symbol:   class IRecipeRegistration
+  location: class JeiPotionsPlusPlugin
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:158: error: cannot find symbol
+    private static void registerDescription(IRecipeRegistration registration, ItemLike item) {
+                                            ^
+  symbol:   class IRecipeRegistration
+  location: class JeiPotionsPlusPlugin
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ArmorMaterials.java:3: error: cannot find symbol
+import net.minecraft.Util;
+                    ^
+  symbol:   class Util
+  location: package net.minecraft
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:16: error: cannot find symbol
+import net.minecraft.world.level.block.FarmBlock;
+                                      ^
+  symbol:   class FarmBlock
+  location: package net.minecraft.world.level.block
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:15: error: cannot find symbol
+import net.minecraft.client.color.block.BlockColor;
+                                       ^
+  symbol:   class BlockColor
+  location: package net.minecraft.client.color.block
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:70: error: cannot find symbol
+    public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+                                                                     ^
+  symbol:   class Block
+  location: class RegisterColorHandlersEvent
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:5: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.ItemPredicate;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredSkillPointSources.java:5: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredSkillPointSources.java:6: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.EntityPredicate;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredSkillPointSources.java:7: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.ItemPredicate;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredSkillPointSources.java:125: error: cannot find symbol
+    private static KillEntitySourceConfiguration createKillEntitySourceConfiguration(EntityPredicate weaponPredicate) {
+                                                                                     ^
+  symbol:   class EntityPredicate
+  location: class ConfiguredSkillPointSources
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ServerLifecycleListeners.java:8: error: cannot find symbol
+import net.minecraft.world.level.storage.DimensionDataStorage;
+                                        ^
+  symbol:   class DimensionDataStorage
+  location: package net.minecraft.world.level.storage
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:22: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:23: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.LocationPredicate;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:24: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.PlayerTrigger;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\ItemTagProvider.java:11: error: cannot find symbol
+import net.minecraft.data.tags.ItemTagsProvider;
+                              ^
+  symbol:   class ItemTagsProvider
+  location: package net.minecraft.data.tags
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\ItemTagProvider.java:17: error: cannot find symbol
+public class ItemTagProvider extends ItemTagsProvider {
+                                     ^
+  symbol: class ItemTagsProvider
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\ItemTagProvider.java:18: error: cannot find symbol
+    public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagsProvider) {
+                                                                                                                             ^
+  symbol:   class TagLookup
+  location: class ItemTagProvider
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\loot\GlobalLootModifierProvider.java:9: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.EntityPredicate;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\RecipeProvider.java:13: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\RecipeProvider.java:296: error: package InventoryChangeTrigger does not exist
+    public Criterion<InventoryChangeTrigger.TriggerInstance> has(ItemLike itemLike) {
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\RecipeProvider.java:301: error: package InventoryChangeTrigger does not exist
+    public Criterion<InventoryChangeTrigger.TriggerInstance> has(TagKey<Item> tag) {
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\SkillListeners.java:9: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.EntityPredicate;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:7: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\worldgen\OverworldBiomesRegion.java:16: error: cannot find symbol
+public class OverworldBiomesRegion extends Region {
+                                           ^
+  symbol: class Region
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\worldgen\OverworldBiomesRegion.java:10: error: package terrablender.api does not exist
+import terrablender.api.*;
+                   ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:104: error: cannot find symbol
+    public boolean canPlaceItem(int slot, @Nonnull ItemStack stack) {
+                                           ^
+  symbol:   class Nonnull
+  location: class ClotheslineBlockEntity
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:42: error: cannot find symbol
+@Environment(EnvType.CLIENT)
+             ^
+  symbol: variable EnvType
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:43: error: cannot find symbol
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+                                            ^
+  symbol:   method bus()
+  location: @interface EventBusSubscriber
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:43: error: cannot find symbol
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+                                                                    ^
+  symbol:   variable Bus
+  location: @interface EventBusSubscriber
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:43: error: cannot find symbol
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+                                                                                       ^
+  symbol: variable Dist
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:43: error: an enum annotation value must be an enum constant
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+                                                                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Attributes.java:19: error: cannot find symbol
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+                                            ^
+  symbol:   method bus()
+  location: @interface EventBusSubscriber
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Attributes.java:19: error: cannot find symbol
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+                                                                    ^
+  symbol:   variable Bus
+  location: @interface EventBusSubscriber
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\BlockRenderLayers.java:11: error: cannot find symbol
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                            ^
+  symbol:   method bus()
+  location: @interface EventBusSubscriber
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\BlockRenderLayers.java:11: error: cannot find symbol
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                                    ^
+  symbol:   variable Bus
+  location: @interface EventBusSubscriber
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:42: error: cannot find symbol
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+                                            ^
+  symbol:   method bus()
+  location: @interface EventBusSubscriber
+warning: unknown enum constant EnvType.CLIENT
+  reason: class file for net.fabricmc.api.EnvType not found
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:19: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static final BlockCapability<IItemHandler, Direction> CLOTHESLINE_ITEM_HANDLER =
+                                        ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:24: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+                    IItemHandler.class);
+                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:37: warning: [removal] InvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+                        return new InvWrapper(leftClotheslineBlockEntity);
+                                   ^
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+35 warnings
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':neoforge:compileJava'.
+> Compilation failed; see the compiler output below.
+  warning: unknown enum constant EnvType.CLIENT
+    reason: class file for net.fabricmc.api.EnvType not found
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:44: error: wrong number of type arguments; required 2
+  public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<ClotheslineBlockEntity> {
+                                                                            ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:35: error: cannot find symbol
+  import net.minecraft.world.level.BlockAndTintGetter;
+                                  ^
+    symbol:   class BlockAndTintGetter
+    location: package net.minecraft.world.level
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:188: error: cannot find symbol
+      public int getWaterColor(BlockAndTintGetter world, BlockPos pos) {
+                               ^
+    symbol:   class BlockAndTintGetter
+    location: class BrewingCauldronBlockEntity
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:14: error: cannot find symbol
+  import net.minecraft.client.renderer.LightTexture;
+                                      ^
+    symbol:   class LightTexture
+    location: package net.minecraft.client.renderer
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:16: error: cannot find symbol
+  import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+                                            ^
+    symbol:   class BlockRenderDispatcher
+    location: package net.minecraft.client.renderer.block
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:45: error: cannot find symbol
+      public final BlockRenderDispatcher blockRenderDispatcher;
+                   ^
+    symbol:   class BlockRenderDispatcher
+    location: class ClotheslineBlockEntityRenderer
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:19: error: cannot find symbol
+  import net.minecraft.client.gui.GuiGraphics;
+                                 ^
+    symbol:   class GuiGraphics
+    location: package net.minecraft.client.gui
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:34: error: cannot find symbol
+      public static final IRecipeType<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE_TYPE = IRecipeType.create(ModInfo.MOD_ID, "brewing_cauldron_recipe", BrewingCauldronRecipe.class);
+                          ^
+    symbol:   class IRecipeType
+    location: class BrewingCauldronRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:36: error: cannot find symbol
+      private final IDrawable background;
+                    ^
+    symbol:   class IDrawable
+    location: class BrewingCauldronRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:37: error: cannot find symbol
+      private final IDrawable icon;
+                    ^
+    symbol:   class IDrawable
+    location: class BrewingCauldronRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:49: error: cannot find symbol
+      public BrewingCauldronRecipeCategory(IGuiHelper guiHelper) {
+                                           ^
+    symbol:   class IGuiHelper
+    location: class BrewingCauldronRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:56: error: cannot find symbol
+      public IRecipeType<BrewingCauldronRecipe> getRecipeType() {
+             ^
+    symbol:   class IRecipeType
+    location: class BrewingCauldronRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:66: error: cannot find symbol
+      public IDrawable getIcon() {
+             ^
+    symbol:   class IDrawable
+    location: class BrewingCauldronRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:81: error: cannot find symbol
+      public void setRecipe(IRecipeLayoutBuilder builder, BrewingCauldronRecipe recipe, @NotNull IFocusGroup focuses) {
+                            ^
+    symbol:   class IRecipeLayoutBuilder
+    location: class BrewingCauldronRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:81: error: cannot find symbol
+      public void setRecipe(IRecipeLayoutBuilder builder, BrewingCauldronRecipe recipe, @NotNull IFocusGroup focuses) {
+                                                                                                 ^
+    symbol:   class IFocusGroup
+    location: class BrewingCauldronRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:115: error: cannot find symbol
+      public void draw(BrewingCauldronRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+                                                     ^
+    symbol:   class IRecipeSlotsView
+    location: class BrewingCauldronRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:115: error: cannot find symbol
+      public void draw(BrewingCauldronRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+                                                                                       ^
+    symbol:   class GuiGraphics
+    location: class BrewingCauldronRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:29: error: cannot find symbol
+      public static final IRecipeType<ClotheslineRecipe> CLOTHESLINE_RECIPE_TYPE = IRecipeType.create(ModInfo.MOD_ID, "clothesline_recipe", ClotheslineRecipe.class);
+                          ^
+    symbol:   class IRecipeType
+    location: class ClotheslineRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:31: error: cannot find symbol
+      private final IDrawable background;
+                    ^
+    symbol:   class IDrawable
+    location: class ClotheslineRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:32: error: cannot find symbol
+      private final IDrawable icon;
+                    ^
+    symbol:   class IDrawable
+    location: class ClotheslineRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:44: error: cannot find symbol
+      public ClotheslineRecipeCategory(IGuiHelper guiHelper) {
+                                       ^
+    symbol:   class IGuiHelper
+    location: class ClotheslineRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:51: error: cannot find symbol
+      public IRecipeType<ClotheslineRecipe> getRecipeType() {
+             ^
+    symbol:   class IRecipeType
+    location: class ClotheslineRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:61: error: cannot find symbol
+      public IDrawable getIcon() {
+             ^
+    symbol:   class IDrawable
+    location: class ClotheslineRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:76: error: cannot find symbol
+      public void setRecipe(IRecipeLayoutBuilder builder, ClotheslineRecipe recipe, @NotNull IFocusGroup focuses) {
+                            ^
+    symbol:   class IRecipeLayoutBuilder
+    location: class ClotheslineRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:76: error: cannot find symbol
+      public void setRecipe(IRecipeLayoutBuilder builder, ClotheslineRecipe recipe, @NotNull IFocusGroup focuses) {
+                                                                                             ^
+    symbol:   class IFocusGroup
+    location: class ClotheslineRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:106: error: cannot find symbol
+      public void draw(ClotheslineRecipe recipe, mezz.jei.api.gui.ingredient.IRecipeSlotsView recipeSlotsView, net.minecraft.client.gui.GuiGraphics guiGraphics, double mouseX, double mouseY) {
+                                                                                                                                       ^
+    symbol:   class GuiGraphics
+    location: package net.minecraft.client.gui
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:43: error: cannot find symbol
+      public static IJeiRuntime JEI_RUNTIME;
+                    ^
+    symbol:   class IJeiRuntime
+    location: class JeiPotionsPlusPlugin
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:47: error: cannot find symbol
+      public void registerRecipes(@NotNull IRecipeRegistration registration) {
+                                           ^
+    symbol:   class IRecipeRegistration
+    location: class JeiPotionsPlusPlugin
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:83: error: cannot find symbol
+      public void registerCategories(@NotNull IRecipeCategoryRegistration registration) {
+                                              ^
+    symbol:   class IRecipeCategoryRegistration
+    location: class JeiPotionsPlusPlugin
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:89: error: cannot find symbol
+      public void onRuntimeAvailable(@NotNull IJeiRuntime jeiRuntime) {
+                                              ^
+    symbol:   class IJeiRuntime
+    location: class JeiPotionsPlusPlugin
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:119: error: cannot find symbol
+      public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+                                          ^
+    symbol:   class IRecipeCatalystRegistration
+    location: class JeiPotionsPlusPlugin
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:124: error: cannot find symbol
+      private static void registerAllPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsPlusPotionGenerationData... potionData) {
+                                                 ^
+    symbol:   class IRecipeRegistration
+    location: class JeiPotionsPlusPlugin
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:135: error: cannot find symbol
+      private static void registerPotionsInfo(IRecipeRegistration registration, PotionBuilder.PotionsPlusPotionGenerationData potionData, Component... descriptionComponents) {
+                                              ^
+    symbol:   class IRecipeRegistration
+    location: class JeiPotionsPlusPlugin
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:142: error: cannot find symbol
+      private static void registerPotionInfo(IRecipeRegistration registration, Potion potion, Component... descriptionComponents) {
+                                             ^
+    symbol:   class IRecipeRegistration
+    location: class JeiPotionsPlusPlugin
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:158: error: cannot find symbol
+      private static void registerDescription(IRecipeRegistration registration, ItemLike item) {
+                                              ^
+    symbol:   class IRecipeRegistration
+    location: class JeiPotionsPlusPlugin
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ArmorMaterials.java:3: error: cannot find symbol
+  import net.minecraft.Util;
+                      ^
+    symbol:   class Util
+    location: package net.minecraft
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:16: error: cannot find symbol
+  import net.minecraft.world.level.block.FarmBlock;
+                                        ^
+    symbol:   class FarmBlock
+    location: package net.minecraft.world.level.block
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:15: error: cannot find symbol
+  import net.minecraft.client.color.block.BlockColor;
+                                         ^
+    symbol:   class BlockColor
+    location: package net.minecraft.client.color.block
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:70: error: cannot find symbol
+      public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+                                                                       ^
+    symbol:   class Block
+    location: class RegisterColorHandlersEvent
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredSkillPointSources.java:125: error: cannot find symbol
+      private static KillEntitySourceConfiguration createKillEntitySourceConfiguration(EntityPredicate weaponPredicate) {
+                                                                                       ^
+    symbol:   class EntityPredicate
+    location: class ConfiguredSkillPointSources
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ServerLifecycleListeners.java:8: error: cannot find symbol
+  import net.minecraft.world.level.storage.DimensionDataStorage;
+                                          ^
+    symbol:   class DimensionDataStorage
+    location: package net.minecraft.world.level.storage
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\ItemTagProvider.java:11: error: cannot find symbol
+  import net.minecraft.data.tags.ItemTagsProvider;
+                                ^
+    symbol:   class ItemTagsProvider
+    location: package net.minecraft.data.tags
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\ItemTagProvider.java:18: error: cannot find symbol
+      public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagsProvider) {
+                                                                                                                               ^
+    symbol:   class TagLookup
+    location: class ItemTagProvider
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:104: error: cannot find symbol
+      public boolean canPlaceItem(int slot, @Nonnull ItemStack stack) {
+                                             ^
+    symbol:   class Nonnull
+    location: class ClotheslineBlockEntity
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:43: error: cannot find symbol
+  @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+                                                                      ^
+    symbol:   variable Bus
+    location: @interface EventBusSubscriber
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Attributes.java:19: error: cannot find symbol
+  @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+                                                                      ^
+    symbol:   variable Bus
+    location: @interface EventBusSubscriber
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\BlockRenderLayers.java:11: error: cannot find symbol
+  @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                                      ^
+    symbol:   variable Bus
+    location: @interface EventBusSubscriber
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:43: error: an enum annotation value must be an enum constant
+  @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+                                                                                             ^
+  Note: Recompile with -Xlint:unchecked for details.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:19: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+      public static final BlockCapability<IItemHandler, Direction> CLOTHESLINE_ITEM_HANDLER =
+                                          ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:24: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+                      IItemHandler.class);
+                      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:37: warning: [removal] InvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+                          return new InvWrapper(leftClotheslineBlockEntity);
+                                     ^
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:42: error: cannot find symbol
+  @Environment(EnvType.CLIENT)
+   ^
+    symbol: class Environment
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:33: error: cannot find symbol
+  public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCauldronRecipe> {
+                                                        ^
+    symbol: class IRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:28: error: cannot find symbol
+  public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRecipe> {
+                                                    ^
+    symbol: class IRecipeCategory
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:42: error: cannot find symbol
+  public class JeiPotionsPlusPlugin implements IModPlugin {
+                                               ^
+    symbol: class IModPlugin
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:41: error: cannot find symbol
+  @JeiPlugin
+   ^
+    symbol: class JeiPlugin
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\ItemTagProvider.java:17: error: cannot find symbol
+  public class ItemTagProvider extends ItemTagsProvider {
+                                       ^
+    symbol: class ItemTagsProvider
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\worldgen\OverworldBiomesRegion.java:16: error: cannot find symbol
+  public class OverworldBiomesRegion extends Region {
+                                             ^
+    symbol: class Region
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:42: error: cannot find symbol
+  @Environment(EnvType.CLIENT)
+               ^
+    symbol: variable EnvType
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:43: error: cannot find symbol
+  @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+                                                                                         ^
+    symbol: variable Dist
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:43: error: cannot find symbol
+  @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+                                              ^
+    symbol:   method bus()
+    location: @interface EventBusSubscriber
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Attributes.java:19: error: cannot find symbol
+  @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+                                              ^
+    symbol:   method bus()
+    location: @interface EventBusSubscriber
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\BlockRenderLayers.java:11: error: cannot find symbol
+  @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                              ^
+    symbol:   method bus()
+    location: @interface EventBusSubscriber
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:42: error: cannot find symbol
+  @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+                                              ^
+    symbol:   method bus()
+    location: @interface EventBusSubscriber
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:3: error: package net.fabricmc.api does not exist
+  import net.fabricmc.api.EnvType;
+                         ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:4: error: package net.fabricmc.api does not exist
+  import net.fabricmc.api.Environment;
+                         ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:10: error: package mezz.jei.api.gui.builder does not exist
+  import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+                                 ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:11: error: package mezz.jei.api.gui.drawable does not exist
+  import mezz.jei.api.gui.drawable.IDrawable;
+                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:12: error: package mezz.jei.api.gui.ingredient does not exist
+  import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+                                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:13: error: package mezz.jei.api.helpers does not exist
+  import mezz.jei.api.helpers.IGuiHelper;
+                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:14: error: package mezz.jei.api.recipe does not exist
+  import mezz.jei.api.recipe.IFocusGroup;
+                            ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:15: error: package mezz.jei.api.recipe does not exist
+  import mezz.jei.api.recipe.RecipeIngredientRole;
+                            ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:16: error: package mezz.jei.api.recipe.category does not exist
+  import mezz.jei.api.recipe.category.IRecipeCategory;
+                                     ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:17: error: package mezz.jei.api.recipe.types does not exist
+  import mezz.jei.api.recipe.types.IRecipeType;
+                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:9: error: package mezz.jei.api.gui.builder does not exist
+  import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+                                 ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:10: error: package mezz.jei.api.gui.drawable does not exist
+  import mezz.jei.api.gui.drawable.IDrawable;
+                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:11: error: package mezz.jei.api.helpers does not exist
+  import mezz.jei.api.helpers.IGuiHelper;
+                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:12: error: package mezz.jei.api.recipe does not exist
+  import mezz.jei.api.recipe.IFocusGroup;
+                            ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:13: error: package mezz.jei.api.recipe does not exist
+  import mezz.jei.api.recipe.RecipeIngredientRole;
+                            ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:14: error: package mezz.jei.api.recipe.category does not exist
+  import mezz.jei.api.recipe.category.IRecipeCategory;
+                                     ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:15: error: package mezz.jei.api.recipe.types does not exist
+  import mezz.jei.api.recipe.types.IRecipeType;
+                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:106: error: package mezz.jei.api.gui.ingredient does not exist
+      public void draw(ClotheslineRecipe recipe, mezz.jei.api.gui.ingredient.IRecipeSlotsView recipeSlotsView, net.minecraft.client.gui.GuiGraphics guiGraphics, double mouseX, double mouseY) {
+                                                                            ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:14: error: package mezz.jei.api does not exist
+  import mezz.jei.api.IModPlugin;
+                     ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:15: error: package mezz.jei.api does not exist
+  import mezz.jei.api.JeiPlugin;
+                     ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:16: error: package mezz.jei.api.registration does not exist
+  import mezz.jei.api.registration.IRecipeCatalystRegistration;
+                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:17: error: package mezz.jei.api.registration does not exist
+  import mezz.jei.api.registration.IRecipeCategoryRegistration;
+                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:18: error: package mezz.jei.api.registration does not exist
+  import mezz.jei.api.registration.IRecipeRegistration;
+                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:19: error: package mezz.jei.api.runtime does not exist
+  import mezz.jei.api.runtime.IJeiRuntime;
+                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:5: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.ItemPredicate;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredSkillPointSources.java:5: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredSkillPointSources.java:6: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.EntityPredicate;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredSkillPointSources.java:7: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.ItemPredicate;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:22: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:23: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.LocationPredicate;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:24: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.PlayerTrigger;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\loot\GlobalLootModifierProvider.java:9: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.EntityPredicate;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\RecipeProvider.java:13: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\RecipeProvider.java:296: error: package InventoryChangeTrigger does not exist
+      public Criterion<InventoryChangeTrigger.TriggerInstance> has(ItemLike itemLike) {
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\RecipeProvider.java:301: error: package InventoryChangeTrigger does not exist
+      public Criterion<InventoryChangeTrigger.TriggerInstance> has(TagKey<Item> tag) {
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\SkillListeners.java:9: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.EntityPredicate;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:7: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\worldgen\OverworldBiomesRegion.java:10: error: package terrablender.api does not exist
+  import terrablender.api.*;
+                     ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\AnimatedItemTooltipEvent.java:14: error: class NeoAnimatedItemTooltipEvent is public, should be declared in a file named NeoAnimatedItemTooltipEvent.java
+  public class NeoAnimatedItemTooltipEvent extends Event {
+         ^
+  100 errors
+  35 warnings
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+2 actionable tasks: 1 executed, 1 up-to-date

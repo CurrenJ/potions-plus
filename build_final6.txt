@@ -1,0 +1,48 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Task :common:compileJava FAILED
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\PlayerAbilities.java:24: error: incompatible types: Holder<PlayerAbility<?>> cannot be converted to Holder<AttributeModifiersWhileHeldAbility>
+        MODIFIERS_WHILE_ITEM_HELD = register.apply("modifiers_while_item_held", AttributeModifiersWhileHeldAbility::new);
+                                                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\AttributeModifiersWhileHeldAbility.java:104: error: incompatible types: inference variable E has incompatible bounds
+        return List.of(
+                      ^
+    equality constraints: Holder<PlayerAbility<?>>
+    lower bounds: Holder<AttributeModifiersWhileHeldAbility>
+  where E is a type-variable:
+    E extends Object declared in method <E>of(E)
+Note: D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\AttributeModifiersWhileHeldAbility.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+2 errors
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\PlayerAbilities.java:24: error: incompatible types: Holder<PlayerAbility<?>> cannot be converted to Holder<AttributeModifiersWhileHeldAbility>
+          MODIFIERS_WHILE_ITEM_HELD = register.apply("modifiers_while_item_held", AttributeModifiersWhileHeldAbility::new);
+                                                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\AttributeModifiersWhileHeldAbility.java:104: error: incompatible types: inference variable E has incompatible bounds
+          return List.of(
+                        ^
+      equality constraints: Holder<PlayerAbility<?>>
+      lower bounds: Holder<AttributeModifiersWhileHeldAbility>
+    where E is a type-variable:
+      E extends Object declared in method <E>of(E)
+  Note: D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\AttributeModifiersWhileHeldAbility.java uses unchecked or unsafe operations.
+  Note: Recompile with -Xlint:unchecked for details.
+  2 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 1s
+1 actionable task: 1 executed

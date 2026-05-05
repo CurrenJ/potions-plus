@@ -1,0 +1,1000 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :common:compileJava FAILED
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:62: error: cannot find symbol
+            for (ItemAttributeModifiers.Entry entry : itemStack.getAttributeModifiers().modifiers()) {
+                                                               ^
+  symbol:   method getAttributeModifiers()
+  location: variable itemStack of type ItemStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:167: error: cannot find symbol
+        TriState soilDecision = belowBlockState.canSustainPlant(level, blockpos, facing.getOpposite(), state);
+                                               ^
+  symbol:   method canSustainPlant(LevelReader,BlockPos,Direction,BlockState)
+  location: variable belowBlockState of type BlockState
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:168: error: cannot find symbol
+        if (!soilDecision.isDefault()) return soilDecision.isTrue();
+                         ^
+  symbol:   method isDefault()
+  location: variable soilDecision of type TriState
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:168: error: cannot find symbol
+        if (!soilDecision.isDefault()) return soilDecision.isTrue();
+                                                          ^
+  symbol:   method isTrue()
+  location: variable soilDecision of type TriState
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:74: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\DecorativeFireBlock.java:40: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:165: error: cannot find symbol
+        if (!level.isAreaLoaded(pos, 1))
+                  ^
+  symbol:   method isAreaLoaded(BlockPos,int)
+  location: variable level of type ServerLevel
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:183: error: cannot find symbol
+            var soilDecision = blockstate.canSustainPlant(level, pos.below(), Direction.UP, state);
+                                         ^
+  symbol:   method canSustainPlant(LevelReader,BlockPos,Direction,BlockState)
+  location: variable blockstate of type BlockState
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:137: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:390: error: cannot find symbol
+        ParticleOptions particleoptions = fluid.getFluidType().getDripInfo() != null ? fluid.getFluidType().getDripInfo().dripParticle() : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
+                                               ^
+  symbol:   method getFluidType()
+  location: variable fluid of type Fluid
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:390: error: cannot find symbol
+        ParticleOptions particleoptions = fluid.getFluidType().getDripInfo() != null ? fluid.getFluidType().getDripInfo().dripParticle() : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
+                                                                                            ^
+  symbol:   method getFluidType()
+  location: variable fluid of type Fluid
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:553: error: cannot find symbol
+            return p_154053_.dimensionType().ultraWarm() ? Fluids.LAVA : Fluids.WATER;
+                                            ^
+  symbol:   method ultraWarm()
+  location: class DimensionType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LunarBerryBushBlock.java:70: error: cannot find symbol
+            serverLevel.sendParticles(Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.get(), blockPos.getX() + 0.5D, blockPos.getY() + 1.1D, blockPos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0F);
+                                                                                ^
+  symbol:   method get()
+  location: variable LUNAR_BERRY_BUSH_AMBIENT_EMITTER of type Holder<SimpleParticleType>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:113: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:131: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:98: error: cannot find symbol
+        super(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), pos, state);
+                                               ^
+  symbol:   method get()
+  location: variable ABYSSAL_TROVE_BLOCK_ENTITY of type Holder<BlockEntityType<AbyssalTroveBlockEntity>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:223: error: cannot find symbol
+            int tier = entry.key();
+                            ^
+  symbol:   method key()
+  location: variable entry of type Entry<Integer,List<AbyssalTroveRenderedItem>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:41: error: cannot find symbol
+        BlockModelResolver = context.getBlockModelResolver();
+                                    ^
+  symbol:   method getBlockModelResolver()
+  location: variable context of type Context
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:52: error: cannot find symbol
+            int row = items.key();
+                           ^
+  symbol:   method key()
+  location: variable items of type Entry<Integer,List<AbyssalTroveRenderedItem>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:82: error: cannot find symbol
+                Minecraft.getInstance().getItemRenderer().renderStatic(item.icon, ItemDisplayContext.FIXED,
+                                       ^
+  symbol:   method getItemRenderer()
+  location: class Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:94: error: cannot find symbol
+                        Minecraft.getInstance().getItemRenderer().renderStatic(subIcon, ItemDisplayContext.FIXED,
+                                               ^
+  symbol:   method getItemRenderer()
+  location: class Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:258: error: cannot find symbol
+                            Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, recipe.getType(), PpIngredient.of(result));
+                                                     ^
+  symbol:   method value()
+  location: variable CRAFT_RECIPE of type CraftRecipeTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:40: error: cannot find symbol
+        BlockModelResolver = context.getBlockModelResolver();
+                                    ^
+  symbol:   method getBlockModelResolver()
+  location: variable context of type Context
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:129: error: cannot find symbol
+                Optional<RecipeHolder<ClotheslineRecipe>> recipeHolder = Recipes.recipes.getRecipesFor(Recipes.CLOTHESLINE_RECIPE.value(), recipeInput, level).findFirst();
+                                                                                                                                 ^
+  symbol:   method value()
+  location: variable CLOTHESLINE_RECIPE of type RecipeType<ClotheslineRecipe>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:170: error: cannot find symbol
+                ItemStack container = getItem(slot).getCraftingRemainder();
+                                                   ^
+  symbol:   method getCraftingRemainder()
+  location: class ItemStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:188: error: cannot find symbol
+                            Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
+                                                     ^
+  symbol:   method value()
+  location: variable CRAFT_RECIPE of type CraftRecipeTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:212: error: cannot find symbol
+            level.addParticle(Particles.END_ROD_RAIN.get(),
+                                                    ^
+  symbol:   method get()
+  location: variable END_ROD_RAIN of type Holder<SimpleParticleType>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\clotheslinerecipe\ClotheslineRecipe.java:24: error: ClotheslineRecipe is not abstract and does not override abstract method group() in Recipe
+public class ClotheslineRecipe extends ShapelessProcessingRecipe {
+       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:52: error: cannot find symbol
+        BlockModelResolver = context.getBlockModelResolver();
+                                    ^
+  symbol:   method getBlockModelResolver()
+  location: variable context of type Context
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:92: error: cannot find symbol
+        post.ifPresent(state -> BlockModelResolver.renderSingleBlock(
+                                                  ^
+  symbol:   method renderSingleBlock(BlockState,PoseStack,MultiBufferSource,int,int)
+  location: variable BlockModelResolver of type BlockModelResolver
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:103: error: cannot find symbol
+        post.ifPresent(state -> BlockModelResolver.renderSingleBlock(
+                                                  ^
+  symbol:   method renderSingleBlock(BlockState,PoseStack,MultiBufferSource,int,int)
+  location: variable BlockModelResolver of type BlockModelResolver
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:27: error: cannot assign a value to final variable imageHeight
+        this.imageHeight = 205;
+            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:56: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:58: error: cannot find symbol
+        super.render(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
+             ^
+  symbol: method render(GuiGraphicsExtractor,int,int,float)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:59: error: cannot find symbol
+        this.renderTooltip(GuiGraphicsExtractor, mouseX, mouseY);
+            ^
+  symbol: method renderTooltip(GuiGraphicsExtractor,int,int)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:62: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:66: error: invalid method reference
+        GuiGraphicsExtractor.blit(RenderType::guiTextured, getTexture(), i, j, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+                                  ^
+  cannot find symbol
+    symbol:   method guiTextured()
+    location: class RenderType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:16: error: cannot assign a value to final variable imageWidth
+        this.imageWidth = 256;
+            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:17: error: cannot assign a value to final variable imageHeight
+        this.imageHeight = 239;
+            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:25: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:27: error: cannot find symbol
+        GuiGraphicsExtractor.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
+                            ^
+  symbol:   method drawString(Font,Component,int,int,int,boolean)
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:16: error: cannot assign a value to final variable imageWidth
+        this.imageWidth = 195;
+            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:17: error: cannot assign a value to final variable imageHeight
+        this.imageHeight = 233;
+            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:25: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:27: error: cannot find symbol
+        GuiGraphicsExtractor.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
+                            ^
+  symbol:   method drawString(Font,Component,int,int,int,boolean)
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\SmallFilterHopperScreen.java:15: error: cannot assign a value to final variable imageWidth
+        this.imageWidth = 195;
+            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\SmallFilterHopperScreen.java:16: error: cannot assign a value to final variable imageHeight
+        this.imageHeight = 205;
+            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:38: error: cannot find symbol
+        BlockModelResolver = context.getBlockModelResolver();
+                                    ^
+  symbol:   method getBlockModelResolver()
+  location: variable context of type Context
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:38: error: cannot find symbol
+        BlockModelResolver = context.getBlockModelResolver();
+                                    ^
+  symbol:   method getBlockModelResolver()
+  location: variable context of type Context
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntity.java:159: error: cannot find symbol
+                    Advancements.CRAFT_RECIPE.get().trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE.value(), PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
+                                             ^
+  symbol:   method get()
+  location: variable CRAFT_RECIPE of type CraftRecipeTrigger
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntity.java:159: error: cannot find symbol
+                    Advancements.CRAFT_RECIPE.get().trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE.value(), PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
+                                                                                                       ^
+  symbol:   method value()
+  location: variable SANGUINE_ALTAR_RECIPE of type RecipeType<SanguineAltarRecipe>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\abyssaltroverecipe\SanguineAltarRecipe.java:23: error: SanguineAltarRecipe is not abstract and does not override abstract method group() in Recipe
+public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
+       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntityRenderer.java:33: error: cannot find symbol
+        BlockModelResolver = context.getBlockModelResolver();
+                                    ^
+  symbol:   method getBlockModelResolver()
+  location: variable context of type Context
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\AdjustableStrengthAbilityInstanceData.java:107: error: cannot find symbol
+        PacketNetwork.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.key().identifier(), -stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
+                                                                                          ^
+  symbol:   method key()
+  location: variable ability of type Holder<ConfiguredPlayerAbility<?,?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\AdjustableStrengthAbilityInstanceData.java:111: error: cannot find symbol
+        PacketNetwork.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.key().identifier(), stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
+                                                                                          ^
+  symbol:   method key()
+  location: variable ability of type Holder<ConfiguredPlayerAbility<?,?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\keyframe\AnimationCurve.java:109: error: cannot find symbol
+        player.displayClientMessage(Component.literal("Keyframes:").withStyle(ChatFormatting.BOLD), false);
+              ^
+  symbol:   method displayClientMessage(MutableComponent,boolean)
+  location: variable player of type Player
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\keyframe\AnimationCurve.java:111: error: cannot find symbol
+            player.displayClientMessage(keyframe.toComponent(), false);
+                  ^
+  symbol:   method displayClientMessage(Component,boolean)
+  location: variable player of type Player
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:49: error: cannot find symbol
+        RegistrationUtility.registerBlockItemWithTexture(BREWING_CAULDRON, registerItem, ppId("item/brewing_cauldron"));
+                           ^
+  symbol:   method registerBlockItemWithTexture(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>,Identifier)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:67: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(PARTICLE_EMITTER, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:84: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(HERBALISTS_LECTERN, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:101: error: cannot find symbol
+        RegistrationUtility.registerBlockItemWithAutoModel(() -> SANGUINE_ALTAR, registerItem);
+                           ^
+  symbol:   method registerBlockItemWithAutoModel(()->SANGUINE_ALTAR,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:118: error: cannot find symbol
+        RegistrationUtility.registerBlockItemWithAutoModel(() -> ABYSSAL_TROVE, registerItem);
+                           ^
+  symbol:   method registerBlockItemWithAutoModel(()->ABYSSAL_TROVE,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:131: error: cannot find symbol
+        RegistrationUtility.registerBlockItemWithAutoModel(() -> PRECISION_DISPENSER, registerItem);
+                           ^
+  symbol:   method registerBlockItemWithAutoModel(()->PRECIS[...]ENSER,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:139: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(CLOTHESLINE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:168: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(POTION_BEACON, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:182: error: cannot find symbol
+        RegistrationUtility.registerBlockItemWithAutoModel(() -> SKILL_JOURNALS, registerItem);
+                           ^
+  symbol:   method registerBlockItemWithAutoModel(()->SKILL_JOURNALS,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:38: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(COOBLESTONE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:52: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(ICICLE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:57: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(UNSTABLE_BLOCK, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:62: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(UNSTABLE_MOLTEN_DEEPSLATE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:68: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(UNSTABLE_DEEPSLATE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:73: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(UNSTABLE_MOLTEN_BLACKSTONE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:79: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(UNSTABLE_BLACKSTONE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:85: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(LAVA_GEYSER, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:92: error: cannot find symbol
+        RegistrationUtility.registerBlockItemWithTexture(DECORATIVE_FIRE, registerItem, mc("block/fire_0"));
+                           ^
+  symbol:   method registerBlockItemWithTexture(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>,Identifier)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:98: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:104: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICKS, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:115: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE_SLAB, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:128: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE_STAIRS, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:139: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICK_SLAB, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:152: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICK_STAIRS, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:27: error: cannot find symbol
+            new Pair<>(new ItemStack(SkillLootItems.MOSSASHIMI.getValue()), SIMPLE_DUNGEON_LOOT.key())
+                                                                                               ^
+  symbol:   method key()
+  location: variable SIMPLE_DUNGEON_LOOT of type AdvancementRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:27: error: incompatible types: cannot infer type arguments for Pair<>
+            new Pair<>(new ItemStack(SkillLootItems.MOSSASHIMI.getValue()), SIMPLE_DUNGEON_LOOT.key())
+                    ^
+    reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+  where A,B are type-variables:
+    A extends Object declared in class Pair
+    B extends Object declared in class Pair
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:36: error: cannot find symbol
+            new Pair<>(new ItemStack(SkillLootItems.STONE_FRUIT.getValue()), ABANDONED_MINESHAFT_LOOT.key())
+                                                                                                     ^
+  symbol:   method key()
+  location: variable ABANDONED_MINESHAFT_LOOT of type AdvancementRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:36: error: incompatible types: cannot infer type arguments for Pair<>
+            new Pair<>(new ItemStack(SkillLootItems.STONE_FRUIT.getValue()), ABANDONED_MINESHAFT_LOOT.key())
+                    ^
+    reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+  where A,B are type-variables:
+    A extends Object declared in class Pair
+    B extends Object declared in class Pair
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:45: error: cannot find symbol
+            new Pair<>(new ItemStack(SkillLootItems.CHOCOLATE_BOOK.getValue()), STRONGHOLD_LIBRARY_LOOT.key())
+                                                                                                       ^
+  symbol:   method key()
+  location: variable STRONGHOLD_LIBRARY_LOOT of type AdvancementRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:45: error: incompatible types: cannot infer type arguments for Pair<>
+            new Pair<>(new ItemStack(SkillLootItems.CHOCOLATE_BOOK.getValue()), STRONGHOLD_LIBRARY_LOOT.key())
+                    ^
+    reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+  where A,B are type-variables:
+    A extends Object declared in class Pair
+    B extends Object declared in class Pair
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:54: error: cannot find symbol
+            new Pair<>(new ItemStack(SkillLootItems.PYRAMIDS_OF_SALT.getValue()), DESERT_PYRAMID_LOOT.key())
+                                                                                                     ^
+  symbol:   method key()
+  location: variable DESERT_PYRAMID_LOOT of type AdvancementRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:54: error: incompatible types: cannot infer type arguments for Pair<>
+            new Pair<>(new ItemStack(SkillLootItems.PYRAMIDS_OF_SALT.getValue()), DESERT_PYRAMID_LOOT.key())
+                    ^
+    reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+  where A,B are type-variables:
+    A extends Object declared in class Pair
+    B extends Object declared in class Pair
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:63: error: cannot find symbol
+            new Pair<>(new ItemStack(SkillLootItems.ROASTED_BAMBOO.getValue()), JUNGLE_TEMPLE_LOOT.key())
+                                                                                                  ^
+  symbol:   method key()
+  location: variable JUNGLE_TEMPLE_LOOT of type AdvancementRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:63: error: incompatible types: cannot infer type arguments for Pair<>
+            new Pair<>(new ItemStack(SkillLootItems.ROASTED_BAMBOO.getValue()), JUNGLE_TEMPLE_LOOT.key())
+                    ^
+    reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+  where A,B are type-variables:
+    A extends Object declared in class Pair
+    B extends Object declared in class Pair
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:72: error: cannot find symbol
+            new Pair<>(new ItemStack(SkillLootItems.BASIC_LOOT.getValue()), BASIC_SKILL_REWARDS.key())
+                                                                                               ^
+  symbol:   method key()
+  location: variable BASIC_SKILL_REWARDS of type AdvancementRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:72: error: incompatible types: cannot infer type arguments for Pair<>
+            new Pair<>(new ItemStack(SkillLootItems.BASIC_LOOT.getValue()), BASIC_SKILL_REWARDS.key())
+                    ^
+    reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+  where A,B are type-variables:
+    A extends Object declared in class Pair
+    B extends Object declared in class Pair
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:81: error: cannot find symbol
+            new Pair<>(new ItemStack(SkillLootItems.INTERMEDIATE_LOOT.getValue()), INTERMEDIATE_SKILL_REWARDS.key())
+                                                                                                             ^
+  symbol:   method key()
+  location: variable INTERMEDIATE_SKILL_REWARDS of type AdvancementRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:81: error: incompatible types: cannot infer type arguments for Pair<>
+            new Pair<>(new ItemStack(SkillLootItems.INTERMEDIATE_LOOT.getValue()), INTERMEDIATE_SKILL_REWARDS.key())
+                    ^
+    reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+  where A,B are type-variables:
+    A extends Object declared in class Pair
+    B extends Object declared in class Pair
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:90: error: cannot find symbol
+            new Pair<>(new ItemStack(SkillLootItems.ADVANCED_LOOT.getValue()), ADVANCED_SKILL_REWARDS.key())
+                                                                                                     ^
+  symbol:   method key()
+  location: variable ADVANCED_SKILL_REWARDS of type AdvancementRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:90: error: incompatible types: cannot infer type arguments for Pair<>
+            new Pair<>(new ItemStack(SkillLootItems.ADVANCED_LOOT.getValue()), ADVANCED_SKILL_REWARDS.key())
+                    ^
+    reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+  where A,B are type-variables:
+    A extends Object declared in class Pair
+    B extends Object declared in class Pair
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:99: error: cannot find symbol
+            new Pair<>(new ItemStack(SkillLootItems.SPARKLING_SQUASH.getValue()), EXPERT_SKILL_REWARDS.key())
+                                                                                                      ^
+  symbol:   method key()
+  location: variable EXPERT_SKILL_REWARDS of type AdvancementRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:99: error: incompatible types: cannot infer type arguments for Pair<>
+            new Pair<>(new ItemStack(SkillLootItems.SPARKLING_SQUASH.getValue()), EXPERT_SKILL_REWARDS.key())
+                    ^
+    reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+  where A,B are type-variables:
+    A extends Object declared in class Pair
+    B extends Object declared in class Pair
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:108: error: cannot find symbol
+            new Pair<>(new ItemStack(SkillLootItems.MASTER_LOOT.getValue()), MASTER_SKILL_REWARDS.key())
+                                                                                                 ^
+  symbol:   method key()
+  location: variable MASTER_SKILL_REWARDS of type AdvancementRewardBuilder
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:58: error: cannot find symbol
+          super.render(GuiGraphicsExtractor, mouseX, mouseY, partialTick);
+               ^
+    symbol: method render(GuiGraphicsExtractor,int,int,float)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:59: error: cannot find symbol
+          this.renderTooltip(GuiGraphicsExtractor, mouseX, mouseY);
+              ^
+    symbol: method renderTooltip(GuiGraphicsExtractor,int,int)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:27: error: cannot assign a value to final variable imageHeight
+          this.imageHeight = 205;
+              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:16: error: cannot assign a value to final variable imageWidth
+          this.imageWidth = 256;
+              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:17: error: cannot assign a value to final variable imageHeight
+          this.imageHeight = 239;
+              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:16: error: cannot assign a value to final variable imageWidth
+          this.imageWidth = 195;
+              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:17: error: cannot assign a value to final variable imageHeight
+          this.imageHeight = 233;
+              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\SmallFilterHopperScreen.java:15: error: cannot assign a value to final variable imageWidth
+          this.imageWidth = 195;
+              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\SmallFilterHopperScreen.java:16: error: cannot assign a value to final variable imageHeight
+          this.imageHeight = 205;
+              ^
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:66: error: invalid method reference
+          GuiGraphicsExtractor.blit(RenderType::guiTextured, getTexture(), i, j, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+                                    ^
+    cannot find symbol
+      symbol:   method guiTextured()
+      location: class RenderType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:27: error: incompatible types: cannot infer type arguments for Pair<>
+              new Pair<>(new ItemStack(SkillLootItems.MOSSASHIMI.getValue()), SIMPLE_DUNGEON_LOOT.key())
+                      ^
+      reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+    where A,B are type-variables:
+      A extends Object declared in class Pair
+      B extends Object declared in class Pair
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:36: error: incompatible types: cannot infer type arguments for Pair<>
+              new Pair<>(new ItemStack(SkillLootItems.STONE_FRUIT.getValue()), ABANDONED_MINESHAFT_LOOT.key())
+                      ^
+      reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+    where A,B are type-variables:
+      A extends Object declared in class Pair
+      B extends Object declared in class Pair
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:45: error: incompatible types: cannot infer type arguments for Pair<>
+              new Pair<>(new ItemStack(SkillLootItems.CHOCOLATE_BOOK.getValue()), STRONGHOLD_LIBRARY_LOOT.key())
+                      ^
+      reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+    where A,B are type-variables:
+      A extends Object declared in class Pair
+      B extends Object declared in class Pair
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:54: error: incompatible types: cannot infer type arguments for Pair<>
+              new Pair<>(new ItemStack(SkillLootItems.PYRAMIDS_OF_SALT.getValue()), DESERT_PYRAMID_LOOT.key())
+                      ^
+      reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+    where A,B are type-variables:
+      A extends Object declared in class Pair
+      B extends Object declared in class Pair
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:63: error: incompatible types: cannot infer type arguments for Pair<>
+              new Pair<>(new ItemStack(SkillLootItems.ROASTED_BAMBOO.getValue()), JUNGLE_TEMPLE_LOOT.key())
+                      ^
+      reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+    where A,B are type-variables:
+      A extends Object declared in class Pair
+      B extends Object declared in class Pair
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:72: error: incompatible types: cannot infer type arguments for Pair<>
+              new Pair<>(new ItemStack(SkillLootItems.BASIC_LOOT.getValue()), BASIC_SKILL_REWARDS.key())
+                      ^
+      reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+    where A,B are type-variables:
+      A extends Object declared in class Pair
+      B extends Object declared in class Pair
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:81: error: incompatible types: cannot infer type arguments for Pair<>
+              new Pair<>(new ItemStack(SkillLootItems.INTERMEDIATE_LOOT.getValue()), INTERMEDIATE_SKILL_REWARDS.key())
+                      ^
+      reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+    where A,B are type-variables:
+      A extends Object declared in class Pair
+      B extends Object declared in class Pair
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:90: error: incompatible types: cannot infer type arguments for Pair<>
+              new Pair<>(new ItemStack(SkillLootItems.ADVANCED_LOOT.getValue()), ADVANCED_SKILL_REWARDS.key())
+                      ^
+      reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+    where A,B are type-variables:
+      A extends Object declared in class Pair
+      B extends Object declared in class Pair
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:99: error: incompatible types: cannot infer type arguments for Pair<>
+              new Pair<>(new ItemStack(SkillLootItems.SPARKLING_SQUASH.getValue()), EXPERT_SKILL_REWARDS.key())
+                      ^
+      reason: no instance(s) of type variable(s) A,B exist so that Pair<A,B> conforms to Pair<ItemStack,ResourceKey<ConfiguredGrantableReward<?,?>>>[]
+    where A,B are type-variables:
+      A extends Object declared in class Pair
+      B extends Object declared in class Pair
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\clotheslinerecipe\ClotheslineRecipe.java:24: error: ClotheslineRecipe is not abstract and does not override abstract method group() in Recipe
+  public class ClotheslineRecipe extends ShapelessProcessingRecipe {
+         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\abyssaltroverecipe\SanguineAltarRecipe.java:23: error: SanguineAltarRecipe is not abstract and does not override abstract method group() in Recipe
+  public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
+         ^
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:74: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\DecorativeFireBlock.java:40: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:137: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:113: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:131: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:56: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\FilterHopperScreen.java:62: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:25: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:25: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\behaviour\LootItemModifiersBehaviour.java:62: error: cannot find symbol
+              for (ItemAttributeModifiers.Entry entry : itemStack.getAttributeModifiers().modifiers()) {
+                                                                 ^
+    symbol:   method getAttributeModifiers()
+    location: variable itemStack of type ItemStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:167: error: cannot find symbol
+          TriState soilDecision = belowBlockState.canSustainPlant(level, blockpos, facing.getOpposite(), state);
+                                                 ^
+    symbol:   method canSustainPlant(LevelReader,BlockPos,Direction,BlockState)
+    location: variable belowBlockState of type BlockState
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:168: error: cannot find symbol
+          if (!soilDecision.isDefault()) return soilDecision.isTrue();
+                           ^
+    symbol:   method isDefault()
+    location: variable soilDecision of type TriState
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\VersatilePlantBlock.java:168: error: cannot find symbol
+          if (!soilDecision.isDefault()) return soilDecision.isTrue();
+                                                            ^
+    symbol:   method isTrue()
+    location: variable soilDecision of type TriState
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:165: error: cannot find symbol
+          if (!level.isAreaLoaded(pos, 1))
+                    ^
+    symbol:   method isAreaLoaded(BlockPos,int)
+    location: variable level of type ServerLevel
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:183: error: cannot find symbol
+              var soilDecision = blockstate.canSustainPlant(level, pos.below(), Direction.UP, state);
+                                           ^
+    symbol:   method canSustainPlant(LevelReader,BlockPos,Direction,BlockState)
+    location: variable blockstate of type BlockState
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:390: error: cannot find symbol
+          ParticleOptions particleoptions = fluid.getFluidType().getDripInfo() != null ? fluid.getFluidType().getDripInfo().dripParticle() : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
+                                                 ^
+    symbol:   method getFluidType()
+    location: variable fluid of type Fluid
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:390: error: cannot find symbol
+          ParticleOptions particleoptions = fluid.getFluidType().getDripInfo() != null ? fluid.getFluidType().getDripInfo().dripParticle() : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
+                                                                                              ^
+    symbol:   method getFluidType()
+    location: variable fluid of type Fluid
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\IcicleBlock.java:553: error: cannot find symbol
+              return p_154053_.dimensionType().ultraWarm() ? Fluids.LAVA : Fluids.WATER;
+                                              ^
+    symbol:   method ultraWarm()
+    location: class DimensionType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\block\LunarBerryBushBlock.java:70: error: cannot find symbol
+              serverLevel.sendParticles(Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.get(), blockPos.getX() + 0.5D, blockPos.getY() + 1.1D, blockPos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0F);
+                                                                                  ^
+    symbol:   method get()
+    location: variable LUNAR_BERRY_BUSH_AMBIENT_EMITTER of type Holder<SimpleParticleType>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:98: error: cannot find symbol
+          super(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), pos, state);
+                                                 ^
+    symbol:   method get()
+    location: variable ABYSSAL_TROVE_BLOCK_ENTITY of type Holder<BlockEntityType<AbyssalTroveBlockEntity>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:223: error: cannot find symbol
+              int tier = entry.key();
+                              ^
+    symbol:   method key()
+    location: variable entry of type Entry<Integer,List<AbyssalTroveRenderedItem>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:41: error: cannot find symbol
+          BlockModelResolver = context.getBlockModelResolver();
+                                      ^
+    symbol:   method getBlockModelResolver()
+    location: variable context of type Context
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:52: error: cannot find symbol
+              int row = items.key();
+                             ^
+    symbol:   method key()
+    location: variable items of type Entry<Integer,List<AbyssalTroveRenderedItem>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:82: error: cannot find symbol
+                  Minecraft.getInstance().getItemRenderer().renderStatic(item.icon, ItemDisplayContext.FIXED,
+                                         ^
+    symbol:   method getItemRenderer()
+    location: class Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntityRenderer.java:94: error: cannot find symbol
+                          Minecraft.getInstance().getItemRenderer().renderStatic(subIcon, ItemDisplayContext.FIXED,
+                                                 ^
+    symbol:   method getItemRenderer()
+    location: class Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:258: error: cannot find symbol
+                              Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, recipe.getType(), PpIngredient.of(result));
+                                                       ^
+    symbol:   method value()
+    location: variable CRAFT_RECIPE of type CraftRecipeTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntityRenderer.java:40: error: cannot find symbol
+          BlockModelResolver = context.getBlockModelResolver();
+                                      ^
+    symbol:   method getBlockModelResolver()
+    location: variable context of type Context
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:129: error: cannot find symbol
+                  Optional<RecipeHolder<ClotheslineRecipe>> recipeHolder = Recipes.recipes.getRecipesFor(Recipes.CLOTHESLINE_RECIPE.value(), recipeInput, level).findFirst();
+                                                                                                                                   ^
+    symbol:   method value()
+    location: variable CLOTHESLINE_RECIPE of type RecipeType<ClotheslineRecipe>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:170: error: cannot find symbol
+                  ItemStack container = getItem(slot).getCraftingRemainder();
+                                                     ^
+    symbol:   method getCraftingRemainder()
+    location: class ItemStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:188: error: cannot find symbol
+                              Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
+                                                       ^
+    symbol:   method value()
+    location: variable CRAFT_RECIPE of type CraftRecipeTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:212: error: cannot find symbol
+              level.addParticle(Particles.END_ROD_RAIN.get(),
+                                                      ^
+    symbol:   method get()
+    location: variable END_ROD_RAIN of type Holder<SimpleParticleType>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:52: error: cannot find symbol
+          BlockModelResolver = context.getBlockModelResolver();
+                                      ^
+    symbol:   method getBlockModelResolver()
+    location: variable context of type Context
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:92: error: cannot find symbol
+          post.ifPresent(state -> BlockModelResolver.renderSingleBlock(
+                                                    ^
+    symbol:   method renderSingleBlock(BlockState,PoseStack,MultiBufferSource,int,int)
+    location: variable BlockModelResolver of type BlockModelResolver
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:103: error: cannot find symbol
+          post.ifPresent(state -> BlockModelResolver.renderSingleBlock(
+                                                    ^
+    symbol:   method renderSingleBlock(BlockState,PoseStack,MultiBufferSource,int,int)
+    location: variable BlockModelResolver of type BlockModelResolver
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\HugeFilterHopperScreen.java:27: error: cannot find symbol
+          GuiGraphicsExtractor.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
+                              ^
+    symbol:   method drawString(Font,Component,int,int,int,boolean)
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\filterhopper\LargeFilterHopperScreen.java:27: error: cannot find symbol
+          GuiGraphicsExtractor.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
+                              ^
+    symbol:   method drawString(Font,Component,int,int,int,boolean)
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntityRenderer.java:38: error: cannot find symbol
+          BlockModelResolver = context.getBlockModelResolver();
+                                      ^
+    symbol:   method getBlockModelResolver()
+    location: variable context of type Context
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntityRenderer.java:38: error: cannot find symbol
+          BlockModelResolver = context.getBlockModelResolver();
+                                      ^
+    symbol:   method getBlockModelResolver()
+    location: variable context of type Context
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntity.java:159: error: cannot find symbol
+                      Advancements.CRAFT_RECIPE.get().trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE.value(), PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
+                                               ^
+    symbol:   method get()
+    location: variable CRAFT_RECIPE of type CraftRecipeTrigger
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntity.java:159: error: cannot find symbol
+                      Advancements.CRAFT_RECIPE.get().trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE.value(), PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
+                                                                                                         ^
+    symbol:   method value()
+    location: variable SANGUINE_ALTAR_RECIPE of type RecipeType<SanguineAltarRecipe>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntityRenderer.java:33: error: cannot find symbol
+          BlockModelResolver = context.getBlockModelResolver();
+                                      ^
+    symbol:   method getBlockModelResolver()
+    location: variable context of type Context
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\AdjustableStrengthAbilityInstanceData.java:107: error: cannot find symbol
+          PacketNetwork.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.key().identifier(), -stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
+                                                                                            ^
+    symbol:   method key()
+    location: variable ability of type Holder<ConfiguredPlayerAbility<?,?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\instance\AdjustableStrengthAbilityInstanceData.java:111: error: cannot find symbol
+          PacketNetwork.sendToServer(new ServerboundUpdateAbilityStrengthPacket(this.ability.key().identifier(), stepSize, ServerboundUpdateAbilityStrengthPacket.Operation.ADD));
+                                                                                            ^
+    symbol:   method key()
+    location: variable ability of type Holder<ConfiguredPlayerAbility<?,?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\keyframe\AnimationCurve.java:109: error: cannot find symbol
+          player.displayClientMessage(Component.literal("Keyframes:").withStyle(ChatFormatting.BOLD), false);
+                ^
+    symbol:   method displayClientMessage(MutableComponent,boolean)
+    location: variable player of type Player
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\keyframe\AnimationCurve.java:111: error: cannot find symbol
+              player.displayClientMessage(keyframe.toComponent(), false);
+                    ^
+    symbol:   method displayClientMessage(Component,boolean)
+    location: variable player of type Player
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:49: error: cannot find symbol
+          RegistrationUtility.registerBlockItemWithTexture(BREWING_CAULDRON, registerItem, ppId("item/brewing_cauldron"));
+                             ^
+    symbol:   method registerBlockItemWithTexture(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>,Identifier)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:67: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(PARTICLE_EMITTER, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:84: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(HERBALISTS_LECTERN, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:101: error: cannot find symbol
+          RegistrationUtility.registerBlockItemWithAutoModel(() -> SANGUINE_ALTAR, registerItem);
+                             ^
+    symbol:   method registerBlockItemWithAutoModel(()->SANGUINE_ALTAR,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:118: error: cannot find symbol
+          RegistrationUtility.registerBlockItemWithAutoModel(() -> ABYSSAL_TROVE, registerItem);
+                             ^
+    symbol:   method registerBlockItemWithAutoModel(()->ABYSSAL_TROVE,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:131: error: cannot find symbol
+          RegistrationUtility.registerBlockItemWithAutoModel(() -> PRECISION_DISPENSER, registerItem);
+                             ^
+    symbol:   method registerBlockItemWithAutoModel(()->PRECIS[...]ENSER,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:139: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(CLOTHESLINE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:168: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(POTION_BEACON, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:182: error: cannot find symbol
+          RegistrationUtility.registerBlockItemWithAutoModel(() -> SKILL_JOURNALS, registerItem);
+                             ^
+    symbol:   method registerBlockItemWithAutoModel(()->SKILL_JOURNALS,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:38: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(COOBLESTONE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:52: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(ICICLE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:57: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(UNSTABLE_BLOCK, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:62: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(UNSTABLE_MOLTEN_DEEPSLATE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:68: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(UNSTABLE_DEEPSLATE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:73: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(UNSTABLE_MOLTEN_BLACKSTONE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:79: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(UNSTABLE_BLACKSTONE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:85: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(LAVA_GEYSER, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:92: error: cannot find symbol
+          RegistrationUtility.registerBlockItemWithTexture(DECORATIVE_FIRE, registerItem, mc("block/fire_0"));
+                             ^
+    symbol:   method registerBlockItemWithTexture(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>,Identifier)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:98: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:104: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICKS, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:115: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE_SLAB, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:128: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE_STAIRS, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:139: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICK_SLAB, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:152: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICK_STAIRS, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:27: error: cannot find symbol
+              new Pair<>(new ItemStack(SkillLootItems.MOSSASHIMI.getValue()), SIMPLE_DUNGEON_LOOT.key())
+                                                                                                 ^
+    symbol:   method key()
+    location: variable SIMPLE_DUNGEON_LOOT of type AdvancementRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:36: error: cannot find symbol
+              new Pair<>(new ItemStack(SkillLootItems.STONE_FRUIT.getValue()), ABANDONED_MINESHAFT_LOOT.key())
+                                                                                                       ^
+    symbol:   method key()
+    location: variable ABANDONED_MINESHAFT_LOOT of type AdvancementRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:45: error: cannot find symbol
+              new Pair<>(new ItemStack(SkillLootItems.CHOCOLATE_BOOK.getValue()), STRONGHOLD_LIBRARY_LOOT.key())
+                                                                                                         ^
+    symbol:   method key()
+    location: variable STRONGHOLD_LIBRARY_LOOT of type AdvancementRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:54: error: cannot find symbol
+              new Pair<>(new ItemStack(SkillLootItems.PYRAMIDS_OF_SALT.getValue()), DESERT_PYRAMID_LOOT.key())
+                                                                                                       ^
+    symbol:   method key()
+    location: variable DESERT_PYRAMID_LOOT of type AdvancementRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:63: error: cannot find symbol
+              new Pair<>(new ItemStack(SkillLootItems.ROASTED_BAMBOO.getValue()), JUNGLE_TEMPLE_LOOT.key())
+                                                                                                    ^
+    symbol:   method key()
+    location: variable JUNGLE_TEMPLE_LOOT of type AdvancementRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:72: error: cannot find symbol
+              new Pair<>(new ItemStack(SkillLootItems.BASIC_LOOT.getValue()), BASIC_SKILL_REWARDS.key())
+                                                                                                 ^
+    symbol:   method key()
+    location: variable BASIC_SKILL_REWARDS of type AdvancementRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:81: error: cannot find symbol
+              new Pair<>(new ItemStack(SkillLootItems.INTERMEDIATE_LOOT.getValue()), INTERMEDIATE_SKILL_REWARDS.key())
+                                                                                                               ^
+    symbol:   method key()
+    location: variable INTERMEDIATE_SKILL_REWARDS of type AdvancementRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:90: error: cannot find symbol
+              new Pair<>(new ItemStack(SkillLootItems.ADVANCED_LOOT.getValue()), ADVANCED_SKILL_REWARDS.key())
+                                                                                                       ^
+    symbol:   method key()
+    location: variable ADVANCED_SKILL_REWARDS of type AdvancementRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:99: error: cannot find symbol
+              new Pair<>(new ItemStack(SkillLootItems.SPARKLING_SQUASH.getValue()), EXPERT_SKILL_REWARDS.key())
+                                                                                                        ^
+    symbol:   method key()
+    location: variable EXPERT_SKILL_REWARDS of type AdvancementRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\ConfiguredGrantableRewards.java:108: error: cannot find symbol
+              new Pair<>(new ItemStack(SkillLootItems.MASTER_LOOT.getValue()), MASTER_SKILL_REWARDS.key())
+                                                                                                   ^
+    symbol:   method key()
+    location: variable MASTER_SKILL_REWARDS of type AdvancementRewardBuilder
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+1 actionable task: 1 executed

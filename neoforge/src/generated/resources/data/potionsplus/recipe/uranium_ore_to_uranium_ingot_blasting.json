@@ -5,7 +5,6 @@
   "experience": 2.0,
   "ingredient": "#potionsplus:uranium_ore",
   "result": {
-    "count": 1,
     "id": "potionsplus:uranium_ingot"
   }
 }

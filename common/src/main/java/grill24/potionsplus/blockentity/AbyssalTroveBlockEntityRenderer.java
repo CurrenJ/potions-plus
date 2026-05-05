@@ -1,7 +1,5 @@
 package grill24.potionsplus.blockentity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.Recipes;
@@ -32,7 +30,7 @@ import org.joml.Vector3d;
 import java.util.List;
 import java.util.Map;
 
-@Environment(EnvType.CLIENT)
+
 public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<AbyssalTroveBlockEntity, AbyssalTroveRenderState> {
     private final BlockModelResolver BlockModelResolver;
     private ProfilerFiller profiler;

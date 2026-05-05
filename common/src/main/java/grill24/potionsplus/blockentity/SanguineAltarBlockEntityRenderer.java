@@ -1,7 +1,5 @@
 package grill24.potionsplus.blockentity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.items.DynamicIconItems;
@@ -23,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
 
-@Environment(EnvType.CLIENT)
+
 public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<SanguineAltarBlockEntity, SanguineAltarRenderState> {
     private final BlockModelResolver BlockModelResolver;
     private static final int CONVERTED_ITEM_DESCENT_TICKS = 20;
@@ -65,15 +63,24 @@ public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<San
 
             Vector3f point = points[p];
             // Added 4 runes to the generic icon, so pick a different one for each point.
-            ItemStack runeStack = RUNES[p % RUNES.length];
+            ItemStack[] runes = getRunes();
+            ItemStack runeStack = runes[p % runes.length];
             RUtil.renderItemWithYaw(blockEntity, runeStack, new Vector3d(point.x(), point.y(), point.z()), 20, 0, p * 10, itemScale, matrices, submitNodeCollector, light, overlay);
         }
     }
 
-    private static final ItemStack[] RUNES = new ItemStack[]{
-            DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.SGA_A_TEX_LOC),
-            DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.SGA_B_TEX_LOC),
-            DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.SGA_C_TEX_LOC),
-            DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.SGA_D_TEX_LOC)
-    };
+    private static ItemStack[] RUNES;
+
+    private static ItemStack[] getRunes() {
+        if (RUNES == null) {
+            RUNES = new ItemStack[]{
+                    DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.SGA_A_TEX_LOC),
+                    DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.SGA_B_TEX_LOC),
+                    DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.SGA_C_TEX_LOC),
+                    DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.SGA_D_TEX_LOC)
+            };
+        }
+        return RUNES;
+    }
+
 }

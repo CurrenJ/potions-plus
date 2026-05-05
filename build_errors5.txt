@@ -1,0 +1,988 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :neoforge:processResources UP-TO-DATE
+> Task :neoforge:processIncludeJars UP-TO-DATE
+> Task :neoforge:sourcesJar UP-TO-DATE
+> Task :neoforge:processTestResources NO-SOURCE
+> Task :neoforge:validateAccessWidener NO-SOURCE
+
+> Task :common:compileJava FAILED
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:30: error: cannot find symbol
+public class VersatilePlantBlockModelGenerator<T, I extends Block> extends BlockModelUtility.BlockModelGenerator<I> {
+                                                                                            ^
+  symbol:   class BlockModelGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ClotheslineBlockModelGenerator.java:22: error: cannot find symbol
+public class ClotheslineBlockModelGenerator<T extends Block> extends BlockModelUtility.BlockModelGenerator<T> {
+                                                                                      ^
+  symbol:   class BlockModelGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\FaceAttachedBlockModelGenerator.java:22: error: cannot find symbol
+public class FaceAttachedBlockModelGenerator<B extends Block> extends BlockModelUtility.BlockModelGenerator<B> {
+                                                                                       ^
+  symbol:   class BlockModelGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\GeneticCropBlockModelGenerator.java:21: error: cannot find symbol
+public class GeneticCropBlockModelGenerator<T extends Block> extends BlockModelUtility.BlockModelGenerator<T> {
+                                                                                      ^
+  symbol:   class BlockModelGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\HorizontalDirectionalBlockModelGenerator.java:20: error: cannot find symbol
+public class HorizontalDirectionalBlockModelGenerator<T extends Block> extends BlockModelUtility.BlockModelGenerator<T> {
+                                                                                                ^
+  symbol:   class BlockModelGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ParticleEmitterBlockModelGenerator.java:20: error: cannot find symbol
+public class ParticleEmitterBlockModelGenerator<T extends Block> extends BlockModelUtility.BlockModelGenerator<T> {
+                                                                                          ^
+  symbol:   class BlockModelGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleCrossBlockModelGenerator.java:16: error: cannot find symbol
+public class SimpleCrossBlockModelGenerator<B extends Block> extends BlockModelUtility.BlockModelGenerator<B> {
+                                                                                      ^
+  symbol:   class BlockModelGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleTallVersatilePlantBlockBuilder.java:15: error: cannot find symbol
+    public static <T> SimpleTallVersatilePlantBlockBuilder create(String name, boolean extendable, Supplier<VersatilePlantBlockModelGenerator.ClientModelData<T>> clientModelDataSupplier) {
+                                                                                                                                             ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleVersatilePlantBlockBuilder.java:18: error: cannot find symbol
+    public static <T> SimpleVersatilePlantBlockBuilder create(String name, Supplier<VersatilePlantBlockModelGenerator.ClientModelData<T>> clientModelDataSupplier) {
+                                                                                                                     ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\UraniumOreBlockModelGenerator.java:21: error: cannot find symbol
+public class UraniumOreBlockModelGenerator<B extends Block> extends BlockModelUtility.BlockModelGenerator<B> {
+                                                                                     ^
+  symbol:   class BlockModelGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:49: error: cannot find symbol
+                                new BlockModelUtility.FromModelFileBlockStateGenerator<>(blockGetter, mc("block/water_cauldron_full"), true, false))
+                                                     ^
+  symbol:   class FromModelFileBlockStateGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:58: error: incompatible types: incompatible parameter types in method reference
+                        .modelGenerator(ParticleEmitterBlockModelGenerator::new)
+                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:61: error: incompatible types: Object cannot be converted to ItemLike
+                                        recipeProvider.shaped(RecipeCategory.REDSTONE, h.value())
+                                                                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:74: error: cannot find symbol
+                        .modelGenerator(holder -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(holder, ppId("block/herbalists_lectern")))
+                                                                       ^
+  symbol:   class FromModelFileBlockStateGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:91: error: incompatible types: incompatible parameter types in method reference
+                        .modelGenerator(HorizontalDirectionalBlockModelGenerator::new)
+                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:94: error: incompatible types: Object cannot be converted to ItemLike
+                                        recipeProvider.shaped(RecipeCategory.BREWING, h.value())
+                                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:108: error: incompatible types: incompatible parameter types in method reference
+                        .modelGenerator(HorizontalDirectionalBlockModelGenerator::new)
+                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:111: error: incompatible types: Object cannot be converted to ItemLike
+                                        recipeProvider.shaped(RecipeCategory.BREWING, h.value())
+                                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:139: error: cannot infer type arguments for ClotheslineBlockModelGenerator<>
+                        .modelGenerator(h -> new ClotheslineBlockModelGenerator<>(h)))
+                                             ^
+  reason: cannot infer type-variable(s) T
+    (actual and formal argument lists differ in length)
+  where T is a type-variable:
+    T extends Block declared in class ClotheslineBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:146: error: cannot find symbol
+                .modelGenerator(holder -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(holder, ppId("block/potion_beacon")))
+                                                               ^
+  symbol:   class FromModelFileBlockStateGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:175: error: incompatible types: incompatible parameter types in method reference
+                .modelGenerator(HorizontalDirectionalBlockModelGenerator::new)
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:204: error: cannot find symbol
+                .modelGenerator(h -> new ItemModelUtility.ItemFromModelFileGenerator<>(h, ppId("item/small_filter_hopper"))));
+                                                         ^
+  symbol:   class ItemFromModelFileGenerator
+  location: class ItemModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:223: error: cannot find symbol
+                .modelGenerator(h -> new ItemModelUtility.ItemFromModelFileGenerator<>(h, ppId("item/large_filter_hopper"))));
+                                                         ^
+  symbol:   class ItemFromModelFileGenerator
+  location: class ItemModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:242: error: cannot find symbol
+                .modelGenerator(h -> new ItemModelUtility.ItemFromModelFileGenerator<>(h, ppId("item/huge_filter_hopper"))));
+                                                         ^
+  symbol:   class ItemFromModelFileGenerator
+  location: class ItemModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:58: error: cannot find symbol
+                .modelGenerator(h -> new ItemModelUtility.ItemFromModelFileGenerator<>(h, ppId("item/icicle"))));
+                                                         ^
+  symbol:   class ItemFromModelFileGenerator
+  location: class ItemModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:72: error: cannot find symbol
+                .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, mc("block/cobbled_deepslate"), true, true, false))
+                                                               ^
+  symbol:   class CubeAllBlockModelGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:83: error: cannot find symbol
+                .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, mc("block/blackstone"), true, true, false))
+                                                               ^
+  symbol:   class CubeAllBlockModelGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:89: error: incompatible types: incompatible parameter types in method reference
+                .modelGenerator(FaceAttachedBlockModelGenerator::new)
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:102: error: cannot find symbol
+                .modelGenerator(holder -> new BlockModelUtility.BlockFamilyModelGenerator<>(holder, family -> family
+                                                               ^
+  symbol:   class BlockFamilyModelGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:111: error: cannot find symbol
+                .modelGenerator(holder -> new BlockModelUtility.BlockFamilyModelGenerator<>(holder, family -> family
+                                                               ^
+  symbol:   class BlockFamilyModelGenerator
+  location: class BlockModelUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:59: error: incompatible types: incompatible parameter types in method reference
+                .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:69: error: incompatible types: incompatible parameter types in method reference
+                .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:79: error: incompatible types: incompatible parameter types in method reference
+                .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:89: error: incompatible types: incompatible parameter types in method reference
+                .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:99: error: incompatible types: incompatible parameter types in method reference
+                .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:109: error: incompatible types: incompatible parameter types in method reference
+                .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:119: error: incompatible types: incompatible parameter types in method reference
+                .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:145: error: cannot find symbol
+                                .modelRegisterer(VersatilePlantBlockModelGenerator.CROSS_MODEL_GENERATOR)
+                                                                                  ^
+  symbol:   variable CROSS_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:143: error: cannot find symbol
+                                .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
+                                                                                      ^
+  symbol:   variable HANGING_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:138: error: cannot find symbol
+                        new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:165: error: cannot find symbol
+                                .modelRegisterer(VersatilePlantBlockModelGenerator.CROSS_MODEL_GENERATOR)
+                                                                                  ^
+  symbol:   variable CROSS_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:163: error: cannot find symbol
+                                .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
+                                                                                      ^
+  symbol:   variable HANGING_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:159: error: cannot find symbol
+                        new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                                     ^
+  symbol:   class ClientModelData
+  location: class BloomingVersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:185: error: cannot find symbol
+                                .modelRegisterer(VersatilePlantBlockModelGenerator.CROSS_MODEL_GENERATOR)
+                                                                                  ^
+  symbol:   variable CROSS_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:183: error: cannot find symbol
+                                .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
+                                                                                      ^
+  symbol:   variable HANGING_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:179: error: cannot find symbol
+                        new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                                     ^
+  symbol:   class ClientModelData
+  location: class BloomingVersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:205: error: cannot find symbol
+                                .modelRegisterer(VersatilePlantBlockModelGenerator.CROSS_MODEL_GENERATOR)
+                                                                                  ^
+  symbol:   variable CROSS_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:203: error: cannot find symbol
+                                .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
+                                                                                      ^
+  symbol:   variable HANGING_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:199: error: cannot find symbol
+                        new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                                     ^
+  symbol:   class ClientModelData
+  location: class BloomingVersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:230: error: cannot find symbol
+                                .modelRegisterer(VersatilePlantBlockModelGenerator.LUMOSEED_MODEL_GENERATOR)
+                                                                                  ^
+  symbol:   variable LUMOSEED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:228: error: cannot find symbol
+                                .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
+                                                                                      ^
+  symbol:   variable HANGING_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:219: error: cannot find symbol
+                        new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Pair<Identifier, Pair<Identifier, Identifier>>>()
+                                                                     ^
+  symbol:   class ClientModelData
+  location: class BloomingVersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:243: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:241: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:239: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:253: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:251: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:249: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:263: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:261: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:259: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:273: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:271: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:269: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:283: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:281: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:279: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:293: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:291: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:289: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:303: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:301: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:299: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:313: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:311: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:309: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:323: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:321: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:319: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:333: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:331: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:329: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:343: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:341: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:339: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:353: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:351: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:349: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:363: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:361: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:359: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:373: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:371: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:369: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:383: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:381: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:379: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:393: error: cannot find symbol
+                        .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                          ^
+  symbol:   variable PARENTED_MODEL_GENERATOR
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:391: error: cannot find symbol
+                        .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                              ^
+  symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+  location: class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:389: error: cannot find symbol
+                () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                           ^
+  symbol:   class ClientModelData
+  location: class VersatilePlantBlockModelGenerator
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:58: error: incompatible types: incompatible parameter types in method reference
+                          .modelGenerator(ParticleEmitterBlockModelGenerator::new)
+                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:61: error: incompatible types: Object cannot be converted to ItemLike
+                                          recipeProvider.shaped(RecipeCategory.REDSTONE, h.value())
+                                                                                                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:91: error: incompatible types: incompatible parameter types in method reference
+                          .modelGenerator(HorizontalDirectionalBlockModelGenerator::new)
+                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:94: error: incompatible types: Object cannot be converted to ItemLike
+                                          recipeProvider.shaped(RecipeCategory.BREWING, h.value())
+                                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:108: error: incompatible types: incompatible parameter types in method reference
+                          .modelGenerator(HorizontalDirectionalBlockModelGenerator::new)
+                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:111: error: incompatible types: Object cannot be converted to ItemLike
+                                          recipeProvider.shaped(RecipeCategory.BREWING, h.value())
+                                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:175: error: incompatible types: incompatible parameter types in method reference
+                  .modelGenerator(HorizontalDirectionalBlockModelGenerator::new)
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:89: error: incompatible types: incompatible parameter types in method reference
+                  .modelGenerator(FaceAttachedBlockModelGenerator::new)
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:59: error: incompatible types: incompatible parameter types in method reference
+                  .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:69: error: incompatible types: incompatible parameter types in method reference
+                  .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:79: error: incompatible types: incompatible parameter types in method reference
+                  .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:89: error: incompatible types: incompatible parameter types in method reference
+                  .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:99: error: incompatible types: incompatible parameter types in method reference
+                  .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:109: error: incompatible types: incompatible parameter types in method reference
+                  .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:119: error: incompatible types: incompatible parameter types in method reference
+                  .modelGenerator(SimpleCrossBlockModelGenerator::new)
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:30: error: cannot find symbol
+  public class VersatilePlantBlockModelGenerator<T, I extends Block> extends BlockModelUtility.BlockModelGenerator<I> {
+                                                                                              ^
+    symbol:   class BlockModelGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ClotheslineBlockModelGenerator.java:22: error: cannot find symbol
+  public class ClotheslineBlockModelGenerator<T extends Block> extends BlockModelUtility.BlockModelGenerator<T> {
+                                                                                        ^
+    symbol:   class BlockModelGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\FaceAttachedBlockModelGenerator.java:22: error: cannot find symbol
+  public class FaceAttachedBlockModelGenerator<B extends Block> extends BlockModelUtility.BlockModelGenerator<B> {
+                                                                                         ^
+    symbol:   class BlockModelGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\GeneticCropBlockModelGenerator.java:21: error: cannot find symbol
+  public class GeneticCropBlockModelGenerator<T extends Block> extends BlockModelUtility.BlockModelGenerator<T> {
+                                                                                        ^
+    symbol:   class BlockModelGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\HorizontalDirectionalBlockModelGenerator.java:20: error: cannot find symbol
+  public class HorizontalDirectionalBlockModelGenerator<T extends Block> extends BlockModelUtility.BlockModelGenerator<T> {
+                                                                                                  ^
+    symbol:   class BlockModelGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ParticleEmitterBlockModelGenerator.java:20: error: cannot find symbol
+  public class ParticleEmitterBlockModelGenerator<T extends Block> extends BlockModelUtility.BlockModelGenerator<T> {
+                                                                                            ^
+    symbol:   class BlockModelGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleCrossBlockModelGenerator.java:16: error: cannot find symbol
+  public class SimpleCrossBlockModelGenerator<B extends Block> extends BlockModelUtility.BlockModelGenerator<B> {
+                                                                                        ^
+    symbol:   class BlockModelGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleTallVersatilePlantBlockBuilder.java:15: error: cannot find symbol
+      public static <T> SimpleTallVersatilePlantBlockBuilder create(String name, boolean extendable, Supplier<VersatilePlantBlockModelGenerator.ClientModelData<T>> clientModelDataSupplier) {
+                                                                                                                                               ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleVersatilePlantBlockBuilder.java:18: error: cannot find symbol
+      public static <T> SimpleVersatilePlantBlockBuilder create(String name, Supplier<VersatilePlantBlockModelGenerator.ClientModelData<T>> clientModelDataSupplier) {
+                                                                                                                       ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\UraniumOreBlockModelGenerator.java:21: error: cannot find symbol
+  public class UraniumOreBlockModelGenerator<B extends Block> extends BlockModelUtility.BlockModelGenerator<B> {
+                                                                                       ^
+    symbol:   class BlockModelGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:49: error: cannot find symbol
+                                  new BlockModelUtility.FromModelFileBlockStateGenerator<>(blockGetter, mc("block/water_cauldron_full"), true, false))
+                                                       ^
+    symbol:   class FromModelFileBlockStateGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:74: error: cannot find symbol
+                          .modelGenerator(holder -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(holder, ppId("block/herbalists_lectern")))
+                                                                         ^
+    symbol:   class FromModelFileBlockStateGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:146: error: cannot find symbol
+                  .modelGenerator(holder -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(holder, ppId("block/potion_beacon")))
+                                                                 ^
+    symbol:   class FromModelFileBlockStateGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:204: error: cannot find symbol
+                  .modelGenerator(h -> new ItemModelUtility.ItemFromModelFileGenerator<>(h, ppId("item/small_filter_hopper"))));
+                                                           ^
+    symbol:   class ItemFromModelFileGenerator
+    location: class ItemModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:223: error: cannot find symbol
+                  .modelGenerator(h -> new ItemModelUtility.ItemFromModelFileGenerator<>(h, ppId("item/large_filter_hopper"))));
+                                                           ^
+    symbol:   class ItemFromModelFileGenerator
+    location: class ItemModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:242: error: cannot find symbol
+                  .modelGenerator(h -> new ItemModelUtility.ItemFromModelFileGenerator<>(h, ppId("item/huge_filter_hopper"))));
+                                                           ^
+    symbol:   class ItemFromModelFileGenerator
+    location: class ItemModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:58: error: cannot find symbol
+                  .modelGenerator(h -> new ItemModelUtility.ItemFromModelFileGenerator<>(h, ppId("item/icicle"))));
+                                                           ^
+    symbol:   class ItemFromModelFileGenerator
+    location: class ItemModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:72: error: cannot find symbol
+                  .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, mc("block/cobbled_deepslate"), true, true, false))
+                                                                 ^
+    symbol:   class CubeAllBlockModelGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:83: error: cannot find symbol
+                  .modelGenerator(holder -> new BlockModelUtility.CubeAllBlockModelGenerator<>(holder, mc("block/blackstone"), true, true, false))
+                                                                 ^
+    symbol:   class CubeAllBlockModelGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:102: error: cannot find symbol
+                  .modelGenerator(holder -> new BlockModelUtility.BlockFamilyModelGenerator<>(holder, family -> family
+                                                                 ^
+    symbol:   class BlockFamilyModelGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:111: error: cannot find symbol
+                  .modelGenerator(holder -> new BlockModelUtility.BlockFamilyModelGenerator<>(holder, family -> family
+                                                                 ^
+    symbol:   class BlockFamilyModelGenerator
+    location: class BlockModelUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:145: error: cannot find symbol
+                                  .modelRegisterer(VersatilePlantBlockModelGenerator.CROSS_MODEL_GENERATOR)
+                                                                                    ^
+    symbol:   variable CROSS_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:143: error: cannot find symbol
+                                  .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
+                                                                                        ^
+    symbol:   variable HANGING_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:138: error: cannot find symbol
+                          new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                               ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:165: error: cannot find symbol
+                                  .modelRegisterer(VersatilePlantBlockModelGenerator.CROSS_MODEL_GENERATOR)
+                                                                                    ^
+    symbol:   variable CROSS_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:163: error: cannot find symbol
+                                  .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
+                                                                                        ^
+    symbol:   variable HANGING_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:159: error: cannot find symbol
+                          new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                                       ^
+    symbol:   class ClientModelData
+    location: class BloomingVersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:185: error: cannot find symbol
+                                  .modelRegisterer(VersatilePlantBlockModelGenerator.CROSS_MODEL_GENERATOR)
+                                                                                    ^
+    symbol:   variable CROSS_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:183: error: cannot find symbol
+                                  .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
+                                                                                        ^
+    symbol:   variable HANGING_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:179: error: cannot find symbol
+                          new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                                       ^
+    symbol:   class ClientModelData
+    location: class BloomingVersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:205: error: cannot find symbol
+                                  .modelRegisterer(VersatilePlantBlockModelGenerator.CROSS_MODEL_GENERATOR)
+                                                                                    ^
+    symbol:   variable CROSS_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:203: error: cannot find symbol
+                                  .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
+                                                                                        ^
+    symbol:   variable HANGING_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:199: error: cannot find symbol
+                          new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                                       ^
+    symbol:   class ClientModelData
+    location: class BloomingVersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:230: error: cannot find symbol
+                                  .modelRegisterer(VersatilePlantBlockModelGenerator.LUMOSEED_MODEL_GENERATOR)
+                                                                                    ^
+    symbol:   variable LUMOSEED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:228: error: cannot find symbol
+                                  .texRotationFunction(VersatilePlantBlockModelGenerator.HANGING_PLANT_TEX_ORIENTATION)
+                                                                                        ^
+    symbol:   variable HANGING_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:219: error: cannot find symbol
+                          new BloomingVersatilePlantBlockModelGenerator.ClientModelData.Builder<Pair<Identifier, Pair<Identifier, Identifier>>>()
+                                                                       ^
+    symbol:   class ClientModelData
+    location: class BloomingVersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:243: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:241: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:239: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:253: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:251: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:249: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:263: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:261: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:259: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:273: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:271: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:269: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:283: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:281: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:279: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:293: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:291: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:289: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:303: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:301: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:299: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:313: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:311: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:309: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:323: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:321: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:319: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:333: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:331: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:329: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:343: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:341: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:339: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:353: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:351: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:349: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:363: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:361: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:359: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:373: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:371: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:369: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:383: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:381: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:379: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:393: error: cannot find symbol
+                          .modelRegisterer(VersatilePlantBlockModelGenerator.PARENTED_MODEL_GENERATOR)
+                                                                            ^
+    symbol:   variable PARENTED_MODEL_GENERATOR
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:391: error: cannot find symbol
+                          .texRotationFunction(VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION)
+                                                                                ^
+    symbol:   variable UPRIGHT_PLANT_TEX_ORIENTATION
+    location: class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java:389: error: cannot find symbol
+                  () -> new VersatilePlantBlockModelGenerator.ClientModelData.Builder<Identifier>()
+                                                             ^
+    symbol:   class ClientModelData
+    location: class VersatilePlantBlockModelGenerator
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:139: error: cannot infer type arguments for ClotheslineBlockModelGenerator<>
+                          .modelGenerator(h -> new ClotheslineBlockModelGenerator<>(h)))
+                                               ^
+    reason: cannot infer type-variable(s) T
+      (actual and formal argument lists differ in length)
+    where T is a type-variable:
+      T extends Block declared in class ClotheslineBlockModelGenerator
+  Note: Some input files use unchecked or unsafe operations.
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+4 actionable tasks: 1 executed, 3 up-to-date

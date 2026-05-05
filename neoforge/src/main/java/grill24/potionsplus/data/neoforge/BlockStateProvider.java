@@ -32,7 +32,24 @@ public class BlockStateProvider extends ModelProvider {
                 BlockEntityBlocks.SMALL_FILTER_HOPPER,
                 BlockEntityBlocks.LARGE_FILTER_HOPPER,
                 BlockEntityBlocks.HUGE_FILTER_HOPPER,
-                FlowerBlocks.LUNAR_BERRY_BUSH
+                FlowerBlocks.LUNAR_BERRY_BUSH,
+                BlockEntityBlocks.BREWING_CAULDRON,
+                BlockEntityBlocks.PARTICLE_EMITTER,
+                BlockEntityBlocks.HERBALISTS_LECTERN,
+                BlockEntityBlocks.SANGUINE_ALTAR,
+                BlockEntityBlocks.ABYSSAL_TROVE,
+                BlockEntityBlocks.CLOTHESLINE,
+                BlockEntityBlocks.POTION_BEACON,
+                BlockEntityBlocks.SKILL_JOURNALS,
+                DecorationBlocks.GROWING_MOSSY_COBBLESTONE,
+                DecorationBlocks.GROWING_MOSSY_COBBLESTONE_SLAB,
+                DecorationBlocks.GROWING_MOSSY_COBBLESTONE_STAIRS,
+                DecorationBlocks.GROWING_MOSSY_STONE_BRICKS,
+                DecorationBlocks.GROWING_MOSSY_STONE_BRICK_SLAB,
+                DecorationBlocks.GROWING_MOSSY_STONE_BRICK_STAIRS,
+                DecorationBlocks.UNSTABLE_DEEPSLATE,
+                DecorationBlocks.UNSTABLE_BLACKSTONE,
+                DecorationBlocks.LAVA_GEYSER
         );
 
         Stream<? extends Holder<Block>> knownBlocks = super.getKnownBlocks();
@@ -41,7 +58,11 @@ public class BlockStateProvider extends ModelProvider {
 
     @Override
     protected Stream<? extends Holder<Item>> getKnownItems() {
-        return super.getKnownItems();
+        Set<String> excludedItemNames = Set.of(
+                "froggy_hat", "hook_hat", "apple_hat", "potion_effect_icon"
+        );
+        return super.getKnownItems()
+                .filter(item -> !excludedItemNames.contains(item.unwrapKey().orElseThrow().identifier().getPath()));
     }
 
     @Override

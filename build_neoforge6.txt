@@ -1,0 +1,1048 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :common:compileJava UP-TO-DATE
+
+> Task :neoforge:compileJava FAILED
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\items\OreItems.java:9: error: cannot find symbol
+import net.minecraft.data.recipes.CookingBookCategory;
+                                 ^
+  symbol:   class CookingBookCategory
+  location: package net.minecraft.data.recipes
+warning: unknown enum constant EnvType.CLIENT
+  reason: class file for net.fabricmc.api.EnvType not found
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:50: error: cannot access ResourceLocation
+        background = guiHelper.drawableBuilder(RECIPE_GUI, 0, 0, 128, 62)
+                              ^
+  class file for net.minecraft.resources.ResourceLocation not found
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:114: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:45: error: incompatible types: Identifier cannot be converted to ResourceLocation
+        background = guiHelper.drawableBuilder(RECIPE_GUI, 0, 0, 128, 62)
+                                               ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:105: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:42: error: JeiPotionsPlusPlugin is not abstract and does not override abstract method getPluginUid() in IModPlugin
+public class JeiPotionsPlusPlugin implements IModPlugin {
+       ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:154: error: getPluginUid() in JeiPotionsPlusPlugin cannot implement getPluginUid() in IModPlugin
+    public Identifier getPluginUid() {
+                      ^
+  return type Identifier is not compatible with ResourceLocation
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:153: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:76: error: cannot find symbol
+            public int color(BlockState state) {
+                             ^
+  symbol: class BlockState
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:81: error: cannot find symbol
+            public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                                    ^
+  symbol: class BlockState
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:81: error: cannot find symbol
+            public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                                                                                ^
+  symbol: class BlockPos
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:83: error: cannot find symbol
+                    BlockEntity be = level.getBlockEntity(pos);
+                    ^
+  symbol: class BlockEntity
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:96: error: cannot find symbol
+            public int color(BlockState state) {
+                             ^
+  symbol: class BlockState
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:101: error: cannot find symbol
+            public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                                    ^
+  symbol: class BlockState
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:101: error: cannot find symbol
+            public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                                                                                ^
+  symbol: class BlockPos
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:19: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static final BlockCapability<IItemHandler, Direction> CLOTHESLINE_ITEM_HANDLER =
+                                        ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:24: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+                    IItemHandler.class);
+                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:37: warning: [removal] InvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+                        return new InvWrapper(leftClotheslineBlockEntity);
+                                   ^
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:56: error: incompatible types: invalid constructor reference
+        event.registerSpecial(Particles.WANDERING_HEART.get(), WanderingHeartParticle.WanderingHeartProvider::new);
+                                                               ^
+    constructor WanderingHeartProvider in class WanderingHeartProvider cannot be applied to given types
+      required: SpriteSet
+      found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+      reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:57: error: incompatible types: invalid constructor reference
+        event.registerSpecial(Particles.END_ROD_RAIN.get(), EndRodRainParticle.Provider::new);
+                                                            ^
+    constructor Provider in class Provider cannot be applied to given types
+      required: SpriteSet
+      found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+      reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:58: error: incompatible types: invalid constructor reference
+        event.registerSpecial(Particles.RANDOM_NOTE.get(), RandomNoteParticle.Provider::new);
+                                                           ^
+    constructor Provider in class Provider cannot be applied to given types
+      required: SpriteSet
+      found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+      reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:59: error: incompatible types: invalid constructor reference
+        event.registerSpecial(Particles.BLOOD_GOB.get(), BloodGobParticle.Provider::new);
+                                                         ^
+    constructor Provider in class Provider cannot be applied to given types
+      required: SpriteSet
+      found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+      reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:60: error: incompatible types: invalid constructor reference
+        event.registerSpecial(Particles.LUNAR_BERRY_BUSH_AMBIENT.get(), LunarBerryBushAmbientParticle.Provider::new);
+                                                                        ^
+    constructor Provider in class Provider cannot be applied to given types
+      required: SpriteSet
+      found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+      reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:61: error: incompatible types: invalid constructor reference
+        event.registerSpecial(Particles.LIGHTNING_BOLT.get(), LightningBoltParticle.Provider::new);
+                                                              ^
+    constructor Provider in class Provider cannot be applied to given types
+      required: SpriteSet
+      found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+      reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:62: error: incompatible types: invalid constructor reference
+        event.registerSpecial(Particles.LIGHTNING_BOLT_SMALL.get(), SmallLightningBoltParticle.Provider::new);
+                                                                    ^
+    constructor Provider in class Provider cannot be applied to given types
+      required: SpriteSet
+      found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+      reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:63: error: incompatible types: invalid constructor reference
+        event.registerSpecial(Particles.ELECTRICAL_SPARK.get(), ElectricalSparkParticle.Provider::new);
+                                                                ^
+    constructor Provider in class Provider cannot be applied to given types
+      required: SpriteSet
+      found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+      reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:64: error: incompatible types: invalid constructor reference
+        event.registerSpecial(Particles.STUN_STARS.get(), StunStarsParticle.Provider::new);
+                                                          ^
+    constructor Provider in class Provider cannot be applied to given types
+      required: SpriteSet
+      found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+      reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\items\OreItems.java:36: error: cannot find symbol
+                                        CookingBookCategory.MISC,
+                                        ^
+  symbol:   variable CookingBookCategory
+  location: class OreItems
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\items\OreItems.java:46: error: cannot find symbol
+                                        CookingBookCategory.MISC,
+                                        ^
+  symbol:   variable CookingBookCategory
+  location: class OreItems
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\items\OreItems.java:59: error: cannot find symbol
+                                        CookingBookCategory.MISC,
+                                        ^
+  symbol:   variable CookingBookCategory
+  location: class OreItems
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\items\OreItems.java:69: error: cannot find symbol
+                                        CookingBookCategory.MISC,
+                                        ^
+  symbol:   variable CookingBookCategory
+  location: class OreItems
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoBlockPredicateTypes.java:16: error: cannot assign a value to static final variable MATCHING_BLOCKSTATE_PROPERTIES
+        BlockPredicateTypes.MATCHING_BLOCKSTATE_PROPERTIES = MATCHING_BLOCKSTATE_PROPERTIES;
+                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoConsumeEffects.java:21: error: cannot assign a value to static final variable EDIBLE_CHOICE_ITEM
+        ConsumeEffects.EDIBLE_CHOICE_ITEM = EDIBLE_CHOICE_ITEM;
+                      ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoConsumeEffects.java:22: error: cannot assign a value to static final variable GENETIC_CROP_ITEM
+        ConsumeEffects.GENETIC_CROP_ITEM = GENETIC_CROP_ITEM;
+                      ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:37: error: cannot assign a value to static final variable WANDERING_HEART
+        Particles.WANDERING_HEART = WANDERING_HEART;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:38: error: cannot assign a value to static final variable END_ROD_RAIN
+        Particles.END_ROD_RAIN = END_ROD_RAIN;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:39: error: cannot assign a value to static final variable RANDOM_NOTE
+        Particles.RANDOM_NOTE = RANDOM_NOTE;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:40: error: cannot assign a value to static final variable BLOOD_GOB
+        Particles.BLOOD_GOB = BLOOD_GOB;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:41: error: cannot assign a value to static final variable LUNAR_BERRY_BUSH_AMBIENT
+        Particles.LUNAR_BERRY_BUSH_AMBIENT = LUNAR_BERRY_BUSH_AMBIENT;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:42: error: cannot assign a value to static final variable LIGHTNING_BOLT
+        Particles.LIGHTNING_BOLT = LIGHTNING_BOLT;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:43: error: cannot assign a value to static final variable LIGHTNING_BOLT_SMALL
+        Particles.LIGHTNING_BOLT_SMALL = LIGHTNING_BOLT_SMALL;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:44: error: cannot assign a value to static final variable ELECTRICAL_SPARK
+        Particles.ELECTRICAL_SPARK = ELECTRICAL_SPARK;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:45: error: cannot assign a value to static final variable STUN_STARS
+        Particles.STUN_STARS = STUN_STARS;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:46: error: cannot assign a value to static final variable END_ROD_RAIN_EMITTER
+        Particles.END_ROD_RAIN_EMITTER = END_ROD_RAIN_EMITTER;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:47: error: cannot assign a value to static final variable FIREY_EMITTER
+        Particles.FIREY_EMITTER = FIREY_EMITTER;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:48: error: cannot assign a value to static final variable BLOOD_EMITTER
+        Particles.BLOOD_EMITTER = BLOOD_EMITTER;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:49: error: cannot assign a value to static final variable LUNAR_BERRY_BUSH_AMBIENT_EMITTER
+        Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER = LUNAR_BERRY_BUSH_AMBIENT_EMITTER;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:50: error: cannot assign a value to static final variable LAVA_GEYSER_BLOCK_LINKED_EMITTER
+        Particles.LAVA_GEYSER_BLOCK_LINKED_EMITTER = LAVA_GEYSER_BLOCK_LINKED_EMITTER;
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:65: error: cannot assign a value to static final variable ANY_POTION
+        MobEffects.ANY_POTION = ANY_POTION;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:66: error: cannot assign a value to static final variable ANY_OTHER_POTION
+        MobEffects.ANY_OTHER_POTION = ANY_OTHER_POTION;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:67: error: cannot assign a value to static final variable GEODE_GRACE
+        MobEffects.GEODE_GRACE = GEODE_GRACE;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:68: error: cannot assign a value to static final variable FALL_OF_THE_VOID
+        MobEffects.FALL_OF_THE_VOID = FALL_OF_THE_VOID;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:69: error: cannot assign a value to static final variable EXPLODING
+        MobEffects.EXPLODING = EXPLODING;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:70: error: cannot assign a value to static final variable MAGNETIC
+        MobEffects.MAGNETIC = MAGNETIC;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:71: error: cannot assign a value to static final variable TELEPORTATION
+        MobEffects.TELEPORTATION = TELEPORTATION;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:72: error: cannot assign a value to static final variable LOOTING
+        MobEffects.LOOTING = LOOTING;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:73: error: cannot assign a value to static final variable FORTUITOUS_FATE
+        MobEffects.FORTUITOUS_FATE = FORTUITOUS_FATE;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:74: error: cannot assign a value to static final variable METAL_DETECTING
+        MobEffects.METAL_DETECTING = METAL_DETECTING;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:75: error: cannot assign a value to static final variable GIANT_STEPS
+        MobEffects.GIANT_STEPS = GIANT_STEPS;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:76: error: cannot assign a value to static final variable REACH_FOR_THE_STARS
+        MobEffects.REACH_FOR_THE_STARS = REACH_FOR_THE_STARS;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:77: error: cannot assign a value to static final variable NAUTICAL_NITRO
+        MobEffects.NAUTICAL_NITRO = NAUTICAL_NITRO;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:78: error: cannot assign a value to static final variable CROP_COLLECTOR
+        MobEffects.CROP_COLLECTOR = CROP_COLLECTOR;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:79: error: cannot assign a value to static final variable BOTANICAL_BOOST
+        MobEffects.BOTANICAL_BOOST = BOTANICAL_BOOST;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:80: error: cannot assign a value to static final variable SLIP_N_SLIDE
+        MobEffects.SLIP_N_SLIDE = SLIP_N_SLIDE;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:81: error: cannot assign a value to static final variable HARROWING_HANDS
+        MobEffects.HARROWING_HANDS = HARROWING_HANDS;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:82: error: cannot assign a value to static final variable BONE_BUDDY
+        MobEffects.BONE_BUDDY = BONE_BUDDY;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:83: error: cannot assign a value to static final variable SHEPHERDS_SERENADE
+        MobEffects.SHEPHERDS_SERENADE = SHEPHERDS_SERENADE;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:84: error: cannot assign a value to static final variable SOUL_MATE
+        MobEffects.SOUL_MATE = SOUL_MATE;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:85: error: cannot assign a value to static final variable FLYING_TIME
+        MobEffects.FLYING_TIME = FLYING_TIME;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:86: error: cannot assign a value to static final variable BOUNCING
+        MobEffects.BOUNCING = BOUNCING;
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:87: error: cannot assign a value to static final variable POTION_ICON_INDEX_MAP
+        MobEffects.POTION_ICON_INDEX_MAP = Lazy.of(PUtil::getAllMobEffectsIconStackSizeMap);
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoPotions.java:22: error: cannot find symbol
+        PotionBuilder.potionFactory = (name, effectSupplier) ->
+                     ^
+  symbol:   variable potionFactory
+  location: class PotionBuilder
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoPotions.java:22: error: lambda expression not expected here
+        PotionBuilder.potionFactory = (name, effectSupplier) ->
+                                      ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoPotions.java:30: error: cannot assign a value to static final variable ANY_POTION
+        Potions.ANY_POTION = ANY_POTION;
+               ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoPotions.java:31: error: cannot assign a value to static final variable ANY_OTHER_POTION
+        Potions.ANY_OTHER_POTION = ANY_OTHER_POTION;
+               ^
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:113: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:209: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+            builder.display(
+                   ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:236: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:260: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:276: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:292: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:308: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:326: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:342: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:359: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,Identifier,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:384: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:401: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:418: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:434: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:450: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:466: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:487: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:504: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:523: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:540: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:557: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:574: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                .display(
+                ^
+    method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+    method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\BiomeTagProvider.java:30: error: no suitable method found for tag(TagKey<Biome>)
+        tag(VOLCANIC_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_HOT);
+        ^
+    method BiomeTagProvider.tag(String) is not applicable
+      (argument mismatch; TagKey<Biome> cannot be converted to String)
+    method BiomeTagProvider.tag(ResourceKey<Biome>) is not applicable
+      (argument mismatch; TagKey<Biome> cannot be converted to ResourceKey<Biome>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\BiomeTagProvider.java:31: error: no suitable method found for tag(TagKey<Biome>)
+        tag(ICE_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_COLD).addTag(Tags.Biomes.IS_COLD_OVERWORLD);
+        ^
+    method BiomeTagProvider.tag(String) is not applicable
+      (argument mismatch; TagKey<Biome> cannot be converted to String)
+    method BiomeTagProvider.tag(ResourceKey<Biome>) is not applicable
+      (argument mismatch; TagKey<Biome> cannot be converted to ResourceKey<Biome>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\BiomeTagProvider.java:32: error: no suitable method found for tag(TagKey<Biome>)
+        tag(ARID_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_DRY);
+        ^
+    method BiomeTagProvider.tag(String) is not applicable
+      (argument mismatch; TagKey<Biome> cannot be converted to String)
+    method BiomeTagProvider.tag(ResourceKey<Biome>) is not applicable
+      (argument mismatch; TagKey<Biome> cannot be converted to ResourceKey<Biome>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\entity\GrunglerModel.java:69: error: cannot find symbol
+        this.animateWalk(WALKING_ANIMATION_LOCATION, state.walkAnimationPos, state.walkAnimationSpeed, 3, 1);
+            ^
+  symbol: method animateWalk(AnimationHolder,float,float,int,int)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\EffectListeners.java:40: error: incompatible types: possible lossy conversion from double to float
+        if (BouncingEffect.onLivingFall(event.getEntity(), event.getDistance())) {
+                                                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\EnchantmentListeners.java:23: error: incompatible types: ItemInstance cannot be converted to ItemStack
+        ItemStack stack = event.getStack();
+                                        ^
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+36 warnings
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':neoforge:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:113: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:209: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+              builder.display(
+                     ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:236: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:260: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:276: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:292: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:308: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:326: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:342: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:359: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,Identifier,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:384: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:401: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:418: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:434: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:450: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:466: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:487: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:504: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:523: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:540: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:557: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\AdvancementProvider.java:574: error: no suitable method found for display(ItemStack,MutableComponent,MutableComponent,<null>,AdvancementType,boolean,boolean,boolean)
+                  .display(
+                  ^
+      method Builder.display(ItemStackTemplate,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemStackTemplate)
+      method Builder.display(ItemLike,Component,Component,@org.jspecify.annotations.Nullable Identifier,AdvancementType,boolean,boolean,boolean) is not applicable
+        (argument mismatch; ItemStack cannot be converted to ItemLike)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\BiomeTagProvider.java:30: error: no suitable method found for tag(TagKey<Biome>)
+          tag(VOLCANIC_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_HOT);
+          ^
+      method BiomeTagProvider.tag(String) is not applicable
+        (argument mismatch; TagKey<Biome> cannot be converted to String)
+      method BiomeTagProvider.tag(ResourceKey<Biome>) is not applicable
+        (argument mismatch; TagKey<Biome> cannot be converted to ResourceKey<Biome>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\BiomeTagProvider.java:31: error: no suitable method found for tag(TagKey<Biome>)
+          tag(ICE_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_COLD).addTag(Tags.Biomes.IS_COLD_OVERWORLD);
+          ^
+      method BiomeTagProvider.tag(String) is not applicable
+        (argument mismatch; TagKey<Biome> cannot be converted to String)
+      method BiomeTagProvider.tag(ResourceKey<Biome>) is not applicable
+        (argument mismatch; TagKey<Biome> cannot be converted to ResourceKey<Biome>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\BiomeTagProvider.java:32: error: no suitable method found for tag(TagKey<Biome>)
+          tag(ARID_CAVE).addTag(Tags.Biomes.IS_UNDERGROUND).addTag(Tags.Biomes.IS_DRY);
+          ^
+      method BiomeTagProvider.tag(String) is not applicable
+        (argument mismatch; TagKey<Biome> cannot be converted to String)
+      method BiomeTagProvider.tag(ResourceKey<Biome>) is not applicable
+        (argument mismatch; TagKey<Biome> cannot be converted to ResourceKey<Biome>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoBlockPredicateTypes.java:16: error: cannot assign a value to static final variable MATCHING_BLOCKSTATE_PROPERTIES
+          BlockPredicateTypes.MATCHING_BLOCKSTATE_PROPERTIES = MATCHING_BLOCKSTATE_PROPERTIES;
+                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoConsumeEffects.java:21: error: cannot assign a value to static final variable EDIBLE_CHOICE_ITEM
+          ConsumeEffects.EDIBLE_CHOICE_ITEM = EDIBLE_CHOICE_ITEM;
+                        ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoConsumeEffects.java:22: error: cannot assign a value to static final variable GENETIC_CROP_ITEM
+          ConsumeEffects.GENETIC_CROP_ITEM = GENETIC_CROP_ITEM;
+                        ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:37: error: cannot assign a value to static final variable WANDERING_HEART
+          Particles.WANDERING_HEART = WANDERING_HEART;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:38: error: cannot assign a value to static final variable END_ROD_RAIN
+          Particles.END_ROD_RAIN = END_ROD_RAIN;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:39: error: cannot assign a value to static final variable RANDOM_NOTE
+          Particles.RANDOM_NOTE = RANDOM_NOTE;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:40: error: cannot assign a value to static final variable BLOOD_GOB
+          Particles.BLOOD_GOB = BLOOD_GOB;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:41: error: cannot assign a value to static final variable LUNAR_BERRY_BUSH_AMBIENT
+          Particles.LUNAR_BERRY_BUSH_AMBIENT = LUNAR_BERRY_BUSH_AMBIENT;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:42: error: cannot assign a value to static final variable LIGHTNING_BOLT
+          Particles.LIGHTNING_BOLT = LIGHTNING_BOLT;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:43: error: cannot assign a value to static final variable LIGHTNING_BOLT_SMALL
+          Particles.LIGHTNING_BOLT_SMALL = LIGHTNING_BOLT_SMALL;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:44: error: cannot assign a value to static final variable ELECTRICAL_SPARK
+          Particles.ELECTRICAL_SPARK = ELECTRICAL_SPARK;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:45: error: cannot assign a value to static final variable STUN_STARS
+          Particles.STUN_STARS = STUN_STARS;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:46: error: cannot assign a value to static final variable END_ROD_RAIN_EMITTER
+          Particles.END_ROD_RAIN_EMITTER = END_ROD_RAIN_EMITTER;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:47: error: cannot assign a value to static final variable FIREY_EMITTER
+          Particles.FIREY_EMITTER = FIREY_EMITTER;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:48: error: cannot assign a value to static final variable BLOOD_EMITTER
+          Particles.BLOOD_EMITTER = BLOOD_EMITTER;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:49: error: cannot assign a value to static final variable LUNAR_BERRY_BUSH_AMBIENT_EMITTER
+          Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER = LUNAR_BERRY_BUSH_AMBIENT_EMITTER;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\NeoParticles.java:50: error: cannot assign a value to static final variable LAVA_GEYSER_BLOCK_LINKED_EMITTER
+          Particles.LAVA_GEYSER_BLOCK_LINKED_EMITTER = LAVA_GEYSER_BLOCK_LINKED_EMITTER;
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:65: error: cannot assign a value to static final variable ANY_POTION
+          MobEffects.ANY_POTION = ANY_POTION;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:66: error: cannot assign a value to static final variable ANY_OTHER_POTION
+          MobEffects.ANY_OTHER_POTION = ANY_OTHER_POTION;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:67: error: cannot assign a value to static final variable GEODE_GRACE
+          MobEffects.GEODE_GRACE = GEODE_GRACE;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:68: error: cannot assign a value to static final variable FALL_OF_THE_VOID
+          MobEffects.FALL_OF_THE_VOID = FALL_OF_THE_VOID;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:69: error: cannot assign a value to static final variable EXPLODING
+          MobEffects.EXPLODING = EXPLODING;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:70: error: cannot assign a value to static final variable MAGNETIC
+          MobEffects.MAGNETIC = MAGNETIC;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:71: error: cannot assign a value to static final variable TELEPORTATION
+          MobEffects.TELEPORTATION = TELEPORTATION;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:72: error: cannot assign a value to static final variable LOOTING
+          MobEffects.LOOTING = LOOTING;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:73: error: cannot assign a value to static final variable FORTUITOUS_FATE
+          MobEffects.FORTUITOUS_FATE = FORTUITOUS_FATE;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:74: error: cannot assign a value to static final variable METAL_DETECTING
+          MobEffects.METAL_DETECTING = METAL_DETECTING;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:75: error: cannot assign a value to static final variable GIANT_STEPS
+          MobEffects.GIANT_STEPS = GIANT_STEPS;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:76: error: cannot assign a value to static final variable REACH_FOR_THE_STARS
+          MobEffects.REACH_FOR_THE_STARS = REACH_FOR_THE_STARS;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:77: error: cannot assign a value to static final variable NAUTICAL_NITRO
+          MobEffects.NAUTICAL_NITRO = NAUTICAL_NITRO;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:78: error: cannot assign a value to static final variable CROP_COLLECTOR
+          MobEffects.CROP_COLLECTOR = CROP_COLLECTOR;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:79: error: cannot assign a value to static final variable BOTANICAL_BOOST
+          MobEffects.BOTANICAL_BOOST = BOTANICAL_BOOST;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:80: error: cannot assign a value to static final variable SLIP_N_SLIDE
+          MobEffects.SLIP_N_SLIDE = SLIP_N_SLIDE;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:81: error: cannot assign a value to static final variable HARROWING_HANDS
+          MobEffects.HARROWING_HANDS = HARROWING_HANDS;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:82: error: cannot assign a value to static final variable BONE_BUDDY
+          MobEffects.BONE_BUDDY = BONE_BUDDY;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:83: error: cannot assign a value to static final variable SHEPHERDS_SERENADE
+          MobEffects.SHEPHERDS_SERENADE = SHEPHERDS_SERENADE;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:84: error: cannot assign a value to static final variable SOUL_MATE
+          MobEffects.SOUL_MATE = SOUL_MATE;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:85: error: cannot assign a value to static final variable FLYING_TIME
+          MobEffects.FLYING_TIME = FLYING_TIME;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:86: error: cannot assign a value to static final variable BOUNCING
+          MobEffects.BOUNCING = BOUNCING;
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoMobEffects.java:87: error: cannot assign a value to static final variable POTION_ICON_INDEX_MAP
+          MobEffects.POTION_ICON_INDEX_MAP = Lazy.of(PUtil::getAllMobEffectsIconStackSizeMap);
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoPotions.java:30: error: cannot assign a value to static final variable ANY_POTION
+          Potions.ANY_POTION = ANY_POTION;
+                 ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoPotions.java:31: error: cannot assign a value to static final variable ANY_OTHER_POTION
+          Potions.ANY_OTHER_POTION = ANY_OTHER_POTION;
+                 ^
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:50: error: cannot access ResourceLocation
+          background = guiHelper.drawableBuilder(RECIPE_GUI, 0, 0, 128, 62)
+                                ^
+    class file for net.minecraft.resources.ResourceLocation not found
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\items\OreItems.java:9: error: cannot find symbol
+  import net.minecraft.data.recipes.CookingBookCategory;
+                                   ^
+    symbol:   class CookingBookCategory
+    location: package net.minecraft.data.recipes
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\items\OreItems.java:36: error: cannot find symbol
+                                          CookingBookCategory.MISC,
+                                          ^
+    symbol:   variable CookingBookCategory
+    location: class OreItems
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\items\OreItems.java:46: error: cannot find symbol
+                                          CookingBookCategory.MISC,
+                                          ^
+    symbol:   variable CookingBookCategory
+    location: class OreItems
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\items\OreItems.java:59: error: cannot find symbol
+                                          CookingBookCategory.MISC,
+                                          ^
+    symbol:   variable CookingBookCategory
+    location: class OreItems
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\items\OreItems.java:69: error: cannot find symbol
+                                          CookingBookCategory.MISC,
+                                          ^
+    symbol:   variable CookingBookCategory
+    location: class OreItems
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoPotions.java:22: error: cannot find symbol
+          PotionBuilder.potionFactory = (name, effectSupplier) ->
+                       ^
+    symbol:   variable potionFactory
+    location: class PotionBuilder
+  Note: Recompile with -Xlint:unchecked for details.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:114: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:105: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:153: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:19: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+      public static final BlockCapability<IItemHandler, Direction> CLOTHESLINE_ITEM_HANDLER =
+                                          ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:24: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+                      IItemHandler.class);
+                      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:37: warning: [removal] InvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+                          return new InvWrapper(leftClotheslineBlockEntity);
+                                     ^
+  Note: Some input files use unchecked or unsafe operations.
+  warning: unknown enum constant EnvType.CLIENT
+    reason: class file for net.fabricmc.api.EnvType not found
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\entity\GrunglerModel.java:69: error: cannot find symbol
+          this.animateWalk(WALKING_ANIMATION_LOCATION, state.walkAnimationPos, state.walkAnimationSpeed, 3, 1);
+              ^
+    symbol: method animateWalk(AnimationHolder,float,float,int,int)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:154: error: getPluginUid() in JeiPotionsPlusPlugin cannot implement getPluginUid() in IModPlugin
+      public Identifier getPluginUid() {
+                        ^
+    return type Identifier is not compatible with ResourceLocation
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:42: error: JeiPotionsPlusPlugin is not abstract and does not override abstract method getPluginUid() in IModPlugin
+  public class JeiPotionsPlusPlugin implements IModPlugin {
+         ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:45: error: incompatible types: Identifier cannot be converted to ResourceLocation
+          background = guiHelper.drawableBuilder(RECIPE_GUI, 0, 0, 128, 62)
+                                                 ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:56: error: incompatible types: invalid constructor reference
+          event.registerSpecial(Particles.WANDERING_HEART.get(), WanderingHeartParticle.WanderingHeartProvider::new);
+                                                                 ^
+      constructor WanderingHeartProvider in class WanderingHeartProvider cannot be applied to given types
+        required: SpriteSet
+        found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+        reason: actual and formal argument lists differ in length
+    where T is a type-variable:
+      T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:57: error: incompatible types: invalid constructor reference
+          event.registerSpecial(Particles.END_ROD_RAIN.get(), EndRodRainParticle.Provider::new);
+                                                              ^
+      constructor Provider in class Provider cannot be applied to given types
+        required: SpriteSet
+        found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+        reason: actual and formal argument lists differ in length
+    where T is a type-variable:
+      T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:58: error: incompatible types: invalid constructor reference
+          event.registerSpecial(Particles.RANDOM_NOTE.get(), RandomNoteParticle.Provider::new);
+                                                             ^
+      constructor Provider in class Provider cannot be applied to given types
+        required: SpriteSet
+        found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+        reason: actual and formal argument lists differ in length
+    where T is a type-variable:
+      T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:59: error: incompatible types: invalid constructor reference
+          event.registerSpecial(Particles.BLOOD_GOB.get(), BloodGobParticle.Provider::new);
+                                                           ^
+      constructor Provider in class Provider cannot be applied to given types
+        required: SpriteSet
+        found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+        reason: actual and formal argument lists differ in length
+    where T is a type-variable:
+      T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:60: error: incompatible types: invalid constructor reference
+          event.registerSpecial(Particles.LUNAR_BERRY_BUSH_AMBIENT.get(), LunarBerryBushAmbientParticle.Provider::new);
+                                                                          ^
+      constructor Provider in class Provider cannot be applied to given types
+        required: SpriteSet
+        found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+        reason: actual and formal argument lists differ in length
+    where T is a type-variable:
+      T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:61: error: incompatible types: invalid constructor reference
+          event.registerSpecial(Particles.LIGHTNING_BOLT.get(), LightningBoltParticle.Provider::new);
+                                                                ^
+      constructor Provider in class Provider cannot be applied to given types
+        required: SpriteSet
+        found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+        reason: actual and formal argument lists differ in length
+    where T is a type-variable:
+      T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:62: error: incompatible types: invalid constructor reference
+          event.registerSpecial(Particles.LIGHTNING_BOLT_SMALL.get(), SmallLightningBoltParticle.Provider::new);
+                                                                      ^
+      constructor Provider in class Provider cannot be applied to given types
+        required: SpriteSet
+        found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+        reason: actual and formal argument lists differ in length
+    where T is a type-variable:
+      T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:63: error: incompatible types: invalid constructor reference
+          event.registerSpecial(Particles.ELECTRICAL_SPARK.get(), ElectricalSparkParticle.Provider::new);
+                                                                  ^
+      constructor Provider in class Provider cannot be applied to given types
+        required: SpriteSet
+        found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+        reason: actual and formal argument lists differ in length
+    where T is a type-variable:
+      T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ClientEvents.java:64: error: incompatible types: invalid constructor reference
+          event.registerSpecial(Particles.STUN_STARS.get(), StunStarsParticle.Provider::new);
+                                                            ^
+      constructor Provider in class Provider cannot be applied to given types
+        required: SpriteSet
+        found:    T,ClientLevel,double,double,double,double,double,double,RandomSource
+        reason: actual and formal argument lists differ in length
+    where T is a type-variable:
+      T extends ParticleOptions declared in method <T>registerSpecial(ParticleType<T>,ParticleProvider<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\EffectListeners.java:40: error: incompatible types: possible lossy conversion from double to float
+          if (BouncingEffect.onLivingFall(event.getEntity(), event.getDistance())) {
+                                                                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\EnchantmentListeners.java:23: error: incompatible types: ItemInstance cannot be converted to ItemStack
+          ItemStack stack = event.getStack();
+                                          ^
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:76: error: cannot find symbol
+              public int color(BlockState state) {
+                               ^
+    symbol: class BlockState
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:81: error: cannot find symbol
+              public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                                      ^
+    symbol: class BlockState
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:81: error: cannot find symbol
+              public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                                                                                  ^
+    symbol: class BlockPos
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:83: error: cannot find symbol
+                      BlockEntity be = level.getBlockEntity(pos);
+                      ^
+    symbol: class BlockEntity
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:96: error: cannot find symbol
+              public int color(BlockState state) {
+                               ^
+    symbol: class BlockState
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:101: error: cannot find symbol
+              public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                                      ^
+    symbol: class BlockState
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:101: error: cannot find symbol
+              public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+                                                                                  ^
+    symbol: class BlockPos
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\potion\NeoPotions.java:22: error: lambda expression not expected here
+          PotionBuilder.potionFactory = (name, effectSupplier) ->
+                                        ^
+  100 errors
+  36 warnings
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+2 actionable tasks: 1 executed, 1 up-to-date

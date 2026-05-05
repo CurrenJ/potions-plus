@@ -1,0 +1,425 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Task :common:compileJava
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :neoforge:compileJava FAILED
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\NeoCommandEvents.java:46: error: cannot find symbol
+import net.neoforged.neoforge.common.util.DataComponentUtil;
+                                         ^
+  symbol:   class DataComponentUtil
+  location: package net.neoforged.neoforge.common.util
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\NeoCommandEvents.java:41: error: a type with the same simple name is already defined by the single-type-import of Items
+import net.minecraft.world.item.Items;
+^
+warning: unknown enum constant EnvType.CLIENT
+  reason: class file for net.fabricmc.api.EnvType not found
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:26: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:35: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:44: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:53: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:96: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:107: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:118: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:127: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:136: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:147: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:156: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:166: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:185: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:194: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:203: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:212: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:222: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:231: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:240: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:249: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:258: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:268: error: cannot find symbol
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                      ^
+  symbol:   method get()
+  location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:278: error: cannot find symbol
+                    .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+                                                                          ^
+  symbol:   method get()
+  location: variable PERMANENT_ATTRIBUTE_MODIFIERS of type Holder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:286: error: cannot find symbol
+                    .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+                                                                          ^
+  symbol:   method get()
+  location: variable PERMANENT_ATTRIBUTE_MODIFIERS of type Holder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:294: error: cannot find symbol
+                    .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+                                                                          ^
+  symbol:   method get()
+  location: variable PERMANENT_ATTRIBUTE_MODIFIERS of type Holder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:303: error: cannot find symbol
+                    .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+                                                                          ^
+  symbol:   method get()
+  location: variable PERMANENT_ATTRIBUTE_MODIFIERS of type Holder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:311: error: cannot find symbol
+                    .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+                                                                          ^
+  symbol:   method get()
+  location: variable PERMANENT_ATTRIBUTE_MODIFIERS of type Holder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\neoforge\DataGen.java:47: error: constructor Sounds in class Sounds cannot be applied to given types;
+        Sounds soundsProvider = new Sounds(output, ModInfo.MOD_ID);
+                                ^
+  required: no arguments
+  found:    PackOutput,String
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\neoforge\DataGen.java:50: error: no suitable method found for addProvider(boolean,Sounds)
+        generator.addProvider(true, soundsProvider);
+                 ^
+    method DataGenerator.<T#1>addProvider(boolean,Factory<T#1>) is not applicable
+      (cannot infer type-variable(s) T#1
+        (argument mismatch; Sounds cannot be converted to Factory<T#1>))
+    method DataGenerator.<T#2>addProvider(boolean,T#2) is not applicable
+      (inference variable T#2 has incompatible bounds
+        upper bounds: DataProvider
+        lower bounds: Sounds)
+  where T#1,T#2 are type-variables:
+    T#1 extends DataProvider declared in method <T#1>addProvider(boolean,Factory<T#1>)
+    T#2 extends DataProvider declared in method <T#2>addProvider(boolean,T#2)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\neoforge\LangProvider.java:26: error: cannot find symbol
+        addRegistered(MobEffects.EFFECTS, this::addEffect);
+                                ^
+  symbol:   variable EFFECTS
+  location: class MobEffects
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\neoforge\LangProvider.java:26: error: incompatible types: cannot infer type-variable(s) T
+        addRegistered(MobEffects.EFFECTS, this::addEffect);
+                     ^
+    (argument mismatch; invalid method reference
+      incompatible types: Object cannot be converted to MobEffect)
+  where T is a type-variable:
+    T extends Object declared in method <T>addRegistered(DeferredRegister<T>,Consumer<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\NeoCommandEvents.java:252: error: reference to ItemStack is ambiguous
+                                    itemStacks.add(new ItemStack(i % 2 == 0 ? Items.EMERALD : Items.DIAMOND));
+                                                   ^
+  both constructor ItemStack(ItemLike) in ItemStack and constructor ItemStack(Holder<Item>) in ItemStack match
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\NeoCommandEvents.java:252: error: reference to Items is ambiguous
+                                    itemStacks.add(new ItemStack(i % 2 == 0 ? Items.EMERALD : Items.DIAMOND));
+                                                                              ^
+  both class grill24.potionsplus.core.Items in grill24.potionsplus.core and class net.minecraft.world.item.Items in net.minecraft.world.item match
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\NeoCommandEvents.java:252: error: reference to Items is ambiguous
+                                    itemStacks.add(new ItemStack(i % 2 == 0 ? Items.EMERALD : Items.DIAMOND));
+                                                                                              ^
+  both class grill24.potionsplus.core.Items in grill24.potionsplus.core and class net.minecraft.world.item.Items in net.minecraft.world.item match
+Note: D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+36 errors
+12 warnings
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':neoforge:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\NeoCommandEvents.java:252: error: reference to ItemStack is ambiguous
+                                      itemStacks.add(new ItemStack(i % 2 == 0 ? Items.EMERALD : Items.DIAMOND));
+                                                     ^
+    both constructor ItemStack(ItemLike) in ItemStack and constructor ItemStack(Holder<Item>) in ItemStack match
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\NeoCommandEvents.java:252: error: reference to Items is ambiguous
+                                      itemStacks.add(new ItemStack(i % 2 == 0 ? Items.EMERALD : Items.DIAMOND));
+                                                                                ^
+    both class grill24.potionsplus.core.Items in grill24.potionsplus.core and class net.minecraft.world.item.Items in net.minecraft.world.item match
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\NeoCommandEvents.java:252: error: reference to Items is ambiguous
+                                      itemStacks.add(new ItemStack(i % 2 == 0 ? Items.EMERALD : Items.DIAMOND));
+                                                                                                ^
+    both class grill24.potionsplus.core.Items in grill24.potionsplus.core and class net.minecraft.world.item.Items in net.minecraft.world.item match
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\NeoCommandEvents.java:41: error: a type with the same simple name is already defined by the single-type-import of Items
+  import net.minecraft.world.item.Items;
+  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\neoforge\DataGen.java:47: error: constructor Sounds in class Sounds cannot be applied to given types;
+          Sounds soundsProvider = new Sounds(output, ModInfo.MOD_ID);
+                                  ^
+    required: no arguments
+    found:    PackOutput,String
+    reason: actual and formal argument lists differ in length
+  warning: unknown enum constant EnvType.CLIENT
+    reason: class file for net.fabricmc.api.EnvType not found
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\neoforge\DataGen.java:50: error: no suitable method found for addProvider(boolean,Sounds)
+          generator.addProvider(true, soundsProvider);
+                   ^
+      method DataGenerator.<T#1>addProvider(boolean,Factory<T#1>) is not applicable
+        (cannot infer type-variable(s) T#1
+          (argument mismatch; Sounds cannot be converted to Factory<T#1>))
+      method DataGenerator.<T#2>addProvider(boolean,T#2) is not applicable
+        (inference variable T#2 has incompatible bounds
+          upper bounds: DataProvider
+          lower bounds: Sounds)
+    where T#1,T#2 are type-variables:
+      T#1 extends DataProvider declared in method <T#1>addProvider(boolean,Factory<T#1>)
+      T#2 extends DataProvider declared in method <T#2>addProvider(boolean,T#2)
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\neoforge\LangProvider.java:26: error: incompatible types: cannot infer type-variable(s) T
+          addRegistered(MobEffects.EFFECTS, this::addEffect);
+                       ^
+      (argument mismatch; invalid method reference
+        incompatible types: Object cannot be converted to MobEffect)
+    where T is a type-variable:
+      T extends Object declared in method <T>addRegistered(DeferredRegister<T>,Consumer<T>)
+  Note: D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java uses unchecked or unsafe operations.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\NeoCommandEvents.java:46: error: cannot find symbol
+  import net.neoforged.neoforge.common.util.DataComponentUtil;
+                                           ^
+    symbol:   class DataComponentUtil
+    location: package net.neoforged.neoforge.common.util
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\neoforge\LangProvider.java:26: error: cannot find symbol
+          addRegistered(MobEffects.EFFECTS, this::addEffect);
+                                  ^
+    symbol:   variable EFFECTS
+    location: class MobEffects
+  Note: Recompile with -Xlint:unchecked for details.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:26: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:35: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:44: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:53: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:96: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:107: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:118: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:127: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:136: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:147: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:156: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:166: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:185: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:194: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:203: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:212: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:222: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:231: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:240: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:249: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:258: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:268: error: cannot find symbol
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.get())
+                                                                        ^
+    symbol:   method get()
+    location: variable MODIFIERS_WHILE_ITEM_HELD of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:278: error: cannot find symbol
+                      .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+                                                                            ^
+    symbol:   method get()
+    location: variable PERMANENT_ATTRIBUTE_MODIFIERS of type Holder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:286: error: cannot find symbol
+                      .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+                                                                            ^
+    symbol:   method get()
+    location: variable PERMANENT_ATTRIBUTE_MODIFIERS of type Holder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:294: error: cannot find symbol
+                      .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+                                                                            ^
+    symbol:   method get()
+    location: variable PERMANENT_ATTRIBUTE_MODIFIERS of type Holder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:303: error: cannot find symbol
+                      .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+                                                                            ^
+    symbol:   method get()
+    location: variable PERMANENT_ATTRIBUTE_MODIFIERS of type Holder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ConfiguredPlayerAbilities.java:311: error: cannot find symbol
+                      .ability(PlayerAbilities.PERMANENT_ATTRIBUTE_MODIFIERS.get())
+                                                                            ^
+    symbol:   method get()
+    location: variable PERMANENT_ATTRIBUTE_MODIFIERS of type Holder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  36 errors
+  12 warnings
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 4s
+2 actionable tasks: 2 executed

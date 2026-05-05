@@ -1,7 +1,5 @@
 package grill24.potionsplus.utility;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.items.DynamicIconItems;
@@ -24,7 +22,7 @@ import net.minecraft.world.level.Level;
 import java.io.IOException;
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
+
 public class ClientItemStacksTooltip implements ClientTooltipComponent {
     private static final int MARGIN_Y = 4;
     private static final int BORDER_WIDTH = 1;
@@ -124,7 +122,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
         return isShowing() ? (int) (Math.ceil(this.items.size() / (double) gridSizeX())) : 0;
     }
 
-    @Environment(EnvType.CLIENT)
+    
     enum Texture {
         SLOT(Identifier.withDefaultNamespace("container/slot"), 18, 20);
 

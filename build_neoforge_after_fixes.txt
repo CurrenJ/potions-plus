@@ -1,0 +1,788 @@
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:106: error: cannot find symbol
+    public void draw(ClotheslineRecipe recipe, mezz.jei.api.gui.ingredient.IRecipeSlotsView recipeSlotsView, net.minecraft.client.gui.GuiGraphics guiGraphics, double mouseX, double mouseY) {
+                                                                                                                                     ^
+  symbol:   class GuiGraphics
+  location: package net.minecraft.client.gui
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:70: error: cannot find symbol
+    public static void registerBlockColors(RegisterColorHandlersEvent.Blocks event) {
+                                                                     ^
+  symbol:   class Blocks
+  location: class RegisterColorHandlersEvent
+warning: unknown enum constant EnvType.CLIENT
+  reason: class file for net.fabricmc.api.EnvType not found
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:38: error: isClientSide has private access in Level
+            if (!level.isClientSide)
+                      ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:91: error: random has protected access in Level
+                    pos.x + Utility.nextGaussian(0, 0.1, level.random),
+                                                              ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:92: error: random has protected access in Level
+                    pos.y + 0.5 + Utility.nextGaussian(0, 0.1, level.random),
+                                                                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:93: error: random has protected access in Level
+                    pos.z + Utility.nextGaussian(0, 0.1, level.random),
+                                                              ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:79: error: isClientSide has private access in Level
+                if (level.isClientSide) {
+                         ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:83: error: random has protected access in Level
+                        Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                               ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:83: error: random has protected access in Level
+                        Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                        ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:83: error: random has protected access in Level
+                        Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                                                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:128: error: random has protected access in Level
+                    Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:128: error: random has protected access in Level
+                    Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:128: error: random has protected access in Level
+                    Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                                                                       ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:74: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:74: error: isClientSide has private access in Level
+        if (!level.isClientSide) {
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:94: error: isClientSide has private access in Level
+        if (!level.isClientSide && player.isCreative()) {
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:112: error: isClientSide has private access in Level
+        if (!level.isClientSide) {
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:225: error: random has protected access in Level
+            if (level.random.nextFloat() > chance) continue; // Random chance to pollinate
+                     ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:268: error: isClientSide has private access in Level
+                if (entity.onPollinate(genotype) && !level.isClientSide) {
+                                                          ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:281: error: isClientSide has private access in Level
+            if (cropBlockEntity.isPresent() && state.getBlock() instanceof GeneticCropBlock geneticCropBlock && !level.isClientSide) {
+                                                                                                                      ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:290: error: random has protected access in Level
+                if (geneticCropBlock.getDestroyOnHarvestChance() > 0.0F && level.random.nextFloat() < geneticCropBlock.getDestroyOnHarvestChance()) {
+                                                                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\GeneticCropBlockEntity.java:98: error: isClientSide has private access in Level
+        if (this.level != null && !this.level.isClientSide) {
+                                             ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:98: error: isClientSide has private access in Level
+            if (level.isClientSide) {
+                     ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:121: error: isClientSide has private access in Level
+        if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide) {
+                                                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:137: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\HugeFilterHopperBlock.java:23: error: isClientSide has private access in Level
+        return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.HUGE_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\LargeFilterHopperBlock.java:23: error: isClientSide has private access in Level
+        return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.LARGE_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:70: error: isClientSide has private access in Level
+            if (level.isClientSide) {
+                     ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:93: error: isClientSide has private access in Level
+        if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide) {
+                                                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:113: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:131: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\SmallFilterHopperBlock.java:23: error: isClientSide has private access in Level
+        return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.SMALL_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:114: error: isClientSide has private access in Level
+        if (level.isClientSide) {
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\seededrecipe\PpIngredient.java:23: error: cannot find symbol
+            ItemStack.STRICT_CODEC.listOf().fieldOf("matchStacks").forGetter(data -> data.matchStacks)
+                     ^
+  symbol:   variable STRICT_CODEC
+  location: class ItemStack
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:217: error: isClientSide has private access in Level
+        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:289: error: random has protected access in Level
+            level.addParticle(Particles.END_ROD_RAIN.get(), worldPosition.getX() + level.random.nextDouble() * 0.8 + 0.2, worldPosition.getY() + 2, worldPosition.getZ() + level.random.nextDouble() * 0.8 + 0.2, 0, 0, 0);
+                                                                                        ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:289: error: random has protected access in Level
+            level.addParticle(Particles.END_ROD_RAIN.get(), worldPosition.getX() + level.random.nextDouble() * 0.8 + 0.2, worldPosition.getY() + 2, worldPosition.getZ() + level.random.nextDouble() * 0.8 + 0.2, 0, 0, 0);
+                                                                                                                                                                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:294: error: isClientSide has private access in Level
+        boolean isClientSide = level.isClientSide;
+                                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:360: error: random has protected access in Level
+        if (level.random.nextDouble() < particles) {
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:361: error: random has protected access in Level
+            final int particleCount = level.random.nextInt(1, 5);
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:364: error: random has protected access in Level
+                switch (level.random.nextInt(3)) {
+                             ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:378: error: random has protected access in Level
+                        pos.getX() + level.random.nextDouble() * 0.8 + 0.2,
+                                          ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:379: error: random has protected access in Level
+                        pos.getY() + 0.85 + level.random.nextDouble() * 0.2,
+                                                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:380: error: random has protected access in Level
+                        pos.getZ() + level.random.nextDouble() * 0.8 + 0.2,
+                                          ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:78: error: cannot find symbol
+            fencePostBlockItem = ItemStack.parse(registryAccess, tag.getCompound("fencePostBlockItem").orElse(new CompoundTag()))
+                                          ^
+  symbol:   method parse(Provider,CompoundTag)
+  location: class ItemStack
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:99: error: cannot find symbol
+            tag.put("fencePostBlockItem", fencePostBlockItem.save(registryAccess));
+                                                            ^
+  symbol:   method save(Provider)
+  location: variable fencePostBlockItem of type ItemStack
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:143: error: isClientSide has private access in Level
+                if (!level.isClientSide) {
+                          ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:160: error: isClientSide has private access in Level
+            if (level.isClientSide) {
+                     ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:166: error: random has protected access in Level
+                boolean recipeSucceeds = level.random.nextFloat() < successChance;
+                                              ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:168: error: incompatible types: ItemStackTemplate cannot be converted to ItemStack
+                ItemStack container = getItem(slot).getCraftingRemainder();
+                                                                        ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:208: error: random has protected access in Level
+        final int count = level.random.nextInt(3, 6);
+                               ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:211: error: random has protected access in Level
+                    pos.x() + Utility.nextGaussian(0, 0.1, level.random),
+                                                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:212: error: random has protected access in Level
+                    pos.y() + Utility.nextGaussian(0, 0.1, level.random),
+                                                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:213: error: random has protected access in Level
+                    pos.z() + Utility.nextGaussian(0, 0.1, level.random),
+                                                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:55: error: cannot find symbol
+        BlockModelResolver = context.getBlockModelResolver();
+                                    ^
+  symbol:   method getBlockModelResolver()
+  location: variable context of type Context
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:139: error: cannot find symbol
+                    Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                           ^
+  symbol:   method getItemRenderer()
+  location: class Minecraft
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:161: error: cannot find symbol
+        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS) {
+                 ^
+  symbol:   method getStage()
+  location: variable event of type RenderLevelStageEvent
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:161: error: cannot find symbol
+        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS) {
+                                                     ^
+  symbol:   variable Stage
+  location: class RenderLevelStageEvent
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:171: error: cannot find symbol
+        post.ifPresent(state -> BlockModelResolver.renderSingleBlock(
+                                                  ^
+  symbol:   method renderSingleBlock(BlockState,PoseStack,MultiBufferSource,int,int)
+  location: variable BlockModelResolver of type BlockModelResolver
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:182: error: cannot find symbol
+        post.ifPresent(state -> BlockModelResolver.renderSingleBlock(
+                                                  ^
+  symbol:   method renderSingleBlock(BlockState,PoseStack,MultiBufferSource,int,int)
+  location: variable BlockModelResolver of type BlockModelResolver
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntity.java:185: error: isClientSide has private access in Level
+        if (level.isClientSide) {
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntity.java:205: error: random has protected access in Level
+                if (level.random.nextInt(12) == 0)
+                         ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntity.java:216: error: isClientSide has private access in Level
+        if (level != null && level.isClientSide) {
+                                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:155: error: isClientSide has private access in Level
+        if (level.isClientSide && blockEntity.getBlockState().getValue(PotionBeaconBlock.LIT)) {
+                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:163: error: random has protected access in Level
+                    double x = 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:164: error: random has protected access in Level
+                    double y = 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:165: error: random has protected access in Level
+                    double z = 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
+                                           ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:168: error: random has protected access in Level
+                    double speed = 0.1 * level.random.nextDouble();
+                                              ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:174: error: random has protected access in Level
+                    Vector3f rotationDegrees = new Vector3f((float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360));
+                                                                          ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:174: error: random has protected access in Level
+                    Vector3f rotationDegrees = new Vector3f((float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360));
+                                                                                                                     ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:174: error: random has protected access in Level
+                    Vector3f rotationDegrees = new Vector3f((float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360));
+                                                                                                                                                                ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:176: error: random has protected access in Level
+                    Vector3f rotationalVelocity = new Vector3f((float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random));
+                                                                                                                                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:176: error: random has protected access in Level
+                    Vector3f rotationalVelocity = new Vector3f((float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random));
+                                                                                                                                                                                                             ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:176: error: random has protected access in Level
+                    Vector3f rotationalVelocity = new Vector3f((float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random));
+                                                                                                                                                                                                                                                                                         ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:183: error: random has protected access in Level
+                    itemParticle.lifetime = (float) Utility.nextGaussian(100, 20, level.random);
+                                                                                       ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:184: error: random has protected access in Level
+                    itemParticle.scale = (float) RUtil.lerp(0, Utility.nextGaussian(0.20, 0.1, level.random), durationFactor);
+                                                                                                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:192: error: isClientSide has private access in Level
+        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\utility\Utility.java:99: error: cannot find symbol
+            return ItemStack.parse(registryAccess, tag).orElse(ItemStack.EMPTY);
+                            ^
+  symbol:   method parse(Provider,CompoundTag)
+  location: class ItemStack
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\utility\Utility.java:261: error: isClientSide has private access in Level
+        if (!before.is(after.getBlock()) && !level.isClientSide && level instanceof ServerLevel serverLevel) {
+                                                  ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\utility\Utility.java:347: error: ResolvableProfile is abstract; cannot be instantiated
+        head.set(DataComponents.PROFILE, new ResolvableProfile(player.getGameProfile()));
+                                         ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\utility\Utility.java:358: error: constructor PropertyMap in class PropertyMap cannot be applied to given types;
+        return new ResolvableProfile(Optional.ofNullable(name), Optional.ofNullable(uuid), new PropertyMap());
+                                                                                           ^
+  required: Multimap<String,Property>
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\utility\Utility.java:358: error: ResolvableProfile is abstract; cannot be instantiated
+        return new ResolvableProfile(Optional.ofNullable(name), Optional.ofNullable(uuid), new PropertyMap());
+               ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:50: error: cannot access ResourceLocation
+        background = guiHelper.drawableBuilder(RECIPE_GUI, 0, 0, 128, 62)
+                              ^
+  class file for net.minecraft.resources.ResourceLocation not found
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:114: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:136: error: cannot find symbol
+            GuiGraphicsExtractor.drawString(minecraft.font, amplifierOrDurationText, x + 1, y, shadowColor);
+                                ^
+  symbol:   method drawString(Font,String,int,int,int)
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:137: error: cannot find symbol
+            GuiGraphicsExtractor.drawString(minecraft.font, amplifierOrDurationText, x, y + 1, shadowColor);
+                                ^
+  symbol:   method drawString(Font,String,int,int,int)
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:138: error: cannot find symbol
+            GuiGraphicsExtractor.drawString(minecraft.font, amplifierOrDurationText, x + 1, y + 1, shadowColor);
+                                ^
+  symbol:   method drawString(Font,String,int,int,int)
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:139: error: cannot find symbol
+            GuiGraphicsExtractor.drawString(minecraft.font, amplifierOrDurationText, x, y, mainColor);
+                                ^
+  symbol:   method drawString(Font,String,int,int,int)
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:150: error: cannot find symbol
+            GuiGraphicsExtractor.drawString(minecraft.font, xpText, x + 1, y, shadowColor);
+                                ^
+  symbol:   method drawString(Font,String,int,int,int)
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:151: error: cannot find symbol
+            GuiGraphicsExtractor.drawString(minecraft.font, xpText, x, y + 1, shadowColor);
+                                ^
+  symbol:   method drawString(Font,String,int,int,int)
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:152: error: cannot find symbol
+            GuiGraphicsExtractor.drawString(minecraft.font, xpText, x + 1, y + 1, shadowColor);
+                                ^
+  symbol:   method drawString(Font,String,int,int,int)
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:153: error: cannot find symbol
+            GuiGraphicsExtractor.drawString(minecraft.font, xpText, x, y, xpTextColour);
+                                ^
+  symbol:   method drawString(Font,String,int,int,int)
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:45: error: incompatible types: Identifier cannot be converted to ResourceLocation
+        background = guiHelper.drawableBuilder(RECIPE_GUI, 0, 0, 128, 62)
+                                               ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:42: error: JeiPotionsPlusPlugin is not abstract and does not override abstract method getPluginUid() in IModPlugin
+public class JeiPotionsPlusPlugin implements IModPlugin {
+       ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:154: error: getPluginUid() in JeiPotionsPlusPlugin cannot implement getPluginUid() in IModPlugin
+    public Identifier getPluginUid() {
+                      ^
+  return type Identifier is not compatible with ResourceLocation
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:100: error: isClientSide has private access in Level
+        if (JEI_RUNTIME != null && level != null && level.isClientSide && player != null && Recipes.recipes != null) {
+                                                         ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:153: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\AnimationCurveSerializers.java:26: error: incompatible types: inference variable V has incompatible equality constraints Vector3f,Vector3fc
+    public static final DeferredHolder<AnimationCurveSerializer<?>, AnimationCurveSerializer<Vector3f>> VECTOR3F = SERIALIZERS.register("vector3f",
+                                                                                                                                       ^
+  where V is a type-variable:
+    V extends Object declared in class AnimationCurveSerializer
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\AnimationCurveSerializers.java:34: error: cannot infer type arguments for AnimationCurveSerializer<>
+            () -> new AnimationCurveSerializer<>(
+                  ^
+  reason: inference variable V has incompatible equality constraints Vector4f,Vector4fc
+  where V is a type-variable:
+    V extends Object declared in class AnimationCurveSerializer
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:94: error: cannot find symbol
+                .blockFactory(prop -> new DecorativeFireBlock(prop.mapColor(MapColor.FIRE).noCollission().instabreak().lightLevel((state) -> 15).sound(SoundType.WOOL)))
+                                                                                          ^
+  symbol:   method noCollission()
+  location: class Properties
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:19: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static final BlockCapability<IItemHandler, Direction> CLOTHESLINE_ITEM_HANDLER =
+                                        ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:24: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+                    IItemHandler.class);
+                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:37: warning: [removal] InvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+                        return new InvWrapper(leftClotheslineBlockEntity);
+                                   ^
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+Note: D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\ItemTagProvider.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+36 warnings
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':neoforge:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\utility\Utility.java:358: error: constructor PropertyMap in class PropertyMap cannot be applied to given types;
+          return new ResolvableProfile(Optional.ofNullable(name), Optional.ofNullable(uuid), new PropertyMap());
+                                                                                             ^
+    required: Multimap<String,Property>
+    found:    no arguments
+    reason: actual and formal argument lists differ in length
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:50: error: cannot access ResourceLocation
+          background = guiHelper.drawableBuilder(RECIPE_GUI, 0, 0, 128, 62)
+                                ^
+    class file for net.minecraft.resources.ResourceLocation not found
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:106: error: cannot find symbol
+      public void draw(ClotheslineRecipe recipe, mezz.jei.api.gui.ingredient.IRecipeSlotsView recipeSlotsView, net.minecraft.client.gui.GuiGraphics guiGraphics, double mouseX, double mouseY) {
+                                                                                                                                       ^
+    symbol:   class GuiGraphics
+    location: package net.minecraft.client.gui
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Blocks.java:70: error: cannot find symbol
+      public static void registerBlockColors(RegisterColorHandlersEvent.Blocks event) {
+                                                                       ^
+    symbol:   class Blocks
+    location: class RegisterColorHandlersEvent
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\seededrecipe\PpIngredient.java:23: error: cannot find symbol
+              ItemStack.STRICT_CODEC.listOf().fieldOf("matchStacks").forGetter(data -> data.matchStacks)
+                       ^
+    symbol:   variable STRICT_CODEC
+    location: class ItemStack
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:161: error: cannot find symbol
+          if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS) {
+                                                       ^
+    symbol:   variable Stage
+    location: class RenderLevelStageEvent
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:38: error: isClientSide has private access in Level
+              if (!level.isClientSide)
+                        ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:91: error: random has protected access in Level
+                      pos.x + Utility.nextGaussian(0, 0.1, level.random),
+                                                                ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:92: error: random has protected access in Level
+                      pos.y + 0.5 + Utility.nextGaussian(0, 0.1, level.random),
+                                                                      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\ClotheslineBehaviour.java:93: error: random has protected access in Level
+                      pos.z + Utility.nextGaussian(0, 0.1, level.random),
+                                                                ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:79: error: isClientSide has private access in Level
+                  if (level.isClientSide) {
+                           ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:83: error: random has protected access in Level
+                          Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                                 ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:83: error: random has protected access in Level
+                          Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                          ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:83: error: random has protected access in Level
+                          Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                                                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:128: error: random has protected access in Level
+                      Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:128: error: random has protected access in Level
+                      Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\AbyssalTroveBlock.java:128: error: random has protected access in Level
+                      Vec3 particlePos = posVec.add(Utility.nextGaussian(0, 0.5, level.random), 0.8 + Utility.nextDouble(-0.125, 0.125, level.random), Utility.nextGaussian(0, 0.5, level.random));
+                                                                                                                                                                                         ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:74: error: isClientSide has private access in Level
+          if (!level.isClientSide) {
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:94: error: isClientSide has private access in Level
+          if (!level.isClientSide && player.isCreative()) {
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\ClotheslineBlock.java:112: error: isClientSide has private access in Level
+          if (!level.isClientSide) {
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:225: error: random has protected access in Level
+              if (level.random.nextFloat() > chance) continue; // Random chance to pollinate
+                       ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:268: error: isClientSide has private access in Level
+                  if (entity.onPollinate(genotype) && !level.isClientSide) {
+                                                            ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:281: error: isClientSide has private access in Level
+              if (cropBlockEntity.isPresent() && state.getBlock() instanceof GeneticCropBlock geneticCropBlock && !level.isClientSide) {
+                                                                                                                        ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\GeneticCropBlock.java:290: error: random has protected access in Level
+                  if (geneticCropBlock.getDestroyOnHarvestChance() > 0.0F && level.random.nextFloat() < geneticCropBlock.getDestroyOnHarvestChance()) {
+                                                                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\GeneticCropBlockEntity.java:98: error: isClientSide has private access in Level
+          if (this.level != null && !this.level.isClientSide) {
+                                               ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:98: error: isClientSide has private access in Level
+              if (level.isClientSide) {
+                       ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:121: error: isClientSide has private access in Level
+          if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide) {
+                                                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\HugeFilterHopperBlock.java:23: error: isClientSide has private access in Level
+          return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.HUGE_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+                      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\LargeFilterHopperBlock.java:23: error: isClientSide has private access in Level
+          return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.LARGE_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+                      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:70: error: isClientSide has private access in Level
+              if (level.isClientSide) {
+                       ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:93: error: isClientSide has private access in Level
+          if (result == InvUtil.InteractionResult.EXTRACT && level.isClientSide) {
+                                                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\SmallFilterHopperBlock.java:23: error: isClientSide has private access in Level
+          return level.isClientSide ? null : createTickerHelper(blockEntityType, Blocks.SMALL_FILTER_HOPPER_BLOCK_ENTITY.value(), FilterHopperBlockEntity::pushItemsTick);
+                      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\AbyssalTroveBlockEntity.java:114: error: isClientSide has private access in Level
+          if (level.isClientSide) {
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:217: error: isClientSide has private access in Level
+          if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:289: error: random has protected access in Level
+              level.addParticle(Particles.END_ROD_RAIN.get(), worldPosition.getX() + level.random.nextDouble() * 0.8 + 0.2, worldPosition.getY() + 2, worldPosition.getZ() + level.random.nextDouble() * 0.8 + 0.2, 0, 0, 0);
+                                                                                          ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:289: error: random has protected access in Level
+              level.addParticle(Particles.END_ROD_RAIN.get(), worldPosition.getX() + level.random.nextDouble() * 0.8 + 0.2, worldPosition.getY() + 2, worldPosition.getZ() + level.random.nextDouble() * 0.8 + 0.2, 0, 0, 0);
+                                                                                                                                                                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:294: error: isClientSide has private access in Level
+          boolean isClientSide = level.isClientSide;
+                                      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:360: error: random has protected access in Level
+          if (level.random.nextDouble() < particles) {
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:361: error: random has protected access in Level
+              final int particleCount = level.random.nextInt(1, 5);
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:364: error: random has protected access in Level
+                  switch (level.random.nextInt(3)) {
+                               ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:378: error: random has protected access in Level
+                          pos.getX() + level.random.nextDouble() * 0.8 + 0.2,
+                                            ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:379: error: random has protected access in Level
+                          pos.getY() + 0.85 + level.random.nextDouble() * 0.2,
+                                                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:380: error: random has protected access in Level
+                          pos.getZ() + level.random.nextDouble() * 0.8 + 0.2,
+                                            ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:143: error: isClientSide has private access in Level
+                  if (!level.isClientSide) {
+                            ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:160: error: isClientSide has private access in Level
+              if (level.isClientSide) {
+                       ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:166: error: random has protected access in Level
+                  boolean recipeSucceeds = level.random.nextFloat() < successChance;
+                                                ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:208: error: random has protected access in Level
+          final int count = level.random.nextInt(3, 6);
+                                 ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:211: error: random has protected access in Level
+                      pos.x() + Utility.nextGaussian(0, 0.1, level.random),
+                                                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:212: error: random has protected access in Level
+                      pos.y() + Utility.nextGaussian(0, 0.1, level.random),
+                                                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:213: error: random has protected access in Level
+                      pos.z() + Utility.nextGaussian(0, 0.1, level.random),
+                                                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntity.java:185: error: isClientSide has private access in Level
+          if (level.isClientSide) {
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntity.java:205: error: random has protected access in Level
+                  if (level.random.nextInt(12) == 0)
+                           ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\HerbalistsLecternBlockEntity.java:216: error: isClientSide has private access in Level
+          if (level != null && level.isClientSide) {
+                                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:155: error: isClientSide has private access in Level
+          if (level.isClientSide && blockEntity.getBlockState().getValue(PotionBeaconBlock.LIT)) {
+                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:163: error: random has protected access in Level
+                      double x = 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:164: error: random has protected access in Level
+                      double y = 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:165: error: random has protected access in Level
+                      double z = 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
+                                             ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:168: error: random has protected access in Level
+                      double speed = 0.1 * level.random.nextDouble();
+                                                ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:174: error: random has protected access in Level
+                      Vector3f rotationDegrees = new Vector3f((float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360));
+                                                                            ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:174: error: random has protected access in Level
+                      Vector3f rotationDegrees = new Vector3f((float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360));
+                                                                                                                       ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:174: error: random has protected access in Level
+                      Vector3f rotationDegrees = new Vector3f((float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360), (float) (level.random.nextDouble() * 360));
+                                                                                                                                                                  ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:176: error: random has protected access in Level
+                      Vector3f rotationalVelocity = new Vector3f((float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random));
+                                                                                                                                   ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:176: error: random has protected access in Level
+                      Vector3f rotationalVelocity = new Vector3f((float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random));
+                                                                                                                                                                                                               ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:176: error: random has protected access in Level
+                      Vector3f rotationalVelocity = new Vector3f((float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random), (float) Utility.nextGaussian(0, ROTATIONAL_VELOCITY_STD_DEV, level.random));
+                                                                                                                                                                                                                                                                                           ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:183: error: random has protected access in Level
+                      itemParticle.lifetime = (float) Utility.nextGaussian(100, 20, level.random);
+                                                                                         ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:184: error: random has protected access in Level
+                      itemParticle.scale = (float) RUtil.lerp(0, Utility.nextGaussian(0.20, 0.1, level.random), durationFactor);
+                                                                                                      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\PotionBeaconBlockEntity.java:192: error: isClientSide has private access in Level
+          if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\utility\Utility.java:261: error: isClientSide has private access in Level
+          if (!before.is(after.getBlock()) && !level.isClientSide && level instanceof ServerLevel serverLevel) {
+                                                    ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:100: error: isClientSide has private access in Level
+          if (JEI_RUNTIME != null && level != null && level.isClientSide && player != null && Recipes.recipes != null) {
+                                                           ^
+  Note: Recompile with -Xlint:unchecked for details.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\BrewingCauldronBlock.java:74: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\HerbalistsLecternBlock.java:137: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\PotionBeaconBlock.java:113: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\block\SanguineAltarBlock.java:131: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:114: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:153: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:19: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+      public static final BlockCapability<IItemHandler, Direction> CLOTHESLINE_ITEM_HANDLER =
+                                          ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:24: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+                      IItemHandler.class);
+                      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:37: warning: [removal] InvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+                          return new InvWrapper(leftClotheslineBlockEntity);
+                                     ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\AnimationCurveSerializers.java:34: error: cannot infer type arguments for AnimationCurveSerializer<>
+              () -> new AnimationCurveSerializer<>(
+                    ^
+    reason: inference variable V has incompatible equality constraints Vector4f,Vector4fc
+    where V is a type-variable:
+      V extends Object declared in class AnimationCurveSerializer
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:78: error: cannot find symbol
+              fencePostBlockItem = ItemStack.parse(registryAccess, tag.getCompound("fencePostBlockItem").orElse(new CompoundTag()))
+                                            ^
+    symbol:   method parse(Provider,CompoundTag)
+    location: class ItemStack
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:99: error: cannot find symbol
+              tag.put("fencePostBlockItem", fencePostBlockItem.save(registryAccess));
+                                                              ^
+    symbol:   method save(Provider)
+    location: variable fencePostBlockItem of type ItemStack
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:55: error: cannot find symbol
+          BlockModelResolver = context.getBlockModelResolver();
+                                      ^
+    symbol:   method getBlockModelResolver()
+    location: variable context of type Context
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:139: error: cannot find symbol
+                      Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                             ^
+    symbol:   method getItemRenderer()
+    location: class Minecraft
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:161: error: cannot find symbol
+          if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS) {
+                   ^
+    symbol:   method getStage()
+    location: variable event of type RenderLevelStageEvent
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:171: error: cannot find symbol
+          post.ifPresent(state -> BlockModelResolver.renderSingleBlock(
+                                                    ^
+    symbol:   method renderSingleBlock(BlockState,PoseStack,MultiBufferSource,int,int)
+    location: variable BlockModelResolver of type BlockModelResolver
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntityRenderer.java:182: error: cannot find symbol
+          post.ifPresent(state -> BlockModelResolver.renderSingleBlock(
+                                                    ^
+    symbol:   method renderSingleBlock(BlockState,PoseStack,MultiBufferSource,int,int)
+    location: variable BlockModelResolver of type BlockModelResolver
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\utility\Utility.java:99: error: cannot find symbol
+              return ItemStack.parse(registryAccess, tag).orElse(ItemStack.EMPTY);
+                              ^
+    symbol:   method parse(Provider,CompoundTag)
+    location: class ItemStack
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:136: error: cannot find symbol
+              GuiGraphicsExtractor.drawString(minecraft.font, amplifierOrDurationText, x + 1, y, shadowColor);
+                                  ^
+    symbol:   method drawString(Font,String,int,int,int)
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:137: error: cannot find symbol
+              GuiGraphicsExtractor.drawString(minecraft.font, amplifierOrDurationText, x, y + 1, shadowColor);
+                                  ^
+    symbol:   method drawString(Font,String,int,int,int)
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:138: error: cannot find symbol
+              GuiGraphicsExtractor.drawString(minecraft.font, amplifierOrDurationText, x + 1, y + 1, shadowColor);
+                                  ^
+    symbol:   method drawString(Font,String,int,int,int)
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:139: error: cannot find symbol
+              GuiGraphicsExtractor.drawString(minecraft.font, amplifierOrDurationText, x, y, mainColor);
+                                  ^
+    symbol:   method drawString(Font,String,int,int,int)
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:150: error: cannot find symbol
+              GuiGraphicsExtractor.drawString(minecraft.font, xpText, x + 1, y, shadowColor);
+                                  ^
+    symbol:   method drawString(Font,String,int,int,int)
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:151: error: cannot find symbol
+              GuiGraphicsExtractor.drawString(minecraft.font, xpText, x, y + 1, shadowColor);
+                                  ^
+    symbol:   method drawString(Font,String,int,int,int)
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:152: error: cannot find symbol
+              GuiGraphicsExtractor.drawString(minecraft.font, xpText, x + 1, y + 1, shadowColor);
+                                  ^
+    symbol:   method drawString(Font,String,int,int,int)
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\BrewingCauldronRecipeCategory.java:153: error: cannot find symbol
+              GuiGraphicsExtractor.drawString(minecraft.font, xpText, x, y, xpTextColour);
+                                  ^
+    symbol:   method drawString(Font,String,int,int,int)
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:94: error: cannot find symbol
+                  .blockFactory(prop -> new DecorativeFireBlock(prop.mapColor(MapColor.FIRE).noCollission().instabreak().lightLevel((state) -> 15).sound(SoundType.WOOL)))
+                                                                                            ^
+    symbol:   method noCollission()
+    location: class Properties
+  Note: D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\data\ItemTagProvider.java uses or overrides a deprecated API.
+  warning: unknown enum constant EnvType.CLIENT
+    reason: class file for net.fabricmc.api.EnvType not found
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\utility\Utility.java:347: error: ResolvableProfile is abstract; cannot be instantiated
+          head.set(DataComponents.PROFILE, new ResolvableProfile(player.getGameProfile()));
+                                           ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\utility\Utility.java:358: error: ResolvableProfile is abstract; cannot be instantiated
+          return new ResolvableProfile(Optional.ofNullable(name), Optional.ofNullable(uuid), new PropertyMap());
+                 ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:154: error: getPluginUid() in JeiPotionsPlusPlugin cannot implement getPluginUid() in IModPlugin
+      public Identifier getPluginUid() {
+                        ^
+    return type Identifier is not compatible with ResourceLocation
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\JeiPotionsPlusPlugin.java:42: error: JeiPotionsPlusPlugin is not abstract and does not override abstract method getPluginUid() in IModPlugin
+  public class JeiPotionsPlusPlugin implements IModPlugin {
+         ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:168: error: incompatible types: ItemStackTemplate cannot be converted to ItemStack
+                  ItemStack container = getItem(slot).getCraftingRemainder();
+                                                                          ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\client\integration\jei\ClotheslineRecipeCategory.java:45: error: incompatible types: Identifier cannot be converted to ResourceLocation
+          background = guiHelper.drawableBuilder(RECIPE_GUI, 0, 0, 128, 62)
+                                                 ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\AnimationCurveSerializers.java:26: error: incompatible types: inference variable V has incompatible equality constraints Vector3f,Vector3fc
+      public static final DeferredHolder<AnimationCurveSerializer<?>, AnimationCurveSerializer<Vector3f>> VECTOR3F = SERIALIZERS.register("vector3f",
+                                                                                                                                         ^
+    where V is a type-variable:
+      V extends Object declared in class AnimationCurveSerializer
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  100 errors
+  36 warnings
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s

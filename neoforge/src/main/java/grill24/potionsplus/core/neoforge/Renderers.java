@@ -42,7 +42,7 @@ public class Renderers {
         event.registerLayerDefinition(LayerDefinitions.GRUNGLER, GrunglerModel::createBodyLayer);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.ItemTintSources event) {
         event.register(AnyPotionTintSource.ID, AnyPotionTintSource.CODEC);

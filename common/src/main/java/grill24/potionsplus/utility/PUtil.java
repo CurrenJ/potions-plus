@@ -30,14 +30,18 @@ public class PUtil {
     public static final String TIPPED_ARROW_PREFIX = "Arrow of ";
 
     public static ItemStack createPotionItemStack(Holder<Potion> potionHolder, PotionType type, int count) {
-        ItemStack potionItem = switch (type) {
-            case POTION -> PotionContents.createItemStack(Items.POTION, potionHolder);
-            case SPLASH_POTION -> PotionContents.createItemStack(Items.SPLASH_POTION, potionHolder);
-            case LINGERING_POTION -> PotionContents.createItemStack(Items.LINGERING_POTION, potionHolder);
-            case TIPPED_ARROW -> PotionContents.createItemStack(Items.TIPPED_ARROW, potionHolder);
-        };
-        potionItem.setCount(count);
-        return potionItem;
+        try {
+            ItemStack potionItem = switch (type) {
+                case POTION -> PotionContents.createItemStack(Items.POTION, potionHolder);
+                case SPLASH_POTION -> PotionContents.createItemStack(Items.SPLASH_POTION, potionHolder);
+                case LINGERING_POTION -> PotionContents.createItemStack(Items.LINGERING_POTION, potionHolder);
+                case TIPPED_ARROW -> PotionContents.createItemStack(Items.TIPPED_ARROW, potionHolder);
+            };
+            potionItem.setCount(count);
+            return potionItem;
+        } catch (Exception e) {
+            return ItemStack.EMPTY;
+        }
     }
 
     public static ItemStack createPotionItemStack(Holder<Potion> potion, PotionType type) {

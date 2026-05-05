@@ -1,0 +1,928 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :common:compileJava
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:51: error: ScissorStack has private access in GuiGraphicsExtractor
+    public GuiGraphicsExtractor.ScissorStack scissorStack;
+                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\LivingEntityMixin.java:82: error: cannot find symbol
+    public float getFriction(Block instance) {
+                             ^
+  symbol:   class Block
+  location: class LivingEntityMixin
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\ItemEntityMixin.java:24: error: cannot find symbol
+    @ModifyConstant(method = "tick", constant = @Constant(intValue = 6000))
+                                                 ^
+  symbol:   class Constant
+  location: class ItemEntityMixin
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:57: error: modelOutput has private access in BlockModelGenerators
+            Identifier fallbackItemModel = ModelTemplates.FLAT_ITEM.create(fallbackItemModelId, fallbackItemTextureMapping, blockModelGenerators.modelOutput);
+                                                                                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:67: error: modelOutput has private access in BlockModelGenerators
+                Identifier generatedItemModel = ModelTemplates.TWO_LAYERED_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:85: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:106: error: modelOutput has private access in BlockModelGenerators
+                Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:120: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:143: error: modelOutput has private access in BlockModelGenerators
+            Identifier fallbackItemModelLocation = ModelTemplates.FLAT_ITEM.create(ppId("unknown_generic_icon_fallback"), fallbackItemTextureMapping, blockModelGenerators.modelOutput);
+                                                                                                                                                                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:154: error: modelOutput has private access in BlockModelGenerators
+                Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:168: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:28: error: targetSelector has protected access in Mob
+            Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
+                                                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:31: error: targetType has protected access in NearestAttackableTargetGoal
+                    .filter(goal -> goal.targetType == Player.class);
+                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:34: error: targetSelector has protected access in Mob
+                skeleton.targetSelector.removeGoal(goal);
+                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:37: error: targetSelector has protected access in Mob
+            skeleton.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(skeleton, Monster.class, false, TARGET_PREDICATE));
+                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:51: error: targetSelector has protected access in Mob
+        Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
+                                                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:54: error: targetType has protected access in NearestAttackableTargetGoal
+                .filter(goal -> goal.targetType == Monster.class);
+                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:57: error: targetSelector has protected access in Mob
+            skeleton.targetSelector.removeGoal(goal);
+                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:60: error: targetSelector has protected access in Mob
+        skeleton.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(skeleton, Player.class, true));
+                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BouncingEffect.java:69: error: cannot find symbol
+                boolean bounced = PlayerAbilities.SAVED_BY_THE_BOUNCE.triggerFromClient(
+                                                                     ^
+  symbol:   method triggerFromClient(Player,ResourceKey<ConfiguredPlayerAbility<?,?>>,FallData)
+  location: variable SAVED_BY_THE_BOUNCE of type Holder<SavedByTheBounceAbility>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\AbilitySelectionTree.java:32: error: create(String,RenderSetup) is not public in RenderType; cannot be accessed from outside package
+    private static final RenderType GUI_RENDER_TYPE = RenderType.create("pp_gui", RenderSetup.builder(RenderPipelines.GUI).createRenderSetup());
+                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\AbilitySelectionTree.java:34: error: create(String,RenderSetup) is not public in RenderType; cannot be accessed from outside package
+            (java.util.function.Function<Identifier, RenderType>)(texture -> RenderType.create("pp_gui_textured",
+                                                                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SpriteProgressBarElement.java:33: error: create(String,RenderSetup) is not public in RenderType; cannot be accessed from outside package
+            (Function<Identifier, RenderType>)(texture -> RenderType.create("pp_gui_textured",
+                                                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\loot\IsInBiomeCondition.java:30: error: incompatible types: bad return type in method reference
+                    .fieldOf("biomes").forGetter(IsInBiomeCondition::biomes)).apply(codecBuilder, IsInBiomeCondition::new)
+                                                 ^
+    Set<ResourceKey<Biome>> cannot be converted to ImmutableSet<ResourceKey<Biome>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:33: error: no suitable method found for put(Item,(blockStat[...]tack))
+        CauldronInteractions.WATER.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                                  ^
+    method Dispatcher.put(Item,CauldronInteraction) is not applicable
+      (put(Item,CauldronInteraction) is not public in Dispatcher; cannot be accessed from outside package)
+    method Dispatcher.put(TagKey<Item>,CauldronInteraction) is not applicable
+      (argument mismatch; Item cannot be converted to TagKey<Item>)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:34: error: no suitable method found for put(Item,(blockStat[...]tack))
+        CauldronInteractions.EMPTY.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                                  ^
+    method Dispatcher.put(Item,CauldronInteraction) is not applicable
+      (put(Item,CauldronInteraction) is not public in Dispatcher; cannot be accessed from outside package)
+    method Dispatcher.put(TagKey<Item>,CauldronInteraction) is not applicable
+      (argument mismatch; Item cannot be converted to TagKey<Item>)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:40: error: package PotionsPlus does not exist
+                            PotionsPlus.LOGGER.info(brewingCauldronRecipe.toString());
+                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:43: error: package PotionsPlus does not exist
+                        PotionsPlus.LOGGER.warn("Duplicate recipe key found: {} for type: {}", recipeHolder.id(), pair.getFirst().toString());
+                                   ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:46: error: package PotionsPlus does not exist
+                PotionsPlus.LOGGER.info("Injected {} runtime recipes for type: {}", recipes.size(), pair.getFirst().toString());
+                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:50: error: package PotionsPlus does not exist
+            PotionsPlus.LOGGER.info("Total recipes injected: {}", allRecipes.size() - existingRecipes.size());
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:55: error: package PotionsPlus does not exist
+            PotionsPlus.LOGGER.warn("MinecraftServer not ready, can't inject seeded runtime recipes.");
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\persistence\adapter\BrewingCauldronRecipeTypeAdapter.java:26: error: cannot find symbol
+        BrewingCauldronRecipe.CODEC.encodeStart(JsonOps.INSTANCE, brewingCauldronRecipe).result().ifPresent(jsonElement -> jsonObject.add("recipe", jsonElement));
+                                   ^
+  symbol:   method encodeStart(JsonOps,BrewingCauldronRecipe)
+  location: variable CODEC of type MapCodec<BrewingCauldronRecipe>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\persistence\adapter\BrewingCauldronRecipeTypeAdapter.java:48: error: method decode in interface MapDecoder<A> cannot be applied to given types;
+        return (BrewingCauldronRecipe) BrewingCauldronRecipe.CODEC.decode(JsonOps.INSTANCE, recipe)
+                                                                  ^
+  required: DynamicOps<T>,MapLike<T>
+  found:    JsonOps,JsonElement
+  reason: cannot infer type-variable(s) T
+    (argument mismatch; JsonElement cannot be converted to MapLike<T>)
+  where T,A are type-variables:
+    T extends Object declared in method <T>decode(DynamicOps<T>,MapLike<T>)
+    A extends Object declared in interface MapDecoder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\persistence\SavedData.java:31: error: cannot find symbol
+            java.util.Objects.requireNonNull(net.minecraft.resources.Identifier.of(FILE_NAME)),
+                                                                               ^
+  symbol:   method of(String)
+  location: class Identifier
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\FadeInRotateItemActivationAnimation.java:49: error: cannot find symbol
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, fadeInAlpha);
+                        ^
+  symbol:   method setShaderColor(float,float,float,float)
+  location: class RenderSystem
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\FadeInRotateItemActivationAnimation.java:51: error: cannot find symbol
+            GuiGraphicsExtractor.drawSpecial(bufferSource ->
+                                ^
+  symbol:   method drawSpecial((bufferSou[...]l, 0))
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\FadeInRotateItemActivationAnimation.java:52: error: cannot find symbol
+                    minecraft.getItemRenderer().renderStatic(
+                             ^
+  symbol:   method getItemRenderer()
+  location: variable minecraft of type Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\ItemTossupAnimation.java:149: error: cannot find symbol
+                GuiGraphicsExtractor.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                                    ^
+  symbol:   method drawSpecial((bufferSou[...]l, 0))
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\ItemTossupAnimation.java:149: error: cannot find symbol
+                GuiGraphicsExtractor.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                                                                          ^
+  symbol:   method getItemRenderer()
+  location: variable minecraft of type Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:93: error: cannot find symbol
+                GuiGraphicsExtractor.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                                    ^
+  symbol:   method drawSpecial((bufferSou[...]l, 0))
+  location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:93: error: cannot find symbol
+                GuiGraphicsExtractor.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                                                                          ^
+  symbol:   method getItemRenderer()
+  location: variable minecraft of type Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:34: error: cannot find symbol
+        VertexConsumer vertexConsumer = bufferSource != null ? bufferSource.getBuffer(RenderType.leash()) : null;
+                                                                                                ^
+  symbol:   method leash()
+  location: class RenderType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:52: error: cannot find symbol
+        int packedLight = Lightmap.pack(mixedBlockLight, mixedSkyLight);
+                                  ^
+  symbol:   method pack(int,int)
+  location: class Lightmap
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:74: error: cannot find symbol
+            int packedLight = Lightmap.pack(mixedBlockLight, mixedSkyLight);
+                                      ^
+  symbol:   method pack(int,int)
+  location: class Lightmap
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:89: error: cannot find symbol
+        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.leash());
+                                                                         ^
+  symbol:   method leash()
+  location: class RenderType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:93: error: cannot find symbol
+            vertexConsumer.addVertex(matrix, point.x(), point.y(), point.z()).setColor(0.5F, 0.4F, 0.3F, 1.0F).setLight(Lightmap.pack(blockLightStart, skyLightStart));
+                                                                                                                                ^
+  symbol:   method pack(int,int)
+  location: class Lightmap
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:98: error: cannot find symbol
+            vertexConsumer.addVertex(matrix, point.x(), point.y(), point.z()).setColor(0.5F, 0.4F, 0.3F, 1.0F).setLight(Lightmap.pack(blockLightEnd, skyLightEnd));
+                                                                                                                                ^
+  symbol:   method pack(int,int)
+  location: class Lightmap
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\AttributeModifiersWhileHeldAbility.java:44: error: cannot find symbol
+        List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.unlockedAbilities().get(abilityHolder.key());
+                                                                                                                      ^
+  symbol:   method key()
+  location: variable abilityHolder of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Archery.java:21: error: cannot find symbol
+        return context.register(ConfiguredSkills.ARCHERY, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                ^
+  symbol:   variable ConfiguredSkills
+  location: class Archery
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Archery.java:26: error: cannot find symbol
+                        ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_BOW),
+                                                                               ^
+  symbol:   variable ConfiguredSkillPointSources
+  location: class Archery
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Archery.java:26: error: cannot find symbol
+                        ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_BOW),
+                        ^
+  symbol:   variable ConfiguredSkills
+  location: class Archery
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Archery.java:29: error: cannot find symbol
+                        ConfiguredSkills.createDefaultRewards(context)
+                        ^
+  symbol:   variable ConfiguredSkills
+  location: class Archery
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Archery.java:21: error: package Skills does not exist
+        return context.register(ConfiguredSkills.ARCHERY, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                                                                      ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Axes.java:21: error: cannot find symbol
+        return context.register(ConfiguredSkills.CHOPPING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                ^
+  symbol:   variable ConfiguredSkills
+  location: class Axes
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Axes.java:30: error: cannot find symbol
+                        ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_AXE),
+                                                                               ^
+  symbol:   variable ConfiguredSkillPointSources
+  location: class Axes
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Axes.java:30: error: cannot find symbol
+                        ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_AXE),
+                        ^
+  symbol:   variable ConfiguredSkills
+  location: class Axes
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Axes.java:33: error: cannot find symbol
+                        ConfiguredSkills.createDefaultRewards(context)
+                        ^
+  symbol:   variable ConfiguredSkills
+  location: class Axes
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Axes.java:21: error: package Skills does not exist
+        return context.register(ConfiguredSkills.CHOPPING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                                                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:21: error: cannot find symbol
+        return context.register(ConfiguredSkills.FARMING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration(
+                                ^
+  symbol:   variable ConfiguredSkills
+  location: class Farming
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:31: error: cannot find symbol
+                ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.HARVEST_CROPS),
+                                                                       ^
+  symbol:   variable ConfiguredSkillPointSources
+  location: class Farming
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:31: error: cannot find symbol
+                ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.HARVEST_CROPS),
+                ^
+  symbol:   variable ConfiguredSkills
+  location: class Farming
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:34: error: cannot find symbol
+                ConfiguredSkills.createDefaultRewards(context)
+                ^
+  symbol:   variable ConfiguredSkills
+  location: class Farming
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:36: error: cannot find symbol
+                        .addRewardForLevel(8, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SIMPLE_DUNGEON_LOOT_EDIBLE[0].key()))
+                                                                                                                                                 ^
+  symbol:   method key()
+  location: class ChoiceRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:37: error: cannot find symbol
+                        .addRewardForLevel(10, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.WHEAT_ADDITIONAL_SEEDS_LOOT.key()))
+                                                                                                                                                ^
+  symbol:   method key()
+  location: variable WHEAT_ADDITIONAL_SEEDS_LOOT of type AbilityRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:39: error: cannot find symbol
+                        .addRewardForLevel(15, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.key()))
+                                                                                                                                            ^
+  symbol:   method key()
+  location: variable BASIC_SKILL_LOOT_EDIBLE of type ChoiceRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:40: error: cannot find symbol
+                        .addRewardForLevel(16, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.NETHER_WART_BLAZE_POWDER_LOOT.key()))
+                                                                                                                                                  ^
+  symbol:   method key()
+  location: variable NETHER_WART_BLAZE_POWDER_LOOT of type AbilityRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:41: error: cannot find symbol
+                        .addRewardForLevel(18, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SIMPLE_DUNGEON_LOOT_EDIBLE[1].key()))
+                                                                                                                                                  ^
+  symbol:   method key()
+  location: class ChoiceRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:44: error: cannot find symbol
+                        .addRewardForLevel(24, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.POTATO_POISONOUS_POTATO_LOOT.key()))
+                                                                                                                                                 ^
+  symbol:   method key()
+  location: variable POTATO_POISONOUS_POTATO_LOOT of type AbilityRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:45: error: cannot find symbol
+                        .addRewardForLevel(25, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.key()))
+                                                                                                                                                   ^
+  symbol:   method key()
+  location: variable INTERMEDIATE_SKILL_LOOT_EDIBLE of type ChoiceRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:46: error: cannot find symbol
+                        .addRewardForLevel(28, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BEETROOT_SUGAR_LOOT.key()))
+                                                                                                                                        ^
+  symbol:   method key()
+  location: variable BEETROOT_SUGAR_LOOT of type AbilityRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:50: error: cannot find symbol
+                        .addRewardForLevel(38, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CARROT_GOLDEN_CARROT_LOOT.key()))
+                                                                                                                                              ^
+  symbol:   method key()
+  location: variable CARROT_GOLDEN_CARROT_LOOT of type AbilityRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:51: error: cannot find symbol
+                        .addRewardForLevel(40, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_LOOT_1.key()))
+                                                                                                                                  ^
+  symbol:   method key()
+  location: variable CHOOSE_LOOT_1 of type ChoiceRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:52: error: cannot find symbol
+                        .addRewardForLevel(42, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.COCOA_COOKIE_LOOT.key()))
+                                                                                                                                      ^
+  symbol:   method key()
+  location: variable COCOA_COOKIE_LOOT of type AbilityRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:53: error: cannot find symbol
+                        .addRewardForLevel(45, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.ADVANCED_SKILL_LOOT_EDIBLE.key()))
+                                                                                                                                               ^
+  symbol:   method key()
+  location: variable ADVANCED_SKILL_LOOT_EDIBLE of type ChoiceRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:57: error: cannot find symbol
+                        .addRewardForLevel(65, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.EXPERT_SKILL_LOOT_EDIBLE.key()))
+                                                                                                                                             ^
+  symbol:   method key()
+  location: variable EXPERT_SKILL_LOOT_EDIBLE of type ChoiceRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:62: error: cannot find symbol
+                                .addReward(rewardLookup, ConfiguredGrantableRewards.MASTER_SKILL_LOOT_EDIBLE.key())
+                                                                                                            ^
+  symbol:   method key()
+  location: variable MASTER_SKILL_LOOT_EDIBLE of type ChoiceRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:21: error: package Skills does not exist
+        return context.register(ConfiguredSkills.FARMING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration(
+                                                                                      ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Jumping.java:21: error: cannot find symbol
+        return context.register(ConfiguredSkills.JUMPING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                ^
+  symbol:   variable ConfiguredSkills
+  location: class Jumping
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Jumping.java:26: error: cannot find symbol
+                        ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.JUMP),
+                                                                               ^
+  symbol:   variable ConfiguredSkillPointSources
+  location: class Jumping
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Jumping.java:26: error: cannot find symbol
+                        ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.JUMP),
+                        ^
+  symbol:   variable ConfiguredSkills
+  location: class Jumping
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Jumping.java:29: error: cannot find symbol
+                        ConfiguredSkills.createDefaultRewards(context)
+                        ^
+  symbol:   variable ConfiguredSkills
+  location: class Jumping
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Jumping.java:21: error: package Skills does not exist
+        return context.register(ConfiguredSkills.JUMPING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                                                                      ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:22: error: cannot find symbol
+        return context.register(ConfiguredSkills.MINING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration(
+                                ^
+  symbol:   variable ConfiguredSkills
+  location: class Mining
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:33: error: cannot find symbol
+                ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.MINE_ORE),
+                                                                       ^
+  symbol:   variable ConfiguredSkillPointSources
+  location: class Mining
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:33: error: cannot find symbol
+                ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.MINE_ORE),
+                ^
+  symbol:   variable ConfiguredSkills
+  location: class Mining
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:36: error: cannot find symbol
+                ConfiguredSkills.createDefaultRewards(context)
+                ^
+  symbol:   variable ConfiguredSkills
+  location: class Mining
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:38: error: cannot find symbol
+                        .addRewardForLevel(6, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SIMPLE_DUNGEON_LOOT_EDIBLE[0].key()))
+                                                                                                                                                 ^
+  symbol:   method key()
+  location: class ChoiceRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:41: error: cannot find symbol
+                        .addRewardForLevel(10, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.ABANDONED_MINESHAFT_LOOT_EDIBLE[0].key()))
+                                                                                                                                                       ^
+  symbol:   method key()
+  location: class ChoiceRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:42: error: cannot find symbol
+                        .addRewardForLevel(11, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_LOOT_1.key()))
+                                                                                                                                  ^
+  symbol:   method key()
+  location: variable CHOOSE_LOOT_1 of type ChoiceRewardBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:22: error: package Skills does not exist
+        return context.register(ConfiguredSkills.MINING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration(
+                                                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sneaking.java:21: error: cannot find symbol
+        return context.register(ConfiguredSkills.SNEAKING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                ^
+  symbol:   variable ConfiguredSkills
+  location: class Sneaking
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sneaking.java:26: error: cannot find symbol
+                        ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.SNEAK),
+                                                                               ^
+  symbol:   variable ConfiguredSkillPointSources
+  location: class Sneaking
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sneaking.java:26: error: cannot find symbol
+                        ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.SNEAK),
+                        ^
+  symbol:   variable ConfiguredSkills
+  location: class Sneaking
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sneaking.java:29: error: cannot find symbol
+                        ConfiguredSkills.createDefaultRewards(context)
+                        ^
+  symbol:   variable ConfiguredSkills
+  location: class Sneaking
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sneaking.java:21: error: package Skills does not exist
+        return context.register(ConfiguredSkills.SNEAKING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                                                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sprinting.java:21: error: cannot find symbol
+        return context.register(ConfiguredSkills.SPRINTING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                ^
+  symbol:   variable ConfiguredSkills
+  location: class Sprinting
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sprinting.java:26: error: cannot find symbol
+                        ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.SPRINT),
+                                                                               ^
+  symbol:   variable ConfiguredSkillPointSources
+  location: class Sprinting
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sprinting.java:26: error: cannot find symbol
+                        ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.SPRINT),
+                        ^
+  symbol:   variable ConfiguredSkills
+  location: class Sprinting
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sprinting.java:29: error: cannot find symbol
+                        ConfiguredSkills.createDefaultRewards(context)
+                        ^
+  symbol:   variable ConfiguredSkills
+  location: class Sprinting
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sprinting.java:21: error: package Skills does not exist
+        return context.register(ConfiguredSkills.SPRINTING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                                                                        ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+
+> Task :common:compileJava FAILED
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\persistence\adapter\BrewingCauldronRecipeTypeAdapter.java:48: error: method decode in interface MapDecoder<A> cannot be applied to given types;
+          return (BrewingCauldronRecipe) BrewingCauldronRecipe.CODEC.decode(JsonOps.INSTANCE, recipe)
+                                                                    ^
+    required: DynamicOps<T>,MapLike<T>
+    found:    JsonOps,JsonElement
+    reason: cannot infer type-variable(s) T
+      (argument mismatch; JsonElement cannot be converted to MapLike<T>)
+    where T,A are type-variables:
+      T extends Object declared in method <T>decode(DynamicOps<T>,MapLike<T>)
+      A extends Object declared in interface MapDecoder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:33: error: no suitable method found for put(Item,(blockStat[...]tack))
+          CauldronInteractions.WATER.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                                    ^
+      method Dispatcher.put(Item,CauldronInteraction) is not applicable
+        (put(Item,CauldronInteraction) is not public in Dispatcher; cannot be accessed from outside package)
+      method Dispatcher.put(TagKey<Item>,CauldronInteraction) is not applicable
+        (argument mismatch; Item cannot be converted to TagKey<Item>)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:34: error: no suitable method found for put(Item,(blockStat[...]tack))
+          CauldronInteractions.EMPTY.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                                    ^
+      method Dispatcher.put(Item,CauldronInteraction) is not applicable
+        (put(Item,CauldronInteraction) is not public in Dispatcher; cannot be accessed from outside package)
+      method Dispatcher.put(TagKey<Item>,CauldronInteraction) is not applicable
+        (argument mismatch; Item cannot be converted to TagKey<Item>)
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\loot\IsInBiomeCondition.java:30: error: incompatible types: bad return type in method reference
+                      .fieldOf("biomes").forGetter(IsInBiomeCondition::biomes)).apply(codecBuilder, IsInBiomeCondition::new)
+                                                   ^
+      Set<ResourceKey<Biome>> cannot be converted to ImmutableSet<ResourceKey<Biome>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\LivingEntityMixin.java:82: error: cannot find symbol
+      public float getFriction(Block instance) {
+                               ^
+    symbol:   class Block
+    location: class LivingEntityMixin
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\ItemEntityMixin.java:24: error: cannot find symbol
+      @ModifyConstant(method = "tick", constant = @Constant(intValue = 6000))
+                                                   ^
+    symbol:   class Constant
+    location: class ItemEntityMixin
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Archery.java:21: error: cannot find symbol
+          return context.register(ConfiguredSkills.ARCHERY, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                  ^
+    symbol:   variable ConfiguredSkills
+    location: class Archery
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Archery.java:26: error: cannot find symbol
+                          ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_BOW),
+                                                                                 ^
+    symbol:   variable ConfiguredSkillPointSources
+    location: class Archery
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Archery.java:26: error: cannot find symbol
+                          ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_BOW),
+                          ^
+    symbol:   variable ConfiguredSkills
+    location: class Archery
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Archery.java:29: error: cannot find symbol
+                          ConfiguredSkills.createDefaultRewards(context)
+                          ^
+    symbol:   variable ConfiguredSkills
+    location: class Archery
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Axes.java:21: error: cannot find symbol
+          return context.register(ConfiguredSkills.CHOPPING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                  ^
+    symbol:   variable ConfiguredSkills
+    location: class Axes
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Axes.java:30: error: cannot find symbol
+                          ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_AXE),
+                                                                                 ^
+    symbol:   variable ConfiguredSkillPointSources
+    location: class Axes
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Axes.java:30: error: cannot find symbol
+                          ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.KILL_ENTITY_WITH_AXE),
+                          ^
+    symbol:   variable ConfiguredSkills
+    location: class Axes
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Axes.java:33: error: cannot find symbol
+                          ConfiguredSkills.createDefaultRewards(context)
+                          ^
+    symbol:   variable ConfiguredSkills
+    location: class Axes
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:21: error: cannot find symbol
+          return context.register(ConfiguredSkills.FARMING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration(
+                                  ^
+    symbol:   variable ConfiguredSkills
+    location: class Farming
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:31: error: cannot find symbol
+                  ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.HARVEST_CROPS),
+                                                                         ^
+    symbol:   variable ConfiguredSkillPointSources
+    location: class Farming
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:31: error: cannot find symbol
+                  ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.HARVEST_CROPS),
+                  ^
+    symbol:   variable ConfiguredSkills
+    location: class Farming
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:34: error: cannot find symbol
+                  ConfiguredSkills.createDefaultRewards(context)
+                  ^
+    symbol:   variable ConfiguredSkills
+    location: class Farming
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Jumping.java:21: error: cannot find symbol
+          return context.register(ConfiguredSkills.JUMPING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                  ^
+    symbol:   variable ConfiguredSkills
+    location: class Jumping
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Jumping.java:26: error: cannot find symbol
+                          ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.JUMP),
+                                                                                 ^
+    symbol:   variable ConfiguredSkillPointSources
+    location: class Jumping
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Jumping.java:26: error: cannot find symbol
+                          ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.JUMP),
+                          ^
+    symbol:   variable ConfiguredSkills
+    location: class Jumping
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Jumping.java:29: error: cannot find symbol
+                          ConfiguredSkills.createDefaultRewards(context)
+                          ^
+    symbol:   variable ConfiguredSkills
+    location: class Jumping
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:22: error: cannot find symbol
+          return context.register(ConfiguredSkills.MINING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration(
+                                  ^
+    symbol:   variable ConfiguredSkills
+    location: class Mining
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:33: error: cannot find symbol
+                  ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.MINE_ORE),
+                                                                         ^
+    symbol:   variable ConfiguredSkillPointSources
+    location: class Mining
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:33: error: cannot find symbol
+                  ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.MINE_ORE),
+                  ^
+    symbol:   variable ConfiguredSkills
+    location: class Mining
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:36: error: cannot find symbol
+                  ConfiguredSkills.createDefaultRewards(context)
+                  ^
+    symbol:   variable ConfiguredSkills
+    location: class Mining
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sneaking.java:21: error: cannot find symbol
+          return context.register(ConfiguredSkills.SNEAKING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                  ^
+    symbol:   variable ConfiguredSkills
+    location: class Sneaking
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sneaking.java:26: error: cannot find symbol
+                          ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.SNEAK),
+                                                                                 ^
+    symbol:   variable ConfiguredSkillPointSources
+    location: class Sneaking
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sneaking.java:26: error: cannot find symbol
+                          ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.SNEAK),
+                          ^
+    symbol:   variable ConfiguredSkills
+    location: class Sneaking
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sneaking.java:29: error: cannot find symbol
+                          ConfiguredSkills.createDefaultRewards(context)
+                          ^
+    symbol:   variable ConfiguredSkills
+    location: class Sneaking
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sprinting.java:21: error: cannot find symbol
+          return context.register(ConfiguredSkills.SPRINTING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                  ^
+    symbol:   variable ConfiguredSkills
+    location: class Sprinting
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sprinting.java:26: error: cannot find symbol
+                          ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.SPRINT),
+                                                                                 ^
+    symbol:   variable ConfiguredSkillPointSources
+    location: class Sprinting
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sprinting.java:26: error: cannot find symbol
+                          ConfiguredSkills.tryBuildValidSourceList(sourceLookup, ConfiguredSkillPointSources.SPRINT),
+                          ^
+    symbol:   variable ConfiguredSkills
+    location: class Sprinting
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sprinting.java:29: error: cannot find symbol
+                          ConfiguredSkills.createDefaultRewards(context)
+                          ^
+    symbol:   variable ConfiguredSkills
+    location: class Sprinting
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:51: error: ScissorStack has private access in GuiGraphicsExtractor
+      public GuiGraphicsExtractor.ScissorStack scissorStack;
+                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:57: error: modelOutput has private access in BlockModelGenerators
+              Identifier fallbackItemModel = ModelTemplates.FLAT_ITEM.create(fallbackItemModelId, fallbackItemTextureMapping, blockModelGenerators.modelOutput);
+                                                                                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:67: error: modelOutput has private access in BlockModelGenerators
+                  Identifier generatedItemModel = ModelTemplates.TWO_LAYERED_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:85: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:106: error: modelOutput has private access in BlockModelGenerators
+                  Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:120: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:143: error: modelOutput has private access in BlockModelGenerators
+              Identifier fallbackItemModelLocation = ModelTemplates.FLAT_ITEM.create(ppId("unknown_generic_icon_fallback"), fallbackItemTextureMapping, blockModelGenerators.modelOutput);
+                                                                                                                                                                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:154: error: modelOutput has private access in BlockModelGenerators
+                  Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:168: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:28: error: targetSelector has protected access in Mob
+              Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
+                                                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:31: error: targetType has protected access in NearestAttackableTargetGoal
+                      .filter(goal -> goal.targetType == Player.class);
+                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:34: error: targetSelector has protected access in Mob
+                  skeleton.targetSelector.removeGoal(goal);
+                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:37: error: targetSelector has protected access in Mob
+              skeleton.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(skeleton, Monster.class, false, TARGET_PREDICATE));
+                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:51: error: targetSelector has protected access in Mob
+          Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
+                                                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:54: error: targetType has protected access in NearestAttackableTargetGoal
+                  .filter(goal -> goal.targetType == Monster.class);
+                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:57: error: targetSelector has protected access in Mob
+              skeleton.targetSelector.removeGoal(goal);
+                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:60: error: targetSelector has protected access in Mob
+          skeleton.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(skeleton, Player.class, true));
+                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\AbilitySelectionTree.java:32: error: create(String,RenderSetup) is not public in RenderType; cannot be accessed from outside package
+      private static final RenderType GUI_RENDER_TYPE = RenderType.create("pp_gui", RenderSetup.builder(RenderPipelines.GUI).createRenderSetup());
+                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\AbilitySelectionTree.java:34: error: create(String,RenderSetup) is not public in RenderType; cannot be accessed from outside package
+              (java.util.function.Function<Identifier, RenderType>)(texture -> RenderType.create("pp_gui_textured",
+                                                                                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SpriteProgressBarElement.java:33: error: create(String,RenderSetup) is not public in RenderType; cannot be accessed from outside package
+              (Function<Identifier, RenderType>)(texture -> RenderType.create("pp_gui_textured",
+                                                                      ^
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:40: error: package PotionsPlus does not exist
+                              PotionsPlus.LOGGER.info(brewingCauldronRecipe.toString());
+                                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:43: error: package PotionsPlus does not exist
+                          PotionsPlus.LOGGER.warn("Duplicate recipe key found: {} for type: {}", recipeHolder.id(), pair.getFirst().toString());
+                                     ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:46: error: package PotionsPlus does not exist
+                  PotionsPlus.LOGGER.info("Injected {} runtime recipes for type: {}", recipes.size(), pair.getFirst().toString());
+                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:50: error: package PotionsPlus does not exist
+              PotionsPlus.LOGGER.info("Total recipes injected: {}", allRecipes.size() - existingRecipes.size());
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:55: error: package PotionsPlus does not exist
+              PotionsPlus.LOGGER.warn("MinecraftServer not ready, can't inject seeded runtime recipes.");
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Archery.java:21: error: package Skills does not exist
+          return context.register(ConfiguredSkills.ARCHERY, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                                                                        ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Axes.java:21: error: package Skills does not exist
+          return context.register(ConfiguredSkills.CHOPPING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                                                                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:21: error: package Skills does not exist
+          return context.register(ConfiguredSkills.FARMING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration(
+                                                                                        ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Jumping.java:21: error: package Skills does not exist
+          return context.register(ConfiguredSkills.JUMPING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                                                                        ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:22: error: package Skills does not exist
+          return context.register(ConfiguredSkills.MINING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration(
+                                                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sneaking.java:21: error: package Skills does not exist
+          return context.register(ConfiguredSkills.SNEAKING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                                                                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Sprinting.java:21: error: package Skills does not exist
+          return context.register(ConfiguredSkills.SPRINTING, new ConfiguredSkill<>(Skills.GENERIC.get(), new SkillConfiguration
+                                                                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BouncingEffect.java:69: error: cannot find symbol
+                  boolean bounced = PlayerAbilities.SAVED_BY_THE_BOUNCE.triggerFromClient(
+                                                                       ^
+    symbol:   method triggerFromClient(Player,ResourceKey<ConfiguredPlayerAbility<?,?>>,FallData)
+    location: variable SAVED_BY_THE_BOUNCE of type Holder<SavedByTheBounceAbility>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\persistence\adapter\BrewingCauldronRecipeTypeAdapter.java:26: error: cannot find symbol
+          BrewingCauldronRecipe.CODEC.encodeStart(JsonOps.INSTANCE, brewingCauldronRecipe).result().ifPresent(jsonElement -> jsonObject.add("recipe", jsonElement));
+                                     ^
+    symbol:   method encodeStart(JsonOps,BrewingCauldronRecipe)
+    location: variable CODEC of type MapCodec<BrewingCauldronRecipe>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\persistence\SavedData.java:31: error: cannot find symbol
+              java.util.Objects.requireNonNull(net.minecraft.resources.Identifier.of(FILE_NAME)),
+                                                                                 ^
+    symbol:   method of(String)
+    location: class Identifier
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\FadeInRotateItemActivationAnimation.java:49: error: cannot find symbol
+              RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, fadeInAlpha);
+                          ^
+    symbol:   method setShaderColor(float,float,float,float)
+    location: class RenderSystem
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\FadeInRotateItemActivationAnimation.java:51: error: cannot find symbol
+              GuiGraphicsExtractor.drawSpecial(bufferSource ->
+                                  ^
+    symbol:   method drawSpecial((bufferSou[...]l, 0))
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\FadeInRotateItemActivationAnimation.java:52: error: cannot find symbol
+                      minecraft.getItemRenderer().renderStatic(
+                               ^
+    symbol:   method getItemRenderer()
+    location: variable minecraft of type Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\ItemTossupAnimation.java:149: error: cannot find symbol
+                  GuiGraphicsExtractor.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                                      ^
+    symbol:   method drawSpecial((bufferSou[...]l, 0))
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\ItemTossupAnimation.java:149: error: cannot find symbol
+                  GuiGraphicsExtractor.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                                                                            ^
+    symbol:   method getItemRenderer()
+    location: variable minecraft of type Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:93: error: cannot find symbol
+                  GuiGraphicsExtractor.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                                      ^
+    symbol:   method drawSpecial((bufferSou[...]l, 0))
+    location: variable GuiGraphicsExtractor of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:93: error: cannot find symbol
+                  GuiGraphicsExtractor.drawSpecial(bufferSource -> minecraft.getItemRenderer().renderStatic(
+                                                                            ^
+    symbol:   method getItemRenderer()
+    location: variable minecraft of type Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:34: error: cannot find symbol
+          VertexConsumer vertexConsumer = bufferSource != null ? bufferSource.getBuffer(RenderType.leash()) : null;
+                                                                                                  ^
+    symbol:   method leash()
+    location: class RenderType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:52: error: cannot find symbol
+          int packedLight = Lightmap.pack(mixedBlockLight, mixedSkyLight);
+                                    ^
+    symbol:   method pack(int,int)
+    location: class Lightmap
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:74: error: cannot find symbol
+              int packedLight = Lightmap.pack(mixedBlockLight, mixedSkyLight);
+                                        ^
+    symbol:   method pack(int,int)
+    location: class Lightmap
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:89: error: cannot find symbol
+          VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.leash());
+                                                                           ^
+    symbol:   method leash()
+    location: class RenderType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:93: error: cannot find symbol
+              vertexConsumer.addVertex(matrix, point.x(), point.y(), point.z()).setColor(0.5F, 0.4F, 0.3F, 1.0F).setLight(Lightmap.pack(blockLightStart, skyLightStart));
+                                                                                                                                  ^
+    symbol:   method pack(int,int)
+    location: class Lightmap
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:98: error: cannot find symbol
+              vertexConsumer.addVertex(matrix, point.x(), point.y(), point.z()).setColor(0.5F, 0.4F, 0.3F, 1.0F).setLight(Lightmap.pack(blockLightEnd, skyLightEnd));
+                                                                                                                                  ^
+    symbol:   method pack(int,int)
+    location: class Lightmap
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\AttributeModifiersWhileHeldAbility.java:44: error: cannot find symbol
+          List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.unlockedAbilities().get(abilityHolder.key());
+                                                                                                                        ^
+    symbol:   method key()
+    location: variable abilityHolder of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:36: error: cannot find symbol
+                          .addRewardForLevel(8, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SIMPLE_DUNGEON_LOOT_EDIBLE[0].key()))
+                                                                                                                                                   ^
+    symbol:   method key()
+    location: class ChoiceRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:37: error: cannot find symbol
+                          .addRewardForLevel(10, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.WHEAT_ADDITIONAL_SEEDS_LOOT.key()))
+                                                                                                                                                  ^
+    symbol:   method key()
+    location: variable WHEAT_ADDITIONAL_SEEDS_LOOT of type AbilityRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:39: error: cannot find symbol
+                          .addRewardForLevel(15, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BASIC_SKILL_LOOT_EDIBLE.key()))
+                                                                                                                                              ^
+    symbol:   method key()
+    location: variable BASIC_SKILL_LOOT_EDIBLE of type ChoiceRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:40: error: cannot find symbol
+                          .addRewardForLevel(16, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.NETHER_WART_BLAZE_POWDER_LOOT.key()))
+                                                                                                                                                    ^
+    symbol:   method key()
+    location: variable NETHER_WART_BLAZE_POWDER_LOOT of type AbilityRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:41: error: cannot find symbol
+                          .addRewardForLevel(18, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SIMPLE_DUNGEON_LOOT_EDIBLE[1].key()))
+                                                                                                                                                    ^
+    symbol:   method key()
+    location: class ChoiceRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:44: error: cannot find symbol
+                          .addRewardForLevel(24, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.POTATO_POISONOUS_POTATO_LOOT.key()))
+                                                                                                                                                   ^
+    symbol:   method key()
+    location: variable POTATO_POISONOUS_POTATO_LOOT of type AbilityRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:45: error: cannot find symbol
+                          .addRewardForLevel(25, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.INTERMEDIATE_SKILL_LOOT_EDIBLE.key()))
+                                                                                                                                                     ^
+    symbol:   method key()
+    location: variable INTERMEDIATE_SKILL_LOOT_EDIBLE of type ChoiceRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:46: error: cannot find symbol
+                          .addRewardForLevel(28, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.BEETROOT_SUGAR_LOOT.key()))
+                                                                                                                                          ^
+    symbol:   method key()
+    location: variable BEETROOT_SUGAR_LOOT of type AbilityRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:50: error: cannot find symbol
+                          .addRewardForLevel(38, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CARROT_GOLDEN_CARROT_LOOT.key()))
+                                                                                                                                                ^
+    symbol:   method key()
+    location: variable CARROT_GOLDEN_CARROT_LOOT of type AbilityRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:51: error: cannot find symbol
+                          .addRewardForLevel(40, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_LOOT_1.key()))
+                                                                                                                                    ^
+    symbol:   method key()
+    location: variable CHOOSE_LOOT_1 of type ChoiceRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:52: error: cannot find symbol
+                          .addRewardForLevel(42, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.COCOA_COOKIE_LOOT.key()))
+                                                                                                                                        ^
+    symbol:   method key()
+    location: variable COCOA_COOKIE_LOOT of type AbilityRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:53: error: cannot find symbol
+                          .addRewardForLevel(45, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.ADVANCED_SKILL_LOOT_EDIBLE.key()))
+                                                                                                                                                 ^
+    symbol:   method key()
+    location: variable ADVANCED_SKILL_LOOT_EDIBLE of type ChoiceRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:57: error: cannot find symbol
+                          .addRewardForLevel(65, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.EXPERT_SKILL_LOOT_EDIBLE.key()))
+                                                                                                                                               ^
+    symbol:   method key()
+    location: variable EXPERT_SKILL_LOOT_EDIBLE of type ChoiceRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Farming.java:62: error: cannot find symbol
+                                  .addReward(rewardLookup, ConfiguredGrantableRewards.MASTER_SKILL_LOOT_EDIBLE.key())
+                                                                                                              ^
+    symbol:   method key()
+    location: variable MASTER_SKILL_LOOT_EDIBLE of type ChoiceRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:38: error: cannot find symbol
+                          .addRewardForLevel(6, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.SIMPLE_DUNGEON_LOOT_EDIBLE[0].key()))
+                                                                                                                                                   ^
+    symbol:   method key()
+    location: class ChoiceRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:41: error: cannot find symbol
+                          .addRewardForLevel(10, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.ABANDONED_MINESHAFT_LOOT_EDIBLE[0].key()))
+                                                                                                                                                         ^
+    symbol:   method key()
+    location: class ChoiceRewardBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\configured\Mining.java:42: error: cannot find symbol
+                          .addRewardForLevel(11, builder -> builder.addReward(rewardLookup, ConfiguredGrantableRewards.CHOOSE_LOOT_1.key()))
+                                                                                                                                    ^
+    symbol:   method key()
+    location: variable CHOOSE_LOOT_1 of type ChoiceRewardBuilder
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 3s
+1 actionable task: 1 executed

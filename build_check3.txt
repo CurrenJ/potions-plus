@@ -1,0 +1,340 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Task :common:compileJava FAILED
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:45: error: incompatible types: Holder<CriterionTrigger<?>> cannot be converted to CriterionTrigger<TriggerInstance>
+            return new Criterion<AbyssalTroveTrigger.TriggerInstance>(Advancements.ABYSSAL_TROVE_TRIGGER, new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.of(fillPercentage), Optional.of(rarity)));
+                                                                                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:49: error: cannot find symbol
+            return Advancements.ABYSSAL_TROVE_TRIGGER.createCriterion(new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.of(fillPercentage), Optional.empty()));
+                                                     ^
+  symbol:   method createCriterion(TriggerInstance)
+  location: variable ABYSSAL_TROVE_TRIGGER of type Holder<CriterionTrigger<?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:53: error: cannot find symbol
+            return Advancements.ABYSSAL_TROVE_TRIGGER.createCriterion(new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.empty(), Optional.of(rarity)));
+                                                     ^
+  symbol:   method createCriterion(TriggerInstance)
+  location: variable ABYSSAL_TROVE_TRIGGER of type Holder<CriterionTrigger<?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:42: error: incompatible types: Holder<CriterionTrigger<?>> cannot be converted to CriterionTrigger<TriggerInstance>
+            return new Criterion<AwardStatTrigger.TriggerInstance>(Advancements.AWARD_STAT_TRIGGER, new AwardStatTrigger.TriggerInstance(Optional.empty(), statId, totalStats));
+                                                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:52: error: incompatible types: Holder<CriterionTrigger<?>> cannot be converted to CriterionTrigger<TriggerInstance>
+            return new Criterion<CraftRecipeTrigger.TriggerInstance>(Advancements.CRAFT_RECIPE, new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.of(recipeResult), Optional.of(potionMatchingCriteria)));
+                                                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:56: error: incompatible types: Holder<CriterionTrigger<?>> cannot be converted to CriterionTrigger<TriggerInstance>
+            return new Criterion<CraftRecipeTrigger.TriggerInstance>(Advancements.CRAFT_RECIPE, new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.of(recipeResult), Optional.empty()));
+                                                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:60: error: incompatible types: Holder<CriterionTrigger<?>> cannot be converted to CriterionTrigger<TriggerInstance>
+            return new Criterion<CraftRecipeTrigger.TriggerInstance>(Advancements.CRAFT_RECIPE, new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.empty(), Optional.empty()));
+                                                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:42: error: incompatible types: Holder<CriterionTrigger<?>> cannot be converted to CriterionTrigger<TriggerInstance>
+            return new Criterion<CreatePotionsPlusBlockTrigger.TriggerInstance>(Advancements.BREWING_CAULDRON_CREATION, new CreatePotionsPlusBlockTrigger.TriggerInstance(Optional.empty(), blockState));
+                                                                                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:258: error: cannot find symbol
+                            Advancements.CRAFT_RECIPE.trigger(serverPlayer, recipe.getType(), PpIngredient.of(result));
+                                                     ^
+  symbol:   method trigger(ServerPlayer,RecipeType<BrewingCauldronRecipe>,PpIngredient)
+  location: variable CRAFT_RECIPE of type Holder<CriterionTrigger<?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:188: error: cannot find symbol
+                            Advancements.CRAFT_RECIPE.trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
+                                                     ^
+  symbol:   method trigger(ServerPlayer,RecipeType<ClotheslineRecipe>,PpIngredient)
+  location: variable CRAFT_RECIPE of type Holder<CriterionTrigger<?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntity.java:159: error: cannot find symbol
+                    Advancements.CRAFT_RECIPE.trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE, PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
+                                             ^
+  symbol:   method trigger(ServerPlayer,RecipeType<SanguineAltarRecipe>,PpIngredient)
+  location: variable CRAFT_RECIPE of type Holder<CriterionTrigger<?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:22: error: cannot find symbol
+            .effect(MobEffects.GEODE_GRACE)
+                              ^
+  symbol:   variable GEODE_GRACE
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:28: error: cannot find symbol
+            .effect(MobEffects.FALL_OF_THE_VOID)
+                              ^
+  symbol:   variable FALL_OF_THE_VOID
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:45: error: cannot find symbol
+            .effect(MobEffects.MAGNETIC)
+                              ^
+  symbol:   variable MAGNETIC
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:50: error: cannot find symbol
+            .effect(MobEffects.EXPLODING, 60)
+                              ^
+  symbol:   variable EXPLODING
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:56: error: cannot find symbol
+            .effect(MobEffects.TELEPORTATION, 60)
+                              ^
+  symbol:   variable TELEPORTATION
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:61: error: cannot find symbol
+            .effect(MobEffects.LOOTING)
+                              ^
+  symbol:   variable LOOTING
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:67: error: cannot find symbol
+            .effect(MobEffects.FORTUITOUS_FATE)
+                              ^
+  symbol:   variable FORTUITOUS_FATE
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:73: error: cannot find symbol
+            .effect(MobEffects.METAL_DETECTING)
+                              ^
+  symbol:   variable METAL_DETECTING
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:79: error: cannot find symbol
+            .effect(MobEffects.GIANT_STEPS)
+                              ^
+  symbol:   variable GIANT_STEPS
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:84: error: cannot find symbol
+            .effect(MobEffects.REACH_FOR_THE_STARS)
+                              ^
+  symbol:   variable REACH_FOR_THE_STARS
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:90: error: cannot find symbol
+            .effect(MobEffects.NAUTICAL_NITRO)
+                              ^
+  symbol:   variable NAUTICAL_NITRO
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:95: error: cannot find symbol
+            .effect(MobEffects.CROP_COLLECTOR)
+                              ^
+  symbol:   variable CROP_COLLECTOR
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:101: error: cannot find symbol
+            .effect(MobEffects.BOTANICAL_BOOST)
+                              ^
+  symbol:   variable BOTANICAL_BOOST
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:134: error: cannot find symbol
+            .effect(MobEffects.SLIP_N_SLIDE)
+                              ^
+  symbol:   variable SLIP_N_SLIDE
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:139: error: cannot find symbol
+            .effect(MobEffects.HARROWING_HANDS)
+                              ^
+  symbol:   variable HARROWING_HANDS
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:145: error: cannot find symbol
+            .effect(MobEffects.SHEPHERDS_SERENADE)
+                              ^
+  symbol:   variable SHEPHERDS_SERENADE
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:180: error: cannot find symbol
+            .effect(MobEffects.SOUL_MATE)
+                              ^
+  symbol:   variable SOUL_MATE
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:186: error: cannot find symbol
+            .effect(MobEffects.FLYING_TIME)
+                              ^
+  symbol:   variable FLYING_TIME
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:192: error: cannot find symbol
+            .effect(MobEffects.BOUNCING)
+                              ^
+  symbol:   variable BOUNCING
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:196: error: cannot find symbol
+        ANY_POTION = register.apply("any_potion", () -> new Potion("Any Potion", new MobEffectInstance(MobEffects.ANY_POTION, 1200, 0)));
+                                                                                                                 ^
+  symbol:   variable ANY_POTION
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:197: error: cannot find symbol
+        ANY_OTHER_POTION = register.apply("any_other_potion", () -> new Potion("Any Other Potion", new MobEffectInstance(MobEffects.ANY_OTHER_POTION, 1200, 0)));
+                                                                                                                                   ^
+  symbol:   variable ANY_OTHER_POTION
+  location: class MobEffects
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:44: error: cannot find symbol
+            Advancements.BREWING_CAULDRON_CREATION.trigger(serverplayer, BlockEntityBlocks.BREWING_CAULDRON.value().defaultBlockState());
+                                                  ^
+  symbol:   method trigger(ServerPlayer,BlockState)
+  location: variable BREWING_CAULDRON_CREATION of type Holder<CriterionTrigger<?>>
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+33 errors
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:45: error: incompatible types: Holder<CriterionTrigger<?>> cannot be converted to CriterionTrigger<TriggerInstance>
+              return new Criterion<AbyssalTroveTrigger.TriggerInstance>(Advancements.ABYSSAL_TROVE_TRIGGER, new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.of(fillPercentage), Optional.of(rarity)));
+                                                                                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AwardStatTrigger.java:42: error: incompatible types: Holder<CriterionTrigger<?>> cannot be converted to CriterionTrigger<TriggerInstance>
+              return new Criterion<AwardStatTrigger.TriggerInstance>(Advancements.AWARD_STAT_TRIGGER, new AwardStatTrigger.TriggerInstance(Optional.empty(), statId, totalStats));
+                                                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:52: error: incompatible types: Holder<CriterionTrigger<?>> cannot be converted to CriterionTrigger<TriggerInstance>
+              return new Criterion<CraftRecipeTrigger.TriggerInstance>(Advancements.CRAFT_RECIPE, new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.of(recipeResult), Optional.of(potionMatchingCriteria)));
+                                                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:56: error: incompatible types: Holder<CriterionTrigger<?>> cannot be converted to CriterionTrigger<TriggerInstance>
+              return new Criterion<CraftRecipeTrigger.TriggerInstance>(Advancements.CRAFT_RECIPE, new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.of(recipeResult), Optional.empty()));
+                                                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CraftRecipeTrigger.java:60: error: incompatible types: Holder<CriterionTrigger<?>> cannot be converted to CriterionTrigger<TriggerInstance>
+              return new Criterion<CraftRecipeTrigger.TriggerInstance>(Advancements.CRAFT_RECIPE, new CraftRecipeTrigger.TriggerInstance(Optional.empty(), Optional.of(recipeType), Optional.empty(), Optional.empty()));
+                                                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\CreatePotionsPlusBlockTrigger.java:42: error: incompatible types: Holder<CriterionTrigger<?>> cannot be converted to CriterionTrigger<TriggerInstance>
+              return new Criterion<CreatePotionsPlusBlockTrigger.TriggerInstance>(Advancements.BREWING_CAULDRON_CREATION, new CreatePotionsPlusBlockTrigger.TriggerInstance(Optional.empty(), blockState));
+                                                                                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:22: error: cannot find symbol
+              .effect(MobEffects.GEODE_GRACE)
+                                ^
+    symbol:   variable GEODE_GRACE
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:28: error: cannot find symbol
+              .effect(MobEffects.FALL_OF_THE_VOID)
+                                ^
+    symbol:   variable FALL_OF_THE_VOID
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:45: error: cannot find symbol
+              .effect(MobEffects.MAGNETIC)
+                                ^
+    symbol:   variable MAGNETIC
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:50: error: cannot find symbol
+              .effect(MobEffects.EXPLODING, 60)
+                                ^
+    symbol:   variable EXPLODING
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:56: error: cannot find symbol
+              .effect(MobEffects.TELEPORTATION, 60)
+                                ^
+    symbol:   variable TELEPORTATION
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:61: error: cannot find symbol
+              .effect(MobEffects.LOOTING)
+                                ^
+    symbol:   variable LOOTING
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:67: error: cannot find symbol
+              .effect(MobEffects.FORTUITOUS_FATE)
+                                ^
+    symbol:   variable FORTUITOUS_FATE
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:73: error: cannot find symbol
+              .effect(MobEffects.METAL_DETECTING)
+                                ^
+    symbol:   variable METAL_DETECTING
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:79: error: cannot find symbol
+              .effect(MobEffects.GIANT_STEPS)
+                                ^
+    symbol:   variable GIANT_STEPS
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:84: error: cannot find symbol
+              .effect(MobEffects.REACH_FOR_THE_STARS)
+                                ^
+    symbol:   variable REACH_FOR_THE_STARS
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:90: error: cannot find symbol
+              .effect(MobEffects.NAUTICAL_NITRO)
+                                ^
+    symbol:   variable NAUTICAL_NITRO
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:95: error: cannot find symbol
+              .effect(MobEffects.CROP_COLLECTOR)
+                                ^
+    symbol:   variable CROP_COLLECTOR
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:101: error: cannot find symbol
+              .effect(MobEffects.BOTANICAL_BOOST)
+                                ^
+    symbol:   variable BOTANICAL_BOOST
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:134: error: cannot find symbol
+              .effect(MobEffects.SLIP_N_SLIDE)
+                                ^
+    symbol:   variable SLIP_N_SLIDE
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:139: error: cannot find symbol
+              .effect(MobEffects.HARROWING_HANDS)
+                                ^
+    symbol:   variable HARROWING_HANDS
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:145: error: cannot find symbol
+              .effect(MobEffects.SHEPHERDS_SERENADE)
+                                ^
+    symbol:   variable SHEPHERDS_SERENADE
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:180: error: cannot find symbol
+              .effect(MobEffects.SOUL_MATE)
+                                ^
+    symbol:   variable SOUL_MATE
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:186: error: cannot find symbol
+              .effect(MobEffects.FLYING_TIME)
+                                ^
+    symbol:   variable FLYING_TIME
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:192: error: cannot find symbol
+              .effect(MobEffects.BOUNCING)
+                                ^
+    symbol:   variable BOUNCING
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:196: error: cannot find symbol
+          ANY_POTION = register.apply("any_potion", () -> new Potion("Any Potion", new MobEffectInstance(MobEffects.ANY_POTION, 1200, 0)));
+                                                                                                                   ^
+    symbol:   variable ANY_POTION
+    location: class MobEffects
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\potion\Potions.java:197: error: cannot find symbol
+          ANY_OTHER_POTION = register.apply("any_other_potion", () -> new Potion("Any Other Potion", new MobEffectInstance(MobEffects.ANY_OTHER_POTION, 1200, 0)));
+                                                                                                                                     ^
+    symbol:   variable ANY_OTHER_POTION
+    location: class MobEffects
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:49: error: cannot find symbol
+              return Advancements.ABYSSAL_TROVE_TRIGGER.createCriterion(new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.of(fillPercentage), Optional.empty()));
+                                                       ^
+    symbol:   method createCriterion(TriggerInstance)
+    location: variable ABYSSAL_TROVE_TRIGGER of type Holder<CriterionTrigger<?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\advancement\AbyssalTroveTrigger.java:53: error: cannot find symbol
+              return Advancements.ABYSSAL_TROVE_TRIGGER.createCriterion(new AbyssalTroveTrigger.TriggerInstance(Optional.empty(), Optional.empty(), Optional.of(rarity)));
+                                                       ^
+    symbol:   method createCriterion(TriggerInstance)
+    location: variable ABYSSAL_TROVE_TRIGGER of type Holder<CriterionTrigger<?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\BrewingCauldronBlockEntity.java:258: error: cannot find symbol
+                              Advancements.CRAFT_RECIPE.trigger(serverPlayer, recipe.getType(), PpIngredient.of(result));
+                                                       ^
+    symbol:   method trigger(ServerPlayer,RecipeType<BrewingCauldronRecipe>,PpIngredient)
+    location: variable CRAFT_RECIPE of type Holder<CriterionTrigger<?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\ClotheslineBlockEntity.java:188: error: cannot find symbol
+                              Advancements.CRAFT_RECIPE.trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
+                                                       ^
+    symbol:   method trigger(ServerPlayer,RecipeType<ClotheslineRecipe>,PpIngredient)
+    location: variable CRAFT_RECIPE of type Holder<CriterionTrigger<?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\blockentity\SanguineAltarBlockEntity.java:159: error: cannot find symbol
+                      Advancements.CRAFT_RECIPE.trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE, PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
+                                               ^
+    symbol:   method trigger(ServerPlayer,RecipeType<SanguineAltarRecipe>,PpIngredient)
+    location: variable CRAFT_RECIPE of type Holder<CriterionTrigger<?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:44: error: cannot find symbol
+              Advancements.BREWING_CAULDRON_CREATION.trigger(serverplayer, BlockEntityBlocks.BREWING_CAULDRON.value().defaultBlockState());
+                                                    ^
+    symbol:   method trigger(ServerPlayer,BlockState)
+    location: variable BREWING_CAULDRON_CREATION of type Holder<CriterionTrigger<?>>
+  33 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+1 actionable task: 1 executed

@@ -1,0 +1,1014 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :neoforge:processResources UP-TO-DATE
+> Task :neoforge:processIncludeJars UP-TO-DATE
+> Task :neoforge:sourcesJar UP-TO-DATE
+> Task :neoforge:processTestResources NO-SOURCE
+> Task :neoforge:validateAccessWidener NO-SOURCE
+
+> Task :common:compileJava FAILED
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:3: error: cannot find symbol
+import grill24.potionsplus.core.PotionsPlus;
+                               ^
+  symbol:   class PotionsPlus
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:5: error: cannot find symbol
+import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
+                                                ^
+  symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+  location: package grill24.potionsplus.event.runtimeresource
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\IRuntimeModelGenerator.java:3: error: cannot find symbol
+import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
+                                                ^
+  symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+  location: package grill24.potionsplus.event.runtimeresource
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:13: error: cannot find symbol
+import net.minecraft.client.renderer.item.BlockModelWrapper;
+                                         ^
+  symbol:   class BlockModelWrapper
+  location: package net.minecraft.client.renderer.item
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:179: error: cannot find symbol
+    public void generateClient(final GenerateRuntimeResourceInjectionsCacheEvent event) {
+                                     ^
+  symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+  location: class AbstractRegistererBuilder<T,B>
+  where T,B are type-variables:
+    T extends Object declared in class AbstractRegistererBuilder
+    B extends AbstractRegistererBuilder<T,B> declared in class AbstractRegistererBuilder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\IRuntimeModelGenerator.java:12: error: cannot find symbol
+    void generateClient(final GenerateRuntimeResourceInjectionsCacheEvent event);
+                              ^
+  symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+  location: interface IRuntimeModelGenerator<T>
+  where T is a type-variable:
+    T extends Object declared in interface IRuntimeModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:3: error: cannot find symbol
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                      ^
+  symbol:   class FlowerBlocks
+  location: package grill24.potionsplus.core.blocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\item\TomatoItem.java:4: error: cannot find symbol
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                      ^
+  symbol:   class FlowerBlocks
+  location: package grill24.potionsplus.core.blocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:4: error: cannot find symbol
+import grill24.potionsplus.core.PotionsPlus;
+                               ^
+  symbol:   class PotionsPlus
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:5: error: cannot find symbol
+import grill24.potionsplus.data.PotionsPlusBlockLoot;
+                               ^
+  symbol:   class PotionsPlusBlockLoot
+  location: package grill24.potionsplus.data
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:7: error: package net.minecraft.advancements.critereon does not exist
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:10: error: cannot find symbol
+import net.minecraft.client.renderer.block.model.VariantMutator;
+                                                ^
+  symbol:   class VariantMutator
+  location: package net.minecraft.client.renderer.block.model
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:12: error: cannot find symbol
+import net.minecraft.client.renderer.block.model.VariantMutator;
+                                                ^
+  symbol:   class VariantMutator
+  location: package net.minecraft.client.renderer.block.model
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:13: error: cannot find symbol
+import net.minecraft.client.renderer.item.BlockModelWrapper;
+                                         ^
+  symbol:   class BlockModelWrapper
+  location: package net.minecraft.client.renderer.item
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:22: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:84: error: cannot find symbol
+    public record ClientModelData<T>(T[][] resources, Function<Direction, VariantMutator> texRotationFunction,
+                                                                          ^
+  symbol:   class VariantMutator
+  location: class ClientModelData<T>
+  where T is a type-variable:
+    T extends Object declared in record ClientModelData
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:172: error: cannot find symbol
+    public record ClientModelData<T>(T[] resources, Function<Direction, VariantMutator> texRotationFunction,
+                                                                        ^
+  symbol:   class VariantMutator
+  location: class ClientModelData<T>
+  where T is a type-variable:
+    T extends Object declared in record ClientModelData
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:33: error: cannot find symbol
+    public static final Function<Direction, VariantMutator> HANGING_PLANT_TEX_ORIENTATION = (facing) -> {
+                                            ^
+  symbol:   class VariantMutator
+  location: class VersatilePlantBlockModelGenerator<T,I>
+  where T,I are type-variables:
+    T extends Object declared in class VersatilePlantBlockModelGenerator
+    I extends Block declared in class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:48: error: cannot find symbol
+    public static final Function<Direction, VariantMutator> UPRIGHT_PLANT_TEX_ORIENTATION = (facing) -> {
+                                            ^
+  symbol:   class VariantMutator
+  location: class VersatilePlantBlockModelGenerator<T,I>
+  where T,I are type-variables:
+    T extends Object declared in class VersatilePlantBlockModelGenerator
+    I extends Block declared in class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:89: error: cannot find symbol
+            private Function<Direction, VariantMutator> texRotationFunction;
+                                        ^
+  symbol:   class VariantMutator
+  location: class Builder<T>
+  where T is a type-variable:
+    T extends Object declared in class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:100: error: cannot find symbol
+            public Builder<T> texRotationFunction(Function<Direction, VariantMutator> texRotationFunction) {
+                                                                      ^
+  symbol:   class VariantMutator
+  location: class Builder<T>
+  where T is a type-variable:
+    T extends Object declared in class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\FaceAttachedBlockModelGenerator.java:11: error: cannot find symbol
+import net.minecraft.client.renderer.block.model.VariantMutator;
+                                                ^
+  symbol:   class VariantMutator
+  location: package net.minecraft.client.renderer.block.model
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\FaceAttachedBlockModelGenerator.java:38: error: cannot find symbol
+    private static final Function<Direction, VariantMutator> Y_ROT_MUTATOR = (facing) -> {
+                                             ^
+  symbol:   class VariantMutator
+  location: class FaceAttachedBlockModelGenerator<B>
+  where B is a type-variable:
+    B extends Block declared in class FaceAttachedBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\FaceAttachedBlockModelGenerator.java:49: error: cannot find symbol
+    private static final Function<AttachFace, VariantMutator> X_ROT_MUTATOR = (face) -> {
+                                              ^
+  symbol:   class VariantMutator
+  location: class FaceAttachedBlockModelGenerator<B>
+  where B is a type-variable:
+    B extends Block declared in class FaceAttachedBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\HorizontalDirectionalBlockModelGenerator.java:11: error: cannot find symbol
+import net.minecraft.client.renderer.block.model.VariantMutator;
+                                                ^
+  symbol:   class VariantMutator
+  location: package net.minecraft.client.renderer.block.model
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\HorizontalDirectionalBlockModelGenerator.java:33: error: cannot find symbol
+    private static final Function<Direction, VariantMutator> Y_ROT_MUTATOR = facing -> {
+                                             ^
+  symbol:   class VariantMutator
+  location: class HorizontalDirectionalBlockModelGenerator<T>
+  where T is a type-variable:
+    T extends Block declared in class HorizontalDirectionalBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ParticleEmitterBlockModelGenerator.java:4: error: cannot find symbol
+import grill24.potionsplus.core.PotionsPlus;
+                               ^
+  symbol:   class PotionsPlus
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:177: error: cannot find symbol
+            public Function<Direction, VariantMutator> texRotationFunction = VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION;
+                                       ^
+  symbol:   class VariantMutator
+  location: class Builder<T>
+  where T is a type-variable:
+    T extends Object declared in class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:188: error: cannot find symbol
+            public Builder<T> texRotationFunction(Function<Direction, VariantMutator> texRotationFunction) {
+                                                                      ^
+  symbol:   class VariantMutator
+  location: class Builder<T>
+  where T is a type-variable:
+    T extends Object declared in class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:12: error: cannot find symbol
+import net.minecraft.client.renderer.item.BlockModelWrapper;
+                                         ^
+  symbol:   class BlockModelWrapper
+  location: package net.minecraft.client.renderer.item
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:21: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:266: error: package BlockModelWrapper does not exist
+        private BlockModelWrapper.Unbaked createFallbackModel(ItemModelGenerators itemModelGenerators) {
+                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:211: error: package BlockModelWrapper does not exist
+            BlockModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, Supplier<ItemTintSource> itemTintSource) {
+                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:299: error: package BlockModelWrapper does not exist
+            Map<BrassicaOleraceaItem.Variation, BlockModelWrapper.Unbaked> createModels(ItemModelGenerators itemModelGenerators) {
+                                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:311: error: package BlockModelWrapper does not exist
+            private BlockModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, Identifier textureLocation) {
+                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RecipeGeneratorUtility.java:12: error: package javax.annotation does not exist
+import javax.annotation.Nullable;
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RegistrationUtility.java:4: error: cannot find symbol
+import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
+                                                ^
+  symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+  location: package grill24.potionsplus.event.runtimeresource
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RegistrationUtility.java:104: error: cannot find symbol
+    public static void generateRuntimeResourceInjectionsCache(final GenerateRuntimeResourceInjectionsCacheEvent event) {
+                                                                    ^
+  symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RuntimeModelGenerator.java:3: error: cannot find symbol
+import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
+                                                ^
+  symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+  location: package grill24.potionsplus.event.runtimeresource
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RuntimeModelGenerator.java:14: error: cannot find symbol
+    public void generateClient(final GenerateRuntimeResourceInjectionsCacheEvent event) {
+                                     ^
+  symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+  location: class RuntimeModelGenerator<T>
+  where T is a type-variable:
+    T extends Object declared in class RuntimeModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:7: error: cannot find symbol
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                      ^
+  symbol:   class FlowerBlocks
+  location: package grill24.potionsplus.core.blocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:3: error: cannot find symbol
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                      ^
+  symbol:   class FlowerBlocks
+  location: package grill24.potionsplus.core.blocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:173: error: cannot find symbol
+                                     @Nullable Identifier itemTexture, @Nullable Identifier itemModel,
+                                      ^
+  symbol:   class Nullable
+  location: class ClientModelData<T>
+  where T is a type-variable:
+    T extends Object declared in record ClientModelData
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:173: error: cannot find symbol
+                                     @Nullable Identifier itemTexture, @Nullable Identifier itemModel,
+                                                                        ^
+  symbol:   class Nullable
+  location: class ClientModelData<T>
+  where T is a type-variable:
+    T extends Object declared in record ClientModelData
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:138: error: cannot find symbol
+    public static void registerItem(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Item item, @Nullable Identifier texture, @Nullable Identifier model, boolean useTint) {
+                                                                                                                                    ^
+  symbol:   class Nullable
+  location: class VersatilePlantBlockModelGenerator<T,I>
+  where T,I are type-variables:
+    T extends Object declared in class VersatilePlantBlockModelGenerator
+    I extends Block declared in class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:138: error: cannot find symbol
+    public static void registerItem(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Item item, @Nullable Identifier texture, @Nullable Identifier model, boolean useTint) {
+                                                                                                                                                                  ^
+  symbol:   class Nullable
+  location: class VersatilePlantBlockModelGenerator<T,I>
+  where T,I are type-variables:
+    T extends Object declared in class VersatilePlantBlockModelGenerator
+    I extends Block declared in class VersatilePlantBlockModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:35: error: cannot find symbol
+        @Nullable
+         ^
+  symbol:   class Nullable
+  location: class SimpleItemModelGenerator<I>
+  where I is a type-variable:
+    I extends Item declared in class SimpleItemModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:71: error: cannot find symbol
+        @Nullable
+         ^
+  symbol:   class Nullable
+  location: class SimpleBlockItemModelGenerator<I>
+  where I is a type-variable:
+    I extends Item declared in class SimpleBlockItemModelGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RecipeGeneratorUtility.java:19: error: cannot find symbol
+        @Nullable
+         ^
+  symbol:   class Nullable
+  location: class AbstractRecipeGenerator<T>
+  where T is a type-variable:
+    T extends Object declared in class AbstractRecipeGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RecipeGeneratorUtility.java:22: error: cannot find symbol
+        public AbstractRecipeGenerator(Supplier<Holder<T>> holder, @Nullable Identifier id) {
+                                                                    ^
+  symbol:   class Nullable
+  location: class AbstractRecipeGenerator<T>
+  where T is a type-variable:
+    T extends Object declared in class AbstractRecipeGenerator
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:49: error: cannot find symbol
+        RegistrationUtility.registerBlockItemWithTexture(BREWING_CAULDRON, registerItem, ppId("item/brewing_cauldron"));
+                           ^
+  symbol:   method registerBlockItemWithTexture(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>,Identifier)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:67: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(PARTICLE_EMITTER, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:84: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(HERBALISTS_LECTERN, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:101: error: cannot find symbol
+        RegistrationUtility.registerBlockItemWithAutoModel(() -> SANGUINE_ALTAR, registerItem);
+                           ^
+  symbol:   method registerBlockItemWithAutoModel(()->SANGUINE_ALTAR,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:118: error: cannot find symbol
+        RegistrationUtility.registerBlockItemWithAutoModel(() -> ABYSSAL_TROVE, registerItem);
+                           ^
+  symbol:   method registerBlockItemWithAutoModel(()->ABYSSAL_TROVE,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:131: error: cannot find symbol
+        RegistrationUtility.registerBlockItemWithAutoModel(() -> PRECISION_DISPENSER, registerItem);
+                           ^
+  symbol:   method registerBlockItemWithAutoModel(()->PRECIS[...]ENSER,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:139: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(CLOTHESLINE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:168: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(POTION_BEACON, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:182: error: cannot find symbol
+        RegistrationUtility.registerBlockItemWithAutoModel(() -> SKILL_JOURNALS, registerItem);
+                           ^
+  symbol:   method registerBlockItemWithAutoModel(()->SKILL_JOURNALS,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:38: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(COOBLESTONE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:52: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(ICICLE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:57: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(UNSTABLE_BLOCK, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:62: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(UNSTABLE_MOLTEN_DEEPSLATE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:68: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(UNSTABLE_DEEPSLATE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:73: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(UNSTABLE_MOLTEN_BLACKSTONE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:79: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(UNSTABLE_BLACKSTONE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:85: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(LAVA_GEYSER, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:92: error: cannot find symbol
+        RegistrationUtility.registerBlockItemWithTexture(DECORATIVE_FIRE, registerItem, mc("block/fire_0"));
+                           ^
+  symbol:   method registerBlockItemWithTexture(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>,Identifier)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:98: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:104: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICKS, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:115: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE_SLAB, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:128: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE_STAIRS, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:139: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICK_SLAB, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:152: error: cannot find symbol
+        RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICK_STAIRS, registerItem);
+                           ^
+  symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+  location: class RegistrationUtility
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:129: error: package PotionsPlus does not exist
+            PotionsPlus.LOGGER.warn("Item factory must be set before registration. | " + name + " will not be registered an Item.");
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:134: error: package PotionsPlus does not exist
+            PotionsPlus.LOGGER.warn("Item name must be set before registration. | " + name + " will not be registered an Item.");
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:146: error: package PotionsPlus does not exist
+            PotionsPlus.LOGGER.warn("Tried to generate model for " + this.name + " but no model generator was set.");
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:157: error: package PotionsPlus does not exist
+            PotionsPlus.LOGGER.warn("Tried to generate recipe for " + this.name + " but no recipe generator was set.");
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:166: error: package PotionsPlus does not exist
+            PotionsPlus.LOGGER.warn("Tried to generate loot table for " + this.name + " but no loot generator was set.");
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:53: error: incompatible types: Identifier cannot be converted to Material
+            TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, commonData.getLayer0());
+                                                                                                                         ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:54: error: cannot find symbol
+            Identifier fallbackItemModelId = ppId(item.getKey().identifier().getPath() + "_fallback");
+                                                      ^
+  symbol:   method getKey()
+  location: variable item of type Holder<? extends Item>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:59: error: cannot find symbol
+                String name = item.getKey().identifier().getPath() + "_" + str.substring(str.lastIndexOf('/') + 1);
+                                  ^
+  symbol:   method getKey()
+  location: variable item of type Holder<? extends Item>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:63: error: incompatible types: Identifier cannot be converted to Material
+                        .put(TextureSlot.LAYER0, commonData.getLayer0())
+                                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:71: error: package BlockModelWrapper does not exist
+                        new BlockModelWrapper.Unbaked(
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:82: error: package BlockModelWrapper does not exist
+                    Optional.of(new BlockModelWrapper.Unbaked(fallbackItemModel, Collections.emptyList()))
+                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:98: error: package BlockModelWrapper does not exist
+            BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(mc("item/stick"), Collections.emptyList());
+                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:98: error: package BlockModelWrapper does not exist
+            BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(mc("item/stick"), Collections.emptyList());
+                                                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:105: error: incompatible types: Identifier cannot be converted to Material
+                TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, Identifier.fromNamespaceAndPath(registryName.getNamespace(), "mob_effect/" + registryName.getPath()));
+                                                                                                                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:111: error: package BlockModelWrapper does not exist
+                        new BlockModelWrapper.Unbaked(
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:147: error: incompatible types: Identifier cannot be converted to Material
+            TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, DynamicIconItems.UNKNOWN_TEX_LOC);
+                                                                                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:149: error: package BlockModelWrapper does not exist
+            BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(fallbackItemModelLocation, Collections.emptyList());
+                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:149: error: package BlockModelWrapper does not exist
+            BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(fallbackItemModelLocation, Collections.emptyList());
+                                                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:158: error: incompatible types: Identifier cannot be converted to Material
+                TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, texture);
+                                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:164: error: package BlockModelWrapper does not exist
+                        new BlockModelWrapper.Unbaked(
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:27: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BRASSICA_OLERACEA_PLANT.value()))
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:32: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.CABBAGE_PLANT.value()))
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:37: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.KALE_PLANT.value()))
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:42: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BROCCOLLI_PLANT.value()))
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:47: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.CAULIFLOWER_PLANT.value()))
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:52: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BRUSSELS_SPROUTS_PLANT.value()))
+                                                                                ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:53: error: incompatible types: Identifier cannot be converted to Material
+              TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, commonData.getLayer0());
+                                                                                                                           ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:63: error: incompatible types: Identifier cannot be converted to Material
+                          .put(TextureSlot.LAYER0, commonData.getLayer0())
+                                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:105: error: incompatible types: Identifier cannot be converted to Material
+                  TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, Identifier.fromNamespaceAndPath(registryName.getNamespace(), "mob_effect/" + registryName.getPath()));
+                                                                                                                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:147: error: incompatible types: Identifier cannot be converted to Material
+              TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, DynamicIconItems.UNKNOWN_TEX_LOC);
+                                                                                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:158: error: incompatible types: Identifier cannot be converted to Material
+                  TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, texture);
+                                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:3: error: cannot find symbol
+  import grill24.potionsplus.core.PotionsPlus;
+                                 ^
+    symbol:   class PotionsPlus
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:5: error: cannot find symbol
+  import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
+                                                  ^
+    symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+    location: package grill24.potionsplus.event.runtimeresource
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\IRuntimeModelGenerator.java:3: error: cannot find symbol
+  import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
+                                                  ^
+    symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+    location: package grill24.potionsplus.event.runtimeresource
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:13: error: cannot find symbol
+  import net.minecraft.client.renderer.item.BlockModelWrapper;
+                                           ^
+    symbol:   class BlockModelWrapper
+    location: package net.minecraft.client.renderer.item
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:179: error: cannot find symbol
+      public void generateClient(final GenerateRuntimeResourceInjectionsCacheEvent event) {
+                                       ^
+    symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+    location: class AbstractRegistererBuilder<T,B>
+    where T,B are type-variables:
+      T extends Object declared in class AbstractRegistererBuilder
+      B extends AbstractRegistererBuilder<T,B> declared in class AbstractRegistererBuilder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\IRuntimeModelGenerator.java:12: error: cannot find symbol
+      void generateClient(final GenerateRuntimeResourceInjectionsCacheEvent event);
+                                ^
+    symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+    location: interface IRuntimeModelGenerator<T>
+    where T is a type-variable:
+      T extends Object declared in interface IRuntimeModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:3: error: cannot find symbol
+  import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                        ^
+    symbol:   class FlowerBlocks
+    location: package grill24.potionsplus.core.blocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\item\TomatoItem.java:4: error: cannot find symbol
+  import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                        ^
+    symbol:   class FlowerBlocks
+    location: package grill24.potionsplus.core.blocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:4: error: cannot find symbol
+  import grill24.potionsplus.core.PotionsPlus;
+                                 ^
+    symbol:   class PotionsPlus
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:5: error: cannot find symbol
+  import grill24.potionsplus.data.PotionsPlusBlockLoot;
+                                 ^
+    symbol:   class PotionsPlusBlockLoot
+    location: package grill24.potionsplus.data
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:10: error: cannot find symbol
+  import net.minecraft.client.renderer.block.model.VariantMutator;
+                                                  ^
+    symbol:   class VariantMutator
+    location: package net.minecraft.client.renderer.block.model
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:12: error: cannot find symbol
+  import net.minecraft.client.renderer.block.model.VariantMutator;
+                                                  ^
+    symbol:   class VariantMutator
+    location: package net.minecraft.client.renderer.block.model
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:13: error: cannot find symbol
+  import net.minecraft.client.renderer.item.BlockModelWrapper;
+                                           ^
+    symbol:   class BlockModelWrapper
+    location: package net.minecraft.client.renderer.item
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:84: error: cannot find symbol
+      public record ClientModelData<T>(T[][] resources, Function<Direction, VariantMutator> texRotationFunction,
+                                                                            ^
+    symbol:   class VariantMutator
+    location: class ClientModelData<T>
+    where T is a type-variable:
+      T extends Object declared in record ClientModelData
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:172: error: cannot find symbol
+      public record ClientModelData<T>(T[] resources, Function<Direction, VariantMutator> texRotationFunction,
+                                                                          ^
+    symbol:   class VariantMutator
+    location: class ClientModelData<T>
+    where T is a type-variable:
+      T extends Object declared in record ClientModelData
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:33: error: cannot find symbol
+      public static final Function<Direction, VariantMutator> HANGING_PLANT_TEX_ORIENTATION = (facing) -> {
+                                              ^
+    symbol:   class VariantMutator
+    location: class VersatilePlantBlockModelGenerator<T,I>
+    where T,I are type-variables:
+      T extends Object declared in class VersatilePlantBlockModelGenerator
+      I extends Block declared in class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:48: error: cannot find symbol
+      public static final Function<Direction, VariantMutator> UPRIGHT_PLANT_TEX_ORIENTATION = (facing) -> {
+                                              ^
+    symbol:   class VariantMutator
+    location: class VersatilePlantBlockModelGenerator<T,I>
+    where T,I are type-variables:
+      T extends Object declared in class VersatilePlantBlockModelGenerator
+      I extends Block declared in class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:89: error: cannot find symbol
+              private Function<Direction, VariantMutator> texRotationFunction;
+                                          ^
+    symbol:   class VariantMutator
+    location: class Builder<T>
+    where T is a type-variable:
+      T extends Object declared in class Builder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:100: error: cannot find symbol
+              public Builder<T> texRotationFunction(Function<Direction, VariantMutator> texRotationFunction) {
+                                                                        ^
+    symbol:   class VariantMutator
+    location: class Builder<T>
+    where T is a type-variable:
+      T extends Object declared in class Builder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\FaceAttachedBlockModelGenerator.java:11: error: cannot find symbol
+  import net.minecraft.client.renderer.block.model.VariantMutator;
+                                                  ^
+    symbol:   class VariantMutator
+    location: package net.minecraft.client.renderer.block.model
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\FaceAttachedBlockModelGenerator.java:38: error: cannot find symbol
+      private static final Function<Direction, VariantMutator> Y_ROT_MUTATOR = (facing) -> {
+                                               ^
+    symbol:   class VariantMutator
+    location: class FaceAttachedBlockModelGenerator<B>
+    where B is a type-variable:
+      B extends Block declared in class FaceAttachedBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\FaceAttachedBlockModelGenerator.java:49: error: cannot find symbol
+      private static final Function<AttachFace, VariantMutator> X_ROT_MUTATOR = (face) -> {
+                                                ^
+    symbol:   class VariantMutator
+    location: class FaceAttachedBlockModelGenerator<B>
+    where B is a type-variable:
+      B extends Block declared in class FaceAttachedBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\HorizontalDirectionalBlockModelGenerator.java:11: error: cannot find symbol
+  import net.minecraft.client.renderer.block.model.VariantMutator;
+                                                  ^
+    symbol:   class VariantMutator
+    location: package net.minecraft.client.renderer.block.model
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\HorizontalDirectionalBlockModelGenerator.java:33: error: cannot find symbol
+      private static final Function<Direction, VariantMutator> Y_ROT_MUTATOR = facing -> {
+                                               ^
+    symbol:   class VariantMutator
+    location: class HorizontalDirectionalBlockModelGenerator<T>
+    where T is a type-variable:
+      T extends Block declared in class HorizontalDirectionalBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ParticleEmitterBlockModelGenerator.java:4: error: cannot find symbol
+  import grill24.potionsplus.core.PotionsPlus;
+                                 ^
+    symbol:   class PotionsPlus
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:177: error: cannot find symbol
+              public Function<Direction, VariantMutator> texRotationFunction = VersatilePlantBlockModelGenerator.UPRIGHT_PLANT_TEX_ORIENTATION;
+                                         ^
+    symbol:   class VariantMutator
+    location: class Builder<T>
+    where T is a type-variable:
+      T extends Object declared in class Builder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:188: error: cannot find symbol
+              public Builder<T> texRotationFunction(Function<Direction, VariantMutator> texRotationFunction) {
+                                                                        ^
+    symbol:   class VariantMutator
+    location: class Builder<T>
+    where T is a type-variable:
+      T extends Object declared in class Builder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:12: error: cannot find symbol
+  import net.minecraft.client.renderer.item.BlockModelWrapper;
+                                           ^
+    symbol:   class BlockModelWrapper
+    location: package net.minecraft.client.renderer.item
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RegistrationUtility.java:4: error: cannot find symbol
+  import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
+                                                  ^
+    symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+    location: package grill24.potionsplus.event.runtimeresource
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RegistrationUtility.java:104: error: cannot find symbol
+      public static void generateRuntimeResourceInjectionsCache(final GenerateRuntimeResourceInjectionsCacheEvent event) {
+                                                                      ^
+    symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RuntimeModelGenerator.java:3: error: cannot find symbol
+  import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
+                                                  ^
+    symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+    location: package grill24.potionsplus.event.runtimeresource
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RuntimeModelGenerator.java:14: error: cannot find symbol
+      public void generateClient(final GenerateRuntimeResourceInjectionsCacheEvent event) {
+                                       ^
+    symbol:   class GenerateRuntimeResourceInjectionsCacheEvent
+    location: class RuntimeModelGenerator<T>
+    where T is a type-variable:
+      T extends Object declared in class RuntimeModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:7: error: cannot find symbol
+  import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                        ^
+    symbol:   class FlowerBlocks
+    location: package grill24.potionsplus.core.blocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:3: error: cannot find symbol
+  import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                        ^
+    symbol:   class FlowerBlocks
+    location: package grill24.potionsplus.core.blocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:173: error: cannot find symbol
+                                       @Nullable Identifier itemTexture, @Nullable Identifier itemModel,
+                                        ^
+    symbol:   class Nullable
+    location: class ClientModelData<T>
+    where T is a type-variable:
+      T extends Object declared in record ClientModelData
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:173: error: cannot find symbol
+                                       @Nullable Identifier itemTexture, @Nullable Identifier itemModel,
+                                                                          ^
+    symbol:   class Nullable
+    location: class ClientModelData<T>
+    where T is a type-variable:
+      T extends Object declared in record ClientModelData
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:138: error: cannot find symbol
+      public static void registerItem(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Item item, @Nullable Identifier texture, @Nullable Identifier model, boolean useTint) {
+                                                                                                                                      ^
+    symbol:   class Nullable
+    location: class VersatilePlantBlockModelGenerator<T,I>
+    where T,I are type-variables:
+      T extends Object declared in class VersatilePlantBlockModelGenerator
+      I extends Block declared in class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:138: error: cannot find symbol
+      public static void registerItem(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Item item, @Nullable Identifier texture, @Nullable Identifier model, boolean useTint) {
+                                                                                                                                                                    ^
+    symbol:   class Nullable
+    location: class VersatilePlantBlockModelGenerator<T,I>
+    where T,I are type-variables:
+      T extends Object declared in class VersatilePlantBlockModelGenerator
+      I extends Block declared in class VersatilePlantBlockModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:35: error: cannot find symbol
+          @Nullable
+           ^
+    symbol:   class Nullable
+    location: class SimpleItemModelGenerator<I>
+    where I is a type-variable:
+      I extends Item declared in class SimpleItemModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:71: error: cannot find symbol
+          @Nullable
+           ^
+    symbol:   class Nullable
+    location: class SimpleBlockItemModelGenerator<I>
+    where I is a type-variable:
+      I extends Item declared in class SimpleBlockItemModelGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RecipeGeneratorUtility.java:19: error: cannot find symbol
+          @Nullable
+           ^
+    symbol:   class Nullable
+    location: class AbstractRecipeGenerator<T>
+    where T is a type-variable:
+      T extends Object declared in class AbstractRecipeGenerator
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RecipeGeneratorUtility.java:22: error: cannot find symbol
+          public AbstractRecipeGenerator(Supplier<Holder<T>> holder, @Nullable Identifier id) {
+                                                                      ^
+    symbol:   class Nullable
+    location: class AbstractRecipeGenerator<T>
+    where T is a type-variable:
+      T extends Object declared in class AbstractRecipeGenerator
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:49: error: cannot find symbol
+          RegistrationUtility.registerBlockItemWithTexture(BREWING_CAULDRON, registerItem, ppId("item/brewing_cauldron"));
+                             ^
+    symbol:   method registerBlockItemWithTexture(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>,Identifier)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:67: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(PARTICLE_EMITTER, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:84: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(HERBALISTS_LECTERN, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:101: error: cannot find symbol
+          RegistrationUtility.registerBlockItemWithAutoModel(() -> SANGUINE_ALTAR, registerItem);
+                             ^
+    symbol:   method registerBlockItemWithAutoModel(()->SANGUINE_ALTAR,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:118: error: cannot find symbol
+          RegistrationUtility.registerBlockItemWithAutoModel(() -> ABYSSAL_TROVE, registerItem);
+                             ^
+    symbol:   method registerBlockItemWithAutoModel(()->ABYSSAL_TROVE,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:131: error: cannot find symbol
+          RegistrationUtility.registerBlockItemWithAutoModel(() -> PRECISION_DISPENSER, registerItem);
+                             ^
+    symbol:   method registerBlockItemWithAutoModel(()->PRECIS[...]ENSER,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:139: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(CLOTHESLINE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:168: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(POTION_BEACON, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\BlockEntityBlocks.java:182: error: cannot find symbol
+          RegistrationUtility.registerBlockItemWithAutoModel(() -> SKILL_JOURNALS, registerItem);
+                             ^
+    symbol:   method registerBlockItemWithAutoModel(()->SKILL_JOURNALS,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:38: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(COOBLESTONE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:52: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(ICICLE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:57: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(UNSTABLE_BLOCK, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:62: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(UNSTABLE_MOLTEN_DEEPSLATE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:68: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(UNSTABLE_DEEPSLATE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:73: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(UNSTABLE_MOLTEN_BLACKSTONE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:79: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(UNSTABLE_BLACKSTONE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:85: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(LAVA_GEYSER, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:92: error: cannot find symbol
+          RegistrationUtility.registerBlockItemWithTexture(DECORATIVE_FIRE, registerItem, mc("block/fire_0"));
+                             ^
+    symbol:   method registerBlockItemWithTexture(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>,Identifier)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:98: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:104: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICKS, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:115: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE_SLAB, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:128: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE_STAIRS, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:139: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICK_SLAB, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\blocks\DecorationBlocks.java:152: error: cannot find symbol
+          RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICK_STAIRS, registerItem);
+                             ^
+    symbol:   method registerBlockItem(Holder<Block>,BiFunction<String,Supplier<Item>,Holder<Item>>)
+    location: class RegistrationUtility
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:54: error: cannot find symbol
+              Identifier fallbackItemModelId = ppId(item.getKey().identifier().getPath() + "_fallback");
+                                                        ^
+    symbol:   method getKey()
+    location: variable item of type Holder<? extends Item>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:59: error: cannot find symbol
+                  String name = item.getKey().identifier().getPath() + "_" + str.substring(str.lastIndexOf('/') + 1);
+                                    ^
+    symbol:   method getKey()
+    location: variable item of type Holder<? extends Item>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:7: error: package net.minecraft.advancements.critereon does not exist
+  import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:22: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:21: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:266: error: package BlockModelWrapper does not exist
+          private BlockModelWrapper.Unbaked createFallbackModel(ItemModelGenerators itemModelGenerators) {
+                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:211: error: package BlockModelWrapper does not exist
+              BlockModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, Supplier<ItemTintSource> itemTintSource) {
+                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:299: error: package BlockModelWrapper does not exist
+              Map<BrassicaOleraceaItem.Variation, BlockModelWrapper.Unbaked> createModels(ItemModelGenerators itemModelGenerators) {
+                                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:311: error: package BlockModelWrapper does not exist
+              private BlockModelWrapper.Unbaked createModel(ItemModelGenerators itemModelGenerators, Identifier textureLocation) {
+                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\RecipeGeneratorUtility.java:12: error: package javax.annotation does not exist
+  import javax.annotation.Nullable;
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:129: error: package PotionsPlus does not exist
+              PotionsPlus.LOGGER.warn("Item factory must be set before registration. | " + name + " will not be registered an Item.");
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:134: error: package PotionsPlus does not exist
+              PotionsPlus.LOGGER.warn("Item name must be set before registration. | " + name + " will not be registered an Item.");
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:146: error: package PotionsPlus does not exist
+              PotionsPlus.LOGGER.warn("Tried to generate model for " + this.name + " but no model generator was set.");
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:157: error: package PotionsPlus does not exist
+              PotionsPlus.LOGGER.warn("Tried to generate recipe for " + this.name + " but no recipe generator was set.");
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\AbstractRegistererBuilder.java:166: error: package PotionsPlus does not exist
+              PotionsPlus.LOGGER.warn("Tried to generate loot table for " + this.name + " but no loot generator was set.");
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:71: error: package BlockModelWrapper does not exist
+                          new BlockModelWrapper.Unbaked(
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:82: error: package BlockModelWrapper does not exist
+                      Optional.of(new BlockModelWrapper.Unbaked(fallbackItemModel, Collections.emptyList()))
+                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:98: error: package BlockModelWrapper does not exist
+              BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(mc("item/stick"), Collections.emptyList());
+                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:98: error: package BlockModelWrapper does not exist
+              BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(mc("item/stick"), Collections.emptyList());
+                                                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:111: error: package BlockModelWrapper does not exist
+                          new BlockModelWrapper.Unbaked(
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:149: error: package BlockModelWrapper does not exist
+              BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(fallbackItemModelLocation, Collections.emptyList());
+                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:149: error: package BlockModelWrapper does not exist
+              BlockModelWrapper.Unbaked fallbackItemModel = new BlockModelWrapper.Unbaked(fallbackItemModelLocation, Collections.emptyList());
+                                                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:164: error: package BlockModelWrapper does not exist
+                          new BlockModelWrapper.Unbaked(
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:27: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BRASSICA_OLERACEA_PLANT.value()))
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:32: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.CABBAGE_PLANT.value()))
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:37: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.KALE_PLANT.value()))
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:42: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BROCCOLLI_PLANT.value()))
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:47: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.CAULIFLOWER_PLANT.value()))
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:52: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BRUSSELS_SPROUTS_PLANT.value()))
+                                                                                  ^
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 3s
+4 actionable tasks: 1 executed, 3 up-to-date

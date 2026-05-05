@@ -1,7 +1,5 @@
 package grill24.potionsplus.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
@@ -12,7 +10,7 @@ import net.minecraft.util.RandomSource;
 
 
 
-@Environment(EnvType.CLIENT)
+
 public class RandomNoteParticle extends SingleQuadParticle {
     RandomNoteParticle(ClientLevel level, double x, double y, double z, double xa, TextureAtlasSprite sprite) {
         super(level, x, y, z, 0.0D, 0.0D, 0.0D, sprite);
@@ -38,7 +36,7 @@ public class RandomNoteParticle extends SingleQuadParticle {
         return this.quadSize * Mth.clamp(((float) this.age + partialTicks) / (float) this.lifetime * 32.0F, 0.0F, 1.0F);
     }
 
-    @Environment(EnvType.CLIENT)
+    
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
 

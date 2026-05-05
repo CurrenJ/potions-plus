@@ -86,4 +86,17 @@ shadowJar {
     archiveClassifier = null
 }
 
-sourceSets.main.resources.srcDir('src/main/generated')
+sourceSets.main.resources.srcDir('src/generated/resources')
+
+loom {
+    runs {
+        data {
+            clientData()
+
+            programArgs.addAll '--flat', '--all', '--validate',
+                    '--mod', 'potionsplus',
+                    '--existing', file("src/main/resources").absolutePath,
+                    '--output', file("src/generated/resources").absolutePath
+        }
+    }
+}

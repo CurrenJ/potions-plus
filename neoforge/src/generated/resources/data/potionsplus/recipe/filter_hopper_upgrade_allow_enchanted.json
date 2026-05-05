@@ -7,7 +7,6 @@
     "minecraft:enchanted_book"
   ],
   "result": {
-    "count": 1,
     "id": "potionsplus:filter_hopper_upgrade_allow_enchanted"
   }
 }

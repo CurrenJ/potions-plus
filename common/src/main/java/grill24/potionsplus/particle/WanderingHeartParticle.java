@@ -1,7 +1,5 @@
 package grill24.potionsplus.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
@@ -12,7 +10,7 @@ import net.minecraft.util.RandomSource;
 
 
 
-@Environment(EnvType.CLIENT)
+
 public class WanderingHeartParticle extends SingleQuadParticle {
     WanderingHeartParticle(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite) {
         super(level, x, y - 0.125D, z, sprite);
@@ -41,7 +39,7 @@ public class WanderingHeartParticle extends SingleQuadParticle {
         return SingleQuadParticle.Layer.TRANSLUCENT;
     }
 
-    @Environment(EnvType.CLIENT)
+    
     public static class WanderingHeartProvider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
 
