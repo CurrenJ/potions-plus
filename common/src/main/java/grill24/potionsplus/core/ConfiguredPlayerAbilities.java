@@ -1,5 +1,6 @@
 package grill24.potionsplus.core;
 
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -10,6 +11,20 @@ public class ConfiguredPlayerAbilities {
         void tryGenerate(BootstrapContext<ConfiguredPlayerAbility<?, ?>> context);
         ResourceKey<ConfiguredPlayerAbility<?, ?>> getKey();
         B self();
+    }
+
+    private static volatile boolean initialized;
+
+    @ExpectPlatform
+    public static void initPlatform() {
+        throw new AssertionError();
+    }
+
+    public static void ensureInit() {
+        if (!initialized) {
+            initPlatform();
+            initialized = true;
+        }
     }
 
     public static IAbilityBuilder<?> DOUBLE_JUMP;
@@ -50,6 +65,7 @@ public class ConfiguredPlayerAbilities {
     public static IAbilityBuilder<?> BOW_UNBREAKING_MODIFIER;
     public static IAbilityBuilder<?> BOW_LOOTING_MODIFIER;
     public static IAbilityBuilder<?> BOW_USE_SPEED_MODIFIER;
+    public static IAbilityBuilder<?> CROSSBOW_POWER_MODIFIER;
     public static IAbilityBuilder<?> MOVEMENT_SPEED_MODIFIER;
     public static IAbilityBuilder<?> SPRINT_SPEED_MODIFIER;
     public static IAbilityBuilder<?> SNEAK_SPEED_MODIFIER;

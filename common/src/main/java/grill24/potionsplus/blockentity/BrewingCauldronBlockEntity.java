@@ -91,7 +91,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
         // Find the recipe we can craft with the current ingredients
         // Take the recipe with the longest processing time, as a pseudo-priority system
-        this.activeRecipe = Recipes.recipes.byType(Recipes.BREWING_CAULDRON_RECIPE).stream()
+        this.activeRecipe = Recipes.recipes.byType(Recipes.BREWING_CAULDRON_RECIPE.get()).stream()
                 .filter(recipe -> recipe.value().matches(this, this.level))
                 .max(Comparator.comparingInt((recipe) -> recipe.value().getIngredientsAsItemStacks().size()));
 

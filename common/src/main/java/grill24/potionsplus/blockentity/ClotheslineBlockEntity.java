@@ -126,7 +126,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                 activeRecipes[i] = null;
             } else {
                 SingleRecipeInput recipeInput = new SingleRecipeInput(inputStack);
-                Optional<RecipeHolder<ClotheslineRecipe>> recipeHolder = Recipes.recipes.getRecipesFor(Recipes.CLOTHESLINE_RECIPE, recipeInput, level).findFirst();
+                Optional<RecipeHolder<ClotheslineRecipe>> recipeHolder = Recipes.recipes.getRecipesFor(Recipes.CLOTHESLINE_RECIPE.get(), recipeInput, level).findFirst();
                 activeRecipes[i] = recipeHolder.orElse(null);
             }
         }

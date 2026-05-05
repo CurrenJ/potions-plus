@@ -6,7 +6,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.block.SkillJournalsBlock;
-import grill24.potionsplus.core.neoforge.DataAttachments;
+import grill24.potionsplus.core.neoforge.DataAttachmentsImpl;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.item.GeneticCropItem;
@@ -388,7 +388,7 @@ public class NeoCommandEvents {
                 .then(Commands.literal("skill")
                         .executes(context -> {
                             if (context.getSource().getPlayer() == null) return 0;
-                            SkillsData.CODEC.encodeStart(JsonOps.INSTANCE, context.getSource().getPlayer().getData(grill24.potionsplus.core.neoforge.DataAttachments.SKILL_PLAYER_DATA))
+                            SkillsData.CODEC.encodeStart(JsonOps.INSTANCE, context.getSource().getPlayer().getData(grill24.potionsplus.core.neoforge.DataAttachmentsImpl.SKILL_PLAYER_DATA))
                                     .ifSuccess((jsonElement) -> context.getSource().sendSuccess(() -> Component.literal(jsonElement.toString()), true))
                                     .ifError((jsonElement) -> context.getSource().sendFailure(Component.literal(jsonElement.toString())));
                             return 1;

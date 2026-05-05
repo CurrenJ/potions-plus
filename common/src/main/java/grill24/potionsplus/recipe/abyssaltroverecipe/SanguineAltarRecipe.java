@@ -37,7 +37,7 @@ public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
 
     @Override
     public @NotNull RecipeType<SanguineAltarRecipe> getType() {
-        return Recipes.SANGUINE_ALTAR_RECIPE;
+        return Recipes.SANGUINE_ALTAR_RECIPE.get();
     }
 
     @Override

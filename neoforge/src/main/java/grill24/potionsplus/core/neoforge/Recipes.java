@@ -45,6 +45,16 @@ public class Recipes {
     public static final DeferredHolder<RecipeType<?>, RecipeType<SanguineAltarRecipe>> SANGUINE_ALTAR_RECIPE = registerRecipeType("sanguine_altar_recipe");
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<SanguineAltarRecipe>> SANGUINE_ALTAR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("sanguine_altar_recipe", () -> SanguineAltarRecipe.SERIALIZER);
 
+    static {
+        grill24.potionsplus.core.Recipes.BREWING_CAULDRON_RECIPE = BREWING_CAULDRON_RECIPE;
+        grill24.potionsplus.core.Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER = BREWING_CAULDRON_RECIPE_SERIALIZER;
+        grill24.potionsplus.core.Recipes.BREWING_CAULDRON_RECIPE_DISPLAY = BREWING_CAULDRON_RECIPE_DISPLAY;
+        grill24.potionsplus.core.Recipes.CLOTHESLINE_RECIPE = CLOTHESLINE_RECIPE;
+        grill24.potionsplus.core.Recipes.CLOTHESLINE_RECIPE_SERIALIZER = CLOTHESLINE_RECIPE_SERIALIZER;
+        grill24.potionsplus.core.Recipes.SANGUINE_ALTAR_RECIPE = SANGUINE_ALTAR_RECIPE;
+        grill24.potionsplus.core.Recipes.SANGUINE_ALTAR_RECIPE_SERIALIZER = SANGUINE_ALTAR_RECIPE_SERIALIZER;
+    }
+
     public static final List<Pair<RecipeType<?>, IRuntimeRecipeProvider>> RECIPE_INJECTION_FUNCTIONS = new ArrayList<>();
 
     public static SeededPotionRecipes seededPotionRecipes = new SeededPotionRecipes();

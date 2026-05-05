@@ -22,16 +22,17 @@ import net.minecraft.world.item.crafting.display.RecipeDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class Recipes {
-    /** Populated by neoforge/ NeoRecipes at class-load time. */
-    public static RecipeType<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE;
-    public static RecipeType<ClotheslineRecipe> CLOTHESLINE_RECIPE;
-    public static RecipeType<SanguineAltarRecipe> SANGUINE_ALTAR_RECIPE;
-    public static RecipeSerializer<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE_SERIALIZER;
-    public static RecipeDisplay.Type<BrewingCauldronRecipeDisplay> BREWING_CAULDRON_RECIPE_DISPLAY;
-    public static RecipeSerializer<ClotheslineRecipe> CLOTHESLINE_RECIPE_SERIALIZER;
-    public static RecipeSerializer<SanguineAltarRecipe> SANGUINE_ALTAR_RECIPE_SERIALIZER;
+    /** Populated by neoforge Recipes at class-load time. DeferredHolder implements Supplier. */
+    public static Supplier<RecipeType<BrewingCauldronRecipe>> BREWING_CAULDRON_RECIPE;
+    public static Supplier<RecipeType<ClotheslineRecipe>> CLOTHESLINE_RECIPE;
+    public static Supplier<RecipeType<SanguineAltarRecipe>> SANGUINE_ALTAR_RECIPE;
+    public static Supplier<RecipeSerializer<BrewingCauldronRecipe>> BREWING_CAULDRON_RECIPE_SERIALIZER;
+    public static Supplier<RecipeDisplay.Type<BrewingCauldronRecipeDisplay>> BREWING_CAULDRON_RECIPE_DISPLAY;
+    public static Supplier<RecipeSerializer<ClotheslineRecipe>> CLOTHESLINE_RECIPE_SERIALIZER;
+    public static Supplier<RecipeSerializer<SanguineAltarRecipe>> SANGUINE_ALTAR_RECIPE_SERIALIZER;
 
     public static final List<Pair<RecipeType<?>, IRuntimeRecipeProvider>> RECIPE_INJECTION_FUNCTIONS = new ArrayList<>();
 
@@ -46,18 +47,18 @@ public class Recipes {
     public static final RecipeAnalysis<SanguineAltarRecipe> SANGUINE_ALTAR_ANALYSIS = new RecipeAnalysis<>();
 
     public static void registerRecipeInjectionFunctions() {
-        RECIPE_INJECTION_FUNCTIONS.add(Pair.of(BREWING_CAULDRON_RECIPE, Recipes::generateRuntimeBrewingCauldronRecipes));
-        RECIPE_INJECTION_FUNCTIONS.add(Pair.of(SANGUINE_ALTAR_RECIPE, (server) -> SanguineAltarRecipes.generateAllSanguineAltarRecipes(ModState.worldSeed)));
+        RECIPE_INJECTION_FUNCTIONS.add(Pair.of(BREWING_CAULDRON_RECIPE.get(), Recipes::generateRuntimeBrewingCauldronRecipes));
+        RECIPE_INJECTION_FUNCTIONS.add(Pair.of(SANGUINE_ALTAR_RECIPE.get(), (server) -> SanguineAltarRecipes.generateAllSanguineAltarRecipes(ModState.worldSeed)));
     }
 
     public static void postProcessRecipes(RecipeMap recipeMap) {
         recipes = recipeMap;
 
-        List<RecipeHolder<SanguineAltarRecipe>> sanguineAltarRecipes = recipeMap.byType(SANGUINE_ALTAR_RECIPE).stream().toList();
+        List<RecipeHolder<SanguineAltarRecipe>> sanguineAltarRecipes = recipeMap.byType(SANGUINE_ALTAR_RECIPE.get()).stream().toList();
         SANGUINE_ALTAR_ANALYSIS.compute(sanguineAltarRecipes);
         SanguineAltarBlockEntity.computeRecipeMap(SANGUINE_ALTAR_ANALYSIS.getRecipes());
 
-        List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronRecipes = recipeMap.byType(BREWING_CAULDRON_RECIPE).stream().toList();
+        List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronRecipes = recipeMap.byType(BREWING_CAULDRON_RECIPE.get()).stream().toList();
         DURATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(r -> r.value().isDurationUpgrade()).toList());
         AMPLIFICATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(r -> r.value().isAmplifierUpgrade()).toList());
         ALL_SEEDED_POTION_RECIPES_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(r -> r.value().isSeededRuntimeRecipe()).toList());

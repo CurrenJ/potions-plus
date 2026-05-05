@@ -205,7 +205,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
 
     @Override
     public @NotNull RecipeType<BrewingCauldronRecipe> getType() {
-        return Recipes.BREWING_CAULDRON_RECIPE;
+        return Recipes.BREWING_CAULDRON_RECIPE.get();
     }
 
     @Override

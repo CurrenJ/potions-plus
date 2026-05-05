@@ -71,6 +71,7 @@ public class PotionsPlus {
     static {
         // Set up PotionBuilder factory before Potions class loads (its static fields trigger registration)
         PotionBuilder.potionFactory = (name, effectSupplier) -> POTIONS.register(name, () -> new net.minecraft.world.item.alchemy.Potion("Potion", effectSupplier.get()));
+
     }
 
     public PotionsPlus(IEventBus bus, ModContainer container) {
@@ -137,6 +138,7 @@ public class PotionsPlus {
         PLACEMENT_MODIFIER_TYPES.register(bus);
         GRANTABLE_REWARDS.register(bus);
         DataComponents.DATA_COMPONENTS.register(bus);
+        DataAttachmentsImpl.ATTACHMENT_TYPES.register(bus);
         CONSUME_EFFECTS.register(bus);
         ANIMATION_CURVE_SERIALIZERS.register(bus);
         MenuTypes.MENU_TYPES.register(bus);

@@ -57,7 +57,7 @@ public class ClotheslineRecipe extends ShapelessProcessingRecipe {
 
     @Override
     public @NotNull RecipeType<ClotheslineRecipe> getType() {
-        return Recipes.CLOTHESLINE_RECIPE;
+        return Recipes.CLOTHESLINE_RECIPE.get();
     }
 
     @Override
