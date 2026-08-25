@@ -87,7 +87,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
     }
 
     private void updateActiveRecipe() {
-        if (this.level == null) return;
+        if (this.level == null || Recipes.recipes == null) return;
 
         // Find the recipe we can craft with the current ingredients
         // Take the recipe with the longest processing time, as a pseudo-priority system

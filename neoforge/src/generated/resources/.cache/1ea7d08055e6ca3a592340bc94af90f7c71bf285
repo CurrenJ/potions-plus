@@ -1,4 +1,4 @@
-// 26.1.2	2026-05-05T14:52:25.646738	Model Definitions - potionsplus
+// 26.1.2	2026-05-05T16:33:00.095325	Model Definitions - potionsplus
 5dce44f22ae752753ba1749f01550e55f3e62d6f assets/minecraft/models/block/coal_ore1_block_hat.json
 88e46a4afdee55fbf70e22c95a86acc09928ca12 assets/minecraft/models/block/coal_ore2_block_hat.json
 ca2d0bec247e8bb37ebbf3e21c0230288b0954ed assets/minecraft/models/block/coal_ore3_block_hat.json
@@ -28,6 +28,7 @@ b8ea677105165afcba3c3b07bc02884195834fe0 assets/potionsplus/blockstates/azure_bl
 2b73f206032cfc1872c91122fb6394744d0d7913 assets/potionsplus/blockstates/black_coalla_lily.json
 a45b31ee57aee59040c3548c3860c4b5472ae455 assets/potionsplus/blockstates/blue_orchid_versatile.json
 91f96cd76a7c1958ff9b814ca25150cff0ebf5d3 assets/potionsplus/blockstates/brassica_oleracea_plant.json
+c12d7567fdfa06ce3cd78a13a224d6794375ac1b assets/potionsplus/blockstates/brewing_cauldron.json
 081e2005ee4a69826074e6f7be1929c001fd4c2e assets/potionsplus/blockstates/broccoli_plant.json
 f48f5470f091a3f31634eacd411489aeb056f3d4 assets/potionsplus/blockstates/brown_mushroom_versatile.json
 b97e3734190323a31043f8f564c9e0bd1902990c assets/potionsplus/blockstates/brussels_sprouts_plant.json

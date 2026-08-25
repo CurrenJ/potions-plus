@@ -4,6 +4,7 @@ import grill24.potionsplus.block.*;
 import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.block.BlockModelUtility;
 import grill24.potionsplus.utility.registration.block.SimpleBlockBuilder;
 import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
@@ -49,7 +50,7 @@ public class BlockEntityBlocks {
                 SimpleBlockBuilder.createSimple("brewing_cauldron")
                         .blockFactory(BrewingCauldronBlock::new)
                         .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WATER_CAULDRON))
-                        .modelGenerator(null)
+                        .modelGenerator(h -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(h, Identifier.fromNamespaceAndPath("minecraft", "block/cauldron"), true, false))
         ).getHolder();
         RegistrationUtility.registerBlockItemWithTexture(BREWING_CAULDRON, registerItem, ppId("item/brewing_cauldron"));
 
