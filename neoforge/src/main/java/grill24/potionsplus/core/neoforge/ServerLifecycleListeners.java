@@ -55,7 +55,7 @@ public class ServerLifecycleListeners {
      */
     @SubscribeEvent
     public static void onRecipesSynced(final RecipesReceivedEvent event) {
-        Recipes.postProcessRecipes(event.getRecipeMap());
+        grill24.potionsplus.core.Recipes.postProcessRecipes(event.getRecipeMap());
     }
 
     private static void initializeSavedData(MinecraftServer server) {
@@ -65,14 +65,18 @@ public class ServerLifecycleListeners {
     }
 
     private static void injectRuntimeRecipes(MinecraftServer server) {
-        // Init static recipe injection functions before injecting recipes (recipes injected after server start)
-        Recipes.registerRecipeInjectionFunctions();
+        // Init static recipe injection functions before injecting recipes (recipes injected after server start).
+        // Must go through the common Recipes class here - RecipeManagerMixin (common/) reads
+        // grill24.potionsplus.core.Recipes.RECIPE_INJECTION_FUNCTIONS, which is a *different* list from
+        // this neoforge module's own Recipes.RECIPE_INJECTION_FUNCTIONS. Populating the wrong one means
+        // the mixin injects nothing.
+        grill24.potionsplus.core.Recipes.registerRecipeInjectionFunctions();
 
         // Reload server resources
         PackRepository packrepository = server.getPackRepository();
         Collection<String> selectedIds = packrepository.getSelectedIds();
         server.reloadResources(selectedIds);
 
-        Recipes.postProcessRecipes(server.getRecipeManager().recipeMap());
+        grill24.potionsplus.core.Recipes.postProcessRecipes(server.getRecipeManager().recipeMap());
     }
 }
