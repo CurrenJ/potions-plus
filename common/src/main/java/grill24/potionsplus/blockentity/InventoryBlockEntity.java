@@ -68,14 +68,17 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
     @Override
     public void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
-        // Items are loaded via DataComponents (CONTAINER) in the base class.
+        // BaseContainerBlockEntity's implicit DataComponents.CONTAINER handling is only wired into
+        // itemstack<->block entity conversion (applyComponents/collectComponents), not into the
+        // regular chunk load/save path, so items must be (de)serialized explicitly here.
+        ContainerHelper.loadAllItems(input, this.items);
         loadSerializableFields(input);
     }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
-        // Items are saved via DataComponents (CONTAINER) in the base class.
+        ContainerHelper.saveAllItems(output, this.items);
         saveSerializableFields(output);
     }
 

@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
@@ -280,6 +281,15 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         }
 
         this.rendererData = data;
+    }
+
+    @Override
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        // setChanged() (which normally drives this) isn't invoked by the load path, so the floating
+        // item display and the "known ingredient" reveal state would otherwise stay empty after a
+        // world reload even though the underlying inventory items loaded correctly.
+        updateRendererData();
     }
 
     @Override
