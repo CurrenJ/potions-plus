@@ -21,6 +21,7 @@ public class ServerLifecycleListeners {
     public static void onServerStarted(final ServerStartedEvent event) {
         final MinecraftServer server = event.getServer();
         PotionsPlus.SERVER = server;
+        grill24.potionsplus.core.ModState.SERVER = server;
 
         // Initialize common stubs that depend on bound registries
         grill24.potionsplus.core.ConfiguredPlayerAbilities.ensureInit();
