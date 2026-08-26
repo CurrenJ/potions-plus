@@ -11,22 +11,4 @@ public class LootTables {
     public static final ResourceKey<LootTable> ALL_POTIONS = ResourceKey.create(Registries.LOOT_TABLE, ppId("all_potions"));
 
     public static final ResourceKey<LootTable> GEMS_AND_ORES_REWARDS = ResourceKey.create(Registries.LOOT_TABLE, ppId("gems_and_ores"));
-
-    // Ore hat loot tables (arrays of 4, matching the 4 hat milestones: 64, 128, 256, 512)
-    public static final ResourceKey<LootTable>[] COPPER_ORE_HATS = createHatArray("copper_ore_hats");
-    public static final ResourceKey<LootTable>[] COAL_ORE_HATS = createHatArray("coal_ore_hats");
-    public static final ResourceKey<LootTable>[] IRON_ORE_HATS = createHatArray("iron_ore_hats");
-    public static final ResourceKey<LootTable>[] GOLD_ORE_HATS = createHatArray("gold_ore_hats");
-    public static final ResourceKey<LootTable>[] DIAMOND_ORE_HATS = createHatArray("diamond_ore_hats");
-    public static final ResourceKey<LootTable>[] EMERALD_ORE_HATS = createHatArray("emerald_ore_hats");
-
-    @SuppressWarnings("unchecked")
-    private static ResourceKey<LootTable>[] createHatArray(String baseName) {
-        return new ResourceKey[]{
-                ResourceKey.create(Registries.LOOT_TABLE, ppId(baseName + "_1")),
-                ResourceKey.create(Registries.LOOT_TABLE, ppId(baseName + "_2")),
-                ResourceKey.create(Registries.LOOT_TABLE, ppId(baseName + "_3")),
-                ResourceKey.create(Registries.LOOT_TABLE, ppId(baseName + "_4")),
-        };
-    }
 }

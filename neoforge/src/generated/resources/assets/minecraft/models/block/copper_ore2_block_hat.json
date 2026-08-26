@@ -1,6 +1,0 @@
-{
-  "parent": "potionsplus:item/block_hat_2",
-  "textures": {
-    "0": "minecraft:block/copper_ore"
-  }
-}
