@@ -23,33 +23,9 @@ public class Packets {
         );
 
         registrar.playToServer(
-                ServerboundUpdateAbilityStrengthPacket.TYPE,
-                ServerboundUpdateAbilityStrengthPacket.STREAM_CODEC,
-                (pkt, ctx) -> ServerboundUpdateAbilityStrengthPacket.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
-        );
-
-        registrar.playToServer(
-                ServerboundToggleAbilityPacket.TYPE,
-                ServerboundToggleAbilityPacket.STREAM_CODEC,
-                (pkt, ctx) -> ServerboundToggleAbilityPacket.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
-        );
-
-        registrar.playToServer(
-                ServerboundSpawnDoubleJumpParticlesPacket.TYPE,
-                ServerboundSpawnDoubleJumpParticlesPacket.STREAM_CODEC,
-                (pkt, ctx) -> ServerboundSpawnDoubleJumpParticlesPacket.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
-        );
-
-        registrar.playToServer(
                 ServerboundSetupFilterHopperFromContainerPacket.TYPE,
                 ServerboundSetupFilterHopperFromContainerPacket.STREAM_CODEC,
                 (pkt, ctx) -> ServerboundSetupFilterHopperFromContainerPacket.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
-        );
-
-        registrar.playToServer(
-                ServerboundTryClaimSkillReward.TYPE,
-                ServerboundTryClaimSkillReward.STREAM_CODEC,
-                (pkt, ctx) -> ServerboundTryClaimSkillReward.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
         // ----- Clientbound Packets -----
@@ -109,51 +85,9 @@ public class Packets {
         );
 
         registrar.playToClient(
-                ClientboundSyncPlayerSkillData.TYPE,
-                ClientboundSyncPlayerSkillData.STREAM_CODEC,
-                (pkt, ctx) -> ClientboundSyncPlayerSkillData.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
-        );
-
-        registrar.playToClient(
-                ClientboundDisplayItemActivationPacket.TYPE,
-                ClientboundDisplayItemActivationPacket.STREAM_CODEC,
-                (pkt, ctx) -> ClientboundDisplayItemActivationPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
-        );
-
-        registrar.playToClient(
-                ClientboundDisplayWheelAnimationPacket.TYPE,
-                ClientboundDisplayWheelAnimationPacket.STREAM_CODEC,
-                (pkt, ctx) -> ClientboundDisplayWheelAnimationPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
-        );
-
-        registrar.playToClient(
-                ClientboundDisplayTossupAnimationPacket.TYPE,
-                ClientboundDisplayTossupAnimationPacket.STREAM_CODEC,
-                (pkt, ctx) -> ClientboundDisplayTossupAnimationPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
-        );
-
-        registrar.playToClient(
-                ClientboundSyncSpatialAnimationDataPacket.TYPE,
-                ClientboundSyncSpatialAnimationDataPacket.STREAM_CODEC,
-                (pkt, ctx) -> ClientboundSyncSpatialAnimationDataPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
-        );
-
-        registrar.playToClient(
                 ClientboundDisplayAlert.TYPE,
                 ClientboundDisplayAlert.STREAM_CODEC,
                 (pkt, ctx) -> ClientboundDisplayAlert.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
-        );
-
-        registrar.playToClient(
-                ClientboundTriggerChainLightningPacket.TYPE,
-                ClientboundTriggerChainLightningPacket.STREAM_CODEC,
-                (pkt, ctx) -> ClientboundTriggerChainLightningPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
-        );
-
-        registrar.playToClient(
-                ClientboundTriggerStunShotPacket.TYPE,
-                ClientboundTriggerStunShotPacket.STREAM_CODEC,
-                (pkt, ctx) -> ClientboundTriggerStunShotPacket.ClientPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
     }
 }

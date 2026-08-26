@@ -1,7 +1,6 @@
 package grill24.potionsplus.core.neoforge;
 
 import grill24.potionsplus.item.modelproperty.BrassicaOleraceaProperty;
-import grill24.potionsplus.item.modelproperty.EdibleChoiceProperty;
 import grill24.potionsplus.item.modelproperty.GeneticProperty;
 import grill24.potionsplus.particle.*;
 import grill24.potionsplus.utility.ModInfo;
@@ -43,7 +42,6 @@ public class ClientEvents {
     @SubscribeEvent
     public static void onRegisterRangeSelectItemModelProperties(final RegisterRangeSelectItemModelPropertyEvent event) {
         event.register(GeneticProperty.ID, GeneticProperty.MAP_CODEC);
-        event.register(EdibleChoiceProperty.ID, EdibleChoiceProperty.MAP_CODEC);
     }
 
     @SubscribeEvent

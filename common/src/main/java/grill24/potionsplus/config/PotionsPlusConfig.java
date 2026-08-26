@@ -3,7 +3,6 @@ package grill24.potionsplus.config;
 public class PotionsPlusConfig {
     public static final PotionsPlusConfig CONFIG = new PotionsPlusConfig();
 
-    public final BoolValue enableSkills = new BoolValue(true);
     public final IntValue potionDrinkTimeTicks = new IntValue(16);
     public final IntValue potionDrinkCooldownTimeTicks = new IntValue(0);
 

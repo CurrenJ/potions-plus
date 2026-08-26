@@ -1,8 +1,6 @@
 package grill24.potionsplus.utility.registration.item;
 
 import grill24.potionsplus.core.items.DynamicIconItems;
-import grill24.potionsplus.item.EdibleChoiceItem;
-import grill24.potionsplus.item.modelproperty.EdibleChoiceProperty;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.registration.IModelGenerator;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -59,52 +57,6 @@ public class ItemOverrideUtility {
         @Override
         public Holder<Item> getHolder() {
             return itemGetter.get();
-        }
-    }
-
-    public static class EdibleChoiceItemOverrideModelGenerator extends ItemOverrideModelGenerator<EdibleChoiceItem> {
-        private final ItemOverrideCommonUtility.EdibleChoiceItemOverrideData commonData;
-
-        public EdibleChoiceItemOverrideModelGenerator(Supplier<Holder<Item>> itemGetter, ItemOverrideCommonUtility.EdibleChoiceItemOverrideData commonData) {
-            super(itemGetter);
-            this.commonData = commonData;
-        }
-
-        @Override
-        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
-            Holder<? extends Item> item = getHolder();
-
-            TextureMapping fallbackItemTextureMapping = new TextureMapping().put(TextureSlot.LAYER0, new Material(commonData.getLayer0()));
-            Identifier fallbackItemModelId = ppId(item.unwrapKey().orElseThrow().identifier().getPath() + "_fallback");
-            Identifier fallbackItemModel = ModelTemplates.FLAT_ITEM.create(fallbackItemModelId, fallbackItemTextureMapping, getModelOutput(blockModelGenerators));
-
-            List<RangeSelectItemModel.Entry> entries = commonData.getLayer1().stream().map(layer1Texture -> {
-                String str = layer1Texture.getPath();
-                String name = item.unwrapKey().orElseThrow().identifier().getPath() + "_" + str.substring(str.lastIndexOf('/') + 1);
-                Identifier modelId = ppId("item/" + name);
-
-                TextureMapping textureMapping = new TextureMapping()
-                        .put(TextureSlot.LAYER0, new Material(commonData.getLayer0()))
-                        .put(TextureSlot.LAYER1, new Material(layer1Texture));
-                Identifier generatedItemModel = ModelTemplates.TWO_LAYERED_ITEM.create(modelId, textureMapping, getModelOutput(blockModelGenerators));
-
-                float threshold = commonData.getOverrideValue(layer1Texture);
-
-                return new RangeSelectItemModel.Entry(
-                        threshold,
-                        ItemModelUtils.plainModel(generatedItemModel)
-                );
-            }).toList();
-
-            RangeSelectItemModel.Unbaked rangeSelectItemModel = new RangeSelectItemModel.Unbaked(
-                    Optional.empty(),
-                    new EdibleChoiceProperty(),
-                    1.0F,
-                    entries,
-                    Optional.of(ItemModelUtils.plainModel(fallbackItemModel))
-            );
-
-            getItemModelOutput(blockModelGenerators).accept(item.value(), rangeSelectItemModel);
         }
     }
 

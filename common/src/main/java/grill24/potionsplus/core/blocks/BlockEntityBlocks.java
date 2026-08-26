@@ -36,7 +36,6 @@ public class BlockEntityBlocks {
     public static Holder<Block> PRECISION_DISPENSER;
     public static Holder<Block> CLOTHESLINE;
     public static Holder<Block> POTION_BEACON;
-    public static Holder<Block> SKILL_JOURNALS;
 
     public static Holder<Block> SMALL_FILTER_HOPPER, LARGE_FILTER_HOPPER, HUGE_FILTER_HOPPER;
 
@@ -172,20 +171,6 @@ public class BlockEntityBlocks {
                                         .unlockedBy("has_uranium_glass", recipeProvider.has(uraniumGlass.get()))))
         ).getHolder();
         RegistrationUtility.registerBlockItem(POTION_BEACON, registerItem);
-
-        SKILL_JOURNALS = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("skill_journals")
-                .blockFactory(SkillJournalsBlock::new)
-                .properties(() -> BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.5F).sound(SoundType.WOOD).noOcclusion())
-                .modelGenerator(null)
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                        (recipeProvider, h) ->
-                                recipeProvider.shapeless(RecipeCategory.MISC, BlockEntityBlocks.SKILL_JOURNALS.value().asItem())
-                                        .requires(net.minecraft.world.item.Items.BOOK)
-                                        .requires(net.minecraft.world.item.Items.BOOK)
-                                        .requires(net.minecraft.world.item.Items.BOOK)
-                                        .unlockedBy("has_book", recipeProvider.has(net.minecraft.world.item.Items.BOOK))))
-        ).getHolder();
-        RegistrationUtility.registerBlockItemWithAutoModel(() -> SKILL_JOURNALS, registerItem);
 
         SMALL_FILTER_HOPPER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("small_filter_hopper")
                         .blockFactory(SmallFilterHopperBlock::new)

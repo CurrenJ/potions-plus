@@ -22,7 +22,7 @@ public class GeneticCropItemConsumeEffect implements ConsumeEffect {
 
     @Override
     public Type<? extends ConsumeEffect> getType() {
-        return ConsumeEffects.EDIBLE_CHOICE_ITEM.value();
+        return ConsumeEffects.GENETIC_CROP_ITEM.value();
     }
 
     @Override

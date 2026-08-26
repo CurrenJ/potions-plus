@@ -10,7 +10,6 @@
     "BootstrapMixin",
     "BucketItemMixin",
     "CauldronInteractionDispatcherAccessor",
-    "ConsumableMixin",
     "EnchantedCountIncreaseFunctionMixin",
     "EntityMixin",
     "InventoryMixin",
@@ -31,7 +30,6 @@
   "client": [
     "ClientAdvancementsMixin",
     "ClientPacketListenerMixin",
-    "GameRendererMixin",
     "GuiGraphicsMixin",
     "ParticleEngineMixin"
   ],

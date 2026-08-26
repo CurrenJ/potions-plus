@@ -1,7 +1,6 @@
 package grill24.potionsplus.data.neoforge;
 
 import grill24.potionsplus.core.*;
-import grill24.potionsplus.core.neoforge.ConfiguredPlayerAbilities;
 import grill24.potionsplus.core.neoforge.NeoSounds;
 import grill24.potionsplus.data.loot.neoforge.GlobalLootModifierProvider;
 import grill24.potionsplus.utility.ModInfo;
@@ -30,11 +29,6 @@ public class DataGen {
             .add(Registries.PLACED_FEATURE, Placements::bootstrap)
             .add(Registries.BIOME, Biomes::bootstrap)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, BiomeModifierProvider::bootstrap);
-            // Custom Datapack Registries - disabled until ItemStack creation is MC 26.1-safe
-            // .add(PotionsPlusRegistries.CONFIGURED_SKILL, ConfiguredSkills::generate)
-            // .add(PotionsPlusRegistries.CONFIGURED_SKILL_POINT_SOURCE, ConfiguredSkillPointSources::generate)
-            // .add(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ConfiguredPlayerAbilities::generate)
-            // .add(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ConfiguredGrantableRewards::generate);
 
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent.Client event) {

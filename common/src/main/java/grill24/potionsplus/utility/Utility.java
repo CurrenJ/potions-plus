@@ -9,7 +9,6 @@ import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.persistence.SavedData;
-import grill24.potionsplus.skill.ability.ConfiguredPlayerAbility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -187,10 +186,6 @@ public class Utility {
             keys[i] = key;
         }
         return keys;
-    }
-
-    public static Identifier modifierId(ResourceKey<ConfiguredPlayerAbility<?, ?>> key) {
-        return ppId(key.identifier().getPath() + "_modifier");
     }
 
     /**

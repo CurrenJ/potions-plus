@@ -3,15 +3,8 @@ package grill24.potionsplus.core.neoforge;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
 import grill24.potionsplus.config.neoforge.PotionsPlusConfig;
-import grill24.potionsplus.core.PotionsPlusRegistries;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.Translations;
-import grill24.potionsplus.render.animation.keyframe.AnimationCurveSerializer;
-import grill24.potionsplus.skill.Skill;
-import grill24.potionsplus.skill.ability.PlayerAbility;
-import grill24.potionsplus.skill.ability.instance.AbilityInstanceType;
-import grill24.potionsplus.skill.reward.GrantableReward;
-import grill24.potionsplus.skill.source.SkillPointSource;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Holder;
@@ -55,18 +48,12 @@ public class PotionsPlus {
     public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(Registries.ATTRIBUTE, ModInfo.MOD_ID);
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, ModInfo.MOD_ID);
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(Registries.POTION, ModInfo.MOD_ID);
-    public static final DeferredRegister<AbilityInstanceType<?>> ABILITY_INSTANCE_TYPE = DeferredRegister.create(PotionsPlusRegistries.ABILITY_INSTANCE_TYPE_REGISTRY_KEY, ModInfo.MOD_ID);
-    public static final DeferredRegister<AnimationCurveSerializer<?>> ANIMATION_CURVE_SERIALIZERS = DeferredRegister.create(PotionsPlusRegistries.ANIMATION_CURVE_SERIALIZER_REGISTRY_KEY, ModInfo.MOD_ID);
     public static final DeferredRegister<BlockPredicateType<?>> BLOCK_PREDICATE_TYPES = DeferredRegister.create(BuiltInRegistries.BLOCK_PREDICATE_TYPE, ModInfo.MOD_ID);
     public static final DeferredRegister<ConsumeEffect.Type<?>> CONSUME_EFFECTS = DeferredRegister.create(Registries.CONSUME_EFFECT_TYPE, ModInfo.MOD_ID);
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, ModInfo.MOD_ID);
-    public static final DeferredRegister<GrantableReward<?>> GRANTABLE_REWARDS = DeferredRegister.create(PotionsPlusRegistries.GRANTABLE_REWARD_REGISTRY_KEY, ModInfo.MOD_ID);
     public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIER_TYPES = DeferredRegister.create(Registries.PLACEMENT_MODIFIER_TYPE, ModInfo.MOD_ID);
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, ModInfo.MOD_ID);
-    public static final DeferredRegister<PlayerAbility<?>> PLAYER_ABILITIES = DeferredRegister.create(PotionsPlusRegistries.PLAYER_ABILITY_REGISTRY_KEY, ModInfo.MOD_ID);
-    public static final DeferredRegister<Skill<?>> SKILLS = DeferredRegister.create(PotionsPlusRegistries.SKILL_REGISTRY_KEY, ModInfo.MOD_ID);
     public static final DeferredRegister<MapCodec<? extends LootItemCondition>> LOOT_ITEM_CONDITIONS = DeferredRegister.create(BuiltInRegistries.LOOT_CONDITION_TYPE, ModInfo.MOD_ID);
-    public static final DeferredRegister<SkillPointSource<?, ?>> SKILL_POINT_SOURCES = DeferredRegister.create(PotionsPlusRegistries.SKILL_POINT_SOURCE_REGISTRY_KEY, ModInfo.MOD_ID);
 
     static {
         // Set up PotionBuilder factory before Potions class loads (its static fields trigger registration)
@@ -81,12 +68,9 @@ public class PotionsPlus {
         grill24.potionsplus.core.Advancements.init(TRIGGERS::register);
         grill24.potionsplus.core.Attributes.init(ATTRIBUTES::register);
         grill24.potionsplus.core.Entities.init(ENTITIES::register);
-        grill24.potionsplus.core.AbilityInstanceTypes.init(ABILITY_INSTANCE_TYPE::register);
-        grill24.potionsplus.core.AnimationCurveSerializers.init(ANIMATION_CURVE_SERIALIZERS::register);
         grill24.potionsplus.core.BlockPredicateTypes.init(BLOCK_PREDICATE_TYPES::register);
         grill24.potionsplus.core.ConsumeEffects.init(CONSUME_EFFECTS::register);
         grill24.potionsplus.core.Features.init(FEATURES::register);
-        grill24.potionsplus.core.GrantableRewards.init(GRANTABLE_REWARDS::register);
         grill24.potionsplus.core.PlacementModifierTypes.init(PLACEMENT_MODIFIER_TYPES::register);
         // MobEffects must be initialized before Potions - Potions' static fields reference
         // MobEffects.* holders directly at class-load time, so Potions.init() would otherwise
@@ -94,9 +78,6 @@ public class PotionsPlus {
         grill24.potionsplus.core.potion.MobEffects.init(MOB_EFFECTS::register);
         grill24.potionsplus.core.potion.MobEffects.initIconIndexMap();
         grill24.potionsplus.core.potion.Potions.init(POTIONS::register);
-        grill24.potionsplus.core.PlayerAbilities.init(PLAYER_ABILITIES::register);
-        grill24.potionsplus.core.Skills.init(SKILLS::register);
-        grill24.potionsplus.core.SkillPointSources.init(SKILL_POINT_SOURCES::register);
 
         // Register platform-specific percentage attributes (NeoForge PercentageAttribute)
         {
@@ -131,19 +112,13 @@ public class PotionsPlus {
         TRIGGERS.register(bus);
         BLOCK_PREDICATE_TYPES.register(bus);
         FEATURES.register(bus);
-        SKILLS.register(bus);
-        SKILL_POINT_SOURCES.register(bus);
-        PLAYER_ABILITIES.register(bus);
-        ABILITY_INSTANCE_TYPE.register(bus);
         CommandArgumentTypes.COMMAND_ARGUMENT_TYPES.register(bus);
         ATTRIBUTES.register(bus);
         LOOT_ITEM_CONDITIONS.register(bus);
         PLACEMENT_MODIFIER_TYPES.register(bus);
-        GRANTABLE_REWARDS.register(bus);
         DataComponents.DATA_COMPONENTS.register(bus);
         DataAttachmentsImpl.ATTACHMENT_TYPES.register(bus);
         CONSUME_EFFECTS.register(bus);
-        ANIMATION_CURVE_SERIALIZERS.register(bus);
         MenuTypes.MENU_TYPES.register(bus);
         LootItemFunctions.LOOT_ITEM_FUNCTIONS.register(bus);
         NumberProviders.NUMBER_PROVIDERS.register(bus);

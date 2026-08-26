@@ -23,9 +23,6 @@ public class ServerLifecycleListeners {
         PotionsPlus.SERVER = server;
         grill24.potionsplus.core.ModState.SERVER = server;
 
-        // Initialize common stubs that depend on bound registries
-        grill24.potionsplus.core.ConfiguredPlayerAbilities.ensureInit();
-
         // Setup saved data
         initializeSavedData(server);
 

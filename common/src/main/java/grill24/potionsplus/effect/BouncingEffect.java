@@ -1,12 +1,8 @@
 package grill24.potionsplus.effect;
 
-import grill24.potionsplus.core.ConfiguredPlayerAbilities;
-import grill24.potionsplus.core.DataAttachments;
-import grill24.potionsplus.core.PlayerAbilities;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
-import grill24.potionsplus.skill.ability.SavedByTheBounceAbility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
@@ -14,8 +10,6 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
@@ -51,36 +45,17 @@ public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
     }
 
     public static boolean onFall(LivingEntity entity) {
-        if (entity.hasEffect(MobEffects.BOUNCING) || DataAttachments.hasShouldBounceData(entity)) {
+        if (entity.hasEffect(MobEffects.BOUNCING)) {
             MobEffectInstance effectInstance = entity.getEffect(MobEffects.BOUNCING);
             int amplifier = effectInstance != null ? effectInstance.getAmplifier() : 0;
             BouncingEffect.bounceUp(entity, BouncingEffect.getBounceHeight(amplifier));
-
-            DataAttachments.removeShouldBounceData(entity);
             return true;
         }
         return false;
     }
 
     public static boolean onLivingFall(Entity entity, float distance) {
-        if (entity instanceof Player player && !player.hasEffect(MobEffects.BOUNCING)) {
-            float safeFallDistance = (float) player.getAttribute(Attributes.SAFE_FALL_DISTANCE).getValue();
-            if (distance > safeFallDistance) {
-                boolean bounced = PlayerAbilities.SAVED_BY_THE_BOUNCE.value().triggerFromClient(
-                        player, ConfiguredPlayerAbilities.SAVED_BY_THE_BOUNCE.getKey(),
-                        new SavedByTheBounceAbility.FallData(distance));
-                if (bounced) {
-                    if (!player.isLocalPlayer()) {
-                        player.addEffect(new MobEffectInstance(MobEffects.BOUNCING, 60, 0));
-                    } else {
-                        DataAttachments.setShouldBounceData(player, new ShouldBouncePlayerData());
-                    }
-                }
-            }
-        }
-
-        return entity instanceof LivingEntity livingEntity
-                && (livingEntity.hasEffect(MobEffects.BOUNCING) || DataAttachments.hasShouldBounceData(livingEntity));
+        return entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.BOUNCING);
     }
 }
 

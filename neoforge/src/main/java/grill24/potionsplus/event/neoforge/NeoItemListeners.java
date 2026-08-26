@@ -9,8 +9,6 @@ import grill24.potionsplus.item.WeightDataComponent;
 import grill24.potionsplus.item.tooltip.BrewingTooltips;
 import grill24.potionsplus.item.tooltip.PotionEffectTooltips;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.skill.reward.EdibleRewardGranterDataComponent;
-import grill24.potionsplus.skill.reward.OwnerDataComponent;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
@@ -55,8 +53,6 @@ public class NeoItemListeners {
             WeightDataComponent.onTooltip(addEvent);
             BrewingTooltips.onBrewingTooltip(addEvent);
             PotionEffectTooltips.onPotionEffectTooltip(addEvent);
-            OwnerDataComponent.onTooltip(addEvent);
-            EdibleRewardGranterDataComponent.onTooltip(addEvent);
         }
 
         return AnimatedItemTooltipEvent.getPriorityOrderTooltipLines(tooltipMessages);

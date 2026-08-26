@@ -1,32 +1,23 @@
 package grill24.potionsplus.mixin;
 
 import grill24.potionsplus.extension.IGuiGraphicsExtension;
-import grill24.potionsplus.gui.RenderableScreenElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.item.TrackingItemStackRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.state.gui.BlitRenderState;
 import net.minecraft.client.renderer.state.gui.ColoredRectangleRenderState;
-import net.minecraft.client.renderer.state.gui.GuiItemRenderState;
 import net.minecraft.client.renderer.state.gui.GuiRenderState;
 import net.minecraft.client.renderer.state.gui.GuiTextRenderState;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import org.joml.Matrix3x2f;
 import org.joml.Matrix3x2fStack;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -47,53 +38,8 @@ public abstract class GuiGraphicsMixin implements IGuiGraphicsExtension {
     @Final
     public GuiRenderState guiRenderState;
 
-    private static final float PIX = 16;
-
     private ScreenRectangle scissorPeek() {
         return ((GuiGraphicsExtractor) (Object) this).scissorStack.peek();
-    }
-
-    @Override
-    public void potions_plus$renderItem(@Nullable LivingEntity entity, @Nullable Level level, ItemStack stack, Vector3f rotation, float x, float y, float scale, RenderableScreenElement.Anchor anchor, int seed, float guiOffset) {
-        if (!stack.isEmpty()) {
-            this.pose.pushMatrix();
-            this.pose.translate(x, y);
-
-            float actualScale = PIX * scale;
-            float xOffset = switch (anchor.xAlignment()) {
-                case LEFT -> actualScale / 2F;
-                case CENTER -> 0;
-                case RIGHT -> -actualScale / 2F;
-            };
-            float yOffset = switch (anchor.yAlignment()) {
-                case TOP -> actualScale / 2F;
-                case CENTER -> 0;
-                case BOTTOM -> -actualScale / 2F;
-            };
-            this.pose.translate(xOffset, yOffset);
-
-            if (rotation.z() != 0) {
-                this.pose.rotate(rotation.z() * (float) Math.PI / 180.0F);
-            }
-
-            this.pose.scale(actualScale, -actualScale);
-
-            TrackingItemStackRenderState renderState = new TrackingItemStackRenderState();
-            this.minecraft.getItemModelResolver().updateForTopItem(renderState, stack, ItemDisplayContext.GUI, level, entity, seed);
-            this.guiRenderState.addItem(new GuiItemRenderState(new Matrix3x2f(this.pose), renderState, 0, 0, this.scissorPeek()));
-
-            this.pose.popMatrix();
-        }
-    }
-
-    @Override
-    public void potions_plus$renderItem(ItemStack stack, Vector3f rotation, float x, float y, float scale, RenderableScreenElement.Anchor anchor) {
-        this.potions_plus$renderItem(this.minecraft.player, this.minecraft.level, stack, rotation, x, y, scale, anchor, 0, 0);
-    }
-
-    @Override
-    public void potions_plus$renderItem(ItemStack stack, Vector3f rotation, float x, float y, float zOffset, float scale, RenderableScreenElement.Anchor anchor) {
-        this.potions_plus$renderItem(this.minecraft.player, this.minecraft.level, stack, rotation, x, y, scale, anchor, 0, zOffset);
     }
 
     @Override

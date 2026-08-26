@@ -3,7 +3,6 @@ package grill24.potionsplus.blockentity.filterhopper;
 import grill24.potionsplus.block.FilterHopperBlock;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.items.FilterHopperUpgradeItems;
-import grill24.potionsplus.item.EdibleChoiceItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -547,7 +546,7 @@ public abstract class FilterHopperBlockEntity extends RandomizableContainerBlock
                 || (allowEnchanted && (!stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty()
                 || !stack.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty()))
                 || (allowPotionIngredients && AbyssalTroveBlockEntity.isItemPotionIngredient(stack))
-                || (allowEdibleRewards && item instanceof EdibleChoiceItem)
+                || (allowEdibleRewards && stack.is(grill24.potionsplus.core.Tags.Items.EDIBLE_REWARDS))
         );
 
         return blacklist != isItemValid;

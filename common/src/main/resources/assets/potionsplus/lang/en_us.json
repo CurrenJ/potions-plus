@@ -1,5 +1,4 @@
 {
-  "configuration.potionsplus.enable_skills": "Enable Skills",
   "configuration.potionsplus.potion_drink_time_ticks": "Potion Drink Time (in ticks)",
   "configuration.potionsplus.potion_use_cooldown_time_ticks": "Potion Use Cooldown Time (in ticks)",
   "configuration.potionsplus.generate_ore_variants": "Enable Ore Variants Generation",
@@ -52,74 +51,20 @@
   "block.potionsplus.large_filter_hopper": "Large Filter Hopper",
   "block.potionsplus.huge_filter_hopper": "Huge Filter Hopper",
 
-  "tooltip.potionsplus.skill.level_up": "You reached level %s!",
-  "tooltip.potionsplus.skill.max_points": "You reached max skill points.",
-  "tooltip.potionsplus.skill.max_level": "You reached max level.",
-  "tooltip.potionsplus.skill.level": "[Lvl %s] ",
-  "tooltip.potionsplus.skill.points_earned": "points earned",
-  "tooltip.potionsplus.skill.journal.none": "Level up skills to unlock abilities here!",
-  "tooltip.potionsplus.skill.check_journals": " (Check Skill Journals!)",
 
-  "description.potionsplus.ability.pickaxe_efficiency": "%s Pickaxe Mining Speed",
-  "description.potionsplus.ability.pickaxe_fortune": "%s Pickaxe Fortune Level",
   "description.potionsplus.attribute.fortune_level": "Fortune",
-  "description.potionsplus.ability.submerged_pickaxe_efficiency": "%s Underwater Pickaxe Mining Speed",
-  "description.potionsplus.ability.copper_ore_additional_loot_iron_nuggets": "+Copper Ore May Drop Iron",
-  "description.potionsplus.ability.iron_ore_additional_loot_gold_nuggets": "+Iron Ore May Drop Gold",
-  "description.potionsplus.ability.diamond_ore_additional_loot_emeralds": "+Diamond Ore May Drop Emeralds",
-  "description.potionsplus.ability.diamond_ore_additional_loot_lapis": "+Diamond Ore May Drop Lapis",
 
-  "description.potionsplus.ability.double_jump": "+%s Additional Jump(s)",
-  "description.long.potionsplus.ability.double_jump": "§l§dJump§r again in mid-air.",
 
-  "description.potionsplus.ability.chain_lightning": "[Lvl %s] Chain Lightning",
-  "description.potionsplus.ability.chain_lightning_increase": "[Chain Lightning] +15% trigger chance, +1 target",
-  "description.potionsplus.ability.chain_lightning_increase_2x": "[Chain Lightning] +30% trigger chance, +2 targets",
-  "description.long.potionsplus.ability.chain_lightning": "When you §6crit§r, §a%s§r chance\nto inflict §l§dchain lightning§r\non up to §a%s§r targets.",
 
-  "description.potionsplus.ability.stun_shot": "[Lvl %s] Stun Shot",
-  "description.potionsplus.ability.stun_shot_increase": "[Stun Shot] +15% trigger chance, +1.5 second stun duration",
-  "description.long.potionsplus.ability.stun_shot": "When you §6crit§r, §a%s§r chance\nto §l§dstun§r for §a%s§r seconds.",
 
-  "description.potionsplus.ability.saved_by_the_bounce": "[Lvl %s] Saved By The Bounce",
-  "description.potionsplus.ability.saved_by_the_bounce_unlock": "+Saved By The Bounce",
-  "description.potionsplus.ability.saved_by_the_bounce_increase": "[Saved By The Bounce] -30 seconds cooldown",
-  "cooldown.potionsplus.ability.saved_by_the_bounce": "[Saved By The Bounce] is ready to use!",
-  "description.long.potionsplus.ability.saved_by_the_bounce": "When you would take §6fall§r\ndamage, §l§dbounce§r instead.",
 
-  "description.potionsplus.ability.last_breath": "[Lvl %s] Last Breath",
-  "description.potionsplus.ability.last_breath_unlock": "+Last Breath",
-  "description.potionsplus.ability.last_breath_increase": "[Last Breath] -30 seconds cooldown, +5 seconds water breathing",
-  "cooldown.potionsplus.ability.last_breath": "[Last Breath] is ready to use!",
-  "description.long.potionsplus.ability.last_breath": "When you would §6drown§r, get\n§l§dwater breathing§r for §a%s§r seconds.",
 
-  "description.potionsplus.ability.hot_potato": "[Lvl %s] Hot Potato",
-  "description.potionsplus.ability.hot_potato_unlock": "+Hot Potato",
-  "description.potionsplus.ability.hot_potato_increase": "[Hot Potato] -30 seconds cooldown, +5 seconds fire resistance",
-  "cooldown.potionsplus.ability.hot_potato": "[Hot Potato] is ready to use!",
-  "description.long.potionsplus.ability.hot_potato": "When you would §6burn§r,\nuse a §6poisonous potato§r\nand get §l§dfire resistance§r\nfor §a%s§r seconds.",
 
-  "tooltip.potionsplus.ability.tag": "§d§n§oAbility",
-  "cooldown.potionsplus.ability.alert": "Ability will be ready to use again in %s seconds.",
-  "cooldown.potionsplus.ability.info": "Cooldown: §a%s§r seconds",
 
   "key.categories.potionsplus": "Potions Plus",
-  "key.potionsplus.activate_ability": "Activate Ability For Held Item",
 
-  "description.potionsplus.ability.axe_efficiency": "%s Axe Mining Speed",
-  "description.potionsplus.ability.shovel_efficiency": "%s Shovel Mining Speed",
-  "description.potionsplus.ability.hoe_efficiency": "%s Hoe Mining Speed",
 
-  "description.potionsplus.ability.creeper_additional_loot_sand": "+Creepers May Drop Sand",
-  "description.potionsplus.ability.skeleton_bone_meal_bonus_drops": "+Skeletons May Drop Bone Meal",
-  "description.potionsplus.ability.skeleton_bone_block_bonus_drops": "+Skeletons May Drop Bone Blocks",
 
-  "description.potionsplus.ability.wheat_additional_loot": "+Wheat May Drop More Seeds",
-  "description.potionsplus.ability.carrot_additional_loot": "+Carrots May Drop Golden Carrots",
-  "description.potionsplus.ability.potato_additional_loot": "+Potatoes May Drop Poisonous Potatoes",
-  "description.potionsplus.ability.beetroot_additional_loot": "+Beetroots May Drop Sugar",
-  "description.potionsplus.ability.nether_wart_additional_loot": "+Nether Wart May Drop Nether Wart Blocks",
-  "description.potionsplus.ability.cocoa_additional_loot": "+Cocoa Beans May Drop Brown Dye",
 
   "description.potionsplus.attribute.power_level": "Power",
   "description.potionsplus.attribute.punch_level": "Punch",
@@ -127,68 +72,20 @@
   "description.potionsplus.attribute.looting_level": "Looting",
   "description.potionsplus.attribute.unbreaking_level": "Unbreaking",
   "description.potionsplus.attribute.smite_level": "Smite",
-  "description.potionsplus.attribute.luck_of_the_sea_level": "Luck of the Sea",
-  "description.potionsplus.attribute.lure_level": "Lure",
   "description.potionsplus.attribute.use_speed_level": "Use Speed",
   "description.potionsplus.attribute.sprint_speed_level": "Sprint Speed",
 
-  "description.potionsplus.ability.bow_power": "%s Bow Power Level",
-  "description.potionsplus.ability.bow_punch": "%s Bow Punch Level",
-  "description.potionsplus.ability.bow_unbreaking": "%s Bow Unbreaking Level",
-  "description.potionsplus.ability.bow_looting": "%s Bow Looting Level",
-  "description.potionsplus.ability.bow_use_speed": "%s Bow Use Speed",
-  "description.potionsplus.ability.pickaxe_unbreaking": "%s Pickaxe Unbreaking Level",
-  "description.potionsplus.ability.shovel_unbreaking": "%s Shovel Unbreaking Level",
-  "description.potionsplus.ability.hoe_unbreaking": "%s Hoe Unbreaking Level",
-  "description.potionsplus.ability.hoe_fortune": "%s Hoe Fortune Level",
-  "description.potionsplus.ability.sword_sharpness": "%s Sword Sharpness Level",
-  "description.potionsplus.ability.sword_looting": "%s Sword Looting Level",
-  "description.potionsplus.ability.sword_unbreaking": "%s Sword Unbreaking Level",
 
-  "description.potionsplus.ability.axe_damage": "%s Axe Damage",
-  "description.potionsplus.ability.axe_unbreaking": "%s Axe Unbreaking Level",
-  "description.potionsplus.ability.axe_smite": "%s Axe Smite Level",
-  "description.potionsplus.ability.axe_looting": "%s Axe Looting Level",
 
-  "description.potionsplus.ability.movement_speed": "%s Movement Speed",
-  "description.potionsplus.ability.sprint_speed": "%s Sprint Speed",
-  "description.potionsplus.ability.sneak_speed": "%s Sneak Speed",
-  "description.potionsplus.ability.jump_strength": "%s Jump Height",
-  "description.potionsplus.ability.safe_fall_distance": "%s Blocks Safe Fall Distance",
 
-  "description.potionsplus.reward.wheel": "Spin The Wheel",
-  "description.potionsplus.spin_to_win": "Spin to Win: %s",
 
-  "tooltip.potionsplus.skill.mining": "Mining",
-  "tooltip.potionsplus.skill.mining.reward.level_5": "Dungeon Loot",
-  "tooltip.potionsplus.skill.mining.reward.level_10": "Abandoned Mineshaft Loot",
-  "tooltip.potionsplus.skill.mining.reward.level_15": "Stronghold Library Loot",
-  "tooltip.potionsplus.skill.mining.reward.level_20": "Desert Pyramid Loot",
-  "tooltip.potionsplus.skill.mining.reward.level_25": "Jungle Temple Loot",
-  "tooltip.potionsplus.reward.end_city_loot": "End City Loot",
 
-  "tooltip.potionsplus.reward.gems_and_ores_wheel": "Gems and Ores",
 
-  "tooltip.potionsplus.reward.owner": "Owner: %s",
 
-  "tooltip.potionsplus.skill.reward.basic": "Basic Loot",
-  "tooltip.potionsplus.skill.reward.intermediate": "Intermediate Loot",
-  "tooltip.potionsplus.skill.reward.advanced": "Advanced Loot",
-  "tooltip.potionsplus.skill.reward.expert": "Expert Loot",
-  "tooltip.potionsplus.skill.reward.master": "Master Loot",
 
-  "tooltip.potionsplus.skill.woodcutting": "Woodcutting",
 
-  "tooltip.potionsplus.skill.swordsmanship": "Swordsmanship",
 
-  "tooltip.potionsplus.skill.archery": "Archery",
-  "tooltip.potionsplus.skill.chopping": "Chopping",
 
-  "tooltip.potionsplus.skill.walking": "Wandering",
-  "tooltip.potionsplus.skill.sprinting": "Sprinting",
-  "tooltip.potionsplus.skill.sneaking": "Sneaking",
-  "tooltip.potionsplus.skill.jumping": "Jumping",
-  "tooltip.potionsplus.skill.farming": "Farming",
 
   "generic.potionsplus.enabled" : "Enabled",
   "generic.potionsplus.enabled.rich": "§a§n§oEnabled",
@@ -296,8 +193,6 @@
   "item.potionsplus.filter_hopper_upgrade_allow_potion_ingredients": "Filter Hopper Upgrade: Allow Potion Ingredients",
   "item.potionsplus.filter_hopper_upgrade_allow_edible_rewards": "Filter Hopper Upgrade: Allow Edible Rewards",
 
-  "tooltip.potionsplus.choice": "When eaten grants:",
-  "tooltip.potionsplus.choose_one": "(Choose only one)",
   "tooltip.potionsplus.or": "or",
 
   "item.potionsplus.sparkling_squash": "Sparkling Squash",
@@ -314,9 +209,7 @@
   "item.potionsplus.advanced_loot": "Advanced Loot",
   "item.potionsplus.expert_loot": "Expert Loot",
   "item.potionsplus.master_loot": "Master Loot",
-  "item.potionsplus.wheel": "Wheel of Loot",
 
-  "block.potionsplus.skill_journals": "Skill Journals",
   "block.potionsplus.uranium_glass": "Uranium Glass",
   "block.potionsplus.icicle": "Icicle",
 
@@ -529,7 +422,6 @@
   "jei.potionsplus.amp_upgrade": "Amplifier Upgrade",
   "jei.potionsplus.dur_upgrade": "Duration Upgrade",
   "chat.potionsplus.brewing_cauldron_recipe_unlocked": "You have discovered the recipe for %s!",
-  "chat.potionsplus.hot_potato.no_potato_warning": "Hot Potato ability failed! Carry a poisonous potato to receive fire protection!",
 
   "item.potionsplus.merged_potions_2_effects": "Big Potion",
   "item.potionsplus.merged_potions_3_effects": "Bigger Potion",
@@ -624,8 +516,6 @@
   "advancements.potionsplus.acquire_uranium_ingot.description": "Feel it in your bones!",
   "advancements.potionsplus.acquire_sulfuric_acid.title": "It Burns",
   "advancements.potionsplus.acquire_sulfuric_acid.description": "Brew Sulfuric Acid.",
-  "advancements.potionsplus.skill_journals.title": "Seriously Skilled",
-  "advancements.potionsplus.skill_journals.description": "Pen your Skill Journals.",
 
 
 

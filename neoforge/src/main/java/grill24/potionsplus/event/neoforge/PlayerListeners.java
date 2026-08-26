@@ -10,17 +10,12 @@ import grill24.potionsplus.network.*;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.skill.SkillsData;
-import grill24.potionsplus.skill.ability.AttributeModifiersWhileHeldAbility;
-import grill24.potionsplus.skill.ability.PlayerAbility;
-import grill24.potionsplus.skill.ability.instance.AbilityInstanceSerializable;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.ServerTickHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -110,17 +105,10 @@ public class PlayerListeners {
     @SubscribeEvent
     public static void onTick(final ServerTickEvent.Pre event) {
         applyAllPassiveItemPotionEffects(event.getServer().getPlayerList().getPlayers());
-
-        SkillsData.tickPointEarningHistory(event.getServer());
     }
 
     @SubscribeEvent
     public static void onServerTickEnd(final ServerTickEvent.Post event) {
-    }
-
-    @SubscribeEvent
-    public static void onServerPlayerHeldItemChanged(final ServerPlayerHeldItemChangedEvent event) {
-        AttributeModifiersWhileHeldAbility.onHeldItemChanged(event.getPlayer(), event.getLastHeldItem(), event.getHeldItem());
     }
 
     private static void applyAllPassiveItemPotionEffects(List<ServerPlayer> players) {
@@ -182,23 +170,12 @@ public class PlayerListeners {
     @SubscribeEvent
     public static void onPlayerJoin(final EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
-            SkillsData skillsData = SkillsData.getPlayerData(player);
-
-            // Sync known brewing cauldron recipe, sync paired abyssal trove, sync player skill data, and sync fishing leaderboard data.
+            // Sync known brewing cauldron recipe and paired abyssal trove.
             // TOOD: Sync whole saved data on join?
             PacketDistributor.sendToPlayer(player,
                     new ClientboundSyncKnownBrewingRecipesPacket(SavedData.instance.getData(player).getKnownRecipeKeys()),
-                    new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()),
-                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player))
+                    new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos())
             );
-
-            // Trigger an update for all abilities
-            for (Map.Entry<ResourceKey<PlayerAbility<?>>, List<AbilityInstanceSerializable<?, ?>>> entry : skillsData.unlockedAbilities().entrySet()) {
-                for (AbilityInstanceSerializable<?, ?> instance : entry.getValue()) {
-                    instance.onInstanceChanged(player);
-                }
-            }
-
         }
     }
 
