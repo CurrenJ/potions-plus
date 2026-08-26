@@ -37,7 +37,6 @@ public class BlockStateProvider extends ModelProvider {
                 BlockEntityBlocks.SANGUINE_ALTAR,
                 BlockEntityBlocks.ABYSSAL_TROVE,
                 BlockEntityBlocks.CLOTHESLINE,
-                BlockEntityBlocks.POTION_BEACON,
                 BlockEntityBlocks.SKILL_JOURNALS,
                 DecorationBlocks.GROWING_MOSSY_COBBLESTONE,
                 DecorationBlocks.GROWING_MOSSY_COBBLESTONE_SLAB,

@@ -1,4 +1,4 @@
-// 26.1.2	2026-08-26T01:10:30.5390058	Model Definitions - potionsplus
+// 26.1.2	2026-08-26T01:28:23.058615	Model Definitions - potionsplus
 5dce44f22ae752753ba1749f01550e55f3e62d6f assets/minecraft/models/block/coal_ore1_block_hat.json
 88e46a4afdee55fbf70e22c95a86acc09928ca12 assets/minecraft/models/block/coal_ore2_block_hat.json
 ca2d0bec247e8bb37ebbf3e21c0230288b0954ed assets/minecraft/models/block/coal_ore3_block_hat.json
@@ -60,6 +60,7 @@ fc85aaef1bffe11320a5a6d468017aa508c2995d assets/potionsplus/blockstates/orange_t
 491571d25bc68c5ee83e6b1e3e11cefd648bd1ad assets/potionsplus/blockstates/pink_tulip_versatile.json
 dd21aeb4eb8bf1524a3ca9263a0152d99d469b9e assets/potionsplus/blockstates/pitcher_plant_versatile.json
 c484bee6d33738434c72f91609f1faf2cf4f787d assets/potionsplus/blockstates/poppy_versatile.json
+34f3047211b62611fa7b9278024c1360b224f136 assets/potionsplus/blockstates/potion_beacon.json
 6b5cd1c4be7632809a1a89d5e1f49539742a3c3f assets/potionsplus/blockstates/redstone_rose.json
 78aac6fbff8389b9e79e1109ba49aff15174eb8a assets/potionsplus/blockstates/red_mushroom_versatile.json
 a9163fd88d96a90350ae7aa154e0bb745738dec8 assets/potionsplus/blockstates/red_tulip_versatile.json

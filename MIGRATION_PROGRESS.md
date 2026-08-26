@@ -148,6 +148,12 @@
 
 ### Steps
 - [ ] 8.1 Convert 6 `BlockEntityRenderer`s to two-generic pattern with `RenderState` classes
+  - [x] HerbalistsLecternBlockEntityRenderer - full render logic ported (input item animation, orbiting recipe icons + sub-icons, center rarity display); also gave the block a real blockstate (was `modelGenerator(null)`)
+  - [ ] PotionBeaconBlockEntityRenderer
+  - [ ] SanguineAltarBlockEntityRenderer
+  - [ ] AbyssalTroveBlockEntityRenderer
+  - [ ] ClotheslineBlockEntityRenderer
+  - [ ] BrewingCauldronBlockEntityRenderer
 - [ ] 8.2 Replace `BlockRenderDispatcher` with `BlockModelResolver`
 - [ ] 8.3 Replace `ItemRenderer` with `ItemStackRenderState` / `ItemModelResolver`
 - [ ] 8.4 Convert `GrunglerRenderer` entity renderer

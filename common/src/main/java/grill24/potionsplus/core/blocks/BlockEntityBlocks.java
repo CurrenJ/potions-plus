@@ -147,7 +147,7 @@ public class BlockEntityBlocks {
         POTION_BEACON = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("potion_beacon")
                 .blockFactory(PotionBeaconBlock::new)
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.BEACON).mapColor(MapColor.WOOD).requiresCorrectToolForDrops().strength(2.5F).sound(SoundType.WOOD))
-                .modelGenerator(null)
+                .modelGenerator(h -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(h, ppId("block/potion_beacon"), true, false))
                 .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                         ppId("potion_beacon"),
                         (recipeProvider, h) ->

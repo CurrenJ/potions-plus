@@ -23,6 +23,7 @@ public class PotionBeaconRenderState extends BlockEntityRenderState {
     public float effectDurationWhenShown = 0f;
 
     public final List<ParticleEntry> particles = new ArrayList<>();
+    public final ItemStackRenderState particleIcon = new ItemStackRenderState();
 
     public static class ParticleEntry {
         public Vector3d position;
