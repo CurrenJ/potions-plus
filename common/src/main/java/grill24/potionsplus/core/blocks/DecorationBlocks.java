@@ -4,6 +4,7 @@ import grill24.potionsplus.block.*;
 
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.block.BlockModelUtility;
 import grill24.potionsplus.utility.registration.block.SimpleBlockBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -26,13 +27,17 @@ public class DecorationBlocks {
     public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
         GROWING_MOSSY_COBBLESTONE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("growing_mossy_cobblestone")
                 .blockFactory(prop -> new GrowableMossyBlock(prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(2.0F, 6.0F).randomTicks(), Blocks.MOSSY_COBBLESTONE))
-                .modelGenerator(null)
+                .modelGenerator(holder -> new BlockModelUtility.BlockFamilyModelGenerator<>(holder, family -> family
+                        .slab(GROWING_MOSSY_COBBLESTONE_SLAB.value())
+                        .stairs(GROWING_MOSSY_COBBLESTONE_STAIRS.value())))
         ).getHolder();
         RegistrationUtility.registerBlockItem(GROWING_MOSSY_COBBLESTONE, registerItem);
 
         GROWING_MOSSY_STONE_BRICKS = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("growing_mossy_stone_bricks")
                 .blockFactory(prop -> new GrowableMossyBlock(prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).randomTicks(), Blocks.MOSSY_STONE_BRICKS))
-                .modelGenerator(null)
+                .modelGenerator(holder -> new BlockModelUtility.BlockFamilyModelGenerator<>(holder, family -> family
+                        .slab(GROWING_MOSSY_STONE_BRICK_SLAB.value())
+                        .stairs(GROWING_MOSSY_STONE_BRICK_STAIRS.value())))
         ).getHolder();
         RegistrationUtility.registerBlockItem(GROWING_MOSSY_STONE_BRICKS, registerItem);
 

@@ -2,6 +2,7 @@ package grill24.potionsplus.core.items;
 
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.item.GenericIconItemBuilder;
+import grill24.potionsplus.utility.registration.item.ItemOverrideUtility;
 import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
@@ -52,7 +53,7 @@ public class DynamicIconItems {
     public static void init(BiFunction<String, Supplier<Item>, Holder<Item>> register) {
         POTION_EFFECT_ICON = RegistrationUtility.register(register, SimpleItemBuilder.create("potion_effect_icon")
                 .itemFactory(Item::new)
-                .modelGenerator(null));
+                .modelGenerator(itemHolder -> new ItemOverrideUtility.PotionEffectIconOverrideModelData(itemHolder, DYNAMIC_ICON_INDEX_PROPERTY_NAME)));
 
         GENERIC_ICON = RegistrationUtility.register(register, new GenericIconItemBuilder(DYNAMIC_ICON_INDEX_PROPERTY_NAME,
                 AMP_TEX_LOC, DUR_TEX_LOC, I_TEX_LOC, II_TEX_LOC, III_TEX_LOC, IV_TEX_LOC, V_TEX_LOC, VI_TEX_LOC,

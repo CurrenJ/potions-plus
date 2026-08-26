@@ -4,6 +4,7 @@ import grill24.potionsplus.block.*;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.block.BlockModelUtility;
+import grill24.potionsplus.utility.registration.block.ClotheslineBlockModelGenerator;
 import grill24.potionsplus.utility.registration.block.SimpleBlockBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -111,7 +112,7 @@ public class BlockEntityBlocks {
                         .blockFactory(ClotheslineBlock::new)
                         .properties(() -> BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion().strength(0.8F).sound(SoundType.WOOD))
                         .lootGenerator(null)
-                        .modelGenerator(null))
+                        .modelGenerator(h -> new ClotheslineBlockModelGenerator<>(h)))
                 .getHolder();
         RegistrationUtility.registerBlockItem(CLOTHESLINE, registerItem);
 
