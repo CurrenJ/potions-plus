@@ -92,13 +92,14 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
             level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), Sounds.SANGUINE_ALTAR_CONVERSION.value(), SoundSource.BLOCKS, 0.5F, 1, false);
         } else if (sanguineAltarBlockEntity.state == State.CONVERTING) {
             if (sanguineAltarBlockEntity.conversionProgressTicks >= CONVERSION_TICKS) {
-                if (!level.isClientSide()) {
-                    // Server side, finish conversion and send packet
-                    if (sanguineAltarBlockEntity.healthDrained >= HEALTH_DRAIN_REQUIRED_FOR_CONVERSION) {
-                        changeState(level, pos, sanguineAltarBlockEntity, State.CONVERTED, true);
-                    } else {
-                        changeState(level, pos, sanguineAltarBlockEntity, State.FAILED, true);
-                    }
+                // Client also resolves this locally (using its synced healthDrained) so it can't get
+                // stuck forever in CONVERTING if the server's state packet never reaches it (e.g. the
+                // player wasn't tracking the chunk at the moment the server finished). The server still
+                // remains authoritative and (re)broadcasts the state to everyone tracking the chunk.
+                if (sanguineAltarBlockEntity.healthDrained >= HEALTH_DRAIN_REQUIRED_FOR_CONVERSION) {
+                    changeState(level, pos, sanguineAltarBlockEntity, State.CONVERTED, true);
+                } else {
+                    changeState(level, pos, sanguineAltarBlockEntity, State.FAILED, true);
                 }
             } else {
                 if (sanguineAltarBlockEntity.conversionProgressTicks % TICKS_PER_HEALTH_DRAIN == 0) {
