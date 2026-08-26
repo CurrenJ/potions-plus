@@ -75,7 +75,7 @@ public class BlockEntityBlocks {
         HERBALISTS_LECTERN = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("herbalists_lectern")
                         .blockFactory(HerbalistsLecternBlock::new)
                         .properties(() -> BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.5F).sound(SoundType.WOOD))
-                        .modelGenerator(null)
+                        .modelGenerator(h -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(h, ppId("block/herbalists_lectern"), true, false))
                         .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                                 (recipeProvider, h) ->
                                         recipeProvider.shaped(RecipeCategory.BREWING, h.value())

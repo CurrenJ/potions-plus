@@ -1,4 +1,4 @@
-// 26.1.2	2026-05-05T16:33:00.095325	Model Definitions - potionsplus
+// 26.1.2	2026-08-26T01:10:30.5390058	Model Definitions - potionsplus
 5dce44f22ae752753ba1749f01550e55f3e62d6f assets/minecraft/models/block/coal_ore1_block_hat.json
 88e46a4afdee55fbf70e22c95a86acc09928ca12 assets/minecraft/models/block/coal_ore2_block_hat.json
 ca2d0bec247e8bb37ebbf3e21c0230288b0954ed assets/minecraft/models/block/coal_ore3_block_hat.json
@@ -45,6 +45,7 @@ f0ba317553a7b6ef9b4057e5ae151a9af47eccaf assets/potionsplus/blockstates/cowlick_
 4cd8c5552c1a4f50705e31a3b338114b26f2bd76 assets/potionsplus/blockstates/droopy_vine.json
 2cf9fe5872a53e13bf93d698ac78063a31b0cd0c assets/potionsplus/blockstates/golden_cubensis.json
 30189d6030f369435543862f511285358419db1e assets/potionsplus/blockstates/hanging_fern.json
+38df77d6cb4039d197225f7f0aadd594f82447e7 assets/potionsplus/blockstates/herbalists_lectern.json
 cadd2895cdcd7ba421674fb3fb5d99f6d62ab000 assets/potionsplus/blockstates/iron_oxide_daisy.json
 563f9470696bf799c695c9c379a155d048a868d6 assets/potionsplus/blockstates/kale_plant.json
 6e8db34d7ab6b452cbf5c8974acacbcf60cabbf5 assets/potionsplus/blockstates/kohlrabi_plant.json
