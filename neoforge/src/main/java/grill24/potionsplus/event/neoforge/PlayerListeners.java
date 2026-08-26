@@ -2,7 +2,6 @@ package grill24.potionsplus.event.neoforge;
 
 import grill24.potionsplus.behaviour.ClotheslineBehaviour;
 import grill24.potionsplus.behaviour.neoforge.MossBehaviour;
-import grill24.potionsplus.block.UraniumOreBlock;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -176,13 +175,6 @@ public class PlayerListeners {
                     new ClientboundSyncKnownBrewingRecipesPacket(SavedData.instance.getData(player).getKnownRecipeKeys()),
                     new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos())
             );
-        }
-    }
-
-    @SubscribeEvent
-    public static void onLeftClickBlock(final PlayerInteractEvent.LeftClickBlock event) {
-        if (UraniumOreBlock.tryLeftClickBlock(event.getLevel(), event.getPos(), event.getEntity())) {
-            event.setCanceled(true);
         }
     }
 }

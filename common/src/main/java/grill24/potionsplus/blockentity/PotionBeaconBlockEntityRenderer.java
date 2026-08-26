@@ -3,7 +3,6 @@ package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.block.PotionBeaconBlock;
-import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
@@ -19,6 +18,7 @@ import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
 
 
@@ -82,7 +82,7 @@ public class PotionBeaconBlockEntityRenderer implements BlockEntityRenderer<Poti
             state.particles.add(new PotionBeaconRenderState.ParticleEntry(itemParticle));
         }
         if (!blockEntity.rendererData.itemParticles.isEmpty()) {
-            Minecraft.getInstance().getItemModelResolver().updateForTopItem(state.particleIcon, new ItemStack(OreBlocks.URANIUM_GLASS.value()), ItemDisplayContext.FIXED, blockEntity.getLevel(), null, 0);
+            Minecraft.getInstance().getItemModelResolver().updateForTopItem(state.particleIcon, new ItemStack(Items.GLASS), ItemDisplayContext.FIXED, blockEntity.getLevel(), null, 0);
         }
     }
 

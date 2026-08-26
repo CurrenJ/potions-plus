@@ -146,38 +146,6 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                 .addCriterion("acquire_sulfuric_acid", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(new ItemStack(OreItems.SULFURIC_ACID))))
                 .requirements(AdvancementRequirements.allOf(List.of("acquire_sulfuric_acid")))
                 .save(saver, ppId("acquire_sulfuric_acid"));
-
-        AdvancementHolder acquireUraniumOre = Advancement.Builder.advancement()
-                .parent(sulfurShard)
-                .display(
-                        OreItems.RAW_URANIUM.value(),
-                        Component.translatable("advancements.potionsplus.acquire_uranium_ore.title"),
-                        Component.translatable("advancements.potionsplus.acquire_uranium_ore.description"),
-                        null,
-                        AdvancementType.TASK,
-                        true,
-                        true,
-                        false)
-                .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("acquire_raw_uranium", InventoryChangeTrigger.TriggerInstance.hasItems(OreItems.RAW_URANIUM.value()))
-                .requirements(AdvancementRequirements.allOf(List.of("acquire_raw_uranium")))
-                .save(saver, ppId("acquire_raw_uranium"));
-
-        AdvancementHolder acquireUraniumIngot = Advancement.Builder.advancement()
-                .parent(acquireUraniumOre)
-                .display(
-                        OreItems.URANIUM_INGOT.value(),
-                        Component.translatable("advancements.potionsplus.acquire_uranium_ingot.title"),
-                        Component.translatable("advancements.potionsplus.acquire_uranium_ingot.description"),
-                        null,
-                        AdvancementType.TASK,
-                        true,
-                        true,
-                        false)
-                .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("acquire_uranium_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(OreItems.URANIUM_INGOT.value()))
-                .requirements(AdvancementRequirements.allOf(List.of("acquire_uranium_ingot")))
-                .save(saver, ppId("acquire_uranium_ingot"));
     }
 
     private static void createSanguineAltarAdvancements(Consumer<AdvancementHolder> saver, AdvancementHolder create_brewing_cauldron) {

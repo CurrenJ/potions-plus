@@ -35,10 +35,6 @@ public class BlockEntityBlocks {
     public static Holder<Block> POTION_BEACON;
 
     public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
-        init(registerBlock, registerItem, () -> OreBlocks.URANIUM_GLASS.value());
-    }
-
-    public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem, Supplier<Block> uraniumGlass) {
         BREWING_CAULDRON = RegistrationUtility.register(
                 registerBlock,
                 SimpleBlockBuilder.createSimple("brewing_cauldron")
@@ -149,10 +145,10 @@ public class BlockEntityBlocks {
                                         .pattern("GGG")
                                         .pattern("GNG")
                                         .pattern("OOO")
-                                        .define('G', uraniumGlass.get())
+                                        .define('G', Items.GLASS)
                                         .define('N', Items.NETHER_STAR)
                                         .define('O', Items.OBSIDIAN)
-                                        .unlockedBy("has_uranium_glass", recipeProvider.has(uraniumGlass.get()))))
+                                        .unlockedBy("has_glass", recipeProvider.has(Items.GLASS))))
                 .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                         ppId("potion_beacon_alternate"),
                         (recipeProvider, h) ->
@@ -160,10 +156,10 @@ public class BlockEntityBlocks {
                                         .pattern("GGG")
                                         .pattern("GBG")
                                         .pattern("OOO")
-                                        .define('G', uraniumGlass.get())
+                                        .define('G', Items.GLASS)
                                         .define('B', Items.BEACON)
                                         .define('O', Items.OBSIDIAN)
-                                        .unlockedBy("has_uranium_glass", recipeProvider.has(uraniumGlass.get()))))
+                                        .unlockedBy("has_glass", recipeProvider.has(Items.GLASS))))
         ).getHolder();
         RegistrationUtility.registerBlockItem(POTION_BEACON, registerItem);
     }

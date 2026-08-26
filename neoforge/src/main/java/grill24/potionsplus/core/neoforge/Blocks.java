@@ -4,7 +4,6 @@ import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.neoforge.blocks.FlowerBlocks;
-import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.renderer.BiomeColors;
@@ -38,7 +37,6 @@ public class Blocks {
     static {
         DecorationBlocks.init(BLOCKS::register, Items.ITEMS::register);
         BlockEntityBlocks.init(BLOCKS::register, Items.ITEMS::register);
-        OreBlocks.init(BLOCKS::register, Items.ITEMS::register);
         FlowerBlocks.init(BLOCKS::register, Items.ITEMS::register);
     }
 

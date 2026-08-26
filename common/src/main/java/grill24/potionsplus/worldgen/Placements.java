@@ -7,7 +7,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -24,9 +23,6 @@ import static grill24.potionsplus.utility.Utility.ppId;
 public class Placements {
 
     // Misc.
-    public static final ResourceKey<PlacedFeature> ORE_URANIUM_KEY = createKey("ore_uranium");
-    public static final ResourceKey<PlacedFeature> ORE_REMNANT_DEBRIS_KEY = createKey("ore_remnant_debris");
-
     public static final ResourceKey<PlacedFeature> LUNAR_BERRY_BUSH_KEY = createKey("patch_lunar_berry_bush");
     public static final ResourceKey<PlacedFeature> LUNAR_BERRY_BUSH_RARE_KEY = createKey("patch_lunar_berry_bush_rare");
 
@@ -53,11 +49,6 @@ public class Placements {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatureGetter = context.lookup(Registries.CONFIGURED_FEATURE);
 
         // Misc.
-        final Holder<PlacedFeature> ORE_URANIUM = register(context, ORE_URANIUM_KEY, configuredFeatureGetter.getOrThrow(ConfiguredFeatures.ORE_URANIUM_KEY),
-                CountPlacement.of(6), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)), BiomeFilter.biome());
-        final Holder<PlacedFeature> ORE_REMNANT_DEBRIS = register(context, ORE_REMNANT_DEBRIS_KEY, configuredFeatureGetter.getOrThrow(ConfiguredFeatures.ORE_REMNANT_DEBRIS_KEY),
-                CountPlacement.of(7), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)), BiomeFilter.biome());
-
         final Holder<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.LUNAR_BERRY_BUSH_KEY);
         final Holder<PlacedFeature> LUNAR_BERRY_BUSH_PLACED = register(context, LUNAR_BERRY_BUSH_KEY,
                 LUNAR_BERRY_BUSH, RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());

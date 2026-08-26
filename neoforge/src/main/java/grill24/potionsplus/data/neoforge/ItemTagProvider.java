@@ -2,7 +2,6 @@ package grill24.potionsplus.data.neoforge;
 
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.neoforge.blocks.FlowerBlocks;
-import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.core.items.BrewingItems;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.HolderLookup;
@@ -104,11 +103,6 @@ public class ItemTagProvider extends ItemTagsProvider {
                 FlowerBlocks.DIAMOUR.value().asItem(),
                 FlowerBlocks.GOLDEN_CUBENSIS.value().asItem(),
                 FlowerBlocks.LAPIS_LILAC.value().asItem()
-        );
-
-        tag(Tags.Items.URANIUM_ORE).add(
-                OreBlocks.URANIUM_ORE.value().asItem(),
-                OreBlocks.DEEPSLATE_URANIUM_ORE.value().asItem()
         );
 
     }

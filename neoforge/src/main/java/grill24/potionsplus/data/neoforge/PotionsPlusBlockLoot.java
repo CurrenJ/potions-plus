@@ -1,7 +1,5 @@
 package grill24.potionsplus.data.neoforge;
 
-import grill24.potionsplus.core.blocks.OreBlocks;
-import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import net.minecraft.core.HolderLookup;
@@ -30,9 +28,6 @@ public class PotionsPlusBlockLoot extends BlockLootSubProvider {
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
         RegistrationUtility.generateLootTables(ModInfo.MOD_ID, paramSet, this, consumer);
-
-        consumer.accept(OreBlocks.URANIUM_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
-        consumer.accept(OreBlocks.DEEPSLATE_URANIUM_ORE.value().getLootTable().orElseThrow(), createOreDrop(OreBlocks.DEEPSLATE_URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
 
     }
 

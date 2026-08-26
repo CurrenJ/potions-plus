@@ -1,9 +1,0 @@
-// 26.1.2	2026-08-26T20:26:56.1424915	Potions Plus block tags
-e27ff90d725b83b468a8c87e7cf0bd5c1fabe68b data/minecraft/tags/block/mineable/axe.json
-b6f800b79b13b446918fbbaea398b5fc6968b2fc data/minecraft/tags/block/mineable/pickaxe.json
-f7607a1ec4c7bee35ecba47c19e6866bdaeac005 data/minecraft/tags/block/mineable/shovel.json
-fa37c13b9afc5a7caeaca3530b81025070a085ee data/minecraft/tags/block/needs_iron_tool.json
-0de2f703978baeb8cf8553b066c031b5b5027d09 data/potionsplus/tags/block/cave_replaceable.json
-cf3608bd187922aeb48c566c19e8482b0dca34c7 data/potionsplus/tags/block/freezable.json
-fa37c13b9afc5a7caeaca3530b81025070a085ee data/potionsplus/tags/block/ores/uranium.json
-d9648142ea095edd1549d371da4b741e9e1464f6 data/potionsplus/tags/block/ore_flowers.json

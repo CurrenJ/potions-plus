@@ -1,8 +1,6 @@
 package grill24.potionsplus.data.neoforge;
 
 import grill24.potionsplus.core.LootTables;
-import grill24.potionsplus.core.blocks.OreBlocks;
-import grill24.potionsplus.core.items.OreItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.LootTableSubProvider;
@@ -50,12 +48,10 @@ public class PotionsPlusRewardLoot implements LootTableSubProvider {
                                         .add(LootItem.lootTableItem(Items.COPPER_INGOT).setWeight(6))
                                         .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(6))
                                         .add(LootItem.lootTableItem(Items.NETHERITE_SCRAP).setWeight(6))
-                                        .add(LootItem.lootTableItem(OreItems.URANIUM_INGOT.value()).setWeight(6))
                                         .add(LootItem.lootTableItem(Items.DIAMOND_BLOCK).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.GOLD_BLOCK).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.EMERALD_BLOCK).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.NETHERITE_INGOT).setWeight(1))
-                                        .add(LootItem.lootTableItem(OreBlocks.URANIUM_BLOCK.value()).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.IRON_BLOCK).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.COPPER_BLOCK).setWeight(1))
                                         .add(LootItem.lootTableItem(Items.REDSTONE_BLOCK).setWeight(1))

@@ -18,13 +18,10 @@ import net.minecraft.world.level.material.MapColor;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-import static grill24.potionsplus.utility.Utility.mc;
-import static grill24.potionsplus.utility.Utility.ppId;
-
 public class DecorationBlocks {
     public static Holder<Block> COOBLESTONE, ICICLE;
     public static Holder<Block> UNSTABLE_BLOCK, UNSTABLE_MOLTEN_DEEPSLATE, UNSTABLE_DEEPSLATE, UNSTABLE_MOLTEN_BLACKSTONE, UNSTABLE_BLACKSTONE;
-    public static Holder<Block> LAVA_GEYSER, DECORATIVE_FIRE;
+    public static Holder<Block> LAVA_GEYSER;
     public static Holder<Block> GROWING_MOSSY_COBBLESTONE, GROWING_MOSSY_STONE_BRICKS;
     public static Holder<Block> GROWING_MOSSY_COBBLESTONE_SLAB, GROWING_MOSSY_COBBLESTONE_STAIRS;
     public static Holder<Block> GROWING_MOSSY_STONE_BRICK_SLAB, GROWING_MOSSY_STONE_BRICK_STAIRS;
@@ -83,13 +80,6 @@ public class DecorationBlocks {
                 .modelGenerator(null)
         ).getHolder();
         RegistrationUtility.registerBlockItem(LAVA_GEYSER, registerItem);
-
-        DECORATIVE_FIRE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("decorative_fire")
-                .blockFactory(prop -> new DecorativeFireBlock(prop.mapColor(MapColor.FIRE).noCollision().instabreak().lightLevel((state) -> 15).sound(SoundType.WOOL)))
-                .lootGenerator(null) // Hand-made loot table
-                .modelGenerator(null) // Hand-made model
-        ).getHolder();
-        RegistrationUtility.registerBlockItemWithTexture(DECORATIVE_FIRE, registerItem, mc("block/fire_0"));
 
         GROWING_MOSSY_COBBLESTONE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("growing_mossy_cobblestone")
                 .blockFactory(prop -> new GrowableMossyBlock(prop.mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(2.0F, 6.0F).randomTicks(), Blocks.MOSSY_COBBLESTONE))

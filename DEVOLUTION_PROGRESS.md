@@ -14,8 +14,8 @@
 | 3 | Skills & Abilities (+ rewards, GUI) | Cut / spin off | ✅ Done | `a82daec` |
 | 4 | Filter Hoppers | Cut / spin off | ✅ Done | `b2a2ab2` |
 | 5 | Genetic crops | Spin off | ✅ Done | `b2a2ab2` (combined w/ #4) |
-| 6 | Uranium chain | Trim to sulfur only | ⬜ Not started | |
-| 7 | Decoration blocks | Trim | ⬜ Not started | |
+| 6 | Uranium chain | Trim to sulfur only | ✅ Done | (uncommitted) |
+| 7 | Decoration blocks | Trim | 🟡 Partial — Decorative Fire done; rest blocked on #11 | |
 | 8 | Versatile plants | Cut | ✅ Done | (pending) |
 | 9 | Hats | Cut (keep Wreath) | ✅ Done | (pending) |
 | 10 | Grungler | ~~Cut~~ **Keep** (owner call) | ✅ Decided — no removal | |
@@ -150,6 +150,63 @@ textures via `mc("block/...")`, so there was nothing hand-made to clean up for t
 `:common:build :neoforge:build` then `:neoforge:runData` (same stale-jar-first gotcha as
 Hats — rebuild before datagen) swept **179 stale generated files** with zero new writes.
 
+### #6 — Uranium chain trimmed to sulfur only
+
+Removed the uranium/remnant metal tree, keeping sulfur. **Sulfur Shard + Sulfuric Acid stay;**
+the ore/ingot/block/glass/raw-uranium and Remnant Debris go.
+
+Deleted:
+- Blocks `uranium_ore`, `deepslate_uranium_ore`, `uranium_block`, `uranium_glass`,
+  `remnant_debris`, `deepslate_remnant_debris` → the whole `core/blocks/OreBlocks.java` class
+  (now empty), plus `UraniumOreBlock` ("not exposed" mechanic) and
+  `UraniumOreBlockModelGenerator`.
+- Items `raw_uranium`, `uranium_ingot` (`OreItems` trimmed to just the two sulfur items).
+- Worldgen: `ORE_URANIUM` / `ORE_REMNANT_DEBRIS` configured+placed features
+  (`ConfiguredFeatures`, `Placements`), the hand-authored `add_uranium_ore.json` biome modifier,
+  and the whole datagen `BiomeModifierProvider` (it only held the remnant-debris modifier) +
+  its `DataGen` registration.
+- Tags `ores/uranium` (block) + `uranium_ore` (item), and the uranium entries in
+  `mineable/pickaxe`, `needs_iron_tool`, `cave_replaceable`.
+- Ore-drop loot, uranium ingot+block reward loot, `acquire_raw_uranium` /
+  `acquire_uranium_ingot` advancements, and the leftover `amplification_testing` cauldron
+  recipe (the only consumer of uranium ingot).
+- Translations, lang keys, and 27 hand-authored textures (4-state uranium ore + isolated/top/
+  bottom variants, `uranium_block(_old)`, `uranium_glass`, `netherite_remnant`, `raw_uranium`,
+  `uranium_ingot`).
+
+Substitutions / notes:
+- **Potion Beacon** used `uranium_glass` for its glass ring + particle icon. Replaced with
+  vanilla `Items.GLASS` in both beacon recipes and the renderer's `particleIcon`. Flag if you'd
+  rather it be tinted glass.
+- The inventory listed `MonsterRoomFeatureMixin` and the `generateOreVariants` config under the
+  uranium chain, but neither is uranium: the mixin is biome-based spawner typing (worldgen #11),
+  and the config is already gone from the code (only a dead lang key remains). Left both alone.
+- The **amplification** mechanic is untouched — the real amp ingredient is the
+  `potion_amplifier_up_ingredients` *tag* (moss/wormroot/salt/etc., no uranium/sulfur), not the
+  removed test recipe.
+- Sulfuric Acid now has no in-game consumer (it only existed to expose uranium ore). Kept as a
+  brewed reagent per the inventory; a dangling alchemy hook awaiting a 2.0 use.
+
+### #7 — Decoration: Decorative Fire removed; rest deferred to #11
+
+**Decorative Fire** was the one decoration block with zero worldgen/core coupling — removed
+(block + `DecorativeFireBlock`, translations, lang, hand-authored blockstate, generated item
+model).
+
+**Everything else in the "cut the rest" list turned out to be entangled, not standalone builder
+content:**
+- **Particle Emitter** — its `ParticleEmitterBlock.ParticleEmitterConfiguration` type is shared
+  with *core* particle systems: `ParticleConfigurations` feeds the Sanguine Altar's BLOOD and
+  the Lunar Berry Bush's ambient particle via `ClientEvents`, and `BlockLinkedEmitterParticle`
+  / `IParticleEmitter` / `LevelChunkMixin` are its plumbing. Cutting it is a refactor (extract
+  the config type out of the block), not a delete.
+- **Cooblestone / Unstable (×5) / Icicle / Lava Geyser** — all referenced by worldgen
+  (`ConfiguredFeatures`/`Placements` cooblestone pile, `VolcanicFissureFeature`,
+  `LavaGeyserFeature`, `IcicleFeature`/`IcicleUtils`, and the `VolcanicCave` biome). Can't be
+  cut without deciding worldgen (#11).
+
+**Kept:** growing mossy cobblestone / stone-bricks (+ slab/stairs) — the moss reagent farm.
+
 ---
 
 ## Decisions overriding the feature inventory
@@ -165,13 +222,14 @@ Hats — rebuild before datagen) swept **179 stale generated files** with zero n
 
 ## Suggested next step
 
-Per `FEATURE_INVENTORY.md`'s "Suggested order of operations": the spin-off-shaped cuts
-(#4–5) are now done. Next up is unordered among uranium/decoration/versatile
-plants/hats — pick any. **Worldgen biomes/features (#11) should be done last**
-since it's the only one that changes world compatibility for existing saves.
+The cut list is now down to **worldgen (#11)** plus the decoration blocks that are entangled
+with it (Particle Emitter, Cooblestone, Unstable ×5, Icicle, Lava Geyser). Those can't be cut
+cleanly until the worldgen decision lands — see the #7 notes above. So the next step is the
+worldgen call itself.
 
-Two open questions from the inventory still need a call before touching worldgen:
+Two open questions from the inventory need answers first:
 1. Is `enableSkills`'s successor idea (a trimmed "Alchemy" skill) wanted, or is Skills
    gone for good? (Currently: gone for good, per commit `a82daec`.)
 2. Do biome-exclusive reagents belong in the 2.0 vision? That answer decides whether
-   worldgen biomes/features (#11) survives in trimmed form or gets cut outright.
+   worldgen biomes/features (#11) survives in trimmed form or gets cut outright — and,
+   transitively, whether the remaining decoration blocks survive or get cut with it.

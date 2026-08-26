@@ -13,7 +13,7 @@ public class BlockRenderLayers {
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent event) {
         // Render type registration removed — migrate to model JSON "render_type" field in Chunk 7.
-        // Affected blocks: DECORATIVE_FIRE, ICICLE, URANIUM_GLASS, POTION_BEACON, SKILL_JOURNALS (cutout);
+        // Affected blocks: ICICLE, POTION_BEACON (cutout);
         // all BushBlock subclasses (cutout); builder-specified render types.
     }
 }

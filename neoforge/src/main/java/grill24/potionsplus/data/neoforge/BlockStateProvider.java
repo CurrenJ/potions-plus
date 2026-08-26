@@ -25,7 +25,6 @@ public class BlockStateProvider extends ModelProvider {
     protected Stream<? extends Holder<Block>> getKnownBlocks() {
         Set<? extends Holder<Block>> excludedBlocks = Set.of(
                 DecorationBlocks.ICICLE,
-                DecorationBlocks.DECORATIVE_FIRE,
                 BlockEntityBlocks.PRECISION_DISPENSER,
                 FlowerBlocks.LUNAR_BERRY_BUSH,
                 BlockEntityBlocks.PARTICLE_EMITTER,

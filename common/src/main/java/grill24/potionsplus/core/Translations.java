@@ -31,17 +31,9 @@ public class Translations {
     public static final String BLOCK_POTIONSPLUS_UNSTABLE_BLACKSTONE = "block.potionsplus.unstable_blackstone";
     public static final String BLOCK_POTIONSPLUS_UNSTABLE_MOLTEN_DEEPSLATE = "block.potionsplus.unstable_molten_deepslate";
     public static final String BLOCK_POTIONSPLUS_UNSTABLE_MOLTEN_BLACKSTONE = "block.potionsplus.unstable_molten_blackstone";
-    public static final String BLOCK_POTIONSPLUS_DECORATIVE_FIRE = "block.potionsplus.decorative_fire";
-    public static final String JEI_POTIONSPLUS_DECORATIVE_FIRE_DESCRIPTION = "jei.potionsplus.decorative_fire.description";
     public static final String BLOCK_POTIONSPLUS_LAVA_GEYSER = "block.potionsplus.lava_geyser";
     public static final String JEI_POTIONSPLUS_LAVA_GEYSER_DESCRIPTION = "jei.potionsplus.lava_geyser.description";
-    public static final String BLOCK_POTIONSPLUS_REMNANT_DEBRIS = "block.potionsplus.remnant_debris";
-    public static final String BLOCK_POTIONSPLUS_DEEPSLATE_REMNANT_DEBRIS = "block.potionsplus.deepslate_remnant_debris";
-    public static final String BLOCK_POTIONSPLUS_URANIUM_ORE_NOT_EXPOSED = "block.potionsplus.uranium_ore.not_exposed";
-    public static final String BLOCK_POTIONSPLUS_URANIUM_ORE = "block.potionsplus.uranium_ore";
-    public static final String BLOCK_POTIONSPLUS_DEEPSLATE_URANIUM_ORE = "block.potionsplus.deepslate_uranium_ore";
     public static final String BLOCK_POTIONSPLUS_SULFURIC_NETHER_QUARTZ_ORE = "block.potionsplus.sulfuric_nether_quartz_ore";
-    public static final String BLOCK_POTIONSPLUS_URANIUM_BLOCK = "block.potionsplus.uranium_block";
     public static final String BLOCK_POTIONSPLUS_POTION_BEACON = "block.potionsplus.potion_beacon";
     public static final String BLOCK_POTIONSPLUS_POTION_BEACON_HINT = "block.potionsplus.potion_beacon.hint";
     public static final String DESCRIPTION_POTIONSPLUS_ATTRIBUTE_FORTUNE_LEVEL = "description.potionsplus.attribute.fortune_level";
@@ -67,7 +59,6 @@ public class Translations {
     public static final String BLOCK_POTIONSPLUS_SANDY_LAPIS_ORE = "block.potionsplus.sandy_lapis_ore";
     public static final String BLOCK_POTIONSPLUS_SANDY_REDSTONE_ORE = "block.potionsplus.sandy_redstone_ore";
     public static final String BLOCK_POTIONSPLUS_SANDY_EMERALD_ORE = "block.potionsplus.sandy_emerald_ore";
-    public static final String BLOCK_POTIONSPLUS_SANDY_URANIUM_ORE = "block.potionsplus.sandy_uranium_ore";
     public static final String BLOCK_POTIONSPLUS_STONEY_COPPER_ORE = "block.potionsplus.stoney_copper_ore";
     public static final String BLOCK_POTIONSPLUS_STONEY_IRON_ORE = "block.potionsplus.stoney_iron_ore";
     public static final String BLOCK_POTIONSPLUS_STONEY_GOLD_ORE = "block.potionsplus.stoney_gold_ore";
@@ -76,7 +67,6 @@ public class Translations {
     public static final String BLOCK_POTIONSPLUS_STONEY_LAPIS_ORE = "block.potionsplus.stoney_lapis_ore";
     public static final String BLOCK_POTIONSPLUS_STONEY_REDSTONE_ORE = "block.potionsplus.stoney_redstone_ore";
     public static final String BLOCK_POTIONSPLUS_STONEY_EMERALD_ORE = "block.potionsplus.stoney_emerald_ore";
-    public static final String BLOCK_POTIONSPLUS_STONEY_URANIUM_ORE = "block.potionsplus.stoney_uranium_ore";
     public static final String JEI_POTIONSPLUS_BREWING_CAULDRON_DESCRIPTION = "jei.potionsplus.brewing_cauldron.description";
     public static final String JEI_POTIONSPLUS_HERBALISTS_LECTERN_DESCRIPTION = "jei.potionsplus.herbalists_lectern.description";
     public static final String JEI_POTIONSPLUS_SANGUINE_ALTAR_DESCRIPTION = "jei.potionsplus.sanguine_altar.description";
@@ -96,12 +86,6 @@ public class Translations {
     public static final String JEI_POTIONSPLUS_LUNAR_BERRIES_DESCRIPTION = "jei.potionsplus.lunar_berries.description";
     public static final String ITEM_POTIONSPLUS_WREATH = "item.potionsplus.wreath";
     public static final String JEI_POTIONSPLUS_WREATH_DESCRIPTION = "jei.potionsplus.wreath.description";
-    public static final String ITEM_POTIONSPLUS_NETHERITE_REMNANT = "item.potionsplus.netherite_remnant";
-    public static final String JEI_POTIONSPLUS_NETHERITE_REMNANT_DESCRIPTION = "jei.potionsplus.netherite_remnant.description";
-    public static final String ITEM_POTIONSPLUS_RAW_URANIUM = "item.potionsplus.raw_uranium";
-    public static final String JEI_POTIONSPLUS_RAW_URANIUM_DESCRIPTION = "jei.potionsplus.raw_uranium.description";
-    public static final String ITEM_POTIONSPLUS_URANIUM_INGOT = "item.potionsplus.uranium_ingot";
-    public static final String JEI_POTIONSPLUS_URANIUM_INGOT_DESCRIPTION = "jei.potionsplus.uranium_ingot.description";
     public static final String ITEM_POTIONSPLUS_SULFUR_SHARD = "item.potionsplus.sulfur_shard";
     public static final String JEI_POTIONSPLUS_SULFUR_SHARD_DESCRIPTION = "jei.potionsplus.sulfur_shard.description";
     public static final String ITEM_POTIONSPLUS_SULFURIC_ACID = "item.potionsplus.sulfuric_acid";
@@ -121,7 +105,6 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_ADVANCED_LOOT = "item.potionsplus.advanced_loot";
     public static final String ITEM_POTIONSPLUS_EXPERT_LOOT = "item.potionsplus.expert_loot";
     public static final String ITEM_POTIONSPLUS_MASTER_LOOT = "item.potionsplus.master_loot";
-    public static final String BLOCK_POTIONSPLUS_URANIUM_GLASS = "block.potionsplus.uranium_glass";
     public static final String BLOCK_POTIONSPLUS_ICICLE = "block.potionsplus.icicle";
     public static final String ITEMGROUP_POTIONSPLUS = "itemGroup.potionsplus";
     public static final String EFFECT_POTIONSPLUS_ANY_POTION = "effect.potionsplus.any_potion";
@@ -389,10 +372,6 @@ public class Translations {
     public static final String JEI_POTIONSPLUS_REQUIRES_XP = "jei.potionsplus.requires_xp";
     public static final String ADVANCEMENTS_POTIONSPLUS_ACQUIRE_SULFUR_SHARD_TITLE = "advancements.potionsplus.acquire_sulfur_shard.title";
     public static final String ADVANCEMENTS_POTIONSPLUS_ACQUIRE_SULFUR_SHARD_DESCRIPTION = "advancements.potionsplus.acquire_sulfur_shard.description";
-    public static final String ADVANCEMENTS_POTIONSPLUS_ACQUIRE_URANIUM_ORE_TITLE = "advancements.potionsplus.acquire_uranium_ore.title";
-    public static final String ADVANCEMENTS_POTIONSPLUS_ACQUIRE_URANIUM_ORE_DESCRIPTION = "advancements.potionsplus.acquire_uranium_ore.description";
-    public static final String ADVANCEMENTS_POTIONSPLUS_ACQUIRE_URANIUM_INGOT_TITLE = "advancements.potionsplus.acquire_uranium_ingot.title";
-    public static final String ADVANCEMENTS_POTIONSPLUS_ACQUIRE_URANIUM_INGOT_DESCRIPTION = "advancements.potionsplus.acquire_uranium_ingot.description";
     public static final String ADVANCEMENTS_POTIONSPLUS_ACQUIRE_SULFURIC_ACID_TITLE = "advancements.potionsplus.acquire_sulfuric_acid.title";
     public static final String ADVANCEMENTS_POTIONSPLUS_ACQUIRE_SULFURIC_ACID_DESCRIPTION = "advancements.potionsplus.acquire_sulfuric_acid.description";
     public static final String TOOLTIP_POTIONSPLUS_REWARD_UNKNOWN_POTION_INGREDIENT_DESCRIPTION = "tooltip.potionsplus.reward.unknown_potion_ingredient.description";

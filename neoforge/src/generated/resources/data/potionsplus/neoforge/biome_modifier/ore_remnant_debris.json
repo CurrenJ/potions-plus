@@ -1,6 +1,0 @@
-{
-  "type": "neoforge:add_features",
-  "biomes": "#minecraft:is_overworld",
-  "features": "potionsplus:ore_remnant_debris",
-  "step": "underground_ores"
-}
