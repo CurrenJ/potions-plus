@@ -49,8 +49,6 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
     compileOnly "mezz.jei:jei-1.21.5-neoforge:$rootProject.jei_version"
-
-    implementation "com.github.glitchfiend:TerraBlender-neoforge:$rootProject.minecraft_version-$rootProject.terrablender_version"
 }
 
 processResources {

@@ -5,8 +5,6 @@ public class Translations {
     public static final String CONFIGURATION_POTIONSPLUS_POTION_DRINK_TIME_TICKS = "configuration.potionsplus.potion_drink_time_ticks";
     public static final String CONFIGURATION_POTIONSPLUS_POTION_USE_COOLDOWN_TIME_TICKS = "configuration.potionsplus.potion_use_cooldown_time_ticks";
     public static final String CONFIGURATION_POTIONSPLUS_GENERATE_ORE_VARIANTS = "configuration.potionsplus.generate_ore_variants";
-    public static final String BLOCK_POTIONSPLUS_PARTICLE_EMITTER = "block.potionsplus.particle_emitter";
-    public static final String JEI_POTIONSPLUS_PARTICLE_EMITTER_DESCRIPTION = "jei.potionsplus.particle_emitter.description";
     public static final String BLOCK_POTIONSPLUS_PRECISION_DISPENSER = "block.potionsplus.precision_dispenser";
     public static final String BLOCK_POTIONSPLUS_BREWING_CAULDRON = "block.potionsplus.brewing_cauldron";
     public static final String BLOCK_POTIONSPLUS_HERBALISTS_LECTERN = "block.potionsplus.herbalists_lectern";
@@ -23,16 +21,6 @@ public class Translations {
     public static final String BLOCK_POTIONSPLUS_REDSTONE_ROSE = "block.potionsplus.redstone_rose";
     public static final String BLOCK_POTIONSPLUS_DENSE_DIAMOND_ORE = "block.potionsplus.dense_diamond_ore";
     public static final String BLOCK_POTIONSPLUS_DEEPSLATE_DENSE_DIAMOND_ORE = "block.potionsplus.deepslate_dense_diamond_ore";
-    public static final String ITEM_POTIONSPLUS_COOBLESTONE = "item.potionsplus.cooblestone";
-    public static final String BLOCK_POTIONSPLUS_COOBLESTONE = "block.potionsplus.cooblestone";
-    public static final String JEI_POTIONSPLUS_COOBLESTONE_DESCRIPTION = "jei.potionsplus.cooblestone.description";
-    public static final String BLOCK_POTIONSPLUS_UNSTABLE_BLOCK = "block.potionsplus.unstable_block";
-    public static final String BLOCK_POTIONSPLUS_UNSTABLE_DEEPSLATE = "block.potionsplus.unstable_deepslate";
-    public static final String BLOCK_POTIONSPLUS_UNSTABLE_BLACKSTONE = "block.potionsplus.unstable_blackstone";
-    public static final String BLOCK_POTIONSPLUS_UNSTABLE_MOLTEN_DEEPSLATE = "block.potionsplus.unstable_molten_deepslate";
-    public static final String BLOCK_POTIONSPLUS_UNSTABLE_MOLTEN_BLACKSTONE = "block.potionsplus.unstable_molten_blackstone";
-    public static final String BLOCK_POTIONSPLUS_LAVA_GEYSER = "block.potionsplus.lava_geyser";
-    public static final String JEI_POTIONSPLUS_LAVA_GEYSER_DESCRIPTION = "jei.potionsplus.lava_geyser.description";
     public static final String BLOCK_POTIONSPLUS_SULFURIC_NETHER_QUARTZ_ORE = "block.potionsplus.sulfuric_nether_quartz_ore";
     public static final String BLOCK_POTIONSPLUS_POTION_BEACON = "block.potionsplus.potion_beacon";
     public static final String BLOCK_POTIONSPLUS_POTION_BEACON_HINT = "block.potionsplus.potion_beacon.hint";
@@ -105,7 +93,6 @@ public class Translations {
     public static final String ITEM_POTIONSPLUS_ADVANCED_LOOT = "item.potionsplus.advanced_loot";
     public static final String ITEM_POTIONSPLUS_EXPERT_LOOT = "item.potionsplus.expert_loot";
     public static final String ITEM_POTIONSPLUS_MASTER_LOOT = "item.potionsplus.master_loot";
-    public static final String BLOCK_POTIONSPLUS_ICICLE = "block.potionsplus.icicle";
     public static final String ITEMGROUP_POTIONSPLUS = "itemGroup.potionsplus";
     public static final String EFFECT_POTIONSPLUS_ANY_POTION = "effect.potionsplus.any_potion";
     public static final String ITEM_MINECRAFT_POTION_EFFECT_ANY_POTION = "item.minecraft.potion.effect.any_potion";
@@ -317,12 +304,6 @@ public class Translations {
     public static final String ADVANCEMENTS_POTIONSPLUS_DRY_ROTTEN_FLESH_DESCRIPTION = "advancements.potionsplus.dry_rotten_flesh.description";
     public static final String ADVANCEMENTS_POTIONSPLUS_BREW_ANY_POTION_TITLE = "advancements.potionsplus.brew_any_potion.title";
     public static final String ADVANCEMENTS_POTIONSPLUS_BREW_ANY_POTION_DESCRIPTION = "advancements.potionsplus.brew_any_potion.description";
-    public static final String ADVANCEMENTS_POTIONSPLUS_ARID_CAVE_TITLE = "advancements.potionsplus.arid_cave.title";
-    public static final String ADVANCEMENTS_POTIONSPLUS_ARID_CAVE_DESCRIPTION = "advancements.potionsplus.arid_cave.description";
-    public static final String ADVANCEMENTS_POTIONSPLUS_ICE_CAVE_TITLE = "advancements.potionsplus.ice_cave.title";
-    public static final String ADVANCEMENTS_POTIONSPLUS_ICE_CAVE_DESCRIPTION = "advancements.potionsplus.ice_cave.description";
-    public static final String ADVANCEMENTS_POTIONSPLUS_VOLCANIC_CAVE_TITLE = "advancements.potionsplus.volcanic_cave.title";
-    public static final String ADVANCEMENTS_POTIONSPLUS_VOLCANIC_CAVE_DESCRIPTION = "advancements.potionsplus.volcanic_cave.description";
     public static final String ADVANCEMENTS_POTIONSPLUS_ADD_FIRST_INGREDIENT_TO_ABYSSAL_TROVE_TITLE = "advancements.potionsplus.add_first_ingredient_to_abyssal_trove.title";
     public static final String ADVANCEMENTS_POTIONSPLUS_ADD_FIRST_INGREDIENT_TO_ABYSSAL_TROVE_DESCRIPTION = "advancements.potionsplus.add_first_ingredient_to_abyssal_trove.description";
     public static final String ADVANCEMENTS_POTIONSPLUS_ADD_COMMON_INGREDIENT_TO_ABYSSAL_TROVE_TITLE = "advancements.potionsplus.add_common_ingredient_to_abyssal_trove.title";

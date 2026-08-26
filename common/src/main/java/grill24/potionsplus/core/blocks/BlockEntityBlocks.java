@@ -26,7 +26,6 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 public class BlockEntityBlocks {
     public static Holder<Block> BREWING_CAULDRON;
-    public static Holder<Block> PARTICLE_EMITTER;
     public static Holder<Block> HERBALISTS_LECTERN;
     public static Holder<Block> SANGUINE_ALTAR;
     public static Holder<Block> ABYSSAL_TROVE;
@@ -43,24 +42,6 @@ public class BlockEntityBlocks {
                         .modelGenerator(h -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(h, Identifier.fromNamespaceAndPath("minecraft", "block/water_cauldron_full"), true, false))
         ).getHolder();
         RegistrationUtility.registerBlockItemWithTexture(BREWING_CAULDRON, registerItem, ppId("item/brewing_cauldron"));
-
-        PARTICLE_EMITTER = RegistrationUtility.register(
-                registerBlock,
-                SimpleBlockBuilder.createSimple("particle_emitter")
-                        .blockFactory(ParticleEmitterBlock::new)
-                        .properties(() -> BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL))
-                        .modelGenerator(null)
-                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                                (recipeProvider, h) ->
-                                        recipeProvider.shaped(RecipeCategory.REDSTONE, h.value())
-                                                .pattern("III")
-                                                .pattern("IXI")
-                                                .pattern("III")
-                                                .define('I', Items.IRON_INGOT)
-                                                .define('X', Items.SPORE_BLOSSOM)
-                                                .unlockedBy("has_iron_ingot", recipeProvider.has(Items.SPORE_BLOSSOM))))
-        ).getHolder();
-        RegistrationUtility.registerBlockItem(PARTICLE_EMITTER, registerItem);
 
         HERBALISTS_LECTERN = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("herbalists_lectern")
                         .blockFactory(HerbalistsLecternBlock::new)

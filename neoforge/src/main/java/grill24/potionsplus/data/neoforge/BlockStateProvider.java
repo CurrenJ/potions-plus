@@ -24,20 +24,15 @@ public class BlockStateProvider extends ModelProvider {
     @Override
     protected Stream<? extends Holder<Block>> getKnownBlocks() {
         Set<? extends Holder<Block>> excludedBlocks = Set.of(
-                DecorationBlocks.ICICLE,
                 BlockEntityBlocks.PRECISION_DISPENSER,
                 FlowerBlocks.LUNAR_BERRY_BUSH,
-                BlockEntityBlocks.PARTICLE_EMITTER,
                 BlockEntityBlocks.CLOTHESLINE,
                 DecorationBlocks.GROWING_MOSSY_COBBLESTONE,
                 DecorationBlocks.GROWING_MOSSY_COBBLESTONE_SLAB,
                 DecorationBlocks.GROWING_MOSSY_COBBLESTONE_STAIRS,
                 DecorationBlocks.GROWING_MOSSY_STONE_BRICKS,
                 DecorationBlocks.GROWING_MOSSY_STONE_BRICK_SLAB,
-                DecorationBlocks.GROWING_MOSSY_STONE_BRICK_STAIRS,
-                DecorationBlocks.UNSTABLE_DEEPSLATE,
-                DecorationBlocks.UNSTABLE_BLACKSTONE,
-                DecorationBlocks.LAVA_GEYSER
+                DecorationBlocks.GROWING_MOSSY_STONE_BRICK_STAIRS
         );
 
         Stream<? extends Holder<Block>> knownBlocks = super.getKnownBlocks();

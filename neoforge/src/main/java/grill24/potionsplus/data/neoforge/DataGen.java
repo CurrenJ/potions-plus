@@ -25,8 +25,7 @@ public class DataGen {
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             // World Gen
             .add(Registries.CONFIGURED_FEATURE, ConfiguredFeatures::bootstrap)
-            .add(Registries.PLACED_FEATURE, Placements::bootstrap)
-            .add(Registries.BIOME, Biomes::bootstrap);
+            .add(Registries.PLACED_FEATURE, Placements::bootstrap);
 
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent.Client event) {
@@ -49,7 +48,6 @@ public class DataGen {
         // TODO: Re-enable after MC 26.1 data component migration
         // event.createProvider(LootTableProvider::new);
         generator.addProvider(true, new DatapackBuiltinEntriesProvider(output, lookupProvider, BUILDER, Set.of(ModInfo.MOD_ID)));
-        event.createProvider(BiomeTagProvider::new);
         // event.createProvider(AdvancementProvider::new);
         // event.createProvider(GlobalLootModifierProvider::new);
     }

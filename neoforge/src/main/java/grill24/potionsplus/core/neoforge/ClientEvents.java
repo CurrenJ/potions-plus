@@ -37,9 +37,7 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void onParticleFactoryRegister(final RegisterParticleProvidersEvent event) {
-        event.registerSpriteSet(Particles.WANDERING_HEART.get(), WanderingHeartParticle.WanderingHeartProvider::new);
         event.registerSpriteSet(Particles.END_ROD_RAIN.get(), EndRodRainParticle.Provider::new);
-        event.registerSpriteSet(Particles.RANDOM_NOTE.get(), RandomNoteParticle.Provider::new);
         event.registerSpriteSet(Particles.BLOOD_GOB.get(), BloodGobParticle.Provider::new);
         event.registerSpriteSet(Particles.LUNAR_BERRY_BUSH_AMBIENT.get(), LunarBerryBushAmbientParticle.Provider::new);
         event.registerSpriteSet(Particles.LIGHTNING_BOLT.get(), LightningBoltParticle.Provider::new);
@@ -47,15 +45,9 @@ public class ClientEvents {
         event.registerSpriteSet(Particles.ELECTRICAL_SPARK.get(), ElectricalSparkParticle.Provider::new);
         event.registerSpriteSet(Particles.STUN_STARS.get(), StunStarsParticle.Provider::new);
 
-        event.registerSpecial(Particles.END_ROD_RAIN_EMITTER.get(),
-                new EmitterParticle.Provider(ParticleConfigurations.END_ROD_RAIN::sampleParticleType));
-        event.registerSpecial(Particles.FIREY_EMITTER.get(),
-                new EmitterParticle.Provider(ParticleConfigurations.FIREY::sampleParticleType, 100, 2, 2, 16));
         event.registerSpecial(Particles.BLOOD_EMITTER.get(),
                 new EmitterParticle.Provider(ParticleConfigurations.BLOOD::sampleParticleType, 20, 2, 2, 0.4F, Vec3.ZERO, Vec3.ZERO, true));
         event.registerSpecial(Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.get(),
                 new EmitterParticle.Provider(ParticleConfigurations.LUNAR_BERRY_BUSH_AMBIENT::sampleParticleType, 20, 20, 2, 0.5F, Vec3.ZERO, Vec3.ZERO, false, true));
-        event.registerSpecial(Particles.LAVA_GEYSER_BLOCK_LINKED_EMITTER.get(),
-                new BlockLinkedEmitterParticle.Provider(20));
     }
 }

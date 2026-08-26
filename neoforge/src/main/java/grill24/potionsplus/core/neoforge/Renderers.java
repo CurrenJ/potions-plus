@@ -12,7 +12,6 @@ import grill24.potionsplus.blockentity.PotionBeaconBlockEntityRenderer;
 import grill24.potionsplus.blockentity.SanguineAltarBlockEntityRenderer;
 import grill24.potionsplus.item.tintsource.AnyPotionTintSource;
 import grill24.potionsplus.utility.ModInfo;
-import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -32,7 +31,6 @@ public class Renderers {
         event.registerBlockEntityRenderer(Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), ClotheslineBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(Blocks.POTION_BEACON_BLOCK_ENTITY.get(), PotionBeaconBlockEntityRenderer::new);
 
-        event.registerEntityRenderer(Entities.INVISIBLE_FIRE_DAMAGER.value(), NoopRenderer::new);
         event.registerEntityRenderer(Entities.GRUNGLER.value(), GrunglerRenderer::new);
     }
 

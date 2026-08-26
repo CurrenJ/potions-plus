@@ -160,7 +160,7 @@ config, the `UraniumOreBlock` "not exposed" mechanic, `MonsterRoomFeatureMixin`)
 alchemy hook, keep it. The rest of the uranium tech tree (ingot, block, glass) is generic
 ore-mod content. Consider keeping sulfur as a reagent and dropping the metal.
 
-## D. Decoration blocks
+## D. Decoration blocks ✅ *removed (except growing mossy)*
 
 Cooblestone, Unstable Block / Deepslate / Blackstone / Molten variants, Decorative Fire,
 Lava Geyser, Icicle, Growing Mossy Cobblestone / Stone Bricks (+ slab & stair variants),
@@ -168,6 +168,9 @@ Particle Emitter. `core/blocks/DecorationBlocks`, `block/GrowableMossy*`.
 
 Mostly builder content. **Keep what feeds brewing** — growing mossy blocks are the moss
 source, i.e. a reagent farm — and cut the rest. Particle Emitter is a dev/creative toy.
+The non-mossy decoration blocks were removed with worldgen (#11); the `ParticleEmitterConfiguration`
+type was extracted out of `ParticleEmitterBlock` and kept for the Sanguine Altar / Lunar Berry
+Bush particles.
 
 ## E. Versatile plants (~24 blocks)
 
@@ -189,15 +192,16 @@ consume effects.
 A whole breeding minigame. Genuinely interesting, genuinely unrelated. **Spin off** — the
 most obviously self-contained "would make a good standalone mod" system in the repo.
 
-## G. Worldgen biomes & features
+## G. Worldgen biomes & features ✅ *removed — to be spun off into its own mod*
 
 Arid Cave, Ice Cave, Volcanic Cave (TerraBlender) + Aquifer Freeze, Campfire Huddle,
 Volcanic Fissure, Giant Snowflake, Icicle, Lava Geyser, Suspicious Sand features.
 `core/Biomes`, `core/Features`, `worldgen/`.
 
 Carries the TerraBlender + GlitchCore dependencies for content that doesn't serve alchemy.
-**Judgment call:** keep only if 2.0 wants biome-gated reagents (a reagent that only grows in
-ice caves, say). Otherwise cut it and shed two dependencies.
+**Removed** (no biome-gated reagents in the 2.0 vision) — see `DEVOLUTION_PROGRESS.md` #11 for
+the full removal set. The Lunar Berry Bush reagent's own worldgen was kept; it lives alongside
+the core, not in the cave-biome system.
 
 ## H. Hats / cosmetics
 

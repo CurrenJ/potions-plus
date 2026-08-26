@@ -73,11 +73,6 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
     public static final Identifier CREATE_CLOTHESLINE = ppId("create_clothesline");
     public static final Identifier DRY_ROTTEN_FLESH = ppId("dry_rotten_flesh");
 
-    // Biome advancements
-    public static final Identifier ARID_CAVE = ppId("arid_cave");
-    public static final Identifier ICE_CAVE = ppId("ice_cave");
-    public static final Identifier VOLCANIC_CAVE = ppId("volcanic_cave");
-
     private static final class PotionsPlusAdvancementGenerator implements AdvancementSubProvider {
         @Override
         public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> saver) {
@@ -413,18 +408,5 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                 .addCriterion("add_rare_ingredient_to_abyssal_trove", AbyssalTroveTrigger.TriggerInstance.create(0.001f, PotionUpgradeIngredients.Rarity.RARE))
                 .requirements(AdvancementRequirements.allOf(List.of("add_rare_ingredient_to_abyssal_trove")))
                 .save(saver, ADD_RARE_TO_ABYSSAL_TROVE);
-    }
-
-    protected static Advancement.Builder addBiomes(Advancement.Builder builder, HolderLookup.Provider levelRegistry, List<ResourceKey<Biome>> biomes) {
-        HolderGetter<Biome> holdergetter = levelRegistry.lookupOrThrow(Registries.BIOME);
-
-        for (ResourceKey<Biome> resourcekey : biomes) {
-            builder.addCriterion(
-                    resourcekey.identifier().toString(),
-                    PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(holdergetter.getOrThrow(resourcekey)))
-            );
-        }
-
-        return builder;
     }
 }

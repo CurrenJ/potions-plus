@@ -19,8 +19,6 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -50,8 +48,6 @@ public class PotionsPlus {
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(Registries.POTION, ModInfo.MOD_ID);
     public static final DeferredRegister<BlockPredicateType<?>> BLOCK_PREDICATE_TYPES = DeferredRegister.create(BuiltInRegistries.BLOCK_PREDICATE_TYPE, ModInfo.MOD_ID);
     public static final DeferredRegister<ConsumeEffect.Type<?>> CONSUME_EFFECTS = DeferredRegister.create(Registries.CONSUME_EFFECT_TYPE, ModInfo.MOD_ID);
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, ModInfo.MOD_ID);
-    public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIER_TYPES = DeferredRegister.create(Registries.PLACEMENT_MODIFIER_TYPE, ModInfo.MOD_ID);
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, ModInfo.MOD_ID);
     public static final DeferredRegister<MapCodec<? extends LootItemCondition>> LOOT_ITEM_CONDITIONS = DeferredRegister.create(BuiltInRegistries.LOOT_CONDITION_TYPE, ModInfo.MOD_ID);
 
@@ -70,8 +66,6 @@ public class PotionsPlus {
         grill24.potionsplus.core.Entities.init(ENTITIES::register);
         grill24.potionsplus.core.BlockPredicateTypes.init(BLOCK_PREDICATE_TYPES::register);
         grill24.potionsplus.core.ConsumeEffects.init(CONSUME_EFFECTS::register);
-        grill24.potionsplus.core.Features.init(FEATURES::register);
-        grill24.potionsplus.core.PlacementModifierTypes.init(PLACEMENT_MODIFIER_TYPES::register);
         // MobEffects must be initialized before Potions - Potions' static fields reference
         // MobEffects.* holders directly at class-load time, so Potions.init() would otherwise
         // capture null for every custom (non-vanilla) effect.
@@ -111,11 +105,9 @@ public class PotionsPlus {
         LootModifiers.LOOT_MODIFIERS.register(bus);
         TRIGGERS.register(bus);
         BLOCK_PREDICATE_TYPES.register(bus);
-        FEATURES.register(bus);
         CommandArgumentTypes.COMMAND_ARGUMENT_TYPES.register(bus);
         ATTRIBUTES.register(bus);
         LOOT_ITEM_CONDITIONS.register(bus);
-        PLACEMENT_MODIFIER_TYPES.register(bus);
         DataComponents.DATA_COMPONENTS.register(bus);
         DataAttachmentsImpl.ATTACHMENT_TYPES.register(bus);
         CONSUME_EFFECTS.register(bus);

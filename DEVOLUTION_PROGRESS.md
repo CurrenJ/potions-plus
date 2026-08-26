@@ -15,14 +15,17 @@
 | 4 | Filter Hoppers | Cut / spin off | ✅ Done | `b2a2ab2` |
 | 5 | Genetic crops | Spin off | ✅ Done | `b2a2ab2` (combined w/ #4) |
 | 6 | Uranium chain | Trim to sulfur only | ✅ Done | (uncommitted) |
-| 7 | Decoration blocks | Trim | 🟡 Partial — Decorative Fire done; rest blocked on #11 | |
-| 8 | Versatile plants | Cut | ✅ Done | (pending) |
-| 9 | Hats | Cut (keep Wreath) | ✅ Done | (pending) |
+| 7 | Decoration blocks | Trim | ✅ Done — removed with #11 | (this commit) |
+| 8 | Versatile plants | Cut | ✅ Done | `58ea454` |
+| 9 | Hats | Cut (keep Wreath) | ✅ Done | `e39e877` |
 | 10 | Grungler | ~~Cut~~ **Keep** (owner call) | ✅ Decided — no removal | |
-| 11 | Worldgen biomes / features | Judgment call | ⬜ Not started — **do last** (only cut affecting save compat) |
+| 11 | Worldgen biomes / features | Judgment call | ✅ Done — removed; will be spun off into its own mod | (this commit) |
 
 Core systems (brewing cauldron, deduction triad, potions, reagents, ore flowers, potion
 beacon, clothesline, precision dispenser) are untouched — not in scope for devolution.
+The **Lunar Berry Bush** reagent and its worldgen (configured feature, placed features,
+and the `add_lunar_berry_bush_patch` / `remove_berry_bush_patch` biome modifiers) are
+core and were kept — they are how the reagent is obtained in the world.
 
 ---
 
@@ -220,16 +223,48 @@ content:**
 
 ---
 
-## Suggested next step
+## #11 — Worldgen + associated decoration blocks
 
-The cut list is now down to **worldgen (#11)** plus the decoration blocks that are entangled
-with it (Particle Emitter, Cooblestone, Unstable ×5, Icicle, Lava Geyser). Those can't be cut
-cleanly until the worldgen decision lands — see the #7 notes above. So the next step is the
-worldgen call itself.
+Removed in one commit so it can be resurrected into its own mod later. The cave biomes and
+their custom features carried the **TerraBlender** + **GlitchCore** dependencies for content
+that doesn't serve the brewing loop; both deps are now gone from `neoforge/build.gradle` /
+`gradle.properties`.
 
-Two open questions from the inventory need answers first:
-1. Is `enableSkills`'s successor idea (a trimmed "Alchemy" skill) wanted, or is Skills
-   gone for good? (Currently: gone for good, per commit `a82daec`.)
-2. Do biome-exclusive reagents belong in the 2.0 vision? That answer decides whether
-   worldgen biomes/features (#11) survives in trimmed form or gets cut outright — and,
-   transitively, whether the remaining decoration blocks survive or get cut with it.
+**Deleted — worldgen:**
+- Biomes: Arid Cave, Ice Cave, Volcanic Cave (`core/Biomes`, `worldgen/biome/*`) + the
+  TerraBlender region (`worldgen/neoforge/OverworldBiomesRegion`, `event/neoforge/WorldGenListeners`).
+- Features: Aquifer Freeze, Campfire Huddle, Giant Snowflake, Icicle, Lava Geyser,
+  Suspicious Sand, Volcanic Fissure, the `PotionsPlusVegetationPatch` + `CaveSurface` +
+  `PrimaryAndSecondaryFlowerPatch` machinery (`core/Features`, `worldgen/feature/*`).
+- `core/PlacementModifierTypes` + `worldgen/OffsetPlacement` (offset placement modifier).
+- `MonsterRoomFeatureMixin` (biome-based spawner typing), `LevelChunkMixin` (Unstable-block
+  generation hack), `ParticleEngineMixin` + `IParticleEngineExtension` (lava-geyser particle
+  plumbing).
+- Arid-cave suspicious-sand loot table + reward loot + `SuspiciousSandFeature`, the cave
+  biome tags + `BiomeTagProvider`, cave-discovery advancements (JSON + `AdvancementProvider`
+  entries), and the `cave_replaceable` block tag.
+
+**Deleted — associated decoration blocks:**
+Cooblestone, Unstable Block/Deepslate/Blackstone/Molten Deepslate/Molten Blackstone, Icicle,
+Lava Geyser, Particle Emitter (blocks + `DecorationBlocks`/`BlockEntityBlocks` entries +
+hand-authored models/textures/blockstates). Also the decoration-only particles they owned
+(Wandering Heart, Random Note, and the End Rod Rain / Firey / Lava Geyser emitters) and the
+`InvisibleFireDamager` entity.
+
+**Kept:**
+- Lunar Berry Bush reagent + its worldgen (`ConfiguredFeatures.LUNAR_BERRY_BUSH_KEY`,
+  `Placements.LUNAR_BERRY_BUSH_KEY/RARE`, both biome modifiers) — trimmed the two worldgen
+  classes down to just these entries.
+- Growing mossy cobblestone / stone-bricks (+ slab/stairs) — the moss reagent farm.
+- Ore flowers + `OreFeatureMixin` (prospecting + reagent source).
+- `ParticleEmitterConfiguration` — extracted out of `ParticleEmitterBlock` into its own
+  `particle/` class; it's still used by the Sanguine Altar BLOOD and Lunar Berry Bush ambient
+  particles.
+
+---
+
+## Status
+
+The cut list is now complete. The remaining systems are all core (brewing cauldron, deduction
+triad, potions/effects, reagents, ore flowers, potion beacon, clothesline, precision dispenser,
+Grungler-as-placeholder) and stay for the 2.0 rework.

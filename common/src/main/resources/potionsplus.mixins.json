@@ -16,10 +16,8 @@
     "ItemAttributeModifiersMixin",
     "ItemEntityMixin",
     "ItemMixin",
-    "LevelChunkMixin",
     "LivingEntityMixin",
     "MobEffectInstanceMixin",
-    "MonsterRoomFeatureMixin",
     "OreFeatureMixin",
     "PlayerMixin",
     "PotionItemMixin",
@@ -30,8 +28,7 @@
   "client": [
     "ClientAdvancementsMixin",
     "ClientPacketListenerMixin",
-    "GuiGraphicsMixin",
-    "ParticleEngineMixin"
+    "GuiGraphicsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

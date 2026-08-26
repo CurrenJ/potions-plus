@@ -4,9 +4,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.particles.SimpleParticleType;
 
 public class Particles {
-    public static Holder<SimpleParticleType> WANDERING_HEART;
     public static Holder<SimpleParticleType> END_ROD_RAIN;
-    public static Holder<SimpleParticleType> RANDOM_NOTE;
     public static Holder<SimpleParticleType> BLOOD_GOB;
     public static Holder<SimpleParticleType> LUNAR_BERRY_BUSH_AMBIENT;
     public static Holder<SimpleParticleType> LIGHTNING_BOLT;
@@ -14,9 +12,6 @@ public class Particles {
     public static Holder<SimpleParticleType> ELECTRICAL_SPARK;
     public static Holder<SimpleParticleType> STUN_STARS;
 
-    public static Holder<SimpleParticleType> END_ROD_RAIN_EMITTER;
-    public static Holder<SimpleParticleType> FIREY_EMITTER;
     public static Holder<SimpleParticleType> BLOOD_EMITTER;
     public static Holder<SimpleParticleType> LUNAR_BERRY_BUSH_AMBIENT_EMITTER;
-    public static Holder<SimpleParticleType> LAVA_GEYSER_BLOCK_LINKED_EMITTER;
 }
