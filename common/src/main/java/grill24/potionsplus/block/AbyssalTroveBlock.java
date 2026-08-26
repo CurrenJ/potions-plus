@@ -133,9 +133,18 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
 
                 return InteractionResult.SUCCESS;
             }
+
+            return InteractionResult.PASS;
         }
 
-        return InteractionResult.PASS;
+        // Empty-hand, non-crouching right click cycles the display mode, same as clicking with an item in hand
+        Optional<AbyssalTroveBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.value());
+        if (blockEntity.isEmpty()) {
+            return InteractionResult.FAIL;
+        }
+
+        blockEntity.get().showGui();
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable

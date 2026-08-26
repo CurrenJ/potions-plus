@@ -34,7 +34,6 @@ public class BlockStateProvider extends ModelProvider {
                 BlockEntityBlocks.HUGE_FILTER_HOPPER,
                 FlowerBlocks.LUNAR_BERRY_BUSH,
                 BlockEntityBlocks.PARTICLE_EMITTER,
-                BlockEntityBlocks.ABYSSAL_TROVE,
                 BlockEntityBlocks.CLOTHESLINE,
                 BlockEntityBlocks.SKILL_JOURNALS,
                 DecorationBlocks.GROWING_MOSSY_COBBLESTONE,

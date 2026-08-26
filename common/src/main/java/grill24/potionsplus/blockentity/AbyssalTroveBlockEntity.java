@@ -79,8 +79,8 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
             return state;
         }
 
-        public void nextState() {
-            state = State.values()[(state.ordinal() + 1) % State.values().length];
+        public void setState(State newState) {
+            state = newState;
             lastStateEntryTimes.put(state, (int) ClientTickHandler.total());
         }
 
@@ -165,7 +165,49 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
             timeItemPlaced = (int) ClientTickHandler.total();
         }
 
-        rendererData.nextState();
+        // Skip states that would display nothing (e.g. "only rares" when none are known) - landing on an
+        // empty display looks identical to HIDDEN but still consumes a cycle, which is confusing. HIDDEN
+        // itself is never skipped, so this always terminates within one full loop of the state cycle.
+        RendererData.State[] states = RendererData.State.values();
+        RendererData.State next = rendererData.state;
+        for (int i = 0; i < states.length; i++) {
+            next = states[(next.ordinal() + 1) % states.length];
+            if (next == RendererData.State.HIDDEN || stateHasVisibleItems(next)) {
+                break;
+            }
+        }
+        rendererData.setState(next);
+    }
+
+    private boolean stateHasVisibleItems(RendererData.State state) {
+        for (List<RendererData.AbyssalTroveRenderedItem> items : rendererData.renderedItemTiers.values()) {
+            for (RendererData.AbyssalTroveRenderedItem item : items) {
+                boolean isUnknownIngredient = item.icon.is(DynamicIconItems.GENERIC_ICON.getValue());
+                if (isIngredientVisibleInState(state, isUnknownIngredient, item.icon)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Whether an ingredient icon would be shown in the given display state. Shared between the block
+     * entity (to skip cycling into an empty state) and the renderer (to decide per-item scale).
+     */
+    public static boolean isIngredientVisibleInState(RendererData.State state, boolean isUnknownIngredient, ItemStack icon) {
+        return switch (state) {
+            case HIDDEN -> false;
+            case ALL_INGREDIENTS, ALL_LABELED_INGREDIENTS -> true;
+            case ONLY_COMMON_INGREDIENTS ->
+                    !isUnknownIngredient && SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, PpIngredient.of(icon));
+            case ONLY_RARE_INGREDIENTS ->
+                    !isUnknownIngredient && SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, PpIngredient.of(icon));
+            case ONLY_DURATION_UPGRADES ->
+                    !isUnknownIngredient && Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(PpIngredient.of(icon));
+            case ONLY_AMPLIFICATION_UPGRADES ->
+                    !isUnknownIngredient && Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(PpIngredient.of(icon));
+        };
     }
 
     public void updateRendererData() {

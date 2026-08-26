@@ -109,7 +109,7 @@ public class BlockEntityBlocks {
         ABYSSAL_TROVE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("abyssal_trove")
                         .blockFactory(AbyssalTroveBlock::new)
                         .properties(() -> BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(5.0F, 6.0F).sound(SoundType.SOUL_SAND))
-                        .modelGenerator(null)
+                        .modelGenerator(h -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(h, ppId("block/abyssal_trove"), true, false))
                         .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                                 (recipeProvider, h) ->
                                         recipeProvider.shaped(RecipeCategory.BREWING, h.value())

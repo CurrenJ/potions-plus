@@ -150,8 +150,8 @@
 - [ ] 8.1 Convert 6 `BlockEntityRenderer`s to two-generic pattern with `RenderState` classes
   - [x] HerbalistsLecternBlockEntityRenderer - full render logic ported (input item animation, orbiting recipe icons + sub-icons, center rarity display); also gave the block a real blockstate (was `modelGenerator(null)`)
   - [x] PotionBeaconBlockEntityRenderer - input item rest animation + drifting item-particle physics; real blockstate added
-  - [ ] SanguineAltarBlockEntityRenderer
-  - [ ] AbyssalTroveBlockEntityRenderer
+  - [x] SanguineAltarBlockEntityRenderer
+  - [x] AbyssalTroveBlockEntityRenderer - orbiting ingredient grid (tiers/rows) ported to extract/submit; per-item scale/subIconScale animation state still lives on `AbyssalTroveBlockEntity.RendererData.AbyssalTroveRenderedItem` and is mutated during extraction (matches persistent-state pattern used elsewhere); `currentDisplayRotation` lerp moved from being recomputed per-item each frame (old bug) to once per extractRenderState call; real blockstate added (was `modelGenerator(null)`), removed from `BlockStateProvider` exclusion list
   - [ ] ClotheslineBlockEntityRenderer
   - [ ] BrewingCauldronBlockEntityRenderer
 - [ ] 8.2 Replace `BlockRenderDispatcher` with `BlockModelResolver`

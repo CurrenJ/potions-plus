@@ -1,4 +1,4 @@
-// 26.1.2	2026-08-26T01:38:29.6698827	Model Definitions - potionsplus
+// 26.1.2	2026-08-26T14:04:40.3586788	Model Definitions - potionsplus
 5dce44f22ae752753ba1749f01550e55f3e62d6f assets/minecraft/models/block/coal_ore1_block_hat.json
 88e46a4afdee55fbf70e22c95a86acc09928ca12 assets/minecraft/models/block/coal_ore2_block_hat.json
 ca2d0bec247e8bb37ebbf3e21c0230288b0954ed assets/minecraft/models/block/coal_ore3_block_hat.json
@@ -23,6 +23,7 @@ eeb3c9db30c35d0183765f35fab4bbabf14e6bb2 assets/minecraft/models/block/iron_ore1
 8ae61a547c736cec36ad59c435fd356756c82860 assets/minecraft/models/block/iron_ore2_block_hat.json
 5f9968daa98df2e5007c2d962b373767d8839ef2 assets/minecraft/models/block/iron_ore3_block_hat.json
 3490da07b365f86742131aa4cecc6bf1e6d212fe assets/minecraft/models/block/iron_ore4_block_hat.json
+c31eaa11da6119cbc50a68781b5acd0f595121a0 assets/potionsplus/blockstates/abyssal_trove.json
 e1f97b37fbc358408652e49e551ef4c520ceda2d assets/potionsplus/blockstates/allium_versatile.json
 b8ea677105165afcba3c3b07bc02884195834fe0 assets/potionsplus/blockstates/azure_bluet_versatile.json
 2b73f206032cfc1872c91122fb6394744d0d7913 assets/potionsplus/blockstates/black_coalla_lily.json
