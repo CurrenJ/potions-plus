@@ -92,7 +92,7 @@ public class BlockEntityBlocks {
         SANGUINE_ALTAR = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sanguine_altar")
                         .blockFactory(SanguineAltarBlock::new)
                         .properties(() -> BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(2.5F).requiresCorrectToolForDrops().sound(SoundType.STONE))
-                        .modelGenerator(null)
+                        .modelGenerator(h -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(h, ppId("block/sanguine_altar"), true, false))
                         .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                                 (recipeProvider, h) ->
                                         recipeProvider.shaped(RecipeCategory.BREWING, h.value())

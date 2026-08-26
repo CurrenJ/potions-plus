@@ -1,4 +1,4 @@
-// 26.1.2	2026-08-26T01:28:23.058615	Model Definitions - potionsplus
+// 26.1.2	2026-08-26T01:38:29.6698827	Model Definitions - potionsplus
 5dce44f22ae752753ba1749f01550e55f3e62d6f assets/minecraft/models/block/coal_ore1_block_hat.json
 88e46a4afdee55fbf70e22c95a86acc09928ca12 assets/minecraft/models/block/coal_ore2_block_hat.json
 ca2d0bec247e8bb37ebbf3e21c0230288b0954ed assets/minecraft/models/block/coal_ore3_block_hat.json
@@ -66,6 +66,7 @@ c484bee6d33738434c72f91609f1faf2cf4f787d assets/potionsplus/blockstates/poppy_ve
 a9163fd88d96a90350ae7aa154e0bb745738dec8 assets/potionsplus/blockstates/red_tulip_versatile.json
 320b8d2bcd5f20dcdf7f85dcf1534e7a11bcb938 assets/potionsplus/blockstates/remnant_debris.json
 b8d501d7f763e029cdb761310dc2003cc74509c0 assets/potionsplus/blockstates/rose_bush_versatile.json
+a721e5f9d20fc0ef2bb056cb376794cfb73f518f assets/potionsplus/blockstates/sanguine_altar.json
 19ea58b35403d5afcefc90b448bafc7485fcd56c assets/potionsplus/blockstates/sunflower_versatile.json
 5eb83b87ccbc55fd78f465dc869d7314bef60a08 assets/potionsplus/blockstates/survivor_stick.json
 97c25bb1adf59a0e93ef1d0125a960c781557820 assets/potionsplus/blockstates/tall_grass_versatile.json

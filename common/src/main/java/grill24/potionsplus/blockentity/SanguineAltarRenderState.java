@@ -6,7 +6,7 @@ import org.joml.Vector3d;
 import org.joml.Vector3f;
 
 
-public class SanguineAltarRenderState extends BlockEntityRenderState {
+public class SanguineAltarRenderState extends BlockEntityRenderState implements ISingleStackDisplayer {
     public SanguineAltarBlockEntity.State altarState = SanguineAltarBlockEntity.State.IDLE;
 
     public final ItemStackRenderState inputItem = new ItemStackRenderState();
@@ -32,5 +32,30 @@ public class SanguineAltarRenderState extends BlockEntityRenderState {
         for (int i = 0; i < runeItems.length; i++) {
             runeItems[i] = new ItemStackRenderState();
         }
+    }
+
+    @Override
+    public int getTimeItemPlaced() {
+        return timeItemPlaced;
+    }
+
+    @Override
+    public Vector3d getStartAnimationWorldPos() {
+        return startAnimationWorldPos;
+    }
+
+    @Override
+    public Vector3d getRestingPosition() {
+        return restingPosition;
+    }
+
+    @Override
+    public Vector3f getRestingRotation() {
+        return restingRotation;
+    }
+
+    @Override
+    public int getInputAnimationDuration() {
+        return inputAnimationDuration;
     }
 }
