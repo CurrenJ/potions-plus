@@ -82,7 +82,7 @@
 - [x] 4.2 `ClickEvent` / `HoverEvent` — already using sealed subtype pattern (`ClickEvent.RunCommand`, `HoverEvent.ShowText`); skip
 - [x] 4.3 `registryOrThrow` → `lookupOrThrow` — zero uses, skip
 - [x] 4.4 `WeightedList` / `Weighted` — already migrated, skip
-- [x] 4.5 `ItemBlockRenderTypes.setRenderLayer` removed from `BlockRenderLayers.java` (API gone in 26.1.2); Chunk 7 TODO to add `"render_type"` to block model JSONs
+- [x] 4.5 `ItemBlockRenderTypes.setRenderLayer` removed from `BlockRenderLayers.java` (API gone in 26.1.2). **Follow-up resolved in Chunk 7:** no `"render_type"` field is needed. 26.1.2 derives translucency from baked-quad material flags (`BakedQuad.FLAG_TRANSLUCENT`, propagated through `BlockStateModel#materialFlags`), i.e. from the texture itself at bake time - there is no per-block render layer to register any more. `BlockRenderLayers.java` is now a no-op stub and can be deleted once cutout blocks (uranium glass, icicle, decorative fire, potion beacon, plants) are visually confirmed in game
 
 ---
 
@@ -152,13 +152,13 @@
   - [x] PotionBeaconBlockEntityRenderer - input item rest animation + drifting item-particle physics; real blockstate added
   - [x] SanguineAltarBlockEntityRenderer
   - [x] AbyssalTroveBlockEntityRenderer - orbiting ingredient grid (tiers/rows) ported to extract/submit; per-item scale/subIconScale animation state still lives on `AbyssalTroveBlockEntity.RendererData.AbyssalTroveRenderedItem` and is mutated during extraction (matches persistent-state pattern used elsewhere); `currentDisplayRotation` lerp moved from being recomputed per-item each frame (old bug) to once per extractRenderState call; real blockstate added (was `modelGenerator(null)`), removed from `BlockStateProvider` exclusion list
-  - [ ] ClotheslineBlockEntityRenderer
-  - [ ] BrewingCauldronBlockEntityRenderer
-- [ ] 8.2 Replace `BlockRenderDispatcher` with `BlockModelResolver`
-- [ ] 8.3 Replace `ItemRenderer` with `ItemStackRenderState` / `ItemModelResolver`
-- [ ] 8.4 Convert `GrunglerRenderer` entity renderer
-- [ ] 8.5 Fix `GameRenderer` references (`ModelManager` param, `PROJECTION_Z_NEAR` moved)
-- [ ] 8.6 Audit `LeashRenderer` for breaking changes
+  - [x] ClotheslineBlockEntityRenderer - rope, fence posts and hanging items ported to extract/submit. Rope geometry now goes through `LeashRenderer.submitLeashBetweenPoints` (new `submitCustomGeometry` path); endpoints are stored **relative to the block entity origin** since `submit()` has no world coordinates. Fence posts use `BlockModelRenderState` + `BlockModelResolver.update`. **Behaviour change:** the old per-frame `clotheslinesRendered` set (cleared by `RenderLevelStageEvent`) no longer lines up with extract/submit, so the shared geometry is now drawn only from the *left* end (`state.isLeftEnd`); deleted the now-dead `NeoClotheslineRendererEvents`
+  - [x] BrewingCauldronBlockEntityRenderer - floating brew result, orbiting ingredients (per-ingredient shrink as the brew progresses, computed at extract time) and the no-xp/no-heat status icon
+- [x] 8.2 Replace `BlockRenderDispatcher` with `BlockModelResolver` - zero references remain
+- [x] 8.3 Replace `ItemRenderer` with `ItemStackRenderState` / `ItemModelResolver` - zero `getItemRenderer()` / `renderStatic` references remain
+- [x] 8.4 Convert `GrunglerRenderer` entity renderer - carried block now resolved into a `BlockModelRenderState` on `GrunglerRenderState` at extract time and submitted with entity light + `LivingEntityRenderer.getOverlayCoords`
+- [x] 8.5 `GameRenderer` references audited - `minecraft` field, `tick()` and `displayItemActivation(ItemStack)` all still valid targets in 26.1.2; no `PROJECTION_Z_NEAR` / `ModelManager` usage in mod code. **Gap found:** the `renderItemActivationAnimation` inject was dropped during the port, so `ItemActivationAnimation` is stored and ticked but never drawn. In 26.1.2 that method moved to `ScreenEffectRenderer.renderItemActivationAnimation(PoseStack, float, SubmitNodeCollector)` - deferred to Chunk 8 (9.7) because the animation renders through `GuiGraphics`
+- [x] 8.6 Audit `LeashRenderer` - already on 26.1.2 APIs (`RenderTypes.leash()`, `LightCoordsUtil.pack`); added the submit-pipeline variant. The `MultiBufferSource` overloads are kept only for `calculateLeashPoints` (used by `ClotheslineBlockEntityBakedRenderData`)
 
 ---
 
@@ -175,6 +175,7 @@
 - [ ] 9.4 Update 4 container screens (`PotionsPlusScreen`, 3× FilterHopperScreen) — `renderBg` → `extractBackground`
 - [ ] 9.5 Rename `render` → `extractRenderState` + `GuiGraphics` → `GuiGraphicsExtractor` across 17 screen element files
 - [ ] 9.6 Verify keymapping APIs unchanged
+- [ ] 9.7 Restore the item-activation animation hook (carried over from 8.5): retarget the dropped `renderItemActivationAnimation` inject to `ScreenEffectRenderer.renderItemActivationAnimation(PoseStack, float, SubmitNodeCollector)` and rewrite `ItemActivationAnimation.render` off `GuiGraphics`
 
 ---
 

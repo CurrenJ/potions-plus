@@ -3,6 +3,7 @@ package grill24.potionsplus.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.core.BlockPos;
@@ -18,6 +19,35 @@ public class LeashRenderer {
         poseStack.translate(start.x - rendererOrigin.getX(), start.y - rendererOrigin.getY(), start.z - rendererOrigin.getZ());
         calculateLeashPointsAndRender(start, end, poseStack, bufferSource, blockLightStart, blockLightEnd, skyLightStart, skyLightEnd);
         poseStack.popPose();
+    }
+
+    /**
+     * Submit-pipeline equivalent of {@link #renderLeashBetweenPoints}. The geometry is emitted lazily by the
+     * render pass, so everything it needs is captured up front.
+     */
+    public static void submitLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+        poseStack.pushPose();
+        poseStack.translate(start.x - rendererOrigin.getX(), start.y - rendererOrigin.getY(), start.z - rendererOrigin.getZ());
+        submitNodeCollector.submitCustomGeometry(poseStack, RenderTypes.leash(), (pose, buffer) ->
+                renderLeashVertices(start, end, pose.pose(), buffer, blockLightStart, blockLightEnd, skyLightStart, skyLightEnd));
+        poseStack.popPose();
+    }
+
+    private static void renderLeashVertices(Vec3 start, Vec3 end, Matrix4f matrix, VertexConsumer vertexConsumer, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+        float deltaX = (float) (end.x - start.x);
+        float deltaY = (float) (end.y - start.y);
+        float deltaZ = (float) (end.z - start.z);
+        float invDistance = (float) (Mth.fastInvSqrt(deltaX * deltaX + deltaZ * deltaZ) * 0.025F / 2.0F);
+        float deltaZInvDistance = deltaZ * invDistance;
+        float deltaXInvDistance = deltaX * invDistance;
+
+        for (int i = 0; i <= 24; ++i) {
+            addVertexPair(vertexConsumer, matrix, deltaX, deltaY, deltaZ, blockLightStart, blockLightEnd, skyLightStart, skyLightEnd, 0.025F, 0.025F, deltaZInvDistance, deltaXInvDistance, i, false);
+        }
+
+        for (int i = 24; i >= 0; --i) {
+            addVertexPair(vertexConsumer, matrix, deltaX, deltaY, deltaZ, blockLightStart, blockLightEnd, skyLightStart, skyLightEnd, 0.025F, 0.0F, deltaZInvDistance, deltaXInvDistance, i, true);
+        }
     }
 
     public static Vector3f[] calculateLeashPoints(Vec3 start, Vec3 end) {

@@ -2,9 +2,9 @@ package grill24.potionsplus.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.utility.RUtil;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockModelResolver;
+import net.minecraft.client.renderer.block.model.BlockDisplayContext;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
@@ -37,8 +37,7 @@ public class GrunglerRenderer extends LivingEntityRenderer<Grungler, GrunglerRen
     public void extractRenderState(Grungler entity, GrunglerRenderState state, float partialTick) {
         super.extractRenderState(entity, state, partialTick);
         state.setBlockState(entity.getBlockState());
-        // TODO: Update block model in state using blockModelResolver
-        // this.blockModelResolver.update(state.getBlockRenderState(), state.getBlockState(), ...);
+        this.blockModelResolver.update(state.getBlockRenderState(), state.getBlockState(), BlockDisplayContext.create());
     }
 
     @Override
@@ -49,8 +48,7 @@ public class GrunglerRenderer extends LivingEntityRenderer<Grungler, GrunglerRen
         pose.pushPose();
         pose.mulPose(RUtil.rotateY(yRot));
         pose.translate(-0.5F, 0.2, -0.5F);
-        // TODO: Submit block model rendering using submitNodeCollector
-        // state.getBlockRenderState().submit(pose, submitNodeCollector, state.lightCoords, ...);
+        state.getBlockRenderState().submit(pose, submitNodeCollector, state.lightCoords, LivingEntityRenderer.getOverlayCoords(state, 0F), 0);
         pose.popPose();
     }
 }
