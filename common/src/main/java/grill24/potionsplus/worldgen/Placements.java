@@ -115,12 +115,6 @@ public class Placements {
         final Holder<ConfiguredFeature<?, ?>> ARID_CAVE_SUSPICIOUS_SAND = configuredFeatureGetter.getOrThrow(ConfiguredFeatures.ARID_CAVE_SUSPICOUS_SAND_KEY);
         final Holder<PlacedFeature> ARID_CAVE_SUSPICIOUS_SAND_PLACED = register(context, ARID_CAVE_SUSPICIOUS_SAND_KEY,
                 ARID_CAVE_SUSPICIOUS_SAND, CountPlacement.of(48), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.not(BlockPredicate.solid()), 12), BiomeFilter.biome());
-
-        // ----- Misc. Vegetation -----
-        /**
-         * Register all multi-directional versatile plant features (placed features stage) - see {@link VersatilePlantsWorldGenData} and {@link MultiDirectionalVersatilePlantFeatureData}
-         */
-        VersatilePlantsWorldGenData.registerAllPlacedFeatures(context);
     }
 
     private static ResourceKey<PlacedFeature> createKey(String key) {

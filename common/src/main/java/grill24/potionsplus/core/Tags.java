@@ -16,10 +16,6 @@ public class Tags {
         public static final TagKey<Block> CAVE_REPLACEABLE = tag("cave_replaceable");
         public static final TagKey<Block> ORE_FLOWERS = tag("ore_flowers");
 
-        public static final TagKey<Block> SMALL_VERSATILE_FLOWERS = tag("small_versatile_flowers");
-        public static final TagKey<Block> LARGE_VERSATILE_FLOWERS = tag("large_versatile_flowers");
-        public static final TagKey<Block> PP_VERSATILE_PLANTS = tag("pp_versatile_plants");
-
         private static TagKey<Block> tag(String id) {
             return TagKey.create(Registries.BLOCK, ppId(id));
         }

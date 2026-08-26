@@ -169,9 +169,6 @@ public class ConfiguredFeatures {
         final Holder<ConfiguredFeature<?, ?>> ARID_CAVE_CEILING = register(context, ARID_CAVE_CEILING_KEY, Features.POTIONS_PLUS_VEGETATION_PATCH,
                 new PotionsPlusVegetationPatchConfiguration(Tags.Blocks.CAVE_REPLACEABLE, AridCave.BLOCK_SAMPLER_CEILING, PlacementUtils.inlinePlaced(ARID_CAVE_CEILING_VEGETATION), Direction.DOWN, UniformInt.of(5, 8), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F, BlockStateProvider.simple(Blocks.SAND)));
         final Holder<ConfiguredFeature<?, ?>> ARID_CAVE_SUSPICOUS_SAND = register(context, ARID_CAVE_SUSPICOUS_SAND_KEY, Features.ARID_CAVE_SUSPICIOUS_SAND);
-
-        // Registers all multi directional versatile plant features (configured features stage)
-        VersatilePlantsWorldGenData.registerAllConfiguredFeatures(context);
     }
 
     private static ResourceKey<ConfiguredFeature<?, ?>> createKey(String key) {

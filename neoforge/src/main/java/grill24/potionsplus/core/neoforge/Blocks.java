@@ -1,7 +1,5 @@
 package grill24.potionsplus.core.neoforge;
 
-import grill24.potionsplus.block.VersatilePlantBlock;
-import grill24.potionsplus.block.VersatilePlantBlockTexturePattern;
 import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
@@ -16,15 +14,10 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -35,7 +28,6 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unchecked")
@@ -91,21 +83,6 @@ public class Blocks {
                 return BiomeColors.getAverageWaterColor(level, pos);
             }
         }), BlockEntityBlocks.BREWING_CAULDRON.value());
-
-        // Register grass color for versatile plants that require it
-        event.register(List.of(new BlockTintSource() {
-            @Override
-            public int color(BlockState state) {
-                return GrassColor.getDefaultColor();
-            }
-
-            @Override
-            public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
-                return level != null && pos != null ?
-                        BiomeColors.getAverageGrassColor(level, pos)
-                        : GrassColor.getDefaultColor();
-            }
-        }), FlowerBlocks.TALL_GRASS_VERSATILE.value(), FlowerBlocks.LARGE_FERN_VERSATILE.value());
     }
 
     @SubscribeEvent
@@ -127,25 +104,6 @@ public class Blocks {
 
     public static <T extends Block> DeferredHolder<Block, T> register(final String name, final Supplier<T> sup) {
         return register(name, sup, true, Items.properties());
-    }
-
-    private static DeferredHolder<Block, VersatilePlantBlock> registerTallFlowerAsVersatilePlant(final String name, boolean extendable) {
-        return register(name, () ->
-                new VersatilePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT)
-                        .noCollision()
-                        .instabreak()
-                        .sound(SoundType.GRASS)
-                        .ignitedByLava()
-                        .pushReaction(PushReaction.DESTROY),
-                        new VersatilePlantBlock.VersatilePlantConfig(
-                                true,
-                                false,
-                                1, extendable ? 5 : 1,
-                                new VersatilePlantBlockTexturePattern(List.of(0), List.of(0), List.of(1), false))));
-    }
-
-    private static DeferredHolder<Block, VersatilePlantBlock> registerTallFlowerAsVersatilePlant(final String name) {
-        return registerTallFlowerAsVersatilePlant(name, true);
     }
 
 }

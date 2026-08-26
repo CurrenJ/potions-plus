@@ -16,7 +16,7 @@
 | 5 | Genetic crops | Spin off | ✅ Done | `b2a2ab2` (combined w/ #4) |
 | 6 | Uranium chain | Trim to sulfur only | ⬜ Not started | |
 | 7 | Decoration blocks | Trim | ⬜ Not started | |
-| 8 | Versatile plants | Cut | ⬜ Not started | |
+| 8 | Versatile plants | Cut | ✅ Done | (pending) |
 | 9 | Hats | Cut (keep Wreath) | ✅ Done | (pending) |
 | 10 | Grungler | ~~Cut~~ **Keep** (owner call) | ✅ Decided — no removal | |
 | 11 | Worldgen biomes / features | Judgment call | ⬜ Not started — **do last** (only cut affecting save compat) |
@@ -117,6 +117,38 @@ succeeded cleanly: `total files: 433, ... removed stale: 48, written: 0` — swe
 generated files (ore-hat item/model/block-hat jsons) with zero source-level surprises.
 **Take away for future cuts:** if `runData` throws about item/model definitions that should
 no longer exist, rebuild `:common` first — don't assume the removal was wrong.
+
+### #8 — Versatile plants
+
+Removed the whole wall/ceiling-placeable plant system: `VersatilePlantBlock` +
+`BloomingPlantBlock` (base classes), `VersatilePlantBlockTexturePattern`, the worldgen
+feature (`VersatilePlantBlockFeature`/`Configuration`, `MultiDirectionalVersatilePlantFeatureData`,
+`VersatilePlantsWorldGenData`), the datagen builders/model-generators
+(`SimpleVersatilePlantBlockBuilder`, `SimpleTallVersatilePlantBlockBuilder`,
+`VersatilePlantBlockModelGenerator`, `BloomingVersatilePlantBlockModelGenerator`), and all 28
+blocks: the 23 vanilla-flower/mushroom/tall-grass/fern/sunflower/lilac/rose-bush/peony/
+pitcher-plant `*_VERSATILE` variants, plus the 5 worldgen-only plants (Hanging Fern, Droopy
+Vine, Cowlick Vine, Survivor Stick, Lumoseed Sacks).
+
+**Kept, unaffected:** Lunar Berry Bush (core reagent) and all 7 ore flowers (Iron Oxide
+Daisy, Copper Chrysanthemum, Lapis Lilac, Diamour, Golden Cubensis, Redstone Rose, Black
+Coalla Lily) — these live in the same `FlowerBlocks` classes but aren't `VersatilePlantBlock`
+instances, so they were untouched.
+
+Also removed as dead code found along the way (not registered/used anywhere):
+`BlockLootUtility.VersatilePlantDropSelfLoot`, two private unused
+`registerTallFlowerAsVersatilePlant` overloads in neoforge `Blocks.java`, the grass-color
+`BlockTintSource` registration for the (now-gone) tall-grass/large-fern versatile blocks, the
+`LUSH_CAVES_ADDITIONAL_PLANTS`/`LUSH_CAVES_VERSATILE_VANILLA_PLANTS` biome modifiers, and the
+`SMALL_VERSATILE_FLOWERS`/`LARGE_VERSATILE_FLOWERS`/`PP_VERSATILE_PLANTS` block tags (only
+referenced from the deleted `BlockTagProvider` entries).
+
+Only hand-authored resources needed manual deletion (cowlick/droopy/hanging-fern/
+survivor-stick textures, lumoseed's models) — every `*_VERSATILE` block reused vanilla
+textures via `mc("block/...")`, so there was nothing hand-made to clean up for those 23.
+
+`:common:build :neoforge:build` then `:neoforge:runData` (same stale-jar-first gotcha as
+Hats — rebuild before datagen) swept **179 stale generated files** with zero new writes.
 
 ---
 

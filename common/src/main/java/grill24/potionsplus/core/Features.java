@@ -32,8 +32,6 @@ public class Features {
 
     public static Feature<NoneFeatureConfiguration> ARID_CAVE_SUSPICIOUS_SAND = new SuspiciousSandFeature(NoneFeatureConfiguration.CODEC);
 
-    public static final Feature<VersatilePlantBlockFeatureConfiguration> VERSATILE_PLANT = new VersatilePlantBlockFeature();
-
     @SuppressWarnings("unchecked")
     public static void init(BiFunction<String, Supplier<Feature<?>>, Holder<Feature<?>>> register) {
         register.apply(POTIONS_PLUS_VEGETATION_PATCH_KEY.identifier().getPath(), () -> POTIONS_PLUS_VEGETATION_PATCH);
@@ -44,6 +42,5 @@ public class Features {
         register.apply("campfire_huddle", () -> CAMPFIRE_HUDDLE);
         register.apply("giant_snowflake", () -> GIANT_SNOWFLAKE);
         register.apply("arid_cave_suspicious_sand", () -> ARID_CAVE_SUSPICIOUS_SAND);
-        register.apply("versatile_plant", () -> VERSATILE_PLANT);
     }
 }
