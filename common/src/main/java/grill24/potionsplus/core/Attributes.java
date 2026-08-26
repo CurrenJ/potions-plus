@@ -27,8 +27,6 @@ public class Attributes {
     public static Holder<Attribute> PUNCH_BONUS;
     public static Holder<Attribute> UNBREAKING_BONUS;
     public static Holder<Attribute> SMITE_BONUS;
-    public static Holder<Attribute> LUCK_OF_THE_SEA_BONUS;
-    public static Holder<Attribute> LURE;
     public static Holder<Attribute> SPRINTING_SPEED;
     public static Holder<Attribute> USE_SPEED_BONUS;
 
@@ -40,8 +38,6 @@ public class Attributes {
         PUNCH_BONUS = registerEnchantmentBonus(register, "player.punch_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_PUNCH_LEVEL, Enchantments.PUNCH);
         UNBREAKING_BONUS = registerEnchantmentBonus(register, "player.unbreaking_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_UNBREAKING_LEVEL, Enchantments.UNBREAKING);
         SMITE_BONUS = registerEnchantmentBonus(register, "player.smite_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_SMITE_LEVEL, Enchantments.SMITE);
-        LUCK_OF_THE_SEA_BONUS = registerEnchantmentBonus(register, "player.luck_of_the_sea_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_LUCK_OF_THE_SEA_LEVEL, Enchantments.LUCK_OF_THE_SEA);
-        LURE = registerEnchantmentBonus(register, "player.lure_bonus", Translations.DESCRIPTION_POTIONSPLUS_ATTRIBUTE_LURE_LEVEL, Enchantments.LURE);
     }
 
     /**
