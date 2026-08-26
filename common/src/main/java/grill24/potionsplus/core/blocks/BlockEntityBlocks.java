@@ -50,7 +50,7 @@ public class BlockEntityBlocks {
                 SimpleBlockBuilder.createSimple("brewing_cauldron")
                         .blockFactory(BrewingCauldronBlock::new)
                         .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.WATER_CAULDRON))
-                        .modelGenerator(h -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(h, Identifier.fromNamespaceAndPath("minecraft", "block/cauldron"), true, false))
+                        .modelGenerator(h -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(h, Identifier.fromNamespaceAndPath("minecraft", "block/water_cauldron_full"), true, false))
         ).getHolder();
         RegistrationUtility.registerBlockItemWithTexture(BREWING_CAULDRON, registerItem, ppId("item/brewing_cauldron"));
 

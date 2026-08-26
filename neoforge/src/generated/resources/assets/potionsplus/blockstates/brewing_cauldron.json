@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "minecraft:block/cauldron"
+      "model": "minecraft:block/water_cauldron_full"
     }
   }
 }
