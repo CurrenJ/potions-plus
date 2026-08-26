@@ -86,6 +86,14 @@ shadowJar {
     archiveClassifier = null
 }
 
+// shadowJar (the distributable mod jar bundling common) isn't wired into
+// build/assemble by default, so `./gradlew build` was silently producing only
+// the classes-only "raw" jar - anything installed from that (or from a stale
+// standalone shadowJar run) would run outdated common/ code with no warning.
+tasks.named('assemble') {
+    dependsOn(tasks.named('shadowJar'))
+}
+
 sourceSets.main.resources.srcDir('src/generated/resources')
 
 loom {
