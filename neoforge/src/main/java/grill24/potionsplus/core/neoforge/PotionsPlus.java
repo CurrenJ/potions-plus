@@ -81,7 +81,6 @@ public class PotionsPlus {
         grill24.potionsplus.core.Advancements.init(TRIGGERS::register);
         grill24.potionsplus.core.Attributes.init(ATTRIBUTES::register);
         grill24.potionsplus.core.Entities.init(ENTITIES::register);
-        grill24.potionsplus.core.potion.Potions.init(POTIONS::register);
         grill24.potionsplus.core.AbilityInstanceTypes.init(ABILITY_INSTANCE_TYPE::register);
         grill24.potionsplus.core.AnimationCurveSerializers.init(ANIMATION_CURVE_SERIALIZERS::register);
         grill24.potionsplus.core.BlockPredicateTypes.init(BLOCK_PREDICATE_TYPES::register);
@@ -89,8 +88,12 @@ public class PotionsPlus {
         grill24.potionsplus.core.Features.init(FEATURES::register);
         grill24.potionsplus.core.GrantableRewards.init(GRANTABLE_REWARDS::register);
         grill24.potionsplus.core.PlacementModifierTypes.init(PLACEMENT_MODIFIER_TYPES::register);
+        // MobEffects must be initialized before Potions - Potions' static fields reference
+        // MobEffects.* holders directly at class-load time, so Potions.init() would otherwise
+        // capture null for every custom (non-vanilla) effect.
         grill24.potionsplus.core.potion.MobEffects.init(MOB_EFFECTS::register);
         grill24.potionsplus.core.potion.MobEffects.initIconIndexMap();
+        grill24.potionsplus.core.potion.Potions.init(POTIONS::register);
         grill24.potionsplus.core.PlayerAbilities.init(PLAYER_ABILITIES::register);
         grill24.potionsplus.core.Skills.init(SKILLS::register);
         grill24.potionsplus.core.SkillPointSources.init(SKILL_POINT_SOURCES::register);
