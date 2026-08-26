@@ -121,25 +121,25 @@ public abstract class LivingEntityMixin extends Entity {
     /**
      * Create attribute modifiers from our custom attributes so that we can add them as modifiers on the entity movement speed attribute.
      * {@link grill24.potionsplus.core.Attributes#SPRINTING_SPEED}
+     *
+     * Read lazily (not cached at class-init) because this mixin's static initializer runs as part of
+     * LivingEntity's own <clinit>, which loads well before Attributes.SPRINTING_SPEED is assigned during
+     * mod construction - caching it here would permanently capture null.
      */
-    @Unique
-    private static final List<Holder<Attribute>> SPRINT_SPEED_ATTRIBUTES = new ArrayList<>() {{
-        add(grill24.potionsplus.core.Attributes.SPRINTING_SPEED);
-    }};
-
     @Inject(method = "setSprinting", at = @At("TAIL"))
     public void setSprinting(boolean sprinting, CallbackInfo ci) {
+        Holder<Attribute> attribute = grill24.potionsplus.core.Attributes.SPRINTING_SPEED;
+        if (attribute == null) {
+            return;
+        }
+
         Holder<Attribute> movementSpeed = Attributes.MOVEMENT_SPEED;
         AttributeInstance movementSpeedAttributeInstance = this.getAttribute(movementSpeed);
-        for (Holder<Attribute> attribute : SPRINT_SPEED_ATTRIBUTES) {
-            if (movementSpeedAttributeInstance != null) {
-                if (attribute.unwrapKey().isPresent()) {
-                    Identifier key = attribute.unwrapKey().get().identifier();
-                    movementSpeedAttributeInstance.removeModifier(key);
-                    if (sprinting && this.getAttributes().hasAttribute(attribute)) {
-                        movementSpeedAttributeInstance.addTransientModifier(new AttributeModifier(key, this.getAttributeValue(attribute), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-                    }
-                }
+        if (movementSpeedAttributeInstance != null && attribute.unwrapKey().isPresent()) {
+            Identifier key = attribute.unwrapKey().get().identifier();
+            movementSpeedAttributeInstance.removeModifier(key);
+            if (sprinting && this.getAttributes().hasAttribute(attribute)) {
+                movementSpeedAttributeInstance.addTransientModifier(new AttributeModifier(key, this.getAttributeValue(attribute), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
             }
         }
     }

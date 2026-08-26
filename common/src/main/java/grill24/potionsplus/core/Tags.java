@@ -38,14 +38,15 @@ public class Tags {
         public static final TagKey<Item> FOOD_INGREDIENTS_UNCOMMON = tag("food_ingredients_uncommon");
         public static final TagKey<Item> FOOD_INGREDIENTS_RARE = tag("food_ingredients_rare");
 
-        public static final TagKey<Item> SEEDS = tag("seeds");
-        public static final TagKey<Item> CROPS = tag("crops");
-        public static final TagKey<Item> FOODS_RAW_MEAT = tag("foods_raw_meat");
-        public static final TagKey<Item> FOODS_RAW_FISH = tag("foods_raw_fish");
-        public static final TagKey<Item> FOODS_VEGETABLE = tag("foods_vegetable");
-        public static final TagKey<Item> FOODS_FRUIT = tag("foods_fruit");
-        public static final TagKey<Item> MUSHROOMS = tag("mushrooms");
-        public static final TagKey<Item> FOODS_GOLDEN = tag("foods_golden");
+        // "c:" common convention tags (populated by NeoForge/Fabric API, not by us)
+        public static final TagKey<Item> SEEDS = commonTag("seeds");
+        public static final TagKey<Item> CROPS = commonTag("crops");
+        public static final TagKey<Item> FOODS_RAW_MEAT = commonTag("foods/raw_meat");
+        public static final TagKey<Item> FOODS_RAW_FISH = commonTag("foods/raw_fish");
+        public static final TagKey<Item> FOODS_VEGETABLE = commonTag("foods/vegetable");
+        public static final TagKey<Item> FOODS_FRUIT = commonTag("foods/fruit");
+        public static final TagKey<Item> MUSHROOMS = commonTag("mushrooms");
+        public static final TagKey<Item> FOODS_GOLDEN = commonTag("foods/golden");
 
         public static final TagKey<Item> POTION_AMPLIFIER_UP_INGREDIENTS = tag("potion_amplifier_up_ingredients");
         public static final TagKey<Item> POTION_DURATION_UP_INGREDIENTS = tag("potion_duration_up_ingredients");
@@ -59,6 +60,10 @@ public class Tags {
 
         private static TagKey<Item> tag(String id) {
             return TagKey.create(Registries.ITEM, ppId(id));
+        }
+
+        private static TagKey<Item> commonTag(String id) {
+            return TagKey.create(Registries.ITEM, net.minecraft.resources.Identifier.fromNamespaceAndPath("c", id));
         }
     }
 }
