@@ -1,8 +1,6 @@
 package grill24.potionsplus.core.neoforge;
 
 import grill24.potionsplus.core.items.BrewingItems;
-import grill24.potionsplus.item.GeneticCropItem;
-import grill24.potionsplus.utility.Genotype;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -37,14 +35,6 @@ public class CreativeModeTabs {
     public static void registerTabs(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == POTIONS_PLUS_TAB_KEY) {
             for (Holder<Item> item : Items.ITEMS.getEntries()) {
-                if (item.value() instanceof GeneticCropItem) {
-                    // Add Genetic Crop Items to the tab
-                    ItemStack stack = new ItemStack(item.value());
-                    stack.set(DataComponents.GENETIC_DATA, new Genotype());
-                    event.accept(stack);
-                    continue;
-                }
-
                 event.accept(item.value());
             }
         }

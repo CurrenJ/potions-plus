@@ -1,9 +1,5 @@
 package grill24.potionsplus.utility.registration.item;
 
-import grill24.potionsplus.item.BrassicaOleraceaItem;
-import grill24.potionsplus.item.GeneticCropItem;
-import grill24.potionsplus.item.modelproperty.BrassicaOleraceaProperty;
-import grill24.potionsplus.item.modelproperty.GeneticProperty;
 import grill24.potionsplus.utility.registration.IModelGenerator;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -11,15 +7,12 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.resources.model.sprite.Material;
-import net.minecraft.client.renderer.item.RangeSelectItemModel;
-import net.minecraft.client.renderer.item.SelectItemModel;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 import org.jspecify.annotations.Nullable;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -190,152 +183,4 @@ public class ItemModelUtility {
         }
     }
 
-    public static class GeneticCropWeightOverrideModelGenerator<I extends Item> implements IModelGenerator<I> {
-        private final Supplier<Holder<I>> itemGetter;
-        private final Supplier<ItemTintSource> itemTintSourceSupplier;
-        private final ModelData[] modelData;
-
-        private final Identifier fallbackTexture;
-
-        @Override
-        public Holder<? extends I> getHolder() {
-            return itemGetter.get();
-        }
-
-        public record ModelData(float weightThreshold,
-                                boolean tintFirstLayer,
-                                Identifier... untintedLayerTextureLocations) {
-            ItemModel.Unbaked createModel(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Supplier<ItemTintSource> itemTintSource) {
-                if (untintedLayerTextureLocations.length == 0) {
-                    throw new IllegalArgumentException("At least one untinted layer texture location must be provided.");
-                }
-
-                Identifier modelLocation = untintedLayerTextureLocations[0];
-                TextureMapping textureMapping = new TextureMapping();
-
-                for (int i = 0; i < untintedLayerTextureLocations.length; i++) {
-                    textureMapping.put(TintedLayerItemModelGenerator.LAYERS[i], new Material(untintedLayerTextureLocations[i]));
-                }
-
-                List<ItemTintSource> itemTintSources = tintFirstLayer ?
-                        List.of(itemTintSource.get()) :
-                        List.of();
-
-                TintedLayerItemModelGenerator.LAYER_COUNT_TO_TEMPLATE.getOrDefault(untintedLayerTextureLocations.length, ModelTemplates.FLAT_ITEM)
-                        .create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
-
-                return ItemModelUtils.plainModel(modelLocation);
-            }
-        }
-
-        public GeneticCropWeightOverrideModelGenerator(Supplier<Holder<I>> itemGetter, Identifier fallbackTexture, Supplier<ItemTintSource> itemTintSourceSupplier, ModelData... data) {
-            super();
-            this.itemGetter = itemGetter;
-            this.itemTintSourceSupplier = itemTintSourceSupplier;
-            this.modelData = data;
-            this.fallbackTexture = fallbackTexture;
-        }
-
-        @Override
-        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
-            List<RangeSelectItemModel.Entry> entries = Arrays.stream(modelData)
-                    .map(data -> new RangeSelectItemModel.Entry(
-                            data.weightThreshold,
-                            data.createModel(blockModelGenerators, itemModelGenerators, itemTintSourceSupplier)
-                    ))
-                    .toList();
-
-            RangeSelectItemModel.Unbaked rangeSelectItemModel = new RangeSelectItemModel.Unbaked(
-                    Optional.empty(),
-                    new GeneticProperty(GeneticCropItem.WEIGHT_CHROMOSOME_INDEX),
-                    1.0F,
-                    entries,
-                    Optional.of(ItemModelUtils.tintedModel(
-                            ModelLocationUtils.getModelLocation(getHolder().value()),
-                            itemTintSourceSupplier.get()))
-            );
-
-            blockModelGenerators.itemModelOutput.accept(getHolder().value(), rangeSelectItemModel);
-        }
-
-        private ItemModel.Unbaked createFallbackModel(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
-            Identifier itemModelLocation = ModelLocationUtils.getModelLocation(getHolder().value());
-            Identifier fallbackModelLocation = Identifier.fromNamespaceAndPath(itemModelLocation.getNamespace(), itemModelLocation.getPath() + "_fallback");
-
-            TextureMapping textureMapping = new TextureMapping();
-            textureMapping.put(TextureSlot.LAYER0, new Material(fallbackModelLocation));
-
-            ModelTemplates.FLAT_ITEM.create(itemModelLocation, textureMapping, blockModelGenerators.modelOutput);
-
-            return ItemModelUtils.plainModel(fallbackModelLocation);
-        }
-    }
-
-    public static class BrassicaOleraceaModelGenerator<I extends Item> implements IModelGenerator<I> {
-        private final Supplier<Holder<I>> itemGetter;
-        private final ModelData modelData;
-
-        public BrassicaOleraceaModelGenerator(Supplier<Holder<I>> itemGetter, ModelData modelData) {
-            super();
-            this.itemGetter = itemGetter;
-            this.modelData = modelData;
-        }
-
-        public record ModelData(Identifier brassicaOleraceaTextureLocation,
-                                Identifier cabbageTextureLocation,
-                                Identifier kaleTextureLocation,
-                                Identifier broccoliTextureLocation,
-                                Identifier cauliflowerTextureLocation,
-                                Identifier brusselsSproutsTextureLocation,
-                                Identifier kohlrabiTextureLocation) {
-            Map<BrassicaOleraceaItem.Variation, ItemModel.Unbaked> createModels(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
-                return Map.of(
-                        BrassicaOleraceaItem.Variation.BRASSICA_OLERACEA, createModel(blockModelGenerators, itemModelGenerators, brassicaOleraceaTextureLocation),
-                        BrassicaOleraceaItem.Variation.CABBAGE, createModel(blockModelGenerators, itemModelGenerators, cabbageTextureLocation),
-                        BrassicaOleraceaItem.Variation.KALE, createModel(blockModelGenerators, itemModelGenerators, kaleTextureLocation),
-                        BrassicaOleraceaItem.Variation.BROCCOLI, createModel(blockModelGenerators, itemModelGenerators, broccoliTextureLocation),
-                        BrassicaOleraceaItem.Variation.CAULIFLOWER, createModel(blockModelGenerators, itemModelGenerators, cauliflowerTextureLocation),
-                        BrassicaOleraceaItem.Variation.BRUSSELS_SPROUTS, createModel(blockModelGenerators, itemModelGenerators, brusselsSproutsTextureLocation),
-                        BrassicaOleraceaItem.Variation.KOHLRABI, createModel(blockModelGenerators, itemModelGenerators, kohlrabiTextureLocation)
-                );
-            }
-
-            private ItemModel.Unbaked createModel(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators, Identifier textureLocation) {
-                Identifier modelLocation = textureLocation;
-                TextureMapping textureMapping = new TextureMapping();
-                textureMapping.put(TextureSlot.LAYER0, new Material(textureLocation));
-
-                ModelTemplates.FLAT_ITEM.create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
-                return ItemModelUtils.plainModel(modelLocation);
-            }
-        }
-
-        @Override
-        public void generate(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
-            Map<BrassicaOleraceaItem.Variation, ItemModel.Unbaked> entries = modelData.createModels(blockModelGenerators, itemModelGenerators);
-            List<SelectItemModel.SwitchCase<BrassicaOleraceaItem.Variation>> cases = entries.entrySet().stream()
-                    .map(entry -> new SelectItemModel.SwitchCase<>(
-                            List.of(entry.getKey()),
-                            entry.getValue()
-                    ))
-                    .toList();
-            SelectItemModel.UnbakedSwitch<BrassicaOleraceaProperty, BrassicaOleraceaItem.Variation> selectItemModel = new SelectItemModel.UnbakedSwitch<>(
-                    new BrassicaOleraceaProperty(),
-                    cases
-            );
-
-            SelectItemModel.Unbaked rangeSelectItemModel = new SelectItemModel.Unbaked(
-                    Optional.empty(),
-                    selectItemModel,
-                    Optional.of(entries.get(BrassicaOleraceaItem.Variation.BRASSICA_OLERACEA))
-            );
-
-            blockModelGenerators.itemModelOutput.accept(getHolder().value(), rangeSelectItemModel);
-        }
-
-        @Override
-        public Holder<? extends I> getHolder() {
-            return itemGetter.get();
-        }
-    }
 }

@@ -11,7 +11,6 @@ import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntityRenderer;
 import grill24.potionsplus.blockentity.PotionBeaconBlockEntityRenderer;
 import grill24.potionsplus.blockentity.SanguineAltarBlockEntityRenderer;
 import grill24.potionsplus.item.tintsource.AnyPotionTintSource;
-import grill24.potionsplus.item.tintsource.GeneticCropItemTintSource;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.neoforged.api.distmarker.Dist;
@@ -46,6 +45,5 @@ public class Renderers {
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.ItemTintSources event) {
         event.register(AnyPotionTintSource.ID, AnyPotionTintSource.CODEC);
-        event.register(GeneticCropItemTintSource.ID, GeneticCropItemTintSource.CODEC);
     }
 }

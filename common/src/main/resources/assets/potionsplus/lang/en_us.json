@@ -43,14 +43,6 @@
   "block.potionsplus.potion_beacon": "Potion Beacon",
   "block.potionsplus.potion_beacon.hint": "Try a potion...",
 
-  "container.potionsplus.small_filter_hopper": "Small Filter Hopper",
-  "container.potionsplus.large_filter_hopper": "Large Filter Hopper",
-  "container.potionsplus.huge_filter_hopper": "Huge Filter Hopper",
-  "container.potionsplus.filter_hopper.description": "A hopper that filters items.",
-  "block.potionsplus.small_filter_hopper": "Small Filter Hopper",
-  "block.potionsplus.large_filter_hopper": "Large Filter Hopper",
-  "block.potionsplus.huge_filter_hopper": "Huge Filter Hopper",
-
 
   "description.potionsplus.attribute.fortune_level": "Fortune",
 
@@ -182,16 +174,6 @@
   "jei.potionsplus.sulfur_shard.description": "A shard of sulfur. It stinks.",
   "item.potionsplus.sulfuric_acid": "Sulfuric Acid",
   "jei.potionsplus.sulfuric_acid.description": "A vile liquid that burns the skin. It's a little bit like lemon juice, but don't drink it.",
-
-  "item.potionsplus.upgrade_base": "Upgrade Base",
-  "item.potionsplus.filter_hopper_upgrade_blacklist": "Filter Hopper Upgrade: Blacklist",
-  "item.potionsplus.filter_hopper_upgrade_allow_armor": "Filter Hopper Upgrade: Allow Armor",
-  "item.potionsplus.filter_hopper_upgrade_allow_tools": "Filter Hopper Upgrade: Allow Tools",
-  "item.potionsplus.filter_hopper_upgrade_allow_food": "Filter Hopper Upgrade: Allow Food",
-  "item.potionsplus.filter_hopper_upgrade_allow_potions": "Filter Hopper Upgrade: Allow Potions",
-  "item.potionsplus.filter_hopper_upgrade_allow_enchanted": "Filter Hopper Upgrade: Allow Enchanted",
-  "item.potionsplus.filter_hopper_upgrade_allow_potion_ingredients": "Filter Hopper Upgrade: Allow Potion Ingredients",
-  "item.potionsplus.filter_hopper_upgrade_allow_edible_rewards": "Filter Hopper Upgrade: Allow Edible Rewards",
 
   "tooltip.potionsplus.or": "or",
 
@@ -601,23 +583,6 @@
   "entity.potionsplus.grungler": "Grungler",
 
   "tooltip.trait.weight.grams" : "§7§oWeight: %sg",
-  "tooltip.trait.color": "§7§oColor: %s",
-  "tooltip.trait.nutrition": "§7§oNutrition: %s",
-
-  "tooltip.trait.stem": "§7§oStem: %s",
-  "tooltip.trait.leaves": "§7§oLeaves: %s",
-  "tooltip.trait.flower_buds": "§7§oFlower Buds: %s",
-  "tooltip.trait.lateral_leaf_buds": "§7§oLateral Leaf Buds: %s",
-  "tooltip.trait.terminal_leaf_buds": "§7§oTerminal Leaf Buds: %s",
-
-  "item.potionsplus.tomato": "Tomato",
-  "item.potionsplus.brassica_oleracea": "Brassica Oleracea",
-  "item.potionsplus.cabbage": "Cabbage",
-  "item.potionsplus.cauliflower": "Cauliflower",
-  "item.potionsplus.kohlrabi": "Kohlrabi",
-  "item.potionsplus.broccoli": "Broccoli",
-  "item.potionsplus.kale": "Kale",
-  "item.potionsplus.brussels_sprouts": "Brussels Sprouts",
 
   "block.potionsplus.growing_mossy_cobblestone": "Growing Mossy Cobblestone",
   "block.potionsplus.growing_mossy_cobblestone_slab": "Growing Mossy Cobblestone Slab",

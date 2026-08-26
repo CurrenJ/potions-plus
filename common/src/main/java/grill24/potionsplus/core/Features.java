@@ -21,7 +21,6 @@ public class Features {
     public static final ResourceKey<PlacedFeature> POTIONS_PLUS_VEGETATION_PATCH_KEY = ResourceKey.create(Registries.PLACED_FEATURE, ppId("no_update_vegetation_patch"));
 
     public static Feature<PotionsPlusVegetationPatchConfiguration> POTIONS_PLUS_VEGETATION_PATCH = new PotionsPlusVegetationPatchFeature(PotionsPlusVegetationPatchConfiguration.CODEC);
-    public static Feature<GeneticCropConfiguration> GENETIC_CROP = new GeneticCropFeature(GeneticCropConfiguration.CODEC);
 
     public static Feature<?> FISSURE = new VolcanicFissureFeature(NoneFeatureConfiguration.CODEC);
     public static Feature<?> LAVA_GEYSER = new LavaGeyserFeature(NoneFeatureConfiguration.CODEC);
@@ -38,7 +37,6 @@ public class Features {
     @SuppressWarnings("unchecked")
     public static void init(BiFunction<String, Supplier<Feature<?>>, Holder<Feature<?>>> register) {
         register.apply(POTIONS_PLUS_VEGETATION_PATCH_KEY.identifier().getPath(), () -> POTIONS_PLUS_VEGETATION_PATCH);
-        register.apply("genetic_crop", () -> GENETIC_CROP);
         register.apply(ConfiguredFeatures.FISSURE_KEY.identifier().getPath(), () -> FISSURE);
         register.apply(ConfiguredFeatures.LAVA_GEYSER_KEY.identifier().getPath(), () -> LAVA_GEYSER);
         register.apply("icicle", () -> ICICLE);

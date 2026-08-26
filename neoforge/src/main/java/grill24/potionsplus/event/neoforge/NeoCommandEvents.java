@@ -1,10 +1,8 @@
 package grill24.potionsplus.event.neoforge;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.context.CommandContext;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.debug.Debug;
-import grill24.potionsplus.item.GeneticCropItem;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.utility.*;
@@ -15,7 +13,6 @@ import net.minecraft.server.permissions.Permissions;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.GameType;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -135,93 +132,6 @@ public class NeoCommandEvents {
                             return 1;
                         })
                 )
-                .then(Commands.literal("genetics")
-                        .then(Commands.literal("set")
-                                .then(Commands.literal("color")
-                                        .then(Commands.argument("value", IntegerArgumentType.integer())
-                                                .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
-                                                .executes(context -> {
-                                                    if (context.getSource().getEntity() instanceof ServerPlayer player) {
-                                                        int value = IntegerArgumentType.getInteger(context, "value");
-                                                        if (player.getMainHandItem().getItem() instanceof GeneticCropItem cropItem) {
-                                                            cropItem.setColorChromosomeValue(player.getMainHandItem(), value);
-                                                            context.getSource().sendSuccess(() -> Component.literal("Set genetic data on main hand item."), true);
-                                                        }
-                                                    }
-                                                    return 1;
-                                                })
-                                        )
-                                )
-                                .then(Commands.literal("weight")
-                                        .then(Commands.argument("value", IntegerArgumentType.integer())
-                                                .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
-                                                .executes(context -> {
-                                                    if (context.getSource().getEntity() instanceof ServerPlayer player) {
-                                                        int value = IntegerArgumentType.getInteger(context, "value");
-                                                        if (player.getMainHandItem().getItem() instanceof GeneticCropItem cropItem) {
-                                                            cropItem.setWeightChromosomeValue(player.getMainHandItem(), value);
-                                                            context.getSource().sendSuccess(() -> Component.literal("Set genetic data on main hand item."), true);
-                                                        }
-                                                    }
-                                                    return 1;
-                                                })
-                                        )
-                                )
-                                .then(Commands.argument("chromosomeIndex", IntegerArgumentType.integer())
-                                        .then(Commands.argument("value", IntegerArgumentType.integer())
-                                                .executes(context -> {
-                                                    if (context.getSource().getEntity() instanceof ServerPlayer player) {
-                                                        ItemStack stack = player.getMainHandItem();
-                                                        if (stack.getItem() instanceof GeneticCropItem cropItem) {
-                                                            int chromosomeIndex = IntegerArgumentType.getInteger(context, "chromosomeIndex");
-                                                            int value = IntegerArgumentType.getInteger(context, "value");
-                                                            ItemStack result = cropItem.setChromosomeValue(stack, chromosomeIndex, value);
-                                                            player.setItemInHand(player.getUsedItemHand(), result);
-                                                            context.getSource().sendSuccess(() -> Component.literal("Randomized genetic data on main hand item."), true);
-                                                        }
-                                                    }
-                                                    return 1;
-                                                })
-                                        )
-                                )
-                        )
-                        .then(Commands.literal("createOffspring")
-                                .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
-                                .executes(context -> createOffspring(context, 1))
-                                .then(Commands.argument("repeat", IntegerArgumentType.integer())
-                                        .executes(context -> createOffspring(context, IntegerArgumentType.getInteger(context, "repeat")))
-                                )
-                        )
-                )
         );
-    }
-
-    private static int createOffspring(CommandContext<CommandSourceStack> context, int repeat) {
-        if (context.getSource().getEntity() instanceof ServerPlayer player) {
-            for (int i = 0; i < repeat; i++) {
-                ItemStack mainHandItem = player.getMainHandItem();
-                ItemStack offHandItem = player.getOffhandItem();
-                if (mainHandItem.isEmpty() || offHandItem.isEmpty()) {
-                    context.getSource().sendFailure(Component.literal("You must have items in both hands to create offspring."));
-                    return 0;
-                }
-                grill24.potionsplus.utility.Genotype mainHandGenotype = mainHandItem.get(grill24.potionsplus.core.DataComponents.GENETIC_DATA);
-                grill24.potionsplus.utility.Genotype offHandGenotype = offHandItem.get(grill24.potionsplus.core.DataComponents.GENETIC_DATA);
-                if (mainHandGenotype == null || offHandGenotype == null) {
-                    context.getSource().sendFailure(Component.literal("Both items must have genetic data to create offspring."));
-                    return 0;
-                }
-                ItemStack offspring = new ItemStack(mainHandItem.getItem());
-                grill24.potionsplus.utility.Genotype offspringGenotype = grill24.potionsplus.utility.Genotype.crossover(mainHandGenotype, offHandGenotype);
-                offspringGenotype = grill24.potionsplus.utility.Genotype.tryUniformMutate(offspringGenotype, 0.01F);
-                offspring.set(grill24.potionsplus.core.DataComponents.GENETIC_DATA, offspringGenotype);
-                if (offspring.getItem() instanceof GeneticCropItem geneticCropItem) {
-                    offspring = geneticCropItem.onGeneticDataChanged(offspring);
-                }
-                grill24.potionsplus.utility.InvUtil.giveOrDropItem(player, offspring);
-            }
-            context.getSource().sendSuccess(() -> Component.literal("Created offspring item."), true);
-        }
-        return 1;
     }
 }

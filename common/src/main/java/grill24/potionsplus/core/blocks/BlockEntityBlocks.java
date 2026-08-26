@@ -1,18 +1,15 @@
 package grill24.potionsplus.core.blocks;
 
 import grill24.potionsplus.block.*;
-import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.block.BlockModelUtility;
 import grill24.potionsplus.utility.registration.block.SimpleBlockBuilder;
-import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -37,13 +34,11 @@ public class BlockEntityBlocks {
     public static Holder<Block> CLOTHESLINE;
     public static Holder<Block> POTION_BEACON;
 
-    public static Holder<Block> SMALL_FILTER_HOPPER, LARGE_FILTER_HOPPER, HUGE_FILTER_HOPPER;
-
     public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
-        init(registerBlock, registerItem, () -> OreItems.URANIUM_INGOT.value(), () -> OreBlocks.URANIUM_GLASS.value());
+        init(registerBlock, registerItem, () -> OreBlocks.URANIUM_GLASS.value());
     }
 
-    public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem, Supplier<Item> uraniumIngot, Supplier<Block> uraniumGlass) {
+    public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem, Supplier<Block> uraniumGlass) {
         BREWING_CAULDRON = RegistrationUtility.register(
                 registerBlock,
                 SimpleBlockBuilder.createSimple("brewing_cauldron")
@@ -171,63 +166,5 @@ public class BlockEntityBlocks {
                                         .unlockedBy("has_uranium_glass", recipeProvider.has(uraniumGlass.get()))))
         ).getHolder();
         RegistrationUtility.registerBlockItem(POTION_BEACON, registerItem);
-
-        SMALL_FILTER_HOPPER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("small_filter_hopper")
-                        .blockFactory(SmallFilterHopperBlock::new)
-                        .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER))
-                        .modelGenerator(null)
-                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                                (recipeProvider, h) ->
-                                        recipeProvider.shaped(RecipeCategory.REDSTONE, h.value())
-                                                .define('H', Items.HOPPER)
-                                                .define('C', Items.COMPARATOR)
-                                                .define('D', Items.REDSTONE)
-                                                .define('T', Items.REDSTONE_TORCH)
-                                                .define('S', Items.STONE)
-                                                .pattern("HCD")
-                                                .pattern("HTS")
-                                                .unlockedBy("has_hopper", recipeProvider.has(Items.HOPPER)))))
-                .getHolder();
-        RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple("small_filter_hopper")
-                .itemFactory(prop -> new BlockItem(SMALL_FILTER_HOPPER.value(), prop.useBlockDescriptionPrefix()))
-                .modelGenerator(null));
-
-        LARGE_FILTER_HOPPER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("large_filter_hopper")
-                        .blockFactory(LargeFilterHopperBlock::new)
-                        .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER))
-                        .modelGenerator(null)
-                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                                (recipeProvider, h) ->
-                                        recipeProvider.shaped(RecipeCategory.REDSTONE, h.value())
-                                                .define('H', SMALL_FILTER_HOPPER.value())
-                                                .define('D', Items.DIAMOND)
-                                                .define('G', Items.GOLD_INGOT)
-                                                .pattern("D")
-                                                .pattern("H")
-                                                .pattern("G")
-                                                .unlockedBy("has_hopper", recipeProvider.has(SMALL_FILTER_HOPPER.value())))))
-                .getHolder();
-        RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple("large_filter_hopper")
-                .itemFactory(prop -> new BlockItem(LARGE_FILTER_HOPPER.value(), prop.useBlockDescriptionPrefix()))
-                .modelGenerator(null));
-
-        HUGE_FILTER_HOPPER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("huge_filter_hopper")
-                        .blockFactory(HugeFilterHopperBlock::new)
-                        .properties(() -> BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER))
-                        .modelGenerator(null)
-                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                                (recipeProvider, h) ->
-                                        recipeProvider.shaped(RecipeCategory.REDSTONE, h.value())
-                                                .define('H', LARGE_FILTER_HOPPER.value())
-                                                .define('U', uraniumIngot.get())
-                                                .define('D', Items.DIAMOND)
-                                                .pattern("U")
-                                                .pattern("H")
-                                                .pattern("D")
-                                                .unlockedBy("has_hopper", recipeProvider.has(LARGE_FILTER_HOPPER.value())))))
-                .getHolder();
-        RegistrationUtility.register(registerItem, SimpleItemBuilder.createSimple("huge_filter_hopper")
-                .itemFactory(prop -> new BlockItem(HUGE_FILTER_HOPPER.value(), prop.useBlockDescriptionPrefix()))
-                .modelGenerator(null));
     }
 }

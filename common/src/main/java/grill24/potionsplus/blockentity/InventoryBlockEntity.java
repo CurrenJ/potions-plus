@@ -241,8 +241,7 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    // Legacy NBT serialization for subclasses (e.g. GeneticCropBlockEntity)
-    // Uses CompoundTag for network sync. For disk persistence, use loadAdditional/saveAdditional with ValueInput/ValueOutput.
+    // Legacy NBT serialization hook, kept for network sync. For disk persistence, use loadAdditional/saveAdditional with ValueInput/ValueOutput.
     public void writePacketNbt(CompoundTag tag, HolderLookup.Provider registryAccess) {
         // @BlockEntitySerializableData fields are now handled via saveAdditional(ValueOutput).
         // Subclasses should override loadAdditional/saveAdditional for new code.

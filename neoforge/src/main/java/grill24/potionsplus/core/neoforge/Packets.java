@@ -22,12 +22,6 @@ public class Packets {
                 (pkt, ctx) -> ServerboundConstructClotheslinePacket.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
         );
 
-        registrar.playToServer(
-                ServerboundSetupFilterHopperFromContainerPacket.TYPE,
-                ServerboundSetupFilterHopperFromContainerPacket.STREAM_CODEC,
-                (pkt, ctx) -> ServerboundSetupFilterHopperFromContainerPacket.ServerPayloadHandler.handleDataOnMain(pkt, new NeoPacketContext(ctx))
-        );
-
         // ----- Clientbound Packets -----
 
         registrar.playToClient(

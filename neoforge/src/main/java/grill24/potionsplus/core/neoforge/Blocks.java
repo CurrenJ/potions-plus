@@ -1,12 +1,8 @@
 package grill24.potionsplus.core.neoforge;
 
-import grill24.potionsplus.block.GeneticCropBlockEntity;
 import grill24.potionsplus.block.VersatilePlantBlock;
 import grill24.potionsplus.block.VersatilePlantBlockTexturePattern;
 import grill24.potionsplus.blockentity.*;
-import grill24.potionsplus.blockentity.filterhopper.HugeFilterHopperBlockEntity;
-import grill24.potionsplus.blockentity.filterhopper.LargeFilterHopperBlockEntity;
-import grill24.potionsplus.blockentity.filterhopper.SmallFilterHopperBlockEntity;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.neoforge.blocks.FlowerBlocks;
@@ -41,7 +37,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 @EventBusSubscriber(modid = ModInfo.MOD_ID)
@@ -64,11 +59,6 @@ public class Blocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AbyssalTroveBlockEntity>> ABYSSAL_TROVE_BLOCK_ENTITY = BLOCK_ENTITIES.register("abyssal_trove_block_entity", () -> new BlockEntityType<>(AbyssalTroveBlockEntity::new, BlockEntityBlocks.ABYSSAL_TROVE.value()));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ClotheslineBlockEntity>> CLOTHESLINE_BLOCK_ENTITY = BLOCK_ENTITIES.register("clothesline_block_entity", () -> new BlockEntityType<>(ClotheslineBlockEntity::new, BlockEntityBlocks.CLOTHESLINE.value()));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PotionBeaconBlockEntity>> POTION_BEACON_BLOCK_ENTITY = BLOCK_ENTITIES.register("potion_beacon_block_entity", () -> new BlockEntityType<>(PotionBeaconBlockEntity::new, BlockEntityBlocks.POTION_BEACON.value()));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SmallFilterHopperBlockEntity>> SMALL_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("small_filter_hopper_block_entity", () -> new BlockEntityType<>(SmallFilterHopperBlockEntity::new, BlockEntityBlocks.SMALL_FILTER_HOPPER.value()));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LargeFilterHopperBlockEntity>> LARGE_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("large_filter_hopper_block_entity", () -> new BlockEntityType<>(LargeFilterHopperBlockEntity::new, BlockEntityBlocks.LARGE_FILTER_HOPPER.value()));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HugeFilterHopperBlockEntity>> HUGE_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("huge_filter_hopper_block_entity", () -> new BlockEntityType<>(HugeFilterHopperBlockEntity::new, BlockEntityBlocks.HUGE_FILTER_HOPPER.value()));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GeneticCropBlockEntity>> GENETIC_CROP_BLOCK_ENTITY = BLOCK_ENTITIES.register("genetic_crop_block_entity", () -> new BlockEntityType<>(GeneticCropBlockEntity::new,
-            FlowerBlocks.GENETIC_CROP_PLANTS.stream().map(Holder::value).collect(Collectors.toSet())));
 
     static {
         grill24.potionsplus.core.Blocks.BREWING_CAULDRON_BLOCK_ENTITY = (Holder) (Object) BREWING_CAULDRON_BLOCK_ENTITY;
@@ -77,10 +67,6 @@ public class Blocks {
         grill24.potionsplus.core.Blocks.ABYSSAL_TROVE_BLOCK_ENTITY = (Holder) (Object) ABYSSAL_TROVE_BLOCK_ENTITY;
         grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY = (Holder) (Object) CLOTHESLINE_BLOCK_ENTITY;
         grill24.potionsplus.core.Blocks.POTION_BEACON_BLOCK_ENTITY = (Holder) (Object) POTION_BEACON_BLOCK_ENTITY;
-        grill24.potionsplus.core.Blocks.SMALL_FILTER_HOPPER_BLOCK_ENTITY = (Holder) (Object) SMALL_FILTER_HOPPER_BLOCK_ENTITY;
-        grill24.potionsplus.core.Blocks.LARGE_FILTER_HOPPER_BLOCK_ENTITY = (Holder) (Object) LARGE_FILTER_HOPPER_BLOCK_ENTITY;
-        grill24.potionsplus.core.Blocks.HUGE_FILTER_HOPPER_BLOCK_ENTITY = (Holder) (Object) HUGE_FILTER_HOPPER_BLOCK_ENTITY;
-        grill24.potionsplus.core.Blocks.GENETIC_CROP_BLOCK_ENTITY = (Holder) (Object) GENETIC_CROP_BLOCK_ENTITY;
     }
 
     

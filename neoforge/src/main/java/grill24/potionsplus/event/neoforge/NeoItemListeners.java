@@ -4,7 +4,6 @@ import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.core.Attributes;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.event.ItemListenersGame;
-import grill24.potionsplus.item.GeneticCropItem;
 import grill24.potionsplus.item.WeightDataComponent;
 import grill24.potionsplus.item.tooltip.BrewingTooltips;
 import grill24.potionsplus.item.tooltip.PotionEffectTooltips;
@@ -49,7 +48,6 @@ public class NeoItemListeners {
         if (event.getEntity() instanceof Player player) {
             ItemStack itemStack = event.getItemStack();
             AnimatedItemTooltipEvent.Add addEvent = new AnimatedItemTooltipEvent.Add(player, itemStack, tooltipMessages);
-            GeneticCropItem.onAnimatedTooltip(addEvent);
             WeightDataComponent.onTooltip(addEvent);
             BrewingTooltips.onBrewingTooltip(addEvent);
             PotionEffectTooltips.onPotionEffectTooltip(addEvent);

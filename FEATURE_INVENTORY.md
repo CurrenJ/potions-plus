@@ -141,14 +141,14 @@ the `enableSkills` config, which is itself a tell.
 `UnknownPotionIngredientReward` — a progression-gated way to learn brewing recipes — which
 could be re-homed onto something potion-native instead.
 
-## B. Filter Hoppers
+## B. Filter Hoppers ✅ *removed*
 
 Small / Large / Huge Filter Hopper + 8 upgrade items (blacklist, allow armor / tools / food /
 potions / enchanted / potion-ingredients / edible-rewards) + `UpgradeBaseItem` +
 `ServerboundSetupFilterHopperFromContainerPacket`. `blockentity/filterhopper/`.
 
-Pure logistics/tech-mod content. Zero alchemy connection. **Cut or spin off** — this is a
-complete standalone "better hoppers" mod hiding inside a potion mod.
+Pure logistics/tech-mod content. Zero alchemy connection. **Removed** — deleted entirely
+rather than spun off, matching how Skills/fishing/runtime-resource-injection were handled.
 
 ## C. Uranium / sulfur ore chain
 
