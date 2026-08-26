@@ -1,28 +1,20 @@
 package grill24.potionsplus.platform.neoforge;
 
 import grill24.potionsplus.event.neoforge.ServerPlayerHeldItemChangedEvent;
-import grill24.potionsplus.event.runtimeresource.neoforge.ClientInjectResourceStacksEvent;
-import grill24.potionsplus.event.runtimeresource.neoforge.ClientInjectResourcesEvent;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.ModLoader;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
-
-import java.util.List;
-import java.util.Map;
 
 public class PlatformImpl {
     public static boolean isClient() {
@@ -44,13 +36,5 @@ public class PlatformImpl {
 
     public static void fireCropGrowPost(Level level, BlockPos pos, BlockState state) {
         CommonHooks.fireCropGrowPost(level, pos, state);
-    }
-
-    public static void postClientInjectResourcesEvent(Map<Identifier, Resource> resources) {
-        ModLoader.postEvent(new ClientInjectResourcesEvent(resources));
-    }
-
-    public static void postClientInjectResourceStacksEvent(Map<Identifier, List<Resource>> resources) {
-        ModLoader.postEvent(new ClientInjectResourceStacksEvent(resources));
     }
 }
