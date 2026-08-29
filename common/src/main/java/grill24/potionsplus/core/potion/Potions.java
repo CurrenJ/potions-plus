@@ -192,8 +192,8 @@ public class Potions {
             .build(ALL_POTION_GENERATION_DATA::add);
 
     public static void init(BiFunction<String, Supplier<Potion>, Holder<Potion>> register) {
-        ANY_POTION = register.apply("any_potion", () -> new Potion("Any Potion", new MobEffectInstance(MobEffects.ANY_POTION, 1200, 0)));
-        ANY_OTHER_POTION = register.apply("any_other_potion", () -> new Potion("Any Other Potion", new MobEffectInstance(MobEffects.ANY_OTHER_POTION, 1200, 0)));
+        ANY_POTION = register.apply("any_potion", () -> new Potion("any_potion", new MobEffectInstance(MobEffects.ANY_POTION, 1200, 0)));
+        ANY_OTHER_POTION = register.apply("any_other_potion", () -> new Potion("any_other_potion", new MobEffectInstance(MobEffects.ANY_OTHER_POTION, 1200, 0)));
     }
 
     public static PotionBuilder.PotionsPlusPotionGenerationData[] getAllPotionAmpDurMatrices() {

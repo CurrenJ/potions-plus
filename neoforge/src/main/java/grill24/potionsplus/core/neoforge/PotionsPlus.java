@@ -53,7 +53,9 @@ public class PotionsPlus {
 
     static {
         // Set up PotionBuilder factory before Potions class loads (its static fields trigger registration)
-        PotionBuilder.potionFactory = (name, effectSupplier) -> POTIONS.register(name, () -> new net.minecraft.world.item.alchemy.Potion("Potion", effectSupplier.get()));
+        // The Potion constructor's first argument is the translation-key suffix appended to
+        // "item.minecraft.potion.effect." - not a display name. It must match the registry name.
+        PotionBuilder.potionFactory = (name, effectSupplier) -> POTIONS.register(name, () -> new net.minecraft.world.item.alchemy.Potion(name, effectSupplier.get()));
 
     }
 
