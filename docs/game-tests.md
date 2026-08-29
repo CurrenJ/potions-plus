@@ -26,6 +26,8 @@ Two suites, both in `common/src/testmod/java/grill24/potionsplus/gametest/`.
 | `mod_potions_match_across_containers` | `IGNORE_POTION_CONTAINER` lets a splash and a drinkable potion match; without it the container still matters. |
 | `builder_does_not_mutate_stacks_held_in_a_block_entity` | `PotionDataBuilder` leaves a stack alone even when it is live inside a block entity's inventory. |
 | `potion_display_name_uses_registry_path` | Every mod potion, in all four containers, names itself `<container prefix> + <registry path>`. Regression guard for `bdbdd61`. |
+| `effect_registry_icon_index_is_dense_and_unique` | `EffectRegistry.iconIndex` assigns every vanilla and mod effect a unique index in `[1, ICON_STACK_CAP]`. P-08. |
+| `effect_registry_excludes_marker_effects_from_the_passive_pool` | `ANY_POTION`/`ANY_OTHER_POTION` are structurally ineligible for the passive-effect pool, even with an empty blacklist. P-09. |
 
 ### `BrewingCauldronGameTests` — what the cauldron does to potions
 
@@ -49,6 +51,7 @@ experience gate.
 | `upgraded_potion_is_marked_rare` | Upgrade results are stamped rare. | sync |
 | `amplifier_upgrade_adds_its_delta_and_keeps_durations` | Amplifier rises by the recipe's delta; durations untouched. | sync |
 | `amplifier_upgrades_stack_when_repeated` | As above, composed. | sync |
+| `amplifier_upgrade_stops_at_the_ceiling` | Repeated upgrades stop climbing at `EffectScaling.MAX_AMPLIFIER` instead of stacking without limit. P-06. | sync |
 | `merging_two_potions_combines_their_effects` | Two potions with different effects merge into one carrying both. | sync |
 | `merge_keeps_the_whole_higher_amplifier_instance` | On a shared effect the merge keeps the *whole* higher-amplifier instance — so the surviving duration is that instance's, **not** the longer of the two. | sync |
 | `merged_potion_is_named_by_effect_count` | Three effects produce `merged_potions_3_effects`. | sync |
@@ -229,9 +232,9 @@ running datagen first.
 
 ## Unit tests, and which to use
 
-JUnit tests live in `common/src/test/java/grill24/potionsplus/alchemy/` — 88 tests across six
-classes, covering `PotionContainer`, `PotionData`, `PotionDataBuilder` and `EffectComparison`,
-plus `PUtilDivergenceTest`, which pins the legacy `PUtil` behaviour the alchemy package replaces.
+JUnit tests live in `common/src/test/java/grill24/potionsplus/alchemy/` — 70 tests across seven
+classes, covering `PotionContainer`, `PotionData`, `PotionDataBuilder`, `EffectComparison`, and
+`EffectScaling`.
 
 ```bash
 ./gradlew :common:test

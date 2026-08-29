@@ -3,6 +3,7 @@ package grill24.potionsplus.behaviour.neoforge;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.alchemy.EffectRegistry;
 import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.alchemy.PotionDataBuilder;
 import grill24.potionsplus.core.neoforge.LootModifiers;
@@ -23,7 +24,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -34,10 +34,12 @@ public class AddMobEffectsLootModifier extends LootModifier {
     ));
 
     private final Set<ResourceKey<MobEffect>> blacklistedEffects;
+    private final Supplier<List<Holder<MobEffect>>> eligibleEffects;
 
     public AddMobEffectsLootModifier(LootItemCondition[] conditionsIn, int priority, Set<ResourceKey<MobEffect>> blacklistedEffects) {
         super(conditionsIn, priority);
         this.blacklistedEffects = blacklistedEffects;
+        this.eligibleEffects = Suppliers.memoize(() -> EffectRegistry.passiveEligible(blacklistedEffects));
     }
 
     @Override
@@ -48,7 +50,7 @@ public class AddMobEffectsLootModifier extends LootModifier {
             if (Utility.isItemEligibleForPassivePotionEffects(stack) && context.getRandom().nextFloat() < 0.3F) {
                 int numEffects = (int) Math.round(Math.clamp(Utility.nextGaussian(1.25F, 0.5F, context.getRandom()), 1, 3));
                 for (int i = 0; i < numEffects; i++) {
-                    modifiedStack = addRandomPassivePotionEffect(context, modifiedStack, blacklistedEffects);
+                    modifiedStack = addRandomPassivePotionEffect(context, modifiedStack, eligibleEffects.get());
                 }
             }
             modifiedLoot.add(modifiedStack);
@@ -57,22 +59,15 @@ public class AddMobEffectsLootModifier extends LootModifier {
         return modifiedLoot;
     }
 
-    private static ItemStack addRandomPassivePotionEffect(LootContext context, ItemStack stack, Set<ResourceKey<MobEffect>> excludedEffects) {
-        net.minecraft.core.Registry<MobEffect> mobEffectRegistry = net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT;
-        Optional<Holder.Reference<MobEffect>> optionalHolder = mobEffectRegistry.getRandom(context.getRandom());
-        int attempts = 0;
-        while (optionalHolder.isPresent() && excludedEffects.contains(optionalHolder.get().key()) && attempts < 3) {
-            optionalHolder = mobEffectRegistry.getRandom(context.getRandom());
-            attempts++;
-        }
-
-        if (optionalHolder.isEmpty() || excludedEffects.contains(optionalHolder.get().key())) {
+    private static ItemStack addRandomPassivePotionEffect(LootContext context, ItemStack stack, List<Holder<MobEffect>> eligibleEffects) {
+        if (eligibleEffects.isEmpty()) {
             return stack;
         }
+        Holder<MobEffect> effect = eligibleEffects.get(context.getRandom().nextInt(eligibleEffects.size()));
 
         int amplifier = (int) Math.round(Math.clamp(Utility.nextGaussian(1, 1, context.getRandom()), 1F, 3F));
         int duration = context.getRandom().nextInt(4800) + 300;
-        MobEffectInstance effectInstance = new MobEffectInstance(optionalHolder.get(), duration, amplifier);
+        MobEffectInstance effectInstance = new MobEffectInstance(effect, duration, amplifier);
 
         List<MobEffectInstance> customEffects = new ArrayList<>(PotionData.read(stack).effects());
         customEffects.add(effectInstance);

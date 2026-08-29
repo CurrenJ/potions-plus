@@ -212,9 +212,19 @@ public final class PotionDataBuilder {
 
     // ----- terminals -----
 
+    /**
+     * Builds the potion data, clamping every custom effect's amplifier and duration to
+     * {@link EffectScaling#MAX_AMPLIFIER}/{@link EffectScaling#MAX_DURATION_TICKS}. This is the single
+     * site every write funnels through, so it is also the only place the clamp needs to live. Effects
+     * still linked through {@link #basePotion} are untouched - they belong to a registered {@link Potion}
+     * this class does not own, and existing saved potions of that kind are unaffected by the clamp.
+     */
     public PotionData build() {
-        return new PotionData(
-                this.basePotion, this.customColor, List.copyOf(this.customEffects), this.customName);
+        List<MobEffectInstance> clamped = new ArrayList<>(this.customEffects.size());
+        for (MobEffectInstance effect : this.customEffects) {
+            clamped.add(clampAmplifierAndDuration(effect));
+        }
+        return new PotionData(this.basePotion, this.customColor, List.copyOf(clamped), this.customName);
     }
 
     /**
@@ -235,5 +245,14 @@ public final class PotionDataBuilder {
                 effect.isAmbient(),
                 effect.isVisible(),
                 effect.showIcon());
+    }
+
+    private static MobEffectInstance clampAmplifierAndDuration(MobEffectInstance effect) {
+        int amplifier = EffectScaling.clampAmplifier(effect.getAmplifier());
+        int duration = EffectScaling.clampDuration(effect.getDuration());
+        if (amplifier == effect.getAmplifier() && duration == effect.getDuration()) {
+            return effect;
+        }
+        return withDurationAndAmplifier(effect, duration, amplifier);
     }
 }

@@ -72,7 +72,6 @@ public class PotionsPlus {
         // MobEffects.* holders directly at class-load time, so Potions.init() would otherwise
         // capture null for every custom (non-vanilla) effect.
         grill24.potionsplus.core.potion.MobEffects.init(MOB_EFFECTS::register);
-        grill24.potionsplus.core.potion.MobEffects.initIconIndexMap();
         grill24.potionsplus.core.potion.Potions.init(POTIONS::register);
 
         // Register platform-specific percentage attributes (NeoForge PercentageAttribute)

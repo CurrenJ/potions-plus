@@ -1,9 +1,9 @@
 package grill24.potionsplus.blockentity;
 
+import grill24.potionsplus.alchemy.EffectRegistry;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.items.DynamicIconItems;
-import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
@@ -13,8 +13,10 @@ import grill24.potionsplus.utility.ClientUtility;
 import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -73,14 +75,15 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                     }
                     // If the potion has effects, display the potion icon. No duplicates.
                     for (MobEffectInstance mobEffectInstance : outputEffects) {
-                        Identifier mobEffectId = mobEffectInstance.getEffect().unwrapKey().orElseThrow().identifier();
+                        Holder<MobEffect> mobEffect = mobEffectInstance.getEffect();
+                        Identifier mobEffectId = mobEffect.unwrapKey().orElseThrow().identifier();
 
                         boolean isMobEffectInIconDataAlready = potionIcons.containsKey(mobEffectId);
-                        boolean doesIconExistForMobEffect = MobEffects.POTION_ICON_INDEX_MAP.get().containsKey(mobEffectId);
+                        boolean doesIconExistForMobEffect = EffectRegistry.iconOrder().contains(mobEffect);
                         // If we haven't seen this MobEffect type yet and it has an icon, add it to the map of potion icons
                         if (!isMobEffectInIconDataAlready && doesIconExistForMobEffect) {
                             ItemStack displayStack = new ItemStack(DynamicIconItems.POTION_EFFECT_ICON.getValue(), 1);
-                            displayStack.setCount(MobEffects.POTION_ICON_INDEX_MAP.get().get(mobEffectId));
+                            displayStack.setCount(EffectRegistry.iconIndex(mobEffect));
                             potionIcons.put(mobEffectId, new IconData(PpIngredient.of(displayStack), new ArrayList<>()));
 
                             // Add the sub-icons to the potion icon.

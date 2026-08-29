@@ -206,6 +206,47 @@ class PotionDataBuilderTest extends AlchemyTestBase {
         assertEquals(1, data.effects().size());
     }
 
+    // ----- amplifier and duration ceilings -----
+
+    /** Every write funnels through {@code build()}, so the clamp applies regardless of which builder method wrote the effect. */
+    @Test
+    void buildClampsAmplifierToTheCeiling() {
+        PotionData data = PotionDataBuilder.fromEmpty()
+                .addEffect(effect(MobEffects.SPEED, 600, EffectScaling.MAX_AMPLIFIER + 50))
+                .build();
+
+        assertEquals(EffectScaling.MAX_AMPLIFIER, data.effect(MobEffects.SPEED).orElseThrow().getAmplifier());
+    }
+
+    @Test
+    void buildClampsDurationToTheCeiling() {
+        PotionData data = PotionDataBuilder.fromEmpty()
+                .addEffect(effect(MobEffects.SPEED, EffectScaling.MAX_DURATION_TICKS + 5000, 0))
+                .build();
+
+        assertEquals(EffectScaling.MAX_DURATION_TICKS, data.effect(MobEffects.SPEED).orElseThrow().getDuration());
+    }
+
+    /** Repeated {@code addAmplifier} calls compose past the ceiling but the final build still clamps. */
+    @Test
+    void addAmplifierStopsAtTheCeilingAfterRepeatedUpgrades() {
+        PotionDataBuilder builder = PotionDataBuilder.fromEmpty().addEffect(effect(MobEffects.SPEED, 600, 0));
+        for (int i = 0; i < EffectScaling.MAX_AMPLIFIER + 10; i++) {
+            builder.addAmplifier(1);
+        }
+
+        assertEquals(EffectScaling.MAX_AMPLIFIER, builder.build().effect(MobEffects.SPEED).orElseThrow().getAmplifier());
+    }
+
+    /** Effects still linked to a registered {@link net.minecraft.world.item.alchemy.Potion} are not the builder's to clamp. */
+    @Test
+    void buildDoesNotClampEffectsStillLinkedToABasePotion() {
+        PotionData data = PotionDataBuilder.fromEmpty().withBasePotion(Potions.REGENERATION).build();
+
+        int vanillaAmplifier = Potions.REGENERATION.value().getEffects().get(0).getAmplifier();
+        assertEquals(vanillaAmplifier, data.effect(MobEffects.REGENERATION).orElseThrow().getAmplifier());
+    }
+
     // ----- colour and name -----
 
     @Test

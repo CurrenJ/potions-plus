@@ -1,6 +1,7 @@
 package grill24.potionsplus.gametest;
 
 import grill24.potionsplus.alchemy.EffectComparison;
+import grill24.potionsplus.alchemy.EffectRegistry;
 import grill24.potionsplus.alchemy.PotionContainer;
 import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.alchemy.PotionDataBuilder;
@@ -10,16 +11,20 @@ import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * In-world coverage for the alchemy package: the things unit tests cannot reach because they need a
@@ -115,6 +120,48 @@ public final class AlchemyGameTests {
                 "same potion in different containers did not match with the container ignored");
         assertTrue(helper, !EffectComparison.matches(drinkable, splash),
                 "the container must still matter by default");
+        helper.succeed();
+    }
+
+    /**
+     * P-08: {@link EffectRegistry#iconIndex(Holder)} must assign every vanilla and mod effect a unique
+     * index in {@code [1, ICON_STACK_CAP]} - only reachable with the mod's effects actually registered.
+     */
+    public static void effectRegistryIconIndexIsDenseAndUnique(GameTestHelper helper) {
+        List<Holder<MobEffect>> order = EffectRegistry.iconOrder();
+        assertTrue(helper, !order.isEmpty(), "the icon order is empty");
+
+        Set<Integer> seenIndices = new HashSet<>();
+        for (Holder<MobEffect> effect : order) {
+            int index = EffectRegistry.iconIndex(effect);
+            assertTrue(helper, index >= 1 && index <= EffectRegistry.ICON_STACK_CAP,
+                    "icon index " + index + " for " + effect + " is outside [1, " + EffectRegistry.ICON_STACK_CAP + "]");
+            assertTrue(helper, seenIndices.add(index), "icon index " + index + " was assigned twice");
+        }
+
+        assertTrue(helper, order.contains(grill24.potionsplus.core.potion.MobEffects.MAGNETIC),
+                "a registered mod effect is missing from the icon order");
+        helper.succeed();
+    }
+
+    /**
+     * P-09: the two marker effects are structurally ineligible for the passive-effect roll, even with an
+     * empty datapack blacklist - only reachable with the mod's effects actually registered.
+     */
+    public static void effectRegistryExcludesMarkerEffectsFromThePassivePool(GameTestHelper helper) {
+        List<Holder<MobEffect>> pool = EffectRegistry.passiveEligible(Set.of());
+
+        assertTrue(helper, !pool.contains(grill24.potionsplus.core.potion.MobEffects.ANY_POTION),
+                "ANY_POTION was eligible for the passive-effect roll");
+        assertTrue(helper, !pool.contains(grill24.potionsplus.core.potion.MobEffects.ANY_OTHER_POTION),
+                "ANY_OTHER_POTION was eligible for the passive-effect roll");
+        assertTrue(helper, pool.contains(grill24.potionsplus.core.potion.MobEffects.MAGNETIC),
+                "a normal mod effect was excluded from the passive-effect pool");
+
+        for (Holder<MobEffect> effect : BuiltInRegistries.MOB_EFFECT.listElements().toList()) {
+            assertTrue(helper, !EffectRegistry.isMarker(effect) || !pool.contains(effect),
+                    "marker effect " + effect + " leaked into the passive-effect pool");
+        }
         helper.succeed();
     }
 

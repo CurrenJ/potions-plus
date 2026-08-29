@@ -1,13 +1,10 @@
 package grill24.potionsplus.core.potion;
 
 import grill24.potionsplus.effect.*;
-import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
-import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
@@ -34,9 +31,6 @@ public class MobEffects {
     public static Holder<MobEffect> SOUL_MATE;
     public static Holder<MobEffect> FLYING_TIME;
     public static Holder<MobEffect> BOUNCING;
-
-    public static Supplier<Map<Identifier, Integer>> POTION_ICON_INDEX_MAP;
-    public static final int POTION_EFFECT_INDEX_PROPERTY_DIVIDEND = 64;
 
     @SuppressWarnings("unchecked")
     public static void init(BiFunction<String, Supplier<MobEffect>, Holder<MobEffect>> register) {
@@ -84,12 +78,5 @@ public class MobEffects {
                 new FlyingTimeEffect(MobEffectCategory.BENEFICIAL, 0x035690));
         BOUNCING = register.apply("bouncing", () ->
                 new BouncingEffect(MobEffectCategory.BENEFICIAL, 0x035690));
-    }
-
-    /**
-     * Initializes the POTION_ICON_INDEX_MAP supplier. Called after effects are registered.
-     */
-    public static void initIconIndexMap() {
-        POTION_ICON_INDEX_MAP = Utility::getAllMobEffectsIconStackSizeMap;
     }
 }

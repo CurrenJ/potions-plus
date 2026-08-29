@@ -64,6 +64,10 @@ public class NeoForgeGameTestRegistration {
                 AlchemyGameTests::builderDoesNotMutateStacksHeldInABlockEntity);
         register(event, env, "potion_display_name_uses_registry_path",
                 AlchemyGameTests::potionDisplayNameUsesRegistryPath);
+        register(event, env, "effect_registry_icon_index_is_dense_and_unique",
+                AlchemyGameTests::effectRegistryIconIndexIsDenseAndUnique);
+        register(event, env, "effect_registry_excludes_marker_effects_from_the_passive_pool",
+                AlchemyGameTests::effectRegistryExcludesMarkerEffectsFromThePassivePool);
 
         // ----- brewing cauldron: mutation semantics (synchronous, no ticking) -----
         register(event, env, "duration_upgrade_adds_its_delta_to_every_effect",
@@ -80,6 +84,8 @@ public class NeoForgeGameTestRegistration {
                 BrewingCauldronGameTests::amplifierUpgradeAddsItsDeltaAndKeepsDurations);
         register(event, env, "amplifier_upgrades_stack_when_repeated",
                 BrewingCauldronGameTests::amplifierUpgradesStackWhenRepeated);
+        register(event, env, "amplifier_upgrade_stops_at_the_ceiling",
+                BrewingCauldronGameTests::amplifierUpgradeStopsAtTheCeiling);
 
         register(event, env, "merging_two_potions_combines_their_effects",
                 BrewingCauldronGameTests::mergingTwoPotionsCombinesTheirEffects);

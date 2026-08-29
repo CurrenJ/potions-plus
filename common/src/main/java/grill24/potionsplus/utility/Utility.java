@@ -415,31 +415,6 @@ public class Utility {
         return Identifier.fromNamespaceAndPath(resourceLocation.getNamespace(), path);
     }
 
-    /** Every vanilla or Potions Plus mob effect, sorted by registry name for consistent icon indexing. */
-    public static List<MobEffect> getAllMobEffects() {
-        List<MobEffect> effects = new ArrayList<>();
-        for (Map.Entry<ResourceKey<MobEffect>, MobEffect> value : BuiltInRegistries.MOB_EFFECT.entrySet()) {
-            if (value.getKey().identifier().getNamespace().equals("minecraft") || value.getKey().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
-                effects.add(value.getValue());
-            }
-        }
-
-        // Sort by name for consistency
-        // We use this list to map from overrides in the Potion Effect Icon model
-        effects.sort(Comparator.comparing(BuiltInRegistries.MOB_EFFECT::getKey));
-        return effects;
-    }
-
-    public static Map<Identifier, Integer> getAllMobEffectsIconStackSizeMap() {
-        Map<Identifier, Integer> effects = new HashMap<>();
-        int i = 0;
-        for (MobEffect value : getAllMobEffects()) {
-            i++;
-            effects.put(BuiltInRegistries.MOB_EFFECT.getKey(value), i);
-        }
-        return effects;
-    }
-
     public static float diminishingReturnsLn(float amplifier) {
         return (float) Math.log(amplifier + 1) + 1;
     }

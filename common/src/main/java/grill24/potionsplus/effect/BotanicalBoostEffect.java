@@ -1,5 +1,6 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.alchemy.EffectScaling;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -19,12 +20,7 @@ public class BotanicalBoostEffect extends MobEffect implements ITickingAreaToolt
 
     @Override
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
-        int j = getTickInterval(amplifier); // lv 0 = 10, lv 1 = 5, lv 2 = 2, lv 3 = 1
-        if (j > 0) {
-            return duration % j == 0;
-        } else {
-            return true;
-        }
+        return duration % getTickInterval(amplifier) == 0;
     }
 
     @Override
@@ -40,7 +36,7 @@ public class BotanicalBoostEffect extends MobEffect implements ITickingAreaToolt
         BlockPos pos = Utility.randomBlockPosInBox(origin, radius, 0, radius, random);
         BlockState blockState = serverLevel.getBlockState(pos);
         if (blockState.isRandomlyTicking()) {
-            for (int i = 0; i < amplifier + 1; i++) {
+            for (int i = 0; i < EffectScaling.clampAmplifier(amplifier) + 1; i++) {
                 blockState.randomTick(serverLevel, pos, random);
             }
         }
@@ -49,12 +45,12 @@ public class BotanicalBoostEffect extends MobEffect implements ITickingAreaToolt
 
     @Override
     public int getTickInterval(int amplifier) {
-        return 10 >> amplifier;
+        return EffectScaling.tickInterval(10, amplifier);
     }
 
     @Override
     public int getRadius(int amplifier) {
-        return 1 + amplifier;
+        return 1 + EffectScaling.clampAmplifier(amplifier);
     }
 
     @Override

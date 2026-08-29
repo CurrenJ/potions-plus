@@ -41,6 +41,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toSet());
         effectsBlacklist.add(grill24.potionsplus.core.potion.MobEffects.ANY_POTION.getKey());
+        effectsBlacklist.add(grill24.potionsplus.core.potion.MobEffects.ANY_OTHER_POTION.getKey());
 
         // Add Passive Potion Effects Loot Modifier
         this.add("add_mob_effects_to_tools_and_armor_loot_modifier",

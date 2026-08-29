@@ -23,10 +23,11 @@
  * method, so call sites reconstructed {@link net.minecraft.world.item.alchemy.PotionContents} by hand and
  * drifted apart. This package replaces it; {@code PUtil} was retired in phase 3.
  *
- * <h2>Deliberate omissions (phase 4)</h2>
- * <p>{@link grill24.potionsplus.alchemy.PotionDataBuilder} does not yet clamp amplifier or duration.
- * That belongs with {@code EffectScaling} and the global amplifier ceiling, which land together in phase 4.
- * Because every write funnels through {@link grill24.potionsplus.alchemy.PotionDataBuilder#build()},
- * adding the clamp later is a single-site change.
+ * <h2>Amplifier and duration ceilings</h2>
+ * <p>{@link grill24.potionsplus.alchemy.PotionDataBuilder#build()} clamps every custom effect's amplifier
+ * and duration to {@link grill24.potionsplus.alchemy.EffectScaling#MAX_AMPLIFIER} and
+ * {@link grill24.potionsplus.alchemy.EffectScaling#MAX_DURATION_TICKS}. Effects still linked through a
+ * registered {@link net.minecraft.world.item.alchemy.Potion} are not clamped - this package does not own
+ * that data, and existing saved potions of that kind are unaffected.
  */
 package grill24.potionsplus.alchemy;

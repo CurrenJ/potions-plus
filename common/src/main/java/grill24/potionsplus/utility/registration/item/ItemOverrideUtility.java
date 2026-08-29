@@ -1,7 +1,7 @@
 package grill24.potionsplus.utility.registration.item;
 
+import grill24.potionsplus.alchemy.EffectRegistry;
 import grill24.potionsplus.core.items.DynamicIconItems;
-import grill24.potionsplus.utility.Utility;
 import grill24.potionsplus.utility.registration.IModelGenerator;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.client.renderer.item.properties.numeric.Count;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
@@ -71,15 +70,15 @@ public class ItemOverrideUtility {
 
             ItemModel.Unbaked fallbackItemModel = ItemModelUtils.plainModel(mc("item/stick"));
 
-            List<RangeSelectItemModel.Entry> entries = Utility.getAllMobEffects().stream().map(mobEffect -> {
-                Identifier registryName = BuiltInRegistries.MOB_EFFECT.getKey(mobEffect);
+            List<RangeSelectItemModel.Entry> entries = EffectRegistry.iconOrder().stream().map(mobEffect -> {
+                Identifier registryName = mobEffect.unwrapKey().orElseThrow().identifier();
                 String name = "potion_effect_icon_" + registryName.getPath();
                 Identifier modelId = ppId("item/" + name);
 
                 TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, new Material(Identifier.fromNamespaceAndPath(registryName.getNamespace(), "mob_effect/" + registryName.getPath())));
                 Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, getModelOutput(blockModelGenerators));
 
-                float threshold = (grill24.potionsplus.core.potion.MobEffects.POTION_ICON_INDEX_MAP.get().get(registryName) - 1) / 64F;
+                float threshold = (EffectRegistry.iconIndex(mobEffect) - 1) / (float) EffectRegistry.ICON_STACK_CAP;
                 return ItemModelUtils.override(ItemModelUtils.plainModel(generatedItemModel), threshold);
             }).toList();
 
@@ -127,7 +126,7 @@ public class ItemOverrideUtility {
                 TextureMapping textureMapping = new TextureMapping().put(TextureSlot.LAYER0, new Material(texture));
                 Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, getModelOutput(blockModelGenerators));
 
-                float threshold = itemStackCount / 64F;
+                float threshold = itemStackCount / (float) EffectRegistry.ICON_STACK_CAP;
                 return ItemModelUtils.override(ItemModelUtils.plainModel(generatedItemModel), threshold);
             }).toList();
 

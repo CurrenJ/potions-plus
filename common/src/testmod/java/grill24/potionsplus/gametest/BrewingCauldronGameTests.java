@@ -179,6 +179,30 @@ public final class BrewingCauldronGameTests {
         helper.succeed();
     }
 
+    /**
+     * P-06: amplifier has no ceiling without {@link grill24.potionsplus.alchemy.EffectScaling}. Applying
+     * the upgrade enough times to exceed {@link grill24.potionsplus.alchemy.EffectScaling#MAX_AMPLIFIER}
+     * must clamp rather than keep climbing - amplifier 40 does not break the effect.
+     */
+    public static void amplifierUpgradeStopsAtTheCeiling(GameTestHelper helper) {
+        RecipeHolder<BrewingCauldronRecipe> upgrade = pureAmplifierUpgrade(helper);
+
+        BrewingCauldronBlockEntity cauldron = coldCauldron(helper);
+        ItemStack current = potionOf(effect(MobEffects.SPEED, 600, 0));
+
+        // Comfortably more repetitions than it takes to cross MAX_AMPLIFIER at any positive delta.
+        for (int i = 0; i < 40; i++) {
+            load(helper, cauldron, current, upgradeIngredient(helper, upgrade));
+            current = cauldron.getResultWithTransformations().copy();
+        }
+
+        int amplifier = PotionData.read(current).effect(MobEffects.SPEED).orElseThrow().getAmplifier();
+        assertTrue(helper, amplifier == grill24.potionsplus.alchemy.EffectScaling.MAX_AMPLIFIER,
+                "amplifier " + amplifier + " was not clamped to the ceiling after repeated upgrades");
+
+        helper.succeed();
+    }
+
     // ==================== merging ====================
 
     /** Two potions with different effects merge into one potion carrying both. */

@@ -1,5 +1,6 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.alchemy.EffectScaling;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -21,13 +22,7 @@ public class CropCollectorEffect extends MobEffect implements ITickingAreaToolti
 
     @Override
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
-        // 20 / 2^amplifier
-        int j = getTickInterval(amplifier); // lv 0 = 20, lv 1 = 10, lv 2 = 5, lv 3 = 2
-        if (j > 0) {
-            return duration % j == 0;
-        } else {
-            return false;
-        }
+        return duration % getTickInterval(amplifier) == 0;
     }
 
     @Override
@@ -49,11 +44,11 @@ public class CropCollectorEffect extends MobEffect implements ITickingAreaToolti
     }
 
     public int getTickInterval(int amplifier) {
-        return 20 >> amplifier;
+        return EffectScaling.tickInterval(20, amplifier);
     }
 
     public int getRadius(int amplifier) {
-        return 1 + amplifier;
+        return 1 + EffectScaling.clampAmplifier(amplifier);
     }
 
     @Override

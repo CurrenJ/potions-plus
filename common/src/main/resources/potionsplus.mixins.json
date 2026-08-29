@@ -17,7 +17,6 @@
     "ItemEntityMixin",
     "ItemMixin",
     "LivingEntityMixin",
-    "MobEffectInstanceMixin",
     "OreFeatureMixin",
     "PlayerMixin",
     "PotionItemMixin",
