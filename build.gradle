@@ -1,17 +1,43 @@
 plugins {
-    // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
-    id 'net.neoforged.moddev' version '2.0.88' apply false
+    id 'dev.architectury.loom-no-remap' version '1.14-SNAPSHOT' apply false
+    id 'architectury-plugin' version '3.5-SNAPSHOT'
+    id 'com.gradleup.shadow' version '8.3.6' apply false
+}
+
+architectury {
+    minecraft = project.minecraft_version
+}
+
+allprojects {
+    group = rootProject.maven_group
+    version = "${rootProject.mod_version}+${rootProject.minecraft_version}"
 }
 
 subprojects {
-    apply plugin: 'java'
+    apply plugin: 'dev.architectury.loom-no-remap'
+    apply plugin: 'architectury-plugin'
 
-    java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-    java.withSourcesJar()
-    java.withJavadocJar()
-        
+    base {
+        archivesName = "$rootProject.archives_name-$project.name"
+    }
+
+    dependencies {
+        minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
+        // loom-no-remap: MC 26.1+ is unobfuscated — no mappings dependency needed.
+    }
+
+    java {
+        withSourcesJar()
+        toolchain.languageVersion = JavaLanguageVersion.of(25)
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.encoding = 'UTF-8'
+        // No explicit options.release — toolchain handles it
+    }
+
     jar {
-        from(rootProject.file("license.txt")) {
+        from(rootProject.file('license.txt')) {
             rename { "${it}_${mod_name}" }
         }
         manifest {
@@ -23,76 +49,8 @@ subprojects {
                 'Implementation-Version'  : project.jar.archiveVersion,
                 'Implementation-Vendor'   : mod_authors,
                 'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                'Timestamp'               : System.currentTimeMillis(),
-                'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
                 'Built-On-Minecraft'      : minecraft_version
             ])
         }
     }
-
-    sourcesJar {
-        from(rootProject.file("license.txt")) {
-            rename { "${it}_${mod_name}" }
-        }
-    }
-
-    repositories {
-        mavenCentral()
-        maven {
-            // location of the maven that hosts JEI files since January 2023
-            name = "Jared's maven"
-            url = "https://maven.blamejared.com/"
-        }
-        maven {
-            // location of a maven mirror for JEI files, as a fallback
-            name = "ModMaven"
-            url = "https://modmaven.dev"
-        }
-        maven {
-            url = 'https://maven.minecraftforge.net/'
-        }
-
-    }
-
-    tasks.withType(JavaCompile).configureEach {
-    
-        it.options.encoding = 'UTF-8'
-        it.options.getRelease().set(21)
-    }
-
-    processResources {
-        def expandProps = [
-            "version": version,
-            "group": project.group, //Else we target the task's group.
-            "minecraft_version": minecraft_version,
-            "minecraft_version_range": minecraft_version_range,
-            "mod_name": mod_name,
-            "mod_authors": mod_authors,
-            "mod_id": mod_id,
-            "mod_license": mod_license,
-            "mod_version": mod_version,
-            "mod_description": mod_description,
-            "description": project.description,
-            "neoforge_version": neoforge_version,
-            "neo_version_range": neo_version_range,
-            "neoforge_loader_version_range": neoforge_loader_version_range,
-            "terrablender_version": terrablender_version,
-            "glitchcore_version": glitchcore_version,
-            "credits": credits
-        ]
-
-        filesMatching(['pack.mcmeta', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
-            expand expandProps
-        }
-        inputs.properties(expandProps)
-    }
-
-    // Disables Gradle's custom module metadata from being published to maven. The
-    // metadata includes mapped dependencies which are not reasonably consumable by
-    // other mod developers.
-    tasks.withType(GenerateModuleMetadata).configureEach {
-
-        enabled = false
-    }
 }
-

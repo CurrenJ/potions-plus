@@ -1,6 +1,0 @@
-{
-  "type": "potionsplus:ability",
-  "config": {
-    "configuredPlayerAbility": "potionsplus:skeleton_additional_loot_bone_block"
-  }
-}

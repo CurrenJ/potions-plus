@@ -1,8 +1,0 @@
-{
-  "type": "potionsplus:wheel",
-  "config": {
-    "lootTable": "potionsplus:gems_and_ores",
-    "numToSample": 8,
-    "translationKey": "tooltip.potionsplus.reward.gems_and_ores_wheel"
-  }
-}

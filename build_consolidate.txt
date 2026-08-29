@@ -1,0 +1,1044 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Task :common:compileJava UP-TO-DATE
+
+> Task :neoforge:compileJava FAILED
+warning: unknown enum constant EnvType.CLIENT
+  reason: class file for net.fabricmc.api.EnvType not found
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:19: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static final BlockCapability<IItemHandler, Direction> CLOTHESLINE_ITEM_HANDLER =
+                                        ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:24: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+                    IItemHandler.class);
+                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:37: warning: [removal] InvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+                        return new InvWrapper(leftClotheslineBlockEntity);
+                                   ^
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:25: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> PICKAXE_EFFICIENCY_MODIFIER = register(() ->
+                                                                                                                                                                             ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:34: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SUBMERGED_PICKAXE_EFFICIENCY_MODIFIER = register(() ->
+                                                                                                                                                                                       ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:43: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> PICKAXE_FORTUNE_MODIFIER = register(() ->
+                                                                                                                                                                          ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:52: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> PICKAXE_UNBREAKING_MODIFIER = register(() ->
+                                                                                                                                                                             ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:61: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder COPPER_ORE_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("copper_ore_additional_loot")
+                                                                                 ^
+  required: Supplier<T>
+  found:    ()->new Si[...]NING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:64: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder IRON_ORE_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("iron_ore_additional_loot")
+                                                                               ^
+  required: Supplier<T>
+  found:    ()->new Si[...]NING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:67: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS = register(() -> new SimplePlayerAbility.Builder("diamond_ore_additional_loot_emeralds")
+                                                                                           ^
+  required: Supplier<T>
+  found:    ()->new Si[...]NING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:70: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS = register(() -> new SimplePlayerAbility.Builder("diamond_ore_additional_loot_lapis")
+                                                                                        ^
+  required: Supplier<T>
+  found:    ()->new Si[...]NING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:75: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder WHEAT_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("wheat_additional_loot")
+                                                                            ^
+  required: Supplier<T>
+  found:    ()->new Si[...]MING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:78: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder CARROT_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("carrot_additional_loot")
+                                                                             ^
+  required: Supplier<T>
+  found:    ()->new Si[...]MING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:81: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder POTATO_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("potato_additional_loot")
+                                                                             ^
+  required: Supplier<T>
+  found:    ()->new Si[...]MING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:84: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder BEETROOT_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("beetroot_additional_loot")
+                                                                               ^
+  required: Supplier<T>
+  found:    ()->new Si[...]MING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:87: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder NETHER_WART_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("nether_wart_additional_loot")
+                                                                                  ^
+  required: Supplier<T>
+  found:    ()->new Si[...]MING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:90: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder COCOA_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("cocoa_additional_loot")
+                                                                            ^
+  required: Supplier<T>
+  found:    ()->new Si[...]MING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:95: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_EFFICIENCY_MODIFIER = register(() ->
+                                                                                                                                                                         ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:106: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SHOVEL_EFFICIENCY_MODIFIER = register(() ->
+                                                                                                                                                                            ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:117: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_EFFICIENCY_MODIFIER = register(() ->
+                                                                                                                                                                         ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:126: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_FORTUNE_MODIFIER = register(() ->
+                                                                                                                                                                      ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:135: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_UNBREAKING_MODIFIER = register(() ->
+                                                                                                                                                                         ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:146: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SWORD_SHARPNESS_MODIFIER = register(() ->
+                                                                                                                                                                          ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:155: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SWORD_LOOTING_MODIFIER = register(() ->
+                                                                                                                                                                        ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:165: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SWORD_UNBREAKING_MODIFIER = register(() ->
+                                                                                                                                                                           ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:174: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder CREEPER_SAND_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("creeper_additional_loot_sand")
+                                                                                   ^
+  required: Supplier<T>
+  found:    ()->new Si[...]SHIP)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:177: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder SKELETON_BONE_MEAL_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("skeleton_additional_loot_bone_meal")
+                                                                                         ^
+  required: Supplier<T>
+  found:    ()->new Si[...]SHIP)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:180: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final SimplePlayerAbility.Builder SKELETON_BONE_BLOCK_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("skeleton_additional_loot_bone_block")
+                                                                                          ^
+  required: Supplier<T>
+  found:    ()->new Si[...]SHIP)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:184: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_DAMAGE_MODIFIER = register(() ->
+                                                                                                                                                                     ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:193: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_SMITE_MODIFIER = register(() ->
+                                                                                                                                                                    ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:202: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_UNBREAKING_MODIFIER = register(() ->
+                                                                                                                                                                         ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:211: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_LOOTING_MODIFIER = register(() ->
+                                                                                                                                                                      ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:221: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_POWER_MODIFIER = register(() ->
+                                                                                                                                                                    ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:230: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_PUNCH_MODIFIER = register(() ->
+                                                                                                                                                                    ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:239: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_UNBREAKING_MODIFIER = register(() ->
+                                                                                                                                                                         ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:248: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_LOOTING_MODIFIER = register(() ->
+                                                                                                                                                                      ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:257: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_USE_SPEED_MODIFIER = register(() ->
+                                                                                                                                                                        ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:268: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> CROSSBOW_POWER_MODIFIER = register(() ->
+                                                                                                                                                                         ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:277: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> MOVEMENT_SPEED_MODIFIER = register(() ->
+                                                                                                                                                                         ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:285: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SPRINT_SPEED_MODIFIER = register(() ->
+                                                                                                                                                                       ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:293: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SNEAK_SPEED_MODIFIER = register(() ->
+                                                                                                                                                                      ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]true)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:302: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> JUMP_HEIGHT_MODIFIER = register(() ->
+                                                                                                                                                                      ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]alse)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:310: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SAFE_FALL_DISTANCE_MODIFIER = register(() ->
+                                                                                                                                                                             ^
+  required: Supplier<T>
+  found:    ()->new Pe[...]alse)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:319: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final DoubleJumpAbility.Builder DOUBLE_JUMP = register(() -> new DoubleJumpAbility.Builder("double_jump")
+                                                                ^
+  required: Supplier<T>
+  found:    ()->new Do[...]PING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:325: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final CooldownTriggerableAbility.Builder<ChainLightningAbility> CHAIN_LIGHTNING = register(() -> new CooldownTriggerableAbility.Builder<ChainLightningAbility>("chain_lightning")
+                                                                                                    ^
+  required: Supplier<T>
+  found:    ()->new Co[...]SHIP)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<ChainLightningAbility>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:331: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final CooldownTriggerableAbility.Builder<StunShotAbility> STUN_SHOT = register(() -> new CooldownTriggerableAbility.Builder<StunShotAbility>("stun_shot")
+                                                                                        ^
+  required: Supplier<T>
+  found:    ()->new Co[...]PING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<StunShotAbility>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:337: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final CooldownTriggerableAbility.Builder<SavedByTheBounceAbility> SAVED_BY_THE_BOUNCE = register(() -> new CooldownTriggerableAbility.Builder<SavedByTheBounceAbility>("saved_by_the_bounce")
+                                                                                                          ^
+  required: Supplier<T>
+  found:    ()->new Co[...]PING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<SavedByTheBounceAbility>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:343: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final CooldownTriggerableAbility.Builder<LastBreathAbility> LAST_BREATH = register(() -> new CooldownTriggerableAbility.Builder<LastBreathAbility>("last_breath")
+                                                                                            ^
+  required: Supplier<T>
+  found:    ()->new Co[...]NING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<LastBreathAbility>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:349: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+    public static final CooldownTriggerableAbility.Builder<HotPotatoAbility> HOT_POTATO = register(() -> new CooldownTriggerableAbility.Builder<HotPotatoAbility>("hot_potato")
+                                                                                          ^
+  required: Supplier<T>
+  found:    ()->new Co[...]NING)
+  reason: inference variable T has incompatible bounds
+    upper bounds: IAbilityBuilder<?>
+    lower bounds: Builder<HotPotatoAbility>
+  where T is a type-variable:
+    T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ServerLifecycleListeners.java:66: error: registerRecipeInjectionFunctions() is not public in Recipes; cannot be accessed from outside package
+        grill24.potionsplus.core.neoforge.Recipes.registerRecipeInjectionFunctions();
+                                                 ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\runtimeresource\ResourceListeners.java:21: error: incompatible types: grill24.potionsplus.event.runtimeresource.neoforge.GenerateRuntimeResourceInjectionsCacheEvent cannot be converted to grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent
+        RegistrationUtility.generateRuntimeResourceInjectionsCache(event);
+                                                                   ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\runtimeresource\TagUpdateListeners.java:17: error: method postEvent in class ModLoader cannot be applied to given types;
+            ModLoader.postEvent(new GenerateRuntimeResourceInjectionsCacheEvent());
+                     ^
+  required: T
+  found:    GenerateRuntimeResourceInjectionsCacheEvent
+  reason: inference variable T has incompatible bounds
+    upper bounds: Event,IModBusEvent
+    lower bounds: GenerateRuntimeResourceInjectionsCacheEvent
+  where T is a type-variable:
+    T extends Event,IModBusEvent declared in method <T>postEvent(T)
+Note: D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\blocks\neoforge\FlowerBlocks.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+49 errors
+36 warnings
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':neoforge:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:25: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> PICKAXE_EFFICIENCY_MODIFIER = register(() ->
+                                                                                                                                                                               ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:34: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SUBMERGED_PICKAXE_EFFICIENCY_MODIFIER = register(() ->
+                                                                                                                                                                                         ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:43: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> PICKAXE_FORTUNE_MODIFIER = register(() ->
+                                                                                                                                                                            ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:52: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> PICKAXE_UNBREAKING_MODIFIER = register(() ->
+                                                                                                                                                                               ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:61: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder COPPER_ORE_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("copper_ore_additional_loot")
+                                                                                   ^
+    required: Supplier<T>
+    found:    ()->new Si[...]NING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:64: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder IRON_ORE_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("iron_ore_additional_loot")
+                                                                                 ^
+    required: Supplier<T>
+    found:    ()->new Si[...]NING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:67: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS = register(() -> new SimplePlayerAbility.Builder("diamond_ore_additional_loot_emeralds")
+                                                                                             ^
+    required: Supplier<T>
+    found:    ()->new Si[...]NING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:70: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS = register(() -> new SimplePlayerAbility.Builder("diamond_ore_additional_loot_lapis")
+                                                                                          ^
+    required: Supplier<T>
+    found:    ()->new Si[...]NING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:75: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder WHEAT_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("wheat_additional_loot")
+                                                                              ^
+    required: Supplier<T>
+    found:    ()->new Si[...]MING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:78: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder CARROT_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("carrot_additional_loot")
+                                                                               ^
+    required: Supplier<T>
+    found:    ()->new Si[...]MING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:81: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder POTATO_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("potato_additional_loot")
+                                                                               ^
+    required: Supplier<T>
+    found:    ()->new Si[...]MING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:84: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder BEETROOT_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("beetroot_additional_loot")
+                                                                                 ^
+    required: Supplier<T>
+    found:    ()->new Si[...]MING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:87: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder NETHER_WART_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("nether_wart_additional_loot")
+                                                                                    ^
+    required: Supplier<T>
+    found:    ()->new Si[...]MING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:90: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder COCOA_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("cocoa_additional_loot")
+                                                                              ^
+    required: Supplier<T>
+    found:    ()->new Si[...]MING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:95: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_EFFICIENCY_MODIFIER = register(() ->
+                                                                                                                                                                           ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:106: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SHOVEL_EFFICIENCY_MODIFIER = register(() ->
+                                                                                                                                                                              ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:117: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_EFFICIENCY_MODIFIER = register(() ->
+                                                                                                                                                                           ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:126: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_FORTUNE_MODIFIER = register(() ->
+                                                                                                                                                                        ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:135: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> HOE_UNBREAKING_MODIFIER = register(() ->
+                                                                                                                                                                           ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:146: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SWORD_SHARPNESS_MODIFIER = register(() ->
+                                                                                                                                                                            ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:155: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SWORD_LOOTING_MODIFIER = register(() ->
+                                                                                                                                                                          ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:165: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SWORD_UNBREAKING_MODIFIER = register(() ->
+                                                                                                                                                                             ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:174: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder CREEPER_SAND_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("creeper_additional_loot_sand")
+                                                                                     ^
+    required: Supplier<T>
+    found:    ()->new Si[...]SHIP)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:177: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder SKELETON_BONE_MEAL_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("skeleton_additional_loot_bone_meal")
+                                                                                           ^
+    required: Supplier<T>
+    found:    ()->new Si[...]SHIP)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:180: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final SimplePlayerAbility.Builder SKELETON_BONE_BLOCK_ADDITIONAL_LOOT = register(() -> new SimplePlayerAbility.Builder("skeleton_additional_loot_bone_block")
+                                                                                            ^
+    required: Supplier<T>
+    found:    ()->new Si[...]SHIP)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:184: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_DAMAGE_MODIFIER = register(() ->
+                                                                                                                                                                       ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:193: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_SMITE_MODIFIER = register(() ->
+                                                                                                                                                                      ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:202: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_UNBREAKING_MODIFIER = register(() ->
+                                                                                                                                                                           ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:211: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> AXE_LOOTING_MODIFIER = register(() ->
+                                                                                                                                                                        ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:221: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_POWER_MODIFIER = register(() ->
+                                                                                                                                                                      ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:230: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_PUNCH_MODIFIER = register(() ->
+                                                                                                                                                                      ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:239: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_UNBREAKING_MODIFIER = register(() ->
+                                                                                                                                                                           ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:248: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_LOOTING_MODIFIER = register(() ->
+                                                                                                                                                                        ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:257: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> BOW_USE_SPEED_MODIFIER = register(() ->
+                                                                                                                                                                          ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:268: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> CROSSBOW_POWER_MODIFIER = register(() ->
+                                                                                                                                                                           ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:277: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> MOVEMENT_SPEED_MODIFIER = register(() ->
+                                                                                                                                                                           ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:285: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SPRINT_SPEED_MODIFIER = register(() ->
+                                                                                                                                                                         ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:293: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SNEAK_SPEED_MODIFIER = register(() ->
+                                                                                                                                                                        ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]true)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:302: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> JUMP_HEIGHT_MODIFIER = register(() ->
+                                                                                                                                                                        ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]alse)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:310: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final PermanentAttributeModifiersAbility.Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>> SAFE_FALL_DISTANCE_MODIFIER = register(() ->
+                                                                                                                                                                               ^
+    required: Supplier<T>
+    found:    ()->new Pe[...]alse)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<PermanentAttributeModifiersAbility<AttributeModifiersAbilityConfiguration>>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:319: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final DoubleJumpAbility.Builder DOUBLE_JUMP = register(() -> new DoubleJumpAbility.Builder("double_jump")
+                                                                  ^
+    required: Supplier<T>
+    found:    ()->new Do[...]PING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:325: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final CooldownTriggerableAbility.Builder<ChainLightningAbility> CHAIN_LIGHTNING = register(() -> new CooldownTriggerableAbility.Builder<ChainLightningAbility>("chain_lightning")
+                                                                                                      ^
+    required: Supplier<T>
+    found:    ()->new Co[...]SHIP)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<ChainLightningAbility>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:331: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final CooldownTriggerableAbility.Builder<StunShotAbility> STUN_SHOT = register(() -> new CooldownTriggerableAbility.Builder<StunShotAbility>("stun_shot")
+                                                                                          ^
+    required: Supplier<T>
+    found:    ()->new Co[...]PING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<StunShotAbility>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:337: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final CooldownTriggerableAbility.Builder<SavedByTheBounceAbility> SAVED_BY_THE_BOUNCE = register(() -> new CooldownTriggerableAbility.Builder<SavedByTheBounceAbility>("saved_by_the_bounce")
+                                                                                                            ^
+    required: Supplier<T>
+    found:    ()->new Co[...]PING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<SavedByTheBounceAbility>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:343: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final CooldownTriggerableAbility.Builder<LastBreathAbility> LAST_BREATH = register(() -> new CooldownTriggerableAbility.Builder<LastBreathAbility>("last_breath")
+                                                                                              ^
+    required: Supplier<T>
+    found:    ()->new Co[...]NING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<LastBreathAbility>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:349: error: method register in class ConfiguredPlayerAbilities cannot be applied to given types;
+      public static final CooldownTriggerableAbility.Builder<HotPotatoAbility> HOT_POTATO = register(() -> new CooldownTriggerableAbility.Builder<HotPotatoAbility>("hot_potato")
+                                                                                            ^
+    required: Supplier<T>
+    found:    ()->new Co[...]NING)
+    reason: inference variable T has incompatible bounds
+      upper bounds: IAbilityBuilder<?>
+      lower bounds: Builder<HotPotatoAbility>
+    where T is a type-variable:
+      T extends IAbilityBuilder<?> declared in method <T>register(Supplier<T>)
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\runtimeresource\TagUpdateListeners.java:17: error: method postEvent in class ModLoader cannot be applied to given types;
+              ModLoader.postEvent(new GenerateRuntimeResourceInjectionsCacheEvent());
+                       ^
+    required: T
+    found:    GenerateRuntimeResourceInjectionsCacheEvent
+    reason: inference variable T has incompatible bounds
+      upper bounds: Event,IModBusEvent
+      lower bounds: GenerateRuntimeResourceInjectionsCacheEvent
+    where T is a type-variable:
+      T extends Event,IModBusEvent declared in method <T>postEvent(T)
+  warning: unknown enum constant EnvType.CLIENT
+    reason: class file for net.fabricmc.api.EnvType not found
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\event\runtimeresource\ResourceListeners.java:21: error: incompatible types: grill24.potionsplus.event.runtimeresource.neoforge.GenerateRuntimeResourceInjectionsCacheEvent cannot be converted to grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent
+          RegistrationUtility.generateRuntimeResourceInjectionsCache(event);
+                                                                     ^
+  Note: D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\blocks\neoforge\FlowerBlocks.java uses unchecked or unsafe operations.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\ServerLifecycleListeners.java:66: error: registerRecipeInjectionFunctions() is not public in Recipes; cannot be accessed from outside package
+          grill24.potionsplus.core.neoforge.Recipes.registerRecipeInjectionFunctions();
+                                                   ^
+  Note: Recompile with -Xlint:unchecked for details.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:19: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+      public static final BlockCapability<IItemHandler, Direction> CLOTHESLINE_ITEM_HANDLER =
+                                          ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:24: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+                      IItemHandler.class);
+                      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:37: warning: [removal] InvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+                          return new InvWrapper(leftClotheslineBlockEntity);
+                                     ^
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  49 errors
+  36 warnings
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+2 actionable tasks: 1 executed, 1 up-to-date

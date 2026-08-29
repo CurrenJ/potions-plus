@@ -1,0 +1,71 @@
+package grill24.potionsplus.loot;
+
+import com.google.common.collect.ImmutableSet;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.core.LootItemConditions;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.context.ContextKey;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+/**
+ * A LootItemCondition that checks the {@linkplain LootContextParams#TOOL tool} against an {@link ItemPredicate}.
+ */
+public record IsInBiomeCondition(ImmutableSet<ResourceKey<Biome>> biomes) implements LootItemCondition {
+    public static final MapCodec<IsInBiomeCondition> MAP_CODEC = RecordCodecBuilder.mapCodec(codecBuilder -> codecBuilder.group(
+            ResourceKey.codec(Registries.BIOME).listOf()
+                    .xmap(ImmutableSet::copyOf, ArrayList::new)
+                    .fieldOf("biomes").forGetter(IsInBiomeCondition::biomes)).apply(codecBuilder, IsInBiomeCondition::new)
+    );
+
+    public IsInBiomeCondition {
+        // Sort the biomes to ensure consistent serialization - otherwise the order may change between runs
+        biomes = biomes.stream().sorted().collect(ImmutableSet.toImmutableSet());
+    }
+
+    @Override
+    public @NotNull MapCodec<IsInBiomeCondition> codec() {
+        return MAP_CODEC;
+    }
+
+    @Override
+    public @NotNull Set<ContextKey<?>> getReferencedContextParams() {
+        return ImmutableSet.of(LootContextParams.THIS_ENTITY, LootContextParams.ATTACKING_ENTITY);
+    }
+
+    public boolean test(LootContext context) {
+        List<Entity> entitiesToCheck = new ArrayList<>();
+
+        Optional.ofNullable(context.getOptionalParameter(LootContextParams.THIS_ENTITY))
+                .ifPresent(entitiesToCheck::add);
+        Optional.ofNullable(context.getOptionalParameter(LootContextParams.ATTACKING_ENTITY))
+                .ifPresent(entitiesToCheck::add);
+
+        Level level = context.getLevel();
+        for (Entity entity : entitiesToCheck) {
+            Optional<ResourceKey<Biome>> currentBiome = level.getBiome(entity.blockPosition()).unwrapKey();
+            if (currentBiome.isPresent() && biomes.contains(currentBiome.get())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @SafeVarargs
+    public static Builder isInBiome(ResourceKey<Biome>... key) {
+        return () -> new IsInBiomeCondition(ImmutableSet.copyOf(Set.of(key)));
+    }
+}

@@ -1,0 +1,1022 @@
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\AddMobEffectsLootModifier.java:6: error: cannot find symbol
+import grill24.potionsplus.core.LootModifiers;
+                               ^
+  symbol:   class LootModifiers
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\WormrootLootModifier.java:6: error: cannot find symbol
+import grill24.potionsplus.core.LootModifiers;
+                               ^
+  symbol:   class LootModifiers
+  location: package grill24.potionsplus.core
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:4: error: cannot find symbol
+import grill24.potionsplus.core.Items;
+                               ^
+  symbol:   class Items
+  location: package grill24.potionsplus.core
+warning: unknown enum constant EnvType.CLIENT
+  reason: class file for net.fabricmc.api.EnvType not found
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\AddMobEffectsLootModifier.java:56: error: package LootModifiers does not exist
+        return LootModifiers.ADD_MOB_EFFECTS.value();
+                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\WormrootLootModifier.java:69: error: package LootModifiers does not exist
+        return LootModifiers.WORMROOT.value();
+                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:54: error: cannot find symbol
+        Items.registerBlockItem(LUNAR_BERRY_BUSH, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:64: error: cannot find symbol
+        Items.registerBlockItemWithTexture(IRON_OXIDE_DAISY, registerItem, ppId("block/iron_oxide_daisy"));
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:74: error: cannot find symbol
+        Items.registerBlockItemWithTexture(COPPER_CHRYSANTHEMUM, registerItem, ppId("block/copper_chrysanthemum"));
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:84: error: cannot find symbol
+        Items.registerBlockItemWithTexture(LAPIS_LILAC, registerItem, ppId("block/lapis_lilac"));
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:94: error: cannot find symbol
+        Items.registerBlockItemWithTexture(DIAMOUR, registerItem, ppId("block/diamour"));
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:104: error: cannot find symbol
+        Items.registerBlockItemWithTexture(GOLDEN_CUBENSIS, registerItem, ppId("block/golden_cubensis"));
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:115: error: cannot find symbol
+        Items.registerBlockItemWithTexture(REDSTONE_ROSE, registerItem, ppId("block/redstone_rose"));
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:125: error: cannot find symbol
+        Items.registerBlockItemWithTexture(BLACK_COALLA_LILY, registerItem, ppId("block/black_coalla_lily"));
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:154: error: cannot find symbol
+        Items.registerBlockItem(COWLICK_VINE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:174: error: cannot find symbol
+        Items.registerBlockItem(HANGING_FERN, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:194: error: cannot find symbol
+        Items.registerBlockItem(DROOPY_VINE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:214: error: cannot find symbol
+        Items.registerBlockItem(SURVIVOR_STICK, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:239: error: cannot find symbol
+        Items.registerBlockItem(LUMOSEED_SACKS, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:249: error: cannot find symbol
+        Items.registerBlockItem(DANDELION_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:259: error: cannot find symbol
+        Items.registerBlockItem(TORCHFLOWER_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:269: error: cannot find symbol
+        Items.registerBlockItem(POPPY_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:279: error: cannot find symbol
+        Items.registerBlockItem(BLUE_ORCHID_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:289: error: cannot find symbol
+        Items.registerBlockItem(ALLIUM_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:299: error: cannot find symbol
+        Items.registerBlockItem(AZURE_BLUET_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:309: error: cannot find symbol
+        Items.registerBlockItem(RED_TULIP_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:319: error: cannot find symbol
+        Items.registerBlockItem(ORANGE_TULIP_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:329: error: cannot find symbol
+        Items.registerBlockItem(WHITE_TULIP_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:339: error: cannot find symbol
+        Items.registerBlockItem(PINK_TULIP_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:349: error: cannot find symbol
+        Items.registerBlockItem(OXEYE_DAISY_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:359: error: cannot find symbol
+        Items.registerBlockItem(CORNFLOWER_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:369: error: cannot find symbol
+        Items.registerBlockItem(WITHER_ROSE_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:379: error: cannot find symbol
+        Items.registerBlockItem(LILY_OF_THE_VALLEY_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:389: error: cannot find symbol
+        Items.registerBlockItem(BROWN_MUSHROOM_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:399: error: cannot find symbol
+        Items.registerBlockItem(RED_MUSHROOM_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:410: error: cannot find symbol
+        Items.registerBlockItem(SUNFLOWER_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:421: error: cannot find symbol
+        Items.registerBlockItem(LILAC_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:432: error: cannot find symbol
+        Items.registerBlockItem(ROSE_BUSH_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:443: error: cannot find symbol
+        Items.registerBlockItem(PEONY_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:455: error: cannot find symbol
+        Items.registerBlockItem(TALL_GRASS_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:467: error: cannot find symbol
+        Items.registerBlockItem(LARGE_FERN_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:478: error: cannot find symbol
+        Items.registerBlockItem(PITCHER_PLANT_VERSATILE, registerItem);
+        ^
+  symbol:   variable Items
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\Blocks.java:54: error: cannot find symbol
+        FlowerBlocks.init(BLOCKS::register, Items.ITEMS::register);
+                    ^
+  symbol:   method init(BLOCKS::register,Items.ITEM[...]ister)
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\Capabilities.java:19: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static final BlockCapability<IItemHandler, Direction> CLOTHESLINE_ITEM_HANDLER =
+                                        ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\Capabilities.java:24: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+                    IItemHandler.class);
+                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\Capabilities.java:37: warning: [removal] InvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+                        return new InvWrapper(leftClotheslineBlockEntity);
+                                   ^
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:25: error: cannot find symbol
+                    .parentSkill(ConfiguredSkills.MINING)
+                                 ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:24: error: cannot find symbol
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_EFFICIENCY)
+                                    ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:26: error: package PlayerAbilities does not exist
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:34: error: cannot find symbol
+                    .parentSkill(ConfiguredSkills.MINING)
+                                 ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:33: error: cannot find symbol
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SUBMERGED_PICKAXE_EFFICIENCY)
+                                    ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:35: error: package PlayerAbilities does not exist
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:43: error: cannot find symbol
+                    .parentSkill(ConfiguredSkills.MINING)
+                                 ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:42: error: cannot find symbol
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_FORTUNE)
+                                    ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:44: error: package PlayerAbilities does not exist
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:52: error: cannot find symbol
+                    .parentSkill(ConfiguredSkills.MINING)
+                                 ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:51: error: cannot find symbol
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_UNBREAKING)
+                                    ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:53: error: package PlayerAbilities does not exist
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:60: error: cannot find symbol
+            .parentSkill(ConfiguredSkills.MINING));
+                         ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:59: error: cannot find symbol
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_COPPER_ORE_ADDITIONAL_LOOT_IRON_NUGGETS)
+                            ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:63: error: cannot find symbol
+            .parentSkill(ConfiguredSkills.MINING));
+                         ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:62: error: cannot find symbol
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_IRON_ORE_ADDITIONAL_LOOT_GOLD_NUGGETS)
+                            ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:66: error: cannot find symbol
+            .parentSkill(ConfiguredSkills.MINING));
+                         ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:65: error: cannot find symbol
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS)
+                            ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:69: error: cannot find symbol
+            .parentSkill(ConfiguredSkills.MINING));
+                         ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:68: error: cannot find symbol
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS)
+                            ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:74: error: cannot find symbol
+            .parentSkill(ConfiguredSkills.FARMING));
+                         ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:73: error: cannot find symbol
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_WHEAT_ADDITIONAL_LOOT)
+                            ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:77: error: cannot find symbol
+            .parentSkill(ConfiguredSkills.FARMING));
+                         ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:76: error: cannot find symbol
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_CARROT_ADDITIONAL_LOOT)
+                            ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:80: error: cannot find symbol
+            .parentSkill(ConfiguredSkills.FARMING));
+                         ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:79: error: cannot find symbol
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_POTATO_ADDITIONAL_LOOT)
+                            ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:83: error: cannot find symbol
+            .parentSkill(ConfiguredSkills.FARMING));
+                         ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:82: error: cannot find symbol
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BEETROOT_ADDITIONAL_LOOT)
+                            ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:86: error: cannot find symbol
+            .parentSkill(ConfiguredSkills.FARMING));
+                         ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:85: error: cannot find symbol
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_NETHER_WART_ADDITIONAL_LOOT)
+                            ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:89: error: cannot find symbol
+            .parentSkill(ConfiguredSkills.FARMING));
+                         ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:88: error: cannot find symbol
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_COCOA_ADDITIONAL_LOOT)
+                            ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:95: error: cannot find symbol
+                    .parentSkill(ConfiguredSkills.WOODCUTTING)
+                                 ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:94: error: cannot find symbol
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_EFFICIENCY)
+                                    ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:96: error: package PlayerAbilities does not exist
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:106: error: cannot find symbol
+                    .parentSkill(ConfiguredSkills.MINING)
+                                 ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:105: error: cannot find symbol
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SHOVEL_EFFICIENCY)
+                                    ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:107: error: package PlayerAbilities does not exist
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:117: error: cannot find symbol
+                    .parentSkill(ConfiguredSkills.FARMING)
+                                 ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:116: error: cannot find symbol
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_EFFICIENCY)
+                                    ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:118: error: package PlayerAbilities does not exist
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:126: error: cannot find symbol
+                    .parentSkill(ConfiguredSkills.FARMING)
+                                 ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:125: error: cannot find symbol
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_FORTUNE)
+                                    ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:127: error: package PlayerAbilities does not exist
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:135: error: cannot find symbol
+                    .parentSkill(ConfiguredSkills.FARMING)
+                                 ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:134: error: cannot find symbol
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_UNBREAKING)
+                                    ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:136: error: package PlayerAbilities does not exist
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:146: error: cannot find symbol
+                    .parentSkill(ConfiguredSkills.SWORDSMANSHIP)
+                                 ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:145: error: cannot find symbol
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_SHARPNESS)
+                                    ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:147: error: package PlayerAbilities does not exist
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:155: error: cannot find symbol
+                    .parentSkill(ConfiguredSkills.SWORDSMANSHIP)
+                                 ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:154: error: cannot find symbol
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_LOOTING)
+                                    ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:156: error: package PlayerAbilities does not exist
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:165: error: cannot find symbol
+                    .parentSkill(ConfiguredSkills.SWORDSMANSHIP)
+                                 ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:164: error: cannot find symbol
+                    .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_UNBREAKING)
+                                    ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:166: error: package PlayerAbilities does not exist
+                    .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                            ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:173: error: cannot find symbol
+            .parentSkill(ConfiguredSkills.SWORDSMANSHIP));
+                         ^
+  symbol:   variable ConfiguredSkills
+  location: class ConfiguredPlayerAbilities
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:172: error: cannot find symbol
+            .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_CREEPER_ADDITIONAL_LOOT_SAND)
+                            ^
+  symbol:   variable Translations
+  location: class ConfiguredPlayerAbilities
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+Note: D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+100 errors
+36 warnings
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':neoforge:compileJava'.
+> Compilation failed; see the compiler output below.
+  warning: unknown enum constant EnvType.CLIENT
+    reason: class file for net.fabricmc.api.EnvType not found
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  warning: unknown enum constant EnvType.CLIENT
+  Note: D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java uses unchecked or unsafe operations.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\AddMobEffectsLootModifier.java:6: error: cannot find symbol
+  import grill24.potionsplus.core.LootModifiers;
+                                 ^
+    symbol:   class LootModifiers
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\WormrootLootModifier.java:6: error: cannot find symbol
+  import grill24.potionsplus.core.LootModifiers;
+                                 ^
+    symbol:   class LootModifiers
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:4: error: cannot find symbol
+  import grill24.potionsplus.core.Items;
+                                 ^
+    symbol:   class Items
+    location: package grill24.potionsplus.core
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:54: error: cannot find symbol
+          Items.registerBlockItem(LUNAR_BERRY_BUSH, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:64: error: cannot find symbol
+          Items.registerBlockItemWithTexture(IRON_OXIDE_DAISY, registerItem, ppId("block/iron_oxide_daisy"));
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:74: error: cannot find symbol
+          Items.registerBlockItemWithTexture(COPPER_CHRYSANTHEMUM, registerItem, ppId("block/copper_chrysanthemum"));
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:84: error: cannot find symbol
+          Items.registerBlockItemWithTexture(LAPIS_LILAC, registerItem, ppId("block/lapis_lilac"));
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:94: error: cannot find symbol
+          Items.registerBlockItemWithTexture(DIAMOUR, registerItem, ppId("block/diamour"));
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:104: error: cannot find symbol
+          Items.registerBlockItemWithTexture(GOLDEN_CUBENSIS, registerItem, ppId("block/golden_cubensis"));
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:115: error: cannot find symbol
+          Items.registerBlockItemWithTexture(REDSTONE_ROSE, registerItem, ppId("block/redstone_rose"));
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:125: error: cannot find symbol
+          Items.registerBlockItemWithTexture(BLACK_COALLA_LILY, registerItem, ppId("block/black_coalla_lily"));
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:154: error: cannot find symbol
+          Items.registerBlockItem(COWLICK_VINE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:174: error: cannot find symbol
+          Items.registerBlockItem(HANGING_FERN, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:194: error: cannot find symbol
+          Items.registerBlockItem(DROOPY_VINE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:214: error: cannot find symbol
+          Items.registerBlockItem(SURVIVOR_STICK, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:239: error: cannot find symbol
+          Items.registerBlockItem(LUMOSEED_SACKS, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:249: error: cannot find symbol
+          Items.registerBlockItem(DANDELION_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:259: error: cannot find symbol
+          Items.registerBlockItem(TORCHFLOWER_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:269: error: cannot find symbol
+          Items.registerBlockItem(POPPY_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:279: error: cannot find symbol
+          Items.registerBlockItem(BLUE_ORCHID_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:289: error: cannot find symbol
+          Items.registerBlockItem(ALLIUM_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:299: error: cannot find symbol
+          Items.registerBlockItem(AZURE_BLUET_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:309: error: cannot find symbol
+          Items.registerBlockItem(RED_TULIP_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:319: error: cannot find symbol
+          Items.registerBlockItem(ORANGE_TULIP_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:329: error: cannot find symbol
+          Items.registerBlockItem(WHITE_TULIP_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:339: error: cannot find symbol
+          Items.registerBlockItem(PINK_TULIP_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:349: error: cannot find symbol
+          Items.registerBlockItem(OXEYE_DAISY_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:359: error: cannot find symbol
+          Items.registerBlockItem(CORNFLOWER_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:369: error: cannot find symbol
+          Items.registerBlockItem(WITHER_ROSE_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:379: error: cannot find symbol
+          Items.registerBlockItem(LILY_OF_THE_VALLEY_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:389: error: cannot find symbol
+          Items.registerBlockItem(BROWN_MUSHROOM_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:399: error: cannot find symbol
+          Items.registerBlockItem(RED_MUSHROOM_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:410: error: cannot find symbol
+          Items.registerBlockItem(SUNFLOWER_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:421: error: cannot find symbol
+          Items.registerBlockItem(LILAC_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:432: error: cannot find symbol
+          Items.registerBlockItem(ROSE_BUSH_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:443: error: cannot find symbol
+          Items.registerBlockItem(PEONY_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:455: error: cannot find symbol
+          Items.registerBlockItem(TALL_GRASS_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:467: error: cannot find symbol
+          Items.registerBlockItem(LARGE_FERN_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\blocks\FlowerBlocks.java:478: error: cannot find symbol
+          Items.registerBlockItem(PITCHER_PLANT_VERSATILE, registerItem);
+          ^
+    symbol:   variable Items
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:25: error: cannot find symbol
+                      .parentSkill(ConfiguredSkills.MINING)
+                                   ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:24: error: cannot find symbol
+                      .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_EFFICIENCY)
+                                      ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:34: error: cannot find symbol
+                      .parentSkill(ConfiguredSkills.MINING)
+                                   ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:33: error: cannot find symbol
+                      .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SUBMERGED_PICKAXE_EFFICIENCY)
+                                      ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:43: error: cannot find symbol
+                      .parentSkill(ConfiguredSkills.MINING)
+                                   ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:42: error: cannot find symbol
+                      .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_FORTUNE)
+                                      ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:52: error: cannot find symbol
+                      .parentSkill(ConfiguredSkills.MINING)
+                                   ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:51: error: cannot find symbol
+                      .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_PICKAXE_UNBREAKING)
+                                      ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:60: error: cannot find symbol
+              .parentSkill(ConfiguredSkills.MINING));
+                           ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:59: error: cannot find symbol
+              .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_COPPER_ORE_ADDITIONAL_LOOT_IRON_NUGGETS)
+                              ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:63: error: cannot find symbol
+              .parentSkill(ConfiguredSkills.MINING));
+                           ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:62: error: cannot find symbol
+              .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_IRON_ORE_ADDITIONAL_LOOT_GOLD_NUGGETS)
+                              ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:66: error: cannot find symbol
+              .parentSkill(ConfiguredSkills.MINING));
+                           ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:65: error: cannot find symbol
+              .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_EMERALDS)
+                              ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:69: error: cannot find symbol
+              .parentSkill(ConfiguredSkills.MINING));
+                           ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:68: error: cannot find symbol
+              .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_DIAMOND_ORE_ADDITIONAL_LOOT_LAPIS)
+                              ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:74: error: cannot find symbol
+              .parentSkill(ConfiguredSkills.FARMING));
+                           ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:73: error: cannot find symbol
+              .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_WHEAT_ADDITIONAL_LOOT)
+                              ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:77: error: cannot find symbol
+              .parentSkill(ConfiguredSkills.FARMING));
+                           ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:76: error: cannot find symbol
+              .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_CARROT_ADDITIONAL_LOOT)
+                              ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:80: error: cannot find symbol
+              .parentSkill(ConfiguredSkills.FARMING));
+                           ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:79: error: cannot find symbol
+              .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_POTATO_ADDITIONAL_LOOT)
+                              ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:83: error: cannot find symbol
+              .parentSkill(ConfiguredSkills.FARMING));
+                           ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:82: error: cannot find symbol
+              .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_BEETROOT_ADDITIONAL_LOOT)
+                              ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:86: error: cannot find symbol
+              .parentSkill(ConfiguredSkills.FARMING));
+                           ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:85: error: cannot find symbol
+              .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_NETHER_WART_ADDITIONAL_LOOT)
+                              ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:89: error: cannot find symbol
+              .parentSkill(ConfiguredSkills.FARMING));
+                           ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:88: error: cannot find symbol
+              .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_COCOA_ADDITIONAL_LOOT)
+                              ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:95: error: cannot find symbol
+                      .parentSkill(ConfiguredSkills.WOODCUTTING)
+                                   ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:94: error: cannot find symbol
+                      .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_AXE_EFFICIENCY)
+                                      ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:106: error: cannot find symbol
+                      .parentSkill(ConfiguredSkills.MINING)
+                                   ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:105: error: cannot find symbol
+                      .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SHOVEL_EFFICIENCY)
+                                      ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:117: error: cannot find symbol
+                      .parentSkill(ConfiguredSkills.FARMING)
+                                   ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:116: error: cannot find symbol
+                      .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_EFFICIENCY)
+                                      ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:126: error: cannot find symbol
+                      .parentSkill(ConfiguredSkills.FARMING)
+                                   ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:125: error: cannot find symbol
+                      .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_FORTUNE)
+                                      ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:135: error: cannot find symbol
+                      .parentSkill(ConfiguredSkills.FARMING)
+                                   ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:134: error: cannot find symbol
+                      .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_HOE_UNBREAKING)
+                                      ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:146: error: cannot find symbol
+                      .parentSkill(ConfiguredSkills.SWORDSMANSHIP)
+                                   ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:145: error: cannot find symbol
+                      .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_SHARPNESS)
+                                      ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:155: error: cannot find symbol
+                      .parentSkill(ConfiguredSkills.SWORDSMANSHIP)
+                                   ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:154: error: cannot find symbol
+                      .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_LOOTING)
+                                      ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:165: error: cannot find symbol
+                      .parentSkill(ConfiguredSkills.SWORDSMANSHIP)
+                                   ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:164: error: cannot find symbol
+                      .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_SWORD_UNBREAKING)
+                                      ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:173: error: cannot find symbol
+              .parentSkill(ConfiguredSkills.SWORDSMANSHIP));
+                           ^
+    symbol:   variable ConfiguredSkills
+    location: class ConfiguredPlayerAbilities
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:172: error: cannot find symbol
+              .translationKey(Translations.DESCRIPTION_POTIONSPLUS_ABILITY_CREEPER_ADDITIONAL_LOOT_SAND)
+                              ^
+    symbol:   variable Translations
+    location: class ConfiguredPlayerAbilities
+  Note: Recompile with -Xlint:unchecked for details.
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\Capabilities.java:19: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+      public static final BlockCapability<IItemHandler, Direction> CLOTHESLINE_ITEM_HANDLER =
+                                          ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\Capabilities.java:24: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+                      IItemHandler.class);
+                      ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\Capabilities.java:37: warning: [removal] InvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+                          return new InvWrapper(leftClotheslineBlockEntity);
+                                     ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\Blocks.java:54: error: cannot find symbol
+          FlowerBlocks.init(BLOCKS::register, Items.ITEMS::register);
+                      ^
+    symbol:   method init(BLOCKS::register,Items.ITEM[...]ister)
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\AddMobEffectsLootModifier.java:56: error: package LootModifiers does not exist
+          return LootModifiers.ADD_MOB_EFFECTS.value();
+                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\behaviour\WormrootLootModifier.java:69: error: package LootModifiers does not exist
+          return LootModifiers.WORMROOT.value();
+                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:26: error: package PlayerAbilities does not exist
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:35: error: package PlayerAbilities does not exist
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:44: error: package PlayerAbilities does not exist
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:53: error: package PlayerAbilities does not exist
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:96: error: package PlayerAbilities does not exist
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:107: error: package PlayerAbilities does not exist
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:118: error: package PlayerAbilities does not exist
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:127: error: package PlayerAbilities does not exist
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:136: error: package PlayerAbilities does not exist
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:147: error: package PlayerAbilities does not exist
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:156: error: package PlayerAbilities does not exist
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                              ^
+  D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\neoforge\ConfiguredPlayerAbilities.java:166: error: package PlayerAbilities does not exist
+                      .ability(PlayerAbilities.MODIFIERS_WHILE_ITEM_HELD.value())
+                                              ^
+  100 errors
+  36 warnings
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s

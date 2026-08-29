@@ -1,0 +1,33 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Task :common:compileJava
+Note: D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\AttributeModifiersWhileHeldAbility.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :neoforge:compileJava
+warning: unknown enum constant EnvType.CLIENT
+  reason: class file for net.fabricmc.api.EnvType not found
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+Note: D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\blocks\FlowerBlocks.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+12 warnings
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 2s
+2 actionable tasks: 2 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.2.1/userguide/configuration_cache_enabling.html

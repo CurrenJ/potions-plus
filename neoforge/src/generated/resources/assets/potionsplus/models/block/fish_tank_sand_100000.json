@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/block",
-  "textures": {
-    "particle": "minecraft:block/sand",
-    "sand": "minecraft:block/sand"
-  }
-}

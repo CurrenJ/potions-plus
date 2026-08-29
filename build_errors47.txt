@@ -1,0 +1,21 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :common:compileJava
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 7s
+1 actionable task: 1 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.2.1/userguide/configuration_cache_enabling.html

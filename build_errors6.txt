@@ -1,0 +1,769 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :neoforge:processResources UP-TO-DATE
+> Task :neoforge:processIncludeJars UP-TO-DATE
+> Task :neoforge:sourcesJar
+> Task :neoforge:processTestResources NO-SOURCE
+> Task :neoforge:validateAccessWidener NO-SOURCE
+
+> Task :common:compileJava
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:3: error: cannot find symbol
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                      ^
+  symbol:   class FlowerBlocks
+  location: package grill24.potionsplus.core.blocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\item\TomatoItem.java:4: error: cannot find symbol
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                      ^
+  symbol:   class FlowerBlocks
+  location: package grill24.potionsplus.core.blocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:7: error: cannot find symbol
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                      ^
+  symbol:   class FlowerBlocks
+  location: package grill24.potionsplus.core.blocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:3: error: cannot find symbol
+import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                      ^
+  symbol:   class FlowerBlocks
+  location: package grill24.potionsplus.core.blocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:27: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BRASSICA_OLERACEA_PLANT.value()))
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:32: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.CABBAGE_PLANT.value()))
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:37: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.KALE_PLANT.value()))
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:42: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BROCCOLLI_PLANT.value()))
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:47: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.CAULIFLOWER_PLANT.value()))
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:52: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BRUSSELS_SPROUTS_PLANT.value()))
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:57: error: package FlowerBlocks does not exist
+                .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.KOHLRABI_PLANT.value()))
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\item\TomatoItem.java:10: error: package FlowerBlocks does not exist
+        super(FlowerBlocks.TOMATO_PLANT.value(), properties);
+                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\ShapelessProcessingRecipeBuilder.java:106: error: defaultId() in ShapelessProcessingRecipeBuilder cannot implement defaultId() in RecipeBuilder
+    public Identifier defaultId() {
+                      ^
+  return type Identifier is not compatible with ResourceKey<Recipe<?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\ShapelessProcessingRecipeBuilder.java:105: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\ShapelessProcessingRecipeBuilder.java:107: error: cannot find symbol
+        return getResult().getRegisteredName();
+                          ^
+  symbol:   method getRegisteredName()
+  location: class Item
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\abyssaltroverecipe\SanguineAltarRecipeBuilder.java:12: error: SanguineAltarRecipeBuilder is not abstract and does not override abstract method defaultId() in RecipeBuilder
+public class SanguineAltarRecipeBuilder extends ShapelessProcessingRecipeBuilder<SanguineAltarRecipe, SanguineAltarRecipeBuilder> {
+       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\brewingcauldronrecipe\BrewingCauldronRecipeBuilder.java:16: error: BrewingCauldronRecipeBuilder is not abstract and does not override abstract method defaultId() in RecipeBuilder
+public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuilder<BrewingCauldronRecipe, BrewingCauldronRecipeBuilder> {
+       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\clotheslinerecipe\ClotheslineRecipeBuilder.java:13: error: ClotheslineRecipeBuilder is not abstract and does not override abstract method defaultId() in RecipeBuilder
+public class ClotheslineRecipeBuilder extends ShapelessProcessingRecipeBuilder<ClotheslineRecipe, ClotheslineRecipeBuilder> {
+       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\ResourceUtility.java:46: error: cannot find symbol
+        Identifier blockStateLocation = blockHolder.getKey().identifier().withPrefix("blockstates/").withSuffix(".json");
+                                                   ^
+  symbol:   method getKey()
+  location: variable blockHolder of type Holder<? extends Block>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\ResourceUtility.java:51: error: cannot find symbol
+                ModState.LOGGER.error("Couldn't find blockstate JSON for block: {}", blockHolder.getKey().identifier());
+                                                                                                ^
+  symbol:   method getKey()
+  location: variable blockHolder of type Holder<? extends Block>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:33: error: globalOverworldGeneration(Builder) has private access in OverworldBiomes
+        OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:51: error: cannot find symbol
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                          ^
+  symbol:   variable AmbientMoodSettings
+  location: class AridCave
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:48: error: cannot find symbol
+                        .waterFogColor(0x050533)
+                        ^
+  symbol:   method waterFogColor(int)
+  location: class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:59: error: globalOverworldGeneration(Builder) has private access in OverworldBiomes
+        OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:83: error: cannot find symbol
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                          ^
+  symbol:   variable AmbientMoodSettings
+  location: class IceCave
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:79: error: cannot find symbol
+                        .waterFogColor(0x050533)
+                        ^
+  symbol:   method waterFogColor(int)
+  location: class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:65: error: cannot find symbol
+        Biomes.globalOverworldGeneration(biomegenerationsettings$builder);
+              ^
+  symbol:   method globalOverworldGeneration(Builder)
+  location: class Biomes
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:85: error: cannot find symbol
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                          ^
+  symbol:   variable AmbientMoodSettings
+  location: class VolcanicCave
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:80: error: cannot find symbol
+                        .waterFogColor(11809282)
+                        ^
+  symbol:   method waterFogColor(int)
+  location: class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:105: error: cannot find symbol
+        final Holder<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH = register(context, LUNAR_BERRY_BUSH_KEY, Feature.RANDOM_PATCH,
+                                                                                                                ^
+  symbol:   variable RANDOM_PATCH
+  location: class Feature
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:106: error: cannot find symbol
+                new RandomPatchConfiguration(32, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+                    ^
+  symbol:   class RandomPatchConfiguration
+  location: class ConfiguredFeatures
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:109: error: package FlowerBlocks does not exist
+                                .add(FlowerBlocks.LUNAR_BERRY_BUSH.value().defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 1)
+                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:113: error: cannot find symbol
+        final Holder<ConfiguredFeature<?, ?>> TOMATO_PATCH = register(context, TOMATO_PATCH_KEY, Feature.RANDOM_PATCH,
+                                                                                                        ^
+  symbol:   variable RANDOM_PATCH
+  location: class Feature
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:114: error: cannot find symbol
+                new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
+                    ^
+  symbol:   class RandomPatchConfiguration
+  location: class ConfiguredFeatures
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:116: error: package FlowerBlocks does not exist
+                                .add(FlowerBlocks.TOMATO_PLANT.value().defaultBlockState().setValue(GeneticCropBlock.AGE, 25).setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.MATURE), 1)),
+                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:118: error: cannot find symbol
+        final Holder<ConfiguredFeature<?, ?>> BRASSICA_OLERACEA_PATCH = register(context, BRASSICA_OLERACEA_PATCH_KEY, Feature.RANDOM_PATCH,
+                                                                                                                              ^
+  symbol:   variable RANDOM_PATCH
+  location: class Feature
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:119: error: cannot find symbol
+                new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
+                    ^
+  symbol:   class RandomPatchConfiguration
+  location: class ConfiguredFeatures
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:121: error: package FlowerBlocks does not exist
+                                .add(FlowerBlocks.BRASSICA_OLERACEA_PLANT.value().defaultBlockState().setValue(GeneticCropBlock.AGE, 25).setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.MATURE), 1)),
+                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\GeneticCropFeature.java:29: error: method getState in class BlockStateProvider cannot be applied to given types;
+        BlockState blockstate = GeneticCropConfiguration.toPlace().getState(p_160341_.random(), blockpos);
+                                                                  ^
+  required: WorldGenLevel,RandomSource,BlockPos
+  found:    RandomSource,BlockPos
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\GeneticCropFeature.java:29: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+        BlockState blockstate = GeneticCropConfiguration.toPlace().getState(p_160341_.random(), blockpos);
+                                                                                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PotionsPlusVegetationPatchFeature.java:107: error: method getState in class BlockStateProvider cannot be applied to given types;
+            BlockState ground = p_160606_.groundState.getState(random, pos);
+                                                     ^
+  required: WorldGenLevel,RandomSource,BlockPos
+  found:    RandomSource,MutableBlockPos
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:20: error: method getState in class BlockStateProvider cannot be applied to given types;
+        BlockState primary = config.primaryToPlace().getState(ctx.random(), pos);
+                                                    ^
+  required: WorldGenLevel,RandomSource,BlockPos
+  found:    RandomSource,BlockPos
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:20: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+        BlockState primary = config.primaryToPlace().getState(ctx.random(), pos);
+                                                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:21: error: method getState in class BlockStateProvider cannot be applied to given types;
+        BlockState secondary = config.secondaryToPlace().getState(ctx.random(), pos);
+                                                        ^
+  required: WorldGenLevel,RandomSource,BlockPos
+  found:    RandomSource,BlockPos
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:21: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+        BlockState secondary = config.secondaryToPlace().getState(ctx.random(), pos);
+                                                                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VersatilePlantBlockFeature.java:23: error: method getState in class BlockStateProvider cannot be applied to given types;
+        BlockState blockstate = configuration.toPlace().getState(context.random(), blockpos).setValue(VersatilePlantBlock.FACING, configuration.facing());
+                                                       ^
+  required: WorldGenLevel,RandomSource,BlockPos
+  found:    RandomSource,BlockPos
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VersatilePlantBlockFeature.java:23: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+        BlockState blockstate = configuration.toPlace().getState(context.random(), blockpos).setValue(VersatilePlantBlock.FACING, configuration.facing());
+                                                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VersatilePlantBlockFeature.java:26: error: cannot find symbol
+            int length = configuration.length().getOrDefault(blockstate.getBlockHolder().getKey(), UniformInt.of(0, 0)).sample(worldgenlevel.getRandom());
+                                                                       ^
+  symbol:   method getBlockHolder()
+  location: variable blockstate of type BlockState
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VolcanicFissureFeature.java:62: error: method getState in class WeightedStateProvider cannot be applied to given types;
+            BlockState cavity = FILL_SAMPLER.get().getState(context.random(), pos);
+                                                  ^
+  required: WorldGenLevel,RandomSource,BlockPos
+  found:    RandomSource,BlockPos
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VolcanicFissureFeature.java:62: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+            BlockState cavity = FILL_SAMPLER.get().getState(context.random(), pos);
+                                                                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:31: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.SURVIVOR_STICK.value().defaultBlockState(), 1)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:32: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.COWLICK_VINE.value().defaultBlockState(), 1)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:33: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.HANGING_FERN.value().defaultBlockState(), 13)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:34: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.DROOPY_VINE.value().defaultBlockState(), 1)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:35: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.LUMOSEED_SACKS.value().defaultBlockState(), 1)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:38: error: package FlowerBlocks does not exist
+                    FlowerBlocks.SURVIVOR_STICK.getKey(), ClampedNormalInt.of(2, 2, 2, 6),
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:39: error: package FlowerBlocks does not exist
+                    FlowerBlocks.COWLICK_VINE.getKey(), ClampedNormalInt.of(5, 2, 3, 9),
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:40: error: package FlowerBlocks does not exist
+                    FlowerBlocks.HANGING_FERN.getKey(), ClampedNormalInt.of(2, 1, 2, 5),
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:41: error: package FlowerBlocks does not exist
+                    FlowerBlocks.DROOPY_VINE.getKey(), ClampedNormalInt.of(3, 1, 2, 7),
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:42: error: package FlowerBlocks does not exist
+                    FlowerBlocks.LUMOSEED_SACKS.getKey(), ClampedNormalInt.of(4, 1, 2, 8)
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:52: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.DANDELION_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:53: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.TORCHFLOWER_VERSATILE.value().defaultBlockState(), 3)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:54: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.POPPY_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:55: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.BLUE_ORCHID_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:56: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.ALLIUM_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:57: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.AZURE_BLUET_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:58: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.RED_TULIP_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:59: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.ORANGE_TULIP_VERSATILE.value().defaultBlockState(), 7)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:60: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.WHITE_TULIP_VERSATILE.value().defaultBlockState(), 10)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:61: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.PINK_TULIP_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:62: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.OXEYE_DAISY_VERSATILE.value().defaultBlockState(), 10)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:63: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.CORNFLOWER_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:64: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.WITHER_ROSE_VERSATILE.value().defaultBlockState(), 1)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:65: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.LILY_OF_THE_VALLEY_VERSATILE.value().defaultBlockState(), 10)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:66: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.BROWN_MUSHROOM_VERSATILE.value().defaultBlockState(), 5)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:67: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.RED_MUSHROOM_VERSATILE.value().defaultBlockState(), 5)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:69: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.SUNFLOWER_VERSATILE.value().defaultBlockState(), 5)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:70: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.LILAC_VERSATILE.value().defaultBlockState(), 5)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:71: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.ROSE_BUSH_VERSATILE.value().defaultBlockState(), 5)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:72: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.PEONY_VERSATILE.value().defaultBlockState(), 5)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:74: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.TALL_GRASS_VERSATILE.value().defaultBlockState(), 10)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:75: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.LARGE_FERN_VERSATILE.value().defaultBlockState(), 10)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:76: error: package FlowerBlocks does not exist
+                            .add(FlowerBlocks.PITCHER_PLANT_VERSATILE.value().defaultBlockState(), 2)
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:79: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.DANDELION_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:80: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.TORCHFLOWER_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:81: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.POPPY_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:82: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.BLUE_ORCHID_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:83: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.ALLIUM_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:84: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.AZURE_BLUET_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:85: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.RED_TULIP_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:86: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.ORANGE_TULIP_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:87: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.WHITE_TULIP_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:88: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.PINK_TULIP_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:89: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.OXEYE_DAISY_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:90: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.CORNFLOWER_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:91: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.WITHER_ROSE_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:92: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.LILY_OF_THE_VALLEY_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:93: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.BROWN_MUSHROOM_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:94: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.RED_MUSHROOM_VERSATILE.getKey(), ConstantInt.of(1));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:96: error: package FlowerBlocks does not exist
+                put(FlowerBlocks.SUNFLOWER_VERSATILE.getKey(), ClampedNormalInt.of(3, 1, 2, 5));
+                                ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+
+> Task :common:compileJava FAILED
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\GeneticCropFeature.java:29: error: method getState in class BlockStateProvider cannot be applied to given types;
+          BlockState blockstate = GeneticCropConfiguration.toPlace().getState(p_160341_.random(), blockpos);
+                                                                    ^
+    required: WorldGenLevel,RandomSource,BlockPos
+    found:    RandomSource,BlockPos
+    reason: actual and formal argument lists differ in length
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PotionsPlusVegetationPatchFeature.java:107: error: method getState in class BlockStateProvider cannot be applied to given types;
+              BlockState ground = p_160606_.groundState.getState(random, pos);
+                                                       ^
+    required: WorldGenLevel,RandomSource,BlockPos
+    found:    RandomSource,MutableBlockPos
+    reason: actual and formal argument lists differ in length
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:20: error: method getState in class BlockStateProvider cannot be applied to given types;
+          BlockState primary = config.primaryToPlace().getState(ctx.random(), pos);
+                                                      ^
+    required: WorldGenLevel,RandomSource,BlockPos
+    found:    RandomSource,BlockPos
+    reason: actual and formal argument lists differ in length
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:21: error: method getState in class BlockStateProvider cannot be applied to given types;
+          BlockState secondary = config.secondaryToPlace().getState(ctx.random(), pos);
+                                                          ^
+    required: WorldGenLevel,RandomSource,BlockPos
+    found:    RandomSource,BlockPos
+    reason: actual and formal argument lists differ in length
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VersatilePlantBlockFeature.java:23: error: method getState in class BlockStateProvider cannot be applied to given types;
+          BlockState blockstate = configuration.toPlace().getState(context.random(), blockpos).setValue(VersatilePlantBlock.FACING, configuration.facing());
+                                                         ^
+    required: WorldGenLevel,RandomSource,BlockPos
+    found:    RandomSource,BlockPos
+    reason: actual and formal argument lists differ in length
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VolcanicFissureFeature.java:62: error: method getState in class WeightedStateProvider cannot be applied to given types;
+              BlockState cavity = FILL_SAMPLER.get().getState(context.random(), pos);
+                                                    ^
+    required: WorldGenLevel,RandomSource,BlockPos
+    found:    RandomSource,BlockPos
+    reason: actual and formal argument lists differ in length
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:3: error: cannot find symbol
+  import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                        ^
+    symbol:   class FlowerBlocks
+    location: package grill24.potionsplus.core.blocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\item\TomatoItem.java:4: error: cannot find symbol
+  import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                        ^
+    symbol:   class FlowerBlocks
+    location: package grill24.potionsplus.core.blocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:7: error: cannot find symbol
+  import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                        ^
+    symbol:   class FlowerBlocks
+    location: package grill24.potionsplus.core.blocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:3: error: cannot find symbol
+  import grill24.potionsplus.core.blocks.FlowerBlocks;
+                                        ^
+    symbol:   class FlowerBlocks
+    location: package grill24.potionsplus.core.blocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:51: error: cannot find symbol
+                          .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                            ^
+    symbol:   variable AmbientMoodSettings
+    location: class AridCave
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:83: error: cannot find symbol
+                          .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                            ^
+    symbol:   variable AmbientMoodSettings
+    location: class IceCave
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:85: error: cannot find symbol
+                          .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                            ^
+    symbol:   variable AmbientMoodSettings
+    location: class VolcanicCave
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:105: error: cannot find symbol
+          final Holder<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH = register(context, LUNAR_BERRY_BUSH_KEY, Feature.RANDOM_PATCH,
+                                                                                                                  ^
+    symbol:   variable RANDOM_PATCH
+    location: class Feature
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:106: error: cannot find symbol
+                  new RandomPatchConfiguration(32, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+                      ^
+    symbol:   class RandomPatchConfiguration
+    location: class ConfiguredFeatures
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:113: error: cannot find symbol
+          final Holder<ConfiguredFeature<?, ?>> TOMATO_PATCH = register(context, TOMATO_PATCH_KEY, Feature.RANDOM_PATCH,
+                                                                                                          ^
+    symbol:   variable RANDOM_PATCH
+    location: class Feature
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:114: error: cannot find symbol
+                  new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
+                      ^
+    symbol:   class RandomPatchConfiguration
+    location: class ConfiguredFeatures
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:118: error: cannot find symbol
+          final Holder<ConfiguredFeature<?, ?>> BRASSICA_OLERACEA_PATCH = register(context, BRASSICA_OLERACEA_PATCH_KEY, Feature.RANDOM_PATCH,
+                                                                                                                                ^
+    symbol:   variable RANDOM_PATCH
+    location: class Feature
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:119: error: cannot find symbol
+                  new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
+                      ^
+    symbol:   class RandomPatchConfiguration
+    location: class ConfiguredFeatures
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:33: error: globalOverworldGeneration(Builder) has private access in OverworldBiomes
+          OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:59: error: globalOverworldGeneration(Builder) has private access in OverworldBiomes
+          OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                         ^
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\ShapelessProcessingRecipeBuilder.java:105: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\ShapelessProcessingRecipeBuilder.java:107: error: cannot find symbol
+          return getResult().getRegisteredName();
+                            ^
+    symbol:   method getRegisteredName()
+    location: class Item
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\ResourceUtility.java:46: error: cannot find symbol
+          Identifier blockStateLocation = blockHolder.getKey().identifier().withPrefix("blockstates/").withSuffix(".json");
+                                                     ^
+    symbol:   method getKey()
+    location: variable blockHolder of type Holder<? extends Block>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\ResourceUtility.java:51: error: cannot find symbol
+                  ModState.LOGGER.error("Couldn't find blockstate JSON for block: {}", blockHolder.getKey().identifier());
+                                                                                                  ^
+    symbol:   method getKey()
+    location: variable blockHolder of type Holder<? extends Block>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:48: error: cannot find symbol
+                          .waterFogColor(0x050533)
+                          ^
+    symbol:   method waterFogColor(int)
+    location: class Builder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:79: error: cannot find symbol
+                          .waterFogColor(0x050533)
+                          ^
+    symbol:   method waterFogColor(int)
+    location: class Builder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:65: error: cannot find symbol
+          Biomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                ^
+    symbol:   method globalOverworldGeneration(Builder)
+    location: class Biomes
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:80: error: cannot find symbol
+                          .waterFogColor(11809282)
+                          ^
+    symbol:   method waterFogColor(int)
+    location: class Builder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VersatilePlantBlockFeature.java:26: error: cannot find symbol
+              int length = configuration.length().getOrDefault(blockstate.getBlockHolder().getKey(), UniformInt.of(0, 0)).sample(worldgenlevel.getRandom());
+                                                                         ^
+    symbol:   method getBlockHolder()
+    location: variable blockstate of type BlockState
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\ShapelessProcessingRecipeBuilder.java:106: error: defaultId() in ShapelessProcessingRecipeBuilder cannot implement defaultId() in RecipeBuilder
+      public Identifier defaultId() {
+                        ^
+    return type Identifier is not compatible with ResourceKey<Recipe<?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\GeneticCropFeature.java:29: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+          BlockState blockstate = GeneticCropConfiguration.toPlace().getState(p_160341_.random(), blockpos);
+                                                                                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:20: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+          BlockState primary = config.primaryToPlace().getState(ctx.random(), pos);
+                                                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:21: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+          BlockState secondary = config.secondaryToPlace().getState(ctx.random(), pos);
+                                                                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VersatilePlantBlockFeature.java:23: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+          BlockState blockstate = configuration.toPlace().getState(context.random(), blockpos).setValue(VersatilePlantBlock.FACING, configuration.facing());
+                                                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VolcanicFissureFeature.java:62: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+              BlockState cavity = FILL_SAMPLER.get().getState(context.random(), pos);
+                                                                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\abyssaltroverecipe\SanguineAltarRecipeBuilder.java:12: error: SanguineAltarRecipeBuilder is not abstract and does not override abstract method defaultId() in RecipeBuilder
+  public class SanguineAltarRecipeBuilder extends ShapelessProcessingRecipeBuilder<SanguineAltarRecipe, SanguineAltarRecipeBuilder> {
+         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\brewingcauldronrecipe\BrewingCauldronRecipeBuilder.java:16: error: BrewingCauldronRecipeBuilder is not abstract and does not override abstract method defaultId() in RecipeBuilder
+  public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuilder<BrewingCauldronRecipe, BrewingCauldronRecipeBuilder> {
+         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\recipe\clotheslinerecipe\ClotheslineRecipeBuilder.java:13: error: ClotheslineRecipeBuilder is not abstract and does not override abstract method defaultId() in RecipeBuilder
+  public class ClotheslineRecipeBuilder extends ShapelessProcessingRecipeBuilder<ClotheslineRecipe, ClotheslineRecipeBuilder> {
+         ^
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:27: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BRASSICA_OLERACEA_PLANT.value()))
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:32: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.CABBAGE_PLANT.value()))
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:37: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.KALE_PLANT.value()))
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:42: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BROCCOLLI_PLANT.value()))
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:47: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.CAULIFLOWER_PLANT.value()))
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:52: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.BRUSSELS_SPROUTS_PLANT.value()))
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\core\items\PlantItems.java:57: error: package FlowerBlocks does not exist
+                  .itemFactory(prop -> new BrassicaOleraceaItem(prop, FlowerBlocks.KOHLRABI_PLANT.value()))
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\item\TomatoItem.java:10: error: package FlowerBlocks does not exist
+          super(FlowerBlocks.TOMATO_PLANT.value(), properties);
+                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:109: error: package FlowerBlocks does not exist
+                                  .add(FlowerBlocks.LUNAR_BERRY_BUSH.value().defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 1)
+                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:116: error: package FlowerBlocks does not exist
+                                  .add(FlowerBlocks.TOMATO_PLANT.value().defaultBlockState().setValue(GeneticCropBlock.AGE, 25).setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.MATURE), 1)),
+                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:121: error: package FlowerBlocks does not exist
+                                  .add(FlowerBlocks.BRASSICA_OLERACEA_PLANT.value().defaultBlockState().setValue(GeneticCropBlock.AGE, 25).setValue(GeneticCropBlock.HARVESTABLE, GeneticCropBlock.HarvestState.MATURE), 1)),
+                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:31: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.SURVIVOR_STICK.value().defaultBlockState(), 1)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:32: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.COWLICK_VINE.value().defaultBlockState(), 1)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:33: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.HANGING_FERN.value().defaultBlockState(), 13)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:34: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.DROOPY_VINE.value().defaultBlockState(), 1)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:35: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.LUMOSEED_SACKS.value().defaultBlockState(), 1)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:38: error: package FlowerBlocks does not exist
+                      FlowerBlocks.SURVIVOR_STICK.getKey(), ClampedNormalInt.of(2, 2, 2, 6),
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:39: error: package FlowerBlocks does not exist
+                      FlowerBlocks.COWLICK_VINE.getKey(), ClampedNormalInt.of(5, 2, 3, 9),
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:40: error: package FlowerBlocks does not exist
+                      FlowerBlocks.HANGING_FERN.getKey(), ClampedNormalInt.of(2, 1, 2, 5),
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:41: error: package FlowerBlocks does not exist
+                      FlowerBlocks.DROOPY_VINE.getKey(), ClampedNormalInt.of(3, 1, 2, 7),
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:42: error: package FlowerBlocks does not exist
+                      FlowerBlocks.LUMOSEED_SACKS.getKey(), ClampedNormalInt.of(4, 1, 2, 8)
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:52: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.DANDELION_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:53: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.TORCHFLOWER_VERSATILE.value().defaultBlockState(), 3)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:54: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.POPPY_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:55: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.BLUE_ORCHID_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:56: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.ALLIUM_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:57: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.AZURE_BLUET_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:58: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.RED_TULIP_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:59: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.ORANGE_TULIP_VERSATILE.value().defaultBlockState(), 7)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:60: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.WHITE_TULIP_VERSATILE.value().defaultBlockState(), 10)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:61: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.PINK_TULIP_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:62: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.OXEYE_DAISY_VERSATILE.value().defaultBlockState(), 10)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:63: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.CORNFLOWER_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:64: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.WITHER_ROSE_VERSATILE.value().defaultBlockState(), 1)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:65: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.LILY_OF_THE_VALLEY_VERSATILE.value().defaultBlockState(), 10)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:66: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.BROWN_MUSHROOM_VERSATILE.value().defaultBlockState(), 5)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:67: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.RED_MUSHROOM_VERSATILE.value().defaultBlockState(), 5)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:69: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.SUNFLOWER_VERSATILE.value().defaultBlockState(), 5)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:70: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.LILAC_VERSATILE.value().defaultBlockState(), 5)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:71: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.ROSE_BUSH_VERSATILE.value().defaultBlockState(), 5)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:72: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.PEONY_VERSATILE.value().defaultBlockState(), 5)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:74: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.TALL_GRASS_VERSATILE.value().defaultBlockState(), 10)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:75: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.LARGE_FERN_VERSATILE.value().defaultBlockState(), 10)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:76: error: package FlowerBlocks does not exist
+                              .add(FlowerBlocks.PITCHER_PLANT_VERSATILE.value().defaultBlockState(), 2)
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:79: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.DANDELION_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:80: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.TORCHFLOWER_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:81: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.POPPY_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:82: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.BLUE_ORCHID_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:83: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.ALLIUM_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:84: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.AZURE_BLUET_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:85: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.RED_TULIP_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:86: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.ORANGE_TULIP_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:87: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.WHITE_TULIP_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:88: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.PINK_TULIP_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:89: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.OXEYE_DAISY_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:90: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.CORNFLOWER_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:91: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.WITHER_ROSE_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:92: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.LILY_OF_THE_VALLEY_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:93: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.BROWN_MUSHROOM_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:94: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.RED_MUSHROOM_VERSATILE.getKey(), ConstantInt.of(1));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:96: error: package FlowerBlocks does not exist
+                  put(FlowerBlocks.SUNFLOWER_VERSATILE.getKey(), ClampedNormalInt.of(3, 1, 2, 5));
+                                  ^
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 10s
+4 actionable tasks: 2 executed, 2 up-to-date

@@ -1,7 +1,0 @@
-{
-  "type": "potionsplus:increase_ability_strength",
-  "config": {
-    "ability": "potionsplus:pickaxe_unbreaking_modifier",
-    "strengthIncrease": 1.0
-  }
-}

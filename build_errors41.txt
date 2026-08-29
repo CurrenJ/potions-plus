@@ -1,0 +1,810 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :common:compileJava FAILED
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:51: error: ScissorStack has private access in GuiGraphicsExtractor
+    public GuiGraphicsExtractor.ScissorStack scissorStack;
+                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\LivingEntityMixin.java:82: error: cannot find symbol
+    public float getFriction(Block instance) {
+                             ^
+  symbol:   class Block
+  location: class LivingEntityMixin
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\ItemEntityMixin.java:24: error: cannot find symbol
+    @ModifyConstant(method = "tick", constant = @Constant(intValue = 6000))
+                                                 ^
+  symbol:   class Constant
+  location: class ItemEntityMixin
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\loot\IsInBiomeCondition.java:69: error: incompatible types: no instance(s) of type variable(s) E exist so that Set<E> conforms to ImmutableSet<ResourceKey<Biome>>
+        return () -> new IsInBiomeCondition(Set.of(key));
+                     ^
+  where E is a type-variable:
+    E extends Object declared in method <E>of(E...)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:33: error: no suitable method found for put(Item,(blockStat[...]tack))
+        CauldronInteractions.WATER.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                                  ^
+    method Dispatcher.put(Item,CauldronInteraction) is not applicable
+      (put(Item,CauldronInteraction) is not public in Dispatcher; cannot be accessed from outside package)
+    method Dispatcher.put(TagKey<Item>,CauldronInteraction) is not applicable
+      (argument mismatch; Item cannot be converted to TagKey<Item>)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:34: error: no suitable method found for put(Item,(blockStat[...]tack))
+        CauldronInteractions.EMPTY.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                                  ^
+    method Dispatcher.put(Item,CauldronInteraction) is not applicable
+      (put(Item,CauldronInteraction) is not public in Dispatcher; cannot be accessed from outside package)
+    method Dispatcher.put(TagKey<Item>,CauldronInteraction) is not applicable
+      (argument mismatch; Item cannot be converted to TagKey<Item>)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:30: error: cannot find symbol
+                Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getDuration(),
+                                               ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:30: error: cannot find symbol
+                Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getDuration(),
+                         ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:31: error: cannot find symbol
+                        SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getDuration()),
+                                              ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:31: error: cannot find symbol
+                        SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getDuration()),
+                        ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:32: error: cannot find symbol
+                Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_WINNER).getDuration(),
+                                               ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:32: error: cannot find symbol
+                Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_WINNER).getDuration(),
+                         ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:33: error: cannot find symbol
+                        SpatialAnimations.get(SpatialAnimations.WHEEL_LOSERS).getDuration()));
+                                              ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:33: error: cannot find symbol
+                        SpatialAnimations.get(SpatialAnimations.WHEEL_LOSERS).getDuration()));
+                        ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:59: error: cannot find symbol
+                    SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getRotation().evaluate(elapsedTicks).x() * rotationEnd,
+                                          ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:59: error: cannot find symbol
+                    SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getRotation().evaluate(elapsedTicks).x() * rotationEnd,
+                    ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:63: error: cannot find symbol
+            Vector3f positionOffset = new Vector3f(SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getPosition().evaluate(elapsedTicks));
+                                                                         ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:63: error: cannot find symbol
+            Vector3f positionOffset = new Vector3f(SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getPosition().evaluate(elapsedTicks));
+                                                   ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\AttributeModifiersWhileHeldAbility.java:44: error: cannot find symbol
+        List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.unlockedAbilities().get(abilityHolder.getKey());
+                                                                                                                      ^
+  symbol:   method getKey()
+  location: variable abilityHolder of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\PUtil.java:194: error: cannot find symbol
+            if (value.key().identifier().getNamespace().equals("minecraft") || value.key().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
+                     ^
+  symbol:   method key()
+  location: variable value of type Entry<ResourceKey<MobEffect>,MobEffect>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\PUtil.java:194: error: cannot find symbol
+            if (value.key().identifier().getNamespace().equals("minecraft") || value.key().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
+                                                                                    ^
+  symbol:   method key()
+  location: variable value of type Entry<ResourceKey<MobEffect>,MobEffect>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RecipeCodecs.java:17: error: cannot find symbol
+    public static final Codec<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE_CODEC = Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.value().codec().codec();
+                                                                                                                               ^
+  symbol:   method value()
+  location: variable BREWING_CAULDRON_RECIPE_SERIALIZER of type RecipeSerializer<BrewingCauldronRecipe>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:31: error: cannot find symbol
+                blockLootSubProvider.dropSelf(consumer, blockGetter.get().value());
+                                    ^
+  symbol:   method dropSelf(BiConsumer<ResourceKey<LootTable>,Builder>,B)
+  location: variable blockLootSubProvider of type PotionsPlusBlockLoot
+  where B is a type-variable:
+    B extends Block declared in class BlockDropSelfLoot
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:55: error: cannot find symbol
+                blockLootSubProvider.dropSelf(consumer, block,
+                                    ^
+  symbol:   method dropSelf(BiConsumer<ResourceKey<LootTable>,net.minecraft.world.level.storage.loot.LootTable.Builder>,Block,net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition.Builder)
+  location: variable blockLootSubProvider of type PotionsPlusBlockLoot
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:58: error: createDefault(Function<Block,TextureMapping>,ModelTemplate) has private access in TexturedModel
+                TexturedModel.Provider textureModelProvider = TexturedModel.createDefault(b ->
+                                                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:62: error: modelOutput has private access in BlockModelGenerators
+                modelLocation = textureModelProvider.create(block, blockModelGenerators.modelOutput);
+                                                                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:65: error: createSimpleBlock(Block,MultiVariant) has private access in BlockModelGenerators
+                MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelLocation));
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:65: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelLocation));
+                                                                                                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:66: error: blockStateOutput has private access in BlockModelGenerators
+                blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:71: error: itemModelOutput has private access in BlockModelGenerators
+                blockModelGenerators.itemModelOutput.accept(getHolder().value().asItem(), itemModel);
+                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:108: error: createSimpleBlock(Block,MultiVariant) has private access in BlockModelGenerators
+                MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelLocation));
+                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:108: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelLocation));
+                                                                                                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:109: error: blockStateOutput has private access in BlockModelGenerators
+                blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:115: error: itemModelOutput has private access in BlockModelGenerators
+                blockModelGenerators.itemModelOutput.accept(getHolder().value().asItem(), itemModel);
+                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:147: error: BlockModelGenerators.BlockFamilyProvider has private access in BlockModelGenerators
+            BlockModelGenerators.BlockFamilyProvider familyProvider = blockModelGenerators.family(block);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:147: error: family(Block) has private access in BlockModelGenerators
+            BlockModelGenerators.BlockFamilyProvider familyProvider = blockModelGenerators.family(block);
+                                                                                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:69: error: method create in class TextureSlot cannot be applied to given types;
+    public static final TextureSlot LUMOSEED_VINE = TextureSlot.create("vine", TextureSlot.ALL);
+                                                               ^
+  required: String,TextureSlot
+  found:    String,TextureSlot
+  reason: create(String,TextureSlot) has private access in TextureSlot
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:70: error: method create in class TextureSlot cannot be applied to given types;
+    public static final TextureSlot LUMOSEED_SACK = TextureSlot.create("sack", TextureSlot.ALL);
+                                                               ^
+  required: String,TextureSlot
+  found:    String,TextureSlot
+  reason: create(String,TextureSlot) has private access in TextureSlot
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:79: error: modelOutput has private access in BlockModelGenerators
+            ModelTemplates.CROSS.create(ppId(modelName), new TextureMapping().put(TextureSlot.CROSS, new Material(resource)), blockModelGenerators.modelOutput);
+                                                                                                                                                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:83: error: modelOutput has private access in BlockModelGenerators
+                    blockModelGenerators.modelOutput);
+                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:85: error: modelOutput has private access in BlockModelGenerators
+            new ModelTemplate(Optional.of(parentModel), Optional.empty()).create(ppId(modelName), new TextureMapping(), blockModelGenerators.modelOutput);
+                                                                                                                                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:128: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                                    return BlockModelGenerators.plainVariant(ppId(modelName)).with(rotationMutator);
+                                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:131: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                                return BlockModelGenerators.plainVariant(mc("block/air"));
+                                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:133: error: blockStateOutput has private access in BlockModelGenerators
+            blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:143: error: modelOutput has private access in BlockModelGenerators
+            ModelTemplates.FLAT_ITEM.create(modelLocation, new TextureMapping().put(TextureSlot.LAYER0, new Material(texture)), blockModelGenerators.modelOutput);
+                                                                                                                                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:149: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(item, itemModel);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:156: error: itemModelOutput has private access in BlockModelGenerators
+                blockModelGenerators.itemModelOutput.accept(item, itemModel);
+                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:59: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                                            return BlockModelGenerators.plainVariant(ppId(modelName)).with(rotationMutator);
+                                                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:62: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                                        return BlockModelGenerators.plainVariant(mc("block/air"));
+                                                                   ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:65: error: blockStateOutput has private access in BlockModelGenerators
+            blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ClotheslineBlockModelGenerator.java:33: error: plainVariant(Identifier) has private access in BlockModelGenerators
+        MultiVariant fencePost = BlockModelGenerators.plainVariant(fencePostModelLocation);
+                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ClotheslineBlockModelGenerator.java:40: error: blockStateOutput has private access in BlockModelGenerators
+        blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ClotheslineBlockModelGenerator.java:45: error: itemModelOutput has private access in BlockModelGenerators
+        blockModelGenerators.itemModelOutput.accept(block.asItem(), itemModel);
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\FaceAttachedBlockModelGenerator.java:33: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                            return BlockModelGenerators.plainVariant(modelName).with(rotationMutator);
+                                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\FaceAttachedBlockModelGenerator.java:35: error: blockStateOutput has private access in BlockModelGenerators
+        blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\GeneticCropBlockModelGenerator.java:70: error: modelOutput has private access in BlockModelGenerators
+                                        template.create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\GeneticCropBlockModelGenerator.java:72: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                                        return BlockModelGenerators.plainVariant(modelLocation);
+                                                                   ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\GeneticCropBlockModelGenerator.java:76: error: blockStateOutput has private access in BlockModelGenerators
+            blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\HorizontalDirectionalBlockModelGenerator.java:49: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                    return BlockModelGenerators.plainVariant(model).with(rotationMutator);
+                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\HorizontalDirectionalBlockModelGenerator.java:51: error: blockStateOutput has private access in BlockModelGenerators
+        blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ParticleEmitterBlockModelGenerator.java:33: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                                return BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(net.minecraft.world.level.block.Blocks.IRON_BLOCK));
+                                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ParticleEmitterBlockModelGenerator.java:38: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                            return BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(blockForModel));
+                                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ParticleEmitterBlockModelGenerator.java:40: error: blockStateOutput has private access in BlockModelGenerators
+        blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ParticleEmitterBlockModelGenerator.java:43: error: itemModelOutput has private access in BlockModelGenerators
+        blockModelGenerators.itemModelOutput.accept(block.asItem(), itemModel);
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleCrossBlockModelGenerator.java:24: error: modelOutput has private access in BlockModelGenerators
+        Identifier flowerModelLocation = ModelTemplates.CROSS.create(block, new TextureMapping().put(TextureSlot.CROSS, new Material(texture)), blockModelGenerators.modelOutput);
+                                                                                                                                                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleCrossBlockModelGenerator.java:27: error: createSimpleBlock(Block,MultiVariant) has private access in BlockModelGenerators
+        MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(flowerModelLocation));
+                                                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleCrossBlockModelGenerator.java:27: error: plainVariant(Identifier) has private access in BlockModelGenerators
+        MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(flowerModelLocation));
+                                                                                                                      ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleCrossBlockModelGenerator.java:28: error: blockStateOutput has private access in BlockModelGenerators
+        blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleTallVersatilePlantBlockBuilder.java:32: error: cannot find symbol
+                .noCollission()
+                ^
+  symbol:   method noCollission()
+  location: class Properties
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleVersatilePlantBlockBuilder.java:36: error: cannot find symbol
+                .noCollission()
+                ^
+  symbol:   method noCollission()
+  location: class Properties
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\UraniumOreBlockModelGenerator.java:39: error: modelOutput has private access in BlockModelGenerators
+                            ModelTemplates.CUBE_ALL.create(model, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                      ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\UraniumOreBlockModelGenerator.java:42: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                            return BlockModelGenerators.plainVariant(model);
+                                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\UraniumOreBlockModelGenerator.java:44: error: blockStateOutput has private access in BlockModelGenerators
+        blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\UraniumOreBlockModelGenerator.java:50: error: itemModelOutput has private access in BlockModelGenerators
+        blockModelGenerators.itemModelOutput.accept(block.asItem(), itemModel);
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:58: error: modelOutput has private access in BlockModelGenerators
+            ModelTemplates.FLAT_ITEM.create(modelLocation, new TextureMapping().put(TextureSlot.LAYER0, new Material(texture)), blockModelGenerators.modelOutput);
+                                                                                                                                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:59: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelLocation));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:90: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(getHolder().value(), itemModel);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:113: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelFile));
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:180: error: modelOutput has private access in BlockModelGenerators
+                    .create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
+                                                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:184: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(item, model);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:225: error: modelOutput has private access in BlockModelGenerators
+                        .create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
+                                                                                   ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:258: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(getHolder().value(), rangeSelectItemModel);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:268: error: modelOutput has private access in BlockModelGenerators
+            ModelTemplates.FLAT_ITEM.create(itemModelLocation, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                   ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:308: error: modelOutput has private access in BlockModelGenerators
+                ModelTemplates.FLAT_ITEM.create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                   ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:318: error: cannot find symbol
+                            List.of(entry.key()),
+                                         ^
+  symbol:   method key()
+  location: variable entry of type Entry<Variation,Unbaked>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:321: error: incompatible types: List<SwitchCase<Object>> cannot be converted to List<SwitchCase<Variation>>
+                    .toList();
+                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:333: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(getHolder().value(), rangeSelectItemModel);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:48: error: cannot find symbol
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                   ^
+  symbol:   method getItemRenderer()
+  location: class Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:67: error: cannot find symbol
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
+                                   ^
+  symbol:   method getItemRenderer()
+  location: class Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:90: error: cannot find symbol
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                   ^
+  symbol:   method getItemRenderer()
+  location: class Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:33: error: globalOverworldGeneration(Builder) has private access in OverworldBiomes
+        OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:51: error: cannot find symbol
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                          ^
+  symbol:   variable AmbientMoodSettings
+  location: class AridCave
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:48: error: cannot find symbol
+                        .waterFogColor(0x050533)
+                        ^
+  symbol:   method waterFogColor(int)
+  location: class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:59: error: globalOverworldGeneration(Builder) has private access in OverworldBiomes
+        OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:83: error: cannot find symbol
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                          ^
+  symbol:   variable AmbientMoodSettings
+  location: class IceCave
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:79: error: cannot find symbol
+                        .waterFogColor(0x050533)
+                        ^
+  symbol:   method waterFogColor(int)
+  location: class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:65: error: cannot find symbol
+        Biomes.globalOverworldGeneration(biomegenerationsettings$builder);
+              ^
+  symbol:   method globalOverworldGeneration(Builder)
+  location: class Biomes
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:85: error: cannot find symbol
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                          ^
+  symbol:   variable AmbientMoodSettings
+  location: class VolcanicCave
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:80: error: cannot find symbol
+                        .waterFogColor(11809282)
+                        ^
+  symbol:   method waterFogColor(int)
+  location: class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:105: error: cannot find symbol
+        final Holder<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH = register(context, LUNAR_BERRY_BUSH_KEY, Feature.RANDOM_PATCH,
+                                                                                                                ^
+  symbol:   variable RANDOM_PATCH
+  location: class Feature
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:69: error: method create in class TextureSlot cannot be applied to given types;
+      public static final TextureSlot LUMOSEED_VINE = TextureSlot.create("vine", TextureSlot.ALL);
+                                                                 ^
+    required: String,TextureSlot
+    found:    String,TextureSlot
+    reason: create(String,TextureSlot) has private access in TextureSlot
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:70: error: method create in class TextureSlot cannot be applied to given types;
+      public static final TextureSlot LUMOSEED_SACK = TextureSlot.create("sack", TextureSlot.ALL);
+                                                                 ^
+    required: String,TextureSlot
+    found:    String,TextureSlot
+    reason: create(String,TextureSlot) has private access in TextureSlot
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:33: error: no suitable method found for put(Item,(blockStat[...]tack))
+          CauldronInteractions.WATER.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                                    ^
+      method Dispatcher.put(Item,CauldronInteraction) is not applicable
+        (put(Item,CauldronInteraction) is not public in Dispatcher; cannot be accessed from outside package)
+      method Dispatcher.put(TagKey<Item>,CauldronInteraction) is not applicable
+        (argument mismatch; Item cannot be converted to TagKey<Item>)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:34: error: no suitable method found for put(Item,(blockStat[...]tack))
+          CauldronInteractions.EMPTY.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                                    ^
+      method Dispatcher.put(Item,CauldronInteraction) is not applicable
+        (put(Item,CauldronInteraction) is not public in Dispatcher; cannot be accessed from outside package)
+      method Dispatcher.put(TagKey<Item>,CauldronInteraction) is not applicable
+        (argument mismatch; Item cannot be converted to TagKey<Item>)
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\loot\IsInBiomeCondition.java:69: error: incompatible types: no instance(s) of type variable(s) E exist so that Set<E> conforms to ImmutableSet<ResourceKey<Biome>>
+          return () -> new IsInBiomeCondition(Set.of(key));
+                       ^
+    where E is a type-variable:
+      E extends Object declared in method <E>of(E...)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:321: error: incompatible types: List<SwitchCase<Object>> cannot be converted to List<SwitchCase<Variation>>
+                      .toList();
+                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\LivingEntityMixin.java:82: error: cannot find symbol
+      public float getFriction(Block instance) {
+                               ^
+    symbol:   class Block
+    location: class LivingEntityMixin
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\ItemEntityMixin.java:24: error: cannot find symbol
+      @ModifyConstant(method = "tick", constant = @Constant(intValue = 6000))
+                                                   ^
+    symbol:   class Constant
+    location: class ItemEntityMixin
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:30: error: cannot find symbol
+                  Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getDuration(),
+                                                 ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:30: error: cannot find symbol
+                  Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getDuration(),
+                           ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:31: error: cannot find symbol
+                          SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getDuration()),
+                                                ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:31: error: cannot find symbol
+                          SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getDuration()),
+                          ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:32: error: cannot find symbol
+                  Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_WINNER).getDuration(),
+                                                 ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:32: error: cannot find symbol
+                  Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_WINNER).getDuration(),
+                           ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:33: error: cannot find symbol
+                          SpatialAnimations.get(SpatialAnimations.WHEEL_LOSERS).getDuration()));
+                                                ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:33: error: cannot find symbol
+                          SpatialAnimations.get(SpatialAnimations.WHEEL_LOSERS).getDuration()));
+                          ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:59: error: cannot find symbol
+                      SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getRotation().evaluate(elapsedTicks).x() * rotationEnd,
+                                            ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:59: error: cannot find symbol
+                      SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getRotation().evaluate(elapsedTicks).x() * rotationEnd,
+                      ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:63: error: cannot find symbol
+              Vector3f positionOffset = new Vector3f(SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getPosition().evaluate(elapsedTicks));
+                                                                           ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:63: error: cannot find symbol
+              Vector3f positionOffset = new Vector3f(SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getPosition().evaluate(elapsedTicks));
+                                                     ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:51: error: cannot find symbol
+                          .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                            ^
+    symbol:   variable AmbientMoodSettings
+    location: class AridCave
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:83: error: cannot find symbol
+                          .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                            ^
+    symbol:   variable AmbientMoodSettings
+    location: class IceCave
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:85: error: cannot find symbol
+                          .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                            ^
+    symbol:   variable AmbientMoodSettings
+    location: class VolcanicCave
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:105: error: cannot find symbol
+          final Holder<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH = register(context, LUNAR_BERRY_BUSH_KEY, Feature.RANDOM_PATCH,
+                                                                                                                  ^
+    symbol:   variable RANDOM_PATCH
+    location: class Feature
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:51: error: ScissorStack has private access in GuiGraphicsExtractor
+      public GuiGraphicsExtractor.ScissorStack scissorStack;
+                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:58: error: createDefault(Function<Block,TextureMapping>,ModelTemplate) has private access in TexturedModel
+                  TexturedModel.Provider textureModelProvider = TexturedModel.createDefault(b ->
+                                                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:62: error: modelOutput has private access in BlockModelGenerators
+                  modelLocation = textureModelProvider.create(block, blockModelGenerators.modelOutput);
+                                                                                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:65: error: createSimpleBlock(Block,MultiVariant) has private access in BlockModelGenerators
+                  MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelLocation));
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:65: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                  MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelLocation));
+                                                                                                                                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:66: error: blockStateOutput has private access in BlockModelGenerators
+                  blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:71: error: itemModelOutput has private access in BlockModelGenerators
+                  blockModelGenerators.itemModelOutput.accept(getHolder().value().asItem(), itemModel);
+                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:108: error: createSimpleBlock(Block,MultiVariant) has private access in BlockModelGenerators
+                  MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelLocation));
+                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:108: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                  MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelLocation));
+                                                                                                                                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:109: error: blockStateOutput has private access in BlockModelGenerators
+                  blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:115: error: itemModelOutput has private access in BlockModelGenerators
+                  blockModelGenerators.itemModelOutput.accept(getHolder().value().asItem(), itemModel);
+                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:147: error: BlockModelGenerators.BlockFamilyProvider has private access in BlockModelGenerators
+              BlockModelGenerators.BlockFamilyProvider familyProvider = blockModelGenerators.family(block);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockModelUtility.java:147: error: family(Block) has private access in BlockModelGenerators
+              BlockModelGenerators.BlockFamilyProvider familyProvider = blockModelGenerators.family(block);
+                                                                                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:79: error: modelOutput has private access in BlockModelGenerators
+              ModelTemplates.CROSS.create(ppId(modelName), new TextureMapping().put(TextureSlot.CROSS, new Material(resource)), blockModelGenerators.modelOutput);
+                                                                                                                                                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:83: error: modelOutput has private access in BlockModelGenerators
+                      blockModelGenerators.modelOutput);
+                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:85: error: modelOutput has private access in BlockModelGenerators
+              new ModelTemplate(Optional.of(parentModel), Optional.empty()).create(ppId(modelName), new TextureMapping(), blockModelGenerators.modelOutput);
+                                                                                                                                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:128: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                                      return BlockModelGenerators.plainVariant(ppId(modelName)).with(rotationMutator);
+                                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:131: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                                  return BlockModelGenerators.plainVariant(mc("block/air"));
+                                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:133: error: blockStateOutput has private access in BlockModelGenerators
+              blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:143: error: modelOutput has private access in BlockModelGenerators
+              ModelTemplates.FLAT_ITEM.create(modelLocation, new TextureMapping().put(TextureSlot.LAYER0, new Material(texture)), blockModelGenerators.modelOutput);
+                                                                                                                                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:149: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(item, itemModel);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\VersatilePlantBlockModelGenerator.java:156: error: itemModelOutput has private access in BlockModelGenerators
+                  blockModelGenerators.itemModelOutput.accept(item, itemModel);
+                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:59: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                                              return BlockModelGenerators.plainVariant(ppId(modelName)).with(rotationMutator);
+                                                                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:62: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                                          return BlockModelGenerators.plainVariant(mc("block/air"));
+                                                                     ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BloomingVersatilePlantBlockModelGenerator.java:65: error: blockStateOutput has private access in BlockModelGenerators
+              blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ClotheslineBlockModelGenerator.java:33: error: plainVariant(Identifier) has private access in BlockModelGenerators
+          MultiVariant fencePost = BlockModelGenerators.plainVariant(fencePostModelLocation);
+                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ClotheslineBlockModelGenerator.java:40: error: blockStateOutput has private access in BlockModelGenerators
+          blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ClotheslineBlockModelGenerator.java:45: error: itemModelOutput has private access in BlockModelGenerators
+          blockModelGenerators.itemModelOutput.accept(block.asItem(), itemModel);
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\FaceAttachedBlockModelGenerator.java:33: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                              return BlockModelGenerators.plainVariant(modelName).with(rotationMutator);
+                                                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\FaceAttachedBlockModelGenerator.java:35: error: blockStateOutput has private access in BlockModelGenerators
+          blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\GeneticCropBlockModelGenerator.java:70: error: modelOutput has private access in BlockModelGenerators
+                                          template.create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\GeneticCropBlockModelGenerator.java:72: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                                          return BlockModelGenerators.plainVariant(modelLocation);
+                                                                     ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\GeneticCropBlockModelGenerator.java:76: error: blockStateOutput has private access in BlockModelGenerators
+              blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\HorizontalDirectionalBlockModelGenerator.java:49: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                      return BlockModelGenerators.plainVariant(model).with(rotationMutator);
+                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\HorizontalDirectionalBlockModelGenerator.java:51: error: blockStateOutput has private access in BlockModelGenerators
+          blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ParticleEmitterBlockModelGenerator.java:33: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                                  return BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(net.minecraft.world.level.block.Blocks.IRON_BLOCK));
+                                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ParticleEmitterBlockModelGenerator.java:38: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                              return BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(blockForModel));
+                                                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ParticleEmitterBlockModelGenerator.java:40: error: blockStateOutput has private access in BlockModelGenerators
+          blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\ParticleEmitterBlockModelGenerator.java:43: error: itemModelOutput has private access in BlockModelGenerators
+          blockModelGenerators.itemModelOutput.accept(block.asItem(), itemModel);
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleCrossBlockModelGenerator.java:24: error: modelOutput has private access in BlockModelGenerators
+          Identifier flowerModelLocation = ModelTemplates.CROSS.create(block, new TextureMapping().put(TextureSlot.CROSS, new Material(texture)), blockModelGenerators.modelOutput);
+                                                                                                                                                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleCrossBlockModelGenerator.java:27: error: createSimpleBlock(Block,MultiVariant) has private access in BlockModelGenerators
+          MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(flowerModelLocation));
+                                                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleCrossBlockModelGenerator.java:27: error: plainVariant(Identifier) has private access in BlockModelGenerators
+          MultiVariantGenerator blockstateGenerator = BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(flowerModelLocation));
+                                                                                                                        ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleCrossBlockModelGenerator.java:28: error: blockStateOutput has private access in BlockModelGenerators
+          blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\UraniumOreBlockModelGenerator.java:39: error: modelOutput has private access in BlockModelGenerators
+                              ModelTemplates.CUBE_ALL.create(model, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                        ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\UraniumOreBlockModelGenerator.java:42: error: plainVariant(Identifier) has private access in BlockModelGenerators
+                              return BlockModelGenerators.plainVariant(model);
+                                                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\UraniumOreBlockModelGenerator.java:44: error: blockStateOutput has private access in BlockModelGenerators
+          blockModelGenerators.blockStateOutput.accept(blockstateGenerator);
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\UraniumOreBlockModelGenerator.java:50: error: itemModelOutput has private access in BlockModelGenerators
+          blockModelGenerators.itemModelOutput.accept(block.asItem(), itemModel);
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:58: error: modelOutput has private access in BlockModelGenerators
+              ModelTemplates.FLAT_ITEM.create(modelLocation, new TextureMapping().put(TextureSlot.LAYER0, new Material(texture)), blockModelGenerators.modelOutput);
+                                                                                                                                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:59: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelLocation));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:90: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(getHolder().value(), itemModel);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:113: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelFile));
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:180: error: modelOutput has private access in BlockModelGenerators
+                      .create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
+                                                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:184: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(item, model);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:225: error: modelOutput has private access in BlockModelGenerators
+                          .create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
+                                                                                     ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:258: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(getHolder().value(), rangeSelectItemModel);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:268: error: modelOutput has private access in BlockModelGenerators
+              ModelTemplates.FLAT_ITEM.create(itemModelLocation, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                     ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:308: error: modelOutput has private access in BlockModelGenerators
+                  ModelTemplates.FLAT_ITEM.create(modelLocation, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                     ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:333: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(getHolder().value(), rangeSelectItemModel);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:33: error: globalOverworldGeneration(Builder) has private access in OverworldBiomes
+          OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:59: error: globalOverworldGeneration(Builder) has private access in OverworldBiomes
+          OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                         ^
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\AttributeModifiersWhileHeldAbility.java:44: error: cannot find symbol
+          List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.unlockedAbilities().get(abilityHolder.getKey());
+                                                                                                                        ^
+    symbol:   method getKey()
+    location: variable abilityHolder of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\PUtil.java:194: error: cannot find symbol
+              if (value.key().identifier().getNamespace().equals("minecraft") || value.key().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
+                       ^
+    symbol:   method key()
+    location: variable value of type Entry<ResourceKey<MobEffect>,MobEffect>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\PUtil.java:194: error: cannot find symbol
+              if (value.key().identifier().getNamespace().equals("minecraft") || value.key().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
+                                                                                      ^
+    symbol:   method key()
+    location: variable value of type Entry<ResourceKey<MobEffect>,MobEffect>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RecipeCodecs.java:17: error: cannot find symbol
+      public static final Codec<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE_CODEC = Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.value().codec().codec();
+                                                                                                                                 ^
+    symbol:   method value()
+    location: variable BREWING_CAULDRON_RECIPE_SERIALIZER of type RecipeSerializer<BrewingCauldronRecipe>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:31: error: cannot find symbol
+                  blockLootSubProvider.dropSelf(consumer, blockGetter.get().value());
+                                      ^
+    symbol:   method dropSelf(BiConsumer<ResourceKey<LootTable>,Builder>,B)
+    location: variable blockLootSubProvider of type PotionsPlusBlockLoot
+    where B is a type-variable:
+      B extends Block declared in class BlockDropSelfLoot
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:55: error: cannot find symbol
+                  blockLootSubProvider.dropSelf(consumer, block,
+                                      ^
+    symbol:   method dropSelf(BiConsumer<ResourceKey<LootTable>,net.minecraft.world.level.storage.loot.LootTable.Builder>,Block,net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition.Builder)
+    location: variable blockLootSubProvider of type PotionsPlusBlockLoot
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleTallVersatilePlantBlockBuilder.java:32: error: cannot find symbol
+                  .noCollission()
+                  ^
+    symbol:   method noCollission()
+    location: class Properties
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleVersatilePlantBlockBuilder.java:36: error: cannot find symbol
+                  .noCollission()
+                  ^
+    symbol:   method noCollission()
+    location: class Properties
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:318: error: cannot find symbol
+                              List.of(entry.key()),
+                                           ^
+    symbol:   method key()
+    location: variable entry of type Entry<Variation,Unbaked>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:48: error: cannot find symbol
+              Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                     ^
+    symbol:   method getItemRenderer()
+    location: class Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:67: error: cannot find symbol
+              Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
+                                     ^
+    symbol:   method getItemRenderer()
+    location: class Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:90: error: cannot find symbol
+              Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                     ^
+    symbol:   method getItemRenderer()
+    location: class Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:48: error: cannot find symbol
+                          .waterFogColor(0x050533)
+                          ^
+    symbol:   method waterFogColor(int)
+    location: class Builder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:79: error: cannot find symbol
+                          .waterFogColor(0x050533)
+                          ^
+    symbol:   method waterFogColor(int)
+    location: class Builder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:65: error: cannot find symbol
+          Biomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                ^
+    symbol:   method globalOverworldGeneration(Builder)
+    location: class Biomes
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:80: error: cannot find symbol
+                          .waterFogColor(11809282)
+                          ^
+    symbol:   method waterFogColor(int)
+    location: class Builder
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+1 actionable task: 1 executed

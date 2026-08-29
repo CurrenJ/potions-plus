@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "potionsplus:item/grass_clippings",
-    "layer1": "potionsplus:item/yellow_flag"
-  }
-}

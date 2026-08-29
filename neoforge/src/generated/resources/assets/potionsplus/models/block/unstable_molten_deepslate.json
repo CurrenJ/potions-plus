@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "potionsplus:block/unstable_molten_deepslate"
-  }
-}

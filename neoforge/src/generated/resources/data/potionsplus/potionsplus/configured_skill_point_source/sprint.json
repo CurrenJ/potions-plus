@@ -1,7 +1,0 @@
-{
-  "type": "potionsplus:increment_stat",
-  "config": {
-    "pointsPerIncrement": 0.01,
-    "statName": "minecraft.custom:minecraft.sprint_one_cm"
-  }
-}

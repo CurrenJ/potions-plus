@@ -107,3 +107,9 @@ runs
 run-data
 
 repo
+/debug_src/
+/.claude/
+CLAUDE.md
+
+## Minecraft logs written by the JUnit bootstrap (Bootstrap.bootStrap() wraps stdout)
+logs/

@@ -1,0 +1,142 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :neoforge:processResources UP-TO-DATE
+> Task :neoforge:processIncludeJars UP-TO-DATE
+> Task :neoforge:sourcesJar UP-TO-DATE
+> Task :neoforge:processTestResources NO-SOURCE
+> Task :neoforge:validateAccessWidener NO-SOURCE
+
+> Task :common:compileJava FAILED
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\FadeInRotateItemActivationAnimation.java:66: error: reached end of file while parsing
+}
+ ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\ItemTossupAnimation.java:164: error: reached end of file while parsing
+}
+ ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:109: error: illegal start of expression
+    public void spawnParticles(Minecraft minecraft) {
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: ';' expected
+    public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: ';' expected
+    public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: not a statement
+    public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: ';' expected
+    public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                   ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: ';' expected
+    public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: not a statement
+    public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                         ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: ';' expected
+    public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: <identifier> expected
+    public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                                                                   ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: <identifier> expected
+    public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                                                                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: <identifier> expected
+    public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                                                                                                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: <identifier> expected
+    public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                                                                                                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: ';' expected
+    public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                                                                                                                                              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:48: error: illegal start of expression
+    public static Vector3f[] calculateLeashPoints(Vec3 start, Vec3 end) {
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:73: error: illegal start of expression
+    private static Vector3f addVertexPair(VertexConsumer vertexConsumer, Matrix4f matrix, float deltaX, float deltaY, float deltaZ, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd, float width, float height, float deltaZInvDistance, float deltaXInvDistance, int step, boolean reverse) {
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:126: error: reached end of file while parsing
+}
+ ^
+18 errors
+
+
+FAILURE: Build failed with an exception.
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: not a statement
+      public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: not a statement
+      public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                           ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\FadeInRotateItemActivationAnimation.java:66: error: reached end of file while parsing
+  }
+   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\ItemTossupAnimation.java:164: error: reached end of file while parsing
+  }
+   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:126: error: reached end of file while parsing
+  }
+   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:109: error: illegal start of expression
+      public void spawnParticles(Minecraft minecraft) {
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:48: error: illegal start of expression
+      public static Vector3f[] calculateLeashPoints(Vec3 start, Vec3 end) {
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:73: error: illegal start of expression
+      private static Vector3f addVertexPair(VertexConsumer vertexConsumer, Matrix4f matrix, float deltaX, float deltaY, float deltaZ, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd, float width, float height, float deltaZInvDistance, float deltaXInvDistance, int step, boolean reverse) {
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: ';' expected
+      public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: ';' expected
+      public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: ';' expected
+      public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                     ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: ';' expected
+      public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: ';' expected
+      public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: <identifier> expected
+      public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                                                                     ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: <identifier> expected
+      public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                                                                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: <identifier> expected
+      public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                                                                                                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: <identifier> expected
+      public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                                                                                                                                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\LeashRenderer.java:41: error: ';' expected
+      public static void renderLeashBetweenPoints(BlockPos rendererOrigin, Vec3 start, Vec3 end, PoseStack poseStack, MultiBufferSource bufferSource, int blockLightStart, int blockLightEnd, int skyLightStart, int skyLightEnd) {
+                                                                                                                                                                                                                                ^
+  18 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+4 actionable tasks: 1 executed, 3 up-to-date
+
+BUILD FAILED in 1s

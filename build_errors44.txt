@@ -1,0 +1,116 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :common:compileJava
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\loot\IsInBiomeCondition.java:69: error: incompatible types: no instance(s) of type variable(s) E exist so that Set<E> conforms to ImmutableSet<ResourceKey<Biome>>
+        return () -> new IsInBiomeCondition(Set.of(key));
+                     ^
+  where E is a type-variable:
+    E extends Object declared in method <E>of(E...)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:53: error: scissorStack has private access in GuiGraphicsExtractor
+        return ((GuiGraphicsExtractor) (Object) this).scissorStack.peek();
+                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:53: error: ScissorStack.peek() is defined in an inaccessible class or interface
+        return ((GuiGraphicsExtractor) (Object) this).scissorStack.peek();
+                                                                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:31: error: cannot find symbol
+                blockLootSubProvider.dropSelf(consumer, blockGetter.get().value());
+                                    ^
+  symbol:   method dropSelf(BiConsumer<ResourceKey<LootTable>,Builder>,B)
+  location: variable blockLootSubProvider of type PotionsPlusBlockLoot
+  where B is a type-variable:
+    B extends Block declared in class BlockDropSelfLoot
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:55: error: cannot find symbol
+                blockLootSubProvider.dropSelf(consumer, block,
+                                    ^
+  symbol:   method dropSelf(BiConsumer<ResourceKey<LootTable>,net.minecraft.world.level.storage.loot.LootTable.Builder>,Block,net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition.Builder)
+  location: variable blockLootSubProvider of type PotionsPlusBlockLoot
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:48: error: cannot find symbol
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                   ^
+  symbol:   method getItemRenderer()
+  location: class Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:67: error: cannot find symbol
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
+                                   ^
+  symbol:   method getItemRenderer()
+  location: class Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:90: error: cannot find symbol
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                   ^
+  symbol:   method getItemRenderer()
+  location: class Minecraft
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+8 errors
+
+> Task :common:compileJava FAILED
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:53: error: ScissorStack.peek() is defined in an inaccessible class or interface
+          return ((GuiGraphicsExtractor) (Object) this).scissorStack.peek();
+                                                                    ^
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\loot\IsInBiomeCondition.java:69: error: incompatible types: no instance(s) of type variable(s) E exist so that Set<E> conforms to ImmutableSet<ResourceKey<Biome>>
+          return () -> new IsInBiomeCondition(Set.of(key));
+                       ^
+    where E is a type-variable:
+      E extends Object declared in method <E>of(E...)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:53: error: scissorStack has private access in GuiGraphicsExtractor
+          return ((GuiGraphicsExtractor) (Object) this).scissorStack.peek();
+                                                       ^
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:31: error: cannot find symbol
+                  blockLootSubProvider.dropSelf(consumer, blockGetter.get().value());
+                                      ^
+    symbol:   method dropSelf(BiConsumer<ResourceKey<LootTable>,Builder>,B)
+    location: variable blockLootSubProvider of type PotionsPlusBlockLoot
+    where B is a type-variable:
+      B extends Block declared in class BlockDropSelfLoot
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:55: error: cannot find symbol
+                  blockLootSubProvider.dropSelf(consumer, block,
+                                      ^
+    symbol:   method dropSelf(BiConsumer<ResourceKey<LootTable>,net.minecraft.world.level.storage.loot.LootTable.Builder>,Block,net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition.Builder)
+    location: variable blockLootSubProvider of type PotionsPlusBlockLoot
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:48: error: cannot find symbol
+              Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                     ^
+    symbol:   method getItemRenderer()
+    location: class Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:67: error: cannot find symbol
+              Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
+                                     ^
+    symbol:   method getItemRenderer()
+    location: class Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:90: error: cannot find symbol
+              Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                     ^
+    symbol:   method getItemRenderer()
+    location: class Minecraft
+  8 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 5s
+1 actionable task: 1 executed

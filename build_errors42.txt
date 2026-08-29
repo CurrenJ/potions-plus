@@ -1,0 +1,1028 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :common:compileJava
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:51: error: ScissorStack has private access in GuiGraphicsExtractor
+    public GuiGraphicsExtractor.ScissorStack scissorStack;
+                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\LivingEntityMixin.java:82: error: cannot find symbol
+    public float getFriction(Block instance) {
+                             ^
+  symbol:   class Block
+  location: class LivingEntityMixin
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\ItemEntityMixin.java:24: error: cannot find symbol
+    @ModifyConstant(method = "tick", constant = @Constant(intValue = 6000))
+                                                 ^
+  symbol:   class Constant
+  location: class ItemEntityMixin
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\loot\IsInBiomeCondition.java:69: error: incompatible types: no instance(s) of type variable(s) E exist so that Set<E> conforms to ImmutableSet<ResourceKey<Biome>>
+        return () -> new IsInBiomeCondition(Set.of(key));
+                     ^
+  where E is a type-variable:
+    E extends Object declared in method <E>of(E...)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:33: error: no suitable method found for put(Item,(blockStat[...]tack))
+        CauldronInteractions.WATER.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                                  ^
+    method Dispatcher.put(Item,CauldronInteraction) is not applicable
+      (put(Item,CauldronInteraction) is not public in Dispatcher; cannot be accessed from outside package)
+    method Dispatcher.put(TagKey<Item>,CauldronInteraction) is not applicable
+      (argument mismatch; Item cannot be converted to TagKey<Item>)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:34: error: no suitable method found for put(Item,(blockStat[...]tack))
+        CauldronInteractions.EMPTY.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                                  ^
+    method Dispatcher.put(Item,CauldronInteraction) is not applicable
+      (put(Item,CauldronInteraction) is not public in Dispatcher; cannot be accessed from outside package)
+    method Dispatcher.put(TagKey<Item>,CauldronInteraction) is not applicable
+      (argument mismatch; Item cannot be converted to TagKey<Item>)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:30: error: cannot find symbol
+                Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getDuration(),
+                                               ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:30: error: cannot find symbol
+                Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getDuration(),
+                         ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:31: error: cannot find symbol
+                        SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getDuration()),
+                                              ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:31: error: cannot find symbol
+                        SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getDuration()),
+                        ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:32: error: cannot find symbol
+                Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_WINNER).getDuration(),
+                                               ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:32: error: cannot find symbol
+                Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_WINNER).getDuration(),
+                         ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:33: error: cannot find symbol
+                        SpatialAnimations.get(SpatialAnimations.WHEEL_LOSERS).getDuration()));
+                                              ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:33: error: cannot find symbol
+                        SpatialAnimations.get(SpatialAnimations.WHEEL_LOSERS).getDuration()));
+                        ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:59: error: cannot find symbol
+                    SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getRotation().evaluate(elapsedTicks).x() * rotationEnd,
+                                          ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:59: error: cannot find symbol
+                    SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getRotation().evaluate(elapsedTicks).x() * rotationEnd,
+                    ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:63: error: cannot find symbol
+            Vector3f positionOffset = new Vector3f(SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getPosition().evaluate(elapsedTicks));
+                                                                         ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:63: error: cannot find symbol
+            Vector3f positionOffset = new Vector3f(SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getPosition().evaluate(elapsedTicks));
+                                                   ^
+  symbol:   variable SpatialAnimations
+  location: class WheelItemActivationAnimation
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\AttributeModifiersWhileHeldAbility.java:44: error: cannot find symbol
+        List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.unlockedAbilities().get(abilityHolder.getKey());
+                                                                                                                      ^
+  symbol:   method getKey()
+  location: variable abilityHolder of type Holder<PlayerAbility<?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\PUtil.java:194: error: cannot find symbol
+            if (value.key().identifier().getNamespace().equals("minecraft") || value.key().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
+                     ^
+  symbol:   method key()
+  location: variable value of type Entry<ResourceKey<MobEffect>,MobEffect>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\PUtil.java:194: error: cannot find symbol
+            if (value.key().identifier().getNamespace().equals("minecraft") || value.key().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
+                                                                                    ^
+  symbol:   method key()
+  location: variable value of type Entry<ResourceKey<MobEffect>,MobEffect>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RecipeCodecs.java:17: error: cannot find symbol
+    public static final Codec<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE_CODEC = Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.value().codec().codec();
+                                                                                                                               ^
+  symbol:   method value()
+  location: variable BREWING_CAULDRON_RECIPE_SERIALIZER of type RecipeSerializer<BrewingCauldronRecipe>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:31: error: cannot find symbol
+                blockLootSubProvider.dropSelf(consumer, blockGetter.get().value());
+                                    ^
+  symbol:   method dropSelf(BiConsumer<ResourceKey<LootTable>,Builder>,B)
+  location: variable blockLootSubProvider of type PotionsPlusBlockLoot
+  where B is a type-variable:
+    B extends Block declared in class BlockDropSelfLoot
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:55: error: cannot find symbol
+                blockLootSubProvider.dropSelf(consumer, block,
+                                    ^
+  symbol:   method dropSelf(BiConsumer<ResourceKey<LootTable>,net.minecraft.world.level.storage.loot.LootTable.Builder>,Block,net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition.Builder)
+  location: variable blockLootSubProvider of type PotionsPlusBlockLoot
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleTallVersatilePlantBlockBuilder.java:32: error: cannot find symbol
+                .noCollission()
+                ^
+  symbol:   method noCollission()
+  location: class Properties
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleVersatilePlantBlockBuilder.java:36: error: cannot find symbol
+                .noCollission()
+                ^
+  symbol:   method noCollission()
+  location: class Properties
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:318: error: cannot find symbol
+                            List.of(entry.key()),
+                                         ^
+  symbol:   method key()
+  location: variable entry of type Entry<Variation,Unbaked>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:321: error: incompatible types: List<SwitchCase<Object>> cannot be converted to List<SwitchCase<Variation>>
+                    .toList();
+                           ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:48: error: cannot find symbol
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                   ^
+  symbol:   method getItemRenderer()
+  location: class Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:67: error: cannot find symbol
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
+                                   ^
+  symbol:   method getItemRenderer()
+  location: class Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:90: error: cannot find symbol
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                   ^
+  symbol:   method getItemRenderer()
+  location: class Minecraft
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:33: error: globalOverworldGeneration(Builder) has private access in OverworldBiomes
+        OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:51: error: cannot find symbol
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                          ^
+  symbol:   variable AmbientMoodSettings
+  location: class AridCave
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:48: error: cannot find symbol
+                        .waterFogColor(0x050533)
+                        ^
+  symbol:   method waterFogColor(int)
+  location: class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:59: error: globalOverworldGeneration(Builder) has private access in OverworldBiomes
+        OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:83: error: cannot find symbol
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                          ^
+  symbol:   variable AmbientMoodSettings
+  location: class IceCave
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:79: error: cannot find symbol
+                        .waterFogColor(0x050533)
+                        ^
+  symbol:   method waterFogColor(int)
+  location: class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:65: error: cannot find symbol
+        Biomes.globalOverworldGeneration(biomegenerationsettings$builder);
+              ^
+  symbol:   method globalOverworldGeneration(Builder)
+  location: class Biomes
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:85: error: cannot find symbol
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                          ^
+  symbol:   variable AmbientMoodSettings
+  location: class VolcanicCave
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:80: error: cannot find symbol
+                        .waterFogColor(11809282)
+                        ^
+  symbol:   method waterFogColor(int)
+  location: class Builder
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:105: error: cannot find symbol
+        final Holder<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH = register(context, LUNAR_BERRY_BUSH_KEY, Feature.RANDOM_PATCH,
+                                                                                                                ^
+  symbol:   variable RANDOM_PATCH
+  location: class Feature
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:106: error: cannot find symbol
+                new RandomPatchConfiguration(32, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+                    ^
+  symbol:   class RandomPatchConfiguration
+  location: class ConfiguredFeatures
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:109: error: cannot find symbol
+                                .add(FlowerBlocks.LUNAR_BERRY_BUSH.value().defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 1)
+                                                 ^
+  symbol:   variable LUNAR_BERRY_BUSH
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:113: error: cannot find symbol
+        final Holder<ConfiguredFeature<?, ?>> TOMATO_PATCH = register(context, TOMATO_PATCH_KEY, Feature.RANDOM_PATCH,
+                                                                                                        ^
+  symbol:   variable RANDOM_PATCH
+  location: class Feature
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:114: error: cannot find symbol
+                new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
+                    ^
+  symbol:   class RandomPatchConfiguration
+  location: class ConfiguredFeatures
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:118: error: cannot find symbol
+        final Holder<ConfiguredFeature<?, ?>> BRASSICA_OLERACEA_PATCH = register(context, BRASSICA_OLERACEA_PATCH_KEY, Feature.RANDOM_PATCH,
+                                                                                                                              ^
+  symbol:   variable RANDOM_PATCH
+  location: class Feature
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:119: error: cannot find symbol
+                new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
+                    ^
+  symbol:   class RandomPatchConfiguration
+  location: class ConfiguredFeatures
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\GeneticCropFeature.java:29: error: method getState in class BlockStateProvider cannot be applied to given types;
+        BlockState blockstate = GeneticCropConfiguration.toPlace().getState(p_160341_.random(), blockpos);
+                                                                  ^
+  required: WorldGenLevel,RandomSource,BlockPos
+  found:    RandomSource,BlockPos
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\GeneticCropFeature.java:29: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+        BlockState blockstate = GeneticCropConfiguration.toPlace().getState(p_160341_.random(), blockpos);
+                                                                                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PotionsPlusVegetationPatchFeature.java:107: error: method getState in class BlockStateProvider cannot be applied to given types;
+            BlockState ground = p_160606_.groundState.getState(random, pos);
+                                                     ^
+  required: WorldGenLevel,RandomSource,BlockPos
+  found:    RandomSource,MutableBlockPos
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:20: error: method getState in class BlockStateProvider cannot be applied to given types;
+        BlockState primary = config.primaryToPlace().getState(ctx.random(), pos);
+                                                    ^
+  required: WorldGenLevel,RandomSource,BlockPos
+  found:    RandomSource,BlockPos
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:20: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+        BlockState primary = config.primaryToPlace().getState(ctx.random(), pos);
+                                                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:21: error: method getState in class BlockStateProvider cannot be applied to given types;
+        BlockState secondary = config.secondaryToPlace().getState(ctx.random(), pos);
+                                                        ^
+  required: WorldGenLevel,RandomSource,BlockPos
+  found:    RandomSource,BlockPos
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:21: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+        BlockState secondary = config.secondaryToPlace().getState(ctx.random(), pos);
+                                                                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VersatilePlantBlockFeature.java:23: error: method getState in class BlockStateProvider cannot be applied to given types;
+        BlockState blockstate = configuration.toPlace().getState(context.random(), blockpos).setValue(VersatilePlantBlock.FACING, configuration.facing());
+                                                       ^
+  required: WorldGenLevel,RandomSource,BlockPos
+  found:    RandomSource,BlockPos
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VersatilePlantBlockFeature.java:23: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+        BlockState blockstate = configuration.toPlace().getState(context.random(), blockpos).setValue(VersatilePlantBlock.FACING, configuration.facing());
+                                                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VersatilePlantBlockFeature.java:26: error: cannot find symbol
+            int length = configuration.length().getOrDefault(blockstate.getBlockHolder().key(), UniformInt.of(0, 0)).sample(worldgenlevel.getRandom());
+                                                                       ^
+  symbol:   method getBlockHolder()
+  location: variable blockstate of type BlockState
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VolcanicFissureFeature.java:62: error: method getState in class WeightedStateProvider cannot be applied to given types;
+            BlockState cavity = FILL_SAMPLER.get().getState(context.random(), pos);
+                                                  ^
+  required: WorldGenLevel,RandomSource,BlockPos
+  found:    RandomSource,BlockPos
+  reason: actual and formal argument lists differ in length
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VolcanicFissureFeature.java:62: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+            BlockState cavity = FILL_SAMPLER.get().getState(context.random(), pos);
+                                                                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:31: error: cannot find symbol
+                            .add(FlowerBlocks.SURVIVOR_STICK.value().defaultBlockState(), 1)
+                                             ^
+  symbol:   variable SURVIVOR_STICK
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:32: error: cannot find symbol
+                            .add(FlowerBlocks.COWLICK_VINE.value().defaultBlockState(), 1)
+                                             ^
+  symbol:   variable COWLICK_VINE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:33: error: cannot find symbol
+                            .add(FlowerBlocks.HANGING_FERN.value().defaultBlockState(), 13)
+                                             ^
+  symbol:   variable HANGING_FERN
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:34: error: cannot find symbol
+                            .add(FlowerBlocks.DROOPY_VINE.value().defaultBlockState(), 1)
+                                             ^
+  symbol:   variable DROOPY_VINE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:35: error: cannot find symbol
+                            .add(FlowerBlocks.LUMOSEED_SACKS.value().defaultBlockState(), 1)
+                                             ^
+  symbol:   variable LUMOSEED_SACKS
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:38: error: cannot find symbol
+                    FlowerBlocks.SURVIVOR_STICK.unwrapKey().orElseThrow(), ClampedNormalInt.of(2, 2, 2, 6),
+                                ^
+  symbol:   variable SURVIVOR_STICK
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:39: error: cannot find symbol
+                    FlowerBlocks.COWLICK_VINE.unwrapKey().orElseThrow(), ClampedNormalInt.of(5, 2, 3, 9),
+                                ^
+  symbol:   variable COWLICK_VINE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:40: error: cannot find symbol
+                    FlowerBlocks.HANGING_FERN.unwrapKey().orElseThrow(), ClampedNormalInt.of(2, 1, 2, 5),
+                                ^
+  symbol:   variable HANGING_FERN
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:41: error: cannot find symbol
+                    FlowerBlocks.DROOPY_VINE.unwrapKey().orElseThrow(), ClampedNormalInt.of(3, 1, 2, 7),
+                                ^
+  symbol:   variable DROOPY_VINE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:42: error: cannot find symbol
+                    FlowerBlocks.LUMOSEED_SACKS.unwrapKey().orElseThrow(), ClampedNormalInt.of(4, 1, 2, 8)
+                                ^
+  symbol:   variable LUMOSEED_SACKS
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:52: error: cannot find symbol
+                            .add(FlowerBlocks.DANDELION_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+  symbol:   variable DANDELION_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:53: error: cannot find symbol
+                            .add(FlowerBlocks.TORCHFLOWER_VERSATILE.value().defaultBlockState(), 3)
+                                             ^
+  symbol:   variable TORCHFLOWER_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:54: error: cannot find symbol
+                            .add(FlowerBlocks.POPPY_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+  symbol:   variable POPPY_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:55: error: cannot find symbol
+                            .add(FlowerBlocks.BLUE_ORCHID_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+  symbol:   variable BLUE_ORCHID_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:56: error: cannot find symbol
+                            .add(FlowerBlocks.ALLIUM_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+  symbol:   variable ALLIUM_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:57: error: cannot find symbol
+                            .add(FlowerBlocks.AZURE_BLUET_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+  symbol:   variable AZURE_BLUET_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:58: error: cannot find symbol
+                            .add(FlowerBlocks.RED_TULIP_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+  symbol:   variable RED_TULIP_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:59: error: cannot find symbol
+                            .add(FlowerBlocks.ORANGE_TULIP_VERSATILE.value().defaultBlockState(), 7)
+                                             ^
+  symbol:   variable ORANGE_TULIP_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:60: error: cannot find symbol
+                            .add(FlowerBlocks.WHITE_TULIP_VERSATILE.value().defaultBlockState(), 10)
+                                             ^
+  symbol:   variable WHITE_TULIP_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:61: error: cannot find symbol
+                            .add(FlowerBlocks.PINK_TULIP_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+  symbol:   variable PINK_TULIP_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:62: error: cannot find symbol
+                            .add(FlowerBlocks.OXEYE_DAISY_VERSATILE.value().defaultBlockState(), 10)
+                                             ^
+  symbol:   variable OXEYE_DAISY_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:63: error: cannot find symbol
+                            .add(FlowerBlocks.CORNFLOWER_VERSATILE.value().defaultBlockState(), 6)
+                                             ^
+  symbol:   variable CORNFLOWER_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:64: error: cannot find symbol
+                            .add(FlowerBlocks.WITHER_ROSE_VERSATILE.value().defaultBlockState(), 1)
+                                             ^
+  symbol:   variable WITHER_ROSE_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:65: error: cannot find symbol
+                            .add(FlowerBlocks.LILY_OF_THE_VALLEY_VERSATILE.value().defaultBlockState(), 10)
+                                             ^
+  symbol:   variable LILY_OF_THE_VALLEY_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:66: error: cannot find symbol
+                            .add(FlowerBlocks.BROWN_MUSHROOM_VERSATILE.value().defaultBlockState(), 5)
+                                             ^
+  symbol:   variable BROWN_MUSHROOM_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:67: error: cannot find symbol
+                            .add(FlowerBlocks.RED_MUSHROOM_VERSATILE.value().defaultBlockState(), 5)
+                                             ^
+  symbol:   variable RED_MUSHROOM_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:69: error: cannot find symbol
+                            .add(FlowerBlocks.SUNFLOWER_VERSATILE.value().defaultBlockState(), 5)
+                                             ^
+  symbol:   variable SUNFLOWER_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:70: error: cannot find symbol
+                            .add(FlowerBlocks.LILAC_VERSATILE.value().defaultBlockState(), 5)
+                                             ^
+  symbol:   variable LILAC_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:71: error: cannot find symbol
+                            .add(FlowerBlocks.ROSE_BUSH_VERSATILE.value().defaultBlockState(), 5)
+                                             ^
+  symbol:   variable ROSE_BUSH_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:72: error: cannot find symbol
+                            .add(FlowerBlocks.PEONY_VERSATILE.value().defaultBlockState(), 5)
+                                             ^
+  symbol:   variable PEONY_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:76: error: cannot find symbol
+                            .add(FlowerBlocks.PITCHER_PLANT_VERSATILE.value().defaultBlockState(), 2)
+                                             ^
+  symbol:   variable PITCHER_PLANT_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:79: error: cannot find symbol
+                put(FlowerBlocks.DANDELION_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                ^
+  symbol:   variable DANDELION_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:80: error: cannot find symbol
+                put(FlowerBlocks.TORCHFLOWER_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                ^
+  symbol:   variable TORCHFLOWER_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:81: error: cannot find symbol
+                put(FlowerBlocks.POPPY_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                ^
+  symbol:   variable POPPY_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:82: error: cannot find symbol
+                put(FlowerBlocks.BLUE_ORCHID_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                ^
+  symbol:   variable BLUE_ORCHID_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:83: error: cannot find symbol
+                put(FlowerBlocks.ALLIUM_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                ^
+  symbol:   variable ALLIUM_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:84: error: cannot find symbol
+                put(FlowerBlocks.AZURE_BLUET_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                ^
+  symbol:   variable AZURE_BLUET_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:85: error: cannot find symbol
+                put(FlowerBlocks.RED_TULIP_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                ^
+  symbol:   variable RED_TULIP_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:86: error: cannot find symbol
+                put(FlowerBlocks.ORANGE_TULIP_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                ^
+  symbol:   variable ORANGE_TULIP_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:87: error: cannot find symbol
+                put(FlowerBlocks.WHITE_TULIP_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                ^
+  symbol:   variable WHITE_TULIP_VERSATILE
+  location: class FlowerBlocks
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:88: error: cannot find symbol
+                put(FlowerBlocks.PINK_TULIP_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                ^
+  symbol:   variable PINK_TULIP_VERSATILE
+  location: class FlowerBlocks
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+
+> Task :common:compileJava FAILED
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\GeneticCropFeature.java:29: error: method getState in class BlockStateProvider cannot be applied to given types;
+          BlockState blockstate = GeneticCropConfiguration.toPlace().getState(p_160341_.random(), blockpos);
+                                                                    ^
+    required: WorldGenLevel,RandomSource,BlockPos
+    found:    RandomSource,BlockPos
+    reason: actual and formal argument lists differ in length
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PotionsPlusVegetationPatchFeature.java:107: error: method getState in class BlockStateProvider cannot be applied to given types;
+              BlockState ground = p_160606_.groundState.getState(random, pos);
+                                                       ^
+    required: WorldGenLevel,RandomSource,BlockPos
+    found:    RandomSource,MutableBlockPos
+    reason: actual and formal argument lists differ in length
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:20: error: method getState in class BlockStateProvider cannot be applied to given types;
+          BlockState primary = config.primaryToPlace().getState(ctx.random(), pos);
+                                                      ^
+    required: WorldGenLevel,RandomSource,BlockPos
+    found:    RandomSource,BlockPos
+    reason: actual and formal argument lists differ in length
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:21: error: method getState in class BlockStateProvider cannot be applied to given types;
+          BlockState secondary = config.secondaryToPlace().getState(ctx.random(), pos);
+                                                          ^
+    required: WorldGenLevel,RandomSource,BlockPos
+    found:    RandomSource,BlockPos
+    reason: actual and formal argument lists differ in length
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VersatilePlantBlockFeature.java:23: error: method getState in class BlockStateProvider cannot be applied to given types;
+          BlockState blockstate = configuration.toPlace().getState(context.random(), blockpos).setValue(VersatilePlantBlock.FACING, configuration.facing());
+                                                         ^
+    required: WorldGenLevel,RandomSource,BlockPos
+    found:    RandomSource,BlockPos
+    reason: actual and formal argument lists differ in length
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VolcanicFissureFeature.java:62: error: method getState in class WeightedStateProvider cannot be applied to given types;
+              BlockState cavity = FILL_SAMPLER.get().getState(context.random(), pos);
+                                                    ^
+    required: WorldGenLevel,RandomSource,BlockPos
+    found:    RandomSource,BlockPos
+    reason: actual and formal argument lists differ in length
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:33: error: no suitable method found for put(Item,(blockStat[...]tack))
+          CauldronInteractions.WATER.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                                    ^
+      method Dispatcher.put(Item,CauldronInteraction) is not applicable
+        (put(Item,CauldronInteraction) is not public in Dispatcher; cannot be accessed from outside package)
+      method Dispatcher.put(TagKey<Item>,CauldronInteraction) is not applicable
+        (argument mismatch; Item cannot be converted to TagKey<Item>)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:34: error: no suitable method found for put(Item,(blockStat[...]tack))
+          CauldronInteractions.EMPTY.put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                                    ^
+      method Dispatcher.put(Item,CauldronInteraction) is not applicable
+        (put(Item,CauldronInteraction) is not public in Dispatcher; cannot be accessed from outside package)
+      method Dispatcher.put(TagKey<Item>,CauldronInteraction) is not applicable
+        (argument mismatch; Item cannot be converted to TagKey<Item>)
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\loot\IsInBiomeCondition.java:69: error: incompatible types: no instance(s) of type variable(s) E exist so that Set<E> conforms to ImmutableSet<ResourceKey<Biome>>
+          return () -> new IsInBiomeCondition(Set.of(key));
+                       ^
+    where E is a type-variable:
+      E extends Object declared in method <E>of(E...)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:321: error: incompatible types: List<SwitchCase<Object>> cannot be converted to List<SwitchCase<Variation>>
+                      .toList();
+                             ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\GeneticCropFeature.java:29: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+          BlockState blockstate = GeneticCropConfiguration.toPlace().getState(p_160341_.random(), blockpos);
+                                                                                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:20: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+          BlockState primary = config.primaryToPlace().getState(ctx.random(), pos);
+                                                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\PrimaryAndSecondaryFlowerPatchFeature.java:21: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+          BlockState secondary = config.secondaryToPlace().getState(ctx.random(), pos);
+                                                                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VersatilePlantBlockFeature.java:23: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+          BlockState blockstate = configuration.toPlace().getState(context.random(), blockpos).setValue(VersatilePlantBlock.FACING, configuration.facing());
+                                                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VolcanicFissureFeature.java:62: error: incompatible types: RandomSource cannot be converted to WorldGenLevel
+              BlockState cavity = FILL_SAMPLER.get().getState(context.random(), pos);
+                                                                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\LivingEntityMixin.java:82: error: cannot find symbol
+      public float getFriction(Block instance) {
+                               ^
+    symbol:   class Block
+    location: class LivingEntityMixin
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\ItemEntityMixin.java:24: error: cannot find symbol
+      @ModifyConstant(method = "tick", constant = @Constant(intValue = 6000))
+                                                   ^
+    symbol:   class Constant
+    location: class ItemEntityMixin
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:30: error: cannot find symbol
+                  Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getDuration(),
+                                                 ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:30: error: cannot find symbol
+                  Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getDuration(),
+                           ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:31: error: cannot find symbol
+                          SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getDuration()),
+                                                ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:31: error: cannot find symbol
+                          SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getDuration()),
+                          ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:32: error: cannot find symbol
+                  Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_WINNER).getDuration(),
+                                                 ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:32: error: cannot find symbol
+                  Math.max(SpatialAnimations.get(SpatialAnimations.WHEEL_WINNER).getDuration(),
+                           ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:33: error: cannot find symbol
+                          SpatialAnimations.get(SpatialAnimations.WHEEL_LOSERS).getDuration()));
+                                                ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:33: error: cannot find symbol
+                          SpatialAnimations.get(SpatialAnimations.WHEEL_LOSERS).getDuration()));
+                          ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:59: error: cannot find symbol
+                      SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getRotation().evaluate(elapsedTicks).x() * rotationEnd,
+                                            ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:59: error: cannot find symbol
+                      SpatialAnimations.get(SpatialAnimations.WHEEL_SPIN).getRotation().evaluate(elapsedTicks).x() * rotationEnd,
+                      ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:63: error: cannot find symbol
+              Vector3f positionOffset = new Vector3f(SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getPosition().evaluate(elapsedTicks));
+                                                                           ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\render\animation\WheelItemActivationAnimation.java:63: error: cannot find symbol
+              Vector3f positionOffset = new Vector3f(SpatialAnimations.get(SpatialAnimations.WHEEL_POSITION_OFFSET).getPosition().evaluate(elapsedTicks));
+                                                     ^
+    symbol:   variable SpatialAnimations
+    location: class WheelItemActivationAnimation
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:51: error: cannot find symbol
+                          .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                            ^
+    symbol:   variable AmbientMoodSettings
+    location: class AridCave
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:83: error: cannot find symbol
+                          .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                            ^
+    symbol:   variable AmbientMoodSettings
+    location: class IceCave
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:85: error: cannot find symbol
+                          .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                            ^
+    symbol:   variable AmbientMoodSettings
+    location: class VolcanicCave
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:105: error: cannot find symbol
+          final Holder<ConfiguredFeature<?, ?>> LUNAR_BERRY_BUSH = register(context, LUNAR_BERRY_BUSH_KEY, Feature.RANDOM_PATCH,
+                                                                                                                  ^
+    symbol:   variable RANDOM_PATCH
+    location: class Feature
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:106: error: cannot find symbol
+                  new RandomPatchConfiguration(32, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+                      ^
+    symbol:   class RandomPatchConfiguration
+    location: class ConfiguredFeatures
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:109: error: cannot find symbol
+                                  .add(FlowerBlocks.LUNAR_BERRY_BUSH.value().defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3), 1)
+                                                   ^
+    symbol:   variable LUNAR_BERRY_BUSH
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:113: error: cannot find symbol
+          final Holder<ConfiguredFeature<?, ?>> TOMATO_PATCH = register(context, TOMATO_PATCH_KEY, Feature.RANDOM_PATCH,
+                                                                                                          ^
+    symbol:   variable RANDOM_PATCH
+    location: class Feature
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:114: error: cannot find symbol
+                  new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
+                      ^
+    symbol:   class RandomPatchConfiguration
+    location: class ConfiguredFeatures
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:118: error: cannot find symbol
+          final Holder<ConfiguredFeature<?, ?>> BRASSICA_OLERACEA_PATCH = register(context, BRASSICA_OLERACEA_PATCH_KEY, Feature.RANDOM_PATCH,
+                                                                                                                                ^
+    symbol:   variable RANDOM_PATCH
+    location: class Feature
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\ConfiguredFeatures.java:119: error: cannot find symbol
+                  new RandomPatchConfiguration(32, 8, 2, PlacementUtils.onlyWhenEmpty(Features.GENETIC_CROP,
+                      ^
+    symbol:   class RandomPatchConfiguration
+    location: class ConfiguredFeatures
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:31: error: cannot find symbol
+                              .add(FlowerBlocks.SURVIVOR_STICK.value().defaultBlockState(), 1)
+                                               ^
+    symbol:   variable SURVIVOR_STICK
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:32: error: cannot find symbol
+                              .add(FlowerBlocks.COWLICK_VINE.value().defaultBlockState(), 1)
+                                               ^
+    symbol:   variable COWLICK_VINE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:33: error: cannot find symbol
+                              .add(FlowerBlocks.HANGING_FERN.value().defaultBlockState(), 13)
+                                               ^
+    symbol:   variable HANGING_FERN
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:34: error: cannot find symbol
+                              .add(FlowerBlocks.DROOPY_VINE.value().defaultBlockState(), 1)
+                                               ^
+    symbol:   variable DROOPY_VINE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:35: error: cannot find symbol
+                              .add(FlowerBlocks.LUMOSEED_SACKS.value().defaultBlockState(), 1)
+                                               ^
+    symbol:   variable LUMOSEED_SACKS
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:38: error: cannot find symbol
+                      FlowerBlocks.SURVIVOR_STICK.unwrapKey().orElseThrow(), ClampedNormalInt.of(2, 2, 2, 6),
+                                  ^
+    symbol:   variable SURVIVOR_STICK
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:39: error: cannot find symbol
+                      FlowerBlocks.COWLICK_VINE.unwrapKey().orElseThrow(), ClampedNormalInt.of(5, 2, 3, 9),
+                                  ^
+    symbol:   variable COWLICK_VINE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:40: error: cannot find symbol
+                      FlowerBlocks.HANGING_FERN.unwrapKey().orElseThrow(), ClampedNormalInt.of(2, 1, 2, 5),
+                                  ^
+    symbol:   variable HANGING_FERN
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:41: error: cannot find symbol
+                      FlowerBlocks.DROOPY_VINE.unwrapKey().orElseThrow(), ClampedNormalInt.of(3, 1, 2, 7),
+                                  ^
+    symbol:   variable DROOPY_VINE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:42: error: cannot find symbol
+                      FlowerBlocks.LUMOSEED_SACKS.unwrapKey().orElseThrow(), ClampedNormalInt.of(4, 1, 2, 8)
+                                  ^
+    symbol:   variable LUMOSEED_SACKS
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:52: error: cannot find symbol
+                              .add(FlowerBlocks.DANDELION_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+    symbol:   variable DANDELION_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:53: error: cannot find symbol
+                              .add(FlowerBlocks.TORCHFLOWER_VERSATILE.value().defaultBlockState(), 3)
+                                               ^
+    symbol:   variable TORCHFLOWER_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:54: error: cannot find symbol
+                              .add(FlowerBlocks.POPPY_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+    symbol:   variable POPPY_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:55: error: cannot find symbol
+                              .add(FlowerBlocks.BLUE_ORCHID_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+    symbol:   variable BLUE_ORCHID_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:56: error: cannot find symbol
+                              .add(FlowerBlocks.ALLIUM_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+    symbol:   variable ALLIUM_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:57: error: cannot find symbol
+                              .add(FlowerBlocks.AZURE_BLUET_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+    symbol:   variable AZURE_BLUET_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:58: error: cannot find symbol
+                              .add(FlowerBlocks.RED_TULIP_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+    symbol:   variable RED_TULIP_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:59: error: cannot find symbol
+                              .add(FlowerBlocks.ORANGE_TULIP_VERSATILE.value().defaultBlockState(), 7)
+                                               ^
+    symbol:   variable ORANGE_TULIP_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:60: error: cannot find symbol
+                              .add(FlowerBlocks.WHITE_TULIP_VERSATILE.value().defaultBlockState(), 10)
+                                               ^
+    symbol:   variable WHITE_TULIP_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:61: error: cannot find symbol
+                              .add(FlowerBlocks.PINK_TULIP_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+    symbol:   variable PINK_TULIP_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:62: error: cannot find symbol
+                              .add(FlowerBlocks.OXEYE_DAISY_VERSATILE.value().defaultBlockState(), 10)
+                                               ^
+    symbol:   variable OXEYE_DAISY_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:63: error: cannot find symbol
+                              .add(FlowerBlocks.CORNFLOWER_VERSATILE.value().defaultBlockState(), 6)
+                                               ^
+    symbol:   variable CORNFLOWER_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:64: error: cannot find symbol
+                              .add(FlowerBlocks.WITHER_ROSE_VERSATILE.value().defaultBlockState(), 1)
+                                               ^
+    symbol:   variable WITHER_ROSE_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:65: error: cannot find symbol
+                              .add(FlowerBlocks.LILY_OF_THE_VALLEY_VERSATILE.value().defaultBlockState(), 10)
+                                               ^
+    symbol:   variable LILY_OF_THE_VALLEY_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:66: error: cannot find symbol
+                              .add(FlowerBlocks.BROWN_MUSHROOM_VERSATILE.value().defaultBlockState(), 5)
+                                               ^
+    symbol:   variable BROWN_MUSHROOM_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:67: error: cannot find symbol
+                              .add(FlowerBlocks.RED_MUSHROOM_VERSATILE.value().defaultBlockState(), 5)
+                                               ^
+    symbol:   variable RED_MUSHROOM_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:69: error: cannot find symbol
+                              .add(FlowerBlocks.SUNFLOWER_VERSATILE.value().defaultBlockState(), 5)
+                                               ^
+    symbol:   variable SUNFLOWER_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:70: error: cannot find symbol
+                              .add(FlowerBlocks.LILAC_VERSATILE.value().defaultBlockState(), 5)
+                                               ^
+    symbol:   variable LILAC_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:71: error: cannot find symbol
+                              .add(FlowerBlocks.ROSE_BUSH_VERSATILE.value().defaultBlockState(), 5)
+                                               ^
+    symbol:   variable ROSE_BUSH_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:72: error: cannot find symbol
+                              .add(FlowerBlocks.PEONY_VERSATILE.value().defaultBlockState(), 5)
+                                               ^
+    symbol:   variable PEONY_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:76: error: cannot find symbol
+                              .add(FlowerBlocks.PITCHER_PLANT_VERSATILE.value().defaultBlockState(), 2)
+                                               ^
+    symbol:   variable PITCHER_PLANT_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:79: error: cannot find symbol
+                  put(FlowerBlocks.DANDELION_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                  ^
+    symbol:   variable DANDELION_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:80: error: cannot find symbol
+                  put(FlowerBlocks.TORCHFLOWER_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                  ^
+    symbol:   variable TORCHFLOWER_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:81: error: cannot find symbol
+                  put(FlowerBlocks.POPPY_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                  ^
+    symbol:   variable POPPY_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:82: error: cannot find symbol
+                  put(FlowerBlocks.BLUE_ORCHID_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                  ^
+    symbol:   variable BLUE_ORCHID_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:83: error: cannot find symbol
+                  put(FlowerBlocks.ALLIUM_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                  ^
+    symbol:   variable ALLIUM_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:84: error: cannot find symbol
+                  put(FlowerBlocks.AZURE_BLUET_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                  ^
+    symbol:   variable AZURE_BLUET_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:85: error: cannot find symbol
+                  put(FlowerBlocks.RED_TULIP_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                  ^
+    symbol:   variable RED_TULIP_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:86: error: cannot find symbol
+                  put(FlowerBlocks.ORANGE_TULIP_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                  ^
+    symbol:   variable ORANGE_TULIP_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:87: error: cannot find symbol
+                  put(FlowerBlocks.WHITE_TULIP_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                  ^
+    symbol:   variable WHITE_TULIP_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\VersatilePlantsWorldGenData.java:88: error: cannot find symbol
+                  put(FlowerBlocks.PINK_TULIP_VERSATILE.unwrapKey().orElseThrow(), ConstantInt.of(1));
+                                  ^
+    symbol:   variable PINK_TULIP_VERSATILE
+    location: class FlowerBlocks
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:51: error: ScissorStack has private access in GuiGraphicsExtractor
+      public GuiGraphicsExtractor.ScissorStack scissorStack;
+                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:33: error: globalOverworldGeneration(Builder) has private access in OverworldBiomes
+          OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                         ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:59: error: globalOverworldGeneration(Builder) has private access in OverworldBiomes
+          OverworldBiomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                         ^
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\skill\ability\AttributeModifiersWhileHeldAbility.java:44: error: cannot find symbol
+          List<AbilityInstanceSerializable<?, ?>> configuredAbilities = skillsData.unlockedAbilities().get(abilityHolder.getKey());
+                                                                                                                        ^
+    symbol:   method getKey()
+    location: variable abilityHolder of type Holder<PlayerAbility<?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\PUtil.java:194: error: cannot find symbol
+              if (value.key().identifier().getNamespace().equals("minecraft") || value.key().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
+                       ^
+    symbol:   method key()
+    location: variable value of type Entry<ResourceKey<MobEffect>,MobEffect>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\PUtil.java:194: error: cannot find symbol
+              if (value.key().identifier().getNamespace().equals("minecraft") || value.key().identifier().getNamespace().equals(ModInfo.MOD_ID)) {
+                                                                                      ^
+    symbol:   method key()
+    location: variable value of type Entry<ResourceKey<MobEffect>,MobEffect>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RecipeCodecs.java:17: error: cannot find symbol
+      public static final Codec<BrewingCauldronRecipe> BREWING_CAULDRON_RECIPE_CODEC = Recipes.BREWING_CAULDRON_RECIPE_SERIALIZER.value().codec().codec();
+                                                                                                                                 ^
+    symbol:   method value()
+    location: variable BREWING_CAULDRON_RECIPE_SERIALIZER of type RecipeSerializer<BrewingCauldronRecipe>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:31: error: cannot find symbol
+                  blockLootSubProvider.dropSelf(consumer, blockGetter.get().value());
+                                      ^
+    symbol:   method dropSelf(BiConsumer<ResourceKey<LootTable>,Builder>,B)
+    location: variable blockLootSubProvider of type PotionsPlusBlockLoot
+    where B is a type-variable:
+      B extends Block declared in class BlockDropSelfLoot
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\BlockLootUtility.java:55: error: cannot find symbol
+                  blockLootSubProvider.dropSelf(consumer, block,
+                                      ^
+    symbol:   method dropSelf(BiConsumer<ResourceKey<LootTable>,net.minecraft.world.level.storage.loot.LootTable.Builder>,Block,net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition.Builder)
+    location: variable blockLootSubProvider of type PotionsPlusBlockLoot
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleTallVersatilePlantBlockBuilder.java:32: error: cannot find symbol
+                  .noCollission()
+                  ^
+    symbol:   method noCollission()
+    location: class Properties
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\block\SimpleVersatilePlantBlockBuilder.java:36: error: cannot find symbol
+                  .noCollission()
+                  ^
+    symbol:   method noCollission()
+    location: class Properties
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemModelUtility.java:318: error: cannot find symbol
+                              List.of(entry.key()),
+                                           ^
+    symbol:   method key()
+    location: variable entry of type Entry<Variation,Unbaked>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:48: error: cannot find symbol
+              Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                     ^
+    symbol:   method getItemRenderer()
+    location: class Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:67: error: cannot find symbol
+              Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
+                                     ^
+    symbol:   method getItemRenderer()
+    location: class Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\RUtil.java:90: error: cannot find symbol
+              Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED,
+                                     ^
+    symbol:   method getItemRenderer()
+    location: class Minecraft
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\AridCave.java:48: error: cannot find symbol
+                          .waterFogColor(0x050533)
+                          ^
+    symbol:   method waterFogColor(int)
+    location: class Builder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\IceCave.java:79: error: cannot find symbol
+                          .waterFogColor(0x050533)
+                          ^
+    symbol:   method waterFogColor(int)
+    location: class Builder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:65: error: cannot find symbol
+          Biomes.globalOverworldGeneration(biomegenerationsettings$builder);
+                ^
+    symbol:   method globalOverworldGeneration(Builder)
+    location: class Biomes
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\biome\VolcanicCave.java:80: error: cannot find symbol
+                          .waterFogColor(11809282)
+                          ^
+    symbol:   method waterFogColor(int)
+    location: class Builder
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\worldgen\feature\VersatilePlantBlockFeature.java:26: error: cannot find symbol
+              int length = configuration.length().getOrDefault(blockstate.getBlockHolder().key(), UniformInt.of(0, 0)).sample(worldgenlevel.getRandom());
+                                                                         ^
+    symbol:   method getBlockHolder()
+    location: variable blockstate of type BlockState
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 4s
+1 actionable task: 1 executed

@@ -1,0 +1,876 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :common:compileJava
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:57: error: modelOutput has private access in BlockModelGenerators
+            Identifier fallbackItemModel = ModelTemplates.FLAT_ITEM.create(fallbackItemModelId, fallbackItemTextureMapping, blockModelGenerators.modelOutput);
+                                                                                                                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:67: error: modelOutput has private access in BlockModelGenerators
+                Identifier generatedItemModel = ModelTemplates.TWO_LAYERED_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:85: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:106: error: modelOutput has private access in BlockModelGenerators
+                Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:120: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:143: error: modelOutput has private access in BlockModelGenerators
+            Identifier fallbackItemModelLocation = ModelTemplates.FLAT_ITEM.create(ppId("unknown_generic_icon_fallback"), fallbackItemTextureMapping, blockModelGenerators.modelOutput);
+                                                                                                                                                                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:154: error: modelOutput has private access in BlockModelGenerators
+                Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:168: error: itemModelOutput has private access in BlockModelGenerators
+            blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:28: error: targetSelector has protected access in Mob
+            Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
+                                                                                     ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:31: error: targetType has protected access in NearestAttackableTargetGoal
+                    .filter(goal -> goal.targetType == Player.class);
+                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:34: error: targetSelector has protected access in Mob
+                skeleton.targetSelector.removeGoal(goal);
+                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:37: error: targetSelector has protected access in Mob
+            skeleton.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(skeleton, Monster.class, false, TARGET_PREDICATE));
+                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:51: error: targetSelector has protected access in Mob
+        Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
+                                                                                 ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:54: error: targetType has protected access in NearestAttackableTargetGoal
+                .filter(goal -> goal.targetType == Monster.class);
+                                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:57: error: targetSelector has protected access in Mob
+            skeleton.targetSelector.removeGoal(goal);
+                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:60: error: targetSelector has protected access in Mob
+        skeleton.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(skeleton, Player.class, true));
+                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BouncingEffect.java:70: error: package SavedByTheBounceAbility does not exist
+                        new SavedByTheBounceAbility.FallData(distance));
+                                                   ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\entity\GrunglerRenderer.java:23: error: cannot find symbol
+        this.blockModelResolver = context.blockModelResolver();
+                                         ^
+  symbol:   method blockModelResolver()
+  location: variable context of type Context
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:22: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:24: error: cannot find symbol
+        super.render(graphics, mouseX, mouseY, partialTick);
+             ^
+  symbol: method render(GuiGraphicsExtractor,int,int,float)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:33: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:38: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:43: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:47: error: method mouseClicked in class AbstractContainerScreen<T> cannot be applied to given types;
+        return super.mouseClicked(mouseX, mouseY, button);
+                    ^
+  required: MouseButtonEvent,boolean
+  found:    double,double,int
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends AbstractContainerMenu declared in class AbstractContainerScreen
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:57: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:61: error: method mouseDragged in class AbstractContainerScreen<T> cannot be applied to given types;
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+                    ^
+  required: MouseButtonEvent,double,double
+  found:    double,double,int,double,double
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends AbstractContainerMenu declared in class AbstractContainerScreen
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:70: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:72: error: no suitable method found for getKey(int,int)
+        InputConstants.Key keyPress = InputConstants.getKey(key, scancode);
+                                                    ^
+    method InputConstants.getKey(KeyEvent) is not applicable
+      (actual and formal argument lists differ in length)
+    method InputConstants.getKey(String) is not applicable
+      (actual and formal argument lists differ in length)
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:84: error: method keyPressed in class AbstractContainerScreen<T> cannot be applied to given types;
+        return super.keyPressed(key, scancode, mods);
+                    ^
+  required: KeyEvent
+  found:    int,int,int
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends AbstractContainerMenu declared in class AbstractContainerScreen
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\SimpleTooltipScreenElement.java:167: error: cannot find symbol
+        graphics.pose().pushPose();
+                       ^
+  symbol:   method pushPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\SimpleTooltipScreenElement.java:168: error: incompatible types: int cannot be converted to Matrix3x2f
+        graphics.pose().translate(0, 0, OUTLINE_Z);
+                                        ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\SimpleTooltipScreenElement.java:170: error: cannot find symbol
+        graphics.pose().popPose();
+                       ^
+  symbol:   method popPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\TextComponentScreenElement.java:140: error: cannot find symbol
+            graphics.pose().pushPose();
+                           ^
+  symbol:   method pushPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\TextComponentScreenElement.java:141: error: incompatible types: int cannot be converted to Matrix3x2f
+            graphics.pose().translate(x, y, 0);
+                                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\TextComponentScreenElement.java:142: error: incompatible types: float cannot be converted to Matrix3x2f
+            graphics.pose().scale(this.scale, this.scale, 1F);
+                                                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\TextComponentScreenElement.java:145: error: cannot find symbol
+            graphics.pose().popPose();
+                           ^
+  symbol:   method popPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\TextButtonScreenElement.java:65: error: cannot find symbol
+        graphics.pose().pushPose();
+                       ^
+  symbol:   method pushPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\TextButtonScreenElement.java:66: error: incompatible types: int cannot be converted to Matrix3x2f
+        graphics.pose().translate(textX, textY, 100);
+                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\TextButtonScreenElement.java:67: error: cannot find symbol
+        graphics.pose().mulPose(Axis.ZP.rotationDegrees(renderRotation));
+                       ^
+  symbol:   method mulPose(Quaternionf)
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\TextButtonScreenElement.java:69: error: cannot find symbol
+        graphics.pose().popPose();
+                       ^
+  symbol:   method popPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\AbilitySelectionTree.java:215: error: invalid method reference
+        graphicsExtension.potions_plus$blit(RenderType::guiTextured, texture, cameraRelativePosition.x, cameraRelativePosition.y,
+                                            ^
+  cannot find symbol
+    symbol:   method guiTextured(Identifier)
+    location: class RenderType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\AbilitySelectionTree.java:296: error: cannot find symbol
+                RenderType.gui(),
+                          ^
+  symbol:   method gui()
+  location: class RenderType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\ItemStackScreenElement.java:66: error: cannot find symbol
+        graphics.pose().pushPose();
+                       ^
+  symbol:   method pushPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\ItemStackScreenElement.java:67: error: incompatible types: possible lossy conversion from double to float
+        graphics.pose().translate(bounds.getMinX(), bounds.getMinY(), -100);
+                                                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\ItemStackScreenElement.java:83: error: cannot find symbol
+        graphics.pose().popPose();
+                       ^
+  symbol:   method popPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\ItemStackScreenElement.java:87: error: cannot find symbol
+            graphics.pose().pushPose();
+                           ^
+  symbol:   method pushPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\ItemStackScreenElement.java:88: error: incompatible types: int cannot be converted to Matrix3x2f
+            graphics.pose().translate(0, 0, -100);
+                                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\ItemStackScreenElement.java:97: error: cannot find symbol
+            graphics.pose().popPose();
+                           ^
+  symbol:   method popPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\MilestoneScreenElement.java:51: error: cannot find symbol
+            graphics.pose().pushPose();
+                           ^
+  symbol:   method pushPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\MilestoneScreenElement.java:52: error: incompatible types: int cannot be converted to Matrix3x2f
+            graphics.pose().translate(0, 0, -100);
+                                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\MilestoneScreenElement.java:61: error: cannot find symbol
+            graphics.pose().popPose();
+                           ^
+  symbol:   method popPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\MilestoneScreenElement.java:85: error: incompatible types: ItemStackTemplate cannot be converted to ItemStack
+            ItemStack stack = display.getIcon();
+                                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SplashTextDivScreenElement.java:27: error: incompatible types: Matrix3x2fStack cannot be converted to PoseStack
+            PoseStack poseStack = graphics.pose();
+                                               ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SplashTextDivScreenElement.java:31: error: cannot find symbol
+            graphics.pose().popPose();
+                           ^
+  symbol:   method popPose()
+  location: class Matrix3x2fStack
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\RewardsClaimScreenElement.java:54: error: cannot find symbol
+                rewards.key()
+                       ^
+  symbol:   method key()
+  location: variable rewards of type Entry<ResourceKey<ConfiguredGrantableReward<?,?>>,List<List<ItemStack>>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SkillIconScreenElement.java:108: error: cannot find symbol
+        ResourceKey<ConfiguredSkill<?, ?>> skillKey = this.skill.key();
+                                                                ^
+  symbol:   method key()
+  location: variable skill of type Holder<ConfiguredSkill<?,?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SkillIconScreenElement.java:113: error: cannot find symbol
+        Optional<SkillInstance<?, ?>> skillInstance = SkillsData.getPlayerData(player).getOrCreate(registryAccess, this.skill.key());
+                                                                                                                             ^
+  symbol:   method key()
+  location: variable skill of type Holder<ConfiguredSkill<?,?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SkillIconsScreenElement.java:111: error: invalid method reference
+        }).map(Holder.Reference::getKey).toList();
+               ^
+  cannot find symbol
+    symbol:   method getKey()
+    location: class Reference
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SkillsScreen.java:63: error: cannot find symbol
+            ResourceKey<ConfiguredSkill<?, ?>> key = itemDisplay == null ? null : itemDisplay.skill.key();
+                                                                                                   ^
+  symbol:   method key()
+  location: variable skill of type Holder<ConfiguredSkill<?,?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SkillsScreen.java:155: error: cannot find symbol
+            graphics.drawString(font, animatedComponents.get(0), x, y, 0xFFFFFF);
+                    ^
+  symbol:   method drawString(Font,Component,int,int,int)
+  location: variable graphics of type GuiGraphicsExtractor
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SpriteProgressBarElement.java:65: error: invalid method reference
+        extension.potions_plus$blit(RenderType::guiTextured, sprite,
+                                    ^
+  cannot find symbol
+    symbol:   method guiTextured(Identifier)
+    location: class RenderType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\item\TomatoItem.java:21: error: cannot find symbol
+            return ARGB.lerp(color, YELLOW_TOMATO_COLOR, RED_TOMATO_COLOR);
+                       ^
+  symbol:   method lerp(float,int,int)
+  location: class ARGB
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\loot\HasPlayerAbilityCondition.java:48: error: cannot find symbol
+            SkillsData skillsData = player.getData(DataAttachments.SKILL_PLAYER_DATA);
+                                                                  ^
+  symbol:   variable SKILL_PLAYER_DATA
+  location: class DataAttachments
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\loot\IsInBiomeCondition.java:31: error: incompatible types: bad return type in method reference
+                    .fieldOf("biomes").forGetter(IsInBiomeCondition::biomes)).apply(codecBuilder, IsInBiomeCondition::new)
+                                                 ^
+    Set<ResourceKey<Biome>> cannot be converted to ImmutableSet<ResourceKey<Biome>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:33: error: cannot find symbol
+        CauldronInteraction.WATER.map().put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                           ^
+  symbol:   variable WATER
+  location: interface CauldronInteraction
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:34: error: cannot find symbol
+        CauldronInteraction.EMPTY.map().put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                           ^
+  symbol:   variable EMPTY
+  location: interface CauldronInteraction
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:101: error: cannot find symbol
+                    Lighting.setupForFlatItems();
+                            ^
+  symbol:   method setupForFlatItems()
+  location: class Lighting
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:104: error: cannot find symbol
+                this.scratchItemStackRenderState.render(this.pose, this.bufferSource, 15728880, OverlayTexture.NO_OVERLAY);
+                                                ^
+  symbol:   method render(PoseStack,BufferSource,int,int)
+  location: variable scratchItemStackRenderState of type ItemStackRenderState
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:107: error: cannot find symbol
+                    Lighting.setupFor3DItems();
+                            ^
+  symbol:   method setupFor3DItems()
+  location: class Lighting
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:163: error: cannot find symbol
+        this.potions_plus$fill(RenderType.gui(), minX, minY, maxX, maxY, origin, rotationDegrees, z, color);
+                                         ^
+  symbol:   method gui()
+  location: class RenderType
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:221: error: cannot find symbol
+        RenderSystem.setShaderColor(
+                    ^
+  symbol:   method setShaderColor(float,float,float,float)
+  location: class RenderSystem
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\InventoryMixin.java:39: error: cannot find symbol
+                Platform.onServerPlayerHeldItemChanged(serverPlayer.getServer(), serverPlayer, potions_plus$lastHeldItem, heldItem);
+                                                                   ^
+  symbol:   method getServer()
+  location: variable serverPlayer of type ServerPlayer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\ItemEntityMixin.java:27: error: cannot find symbol
+        return CommonCommands.expiryTime == -1 ? itemEntity.lifespan : CommonCommands.expiryTime;
+                                                           ^
+  symbol:   variable lifespan
+  location: variable itemEntity of type ItemEntity
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\LevelChunkMixin.java:25: error: incompatible types: Registry<Biome> cannot be converted to PalettedContainerFactory
+        super(chunkPos, upgradeData, levelHeightAccessor, biomes, l, levelChunkSections, blendingData);
+                                                          ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\LivingEntityMixin.java:87: error: cannot find symbol
+        return instance.getFriction(levelReader, blockPos, entity);
+                       ^
+  symbol:   method getFriction(LevelReader,BlockPos,Entity)
+  location: variable instance of type BlockState
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:33: error: cannot find symbol
+        if (PotionsPlus.SERVER != null) {
+                       ^
+  symbol:   variable SERVER
+  location: class PotionsPlus
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:35: error: cannot find symbol
+                List<RecipeHolder<?>> recipes = pair.getSecond().getRuntimeRecipesToInject(PotionsPlus.SERVER);
+                                                                                                      ^
+  symbol:   variable SERVER
+  location: class PotionsPlus
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ClientboundAcquiredBrewingRecipeKnowledgePacket.java:51: error: cannot find symbol
+                        clientPlayer.displayClientMessage(text, true);
+                                    ^
+  symbol:   method displayClientMessage(MutableComponent,boolean)
+  location: variable clientPlayer of type Player
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ClientboundDisplayAlert.java:54: error: cannot find symbol
+                        clientPlayer.displayClientMessage(packet.component, true);
+                                    ^
+  symbol:   method displayClientMessage(Component,boolean)
+  location: variable clientPlayer of type Player
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ClientboundDisplayAlertWithItemStackName.java:55: error: cannot find symbol
+                        clientPlayer.displayClientMessage(text, true);
+                                    ^
+  symbol:   method displayClientMessage(MutableComponent,boolean)
+  location: variable clientPlayer of type Player
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ClientboundDisplayAlertWithParameter.java:60: error: cannot find symbol
+                        clientPlayer.displayClientMessage(text, true);
+                                    ^
+  symbol:   method displayClientMessage(MutableComponent,boolean)
+  location: variable clientPlayer of type Player
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ClientboundSanguineAltarConversionStatePacket.java:66: error: cannot find symbol
+                                                        context.player().displayClientMessage(text, true);
+                                                                        ^
+  symbol:   method displayClientMessage(MutableComponent,boolean)
+  location: class Player
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ClientboundSyncPlayerSkillData.java:43: error: cannot find symbol
+                            context.player().setData(DataAttachments.SKILL_PLAYER_DATA, packet.skillsData);
+                                                                    ^
+  symbol:   variable SKILL_PLAYER_DATA
+  location: class DataAttachments
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ServerboundConstructClotheslinePacket.java:37: error: cannot find symbol
+                ServerLevel level = player.serverLevel();
+                                          ^
+  symbol:   method serverLevel()
+  location: variable player of type ServerPlayer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ServerboundSpawnDoubleJumpParticlesPacket.java:32: error: cannot find symbol
+                serverPlayer.serverLevel().sendParticles(
+                            ^
+  symbol:   method serverLevel()
+  location: variable serverPlayer of type ServerPlayer
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ServerboundToggleAbilityPacket.java:48: error: cannot find symbol
+        return new ServerboundToggleAbilityPacket(abilityInstance.data().getHolder().key());
+                                                                                    ^
+  symbol:   method key()
+  location: interface Holder<ConfiguredPlayerAbility<?,?>>
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\BlockLinkedEmitterParticle.java:37: error: Provider is not abstract and does not override abstract method createParticle(SimpleParticleType,ClientLevel,double,double,double,double,double,double,RandomSource) in ParticleProvider
+    public static class Provider implements ParticleProvider<SimpleParticleType> {
+                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\BloodGobParticle.java:36: error: Provider is not abstract and does not override abstract method createParticle(SimpleParticleType,ClientLevel,double,double,double,double,double,double,RandomSource) in ParticleProvider
+    public static class Provider implements ParticleProvider<SimpleParticleType> {
+                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:29: error: life has private access in TrackingEmitter
+            if (this.life % tickInterval == 0) {
+                    ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:34: error: life has private access in TrackingEmitter
+        ++this.life;
+              ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:35: error: life has private access in TrackingEmitter
+        if (this.life >= this.lifeTime) {
+                ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:35: error: lifeTime has private access in TrackingEmitter
+        if (this.life >= this.lifeTime) {
+                             ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:46: error: entity has private access in TrackingEmitter
+            double d3 = this.entity.getX(d0 / (double) 4.0F);
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:47: error: entity has private access in TrackingEmitter
+            double d4 = this.entity.getY((double) 0.5F + d1 / (double) 4.0F);
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:48: error: entity has private access in TrackingEmitter
+            double d5 = this.entity.getZ(d2 / (double) 4.0F);
+                            ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:49: error: particleType has private access in TrackingEmitter
+            this.level.addParticle(this.particleType, false, true, d3, d4, d5, d0, d1 + 0.2, d2);
+                                       ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\ElectricalSparkParticle.java:40: error: Provider is not abstract and does not override abstract method createParticle(SimpleParticleType,ClientLevel,double,double,double,double,double,double,RandomSource) in ParticleProvider
+    public static class Provider implements ParticleProvider<SimpleParticleType> {
+                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\EmitterParticle.java:94: error: Provider is not abstract and does not override abstract method createParticle(SimpleParticleType,ClientLevel,double,double,double,double,double,double,RandomSource) in ParticleProvider
+    public static class Provider implements ParticleProvider<SimpleParticleType> {
+                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\EndRodRainParticle.java:34: error: Provider is not abstract and does not override abstract method createParticle(SimpleParticleType,ClientLevel,double,double,double,double,double,double,RandomSource) in ParticleProvider
+    public static class Provider implements ParticleProvider<SimpleParticleType> {
+                  ^
+D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\LightningBoltParticle.java:36: error: Provider is not abstract and does not override abstract method createParticle(SimpleParticleType,ClientLevel,double,double,double,double,double,double,RandomSource) in ParticleProvider
+    public static class Provider implements ParticleProvider<SimpleParticleType> {
+                  ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+
+> Task :common:compileJava FAILED
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Compilation failed; see the compiler output below.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:47: error: method mouseClicked in class AbstractContainerScreen<T> cannot be applied to given types;
+          return super.mouseClicked(mouseX, mouseY, button);
+                      ^
+    required: MouseButtonEvent,boolean
+    found:    double,double,int
+    reason: actual and formal argument lists differ in length
+    where T is a type-variable:
+      T extends AbstractContainerMenu declared in class AbstractContainerScreen
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:61: error: method mouseDragged in class AbstractContainerScreen<T> cannot be applied to given types;
+          return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+                      ^
+    required: MouseButtonEvent,double,double
+    found:    double,double,int,double,double
+    reason: actual and formal argument lists differ in length
+    where T is a type-variable:
+      T extends AbstractContainerMenu declared in class AbstractContainerScreen
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:84: error: method keyPressed in class AbstractContainerScreen<T> cannot be applied to given types;
+          return super.keyPressed(key, scancode, mods);
+                      ^
+    required: KeyEvent
+    found:    int,int,int
+    reason: actual and formal argument lists differ in length
+    where T is a type-variable:
+      T extends AbstractContainerMenu declared in class AbstractContainerScreen
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:72: error: no suitable method found for getKey(int,int)
+          InputConstants.Key keyPress = InputConstants.getKey(key, scancode);
+                                                      ^
+      method InputConstants.getKey(KeyEvent) is not applicable
+        (actual and formal argument lists differ in length)
+      method InputConstants.getKey(String) is not applicable
+        (actual and formal argument lists differ in length)
+  Note: Recompile with -Xlint:deprecation for details.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\AbilitySelectionTree.java:215: error: invalid method reference
+          graphicsExtension.potions_plus$blit(RenderType::guiTextured, texture, cameraRelativePosition.x, cameraRelativePosition.y,
+                                              ^
+    cannot find symbol
+      symbol:   method guiTextured(Identifier)
+      location: class RenderType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SkillIconsScreenElement.java:111: error: invalid method reference
+          }).map(Holder.Reference::getKey).toList();
+                 ^
+    cannot find symbol
+      symbol:   method getKey()
+      location: class Reference
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SpriteProgressBarElement.java:65: error: invalid method reference
+          extension.potions_plus$blit(RenderType::guiTextured, sprite,
+                                      ^
+    cannot find symbol
+      symbol:   method guiTextured(Identifier)
+      location: class RenderType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\loot\HasPlayerAbilityCondition.java:48: error: cannot find symbol
+              SkillsData skillsData = player.getData(DataAttachments.SKILL_PLAYER_DATA);
+                                                                    ^
+    symbol:   variable SKILL_PLAYER_DATA
+    location: class DataAttachments
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:33: error: cannot find symbol
+          CauldronInteraction.WATER.map().put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                             ^
+    symbol:   variable WATER
+    location: interface CauldronInteraction
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\BootstrapMixin.java:34: error: cannot find symbol
+          CauldronInteraction.EMPTY.map().put(Items.BLAZE_POWDER, (blockState, level, blockPos, player, interactionHand, stack) -> potions_plus$convert(player, interactionHand, blockPos, level, stack));
+                             ^
+    symbol:   variable EMPTY
+    location: interface CauldronInteraction
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\ItemEntityMixin.java:27: error: cannot find symbol
+          return CommonCommands.expiryTime == -1 ? itemEntity.lifespan : CommonCommands.expiryTime;
+                                                             ^
+    symbol:   variable lifespan
+    location: variable itemEntity of type ItemEntity
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:33: error: cannot find symbol
+          if (PotionsPlus.SERVER != null) {
+                         ^
+    symbol:   variable SERVER
+    location: class PotionsPlus
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\RecipeManagerMixin.java:35: error: cannot find symbol
+                  List<RecipeHolder<?>> recipes = pair.getSecond().getRuntimeRecipesToInject(PotionsPlus.SERVER);
+                                                                                                        ^
+    symbol:   variable SERVER
+    location: class PotionsPlus
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ClientboundSyncPlayerSkillData.java:43: error: cannot find symbol
+                              context.player().setData(DataAttachments.SKILL_PLAYER_DATA, packet.skillsData);
+                                                                      ^
+    symbol:   variable SKILL_PLAYER_DATA
+    location: class DataAttachments
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:57: error: modelOutput has private access in BlockModelGenerators
+              Identifier fallbackItemModel = ModelTemplates.FLAT_ITEM.create(fallbackItemModelId, fallbackItemTextureMapping, blockModelGenerators.modelOutput);
+                                                                                                                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:67: error: modelOutput has private access in BlockModelGenerators
+                  Identifier generatedItemModel = ModelTemplates.TWO_LAYERED_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:85: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:106: error: modelOutput has private access in BlockModelGenerators
+                  Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:120: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:143: error: modelOutput has private access in BlockModelGenerators
+              Identifier fallbackItemModelLocation = ModelTemplates.FLAT_ITEM.create(ppId("unknown_generic_icon_fallback"), fallbackItemTextureMapping, blockModelGenerators.modelOutput);
+                                                                                                                                                                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:154: error: modelOutput has private access in BlockModelGenerators
+                  Identifier generatedItemModel = ModelTemplates.FLAT_ITEM.create(modelId, textureMapping, blockModelGenerators.modelOutput);
+                                                                                                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\utility\registration\item\ItemOverrideUtility.java:168: error: itemModelOutput has private access in BlockModelGenerators
+              blockModelGenerators.itemModelOutput.accept(item.value(), rangeSelectItemModel);
+                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:28: error: targetSelector has protected access in Mob
+              Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
+                                                                                       ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:31: error: targetType has protected access in NearestAttackableTargetGoal
+                      .filter(goal -> goal.targetType == Player.class);
+                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:34: error: targetSelector has protected access in Mob
+                  skeleton.targetSelector.removeGoal(goal);
+                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:37: error: targetSelector has protected access in Mob
+              skeleton.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(skeleton, Monster.class, false, TARGET_PREDICATE));
+                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:51: error: targetSelector has protected access in Mob
+          Stream<? extends NearestAttackableTargetGoal<?>> goalsToRemove = skeleton.targetSelector.getAvailableGoals().stream()
+                                                                                   ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:54: error: targetType has protected access in NearestAttackableTargetGoal
+                  .filter(goal -> goal.targetType == Monster.class);
+                                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:57: error: targetSelector has protected access in Mob
+              skeleton.targetSelector.removeGoal(goal);
+                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BoneBuddyEffect.java:60: error: targetSelector has protected access in Mob
+          skeleton.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(skeleton, Player.class, true));
+                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:29: error: life has private access in TrackingEmitter
+              if (this.life % tickInterval == 0) {
+                      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:34: error: life has private access in TrackingEmitter
+          ++this.life;
+                ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:35: error: life has private access in TrackingEmitter
+          if (this.life >= this.lifeTime) {
+                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:35: error: lifeTime has private access in TrackingEmitter
+          if (this.life >= this.lifeTime) {
+                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:46: error: entity has private access in TrackingEmitter
+              double d3 = this.entity.getX(d0 / (double) 4.0F);
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:47: error: entity has private access in TrackingEmitter
+              double d4 = this.entity.getY((double) 0.5F + d1 / (double) 4.0F);
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:48: error: entity has private access in TrackingEmitter
+              double d5 = this.entity.getZ(d2 / (double) 4.0F);
+                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\CustomTrackingEmitter.java:49: error: particleType has private access in TrackingEmitter
+              this.level.addParticle(this.particleType, false, true, d3, d4, d5, d0, d1 + 0.2, d2);
+                                         ^
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some input files use or override a deprecated API.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:22: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:33: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:38: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:43: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:57: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:70: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  Note: Some input files use unchecked or unsafe operations.
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\entity\GrunglerRenderer.java:23: error: cannot find symbol
+          this.blockModelResolver = context.blockModelResolver();
+                                           ^
+    symbol:   method blockModelResolver()
+    location: variable context of type Context
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\SimpleTooltipScreenElement.java:167: error: cannot find symbol
+          graphics.pose().pushPose();
+                         ^
+    symbol:   method pushPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\SimpleTooltipScreenElement.java:170: error: cannot find symbol
+          graphics.pose().popPose();
+                         ^
+    symbol:   method popPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\TextComponentScreenElement.java:140: error: cannot find symbol
+              graphics.pose().pushPose();
+                             ^
+    symbol:   method pushPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\TextComponentScreenElement.java:145: error: cannot find symbol
+              graphics.pose().popPose();
+                             ^
+    symbol:   method popPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\TextButtonScreenElement.java:65: error: cannot find symbol
+          graphics.pose().pushPose();
+                         ^
+    symbol:   method pushPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\TextButtonScreenElement.java:67: error: cannot find symbol
+          graphics.pose().mulPose(Axis.ZP.rotationDegrees(renderRotation));
+                         ^
+    symbol:   method mulPose(Quaternionf)
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\TextButtonScreenElement.java:69: error: cannot find symbol
+          graphics.pose().popPose();
+                         ^
+    symbol:   method popPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\AbilitySelectionTree.java:296: error: cannot find symbol
+                  RenderType.gui(),
+                            ^
+    symbol:   method gui()
+    location: class RenderType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\ItemStackScreenElement.java:66: error: cannot find symbol
+          graphics.pose().pushPose();
+                         ^
+    symbol:   method pushPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\ItemStackScreenElement.java:83: error: cannot find symbol
+          graphics.pose().popPose();
+                         ^
+    symbol:   method popPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\ItemStackScreenElement.java:87: error: cannot find symbol
+              graphics.pose().pushPose();
+                             ^
+    symbol:   method pushPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\ItemStackScreenElement.java:97: error: cannot find symbol
+              graphics.pose().popPose();
+                             ^
+    symbol:   method popPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\MilestoneScreenElement.java:51: error: cannot find symbol
+              graphics.pose().pushPose();
+                             ^
+    symbol:   method pushPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\MilestoneScreenElement.java:61: error: cannot find symbol
+              graphics.pose().popPose();
+                             ^
+    symbol:   method popPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SplashTextDivScreenElement.java:31: error: cannot find symbol
+              graphics.pose().popPose();
+                             ^
+    symbol:   method popPose()
+    location: class Matrix3x2fStack
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\RewardsClaimScreenElement.java:54: error: cannot find symbol
+                  rewards.key()
+                         ^
+    symbol:   method key()
+    location: variable rewards of type Entry<ResourceKey<ConfiguredGrantableReward<?,?>>,List<List<ItemStack>>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SkillIconScreenElement.java:108: error: cannot find symbol
+          ResourceKey<ConfiguredSkill<?, ?>> skillKey = this.skill.key();
+                                                                  ^
+    symbol:   method key()
+    location: variable skill of type Holder<ConfiguredSkill<?,?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SkillIconScreenElement.java:113: error: cannot find symbol
+          Optional<SkillInstance<?, ?>> skillInstance = SkillsData.getPlayerData(player).getOrCreate(registryAccess, this.skill.key());
+                                                                                                                               ^
+    symbol:   method key()
+    location: variable skill of type Holder<ConfiguredSkill<?,?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SkillsScreen.java:63: error: cannot find symbol
+              ResourceKey<ConfiguredSkill<?, ?>> key = itemDisplay == null ? null : itemDisplay.skill.key();
+                                                                                                     ^
+    symbol:   method key()
+    location: variable skill of type Holder<ConfiguredSkill<?,?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SkillsScreen.java:155: error: cannot find symbol
+              graphics.drawString(font, animatedComponents.get(0), x, y, 0xFFFFFF);
+                      ^
+    symbol:   method drawString(Font,Component,int,int,int)
+    location: variable graphics of type GuiGraphicsExtractor
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\item\TomatoItem.java:21: error: cannot find symbol
+              return ARGB.lerp(color, YELLOW_TOMATO_COLOR, RED_TOMATO_COLOR);
+                         ^
+    symbol:   method lerp(float,int,int)
+    location: class ARGB
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:101: error: cannot find symbol
+                      Lighting.setupForFlatItems();
+                              ^
+    symbol:   method setupForFlatItems()
+    location: class Lighting
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:104: error: cannot find symbol
+                  this.scratchItemStackRenderState.render(this.pose, this.bufferSource, 15728880, OverlayTexture.NO_OVERLAY);
+                                                  ^
+    symbol:   method render(PoseStack,BufferSource,int,int)
+    location: variable scratchItemStackRenderState of type ItemStackRenderState
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:107: error: cannot find symbol
+                      Lighting.setupFor3DItems();
+                              ^
+    symbol:   method setupFor3DItems()
+    location: class Lighting
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:163: error: cannot find symbol
+          this.potions_plus$fill(RenderType.gui(), minX, minY, maxX, maxY, origin, rotationDegrees, z, color);
+                                           ^
+    symbol:   method gui()
+    location: class RenderType
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\GuiGraphicsMixin.java:221: error: cannot find symbol
+          RenderSystem.setShaderColor(
+                      ^
+    symbol:   method setShaderColor(float,float,float,float)
+    location: class RenderSystem
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\InventoryMixin.java:39: error: cannot find symbol
+                  Platform.onServerPlayerHeldItemChanged(serverPlayer.getServer(), serverPlayer, potions_plus$lastHeldItem, heldItem);
+                                                                     ^
+    symbol:   method getServer()
+    location: variable serverPlayer of type ServerPlayer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\LivingEntityMixin.java:87: error: cannot find symbol
+          return instance.getFriction(levelReader, blockPos, entity);
+                         ^
+    symbol:   method getFriction(LevelReader,BlockPos,Entity)
+    location: variable instance of type BlockState
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ClientboundAcquiredBrewingRecipeKnowledgePacket.java:51: error: cannot find symbol
+                          clientPlayer.displayClientMessage(text, true);
+                                      ^
+    symbol:   method displayClientMessage(MutableComponent,boolean)
+    location: variable clientPlayer of type Player
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ClientboundDisplayAlert.java:54: error: cannot find symbol
+                          clientPlayer.displayClientMessage(packet.component, true);
+                                      ^
+    symbol:   method displayClientMessage(Component,boolean)
+    location: variable clientPlayer of type Player
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ClientboundDisplayAlertWithItemStackName.java:55: error: cannot find symbol
+                          clientPlayer.displayClientMessage(text, true);
+                                      ^
+    symbol:   method displayClientMessage(MutableComponent,boolean)
+    location: variable clientPlayer of type Player
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ClientboundDisplayAlertWithParameter.java:60: error: cannot find symbol
+                          clientPlayer.displayClientMessage(text, true);
+                                      ^
+    symbol:   method displayClientMessage(MutableComponent,boolean)
+    location: variable clientPlayer of type Player
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ClientboundSanguineAltarConversionStatePacket.java:66: error: cannot find symbol
+                                                          context.player().displayClientMessage(text, true);
+                                                                          ^
+    symbol:   method displayClientMessage(MutableComponent,boolean)
+    location: class Player
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ServerboundConstructClotheslinePacket.java:37: error: cannot find symbol
+                  ServerLevel level = player.serverLevel();
+                                            ^
+    symbol:   method serverLevel()
+    location: variable player of type ServerPlayer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ServerboundSpawnDoubleJumpParticlesPacket.java:32: error: cannot find symbol
+                  serverPlayer.serverLevel().sendParticles(
+                              ^
+    symbol:   method serverLevel()
+    location: variable serverPlayer of type ServerPlayer
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\network\ServerboundToggleAbilityPacket.java:48: error: cannot find symbol
+          return new ServerboundToggleAbilityPacket(abilityInstance.data().getHolder().key());
+                                                                                      ^
+    symbol:   method key()
+    location: interface Holder<ConfiguredPlayerAbility<?,?>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\PotionsPlusScreen.java:24: error: cannot find symbol
+          super.render(graphics, mouseX, mouseY, partialTick);
+               ^
+    symbol: method render(GuiGraphicsExtractor,int,int,float)
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\BlockLinkedEmitterParticle.java:37: error: Provider is not abstract and does not override abstract method createParticle(SimpleParticleType,ClientLevel,double,double,double,double,double,double,RandomSource) in ParticleProvider
+      public static class Provider implements ParticleProvider<SimpleParticleType> {
+                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\BloodGobParticle.java:36: error: Provider is not abstract and does not override abstract method createParticle(SimpleParticleType,ClientLevel,double,double,double,double,double,double,RandomSource) in ParticleProvider
+      public static class Provider implements ParticleProvider<SimpleParticleType> {
+                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\ElectricalSparkParticle.java:40: error: Provider is not abstract and does not override abstract method createParticle(SimpleParticleType,ClientLevel,double,double,double,double,double,double,RandomSource) in ParticleProvider
+      public static class Provider implements ParticleProvider<SimpleParticleType> {
+                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\EmitterParticle.java:94: error: Provider is not abstract and does not override abstract method createParticle(SimpleParticleType,ClientLevel,double,double,double,double,double,double,RandomSource) in ParticleProvider
+      public static class Provider implements ParticleProvider<SimpleParticleType> {
+                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\EndRodRainParticle.java:34: error: Provider is not abstract and does not override abstract method createParticle(SimpleParticleType,ClientLevel,double,double,double,double,double,double,RandomSource) in ParticleProvider
+      public static class Provider implements ParticleProvider<SimpleParticleType> {
+                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\particle\LightningBoltParticle.java:36: error: Provider is not abstract and does not override abstract method createParticle(SimpleParticleType,ClientLevel,double,double,double,double,double,double,RandomSource) in ParticleProvider
+      public static class Provider implements ParticleProvider<SimpleParticleType> {
+                    ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\SimpleTooltipScreenElement.java:168: error: incompatible types: int cannot be converted to Matrix3x2f
+          graphics.pose().translate(0, 0, OUTLINE_Z);
+                                          ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\TextComponentScreenElement.java:141: error: incompatible types: int cannot be converted to Matrix3x2f
+              graphics.pose().translate(x, y, 0);
+                                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\TextComponentScreenElement.java:142: error: incompatible types: float cannot be converted to Matrix3x2f
+              graphics.pose().scale(this.scale, this.scale, 1F);
+                                                            ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\TextButtonScreenElement.java:66: error: incompatible types: int cannot be converted to Matrix3x2f
+          graphics.pose().translate(textX, textY, 100);
+                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\ItemStackScreenElement.java:67: error: incompatible types: possible lossy conversion from double to float
+          graphics.pose().translate(bounds.getMinX(), bounds.getMinY(), -100);
+                                                  ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\ItemStackScreenElement.java:88: error: incompatible types: int cannot be converted to Matrix3x2f
+              graphics.pose().translate(0, 0, -100);
+                                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\MilestoneScreenElement.java:52: error: incompatible types: int cannot be converted to Matrix3x2f
+              graphics.pose().translate(0, 0, -100);
+                                              ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\MilestoneScreenElement.java:85: error: incompatible types: ItemStackTemplate cannot be converted to ItemStack
+              ItemStack stack = display.getIcon();
+                                               ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\gui\skill\SplashTextDivScreenElement.java:27: error: incompatible types: Matrix3x2fStack cannot be converted to PoseStack
+              PoseStack poseStack = graphics.pose();
+                                                 ^
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\loot\IsInBiomeCondition.java:31: error: incompatible types: bad return type in method reference
+                      .fieldOf("biomes").forGetter(IsInBiomeCondition::biomes)).apply(codecBuilder, IsInBiomeCondition::new)
+                                                   ^
+      Set<ResourceKey<Biome>> cannot be converted to ImmutableSet<ResourceKey<Biome>>
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\mixin\LevelChunkMixin.java:25: error: incompatible types: Registry<Biome> cannot be converted to PalettedContainerFactory
+          super(chunkPos, upgradeData, levelHeightAccessor, biomes, l, levelChunkSections, blendingData);
+                                                            ^
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  D:\GitHub\potions-plus\common\src\main\java\grill24\potionsplus\effect\BouncingEffect.java:70: error: package SavedByTheBounceAbility does not exist
+                          new SavedByTheBounceAbility.FallData(distance));
+                                                     ^
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 8s
+1 actionable task: 1 executed

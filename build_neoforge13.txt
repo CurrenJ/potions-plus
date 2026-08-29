@@ -1,0 +1,65 @@
+
+> Configure project :
+Architect Plugin: 3.5.166
+Architectury Loom: 1.14.473
+This version of Architectury Loom is in beta! Please report any issues you encounter: https://github.com/architectury/architectury-loom/issues
+
+> Configure project :neoforge
+[DEBUG] after architectury{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+[DEBUG] after configurations{}: annotationProcessor, api, apiElements, architecturyJavaAgents, architecturyTransformerClasspath, architecturyTransformerRuntimeClasspath, archives, cfrDecompilerClasspath, common, compileClasspath, compileOnly, compileOnlyApi, default, developmentForgeLike, developmentNeoForge, fernflowerDecompilerClasspath, forgeDependencies, forgeExtra, forgeInstaller, forgeRuntimeLibrary, forgeUniversal, forgeUserdev, implementation, include, includeInternal, loaderLibraries, localRuntime, loomDevelopmentDependencies, loomExportedClasspath, mainSourceElements, mcp, minecraft, minecraftClientLibraries, minecraftClientRuntimeLibraries, minecraftLibraries, minecraftNatives, minecraftRuntimeLibraries, minecraftServerLibraries, minecraftServerRuntimeLibraries, minecraftTestClientRuntimeLibraries, modCompileClasspath, modCompileClasspathMapped, neoForge, productionRuntimeMods, runtimeClasspath, runtimeElements, runtimeOnly, shadow, shadowBundle, shadowRuntimeElements, sourcesElements, testAnnotationProcessor, testCompileClasspath, testCompileOnly, testImplementation, testResultsElementsForTest, testRuntimeClasspath, testRuntimeOnly, vineflowerDecompilerClasspath
+
+> Task :common:compileJava UP-TO-DATE
+
+> Task :neoforge:compileJava
+warning: unknown enum constant EnvType.CLIENT
+  reason: class file for net.fabricmc.api.EnvType not found
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:19: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static final BlockCapability<IItemHandler, Direction> CLOTHESLINE_ITEM_HANDLER =
+                                        ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:24: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+                    IItemHandler.class);
+                    ^
+D:\GitHub\potions-plus\neoforge\src\main\java\grill24\potionsplus\core\Capabilities.java:37: warning: [removal] InvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+                        return new InvWrapper(leftClotheslineBlockEntity);
+                                   ^
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+warning: unknown enum constant EnvType.CLIENT
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+36 warnings
+
+[Incubating] Problems report is available at: file:///D:/GitHub/potions-plus/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 3s
+2 actionable tasks: 1 executed, 1 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.2.1/userguide/configuration_cache_enabling.html

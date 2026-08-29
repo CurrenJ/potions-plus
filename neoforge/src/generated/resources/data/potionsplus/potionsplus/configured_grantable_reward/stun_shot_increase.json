@@ -1,8 +1,0 @@
-{
-  "type": "potionsplus:increase_ability_strength",
-  "config": {
-    "ability": "potionsplus:stun_shot",
-    "strengthIncrease": 1.0,
-    "translationKey": "description.potionsplus.ability.stun_shot_increase"
-  }
-}
