@@ -6,6 +6,10 @@ loom {
     accessWidenerPath = file("src/main/resources/potionsplus.accesswidener")
 }
 
+// Phase 9 (datagen sharing): NeoForge's runData output is copied here so the Fabric + Forge
+// modules pick up models/blockstates/tags/sounds.json from a single shared source.
+sourceSets.main.resources.srcDir('src/generated/resources')
+
 dependencies {
     // Fabric Loader provides Fabric @Environment annotations.
     // Architectury remaps these to the correct annotations on each platform.

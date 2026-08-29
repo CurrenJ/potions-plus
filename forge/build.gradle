@@ -1,0 +1,151 @@
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+    // NOT runtimeClasspath: Loom's Forge dev launcher merges developmentForge's classpath
+    // (including common, via the line above) into one synthetic "generated_XXX" module so the
+    // TRANSFORMER layer gets a single, self-consistent copy of :common's classes. Separately
+    // extending plain runtimeClasspath from common puts a second, independently-loaded copy of
+    // grill24.potionsplus on the classpath used to build the parent SECURE-BOOTSTRAP module layer -
+    // colliding with the merged copy as a JPMS split package (java.lang.module.ResolutionException:
+    // "Modules potionsplus.common.dev and generated_XXX export package grill24.potionsplus") since
+    // both land in module layers that get resolved together at JVM bootstrap.
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+repositories {
+    maven {
+        name = 'MinecraftForge'
+        url = 'https://maven.minecraftforge.net/'
+    }
+}
+
+dependencies {
+    forge "net.minecraftforge:forge:$rootProject.minecraft_version-$rootProject.forge_version"
+
+    common(project(path: ':common')) { transitive = false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionForge')
+}
+
+processResources {
+    dependsOn ':common:processResources'
+    inputs.property 'version', project.version
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from project(":common").sourceSets.main.resources
+
+    filesMatching('META-INF/mods.toml') {
+        expand([
+            'version': project.version,
+            'mod_license': rootProject.mod_license,
+            'mod_id': rootProject.mod_id,
+            'mod_name': rootProject.mod_name,
+            'mod_authors': rootProject.mod_authors,
+            'mod_description': rootProject.mod_description,
+            'mod_icon': rootProject.mod_icon,
+            'mod_forge_version_range': "[${rootProject.forge_version},)",
+            'mod_minecraft_version_range': "[${rootProject.minecraft_version},)"
+        ])
+    }
+}
+
+jar {
+    archiveClassifier = 'raw'
+}
+
+shadowJar {
+    dependsOn(jar)
+    mainSpec.sourcePaths.clear()
+    from(zipTree(jar.archiveFile))
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = null
+}
+
+// shadowJar (the distributable mod jar bundling common) isn't wired into
+// build/assemble by default, so `./gradlew build` would silently produce only
+// the classes-only "raw" jar - anything installed from that (or from a stale
+// standalone shadowJar run) would run outdated common/ code with no warning.
+tasks.named('assemble') {
+    dependsOn(tasks.named('shadowJar'))
+}
+
+// Forge dev runtime: keep the mod on a SINGLE classpath entry. With classes and resources as
+// two separate dirs, Forge's SecureModuleFinder unions them into a `union:` URL; ClasspathLocator
+// can't turn that into a valid module name (empty name) and FML dies at bootstrap. Merging the
+// resources output into the classes dir means :forge:runClient sees one entry per module.
+sourceSets {
+    main {
+        output.resourcesDir = output.classesDirs.singleFile
+    }
+}
+
+sourceSets.main.resources.srcDir('src/generated/resources')
+
+// FML's runtime AXFORM wires its name-handler to modlauncher's "srg" mapping provider, which in
+// loom-no-remap is ArchitecturyNamingService. That service requires the
+// architectury.naming.mappingsPath/sourceNamespace system properties; without them it throws
+// ("Missing required system property...") for every AT line, crashing the dev run at FML bootstrap
+// (Invalid access transformer line / Invalid AccessTransformer config). This mod ships an
+// accesstransformer.cfg of its own (see META-INF/), and forge-universal.jar ships one too, so every
+// dev run goes through AXFORM and needs this. Since the dev runtime is unobfuscated (official names),
+// the correct mapping is identity: feed it a valid but EMPTY official->named mapping file so it loads
+// empty tables and translates nothing.
+def emptyMappings = layout.buildDirectory.file('generated/empty-official-to-named.tiny')
+
+tasks.register('generateEmptyMappings') {
+    def out = emptyMappings.get().asFile
+    outputs.file(out)
+    doLast {
+        out.parentFile.mkdirs()
+        out.text = "v1\tofficial\tnamed\n"
+    }
+}
+
+tasks.withType(JavaExec).matching { it.name.startsWith('run') }.configureEach {
+    dependsOn('generateEmptyMappings')
+    // Unlike the fabric/neoforge modules, this one deliberately does NOT extend runtimeClasspath
+    // from `common` (see the configurations block above), so Gradle never infers a dependency on
+    // :common:jar for the dev runs - and Loom snapshots the run classpath at configuration time,
+    // leaving a stale potionsplus-common jar on it. Wire it up explicitly.
+    dependsOn(configurations.common)
+    jvmArgs(
+        '-Darchitectury.naming.sourceNamespace=official',
+        "-Darchitectury.naming.mappingsPath=${emptyMappings.get().asFile.absolutePath}"
+    )
+}
+
+loom {
+    runs {
+        // Forge keeps its datagen on the client run with --output; NeoForge remains the source of
+        // truth for generated resources (Phase 7), so this mirrors apt-ores' minimal setup.
+        data {
+            clientData()
+
+            programArgs '--mod', 'potionsplus',
+                        '--all',
+                        '--output', file("src/generated/resources").absolutePath
+
+            runDir "build/datagen"
+        }
+    }
+}
+
+// Custom run dirs are not created automatically before the run task executes, unlike the default
+// "run" dir, so a fresh checkout would fail its first runData with "working directory does not exist".
+file("build/datagen").mkdirs()

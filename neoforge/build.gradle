@@ -125,7 +125,7 @@ loom {
         data {
             clientData()
 
-            programArgs.addAll '--flat', '--all',
+            programArgs '--flat', '--all',
                     '--mod', 'potionsplus',
                     '--existing', file("src/main/resources").absolutePath,
                     '--output', file("src/generated/resources").absolutePath
