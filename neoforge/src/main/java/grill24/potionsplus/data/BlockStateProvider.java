@@ -1,6 +1,5 @@
 package grill24.potionsplus.data;
 
-import grill24.potionsplus.core.items.FishItems;
 import grill24.potionsplus.core.items.HatItems;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.registration.RegistrationUtility;

@@ -1,20 +1,15 @@
 package grill24.potionsplus.core.blocks;
 
 import grill24.potionsplus.block.*;
-import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
-import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenerator;
 import grill24.potionsplus.utility.registration.block.*;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -23,7 +18,6 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
@@ -42,10 +36,6 @@ public class BlockEntityBlocks {
     public static Holder<Block> CLOTHESLINE;
     public static Holder<Block> POTION_BEACON;
     public static Holder<Block> SKILL_JOURNALS;
-    public static Holder<Block> FISHING_LEADERBOARDS;
-    public static Holder<Block> FISH_TANK;
-
-    public static List<Holder<Block>> FISH_TANK_SUB_BLOCKS;
 
     public static Holder<Block> SMALL_FILTER_HOPPER, LARGE_FILTER_HOPPER, HUGE_FILTER_HOPPER;
 
@@ -186,19 +176,6 @@ public class BlockEntityBlocks {
         ).getHolder();
         grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> SKILL_JOURNALS, registerItem);
 
-        FISHING_LEADERBOARDS = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("fishing_leaderboards")
-                .blockFactory(FishingLeaderboardsBlock::new)
-                .properties(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.5F).sound(SoundType.WOOD).noOcclusion())
-                .modelGenerator(HorizontalDirectionalBlockModelGenerator::new)
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                        h -> ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, h.value())
-                                .requires(net.minecraft.world.item.Items.BOOK)
-                                .requires(ItemTags.FISHES)
-                                .group("fishing_leaderboards")
-                                .unlockedBy("has_book", has(net.minecraft.world.item.Items.BOOK))))
-        ).getHolder();
-        grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> FISHING_LEADERBOARDS, registerItem);
-
         SMALL_FILTER_HOPPER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("small_filter_hopper")
                         .blockFactory(SmallFilterHopperBlock::new)
                         .properties(BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER))
@@ -247,36 +224,6 @@ public class BlockEntityBlocks {
                                         .unlockedBy("has_hopper", has(LARGE_FILTER_HOPPER.value())))))
                 .getHolder();
         grill24.potionsplus.core.Items.registerBlockItem(HUGE_FILTER_HOPPER, registerItem);
-
-        FISH_TANK_SUB_BLOCKS = new ArrayList<>();
-        FISH_TANK = registerFishTankSubBlock("fish_tank_planks", BlockTags.PLANKS, ItemTags.PLANKS, registerBlock, registerItem);
-        FISH_TANK_SUB_BLOCKS.add(FISH_TANK);
-        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_logs", BlockTags.LOGS, ItemTags.LOGS, registerBlock, registerItem));
-        FISH_TANK_SUB_BLOCKS.add(registerFishTankSubBlock("fish_tank_stones", Tags.Blocks.STONEY_ORE_REPLACEABLE, net.neoforged.neoforge.common.Tags.Items.STONES, registerBlock, registerItem));
-    }
-
-    private static Holder<Block> registerFishTankSubBlock(String name, TagKey<Block> frameBlocks, TagKey<Item> recipeItem, BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
-        ResourceLocation fishTankBaseModel = ppId("block/fish_tank");
-        Holder<Block> blockHolderResult = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple(name)
-                .properties(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).noOcclusion())
-                .blockFactory(FishTankBlock::new)
-                .modelGenerator(p -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(p, fishTankBaseModel))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                        h -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, h.value())
-                                .pattern(" G ")
-                                .pattern("GBG")
-                                .pattern(" G ")
-                                .define('G', recipeItem)
-                                .define('B', Items.WATER_BUCKET)
-                                .unlockedBy("was_water_bucket", has(Items.WATER_BUCKET))))
-                .renderType(BlockBuilder.RenderType.TRANSLUCENT)
-                .runtimeModelGenerator(holder -> new RuntimeTextureVariantModelGenerator(holder, fishTankBaseModel,
-                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankBlock.FRAME_VARIANT, frameBlocks, "1"),
-                        RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTag(FishTankBlock.SAND_VARIANT, Tags.Blocks.SANDY_ORE_REPLACEABLE, "2")
-                ))).getHolder();
-        grill24.potionsplus.core.Items.registerBlockItemWithParentModel(() -> blockHolderResult, registerItem, fishTankBaseModel);
-
-        return blockHolderResult;
     }
 
     public static Block[] toArray(List<Holder<Block>> blocks) {

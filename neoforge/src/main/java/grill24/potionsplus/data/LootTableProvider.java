@@ -16,10 +16,7 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
                         LootContextParamSets.BLOCK),
                 new SubProviderEntry((provider) ->
                         new PotionsPlusRewardLoot(),
-                        LootContextParamSets.EMPTY),
-                new SubProviderEntry((provider) ->
-                        new PotionsPlusFishingLoot(),
-                        LootContextParamSets.FISHING)
+                        LootContextParamSets.EMPTY)
         ), registryAccess);
     }
 

@@ -21,7 +21,6 @@ public class Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, ModInfo.MOD_ID);
 
     static {
-        FishItems.init(ITEMS::register);
         HatItems.init(ITEMS::register);
         SkillLootItems.init(ITEMS::register);
         OreItems.init(ITEMS::register);

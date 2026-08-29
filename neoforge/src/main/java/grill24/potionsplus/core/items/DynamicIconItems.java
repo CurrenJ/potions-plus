@@ -39,12 +39,7 @@ public class DynamicIconItems {
     public static final ResourceLocation RARE_TEX_LOC = ppId("item/rare");
     public static final ResourceLocation NO_EXP_TEX_LOC = ppId("item/no_experience");
     public static final ResourceLocation NO_HEAT_TEX_LOC = ppId("item/no_heat");
-    public static final ResourceLocation FISHING_BAR_TEX_LOC = ppId("item/fishing_bar");
-    public static final ResourceLocation FISHING_BOBBER_TEX_LOC = ppId("item/fishing_bobber");
-    public static final ResourceLocation COPPER_FISHING_FRAME_TEX_LOC = ppId("item/copper_fishing_frame");
     public static final ResourceLocation GOLD_FISHING_FRAME_TEX_LOC = ppId("item/gold_fishing_frame");
-    public static final ResourceLocation DIAMOND_FISHING_FRAME_TEX_LOC = ppId("item/diamond_fishing_frame");
-    public static final ResourceLocation PURPLE_FISHING_FRAME_TEX_LOC = ppId("item/purple_fishing_frame");
     public static final ResourceLocation GOLD_SELECTION_FRAME_TEX_LOC = ppId("item/gold_selection_frame");
     public static final ResourceLocation GLOBAL_TEX_LOC = ppId("item/global");
     public static final ResourceLocation RULER_TEX_LOC = ppId("item/ruler");
@@ -63,9 +58,7 @@ public class DynamicIconItems {
                 AMP_TEX_LOC, DUR_TEX_LOC, I_TEX_LOC, II_TEX_LOC, III_TEX_LOC, IV_TEX_LOC, V_TEX_LOC, VI_TEX_LOC,
                 VII_TEX_LOC, VIII_TEX_LOC, ARROW_TEX_LOC, UNKNOWN_TEX_LOC, SGA_A_TEX_LOC, SGA_B_TEX_LOC,
                 SGA_C_TEX_LOC, SGA_D_TEX_LOC, COMMON_TEX_LOC, RARE_TEX_LOC, NO_EXP_TEX_LOC,
-                NO_HEAT_TEX_LOC, FISHING_BAR_TEX_LOC, FISHING_BOBBER_TEX_LOC,
-                COPPER_FISHING_FRAME_TEX_LOC, GOLD_FISHING_FRAME_TEX_LOC,
-                DIAMOND_FISHING_FRAME_TEX_LOC, PURPLE_FISHING_FRAME_TEX_LOC,
+                NO_HEAT_TEX_LOC, GOLD_FISHING_FRAME_TEX_LOC,
                 GOLD_SELECTION_FRAME_TEX_LOC, GLOBAL_TEX_LOC,
                 RULER_TEX_LOC, COUNT_TEX_LOC).name("generic_icon"));
     }

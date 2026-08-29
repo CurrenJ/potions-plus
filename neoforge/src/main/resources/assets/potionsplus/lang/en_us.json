@@ -74,9 +74,6 @@
   "description.potionsplus.ability.diamond_ore_additional_loot_emeralds": "+Diamond Ore May Drop Emeralds",
   "description.potionsplus.ability.diamond_ore_additional_loot_lapis": "+Diamond Ore May Drop Lapis",
 
-  "description.potionsplus.ability.fishing_rod_luck_of_the_sea": "%s Fishing Rod Luck of the Sea Level",
-  "description.potionsplus.ability.fishing_rod_lure": "%s Fishing Rod Lure Level",
-  "description.potionsplus.ability.fishing_rod_unbreaking": "%s Fishing Rod Unbreaking Level",
 
   "description.potionsplus.ability.double_jump": "+%s Additional Jump(s)",
   "description.long.potionsplus.ability.double_jump": "§l§dJump§r again in mid-air.",
@@ -180,7 +177,6 @@
   "tooltip.potionsplus.skill.reward.master": "Master Loot",
 
   "tooltip.potionsplus.skill.woodcutting": "Woodcutting",
-  "tooltip.potionsplus.skill.fishing": "Fishing",
 
   "tooltip.potionsplus.skill.swordsmanship": "Swordsmanship",
 
@@ -218,9 +214,6 @@
   "block.potionsplus.stoney_emerald_ore": "Stoney Emerald Ore",
   "block.potionsplus.stoney_uranium_ore": "Stoney Uranium Ore",
 
-  "block.potionsplus.fish_tank_planks": "Wooden Fish Tank",
-  "block.potionsplus.fish_tank_logs": "Log Fish Tank",
-  "block.potionsplus.fish_tank_stones": "Stone Fish Tank",
 
   "block.potionsplus.hanging_fern": "Hanging Fern",
   "block.potionsplus.hanging_fern.description": "A fern that hangs from the ceiling. It's a little bit like a fern, but it's hanging.",
@@ -342,37 +335,14 @@
   "item.potionsplus.master_loot": "Master Loot",
   "item.potionsplus.wheel": "Wheel of Loot",
 
-  "item.potionsplus.copper_fishing_rod": "Copper Fishing Rod",
-  "item.potionsplus.obsidian_fishing_rod": "Obsidian Fishing Rod",
 
   "item.potionsplus.worms": "Worms",
   "item.potionsplus.gummy_worms": "Gummy Worms",
   "item.potionsplus.blazed_grub": "Blazed Grub",
 
-  "bait.potionsplus.worms.description": "Standard-issue §7bait. Attracts fish.",
-  "bait.potionsplus.gummy_worms.description": "§dRare §7bait. High chance to attract cooler fish. §r§a++Avg. size§7, §r§c+Variance",
-  "bait.potionsplus.blazed_grub.description": "Uncommon§7 bait. Found in Nether. §r§a+Avg. size§7, §r§a-Variance",
 
-
-  "item.potionsplus.northern_pike": "Northern Pike",
-  "item.potionsplus.parrotfish": "Parrotfish",
-  "item.potionsplus.rainfordia": "Rainfordia",
-  "item.potionsplus.garden_eel": "Garden Eel",
-  "item.potionsplus.royal_garden_eel": "Royal Garden Eel",
-  "item.potionsplus.longnose_gar": "Longnose Gar",
-  "item.potionsplus.shrimp": "Shrimp",
-  "item.potionsplus.moorish_idol": "Moorish Idol",
-  "item.potionsplus.molten_moorish_idol": "Molten Moorish Idol",
-  "item.potionsplus.ocean_sunfish": "Ocean Sunfish",
-  "item.potionsplus.portuguese_man_o_war": "Portuguese Man O' War",
-  "item.potionsplus.bluegill": "Bluegill",
-  "item.potionsplus.neon_tetra": "Neon Tetra",
-  "item.potionsplus.giant_manta_ray": "Giant Manta Ray",
-  "item.potionsplus.frozen_giant_manta_ray": "Frozen Giant Manta Ray",
-  "item.potionsplus.lizardfish": "Lizardfish",
 
   "block.potionsplus.skill_journals": "Skill Journals",
-  "block.potionsplus.fishing_leaderboards": "Fishing Leaderboards",
   "block.potionsplus.uranium_glass": "Uranium Glass",
   "block.potionsplus.icicle": "Icicle",
 
@@ -747,14 +717,5 @@
   "tooltip.potionsplus.reward.unknown_potion_ingredient.description": "An Unknown Potion Ingredient",
   "alert.potionsplus.reward.unknown_potion_ingredient": "The brewing cauldron calls...",
 
-  "item.potionsplus.froggy_hat": "Froggy Hat",
-
-  "fish.size": "§7§oSize: %s cm",
-  "fish.leaderboard.size": "[%s] %s: %s cm",
-  "fish.size.simple": "%s cm",
-  "fish.count.simple": "Caught %s times.",
-  "fish.leaderboard.count": "[%s] %s %s",
-  "fish.leaderboard.caught.chat": "%s caught a %s cm %s.",
-  "fish.leaderboard.npr": "That's a §6§onew personal record!",
-  "item.fishing_rod.no_bait": "§7§oAdd bait to catch fish..."
+  "item.potionsplus.froggy_hat": "Froggy Hat"
 }

@@ -12,7 +12,6 @@ public class SkillPointSources {
 
     public static final DeferredHolder<SkillPointSource<?, ?>, BreakBlockSource> BREAK_BLOCK = register("break_block", BreakBlockSource::new);
     public static final DeferredHolder<SkillPointSource<?, ?>, IncrementStatSource> INCREMENT_STAT = register("increment_stat", IncrementStatSource::new);
-    public static final DeferredHolder<SkillPointSource<?, ?>, CatchFishSource> CATCH_FISH = register("catch_fish", CatchFishSource::new);
     public static final DeferredHolder<SkillPointSource<?, ?>, KillEntitySource> KILL_ENTITY = register("kill_entity", KillEntitySource::new);
 
     private static <S extends SkillPointSource<?, ?>> DeferredHolder<SkillPointSource<?, ?>, S> register(String name, Supplier<S> supplier) {

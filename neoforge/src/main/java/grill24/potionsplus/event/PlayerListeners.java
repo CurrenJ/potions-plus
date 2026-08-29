@@ -179,13 +179,12 @@ public class PlayerListeners {
         if (event.getEntity() instanceof ServerPlayer player) {
             SkillsData skillsData = SkillsData.getPlayerData(player);
 
-            // Sync known brewing cauldron recipe, sync paired abyssal trove, sync player skill data, and sync fishing leaderboard data.
+            // Sync known brewing cauldron recipe, sync paired abyssal trove, and sync player skill data.
             // TOOD: Sync whole saved data on join?
             PacketDistributor.sendToPlayer(player,
                     ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()),
                     new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()),
-                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player)),
-                    ClientboundSyncFishingLeaderboardsPacket.create() // Sync Fishing Leaderboard Data
+                    new ClientboundSyncPlayerSkillData(SkillsData.getPlayerData(player))
             );
 
             // Trigger an update for all abilities
@@ -194,9 +193,6 @@ public class PlayerListeners {
                     instance.onInstanceChanged(player);
                 }
             }
-
-            // Reset Fishing Game
-            ServerboundEndFishingMinigame.ServerPayloadHandler.endGame(player, ServerboundEndFishingMinigame.Result.RESET);
         }
     }
 

@@ -28,13 +28,6 @@ public class Packets {
                 ServerboundUpdateAbilityStrengthPacket.ServerPayloadHandler::handleDataOnMain
         );
 
-        // End Fishing Minigame on Server
-        registrar.playToServer(
-                ServerboundEndFishingMinigame.TYPE,
-                ServerboundEndFishingMinigame.STREAM_CODEC,
-                ServerboundEndFishingMinigame.ServerPayloadHandler::handleDataOnMain
-        );
-
         // Toggle Ability
         registrar.playToServer(
                 ServerboundToggleAbilityPacket.TYPE,
@@ -142,20 +135,6 @@ public class Packets {
                 ClientboundDisplayWheelAnimationPacket.ClientPayloadHandler::handleDataOnMain
         );
 
-        // Start Fishing Minigame on Client
-        registrar.playToClient(
-                ClientboundStartFishingMinigamePacket.TYPE,
-                ClientboundStartFishingMinigamePacket.STREAM_CODEC,
-                ClientboundStartFishingMinigamePacket.ClientPayloadHandler::handleDataOnMain
-        );
-
-        // Reset Fishing Minigame Data on Client
-        registrar.playToClient(
-                ClientboundResetFishingMinigame.TYPE,
-                ClientboundResetFishingMinigame.STREAM_CODEC,
-                ClientboundResetFishingMinigame.ClientPayloadHandler::handleDataOnMain
-        );
-
         // Display Tossup Animation Packet
         registrar.playToClient(
                 ClientboundDisplayTossupAnimationPacket.TYPE,
@@ -189,13 +168,6 @@ public class Packets {
                 ClientboundTriggerStunShotPacket.TYPE,
                 ClientboundTriggerStunShotPacket.STREAM_CODEC,
                 ClientboundTriggerStunShotPacket.ClientPayloadHandler::handleDataOnMain
-        );
-
-        // Sync Fishing Leaderboards Data
-        registrar.playToClient(
-                ClientboundSyncFishingLeaderboardsPacket.TYPE,
-                ClientboundSyncFishingLeaderboardsPacket.STREAM_CODEC,
-                ClientboundSyncFishingLeaderboardsPacket.ClientPayloadHandler::handleDataOnMain
         );
     }
 }

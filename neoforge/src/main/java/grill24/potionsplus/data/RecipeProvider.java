@@ -38,23 +38,6 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
         // ----- Static Brewing Cauldron Recipes -----
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.COD)
-                .requires(Items.COD)
-                .unlockedBy("has_cod", has(Items.COD))
-                .save(recipeConsumer, ppId("cod_no_size"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.SALMON)
-                .requires(Items.SALMON)
-                .unlockedBy("has_salmon", has(Items.SALMON))
-                .save(recipeConsumer, ppId("salmon_no_size"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.TROPICAL_FISH)
-                .requires(Items.TROPICAL_FISH)
-                .unlockedBy("has_tropical_fish", has(Items.TROPICAL_FISH))
-                .save(recipeConsumer, ppId("tropical_fish_no_size"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.PUFFERFISH)
-                .requires(Items.PUFFERFISH)
-                .unlockedBy("has_pufferfish", has(Items.PUFFERFISH))
-                .save(recipeConsumer, ppId("pufferfish_no_size"));
-
         // Water Bottle
         new BrewingCauldronRecipeBuilder()
                 .result(PUtil.createPotionItemStack(net.minecraft.world.item.alchemy.Potions.WATER, PUtil.PotionType.POTION))

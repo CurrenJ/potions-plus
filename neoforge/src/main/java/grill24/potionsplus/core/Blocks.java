@@ -62,7 +62,6 @@ public class Blocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SmallFilterHopperBlockEntity>> SMALL_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("small_filter_hopper_block_entity", () -> BlockEntityType.Builder.of(SmallFilterHopperBlockEntity::new, BlockEntityBlocks.SMALL_FILTER_HOPPER.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LargeFilterHopperBlockEntity>> LARGE_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("large_filter_hopper_block_entity", () -> BlockEntityType.Builder.of(LargeFilterHopperBlockEntity::new, BlockEntityBlocks.LARGE_FILTER_HOPPER.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HugeFilterHopperBlockEntity>> HUGE_FILTER_HOPPER_BLOCK_ENTITY = BLOCK_ENTITIES.register("huge_filter_hopper_block_entity", () -> BlockEntityType.Builder.of(HugeFilterHopperBlockEntity::new, BlockEntityBlocks.HUGE_FILTER_HOPPER.value()).build(null));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FishTankBlockEntity>> FISH_TANK_BLOCK_ENTITY = BLOCK_ENTITIES.register("fish_tank_block_entity", () -> BlockEntityType.Builder.of(FishTankBlockEntity::new, BlockEntityBlocks.toArray(BlockEntityBlocks.FISH_TANK_SUB_BLOCKS)).build(null));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent

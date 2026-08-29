@@ -4,13 +4,11 @@ import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.core.items.BrewingItems;
-import grill24.potionsplus.core.items.FishItems;
 import grill24.potionsplus.core.items.SkillLootItems;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -140,64 +138,6 @@ public class ItemTagProvider extends ItemTagsProvider {
                 SkillLootItems.WHEEL.getValue()
         );
 
-        tag(ItemTags.FISHING_ENCHANTABLE).add(FishItems.COPPER_FISHING_ROD.value()).add(FishItems.OBSIDIAN_FISHING_ROD.value());
-
-        tag(Tags.Items.PP_FISH).add(
-                FishItems.NORTHERN_PIKE.getValue(),
-                FishItems.PARROTFISH.getValue(),
-                FishItems.RAINFORDIA.getValue(),
-                FishItems.GARDEN_EEL.getValue(),
-                FishItems.ROYAL_GARDEN_EEL.getValue(),
-                FishItems.LONGNOSE_GAR.getValue(),
-                FishItems.SHRIMP.getValue(),
-                FishItems.FRIED_SHRIMP.getValue(),
-                FishItems.MOORISH_IDOL.getValue(),
-                FishItems.MOLTEN_MOORISH_IDOL.getValue(),
-                FishItems.OCEAN_SUNFISH.getValue(),
-                FishItems.PORTUGUESE_MAN_O_WAR.getValue(),
-                FishItems.BLUEGILL.getValue(),
-                FishItems.NEON_TETRA.getValue(),
-                FishItems.GIANT_MANTA_RAY.getValue(),
-                FishItems.FROZEN_GIANT_MANTA_RAY.getValue(),
-                FishItems.LIZARDFISH.getValue()
-        );
-
-        tag(Tags.Items.BAIT).add(FishItems.WORMS.getValue(), FishItems.GUMMY_WORMS.getValue(), FishItems.BLAZED_GRUB.getValue());
-        tag(ItemTags.FISHES).addTag(Tags.Items.PP_FISH);
-        tag(net.neoforged.neoforge.common.Tags.Items.FOODS_RAW_FISH).addTag(Tags.Items.PP_FISH);
-
-        tag(Tags.Items.PP_FISHING_COPPER_FRAME).add(
-                Items.COD,
-                Items.SALMON,
-                Items.TROPICAL_FISH,
-                Items.PUFFERFISH,
-                FishItems.WORMS.getValue(),
-                FishItems.BLAZED_GRUB.getValue()
-        );
-        tag(Tags.Items.PP_FISHING_GOLD_FRAME).add(
-                FishItems.PARROTFISH.getValue(),
-                FishItems.SHRIMP.getValue(),
-                FishItems.OCEAN_SUNFISH.getValue(),
-                FishItems.NORTHERN_PIKE.getValue(),
-                FishItems.RAINFORDIA.getValue(),
-                FishItems.LONGNOSE_GAR.getValue(),
-                FishItems.BLUEGILL.getValue(),
-                FishItems.NEON_TETRA.getValue(),
-                FishItems.GUMMY_WORMS.getValue()
-        );
-        tag(Tags.Items.PP_FISHING_DIAMOND_FRAME).add(
-                FishItems.GARDEN_EEL.getValue(),
-                FishItems.GIANT_MANTA_RAY.getValue(),
-                FishItems.MOORISH_IDOL.getValue(),
-                FishItems.PORTUGUESE_MAN_O_WAR.getValue(),
-                FishItems.LIZARDFISH.getValue()
-        );
-        tag(Tags.Items.PP_FISHING_PURPLE_FRAME).add(
-                FishItems.MOLTEN_MOORISH_IDOL.getValue(),
-                FishItems.FROZEN_GIANT_MANTA_RAY.getValue(),
-                FishItems.ROYAL_GARDEN_EEL.getValue(),
-                FishItems.FRIED_SHRIMP.getValue()
-        );
     }
 
     @Override

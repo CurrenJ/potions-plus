@@ -122,8 +122,7 @@ public class AttributeModifiersWhileHeldAbility<T extends Item> extends Permanen
             PlayerAbilities.MODIFIERS_WHILE_BOW_HELD,
             PlayerAbilities.MODIFIERS_WHILE_CROSSBOW_HELD,
             PlayerAbilities.MODIFIERS_WHILE_TRIDENT_HELD,
-            PlayerAbilities.MODIFIERS_WHILE_SHIELD_HELD,
-            PlayerAbilities.MODIFIERS_WHILE_FISHING_ROD_HELD
+            PlayerAbilities.MODIFIERS_WHILE_SHIELD_HELD
         );
     }
 
