@@ -181,11 +181,13 @@ public final class AlchemyGameTests {
     }
 
     /**
-     * P-05. Evaluating what the cauldron could brew writes the result onto the ingredients: the passive
-     * potion-effect branch calls the one mutating write helper on a live stack from the inventory and
-     * only copies afterwards. Inserting a damageable item alongside a potion is enough to trigger it.
+     * P-05, fixed in phase 3. Evaluating what the cauldron could brew used to write the result onto the
+     * ingredients: the passive potion-effect branch called the one mutating write helper on a live stack
+     * from the inventory and only copied afterwards. Inserting a damageable item alongside a potion was
+     * enough to trigger it. {@link grill24.potionsplus.alchemy.PotionDataBuilder#applyTo} always copies
+     * before writing, so this is now structurally impossible to reintroduce.
      */
-    public static void knownIssueBrewingCauldronMutatesItsIngredients(GameTestHelper helper) {
+    public static void brewingCauldronDoesNotMutateItsIngredients(GameTestHelper helper) {
         BrewingCauldronBlockEntity cauldron = placeCauldron(helper);
 
         cauldron.setItem(0, new ItemStack(Items.DIAMOND_SWORD));

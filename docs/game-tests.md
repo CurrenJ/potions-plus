@@ -65,7 +65,7 @@ experience gate.
 | `merge_completes_when_a_player_supplies_experience` | The same merge completes once a creative player stands in it. | ticked |
 | `brewing_a_seeded_base_potion_recipe_yields_its_potion` | The core interaction: a generated base recipe turns its ingredients into its potion. | ticked |
 | `crafting_awards_the_recipe_experience` | Finishing a rewarding recipe leaves experience in the cauldron. | ticked |
-| `known_issue_brewing_cauldron_mutates_its_ingredients` | **Expected to fail.** See [Known-issue tests](#known-issue-tests). | sync |
+| `brewing_cauldron_does_not_mutate_its_ingredients` | Evaluating what the cauldron could brew never writes onto the ingredients sitting in it. Was a known-issue test (P-05) until phase 3's `PotionDataBuilder.applyTo` fix; see [Known-issue tests](#known-issue-tests) for the transition. | sync |
 
 #### Nothing here hardcodes a generated recipe
 
@@ -98,11 +98,11 @@ A test registered through `registerKnownIssue(...)` asserts behaviour we know to
 registered with `required = false`, so it **reports without failing the run** — `GameTestServer`
 exits with the count of failed *required* tests only.
 
-A run in the expected state looks like this:
+A run with a live known-issue test looks like this:
 
 ```
-(optional) potionsplus:known_issue_brewing_cauldron_mutates_its_ingredients failed at ... on tick 0
-All 31 required tests passed :)
+(optional) potionsplus:known_issue_some_defect failed at ... on tick 0
+All N required tests passed :)
 1 optional tests failed
 BUILD SUCCESSFUL
 ```
@@ -110,8 +110,12 @@ BUILD SUCCESSFUL
 The point is that the defect stays visible and precisely described instead of living only in a
 tracker. When the fix lands, move the registration from `registerKnownIssue` to `register` and drop
 the `known_issue_` prefix from its name — the test itself already asserts the correct behaviour, so
-nothing in the test body changes. `potion_display_name_uses_registry_path` went through exactly this
-transition.
+nothing in the test body changes. `potion_display_name_uses_registry_path` (P-01) and
+`brewing_cauldron_does_not_mutate_its_ingredients` (P-05, formerly
+`known_issue_brewing_cauldron_mutates_its_ingredients`) have both gone through this transition.
+
+There are no known-issue tests registered right now — `registerKnownIssue` stays in
+`NeoForgeGameTestRegistration` as the mechanism for the next one.
 
 Do not leave a known-issue test failing indefinitely. It is a marker for work that is planned, not a
 permanent exemption.

@@ -119,11 +119,8 @@ public class NeoForgeGameTestRegistration {
                 BrewingCauldronGameTests::craftingAwardsTheRecipeExperience);
         register(event, env, "brewing_with_gunpowder_converts_to_a_splash_potion",
                 BrewingCauldronGameTests::brewingWithGunpowderConvertsToASplashPotion);
-
-        // ----- known issues: reported, but not required to pass -----
-        // Flip these to required as the phase that fixes each one lands.
-        registerKnownIssue(event, env, "known_issue_brewing_cauldron_mutates_its_ingredients",
-                AlchemyGameTests::knownIssueBrewingCauldronMutatesItsIngredients);
+        register(event, env, "brewing_cauldron_does_not_mutate_its_ingredients",
+                AlchemyGameTests::brewingCauldronDoesNotMutateItsIngredients);
     }
 
     private static void register(
