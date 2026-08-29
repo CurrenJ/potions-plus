@@ -138,26 +138,6 @@ public class PotionsPlusBlockLoot extends BlockLootSubProvider {
 
         consumer.accept(OreBlocks.URANIUM_ORE.value().getLootTable(), createOreDrop(OreBlocks.URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
         consumer.accept(OreBlocks.DEEPSLATE_URANIUM_ORE.value().getLootTable(), createOreDrop(OreBlocks.DEEPSLATE_URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
-        consumer.accept(OreBlocks.SANDY_URANIUM_ORE.value().getLootTable(), createOreDrop(OreBlocks.SANDY_URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
-        consumer.accept(OreBlocks.STONEY_URANIUM_ORE.value().getLootTable(), createOreDrop(OreBlocks.STONEY_URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
-
-        consumer.accept(OreBlocks.SANDY_COPPER_ORE.value().getLootTable(), createCopperOreDrops(OreBlocks.SANDY_COPPER_ORE.value()));
-        consumer.accept(OreBlocks.SANDY_IRON_ORE.value().getLootTable(), createOreDrop(OreBlocks.SANDY_IRON_ORE.value(), Items.RAW_IRON));
-        consumer.accept(OreBlocks.SANDY_GOLD_ORE.value().getLootTable(), createOreDrop(OreBlocks.SANDY_GOLD_ORE.value(), Items.RAW_GOLD));
-        consumer.accept(OreBlocks.SANDY_DIAMOND_ORE.value().getLootTable(), createOreDrop(OreBlocks.SANDY_DIAMOND_ORE.value(), Items.DIAMOND));
-        consumer.accept(OreBlocks.SANDY_REDSTONE_ORE.value().getLootTable(), createRedstoneOreDrops(OreBlocks.SANDY_REDSTONE_ORE.value()));
-        consumer.accept(OreBlocks.SANDY_LAPIS_ORE.value().getLootTable(), createLapisOreDrops(OreBlocks.SANDY_LAPIS_ORE.value()));
-        consumer.accept(OreBlocks.SANDY_COAL_ORE.value().getLootTable(), createOreDrop(OreBlocks.SANDY_COAL_ORE.value(), Items.COAL));
-        consumer.accept(OreBlocks.SANDY_EMERALD_ORE.value().getLootTable(), createOreDrop(OreBlocks.SANDY_EMERALD_ORE.value(), Items.EMERALD));
-
-        consumer.accept(OreBlocks.STONEY_COPPER_ORE.value().getLootTable(), createCopperOreDrops(OreBlocks.STONEY_COPPER_ORE.value()));
-        consumer.accept(OreBlocks.STONEY_IRON_ORE.value().getLootTable(), createOreDrop(OreBlocks.STONEY_IRON_ORE.value(), Items.RAW_IRON));
-        consumer.accept(OreBlocks.STONEY_GOLD_ORE.value().getLootTable(), createOreDrop(OreBlocks.STONEY_GOLD_ORE.value(), Items.RAW_GOLD));
-        consumer.accept(OreBlocks.STONEY_DIAMOND_ORE.value().getLootTable(), createOreDrop(OreBlocks.STONEY_DIAMOND_ORE.value(), Items.DIAMOND));
-        consumer.accept(OreBlocks.STONEY_REDSTONE_ORE.value().getLootTable(), createRedstoneOreDrops(OreBlocks.STONEY_REDSTONE_ORE.value()));
-        consumer.accept(OreBlocks.STONEY_LAPIS_ORE.value().getLootTable(), createLapisOreDrops(OreBlocks.STONEY_LAPIS_ORE.value()));
-        consumer.accept(OreBlocks.STONEY_COAL_ORE.value().getLootTable(), createOreDrop(OreBlocks.STONEY_COAL_ORE.value(), Items.COAL));
-        consumer.accept(OreBlocks.STONEY_EMERALD_ORE.value().getLootTable(), createOreDrop(OreBlocks.STONEY_EMERALD_ORE.value(), Items.EMERALD));
 
         consumer.accept(
                 OreBlocks.SULFURIC_NETHER_QUARTZ_ORE.value().getLootTable(),

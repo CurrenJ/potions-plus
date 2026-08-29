@@ -1,9 +1,0 @@
-{
-  "remove": [
-    "minecraft:stone"
-  ],
-  "values": [
-    "#potionsplus:ore_replaceable",
-    "#potionsplus:sandy_ore_replaceable"
-  ]
-}

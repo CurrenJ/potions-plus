@@ -14,20 +14,6 @@
         "totalStats": 256
       },
       "trigger": "potionsplus:award_stat"
-    },
-    "mine_emerald_ore_sandy_emerald_ore": {
-      "conditions": {
-        "statId": "minecraft.mined:potionsplus.sandy_emerald_ore",
-        "totalStats": 256
-      },
-      "trigger": "potionsplus:award_stat"
-    },
-    "mine_emerald_ore_stoney_emerald_ore": {
-      "conditions": {
-        "statId": "minecraft.mined:potionsplus.stoney_emerald_ore",
-        "totalStats": 256
-      },
-      "trigger": "potionsplus:award_stat"
     }
   },
   "display": {
@@ -55,9 +41,7 @@
   "requirements": [
     [
       "mine_emerald_ore_emerald_ore",
-      "mine_emerald_ore_deepslate_emerald_ore",
-      "mine_emerald_ore_sandy_emerald_ore",
-      "mine_emerald_ore_stoney_emerald_ore"
+      "mine_emerald_ore_deepslate_emerald_ore"
     ]
   ],
   "rewards": {

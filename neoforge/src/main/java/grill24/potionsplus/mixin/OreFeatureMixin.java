@@ -2,23 +2,15 @@ package grill24.potionsplus.mixin;
 
 import com.mojang.serialization.Codec;
 import grill24.potionsplus.block.OreFlowerBlock;
-import grill24.potionsplus.block.PotionsPlusOreBlock;
-import grill24.potionsplus.config.PotionsPlusConfig;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.blocks.OreBlocks;
-import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.BulkSectionAccess;
 import net.minecraft.world.level.chunk.LevelChunkSection;
@@ -61,43 +53,6 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
             }
         }
 
-        if (replacing.is(Tags.Blocks.STONEY_ORE_REPLACEABLE)) {
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.COAL_ORES, OreBlocks.STONEY_COAL_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.COPPER_ORES, OreBlocks.STONEY_COPPER_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.IRON_ORES, OreBlocks.STONEY_IRON_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.GOLD_ORES, OreBlocks.STONEY_GOLD_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.REDSTONE_ORES, OreBlocks.STONEY_REDSTONE_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.LAPIS_ORES, OreBlocks.STONEY_LAPIS_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.DIAMOND_ORES, OreBlocks.STONEY_DIAMOND_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.EMERALD_ORES, OreBlocks.STONEY_EMERALD_ORE.value());
-            potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, Tags.Blocks.ORES_URANIUM, OreBlocks.STONEY_URANIUM_ORE.value());
-        }
-
-        if (replacing.is(Tags.Blocks.SANDY_ORE_REPLACEABLE)) {
-            // Sandy ores can replace sand on the surface, which is not ideal.
-            // So, make most attempts to place exposed ores on the surface fail.
-            float failureChance = 0;
-            if (potions_plus$isOnSurface(blockpos$mutableblockpos, level)) {
-                failureChance = 0.95F;
-                PotionsPlus.LOGGER.info("failure chance upped");
-            }
-            float randomValue = random.nextFloat();
-            if (randomValue < failureChance) {
-                potions_plus$tryPlaceBlockState(level, bulksectionaccess, replacing, blockpos$mutableblockpos);
-                return;
-            } else {
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.COAL_ORES, OreBlocks.SANDY_COAL_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.COPPER_ORES, OreBlocks.SANDY_COPPER_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.IRON_ORES, OreBlocks.SANDY_IRON_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.GOLD_ORES, OreBlocks.SANDY_GOLD_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.REDSTONE_ORES, OreBlocks.SANDY_REDSTONE_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.LAPIS_ORES, OreBlocks.SANDY_LAPIS_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.DIAMOND_ORES, OreBlocks.SANDY_DIAMOND_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, BlockTags.EMERALD_ORES, OreBlocks.SANDY_EMERALD_ORE.value());
-                potions_plus$tryPlaceOreVariant(level, blockpos$mutableblockpos, bulksectionaccess, replacing, placing, Tags.Blocks.ORES_URANIUM, OreBlocks.SANDY_URANIUM_ORE.value());
-            }
-        }
-
         // Place ore flowers atop ore blocks
         level.registryAccess().registryOrThrow(Registries.BLOCK).getTagOrEmpty(Tags.Blocks.ORE_FLOWERS).forEach(block -> {
             if (block.value() instanceof OreFlowerBlock oreFlowerBlock && oreFlowerBlock.mayPlaceOn(placing)) {
@@ -110,38 +65,6 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
         });
     }
 
-    /**
-     * Check if a block position can see the sky. Water does not block this.
-     * @param blockpos$mutableblockpos
-     * @param level
-     * @return
-     */
-    @Unique
-    private static boolean potions_plus$isOnSurface(BlockPos.MutableBlockPos blockpos$mutableblockpos, WorldGenLevel level) {
-        // Check upward every 8 blocks to build limit. All must be air
-        int minBuildHeight = level.getMinBuildHeight();
-        int maxBuildHeight = level.getMaxBuildHeight();
-
-        BlockPos.MutableBlockPos mutable = blockpos$mutableblockpos.mutable();
-        mutable.setY(mutable.getY() + 1);
-        while (mutable.getY() < maxBuildHeight && mutable.getY() > minBuildHeight) {
-            if (!level.getBlockState(mutable).isAir() && !level.isFluidAtPosition(mutable, state -> state.is(FluidTags.WATER))) {
-                return false;
-            }
-            mutable.setY(mutable.getY() + 8);
-        }
-        return true;
-    }
-
-    @Unique
-    private static void potions_plus$tryPlaceOreVariant(WorldGenLevel level, BlockPos.MutableBlockPos blockpos$mutableblockpos, BulkSectionAccess bulksectionaccess, BlockState replacing, BlockState placing, TagKey<Block> targetOre, Block variantOreBlock) {
-        if (placing.is(targetOre)) {
-            BlockState ore = RuntimeTextureVariantModelGenerator.getTextureVariantBlockState(variantOreBlock,
-                    new ItemStack(replacing.getBlock()), variantOreBlock.defaultBlockState(), PotionsPlusOreBlock.TEXTURE);
-            potions_plus$tryPlaceBlockState(level, bulksectionaccess, ore, blockpos$mutableblockpos);
-        }
-    }
-
     @Unique
     private static Optional<BlockState> potions_plus$tryPlaceBlock(WorldGenLevel level, BulkSectionAccess bulkSectionAccess, Block block, BlockPos pos) {
         if (level.ensureCanWrite(pos)) {
@@ -152,22 +75,6 @@ public abstract class OreFeatureMixin extends Feature<OreConfiguration> {
 
             if (section != null) {
                 return Optional.of(section.setBlockState(x, y, z, block.defaultBlockState(), false));
-            }
-        }
-
-        return Optional.empty();
-    }
-
-    @Unique
-    private static Optional<BlockState> potions_plus$tryPlaceBlockState(WorldGenLevel level, BulkSectionAccess bulkSectionAccess, BlockState blockstate, BlockPos pos) {
-        if (level.ensureCanWrite(pos)) {
-            int x = SectionPos.sectionRelative(pos.getX());
-            int y = SectionPos.sectionRelative(pos.getY());
-            int z = SectionPos.sectionRelative(pos.getZ());
-            LevelChunkSection section = bulkSectionAccess.getSection(pos);
-
-            if (section != null) {
-                return Optional.of(section.setBlockState(x, y, z, blockstate, false));
             }
         }
 

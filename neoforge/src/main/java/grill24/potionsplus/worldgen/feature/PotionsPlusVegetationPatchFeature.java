@@ -1,13 +1,11 @@
 package grill24.potionsplus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
-import grill24.potionsplus.core.blocks.OreBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -20,25 +18,6 @@ import java.util.function.Supplier;
 
 public class PotionsPlusVegetationPatchFeature extends Feature<PotionsPlusVegetationPatchConfiguration> {
     private static final Map<Block, Map<Block, Supplier<BlockState>>> oreReplacements = new HashMap<>();
-    static {
-        var sandMap = oreReplacements.computeIfAbsent(Blocks.SAND, block -> new HashMap<>());
-        sandMap.put(Blocks.COAL_ORE, () -> OreBlocks.SANDY_COAL_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_COAL_ORE, () -> OreBlocks.SANDY_COAL_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.IRON_ORE, () -> OreBlocks.SANDY_IRON_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_IRON_ORE, () -> OreBlocks.SANDY_IRON_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.COPPER_ORE, () -> OreBlocks.SANDY_COPPER_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_COPPER_ORE, () -> OreBlocks.SANDY_COPPER_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.GOLD_ORE, () -> OreBlocks.SANDY_GOLD_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_GOLD_ORE, () -> OreBlocks.SANDY_GOLD_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DIAMOND_ORE, () -> OreBlocks.SANDY_DIAMOND_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_DIAMOND_ORE, () -> OreBlocks.SANDY_DIAMOND_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.EMERALD_ORE, () -> OreBlocks.SANDY_EMERALD_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_EMERALD_ORE, () -> OreBlocks.SANDY_EMERALD_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.LAPIS_ORE, () -> OreBlocks.SANDY_LAPIS_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_LAPIS_ORE, () -> OreBlocks.SANDY_LAPIS_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.REDSTONE_ORE, () -> OreBlocks.SANDY_REDSTONE_ORE.value().defaultBlockState());
-        sandMap.put(Blocks.DEEPSLATE_REDSTONE_ORE, () -> OreBlocks.SANDY_REDSTONE_ORE.value().defaultBlockState());
-    }
 
     public PotionsPlusVegetationPatchFeature(Codec<PotionsPlusVegetationPatchConfiguration> codec) {
         super(codec);

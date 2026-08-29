@@ -116,9 +116,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
         tag(Tags.Items.URANIUM_ORE).add(
                 OreBlocks.URANIUM_ORE.value().asItem(),
-                OreBlocks.DEEPSLATE_URANIUM_ORE.value().asItem(),
-                OreBlocks.SANDY_URANIUM_ORE.value().asItem(),
-                OreBlocks.STONEY_URANIUM_ORE.value().asItem()
+                OreBlocks.DEEPSLATE_URANIUM_ORE.value().asItem()
         );
 
         tag(Tags.Items.EDIBLE_REWARDS).add(

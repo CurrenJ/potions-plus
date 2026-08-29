@@ -1,17 +1,10 @@
 package grill24.potionsplus.core.blocks;
 
-import grill24.potionsplus.block.PotionsPlusOreBlock;
-import grill24.potionsplus.block.PotionsPlusRedstoneOreBlock;
 import grill24.potionsplus.block.UraniumOreBlock;
 import grill24.potionsplus.core.Items;
-import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.items.OreItems;
-import grill24.potionsplus.event.runtimeresource.modification.TextureResourceModification;
-import grill24.potionsplus.utility.RUtil;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
-import grill24.potionsplus.utility.registration.RuntimeTextureVariantModelGenerator;
-import grill24.potionsplus.utility.registration.block.BlockModelUtility;
 import grill24.potionsplus.utility.registration.block.SimpleBlockBuilder;
 import grill24.potionsplus.utility.registration.block.UraniumOreBlockModelGenerator;
 import grill24.potionsplus.utility.registration.item.ItemModelUtility;
@@ -20,7 +13,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -29,7 +21,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 
-import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
@@ -42,10 +33,6 @@ public class OreBlocks {
     public static Holder<Block> REMNANT_DEBRIS, DEEPSLATE_REMNANT_DEBRIS;
 
     public static Holder<Block> URANIUM_ORE, DEEPSLATE_URANIUM_ORE, URANIUM_BLOCK, URANIUM_GLASS, SULFURIC_NETHER_QUARTZ_ORE;
-    public static Holder<Block> SANDY_COPPER_ORE, SANDY_IRON_ORE, SANDY_GOLD_ORE, SANDY_DIAMOND_ORE, SANDY_REDSTONE_ORE,
-            SANDY_LAPIS_ORE, SANDY_COAL_ORE, SANDY_EMERALD_ORE, SANDY_URANIUM_ORE;
-    public static Holder<Block> STONEY_COPPER_ORE, STONEY_IRON_ORE, STONEY_GOLD_ORE, STONEY_DIAMOND_ORE, STONEY_REDSTONE_ORE,
-            STONEY_LAPIS_ORE, STONEY_COAL_ORE, STONEY_EMERALD_ORE, STONEY_URANIUM_ORE;
 
     public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
         DENSE_DIAMOND_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("dense_diamond_ore")
@@ -117,296 +104,5 @@ public class OreBlocks {
                         .lootGenerator(null)) // Hand-made loot table
                 .getHolder();
         Items.registerBlockItemWithAutoModel(() -> SULFURIC_NETHER_QUARTZ_ORE, registerItem);
-
-        SANDY_COPPER_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_copper_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.5F, 0.5F)))
-                .lootGenerator(null)// Hand-made loot table
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h,
-                                new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_copper_ore"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/copper_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/copper_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/copper_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, Tags.Blocks.SANDY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> SANDY_COPPER_ORE, registerItem);
-
-        SANDY_IRON_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_iron_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.5F, 0.5F)))
-                .lootGenerator(null) // Hand-made loot table
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_iron_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/iron_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/iron_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/iron_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, Tags.Blocks.SANDY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> SANDY_IRON_ORE, registerItem);
-
-        SANDY_GOLD_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_gold_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.5F, 0.5F)))
-                .lootGenerator(null) // Hand-made loot table
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_gold_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/gold_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/gold_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/gold_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, Tags.Blocks.SANDY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> SANDY_GOLD_ORE, registerItem);
-
-        SANDY_DIAMOND_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_diamond_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.5F, 0.5F)))
-                .lootGenerator(null) // Hand-made loot table
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_diamond_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/diamond_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/diamond_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/diamond_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, Tags.Blocks.SANDY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> SANDY_DIAMOND_ORE, registerItem);
-
-        SANDY_REDSTONE_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_redstone_ore")
-                .blockFactory(prop -> new PotionsPlusRedstoneOreBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.5F, 0.5F)))
-                .lootGenerator(null) // Hand-made loot table
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_redstone_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/redstone_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/redstone_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/redstone_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, Tags.Blocks.SANDY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> SANDY_REDSTONE_ORE, registerItem);
-
-        SANDY_LAPIS_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_lapis_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(2, 5), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.5F, 0.5F)))
-                .lootGenerator(null) // Hand-made loot table
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_lapis_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/lapis_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/lapis_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/lapis_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, Tags.Blocks.SANDY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> SANDY_LAPIS_ORE, registerItem);
-
-        SANDY_COAL_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_coal_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(0, 2), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.5F, 0.5F)))
-                .lootGenerator(null) // Hand-made loot table
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_coal_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, Tags.Blocks.SANDY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> SANDY_COAL_ORE, registerItem);
-
-        SANDY_EMERALD_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_emerald_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.5F, 0.5F)))
-                .lootGenerator(null) // Hand-made loot table
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/sandy_emerald_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/emerald_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/emerald_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/emerald_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, Tags.Blocks.SANDY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> SANDY_EMERALD_ORE, registerItem);
-
-        SANDY_URANIUM_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sandy_uranium_ore")
-                .blockFactory(prop -> new UraniumOreBlock(UniformInt.of(4, 9), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.5F, 0.5F)))
-                .modelGenerator(h -> new UraniumOreBlockModelGenerator<>(h, ppId("block/sandy_uranium_ore")))
-                .lootGenerator(null) // Hand-made loot table
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel[]{
-                                new RuntimeTextureVariantModelGenerator.BaseModel<>(
-                                        Optional.of(UraniumOreBlock.URANIUM_STATE), Optional.of(UraniumOreBlock.UraniumState.OBSCURED), ppId("block/sandy_uranium_ore_obscured"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_obscured_isolated.png"), RUtil.BlendMode.DEFAULT)),
-                                new RuntimeTextureVariantModelGenerator.BaseModel<>(
-                                        Optional.of(UraniumOreBlock.URANIUM_STATE), Optional.of(UraniumOreBlock.UraniumState.SLIGHTLY_EXPOSED), ppId("block/sandy_uranium_ore_slightly_exposed"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_slightly_exposed_isolated.png"), RUtil.BlendMode.DEFAULT)),
-                                new RuntimeTextureVariantModelGenerator.BaseModel<>(
-                                        Optional.of(UraniumOreBlock.URANIUM_STATE), Optional.of(UraniumOreBlock.UraniumState.MOSTLY_EXPOSED), ppId("block/sandy_uranium_ore_mostly_exposed"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_mostly_exposed_isolated.png"), RUtil.BlendMode.DEFAULT)),
-                                new RuntimeTextureVariantModelGenerator.BaseModel<>(
-                                        Optional.of(UraniumOreBlock.URANIUM_STATE), Optional.of(UraniumOreBlock.UraniumState.FULLY_EXPOSED), ppId("block/sandy_uranium_ore_fully_exposed"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_fully_exposed_isolated.png"), RUtil.BlendMode.DEFAULT))
-                        },
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, Tags.Blocks.SANDY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItem(SANDY_URANIUM_ORE, registerItem);
-
-        STONEY_COPPER_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_copper_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)))
-                .lootGenerator(null) // Hand-made loot table
-                .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/copper_ore"), true, true, true))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
-                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.COPPER_ORE)
-                                .requires(h.value())
-                                .unlockedBy("has_stoney_copper_ore", has(h.value()))))
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_copper_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/copper_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/copper_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/copper_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> STONEY_COPPER_ORE, registerItem);
-
-        STONEY_IRON_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_iron_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE)))
-                .lootGenerator(null) // Hand-made loot table
-                .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/iron_ore"), true, true, true))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
-                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.IRON_ORE)
-                                .requires(h.value())
-                                .unlockedBy("has_stoney_iron_ore", has(h.value()))))
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_iron_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/iron_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/iron_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/iron_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> STONEY_IRON_ORE, registerItem);
-
-        STONEY_GOLD_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_gold_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(ConstantInt.of(0), BlockBehaviour.Properties.ofFullCopy(Blocks.GOLD_ORE)))
-                .lootGenerator(null) // Hand-made loot table
-                .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/gold_ore"), true, true, true))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
-                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.GOLD_ORE)
-                                .requires(h.value())
-                                .unlockedBy("has_stoney_gold_ore", has(h.value()))))
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_gold_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/gold_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/gold_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/gold_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> STONEY_GOLD_ORE, registerItem);
-
-        STONEY_DIAMOND_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_diamond_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_ORE)))
-                .lootGenerator(null) // Hand-made loot table
-                .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/diamond_ore"), true, true, true))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
-                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.DIAMOND_ORE)
-                                .requires(h.value())
-                                .unlockedBy("has_stoney_diamond_ore", has(h.value()))))
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_diamond_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/diamond_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/diamond_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/diamond_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> STONEY_DIAMOND_ORE, registerItem);
-
-        STONEY_REDSTONE_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_redstone_ore")
-                .blockFactory(prop -> new PotionsPlusRedstoneOreBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_ORE)))
-                .lootGenerator(null) // Hand-made loot table
-                .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/redstone_ore"), true, true, true))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
-                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.REDSTONE_ORE)
-                                .requires(h.value())
-                                .unlockedBy("has_stoney_redstone_ore", has(h.value()))))
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_redstone_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/redstone_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/redstone_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/redstone_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> STONEY_REDSTONE_ORE, registerItem);
-
-        STONEY_LAPIS_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_lapis_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(2, 5), BlockBehaviour.Properties.ofFullCopy(Blocks.LAPIS_ORE)))
-                .lootGenerator(null) // Hand-made loot table
-                .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/lapis_ore"), true, true, true))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
-                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.LAPIS_ORE)
-                                .requires(h.value())
-                                .unlockedBy("has_stoney_lapis_ore", has(h.value()))))
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_lapis_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/lapis_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/lapis_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/lapis_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> STONEY_LAPIS_ORE, registerItem);
-
-        STONEY_COAL_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_coal_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(0, 2), BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_ORE)))
-                .lootGenerator(null) // Hand-made loot table
-                .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/coal_ore"), true, true, true))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
-                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.COAL_ORE)
-                                .requires(h.value())
-                                .unlockedBy("has_stoney_coal_ore", has(h.value()))))
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_coal_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/coal_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> STONEY_COAL_ORE, registerItem);
-
-        STONEY_EMERALD_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_emerald_ore")
-                .blockFactory(prop -> new PotionsPlusOreBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_ORE)))
-                .lootGenerator(null) // Hand-made loot table
-                .modelGenerator(h -> new BlockModelUtility.CubeAllBlockModelGenerator<>(h, mc("block/emerald_ore"), true, true, true))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
-                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Blocks.EMERALD_ORE)
-                                .requires(h.value())
-                                .unlockedBy("has_stoney_emerald_ore", has(h.value()))))
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel<>(ppId("block/stoney_emerald_ore"),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/emerald_ore_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/emerald_ore_top.png"), RUtil.BlendMode.DEFAULT),
-                                new TextureResourceModification.OverlayImage(ppId("textures/block/emerald_ore_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItemWithAutoModel(() -> STONEY_EMERALD_ORE, registerItem);
-
-        STONEY_URANIUM_ORE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("stoney_uranium_ore")
-                .blockFactory(prop -> new UraniumOreBlock(UniformInt.of(4, 9), BlockBehaviour.Properties.ofFullCopy(OreBlocks.URANIUM_ORE.value())))
-                .modelGenerator(h -> new UraniumOreBlockModelGenerator<>(h, ppId("block/uranium_ore")))
-                .lootGenerator(null) // Hand-made loot table
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, h ->
-                        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OreBlocks.URANIUM_ORE.value())
-                                .requires(h.value())
-                                .unlockedBy("has_stoney_uranium_ore", has(h.value()))))
-                .runtimeModelGenerator(h ->
-                        new RuntimeTextureVariantModelGenerator(h, new RuntimeTextureVariantModelGenerator.BaseModel[]{
-                                new RuntimeTextureVariantModelGenerator.BaseModel<>(
-                                        Optional.of(UraniumOreBlock.URANIUM_STATE), Optional.of(UraniumOreBlock.UraniumState.OBSCURED), ppId("block/stoney_uranium_ore_obscured"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_obscured_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_obscured_top.png"), RUtil.BlendMode.DEFAULT),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_obscured_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                new RuntimeTextureVariantModelGenerator.BaseModel<>(
-                                        Optional.of(UraniumOreBlock.URANIUM_STATE), Optional.of(UraniumOreBlock.UraniumState.SLIGHTLY_EXPOSED), ppId("block/stoney_uranium_ore_slightly_exposed"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_slightly_exposed_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_slightly_exposed_top.png"), RUtil.BlendMode.DEFAULT),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_slightly_exposed_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                new RuntimeTextureVariantModelGenerator.BaseModel<>(
-                                        Optional.of(UraniumOreBlock.URANIUM_STATE), Optional.of(UraniumOreBlock.UraniumState.MOSTLY_EXPOSED), ppId("block/stoney_uranium_ore_mostly_exposed"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_mostly_exposed_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_mostly_exposed_top.png"), RUtil.BlendMode.DEFAULT),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_mostly_exposed_bottom.png"), RUtil.BlendMode.DEFAULT)),
-                                new RuntimeTextureVariantModelGenerator.BaseModel<>(
-                                        Optional.of(UraniumOreBlock.URANIUM_STATE), Optional.of(UraniumOreBlock.UraniumState.FULLY_EXPOSED), ppId("block/stoney_uranium_ore_fully_exposed"),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_fully_exposed_isolated.png"), RUtil.BlendMode.DEFAULT),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_fully_exposed_top.png"), RUtil.BlendMode.DEFAULT),
-                                        new TextureResourceModification.OverlayImage(ppId("textures/block/uranium_ore_fully_exposed_bottom.png"), RUtil.BlendMode.DEFAULT))
-                        },
-                                RuntimeTextureVariantModelGenerator.PropertyTexVariant.fromTagWithOverlay(PotionsPlusOreBlock.TEXTURE, grill24.potionsplus.core.Tags.Blocks.STONEY_ORE_REPLACEABLE, "all")))
-        ).getHolder();
-        Items.registerBlockItem(STONEY_URANIUM_ORE, registerItem);
     }
 }

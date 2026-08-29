@@ -10,13 +10,9 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 public class Tags {
     public static final class Blocks {
-        public static final TagKey<Block> ORES_URANIUM = tag("ores/uranium");
-
         public static final TagKey<Block> FREEZABLE = tag("freezable");
         public static final TagKey<Block> CAVE_REPLACEABLE = tag("cave_replaceable");
         public static final TagKey<Block> ORE_FLOWERS = tag("ore_flowers");
-        public static final TagKey<Block> STONEY_ORE_REPLACEABLE = tag("ore_replaceable");
-        public static final TagKey<Block> SANDY_ORE_REPLACEABLE = tag("sandy_ore_replaceable");
 
         private static TagKey<Block> tag(String id) {
             return TagKey.create(Registries.BLOCK, ppId(id));
