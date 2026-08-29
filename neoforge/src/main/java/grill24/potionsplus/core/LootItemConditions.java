@@ -12,7 +12,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class LootItemConditions {
     public static final DeferredRegister<LootItemConditionType> LOOT_ITEM_CONDITIONS = DeferredRegister.create(BuiltInRegistries.LOOT_CONDITION_TYPE, ModInfo.MOD_ID);
 
-    public static final Holder<LootItemConditionType> HAS_PLAYER_ABILITY = register("has_player_ability", HasPlayerAbilityCondition.CODEC);
     public static final Holder<LootItemConditionType> LOOT_ITEM_BLOCK_TAG = register("loot_item_block_tag", LootItemBlockTagCondition.CODEC);
     public static final Holder<LootItemConditionType> IS_IN_BIOME = register("is_in_biome", IsInBiomeCondition.CODEC);
     public static final Holder<LootItemConditionType> IS_IN_BIOME_TAG = register("is_in_biome_tag", IsInBiomeTagCondition.CODEC);

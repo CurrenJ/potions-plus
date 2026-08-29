@@ -9,7 +9,6 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.PpMultiIngredient;
 import grill24.potionsplus.persistence.adapter.*;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.skill.SkillInstance;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -151,7 +150,6 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
         gsonBuilder.registerTypeAdapter(BrewingCauldronRecipe.class, new BrewingCauldronRecipeTypeAdapter(registries));
         gsonBuilder.registerTypeAdapter(RecipeHolder.class, new BrewingCauldronRecipeHolderTypeAdapter(registries));
         gsonBuilder.registerTypeAdapter(String.class, new LargeStringTypeAdapter());
-        gsonBuilder.registerTypeHierarchyAdapter(SkillInstance.class, new SkillInstanceTypeAdapter());
         gsonBuilder.enableComplexMapKeySerialization();
         return gsonBuilder.create();
     }

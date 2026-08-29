@@ -4,7 +4,6 @@ import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.core.items.BrewingItems;
-import grill24.potionsplus.core.items.SkillLootItems;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -117,23 +116,6 @@ public class ItemTagProvider extends ItemTagsProvider {
         tag(Tags.Items.URANIUM_ORE).add(
                 OreBlocks.URANIUM_ORE.value().asItem(),
                 OreBlocks.DEEPSLATE_URANIUM_ORE.value().asItem()
-        );
-
-        tag(Tags.Items.EDIBLE_REWARDS).add(
-                SkillLootItems.SPARKLING_SQUASH.getValue(),
-                SkillLootItems.BLUEB_BERRIES.getValue(),
-                SkillLootItems.FORTIFYING_FUDGE.getValue(),
-                SkillLootItems.GRASS_CLIPPINGS.getValue(),
-                SkillLootItems.STONE_FRUIT.getValue(),
-                SkillLootItems.CHOCOLATE_BOOK.getValue(),
-                SkillLootItems.ROASTED_BAMBOO.getValue(),
-                SkillLootItems.MOSSASHIMI.getValue(),
-                SkillLootItems.PYRAMIDS_OF_SALT.getValue(),
-                SkillLootItems.BASIC_LOOT.getValue(),
-                SkillLootItems.INTERMEDIATE_LOOT.getValue(),
-                SkillLootItems.ADVANCED_LOOT.getValue(),
-                SkillLootItems.MASTER_LOOT.getValue(),
-                SkillLootItems.WHEEL.getValue()
         );
 
     }

@@ -43,17 +43,10 @@ public class PotionsPlus {
 
         Features.FEATURES.register(bus);
         DataAttachments.ATTACHMENT_TYPES.register(bus);
-        Skills.SKILLS.register(bus);
-        SkillPointSources.SKILL_POINT_SOURCES.register(bus);
-        PlayerAbilities.PLAYER_ABILITIES.register(bus);
-        AbilityInstanceTypes.ABILITY_INSTANCE_TYPE.register(bus);
-        CommandArgumentTypes.COMMAND_ARGUMENT_TYPES.register(bus);
         Attributes.ATTRIBUTES.register(bus);
         LootItemConditions.LOOT_ITEM_CONDITIONS.register(bus);
         PlacementModifierTypes.PLACEMENT_MODIFIER_TYPES.register(bus);
-        GrantableRewards.GRANTABLE_REWARDS.register(bus);
         DataComponents.DATA_COMPONENTS.register(bus);
-        AnimationCurveSerializers.SERIALIZERS.register(bus);
         MenuTypes.MENU_TYPES.register(bus);
         LootItemFunctions.LOOT_ITEM_FUNCTIONS.register(bus);
         NumberProviders.NUMBER_PROVIDERS.register(bus);

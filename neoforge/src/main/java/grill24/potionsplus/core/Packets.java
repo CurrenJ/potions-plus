@@ -21,20 +21,6 @@ public class Packets {
                 ServerboundConstructClotheslinePacket.ServerPayloadHandler::handleDataOnMain
         );
 
-        // Update Ability Strength Packet
-        registrar.playToServer(
-                ServerboundUpdateAbilityStrengthPacket.TYPE,
-                ServerboundUpdateAbilityStrengthPacket.STREAM_CODEC,
-                ServerboundUpdateAbilityStrengthPacket.ServerPayloadHandler::handleDataOnMain
-        );
-
-        // Toggle Ability
-        registrar.playToServer(
-                ServerboundToggleAbilityPacket.TYPE,
-                ServerboundToggleAbilityPacket.STREAM_CODEC,
-                ServerboundToggleAbilityPacket.ServerPayloadHandler::handleDataOnMain
-        );
-
         // Spawn Double Jump Particles Packet
         registrar.playToServer(
                 ServerboundSpawnDoubleJumpParticlesPacket.TYPE,
@@ -114,41 +100,6 @@ public class Packets {
                 ClientboundSyncPairedAbyssalTrove.ClientPayloadHandler::handleDataOnMain
         );
 
-        // Sync Player Skill Data Packet
-        registrar.playToClient(
-                ClientboundSyncPlayerSkillData.TYPE,
-                ClientboundSyncPlayerSkillData.STREAM_CODEC,
-                ClientboundSyncPlayerSkillData.ClientPayloadHandler::handleDataOnMain
-        );
-
-        // Display Item Activation Packet
-        registrar.playToClient(
-                ClientboundDisplayItemActivationPacket.TYPE,
-                ClientboundDisplayItemActivationPacket.STREAM_CODEC,
-                ClientboundDisplayItemActivationPacket.ClientPayloadHandler::handleDataOnMain
-        );
-
-        // Display Wheel Animation Packet
-        registrar.playToClient(
-                ClientboundDisplayWheelAnimationPacket.TYPE,
-                ClientboundDisplayWheelAnimationPacket.STREAM_CODEC,
-                ClientboundDisplayWheelAnimationPacket.ClientPayloadHandler::handleDataOnMain
-        );
-
-        // Display Tossup Animation Packet
-        registrar.playToClient(
-                ClientboundDisplayTossupAnimationPacket.TYPE,
-                ClientboundDisplayTossupAnimationPacket.STREAM_CODEC,
-                ClientboundDisplayTossupAnimationPacket.ClientPayloadHandler::handleDataOnMain
-        );
-
-        // Sync Spatial Animation Data Packet
-        registrar.playToClient(
-                ClientboundSyncSpatialAnimationDataPacket.TYPE,
-                ClientboundSyncSpatialAnimationDataPacket.STREAM_CODEC,
-                ClientboundSyncSpatialAnimationDataPacket.ClientPayloadHandler::handleDataOnMain
-        );
-
         // Display Alert Packet
         registrar.playToClient(
                 ClientboundDisplayAlert.TYPE,
@@ -156,18 +107,5 @@ public class Packets {
                 ClientboundDisplayAlert.ClientPayloadHandler::handleDataOnMain
         );
 
-        // Trigger Chain Lightning Packet
-        registrar.playToClient(
-                ClientboundTriggerChainLightningPacket.TYPE,
-                ClientboundTriggerChainLightningPacket.STREAM_CODEC,
-                ClientboundTriggerChainLightningPacket.ClientPayloadHandler::handleDataOnMain
-        );
-
-        // Trigger Stun Shot Packet
-        registrar.playToClient(
-                ClientboundTriggerStunShotPacket.TYPE,
-                ClientboundTriggerStunShotPacket.STREAM_CODEC,
-                ClientboundTriggerStunShotPacket.ClientPayloadHandler::handleDataOnMain
-        );
     }
 }

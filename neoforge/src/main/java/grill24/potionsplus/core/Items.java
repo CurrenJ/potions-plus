@@ -22,7 +22,6 @@ public class Items {
 
     static {
         HatItems.init(ITEMS::register);
-        SkillLootItems.init(ITEMS::register);
         OreItems.init(ITEMS::register);
         BrewingItems.init(ITEMS::register);
         FilterHopperUpgradeItems.init(ITEMS::register);

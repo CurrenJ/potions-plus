@@ -7,7 +7,6 @@ import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
 import grill24.potionsplus.block.OreFlowerBlock;
 import grill24.potionsplus.core.LootTables;
 import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
@@ -88,7 +87,6 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
     public static final ResourceLocation VOLCANIC_CAVE = ppId("volcanic_cave");
 
     // Skill advancements
-    public static final ResourceLocation SKILL_JOURNALS = ppId("skill_journals");
     public static final ResourceLocation[] MINE_COPPER_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_copper_ore_" + count));
     public static final ResourceLocation[] MINE_COAL_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_coal_ore_" + count));
     public static final ResourceLocation[] MINE_IRON_ORES = enumerateResourceLocations(HatItems.BLOCK_HAT_MODELS.length, count -> ppId("mine_iron_ore_" + count));
@@ -110,22 +108,6 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
     }
 
     private static void createSkillsAdvancements(Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper, AdvancementHolder root) {
-        AdvancementHolder skillJournals = Advancement.Builder.advancement()
-                .parent(root)
-                .display(
-                        new ItemStack(BlockEntityBlocks.SKILL_JOURNALS.value()),
-                        Component.translatable(Translations.ADVANCEMENTS_POTIONSPLUS_SKILL_JOURNALS_TITLE),
-                        Component.translatable(Translations.ADVANCEMENTS_POTIONSPLUS_SKILL_JOURNALS_DESCRIPTION),
-                        null,
-                        AdvancementType.TASK,
-                        true,
-                        true,
-                        false)
-                .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("skill_journals", InventoryChangeTrigger.TriggerInstance.hasItems(BlockEntityBlocks.SKILL_JOURNALS.value()))
-                .requirements(AdvancementRequirements.allOf(List.of("skill_journals")))
-                .save(saver, SKILL_JOURNALS, existingFileHelper);
-
         // Ore Block Hat advancements
         List<Block> copperOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COPPER_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COPPER_ORE);
         createOreHatAdvancement
@@ -134,7 +116,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 "mine_copper_ore",
                 HatInfo.hats(MINE_COPPER_ORES, HatItems.COPPER_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.COPPER_ORE_HATS),
                 copperOreBlocks,
-                skillJournals);
+                root);
 
         List<Block> coalOreBlocks = List.of(net.minecraft.world.level.block.Blocks.COAL_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_COAL_ORE);
         createOreHatAdvancement
@@ -143,7 +125,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 "mine_coal_ore",
                 HatInfo.hats(MINE_COAL_ORES, HatItems.COAL_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.COAL_ORE_HATS),
                 coalOreBlocks,
-                skillJournals);
+                root);
 
         List<Block> ironOreBlocks = List.of(net.minecraft.world.level.block.Blocks.IRON_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_IRON_ORE);
         createOreHatAdvancement
@@ -152,7 +134,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 "mine_iron_ore",
                 HatInfo.hats(MINE_IRON_ORES, HatItems.IRON_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.IRON_ORE_HATS),
                 ironOreBlocks,
-                skillJournals);
+                root);
 
         List<Block> goldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.GOLD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_GOLD_ORE);
         createOreHatAdvancement
@@ -161,7 +143,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 "mine_gold_ore",
                 HatInfo.hats(MINE_GOLD_ORES, HatItems.GOLD_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.GOLD_ORE_HATS),
                 goldOreBlocks,
-                skillJournals);
+                root);
 
         List<Block> diamondOreBlocks = List.of(net.minecraft.world.level.block.Blocks.DIAMOND_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_DIAMOND_ORE);
         createOreHatAdvancement
@@ -170,7 +152,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 "mine_diamond_ore",
                 HatInfo.hats(MINE_DIAMOND_ORES, HatItems.DIAMOND_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.DIAMOND_ORE_HATS),
                 diamondOreBlocks,
-                skillJournals);
+                root);
 
         List<Block> emeraldOreBlocks = List.of(net.minecraft.world.level.block.Blocks.EMERALD_ORE, net.minecraft.world.level.block.Blocks.DEEPSLATE_EMERALD_ORE);
         createOreHatAdvancement
@@ -179,7 +161,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 "mine_emerald_ore",
                 HatInfo.hats(MINE_EMERALD_ORES, HatItems.EMERALD_ORE_HATS, new int[]{64, 128, 256, 512}, LootTables.EMERALD_ORE_HATS),
                 emeraldOreBlocks,
-                skillJournals);
+                root);
     }
 
     private record HatInfo(ResourceLocation advancementId, ItemStack display, int amountRequired, ResourceKey<LootTable> rewards) {

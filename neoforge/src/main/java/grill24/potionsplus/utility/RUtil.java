@@ -2,7 +2,6 @@ package grill24.potionsplus.utility;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.blockentity.ITimestampSupplier;
-import grill24.potionsplus.extension.IGuiGraphicsExtension;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -12,7 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.item.ItemStack;
 
-import java.awt.geom.Rectangle2D;
 import java.lang.Math;
 import java.util.function.Function;
 
@@ -386,29 +384,6 @@ public class RUtil {
         Quaternionf q = new Quaternionf();
         q.rotateX(radX).rotateY(radY).rotateZ(radZ);
         return q;
-    }
-
-    private static final int OUTLINE_COLOR_DARK = FastColor.ARGB32.color(255, 85, 85, 85);
-    private static final int OUTLINE_COLOR_LIGHT = FastColor.ARGB32.color(255, 255, 255, 255);
-    private static final int OUTLINE_Z = 100;
-    private static final int FILL_Z = 99;
-    public static void drawInventoryBackgroundRect(GuiGraphics graphics, Rectangle2D rect, float rotationDegrees, float outlineWidth, float outlineHeight) {
-        float minX = (float) rect.getMinX();
-        float minY = (float) rect.getMinY();
-        float width = (float) rect.getWidth();
-        float height = (float) rect.getHeight();
-
-        Vector2f center = new Vector2f((float) rect.getCenterX(), (float) rect.getCenterY());
-
-        // Draw outline entirely inside the bounds
-        IGuiGraphicsExtension graphicsMixin = (IGuiGraphicsExtension) graphics;
-        graphicsMixin.potions_plus$fill(minX, minY, minX + outlineWidth, minY + height, center, rotationDegrees, OUTLINE_Z, OUTLINE_COLOR_DARK);
-        graphicsMixin.potions_plus$fill(minX, minY, minX + width, minY + outlineHeight, center, rotationDegrees, OUTLINE_Z, OUTLINE_COLOR_DARK);
-        graphicsMixin.potions_plus$fill(minX + width - outlineWidth, minY, minX + width, minY + height, center, rotationDegrees, OUTLINE_Z, OUTLINE_COLOR_LIGHT);
-        graphicsMixin.potions_plus$fill(minX, minY + height - outlineHeight, minX + width, minY + height, center, rotationDegrees, OUTLINE_Z, OUTLINE_COLOR_LIGHT);
-
-        // Fill background
-        graphicsMixin.potions_plus$fill(minX, minY, minX + width, minY + height, center, rotationDegrees, FILL_Z, FastColor.ARGB32.color(255, 198, 198, 198));
     }
 
     public static void rotatePointsAround(Vector2f[] points, Vector2f origin, float degrees) {

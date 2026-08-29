@@ -31,7 +31,6 @@ public class BlockRenderLayers {
         registerBlock(OreBlocks.URANIUM_GLASS, RenderType.cutout());
         registerBlock(BlockEntityBlocks.POTION_BEACON, RenderType.cutout());
         registerBlock(FlowerBlocks.LUMOSEED_SACKS, RenderType.solid());
-        registerBlock(BlockEntityBlocks.SKILL_JOURNALS, RenderType.cutout());
 
         for (AbstractRegistererBuilder<?, ?> builder : RegistrationUtility.BUILDERS) {
             if (builder instanceof BlockBuilder<?, ?> blockBuilder) {

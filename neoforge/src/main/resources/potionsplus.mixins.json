@@ -20,7 +20,6 @@
     "MobEffectInstanceMixin",
     "MonsterRoomFeatureMixin",
     "OreFeatureMixin",
-    "PlayerMixin",
     "PotionItemMixin",
     "StateTestingPredicateMixin",
     "TemptGoalMixin"
@@ -28,8 +27,6 @@
   "client": [
     "ClientAdvancementsMixin",
     "ClientPacketListenerMixin",
-    "GameRendererMixin",
-    "GuiGraphicsMixin",
     "ParticleEngineMixin"
   ],
   "injectors": {

@@ -14,16 +14,10 @@ public class PotionsPlusConfig {
         CONFIG_SPEC = pair.getRight();
     }
 
-    public final ModConfigSpec.ConfigValue<Boolean> enableSkills;
-
     public final ModConfigSpec.IntValue potionDrinkTimeTicks;
     public final ModConfigSpec.IntValue potionDrinkCooldownTimeTicks;
 
     public PotionsPlusConfig(ModConfigSpec.Builder configBuilder) {
-        enableSkills = configBuilder
-                .translation("configuration.potionsplus.enable_skills")
-                .define("enableSkills", true);
-
         potionDrinkTimeTicks = configBuilder
                 .translation("configuration.potionsplus.potion_drink_time_ticks")
                 .defineInRange("potionDrinkTimeTicks", 16, 0, Integer.MAX_VALUE);

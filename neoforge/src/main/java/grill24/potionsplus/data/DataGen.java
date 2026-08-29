@@ -28,12 +28,7 @@ public class DataGen {
             .add(Registries.CONFIGURED_FEATURE, ConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, Placements::bootstrap)
             .add(Registries.BIOME, Biomes::bootstrap)
-            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, BiomeModifierProvider::bootstrap)
-            // Custom Datapack Registries
-            .add(PotionsPlusRegistries.CONFIGURED_SKILL, ConfiguredSkills::generate)
-            .add(PotionsPlusRegistries.CONFIGURED_SKILL_POINT_SOURCE, ConfiguredSkillPointSources::generate)
-            .add(PotionsPlusRegistries.CONFIGURED_PLAYER_ABILITY, ConfiguredPlayerAbilities::generate)
-            .add(PotionsPlusRegistries.CONFIGURED_GRANTABLE_REWARD, ConfiguredGrantableRewards::generate);
+            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, BiomeModifierProvider::bootstrap);
 
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent event) {

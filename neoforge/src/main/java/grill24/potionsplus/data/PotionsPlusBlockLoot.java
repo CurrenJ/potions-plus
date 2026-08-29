@@ -1,14 +1,12 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.block.VersatilePlantBlock;
-import grill24.potionsplus.core.LootTables;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -16,9 +14,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -26,10 +22,8 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
-import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -156,102 +150,6 @@ public class PotionsPlusBlockLoot extends BlockLootSubProvider {
                         )
         );
 
-        consumer.accept(
-                LootTables.BASIC_SKILL_REWARDS,
-                LootTable.lootTable()
-                        .withPool(
-                                LootPool.lootPool()
-                                        .setRolls(BinomialDistributionGenerator.binomial(2, 0.5f))
-                                        .add(LootItem.lootTableItem(Items.EXPERIENCE_BOTTLE).setWeight(5))
-                                        .add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(3))
-                                        .add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(1))
-                                        .add(LootItem.lootTableItem(Items.EMERALD).setWeight(1))
-                                        .add(LootItem.lootTableItem(Items.DIRT).setWeight(2))
-                                        .add(LootItem.lootTableItem(Items.GRASS_BLOCK).setWeight(1))
-                                        .add(LootItem.lootTableItem(Items.COBBLESTONE).setWeight(2))
-                                        .add(LootItem.lootTableItem(Items.SAND).setWeight(2))
-                                        .add(LootItem.lootTableItem(Items.GRAVEL).setWeight(2))
-                                        .add(LootItem.lootTableItem(Items.CLAY_BALL).setWeight(2))
-                                        .add(LootItem.lootTableItem(Items.COAL).setWeight(2))
-                                        .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(1))
-                                        .add(LootItem.lootTableItem(Items.REDSTONE).setWeight(1))
-                                        .add(LootItem.lootTableItem(Items.LAPIS_LAZULI).setWeight(1))
-
-                        )
-        );
-
-        consumer.accept(
-                LootTables.INTERMEDIATE_SKILL_REWARDS,
-                LootTable.lootTable()
-                        .withPool(
-                                LootPool.lootPool()
-                                        .setRolls(BinomialDistributionGenerator.binomial(2, 0.5f))
-                                        .add(LootItem.lootTableItem(Items.EXPERIENCE_BOTTLE).setWeight(15))
-                                        .add(LootItem.lootTableItem(Items.IRON_BLOCK).setWeight(6))
-                                        .add(LootItem.lootTableItem(Items.GOLD_BLOCK).setWeight(3))
-                                        .add(LootItem.lootTableItem(Items.LAVA_BUCKET).setWeight(1))
-                                        .add(LootItem.lootTableItem(Items.AXOLOTL_BUCKET).setWeight(1))
-                                        .add(LootItem.lootTableItem(Items.SPORE_BLOSSOM).setWeight(2))
-                                        .add(LootItem.lootTableItem(Items.BLAZE_ROD).setWeight(1))
-                        )
-        );
-
-        consumer.accept(
-                LootTables.ADVANCED_SKILL_REWARDS,
-                LootTable.lootTable()
-                        .withPool(
-                                LootPool.lootPool()
-                                        .setRolls(BinomialDistributionGenerator.binomial(2, 0.5f))
-                                        .add(LootItem.lootTableItem(Items.EXPERIENCE_BOTTLE).setWeight(30))
-                                        .add(LootItem.lootTableItem(Items.ENDER_PEARL).setWeight(6))
-                                        .add(LootItem.lootTableItem(Items.DIAMOND).setWeight(5))
-                                        .add(LootItem.lootTableItem(Items.EMERALD_BLOCK).setWeight(3))
-                                        .add(LootItem.lootTableItem(Items.SHULKER_SHELL).setWeight(2))
-                                        .add(LootItem.lootTableItem(Items.WITHER_SKELETON_SKULL).setWeight(1))
-                        )
-        );
-
-        // Copper Ore Additional Iron Nugget Drops (Skill Ability)
-        generateAdditionalOreDrops(LootTables.COPPER_ORE_IRON_NUGGET_BONUS_DROPS, consumer, Items.IRON_NUGGET, 1, 3, 0.25F, 0.266F, 0.283F, 0.3F);
-        // Iron Ore Additional Gold Nugget Drops (Skill Ability)
-        generateAdditionalOreDrops(LootTables.IRON_ORE_GOLD_NUGGET_BONUS_DROPS, consumer, Items.GOLD_NUGGET, 1, 3, 0.25F, 0.266F, 0.283F, 0.3F);
-        // Diamond Ore Emerald Drops (Skill Ability)
-        generateAdditionalOreDrops(LootTables.DIAMOND_ORE_EMERALD_BONUS_DROPS, consumer, Items.EMERALD, 1, 1, 0.25F, 0.266F, 0.283F, 0.3F);
-        // Diamond Ore Lapis Drops (Skill Ability)
-        generateAdditionalOreDrops(LootTables.DIAMOND_ORE_LAPIS_BONUS_DROPS, consumer, Items.LAPIS_LAZULI, 2, 5, 0.25F, 0.266F, 0.283F, 0.3F);
-
-        // Creeper Additional Sand Drops (Skill Ability)
-        generateAdditionalMobDrops(LootTables.CREEPER_SAND_BONUS_DROPS, consumer, Items.SAND, 1, 3, 0.5F, 0.6F, 0.7F, 0.8F);
-        // Skeleton Additional Bone Meal Drops (Skill Ability)
-        generateAdditionalMobDrops(LootTables.SKELETON_BONE_MEAL_BONUS_DROPS, consumer, Items.BONE_MEAL, 1, 3, 0.5F, 0.6F, 0.7F, 0.8F);
-        // Skeleton Additional Bone Block Drops (Skill Ability)
-        generateAdditionalMobDrops(LootTables.SKELETON_BONE_BLOCK_BONUS_DROPS, consumer, Items.BONE_BLOCK, 1, 1, 0.1F, 0.125F, 0.15F, 0.175F);
-    }
-
-    private void generateAdditionalMobDrops(ResourceKey<LootTable> lootTableResourceKey, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, ItemLike drop, int min, int max, float... lootingBonusChances) {
-        HolderLookup.RegistryLookup<Enchantment> enchantmentLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-        Holder.Reference<Enchantment> looting = enchantmentLookup.getOrThrow(Enchantments.LOOTING);
-
-        consumer.accept(lootTableResourceKey, this.createSilkTouchDispatchTable(
-                net.minecraft.world.level.block.Blocks.AIR, this.applyExplosionDecay(
-                        drop, LootItem.lootTableItem(drop)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)))
-                                .when(BonusLevelTableCondition.bonusLevelFlatChance(looting, lootingBonusChances))
-                                .apply(ApplyBonusCount.addOreBonusCount(looting)))
-        ));
-    }
-
-    private void generateAdditionalOreDrops(ResourceKey<LootTable> lootTableResourceKey, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, ItemLike drop, int min, int max, float... fortuneBonusChance) {
-        HolderLookup.RegistryLookup<Enchantment> enchantmentLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-        Holder.Reference<Enchantment> fortune = enchantmentLookup.getOrThrow(Enchantments.FORTUNE);
-
-        consumer.accept(lootTableResourceKey, this.createSilkTouchDispatchTable(
-                net.minecraft.world.level.block.Blocks.AIR, this.applyExplosionDecay(
-                        drop, LootItem.lootTableItem(drop)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)))
-                                .when(BonusLevelTableCondition.bonusLevelFlatChance(fortune, fortuneBonusChance))
-                                .apply(ApplyBonusCount.addOreBonusCount(fortune)))
-        ));
     }
 
     public void dropSelf(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, Block block) {
