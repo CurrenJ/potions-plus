@@ -29,8 +29,8 @@ public class AddMobEffectsLootModifier extends LootModifier {
 
     private final Set<ResourceKey<MobEffect>> blacklistedEffects;
 
-    public AddMobEffectsLootModifier(LootItemCondition[] conditionsIn, Set<ResourceKey<MobEffect>> blacklistedEffects) {
-        super(conditionsIn);
+    public AddMobEffectsLootModifier(LootItemCondition[] conditionsIn, int priority, Set<ResourceKey<MobEffect>> blacklistedEffects) {
+        super(conditionsIn, priority);
         this.blacklistedEffects = blacklistedEffects;
     }
 

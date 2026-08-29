@@ -33,8 +33,8 @@ public class WormrootLootModifier extends LootModifier {
      *
      * @param conditionsIn the ILootConditions that need to be matched before the loot is modified.
      */
-    public WormrootLootModifier(LootItemCondition[] conditionsIn, List<Block> blocksIn) {
-        super(conditionsIn);
+    public WormrootLootModifier(LootItemCondition[] conditionsIn, int priority, List<Block> blocksIn) {
+        super(conditionsIn, priority);
         blocks = blocksIn;
     }
 

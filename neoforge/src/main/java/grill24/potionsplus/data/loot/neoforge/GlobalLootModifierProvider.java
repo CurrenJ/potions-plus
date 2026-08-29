@@ -10,6 +10,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
         // Wormroot Loot Modifier
         this.add(
                 "wormroot_loot_modifier",
-                new WormrootLootModifier(new LootItemCondition[0], List.of(Blocks.HANGING_ROOTS, Blocks.ROOTED_DIRT))
+                new WormrootLootModifier(new LootItemCondition[0], IGlobalLootModifier.DEFAULT_PRIORITY, List.of(Blocks.HANGING_ROOTS, Blocks.ROOTED_DIRT))
         );
 
         Set<ResourceKey<MobEffect>> effectsBlacklist = BuiltInRegistries.MOB_EFFECT.entrySet().stream()
@@ -44,6 +45,6 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
         // Add Passive Potion Effects Loot Modifier
         this.add("add_mob_effects_to_tools_and_armor_loot_modifier",
                 new grill24.potionsplus.behaviour.neoforge.AddMobEffectsLootModifier(
-                        new LootItemCondition[0], new TreeSet<>(effectsBlacklist)));
+                        new LootItemCondition[0], IGlobalLootModifier.DEFAULT_PRIORITY, new TreeSet<>(effectsBlacklist)));
     }
 }
