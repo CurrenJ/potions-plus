@@ -1,9 +1,9 @@
 package grill24.potionsplus.item.tintsource;
 
 import com.mojang.serialization.MapCodec;
+import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.ClientTickHandler;
-import grill24.potionsplus.utility.PUtil;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.component.DataComponents;
@@ -23,7 +23,7 @@ public class AnyPotionTintSource implements ItemTintSource {
 
     @Override
     public int calculate(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity) {
-        PotionContents potionContents = PUtil.getPotionContents(stack);
+        PotionContents potionContents = PotionData.read(stack).toContents();
 
         boolean isAnyPotion = false;
         for (MobEffectInstance effect : potionContents.getAllEffects()) {
@@ -33,7 +33,7 @@ public class AnyPotionTintSource implements ItemTintSource {
             }
         }
         if (!isAnyPotion) {
-            return ARGB.opaque(stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).getColor());
+            return ARGB.opaque(PotionData.read(stack).color());
         }
 
         float ticks = ClientTickHandler.total();

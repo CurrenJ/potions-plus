@@ -3,15 +3,18 @@ package grill24.potionsplus.recipe.brewingcauldronrecipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.alchemy.EffectComparison;
+import grill24.potionsplus.alchemy.PotionContainer;
+import grill24.potionsplus.alchemy.PotionData;
+import grill24.potionsplus.alchemy.PotionDataBuilder;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeSerializerHelper;
-import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.StreamCodecUtility;
-import io.netty.buffer.ByteBuf;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -19,14 +22,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.ByIdMap;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -36,7 +38,6 @@ import oshi.util.tuples.Pair;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.function.IntFunction;
 
 
 public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
@@ -44,7 +45,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
     protected final int amplifierToAdd;
     protected final float experienceReward;
     protected final float experienceRequired;
-    protected final List<PotionMatchingCriteria> matchingCriteria;
+    protected final List<EffectComparison.MatchCriteria> matchingCriteria;
     protected final boolean isSeededRuntimeRecipe;
 
     public BrewingCauldronRecipe(BrewingCauldronRecipe recipe) {
@@ -57,7 +58,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
         this.isSeededRuntimeRecipe = recipe.isSeededRuntimeRecipe;
     }
 
-    public BrewingCauldronRecipe(RecipeCategory category, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei, float experienceReward, float experienceRequired, int durationToAdd, int amplifierToAdd, List<PotionMatchingCriteria> matchingCriteria, boolean isSeededRuntimeRecipe) {
+    public BrewingCauldronRecipe(RecipeCategory category, List<PpIngredient> ingredients, ItemStack result, int processingTime, boolean canShowInJei, float experienceReward, float experienceRequired, int durationToAdd, int amplifierToAdd, List<EffectComparison.MatchCriteria> matchingCriteria, boolean isSeededRuntimeRecipe) {
         super(category, ingredients, result, processingTime, canShowInJei);
         this.experienceReward = experienceReward;
         this.experienceRequired = experienceRequired;
@@ -80,21 +81,21 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
      */
     public ItemStack getResultWithTransformations(List<ItemStack> suppliedIngredients, Function<Integer, Integer> transformDuration, Function<Integer, Integer> transformAmplifier) {
         Optional<ItemStack> inputPotionOptional = suppliedIngredients.stream()
-                .filter(PUtil::isPotion).filter((stack) -> stack.has(DataComponents.POTION_CONTENTS)).findFirst();
+                .filter(PotionContainer::isPotionStack).filter((stack) -> !PotionData.read(stack).isEmpty()).findFirst();
         ItemStack transformedResult = this.getResult();
 
         // In order to upgrade the amplifier or duration of a potion arbitrarily, we need to have an input potion to work with.
         // Also, to brew splash potions / lingering potions, we transform the input potion accordingly.
-        if (inputPotionOptional.isPresent() && (isDurationUpgrade() || isAmplifierUpgrade() || (PUtil.isPotion(this.getResult()) && !inputPotionOptional.get().is(transformedResult.getItem())))) {
+        if (inputPotionOptional.isPresent() && (isDurationUpgrade() || isAmplifierUpgrade() || (PotionContainer.isPotionStack(this.getResult()) && !inputPotionOptional.get().is(transformedResult.getItem())))) {
             if (isDurationUpgrade() || isAmplifierUpgrade()) {
                 transformedResult = new ItemStack(inputPotionOptional.get().getItem());
             }
-            transformedResult.set(DataComponents.POTION_CONTENTS, PUtil.getPotionContents(inputPotionOptional.get()));
+            transformedResult = PotionDataBuilder.from(inputPotionOptional.get()).applyTo(transformedResult);
 
             // Get all effects from all input potions
             List<MobEffectInstance> allInputEffects = suppliedIngredients.stream()
-                    .filter(PUtil::isPotion).map(PUtil::getPotionContents)
-                    .map(PUtil::getAllEffects)
+                    .filter(PotionContainer::isPotionStack).map(PotionData::read)
+                    .map(PotionData::effects)
                     .flatMap(Collection::stream).toList();
             Map<ResourceKey<MobEffect>, MobEffectInstance> totaledEffects = new HashMap<>();
             // Combine effects for each effect type. Take max duration and amplifier.
@@ -107,7 +108,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             }
 
             // Duplicate all mob effect instances into a new PotionContents with no associated potion, and only custom effects. This is how we get durations that aren't pre-determined by the potion.
-            PotionContents potionContents = PUtil.getPotionContents(transformedResult);
+            PotionContents potionContents = PotionData.read(transformedResult).toContents();
             List<MobEffectInstance> customEffects = new ArrayList<>();
             for (Map.Entry<ResourceKey<MobEffect>, MobEffectInstance> entry : totaledEffects.entrySet()) {
                 MobEffectInstance totaledEffect = entry.getValue();
@@ -123,7 +124,11 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             // Update data components of the transformed result
             transformedResult.set(DataComponents.ITEM_NAME, name);
             transformedResult.set(DataComponents.RARITY, Rarity.RARE);
-            transformedResult.set(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), potionContents.customColor(), customEffects, Optional.empty()));
+            PotionDataBuilder finalPotionData = PotionDataBuilder.fromEmpty().withEffects(customEffects);
+            if (potionContents.customColor().isPresent()) {
+                finalPotionData.withCustomColor(potionContents.customColor().get());
+            }
+            transformedResult = finalPotionData.applyTo(transformedResult);
         }
 
         return transformedResult;
@@ -132,7 +137,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
 
     public boolean isIngredient(ItemStack itemStack) {
         for (PpIngredient ingredient : this.ingredients) {
-            if (PUtil.isSameItemOrPotion(itemStack, ingredient.getItemStack(), Collections.singletonList(PotionMatchingCriteria.EXACT_MATCH))) {
+            if (EffectComparison.matches(itemStack, ingredient.getItemStack(), EffectComparison.MatchCriteria.EXACT_MATCH)) {
                 return true;
             }
         }
@@ -163,10 +168,10 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
     public boolean isTrueInIngredients(Function<Pair<MobEffectInstance, MobEffectInstance>, Boolean> function) {
         for (PpIngredient ingredient : this.ingredients) {
             ItemStack itemStack = ingredient.getItemStack();
-            if (PUtil.isPotion(itemStack)) {
+            if (PotionContainer.isPotionStack(itemStack)) {
 
-                Potion inputPotion = PUtil.getPotion(itemStack);
-                Potion outputPotion = PUtil.getPotion(this.result);
+                Potion inputPotion = PotionData.read(itemStack).basePotion().map(Holder::value).orElse(Potions.WATER.value());
+                Potion outputPotion = PotionData.read(this.result).basePotion().map(Holder::value).orElse(Potions.WATER.value());
                 if (!inputPotion.getEffects().isEmpty() && !outputPotion.getEffects().isEmpty() &&
                         function.apply(new Pair<>(inputPotion.getEffects().get(0), outputPotion.getEffects().get(0)))) {
                     return true;
@@ -195,7 +200,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
         return this.experienceRequired;
     }
 
-    public List<PotionMatchingCriteria> getMatchingCriteria() {
+    public List<EffectComparison.MatchCriteria> getMatchingCriteria() {
         return this.matchingCriteria;
     }
 
@@ -226,12 +231,12 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
 
         for (int i = 0; i < ingredients.size(); i++) {
             PpIngredient ingredient = ingredients.get(i);
-            recipeString.append(PUtil.getNameOrVerbosePotionName(ingredient.getItemStack()));
+            recipeString.append(EffectComparison.identityString(ingredient.getItemStack()));
             if (i < ingredients.size() - 1) {
                 recipeString.append(" + ");
             }
         }
-        recipeString.append(" => ").append(PUtil.getNameOrVerbosePotionName(getResultItemWithTransformations(getIngredientsAsItemStacks())));
+        recipeString.append(" => ").append(EffectComparison.identityString(getResultItemWithTransformations(getIngredientsAsItemStacks())));
 
         return recipeString.toString();
     }
@@ -244,7 +249,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             boolean hasIngredient = false;
             for (int i = 0; i < recipeInput.size(); i++) {
                 ItemStack itemStack = recipeInput.getItem(i);
-                if (PUtil.isSameItemOrPotion(itemStack, ingredient.getItemStack(), matchingCriteria)) {
+                if (EffectComparison.matches(itemStack, ingredient.getItemStack(), matchingCriteria)) {
                     hasIngredient = true;
                     break;
                 }
@@ -262,37 +267,6 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
         return ShapelessProcessingRecipe.getUniqueRecipeName(this.ingredients, getResultItemWithTransformations(getIngredientsAsItemStacks()));
     }
 
-    public enum PotionMatchingCriteria implements StringRepresentable {
-        EXACT_MATCH("exact_match", 0),
-        IGNORE_POTION_EFFECT_DURATION("ignore_effect_duration", 1),
-        IGNORE_POTION_EFFECT_AMPLIFIER("ignore_effect_amplifier", 2),
-        IGNORE_POTION_EFFECTS("ignore_potion_effects", 3),
-        IGNORE_POTION_EFFECTS_MIN_1_EFFECT("ignore_potion_effects_min_1_effect", 4),
-        IGNORE_POTION_CONTAINER("ignore_potion_container", 5),
-        NEVER_MATCH("never_match", 6); // Used for recipes that we only want to display in JEI, but not actually match in the brewing cauldron
-
-        public static final Codec<PotionMatchingCriteria> CODEC = StringRepresentable.fromEnum(PotionMatchingCriteria::values);
-        public static final IntFunction<PotionMatchingCriteria> BY_ID = ByIdMap.continuous(PotionMatchingCriteria::id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
-        public static final StreamCodec<ByteBuf, PotionMatchingCriteria> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, PotionMatchingCriteria::id);
-
-        private final String name;
-        private final int id;
-
-        PotionMatchingCriteria(String name, int id) {
-            this.name = name;
-            this.id = id;
-        }
-
-        @Override
-        public String getSerializedName() {
-            return this.name;
-        }
-
-        private int id() {
-            return this.id;
-        }
-    }
-
     public static final MapCodec<BrewingCauldronRecipe> CODEC = RecordCodecBuilder.mapCodec(
             codecBuilder -> codecBuilder.group(
                     ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_CODEC.fieldOf("category").forGetter(ShapelessProcessingRecipe::getCategory),
@@ -304,7 +278,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
                     Codec.FLOAT.optionalFieldOf("experienceRequired", 0F).forGetter(BrewingCauldronRecipe::getExperienceRequired),
                     Codec.INT.optionalFieldOf("durationToAdd", 0).forGetter(BrewingCauldronRecipe::getDurationToAdd),
                     Codec.INT.optionalFieldOf("amplifierToAdd", 0).forGetter(BrewingCauldronRecipe::getAmplifierToAdd),
-                    PotionMatchingCriteria.CODEC.listOf().fieldOf("matchingCriteria").forGetter(BrewingCauldronRecipe::getMatchingCriteria),
+                    EffectComparison.MatchCriteria.CODEC.listOf().fieldOf("matchingCriteria").forGetter(BrewingCauldronRecipe::getMatchingCriteria),
                     Codec.BOOL.optionalFieldOf("isSeededRuntimeRecipe", false).forGetter(BrewingCauldronRecipe::isSeededRuntimeRecipe)
             ).apply(codecBuilder, BrewingCauldronRecipe::new)
     );
@@ -318,7 +292,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             ByteBufCodecs.FLOAT, BrewingCauldronRecipe::getExperienceRequired,
             ByteBufCodecs.INT, BrewingCauldronRecipe::getDurationToAdd,
             ByteBufCodecs.INT, BrewingCauldronRecipe::getAmplifierToAdd,
-            PotionMatchingCriteria.STREAM_CODEC.apply(ByteBufCodecs.list()), BrewingCauldronRecipe::getMatchingCriteria,
+            EffectComparison.MatchCriteria.STREAM_CODEC.apply(ByteBufCodecs.list()), BrewingCauldronRecipe::getMatchingCriteria,
             ByteBufCodecs.BOOL, BrewingCauldronRecipe::isSeededRuntimeRecipe,
             BrewingCauldronRecipe::new
     );

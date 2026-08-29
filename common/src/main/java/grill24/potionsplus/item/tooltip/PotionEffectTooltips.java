@@ -1,16 +1,16 @@
 package grill24.potionsplus.item.tooltip;
 
 import grill24.potionsplus.core.Translations;
+import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.effect.IEffectTooltipDetails;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionContents;
 
 
 
@@ -23,9 +23,8 @@ public class PotionEffectTooltips {
     public static void onPotionEffectTooltip(final AnimatedItemTooltipEvent.Add event) {
         // Potion Effect Details Tooltip
         PpIngredient ppIngredient = PpIngredient.of(event.getItemStack().copyWithCount(1));
-        if (ppIngredient.getItemStack().has(DataComponents.POTION_CONTENTS)) {
-            PotionContents potionContents = ppIngredient.getItemStack().get(DataComponents.POTION_CONTENTS);
-            List<MobEffectInstance> potionEffectTextComponents = PUtil.getAllEffects(potionContents);
+        if (!PotionData.read(ppIngredient.getItemStack()).isEmpty()) {
+            List<MobEffectInstance> potionEffectTextComponents = PotionData.read(ppIngredient.getItemStack()).effects();
             for (MobEffectInstance effect : potionEffectTextComponents) {
                 if (effect.getEffect().value() instanceof IEffectTooltipDetails effectTooltipDetails) {
                     event.addTooltipMessage(effectTooltipDetails.getTooltipDetails(effect));
@@ -35,9 +34,8 @@ public class PotionEffectTooltips {
 
         // Passive Item Potion Effects Tooltip
         ItemStack stack = event.getItemStack();
-        if (PUtil.isPassivePotionEffectItem(stack)) {
-            PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
-            List<MobEffectInstance> potionEffectTextComponents = PUtil.getAllEffects(potionContents);
+        if (Utility.isPassivePotionEffectItem(stack)) {
+            List<MobEffectInstance> potionEffectTextComponents = PotionData.read(stack).effects();
             for (MobEffectInstance effect : potionEffectTextComponents) {
                 int ticksLeft = effect.getDuration();
                 if (ticksLeft > 0) {

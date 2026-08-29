@@ -10,8 +10,9 @@ import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.alchemy.EffectComparison;
+import grill24.potionsplus.alchemy.PotionContainer;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
-import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.TagKey;
@@ -106,11 +107,11 @@ public class SeededPotionRecipes {
         for (PpIngredient ingredient : durationTagItems) {
             durationUpgradeRecipes.add(
                     new BrewingCauldronRecipeBuilder()
-                            .result(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION))
-                            .ingredients(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION), ingredient.getItemStack())
+                            .result(PotionContainer.POTION.create(Potions.ANY_POTION))
+                            .ingredients(PotionContainer.POTION.create(Potions.ANY_POTION), ingredient.getItemStack())
                             .processingTime(30)
                             .durationToAdd(randomSource.nextInt(100, 1800))
-                            .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
+                            .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER, EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
                             .isSeededRuntimeRecipe()
                             .build()
             );
@@ -121,11 +122,11 @@ public class SeededPotionRecipes {
         for (PpIngredient ingredient : amplifierTagItems) {
             amplifierUpgradeRecipes.add(
                     new BrewingCauldronRecipeBuilder()
-                            .result(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION))
-                            .ingredients(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION), ingredient.getItemStack())
+                            .result(PotionContainer.POTION.create(Potions.ANY_POTION))
+                            .ingredients(PotionContainer.POTION.create(Potions.ANY_POTION), ingredient.getItemStack())
                             .processingTime(30)
                             .amplifierToAdd(1)
-                            .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
+                            .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER, EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
                             .isSeededRuntimeRecipe()
                             .build()
             );
@@ -136,12 +137,12 @@ public class SeededPotionRecipes {
         for (PpIngredient ingredient : durationAndAmplifierTagItems) {
             bothUpgradeRecipes.add(
                     new BrewingCauldronRecipeBuilder()
-                            .result(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION))
-                            .ingredients(PUtil.createPotionItemStack(Potions.ANY_POTION, PUtil.PotionType.POTION), ingredient.getItemStack())
+                            .result(PotionContainer.POTION.create(Potions.ANY_POTION))
+                            .ingredients(PotionContainer.POTION.create(Potions.ANY_POTION), ingredient.getItemStack())
                             .processingTime(30)
                             .durationToAdd(randomSource.nextInt(400, 1200))
                             .amplifierToAdd(1)
-                            .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
+                            .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER, EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
                             .isSeededRuntimeRecipe()
                             .build()
             );

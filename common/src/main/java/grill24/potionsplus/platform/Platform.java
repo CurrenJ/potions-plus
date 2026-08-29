@@ -35,4 +35,16 @@ public class Platform {
     public static void fireCropGrowPost(Level level, BlockPos pos, BlockState state) {
         throw new AssertionError();
     }
+
+    /** Configured drink time for brewed potions, in ticks. Server-admin-configurable. */
+    @ExpectPlatform
+    public static int getPotionDrinkTimeTicks() {
+        throw new AssertionError();
+    }
+
+    /** Configured post-drink use-cooldown for brewed potions, in ticks. Server-admin-configurable. */
+    @ExpectPlatform
+    public static int getPotionDrinkCooldownTimeTicks() {
+        throw new AssertionError();
+    }
 }

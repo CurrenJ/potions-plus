@@ -1,5 +1,6 @@
 package grill24.potionsplus.block;
 
+import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.blockentity.HerbalistsLecternSounds;
 import grill24.potionsplus.blockentity.PotionBeaconBlockEntity;
 import grill24.potionsplus.core.Blocks;
@@ -8,7 +9,6 @@ import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -58,7 +58,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
 
         // Do interaction
         InvUtil.InteractionResult result = InvUtil.InteractionResult.PASS;
-        if (player.getItemInHand(hand).has(DataComponents.POTION_CONTENTS)) {
+        if (!PotionData.read(player.getItemInHand(hand)).isEmpty()) {
             result = InvUtil.insertOnPlayerUseItem(level, pos, player, hand, SoundEvents.ITEM_FRAME_ADD_ITEM);
         }
 

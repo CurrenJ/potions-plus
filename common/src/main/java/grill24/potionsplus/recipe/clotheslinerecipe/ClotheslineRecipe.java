@@ -3,12 +3,11 @@ package grill24.potionsplus.recipe.clotheslinerecipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.alchemy.EffectComparison;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeSerializerHelper;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.PUtil;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -71,7 +70,7 @@ public class ClotheslineRecipe extends ShapelessProcessingRecipe {
     }
 
     public boolean matches(ItemStack itemStack) {
-        return this.ingredients.stream().anyMatch(ingredient -> PUtil.isSameItemOrPotion(itemStack, ingredient.getItemStack(), List.of(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH)));
+        return this.ingredients.stream().anyMatch(ingredient -> EffectComparison.matches(itemStack, ingredient.getItemStack(), EffectComparison.MatchCriteria.EXACT_MATCH));
     }
 
     public static final MapCodec<ClotheslineRecipe> CODEC = RecordCodecBuilder.mapCodec(

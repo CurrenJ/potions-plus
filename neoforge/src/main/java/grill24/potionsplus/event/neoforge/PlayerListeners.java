@@ -8,10 +8,12 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.*;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
+import grill24.potionsplus.alchemy.PotionData;
+import grill24.potionsplus.alchemy.PotionDataBuilder;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.ServerTickHandler;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -128,31 +130,28 @@ public class PlayerListeners {
 
     private static void tryApplyPassiveItemPotionEffects(Player player, EquipmentSlot slot) {
         ItemStack stack = player.getItemBySlot(slot);
-        if (PUtil.isPassivePotionEffectItem(stack)) {
-            PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
-            if (potionContents != null) {
-                List<MobEffectInstance> customEffects = new ArrayList<>();
-                for (MobEffectInstance effect : PUtil.getAllEffects(potionContents)) {
-                    int durationApplied = Math.min(EFFECT_DURATION, effect.getDuration());
-                    MobEffectInstance e = new MobEffectInstance(effect.getEffect(), durationApplied, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false);
+        if (Utility.isPassivePotionEffectItem(stack)) {
+            List<MobEffectInstance> customEffects = new ArrayList<>();
+            for (MobEffectInstance effect : PotionData.read(stack).effects()) {
+                int durationApplied = Math.min(EFFECT_DURATION, effect.getDuration());
+                MobEffectInstance e = new MobEffectInstance(effect.getEffect(), durationApplied, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false);
 
-                    // Damage the item, but don't break it.
-                    int maxDamage = stack.getOrDefault(DataComponents.MAX_DAMAGE, 0);
-                    int damage = stack.getOrDefault(DataComponents.DAMAGE, 0);
-                    int damageToApply = (e.getAmplifier() + 1) * 2;
-                    if (damage + damageToApply < maxDamage) {
-                        player.addEffect(e);
-                        stack.hurtAndBreak(e.getAmplifier() + 1, player, slot);
-                    }
-
-                    // Update the potion effects data on the item with the new duration
-                    int remainingDuration = effect.getDuration() - durationApplied;
-                    if (remainingDuration > 0) {
-                        customEffects.add(new MobEffectInstance(effect.getEffect(), remainingDuration, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false));
-                    }
+                // Damage the item, but don't break it.
+                int maxDamage = stack.getOrDefault(DataComponents.MAX_DAMAGE, 0);
+                int damage = stack.getOrDefault(DataComponents.DAMAGE, 0);
+                int damageToApply = (e.getAmplifier() + 1) * 2;
+                if (damage + damageToApply < maxDamage) {
+                    player.addEffect(e);
+                    stack.hurtAndBreak(e.getAmplifier() + 1, player, slot);
                 }
-                stack.set(DataComponents.POTION_CONTENTS, new PotionContents(potionContents.potion(), potionContents.customColor(), customEffects, Optional.empty()));
+
+                // Update the potion effects data on the item with the new duration
+                int remainingDuration = effect.getDuration() - durationApplied;
+                if (remainingDuration > 0) {
+                    customEffects.add(new MobEffectInstance(effect.getEffect(), remainingDuration, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false));
+                }
             }
+            player.setItemSlot(slot, PotionDataBuilder.from(stack).withEffects(customEffects).applyTo(stack));
         }
     }
 

@@ -1,7 +1,7 @@
 package grill24.potionsplus.utility.registration.item;
 
 import grill24.potionsplus.core.items.DynamicIconItems;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.utility.Utility;
 import grill24.potionsplus.utility.registration.IModelGenerator;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -71,7 +71,7 @@ public class ItemOverrideUtility {
 
             ItemModel.Unbaked fallbackItemModel = ItemModelUtils.plainModel(mc("item/stick"));
 
-            List<RangeSelectItemModel.Entry> entries = PUtil.getAllMobEffects().stream().map(mobEffect -> {
+            List<RangeSelectItemModel.Entry> entries = Utility.getAllMobEffects().stream().map(mobEffect -> {
                 Identifier registryName = BuiltInRegistries.MOB_EFFECT.getKey(mobEffect);
                 String name = "potion_effect_icon_" + registryName.getPath();
                 Identifier modelId = ppId("item/" + name);

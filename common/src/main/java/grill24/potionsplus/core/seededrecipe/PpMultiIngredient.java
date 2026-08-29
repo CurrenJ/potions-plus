@@ -1,6 +1,6 @@
 package grill24.potionsplus.core.seededrecipe;
 
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.EffectComparison;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Arrays;
@@ -11,7 +11,7 @@ public class PpMultiIngredient extends PpIngredient {
     protected PpMultiIngredient(List<ItemStack> stacks) {
         // Sort the ingredients by their name for consistent ordering
         super(stacks.stream()
-                .sorted(Comparator.comparing(PUtil::getNameOrVerbosePotionName))
+                .sorted(Comparator.comparing(EffectComparison::identityString))
                 .toList());
     }
 

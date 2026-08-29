@@ -10,7 +10,7 @@ import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.ClientUtility;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -65,7 +65,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 for (RecipeHolder<BrewingCauldronRecipe> recipeHolder : recipesWithInputIngredient) {
                     BrewingCauldronRecipe recipe = recipeHolder.value();
                     ItemStack outputStack = recipe.getResult();
-                    List<MobEffectInstance> outputEffects = PUtil.getAllEffects(outputStack);
+                    List<MobEffectInstance> outputEffects = PotionData.read(outputStack).effects();
 
                     // If the recipe has no potion effects on its output, just display the result item.
                     if (outputEffects.isEmpty()) {

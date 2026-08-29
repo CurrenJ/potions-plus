@@ -1,6 +1,7 @@
 package grill24.potionsplus.event.neoforge;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import grill24.potionsplus.alchemy.PotionDataBuilder;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
@@ -13,7 +14,7 @@ import net.minecraft.server.permissions.Permissions;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -127,7 +128,10 @@ public class NeoCommandEvents {
                         .requires((source) -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
                         .executes(context -> {
                             if (context.getSource().getEntity() instanceof ServerPlayer player) {
-                                player.getMainHandItem().set(net.minecraft.core.component.DataComponents.POTION_CONTENTS, new PotionContents(Potions.FLYING_TIME_POTIONS.potion));
+                                ItemStack withPotion = PotionDataBuilder.fromEmpty()
+                                        .withBasePotion(Potions.FLYING_TIME_POTIONS.potion)
+                                        .applyTo(player.getMainHandItem());
+                                player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, withPotion);
                             }
                             return 1;
                         })

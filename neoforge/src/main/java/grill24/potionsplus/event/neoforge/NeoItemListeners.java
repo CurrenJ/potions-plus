@@ -7,10 +7,9 @@ import grill24.potionsplus.event.ItemListenersGame;
 import grill24.potionsplus.item.WeightDataComponent;
 import grill24.potionsplus.item.tooltip.BrewingTooltips;
 import grill24.potionsplus.item.tooltip.PotionEffectTooltips;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.alchemy.EffectComparison;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.PUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
@@ -57,7 +56,7 @@ public class NeoItemListeners {
     }
 
     private static void animateTooltipMessages(List<List<Component>> tooltipMessages, ItemTooltipEvent event) {
-        if (!PUtil.isSameItemOrPotion(lastItemStack, event.getItemStack(), List.of(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH)) || ClientTickHandler.total() - lastTooltipTimestamp > 10.0F) {
+        if (!EffectComparison.matches(lastItemStack, event.getItemStack(), EffectComparison.MatchCriteria.EXACT_MATCH) || ClientTickHandler.total() - lastTooltipTimestamp > 10.0F) {
             animationStartTimestamp = ClientTickHandler.total();
         }
 

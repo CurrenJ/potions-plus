@@ -1,7 +1,7 @@
 package grill24.potionsplus.core.potion;
 
 import grill24.potionsplus.effect.*;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
@@ -90,6 +90,6 @@ public class MobEffects {
      * Initializes the POTION_ICON_INDEX_MAP supplier. Called after effects are registered.
      */
     public static void initIconIndexMap() {
-        POTION_ICON_INDEX_MAP = PUtil::getAllMobEffectsIconStackSizeMap;
+        POTION_ICON_INDEX_MAP = Utility::getAllMobEffectsIconStackSizeMap;
     }
 }

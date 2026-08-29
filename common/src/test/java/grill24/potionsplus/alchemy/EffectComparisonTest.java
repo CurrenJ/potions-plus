@@ -21,9 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * The comparison matrix. Every criteria value against same and different effect type, amplifier,
  * duration, container and effect order.
  *
- * <p>This is the phase 1 gate: the semantics asserted here are the intended ones, and they differ from
- * the {@code PUtil} implementation in two documented ways (inverted ignore flags, order dependence).
- * {@link PUtilDivergenceTest} records that difference from the other side.
+ * <p>This is the phase 1 gate: the semantics asserted here are the intended ones, and they differed from
+ * the retired {@code PUtil} implementation in two documented ways (inverted ignore flags, order
+ * dependence) - see {@code d63a69a} and the phase 3 migration for the call sites that used to depend on
+ * the old behaviour.
  */
 class EffectComparisonTest extends AlchemyTestBase {
 
@@ -329,18 +330,5 @@ class EffectComparisonTest extends AlchemyTestBase {
                 MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT.getSerializedName());
         assertEquals("ignore_potion_container", MatchCriteria.IGNORE_POTION_CONTAINER.getSerializedName());
         assertEquals("never_match", MatchCriteria.NEVER_MATCH.getSerializedName());
-    }
-
-    /** The new enum must stay in lockstep with the one still in use until phase 3 deletes it. */
-    @Test
-    void criteriaAreOneToOneWithTheEnumBeingReplaced() {
-        var legacy = grill24.potionsplus.recipe.brewingcauldronrecipe
-                .BrewingCauldronRecipe.PotionMatchingCriteria.values();
-
-        assertEquals(legacy.length, MatchCriteria.values().length);
-        for (int i = 0; i < legacy.length; i++) {
-            assertEquals(legacy[i].getSerializedName(), MatchCriteria.values()[i].getSerializedName());
-            assertEquals(legacy[i].name(), MatchCriteria.values()[i].name());
-        }
     }
 }

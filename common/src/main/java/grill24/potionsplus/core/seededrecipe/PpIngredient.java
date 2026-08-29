@@ -5,7 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.EffectComparison;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
@@ -50,11 +50,11 @@ public class PpIngredient {
     // Hashcode and equals methods
     @Override
     public int hashCode() {
-        StringBuilder result = new StringBuilder();
+        int result = 1;
         for (ItemStack stack : matchStacks) {
-            result.append(PUtil.getNameOrVerbosePotionName(stack));
+            result = 31 * result + EffectComparison.identityHash(stack);
         }
-        return result.toString().hashCode();
+        return result;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class PpIngredient {
         result.append("[");
         for (ItemStack stack : matchStacks) {
             result.append(" ");
-            result.append(PUtil.getNameOrVerbosePotionName(stack));
+            result.append(EffectComparison.identityString(stack));
         }
         result.append(" ]");
         return result.toString();

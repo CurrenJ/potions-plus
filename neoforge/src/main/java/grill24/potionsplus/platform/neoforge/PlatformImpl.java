@@ -1,5 +1,6 @@
 package grill24.potionsplus.platform.neoforge;
 
+import grill24.potionsplus.config.neoforge.PotionsPlusConfig;
 import grill24.potionsplus.event.neoforge.ServerPlayerHeldItemChangedEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
@@ -36,5 +37,23 @@ public class PlatformImpl {
 
     public static void fireCropGrowPost(Level level, BlockPos pos, BlockState state) {
         CommonHooks.fireCropGrowPost(level, pos, state);
+    }
+
+    public static int getPotionDrinkTimeTicks() {
+        // Recipe building can run during datagen, before the server config is loaded - fall back to
+        // the configured default in that case rather than letting ModConfigSpec throw.
+        try {
+            return PotionsPlusConfig.CONFIG.potionDrinkTimeTicks.get();
+        } catch (IllegalStateException e) {
+            return PotionsPlusConfig.CONFIG.potionDrinkTimeTicks.getDefault();
+        }
+    }
+
+    public static int getPotionDrinkCooldownTimeTicks() {
+        try {
+            return PotionsPlusConfig.CONFIG.potionDrinkCooldownTimeTicks.get();
+        } catch (IllegalStateException e) {
+            return PotionsPlusConfig.CONFIG.potionDrinkCooldownTimeTicks.getDefault();
+        }
     }
 }

@@ -136,6 +136,18 @@ public final class EffectComparison {
         return identityString(stack).hashCode();
     }
 
+    /**
+     * {@link #identityString} sanitized down to the character set a {@link net.minecraft.resources.Identifier}
+     * path accepts ({@code [a-z0-9/._-]}). Recipe ids are built from this, not {@link #identityString}
+     * directly - the raw identity string carries {@code |}, {@code @} and registry-key colons, none of
+     * which survive {@code Identifier.fromNamespaceAndPath}.
+     */
+    public static String identitySlug(ItemStack stack) {
+        return identityString(stack)
+                .toLowerCase(java.util.Locale.ROOT)
+                .replaceAll("[^a-z0-9/._-]", "_");
+    }
+
     /** Whether two stacks count as the same under the given criteria. */
     public static boolean matches(ItemStack stack, ItemStack other, Collection<MatchCriteria> criteria) {
         Set<MatchCriteria> flags = criteria.isEmpty()

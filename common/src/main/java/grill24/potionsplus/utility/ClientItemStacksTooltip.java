@@ -1,6 +1,7 @@
 package grill24.potionsplus.utility;
 
 
+import grill24.potionsplus.alchemy.PotionContainer;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -93,7 +94,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
                     try (Level level = player.level()) {
                         PlayerBrewingKnowledge brewingKnowledge = SavedData.instance.getData(player);
                         boolean isInAbyssalTrove = brewingKnowledge.abyssalTroveContainsIngredient(level, PpIngredient.of(itemstack));
-                        boolean isPotion = PUtil.isPotion(itemstack);
+                        boolean isPotion = PotionContainer.isPotionStack(itemstack);
                         if (!isInAbyssalTrove && !isPotion && !Debug.shouldRevealAllRecipes && this.hideUnknownPotionIngredients) {
                             itemstack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC);
                         }

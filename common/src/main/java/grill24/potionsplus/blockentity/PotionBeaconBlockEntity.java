@@ -1,5 +1,6 @@
 package grill24.potionsplus.blockentity;
 
+import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.block.PotionBeaconBlock;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.extension.IMobEffectInstanceExtension;
@@ -124,10 +125,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
     public static void tick(Level level, BlockPos pos, BlockState state, PotionBeaconBlockEntity blockEntity) {
         if (blockEntity.effects.isEmpty() && !blockEntity.getItem(0).isEmpty()) {
             ItemStack stack = blockEntity.getItem(0);
-            if (stack.has(DataComponents.POTION_CONTENTS)) {
-                PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
-                PUtil.getAllEffects(potionContents).stream().map(MobEffectInstance::new).forEach(blockEntity.effects::add);
-            }
+            PotionData.read(stack).effects().stream().map(MobEffectInstance::new).forEach(blockEntity.effects::add);
             stack.shrink(1);
             blockEntity.setItem(0, stack);
             blockEntity.setChanged();

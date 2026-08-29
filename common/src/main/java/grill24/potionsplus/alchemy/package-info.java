@@ -21,8 +21,7 @@
  * <p>Potion handling accumulated across three ports (1.18.2 to 1.21.1 to 26.1.2) without a single owner.
  * The predecessor, {@code grill24.potionsplus.utility.PUtil}, covered reads but exposed exactly one write
  * method, so call sites reconstructed {@link net.minecraft.world.item.alchemy.PotionContents} by hand and
- * drifted apart. This package replaces it. See the migration plan for the phase ordering; {@code PUtil}
- * is retired in phase 3.
+ * drifted apart. This package replaces it; {@code PUtil} was retired in phase 3.
  *
  * <h2>Deliberate omissions (phase 4)</h2>
  * <p>{@link grill24.potionsplus.alchemy.PotionDataBuilder} does not yet clamp amplifier or duration.

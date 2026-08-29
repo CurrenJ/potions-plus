@@ -5,9 +5,11 @@ import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
+import grill24.potionsplus.alchemy.EffectComparison;
+import grill24.potionsplus.alchemy.PotionContainer;
+import grill24.potionsplus.alchemy.PotionDataBuilder;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipeBuilder;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -86,7 +88,7 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
 
         // Water Bottle
         new BrewingCauldronRecipeBuilder()
-                .result(PUtil.createPotionItemStack(net.minecraft.world.item.alchemy.Potions.WATER, PUtil.PotionType.POTION))
+                .result(PotionContainer.POTION.create(net.minecraft.world.item.alchemy.Potions.WATER))
                 .ingredients(net.minecraft.world.item.Items.GLASS_BOTTLE)
                 .processingTime(30)
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
@@ -141,16 +143,16 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
         // Sulfuric Acid
         new BrewingCauldronRecipeBuilder()
                 .result(safeStack(OreItems.SULFURIC_ACID.value()))
-                .ingredients(PUtil.createPotionItemStack(net.minecraft.world.item.alchemy.Potions.WATER, PUtil.PotionType.POTION), safeStack(OreItems.SULFUR_SHARD.value()))
+                .ingredients(PotionContainer.POTION.create(net.minecraft.world.item.alchemy.Potions.WATER), safeStack(OreItems.SULFUR_SHARD.value()))
                 .processingTime(40)
                 .unlockedBy("has_sulfur_shard", has(OreItems.SULFUR_SHARD.value()))
                 .save(recipeConsumer, recipeKey("sulfuric_acid"));
 
         // All Potions Duration Increase [5 Seconds] [Recipe is constant in all worlds]
-        List<BrewingCauldronRecipe.PotionMatchingCriteria> upgradePotionMatchingCriteria = List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT);
+        List<EffectComparison.MatchCriteria> upgradePotionMatchingCriteria = List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER, EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT);
         new BrewingCauldronRecipeBuilder()
-                .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION))
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), safeStack(net.minecraft.world.item.Items.QUARTZ))
+                .result(PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION))
+                .ingredients(PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION), safeStack(net.minecraft.world.item.Items.QUARTZ))
                 .processingTime(30)
                 .durationToAdd(100)
                 .potionMatchingCriteria(upgradePotionMatchingCriteria)
@@ -159,41 +161,42 @@ public class RecipeProvider extends grill24.potionsplus.data.RecipeProvider {
                 .save(recipeConsumer, recipeKey("all_potions_duration_increase"));
 
         // Merge Potions
-        ItemStack mergedPotionResult = safeStack(net.minecraft.world.item.Items.POTION);
-        PUtil.setCustomEffects(mergedPotionResult, List.of(new MobEffectInstance(MobEffects.ANY_POTION), new MobEffectInstance(MobEffects.ANY_OTHER_POTION)));
+        ItemStack mergedPotionResult = PotionDataBuilder.fromEmpty()
+                .withEffects(List.of(new MobEffectInstance(MobEffects.ANY_POTION), new MobEffectInstance(MobEffects.ANY_OTHER_POTION)))
+                .applyTo(safeStack(net.minecraft.world.item.Items.POTION));
         new BrewingCauldronRecipeBuilder()
                 .result(mergedPotionResult)
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_OTHER_POTION, PUtil.PotionType.POTION))
+                .ingredients(PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION), PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_OTHER_POTION))
                 .processingTime(30)
                 .experienceRequired(10F)
-                .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.NEVER_MATCH))
+                .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.NEVER_MATCH))
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer, recipeKey("merge_potions"));
 
         // Splash Potion
         new BrewingCauldronRecipeBuilder()
-                .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.SPLASH_POTION))
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), safeStack(net.minecraft.world.item.Items.GUNPOWDER))
+                .result(PotionContainer.SPLASH_POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION))
+                .ingredients(PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION), safeStack(net.minecraft.world.item.Items.GUNPOWDER))
                 .processingTime(30)
-                .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS))
+                .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS))
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer, recipeKey("splash_potion"));
 
         // Lingering Potion
         new BrewingCauldronRecipeBuilder()
-                .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.LINGERING_POTION))
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.SPLASH_POTION), safeStack(net.minecraft.world.item.Items.DRAGON_BREATH))
+                .result(PotionContainer.LINGERING_POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION))
+                .ingredients(PotionContainer.SPLASH_POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION), safeStack(net.minecraft.world.item.Items.DRAGON_BREATH))
                 .processingTime(30)
-                .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS))
+                .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS))
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer, recipeKey("lingering_potion"));
 
         // Tipped Arrow
         new BrewingCauldronRecipeBuilder()
-                .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.TIPPED_ARROW))
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), safeStack(net.minecraft.world.item.Items.ARROW))
+                .result(PotionContainer.TIPPED_ARROW.create(grill24.potionsplus.core.potion.Potions.ANY_POTION))
+                .ingredients(PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION), safeStack(net.minecraft.world.item.Items.ARROW))
                 .processingTime(30)
-                .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS))
+                .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS))
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer, recipeKey("tipped_arrow"));
 

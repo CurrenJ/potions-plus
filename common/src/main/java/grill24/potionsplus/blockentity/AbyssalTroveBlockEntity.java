@@ -9,7 +9,6 @@ import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.debug.Debug;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.ClientUtility;
-import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -252,7 +251,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
                 }
             }
 
-            itemsInRow.add(new RendererData.AbyssalTroveRenderedItem(icon, subIcon, PUtil.getRarity(ingredient)));
+            itemsInRow.add(new RendererData.AbyssalTroveRenderedItem(icon, subIcon, PotionUpgradeIngredients.getRarity(ingredient)));
 
             index++;
         }
@@ -316,7 +315,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
                 } else if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
                     return 1;
                 } else {
-                    return PUtil.getRarity(ingredient).ordinal() + 2;
+                    return PotionUpgradeIngredients.getRarity(ingredient).ordinal() + 2;
                 }
             };
 

@@ -1,7 +1,8 @@
 package grill24.potionsplus.block;
 
+import grill24.potionsplus.alchemy.PotionContainer;
+import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
-import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -55,7 +56,7 @@ public class GrowableMossyBlock extends Block {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         // Check if using water bottle
-        if (PUtil.isPotion(stack) && PUtil.getPotion(stack) == Potions.WATER.value()) {
+        if (PotionContainer.isPotionStack(stack) && PotionData.read(stack).basePotion().map(net.minecraft.core.Holder::value).orElse(Potions.WATER.value()) == Potions.WATER.value()) {
             if (!state.getValue(WATERED)) {
                 if (!level.isClientSide()) {
                     level.setBlock(pos, state.setValue(WATERED, true), 3);
