@@ -15,3 +15,22 @@ dependencies {
     // Architectury injectables provides @ExpectPlatform annotations only.
     implementation "dev.architectury:architectury-injectables:1.0.13"
 }
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Unit tests. Minecraft itself is on the test classpath via Loom, so tests that need
+    // registries (potions, mob effects) bootstrap it themselves - see AlchemyTestBase.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        exceptionFormat = 'full'
+    }
+}

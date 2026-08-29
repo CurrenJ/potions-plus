@@ -41,6 +41,9 @@ public class DataGen {
         generator.addProvider(true, blockTagsProvider);
         generator.addProvider(true, itemTagProvider);
         generator.addProvider(true, soundsProvider);
+        // Empty structure templates the game tests run inside. Output is committed, so this only needs
+        // rerunning if a test needs a differently sized area.
+        generator.addProvider(true, new GameTestStructureProvider(output));
 
         event.createProvider(BlockStateProvider::new);
         // TODO: Recipe generation needs MC 26.1 data component fix - ItemStack creation requires bound components

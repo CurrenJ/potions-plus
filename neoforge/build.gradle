@@ -13,6 +13,10 @@ configurations {
         canBeConsumed = false
     }
     compileClasspath.extendsFrom common
+    // The game test run resolves sourceSets.testmod's runtimeClasspath, which is derived from main's.
+    // Without this, common/ is on the compile and dev classpaths but not the run's, and the mod's
+    // classloader fails with NoClassDefFoundError on the first common class it touches.
+    runtimeClasspath.extendsFrom common
     developmentNeoForge.extendsFrom common
 
     modLocalRuntime {
@@ -24,6 +28,15 @@ configurations {
     shadowBundle {
         canBeResolved = true
         canBeConsumed = false
+    }
+}
+
+sourceSets {
+    testmod {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+        // Platform-agnostic game test logic lives in common/ so a future Fabric module can share it.
+        java.srcDir(project(':common').file('src/testmod/java'))
     }
 }
 
@@ -49,6 +62,9 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
     compileOnly "mezz.jei:jei-1.21.5-neoforge:$rootProject.jei_version"
+
+    // Game tests need the compiled main classes, not just the compile classpath.
+    testmodImplementation sourceSets.main.output
 }
 
 processResources {
@@ -95,6 +111,16 @@ tasks.named('assemble') {
 sourceSets.main.resources.srcDir('src/generated/resources')
 
 loom {
+    // Without this, Loom only associates sourceSets.main with the mod's class roots, so FML's
+    // per-mod classloader never sees testmod's classes and the @EventBusSubscriber that registers
+    // the game tests silently never fires - even though it is on the JVM classpath.
+    mods {
+        potionsplus {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.testmod
+        }
+    }
+
     runs {
         data {
             clientData()
@@ -104,5 +130,21 @@ loom {
                     '--existing', file("src/main/resources").absolutePath,
                     '--output', file("src/generated/resources").absolutePath
         }
+
+        // Headless game test server: runs every registered test, then exits with the number of
+        // failed *required* tests. Run with ./gradlew :neoforge:runGametest
+        // Structures come from src/generated/resources - regenerate with :neoforge:runData.
+        gametest {
+            environment "gameTestServer"
+            forgeTemplate "gameTestServer"
+            source sourceSets.testmod
+            name "Game Test Server"
+            vmArg "-Dneoforge.enabledGameTestNamespaces=potionsplus"
+            runDir "build/gametest"
+        }
     }
 }
+
+// Custom run dirs are not created automatically before the run task executes, unlike the default
+// "run" dir, so a fresh checkout would fail its first runGametest with "working directory does not exist".
+file("build/gametest").mkdirs()
