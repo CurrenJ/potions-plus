@@ -115,8 +115,10 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
                 customEffects.add(increasedDurationAndAmplifier);
             }
 
-            // Get the name of the input potion
-            Component name = inputPotionOptional.get().getOrDefault(DataComponents.ITEM_NAME, inputPotionOptional.get().getItemName());
+            // Get the name of the input potion. Every item now registers a default ITEM_NAME component, so only an
+            // explicitly set one is meaningful here - otherwise ask the item, which resolves the potion's own name.
+            ItemStack inputPotion = inputPotionOptional.get();
+            Component name = inputPotion.hasNonDefault(DataComponents.ITEM_NAME) ? inputPotion.get(DataComponents.ITEM_NAME) : inputPotion.getItemName();
 
             // Update data components of the transformed result
             transformedResult.set(DataComponents.ITEM_NAME, name);

@@ -232,6 +232,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                     if (PUtil.isSameItemOrPotion(stack, ingredient, recipe.getMatchingCriteria())) {
                         consumedInputs.add(stack.copy());
                         stack.shrink(ingredient.getCount());
+                        if (stack.isEmpty()) {
+                            this.items.set(j, ItemStack.EMPTY);
+                        }
                         break;
                     }
                 }

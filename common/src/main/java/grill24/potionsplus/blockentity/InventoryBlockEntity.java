@@ -71,6 +71,10 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
         // BaseContainerBlockEntity's implicit DataComponents.CONTAINER handling is only wired into
         // itemstack<->block entity conversion (applyComponents/collectComponents), not into the
         // regular chunk load/save path, so items must be (de)serialized explicitly here.
+        // loadAllItems only writes the slots present in the tag, and saveAllItems omits empty ones,
+        // so the list must be cleared first - otherwise consumed items linger on the client, which
+        // receives this same data as the block entity update tag on an already-populated instance.
+        this.items = NonNullList.withSize(getSlots(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(input, this.items);
         loadSerializableFields(input);
     }
