@@ -6,7 +6,6 @@ import grill24.potionsplus.extension.IMobEffectInstanceExtension;
 import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.utility.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -15,9 +14,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
@@ -31,7 +28,6 @@ import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISingleStackDisplayer, ICraftingBlockEntity {
     public List<MobEffectInstance> effects = new ArrayList<>();
@@ -116,11 +112,6 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
     public Vector3f getLocalPlayerRelativePosition() {
         return new Vector3f((float) rendererData.localPlayerPositionRelativeToBlockEntity.x, (float) rendererData.localPlayerPositionRelativeToBlockEntity.y, (float) rendererData.localPlayerPositionRelativeToBlockEntity.z);
     }
-
-    private static final Set<Holder<Potion>> HIDDEN_POTIONS = Set.of(
-            Potions.THICK,
-            Potions.MUNDANE
-    );
 
     public void onPlayerInsertItem(Player player) {
         Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();

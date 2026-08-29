@@ -156,34 +156,6 @@ public class PUtil {
         return isPotion(itemStack) && BuiltInRegistries.POTION.getKey(getPotion(itemStack)).getNamespace().equals(ModInfo.MOD_ID);
     }
 
-    // TODO: Not rely on potion.
-    @Deprecated
-    public static int getProcessingTime(int baseTime, ItemStack input, ItemStack output, int numNonPotionIngredients) {
-        int processingTime = baseTime;
-
-        if (isPotion(output)) {
-            Potion potion = getPotion(output);
-
-            if (potion == Potions.AWKWARD.value() || potion == Potions.THICK.value() || potion == Potions.MUNDANE.value()) {
-                processingTime = (int) (processingTime * 0.5);
-                if (potion == Potions.THICK.value() || potion == Potions.MUNDANE.value()) {
-                    // Brewing Cauldron uses processing time as priority for recipe selection
-                    // Thick and mundane potions are rarely made and should not take priority over awkward potion crafting
-                    processingTime -= 1;
-                }
-            }
-
-            if (input.getItem().equals(Items.SPLASH_POTION)) {
-                processingTime = (int) (processingTime * 1.5);
-            } else if (input.getItem().equals(Items.LINGERING_POTION)) {
-                processingTime = processingTime * 2;
-            }
-        }
-
-        processingTime += (int) (processingTime * (numNonPotionIngredients - 1) * 0.25f);
-        return processingTime;
-    }
-
     public static String getPotionName(PotionType type, String potionName) {
         return switch (type) {
             case POTION -> POTION_PREFIX + potionName;
@@ -293,8 +265,8 @@ public class PUtil {
     }
 
     /**
-     * Used by loot modifier {@link grill24.potionsplus.behaviour.AddMobEffectsLootModifier} to add
-     * random passive potion effects to an item stack.
+     * Used by loot modifier {@code grill24.potionsplus.behaviour.neoforge.AddMobEffectsLootModifier} (NeoForge module)
+     * to add random passive potion effects to an item stack.
      *
      * @param context the loot context
      * @param stack   the item stack to add the effects to
@@ -334,12 +306,5 @@ public class PUtil {
 
     public static float diminishingReturnsLn(float amplifier) {
         return (float) Math.log(amplifier + 1) + 1;
-    }
-
-    public static float diminishingReturns(float amplifier, float horizontalAsymptote) {
-        if (horizontalAsymptote < 0) {
-            throw new IllegalArgumentException("Horizontal asymptote must be greater than or equal to 0");
-        }
-        return 2 * (horizontalAsymptote * amplifier) / (horizontalAsymptote + amplifier);
     }
 }

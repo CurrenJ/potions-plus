@@ -13,14 +13,11 @@ import grill24.potionsplus.utility.ClientUtility;
 import grill24.potionsplus.utility.PUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -167,11 +164,6 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
     public Vector3f getLocalPlayerRelativePosition() {
         return new Vector3f((float) rendererData.localPlayerPositionRelativeToBlockEntity.x, (float) rendererData.localPlayerPositionRelativeToBlockEntity.y, (float) rendererData.localPlayerPositionRelativeToBlockEntity.z);
     }
-
-    private static final Set<Holder<Potion>> HIDDEN_POTIONS = Set.of(
-            Potions.THICK,
-            Potions.MUNDANE
-    );
 
     public void onPlayerInsertItem(Player player) {
         Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();

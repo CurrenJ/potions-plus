@@ -2,7 +2,6 @@ package grill24.potionsplus.core.neoforge;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
-import grill24.potionsplus.config.neoforge.PotionsPlusConfig;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.utility.ModInfo;
@@ -23,7 +22,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -60,8 +58,6 @@ public class PotionsPlus {
     }
 
     public PotionsPlus(IEventBus bus, ModContainer container) {
-        container.registerConfig(ModConfig.Type.SERVER, PotionsPlusConfig.CONFIG_SPEC);
-
         // Initialize common registration holders
         grill24.potionsplus.core.Advancements.init(TRIGGERS::register);
         grill24.potionsplus.core.Attributes.init(ATTRIBUTES::register);
@@ -111,7 +107,6 @@ public class PotionsPlus {
         ATTRIBUTES.register(bus);
         LOOT_ITEM_CONDITIONS.register(bus);
         DataComponents.DATA_COMPONENTS.register(bus);
-        DataAttachmentsImpl.ATTACHMENT_TYPES.register(bus);
         CONSUME_EFFECTS.register(bus);
         MenuTypes.MENU_TYPES.register(bus);
         LootItemFunctions.LOOT_ITEM_FUNCTIONS.register(bus);

@@ -15,6 +15,7 @@ import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeDis
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.utility.PUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -33,6 +34,11 @@ public class Recipes {
     public static Supplier<RecipeDisplay.Type<BrewingCauldronRecipeDisplay>> BREWING_CAULDRON_RECIPE_DISPLAY;
     public static Supplier<RecipeSerializer<ClotheslineRecipe>> CLOTHESLINE_RECIPE_SERIALIZER;
     public static Supplier<RecipeSerializer<SanguineAltarRecipe>> SANGUINE_ALTAR_RECIPE_SERIALIZER;
+
+    /** Populated by neoforge Recipes at class-load time, so datagen can build advancement criteria without depending on DeferredHolder. */
+    public static ResourceKey<RecipeType<?>> BREWING_CAULDRON_RECIPE_KEY;
+    public static ResourceKey<RecipeType<?>> CLOTHESLINE_RECIPE_KEY;
+    public static ResourceKey<RecipeType<?>> SANGUINE_ALTAR_RECIPE_KEY;
 
     public static final List<Pair<RecipeType<?>, IRuntimeRecipeProvider>> RECIPE_INJECTION_FUNCTIONS = new ArrayList<>();
 

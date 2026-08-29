@@ -3,7 +3,6 @@ package grill24.potionsplus.core.seededrecipe;
 import com.google.common.collect.Sets;
 
 import grill24.potionsplus.core.ModState;
-import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
@@ -116,7 +115,6 @@ public class SeededPotionRecipes {
                             .build()
             );
         }
-        Recipes.DURATION_UPGRADE_ANALYSIS.compute(durationUpgradeRecipes);
 
         // Only amplifier upgrades
         List<RecipeHolder<BrewingCauldronRecipe>> amplifierUpgradeRecipes = new ArrayList<>();
@@ -132,7 +130,6 @@ public class SeededPotionRecipes {
                             .build()
             );
         }
-        Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.compute(amplifierUpgradeRecipes);
 
         // Duration and amplifier upgrades
         List<RecipeHolder<BrewingCauldronRecipe>> bothUpgradeRecipes = new ArrayList<>();

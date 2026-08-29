@@ -7,7 +7,7 @@ import grill24.potionsplus.block.OreFlowerBlock;
 import grill24.potionsplus.core.LootTables;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
-import grill24.potionsplus.core.neoforge.Recipes;
+import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.neoforge.blocks.FlowerBlocks;
 import grill24.potionsplus.core.items.BrewingItems;
 import grill24.potionsplus.core.items.DynamicIconItems;
@@ -138,7 +138,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                         true,
                         false)
                 .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("acquire_sulfuric_acid", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(new ItemStack(OreItems.SULFURIC_ACID))))
+                .addCriterion("acquire_sulfuric_acid", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE_KEY, PpIngredient.of(new ItemStack(OreItems.SULFURIC_ACID))))
                 .requirements(AdvancementRequirements.allOf(List.of("acquire_sulfuric_acid")))
                 .save(saver, ppId("acquire_sulfuric_acid"));
     }
@@ -172,7 +172,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                         true,
                         false)
                 .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("convert_item_in_sanguine_altar", CraftRecipeTrigger.TriggerInstance.create(Recipes.SANGUINE_ALTAR_RECIPE.getKey()))
+                .addCriterion("convert_item_in_sanguine_altar", CraftRecipeTrigger.TriggerInstance.create(Recipes.SANGUINE_ALTAR_RECIPE_KEY))
                 .requirements(AdvancementRequirements.allOf(List.of("convert_item_in_sanguine_altar")))
                 .save(saver, ppId("convert_item_in_sanguine_altar"));
     }
@@ -215,7 +215,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                         false)
                 .rewards(AdvancementRewards.Builder
                         .experience(100))
-                .addCriterion("brew_awkward_potion", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(PUtil.createPotionItemStack(Potions.AWKWARD, PUtil.PotionType.POTION)), List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER)))
+                .addCriterion("brew_awkward_potion", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE_KEY, PpIngredient.of(PUtil.createPotionItemStack(Potions.AWKWARD, PUtil.PotionType.POTION)), List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER)))
                 .requirements(AdvancementRequirements.allOf(List.of("brew_awkward_potion")))
                 .save(saver, BREW_AWKWARD_POTION);
 
@@ -232,7 +232,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                         false)
                 .rewards(AdvancementRewards.Builder
                         .experience(100))
-                .addCriterion("brew_any_potion", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION)), List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT)))
+                .addCriterion("brew_any_potion", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE_KEY, PpIngredient.of(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION)), List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT)))
                 .requirements(AdvancementRequirements.allOf(List.of("brew_any_potion")))
                 .save(saver, BREW_ANY_POTION);
 
@@ -335,7 +335,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
                         false)
                 .rewards(AdvancementRewards.Builder
                         .experience(100))
-                .addCriterion("dry_rotten_flesh", CraftRecipeTrigger.TriggerInstance.create(Recipes.CLOTHESLINE_RECIPE.getKey(), PpIngredient.of(new ItemStack(Items.LEATHER))))
+                .addCriterion("dry_rotten_flesh", CraftRecipeTrigger.TriggerInstance.create(Recipes.CLOTHESLINE_RECIPE_KEY, PpIngredient.of(new ItemStack(Items.LEATHER))))
                 .requirements(AdvancementRequirements.allOf(List.of("dry_rotten_flesh")))
                 .save(saver, DRY_ROTTEN_FLESH);
     }
