@@ -1,7 +1,6 @@
 package grill24.potionsplus.utility.registration;
 
 import grill24.potionsplus.data.BlockStateProvider;
-import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
 import grill24.potionsplus.utility.Utility;
 import grill24.potionsplus.utility.registration.item.ItemBuilder;
 import net.minecraft.core.Holder;
@@ -29,7 +28,6 @@ public class RegistrationUtility {
     public static List<IModelGenerator<?>> ITEM_MODEL_GENERATORS;
     public static List<IRecipeGenerator<?>> RECIPE_GENERATORS;
     public static List<ILootGenerator<?>> LOOT_GENERATORS;
-    public static List<IRuntimeModelGenerator<?>> RUNTIME_RESOURCE_GENERATORS;
 
     /**
      * Registers an {@link ItemBuilder} and a corresponding {@link IModelGenerator}.
@@ -51,9 +49,6 @@ public class RegistrationUtility {
         if (LOOT_GENERATORS == null) {
             LOOT_GENERATORS = new ArrayList<>();
         }
-        if (RUNTIME_RESOURCE_GENERATORS == null) {
-            RUNTIME_RESOURCE_GENERATORS = new ArrayList<>();
-        }
 
         builder.register(register);
         BUILDERS.add(builder);
@@ -66,9 +61,6 @@ public class RegistrationUtility {
         }
         if(builder.hasLootGenerator()) {
             LOOT_GENERATORS.add(builder);
-        }
-        if(builder.hasRuntimeModelGenerator()) {
-            RUNTIME_RESOURCE_GENERATORS.add(builder);
         }
         return builder;
     }
@@ -100,15 +92,4 @@ public class RegistrationUtility {
         }
     }
 
-    public static void generateRuntimeResourceInjectionsCache(final GenerateRuntimeResourceInjectionsCacheEvent event) {
-        for (IRuntimeModelGenerator<?> generator : RUNTIME_RESOURCE_GENERATORS) {
-            generator.generateClient(event);
-        }
-    }
-
-    public static void generateCommonRuntimeResourceMappings() {
-        for (IRuntimeModelGenerator<?> generator : RUNTIME_RESOURCE_GENERATORS) {
-            generator.generateCommon();
-        }
-    }
 }

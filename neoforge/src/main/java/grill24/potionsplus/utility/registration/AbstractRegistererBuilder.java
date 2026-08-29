@@ -1,7 +1,6 @@
 package grill24.potionsplus.utility.registration;
 
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.event.runtimeresource.GenerateRuntimeResourceInjectionsCacheEvent;
 import net.minecraft.core.Holder;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -19,7 +18,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererBuilder<T, B>> implements IRegisterer<T>, IModelGenerator<T>, IRecipeGenerator<T>, ILootGenerator<T>, IRuntimeModelGenerator<T> {
+public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererBuilder<T, B>> implements IRegisterer<T>, IModelGenerator<T>, IRecipeGenerator<T>, ILootGenerator<T> {
     protected Holder<T> holder;
 
     private String name;
@@ -28,7 +27,6 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
     protected IModelGenerator<T> modelGenerator;
     protected List<IRecipeGenerator<T>> recipeGenerators;
     protected ILootGenerator<T> lootGenerator;
-    protected IRuntimeModelGenerator<T> runtimeModelGenerator;
 
     public Holder<T> getHolder() {
         return this.holder;
@@ -83,16 +81,6 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
         return self();
     }
 
-    public B runtimeModelGenerator(Function<Supplier<Holder<T>>, IRuntimeModelGenerator<T>> runtimeModelGenerator) {
-        if (runtimeModelGenerator == null) {
-            this.runtimeModelGenerator = null;
-            return self();
-        }
-
-        this.runtimeModelGenerator = runtimeModelGenerator.apply(this::getHolder);
-        return self();
-    }
-
     public boolean hasRecipeGenerator() {
         return this.recipeGenerators != null;
     }
@@ -105,10 +93,6 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
         return this.lootGenerator != null;
     }
 
-    public boolean hasRuntimeModelGenerator() {
-        return this.runtimeModelGenerator != null;
-    }
-
     public IModelGenerator<T> getModelGenerator() {
         return this.modelGenerator;
     }
@@ -119,10 +103,6 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
 
     public ILootGenerator<T> getLootGenerator() {
         return this.lootGenerator;
-    }
-
-    public IRuntimeModelGenerator<T> getRuntimeModelGenerator() {
-        return this.runtimeModelGenerator;
     }
 
     @Override
@@ -175,20 +155,6 @@ public abstract class AbstractRegistererBuilder<T, B extends AbstractRegistererB
             return this.lootGenerator.getParamSet();
         }
         return LootContextParamSets.EMPTY;
-    }
-
-    @Override
-    public void generateClient(final GenerateRuntimeResourceInjectionsCacheEvent event) {
-        if (this.runtimeModelGenerator != null) {
-            this.runtimeModelGenerator.generateClient(event);
-        }
-    }
-
-    @Override
-    public void generateCommon() {
-        if (this.runtimeModelGenerator != null) {
-            this.runtimeModelGenerator.generateCommon();
-        }
     }
 
     protected abstract B self();
