@@ -244,22 +244,29 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
     // TODO: Avoid code duplication, only thing that changes from ShapelessRecipe here is the matchingCriteria
     @Override
     public boolean matches(RecipeInput recipeInput, Level level) {
-        boolean hasAllIngredients = true;
+        // Each recipe ingredient must be satisfied by a distinct input slot - otherwise a recipe that
+        // happens to require the same ingredient twice (e.g. from a generation bug) would degrade into
+        // "one of that ingredient, plus literally anything" since the same slot could satisfy every
+        // requirement for it.
+        boolean[] slotAlreadyMatched = new boolean[recipeInput.size()];
         for (PpIngredient ingredient : this.ingredients) {
             boolean hasIngredient = false;
             for (int i = 0; i < recipeInput.size(); i++) {
+                if (slotAlreadyMatched[i]) {
+                    continue;
+                }
                 ItemStack itemStack = recipeInput.getItem(i);
                 if (EffectComparison.matches(itemStack, ingredient.getItemStack(), matchingCriteria)) {
+                    slotAlreadyMatched[i] = true;
                     hasIngredient = true;
                     break;
                 }
             }
             if (!hasIngredient) {
-                hasAllIngredients = false;
-                break;
+                return false;
             }
         }
-        return hasAllIngredients;
+        return true;
     }
 
     @Override

@@ -294,7 +294,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     @Override
     public boolean canPlaceItem(int index, ItemStack stack) {
         boolean canPlace = super.canPlaceItem(index, stack);
-        return canPlace && isItemPotionIngredient(stack);
+        return canPlace && isItemPotionIngredient(stack) && !storedIngredients.contains(PpIngredient.of(stack.copyWithCount(1)));
     }
 
     public static boolean isItemPotionIngredient(ItemStack stack) {

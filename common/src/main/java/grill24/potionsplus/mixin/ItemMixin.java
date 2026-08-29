@@ -42,7 +42,9 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
                 }
             }
         } else {
-            PpIngredient ingredient = PpIngredient.of(stack);
+            // ingredientToRecipeMap is keyed on count-1 ingredient stacks - normalize or a held stack
+            // of >1 would never match and the recipe tooltip would silently never render.
+            PpIngredient ingredient = PpIngredient.of(stack.copyWithCount(1));
             List<RecipeHolder<BrewingCauldronRecipe>> recipes = Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getRecipesForIngredient(ingredient);
             for (RecipeHolder<BrewingCauldronRecipe> recipe : recipes) {
                 displayStacks.add(potions_plus$createTooltipFromBrewingRecipe(recipe));
