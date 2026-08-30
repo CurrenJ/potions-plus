@@ -4,7 +4,10 @@
   "compatibilityLevel": "JAVA_25",
   "package": "grill24.potionsplus.mixin.forge",
   "mixins": [
-    "EnchantmentHelperMixin"
+    "EnchantmentHelperMixin",
+    "BucketItemMixin",
+    "ItemEntityMixin",
+    "LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

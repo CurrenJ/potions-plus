@@ -44,7 +44,7 @@ public abstract class ItemEntityMixin extends Entity {
     @Shadow
     public abstract ItemStack getItem();
 
-    @Inject(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onItemPickup(Lnet/minecraft/world/entity/Entity;)V"))
+    @Inject(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onItemPickup(Lnet/minecraft/world/entity/item/ItemEntity;)V"))
     private void potionsplus$onItemPickedUp(Player player, CallbackInfo ci) {
         if (!(player instanceof ServerPlayer serverPlayer)) {
             return;

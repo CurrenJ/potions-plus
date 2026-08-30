@@ -1,4 +1,4 @@
-package grill24.potionsplus.mixin;
+package grill24.potionsplus.mixin.neoforge;
 
 import grill24.potionsplus.core.items.BrewingItems;
 import net.minecraft.core.BlockPos;

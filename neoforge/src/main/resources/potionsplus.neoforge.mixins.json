@@ -5,7 +5,8 @@
   "package": "grill24.potionsplus.mixin.neoforge",
   "mixins": [
     "NeoLivingEntityMixin",
-    "NeoItemEntityMixin"
+    "NeoItemEntityMixin",
+    "BucketItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

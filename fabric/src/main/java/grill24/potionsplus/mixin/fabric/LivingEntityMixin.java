@@ -7,6 +7,8 @@ import grill24.potionsplus.effect.ExplodingEffect;
 import grill24.potionsplus.effect.FallOfTheVoidEffect;
 import grill24.potionsplus.effect.FlyingTimeEffect;
 import grill24.potionsplus.effect.SoulMateEffect;
+import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.effect.SlipNSlideEffect;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceKey;
@@ -20,6 +22,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -148,5 +151,16 @@ public abstract class LivingEntityMixin extends Entity {
                 }
             }
         }
+    }
+
+    // ----- SlipNSlideEffect friction override (vanilla equivalent of NeoForge's NeoLivingEntityMixin) -----
+
+    @Redirect(method = "travelInAir", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;getFriction()F"))
+    private float potionsplus$getFriction(Block block) {
+        LivingEntity self = (LivingEntity) (Object) this;
+        if (self.hasEffect(MobEffects.SLIP_N_SLIDE)) {
+            return SlipNSlideEffect.getFriction(self.getEffect(MobEffects.SLIP_N_SLIDE).getAmplifier());
+        }
+        return block.getFriction();
     }
 }
