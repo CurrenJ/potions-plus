@@ -24,7 +24,6 @@ public class Items {
         HatItems.init(ITEMS::register);
         OreItems.init(ITEMS::register);
         BrewingItems.init(ITEMS::register);
-        FilterHopperUpgradeItems.init(ITEMS::register);
         DynamicIconItems.init(ITEMS::register);
     }
 

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "potionsplus:item/filter_hopper_upgrade_allow_armor"
-  }
-}

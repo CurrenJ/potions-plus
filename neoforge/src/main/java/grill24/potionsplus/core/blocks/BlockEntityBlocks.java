@@ -1,7 +1,6 @@
 package grill24.potionsplus.core.blocks;
 
 import grill24.potionsplus.block.*;
-import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
 import grill24.potionsplus.utility.registration.block.*;
@@ -35,8 +34,6 @@ public class BlockEntityBlocks {
     public static Holder<Block> PRECISION_DISPENSER;
     public static Holder<Block> CLOTHESLINE;
     public static Holder<Block> POTION_BEACON;
-
-    public static Holder<Block> SMALL_FILTER_HOPPER, LARGE_FILTER_HOPPER, HUGE_FILTER_HOPPER;
 
     public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
         BREWING_CAULDRON = RegistrationUtility.register(
@@ -161,55 +158,6 @@ public class BlockEntityBlocks {
                                 .unlockedBy("has_uranium_glass", has(OreBlocks.URANIUM_GLASS.value()))))
         ).getHolder();
         grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> POTION_BEACON, registerItem);
-
-        SMALL_FILTER_HOPPER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("small_filter_hopper")
-                        .blockFactory(SmallFilterHopperBlock::new)
-                        .properties(BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER))
-                        .modelGenerator(null) // Hand-made custom model json
-                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                                h -> ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, h.value())
-                                        .define('H', Items.HOPPER)
-                                        .define('C', Items.COMPARATOR)
-                                        .define('D', Items.REDSTONE)
-                                        .define('T', Items.REDSTONE_TORCH)
-                                        .define('S', Items.STONE)
-                                        .pattern("HCD")
-                                        .pattern("HTS")
-                                        .unlockedBy("has_hopper", has(Items.HOPPER)))))
-                .getHolder();
-        grill24.potionsplus.core.Items.registerBlockItem(SMALL_FILTER_HOPPER, registerItem);
-
-        LARGE_FILTER_HOPPER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("large_filter_hopper")
-                        .blockFactory(LargeFilterHopperBlock::new)
-                        .properties(BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER))
-                        .modelGenerator(null) // Hand-made custom model json
-                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                                h -> ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, h.value())
-                                        .define('H', SMALL_FILTER_HOPPER.value())
-                                        .define('D', Items.DIAMOND)
-                                        .define('G', Items.GOLD_INGOT)
-                                        .pattern("D")
-                                        .pattern("H")
-                                        .pattern("G")
-                                        .unlockedBy("has_hopper", has(SMALL_FILTER_HOPPER.value())))))
-                .getHolder();
-        grill24.potionsplus.core.Items.registerBlockItem(LARGE_FILTER_HOPPER, registerItem);
-
-        HUGE_FILTER_HOPPER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("huge_filter_hopper")
-                        .blockFactory(HugeFilterHopperBlock::new)
-                        .properties(BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER))
-                        .modelGenerator(null) // Hand-made custom model json
-                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                                h -> ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, h.value())
-                                        .define('H', LARGE_FILTER_HOPPER.value())
-                                        .define('U', OreItems.URANIUM_INGOT.value())
-                                        .define('D', Items.DIAMOND)
-                                        .pattern("U")
-                                        .pattern("H")
-                                        .pattern("D")
-                                        .unlockedBy("has_hopper", has(LARGE_FILTER_HOPPER.value())))))
-                .getHolder();
-        grill24.potionsplus.core.Items.registerBlockItem(HUGE_FILTER_HOPPER, registerItem);
     }
 
     public static Block[] toArray(List<Holder<Block>> blocks) {
