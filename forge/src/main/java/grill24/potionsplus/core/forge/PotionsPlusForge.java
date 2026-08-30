@@ -19,10 +19,9 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLModContainer;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -56,10 +55,10 @@ public class PotionsPlusForge {
         PotionBuilder.potionFactory = (name, effectSupplier) -> ForgeHolder.of(POTIONS.register(name, () -> new Potion(name, effectSupplier.get())));
     }
 
-    public PotionsPlusForge(FMLModContainer container) {
-        var bus = container.getModBusGroup();
+    public PotionsPlusForge(FMLJavaModLoadingContext context) {
+        var bus = context.getModBusGroup();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, PotionsPlusConfig.CONFIG_SPEC);
+        context.registerConfig(ModConfig.Type.SERVER, PotionsPlusConfig.CONFIG_SPEC);
 
         // Initialize common registration holders
         grill24.potionsplus.core.Advancements.init(register(TRIGGERS));

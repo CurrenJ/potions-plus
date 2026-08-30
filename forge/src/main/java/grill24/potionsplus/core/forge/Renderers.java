@@ -19,9 +19,11 @@ import grill24.potionsplus.particle.LunarBerryBushAmbientParticle;
 import grill24.potionsplus.particle.ParticleConfigurations;
 import grill24.potionsplus.particle.SmallLightningBoltParticle;
 import grill24.potionsplus.particle.StunStarsParticle;
+import grill24.potionsplus.item.tintsource.AnyPotionTintSource;
 import grill24.potionsplus.utility.ClientItemStacksTooltip;
 import grill24.potionsplus.utility.ItemStacksTooltip;
 import grill24.potionsplus.utility.ModInfo;
+import net.minecraft.client.color.item.ItemTintSources;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -29,6 +31,7 @@ import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEv
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 /**
  * Forge client-side renderer/particle/tooltip registration.
@@ -79,5 +82,22 @@ public class Renderers {
     public static void registerTooltipComponentFactories(final RegisterClientTooltipComponentFactoriesEvent event) {
         event.register(ItemStacksTooltip.class,
                 (tooltip) -> new ClientItemStacksTooltip(tooltip.items(), tooltip.hideUnknownPotionIngredients(), tooltip.renderItemDecorations()));
+    }
+
+    /**
+     * Client-only wiring that used to live in a second {@code @Mod} class. Forge de-duplicates
+     * {@code @Mod} classes by modid (first one wins), so a sibling {@code @Mod} entrypoint is never
+     * constructed — the client listeners and item-tint source must instead hang off this dist-gated
+     * subscriber (fired on the mod bus, after the renderer/particle events above but before model
+     * baking, which is when the item-tint codec is read).
+     */
+    @SubscribeEvent
+    public static void onClientSetup(final FMLClientSetupEvent event) {
+        grill24.potionsplus.event.forge.ForgeClientEventListeners.register();
+
+        // Item tint source: 26.1.2 replaced ColorProviderRegistry with data-driven ItemTintSource
+        // codecs. Forge has no item-tint event (RegisterColorHandlersEvent only covers Block and
+        // ColorResolvers), so put directly on the vanilla ID_MAPPER before model baking.
+        ItemTintSources.ID_MAPPER.put(AnyPotionTintSource.ID, AnyPotionTintSource.CODEC);
     }
 }
