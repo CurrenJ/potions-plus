@@ -142,20 +142,20 @@ public class BlockEntityBlocks {
                                 .pattern("GGG")
                                 .pattern("GNG")
                                 .pattern("OOO")
-                                .define('G', OreBlocks.URANIUM_GLASS.value())
+                                .define('G', Items.GLASS)
                                 .define('N', Items.NETHER_STAR)
                                 .define('O', Items.OBSIDIAN)
-                                .unlockedBy("has_uranium_glass", has(OreBlocks.URANIUM_GLASS.value()))))
+                                .unlockedBy("has_glass", has(Items.GLASS))))
                 .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                         ppId("potion_beacon_alternate"),
                         h -> ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, h.value())
                                 .pattern("GGG")
                                 .pattern("GBG")
                                 .pattern("OOO")
-                                .define('G', OreBlocks.URANIUM_GLASS.value())
+                                .define('G', Items.GLASS)
                                 .define('B', Items.BEACON)
                                 .define('O', Items.OBSIDIAN)
-                                .unlockedBy("has_uranium_glass", has(OreBlocks.URANIUM_GLASS.value()))))
+                                .unlockedBy("has_glass", has(Items.GLASS))))
         ).getHolder();
         grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> POTION_BEACON, registerItem);
     }

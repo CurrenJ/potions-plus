@@ -2,7 +2,6 @@ package grill24.potionsplus.event;
 
 import grill24.potionsplus.behaviour.ClotheslineBehaviour;
 import grill24.potionsplus.behaviour.MossBehaviour;
-import grill24.potionsplus.block.UraniumOreBlock;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -171,10 +170,5 @@ public class PlayerListeners {
                     new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos())
             );
         }
-    }
-
-    @SubscribeEvent
-    public static void onLeftClickBlock(final PlayerInteractEvent.LeftClickBlock event) {
-        UraniumOreBlock.tryLeftClickBlock(event);
     }
 }

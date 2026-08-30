@@ -24,7 +24,6 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 public class OreItems {
     public static Holder<Item> NETHERITE_REMNANT;
-    public static Holder<Item> RAW_URANIUM, URANIUM_INGOT;
     public static Holder<Item> SULFUR_SHARD, SULFURIC_ACID;
 
     /**
@@ -57,44 +56,6 @@ public class OreItems {
                                 .group("netherite_ingot")
                                 .unlockedBy("has_netherite_remnant", has(h.value()))))
                 ).getHolder();
-
-        RAW_URANIUM = RegistrationUtility.register(register, SimpleItemBuilder.createSimple("raw_uranium").properties(Items.properties().rarity(Rarity.UNCOMMON))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, ppId("raw_uranium_to_uranium_ingot_smelting"), h ->
-                        SimpleCookingRecipeBuilder.smelting(
-                                Ingredient.of(OreItems.RAW_URANIUM.value()),
-                                RecipeCategory.MISC,
-                                new ItemStack(OreItems.URANIUM_INGOT.value()),
-                                2.0F,
-                                100
-                        ).unlockedBy("has_raw_uranium", has(OreItems.RAW_URANIUM.value()))))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, ppId("raw_uranium_to_uranium_ingot_blasting"), h ->
-                        SimpleCookingRecipeBuilder.blasting(
-                                Ingredient.of(OreItems.RAW_URANIUM.value()),
-                                RecipeCategory.MISC,
-                                new ItemStack(OreItems.URANIUM_INGOT.value()),
-                                2.0F,
-                                50
-                        ).unlockedBy("has_raw_uranium", has(OreItems.RAW_URANIUM.value()))))
-        ).getHolder();
-
-        URANIUM_INGOT = RegistrationUtility.register(register, SimpleItemBuilder.createSimple("uranium_ingot").properties(Items.properties().rarity(Rarity.UNCOMMON))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, ppId("uranium_ore_to_uranium_ingot_smelting"), h ->
-                        SimpleCookingRecipeBuilder.smelting(
-                                Ingredient.of(Tags.Items.URANIUM_ORE),
-                                RecipeCategory.MISC,
-                                new ItemStack(h.value()),
-                                2.0F,
-                                100
-                        ).unlockedBy("has_uranium_ore", has(Tags.Items.URANIUM_ORE))))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder, ppId("uranium_ore_to_uranium_ingot_blasting"), h ->
-                        SimpleCookingRecipeBuilder.blasting(
-                                Ingredient.of(Tags.Items.URANIUM_ORE),
-                                RecipeCategory.MISC,
-                                new ItemStack(h.value()),
-                                2.0F,
-                                50
-                        ).unlockedBy("has_uranium_ore", has(Tags.Items.URANIUM_ORE))))
-        ).getHolder();
 
         SULFUR_SHARD = RegistrationUtility.register(register, SimpleItemBuilder.createSimple("sulfur_shard")).getHolder();
         SULFURIC_ACID = RegistrationUtility.register(register, SimpleItemBuilder.createSimple("sulfuric_acid")).getHolder();

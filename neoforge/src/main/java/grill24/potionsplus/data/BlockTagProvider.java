@@ -26,7 +26,6 @@ public class BlockTagProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_AXE).add(BlockEntityBlocks.CLOTHESLINE.value(), BlockEntityBlocks.HERBALISTS_LECTERN.value());
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.DENSE_DIAMOND_ORE.value(), OreBlocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), OreBlocks.REMNANT_DEBRIS.value(), OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.URANIUM_ORE.value(), OreBlocks.DEEPSLATE_URANIUM_ORE.value());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.SULFURIC_NETHER_QUARTZ_ORE.value());
 
         tag(Tags.Blocks.ORES).add(OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value(), OreBlocks.REMNANT_DEBRIS.value(), OreBlocks.DENSE_DIAMOND_ORE.value(), OreBlocks.DEEPSLATE_DENSE_DIAMOND_ORE.value());
@@ -54,9 +53,7 @@ public class BlockTagProvider extends BlockTagsProvider {
                         net.minecraft.world.level.block.Blocks.LAPIS_ORE,
                         net.minecraft.world.level.block.Blocks.DEEPSLATE_LAPIS_ORE,
                         net.minecraft.world.level.block.Blocks.REDSTONE_ORE,
-                        net.minecraft.world.level.block.Blocks.DEEPSLATE_REDSTONE_ORE,
-                        OreBlocks.URANIUM_ORE.value(),
-                        OreBlocks.DEEPSLATE_URANIUM_ORE.value());
+                        net.minecraft.world.level.block.Blocks.DEEPSLATE_REDSTONE_ORE);
 
         tag(grill24.potionsplus.core.Tags.Blocks.ORE_FLOWERS)
                 .add(FlowerBlocks.IRON_OXIDE_DAISY.value())

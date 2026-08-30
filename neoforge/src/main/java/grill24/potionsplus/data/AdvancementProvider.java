@@ -147,37 +147,6 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                 .requirements(AdvancementRequirements.allOf(List.of("acquire_sulfuric_acid")))
                 .save(saver, ppId("acquire_sulfuric_acid"), existingFileHelper);
 
-        AdvancementHolder acquireUraniumOre = Advancement.Builder.advancement()
-                .parent(sulfurShard)
-                .display(
-                        new ItemStack(OreItems.RAW_URANIUM),
-                        Component.translatable("advancements.potionsplus.acquire_uranium_ore.title"),
-                        Component.translatable("advancements.potionsplus.acquire_uranium_ore.description"),
-                        null,
-                        AdvancementType.TASK,
-                        true,
-                        true,
-                        false)
-                .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("acquire_raw_uranium", InventoryChangeTrigger.TriggerInstance.hasItems(OreItems.RAW_URANIUM.value()))
-                .requirements(AdvancementRequirements.allOf(List.of("acquire_raw_uranium")))
-                .save(saver, ppId("acquire_raw_uranium"), existingFileHelper);
-
-        AdvancementHolder acquireUraniumIngot = Advancement.Builder.advancement()
-                .parent(acquireUraniumOre)
-                .display(
-                        new ItemStack(OreItems.URANIUM_INGOT),
-                        Component.translatable("advancements.potionsplus.acquire_uranium_ingot.title"),
-                        Component.translatable("advancements.potionsplus.acquire_uranium_ingot.description"),
-                        null,
-                        AdvancementType.TASK,
-                        true,
-                        true,
-                        false)
-                .rewards(AdvancementRewards.Builder.experience(100))
-                .addCriterion("acquire_uranium_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(OreItems.URANIUM_INGOT.value()))
-                .requirements(AdvancementRequirements.allOf(List.of("acquire_uranium_ingot")))
-                .save(saver, ppId("acquire_uranium_ingot"), existingFileHelper);
     }
 
     private static void createSanguineAltarAdvancements(Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper, AdvancementHolder create_brewing_cauldron) {

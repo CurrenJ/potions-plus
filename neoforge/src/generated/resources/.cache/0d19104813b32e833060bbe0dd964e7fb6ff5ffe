@@ -1,4 +1,4 @@
-// 1.21.1	2026-08-30T11:33:05.1920864	Potions Plus item tags
+// 1.21.1	2026-08-30T12:05:47.1732802	Potions Plus item tags
 71df0d2d89dfbeaa0211e65f5c247c52ffd9763f data/potionsplus/tags/item/food_ingredients_common.json
 a708c20dadf7739b7104a7bb74daf153f52496c0 data/potionsplus/tags/item/food_ingredients_rare.json
 3bb061b6312297ca069227fd75f258fe891c158a data/potionsplus/tags/item/food_ingredients_uncommon.json
@@ -9,4 +9,3 @@ c39e9b524c83b8a4f688f1994644bd5f7615a0b4 data/potionsplus/tags/item/potion_durat
 9a217f499c5f76e32966026e9e3bef0f7c689002 data/potionsplus/tags/item/remnant_debris.json
 3e5116462b35750f484c0043429bbecd3056813c data/potionsplus/tags/item/tier_0_potion_ingredients.json
 bdbf4e6ab866b050900e65cc682b1f5e91ad0352 data/potionsplus/tags/item/tier_1_potion_ingredients.json
-fa37c13b9afc5a7caeaca3530b81025070a085ee data/potionsplus/tags/item/uranium_ore.json

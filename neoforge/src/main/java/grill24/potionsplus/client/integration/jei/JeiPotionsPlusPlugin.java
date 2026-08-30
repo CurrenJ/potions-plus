@@ -54,7 +54,6 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         registerDescription(registration, BlockEntityBlocks.CLOTHESLINE.value()); // Clothesline description
 
         // Register descriptions for miscellaneous items and blocks
-        registerDescription(registration, DecorationBlocks.DECORATIVE_FIRE.value()); // Decorative Fire description
         registerDescription(registration, BrewingItems.MOSS.value()); // Moss description
         registerDescription(registration, BrewingItems.SALT.value()); // Salt
         registerDescription(registration, BrewingItems.WORMROOT.value()); // Wormroot

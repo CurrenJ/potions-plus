@@ -1,7 +1,6 @@
 package grill24.potionsplus.core;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
-import grill24.potionsplus.block.PotionsPlusOreBlock;
 import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;

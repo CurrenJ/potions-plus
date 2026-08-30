@@ -39,7 +39,6 @@ public class Tags {
         public static final TagKey<Item> ORE_FLOWERS_COMMON = tag("ore_flowers_common");
         public static final TagKey<Item> ORE_FLOWERS_RARE = tag("ore_flowers_rare");
 
-        public static final TagKey<Item> URANIUM_ORE = tag("uranium_ore");
         public static final TagKey<Item> REMNANT_DEBRIS = tag("remnant_debris");
 
         public static final TagKey<Item> EDIBLE_REWARDS = tag("edible_rewards");

@@ -112,17 +112,6 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
                 .save(recipeConsumer, ppId("all_potions_duration_increase"));
 
-        // Amplification Increase [1 level] [Recipe is constant in all worlds]
-        new BrewingCauldronRecipeBuilder()
-                .result(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION))
-                .ingredients(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION), new ItemStack(OreItems.URANIUM_INGOT.value()))
-                .processingTime(30)
-                .amplifierToAdd(1)
-                .potionMatchingCriteria(upgradePotionMatchingCriteria)
-                .isSeededRuntimeRecipe()
-                .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
-                .save(recipeConsumer, ppId("amplification_testing"));
-
         // Merge Potions
         ItemStack mergedPotionResult = new ItemStack(net.minecraft.world.item.Items.POTION);
         PUtil.setCustomEffects(mergedPotionResult, List.of(new MobEffectInstance(MobEffects.ANY_POTION), new MobEffectInstance(MobEffects.ANY_OTHER_POTION)));

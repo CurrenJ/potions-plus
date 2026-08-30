@@ -113,11 +113,6 @@ public class ItemTagProvider extends ItemTagsProvider {
                 OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value().asItem()
         );
 
-        tag(Tags.Items.URANIUM_ORE).add(
-                OreBlocks.URANIUM_ORE.value().asItem(),
-                OreBlocks.DEEPSLATE_URANIUM_ORE.value().asItem()
-        );
-
     }
 
     @Override

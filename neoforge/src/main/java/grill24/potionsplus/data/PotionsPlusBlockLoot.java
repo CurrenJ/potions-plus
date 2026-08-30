@@ -38,9 +38,6 @@ public class PotionsPlusBlockLoot extends BlockLootSubProvider {
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
         RegistrationUtility.generateLootTables(ModInfo.MOD_ID, paramSet, this, consumer);
 
-        consumer.accept(OreBlocks.URANIUM_ORE.value().getLootTable(), createOreDrop(OreBlocks.URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
-        consumer.accept(OreBlocks.DEEPSLATE_URANIUM_ORE.value().getLootTable(), createOreDrop(OreBlocks.DEEPSLATE_URANIUM_ORE.value(), OreItems.RAW_URANIUM.value()));
-
         consumer.accept(
                 OreBlocks.SULFURIC_NETHER_QUARTZ_ORE.value().getLootTable(),
                 LootTable.lootTable()

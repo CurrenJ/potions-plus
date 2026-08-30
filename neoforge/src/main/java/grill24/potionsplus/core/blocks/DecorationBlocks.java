@@ -22,7 +22,7 @@ import static grill24.potionsplus.utility.Utility.ppId;
 public class DecorationBlocks {
     public static Holder<Block> COOBLESTONE, ICICLE;
     public static Holder<Block> UNSTABLE_BLOCK, UNSTABLE_MOLTEN_DEEPSLATE, UNSTABLE_DEEPSLATE, UNSTABLE_MOLTEN_BLACKSTONE, UNSTABLE_BLACKSTONE;
-    public static Holder<Block> LAVA_GEYSER, DECORATIVE_FIRE;
+    public static Holder<Block> LAVA_GEYSER;
 
 
     public static void init(BiFunction<String, Supplier<Block>, Holder<Block>> registerBlock, BiFunction<String, Supplier<Item>, Holder<Item>> registerItem) {
@@ -70,13 +70,6 @@ public class DecorationBlocks {
                         .modelGenerator(FaceAttachedBlockModelGenerator::new))
                 .getHolder();
         Items.registerBlockItemWithAutoModel(() -> LAVA_GEYSER, registerItem);
-
-        DECORATIVE_FIRE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("decorative_fire")
-                        .blockFactory(prop -> new DecorativeFireBlock(BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).noCollission().instabreak().lightLevel((state) -> 15).sound(SoundType.WOOL)))
-                        .lootGenerator(null) // Hand-made loot table
-                        .modelGenerator(null)) // Hand-made model
-                .getHolder();
-        Items.registerBlockItemWithTexture(DECORATIVE_FIRE, registerItem, mc("block/fire_0"));
     }
 
 }
