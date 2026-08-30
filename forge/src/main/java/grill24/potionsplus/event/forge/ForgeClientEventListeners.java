@@ -8,10 +8,8 @@ import grill24.potionsplus.event.ItemListenersGame;
 import grill24.potionsplus.item.WeightDataComponent;
 import grill24.potionsplus.item.tooltip.BrewingTooltips;
 import grill24.potionsplus.item.tooltip.PotionEffectTooltips;
-import grill24.potionsplus.utility.ClientItemStacksTooltip;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.DelayedEvents;
-import grill24.potionsplus.utility.ItemStacksTooltip;
 import grill24.potionsplus.utility.TickHandler;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -20,7 +18,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -39,7 +36,6 @@ public final class ForgeClientEventListeners {
 
     public static void register() {
         registerTicks();
-        registerTooltipComponentFactory();
         registerTooltip();
         registerUseItem();
     }
@@ -55,13 +51,6 @@ public final class ForgeClientEventListeners {
         // RenderFrameEvent.Post equivalent (Forge has no RenderFrameEvent; use RenderTickEvent.Post).
         TickEvent.RenderTickEvent.Post.BUS.addListener((TickEvent.RenderTickEvent.Post event) ->
                 ClientTickHandler.renderTick(event.timer().getGameTimeDeltaPartialTick(true)));
-    }
-
-    // ----- ClientTooltipComponentFactoriesListeners -----
-
-    private static void registerTooltipComponentFactory() {
-        RegisterClientTooltipComponentFactoriesEvent.BUS.addListener((RegisterClientTooltipComponentFactoriesEvent event) ->
-                event.register(ItemStacksTooltip.class, (tooltip) -> new ClientItemStacksTooltip(tooltip.items(), tooltip.hideUnknownPotionIngredients(), tooltip.renderItemDecorations())));
     }
 
     // ----- NeoItemListeners.onToolTipEvent -----

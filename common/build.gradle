@@ -25,10 +25,18 @@ dependencies {
 
     // Architectury injectables provides @ExpectPlatform annotations only.
     implementation "dev.architectury:architectury-injectables:1.0.13"
+
+    // JEI integration is optional at runtime (see client/integration/jei); the shared plugin lives in
+    // common, so common compiles against the platform-agnostic JEI API only.
+    compileOnly "mezz.jei:jei-26.1.2-common-api:$rootProject.jei_version"
 }
 
 repositories {
     mavenCentral()
+    maven {
+        name = 'BlameJared'
+        url = 'https://maven.blamejared.com'
+    }
 }
 
 dependencies {
