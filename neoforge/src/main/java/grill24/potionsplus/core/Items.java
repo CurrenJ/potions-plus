@@ -21,7 +21,7 @@ public class Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, ModInfo.MOD_ID);
 
     static {
-        HatItems.init(ITEMS::register);
+        WreathItem.init(ITEMS::register);
         OreItems.init(ITEMS::register);
         BrewingItems.init(ITEMS::register);
         DynamicIconItems.init(ITEMS::register);

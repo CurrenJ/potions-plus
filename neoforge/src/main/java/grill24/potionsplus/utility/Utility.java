@@ -16,7 +16,6 @@ import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.*;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.Component;
@@ -41,7 +40,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootTable;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -49,7 +47,6 @@ import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.*;
 import java.util.List;
-import java.util.function.Function;
 
 public class Utility {
     // String utils
@@ -163,24 +160,6 @@ public class Utility {
             points[i] = new Point((int) x, (int) y);
         }
         return points;
-    }
-
-    public static ResourceKey<LootTable>[] enumerateLootTableKeys(ResourceLocation location, int count) {
-        ResourceKey<LootTable>[] keys = new ResourceKey[count];
-        for (int i = 0; i < count; i++) {
-            ResourceKey<LootTable> key = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(location.getNamespace(), location.getPath() + "_" + i));
-            keys[i] = key;
-        }
-        return keys;
-    }
-
-    public static ResourceLocation[] enumerateResourceLocations(int count, Function<Integer, ResourceLocation> locationFunction) {
-        ResourceLocation[] keys = new ResourceLocation[count];
-        for (int i = 0; i < count; i++) {
-            ResourceLocation key = locationFunction.apply(i);
-            keys[i] = key;
-        }
-        return keys;
     }
 
     /**

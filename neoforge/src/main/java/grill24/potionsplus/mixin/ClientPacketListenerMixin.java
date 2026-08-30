@@ -1,6 +1,6 @@
 package grill24.potionsplus.mixin;
 
-import grill24.potionsplus.core.items.HatItems;
+import grill24.potionsplus.core.items.WreathItem;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -14,8 +14,8 @@ public abstract class ClientPacketListenerMixin {
     @Inject(method = "findTotem", at = @At("TAIL"), cancellable = true)
     private static void findTotem(Player player, CallbackInfoReturnable<ItemStack> cir) {
         for (ItemStack itemStack : player.getArmorSlots()) {
-            if(itemStack.is(HatItems.WREATH.value())) {
-                cir.setReturnValue(new ItemStack(HatItems.WREATH.value()));
+            if(itemStack.is(WreathItem.WREATH.value())) {
+                cir.setReturnValue(new ItemStack(WreathItem.WREATH.value()));
             }
         }
     }

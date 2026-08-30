@@ -1,12 +1,10 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.LootTables;
-import grill24.potionsplus.core.items.HatItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -61,33 +59,5 @@ public class PotionsPlusRewardLoot implements LootTableSubProvider {
                                         .setRolls(ConstantValue.exactly(1.0F))
                         )
         );
-
-        // Ore Hats
-        generateOreHats(consumer, HatItems.COPPER_ORE_HATS, LootTables.COPPER_ORE_HATS);
-        generateOreHats(consumer, HatItems.COAL_ORE_HATS, LootTables.COAL_ORE_HATS);
-        generateOreHats(consumer, HatItems.IRON_ORE_HATS, LootTables.IRON_ORE_HATS);
-        generateOreHats(consumer, HatItems.GOLD_ORE_HATS, LootTables.GOLD_ORE_HATS);
-        generateOreHats(consumer, HatItems.DIAMOND_ORE_HATS, LootTables.DIAMOND_ORE_HATS);
-        generateOreHats(consumer, HatItems.EMERALD_ORE_HATS, LootTables.EMERALD_ORE_HATS);
-    }
-
-    @SafeVarargs
-    protected final void generateOreHats(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, Holder<Item>[] hatItems, ResourceKey<LootTable>... lootTableKeys) {
-        if (hatItems.length != lootTableKeys.length) {
-            throw new IllegalArgumentException("hatItems and lootTableKeys must be the same length");
-        }
-
-        for (int i = 0; i < hatItems.length; i++) {
-            consumer.accept(
-                    lootTableKeys[i],
-                    LootTable.lootTable()
-                            .withPool(
-                                    LootPool.lootPool()
-                                            .setRolls(ConstantValue.exactly(1))
-                                            .add(LootItem.lootTableItem(hatItems[i].value()))
-                            )
-            );
-        }
-
     }
 }
