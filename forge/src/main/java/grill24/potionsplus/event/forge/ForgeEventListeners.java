@@ -35,6 +35,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -43,6 +44,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PotionItem;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.util.Result;
@@ -213,9 +215,19 @@ public final class ForgeEventListeners {
 
         EntityJoinLevelEvent.BUS.addListener((EntityJoinLevelEvent event) -> {
             if (event.getEntity() instanceof ServerPlayer player) {
+                // Skip sending a fresh player's (genuinely empty) known-recipe list: Forge's
+                // network stack chokes decoding a 1-byte custom payload (just the VarInt 0 list
+                // count) with an IndexOutOfBoundsException, disconnecting the client on world
+                // join. The handler already no-ops on an empty list, so omitting the send is a
+                // no-op for behavior and sidesteps the crash.
+                List<CustomPacketPayload> rest = new ArrayList<>();
+                List<ResourceKey<Recipe<?>>> knownRecipes = SavedData.instance.getData(player).getKnownRecipeKeys();
+                if (!knownRecipes.isEmpty()) {
+                    rest.add(new ClientboundSyncKnownBrewingRecipesPacket(knownRecipes));
+                }
                 PacketNetwork.sendToPlayers(player,
-                        new ClientboundSyncKnownBrewingRecipesPacket(SavedData.instance.getData(player).getKnownRecipeKeys()),
-                        new CustomPacketPayload[]{new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos())}
+                        new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos()),
+                        rest.toArray(new CustomPacketPayload[0])
                 );
             }
         });
