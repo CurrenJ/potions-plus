@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "compatibilityLevel": "JAVA_25",
+  "package": "grill24.potionsplus.mixin.forge",
+  "mixins": [
+    "EnchantmentHelperMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "potionsplus.refmap.json"
+}

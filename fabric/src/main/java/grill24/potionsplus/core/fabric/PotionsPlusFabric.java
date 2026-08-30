@@ -79,6 +79,12 @@ public class PotionsPlusFabric implements ModInitializer {
         LootItemFunctions.init();
         NumberProviders.init();
         CreativeModeTabs.init();
+
+        // 10. Network packets (server-side: serverbound handlers + clientbound codecs).
+        Packets.registerServer();
+
+        // 11. Server-side event listeners (commands, ticks, death/attributes, interactions, potion stack size).
+        grill24.potionsplus.event.fabric.FabricEventListeners.register();
     }
 
     private static <T> BiFunction<String, Supplier<T>, Holder<T>> registrar(Registry<T> registry) {

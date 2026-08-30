@@ -106,6 +106,12 @@ public class PotionsPlusForge {
         NumberProviders.NUMBER_PROVIDERS.register(bus);
 
         CreativeModeTabs.CREATIVE_MODE_TABS.register(bus);
+
+        // Network packets (channel built once; runs on both dists via the @Mod constructor).
+        Packets.register();
+
+        // Server-side event listeners (advancements, effects, attributes, commands, ticks, players, potion stack size).
+        grill24.potionsplus.event.forge.ForgeEventListeners.register();
     }
 
     private static <T> BiFunction<String, Supplier<T>, Holder<T>> register(DeferredRegister<T> register) {

@@ -25,3 +25,6 @@ mandatory = true
 versionRange = "${mod_minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
+
+[[mixins]]
+config = "potionsplus.forge.mixins.json"

@@ -1,0 +1,105 @@
+package grill24.potionsplus.core.forge;
+
+import grill24.potionsplus.network.*;
+import grill24.potionsplus.network.forge.ForgePacketContext;
+import grill24.potionsplus.utility.ModInfo;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
+import net.minecraftforge.network.Channel;
+import net.minecraftforge.network.ChannelBuilder;
+
+/**
+ * Forge packet registration hub. Forge 26.1.2 has its own {@code net.minecraftforge.network} API
+ * (no {@code RegisterPayloadHandlersEvent}/{@code PayloadRegistrar} — those are NeoForge-only); it
+ * uses a {@link ChannelBuilder} + {@link Channel} with the {@code payloadChannel()} variant.
+ */
+public class Packets {
+    public static Channel<CustomPacketPayload> CHANNEL;
+
+    public static void register() {
+        CHANNEL = ChannelBuilder.named(Identifier.fromNamespaceAndPath(ModInfo.MOD_ID, "main"))
+                .networkProtocolVersion(1)
+                .optional()
+                .payloadChannel()
+                .play()
+
+                // ----- Serverbound Packets -----
+
+                .serverbound()
+                .add(
+                        ServerboundConstructClotheslinePacket.TYPE,
+                        playCodec(ServerboundConstructClotheslinePacket.STREAM_CODEC),
+                        (pkt, ctx) -> ServerboundConstructClotheslinePacket.ServerPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                )
+
+                // ----- Clientbound Packets -----
+
+                .clientbound()
+                .add(
+                        ClientboundBlockEntityCraftRecipePacket.TYPE,
+                        playCodec(ClientboundBlockEntityCraftRecipePacket.STREAM_CODEC),
+                        (pkt, ctx) -> ClientboundBlockEntityCraftRecipePacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                )
+                .add(
+                        ClientboundSanguineAltarConversionStatePacket.TYPE,
+                        playCodec(ClientboundSanguineAltarConversionStatePacket.STREAM_CODEC),
+                        (pkt, ctx) -> ClientboundSanguineAltarConversionStatePacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                )
+                .add(
+                        ClientboundSanguineAltarConversionProgressPacket.TYPE,
+                        playCodec(ClientboundSanguineAltarConversionProgressPacket.STREAM_CODEC),
+                        (pkt, ctx) -> ClientboundSanguineAltarConversionProgressPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                )
+                .add(
+                        ClientboundImpulsePlayerPacket.TYPE,
+                        playCodec(ClientboundImpulsePlayerPacket.STREAM_CODEC),
+                        (pkt, ctx) -> ClientboundImpulsePlayerPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                )
+                .add(
+                        ClientboundDisplayAlertWithItemStackName.TYPE,
+                        playCodec(ClientboundDisplayAlertWithItemStackName.STREAM_CODEC),
+                        (pkt, ctx) -> ClientboundDisplayAlertWithItemStackName.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                )
+                .add(
+                        ClientboundDisplayAlertWithParameter.TYPE,
+                        playCodec(ClientboundDisplayAlertWithParameter.STREAM_CODEC),
+                        (pkt, ctx) -> ClientboundDisplayAlertWithParameter.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                )
+                .add(
+                        ClientboundAcquiredBrewingRecipeKnowledgePacket.TYPE,
+                        playCodec(ClientboundAcquiredBrewingRecipeKnowledgePacket.STREAM_CODEC),
+                        (pkt, ctx) -> ClientboundAcquiredBrewingRecipeKnowledgePacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                )
+                .add(
+                        ClientboundSyncKnownBrewingRecipesPacket.TYPE,
+                        playCodec(ClientboundSyncKnownBrewingRecipesPacket.STREAM_CODEC),
+                        (pkt, ctx) -> ClientboundSyncKnownBrewingRecipesPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                )
+                .add(
+                        ClientboundSyncPairedAbyssalTrove.TYPE,
+                        playCodec(ClientboundSyncPairedAbyssalTrove.STREAM_CODEC),
+                        (pkt, ctx) -> ClientboundSyncPairedAbyssalTrove.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                )
+                .add(
+                        ClientboundDisplayAlert.TYPE,
+                        playCodec(ClientboundDisplayAlert.STREAM_CODEC),
+                        (pkt, ctx) -> ClientboundDisplayAlert.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                )
+
+                .build();
+    }
+
+    /**
+     * Forge's {@code NetworkProtocol.PLAY} is typed {@code NetworkProtocol<RegistryFriendlyByteBuf>}, so
+     * {@code PayloadFlow.add} expects a {@code StreamCodec<RegistryFriendlyByteBuf, MSG>}. Several common
+     * packets declare their codec over the wider {@code ByteBuf} buffer type; that codec still encodes and
+     * decodes a {@code RegistryFriendlyByteBuf} at runtime (it is a {@code ByteBuf}), so the narrowing cast
+     * is safe.
+     */
+    @SuppressWarnings("unchecked")
+    private static <T extends CustomPacketPayload> StreamCodec<RegistryFriendlyByteBuf, T> playCodec(StreamCodec<? super RegistryFriendlyByteBuf, T> codec) {
+        return (StreamCodec<RegistryFriendlyByteBuf, T>) codec;
+    }
+}

@@ -19,6 +19,9 @@
     ]
   },
   "accessWidener": "potionsplus.accesswidener",
+  "mixins": [
+    "potionsplus.fabric.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.19.1",
     "minecraft": "${mod_fabric_minecraft_version}",
