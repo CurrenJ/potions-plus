@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "entries": [
+    "potionsplus:wormroot_loot_modifier",
+    "potionsplus:add_mob_effects_loot_modifier"
+  ]
+}

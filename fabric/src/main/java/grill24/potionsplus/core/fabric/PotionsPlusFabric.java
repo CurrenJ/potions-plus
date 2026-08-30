@@ -85,6 +85,12 @@ public class PotionsPlusFabric implements ModInitializer {
 
         // 11. Server-side event listeners (commands, ticks, death/attributes, interactions, potion stack size).
         grill24.potionsplus.event.fabric.FabricEventListeners.register();
+
+        // 12. Clothesline item-storage capability (fabric-transfer-api-v1), global loot modifiers
+        //     (fabric-loot-api-v3 MODIFY_DROPS), and lunar berry bush biome modifiers.
+        Capabilities.register();
+        LootModifiers.register();
+        BiomeModifiers.register();
     }
 
     private static <T> BiFunction<String, Supplier<T>, Holder<T>> registrar(Registry<T> registry) {

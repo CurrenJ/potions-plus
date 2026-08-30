@@ -2,6 +2,7 @@ package grill24.potionsplus.core.forge;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
+import grill24.potionsplus.config.forge.PotionsPlusConfig;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.forge.util.ForgeHolder;
 import grill24.potionsplus.core.potion.PotionBuilder;
@@ -18,7 +19,9 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLModContainer;
 import net.minecraftforge.registries.DeferredRegister;
 import org.jetbrains.annotations.Nullable;
@@ -55,6 +58,8 @@ public class PotionsPlusForge {
 
     public PotionsPlusForge(FMLModContainer container) {
         var bus = container.getModBusGroup();
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, PotionsPlusConfig.CONFIG_SPEC);
 
         // Initialize common registration holders
         grill24.potionsplus.core.Advancements.init(register(TRIGGERS));
@@ -94,6 +99,7 @@ public class PotionsPlusForge {
         MOB_EFFECTS.register(bus);
         POTIONS.register(bus);
         Sounds.SOUNDS.register(bus);
+        LootModifiers.LOOT_MODIFIERS.register(bus);
         TRIGGERS.register(bus);
         BLOCK_PREDICATE_TYPES.register(bus);
         CommandArgumentTypes.COMMAND_ARGUMENT_TYPES.register(bus);
@@ -112,6 +118,9 @@ public class PotionsPlusForge {
 
         // Server-side event listeners (advancements, effects, attributes, commands, ticks, players, potion stack size).
         grill24.potionsplus.event.forge.ForgeEventListeners.register();
+
+        // Clothesline IItemHandler capability (attached externally, mirroring the NeoForge Capabilities hub).
+        Capabilities.register();
     }
 
     private static <T> BiFunction<String, Supplier<T>, Holder<T>> register(DeferredRegister<T> register) {

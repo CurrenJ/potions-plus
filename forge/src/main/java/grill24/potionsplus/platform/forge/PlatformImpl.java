@@ -11,6 +11,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.loading.FMLLoader;
+import grill24.potionsplus.config.forge.PotionsPlusConfig;
 
 public class PlatformImpl {
     public static boolean isClient() {
@@ -22,25 +23,35 @@ public class PlatformImpl {
     }
 
     public static Vec3 getChorusFruitTeleportTarget(LivingEntity entity, ItemStack stack, double x, double y, double z) {
-        // Stub: Forge chorus-fruit teleport event hook lands in Phase 5.
+        // NeoForge fires EntityTeleportEvent.ItemConsumption here for third-party interop; potionsplus
+        // itself has no subscriber for it (Phase 4 confirmed the mirror ServerPlayerHeldItemChangedEvent
+        // is dead code), so a plain passthrough is behaviorally identical for this mod.
         return new Vec3(x, y, z);
     }
 
     public static void onServerPlayerHeldItemChanged(MinecraftServer server, ServerPlayer player, ItemStack previousItem, ItemStack newItem) {
-        // Stub: Forge held-item-changed event wiring lands in Phase 5.
+        // No-op: NeoForge posts a custom event here with zero subscribers (see above).
     }
 
     public static void fireCropGrowPost(Level level, BlockPos pos, BlockState state) {
-        // Stub: Forge crop-grow event wiring lands in Phase 5.
+        // No-op: NeoForge fires BlockEvent.CropGrowEvent.Post here for third-party interop only.
     }
 
     public static int getPotionDrinkTimeTicks() {
-        // Stub: Forge server config lands in Phase 5; return the NeoForge default.
-        return 16;
+        // Recipe building can run during datagen, before the server config is loaded - fall back to
+        // the configured default in that case rather than letting ForgeConfigSpec throw.
+        try {
+            return PotionsPlusConfig.CONFIG.potionDrinkTimeTicks.get();
+        } catch (IllegalStateException e) {
+            return PotionsPlusConfig.CONFIG.potionDrinkTimeTicks.getDefault();
+        }
     }
 
     public static int getPotionDrinkCooldownTimeTicks() {
-        // Stub: Forge server config lands in Phase 5; return the NeoForge default.
-        return 0;
+        try {
+            return PotionsPlusConfig.CONFIG.potionDrinkCooldownTimeTicks.get();
+        } catch (IllegalStateException e) {
+            return PotionsPlusConfig.CONFIG.potionDrinkCooldownTimeTicks.getDefault();
+        }
     }
 }
