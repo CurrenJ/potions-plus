@@ -23,6 +23,7 @@
   },
   "accessWidener": "potionsplus.accesswidener",
   "mixins": [
+    "potionsplus.mixins.json",
     "potionsplus.fabric.mixins.json"
   ],
   "depends": {

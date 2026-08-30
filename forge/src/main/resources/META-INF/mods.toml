@@ -27,4 +27,7 @@ ordering = "NONE"
 side = "BOTH"
 
 [[mixins]]
+config = "potionsplus.mixins.json"
+
+[[mixins]]
 config = "potionsplus.forge.mixins.json"

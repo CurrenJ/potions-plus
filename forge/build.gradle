@@ -36,11 +36,23 @@ repositories {
     }
 }
 
+sourceSets {
+    testmod {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+        // Platform-agnostic game test logic lives in common/ so all three loaders can share it.
+        java.srcDir(project(':common').file('src/testmod/java'))
+    }
+}
+
 dependencies {
     forge "net.minecraftforge:forge:$rootProject.minecraft_version-$rootProject.forge_version"
 
     common(project(path: ':common')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionForge')
+
+    // Game tests need the compiled main classes, not just the compile classpath.
+    testmodImplementation sourceSets.main.output
 }
 
 // Forge's dev runtime pins Mixin to `dev.architectury:mixin-patched` (Architectury's fork, resolved
@@ -107,8 +119,13 @@ tasks.named('assemble') {
 // two separate dirs, Forge's SecureModuleFinder unions them into a `union:` URL; ClasspathLocator
 // can't turn that into a valid module name (empty name) and FML dies at bootstrap. Merging the
 // resources output into the classes dir means :forge:runClient sees one entry per module.
+// testmod needs the identical treatment for :forge:runGametest - same "Invalid module name: ''"
+// crash in ClasspathLocator.scanMods, just for testmod's own classes/resources split instead.
 sourceSets {
     main {
+        output.resourcesDir = output.classesDirs.singleFile
+    }
+    testmod {
         output.resourcesDir = output.classesDirs.singleFile
     }
 }
@@ -149,6 +166,17 @@ tasks.withType(JavaExec).matching { it.name.startsWith('run') }.configureEach {
 }
 
 loom {
+    // Without this, Loom only associates sourceSets.main with the mod's class roots, so FML's
+    // per-mod classloader never sees testmod's classes and @Mod.EventBusSubscriber-annotated classes
+    // in it silently never fire - even though they're on the JVM classpath (same Architectury Loom
+    // "MOD_CLASSES only from main" pitfall NeoForge's testmod hits; see modding-guide 18-game-tests.md).
+    mods {
+        potionsplus {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.testmod
+        }
+    }
+
     runs {
         // Forge keeps its datagen on the client run with --output; NeoForge remains the source of
         // truth for generated resources (Phase 7), so this mirrors apt-ores' minimal setup.
@@ -161,9 +189,23 @@ loom {
 
             runDir "build/datagen"
         }
+
+        // Headless game test server, mirroring :neoforge:runGametest - Forge's own userdev
+        // config.json defines a "gameTestServer" run template identical in shape to NeoForge's
+        // (--launchTarget forge_userdev_server_gametest, main class net.minecraft.gametest.Main),
+        // verified by inspecting forge-26.1.2-64.1.0-userdev.jar's config.json directly.
+        // Whether any tests actually run is unverified - see ForgeGameTestRegistration's javadoc.
+        gametest {
+            environment "gameTestServer"
+            forgeTemplate "gameTestServer"
+            source sourceSets.testmod
+            name "Game Test Server"
+            runDir "build/gametest"
+        }
     }
 }
 
 // Custom run dirs are not created automatically before the run task executes, unlike the default
-// "run" dir, so a fresh checkout would fail its first runData with "working directory does not exist".
+// "run" dir, so a fresh checkout would fail its first runData/runGametest with "working directory does not exist".
 file("build/datagen").mkdirs()
+file("build/gametest").mkdirs()

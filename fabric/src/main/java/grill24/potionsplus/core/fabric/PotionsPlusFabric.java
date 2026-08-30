@@ -91,6 +91,10 @@ public class PotionsPlusFabric implements ModInitializer {
         Capabilities.register();
         LootModifiers.register();
         BiomeModifiers.register();
+
+        // 13. Server-started hook: world seed capture + runtime recipe injection (seeded brewing
+        //     cauldron recipes, sanguine altar recipes).
+        ServerLifecycleListeners.register();
     }
 
     private static <T> BiFunction<String, Supplier<T>, Holder<T>> registrar(Registry<T> registry) {
