@@ -32,21 +32,6 @@ public class PotionsPlusRewardLoot implements LootTableSubProvider {
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
         List<Holder.Reference<Potion>> allPotions = BuiltInRegistries.POTION.holders().toList();
-        int aridCaveSuspiciousSandWeightScalar = 1000;
-        LootPool.Builder aridCaveSuspiciousSandBuilder = LootPool.lootPool();
-        potions(allPotions, aridCaveSuspiciousSandWeightScalar, aridCaveSuspiciousSandBuilder);
-        consumer.accept(
-                LootTables.ARID_CAVE_SUSPICIOUS_SAND,
-                LootTable.lootTable()
-                        .withPool(
-                                aridCaveSuspiciousSandBuilder
-                                        .setRolls(ConstantValue.exactly(1.0F))
-                                        .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(20 * aridCaveSuspiciousSandWeightScalar))
-                                        .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(6 * aridCaveSuspiciousSandWeightScalar))
-                                        .add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(4 * aridCaveSuspiciousSandWeightScalar))
-                                        .add(LootItem.lootTableItem(Items.EMERALD).setWeight(3 * aridCaveSuspiciousSandWeightScalar))
-                        )
-        );
 
         // All Potions
         LootPool.Builder potionsBuilder = LootPool.lootPool();

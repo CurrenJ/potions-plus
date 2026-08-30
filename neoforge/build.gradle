@@ -46,9 +46,6 @@ neoForge {
         compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
         // at runtime, use the full JEI jar for NeoForge
         runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
-
-        implementation("com.github.glitchfiend:GlitchCore-neoforge:${minecraft_version}-${glitchcore_version}")
-        implementation("com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}")
     }
 
     accessTransformers

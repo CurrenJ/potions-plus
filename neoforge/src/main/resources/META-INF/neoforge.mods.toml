@@ -85,20 +85,6 @@ versionRange="${minecraft_version_range}"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.${mod_id}]]
-modId="glitchcore"
-required=true
-versionRange="[${glitchcore_version},)"
-ordering="AFTER"
-side="BOTH"
-
-[[dependencies.${mod_id}]]
-modId="terrablender"
-required=true
-versionRange="[${terrablender_version},)"
-ordering="AFTER"
-side="BOTH"
-
 [[mixins]]
 config="${mod_id}.mixins.json"
 

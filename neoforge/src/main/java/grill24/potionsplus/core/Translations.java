@@ -2,8 +2,6 @@ package grill24.potionsplus.core;
 
 public class Translations {
     // Auto-generated translations
-    public static final String BLOCK_POTIONSPLUS_PARTICLE_EMITTER = "block.potionsplus.particle_emitter";
-    public static final String JEI_POTIONSPLUS_PARTICLE_EMITTER_DESCRIPTION = "jei.potionsplus.particle_emitter.description";
     public static final String BLOCK_POTIONSPLUS_PRECISION_DISPENSER = "block.potionsplus.precision_dispenser";
     public static final String BLOCK_POTIONSPLUS_BREWING_CAULDRON = "block.potionsplus.brewing_cauldron";
     public static final String BLOCK_POTIONSPLUS_HERBALISTS_LECTERN = "block.potionsplus.herbalists_lectern";
@@ -20,15 +18,6 @@ public class Translations {
     public static final String BLOCK_POTIONSPLUS_REDSTONE_ROSE = "block.potionsplus.redstone_rose";
     public static final String BLOCK_POTIONSPLUS_DENSE_DIAMOND_ORE = "block.potionsplus.dense_diamond_ore";
     public static final String BLOCK_POTIONSPLUS_DEEPSLATE_DENSE_DIAMOND_ORE = "block.potionsplus.deepslate_dense_diamond_ore";
-    public static final String BLOCK_POTIONSPLUS_COOBLESTONE = "block.potionsplus.cooblestone";
-    public static final String JEI_POTIONSPLUS_COOBLESTONE_DESCRIPTION = "jei.potionsplus.cooblestone.description";
-    public static final String BLOCK_POTIONSPLUS_UNSTABLE_BLOCK = "block.potionsplus.unstable_block";
-    public static final String BLOCK_POTIONSPLUS_UNSTABLE_DEEPSLATE = "block.potionsplus.unstable_deepslate";
-    public static final String BLOCK_POTIONSPLUS_UNSTABLE_BLACKSTONE = "block.potionsplus.unstable_blackstone";
-    public static final String BLOCK_POTIONSPLUS_UNSTABLE_MOLTEN_DEEPSLATE = "block.potionsplus.unstable_molten_deepslate";
-    public static final String BLOCK_POTIONSPLUS_UNSTABLE_MOLTEN_BLACKSTONE = "block.potionsplus.unstable_molten_blackstone";
-    public static final String BLOCK_POTIONSPLUS_LAVA_GEYSER = "block.potionsplus.lava_geyser";
-    public static final String JEI_POTIONSPLUS_LAVA_GEYSER_DESCRIPTION = "jei.potionsplus.lava_geyser.description";
     public static final String BLOCK_POTIONSPLUS_REMNANT_DEBRIS = "block.potionsplus.remnant_debris";
     public static final String BLOCK_POTIONSPLUS_DEEPSLATE_REMNANT_DEBRIS = "block.potionsplus.deepslate_remnant_debris";
     public static final String BLOCK_POTIONSPLUS_SULFURIC_NETHER_QUARTZ_ORE = "block.potionsplus.sulfuric_nether_quartz_ore";
@@ -68,7 +57,6 @@ public class Translations {
     public static final String JEI_POTIONSPLUS_SULFUR_SHARD_DESCRIPTION = "jei.potionsplus.sulfur_shard.description";
     public static final String ITEM_POTIONSPLUS_SULFURIC_ACID = "item.potionsplus.sulfuric_acid";
     public static final String JEI_POTIONSPLUS_SULFURIC_ACID_DESCRIPTION = "jei.potionsplus.sulfuric_acid.description";
-    public static final String BLOCK_POTIONSPLUS_ICICLE = "block.potionsplus.icicle";
     public static final String ITEMGROUP_POTIONSPLUS = "itemGroup.potionsplus";
     public static final String EFFECT_POTIONSPLUS_ANY_POTION = "effect.potionsplus.any_potion";
     public static final String ITEM_MINECRAFT_POTION_EFFECT_ANY_POTION = "item.minecraft.potion.effect.any_potion";

@@ -1,7 +1,6 @@
 package grill24.potionsplus.core;
 
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
-import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.registration.AbstractRegistererBuilder;
 import grill24.potionsplus.utility.registration.RegistrationUtility;
@@ -24,7 +23,6 @@ public class BlockRenderLayers {
     private static final Map<Holder<Block>, RenderType> renderLayers = new HashMap<>();
 
     static {
-        registerBlock(DecorationBlocks.ICICLE, RenderType.cutout());
         registerBlock(BlockEntityBlocks.POTION_BEACON, RenderType.cutout());
 
         for (AbstractRegistererBuilder<?, ?> builder : RegistrationUtility.BUILDERS) {

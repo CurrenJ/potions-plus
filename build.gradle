@@ -76,8 +76,6 @@ subprojects {
             "neoforge_version": neoforge_version,
             "neo_version_range": neo_version_range,
             "neoforge_loader_version_range": neoforge_loader_version_range,
-            "terrablender_version": terrablender_version,
-            "glitchcore_version": glitchcore_version,
             "credits": credits
         ]
 

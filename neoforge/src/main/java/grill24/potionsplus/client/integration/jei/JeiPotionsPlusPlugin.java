@@ -3,7 +3,6 @@ package grill24.potionsplus.client.integration.jei;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
-import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.items.BrewingItems;
 import grill24.potionsplus.core.items.WreathItem;
 import grill24.potionsplus.core.potion.PotionBuilder;
@@ -46,7 +45,6 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
     @Override
     public void registerRecipes(@NotNull IRecipeRegistration registration) {
         // Register descriptions for block entities
-        registerDescription(registration, BlockEntityBlocks.PARTICLE_EMITTER.value()); // Particle Emitter description
         registerDescription(registration, BlockEntityBlocks.BREWING_CAULDRON.value()); // Brewing Cauldron description
         registerDescription(registration, BlockEntityBlocks.HERBALISTS_LECTERN.value()); // Herbalist's Lectern description
         registerDescription(registration, BlockEntityBlocks.ABYSSAL_TROVE.value()); // Abyssal Trove description
@@ -60,8 +58,6 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         registerDescription(registration, BrewingItems.ROTTEN_WORMROOT.value()); // Rotten Wormroot
         registerDescription(registration, BrewingItems.LUNAR_BERRIES.value()); // Lunar Berries
         registerDescription(registration, WreathItem.WREATH.value()); // Wreath
-        registerDescription(registration, DecorationBlocks.COOBLESTONE.value()); // Cooblestone
-        registerDescription(registration, DecorationBlocks.LAVA_GEYSER.value()); // Lava Geyser
         registerAllPotionsInfo(registration, Potions.getAllPotionAmpDurMatrices()); // Potion descriptions
 
         // Register recipes for custom JEI recipe categories

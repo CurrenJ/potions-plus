@@ -27,7 +27,6 @@ public class DataGen {
             // World Gen
             .add(Registries.CONFIGURED_FEATURE, ConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, Placements::bootstrap)
-            .add(Registries.BIOME, Biomes::bootstrap)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, BiomeModifierProvider::bootstrap);
 
     @SubscribeEvent
@@ -44,7 +43,6 @@ public class DataGen {
         generator.addProvider(event.includeServer(), new RecipeProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new LootTableProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, BUILDER, Set.of(ModInfo.MOD_ID)));
-        generator.addProvider(event.includeServer(), new BiomeTagProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new AdvancementProvider(output, lookupProvider, existingFileHelper, null));
         generator.addProvider(event.includeServer(), new GlobalLootModifierProvider(output, lookupProvider));
 

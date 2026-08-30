@@ -3,7 +3,6 @@ package grill24.potionsplus.core;
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
-import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.core.potion.MobEffects;
@@ -36,7 +35,6 @@ public class Blocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, ModInfo.MOD_ID);
 
     static {
-        DecorationBlocks.init(BLOCKS::register, Items.ITEMS::register);
         BlockEntityBlocks.init(BLOCKS::register, Items.ITEMS::register);
         OreBlocks.init(BLOCKS::register, Items.ITEMS::register);
         FlowerBlocks.init(BLOCKS::register, Items.ITEMS::register);

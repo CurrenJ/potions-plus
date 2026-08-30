@@ -27,7 +27,6 @@ import static grill24.potionsplus.utility.Utility.ppId;
 
 public class BlockEntityBlocks {
     public static Holder<Block> BREWING_CAULDRON;
-    public static Holder<Block> PARTICLE_EMITTER;
     public static Holder<Block> HERBALISTS_LECTERN;
     public static Holder<Block> SANGUINE_ALTAR;
     public static Holder<Block> ABYSSAL_TROVE;
@@ -45,23 +44,6 @@ public class BlockEntityBlocks {
                                 new BlockModelUtility.FromModelFileBlockStateGenerator<>(blockGetter, mc("block/water_cauldron_full"), true, false))
         ).getHolder();
         grill24.potionsplus.core.Items.registerBlockItemWithTexture(BREWING_CAULDRON, registerItem, ppId("item/brewing_cauldron"));
-
-        PARTICLE_EMITTER = RegistrationUtility.register(
-                registerBlock,
-                SimpleBlockBuilder.createSimple("particle_emitter")
-                        .blockFactory(ParticleEmitterBlock::new)
-                        .properties(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL))
-                        .modelGenerator(ParticleEmitterBlockModelGenerator::new) // Custom model generator for ParticleEmitterBlock
-                        .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                                h -> ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, h.value())
-                                        .pattern("III")
-                                        .pattern("IXI")
-                                        .pattern("III")
-                                        .define('I', Items.IRON_INGOT)
-                                        .define('X', Items.SPORE_BLOSSOM)
-                                        .unlockedBy("has_iron_ingot", has(Items.SPORE_BLOSSOM))))
-        ).getHolder();
-        grill24.potionsplus.core.Items.registerBlockItem(PARTICLE_EMITTER, registerItem); // Doesn't generate an item model because we generate it in ParticleEmitterBlockModelGenerator
 
         HERBALISTS_LECTERN = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("herbalists_lectern")
                         .blockFactory(HerbalistsLecternBlock::new)
