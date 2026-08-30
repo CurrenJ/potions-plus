@@ -197,14 +197,25 @@ if (isGametestRun) {
 // the correct mapping is identity: feed it a valid but EMPTY official->named mapping file so it loads
 // empty tables and translates nothing.
 def emptyMappings = layout.buildDirectory.file('generated/empty-official-to-named.tiny')
+def emptyMappingsContent = "v1\tofficial\tnamed\n"
 
 tasks.register('generateEmptyMappings') {
     def out = emptyMappings.get().asFile
     outputs.file(out)
     doLast {
         out.parentFile.mkdirs()
-        out.text = "v1\tofficial\tnamed\n"
+        out.text = emptyMappingsContent
     }
+}
+
+// IDE runs never execute generateEmptyMappings - IntelliJ's generated run configuration has only a
+// "Make" step, not a Gradle task dependency - so write the stub at configuration time too. The task
+// above still owns it for Gradle runs, which is what keeps `./gradlew clean runClient` correct (clean
+// deletes build/ after this block has already run).
+def emptyMappingsFile = emptyMappings.get().asFile
+if (!emptyMappingsFile.isFile() || emptyMappingsFile.text != emptyMappingsContent) {
+    emptyMappingsFile.parentFile.mkdirs()
+    emptyMappingsFile.text = emptyMappingsContent
 }
 
 tasks.withType(JavaExec).matching { it.name.startsWith('run') }.configureEach {
@@ -214,13 +225,29 @@ tasks.withType(JavaExec).matching { it.name.startsWith('run') }.configureEach {
     // :common:jar for the dev runs - and Loom snapshots the run classpath at configuration time,
     // leaving a stale potionsplus-common jar on it. Wire it up explicitly.
     dependsOn(configurations.common)
-    jvmArgs(
-        '-Darchitectury.naming.sourceNamespace=official',
-        "-Darchitectury.naming.mappingsPath=${emptyMappings.get().asFile.absolutePath}"
-    )
+    // The architectury.naming.* properties this run needs are NOT set here. Adding them to the Gradle
+    // JavaExec task only fixes `./gradlew :forge:runClient`; see the loom.runs.configureEach block
+    // below for why they have to live on the loom run config instead.
 }
 
 loom {
+    // Every run needs the architectury.naming.* properties described above, or FML's AXFORM dies at
+    // bootstrap ("Missing required system property" per AT line -> Invalid AccessTransformer config).
+    // These used to be set as jvmArgs on the Gradle JavaExec run tasks, which reaches `./gradlew
+    // :forge:runClient` and nothing else: IntelliJ/Eclipse run configurations are generated from these
+    // RunConfigSettings, and Loom never looks at Gradle task jvmArgs when writing them - so the IDE's
+    // "Minecraft Client (:forge)" launched without them and failed while the Gradle task succeeded.
+    // Declaring them here covers both launchers (Loom renders systemProperties into -Dk=v itself).
+    //
+    // GOTCHA: `ideaSyncTask` will NOT overwrite a run-configuration XML that already exists - it only
+    // writes missing ones. Editing this block and re-syncing therefore appears to do nothing. Delete
+    // the stale .idea/runConfigurations/*__forge.xml files first, then re-run `./gradlew ideaSyncTask`
+    // (or re-import), and verify the flags actually landed in VM_PARAMETERS.
+    runs.configureEach { run ->
+        run.property('architectury.naming.sourceNamespace', 'official')
+        run.property('architectury.naming.mappingsPath', emptyMappings.get().asFile.absolutePath)
+    }
+
     mods {
         potionsplus {
             sourceSet sourceSets.main

@@ -233,3 +233,9 @@ Extend `AlchemyTestBase` and this is handled for you.
   thread pools running, so the JVM only exits when the game calls `System.exit` (which
   `GameTestServer` does, but datagen and any crashing run do not). Kill the leaked `java.exe`, or
   wrap the invocation in a timeout.
+- **The IDE's Forge run fails with AXFORM / `Invalid AccessTransformer config` but `./gradlew
+  :forge:runClient` is fine** — the `architectury.naming.*` system properties were reaching only the
+  Gradle JavaExec tasks. They now live on `loom.runs` in `forge/build.gradle`, which feeds both
+  launchers. Note that `ideaSyncTask` only writes run-configuration XMLs that don't already exist, so
+  after changing that block you must delete `.idea/runConfigurations/*__forge.xml` and re-sync;
+  otherwise the stale file silently persists and it looks like the build change did nothing.
