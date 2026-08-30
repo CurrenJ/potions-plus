@@ -166,15 +166,24 @@ tasks.withType(JavaExec).matching { it.name.startsWith('run') }.configureEach {
 }
 
 loom {
-    // Without this, Loom only associates sourceSets.main with the mod's class roots, so FML's
-    // per-mod classloader never sees testmod's classes and @Mod.EventBusSubscriber-annotated classes
-    // in it silently never fire - even though they're on the JVM classpath (same Architectury Loom
-    // "MOD_CLASSES only from main" pitfall NeoForge's testmod hits; see modding-guide 18-game-tests.md).
     mods {
         potionsplus {
             sourceSet sourceSets.main
-            sourceSet sourceSets.testmod
         }
+    }
+
+    // Registering testmod under the SAME "potionsplus" mod id is what lets FML's per-mod
+    // classloader see testmod's classes and fire its @Mod.EventBusSubscriber-annotated listener
+    // for the gametest run (same Architectury Loom "MOD_CLASSES only from main" pitfall
+    // NeoForge's testmod hits; see modding-guide 18-game-tests.md) - but loom.mods is a single
+    // GLOBAL mapping consumed by every run, not a per-run setting, so doing this unconditionally
+    // also puts testmod's split classes/resources dirs on :forge:runClient's classpath, which
+    // crashes FML mod discovery with "Invalid module name: '' is not a Java identifier" (the same
+    // ClasspathLocator/SecureJarHandler union-URL bug the main-sourceSet resourcesDir merge above
+    // already works around, just for testmod's own dirs instead). Gate the association to only
+    // apply when a gametest task was actually requested, so plain runClient stays unaffected.
+    if (gradle.startParameter.taskNames.any { it.contains('runGametest') || it.contains(':forge:gametest') }) {
+        mods.potionsplus.sourceSet(sourceSets.testmod)
     }
 
     runs {
