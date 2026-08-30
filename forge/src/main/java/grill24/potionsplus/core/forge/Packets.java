@@ -7,8 +7,11 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.network.Channel;
 import net.minecraftforge.network.ChannelBuilder;
+
+import java.util.function.BiConsumer;
 
 /**
  * Forge packet registration hub. Forge 26.1.2 has its own {@code net.minecraftforge.network} API
@@ -31,7 +34,7 @@ public class Packets {
                 .add(
                         ServerboundConstructClotheslinePacket.TYPE,
                         playCodec(ServerboundConstructClotheslinePacket.STREAM_CODEC),
-                        (pkt, ctx) -> ServerboundConstructClotheslinePacket.ServerPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                        handled((pkt, ctx) -> ServerboundConstructClotheslinePacket.ServerPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
 
                 // ----- Clientbound Packets -----
@@ -40,55 +43,72 @@ public class Packets {
                 .add(
                         ClientboundBlockEntityCraftRecipePacket.TYPE,
                         playCodec(ClientboundBlockEntityCraftRecipePacket.STREAM_CODEC),
-                        (pkt, ctx) -> ClientboundBlockEntityCraftRecipePacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                        handled((pkt, ctx) -> ClientboundBlockEntityCraftRecipePacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
                 .add(
                         ClientboundSanguineAltarConversionStatePacket.TYPE,
                         playCodec(ClientboundSanguineAltarConversionStatePacket.STREAM_CODEC),
-                        (pkt, ctx) -> ClientboundSanguineAltarConversionStatePacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                        handled((pkt, ctx) -> ClientboundSanguineAltarConversionStatePacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
                 .add(
                         ClientboundSanguineAltarConversionProgressPacket.TYPE,
                         playCodec(ClientboundSanguineAltarConversionProgressPacket.STREAM_CODEC),
-                        (pkt, ctx) -> ClientboundSanguineAltarConversionProgressPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                        handled((pkt, ctx) -> ClientboundSanguineAltarConversionProgressPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
                 .add(
                         ClientboundImpulsePlayerPacket.TYPE,
                         playCodec(ClientboundImpulsePlayerPacket.STREAM_CODEC),
-                        (pkt, ctx) -> ClientboundImpulsePlayerPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                        handled((pkt, ctx) -> ClientboundImpulsePlayerPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
                 .add(
                         ClientboundDisplayAlertWithItemStackName.TYPE,
                         playCodec(ClientboundDisplayAlertWithItemStackName.STREAM_CODEC),
-                        (pkt, ctx) -> ClientboundDisplayAlertWithItemStackName.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                        handled((pkt, ctx) -> ClientboundDisplayAlertWithItemStackName.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
                 .add(
                         ClientboundDisplayAlertWithParameter.TYPE,
                         playCodec(ClientboundDisplayAlertWithParameter.STREAM_CODEC),
-                        (pkt, ctx) -> ClientboundDisplayAlertWithParameter.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                        handled((pkt, ctx) -> ClientboundDisplayAlertWithParameter.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
                 .add(
                         ClientboundAcquiredBrewingRecipeKnowledgePacket.TYPE,
                         playCodec(ClientboundAcquiredBrewingRecipeKnowledgePacket.STREAM_CODEC),
-                        (pkt, ctx) -> ClientboundAcquiredBrewingRecipeKnowledgePacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                        handled((pkt, ctx) -> ClientboundAcquiredBrewingRecipeKnowledgePacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
                 .add(
                         ClientboundSyncKnownBrewingRecipesPacket.TYPE,
                         playCodec(ClientboundSyncKnownBrewingRecipesPacket.STREAM_CODEC),
-                        (pkt, ctx) -> ClientboundSyncKnownBrewingRecipesPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                        handled((pkt, ctx) -> ClientboundSyncKnownBrewingRecipesPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
                 .add(
                         ClientboundSyncPairedAbyssalTrove.TYPE,
                         playCodec(ClientboundSyncPairedAbyssalTrove.STREAM_CODEC),
-                        (pkt, ctx) -> ClientboundSyncPairedAbyssalTrove.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                        handled((pkt, ctx) -> ClientboundSyncPairedAbyssalTrove.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
                 .add(
                         ClientboundDisplayAlert.TYPE,
                         playCodec(ClientboundDisplayAlert.STREAM_CODEC),
-                        (pkt, ctx) -> ClientboundDisplayAlert.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx))
+                        handled((pkt, ctx) -> ClientboundDisplayAlert.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
 
                 .build();
+    }
+
+    /**
+     * Forge only treats a play-phase custom payload as "handled" if the consumer calls
+     * {@code ctx.setPacketHandled(true)} - our handlers just call {@code enqueueWork(...)}, which
+     * does NOT set that flag. Left unset, {@code ForgeHooks.onCustomPayload} falls through past
+     * {@code NetworkInstance.dispatch} (which already ran our handler successfully) and additionally
+     * fires {@code CustomPayloadEvent.BUS} for the same event/buffer - re-touching an already-fully
+     * -read {@code ForgePayload} buffer, which throws {@code IndexOutOfBoundsException} and
+     * disconnects the client. This wrapper marks every packet handled right after dispatch so that
+     * fallback path is never reached.
+     */
+    private static <MSG extends CustomPacketPayload> BiConsumer<MSG, CustomPayloadEvent.Context> handled(BiConsumer<MSG, CustomPayloadEvent.Context> consumer) {
+        return (msg, ctx) -> {
+            consumer.accept(msg, ctx);
+            ctx.setPacketHandled(true);
+        };
     }
 
     /**

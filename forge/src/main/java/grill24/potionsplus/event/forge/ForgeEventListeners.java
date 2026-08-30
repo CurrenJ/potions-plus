@@ -215,11 +215,9 @@ public final class ForgeEventListeners {
 
         EntityJoinLevelEvent.BUS.addListener((EntityJoinLevelEvent event) -> {
             if (event.getEntity() instanceof ServerPlayer player) {
-                // Skip sending a fresh player's (genuinely empty) known-recipe list: Forge's
-                // network stack chokes decoding a 1-byte custom payload (just the VarInt 0 list
-                // count) with an IndexOutOfBoundsException, disconnecting the client on world
-                // join. The handler already no-ops on an empty list, so omitting the send is a
-                // no-op for behavior and sidesteps the crash.
+                // Skip sending a fresh player's (genuinely empty) known-recipe list - the client
+                // handler already no-ops on an empty list, so this is a no-op optimization only,
+                // mirroring the existing !learnedRecipes.isEmpty() guard elsewhere in this file.
                 List<CustomPacketPayload> rest = new ArrayList<>();
                 List<ResourceKey<Recipe<?>>> knownRecipes = SavedData.instance.getData(player).getKnownRecipeKeys();
                 if (!knownRecipes.isEmpty()) {
