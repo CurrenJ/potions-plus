@@ -1,5 +1,5 @@
 {
-  "parent": "potionsplus:skill_journals",
+  "parent": "potionsplus:root",
   "criteria": {
     "mine_iron_ore_deepslate_iron_ore": {
       "conditions": {

@@ -36,9 +36,6 @@ public class Features {
     // ----- Arid Cave -----
     public static Feature<NoneFeatureConfiguration> ARID_CAVE_SUSPICIOUS_SAND = Features.register("arid_cave_suspicious_sand", new SuspiciousSandFeature(NoneFeatureConfiguration.CODEC));
 
-    // ----- Misc. -----
-    public static final Feature<VersatilePlantBlockFeatureConfiguration> VERSATILE_PLANT = Features.register("versatile_plant", new VersatilePlantBlockFeature());
-
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent event)
     {

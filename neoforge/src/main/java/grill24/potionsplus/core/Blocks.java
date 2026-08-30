@@ -17,12 +17,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -32,7 +28,6 @@ import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -71,11 +66,6 @@ public class Blocks {
             return BiomeColors.getAverageWaterColor(world, pos);
         };
         event.register(cauldronWater, BlockEntityBlocks.BREWING_CAULDRON.value());
-
-        // Register grass color for versatile plants that require it
-        event.register((state, blockAndTintGetter, blockPos, i) -> blockAndTintGetter != null && blockPos != null ?
-                BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos)
-                : GrassColor.getDefaultColor(), FlowerBlocks.TALL_GRASS_VERSATILE.value(), FlowerBlocks.LARGE_FERN_VERSATILE.value());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -102,8 +92,6 @@ public class Blocks {
             int b = (int) (Math.sin(ticks * 0.01f + 4.1887902047863905) * 127 + 128);
             return i > 0 ? -1 : FastColor.ARGB32.color(r, g, b);
         }, net.minecraft.world.item.Items.POTION);
-
-        event.register((stack, i) -> GrassColor.get(0.5, 1.0), FlowerBlocks.TALL_GRASS_VERSATILE.value().asItem(), FlowerBlocks.LARGE_FERN_VERSATILE.value().asItem());
     }
 
     @SubscribeEvent
@@ -125,25 +113,6 @@ public class Blocks {
 
     public static <T extends Block> DeferredHolder<Block, T> register(final String name, final Supplier<T> sup) {
         return register(name, sup, true, Items.properties());
-    }
-
-    private static DeferredHolder<Block, VersatilePlantBlock> registerTallFlowerAsVersatilePlant(final String name, boolean extendable) {
-        return register(name, () ->
-                new VersatilePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT)
-                        .noCollission()
-                        .instabreak()
-                        .sound(SoundType.GRASS)
-                        .ignitedByLava()
-                        .pushReaction(PushReaction.DESTROY),
-                        new VersatilePlantBlock.VersatilePlantConfig(
-                                true,
-                                false,
-                                1, extendable ? 5 : 1,
-                                new VersatilePlantBlockTexturePattern(List.of(0), List.of(0), List.of(1), false))));
-    }
-
-    private static DeferredHolder<Block, VersatilePlantBlock> registerTallFlowerAsVersatilePlant(final String name) {
-        return registerTallFlowerAsVersatilePlant(name, true);
     }
 
 }

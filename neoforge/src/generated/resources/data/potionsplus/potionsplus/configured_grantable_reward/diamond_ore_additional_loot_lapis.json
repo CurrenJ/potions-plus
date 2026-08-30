@@ -1,6 +1,0 @@
-{
-  "type": "potionsplus:ability",
-  "config": {
-    "configuredPlayerAbility": "potionsplus:diamond_ore_additional_loot_lapis"
-  }
-}

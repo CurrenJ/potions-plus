@@ -1,11 +1,11 @@
-// 1.21.1	2026-08-29T23:51:31.8223556	Potions Plus block tags
+// 1.21.1	2026-08-30T11:33:05.1835488	Potions Plus block tags
 07c538fb74da533c29d67f11fbabe58ea6c07e40 data/c/tags/block/ores.json
 2f011bdd43e9b804695beb31fc5a545b03b24588 data/c/tags/block/ores/diamond.json
 6a2b184e03963768ab2ee586666668b47ed5744d data/c/tags/block/ores_in_ground/deepslate.json
 1ebd26d0e916577d931e49c0c65b7d7b8695980b data/c/tags/block/ores_in_ground/stone.json
 2f011bdd43e9b804695beb31fc5a545b03b24588 data/minecraft/tags/block/diamond_ores.json
 e27ff90d725b83b468a8c87e7cf0bd5c1fabe68b data/minecraft/tags/block/mineable/axe.json
-4bcaa1cd1251bf2e773802e5b7a08fa060db3924 data/minecraft/tags/block/mineable/pickaxe.json
+b51da8ba248bcec250f9afbdabccd262b05fb63c data/minecraft/tags/block/mineable/pickaxe.json
 f7607a1ec4c7bee35ecba47c19e6866bdaeac005 data/minecraft/tags/block/mineable/shovel.json
 0de2f703978baeb8cf8553b066c031b5b5027d09 data/potionsplus/tags/block/cave_replaceable.json
 cf3608bd187922aeb48c566c19e8482b0dca34c7 data/potionsplus/tags/block/freezable.json
