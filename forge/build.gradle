@@ -36,6 +36,14 @@ repositories {
     }
 }
 
+// True only when this Gradle invocation actually asked for a game-test run. Several dev-runtime
+// workarounds below apply ONLY to that run (they would break :forge:runClient / :forge:runData if
+// applied globally), and loom.mods / sourceSet outputs are project-wide, not per-run - so the gate
+// has to live at configuration time.
+def isGametestRun = gradle.startParameter.taskNames.any {
+    it.contains('runGametest') || it.contains(':forge:gametest')
+}
+
 sourceSets {
     testmod {
         compileClasspath += main.compileClasspath
@@ -97,6 +105,11 @@ processResources {
 
 jar {
     archiveClassifier = 'raw'
+
+    // A game-test invocation compiles testmod into main's classes dir (see the merge below), and those
+    // .class files stay on disk afterwards - so a later, unrelated `./gradlew build` would package
+    // them into the distributable jar. Nothing under a gametest package ever belongs in a release.
+    exclude '**/gametest/**'
 }
 
 shadowJar {
@@ -131,6 +144,48 @@ sourceSets {
 }
 
 sourceSets.main.resources.srcDir('src/generated/resources')
+
+// ...and merging each source set's OWN classes/resources split is still not enough for the game-test
+// run, because there the mod spans TWO source sets. FML's per-mod classloader only scans classes that
+// belong to a mod file, so testmod has to be part of the potionsplus mod for its
+// @Mod.EventBusSubscriber listener to fire at all - but associating a second source set with the mod
+// makes Forge's SecureModuleFinder union main's and testmod's directories into one module, and a
+// union root has no file name, so `SecureJar.from(...).moduleDataProvider().descriptor()` derives the
+// automatic module name "" and JPMS rejects it:
+//
+//     java.lang.IllegalArgumentException: : Invalid module name: '' is not a Java identifier
+//         at cpw.mods.jarhandling.impl.SimpleJarMetadata.descriptor(SimpleJarMetadata.java:18)
+//         at ...ModDirTransformerDiscoverer.isServiceProvider(ModDirTransformerDiscoverer.java:99)
+//         at ...moddiscovery.ClasspathLocator.scanMods(ClasspathLocator.java:77)
+//
+// Architectury Loom ships a fix for exactly this (ModDirTransformerDiscovererPatch ASM-prepends
+// `if (path.getFileSystem() != FileSystems.getDefault()) return false;` to isServiceProvider), but it
+// only applies it inside ForgeLibrariesProvider.remapFmlLoader, whose call site is gated on
+// `mappingConfiguration != null`. Under loom-no-remap that is null - MC 26.1.2 is unobfuscated and
+// needs no mappings - so fmlloader is added as a plain dependency and never patched, and the guard is
+// simply absent at runtime (confirmed: no 26.1.2-64.1.0 entry under Loom's transformed-dependencies-v1
+// cache, and the raw jar's line table puts the crashing descriptor() call at line 99 with nothing
+// ahead of it). Nothing we can toggle brings it back.
+//
+// So instead of asking FML to cope with two directories, give it one: compile testmod INTO main's
+// classes dir for game-test invocations. The mod stays a single classpath entry (no union, no crash)
+// and testmod's classes sit inside the potionsplus mod file, so annotation scanning finds them -
+// which was the whole point of the loom.mods association this replaces.
+if (isGametestRun) {
+    def mergedClassesDir = sourceSets.main.output.classesDirs.singleFile
+    tasks.named('compileTestmodJava') {
+        destinationDirectory = file(mergedClassesDir)
+        // main's resources are merged into this same directory (see above), so two tasks now write
+        // here. Order them explicitly, or Gradle fails the build with an implicit-dependency
+        // validation error the moment it picks the other order.
+        dependsOn(tasks.named('processResources'))
+    }
+    // testmod's OWN resources dir is deliberately left where it is. Redirecting it here too would make
+    // processTestmodResources and compileTestmodJava overlap on the same output directory, which
+    // Gradle rejects outright. It is NO-SOURCE today and must stay that way: a resource placed in
+    // forge/src/testmod/resources would land outside the mod file and never be found at runtime. Game
+    // test resources (e.g. the empty_testarea structure) belong in common/ or main, as they already do.
+}
 
 // FML's runtime AXFORM wires its name-handler to modlauncher's "srg" mapping provider, which in
 // loom-no-remap is ArchitecturyNamingService. That service requires the
@@ -172,19 +227,11 @@ loom {
         }
     }
 
-    // Registering testmod under the SAME "potionsplus" mod id is what lets FML's per-mod
-    // classloader see testmod's classes and fire its @Mod.EventBusSubscriber-annotated listener
-    // for the gametest run (same Architectury Loom "MOD_CLASSES only from main" pitfall
-    // NeoForge's testmod hits; see modding-guide 18-game-tests.md) - but loom.mods is a single
-    // GLOBAL mapping consumed by every run, not a per-run setting, so doing this unconditionally
-    // also puts testmod's split classes/resources dirs on :forge:runClient's classpath, which
-    // crashes FML mod discovery with "Invalid module name: '' is not a Java identifier" (the same
-    // ClasspathLocator/SecureJarHandler union-URL bug the main-sourceSet resourcesDir merge above
-    // already works around, just for testmod's own dirs instead). Gate the association to only
-    // apply when a gametest task was actually requested, so plain runClient stays unaffected.
-    if (gradle.startParameter.taskNames.any { it.contains('runGametest') || it.contains(':forge:gametest') }) {
-        mods.potionsplus.sourceSet(sourceSets.testmod)
-    }
+    // NOTE: testmod is deliberately NOT registered here. Adding a second source set to the mod is
+    // what produced the union module and the "Invalid module name: ''" bootstrap crash; the
+    // compileTestmodJava output redirect above achieves the same goal (testmod classes inside the
+    // potionsplus mod file, visible to FML's per-mod classloader and its annotation scan) while
+    // keeping the mod on a single classpath entry. See the long comment above for the full trace.
 
     runs {
         // Forge keeps its datagen on the client run with --output; NeoForge remains the source of

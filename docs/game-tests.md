@@ -218,3 +218,18 @@ Extend `AlchemyTestBase` and this is handled for you.
 - **Datapack parse errors in the log** — `potionsplus:blocks/lunar_berry_bush` currently fails to load
   on every run (`{"blooming":true}` where a string is expected); non-fatal and unrelated to tests, but
   real and worth fixing separately.
+- **Forge runs, but none of your tests appear** — expected on Forge 26.1.2. `:forge:runGametest`
+  boots `GameTestServer` and exits cleanly, but reports `1 GAME TESTS COMPLETE` from the vanilla
+  `minecraft:default` environment: none of `PotionsPlusForgeGameTests`' methods register, because
+  `RegisterEvent` never fires for the dynamic `Registries.TEST_INSTANCE`. See
+  `ForgeGameTestRegistration`'s javadoc and `docs/multi-loader-expansion.md` (Phase 9). Fabric and
+  NeoForge are the loaders that actually run these tests today.
+- **Forge crashes with `Invalid module name: '' is not a Java identifier`** — the mod is spanning two
+  class directories, which Forge unions into a module whose root has no file name. Do **not** add a
+  second source set to `loom.mods` (that mapping is global and breaks `runClient`/`runData` too);
+  `forge/build.gradle` instead compiles testmod into main's classes dir for game-test invocations.
+  Loom's own guard for this is skipped under loom-no-remap — see `forge/build.gradle` for the trace.
+- **A Forge run finishes but Gradle never returns** — Architectury's transformer leaves non-daemon
+  thread pools running, so the JVM only exits when the game calls `System.exit` (which
+  `GameTestServer` does, but datagen and any crashing run do not). Kill the leaked `java.exe`, or
+  wrap the invocation in a timeout.
