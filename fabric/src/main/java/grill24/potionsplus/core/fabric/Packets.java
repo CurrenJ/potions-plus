@@ -38,6 +38,7 @@ public class Packets {
         clientboundCodec(ClientboundAcquiredBrewingRecipeKnowledgePacket.TYPE, ClientboundAcquiredBrewingRecipeKnowledgePacket.STREAM_CODEC);
         clientboundCodec(ClientboundSyncKnownBrewingRecipesPacket.TYPE, ClientboundSyncKnownBrewingRecipesPacket.STREAM_CODEC);
         clientboundCodec(ClientboundSyncPairedAbyssalTrove.TYPE, ClientboundSyncPairedAbyssalTrove.STREAM_CODEC);
+        clientboundCodec(ClientboundSyncRuntimeRecipesPacket.TYPE, ClientboundSyncRuntimeRecipesPacket.STREAM_CODEC);
         clientboundCodec(ClientboundDisplayAlert.TYPE, ClientboundDisplayAlert.STREAM_CODEC);
     }
 
@@ -73,6 +74,8 @@ public class Packets {
                 ClientboundSyncKnownBrewingRecipesPacket.ClientPayloadHandler::handleDataOnMain);
         clientbound(ClientboundSyncPairedAbyssalTrove.TYPE, ClientboundSyncPairedAbyssalTrove.STREAM_CODEC,
                 ClientboundSyncPairedAbyssalTrove.ClientPayloadHandler::handleDataOnMain);
+        clientbound(ClientboundSyncRuntimeRecipesPacket.TYPE, ClientboundSyncRuntimeRecipesPacket.STREAM_CODEC,
+                ClientboundSyncRuntimeRecipesPacket.ClientPayloadHandler::handleDataOnMain);
         clientbound(ClientboundDisplayAlert.TYPE, ClientboundDisplayAlert.STREAM_CODEC,
                 ClientboundDisplayAlert.ClientPayloadHandler::handleDataOnMain);
     }

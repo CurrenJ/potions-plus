@@ -118,6 +118,11 @@ public class PotionsPlusForge {
         // Server-side event listeners (advancements, effects, attributes, commands, ticks, players, potion stack size).
         grill24.potionsplus.event.forge.ForgeEventListeners.register();
 
+        // Server lifecycle: binds ModState.SERVER / the world seed / SavedData and injects the
+        // seeded runtime recipes (brewing cauldron, sanguine altar) that common's RecipeManagerMixin
+        // pulls from Recipes.RECIPE_INJECTION_FUNCTIONS.
+        ServerLifecycleListeners.register();
+
         // Clothesline IItemHandler capability (attached externally, mirroring the NeoForge Capabilities hub).
         Capabilities.register();
     }

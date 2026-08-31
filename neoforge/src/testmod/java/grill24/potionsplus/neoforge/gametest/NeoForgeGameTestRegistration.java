@@ -3,6 +3,7 @@ package grill24.potionsplus.neoforge.gametest;
 import com.mojang.serialization.MapCodec;
 import grill24.potionsplus.gametest.AlchemyGameTests;
 import grill24.potionsplus.gametest.BrewingCauldronGameTests;
+import grill24.potionsplus.gametest.RecipeSyncGameTests;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -127,6 +128,13 @@ public class NeoForgeGameTestRegistration {
                 BrewingCauldronGameTests::brewingWithGunpowderConvertsToASplashPotion);
         register(event, env, "brewing_cauldron_does_not_mutate_its_ingredients",
                 AlchemyGameTests::brewingCauldronDoesNotMutateItsIngredients);
+
+        // ----- runtime recipe sync (the Forge/Fabric client packet, common code) -----
+
+        register(event, env, "runtime_recipe_sync_batches_cover_every_recipe",
+                RecipeSyncGameTests::runtimeRecipeSyncBatchesCoverEveryRecipe);
+        register(event, env, "runtime_recipe_sync_round_trips_through_the_stream_codec",
+                RecipeSyncGameTests::runtimeRecipeSyncRoundTripsThroughTheStreamCodec);
     }
 
     private static void register(

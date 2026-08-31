@@ -86,6 +86,11 @@ public class Packets {
                         handled((pkt, ctx) -> ClientboundSyncPairedAbyssalTrove.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
                 .add(
+                        ClientboundSyncRuntimeRecipesPacket.TYPE,
+                        playCodec(ClientboundSyncRuntimeRecipesPacket.STREAM_CODEC),
+                        handled((pkt, ctx) -> ClientboundSyncRuntimeRecipesPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
+                )
+                .add(
                         ClientboundDisplayAlert.TYPE,
                         playCodec(ClientboundDisplayAlert.STREAM_CODEC),
                         handled((pkt, ctx) -> ClientboundDisplayAlert.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))

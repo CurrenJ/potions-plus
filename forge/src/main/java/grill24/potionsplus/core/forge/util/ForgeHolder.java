@@ -55,6 +55,19 @@ public final class ForgeHolder<T> implements Holder<T>, Supplier<T> {
         return delegate.getId();
     }
 
+    /**
+     * The real registry holder this stands for, once the RegisterEvent for its registry has fired and
+     * only if the registry actually produced a {@link Holder.Reference}. Used by
+     * {@code grill24.potionsplus.mixin.forge.RegistryMixin} to make this wrapper serializable - see
+     * that class for why Forge needs it and NeoForge does not.
+     */
+    @SuppressWarnings("unchecked")
+    public Optional<Holder.Reference<T>> resolveReference() {
+        return delegate.getHolder()
+                .filter(holder -> holder instanceof Holder.Reference<?>)
+                .map(holder -> (Holder.Reference<T>) holder);
+    }
+
     @Override
     public boolean isBound() {
         return delegate.getHolder().map(Holder::isBound).orElse(false);

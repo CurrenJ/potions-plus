@@ -2,6 +2,7 @@ package grill24.potionsplus.forge.gametest;
 
 import grill24.potionsplus.gametest.AlchemyGameTests;
 import grill24.potionsplus.gametest.BrewingCauldronGameTests;
+import grill24.potionsplus.gametest.RecipeSyncGameTests;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraftforge.gametest.GameTest;
 import net.minecraftforge.gametest.GameTestDontPrefix;
@@ -203,5 +204,17 @@ public final class PotionsPlusForgeGameTests {
     @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
     public static void brewingCauldronDoesNotMutateItsIngredients(GameTestHelper helper) {
         AlchemyGameTests.brewingCauldronDoesNotMutateItsIngredients(helper);
+    }
+
+    // ----- runtime recipe sync (the packet this loader needs to reach remote clients) -----
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void runtimeRecipeSyncBatchesCoverEveryRecipe(GameTestHelper helper) {
+        RecipeSyncGameTests.runtimeRecipeSyncBatchesCoverEveryRecipe(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void runtimeRecipeSyncRoundTripsThroughTheStreamCodec(GameTestHelper helper) {
+        RecipeSyncGameTests.runtimeRecipeSyncRoundTripsThroughTheStreamCodec(helper);
     }
 }

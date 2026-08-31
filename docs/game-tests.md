@@ -229,6 +229,14 @@ Extend `AlchemyTestBase` and this is handled for you.
   second source set to `loom.mods` (that mapping is global and breaks `runClient`/`runData` too);
   `forge/build.gradle` instead compiles testmod into main's classes dir for game-test invocations.
   Loom's own guard for this is skipped under loom-no-remap — see `forge/build.gradle` for the trace.
+- **A Forge mixin silently does nothing in a dev run** (but works in a built jar) — Forge's dev
+  launcher only applies mixin configs passed as `--mixin.config` launch args.
+  `MixinPlatformAgentMinecraftForge` rejects an exploded-directory mod container, so mods.toml's
+  `[[mixins]]` entries are never read in dev; `potionsplus.mixins.json` arrives only because the
+  Architectury transformer reads the `MixinConfigs` manifest attribute off the transformed `:common`
+  dev jar. `forge/build.gradle` therefore passes `--mixin.config potionsplus.forge.mixins.json` on
+  every loom run. Loom's `forge.mixinConfigs` does *not* work for this — it writes `-mixin.config`
+  entries into `launch.cfg`, which these Forge userdev launch targets ignore.
 - **A Forge run finishes but Gradle never returns** — Architectury's transformer leaves non-daemon
   thread pools running, so the JVM only exits when the game calls `System.exit` (which
   `GameTestServer` does, but datagen and any crashing run do not). Kill the leaked `java.exe`, or

@@ -2,6 +2,7 @@ package grill24.potionsplus.fabric.gametest;
 
 import grill24.potionsplus.gametest.AlchemyGameTests;
 import grill24.potionsplus.gametest.BrewingCauldronGameTests;
+import grill24.potionsplus.gametest.RecipeSyncGameTests;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 
@@ -191,5 +192,17 @@ public class PotionsPlusFabricGameTests {
     @GameTest(structure = "fabric-gametest-api-v1:empty")
     public void brewingCauldronDoesNotMutateItsIngredients(GameTestHelper helper) {
         AlchemyGameTests.brewingCauldronDoesNotMutateItsIngredients(helper);
+    }
+
+    // ----- runtime recipe sync (the packet this loader needs to reach remote clients) -----
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void runtimeRecipeSyncBatchesCoverEveryRecipe(GameTestHelper helper) {
+        RecipeSyncGameTests.runtimeRecipeSyncBatchesCoverEveryRecipe(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void runtimeRecipeSyncRoundTripsThroughTheStreamCodec(GameTestHelper helper) {
+        RecipeSyncGameTests.runtimeRecipeSyncRoundTripsThroughTheStreamCodec(helper);
     }
 }

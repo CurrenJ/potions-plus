@@ -246,6 +246,19 @@ loom {
     runs.configureEach { run ->
         run.property('architectury.naming.sourceNamespace', 'official')
         run.property('architectury.naming.mappingsPath', emptyMappings.get().asFile.absolutePath)
+
+        // Forge's dev launcher only applies mixin configs it is given as `--mixin.config` launch
+        // args: MixinPlatformAgentMinecraftForge rejects an exploded-directory mod container
+        // ("rejected container SecureJarResource(potionsplus)" in the log), so the [[mixins]] entries
+        // in mods.toml - which do work in a built jar - are never read in dev. The one config that
+        // did arrive, potionsplus.mixins.json, comes from the Architectury transformer reading the
+        // MixinConfigs manifest attribute of the transformed :common dev jar; this module's own
+        // config is in no such jar, so nothing delivered it and every mixin in
+        // potionsplus.forge.mixins.json was silently inactive in :forge:runClient / runData /
+        // runGametest. RegistryMixin (potion holder serialization) is one of them, so this is not
+        // optional. Loom's `forge.mixinConfigs` does NOT cover this - it only writes
+        // `-mixin.config` entries into launch.cfg, which this Forge userdev launch target ignores.
+        run.programArgs '--mixin.config', 'potionsplus.forge.mixins.json'
     }
 
     mods {
