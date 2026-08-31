@@ -265,7 +265,7 @@ partial
 PHASE 4
 Feature ports — the four survivors
 Port
-0 / 5
+4 / 5
 Everything workstream A added that still exists at the 26.1.2 tip. Note these commits predate the multiloader split, so their file paths match 1.21.1 exactly — the diffs apply cleanly and only 1.21.5 API drift needs reverting.
 
 
@@ -279,7 +279,8 @@ d8fc978
 
 4.2
 Clothesline: preserve fence-post variant during item interactions
-Single-file fix in ClotheslineBlockEntity. Clean pick.
+Not a single-file fix in practice: the fence-post variant feature (0eff06d) was never present in 1.21.1, so f2e542d had nothing to sit on. Ported the full feature across ClotheslineBlockEntity, ClotheslineBlock, ClotheslineBehaviour and ClotheslineBlockEntityRenderer, then applied the preservation fix.
+0eff06d
 f2e542d
 
 4.3
@@ -299,6 +300,7 @@ The Grungler
 Entity, model, renderer, render state, render layer, LayerDefinitions, Entities and Renderers hookups, the bbmodel source and the scamper animation. Kept by owner override with no design attached yet — lowest priority here, and safe to defer past release.
 4ec96a4
 optional
+Deferred — its 1.21.5 entity-model/render system is out of scope for this pass.
 PHASE 5
 Test infrastructure
 Port
