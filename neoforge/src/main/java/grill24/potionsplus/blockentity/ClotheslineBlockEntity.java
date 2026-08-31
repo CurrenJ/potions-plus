@@ -23,11 +23,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
+import java.util.Optional;
 
 public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICraftingBlockEntity {
     private final int[] progress;
@@ -38,14 +40,24 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
 
     private boolean recipeUpdateQueued = false;
 
+    private ItemStack fencePostBlockItem;
+    private BlockState fencePostBlockState;
+
     public ClotheslineBlockEntity(BlockPos pos, BlockState state) {
         super(Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), pos, state);
         progress = new int[this.getContainerSize()];
         activeRecipes = new RecipeHolder[this.getContainerSize()];
+
+        fencePostBlockItem = getDefaultFencePostBlockItem();
+        updateFencePostRenderData();
     }
 
     public static int getItemsForClotheslineDistance(int distance) {
         return Math.min(Math.max(distance, MIN_DISTANCE), MAX_DISTANCE) + 1;
+    }
+
+    public static ItemStack getDefaultFencePostBlockItem() {
+        return new ItemStack(net.minecraft.world.level.block.Blocks.OAK_FENCE.asItem());
     }
 
     @Override
@@ -60,6 +72,18 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
         for (int i = 0; i < progress.length; i++) {
             progress[i] = tag.getInt("Progress" + i);
         }
+
+        // Only fall back to default if no fence post data was saved at all
+        if (tag.contains("fencePostBlockItem")) {
+            fencePostBlockItem = ItemStack.parse(registryAccess, tag.getCompound("fencePostBlockItem"))
+                    .orElse(getDefaultFencePostBlockItem());
+        } else {
+            // If no fence post data exists, keep the current fence post item (preserves existing state)
+            if (fencePostBlockItem == null) {
+                fencePostBlockItem = getDefaultFencePostBlockItem();
+            }
+        }
+        updateFencePostRenderData();
     }
 
     @Override
@@ -68,6 +92,11 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
 
         for (int i = 0; i < progress.length; i++) {
             tag.putInt("Progress" + i, progress[i]);
+        }
+
+        // Always save fence post block item, even if empty, to preserve the choice
+        if (fencePostBlockItem != null) {
+            tag.put("fencePostBlockItem", fencePostBlockItem.save(registryAccess));
         }
     }
 
@@ -130,25 +159,41 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                 spawnCraftingSuccessParticles(level, slot);
             } else {
                 final ClotheslineRecipe activeRecipe = new ClotheslineRecipe(activeRecipes[slot].value());
+
+                float successChance = activeRecipe.getSuccessChance();
+                boolean recipeSucceeds = level.random.nextFloat() < successChance;
+
                 ItemStack container = getItem(slot).getCraftingRemainingItem();
-                ItemStack result = activeRecipe.getResult();
-
                 getItem(slot).shrink(1);
-                setItem(slot, result);
 
-                if (!container.isEmpty() && !result.is(container.getItem())) {
-                    Vector3f spotToPop = new Vector3f(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()); // TODO: FIX ME -> ClotheslineBlockEntityBakedRenderData.getItemPoint(getBlockPos(), getBlockState(), slot, true);
-                    ClotheslineBlock.popResource(level, new BlockPos(Math.round(spotToPop.x()), Math.round(spotToPop.y()), Math.round(spotToPop.z())), container);
-                }
+                if (recipeSucceeds) {
+                    // Recipe succeeds - craft the item
+                    ItemStack result = activeRecipe.getResult();
+                    setItem(slot, result);
 
-                level.playSound(null, worldPosition, SoundEvents.WEEPING_VINES_PLACE, SoundSource.BLOCKS, 1, 1);
-
-                PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(worldPosition, slot));
-                level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
-                    if(player instanceof ServerPlayer serverPlayer) {
-                        Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
+                    if (!container.isEmpty() && !result.is(container.getItem())) {
+                        Vector3f spotToPop = new Vector3f(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()); // TODO: FIX ME -> ClotheslineBlockEntityBakedRenderData.getItemPoint(getBlockPos(), getBlockState(), slot, true);
+                        ClotheslineBlock.popResource(level, new BlockPos(Math.round(spotToPop.x()), Math.round(spotToPop.y()), Math.round(spotToPop.z())), container);
                     }
-                });
+
+                    level.playSound(null, worldPosition, SoundEvents.WEEPING_VINES_PLACE, SoundSource.BLOCKS, 1, 1);
+
+                    PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(worldPosition, slot));
+                    level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
+                        if(player instanceof ServerPlayer serverPlayer) {
+                            Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
+                        }
+                    });
+                } else {
+                    // Recipe fails - give fallback result if present, else nothing
+                    ItemStack fallback = activeRecipe.getFallbackResult();
+                    if (!fallback.isEmpty()) {
+                        setItem(slot, fallback.copy());
+                    } else {
+                        setItem(slot, ItemStack.EMPTY);
+                    }
+                    level.playSound(null, worldPosition, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5f, 1.5f);
+                }
             }
         }
 
@@ -172,6 +217,23 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
         if (activeRecipes[slot] == null) return 1;
 
         return (float) progress[slot] / (float) activeRecipes[slot].value().getProcessingTime();
+    }
+
+    public void updateFencePostRenderData() {
+        if (fencePostBlockItem.getItem() instanceof BlockItem blockItem) {
+            fencePostBlockState = blockItem.getBlock().defaultBlockState();
+        }
+
+        this.setChanged();
+    }
+
+    public void setFencePostBlockItem(ItemStack fencePostBlockItem) {
+        this.fencePostBlockItem = fencePostBlockItem;
+        updateFencePostRenderData();
+    }
+
+    public Optional<BlockState> getFencePostBlockState() {
+        return Optional.ofNullable(fencePostBlockState);
     }
 
 }

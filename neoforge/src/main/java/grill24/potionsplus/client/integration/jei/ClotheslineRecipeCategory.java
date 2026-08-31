@@ -8,11 +8,14 @@ import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -83,11 +86,51 @@ public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRec
 
         List<ItemStack> resultItemStacks = List.of(recipe.getResult());
         builder.addSlot(RecipeIngredientRole.OUTPUT, 111, 23)
+                .setSlotName("main_output")
                 .addItemStacks(resultItemStacks);
+
+        // Show fallback result if present
+        if (!recipe.getFallbackResult().isEmpty()) {
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 111, 43)
+                    .setSlotName("fallback_output")
+                    .addItemStacks(List.of(recipe.getFallbackResult()));
+        }
 
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 38 - 8, 31 - 8)
                 .setSlotName("cauldron")
                 .addItemStack(new ItemStack(BlockEntityBlocks.CLOTHESLINE.value()));
+    }
+
+    @Override
+    public void draw(ClotheslineRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        // Draw success percentage if less than 100%
+        float successChance = recipe.getSuccessChance();
+        if (successChance < 1.0f) {
+            int percentage = Math.round(successChance * 100);
+            String successText = percentage + "% Success:";
+
+            Minecraft minecraft = Minecraft.getInstance();
+            int textColor = 0xFF55FF55; // Green color
+            int shadowColor = 0xFF000000 | (textColor & 0xFCFCFC) >> 2;
+            int width = minecraft.font.width(successText);
+            int x = 111 - width - 2;
+            int y = 10;
+
+            // Draw text with shadow
+            guiGraphics.drawString(minecraft.font, successText, x + 1, y, shadowColor);
+            guiGraphics.drawString(minecraft.font, successText, x, y + 1, shadowColor);
+            guiGraphics.drawString(minecraft.font, successText, x + 1, y + 1, shadowColor);
+            guiGraphics.drawString(minecraft.font, successText, x, y, textColor);
+
+            // Draw fallback label if present
+            if (!recipe.getFallbackResult().isEmpty()) {
+                String fallbackText = "Otherwise:";
+                int fallbackWidth = minecraft.font.width(fallbackText);
+                int fallbackX = 111 - fallbackWidth - 2;
+                int fallbackY = 43;
+                guiGraphics.drawString(minecraft.font, fallbackText, fallbackX, fallbackY, 0xFFAAAAAA);
+            }
+        }
     }
 
 }

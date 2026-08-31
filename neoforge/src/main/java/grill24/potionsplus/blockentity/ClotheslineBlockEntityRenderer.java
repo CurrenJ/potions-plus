@@ -32,6 +32,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @OnlyIn(Dist.CLIENT)
@@ -80,6 +81,10 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
             if (leftBlockEntity == null)
                 return;
 
+            BlockPos leftRelativeToRenderOrigin = left.subtract(blockEntity.getBlockPos());
+            BlockPos rightRelativeToRenderOrigin = right.subtract(blockEntity.getBlockPos());
+            renderPosts(matrices, vertexConsumers, leftBlockEntity, leftRelativeToRenderOrigin, rightRelativeToRenderOrigin, LightTexture.pack(blockLightStart, skyLightStart), overlay);
+
             // Render items on the clothesline
             for (int i = 0; i < leftBlockEntity.getContainerSize(); i++) {
                 ItemStack stack = leftBlockEntity.getItem(i);
@@ -126,6 +131,20 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
             return RUtil.rotateY(90);
         }
         return new Quaternionf().identity();
+    }
+
+    private void renderPosts(PoseStack poseStack, MultiBufferSource bufferSource, ClotheslineBlockEntity clotheslineBlockEntity, BlockPos leftRelative, BlockPos rightRelative, int light, int overlay) {
+        Optional<BlockState> post = clotheslineBlockEntity.getFencePostBlockState();
+
+        poseStack.pushPose();
+        poseStack.translate(leftRelative.getX(), leftRelative.getY(), leftRelative.getZ());
+        post.ifPresent(state -> blockRenderDispatcher.renderSingleBlock(state, poseStack, bufferSource, light, overlay));
+        poseStack.popPose();
+
+        poseStack.pushPose();
+        poseStack.translate(rightRelative.getX(), rightRelative.getY(), rightRelative.getZ());
+        post.ifPresent(state -> blockRenderDispatcher.renderSingleBlock(state, poseStack, bufferSource, light, overlay));
+        poseStack.popPose();
     }
 
     private static final Set<BlockPos> clotheslinesRendered = new HashSet<>();

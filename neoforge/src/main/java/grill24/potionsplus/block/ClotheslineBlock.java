@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -22,6 +23,8 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -36,6 +39,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class ClotheslineBlock extends HorizontalDirectionalBlock implements EntityBlock, WorldlyContainerHolder {
     private static final VoxelShape CENTER_POST = Block.box(6, 0, 6, 10, 16, 10);
@@ -211,6 +215,13 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+        Optional<ClotheslineBlockEntity> blockEntityOptional = blockGetter.getBlockEntity(getLeftEnd(blockPos, blockState), grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.value());
+        if (blockEntityOptional.isPresent()) {
+            Optional<BlockState> fencePostBlockStateOptional = blockEntityOptional.get().getFencePostBlockState();
+            if (fencePostBlockStateOptional.isPresent()) {
+                return fencePostBlockStateOptional.get().getShape(blockGetter, blockPos);
+            }
+        }
         return CENTER_POST;
     }
 
@@ -229,6 +240,17 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (stack.getItem() instanceof BlockItem blockItem) {
+            Block block = blockItem.getBlock();
+            if (block instanceof FenceBlock || block instanceof WallBlock) {
+                Optional<ClotheslineBlockEntity> blockEntityOptional = level.getBlockEntity(getLeftEnd(pos, state), grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.value());
+                if (blockEntityOptional.isPresent()) {
+                    blockEntityOptional.get().setFencePostBlockItem(stack);
+                    return ItemInteractionResult.SUCCESS;
+                }
+            }
+        }
+
         BlockPos left = getLeftEnd(pos, state);
         InvUtil.InteractionResult result = InvUtil.insertOnPlayerUseItem(level, left, player, hand, SoundEvents.ITEM_FRAME_ADD_ITEM);
 

@@ -1,6 +1,7 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
+import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.ModInfo;
@@ -27,6 +28,9 @@ public class BlockTagProvider extends BlockTagsProvider {
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.DENSE_DIAMOND_ORE.value(), OreBlocks.DEEPSLATE_DENSE_DIAMOND_ORE.value(), OreBlocks.REMNANT_DEBRIS.value(), OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreBlocks.SULFURIC_NETHER_QUARTZ_ORE.value());
+
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(DecorationBlocks.GROWING_MOSSY_COBBLESTONE.value(), DecorationBlocks.GROWING_MOSSY_COBBLESTONE_SLAB.value(), DecorationBlocks.GROWING_MOSSY_COBBLESTONE_STAIRS.value(),
+                DecorationBlocks.GROWING_MOSSY_STONE_BRICKS.value(), DecorationBlocks.GROWING_MOSSY_STONE_BRICK_SLAB.value(), DecorationBlocks.GROWING_MOSSY_STONE_BRICK_STAIRS.value());
 
         tag(Tags.Blocks.ORES).add(OreBlocks.DEEPSLATE_REMNANT_DEBRIS.value(), OreBlocks.REMNANT_DEBRIS.value(), OreBlocks.DENSE_DIAMOND_ORE.value(), OreBlocks.DEEPSLATE_DENSE_DIAMOND_ORE.value());
         tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(OreBlocks.DENSE_DIAMOND_ORE.value(), OreBlocks.REMNANT_DEBRIS.value());

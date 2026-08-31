@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "potionsplus:block/growing_mossy_cobblestone_slab"
+    },
+    "type=double": {
+      "model": "potionsplus:block/growing_mossy_cobblestone"
+    },
+    "type=top": {
+      "model": "potionsplus:block/growing_mossy_cobblestone_slab_top"
+    }
+  }
+}

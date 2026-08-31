@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "potionsplus:block/growing_mossy_stone_bricks"
+  }
+}

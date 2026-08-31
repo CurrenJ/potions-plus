@@ -3,12 +3,17 @@ package grill24.potionsplus.utility.registration.block;
 import grill24.potionsplus.utility.registration.IModelGenerator;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static grill24.potionsplus.utility.Utility.mc;
@@ -119,6 +124,52 @@ public class BlockModelUtility {
         @Override
         public Holder<? extends T> getHolder() {
             return blockGetter.get();
+        }
+    }
+
+    /**
+     * Generates the full block family for a base block (cube-all model, blockstate,
+     * item model) plus its slab and stair variants, all sharing the base block's
+     * texture. This is the 1.21.1 equivalent of 26.1.2's BlockFamilyModelGenerator,
+     * adapted to the {@link BlockStateProvider} datagen API.
+     */
+    public static class BlockFamilyModelGenerator<T extends Block> extends BlockModelGenerator<T> {
+        private final Function<BlockFamily.Builder, BlockFamily.Builder> family;
+
+        public BlockFamilyModelGenerator(Supplier<Holder<T>> blockGetter, Function<BlockFamily.Builder, BlockFamily.Builder> family) {
+            super(blockGetter);
+            this.family = family;
+        }
+
+        @Override
+        public void generate(BlockStateProvider provider) {
+            Block baseBlock = getHolder().value();
+            ResourceLocation texture = getModelLocation(baseBlock);
+
+            BlockFamily blockFamily = family.apply(new BlockFamily.Builder(baseBlock)).getFamily();
+
+            // Base block: cube-all model, blockstate, and item model
+            ModelFile baseModel = provider.models().getBuilder(texture.getPath())
+                    .parent(provider.models().getExistingFile(mc("block/cube_all")))
+                    .texture("all", texture);
+            provider.getVariantBuilder(baseBlock).forAllStates(state -> ConfiguredModel.builder()
+                    .modelFile(baseModel)
+                    .build());
+            provider.simpleBlockItem(baseBlock, baseModel);
+
+            // Slab variant
+            Block slab = blockFamily.getVariants().get(BlockFamily.Variant.SLAB);
+            if (slab instanceof SlabBlock slabBlock) {
+                provider.slabBlock(slabBlock, texture, texture);
+                provider.simpleBlockItem(slabBlock, provider.models().getExistingFile(getModelLocation(slabBlock)));
+            }
+
+            // Stairs variant
+            Block stairs = blockFamily.getVariants().get(BlockFamily.Variant.STAIRS);
+            if (stairs instanceof StairBlock stairBlock) {
+                provider.stairsBlock(stairBlock, texture);
+                provider.simpleBlockItem(stairBlock, provider.models().getExistingFile(getModelLocation(stairBlock)));
+            }
         }
     }
 }

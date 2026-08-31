@@ -17,17 +17,36 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class ClotheslineRecipe extends ShapelessProcessingRecipe {
+    private final ItemStack fallbackResult;
 
     public ClotheslineRecipe(ClotheslineRecipe recipe) {
-        super(recipe.category, recipe.group, recipe.ingredients, recipe.result, recipe.processingTime, recipe.canShowInJei);
+        super(recipe.category, recipe.group, recipe.ingredients, recipe.result, recipe.processingTime, recipe.canShowInJei, recipe.successChance);
+        this.fallbackResult = recipe.fallbackResult;
     }
 
     public ClotheslineRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack itemStack, int processingTime, boolean canShowInJei) {
-        super(category, group, ingredients, itemStack, processingTime, canShowInJei);
+        this(category, group, ingredients, itemStack, processingTime, canShowInJei, 1.0f, ItemStack.EMPTY);
+    }
+
+    public ClotheslineRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack itemStack, int processingTime, boolean canShowInJei, float successChance) {
+        this(category, group, ingredients, itemStack, processingTime, canShowInJei, successChance, ItemStack.EMPTY);
+    }
+
+    public ClotheslineRecipe(RecipeCategory category, String group, List<PpIngredient> ingredients, ItemStack itemStack, int processingTime, boolean canShowInJei, float successChance, ItemStack fallbackResult) {
+        super(category, group, ingredients, itemStack, processingTime, canShowInJei, successChance);
+        this.fallbackResult = fallbackResult == null ? ItemStack.EMPTY : fallbackResult;
+    }
+
+    public ItemStack getFallbackResult() {
+        return fallbackResult;
+    }
+
+    public Optional<ItemStack> getFallbackResultOptional() {
+        return fallbackResult.isEmpty() ? Optional.empty() : Optional.of(fallbackResult);
     }
 
     @Override
@@ -52,16 +71,22 @@ public class ClotheslineRecipe extends ShapelessProcessingRecipe {
                         PpIngredient.LIST_CODEC.fieldOf("ingredients").forGetter(ShapelessProcessingRecipe::getPpIngredients),
                         ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ShapelessProcessingRecipe::getResult),
                         Codec.INT.fieldOf("processingTime").forGetter(ShapelessProcessingRecipe::getProcessingTime),
-                        Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei)
-                ).apply(codecBuilder, ClotheslineRecipe::new)
+                        Codec.BOOL.optionalFieldOf("canShowInJei", true).forGetter(ShapelessProcessingRecipe::canShowInJei),
+                        Codec.FLOAT.optionalFieldOf("successChance", 1.0f).forGetter(ShapelessProcessingRecipe::getSuccessChance),
+                        ItemStack.CODEC.optionalFieldOf("fallbackResult").forGetter(ClotheslineRecipe::getFallbackResultOptional)
+                ).apply(codecBuilder, (category, group, ingredients, result, processingTime, canShowInJei, successChance, fallbackOpt) ->
+                        new ClotheslineRecipe(category, group, ingredients, result, processingTime, canShowInJei, successChance, fallbackOpt.orElse(ItemStack.EMPTY))
+                )
         );
-        public static StreamCodec<RegistryFriendlyByteBuf, ClotheslineRecipe> STREAM_CODEC = StreamCodec.composite(
+        public static StreamCodec<RegistryFriendlyByteBuf, ClotheslineRecipe> STREAM_CODEC = StreamCodecUtility.composite(
                 ShapelessProcessingRecipeSerializerHelper.RECIPE_CATEGORY_STREAM_CODEC, ShapelessProcessingRecipe::getCategory,
                 ByteBufCodecs.STRING_UTF8, ShapelessProcessingRecipe::getGroup,
                 PpIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()), ShapelessProcessingRecipe::getPpIngredients,
                 ItemStack.STREAM_CODEC, ShapelessProcessingRecipe::getResult,
                 ByteBufCodecs.INT, ShapelessProcessingRecipe::getProcessingTime,
                 ByteBufCodecs.BOOL, ShapelessProcessingRecipe::canShowInJei,
+                ByteBufCodecs.FLOAT, ShapelessProcessingRecipe::getSuccessChance,
+                ItemStack.OPTIONAL_STREAM_CODEC, ClotheslineRecipe::getFallbackResult,
                 ClotheslineRecipe::new
         );
 
