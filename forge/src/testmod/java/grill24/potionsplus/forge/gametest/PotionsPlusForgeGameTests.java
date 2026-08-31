@@ -2,6 +2,7 @@ package grill24.potionsplus.forge.gametest;
 
 import grill24.potionsplus.gametest.AlchemyGameTests;
 import grill24.potionsplus.gametest.BrewingCauldronGameTests;
+import grill24.potionsplus.gametest.EffectGameTests;
 import grill24.potionsplus.gametest.RecipeSyncGameTests;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraftforge.gametest.GameTest;
@@ -216,5 +217,82 @@ public final class PotionsPlusForgeGameTests {
     @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
     public static void runtimeRecipeSyncRoundTripsThroughTheStreamCodec(GameTestHelper helper) {
         RecipeSyncGameTests.runtimeRecipeSyncRoundTripsThroughTheStreamCodec(helper);
+    }
+
+    // ----- custom effects: what they actually do in the world -----
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void magneticPullsItemsTowardTheHolder(GameTestHelper helper) {
+        EffectGameTests.magneticPullsItemsTowardTheHolder(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void cropCollectorHarvestsAMatureCropInRange(GameTestHelper helper) {
+        EffectGameTests.cropCollectorHarvestsAMatureCropInRange(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void botanicalBoostAgesAYoungCropInRange(GameTestHelper helper) {
+        EffectGameTests.botanicalBoostAgesAYoungCropInRange(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void giantStepsRaisesStepHeight(GameTestHelper helper) {
+        EffectGameTests.giantStepsRaisesStepHeight(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void reachForTheStarsIncreasesInteractionRange(GameTestHelper helper) {
+        EffectGameTests.reachForTheStarsIncreasesInteractionRange(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void teleportationMovesTheHolder(GameTestHelper helper) {
+        EffectGameTests.teleportationMovesTheHolder(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void harrowingHandsGrantsBoneBuddyToNearbySkeletons(GameTestHelper helper) {
+        EffectGameTests.harrowingHandsGrantsBoneBuddyToNearbySkeletons(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void explodingDamagesTheHolderOnExpiry(GameTestHelper helper) {
+        EffectGameTests.explodingDamagesTheHolderOnExpiry(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void boneBuddyRetargetsASkeletonsAggro(GameTestHelper helper) {
+        EffectGameTests.boneBuddyRetargetsASkeletonsAggro(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void geodeGraceEventuallyConvertsStoneToOre(GameTestHelper helper) {
+        EffectGameTests.geodeGraceEventuallyConvertsStoneToOre(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void fallOfTheVoidRescuesTheHolder(GameTestHelper helper) {
+        EffectGameTests.fallOfTheVoidRescuesTheHolder(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void soulMateRedirectsDamageToThePairedEntity(GameTestHelper helper) {
+        EffectGameTests.soulMateRedirectsDamageToThePairedEntity(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void flyingTimeTracksHoldersByUuid(GameTestHelper helper) {
+        EffectGameTests.flyingTimeTracksHoldersByUuid(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void slipNSlideReducesAirFrictionOnLanding(GameTestHelper helper) {
+        EffectGameTests.slipNSlideReducesAirFrictionOnLanding(helper);
+    }
+
+    @GameTest(structure = STRUCTURE, maxTicks = DEFAULT_MAX_TICKS)
+    public static void bouncingReversesDownwardVelocityOnFall(GameTestHelper helper) {
+        EffectGameTests.bouncingReversesDownwardVelocityOnFall(helper);
     }
 }

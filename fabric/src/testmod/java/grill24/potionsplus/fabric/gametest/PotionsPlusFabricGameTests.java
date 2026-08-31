@@ -2,6 +2,7 @@ package grill24.potionsplus.fabric.gametest;
 
 import grill24.potionsplus.gametest.AlchemyGameTests;
 import grill24.potionsplus.gametest.BrewingCauldronGameTests;
+import grill24.potionsplus.gametest.EffectGameTests;
 import grill24.potionsplus.gametest.RecipeSyncGameTests;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -204,5 +205,82 @@ public class PotionsPlusFabricGameTests {
     @GameTest(structure = "fabric-gametest-api-v1:empty")
     public void runtimeRecipeSyncRoundTripsThroughTheStreamCodec(GameTestHelper helper) {
         RecipeSyncGameTests.runtimeRecipeSyncRoundTripsThroughTheStreamCodec(helper);
+    }
+
+    // ----- custom effects: what they actually do in the world -----
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void magneticPullsItemsTowardTheHolder(GameTestHelper helper) {
+        EffectGameTests.magneticPullsItemsTowardTheHolder(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void cropCollectorHarvestsAMatureCropInRange(GameTestHelper helper) {
+        EffectGameTests.cropCollectorHarvestsAMatureCropInRange(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void botanicalBoostAgesAYoungCropInRange(GameTestHelper helper) {
+        EffectGameTests.botanicalBoostAgesAYoungCropInRange(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void giantStepsRaisesStepHeight(GameTestHelper helper) {
+        EffectGameTests.giantStepsRaisesStepHeight(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void reachForTheStarsIncreasesInteractionRange(GameTestHelper helper) {
+        EffectGameTests.reachForTheStarsIncreasesInteractionRange(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void teleportationMovesTheHolder(GameTestHelper helper) {
+        EffectGameTests.teleportationMovesTheHolder(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void harrowingHandsGrantsBoneBuddyToNearbySkeletons(GameTestHelper helper) {
+        EffectGameTests.harrowingHandsGrantsBoneBuddyToNearbySkeletons(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void explodingDamagesTheHolderOnExpiry(GameTestHelper helper) {
+        EffectGameTests.explodingDamagesTheHolderOnExpiry(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void boneBuddyRetargetsASkeletonsAggro(GameTestHelper helper) {
+        EffectGameTests.boneBuddyRetargetsASkeletonsAggro(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void geodeGraceEventuallyConvertsStoneToOre(GameTestHelper helper) {
+        EffectGameTests.geodeGraceEventuallyConvertsStoneToOre(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void fallOfTheVoidRescuesTheHolder(GameTestHelper helper) {
+        EffectGameTests.fallOfTheVoidRescuesTheHolder(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void soulMateRedirectsDamageToThePairedEntity(GameTestHelper helper) {
+        EffectGameTests.soulMateRedirectsDamageToThePairedEntity(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void flyingTimeTracksHoldersByUuid(GameTestHelper helper) {
+        EffectGameTests.flyingTimeTracksHoldersByUuid(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void slipNSlideReducesAirFrictionOnLanding(GameTestHelper helper) {
+        EffectGameTests.slipNSlideReducesAirFrictionOnLanding(helper);
+    }
+
+    @GameTest(structure = "fabric-gametest-api-v1:empty")
+    public void bouncingReversesDownwardVelocityOnFall(GameTestHelper helper) {
+        EffectGameTests.bouncingReversesDownwardVelocityOnFall(helper);
     }
 }
