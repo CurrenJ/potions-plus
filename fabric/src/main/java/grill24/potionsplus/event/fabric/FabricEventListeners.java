@@ -114,11 +114,14 @@ public final class FabricEventListeners {
         });
 
         PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> {
-            if (!(level instanceof ServerLevel serverLevel)) {
-                return false;
+            // Grungler.onBreakBlock's return value means "a Grungler spawned" (a rare 1% chance on
+            // ore blocks), not "allow this break" - PlayerBlockBreakEvents.BEFORE treats false as
+            // "cancel", so returning it directly cancelled almost every block break in the game.
+            if (level instanceof ServerLevel serverLevel) {
+                List<ItemStack> drops = Block.getDrops(state, serverLevel, pos, blockEntity);
+                Grungler.onBreakBlock(state, drops, player, pos);
             }
-            List<ItemStack> drops = Block.getDrops(state, serverLevel, pos, blockEntity);
-            return Grungler.onBreakBlock(state, drops, player, pos);
+            return true;
         });
     }
 

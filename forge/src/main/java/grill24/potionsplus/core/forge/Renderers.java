@@ -2,7 +2,9 @@ package grill24.potionsplus.core.forge;
 
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntityRenderer;
 import grill24.potionsplus.blockentity.BrewingCauldronBlockEntityRenderer;
+import grill24.potionsplus.blockentity.BrewingCauldronWaterTintSource;
 import grill24.potionsplus.blockentity.ClotheslineBlockEntityRenderer;
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntityRenderer;
 import grill24.potionsplus.blockentity.PotionBeaconBlockEntityRenderer;
 import grill24.potionsplus.blockentity.SanguineAltarBlockEntityRenderer;
@@ -99,5 +101,10 @@ public class Renderers {
         // codecs. Forge has no item-tint event (RegisterColorHandlersEvent only covers Block and
         // ColorResolvers), so put directly on the vanilla ID_MAPPER before model baking.
         ItemTintSources.ID_MAPPER.put(AnyPotionTintSource.ID, AnyPotionTintSource.CODEC);
+
+        // Block tint source (cauldron water color): Forge's RegisterColorHandlersEvent only covers
+        // items/ColorResolvers, not blocks, so register directly against the vanilla BlockColors map.
+        net.minecraft.client.Minecraft.getInstance().getBlockColors().register(
+                java.util.List.of(BrewingCauldronWaterTintSource.INSTANCE), BlockEntityBlocks.BREWING_CAULDRON.value());
     }
 }

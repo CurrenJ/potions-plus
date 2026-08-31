@@ -3,6 +3,7 @@ package grill24.potionsplus.core.fabric;
 import com.mojang.logging.LogUtils;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntityRenderer;
 import grill24.potionsplus.blockentity.BrewingCauldronBlockEntityRenderer;
+import grill24.potionsplus.blockentity.BrewingCauldronWaterTintSource;
 import grill24.potionsplus.blockentity.ClotheslineBlockEntityRenderer;
 import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntityRenderer;
 import grill24.potionsplus.blockentity.PotionBeaconBlockEntityRenderer;
@@ -21,8 +22,10 @@ import grill24.potionsplus.particle.ParticleConfigurations;
 import grill24.potionsplus.particle.SmallLightningBoltParticle;
 import grill24.potionsplus.particle.StunStarsParticle;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemTintSources;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -72,5 +75,15 @@ public class PotionsPlusFabricClient implements ClientModInitializer {
         // NeoForge wraps this in RegisterColorHandlersEvent.ItemTintSources; Fabric/Forge put directly
         // on the vanilla ID_MAPPER (a live BiMap, so late additions before model bake are fine).
         ItemTintSources.ID_MAPPER.put(AnyPotionTintSource.ID, AnyPotionTintSource.CODEC);
+
+        // Block tint source (cauldron water color): NeoForge wraps this in
+        // RegisterColorHandlersEvent.BlockTintSources; Fabric has no such event, so register directly
+        // against the vanilla BlockColors map. Minecraft.getInstance() is still null at this point
+        // (onInitializeClient runs before the client is constructed), so defer to CLIENT_STARTED -
+        // BlockColors is consulted per-frame rather than baked into models, so a late registration
+        // is fine as long as it lands before the first render of the block.
+        ClientLifecycleEvents.CLIENT_STARTED.register(client ->
+                Minecraft.getInstance().getBlockColors().register(
+                        java.util.List.of(BrewingCauldronWaterTintSource.INSTANCE), grill24.potionsplus.core.blocks.BlockEntityBlocks.BREWING_CAULDRON.value()));
     }
 }
