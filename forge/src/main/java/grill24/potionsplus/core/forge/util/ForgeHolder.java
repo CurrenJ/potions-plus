@@ -133,12 +133,26 @@ public final class ForgeHolder<T> implements Holder<T>, Supplier<T> {
         return delegate.getHolder().map(h -> h.canSerializeIn(owner)).orElse(false);
     }
 
+    /**
+     * Compares by resource key against any {@link Holder}, not just other {@link ForgeHolder}s.
+     *
+     * <p>{@code Holder.Reference} (what {@code BuiltInRegistries.*.listElements()} actually hands
+     * back) declares no {@code equals}/{@code hashCode} override of its own - registries hand out one
+     * singleton instance per key, so plain identity equality is correct for vanilla-to-vanilla
+     * comparisons. A {@link ForgeHolder} is a second, distinct object standing in for that same key,
+     * so a class-restricted equals (the previous implementation) could never match the real reference:
+     * {@code someList.contains(MobEffects.MAGNETIC)} silently returned false against a list built from
+     * the registry directly, e.g. {@code EffectRegistry.passiveEligible}. Matching by key here mirrors
+     * {@link #is(Holder)}'s existing semantics, at the cost of one-sided symmetry - the vanilla
+     * reference's own identity-based equals still won't recognise this wrapper - which is an accepted,
+     * unavoidable tradeoff without patching vanilla (see {@code RegistryMixin} for the same tradeoff
+     * made for serialization).
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ForgeHolder<?> that = (ForgeHolder<?>) o;
-        return Objects.equals(getKey(), that.getKey());
+        if (!(o instanceof Holder<?> other)) return false;
+        return getKey() != null && other.unwrapKey().map(getKey()::equals).orElse(false);
     }
 
     @Override
