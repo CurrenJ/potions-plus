@@ -8,6 +8,7 @@
     "BucketItemMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
+    "RegistryLoadTaskMixin",
     "RegistryMixin"
   ],
   "injectors": {

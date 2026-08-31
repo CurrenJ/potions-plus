@@ -3,6 +3,8 @@ package grill24.potionsplus.forge.gametest;
 import com.mojang.serialization.MapCodec;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.WritableRegistry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.gametest.framework.GameTestInstance;
@@ -11,11 +13,13 @@ import net.minecraft.gametest.framework.TestEnvironmentDefinition;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.gametest.ForgeGameTestHooks;
 import net.minecraftforge.registries.RegisterEvent;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -51,23 +55,48 @@ public final class ForgeGameTestRegistration {
 
     private ForgeGameTestRegistration() {}
 
+    /**
+     * Kept for forward-compat in case a future Forge build actually fires {@code RegisterEvent} for
+     * {@code Registries.TEST_INSTANCE} - confirmed dead today (see class javadoc). What actually runs
+     * this is {@link #registerIntoRegistry}, invoked reflectively from
+     * {@code grill24.potionsplus.mixin.forge.RegistryLoadTaskMixin} (main sourceSet - this class lives
+     * in testmod, which main cannot reference at compile time, hence the reflective bridge rather than
+     * a direct call).
+     */
     @SubscribeEvent
     public static void onRegister(RegisterEvent event) {
+        event.register(Registries.TEST_INSTANCE, helper ->
+                buildTests().forEach((key, test) -> helper.register(key.identifier(), test)));
+    }
+
+    /**
+     * Registers every test directly into the still-writable {@code Registries.TEST_INSTANCE} registry.
+     * Called from {@code RegistryLoadTaskMixin} right after the registry's datapack entries are loaded
+     * but before it freezes - the only point at which Forge 26.1.2 ever has this registry open, since
+     * (per the class javadoc) nothing in stock Forge fires an event there.
+     */
+    @SuppressWarnings("unused") // invoked reflectively
+    public static void registerIntoRegistry(WritableRegistry<GameTestInstance> registry) {
+        buildTests().forEach((key, test) -> Registry.register(registry, key, test));
+    }
+
+    private static Map<ResourceKey<GameTestInstance>, ConsumerTestInstance> buildTests() {
         Map<Identifier, ForgeGameTestHooks.TestReference> tests =
                 ForgeGameTestHooks.gatherTests(PotionsPlusForgeGameTests.class, null);
 
-        event.register(Registries.TEST_INSTANCE, helper -> {
-            for (var entry : tests.entrySet()) {
-                Holder<TestEnvironmentDefinition<?>> env =
-                        Holder.direct(new TestEnvironmentDefinition.AllOf(List.of()));
-                TestData<Identifier> raw = entry.getValue().data();
-                TestData<Holder<TestEnvironmentDefinition<?>>> data = new TestData<>(
-                        env, raw.structure(), raw.maxTicks(), raw.setupTicks(), raw.required(),
-                        raw.rotation(), raw.manualOnly(), raw.maxAttempts(), raw.requiredSuccesses(),
-                        raw.skyAccess(), raw.padding());
-                helper.register(entry.getKey(), new ConsumerTestInstance(entry.getValue().consumer(), data));
-            }
-        });
+        Map<ResourceKey<GameTestInstance>, ConsumerTestInstance> result = new LinkedHashMap<>();
+        for (var entry : tests.entrySet()) {
+            Holder<TestEnvironmentDefinition<?>> env =
+                    Holder.direct(new TestEnvironmentDefinition.AllOf(List.of()));
+            TestData<Identifier> raw = entry.getValue().data();
+            TestData<Holder<TestEnvironmentDefinition<?>>> data = new TestData<>(
+                    env, raw.structure(), raw.maxTicks(), raw.setupTicks(), raw.required(),
+                    raw.rotation(), raw.manualOnly(), raw.maxAttempts(), raw.requiredSuccesses(),
+                    raw.skyAccess(), raw.padding());
+            result.put(ResourceKey.create(Registries.TEST_INSTANCE, entry.getKey()),
+                    new ConsumerTestInstance(entry.getValue().consumer(), data));
+        }
+        return result;
     }
 
     /** Minimal {@link GameTestInstance} wrapping a {@link Consumer} - mirrors NeoForge's equivalent. */
