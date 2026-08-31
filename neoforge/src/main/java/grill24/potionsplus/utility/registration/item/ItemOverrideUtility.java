@@ -1,6 +1,6 @@
 package grill24.potionsplus.utility.registration.item;
 
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.registration.IModelGenerator;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -52,7 +52,7 @@ public class ItemOverrideUtility {
             ItemModelBuilder imb = null;
 
             Holder<Item> item = getHolder();
-            for (MobEffect mobEffect : PUtil.getAllMobEffects()) {
+            for (MobEffect mobEffect : EffectRegistry.getAllMobEffects()) {
                 ResourceLocation registryName = BuiltInRegistries.MOB_EFFECT.getKey(mobEffect);
                 if (imb == null) {
                     imb = itemModels.getBuilder(item.getKey().location().getPath())

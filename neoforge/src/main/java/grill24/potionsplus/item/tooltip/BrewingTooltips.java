@@ -10,7 +10,7 @@ import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -92,15 +92,15 @@ public class BrewingTooltips {
 
                         BrewingCauldronRecipe recipe = recipeHolder.value();
                         ItemStack recipeResult = recipe.getResult();
-                        if (!PUtil.isPotion(recipeResult) || !PUtil.hasPotion(recipeResult)
-                                || Potions.ANY_POTION.is(PUtil.getPotionHolder(recipeResult).getKey()) || Potions.ANY_OTHER_POTION.is(PUtil.getPotionHolder(recipeResult).getKey())
+                        if (!PotionContainer.isPotion(recipeResult) || !PotionData.hasPotion(recipeResult)
+                                || Potions.ANY_POTION.is(PotionData.getPotionHolder(recipeResult).getKey()) || Potions.ANY_OTHER_POTION.is(PotionData.getPotionHolder(recipeResult).getKey())
                                 || !recipe.canShowInJei())
                             continue;
-                        List<MobEffectInstance> potionEffects = PUtil.getPotion(recipeResult).getEffects();
-                        String effectName = !potionEffects.isEmpty() ? PUtil.getPotion(recipeResult).getEffects().getFirst().getDescriptionId() : "";
+                        List<MobEffectInstance> potionEffects = PotionData.getPotion(recipeResult).getEffects();
+                        String effectName = !potionEffects.isEmpty() ? PotionData.getPotion(recipeResult).getEffects().getFirst().getDescriptionId() : "";
 
                         if (!effectName.isEmpty()) {
-                            long totalNonPotionIngredients = recipe.getIngredientsAsItemStacks().stream().filter(i -> !PUtil.isPotion(i)).count();
+                            long totalNonPotionIngredients = recipe.getIngredientsAsItemStacks().stream().filter(i -> !PotionContainer.isPotion(i)).count();
                             List<Component> recipeTextComponents = new ArrayList<>();
                             recipeTextComponents.add(Component.literal("1").withStyle(ChatFormatting.GREEN));
                             recipeTextComponents.add(Component.literal(" / ").withStyle(ChatFormatting.GRAY));

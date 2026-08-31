@@ -1,7 +1,7 @@
 package grill24.potionsplus.recipe.clotheslinerecipe;
 
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeBuilder;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;

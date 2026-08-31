@@ -7,7 +7,7 @@ import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
@@ -94,10 +94,10 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
             // ----- Potion MERGE Logic -----
 
             // Get all mobeffectinstances from the potions
-            ItemStack[] potions = this.items.stream().filter(PUtil::isPotion).toArray(ItemStack[]::new);
+            ItemStack[] potions = this.items.stream().filter(PotionContainer::isPotion).toArray(ItemStack[]::new);
 
-            Stream<MobEffectInstance> customEffects = this.items.stream().filter(PUtil::isPotion).map(PUtil::getPotionContents).map(PotionContents::customEffects).flatMap(Collection::stream);
-            Stream<MobEffectInstance> potionEffects = Arrays.stream(potions).map(PUtil::getPotion).map(Potion::getEffects).flatMap(Collection::stream);
+            Stream<MobEffectInstance> customEffects = this.items.stream().filter(PotionContainer::isPotion).map(PotionData::getPotionContents).map(PotionContents::customEffects).flatMap(Collection::stream);
+            Stream<MobEffectInstance> potionEffects = Arrays.stream(potions).map(PotionData::getPotion).map(Potion::getEffects).flatMap(Collection::stream);
             List<MobEffectInstance> allEffects = Stream.concat(customEffects, potionEffects).toList();
 
             Map<ResourceKey<MobEffect>, MobEffectInstance> effectMap = new HashMap<>();
@@ -110,7 +110,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
             int effectCount = effectMap.size();
             if (potions.length > 1 && effectCount > 1) {
-                ItemStack potionStack = PUtil.setCustomEffects(new ItemStack(potions[0].getItem()), new ArrayList<>(effectMap.values()));
+                ItemStack potionStack = PotionDataBuilder.setCustomEffects(new ItemStack(potions[0].getItem()), new ArrayList<>(effectMap.values()));
 
                 if(effectCount == 2) {
                     potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_2_effects"));
@@ -144,13 +144,13 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
         // ----- Passive Potion Effects on Items Logic -----
         if (this.activeRecipe.isEmpty()) {
-            Optional<ItemStack> item = this.items.stream().filter(PUtil::isItemEligibleForPassivePotionEffects).findAny();
-            Optional<ItemStack> potion = this.items.stream().filter(PUtil::isPotion).findAny();
+            Optional<ItemStack> item = this.items.stream().filter(PotionContainer::isItemEligibleForPassivePotionEffects).findAny();
+            Optional<ItemStack> potion = this.items.stream().filter(PotionContainer::isPotion).findAny();
 
             if (item.isPresent() && potion.isPresent()) {
-                List<MobEffectInstance> customEffects = PUtil.getAllEffects(potion.get());
-                customEffects.addAll(PUtil.getAllEffects(item.get()));
-                ItemStack result = PUtil.setCustomEffects(item.get(), customEffects).copy();
+                List<MobEffectInstance> customEffects = PotionData.getAllEffects(potion.get());
+                customEffects.addAll(PotionData.getAllEffects(item.get()));
+                ItemStack result = PotionDataBuilder.setCustomEffects(item.get().copy(), customEffects);
 
                 ItemStack[] ingredients = new ItemStack[] { item.get(), potion.get() };
                 this.activeRecipe = Optional.of(
@@ -158,7 +158,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                                 .result(result)
                                 .processingTime(200)
                                 .ingredients(ingredients)
-                                .potionMatchingCriteria(List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER, BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
+                                .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER, EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
                                 .build());
             }
         }
@@ -186,7 +186,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
         if (activeRecipe.isPresent()) {
             ItemStack result = activeRecipe.get().value().getResultItemWithTransformations(this.items);
             if (result.has(DataComponents.POTION_CONTENTS)) {
-                List<MobEffectInstance> effects = PUtil.getAllEffects(PUtil.getPotionContents(result));
+                List<MobEffectInstance> effects = PotionData.getAllEffects(PotionData.getPotionContents(result));
                 Color potionColor = new Color(PotionContents.getColor(effects));
 
                 // Lerp water and potions
@@ -224,7 +224,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                 // the correct item and remove the correct amount
                 for (int j = 0; j < this.getContainerSize(); j++) {
                     ItemStack stack = this.getItem(j);
-                    if (PUtil.isSameItemOrPotion(stack, ingredient, recipe.getMatchingCriteria())) {
+                    if (EffectComparison.matches(stack, ingredient, recipe.getMatchingCriteria())) {
                         consumedInputs.add(stack.copy());
                         stack.shrink(ingredient.getCount());
                         break;

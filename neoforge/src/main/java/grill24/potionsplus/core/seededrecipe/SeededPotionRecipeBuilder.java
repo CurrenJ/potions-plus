@@ -6,7 +6,7 @@ import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.ItemLike;
@@ -91,7 +91,7 @@ public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
     @Deprecated
     public List<RecipeHolder<BrewingCauldronRecipe>> generateRecipes(PotionBuilder.PotionsPlusPotionGenerationData generationData, Set<PpMultiIngredient> alreadyUsedRecipeInputs, RandomSource random) {
         // Don't try to generate recipes for potions that already exist in saved data.
-        if(SavedData.instance.isResultInRecipeSavedData(PUtil.createPotionItemStack(generationData.potion, PUtil.PotionType.POTION))) {
+        if(SavedData.instance.isResultInRecipeSavedData(PotionContainer.POTION.createItemStack(generationData.potion))) {
             if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
                 PotionsPlus.LOGGER.info("[SPR] Skipping recipe generation for potion that already exists in saved data: {}", generationData.potion.getKey().location());
             }
@@ -133,12 +133,12 @@ public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
             allIngredients.addAll(nonPotionIngredients.split());
 
             RecipeHolder<BrewingCauldronRecipe> recipe = new BrewingCauldronRecipeBuilder()
-                    .result(PUtil.createPotionItemStack(potionsPlusPotionGenerationData.potion, PUtil.PotionType.POTION))
+                    .result(PotionContainer.POTION.createItemStack(potionsPlusPotionGenerationData.potion))
                     .ingredients(allIngredients.toArray(new PpIngredient[0]))
                     .processingTime(baseProcessingTime)
                     .group(advancementNameIngredient)
                     .experienceReward(experience)
-                    .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER)
+                    .potionMatchingCriteria(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER)
                     .isSeededRuntimeRecipe()
                     .build();
             allRecipes.add(recipe);

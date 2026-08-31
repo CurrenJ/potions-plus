@@ -5,7 +5,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
@@ -56,7 +56,7 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
         this.basePotion = basePotion;
         this.effect = basePotion.value().getEffects().get(0).getEffect();
 
-        PpMultiIngredient input = sampleUniqueIngredientsFromSamplingConfig(config, alreadyUsedRecipeInputs, PpIngredient.of(PUtil.createPotionItemStack(Potions.AWKWARD, PUtil.PotionType.POTION)), basePotion, random);
+        PpMultiIngredient input = sampleUniqueIngredientsFromSamplingConfig(config, alreadyUsedRecipeInputs, PpIngredient.of(PotionContainer.POTION.createItemStack(Potions.AWKWARD)), basePotion, random);
         setBasePotionIngredients(input);
     }
 
@@ -121,5 +121,14 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
 
     public PpMultiIngredient getBasePotionIngredients() {
         return basePotionIngredients;
+    }
+
+    public static Rarity getRarity(PpIngredient ingredient) {
+        if (SeededIngredientsLootTables.isRarity(Rarity.COMMON, ingredient)) {
+            return Rarity.COMMON;
+        } else if (SeededIngredientsLootTables.isRarity(Rarity.RARE, ingredient)) {
+            return Rarity.RARE;
+        }
+        return Rarity.NONE;
     }
 }

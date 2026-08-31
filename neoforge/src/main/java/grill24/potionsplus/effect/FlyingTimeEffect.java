@@ -4,7 +4,7 @@ import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -66,7 +66,7 @@ public class FlyingTimeEffect extends MobEffect implements IEffectTooltipDetails
 
     private static float getAdditionalTickRate(float amplifier) {
         final float additionalTicksPerAmplifierLevel = 2f;
-        return additionalTicksPerAmplifierLevel * PUtil.diminishingReturnsLn(amplifier);
+        return additionalTicksPerAmplifierLevel * EffectScaling.diminishingReturnsLn(amplifier);
     }
 
     private static float getTickRate(float amplifier) {

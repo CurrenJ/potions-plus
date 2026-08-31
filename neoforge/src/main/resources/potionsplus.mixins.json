@@ -16,7 +16,6 @@
     "ItemEntityMixin",
     "ItemMixin",
     "LivingEntityMixin",
-    "MobEffectInstanceMixin",
     "OreFeatureMixin",
     "PotionItemMixin",
     "StateTestingPredicateMixin",

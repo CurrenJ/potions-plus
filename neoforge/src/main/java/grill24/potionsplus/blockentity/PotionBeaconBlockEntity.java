@@ -2,11 +2,10 @@ package grill24.potionsplus.blockentity;
 
 import grill24.potionsplus.block.PotionBeaconBlock;
 import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.extension.IMobEffectInstanceExtension;
 import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.utility.*;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -18,9 +17,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -32,7 +29,7 @@ import org.joml.Vector3f;
 import java.util.*;
 
 public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISingleStackDisplayer, ICraftingBlockEntity {
-    public List<MobEffectInstance> effects = new ArrayList<>();
+    public List<PotionBeaconEffectState> effects = new ArrayList<>();
 
     public HerbalistsLecternSounds sounds;
     public RendererData rendererData = new RendererData();
@@ -112,11 +109,6 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
         return new Vector3f((float) rendererData.localPlayerPositionRelativeToBlockEntity.x, (float) rendererData.localPlayerPositionRelativeToBlockEntity.y, (float) rendererData.localPlayerPositionRelativeToBlockEntity.z);
     }
 
-    private static final Set<Holder<Potion>> HIDDEN_POTIONS = Set.of(
-            Potions.THICK,
-            Potions.MUNDANE
-    );
-
     public void onPlayerInsertItem(Player player) {
         Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();
         playerPosRelativeToBlockOrigin = playerPosRelativeToBlockOrigin.subtract(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ());
@@ -130,7 +122,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
             ItemStack stack = blockEntity.getItem(0);
             if (stack.has(DataComponents.POTION_CONTENTS)) {
                 PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
-                PUtil.getAllEffects(potionContents).stream().map(MobEffectInstance::new).forEach(blockEntity.effects::add);
+                PotionData.getAllEffects(potionContents).stream().map(effect -> new PotionBeaconEffectState(new MobEffectInstance(effect), effect.getDuration())).forEach(blockEntity.effects::add);
             }
             stack.shrink(1);
             blockEntity.setItem(0, stack);
@@ -198,25 +190,23 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
         // Apply effects
         if(!level.isClientSide && level instanceof ServerLevel serverLevel) {
             final int TICK_INTERVAL = 60;
-            List<MobEffectInstance> toRemove = new ArrayList<>();
+            List<PotionBeaconEffectState> toRemove = new ArrayList<>();
             if (ServerTickHandler.ticksInGame % TICK_INTERVAL == 0) {
-                for (MobEffectInstance effect : blockEntity.effects) {
-                    if (effect instanceof IMobEffectInstanceExtension mobEffectInstance) {
-                        int effectDurationToApply = Math.min(TICK_INTERVAL, effect.getDuration());
-                        int remainingDuration = Math.max(0, effect.getDuration() - effectDurationToApply);
-                        mobEffectInstance.potions_plus$setDuration(remainingDuration);
+                for (int i = 0; i < blockEntity.effects.size(); i++) {
+                    PotionBeaconEffectState effectState = blockEntity.effects.get(i);
+                    int effectDurationToApply = Math.min(TICK_INTERVAL, effectState.remainingDuration());
+                    int remainingDuration = Math.max(0, effectState.remainingDuration() - effectDurationToApply);
 
-                        final int finalEffectDurationToApply = effect.is(MobEffects.NIGHT_VISION) ? 300 : effectDurationToApply;
-                        level.getEntitiesOfClass(Player.class, new AABB(blockEntity.worldPosition).inflate(16.0)).forEach(player -> {
-                            MobEffectInstance effectInstance = new MobEffectInstance(effect);
-                            IMobEffectInstanceExtension effectToApply = (IMobEffectInstanceExtension) effectInstance;
-                            effectToApply.potions_plus$setDuration(finalEffectDurationToApply);
-                            player.addEffect(effectInstance);
-                        });
+                    final int finalEffectDurationToApply = effectState.effect().is(MobEffects.NIGHT_VISION) ? 300 : effectDurationToApply;
+                    level.getEntitiesOfClass(Player.class, new AABB(blockEntity.worldPosition).inflate(16.0)).forEach(player -> {
+                        MobEffectInstance effectInstance = new MobEffectInstance(effectState.effect().getEffect(), finalEffectDurationToApply, effectState.effect().getAmplifier(), effectState.effect().isAmbient(), effectState.effect().isVisible(), effectState.effect().showIcon());
+                        player.addEffect(effectInstance);
+                    });
 
-                        if (effect.getDuration() == 0) {
-                            toRemove.add(effect);
-                        }
+                    if (remainingDuration == 0) {
+                        toRemove.add(effectState);
+                    } else {
+                        blockEntity.effects.set(i, new PotionBeaconEffectState(effectState.effect(), remainingDuration));
                     }
                 }
 
@@ -230,7 +220,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
 
     private static void updateLitStateServer(ServerLevel serverLevel, PotionBeaconBlockEntity blockEntity) {
         serverLevel.setBlockAndUpdate(blockEntity.worldPosition, blockEntity.getBlockState().setValue(PotionBeaconBlock.LIT, !blockEntity.effects.isEmpty()));
-        final int maxDuration = blockEntity.effects.stream().mapToInt(MobEffectInstance::getDuration).max().orElse(0);
+        final int maxDuration = blockEntity.effects.stream().mapToInt(PotionBeaconEffectState::remainingDuration).max().orElse(0);
         PacketDistributor.sendToPlayersTrackingChunk(serverLevel, serverLevel.getChunkAt(blockEntity.worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(blockEntity.worldPosition, maxDuration));
     }
 
@@ -244,8 +234,8 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
         super.writePacketNbt(tag, registryAccess);
 
         ListTag effectsTag = new ListTag();
-        for (MobEffectInstance effect : effects) {
-            effectsTag.add(effect.save());
+        for (PotionBeaconEffectState state : effects) {
+            effectsTag.add(state.toMobEffectInstance().save());
         }
         tag.put("Effects", effectsTag);
     }
@@ -256,11 +246,18 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
 
         ListTag effectsTag = tag.getList("Effects", 10);
         for (int i = 0; i < effectsTag.size(); i++) {
-            effects.add(MobEffectInstance.load(effectsTag.getCompound(i)));
+            MobEffectInstance effect = MobEffectInstance.load(effectsTag.getCompound(i));
+            effects.add(new PotionBeaconEffectState(effect, effect.getDuration()));
         }
     }
 
-    public List<MobEffectInstance> getEffects() {
+    public List<PotionBeaconEffectState> getEffects() {
         return effects;
+    }
+
+    public record PotionBeaconEffectState(MobEffectInstance effect, int remainingDuration) {
+        public MobEffectInstance toMobEffectInstance() {
+            return new MobEffectInstance(effect.getEffect(), remainingDuration, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), effect.showIcon());
+        }
     }
 }

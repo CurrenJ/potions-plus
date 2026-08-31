@@ -7,7 +7,7 @@ import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
@@ -46,13 +46,16 @@ public class PpIngredient {
     // Hashcode and equals methods
     @Override
     public int hashCode() {
-        StringBuilder result = new StringBuilder();
-        for (Ingredient ingredient : ingredients) {
-            for (ItemStack stack : ingredient.getItems()) {
-                result.append(PUtil.getNameOrVerbosePotionName(stack));
+        int[] hashes = new int[ingredients.length];
+        for (int i = 0; i < ingredients.length; i++) {
+            int ingredientHash = 0;
+            for (ItemStack stack : ingredients[i].getItems()) {
+                ingredientHash = 31 * ingredientHash + EffectComparison.identityHash(stack);
             }
+            hashes[i] = ingredientHash;
         }
-        return result.toString().hashCode();
+        java.util.Arrays.sort(hashes);
+        return java.util.Arrays.hashCode(hashes);
     }
 
     @Override
@@ -81,7 +84,7 @@ public class PpIngredient {
         result.append("[");
         for (Ingredient ingredient : ingredients) {
             result.append(" ");
-            result.append(PUtil.getNameOrVerbosePotionName(ingredient.getItems()[0]));
+            result.append(EffectComparison.identityString(ingredient.getItems()[0]));
         }
         result.append(" ]");
         return result.toString();

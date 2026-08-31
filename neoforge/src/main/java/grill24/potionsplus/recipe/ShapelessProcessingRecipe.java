@@ -2,8 +2,7 @@ package grill24.potionsplus.recipe;
 
 import com.google.common.collect.ImmutableList;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -52,7 +51,7 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
             boolean hasIngredient = false;
             for (int i = 0; i < recipeInput.size(); i++) {
                 ItemStack itemStack = recipeInput.getItem(i);
-                if (PUtil.isSameItemOrPotion(itemStack, ingredient.getItemStack(), Collections.singletonList(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH))) {
+                if (EffectComparison.matches(itemStack, ingredient.getItemStack(), Collections.singletonList(EffectComparison.MatchCriteria.EXACT_MATCH))) {
                     hasIngredient = true;
                     break;
                 }
@@ -112,7 +111,7 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
     public static String getUniqueRecipeName(List<PpIngredient> ingredients, ItemStack result) {
         List<String> ingredientNames = new ArrayList<>();
         for (PpIngredient ingredient : ingredients) {
-            ingredientNames.add(PUtil.getNameOrVerbosePotionName(ingredient.getItemStack()));
+            ingredientNames.add(EffectComparison.identitySlug(ingredient.getItemStack()));
         }
         ingredientNames.sort(String::compareTo);
 
@@ -121,7 +120,7 @@ public abstract class ShapelessProcessingRecipe implements Recipe<RecipeInput> {
             name.append(ingredientName).append("_");
         }
         name.append("to_");
-        name.append(PUtil.getNameOrVerbosePotionName(result));
+        name.append(EffectComparison.identitySlug(result));
         return name.toString();
     }
 }

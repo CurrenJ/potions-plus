@@ -3,6 +3,7 @@ package grill24.potionsplus.blockentity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.Items;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.alchemy.EffectComparison;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -85,7 +86,7 @@ public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<B
             float scale = 0.5f;
             if (activeRecipe.isPresent()) {
                 for (PpIngredient ingredient : ingredients) {
-                    if (grill24.potionsplus.utility.PUtil.isSameItemOrPotion(ingredient.getItemStack(), itemStacks[i], activeRecipe.get().value().getMatchingCriteria())) {
+                    if (EffectComparison.matches(ingredient.getItemStack(), itemStacks[i], activeRecipe.get().value().getMatchingCriteria())) {
                         ingredients.remove(ingredient);
                         scale *= 1 - blockEntity.getBrewTime() / (float) activeRecipe.get().value().getProcessingTime();
                         break;

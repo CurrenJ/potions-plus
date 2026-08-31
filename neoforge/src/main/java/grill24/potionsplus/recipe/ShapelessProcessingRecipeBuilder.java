@@ -1,7 +1,7 @@
 package grill24.potionsplus.recipe;
 
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.RecipeBuilder;

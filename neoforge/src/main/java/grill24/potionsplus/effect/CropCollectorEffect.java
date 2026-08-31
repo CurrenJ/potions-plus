@@ -1,6 +1,7 @@
 package grill24.potionsplus.effect;
 
 import grill24.potionsplus.utility.Utility;
+import grill24.potionsplus.alchemy.EffectScaling;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -56,7 +57,7 @@ public class CropCollectorEffect extends MobEffect implements ITickingAreaToolti
     }
 
     public int getTickInterval(int amplifier) {
-        return 20 >> amplifier;
+        return EffectScaling.tickInterval(20, amplifier);
     }
 
     public int getRadius(int amplifier) {

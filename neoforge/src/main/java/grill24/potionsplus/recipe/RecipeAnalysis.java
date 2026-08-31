@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -45,7 +45,7 @@ public class RecipeAnalysis<R extends ShapelessProcessingRecipe> {
         for (RecipeHolder<R> recipe : recipes) {
             List<ItemStack> itemStacks = recipe.value().getIngredientsAsItemStacks();
             for (ItemStack itemStack : itemStacks) {
-                if (PUtil.isPotion(itemStack)) {
+                if (PotionContainer.isPotion(itemStack)) {
                     continue;
                 }
 

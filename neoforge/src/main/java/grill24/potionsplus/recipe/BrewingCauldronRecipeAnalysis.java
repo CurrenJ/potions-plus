@@ -2,7 +2,7 @@ package grill24.potionsplus.recipe;
 
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffect;
@@ -40,20 +40,20 @@ public class BrewingCauldronRecipeAnalysis extends RecipeAnalysis<BrewingCauldro
         allPotionsPlusIngredientsNoPotions.clear();
 
         // Any recipe input ingredient that is not a potion
-        this.uniqueIngredients.stream().filter(ingredient -> !PUtil.isPotion(ingredient.getItemStack())).forEach(allPotionsPlusIngredientsNoPotions::add);
+        this.uniqueIngredients.stream().filter(ingredient -> !PotionContainer.isPotion(ingredient.getItemStack())).forEach(allPotionsPlusIngredientsNoPotions::add);
 
         // Any recipe input ingredient that is not a potion, but the result is a potion
         recipes.forEach(recipe -> {
             ItemStack result = recipe.value().getResult();
-            if (PUtil.isPotion(result)) {
+            if (PotionContainer.isPotion(result)) {
                 for (PpIngredient ingredient : recipe.value().getPpIngredients()) {
-                    if (!PUtil.isPotion(ingredient.getItemStack())) {
+                    if (!PotionContainer.isPotion(ingredient.getItemStack())) {
                         allPotionBrewingIngredientsNoPotions.add(ingredient);
                     }
                 }
 
                 if (recipe.value().getDurationToAdd() == 0 && recipe.value().getAmplifierToAdd() == 0 && recipe.value().getResult().is(Items.POTION)) {
-                    List<MobEffectInstance> effects = PUtil.getAllEffects(result);
+                    List<MobEffectInstance> effects = PotionData.getAllEffects(result);
                     if (effects.size() == 1) {
                         mobEffectToBasePotionRecipes.computeIfAbsent(effects.get(0).getEffect().getKey(), k -> new ArrayList<>()).add(recipe);
                     }

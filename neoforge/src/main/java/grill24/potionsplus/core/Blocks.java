@@ -7,6 +7,7 @@ import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.*;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.component.DataComponents;
@@ -70,7 +71,7 @@ public class Blocks {
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
         event.register((stack, i) -> {
-            PotionContents potionContents = PUtil.getPotionContents(stack);
+            PotionContents potionContents = PotionData.getPotionContents(stack);
 
             boolean isAnyPotion = false;
             for (MobEffectInstance effect : potionContents.getAllEffects()) {

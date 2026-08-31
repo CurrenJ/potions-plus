@@ -5,7 +5,7 @@ import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ItemStacksTooltip;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -30,8 +30,8 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, net.neoforg
     @Inject(method = "getTooltipImage", at = @At("RETURN"), cancellable = true)
     private void getTooltipImage(ItemStack stack, CallbackInfoReturnable<Optional<TooltipComponent>> cir) {
         List<List<ItemStack>> displayStacks = new ArrayList<>();
-        if (PUtil.isPotion(stack)) {
-            List<MobEffectInstance> effects = PUtil.getAllEffects(stack);
+        if (PotionContainer.isPotion(stack)) {
+            List<MobEffectInstance> effects = PotionData.getAllEffects(stack);
             if (effects.size() == 1) {
                 ResourceKey<MobEffect> mobEffect = effects.getFirst().getEffect().getKey();
                 List<RecipeHolder<BrewingCauldronRecipe>> recipes = Recipes.ALL_BCR_RECIPES_ANALYSIS.getRecipesForMobEffect(mobEffect);

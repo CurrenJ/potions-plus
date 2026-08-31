@@ -1,6 +1,7 @@
 package grill24.potionsplus.recipe.brewingcauldronrecipe;
 
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeBuilder;
+import grill24.potionsplus.alchemy.EffectComparison;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
@@ -15,7 +16,7 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
     protected int amplifierToAdd;
     protected float experienceReward;
     protected float experienceRequired;
-    protected List<BrewingCauldronRecipe.PotionMatchingCriteria> potionMatchingCriteria;
+    protected List<EffectComparison.MatchCriteria> potionMatchingCriteria;
     protected boolean isSeededRuntimeRecipe = false;
 
     public BrewingCauldronRecipeBuilder() {
@@ -23,7 +24,7 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
         this.durationToAdd = 0;
         this.amplifierToAdd = 0;
         this.experienceReward = 0.0F;
-        this.potionMatchingCriteria = Collections.singletonList(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH);
+        this.potionMatchingCriteria = Collections.singletonList(EffectComparison.MatchCriteria.EXACT_MATCH);
 
         // All brewing cauldron recipes are in the BREWING category. You have no say in the matter.
         this.category = RecipeCategory.BREWING;
@@ -56,12 +57,12 @@ public class BrewingCauldronRecipeBuilder extends ShapelessProcessingRecipeBuild
         return self();
     }
 
-    public BrewingCauldronRecipeBuilder potionMatchingCriteria(List<BrewingCauldronRecipe.PotionMatchingCriteria> potionMatchingCriteria) {
+    public BrewingCauldronRecipeBuilder potionMatchingCriteria(List<EffectComparison.MatchCriteria> potionMatchingCriteria) {
         this.potionMatchingCriteria = potionMatchingCriteria;
         return self();
     }
 
-    public BrewingCauldronRecipeBuilder potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria potionMatchingCriteria) {
+    public BrewingCauldronRecipeBuilder potionMatchingCriteria(EffectComparison.MatchCriteria potionMatchingCriteria) {
         this.potionMatchingCriteria = new ArrayList<>();
         this.potionMatchingCriteria.add(potionMatchingCriteria);
         return self();

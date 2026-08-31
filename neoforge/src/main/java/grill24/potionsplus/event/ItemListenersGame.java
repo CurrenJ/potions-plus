@@ -2,8 +2,8 @@ package grill24.potionsplus.event;
 
 import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.core.Attributes;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.*;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
@@ -49,7 +49,7 @@ public class ItemListenersGame {
     }
 
     private static void animateTooltipMessages(List<List<Component>> tooltipMessages, ItemTooltipEvent event) {
-        if (!PUtil.isSameItemOrPotion(lastItemStack, event.getItemStack(), List.of(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH)) || ClientTickHandler.total() - lastTooltipTimestamp > 10.0F) {
+        if (!EffectComparison.matches(lastItemStack, event.getItemStack(), List.of(EffectComparison.MatchCriteria.EXACT_MATCH)) || ClientTickHandler.total() - lastTooltipTimestamp > 10.0F) {
             animationStartTimestamp = ClientTickHandler.total();
         }
 

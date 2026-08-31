@@ -1,5 +1,6 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.alchemy.EffectScaling;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import net.minecraft.ChatFormatting;
@@ -53,7 +54,7 @@ public class MagneticEffect extends MobEffect implements ITickingTooltipDetails 
 
     @Override
     public int getTickInterval(int amplifier) {
-        return 20 >> amplifier;
+        return EffectScaling.tickInterval(20, amplifier);
     }
 
     @Override

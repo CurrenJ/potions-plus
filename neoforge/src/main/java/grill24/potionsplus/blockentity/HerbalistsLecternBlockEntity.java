@@ -16,7 +16,7 @@ import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -66,7 +66,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 for (RecipeHolder<BrewingCauldronRecipe> recipeHolder : recipesWithInputIngredient) {
                     BrewingCauldronRecipe recipe = recipeHolder.value();
                     ItemStack outputStack = recipe.getResult();
-                    List<MobEffectInstance> outputEffects = PUtil.getAllEffects(outputStack);
+                    List<MobEffectInstance> outputEffects = PotionData.getAllEffects(outputStack);
 
                     // If the recipe has no potion effects on its output, just display the result item.
                     if (outputEffects.isEmpty()) {
@@ -165,11 +165,6 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
     public Vector3f getLocalPlayerRelativePosition() {
         return new Vector3f((float) rendererData.localPlayerPositionRelativeToBlockEntity.x, (float) rendererData.localPlayerPositionRelativeToBlockEntity.y, (float) rendererData.localPlayerPositionRelativeToBlockEntity.z);
     }
-
-    private static final Set<Holder<Potion>> HIDDEN_POTIONS = Set.of(
-            Potions.THICK,
-            Potions.MUNDANE
-    );
 
     public void onPlayerInsertItem(Player player) {
         Vec3 playerPosRelativeToBlockOrigin = player.getEyePosition();

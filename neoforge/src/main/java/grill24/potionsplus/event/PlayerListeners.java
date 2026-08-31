@@ -10,6 +10,7 @@ import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.*;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -125,11 +126,11 @@ public class PlayerListeners {
 
     private static void tryApplyPassiveItemPotionEffects(Player player, EquipmentSlot slot) {
         ItemStack stack = player.getItemBySlot(slot);
-        if (PUtil.isPassivePotionEffectItem(stack)) {
+        if (PotionContainer.isPassivePotionEffectItem(stack)) {
             PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
             if (potionContents != null) {
                 List<MobEffectInstance> customEffects = new ArrayList<>();
-                for (MobEffectInstance effect : PUtil.getAllEffects(potionContents)) {
+                for (MobEffectInstance effect : PotionData.getAllEffects(potionContents)) {
                     int durationApplied = Math.min(EFFECT_DURATION, effect.getDuration());
                     MobEffectInstance e = new MobEffectInstance(effect.getEffect(), durationApplied, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false);
 

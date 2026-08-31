@@ -4,7 +4,7 @@ import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.core.LootModifiers;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.StreamCodecUtility;
 import grill24.potionsplus.utility.Utility;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -40,10 +40,10 @@ public class AddMobEffectsLootModifier extends LootModifier {
         ObjectArrayList<ItemStack> modifiedLoot = new ObjectArrayList<>();
         for (ItemStack stack : generatedLoot) {
             ItemStack modifiedStack = stack.copy();
-            if (PUtil.isItemEligibleForPassivePotionEffects(stack) && context.getRandom().nextFloat() < 0.3F) {
+            if (PotionContainer.isItemEligibleForPassivePotionEffects(stack) && context.getRandom().nextFloat() < 0.3F) {
                 int numEffects = (int) Math.round(Math.clamp(Utility.nextGaussian(1.25F, 0.5F, context.getRandom()), 1, 3));
                 for (int i = 0; i < numEffects; i++) {
-                    PUtil.addRandomPassivePotionEffect(context, modifiedStack, blacklistedEffects);
+                    EffectRegistry.addRandomPassivePotionEffect(context, modifiedStack, blacklistedEffects);
                 }
             }
             modifiedLoot.add(modifiedStack);

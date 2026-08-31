@@ -5,7 +5,7 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.effect.IEffectTooltipDetails;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -28,7 +28,7 @@ public class PotionEffectTooltips {
         PpIngredient ppIngredient = PpIngredient.of(event.getItemStack().copyWithCount(1));
         if (ppIngredient.getItemStack().has(DataComponents.POTION_CONTENTS)) {
             PotionContents potionContents = ppIngredient.getItemStack().get(DataComponents.POTION_CONTENTS);
-            List<MobEffectInstance> potionEffectTextComponents = PUtil.getAllEffects(potionContents);
+            List<MobEffectInstance> potionEffectTextComponents = PotionData.getAllEffects(potionContents);
             for (MobEffectInstance effect : potionEffectTextComponents) {
                 if(effect.getEffect().value() instanceof IEffectTooltipDetails effectTooltipDetails) {
                     event.addTooltipMessage(effectTooltipDetails.getTooltipDetails(effect));
@@ -38,9 +38,9 @@ public class PotionEffectTooltips {
 
         // Passive Item Potion Effects Tooltip
         ItemStack stack = event.getItemStack();
-        if (PUtil.isPassivePotionEffectItem(stack)) {
+        if (PotionContainer.isPassivePotionEffectItem(stack)) {
             PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
-            List<MobEffectInstance> potionEffectTextComponents = PUtil.getAllEffects(potionContents);
+            List<MobEffectInstance> potionEffectTextComponents = PotionData.getAllEffects(potionContents);
             for (MobEffectInstance effect : potionEffectTextComponents) {
                 int ticksLeft = effect.getDuration();
                 if (ticksLeft > 0) {

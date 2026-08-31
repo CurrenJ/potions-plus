@@ -6,7 +6,7 @@ import grill24.potionsplus.blockentity.PotionBeaconBlockEntity;
 import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
 import grill24.potionsplus.utility.InvUtil;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

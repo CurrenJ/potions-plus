@@ -12,7 +12,7 @@ import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -82,8 +82,8 @@ public class Recipes {
 
         // Add all possible vanilla brewing recipes. Don't show them in JEI because too many recipes. Players already have the vanilla brewing stand recipe viewer.
         List<ItemStack> INGREDIENTS = BuiltInRegistries.ITEM.stream().map(ItemStack::new).filter((item) -> server.potionBrewing().isIngredient(item)).toList();
-        for (PUtil.PotionType inputPotionContainer : PUtil.PotionType.values()) {
-            List<ItemStack> POTIONS = BuiltInRegistries.POTION.holders().map((potionHolder) -> PUtil.createPotionItemStack(potionHolder, inputPotionContainer)).filter((item) -> server.potionBrewing().isInput(item)).toList();
+        for (PotionContainer inputPotionContainer : PotionContainer.values()) {
+            List<ItemStack> POTIONS = BuiltInRegistries.POTION.holders().map((potionHolder) -> inputPotionContainer.createItemStack(potionHolder)).filter((item) -> server.potionBrewing().isInput(item)).toList();
             POTIONS.forEach(potion -> {
                 INGREDIENTS.forEach(ingredient -> {
                     ItemStack output = server.potionBrewing().mix(ingredient, potion);
@@ -92,7 +92,7 @@ public class Recipes {
                                 .result(output)
                                 .ingredients(potion, ingredient)
                                 .processingTime(100)
-                                .potionMatchingCriteria(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH)
+                                .potionMatchingCriteria(EffectComparison.MatchCriteria.EXACT_MATCH)
                                 .canShowInJei(false)
                                 .build("minecraft");
                         vanillaBrewingRecipes.add(recipe);

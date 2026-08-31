@@ -9,7 +9,7 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.PpMultiIngredient;
 import grill24.potionsplus.persistence.adapter.*;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -98,7 +98,7 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
         PpIngredient result = PpIngredient.of(recipe.getResultItemWithTransformations(recipe.getIngredientsAsItemStacks()));
 
         // Maybe should check potionMatchingCriteria from recipe here instead. This relies on the recipe using the Any Potion, which is just a visual indicator.
-        boolean isAnyPotionEffect = PUtil.getAllEffects(recipe.getResult()).stream().anyMatch(effect -> effect.getEffect().is(MobEffects.ANY_POTION));
+        boolean isAnyPotionEffect = PotionData.getAllEffects(recipe.getResult()).stream().anyMatch(effect -> effect.getEffect().is(MobEffects.ANY_POTION));
         boolean isAmpOrDurUpgrade = recipe.isAmplifierUpgrade() || recipe.isDurationUpgrade();
         if (isAnyPotionEffect && isAmpOrDurUpgrade) {
             // If the recipe is an amplifier or duration upgrade, we care that the result AND the ingredients match. Otherwise, this is a different recipe in saved data.

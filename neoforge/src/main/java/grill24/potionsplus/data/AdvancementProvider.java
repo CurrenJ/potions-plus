@@ -13,8 +13,7 @@ import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.LocationPredicate;
@@ -221,14 +220,14 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         false)
                 .rewards(AdvancementRewards.Builder
                         .experience(100))
-                .addCriterion("brew_awkward_potion", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(PUtil.createPotionItemStack(Potions.AWKWARD, PUtil.PotionType.POTION)), List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_CONTAINER)))
+                .addCriterion("brew_awkward_potion", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(PotionContainer.POTION.createItemStack(Potions.AWKWARD)), List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER)))
                 .requirements(AdvancementRequirements.allOf(List.of("brew_awkward_potion")))
                 .save(saver, BREW_AWKWARD_POTION, existingFileHelper);
 
         AdvancementHolder brew_any_potion = Advancement.Builder.advancement()
                 .parent(brew_awkward_potion)
                 .display(
-                        PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION),
+                        PotionContainer.POTION.createItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION),
                         Component.translatable("advancements.potionsplus.brew_any_potion.title"),
                         Component.translatable("advancements.potionsplus.brew_any_potion.description"),
                         null,
@@ -238,7 +237,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         false)
                 .rewards(AdvancementRewards.Builder
                         .experience(100))
-                .addCriterion("brew_any_potion", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(PUtil.createPotionItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION, PUtil.PotionType.POTION)), List.of(BrewingCauldronRecipe.PotionMatchingCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT)))
+                .addCriterion("brew_any_potion", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(PotionContainer.POTION.createItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION)), List.of(EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT)))
                 .requirements(AdvancementRequirements.allOf(List.of("brew_any_potion")))
                 .save(saver, BREW_ANY_POTION, existingFileHelper);
 

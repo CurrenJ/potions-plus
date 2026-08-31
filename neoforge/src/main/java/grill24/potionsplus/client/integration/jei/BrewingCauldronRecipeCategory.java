@@ -5,8 +5,10 @@ import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
+import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.Utility;
+import net.minecraft.core.registries.BuiltInRegistries;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -24,6 +26,8 @@ import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +85,7 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
             ItemStack itemStack = recipe.getPpIngredients().get(i).getItemStack();
             List<ItemStack> itemStacksToDisplay = List.of(itemStack);
             if (recipe.getDurationToAdd() != 0 || recipe.getAmplifierToAdd() != 0) {
-                itemStacksToDisplay = PUtil.getDisplayStacksForJeiRecipe(itemStack);
+                itemStacksToDisplay = getDisplayStacksForJeiRecipe(itemStack);
             }
 
             builder.addSlot(RecipeIngredientRole.INPUT, inputSlotPositions[i].x, inputSlotPositions[i].y)
@@ -91,7 +95,7 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
 
         List<ItemStack> resultItemStacks = List.of(recipe.getResult());
         if (recipe.getDurationToAdd() != 0 || recipe.getAmplifierToAdd() != 0) {
-            resultItemStacks = PUtil.getDisplayStacksForJeiRecipe(recipe.getResult());
+            resultItemStacks = getDisplayStacksForJeiRecipe(recipe.getResult());
         }
         builder.addSlot(RecipeIngredientRole.OUTPUT, 111, 23)
                 .addItemStacks(resultItemStacks);
@@ -105,6 +109,16 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 38 - 8, 31 - 8)
                 .setSlotName("cauldron")
                 .addItemStack(new ItemStack(BlockEntityBlocks.BREWING_CAULDRON.value()));
+    }
+
+    private static List<ItemStack> getDisplayStacksForJeiRecipe(ItemStack itemStack) {
+        if (PotionContainer.isPotion(itemStack)) {
+            boolean isAnyPotion = PotionData.getAllEffects(itemStack).stream().anyMatch(instance -> instance.getEffect().is(MobEffects.ANY_POTION) || instance.getEffect().is(MobEffects.ANY_OTHER_POTION));
+            if (isAnyPotion) {
+                return new ArrayList<>(BuiltInRegistries.POTION.holders().map(potion -> PotionContainer.POTION.createItemStack(potion)).toList());
+            }
+        }
+        return Collections.singletonList(itemStack);
     }
 
     @Override

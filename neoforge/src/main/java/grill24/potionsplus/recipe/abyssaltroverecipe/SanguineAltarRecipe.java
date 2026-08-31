@@ -7,9 +7,8 @@ import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipe;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeSerializerHelper;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -45,7 +44,7 @@ public class SanguineAltarRecipe extends ShapelessProcessingRecipe {
     }
 
     public boolean matches(ItemStack itemStack) {
-        return this.ingredients.stream().anyMatch(ingredient -> PUtil.isSameItemOrPotion(itemStack, ingredient.getItemStack(), List.of(BrewingCauldronRecipe.PotionMatchingCriteria.EXACT_MATCH)));
+        return this.ingredients.stream().anyMatch(ingredient -> EffectComparison.matches(itemStack, ingredient.getItemStack(), List.of(EffectComparison.MatchCriteria.EXACT_MATCH)));
     }
 
     public static class Serializer implements RecipeSerializer<SanguineAltarRecipe> {

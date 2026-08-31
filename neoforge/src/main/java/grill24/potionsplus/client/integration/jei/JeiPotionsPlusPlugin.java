@@ -9,7 +9,7 @@ import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.PUtil;
+import grill24.potionsplus.alchemy.*;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -133,9 +133,9 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
     }
 
     private static void registerPotionInfo(IRecipeRegistration registration, Potion potion, Component... descriptionComponents) {
-        ItemStack potionItem = PotionContents.createItemStack(Items.POTION, PUtil.getPotionHolder(potion));
-        ItemStack splashPotionItem = PotionContents.createItemStack(Items.SPLASH_POTION, PUtil.getPotionHolder(potion));
-        ItemStack lingeringPotionItem = PotionContents.createItemStack(Items.LINGERING_POTION, PUtil.getPotionHolder(potion));
+        ItemStack potionItem = PotionContents.createItemStack(Items.POTION, PotionData.getPotionHolder(potion));
+        ItemStack splashPotionItem = PotionContents.createItemStack(Items.SPLASH_POTION, PotionData.getPotionHolder(potion));
+        ItemStack lingeringPotionItem = PotionContents.createItemStack(Items.LINGERING_POTION, PotionData.getPotionHolder(potion));
 
         registration.addItemStackInfo(potionItem, descriptionComponents);
         registration.addItemStackInfo(splashPotionItem, descriptionComponents);

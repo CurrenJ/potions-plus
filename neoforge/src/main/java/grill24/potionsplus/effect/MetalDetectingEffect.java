@@ -1,5 +1,6 @@
 package grill24.potionsplus.effect;
 
+import grill24.potionsplus.alchemy.EffectScaling;
 import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
@@ -56,7 +57,7 @@ public class MetalDetectingEffect extends MobEffect implements ITickingAreaToolt
 
     @Override
     public int getTickInterval(int amplifier) {
-        return 400 >> amplifier;
+        return EffectScaling.tickInterval(400, amplifier);
     }
 
     @Override
