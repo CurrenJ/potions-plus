@@ -65,12 +65,13 @@ dependencies {
 
 // Forge's dev runtime pins Mixin to `dev.architectury:mixin-patched` (Architectury's fork, resolved
 // via loom's `useCustomMixin` swap, which defaults to true). That fork is built on Mixin 0.8.7 and
-// its `CompatibilityLevel` only recognises up to JAVA_21 - but every mixin config in this repo
-// declares `JAVA_25` (required for MC 26.1.2, see docs/multi-loader-expansion.md / modding-guide
-// 07-mixins). Loading any mixin therefore dies with "compatibility level JAVA_25 which is not
-// recognised" at first target-class load. NeoForge 26.1.2 sidesteps this by resolving
-// `net.fabricmc:sponge-mixin:0.17.3+mixin.0.8.7` (Fabric's JAVA_25-aware fork) instead - so do the
-// same here, swapping the mixin module (whatever loom names it) for that exact build.
+// its `CompatibilityLevel` only recognises up to JAVA_21. The mixin configs now declare JAVA_21
+// (see docs/forge-production-mixin-handoff.md "RESOLVED": production Forge ships stock mixin 0.8.7,
+// which rejects JAVA_25 outright), so the *compatibility-level* crash that originally motivated this
+// swap is gone. The swap remains because mixin-patched 0.8.7.12 bundles an older ASM that can't read
+// this project's Java-25-compiled mixin/target bytecode - swapping to NeoForge's
+// `net.fabricmc:sponge-mixin:0.17.3+mixin.0.8.7` (Fabric's JAVA_25-aware fork) keeps dev consistent
+// with NeoForge production.
 configurations.all {
     resolutionStrategy.eachDependency { details ->
         def isMixin = (details.requested.group == 'dev.architectury' && details.requested.name == 'mixin-patched')
@@ -110,6 +111,16 @@ jar {
     // .class files stay on disk afterwards - so a later, unrelated `./gradlew build` would package
     // them into the distributable jar. Nothing under a gametest package ever belongs in a release.
     exclude '**/gametest/**'
+
+    // Forge 64.1.0 production does NOT parse [[mixins]] out of mods.toml (CommonLaunchHandler has
+    // no getMixinConfigs(), and no class in fmlloader/fmlcore/forge references the mixin config
+    // table). The ONLY production discovery path is the MixinConfigs manifest attribute, read by
+    // Mixin's MixinContainer (see the MixinGradle wiki "Mixins on Minecraft Forge" and
+    // docs/forge-production-mixin-handoff.md RESOLVED). This jar's manifest flows into shadowJar
+    // via from(zipTree(jar.archiveFile)), the same path that already carries Specification-Title etc.
+    manifest {
+        attributes 'MixinConfigs': 'potionsplus.mixins.json,potionsplus.forge.mixins.json'
+    }
 }
 
 shadowJar {
