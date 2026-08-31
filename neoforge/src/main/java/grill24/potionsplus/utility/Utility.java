@@ -118,7 +118,9 @@ public class Utility {
     public static boolean isItemInLinkedAbyssalTrove(Player player, ItemStack stack) {
         BlockPos pos = SavedData.instance.getData(player).getPairedAbyssalTrovePos();
         Optional<AbyssalTroveBlockEntity> abyssalTrove = player.level().getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
-        return abyssalTrove.map(abyssalTroveBlockEntity -> abyssalTroveBlockEntity.getStoredIngredients().contains(PpIngredient.of(stack))).orElse(false);
+        // PpIngredient equality is stack-count-sensitive, but the trove always stores ingredients at
+        // count 1 - normalize here or a held stack of >1 would never match what's actually stored.
+        return abyssalTrove.map(abyssalTroveBlockEntity -> abyssalTroveBlockEntity.getStoredIngredients().contains(PpIngredient.of(stack.copyWithCount(1)))).orElse(false);
     }
 
     public static void playSoundStopOther(SoundInstance play, SoundInstance stop) {

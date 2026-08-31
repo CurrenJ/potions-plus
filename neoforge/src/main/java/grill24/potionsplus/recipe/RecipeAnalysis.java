@@ -51,7 +51,13 @@ public class RecipeAnalysis<R extends ShapelessProcessingRecipe> {
 
                 PpIngredient ingredient = PpIngredient.of(itemStack);
                 uniqueIngredients.add(ingredient);
-                ingredientToRecipeMap.computeIfAbsent(ingredient, (key) -> new ArrayList<>()).add(recipe);
+                // A recipe can list the same ingredient more than once (e.g. two ingredient slots that
+                // happened to sample the same item) - guard against adding it to this ingredient's
+                // recipe list twice, which would otherwise show as a duplicate entry in tooltips.
+                List<RecipeHolder<R>> recipesForIngredient = ingredientToRecipeMap.computeIfAbsent(ingredient, (key) -> new ArrayList<>());
+                if (!recipesForIngredient.contains(recipe)) {
+                    recipesForIngredient.add(recipe);
+                }
             }
         }
     }

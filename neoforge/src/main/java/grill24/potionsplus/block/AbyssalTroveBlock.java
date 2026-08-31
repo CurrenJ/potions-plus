@@ -69,7 +69,10 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
 
         // Do interaction
         InvUtil.InteractionResult result = InvUtil.InteractionResult.PASS;
-        if (!blockEntity.get().getStoredIngredients().contains(PpIngredient.of(player.getMainHandItem()))) {
+        // Compare the hand actually used (not always mainhand), normalized to count 1 to match how
+        // ingredients are stored - PpIngredient equality is count-sensitive, so comparing against a
+        // stack of N would never match the stored count-1 ingredient and let it be inserted again.
+        if (!blockEntity.get().getStoredIngredients().contains(PpIngredient.of(player.getItemInHand(hand).copyWithCount(1)))) {
             ItemStack itemInHand = player.getItemInHand(hand).copy();
             result = InvUtil.insertOnPlayerUseItem(level, pos, player, hand, SoundEvents.ITEM_FRAME_ADD_ITEM);
             if (result == InvUtil.InteractionResult.INSERT) {

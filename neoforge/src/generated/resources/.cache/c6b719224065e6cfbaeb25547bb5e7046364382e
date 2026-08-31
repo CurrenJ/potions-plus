@@ -1,4 +1,4 @@
-// 1.21.1	2026-08-30T11:33:05.1715284	Global Loot Modifiers : potionsplus
+// 1.21.1	2026-08-31T22:35:06.9475135	Global Loot Modifiers : potionsplus
 4d0baf27178b522f6f019a960ce93344e9190bc0 data/neoforge/loot_modifiers/global_loot_modifiers.json
-bb419159c46da8fbe7de8d097d6a519a574902f8 data/potionsplus/loot_modifiers/add_mob_effects_to_tools_and_armor_loot_modifier.json
+191902cf9d57080093917da1d1045a2aed6170a1 data/potionsplus/loot_modifiers/add_mob_effects_to_tools_and_armor_loot_modifier.json
 d505179f3c91e82a1a7f1651589e1a0d5e74bcea data/potionsplus/loot_modifiers/wormroot_loot_modifier.json

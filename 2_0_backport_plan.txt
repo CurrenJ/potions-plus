@@ -1,0 +1,366 @@
+Potions Plus
+/
+mc/1.21.1 → 26.1.2 parity
+/
+audit 2026-08-29
+
+Backporting 2.0 to 1.21.1
+mc/1.21.1 sits 128 commits behind origin/26.1.2 and zero ahead — a clean ancestor, so the whole delta is one linear range. The headline finding: most features added after 1.21.1 support ended were subsequently deleted by the 2.0 devolution. Parity is mostly a subtraction job, not a port.
+
+128
+commits behind
+0
+commits ahead
+~230
+files to remove
+4
+features to port
+41
+tracked items
+20 / 41 · 49%
+Ready
+THE SHAPE OF THE DELTA
+Three workstreams, one of them irrelevant
+Those 128 commits are not one stream of work. They split cleanly into three, and knowing which is which is what keeps this from being a year of wasted effort.
+
+Workstream	Span	What it is	Verdict
+A · Feature era	Jun–Sep 2025
+~60 commits	1.21.5-era gameplay: genetic crops, farming skill, growing mossy blocks, the Grungler, clothesline and skill-journal work.	Triage
+B · Migration era	Apr–May 2026
+~40 commits	1.21.5→26.1.2 plus the common/neoforge multiloader split. Chunks 2–7, Identifier renames, split-package fixes, platform abstraction.	Out of scope
+C · Devolution & alchemy	Aug 2026
+~28 commits	The 2.0 cut list, the alchemy/ layer, PUtil's retirement, and the behaviour fixes that came with them.	Backport
+The load-bearing insight
+Workstream A is largely cancelled by workstream C. Genetic crops, the farming skill, the fish tank and the entire Skills system were added during A and deleted during C. Porting them forward into 1.21.1 would be building things you then delete in Phase 1 of this same plan.
+
+Only four things from A survive to the 26.1.2 tip: growing mossy blocks, the Grungler, the clothesline refinements, and the ore-flower placement widening.
+
+FEATURE COMB
+Everything added after 1.21.1, and what became of it
+This is the answer to “what did 1.21.1 miss?” — with the crucial second column that turns most of the list into work you never have to do.
+
+Feature	Added	Fate at 26.1.2 tip	Backport?
+Growing Mossy blocks
++ slab & stair variants	Aug 2025	Kept — core. The moss reagent farm; explicitly protected through every devolution pass.	Port
+Clothesline refinements	Jun–Aug 2025	Kept — core (promoted in the inventory). Fence-post variant preservation, optional failure results, success percentages.	Port, partial
+Ore flower placement widening	Aug 2025	Kept. Ore flowers are core; the ore-variant worldgen in the same commit is not.	Port, partial
+The Grungler	Jul 2025	Kept by owner override — inventory said cut, you overruled it to attach it to the alchemy loop later.	Port, optional
+Genetic crops
+Brassica line + Tomato	Jul 2025	Removed — b2a2ab2. Marked “spin off”.	Free win
+Farming skill + hoe rewards	Aug 2025	Removed with the Skills system — a82daec.	Skip
+Fish tank, custom fish, baits, obsidian rod	Jun 2025
+also in 1.21.1	Removed — d67dc0f, 2f5c82c.	Cut instead
+Skill journal, Hot Potato, leaderboard fixes	Jun–Sep 2025	Removed with the Skills system.	Skip
+Craft-recipe advancement trigger fix	Jun 2025	Kept. Advancements are core to the brewing chain.	Port
+Mob-effects-on-tools crash fix	Jul 2025	Kept, later absorbed into the alchemy layer.	Port
+Note the third row from the bottom
+1.21.1's two most recent commits added the fish tank, fish directionality, blazed grub bait and the obsidian fishing rod. Devolution deletes all of it. That is the sharpest collision in this plan — the newest work on this branch is the first thing Phase 1 removes. Worth a deliberate decision before starting, not a discovery mid-way.
+
+THE PLAN
+Six phases, ordered so each one shrinks the next
+Devolution comes first for the same reason it did on the 26.1.2 branch: every file you delete in Phase 1 is a file you never migrate, test or re-datagen in Phases 2–5. Tick items as you land them — progress saves for everyone with the link.
+
+PHASE 0
+Decide the target
+Decide
+2 / 3
+Two questions that change the shape of everything below. Answer them before writing code.
+
+
+0.1
+Confirm 1.21.1 receives 2.0, not 1.6-parity
+The alternative is porting workstream A's features forward and keeping the mod as-is. That is roughly the same effort and lands you on a codebase the main branch has already abandoned. Recommendation: ship a 2.0-shaped 1.21.1.
+decision
+
+0.2
+Decide the fate of the fishing content shipped in 1.5.7
+Fish tank, fish directionality, blazed grub bait and the obsidian fishing rod are this branch's newest work and Phase 1.2 deletes them. Either accept that, or hold 1.21.1 at a fishing-inclusive release and branch 2.0 separately.
+decision
+b961dad
+
+0.3
+Set the version and communicate the break
+Removals are the headline, not a footnote. Existing worlds using cut blocks will not load cleanly.
+decision
+PHASE 1
+Devolution — apply the 2.0 cut list
+Remove
+11 / 11
+~230 of 555 Java files, measured in the current tree. Ordered exactly as the 26.1.2 branch learned to order it: dead code first, then the largest lever, then the entangled ones. Re-run datagen after each.
+
+
+1.1
+Remove the runtime resource injection system
+Pure dead code — nothing calls runtimeModelGenerator(...), so RUNTIME_RESOURCE_GENERATORS is always empty. Takes 4 fragile resource-manager mixins with it. 11 files present in 1.21.1. Zero gameplay impact; start here.
+b328e7f
+~11 files
+
+1.2
+Remove fishing entirely
+Fish tank + BER, custom fish, BaitItem, fishing rods, fishing leaderboards, LUCK_OF_THE_SEA_BONUS/LURE attributes, bar/bobber/frame icons. This spans both d67dc0f (the bulk) and 2f5c82c (the residue). 36 files match in 1.21.1.
+d67dc0f
+2f5c82c
+~36 files
+
+1.3
+Remove Skills & Abilities, and the gui/ framework with it
+The single largest lever: 10 skills, 9 abilities, the reward system, loot tiers, Skill Journals, and the gui/ framework that duplicates gelatin-ui. Also removes ~8 network packets that exist only to serve it. 73 files in skill/ + 36 in gui/ = 109.
+a82daec
+~109 files
+
+1.4
+Remove Filter Hoppers
+Small/Large/Huge blocks + BEs + menus + screens, 8 upgrade items, UpgradeBaseItem, ServerboundSetupFilterHopperFromContainerPacket. 22 files in 1.21.1. On 26.1.2 this was combined with genetic crops; here it stands alone.
+b2a2ab2
+~22 files
+
+1.5
+Remove Versatile Plants
+VersatilePlantBlock, BloomingPlantBlock, the worldgen feature, 4 datagen model generators, and all 28 blocks. Ore flowers and the Lunar Berry Bush live in the same FlowerBlocks class but are not VersatilePlantBlock instances — leave them. 10 direct matches + datagen.
+58ea454
+~10 files
+
+1.6
+Remove Hats, keeping the Wreath
+24 ore hats × tiers, Froggy/Hook/Apple, their advancements and loot tables, BlockHatModelProvider, ~35 dead Translations constants. The Wreath survives — it is a functional Totem of Undying and reads as an alchemical charm.
+e39e877
+
+1.7
+Trim the uranium chain to sulfur; remove Decorative Fire
+Keep Sulfur Shard + Sulfuric Acid, drop ore/ingot/block/glass/raw uranium and Remnant Debris. Watch the Potion Beacon: it uses uranium_glass for its glass ring and particle icon — 26.1.2 substituted vanilla Items.GLASS. Also removes the amplification_testing recipe (uranium's only consumer).
+b74c822
+
+1.8
+Remove worldgen biomes, features, and their decoration blocks
+Last, because it is the only cut that breaks existing saves. Arid/Ice/Volcanic caves, 7 features, OffsetPlacement, MonsterRoomFeatureMixin, LevelChunkMixin, ParticleEngineMixin, plus Cooblestone, the 5 Unstable variants, Icicle, Lava Geyser and Particle Emitter. Drops the TerraBlender + GlitchCore dependencies. 24 files in worldgen/.
+66a08fe
+~24 files
+
+1.9
+Extract ParticleEmitterConfiguration before deleting the block
+Not a delete — a refactor. The config type feeds the Sanguine Altar's BLOOD particle and the Lunar Berry Bush ambient particle through ParticleConfigurations. 26.1.2 pulled it out into its own particle/ class. Do this before 1.8 lands.
+66a08fe
+ordering
+
+1.10
+Keep the Lunar Berry Bush worldgen alive through 1.8
+ConfiguredFeatures.LUNAR_BERRY_BUSH_KEY, both placements, and both biome modifiers are core — it is how the reagent is obtained. Trim the worldgen classes down to these entries rather than deleting the files.
+66a08fe
+verify
+
+1.11
+Final datagen sweep and generated-resource reconcile
+Rebuild, then runData, then verify core items still generate. Expect a large stale-file deletion count — that is the sweep working, not damage.
+gotcha
+PHASE 2
+The alchemy layer
+Port
+5 / 5
+The structural half of 2.0. 1.21.1 has no alchemy/ package at all — this is new construction, not a patch. Verified: PUtil is 335 lines here and every call site still routes through it.
+
+
+2.1
+Introduce the alchemy/ package
+PotionData, PotionDataBuilder, PotionContainer, EffectComparison, EffectRegistry, EffectScaling. Everything below depends on this existing first.
+fcefc14
+5561969
+new
+
+2.2
+Delete the dead potion code the audit surfaced
+PUtil.getProcessingTime, diminishingReturns(float,float), the duplicate unused HIDDEN_POTIONS sets, and the eager duration/amplifier analysis in SeededPotionRecipes (postProcessRecipes already recomputes both, including the combo recipes the eager path silently dropped). The duplicate-Recipes-class half of this commit is migration-only — skip it.
+d63a69a
+partial
+
+2.3
+Migrate every call site onto the alchemy layer; delete PUtil
+Routes all raw DataComponents.POTION_CONTENTS access through the new layer. Retires PotionMatchingCriteria in favour of EffectComparison.MatchCriteria keeping the same codec ids. Fixes P-05 structurally: the cauldron's passive-effect branch now copies before writing, so evaluating a potential brew can no longer mutate a tool sitting in the cauldron.
+fcefc14
+~49 files
+
+2.4
+Watch for the identityString / Identifier-path trap
+On 26.1.2 this was only caught by game tests: ShapelessProcessingRecipe.getUniqueRecipeName briefly routed through EffectComparison.identityString, which is not Identifier-path-safe, and crashed recipe generation. identitySlug exists for exactly this call.
+fcefc14
+gotcha
+
+2.5
+Accept or mitigate the seeded-recipe re-roll
+PpIngredient switches from an order-dependent concatenated name string to EffectComparison.identityHash. 26.1.2 accepted this as breaking for pre-existing worlds with no migration path. Same call needed here — or write the migration 26.1.2 skipped.
+fcefc14
+decision
+PHASE 3
+Behaviour fixes — all verified present in 1.21.1
+Port
+10 / 10
+Every item below was checked against the actual 1.21.1 source, not inferred from commit messages. The buggy code is present verbatim unless noted.
+
+
+3.1
+EffectScaling: clamp amplifier/duration, kill the four >> amplifier copies
+Confirmed in 1.21.1: BotanicalBoostEffect:59 10 >> amplifier, CropCollectorEffect:59 20 >>, MagneticEffect:56 20 >>, MetalDetectingEffect:59 400 >>. Four copies of a buggy idiom that disagree on what a zero interval means, and wrap at high amplifiers.
+5561969
+VERIFIED
+true
+
+3.2
+Stop the Potion Beacon mutating shared MobEffectInstances
+Confirmed in 1.21.1: PotionBeaconBlockEntity:207,213 call potions_plus$setDuration. Replace with an immutable PotionBeaconEffectState record, then delete MobEffectInstanceMixin and IMobEffectInstanceExtension — both present here.
+5561969
+VERIFIED
+true
+
+3.3
+EffectRegistry: declared icon order, pre-built passive pool
+Replaces the registry-order-dependent icon index, and builds the passive-effect pool once instead of rejection-sampling it — the old path silently dropped blacklisted effects at random. ANY_OTHER_POTION joins ANY_POTION in the blacklist. Land Phase 5's version directly: capture registration order in MobEffects rather than a duplicated list.
+5561969
+536f442
+
+3.4
+Abyssal Trove ingredient identity — five bugs, all present
+PpIngredient equality is count-sensitive but the trove stores at count 1, so four call sites silently never matched for any stack >1. All confirmed: AbyssalTroveBlock:72, AbyssalTroveBlockEntity:244, ItemMixin:50, Utility:125. The block also checks mainhand instead of the hand actually used.
+28f204e
+VERIFIED
+true
+
+3.5
+BrewingCauldronRecipe.matches — shapeless multi-slot matching
+Confirmed at BrewingCauldronRecipe:226-243, identical to the pre-fix 26.1.2 code. Each requirement is checked independently with no record of which slot satisfied a previous one, so a recipe needing the same ingredient twice degrades to “one of it, plus anything”. Mark slots used once matched.
+28f204e
+VERIFIED
+true
+
+3.6
+RecipeAnalysis — duplicate tooltip entries
+Confirmed at RecipeAnalysis:54. Indexes a recipe once per ingredient slot rather than per distinct ingredient, so a recipe using an ingredient twice appears twice in that ingredient's tooltip list.
+28f204e
+VERIFIED
+true
+
+3.7
+Sanguine Altar sticks in CONVERTING on the client
+Confirmed at SanguineAltarBlockEntity:96 — if (!level.isClientSide), identical to the pre-fix code. A client that misses the state packet stays in CONVERTING forever. Let the client resolve locally from its synced healthDrained; the server stays authoritative.
+7b35257
+VERIFIED
+true
+
+3.8
+Brewing cauldron: normalize shrunk-to-zero stacks to EMPTY
+Confirmed at BrewingCauldronBlockEntity:229 — stack.shrink(...) with no empty check. Only this half of 59480ce applies; the InventoryBlockEntity half is a migration regression — 1.21.1's readPacketNbt:116 already re-creates the list before loading.
+59480ce
+VERIFIED, partial
+true
+
+3.9
+Fix the error when adding mob effects to tools and armor
+Touches PUtil and GlobalLootModifierProvider. Sequence this after 2.3 so it lands on the alchemy layer rather than on code you are about to delete.
+b0e13b1
+ordering
+
+3.10
+Craft-recipe trigger advancements not unlocking
+From the 0eff06d bundle — take CraftRecipeTrigger only. The rest of that commit is fishing leaderboards, skill journals and stoney ore tiers, all removed in Phase 1. N/A in 1.21.1 — 0eff06d fixes a 1.21.5 API regression (Registry.get returned Optional<Holder>); 1.21.1's Registry.get returns T directly, so this trigger is already correct.
+0eff06d
+partial
+PHASE 4
+Feature ports — the four survivors
+Port
+0 / 5
+Everything workstream A added that still exists at the 26.1.2 tip. Note these commits predate the multiloader split, so their file paths match 1.21.1 exactly — the diffs apply cleanly and only 1.21.5 API drift needs reverting.
+
+
+4.1
+Growing Mossy Cobblestone and Stone Bricks
+GrowableMossyBlock with watering and growth mechanics, plus slab and stair variants, sounds, textures and block-family model generation. The moss reagent farm — the highest-value port in this phase.
+03f5207
+c937d7d
+0abd511
+d8fc978
+
+4.2
+Clothesline: preserve fence-post variant during item interactions
+Single-file fix in ClotheslineBlockEntity. Clean pick.
+f2e542d
+
+4.3
+Clothesline: optional failure results and success percentages
+Touches ClotheslineRecipe, the BE, Recipes and the JEI category. Take the mechanism, drop the fish recipes — a97ca92 and 945ad4a are fish-hanging content that Phase 1.2 removes.
+0abab4b
+partial
+
+4.4
+Ore flowers placeable on more blocks
+From e4b74a4: take OreFlowerBlock, FlowerBlocks and the BlockTagProvider entries. Leave the ore-variant worldgen and OreBlocks changes — Phase 1.7 and 1.8 remove those.
+e4b74a4
+partial
+
+4.5
+The Grungler
+Entity, model, renderer, render state, render layer, LayerDefinitions, Entities and Renderers hookups, the bbmodel source and the scamper animation. Kept by owner override with no design attached yet — lowest priority here, and safe to defer past release.
+4ec96a4
+optional
+PHASE 5
+Test infrastructure
+Port
+0 / 4
+1.21.1 has no test source sets. The alchemy work on 26.1.2 was only safe because these existed — Phase 2 is materially riskier without them, so build them alongside it rather than after.
+
+
+5.1
+Stand up src/test with the alchemy unit suite
+AlchemyTestBase, BootstrapSmokeTest, EffectComparisonTest, EffectScalingTest, PotionContainerTest, PotionDataTest, PotionDataBuilderTest.
+bacee41
+5561969
+
+5.2
+Add the POTION_CONTENTS containment test
+PotionContentsAccessTest enforces that DataComponents.POTION_CONTENTS is never referenced outside alchemy/. This is what keeps Phase 2 from quietly unravelling later.
+536f442
+
+5.3
+Stand up src/testmod game tests and the runGametest task
+AlchemyGameTests and BrewingCauldronGameTests — 34 required tests on 26.1.2. These caught a real bug the compiler and unit tests both missed during Phase 3 of the original work.
+bacee41
+5561969
+
+5.4
+Port docs/game-tests.md
+Documents what each test pins down and when to reach for a game test over a unit test.
+bacee41
+PHASE 6
+Release
+Decide
+0 / 3
+
+6.1
+Full rebuild, datagen, unit tests and game tests green
+Verify by diffing generated-resource file counts, not exit codes.
+gate
+
+6.2
+Version bump and changelog
+Frame the removals as the headline. Roughly 40% of the mod's classes are gone; players will notice before they read a footnote.
+gate
+
+6.3
+Document the save-compatibility break
+Worldgen removal plus the seeded-recipe re-roll. Say plainly that existing worlds are affected.
+gate
+EXPLICITLY OUT OF SCOPE
+What not to bring back
+All of workstream B. Chunks 2–7, the common/neoforge split, ResourceLocation→Identifier, loot type unrolling, platform abstraction, @ExpectPlatform stubs. 1.21.1 stays single-module NeoForge.
+Migration-era regression fixes. Verified not applicable because the bug was introduced by the port itself: 7bb3bd0 (inventory persistence — 1.21.1's readPacketNbt already loads items and pre-clears the list), bdbdd61 (potion names — 1.21.1's PotionBuilder already passes the registry name), 95c57b2, a090320, 8b4176f, 22bf7bb, 493d3f0.
+The InventoryBlockEntity half of 59480ce. Only the brewing-cauldron half applies — see item 3.3.
+Renderer reimplementations (ef1ef1d, 19cb2cd, 0653e3a, 7cf5723, b4e0004). These rebuild BERs against 26.1.2's render pipeline; 1.21.1's originals are intact and correct.
+Datagen migration (a403f4f, c0c5a18, 7c63402) except where a Phase 1 removal or Phase 4 port needs a generator touched.
+CARRIED FORWARD
+Gotchas the 26.1.2 branch already paid for
+Lifted from DEVOLUTION_PROGRESS.md — these cost real time on the first pass. They apply verbatim to 1.21.1.
+
+Re-run datagen after every removal, even source-only ones. src/generated/resources drifts silently; one pass swept 947 stale files because datagen had not run since two commits earlier.
+Build before datagen. If runData throws Missing item model definitions for something you just deleted, the jar is stale — rebuild first, don't assume the removal was wrong.
+runData never exits on its own. Run it backgrounded, watch for the Caching: total files: summary or a settled working tree, then kill it. A hang is not a failure.
+Verify by diffing file counts, not exit codes. Spot-check that moss, salt, wormroot, brewing cauldron and awkward potion still have generated models before trusting a big deletion count.
+Save compatibility. Worldgen removal is the only cut that breaks existing worlds. fcefc14 also notes that the PpIngredient hashing change re-rolls seeded potion recipes in pre-existing worlds, accepted with no migration path.
+Potions Plus · backport parity ledger
+base 56dc9e2 · head 28f204e
