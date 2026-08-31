@@ -181,9 +181,11 @@ only).
 |---|---|
 | Test logic (platform-agnostic) | `common/src/testmod/java/grill24/potionsplus/gametest/` |
 | Registration (NeoForge) | `neoforge/src/testmod/java/grill24/potionsplus/neoforge/gametest/` |
+| Registration (Fabric) | `fabric/src/testmod/java/grill24/potionsplus/fabric/gametest/PotionsPlusFabricGameTests.java` |
+| Registration (Forge) | `forge/src/testmod/java/grill24/potionsplus/forge/gametest/PotionsPlusForgeGameTests.java` + `ForgeGameTestRegistration.java` (built via `RegistryLoadTaskMixin` in `forge/src/main/`, since stock Forge has no working native hook) |
 | Structure generator | `neoforge/src/main/java/grill24/potionsplus/data/neoforge/GameTestStructureProvider.java` |
 | Generated structure (committed) | `neoforge/src/generated/resources/data/potionsplus/structure/empty_testarea.nbt` |
-| Source set, run config, classpath | `neoforge/build.gradle` |
+| Source set, run config, classpath | `neoforge/build.gradle`, `fabric/build.gradle`, `forge/build.gradle` |
 
 In MC 26.1.2 the old `@GameTest` annotation is gone; tests are registry entries. NeoForge's
 `RegisterGameTestsEvent` registers them in code instead of datapack JSON; `ConsumerTestInstance` is a
@@ -254,12 +256,17 @@ Extend `AlchemyTestBase` and this is handled for you.
 - **Datapack parse errors in the log** — `potionsplus:blocks/lunar_berry_bush` currently fails to load
   on every run (`{"blooming":true}` where a string is expected); non-fatal and unrelated to tests, but
   real and worth fixing separately.
-- **Forge runs, but none of your tests appear** — expected on Forge 26.1.2. `:forge:runGametest`
-  boots `GameTestServer` and exits cleanly, but reports `1 GAME TESTS COMPLETE` from the vanilla
-  `minecraft:default` environment: none of `PotionsPlusForgeGameTests`' methods register, because
-  `RegisterEvent` never fires for the dynamic `Registries.TEST_INSTANCE`. See
-  `ForgeGameTestRegistration`'s javadoc and `docs/multi-loader-expansion.md` (Phase 9). Fabric and
-  NeoForge are the loaders that actually run these tests today.
+- **Forge now runs the full suite too.** Stock Forge 26.1.2 never fires an event once
+  `Registries.TEST_INSTANCE` is populated for a world — `RegisterEvent` doesn't cover dynamic
+  registries, and nothing calls `ForgeGameTestHooks#gatherTests` automatically — so
+  `PotionsPlusForgeGameTests`' tests used to never register. `RegistryLoadTaskMixin`
+  (`forge/src/main/java/grill24/potionsplus/mixin/forge/`) fixes this by injecting into
+  `RegistryLoadTask`'s constructor and registering directly into the still-empty, still-mutable
+  `TEST_INSTANCE` registry for that task, gated on Forge's own `ForgeGameTestHooks.isGametestServer()`
+  flag. See that mixin's javadoc for the full investigation of why no simpler Forge-native hook exists
+  (NeoForge's equivalent is a source-level patch to `RegistryDataLoader#load`, not something a mod can
+  replicate via an event). `:forge:runGametest` now reports the same test count and pass/fail results
+  as NeoForge and Fabric.
 - **Forge crashes with `Invalid module name: '' is not a Java identifier`** — the mod is spanning two
   class directories, which Forge unions into a module whose root has no file name. Do **not** add a
   second source set to `loom.mods` (that mapping is global and breaks `runClient`/`runData` too);
