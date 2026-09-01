@@ -1,0 +1,36 @@
+architectury {
+    common rootProject.enabled_platforms.split(',')
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/potionsplus.accesswidener")
+    mixin {
+        defaultRefmapName = "potionsplus-refmap.json"
+    }
+}
+
+dependencies {
+    // We depend on Fabric Loader here to use the Fabric @Environment annotations,
+    // which get remapped to the correct annotations on each platform.
+    // Do NOT use other classes from Fabric Loader.
+    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+
+    // Architectury injectables only (Decision 6) — not the full architectury runtime library.
+    modImplementation "dev.architectury:architectury-injectables:1.0.13"
+
+    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+
+    // compile against the JEI API but do not include it at runtime
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+// common is never consumed standalone - every platform module pulls the "named"-mapped jar via the
+// `namedElements`/`transformProductionXxx` configurations wired in its own build.gradle, not this
+// jar. remapJar's named->intermediary remap is therefore both unneeded and (as of this mapping
+// snapshot) fails outright on vanilla's own Container/RecipeInput bridge-method ambiguity - it hits
+// dozens of pure-vanilla classes (SimpleContainer, MerchantContainer, etc.), not anything mod-owned,
+// the moment `common` has real Container-implementing content to remap. Disable it rather than work
+// around a jar nothing reads.
+tasks.named('remapJar') { enabled = false }

@@ -1,5 +1,7 @@
 package grill24.potionsplus.event;
 
+import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+
 import grill24.potionsplus.behaviour.ClotheslineBehaviour;
 import grill24.potionsplus.behaviour.MossBehaviour;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
@@ -52,12 +54,12 @@ public class PlayerListeners {
 
             // Get all *recipe* knowledge that is triggered by picking up this ingredient. If there is any, try to trigger an alert for the respective category.
             int count;
-            learnedRecipes.addAll(PlayerBrewingKnowledge.getUnknownRecipesWithIngredient(Recipes.DURATION_UPGRADE_ANALYSIS, ppIngredient, playerBrewingKnowledge));
+            learnedRecipes.addAll(PlayerBrewingKnowledge.getUnknownRecipesWithIngredient(RecipesRegistrar.DURATION_UPGRADE_ANALYSIS, ppIngredient, playerBrewingKnowledge));
             if (!learnedRecipes.isEmpty()) {
                 alerts.add(new Pair<>(new ClientboundDisplayAlertWithItemStackName("chat.potionsplus.duration_ingredient", stack, true), 1));
             }
             count = learnedRecipes.size();
-            learnedRecipes.addAll(PlayerBrewingKnowledge.getUnknownRecipesWithIngredient(Recipes.AMPLIFICATION_UPGRADE_ANALYSIS, ppIngredient, playerBrewingKnowledge));
+            learnedRecipes.addAll(PlayerBrewingKnowledge.getUnknownRecipesWithIngredient(RecipesRegistrar.AMPLIFICATION_UPGRADE_ANALYSIS, ppIngredient, playerBrewingKnowledge));
             if (learnedRecipes.size() > count) {
                 alerts.add(new Pair<>(new ClientboundDisplayAlertWithItemStackName("chat.potionsplus.amplification_ingredient", stack, true), 2));
             }

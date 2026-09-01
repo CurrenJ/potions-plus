@@ -1,5 +1,7 @@
 package grill24.potionsplus.blockentity;
 
+import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.items.DynamicIconItems;
@@ -108,8 +110,8 @@ public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<Abys
             case ALL_LABELED_INGREDIENTS -> isUnknownIngredient ? UNKNOWN_INGREDIENT_SCALE : ICON_SCALE;
             case ONLY_COMMON_INGREDIENTS -> isUnknownIngredient ? 0 : SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, PpIngredient.of(icon)) ? ICON_SCALE : 0;
             case ONLY_RARE_INGREDIENTS -> isUnknownIngredient ? 0 : SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, PpIngredient.of(icon)) ? ICON_SCALE : 0;
-            case ONLY_DURATION_UPGRADES -> isUnknownIngredient ? 0 : Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(PpIngredient.of(icon)) ? ICON_SCALE : 0;
-            case ONLY_AMPLIFICATION_UPGRADES -> isUnknownIngredient ? 0 : Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(PpIngredient.of(icon)) ? ICON_SCALE : 0;
+            case ONLY_DURATION_UPGRADES -> isUnknownIngredient ? 0 : RecipesRegistrar.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(PpIngredient.of(icon)) ? ICON_SCALE : 0;
+            case ONLY_AMPLIFICATION_UPGRADES -> isUnknownIngredient ? 0 : RecipesRegistrar.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(PpIngredient.of(icon)) ? ICON_SCALE : 0;
         };
     }
 

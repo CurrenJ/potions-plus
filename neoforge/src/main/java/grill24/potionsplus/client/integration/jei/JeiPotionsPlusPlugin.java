@@ -6,9 +6,10 @@ import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.items.BrewingItems;
 import grill24.potionsplus.core.items.WreathItem;
 import grill24.potionsplus.core.potion.PotionBuilder;
-import grill24.potionsplus.core.potion.Potions;
+import grill24.potionsplus.core.neoforge.potion.PotionsRegistrar;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.alchemy.*;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -58,18 +60,18 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         registerDescription(registration, BrewingItems.ROTTEN_WORMROOT.value()); // Rotten Wormroot
         registerDescription(registration, BrewingItems.LUNAR_BERRIES.value()); // Lunar Berries
         registerDescription(registration, WreathItem.WREATH.value()); // Wreath
-        registerAllPotionsInfo(registration, Potions.getAllPotionAmpDurMatrices()); // Potion descriptions
+        registerAllPotionsInfo(registration, PotionsRegistrar.getAllPotionAmpDurMatrices()); // Potion descriptions
 
         // Register recipes for custom JEI recipe categories
         if (Minecraft.getInstance().level != null) {
             // Register all brewing cauldron recipes
             registration.addRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE,
-                    Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.value())
+                    Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor((RecipeType<BrewingCauldronRecipe>) (RecipeType<?>) Recipes.BREWING_CAULDRON_RECIPE.value())
                             .stream().map(RecipeHolder::value).filter(BrewingCauldronRecipe::canShowInJei).toList());
 
             // Register all clothesline recipes
             registration.addRecipes(ClotheslineRecipeCategory.CLOTHESLINE_RECIPE_TYPE,
-                    Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(Recipes.CLOTHESLINE_RECIPE.value())
+                    Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor((RecipeType<ClotheslineRecipe>) (RecipeType<?>) Recipes.CLOTHESLINE_RECIPE.value())
                             .stream().map(RecipeHolder::value).toList());
         }
     }
@@ -91,11 +93,11 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         Level level = Minecraft.getInstance().level;
         Player player = Minecraft.getInstance().player;
         if (JEI_RUNTIME != null && level != null && level.isClientSide && player != null) {
-            List<BrewingCauldronRecipe> brewingCauldronRecipeList = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.value()).stream().map(RecipeHolder::value).toList();
+            List<BrewingCauldronRecipe> brewingCauldronRecipeList = level.getRecipeManager().getAllRecipesFor((RecipeType<BrewingCauldronRecipe>) (RecipeType<?>) Recipes.BREWING_CAULDRON_RECIPE.value()).stream().map(RecipeHolder::value).toList();
             JEI_RUNTIME.getRecipeManager().hideRecipes(BrewingCauldronRecipeCategory.BREWING_CAULDRON_RECIPE_TYPE, brewingCauldronRecipeList);
 
             // Filter recipes to those that match known recipes and unhide them
-            Stream<BrewingCauldronRecipe> stream = level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.value()).stream()
+            Stream<BrewingCauldronRecipe> stream = level.getRecipeManager().getAllRecipesFor((RecipeType<BrewingCauldronRecipe>) (RecipeType<?>) Recipes.BREWING_CAULDRON_RECIPE.value()).stream()
                     .filter(recipe ->
                             (SavedData.instance.getData(player).isRecipeKnown(recipe.id().toString()) || !recipe.value().isSeededRuntimeRecipe() || PotionsPlus.Debug.shouldRevealAllRecipes)
                                     && recipe.value().canShowInJei()

@@ -1,42 +1,49 @@
 package grill24.potionsplus.item.tooltip;
 
+import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.blockentity.IStoredIngredientsContainer;
 import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.core.potion.Potions;
+import grill24.potionsplus.core.neoforge.potion.PotionsRegistrar;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
+import grill24.potionsplus.event.neoforge.AnimatedItemTooltipBusEvent;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class BrewingTooltips {
     @SubscribeEvent
-    public static void onBrewingTooltip(final AnimatedItemTooltipEvent.Add event) {
+    public static void onBrewingTooltip(final AnimatedItemTooltipBusEvent.Add event) {
         PpIngredient ppIngredient = PpIngredient.of(event.getItemStack().copyWithCount(1));
         if(AbyssalTroveBlockEntity.ABYSSAL_TROVE_INGREDIENTS.contains(ppIngredient))
         {
             // If the item is not in the abyssal trove, display a message indicating that the ingredient is unknown
-            if (!Utility.isItemInLinkedAbyssalTrove(event.getPlayer(), event.getItemStack())) {
+            if (!isItemInLinkedAbyssalTrove(event.getPlayer(), event.getItemStack())) {
                 MutableComponent text = Component.translatable("tooltip.potionsplus.unknown_ingredient");
                 text = text.withStyle(ChatFormatting.GRAY);
 
@@ -45,15 +52,15 @@ public class BrewingTooltips {
             }
             // If the item is in the abyssal trove, display the appropriate tooltip messages for the ingredient
             else {
-                if (Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ppIngredient)) {
-                    MutableComponent text = Component.translatable("tooltip.potionsplus.duration_ingredient", Utility.formatTicksAsSeconds(Recipes.DURATION_UPGRADE_ANALYSIS.getRecipeForIngredient(ppIngredient).get().value().getDurationToAdd()));
+                if (RecipesRegistrar.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ppIngredient)) {
+                    MutableComponent text = Component.translatable("tooltip.potionsplus.duration_ingredient", Utility.formatTicksAsSeconds(RecipesRegistrar.DURATION_UPGRADE_ANALYSIS.getRecipeForIngredient(ppIngredient).get().value().getDurationToAdd()));
                     text = text.withStyle(ChatFormatting.LIGHT_PURPLE);
 
                     AnimatedItemTooltipEvent.TooltipLines durationLine = AnimatedItemTooltipEvent.TooltipLines.of(ppId("ingredient_duration"), 0, text);
                     event.addTooltipMessage(durationLine);
                 }
-                if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ppIngredient)) {
-                    MutableComponent text = Component.translatable("tooltip.potionsplus.amplification_ingredient", Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.getRecipeForIngredient(ppIngredient).get().value().getAmplifierToAdd());
+                if (RecipesRegistrar.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ppIngredient)) {
+                    MutableComponent text = Component.translatable("tooltip.potionsplus.amplification_ingredient", RecipesRegistrar.AMPLIFICATION_UPGRADE_ANALYSIS.getRecipeForIngredient(ppIngredient).get().value().getAmplifierToAdd());
                     text = text.withStyle(ChatFormatting.AQUA);
 
                     AnimatedItemTooltipEvent.TooltipLines amplificationLine = AnimatedItemTooltipEvent.TooltipLines.of(ppId("ingredient_amplification"), 0, text);
@@ -86,7 +93,7 @@ public class BrewingTooltips {
                 Player player = event.getPlayer();
                 if (SavedData.instance.getData(player).abyssalTroveContainsIngredient(player.level(), ppIngredient)) {
                     // Look at all the recipes that this ingredient is used in
-                    for (RecipeHolder<BrewingCauldronRecipe> recipeHolder : Recipes.ALL_BCR_RECIPES_ANALYSIS.getRecipesForIngredient(ppIngredient)) {
+                    for (RecipeHolder<BrewingCauldronRecipe> recipeHolder : RecipesRegistrar.ALL_BCR_RECIPES_ANALYSIS.getRecipesForIngredient(ppIngredient)) {
                         if (SavedData.instance.getData(player).isRecipeUnknown(recipeHolder.id().toString()))
                             continue;
 
@@ -94,7 +101,7 @@ public class BrewingTooltips {
                         ItemStack recipeResult = recipe.getResult();
                         PotionData recipeResultData = PotionData.read(recipeResult);
                         if (!PotionContainer.isPotionStack(recipeResult) || !recipeResultData.hasBasePotion()
-                                || recipeResultData.basePotion().get().is(Potions.ANY_POTION) || recipeResultData.basePotion().get().is(Potions.ANY_OTHER_POTION)
+                                || recipeResultData.basePotion().get().is(PotionsRegistrar.ANY_POTION) || recipeResultData.basePotion().get().is(PotionsRegistrar.ANY_OTHER_POTION)
                                 || !recipe.canShowInJei())
                             continue;
                         List<MobEffectInstance> potionEffects = recipeResultData.basePotion().get().value().getEffects();
@@ -118,5 +125,16 @@ public class BrewingTooltips {
                 }
             }
         }
+    }
+
+    private static boolean isItemInLinkedAbyssalTrove(Player player, ItemStack stack) {
+        BlockPos pos = SavedData.instance.getData(player).getPairedAbyssalTrovePos();
+        BlockEntity blockEntity = player.level().getBlockEntity(pos);
+        Optional<IStoredIngredientsContainer> abyssalTrove = blockEntity instanceof IStoredIngredientsContainer storedIngredientsContainer
+                ? Optional.of(storedIngredientsContainer)
+                : Optional.empty();
+        // PpIngredient equality is stack-count-sensitive, but the trove always stores ingredients at
+        // count 1 - normalize here or a held stack of >1 would never match what's actually stored.
+        return abyssalTrove.map(storedIngredientsContainer -> storedIngredientsContainer.getStoredIngredients().contains(PpIngredient.of(stack.copyWithCount(1)))).orElse(false);
     }
 }

@@ -1,5 +1,7 @@
 package grill24.potionsplus.mixin;
 
+import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -34,7 +36,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, net.neoforg
             List<MobEffectInstance> effects = PotionData.read(stack).effects();
             if (effects.size() == 1) {
                 ResourceKey<MobEffect> mobEffect = effects.getFirst().getEffect().getKey();
-                List<RecipeHolder<BrewingCauldronRecipe>> recipes = Recipes.ALL_BCR_RECIPES_ANALYSIS.getRecipesForMobEffect(mobEffect);
+                List<RecipeHolder<BrewingCauldronRecipe>> recipes = RecipesRegistrar.ALL_BCR_RECIPES_ANALYSIS.getRecipesForMobEffect(mobEffect);
                 if(!recipes.isEmpty()) {
                     RecipeHolder<BrewingCauldronRecipe> recipe = recipes.getFirst();
                     displayStacks.add(potions_plus$createTooltipFromBrewingRecipe(recipe));
@@ -44,7 +46,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, net.neoforg
                 // ingredientToRecipeMap is keyed on count-1 ingredient stacks - normalize or a held stack
                 // of >1 would never match and the recipe tooltip would silently never render.
                 PpIngredient ingredient = PpIngredient.of(stack.copyWithCount(1));
-                List<RecipeHolder<BrewingCauldronRecipe>> recipes = Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getRecipesForIngredient(ingredient);
+                List<RecipeHolder<BrewingCauldronRecipe>> recipes = RecipesRegistrar.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getRecipesForIngredient(ingredient);
                 for (RecipeHolder<BrewingCauldronRecipe> recipe : recipes) {
                     displayStacks.add(potions_plus$createTooltipFromBrewingRecipe(recipe));
                 }

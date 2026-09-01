@@ -5,6 +5,7 @@ import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.persistence.SavedData;
+import grill24.potionsplus.persistence.neoforge.PlayerBrewingKnowledgeNetworking;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.alchemy.*;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -86,7 +88,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
         // Find the recipe we can craft with the current ingredients
         // Take the recipe with the longest processing time, as a pseudo-priority system
-        this.activeRecipe = this.level.getRecipeManager().getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get()).stream()
+        @SuppressWarnings("unchecked")
+        RecipeType<BrewingCauldronRecipe> brewingCauldronRecipeType = (RecipeType<BrewingCauldronRecipe>) (RecipeType<?>) Recipes.BREWING_CAULDRON_RECIPE.value();
+        this.activeRecipe = this.level.getRecipeManager().getAllRecipesFor(brewingCauldronRecipeType).stream()
                 .filter(recipe -> recipe.value().matches(this, this.level))
                 .max(Comparator.comparingInt((recipe) -> recipe.value().getIngredientsAsItemStacks().size()));
 
@@ -257,7 +261,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                     // If the recipe was not already known, schedule a JEI update and play a sound
                     level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
                         if(player instanceof ServerPlayer serverPlayer) {
-                            SavedData.instance.getData(player.getUUID()).tryAddKnownRecipeServer(serverPlayer, recipeId.toString(), result);
+                            PlayerBrewingKnowledgeNetworking.tryAddKnownRecipeServer(SavedData.instance.getData(player.getUUID()), serverPlayer, recipeId.toString(), result);
                             Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, recipe.getType(), PpIngredient.of(result));
                         }
                     });

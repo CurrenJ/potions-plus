@@ -1,0 +1,14 @@
+accessWidener v2 named
+
+# Members common code needs that are private/protected in vanilla. NeoForge's own
+# accesstransformer.cfg (neoforge/src/main/resources/META-INF/accesstransformer.cfg) widens the
+# same set for the neoforge module's own compile view; this file is the cross-loader equivalent for
+# common (Decision 4 / Phase 9). Only entries actually needed by code living in common belong here -
+# see docs/multi-loader-expansion.md Phase 1's notes for what's still pending a full AT survey.
+accessible method net/minecraft/world/level/block/Block popExperience (Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;I)V
+accessible field net/minecraft/resources/HolderSetCodec homogenousListCodec Lcom/mojang/serialization/Codec;
+accessible field net/minecraft/client/particle/TrackingEmitter entity Lnet/minecraft/world/entity/Entity;
+accessible field net/minecraft/client/particle/TrackingEmitter life I
+mutable field net/minecraft/client/particle/TrackingEmitter life I
+accessible field net/minecraft/client/particle/TrackingEmitter lifeTime I
+accessible field net/minecraft/client/particle/TrackingEmitter particleType Lnet/minecraft/core/particles/ParticleOptions;

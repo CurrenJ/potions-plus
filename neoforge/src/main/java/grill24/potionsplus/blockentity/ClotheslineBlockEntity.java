@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.joml.Vector3f;
@@ -121,7 +122,9 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
             if (stack.isEmpty()) {
                 activeRecipes[i] = null;
             } else {
-                activeRecipes[i] = getLevel().getRecipeManager().getAllRecipesFor(Recipes.CLOTHESLINE_RECIPE.get()).stream()
+                @SuppressWarnings("unchecked")
+                RecipeType<ClotheslineRecipe> clotheslineRecipeType = (RecipeType<ClotheslineRecipe>) (RecipeType<?>) Recipes.CLOTHESLINE_RECIPE.value();
+                activeRecipes[i] = getLevel().getRecipeManager().getAllRecipesFor(clotheslineRecipeType).stream()
                         .filter(recipe -> recipe.value().matches(stack))
                         .findFirst().orElse(null);
             }

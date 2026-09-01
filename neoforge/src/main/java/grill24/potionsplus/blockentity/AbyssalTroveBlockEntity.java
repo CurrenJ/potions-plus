@@ -1,5 +1,7 @@
 package grill24.potionsplus.blockentity;
 
+import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+
 import grill24.potionsplus.core.*;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
@@ -20,7 +22,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISingleStackDisplayer {
+public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISingleStackDisplayer, IStoredIngredientsContainer {
 
     private int timeItemPlaced;
     public static final Vector3d itemRestingPositionTranslation = new Vector3d(0.5, 1 - (1 / 64.0), 0.5);
@@ -168,7 +170,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     public void updateRendererData() {
         RendererData data = new RendererData();
 
-        if (Recipes.seededPotionRecipes == null) {
+        if (RecipesRegistrar.seededPotionRecipes == null) {
             return;
         }
 
@@ -188,11 +190,11 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
             if (!PotionsPlus.Debug.shouldRevealAllRecipes && !this.storedIngredients.contains(ingredient)) {
                 icon = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC);
             } else {
-                if (Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
+                if (RecipesRegistrar.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
                     ItemStack sub = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.DUR_TEX_LOC);
                     subIcon.add(sub);
                 }
-                if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
+                if (RecipesRegistrar.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
                     ItemStack sub = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.AMP_TEX_LOC);
                     subIcon.add(sub);
                 }
@@ -244,7 +246,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     }
 
     public static boolean isItemPotionIngredient(ItemStack stack) {
-        return Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.isIngredientUsed(PpIngredient.of(stack));
+        return RecipesRegistrar.ALL_SEEDED_POTION_RECIPES_ANALYSIS.isIngredientUsed(PpIngredient.of(stack));
     }
 
     public static Set<PpIngredient> ABYSSAL_TROVE_INGREDIENTS = new HashSet<>();
@@ -252,11 +254,11 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
         return ABYSSAL_TROVE_INGREDIENTS;
     }
     public static void computeAbyssalTroveIngredients() {
-        ABYSSAL_TROVE_INGREDIENTS = Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getAllPotionBrewingIngredientsNoPotions().stream().sorted((a, b) -> {
+        ABYSSAL_TROVE_INGREDIENTS = RecipesRegistrar.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getAllPotionBrewingIngredientsNoPotions().stream().sorted((a, b) -> {
             Function<PpIngredient, Integer> value = (ingredient) -> {
-                if (Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
+                if (RecipesRegistrar.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
                     return 0;
-                } else if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
+                } else if (RecipesRegistrar.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
                     return 1;
                 } else {
                     return PotionUpgradeIngredients.getRarity(ingredient).ordinal() + 2;

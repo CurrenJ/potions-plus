@@ -102,8 +102,8 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
         // All Potions Duration Increase [5 Seconds] [Recipe is constant in all worlds]
         List<EffectComparison.MatchCriteria> upgradePotionMatchingCriteria = List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER, EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT);
         new BrewingCauldronRecipeBuilder()
-                .result(PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION))
-                .ingredients(PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION), new ItemStack(net.minecraft.world.item.Items.QUARTZ))
+                .result(PotionContainer.POTION.create(grill24.potionsplus.core.neoforge.potion.PotionsRegistrar.ANY_POTION))
+                .ingredients(PotionContainer.POTION.create(grill24.potionsplus.core.neoforge.potion.PotionsRegistrar.ANY_POTION), new ItemStack(net.minecraft.world.item.Items.QUARTZ))
                 .processingTime(30)
                 .durationToAdd(100)
                 .potionMatchingCriteria(upgradePotionMatchingCriteria)
@@ -117,7 +117,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .applyTo(new ItemStack(net.minecraft.world.item.Items.POTION));
         new BrewingCauldronRecipeBuilder()
                 .result(mergedPotionResult)
-                .ingredients(PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION), PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_OTHER_POTION))
+                .ingredients(PotionContainer.POTION.create(grill24.potionsplus.core.neoforge.potion.PotionsRegistrar.ANY_POTION), PotionContainer.POTION.create(grill24.potionsplus.core.neoforge.potion.PotionsRegistrar.ANY_OTHER_POTION))
                 .processingTime(30)
                 .experienceRequired(10F)
                 .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.NEVER_MATCH))
@@ -126,8 +126,8 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
         // Splash Potion
         new BrewingCauldronRecipeBuilder()
-                .result(PotionContainer.SPLASH_POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION))
-                .ingredients(PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION), new ItemStack(net.minecraft.world.item.Items.GUNPOWDER))
+                .result(PotionContainer.SPLASH_POTION.create(grill24.potionsplus.core.neoforge.potion.PotionsRegistrar.ANY_POTION))
+                .ingredients(PotionContainer.POTION.create(grill24.potionsplus.core.neoforge.potion.PotionsRegistrar.ANY_POTION), new ItemStack(net.minecraft.world.item.Items.GUNPOWDER))
                 .processingTime(30)
                 .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS))
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
@@ -135,8 +135,8 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
         // Lingering Potion
         new BrewingCauldronRecipeBuilder()
-                .result(PotionContainer.LINGERING_POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION))
-                .ingredients(PotionContainer.SPLASH_POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION), new ItemStack(net.minecraft.world.item.Items.DRAGON_BREATH))
+                .result(PotionContainer.LINGERING_POTION.create(grill24.potionsplus.core.neoforge.potion.PotionsRegistrar.ANY_POTION))
+                .ingredients(PotionContainer.SPLASH_POTION.create(grill24.potionsplus.core.neoforge.potion.PotionsRegistrar.ANY_POTION), new ItemStack(net.minecraft.world.item.Items.DRAGON_BREATH))
                 .processingTime(30)
                 .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS))
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))
@@ -144,8 +144,8 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
         // Tipped Arrow
         new BrewingCauldronRecipeBuilder()
-                .result(PotionContainer.TIPPED_ARROW.create(grill24.potionsplus.core.potion.Potions.ANY_POTION))
-                .ingredients(PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION), new ItemStack(net.minecraft.world.item.Items.ARROW))
+                .result(PotionContainer.TIPPED_ARROW.create(grill24.potionsplus.core.neoforge.potion.PotionsRegistrar.ANY_POTION))
+                .ingredients(PotionContainer.POTION.create(grill24.potionsplus.core.neoforge.potion.PotionsRegistrar.ANY_POTION), new ItemStack(net.minecraft.world.item.Items.ARROW))
                 .processingTime(30)
                 .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS))
                 .unlockedBy("has_potion", has(net.minecraft.world.item.Items.POTION))

@@ -1,5 +1,7 @@
 package grill24.potionsplus.event;
 
+import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.AdvancementProvider;
@@ -23,7 +25,7 @@ public class AdvancementListeners {
     @SubscribeEvent
     public static void onAdvancementEarned(final AdvancementEvent.AdvancementEarnEvent event) {
         if(ADVANCEMENTS_DROP_INGREDIENTS.contains(event.getAdvancement().id()) && event.getEntity() instanceof ServerPlayer player) {
-            Set<PpIngredient> ingredients = Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getUniqueIngredients();
+            Set<PpIngredient> ingredients = RecipesRegistrar.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getUniqueIngredients();
             PpIngredient ingredient = ingredients.stream().toList().get(player.level().getRandom().nextInt(ingredients.size()));
             if (player.canTakeItem(ingredient.getItemStack())) {
                 player.addItem(ingredient.getItemStack());

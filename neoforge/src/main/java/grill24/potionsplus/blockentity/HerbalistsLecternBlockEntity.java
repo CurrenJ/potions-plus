@@ -1,5 +1,7 @@
 package grill24.potionsplus.blockentity;
 
+import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
@@ -56,7 +58,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 ItemStack inputStack = herbalistsLecternBlockEntity.getItem(0);
                 PpIngredient inputIngredient = PpIngredient.of(inputStack);
 
-                List<RecipeHolder<BrewingCauldronRecipe>> recipesWithInputIngredient = Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getRecipesForIngredient(inputIngredient);
+                List<RecipeHolder<BrewingCauldronRecipe>> recipesWithInputIngredient = RecipesRegistrar.ALL_SEEDED_POTION_RECIPES_ANALYSIS.getRecipesForIngredient(inputIngredient);
                 Map<ResourceLocation, IconData> potionIcons = new HashMap<>();
                 List<IconData> additionalIcons = new ArrayList<>();
 
@@ -109,9 +111,9 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
 
                 // Update the center display stacks - either common, rare, or N/A ingredient.
                 PpIngredient ingredient = PpIngredient.of(inputStack);
-                if(Recipes.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
+                if(RecipesRegistrar.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
                     this.centerDisplayStack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.DUR_TEX_LOC);
-                } else if (Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
+                } else if (RecipesRegistrar.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
                     this.centerDisplayStack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.AMP_TEX_LOC);
                 } else if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, ingredient)) {
                     this.centerDisplayStack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.COMMON_TEX_LOC);
@@ -193,7 +195,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
     private void spawnParticlesIfPlayerIsHoldingIngredient(Player player, BlockPos pos) {
         ItemStack heldItem = player.getMainHandItem();
         if (level != null && !heldItem.isEmpty()) {
-            boolean hasEligibleIngredient = Recipes.ALL_BCR_RECIPES_ANALYSIS.isIngredientUsed(PpIngredient.of(heldItem));
+            boolean hasEligibleIngredient = RecipesRegistrar.ALL_BCR_RECIPES_ANALYSIS.isIngredientUsed(PpIngredient.of(heldItem));
 
             if (hasEligibleIngredient) {
                 if (level.random.nextInt(12) == 0)

@@ -1,5 +1,7 @@
 package grill24.potionsplus.core;
 
+import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+
 import com.google.common.collect.ImmutableList;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
@@ -18,6 +20,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.dimension.LevelStem;
@@ -64,22 +67,25 @@ public class ServerLifecycleListeners {
         postProcessRecipes(event.getRecipeManager());
     }
 
+    @SuppressWarnings("unchecked")
     public static void postProcessRecipes(RecipeManager recipeManager) {
-        List<RecipeHolder<SanguineAltarRecipe>> sanguineAltarRecipes = recipeManager.getAllRecipesFor(Recipes.SANGUINE_ALTAR_RECIPE.get());
-        Recipes.SANGUINE_ALTAR_ANALYSIS.compute(sanguineAltarRecipes);
-        SanguineAltarBlockEntity.computeRecipeMap(Recipes.SANGUINE_ALTAR_ANALYSIS.getRecipes());
+        RecipeType<SanguineAltarRecipe> sanguineAltarRecipeType = (RecipeType<SanguineAltarRecipe>) (RecipeType<?>) Recipes.SANGUINE_ALTAR_RECIPE.value();
+        List<RecipeHolder<SanguineAltarRecipe>> sanguineAltarRecipes = recipeManager.getAllRecipesFor(sanguineAltarRecipeType);
+        RecipesRegistrar.SANGUINE_ALTAR_ANALYSIS.compute(sanguineAltarRecipes);
+        SanguineAltarBlockEntity.computeRecipeMap(RecipesRegistrar.SANGUINE_ALTAR_ANALYSIS.getRecipes());
 
-        List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronRecipes = recipeManager.getAllRecipesFor(Recipes.BREWING_CAULDRON_RECIPE.get());
-        Recipes.DURATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isDurationUpgrade()).toList());
-        Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isAmplifierUpgrade()).toList());
-        Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isSeededRuntimeRecipe()).toList());
-        Recipes.ALL_BCR_RECIPES_ANALYSIS.compute(brewingCauldronRecipes);
+        RecipeType<BrewingCauldronRecipe> brewingCauldronRecipeType = (RecipeType<BrewingCauldronRecipe>) (RecipeType<?>) Recipes.BREWING_CAULDRON_RECIPE.value();
+        List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronRecipes = recipeManager.getAllRecipesFor(brewingCauldronRecipeType);
+        RecipesRegistrar.DURATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isDurationUpgrade()).toList());
+        RecipesRegistrar.AMPLIFICATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isAmplifierUpgrade()).toList());
+        RecipesRegistrar.ALL_SEEDED_POTION_RECIPES_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isSeededRuntimeRecipe()).toList());
+        RecipesRegistrar.ALL_BCR_RECIPES_ANALYSIS.compute(brewingCauldronRecipes);
 
         AbyssalTroveBlockEntity.computeAbyssalTroveIngredients();
     }
 
     private static void injectRuntimeRecipes(MinecraftServer server) {
-        int numInjected = Recipes.injectRuntimeRecipes(server);
+        int numInjected = RecipesRegistrar.injectRuntimeRecipes(server);
         PotionsPlus.LOGGER.info("Injected {} runtime recipes", numInjected);
     }
 

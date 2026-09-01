@@ -10,5 +10,6 @@ pluginManagement {
 
 rootProject.name = 'potionsplus'
 
-// 'common' and 'forge' are re-added in Phases 1 and 3 of docs/multi-loader-expansion.md.
+// 'forge' is re-added in Phase 3 of docs/multi-loader-expansion.md.
+include 'common'
 include 'neoforge'

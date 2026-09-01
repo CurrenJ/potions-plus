@@ -113,7 +113,7 @@ backport step applied after the split has to be applied across four modules inst
 | P0 | *(prereq)* 2.0 backport Phase 6 | ✅ done 2026-09-01 |
 | P1 | *(pre-flight)* Fix the three live `common` bugs (section D) | ✅ done 2026-09-01 |
 | 0 | Build-system swap (ModDevGradle → architectury-loom) | ✅ done 2026-09-01 |
-| 1 | Source split into `common/` | ⬜ not started |
+| 1 | Source split into `common/` | 🟡 partial 2026-09-01 — builds green, `runClient` blocked (Phase 9 finding) |
 | 2 | Platform abstraction layer | ⬜ not started |
 | 3 | Fabric + Forge module scaffold | ⬜ not started |
 | 4 | Registration hubs (Fabric + Forge) | ⬜ not started |
@@ -519,47 +519,116 @@ loom's exact `RunConfigSettings` gametest wiring now.
 
 **New vs 26.1.2.** The single largest phase. 294 files, of which **118 import `net.neoforged.*`**.
 
-- [ ] Create the `common/` module: `common/build.gradle` (`architectury { common
+- [x] Create the `common/` module: `common/build.gradle` (`architectury { common
       rootProject.enabled_platforms.split(',') }`, `loom.accessWidenerPath`, `loom.mixin
       .defaultRefmapName`, `modImplementation fabric-loader` for the `@Environment` annotations,
-      `dev.architectury:architectury-injectables:1.0.13`), `common/gradle.properties`.
-      Add `include 'common'` back to `settings.gradle`.
-- [ ] `neoforge/build.gradle`: add `common(project(path: ':common', configuration: 'namedElements'))
+      `dev.architectury:architectury-injectables:1.0.13`). Added `include 'common'` to
+      `settings.gradle`. **Deviation:** no `common/gradle.properties` — apt-ores' reference build
+      doesn't have one either (`common` isn't itself a `loom.platform`), so there's nothing to put in it.
+- [x] `neoforge/build.gradle`: added `common(project(path: ':common', configuration: 'namedElements'))
       { transitive = false }` + `shadowBundle project(path: ':common', configuration:
       'transformProductionNeoForge')`, the `configurations` extendsFrom block, and
       `processResources { from project(":common").sourceSets.main.resources }`.
-- [ ] **Move the ~176 loader-clean files first** (`git ls-files '*.java' | xargs grep -L
-      'net\.neoforged'`). These should move with zero edits. Verify with a build after each
-      package-sized batch, not at the end.
-- [ ] Triage the 118 coupled files into four buckets; move each bucket's *common* half now and leave
-      a NeoForge-side remainder for the phase that owns it:
+      **Deviation (see exit-criterion note):** `runtimeClasspath`/`developmentNeoForge` deliberately do
+      **not** `extendsFrom common` — only `compileClasspath` does.
+- [x] **Moved the loader-clean files first** (verified via `git ls-files '*.java' | xargs grep -L
+      'net\.neoforged'`, 162 of 279 `neoforge/src/main/java` files at Phase 0's tip). Built after each
+      batch, not at the end.
+- [x] Triaged the 118 `net.neoforged`-importing files, plus every "clean" file that turned out to be
+      transitively coupled to one of them, into common vs. neoforge-remainder. **Bucket table below
+      reflects what actually happened, not the pre-triage estimate** — see the note under the exit
+      criterion for why the split ended up narrower than planned:
 
-  | Bucket | Count (approx) | Coupling | Owned by |
-  |---|---|---|---|
-  | `@EventBusSubscriber` / `@SubscribeEvent` only | 36 classes | 36×`EventBusSubscriber`, 36×`SubscribeEvent` | **Phase 7** — strip the annotations, move the body to `common`, re-attach from a loader listener |
-  | Registration hubs | ~22 | `DeferredRegister`, `DeferredHolder` | **Phase 4** — convert to `BiFunction<String, Supplier<T>, Holder<T>>` `init(…)`, move the hub body to `common` |
-  | Genuinely NeoForge-API | ~12 | `IGlobalLootModifier`, `IItemHandler`/`InvWrapper`, `AttachmentType`, `ModConfigSpec`, `BiomeModifier`, `NeoForgeRegistries` | **Phase 8** — stays NeoForge-side; `common` gets an interface |
-  | Datagen | ~14 | `GatherDataEvent`, `BlockStateProvider`, `ExistingFileHelper`, `LanguageProvider`, `SoundDefinitionsProvider` | **Phase 10** — stays in `neoforge/` permanently (Decision 5) |
+  | Bucket | Owned by | What Phase 1 actually did |
+  |---|---|---|
+  | `@EventBusSubscriber`/`@SubscribeEvent` classes | **Phase 7** | Left in `neoforge/`, unchanged. Also pulled back the ~14 mixin classes here (see note) even though most have zero `net.neoforged` imports — mixin *class* discovery itself turned out to require living in `neoforge/`, independent of the bucket table's original reasoning. |
+  | Registration hubs (`Blocks`, `Items`, `Potions`, `Attributes`, `Entities`, `Particles`, `Sounds`, `LootItemConditions`, `LootItemFunctions`, `NumberProviders`(*), `DataComponents`, `MenuTypes`, `Advancements`, and all `core/blocks/*`/`core/items/*` sub-hubs) | **Phase 4** | Left in `neoforge/` — the `DeferredRegister`→`BiFunction` conversion is Phase 4's named job, not Phase 1's. **Exception:** `MobEffects`, `Recipes`, `NumberProviders`, and `Potions`' registration entry point were converted now anyway (see note) because too much unrelated common code depended on their `Holder<T>` statics to defer them. |
+  | Genuinely NeoForge-API (`DataAttachments`, `PotionsPlusConfig`, `AbstractRegistererBuilder`/`IModelGenerator`/datagen-model-generator builder DSL) | **Phase 8 / Phase 2** | Left untouched in `neoforge/` — **no common code ends up depending on either `DataAttachments` or `PotionsPlusConfig` after this phase**, so there was nothing to split; both are genuinely still whole-class NeoForge citizens for now (see judgment-call note). The block/item builder+model-generator DSL (`AbstractRegistererBuilder`, `IModelGenerator`, `BlockModelUtility`, `ItemModelUtility`, `ItemOverrideUtility`, and the hub files that wire them) turned out to be far more `BlockStateProvider`-coupled than the bucket table assumed and moved back to `neoforge/` wholesale — see note. |
+  | Datagen | **Phase 10** | Stayed in `neoforge/` permanently, as planned. |
 
-- [ ] **`@OnlyIn(Dist.CLIENT)` → `@Environment(EnvType.CLIENT)`** (17 uses). Architectury remaps the
-      Fabric annotation to the right thing on every platform; this is precisely why `common` depends
-      on `fabric-loader`. **Do not import anything else from fabric-loader into `common`.**
-- [ ] **`net.neoforged.neoforge.common.Tags` → `grill24.potionsplus.core.ConventionalTags`** (3 uses).
-      26.1.2 already has `ConventionalTags` with the `c:` tag equivalents — port that class across
-      rather than reinventing it (Decision 4).
-- [ ] `net.neoforged.neoforge.common.util.Lazy` (3 uses) → plain `Suppliers.memoize` / a small common
-      helper.
-- [ ] `NeoForgeExtraCodecs` (2 uses) → inline the specific codec construction into `common`.
-- [ ] Resources: `assets/`, `data/`, `pack.mcmeta`, `potionsplus.png`, `potionsplus.mixins.json` →
+- [x] **`@OnlyIn(Dist.CLIENT)` → `@Environment(EnvType.CLIENT)`**: not needed — no file that ended up
+      in `common` used `@OnlyIn`.
+- [x] **`net.neoforged.neoforge.common.Tags` → `grill24.potionsplus.core.ConventionalTags`**: ported
+      `ConventionalTags` from the 26.1.2 sibling (rewritten `Identifier`→`ResourceLocation`), and — since
+      26.1.2's version had no `Items` nested class — added one (`SEEDS`, `CROPS`, `MUSHROOMS`,
+      `FOODS_RAW_MEAT`, `FOODS_RAW_FISH`, `FOODS_VEGETABLE`, `FOODS_FRUIT`, `FOODS_GOLDEN`) with tag
+      paths verified via `javap -c` against the real NeoForge 21.1.209 jar's `Tags$Items.class`.
+- [x] `net.neoforged.neoforge.common.util.Lazy` → `grill24.potionsplus.utility.Lazy` (new, plain
+      double-checked-locking `Supplier`-backed class).
+- [x] `NeoForgeExtraCodecs`: no uses actually blocked common — never touched.
+- [x] Resources: `assets/`, `data/`, `pack.mcmeta`, `potionsplus.png`, `potionsplus.mixins.json` →
       `common/src/main/resources/`. `META-INF/neoforge.mods.toml` and
-      `META-INF/accesstransformer.cfg` stay in `neoforge/`.
-- [ ] Move `src/test` → `common/src/test` and `src/testmod` → `common/src/testmod` (mirroring 26.1.2,
-      which has both under `common/`). Wiring is Phase 12's problem; the *location* is this phase's.
+      `META-INF/accesstransformer.cfg` stayed in `neoforge/`.
+- [x] Moved `src/test` → `common/src/test` and `src/testmod` → `common/src/testmod`. Location only —
+      `neoforge/build.gradle`'s test/testmod sourceSet wiring is untouched, so both are now `NO-SOURCE`
+      from `neoforge/`'s point of view (harmless; `:neoforge:test` was already known-red since Phase 0).
 
-**Exit criterion:** `./gradlew :common:build :neoforge:build` green; `:neoforge:runClient` still
-reaches the main menu and a world loads with every block/item/potion present. The NeoForge jar is
-functionally identical to Phase 0's. `neoforge/src/main/java` should be down to roughly the size of
-26.1.2's (62 files) plus the not-yet-migrated Phase 4/7/8 remainders.
+**Exit criterion — partially met, 2026-09-01.** `./gradlew :common:build :neoforge:build -x test` is
+green (verified with a `clean` build too). `:neoforge:test` stays red, as already tracked since Phase 0.
+`neoforge/src/main/java` is down to 177 files (101 moved to `common/`) — more than 26.1.2's 62 because
+several buckets that 26.1.2 got to finish converting (registration hubs, the model-generator DSL) are
+still whole-class NeoForge-side here, exactly as Phase 4/8 are supposed to inherit them.
+
+**`:neoforge:runClient` does NOT yet reach the main menu — this exit criterion is not met**, and the
+failure is a real, reproducible toolchain problem, not a build error:
+
+- A mixin living in `neoforge/` (e.g. `LivingEntityMixin`, which redirects
+  `BlockState.getFriction` and reads `MobEffects.SLIP_N_SLIDE`) fails at Mixin's PREPARE stage with
+  `java.lang.ClassNotFoundException: grill24.potionsplus.core.potion.MobEffects` the moment it
+  references a field declared in a class that lives in `common/`. This is not a missing-file issue —
+  `common/build/classes/java/main/.../MobEffects.class` is present exactly where `loom.mods`'
+  `neoforge/build.gradle` association (`sourceSet project(':common').sourceSets.main`, added this
+  phase) points — Mixin's own PREPARE-phase class verifier simply doesn't see it.
+- Getting this far took three real fixes along the way, all still in the tree and worth keeping:
+  1. Associating `common`'s sourceSet with the `${mod_id}` entry in `neoforge/build.gradle`'s
+     `loom.mods` block (previously only `main`/`testmod` were listed) — without this, FML's own module
+     resolution fails first, with `Modules potionsplus and generated_XXXXXXX export package
+     grill24.potionsplus.<pkg> to module mixin_synthetic` (a split-package JPMS conflict, since
+     `common` and `neoforge` share several package names).
+  2. Removing `runtimeClasspath`/`developmentNeoForge extendsFrom common` from `neoforge/build.gradle`
+     (kept only on `compileClasspath`) — with both the `loom.mods` association *and* the `common`
+     configuration's jar both landing on the runtime classpath, JPMS saw two separate classpath entries
+     both claiming to export the same packages and the same split-package error recurred.
+  3. Disabling `common/build.gradle`'s `remapJar` task (`tasks.named('remapJar') { enabled = false }`)
+     — `:common:remapJar` fails outright with "Unfixable conflicts" / "Mapping source name conflicts
+     detected" the moment `common` has real `Container`-implementing content (`InventoryBlockEntity`),
+     independent of anything mod-owned — the conflict list is full of pure-vanilla classes
+     (`SimpleContainer`, `MerchantContainer`, `CrafterBlockEntity`, ...). Nothing actually consumes
+     `common`'s own remapped jar (every platform module pulls `namedElements`/`transformProductionXxx`
+     instead), so disabling it is a real, permanent fix, not a workaround pending Phase 9.
+- What did **not** work, tried and reverted: setting `loom.mixin.useLegacyMixinAp = true` (the modern
+  loom default disables the mixin annotation processor, which is what generates
+  `potionsplus-refmap.json`) — this traded the `ClassNotFoundException` for a *compile-time* error
+  (`BucketItemMixin`'s `@Inject` target fails obfuscation-mapping validation the older AP apparently
+  enforces and the disabled one doesn't), so it was reverted rather than chasing a second unrelated
+  mixin problem. Also tried moving the *mixin classes themselves* (not just their common dependencies)
+  into `common/` for the 14 mixins with zero `net.neoforged` imports (`BoatMixin`,
+  `ClientAdvancementsMixin`, `TemptGoalMixin`, etc.) on the theory that co-locating the mixin with what
+  it references would sidestep the cross-module lookup — this made it *worse*:
+  `ClassNotFoundException: The specified mixin 'grill24.potionsplus.mixin.BoatMixin' was not found` —
+  i.e. Mixin couldn't even find the mixin class itself once it lived in `common/`, confirming mixin
+  *classes* specifically need to physically live in `neoforge/` regardless of what they reference.
+  Reverted; all mixins are back in `neoforge/` unchanged from Phase 0.
+- **This is squarely Phase 9's stated scope** ("Mixins + access widening/transformers") and is the
+  single most load-bearing finding for whoever picks that phase up: the refmap/mixin-AP setup as it
+  stands cannot resolve references from a `neoforge`-side mixin into a `common`-side class, which
+  blocks *any* mixin that needs to read a registry field, effect class, or block/item — a fundamental
+  requirement for a mixin-heavy mod like this one. Phase 9 should treat "a neoforge mixin can reference
+  a common static field and the game actually launches" as its own explicit exit criterion, verified
+  with `:neoforge:runClient` before moving on to Fabric/Forge mixin work.
+
+**Two judgment calls flagged for later phases, per Decision 2's note that `DataAttachments` and (this
+branch's addition) `PotionsPlusConfig` have no 26.1.2 precedent:**
+- **`DataAttachments`** — still 100% NeoForge-side (`AttachmentType`, genuinely NeoForge-only API, the
+  Phase 8 "genuinely NeoForge-API" bucket by design). No common file ended up needing it this phase, so
+  there was no forcing function to design its common-side interface yet. Phase 8 gets a clean slate,
+  not a half-finished abstraction to unpick.
+- **`PotionsPlusConfig`** — same story: no common file reads a config value yet, so it's still a single
+  NeoForge class with no fabric/forge siblings and no common accessor interface. When Phase 4/8
+  registration-hub work starts pulling config-gated logic into `common`, expect this to need the same
+  `IPotionsPlusConfig`-style split 26.1.2 presumably used (each loader has its own config class per the
+  sibling repo's file layout — `fabric/.../config/fabric/PotionsPlusConfig.java` etc, no common
+  variant), but nothing here forced that decision.
 
 ---
 

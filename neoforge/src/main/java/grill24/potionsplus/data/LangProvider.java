@@ -1,7 +1,7 @@
 package grill24.potionsplus.data;
 
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.core.neoforge.potion.MobEffectsRegistrar;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -23,7 +23,7 @@ public class LangProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         addRegistered(grill24.potionsplus.core.Items.ITEMS, this::addItem);
-        addRegistered(MobEffects.EFFECTS, this::addEffect);
+        addRegistered(MobEffectsRegistrar.EFFECTS, this::addEffect);
     }
 
     private <T> void addRegistered(DeferredRegister<T> register, Consumer<T> consumer) {

@@ -2,6 +2,7 @@ package grill24.potionsplus.event;
 
 import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.core.Attributes;
+import grill24.potionsplus.event.neoforge.AnimatedItemTooltipBusEvent;
 import grill24.potionsplus.utility.*;
 import grill24.potionsplus.alchemy.*;
 import net.minecraft.network.chat.Component;
@@ -40,8 +41,8 @@ public class ItemListenersGame {
         List<AnimatedItemTooltipEvent.TooltipLines> tooltipMessages = new ArrayList<>();
         if (event.getEntity() instanceof Player player) {
             ItemStack itemStack = event.getItemStack();
-            NeoForge.EVENT_BUS.post(new AnimatedItemTooltipEvent.Add(player, itemStack, tooltipMessages));
-            NeoForge.EVENT_BUS.post(new AnimatedItemTooltipEvent.Modify(player, itemStack, tooltipMessages));
+            NeoForge.EVENT_BUS.post(new AnimatedItemTooltipBusEvent.Add(player, itemStack, tooltipMessages));
+            NeoForge.EVENT_BUS.post(new AnimatedItemTooltipBusEvent.Modify(player, itemStack, tooltipMessages));
         }
 
         // Sort the tooltip messages by priority
