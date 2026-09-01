@@ -77,8 +77,10 @@ backport step applied after the split has to be applied across four modules inst
 
 1. **Loaders**: NeoForge (existing) + **Fabric** + **Forge** (`net.minecraftforge:forge:1.21.1-52.1.2`).
 2. **Parity**: **full** — every NeoForge-only system is reimplemented on both new loaders, not
-   stubbed. Same as 26.1.2, **plus** `core/DataAttachments.java`, which 26.1.2's plan never covered
-   (see Phase 8).
+   stubbed. Same as 26.1.2, **plus** `core/DataAttachments.java` (see Phase 8). *Corrected
+   2026-09-01:* 26.1.2's plan never covered it because 26.1.2 **deleted the problem** rather than
+   abstracting it — its tree contains no `AttachmentType` usage anywhere. Phase 8 mirrors that
+   removal; it does not design a new abstraction.
 3. **Recipe viewer**: **JEI on all three** — and unlike 26.1.2 this is achievable (JEI 19.18.x has a
    Forge artifact for 1.21.1). REI/EMI recorded as a future add.
 4. **Common-layer API shape**: **mirror 26.1.2 exactly** where the MC API allows — same package
@@ -86,6 +88,29 @@ backport step applied after the split has to be applied across four modules inst
    `Platform` + `PacketNetwork` split, same `ForgeHolder` adapter, same NeoForge-datagen-as-source-
    of-truth, same `docs/multi-loader-expansion.md` filename. Costs more refactor here; keeps every
    future 1.21.1 ↔ 26.1.2 cherry-pick legible.
+
+   **4a. The package-suffix rule is a hard invariant, not a naming preference.** *Every* file in a
+   platform module lives in a package suffixed with that loader — `….neoforge`, `….fabric`,
+   `….forge` — and **no package may be occupied by both `common/` and a platform module.** On
+   26.1.2 this holds for 100% of platform files (60/60 neoforge, 32/32 fabric, 33/33 forge), giving
+   an intersection of exactly zero.
+
+   The mechanism, not just the aesthetics: in a dev run FML/securejarhandler puts each mod jar in its
+   own JPMS module, and **JPMS forbids two modules exporting the same package**. A single shared
+   package makes the game fail to boot with
+   `java.lang.module.ResolutionException: Modules generated_XXXXXXX and potionsplus export package
+   … to module neoforge`. It is invisible to `build` — `shadowJar` merges everything into one jar
+   with no module boundary — so **a green build proves nothing here.**
+
+   Verify after every phase that moves or adds files, in each platform module:
+
+   ```sh
+   comm -12 \
+     <(find common/src/main/java   -name '*.java' | sed 's|^common/src/main/java/||;s|/[^/]*\.java$||'   | sort -u) \
+     <(find neoforge/src/main/java -name '*.java' | sed 's|^neoforge/src/main/java/||;s|/[^/]*\.java$||' | sort -u)
+   ```
+
+   **Empty output is the requirement.** Repeat for `fabric/` and `forge/` once they exist.
 5. **Datagen**: keep **NeoForge** as source of truth; a `commonDatagen` Copy task shares its output
    into `common/src/generated/resources` (26.1.2 Decision 4, verbatim).
 6. **Architectury dependency**: `dev.architectury:architectury-injectables:1.0.13` **only** — not
@@ -97,12 +122,39 @@ backport step applied after the split has to be applied across four modules inst
 
 | Reference | Path | Use for |
 |---|---|---|
-| **The 26.1.2 plan** | `dev/26.1.2/multi-loader-expansion` → `docs/multi-loader-expansion.md` | Phase structure, every decision, and ~40 hard-won "VERIFIED API FACTS" plus bug post-mortems |
+| **The 26.1.2 tree** (*the* reference — read the code) | `D:\GitHub\potions-plus` @ `dev/26.1.2/multi-loader-expansion` | **The finished job.** Real `common/`+`fabric/`+`forge/`+`neoforge/` source, all four `build.gradle` files, the actual package layout, `Platform`/`PacketNetwork`/`PacketContext`, every mixin config. When this plan's prose and that tree disagree, **the tree wins** |
+| The 26.1.2 plan | same checkout → `docs/multi-loader-expansion.md` | Phase structure, every decision, and ~40 hard-won "VERIFIED API FACTS" plus bug post-mortems |
 | **apt-ores @ 1.21.1** | `D:\GitHub\apt-ores-worktrees\mc-1.21.1\` | **The** 3-loader reference *on this exact MC version* — working `build.gradle` for all four modules, `docs/DEVELOPMENT.md` |
 | apt-ores @ 26.1 | `D:\GitHub\apt-ores-worktrees\mc-26.1\` | `docs/PORTING.md` Forge-vs-NeoForge divergence table |
 | fishtastic | `D:\GitHub\fishtastic` | Canonical multi-loader content mod: registration, `IPacketContext`, mixin layout, `fabric.mod.json` |
 | architectury template | `D:\GitHub\architectury-mod-template-1.21.1` | Clean 1.21.1 Architectury skeleton |
 | modding-guide | `D:\GitHub\modding-guide` | Topics `01`, `02`, `06`, `07`, `08` |
+
+### Mirror discipline — a standing rule for every phase
+
+Decision 4 makes 26.1.2 the specification, not merely an inspiration. That obligation is procedural,
+not just aspirational, so it gets a rule:
+
+> **Before starting any phase, open the corresponding code in the 26.1.2 tree — not just its section
+> of the 26.1.2 plan — and diff your intended change against what is actually there. Before declaring
+> a phase done, diff again.**
+
+This is written down because ignoring it has already cost a full session. Phase 1 spent that session
+concluding that a `neoforge/` mixin cannot reference a `common/` class, that mixin classes must live
+in `neoforge/`, and that `runtimeClasspath.extendsFrom common` had to be removed. All three are false,
+and all three were refuted by files sitting in the 26.1.2 checkout the whole time:
+
+- 26.1.2 keeps **21 mixins in `common/`** — including `BoatMixin`, the exact class whose relocation
+  was taken as proof that mixins cannot live there.
+- 26.1.2's `neoforge/build.gradle` carries `runtimeClasspath.extendsFrom common` with a comment
+  explaining precisely the failure Phase 1 then re-derived from scratch: *"Without this, `common/` is
+  on the compile and dev classpaths but not the run's, and the mod's classloader fails with
+  `NoClassDefFoundError` on the first common class it touches."*
+- 26.1.2 has **zero** split packages, which is why it never hit the blocker that stopped Phase 1.
+
+A phase that reaches a conclusion contradicting the 26.1.2 tree has found a bug in its own reasoning,
+not a genuine 1.21.1 divergence — until a `javap`-grade API difference proves otherwise, in which case
+record it under "VERIFIED API FACTS" with the evidence.
 
 ---
 
@@ -559,11 +611,19 @@ loom's exact `RunConfigSettings` gametest wiring now.
 - [x] Resources: `assets/`, `data/`, `pack.mcmeta`, `potionsplus.png`, `potionsplus.mixins.json` →
       `common/src/main/resources/`. `META-INF/neoforge.mods.toml` and
       `META-INF/accesstransformer.cfg` stayed in `neoforge/`.
+- [ ] **Repackage the `neoforge/` remainder into `.neoforge` packages (Decision 4a) — NOT DONE,
+      handed to Phase 9.** This step was never in the original checklist, which is the omission that
+      blocked the phase: Phase 1 was scoped as "move files *into* `common/`" and said nothing about
+      renaming what stayed behind. 107 of `neoforge/`'s 179 files are still in packages `common/`
+      also occupies. See the root-cause section below, and Decision 4a for the invariant and its
+      verification command.
 - [x] Moved `src/test` → `common/src/test` and `src/testmod` → `common/src/testmod`. Location only —
       `neoforge/build.gradle`'s test/testmod sourceSet wiring is untouched, so both are now `NO-SOURCE`
       from `neoforge/`'s point of view (harmless; `:neoforge:test` was already known-red since Phase 0).
 
-**Exit criterion — partially met, 2026-09-01.** `./gradlew :common:build :neoforge:build -x test` is
+**Exit criterion — partially met, 2026-09-01.** Note that a green build is **not** sufficient here
+and never was: Decision 4a's `comm -12` package-intersection check must also come back empty, and
+today it returns 14 packages. `./gradlew :common:build :neoforge:build -x test` is
 green (verified with a `clean` build too). `:neoforge:test` stays red, as already tracked since Phase 0.
 `neoforge/src/main/java` is down to 177 files (101 moved to `common/`) — more than 26.1.2's 62 because
 several buckets that 26.1.2 got to finish converting (registration hubs, the model-generator DSL) are
@@ -690,14 +750,25 @@ branch's addition) `PotionsPlusConfig` have no 26.1.2 precedent:**
       7-method set** and reconcile against what Phase 1 actually surfaced:
       `isClient`, `isDevelopmentEnvironment`, `getChorusFruitTeleportTarget`,
       `onServerPlayerHeldItemChanged`, `fireCropGrowPost`, `getPotionDrinkTimeTicks`,
-      `getPotionDrinkCooldownTimeTicks`. **Expect this set to be larger on 1.21.1** — the event
+      `getPotionDrinkCooldownTimeTicks`. (These 7 re-verified against the 26.1.2 tree 2026-09-01 —
+      the list is exact.) **Expect this set to be larger on 1.21.1** — the event
       surface here is 36 classes, not 16, so some listeners that 26.1.2 could express as pure
       fabric-api callbacks may need a platform hook. Enumerate honestly; don't force the 7.
-- [ ] `common/.../platform/PacketNetwork.java` — 5 `@ExpectPlatform` methods (send-to-player,
-      send-to-server, send-to-tracking-chunk, send-to-tracking-entity, send-to-all), mirroring 26.1.2.
-- [ ] `common/.../platform/PacketContext.java` — the common interface every loader's context wrapper
-      implements (`enqueueWork`, `player`, `isServerSide`, `disconnect`). Crib fishtastic's
-      `IPacketContext`.
+- [ ] `common/.../platform/PacketNetwork.java` — 5 `@ExpectPlatform` methods. Verified against the
+      26.1.2 tree 2026-09-01, use these exact signatures (an earlier draft of this plan guessed a
+      "send-to-all" that does not exist):
+      `sendToPlayer(ServerPlayer, CustomPacketPayload)`,
+      `sendToPlayers(ServerPlayer, CustomPacketPayload first, CustomPacketPayload[] rest)`,
+      `sendToPlayersTrackingEntityAndSelf(ServerPlayer, CustomPacketPayload)`,
+      `sendToServer(CustomPacketPayload)`,
+      `sendToPlayersTrackingChunk(ServerLevel, ChunkPos, CustomPacketPayload)`.
+- [ ] `common/.../network/PacketContext.java` — the common interface every loader's context wrapper
+      implements (`enqueueWork`, `player`, `isServerSide`, `disconnect`). **Note the package: 26.1.2
+      puts this under `network/`, NOT `platform/`** (an earlier draft of this plan said `platform/`;
+      the tree is authoritative). Loader wrappers likewise live in `network/<loader>/`:
+      `network/fabric/FabricPacketContext`, `network/forge/ForgePacketContext`,
+      `network/neoforge/NeoPacketContext`. Only `Platform` and `PacketNetwork` live in `platform/`.
+      Crib fishtastic's `IPacketContext` for the method shapes.
 - [ ] Rewrite the 12 `network/*Packet.java` handlers against `PacketContext` instead of
       `IPayloadContext` (12 direct imports today).
 - [ ] `neoforge/.../platform/neoforge/{PlatformImpl,PacketNetworkImpl}.java` + `NeoPacketContext` —
@@ -926,19 +997,25 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
         API; verify against the 52.1.2 jar.
   - [ ] Fabric: `fabric-transfer-api-v1` `ItemStorage.SIDED.registerForBlockEntity` +
         `InventoryStorage.of(...)` (1.21.1-era name; 26.1.2 used `ContainerStorage.of`).
-- [ ] **`core/DataAttachments` — NEW, not covered by 26.1.2's plan.** One attachment:
-      `LAST_POTION_USE_PLAYER_DATA` (`AttachmentType<LastPotionUsePlayerData>`, registered on
-      `NeoForgeRegistries.ATTACHMENT_TYPES`). Neither Fabric nor Forge 1.21.1 has NeoForge's
-      attachment API.
-  - [ ] Design a common `PlayerDataStore` interface in `common/.../platform/`.
-  - [ ] NeoForge impl: the existing attachment, unchanged.
-  - [ ] Forge impl: Forge capabilities on the player (`AttachCapabilitiesEvent.Entity`) — Forge's
-        capability system is the direct ancestor of attachments and covers this cleanly.
-  - [ ] Fabric impl: hand-rolled — a server-side `Map<UUID, LastPotionUsePlayerData>` with
-        `ServerPlayerEvents.COPY_FROM` for respawn/dimension-change persistence, plus explicit
-        NBT save/load. **Do not** pull in cardinal-components for one int field.
-  - [ ] Confirm whether the value needs to survive a server restart. If it does, back it with
-        `SavedData`; if it's a session-lifetime cooldown, an in-memory map is sufficient.
+- [ ] **`core/DataAttachments` — delete it; do not abstract it.** *Rewritten 2026-09-01 after
+      checking the 26.1.2 tree.* The previous draft of this bullet designed a common
+      `PlayerDataStore` interface with three per-loader implementations. **That is not what 26.1.2
+      did.** `grep -rl "AttachmentType\|DataAttachments"` over the entire 26.1.2 tree returns
+      **nothing** — it carries no attachment abstraction because it has no attachments. Per-player
+      state there lives in `common/.../persistence/SavedData.java`, a plain
+      `net.minecraft.world.level.saveddata.SavedData` subclass keyed by player UUID
+      (`getData(Player)` / `getData(UUID)`), which is pure vanilla and needs no platform hook at all.
+  - [ ] **1.21.1 already has that exact class** — `common/.../persistence/SavedData.java`, already in
+        `common/` since Phase 1, already vanilla-based. Nothing to build.
+  - [ ] The whole surface to migrate is **one** attachment: `LAST_POTION_USE_PLAYER_DATA`
+        (`AttachmentType<LastPotionUsePlayerData>` on `NeoForgeRegistries.ATTACHMENT_TYPES`).
+        Move `LastPotionUsePlayerData` onto `SavedData` the way `PlayerBrewingKnowledge` already is,
+        then delete `neoforge/.../core/DataAttachments.java`.
+  - [ ] Call sites to update (`grep -rl DataAttachments`): `core/neoforge/PotionsPlus.java`,
+        `mixin/EntityMixin.java`, `mixin/PotionItemMixin.java`.
+  - [ ] Net effect: **`DataAttachments` stops being a parity problem** — there is no NeoForge-only
+        system left to reimplement on Fabric and Forge, so Decision 2's "plus `DataAttachments`"
+        carve-out disappears and this phase matches 26.1.2 Phase 5 exactly.
 - [ ] **Server config** (`config/`, `ModConfigSpec`, feeding `Platform.getPotionDrinkTimeTicks` /
       `getPotionDrinkCooldownTimeTicks`):
   - [ ] Forge: `net.minecraftforge.common.ForgeConfigSpec` + `ModLoadingContext.get()
@@ -967,6 +1044,12 @@ demonstrably fires on all three loaders.
 > package. Move each split package's `neoforge/` residents into a `.neoforge` sub-package
 > (`grill24.potionsplus.block` → `grill24.potionsplus.block.neoforge`, etc.), matching the
 > `core.neoforge` / `event.neoforge` / `persistence.neoforge` convention already in the tree.
+> **The target layout is not a matter of taste — copy 26.1.2's**, whose `neoforge/` is exactly:
+> `core.neoforge` (21), `event.neoforge` (16), `data.neoforge` (12), `mixin.neoforge` (3),
+> `platform.neoforge` (2), `behaviour.neoforge` (2), `network.neoforge` (1), `data.loot.neoforge` (1),
+> `core.neoforge.blocks` (1), `config.neoforge` (1) — 60 files, zero packages shared with `common/`.
+> Expect 1.21.1's remainder to be larger until Phases 4/7/8/10 land, but the *names* should match.
+> Gate the work on Decision 4a's `comm -12` check returning empty, not on a green build.
 > **Read Phase 1's "Root cause" section in full before touching anything here** — it records the
 > three build wirings already tried and rejected, why `loom.mods` and the refmap/mixin-AP are red
 > herrings, and why mixin classes can in fact live in `common/` (fishtastic proves it). Treat
