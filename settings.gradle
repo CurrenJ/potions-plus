@@ -10,6 +10,8 @@ pluginManagement {
 
 rootProject.name = 'potionsplus'
 
-// 'forge' is re-added in Phase 3 of docs/multi-loader-expansion.md.
+// All four modules (Phase 3 re-adds 'fabric' and 'forge').
 include 'common'
 include 'neoforge'
+include 'fabric'
+include 'forge'

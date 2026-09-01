@@ -6,6 +6,7 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.neoforge.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.persistence.neoforge.PlayerBrewingKnowledgeNetworking;
+import grill24.potionsplus.recipe.ContainerRecipeInput;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.alchemy.*;
@@ -98,7 +99,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
         @SuppressWarnings("unchecked")
         RecipeType<BrewingCauldronRecipe> brewingCauldronRecipeType = (RecipeType<BrewingCauldronRecipe>) (RecipeType<?>) Recipes.BREWING_CAULDRON_RECIPE.value();
         this.activeRecipe = this.level.getRecipeManager().getAllRecipesFor(brewingCauldronRecipeType).stream()
-                .filter(recipe -> recipe.value().matches(this, this.level))
+                .filter(recipe -> recipe.value().matches(new ContainerRecipeInput(this), this.level))
                 .max(Comparator.comparingInt((recipe) -> recipe.value().getIngredientsAsItemStacks().size()));
 
         if(this.activeRecipe.isEmpty()) {

@@ -17,7 +17,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -28,7 +27,13 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.Modifier;
 import java.util.stream.IntStream;
 
-public abstract class InventoryBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, RecipeInput {
+// NOTE(1.21.1 divergence from the 26.1.2 mirror): the mirror declares `implements ... WorldlyContainer, RecipeInput`.
+// On 1.21.1 the named mappings give Container.getItem(int)/isEmpty() and RecipeInput.getItem(int)/isEmpty()
+// identical names but different intermediary ids (method_5438/5442 vs method_59984/59987), so a class
+// implementing both cannot be remapped to intermediary for Fabric (TinyRemapper "Unfixable conflicts").
+// The block entity is therefore kept off RecipeInput and wrapped on demand via ContainerRecipeInput
+// (see grill24.potionsplus.recipe.ContainerRecipeInput) where a RecipeInput is needed.
+public abstract class InventoryBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
     protected NonNullList<ItemStack> items;
 
     protected InventoryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -251,7 +256,7 @@ public abstract class InventoryBlockEntity extends BaseContainerBlockEntity impl
         this.items = items;
     }
 
-    @Override
+    // No longer a RecipeInput override (see class-level note); kept as a plain convenience delegate.
     public int size() {
         return getContainerSize();
     }

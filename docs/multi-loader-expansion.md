@@ -167,7 +167,7 @@ record it under "VERIFIED API FACTS" with the evidence.
 | 0 | Build-system swap (ModDevGradle → architectury-loom) | ✅ done 2026-09-01 |
 | 1 | Source split into `common/` | ✅ **closed 2026-09-01** — split + 107-file `.neoforge` repackage (Decision 4a), all exit criteria met: `comm -12` package intersection empty, `clean` full build green, `runClient` reaches main menu. Committed on `dev/1.21.1/multi-loader-expansion` |
 | 2 | Platform abstraction layer | ✅ done 2026-09-01 — 7-method `Platform`, 5-method `PacketNetwork`, 3-method `PacketContext`; 12 packet handlers rewritten + `NeoPacketContext`-wrapped; 9 senders + 4 call sites converted to the @ExpectPlatform surface; `:common:compileJava :neoforge:compileJava` green, build green modulo the known Phase-12 junit red; `net.neoforged` = 0 in `common/src/main/java`; `comm -12` empty |
-| 3 | Fabric + Forge module scaffold | ⬜ not started |
+| 3 | Fabric + Forge module scaffold | ✅ done 2026-09-01 — `settings.gradle` includes re-added; `fabric`/`forge` `gradle.properties` + `build.gradle` authored (Forge `runtimeClasspath` asymmetry kept); placeholder `fabric.mod.json` + `mods.toml`; exit criterion met: `:fabric:build :forge:build :neoforge:build -x test` → `BUILD SUCCESSFUL`, all three jars produced. **Divergence required:** removed `RecipeInput` from `InventoryBlockEntity` (1.21.1 mapping collision, see VERIFIED API FACTS) + added `ContainerRecipeInput` wrapper; `BrewingCauldronBlockEntity` now wraps `this` at its one `matches(this, …)` call site |
 | 4 | Registration hubs (Fabric + Forge) | ⬜ not started |
 | 5 | `@ExpectPlatform` impls + networking | ⬜ not started |
 | 6 | Entrypoints | ⬜ not started |
@@ -255,6 +255,19 @@ networking approach (`ChannelBuilder.named(id).networkProtocolVersion(1).optiona
   `Potion.name()` trap is a **26.1.2-only** hazard — leave 1.21.1's call sites alone.
 - `ResourceLocation` (not `Identifier`), `CompoundTag`-based `load`/`saveAdditional` (not
   `ValueInput`/`ValueOutput`), 1.21.1-era `BlockStateProvider`/`ItemModelProvider` datagen.
+- **`Container`/`RecipeInput` mapping collision — verified 2026-09-01, forces a real code divergence.**
+  Mojang's 1.21.1 named mappings give `Container.getItem(int)`/`isEmpty()` and
+  `RecipeInput.getItem(int)`/`isEmpty()` **identical names** but **different intermediary ids**
+  (`Container` → `method_5438`/`method_5442`, `RecipeInput` → `method_59984`/`method_59987`). The merged
+  `mappings.tiny` is clean (each has exactly one entry) — the failure is TinyRemapper 0.14.0's
+  class-less conflict key: any class implementing BOTH interfaces makes one method try to map to two
+  targets → `:fabric:remapJar` "Unfixable conflicts". Not a mapping defect, not fixable by
+  `fabric.loom.dropNonIntermediateRootMethods=true` (both targets ARE roots; flag empirically inert —
+  identical 38-conflict set with and without it), not by `ignoreConflicts=true` (a method has one
+  bytecode name, so one interface silently fails to override at runtime). The plan doc's Phase 3
+  divergence note records the fix (`ContainerRecipeInput` wrapper). Vanilla never hits this because
+  no vanilla class implements both interfaces, and loom downloads a pre-remapped intermediary jar for
+  vanilla rather than remapping it.
 
 ### Toolchain versions (from `apt-ores-worktrees/mc-1.21.1`, a known-good 1.21.1 three-loader build)
 
@@ -850,41 +863,58 @@ converted call delegates to the same NeoForge API it called before (`PacketDistr
 *(= 26.1.2 Phase 0's Fabric/Forge half.)* Crib `apt-ores-worktrees/mc-1.21.1/{fabric,forge}/build.gradle`
 **verbatim** — it is a known-good 1.21.1 three-loader build.
 
-- [ ] `settings.gradle`: re-add `include 'fabric'` and `include 'forge'`.
-- [ ] `fabric/gradle.properties` → `loom.platform = fabric`; `forge/gradle.properties` →
+- [x] `settings.gradle`: re-add `include 'fabric'` and `include 'forge'`.
+- [x] `fabric/gradle.properties` → `loom.platform = fabric`; `forge/gradle.properties` →
       `loom.platform = forge`.
-- [ ] `fabric/build.gradle`: `architectury { platformSetupLoomIde(); fabric() }`;
+- [x] `fabric/build.gradle`: `architectury { platformSetupLoomIde(); fabric() }`;
       `configurations` with `compileClasspath`/`runtimeClasspath`/`developmentFabric` all
       `extendsFrom common`; deps `modImplementation fabric-loader` + `fabric-api` +
       `common(project(':common'), configuration: 'namedElements')` +
       `shadowBundle project(':common', configuration: 'transformProductionFabric')`;
       `processResources` expanding `fabric.mod.json`; `shadowJar` + `remapJar { inputFile.set
       shadowJar.archiveFile }`; `loom.runs` for `datagen` and `gametest`.
-- [ ] `forge/build.gradle`: same shape **plus** the Forge-only workarounds:
-  - [ ] `forge "net.minecraftforge:forge:$minecraft_version-$forge_version"` + the
+- [x] `forge/build.gradle`: same shape **plus** the Forge-only workarounds:
+  - [x] `forge "net.minecraftforge:forge:$minecraft_version-$forge_version"` + the
         `maven.minecraftforge.net` repository.
-  - [ ] `compileClasspath.extendsFrom common` and `developmentForge.extendsFrom common`,
+  - [x] `compileClasspath.extendsFrom common` and `developmentForge.extendsFrom common`,
         **but NOT `runtimeClasspath.extendsFrom common`** — the JPMS split-package
         `ResolutionException` apt-ores documents in its `forge/build.gradle` comment block.
-  - [ ] `META-INF/mods.toml` (**not** `neoforge.mods.toml`), expanded by `processResources`.
-  - [ ] **DIVERGENCE from 26.1.2 — verified 2026-09-01.** 26.1.2's `forge/build.gradle` really does
+  - [x] `META-INF/mods.toml` (**not** `neoforge.mods.toml`), expanded by `processResources`.
+  - [x] **DIVERGENCE from 26.1.2 — verified 2026-09-01.** 26.1.2's `forge/build.gradle` really does
         carry all three of these (`generateEmptyMappings` at line ~213, `architectury.naming.
         sourceNamespace`/`mappingsPath` run properties at ~258, and `output.resourcesDir =
         output.classesDirs.singleFile` at ~150/153), so the temptation to copy them is real.
         **Do not.** apt-ores' 1.21.1 Forge module needs none of them: the hack existed only because
         MC 26.1+ is unobfuscated and Forge's runtime AXFORM had no mappings to work from, and 1.21.1
         remaps normally. Add only if a real failure demands it.
-  - [ ] **The Forge `runtimeClasspath` asymmetry is real and is the one place Decision 4a's rule is
+  - [x] **The Forge `runtimeClasspath` asymmetry is real and is the one place Decision 4a's rule is
         not enough.** Verified: 26.1.2's `forge/build.gradle` has `compileClasspath.extendsFrom
         common` and `developmentForge.extendsFrom common` **and no `runtimeClasspath`** — while its
         `fabric` and `neoforge` modules have all three. Forge is the exception; do not "fix" it to
         match the others. Note this is a *different* problem from Decision 4a (which unsplits
         packages so `common` can be its own module); on Forge the entry has to be off the runtime
         classpath entirely.
-- [ ] `common/build.gradle`: `sourceSets.main.resources.srcDir('src/generated/resources')` (for Phase 10).
-- [ ] Placeholder `fabric.mod.json` and `META-INF/mods.toml` with correct ids/entrypoints.
+- [x] `common/build.gradle`: `sourceSets.main.resources.srcDir('src/generated/resources')` (for Phase 10).
+- [x] Placeholder `fabric.mod.json` and `META-INF/mods.toml` with correct ids/entrypoints.
 
 **Exit criterion:** `./gradlew :fabric:build :forge:build` produce jars. Empty/stubbed content is fine.
+**✅ met 2026-09-01** — `potionsplus-fabric-1.6.0.jar`, `potionsplus-forge-1.6.0.jar`,
+`potionsplus-neoforge-1.6.0.jar` all produced (`./gradlew :fabric:build :forge:build :neoforge:build -x test` →
+`BUILD SUCCESSFUL`).
+
+**DIVERGENCE from 26.1.2 — verified 2026-09-01 (see VERIFIED API FACTS "RecipeInput/Container mapping collision").**
+The mirror's `InventoryBlockEntity` declares `implements WorldlyContainer, RecipeInput`; this tree's does
+**not**. On 1.21.1 the named mappings give `Container.getItem(int)`/`isEmpty()` and
+`RecipeInput.getItem(int)`/`isEmpty()` identical names but different intermediary ids
+(`method_5438`/`5442` vs `method_59984`/`59987`). TinyRemapper 0.14.0's class-less conflict key treats a class
+implementing both as two different targets on one method → `:fabric:remapJar` "Unfixable conflicts"
+(38-conflict set, identical across all attempted workarounds). `ignoreConflicts=true` is not a valid fix —
+a method has one bytecode name, so it cannot override both interface entries after remapping. Resolution:
+`InventoryBlockEntity` stays off `RecipeInput`; the one call site that passed a block entity as a
+`RecipeInput` (`neoforge/.../BrewingCauldronBlockEntity.java:101`, `recipe.value().matches(this, …)` — the
+only such site tree-wide, verified by grep) now passes `new ContainerRecipeInput(this)`
+(`common/.../recipe/ContainerRecipeInput.java`, a `Container`→`RecipeInput` delegating adapter). The
+future `fabric`/`forge` brewing-cauldron ports (Phase 8) must do the same.
 
 ---
 
@@ -1512,3 +1542,4 @@ commit:** the Phase 1 changeset (107 `.neoforge` renames + cross-module import f
 committed together on branch `dev/1.21.1/multi-loader-expansion`. Mirror discipline still in force
 for Phase 2+: diff against the actual 26.1.2 tree before concluding anything. |
 | 2026-09-01 | 2 | **Phase 2 done — platform abstraction layer + networking wired, build verified.** `common/.../platform/{Platform,PacketNetwork}.java` (7 + 5 `@ExpectPlatform` methods, mirrored from 26.1.2 incl. the `CustomPacketPayload[] rest` form), `common/.../network/PacketContext.java` (3 methods — **corrected plan prose**: the 26.1.2 tree has no `isServerSide`), `neoforge/.../platform/neoforge/{PlatformImpl,PacketNetworkImpl}` + `network/neoforge/NeoPacketContext`. All 12 `network/*Packet` handlers rewritten against `PacketContext`; registrations in `core/neoforge/Packets.java` wrapped `(pkt, ctx) -> Handler.handleDataOnMain(pkt, new NeoPacketContext(ctx))`. Because Decision 4a must stay empty once `common/.../network/PacketContext` exists, the 12 neoforge packets were `git mv`'d into `.network.neoforge` (they stay loader-side until Phases 4/5/11 resolve their neoforge-only deps) and 10 referencers re-imported. Exercised the abstraction: 9 senders now call `PacketNetwork.sendTo*`; 4 call sites refactored onto `Platform` (`TeleportationEffect` chorus-fruit target, `PotionItemMixin` drink time/cooldown, `InventoryMixin` + `ServerPlayerUtility` held-item-changed). **Two 1.21.1 divergences from 26.1.2** recorded in `PlatformImpl`/`PacketNetworkImpl` comments: no `onItemConsumptionTeleport` on 21.1.209 → chorus-fruit hook; no `ClientPacketDistributor` → static `PacketDistributor.sendToServer`. **First build caught one real error** (`PlayerListeners.onPlayerJoin` sent two packets through 1-arg `sendToPlayer` → now `sendToPlayers(player, first, new CustomPacketPayload[]{second})`, the 26.1.2 form) — fixed, recompile green. Exit criteria: `:common:compileJava :neoforge:compileJava` BUILD SUCCESSFUL; `:common:build :neoforge:build -x :common:compileTestJava` BUILD SUCCESSFUL (`:common:build` itself stays red on the known Phase-12 junit red); `git grep -c 'net\.neoforged' common/src/main/java` → 0; `comm -12` package intersection → empty. **Not committed** — changeset on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |
+| 2026-09-01 | 3 | **Phase 3 done — Fabric + Forge scaffold green, after a real mapping blocker worth recording in full.** `:fabric:remapJar` threw TinyRemapper "Unfixable conflicts" (38-entry set) on the FIRST full three-loader build. Root cause (decompiled loom 1.17.491 + tiny-remapper 0.14.0, verified empirically): Mojang's 1.21.1 named mappings give `Container.getItem/isEmpty` and `RecipeInput.getItem/isEmpty` identical names but different intermediary ids (`method_5438/5442` vs `method_59984/59987`); TinyRemapper 0.14.0's class-less conflict key flags any class implementing both interfaces; `InventoryBlockEntity implements WorldlyContainer, RecipeInput` is exactly that class. The merged `mappings.tiny` is clean — NOT a mapping defect. Ruled out: `fabric.loom.dropNonIntermediateRootMethods=true` (both targets are roots; forced cache rebuild → identical 38-conflict set, flag proven read via `project.findProperty` but inert), `nameSyntheticMembers=false` (worse: 39 conflicts), `ignoreConflicts=true` (would emit a method that fails to override one interface at runtime). **Fix applied:** removed `RecipeInput` from `InventoryBlockEntity` (import, interface, `@Override` on `size()`), added `common/.../recipe/ContainerRecipeInput.java` (a `Container`→`RecipeInput` delegating record, mirroring the mirror's `MultiRecipeInput` location idiom), and the single tree-wide site that passed a block entity as a `RecipeInput` (`neoforge/.../BrewingCauldronBlockEntity.java:101`, `matches(this, …)` — the only such site, proven by grep) now passes `new ContainerRecipeInput(this)`. Full exit criterion `./gradlew :fabric:build :forge:build :neoforge:build -x test` → **BUILD SUCCESSFUL in 15s**; `potionsplus-{fabric,forge,neoforge}-1.6.0.jar` all produced. **Not committed** — changeset on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |

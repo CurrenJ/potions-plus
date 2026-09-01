@@ -1,0 +1,98 @@
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+    // NOT runtimeClasspath: Loom's Forge dev launcher merges developmentForge's classpath
+    // (including common, via the line above) into one synthetic "generated_XXX" module so the
+    // TRANSFORMER layer gets a single, self-consistent copy of :common's classes. Separately
+    // extending plain runtimeClasspath from common puts a second, independently-loaded copy of
+    // grill24.potionsplus on the classpath used to build the parent SECURE-BOOTSTRAP module layer -
+    // colliding with the merged copy as a JPMS split package (java.lang.module.ResolutionException:
+    // "Modules potionsplus.common.dev and generated_XXX export package grill24.potionsplus") since
+    // both land in module layers that get resolved together at JVM bootstrap. (Verified 2026-09-01:
+    // 26.1.2's forge/build.gradle has the identical asymmetry - only compileClasspath and
+    // developmentForge extend common.)
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+repositories {
+    maven {
+        name = 'MinecraftForge'
+        url = 'https://maven.minecraftforge.net/'
+    }
+}
+
+dependencies {
+    forge "net.minecraftforge:forge:$rootProject.minecraft_version-$rootProject.forge_version"
+
+    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionForge')
+}
+
+processResources {
+    dependsOn ':common:processResources'
+    inputs.property 'version', project.version
+
+    from project(":common").sourceSets.main.resources
+
+    filesMatching('META-INF/mods.toml') {
+        expand([
+            'version': project.version,
+            'mod_license': rootProject.mod_license,
+            'mod_id': rootProject.mod_id,
+            'mod_name': rootProject.mod_name,
+            'mod_authors': rootProject.mod_authors,
+            'mod_description': rootProject.mod_description,
+            'mod_icon': rootProject.mod_icon,
+            'mod_forge_version_range': "[${rootProject.forge_version},)",
+            'mod_minecraft_version_range': "[${rootProject.minecraft_version},)"
+        ])
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+loom {
+    runs {
+        data {
+            data()
+            programArgs "--mod", "${mod_id}",
+                        "--all",
+                        "--output", file("src/generated/resources").absolutePath
+        }
+        // NOTE: no `gametest` run yet. Phase 12 wires it up (testmod source set + the
+        // compileTestmodJava output redirect) once common/src/testmod's `core.neoforge.*` imports
+        // are resolved. 26.1.2's generateEmptyMappings / architectury.naming.* / output.resourcesDir
+        // hacks are deliberately NOT ported - they exist only for unobfuscated MC 26.1+ AXFORM and
+        // 1.21.1 remaps normally (docs/multi-loader-expansion.md Phase 3 DIVERGENCE).
+    }
+}
+
+// Custom run dirs are not created automatically before the run task executes, unlike the default
+// "run" dir, so a fresh checkout would fail its first runData with "working directory does not exist".
+file("build/datagen").mkdirs()
