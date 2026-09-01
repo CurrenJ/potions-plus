@@ -16,7 +16,7 @@
           "block": "potionsplus:lunar_berry_bush",
           "properties": {
             "age": "3",
-            "blooming": false
+            "blooming": "false"
           }
         }
       ],
@@ -55,7 +55,7 @@
           "block": "potionsplus:lunar_berry_bush",
           "properties": {
             "age": "2",
-            "blooming": false
+            "blooming": "false"
           }
         }
       ],
@@ -95,7 +95,7 @@
           "block": "potionsplus:lunar_berry_bush",
           "properties": {
             "age": "3",
-            "blooming": true
+            "blooming": "true"
           }
         }
       ],
@@ -134,7 +134,7 @@
           "block": "potionsplus:lunar_berry_bush",
           "properties": {
             "age": "2",
-            "blooming": true
+            "blooming": "true"
           }
         }
       ],

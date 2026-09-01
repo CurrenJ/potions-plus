@@ -6,13 +6,13 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class DelayedEvents {
     private record DelayedEvent(Runnable runnable, long executionTimestamp) { }
-    private static final List<DelayedEvent> delayedEvents = new ArrayList<>();
+    private static final List<DelayedEvent> delayedEvents = new CopyOnWriteArrayList<>();
 
     protected static void tick(long timestamp) {
         delayedEvents.removeIf(event -> {

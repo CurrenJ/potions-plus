@@ -68,6 +68,9 @@ public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails{
             livingHurtEvent.setNewDamage(livingHurtEvent.getOriginalDamage() - totalDamageToRedirect);
 
             for (int soulMate : soulMates) {
+                if (soulMate == livingHurtEvent.getEntity().getId()) {
+                    continue;
+                }
                 Entity entity = livingHurtEvent.getEntity().level().getEntity(soulMate);
                 if(entity != null) {
                     entity.hurt(livingHurtEvent.getSource(), damageToRedirectPerEntity);
@@ -90,6 +93,9 @@ public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails{
             livingHealEvent.setAmount(livingHealEvent.getAmount() - totalHealToRedirect);
 
             for (int soulMate : soulMates) {
+                if (soulMate == livingHealEvent.getEntity().getId()) {
+                    continue;
+                }
                 Entity entity = livingHealEvent.getEntity().level().getEntity(soulMate);
                 if(entity instanceof LivingEntity livingEntity) {
                     if (healToRedirectPerEntity <= 0) return;

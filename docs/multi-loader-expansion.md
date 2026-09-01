@@ -64,9 +64,14 @@ smaller, already-2.0-shaped codebase whose structure matches 26.1.2's, so the sp
 against the branch we're mirroring. Every file split before it is deleted is wasted work, and every
 backport step applied after the split has to be applied across four modules instead of one.
 
-- [ ] **P0 — Backport Phase 6 complete and verified** (`2_0_backport_plan.txt` line 332 onward:
+- [x] **P0 — Backport Phase 6 complete and verified** (`2_0_backport_plan.txt` line 332 onward:
       datagen migration, `:neoforge:runData`, `:neoforge:runGametest`, unit tests green).
       *Do not start Phase 0 below until this is ticked.*
+      Verified 2026-09-01: `:neoforge:build`, `:neoforge:test`, `:neoforge:runData`, and
+      `:neoforge:runGametest` all green (33/33 required tests passed). `mod_version` bumped
+      1.5.8 → 1.6.0. Save-compat note: worldgen removal (Versatile Plants et al.) and the
+      seeded-recipe re-roll from the earlier devolution phases mean existing worlds are affected;
+      no migration path — same acceptance as the 26.1.2 branch.
 
 ### Decisions (confirmed with user, 2026-09-01)
 
@@ -105,9 +110,9 @@ backport step applied after the split has to be applied across four modules inst
 
 | Phase | Title | Status |
 |---|---|---|
-| P0 | *(prereq)* 2.0 backport Phase 6 | 🟡 Phases 1–5 landed; Phase 6 outstanding |
-| P1 | *(pre-flight)* Fix the three live `common` bugs (section D) | ⬜ not started |
-| 0 | Build-system swap (ModDevGradle → architectury-loom) | ⬜ not started |
+| P0 | *(prereq)* 2.0 backport Phase 6 | ✅ done 2026-09-01 |
+| P1 | *(pre-flight)* Fix the three live `common` bugs (section D) | ✅ done 2026-09-01 |
+| 0 | Build-system swap (ModDevGradle → architectury-loom) | 🟡 in progress |
 | 1 | Source split into `common/` | ⬜ not started |
 | 2 | Platform abstraction layer | ⬜ not started |
 | 3 | Fabric + Forge module scaffold | ⬜ not started |
@@ -383,18 +388,30 @@ record the *evidence*, not the theory.
 Verified present in `mc/1.21.1` @ `b4fc36b` on 2026-09-01. All three are loader-agnostic `common`
 code, so fixing them **before** Phase 1 means fixing them once instead of reviewing them three times.
 
-- [ ] `utility/DelayedEvents.java:15` — `private static final List<DelayedEvent> delayedEvents = new
+- [x] `utility/DelayedEvents.java:15` — `private static final List<DelayedEvent> delayedEvents = new
       ArrayList<>();` → `CopyOnWriteArrayList`. Ticked from both threads in singleplayer.
-- [ ] `effect/SoulMateEffect.java:70,92` — both `for (int soulMate : soulMates)` redirect loops
+      **Fixed 2026-09-01.**
+- [x] `effect/SoulMateEffect.java:70,92` — both `for (int soulMate : soulMates)` redirect loops
       include the entity's own id (added by `onPotionAdded` at line 133). Skip self in both loops, or
       any two Soul Mate entities crash the server with `StackOverflowError` on any damage.
-- [ ] `assets/minecraft/atlases/blocks.json` — byte-identical to the file 26.1.2 had to delete: both
+      **Fixed 2026-09-01.**
+- [x] `assets/minecraft/atlases/blocks.json` — byte-identical to the file 26.1.2 had to delete: both
       `mob_effect/` and `particle/` `directory` sources on the mipmapped blocks atlas. On 1.21.1 the
       older atlas code may not hard-crash the way 26.1.2's `GpuDevice` mip check did, so **verify the
       symptom before assuming the fix** — but the file is wrong either way (it stitches a few hundred
       vanilla particle sprites into the blocks atlas). 26.1.2's fix: delete `blocks.json` (vanilla's
       `block/` source already covers it) and add an `items.json` at mip 0 carrying `mob_effect/` plus
       only the specific `particle/` sprites actually referenced by generated item models.
+      **Fixed 2026-09-01, but NOT via 26.1.2's exact fix.** 26.1.2's `items.json` assumes MC
+      1.21.4+'s split item-model atlas, which does not exist on 1.21.1 — item icons here still
+      resolve through the `blocks` atlas (vanilla's own `blocks.json` bundles both `block/` and
+      `item/` directory sources for exactly this reason). Created `items.json` first, verified it
+      does nothing on 1.21.1, deleted it, and instead rewrote `blocks.json`'s two namespace-wide
+      `directory` sources as 22 scoped `single` sources (one per `potionsplus:mob_effect/*` icon
+      actually referenced by `ItemOverrideUtility`'s generated item models). Confirmed no item
+      model or particle definition references the `particle/` sprites that were leaking in — those
+      already have their own vanilla `particles.json` atlas — so `particle/` was dropped entirely
+      rather than partially restored.
 
 ---
 
@@ -1008,3 +1025,4 @@ recorded honestly whatever it turns out to be.
 |---|---|---|
 | 2026-09-01 | — | Plan written. Surveyed `mc/1.21.1` @ `b4fc36b` (294 `.java` files, 118 with `net.neoforged` imports, 36 `@EventBusSubscriber` classes, 18 mixins, no `common/`, ModDevGradle). Verified the Forge 52.1.2 + vanilla 1.21.1 API facts above via `javap` against the loom-cached jars. Decisions 1–6 confirmed with user. Backport status confirmed: Phases 1–5 landed, Phase 6 outstanding. |
 | 2026-09-01 | — | Added the **Implementation history** section after reviewing all 22 commits on `dev/26.1.2/multi-loader-expansion` plus its two handoff docs. Folded ~25 gotchas into the phases, split into apply-directly / inverts-on-1.21.1 / verify-against-52.1.2. **Corrected one direct contradiction:** Phase 6 previously prescribed a second `@Mod` client class, which Forge silently dedups away — 26.1.2 deleted theirs. Confirmed three 26.1.2 bugs are already live in this tree (`DelayedEvents` `ArrayList`, `SoulMateEffect` self-redirect, `atlases/blocks.json`) and added pre-flight phase **P1** for them. |
+| 2026-09-01 | P0, P1 | **P0 verified.** `:neoforge:build`, `:neoforge:test` (unit), `:neoforge:runData`, `:neoforge:runGametest` (33/33 required tests) all green. Bumped `mod_version` 1.5.8 → 1.6.0. **P1 fixed** all three: `DelayedEvents` → `CopyOnWriteArrayList`; `SoulMateEffect`'s two redirect loops now skip the entity's own id; `atlases/blocks.json` rewritten as 22 scoped `single` sources instead of the two namespace-leaking `directory` sources (26.1.2's `items.json` fix does not apply — that assumes MC 1.21.4+'s split item atlas, which 1.21.1 does not have; tried it, confirmed it does nothing here, reverted). **Bonus find during game-test verification:** `data/potionsplus/loot_table/blocks/lunar_berry_bush.json` used JSON boolean literals (`"blooming": false`) for a `block_state_property` condition instead of the required string form (`"blooming": "false"`) — silently failed to parse on every server start (`LootDataType` ERROR in the `runGametest` log), meaning the bush never dropped loot. Fixed; re-ran game tests to confirm the parse error is gone and all 33 still pass. Starting Phase 0 next. |

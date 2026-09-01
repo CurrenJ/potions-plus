@@ -1,14 +1,26 @@
 {
     "sources": [
-        {
-            "type": "directory",
-            "source": "mob_effect",
-            "prefix": "mob_effect/"
-        },
-        {
-            "type": "directory",
-            "source": "particle",
-            "prefix": "particle/"
-        }
+        { "type": "single", "resource": "potionsplus:mob_effect/any_other_potion" },
+        { "type": "single", "resource": "potionsplus:mob_effect/any_potion" },
+        { "type": "single", "resource": "potionsplus:mob_effect/bone_buddy" },
+        { "type": "single", "resource": "potionsplus:mob_effect/botanical_boost" },
+        { "type": "single", "resource": "potionsplus:mob_effect/bouncing" },
+        { "type": "single", "resource": "potionsplus:mob_effect/crop_collector" },
+        { "type": "single", "resource": "potionsplus:mob_effect/exploding" },
+        { "type": "single", "resource": "potionsplus:mob_effect/fall_of_the_void" },
+        { "type": "single", "resource": "potionsplus:mob_effect/flying_time" },
+        { "type": "single", "resource": "potionsplus:mob_effect/fortuitous_fate" },
+        { "type": "single", "resource": "potionsplus:mob_effect/geode_grace" },
+        { "type": "single", "resource": "potionsplus:mob_effect/giant_steps" },
+        { "type": "single", "resource": "potionsplus:mob_effect/harrowing_hands" },
+        { "type": "single", "resource": "potionsplus:mob_effect/looting" },
+        { "type": "single", "resource": "potionsplus:mob_effect/magnetic" },
+        { "type": "single", "resource": "potionsplus:mob_effect/metal_detecting" },
+        { "type": "single", "resource": "potionsplus:mob_effect/nautical_nitro" },
+        { "type": "single", "resource": "potionsplus:mob_effect/reach_for_the_stars" },
+        { "type": "single", "resource": "potionsplus:mob_effect/shepherds_serenade" },
+        { "type": "single", "resource": "potionsplus:mob_effect/slip_n_slide" },
+        { "type": "single", "resource": "potionsplus:mob_effect/soul_mate" },
+        { "type": "single", "resource": "potionsplus:mob_effect/teleportation" }
     ]
 }
