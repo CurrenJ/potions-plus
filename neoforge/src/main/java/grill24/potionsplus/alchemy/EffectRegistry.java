@@ -1,117 +1,92 @@
 package grill24.potionsplus.alchemy;
 
 import grill24.potionsplus.core.potion.MobEffects;
-import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.utility.Utility;
+import grill24.potionsplus.effect.AnyOtherPotionEffect;
+import grill24.potionsplus.effect.AnyPotionEffect;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.storage.loot.LootContext;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
- * Cached metadata about the mob-effect registry: the icon order used by the
- * effect-icon model, and a pre-built pool of effects eligible for passive
- * application (excluding the {@code any_potion}/{@code any_other_potion}
- * sentinels).
- * <p>
- * All caches are built lazily on first use, which occurs after the mob-effect
- * registry is frozen, so there is no static-initialization hazard with
- * {@link MobEffects}.
+ * Owns effect enumeration: the icon index {@code ItemOverrideUtility} bakes into models at datagen time
+ * and {@code HerbalistsLecternBlockEntity} reads at runtime, and the marker-effect predicate the passive
+ * effect roll needs to exclude {@code ANY_POTION}/{@code ANY_OTHER_POTION} structurally instead of by a
+ * datagen list remembering both.
+ *
+ * <p>Replaces {@code Utility.getAllMobEffects()}/{@code getAllMobEffectsIconStackSizeMap()}, which
+ * indexed effects by their position in a name-sorted list spanning both the {@code minecraft} and
+ * {@code potionsplus} namespaces - inserting or removing a single effect shifted every index after it,
+ * silently, because the datagen run and the runtime read of that ordering could disagree on registry
+ * contents. {@link #iconOrder()} instead orders vanilla effects by their (Mojang-controlled, effectively
+ * fixed) registry iteration order, followed by {@link MobEffects#registrationOrder()} - the literal
+ * sequence in which {@link MobEffects} registered them, which only grows at the end, so appending a
+ * new effect there is the only way to add one, and doing so cannot shift any existing effect's index.
  */
 public final class EffectRegistry {
+
+    /** The icon scheme's cap - {@link #iconIndex(Holder)} never returns more than this. */
+    public static final int ICON_STACK_CAP = 64;
+
+    private static List<Holder<MobEffect>> iconOrderCache;
+
     private EffectRegistry() {
     }
 
-    private static List<MobEffect> allMobEffects;
-    private static Map<ResourceLocation, Integer> iconStackSizeMap;
-    private static List<Holder.Reference<MobEffect>> passivePool;
-
     /**
-     * Effects of the {@code minecraft} and {@code potionsplus} namespaces, in a
-     * stable (sorted-by-key) order. Cached once; the current sorted order is
-     * load-bearing for the effect-icon model overrides, so it is intentionally
-     * preserved here.
+     * Every vanilla and Potions Plus effect, in stable icon-index order. Must not be called before
+     * {@link MobEffects} has been loaded.
      */
-    public static List<MobEffect> getAllMobEffects() {
-        if (allMobEffects == null) {
-            List<MobEffect> effects = new ArrayList<>();
-            for (Map.Entry<ResourceKey<MobEffect>, MobEffect> value : BuiltInRegistries.MOB_EFFECT.entrySet()) {
-                if (value.getKey().location().getNamespace().equals("minecraft") || value.getKey().location().getNamespace().equals(ModInfo.MOD_ID)) {
-                    effects.add(value.getValue());
+    public static List<Holder<MobEffect>> iconOrder() {
+        if (iconOrderCache == null) {
+            List<Holder<MobEffect>> order = new ArrayList<>();
+            BuiltInRegistries.MOB_EFFECT.holders().forEach(reference -> {
+                if (reference.key().location().getNamespace().equals("minecraft")) {
+                    order.add(reference);
                 }
-            }
-            effects.sort(Comparator.comparing(BuiltInRegistries.MOB_EFFECT::getKey));
-            allMobEffects = effects;
+            });
+            order.addAll(MobEffects.registrationOrder());
+            iconOrderCache = List.copyOf(order);
         }
-        return allMobEffects;
+        return iconOrderCache;
     }
 
-    public static Map<ResourceLocation, Integer> getIconStackSizeMap() {
-        if (iconStackSizeMap == null) {
-            Map<ResourceLocation, Integer> map = new HashMap<>();
-            int i = 0;
-            for (MobEffect value : getAllMobEffects()) {
-                i++;
-                map.put(BuiltInRegistries.MOB_EFFECT.getKey(value), i);
-            }
-            iconStackSizeMap = map;
+    /** The stable, 1-indexed icon index for an effect. Never depends on registry iteration order changing. */
+    public static int iconIndex(Holder<MobEffect> effect) {
+        int index = iconOrder().indexOf(effect);
+        if (index < 0) {
+            throw new IllegalArgumentException("No icon index declared for " + effect);
         }
-        return iconStackSizeMap;
-    }
-
-    private static List<Holder.Reference<MobEffect>> getPassivePool() {
-        if (passivePool == null) {
-            ResourceKey<MobEffect> anyPotion = MobEffects.ANY_POTION.getKey();
-            ResourceKey<MobEffect> anyOtherPotion = MobEffects.ANY_OTHER_POTION.getKey();
-            passivePool = BuiltInRegistries.MOB_EFFECT.holders()
-                    .filter(holder -> !holder.getKey().equals(anyPotion) && !holder.getKey().equals(anyOtherPotion))
-                    .toList();
-        }
-        return passivePool;
+        return index + 1;
     }
 
     /**
-     * Adds a random passive potion effect to a damageable, non-potion item stack,
-     * drawn from the pre-built passive pool (excluding the {@code any_potion} /
-     * {@code any_other_potion} sentinels) and honoring the caller's blacklist.
-     * Ported from {@code PUtil.addRandomPassivePotionEffect}.
+     * A marker effect with no gameplay implementation of its own - {@code ANY_POTION}/
+     * {@code ANY_OTHER_POTION}, used only to express "any potion effect" in recipe matching. Structurally
+     * ineligible for the passive-effect roll, regardless of what any datagen blacklist says.
      */
-    public static void addRandomPassivePotionEffect(LootContext context, ItemStack stack, Set<ResourceKey<MobEffect>> excludedEffects) {
-        if (!PotionContainer.isItemEligibleForPassivePotionEffects(stack)) {
-            return;
-        }
-        List<Holder.Reference<MobEffect>> pool = getPassivePool();
-        if (pool.isEmpty()) {
-            return;
-        }
+    public static boolean isMarker(Holder<MobEffect> effect) {
+        MobEffect value = effect.value();
+        return value instanceof AnyPotionEffect || value instanceof AnyOtherPotionEffect;
+    }
 
-        RandomSource random = context.getRandom();
-        Holder.Reference<MobEffect> holder = pool.get(random.nextInt(pool.size()));
-        int attempts = 0;
-        while (holder != null && excludedEffects.contains(holder.getKey()) && attempts < 3) {
-            holder = pool.get(random.nextInt(pool.size()));
-            attempts++;
-        }
-        if (holder == null || excludedEffects.contains(holder.getKey())) {
-            return;
-        }
-
-        List<MobEffectInstance> customEffects = new ArrayList<>(PotionData.getAllEffects(stack));
-        int amplifier = (int) Math.round(Math.clamp(Utility.nextGaussian(1, 1, random), 1F, 3F));
-        int duration = random.nextInt(4800) + 300;
-        customEffects.add(new MobEffectInstance(holder, duration, amplifier));
-        PotionDataBuilder.setCustomEffects(stack, customEffects);
+    /**
+     * Every effect eligible to be rolled as a passive effect: the full registry, minus marker effects,
+     * minus {@code excludedEffects}. Built once and sampled directly, instead of rejection-sampling the
+     * whole registry and giving up after a few misses - which silently drops the excluded effects from the
+     * roll rather than excluding them.
+     */
+    public static List<Holder<MobEffect>> passiveEligible(Set<ResourceKey<MobEffect>> excludedEffects) {
+        List<Holder<MobEffect>> pool = new ArrayList<>();
+        BuiltInRegistries.MOB_EFFECT.holders().forEach(reference -> {
+            if (!isMarker(reference) && !excludedEffects.contains(reference.key())) {
+                pool.add(reference);
+            }
+        });
+        return List.copyOf(pool);
     }
 }

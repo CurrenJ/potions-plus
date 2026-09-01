@@ -26,9 +26,9 @@ public class PotionEffectTooltips {
     public static void onPotionEffectTooltip(final AnimatedItemTooltipEvent.Add event) {
         // Potion Effect Details Tooltip
         PpIngredient ppIngredient = PpIngredient.of(event.getItemStack().copyWithCount(1));
-        if (ppIngredient.getItemStack().has(DataComponents.POTION_CONTENTS)) {
-            PotionContents potionContents = ppIngredient.getItemStack().get(DataComponents.POTION_CONTENTS);
-            List<MobEffectInstance> potionEffectTextComponents = PotionData.getAllEffects(potionContents);
+        if (PotionData.hasPotionContents(ppIngredient.getItemStack())) {
+            PotionContents potionContents = PotionData.read(ppIngredient.getItemStack()).toContents();
+            List<MobEffectInstance> potionEffectTextComponents = PotionData.of(potionContents).effects();
             for (MobEffectInstance effect : potionEffectTextComponents) {
                 if(effect.getEffect().value() instanceof IEffectTooltipDetails effectTooltipDetails) {
                     event.addTooltipMessage(effectTooltipDetails.getTooltipDetails(effect));
@@ -39,8 +39,8 @@ public class PotionEffectTooltips {
         // Passive Item Potion Effects Tooltip
         ItemStack stack = event.getItemStack();
         if (PotionContainer.isPassivePotionEffectItem(stack)) {
-            PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
-            List<MobEffectInstance> potionEffectTextComponents = PotionData.getAllEffects(potionContents);
+            PotionContents potionContents = PotionData.read(stack).toContents();
+            List<MobEffectInstance> potionEffectTextComponents = PotionData.of(potionContents).effects();
             for (MobEffectInstance effect : potionEffectTextComponents) {
                 int ticksLeft = effect.getDuration();
                 if (ticksLeft > 0) {

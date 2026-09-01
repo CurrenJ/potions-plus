@@ -1,6 +1,7 @@
 package grill24.potionsplus.core;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
@@ -123,7 +124,7 @@ public class CommonCommands {
                         .requires((source) -> source.hasPermission(2))
                         .executes(context -> {
                             if (context.getSource().getEntity() instanceof ServerPlayer player) {
-                                player.getMainHandItem().set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.FLYING_TIME_POTIONS.potion));
+                                PotionData.write(player.getMainHandItem(), new PotionContents(Potions.FLYING_TIME_POTIONS.potion));
                             }
 
                             return 1;

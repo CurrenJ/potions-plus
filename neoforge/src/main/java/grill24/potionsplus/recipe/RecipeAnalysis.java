@@ -45,7 +45,7 @@ public class RecipeAnalysis<R extends ShapelessProcessingRecipe> {
         for (RecipeHolder<R> recipe : recipes) {
             List<ItemStack> itemStacks = recipe.value().getIngredientsAsItemStacks();
             for (ItemStack itemStack : itemStacks) {
-                if (PotionContainer.isPotion(itemStack)) {
+                if (PotionContainer.isPotionStack(itemStack)) {
                     continue;
                 }
 

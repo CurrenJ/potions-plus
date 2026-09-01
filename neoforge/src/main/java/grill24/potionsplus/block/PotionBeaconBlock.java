@@ -66,7 +66,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
 
         // Do interaction
         InvUtil.InteractionResult result = InvUtil.InteractionResult.PASS;
-        if (player.getItemInHand(hand).has(DataComponents.POTION_CONTENTS)) {
+        if (PotionData.hasPotionContents(player.getItemInHand(hand))) {
             result = InvUtil.insertOnPlayerUseItem(level, pos, player, hand, SoundEvents.ITEM_FRAME_ADD_ITEM);
         }
 

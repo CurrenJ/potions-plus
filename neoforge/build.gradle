@@ -7,6 +7,17 @@ base {
     archivesName = mod_id
 }
 
+sourceSets {
+    // Declared here (before neoForge {}) only so `neoForge.mods { sourceSet sourceSets.testmod }`
+    // below has something to reference. The moddev plugin decorates sourceSets.main's classpath
+    // reactively while it processes the neoForge {} block, so extending testmod's classpath from
+    // main's has to happen *after* that block runs (see the bottom of this file) - doing it here
+    // eagerly would capture main's classpath before Minecraft/NeoForge were added to it.
+    testmod {
+        java.srcDir 'src/testmod/java'
+    }
+}
+
 neoForge {
     version = neoforge_version
 
@@ -34,11 +45,30 @@ neoForge {
         server {
             server()
         }
+        // Headless game test server: boots, registers every @GameTest-annotated method in the
+        // testmod source set, runs them, and exits with the number of failed required tests.
+        // Run with ./gradlew :neoforge:runGametest
+        gametest {
+            type = 'gameTestServer'
+            sourceSet = sourceSets.testmod
+        }
     }
     mods {
         "${mod_id}" {
             sourceSet sourceSets.main
+            sourceSet sourceSets.testmod
         }
+    }
+
+    // Bare Bootstrap.bootStrap() fails in a plain `test` JVM on this classpath: NeoForge's MobEffect
+    // patch reads FeatureFlags, which needs FML's LoadingModList, which a bare JUnit process never
+    // populates - Bootstrap.bootStrap() itself throws NoClassDefFoundError on Blocks.<clinit> before a
+    // single test runs. unitTest.enable() is the moddev plugin's supported fix: it wires the `test`
+    // task with NeoForge's own junit fixtures/classpath and an `-Dfml.junit.argsfile=...` JVM arg that
+    // gives Bootstrap a real (if minimal) mod-loading context to run in.
+    unitTest {
+        enable()
+        testedMod = mods.getByName(mod_id.toString())
     }
 
     dependencies {
@@ -51,4 +81,26 @@ neoForge {
     accessTransformers
 }
 
+dependencies {
+    // Unit tests. Minecraft itself is on the test classpath via the moddev plugin, but tests that
+    // need registries (potions, mob effects) bootstrap them manually - see AlchemyTestBase.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        exceptionFormat = 'full'
+    }
+}
+
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+// Extends testmod's classpath from main's now that neoForge {} above has finished decorating main's
+// classpath with Minecraft/NeoForge/mod dependencies - see the comment on the testmod block up top.
+// sourceSets.main.compileClasspath is main's *dependencies*, not its compiled classes - main.output
+// (the compiled classes themselves) has to be added separately for game tests to see mod classes.
+sourceSets.testmod.compileClasspath += sourceSets.main.compileClasspath + sourceSets.main.output
+sourceSets.testmod.runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.main.output

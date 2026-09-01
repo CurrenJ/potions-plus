@@ -112,10 +112,10 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
     }
 
     private static List<ItemStack> getDisplayStacksForJeiRecipe(ItemStack itemStack) {
-        if (PotionContainer.isPotion(itemStack)) {
-            boolean isAnyPotion = PotionData.getAllEffects(itemStack).stream().anyMatch(instance -> instance.getEffect().is(MobEffects.ANY_POTION) || instance.getEffect().is(MobEffects.ANY_OTHER_POTION));
+        if (PotionContainer.isPotionStack(itemStack)) {
+            boolean isAnyPotion = PotionData.read(itemStack).effects().stream().anyMatch(instance -> instance.getEffect().is(MobEffects.ANY_POTION) || instance.getEffect().is(MobEffects.ANY_OTHER_POTION));
             if (isAnyPotion) {
-                return new ArrayList<>(BuiltInRegistries.POTION.holders().map(potion -> PotionContainer.POTION.createItemStack(potion)).toList());
+                return new ArrayList<>(BuiltInRegistries.POTION.holders().map(potion -> PotionContainer.POTION.create(potion)).toList());
             }
         }
         return Collections.singletonList(itemStack);

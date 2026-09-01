@@ -2,123 +2,137 @@ package grill24.potionsplus.alchemy;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.alchemy.Potions;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Immutable value object for a potion's identity (linked {@link Potion}) plus its
- * explicit effect list. Replaces the ad hoc {@link PotionContents} reads scattered
- * across call sites.
- * <p>
- * The value is copied before any speculative evaluation (see the brewing-cauldron
- * passive-effect branch) rather than mutating a live {@link ItemStack}'s
- * {@link PotionContents} in place.
+ * An immutable, always-constructible view of a stack's potion contents.
+ *
+ * <p>This is the single read surface for potion data. Unlike its predecessor in {@code PUtil} - where
+ * {@code getPotion} threw for a missing component but silently returned Water for a present-but-unlinked
+ * one, and {@code getPotionHolder} threw or returned null - reading is total: a stack with no potion
+ * contents reads as {@link #EMPTY}. Callers that need to distinguish ask {@link #isEmpty()} or
+ * {@link #hasBasePotion()}.
+ *
+ * <p>Mirrors the shape of {@link PotionContents} so the two convert without loss. 1.21.1's
+ * {@link PotionContents} has no {@code customName} component - that is a later vanilla addition - so
+ * this record has none either.
+ *
+ * @param basePotion    the linked registered potion, if any. Absent for everything the brewing cauldron
+ *                      brews - those carry custom effects only, so durations are not pinned by a
+ *                      registered {@link Potion}.
+ * @param customColor   an explicit colour override, if any
+ * @param customEffects effects carried by the stack itself rather than by {@link #basePotion}
  */
-public final class PotionData {
-    private final PotionContents contents;
+public record PotionData(
+        Optional<Holder<Potion>> basePotion,
+        Optional<Integer> customColor,
+        List<MobEffectInstance> customEffects
+) {
+    public static final PotionData EMPTY =
+            new PotionData(Optional.empty(), Optional.empty(), List.of());
 
-    PotionData(PotionContents contents) {
-        this.contents = contents;
+    public PotionData {
+        customEffects = List.copyOf(customEffects);
     }
 
-    public static PotionData from(PotionContents contents) {
-        return new PotionData(contents);
-    }
-
-    /** Returns a lenient read of an item stack's potion data (empty if absent). */
-    public static PotionData from(ItemStack stack) {
-        if (stack.has(DataComponents.POTION_CONTENTS)) {
-            return new PotionData(stack.get(DataComponents.POTION_CONTENTS));
+    /**
+     * Reads the potion contents of a stack. Never throws: a stack with no potion contents - or an
+     * empty stack - reads as {@link #EMPTY}.
+     */
+    public static PotionData read(ItemStack stack) {
+        if (stack.isEmpty()) {
+            return EMPTY;
         }
-        return new PotionData(new PotionContents(Optional.empty(), Optional.empty(), Collections.emptyList()));
+        PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
+        return contents == null ? EMPTY : of(contents);
     }
 
-    public Optional<Holder<Potion>> potion() {
-        return contents.potion();
+    public static PotionData of(PotionContents contents) {
+        return new PotionData(contents.potion(), contents.customColor(), contents.customEffects());
     }
 
-    public Optional<Integer> customColor() {
-        return contents.customColor();
-    }
-
-    public List<MobEffectInstance> customEffects() {
-        return contents.customEffects();
-    }
-
-    public boolean hasPotion() {
-        return contents.potion().isPresent();
-    }
-
-    public boolean hasEffects() {
-        return contents.hasEffects();
-    }
-
-    public List<MobEffectInstance> getAllEffects() {
-        return getAllEffects(contents);
-    }
-
-    public PotionContents toPotionContents() {
-        return contents;
-    }
-
-    // ----- Static readers (ported from PUtil) -----
-
+    /**
+     * Whether a stack carries the {@code POTION_CONTENTS} component at all, regardless of what it
+     * contains - distinct from {@link #isEmpty()}, which asks about the read's semantic content.
+     * The one legitimate direct read of {@code DataComponents.POTION_CONTENTS} outside {@link #read}
+     * itself, kept here so nothing else has to reference the component directly (see
+     * {@code PotionContentsAccessTest}).
+     */
     public static boolean hasPotionContents(ItemStack stack) {
         return stack.has(DataComponents.POTION_CONTENTS);
     }
 
-    public static PotionContents getPotionContents(ItemStack stack) {
-        if (stack.has(DataComponents.POTION_CONTENTS)) {
-            return stack.get(DataComponents.POTION_CONTENTS);
+    /**
+     * Writes already-built {@link PotionContents} onto a stack in place. Prefer
+     * {@link PotionDataBuilder#applyTo(ItemStack)} when building the contents from scratch - this
+     * exists for the few call sites that already hold a {@link PotionContents} value to write verbatim.
+     */
+    public static void write(ItemStack stack, PotionContents contents) {
+        stack.set(DataComponents.POTION_CONTENTS, contents);
+    }
+
+    public PotionContents toContents() {
+        return new PotionContents(basePotion, customColor, customEffects);
+    }
+
+    /**
+     * Every effect this potion applies, in vanilla's natural order: the base potion's effects first,
+     * then the custom effects. This is display order - the order tooltips and colour blending want.
+     *
+     * <p>For comparison and identity, use {@link #canonicalEffects()} instead. Comparing in natural
+     * order is what made two potions carrying the same effects in a different order read as unequal.
+     */
+    public List<MobEffectInstance> effects() {
+        List<MobEffectInstance> all = new ArrayList<>();
+        toContents().getAllEffects().forEach(all::add);
+        return List.copyOf(all);
+    }
+
+    /**
+     * Every effect this potion applies, in a stable order that does not depend on how the potion was
+     * assembled. See {@link EffectComparison#canonical}.
+     */
+    public List<MobEffectInstance> canonicalEffects() {
+        return EffectComparison.canonical(effects());
+    }
+
+    public boolean hasEffects() {
+        return !effects().isEmpty();
+    }
+
+    public boolean hasBasePotion() {
+        return basePotion.isPresent();
+    }
+
+    /** Whether this stack carries no potion data at all. */
+    public boolean isEmpty() {
+        return basePotion.isEmpty() && customColor.isEmpty() && customEffects.isEmpty();
+    }
+
+    /** The first instance of the given effect, from {@link #effects()}. */
+    public Optional<MobEffectInstance> effect(Holder<MobEffect> effect) {
+        for (MobEffectInstance instance : effects()) {
+            if (instance.getEffect().equals(effect)) {
+                return Optional.of(instance);
+            }
         }
-        throw new IllegalArgumentException("ItemStack does not have potion contents");
+        return Optional.empty();
     }
 
-    public static List<MobEffectInstance> getAllEffects(PotionContents contents) {
-        List<MobEffectInstance> allEffects = new ArrayList<>();
-        contents.getAllEffects().forEach(allEffects::add);
-        return allEffects;
+    public boolean has(Holder<MobEffect> effect) {
+        return effect(effect).isPresent();
     }
 
-    public static List<MobEffectInstance> getAllEffects(ItemStack stack) {
-        if (stack.has(DataComponents.POTION_CONTENTS)) {
-            return getAllEffects(getPotionContents(stack));
-        }
-        return Collections.emptyList();
-    }
-
-    public static Potion getPotion(ItemStack stack) {
-        if (stack.has(DataComponents.POTION_CONTENTS)) {
-            Optional<Holder<Potion>> potion = getPotionContents(stack).potion();
-            return potion.map(Holder::value).orElse(Potions.WATER.value());
-        }
-        throw new IllegalArgumentException("ItemStack does not have potion contents");
-    }
-
-    public static Holder<Potion> getPotionHolder(ItemStack stack) {
-        if (stack.has(DataComponents.POTION_CONTENTS)) {
-            return stack.get(DataComponents.POTION_CONTENTS).potion().orElse(null);
-        }
-        throw new IllegalArgumentException("ItemStack does not have potion contents");
-    }
-
-    public static Holder<Potion> getPotionHolder(Potion potion) {
-        return BuiltInRegistries.POTION.getHolder(BuiltInRegistries.POTION.getKey(potion)).orElseThrow();
-    }
-
-    public static boolean hasPotion(ItemStack stack) {
-        if (stack.has(DataComponents.POTION_CONTENTS)) {
-            return stack.get(DataComponents.POTION_CONTENTS).potion().isPresent();
-        }
-        return false;
+    /** The blended display colour, matching {@link PotionContents#getColor()}. */
+    public int color() {
+        return toContents().getColor();
     }
 }

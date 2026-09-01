@@ -127,10 +127,10 @@ public class PlayerListeners {
     private static void tryApplyPassiveItemPotionEffects(Player player, EquipmentSlot slot) {
         ItemStack stack = player.getItemBySlot(slot);
         if (PotionContainer.isPassivePotionEffectItem(stack)) {
-            PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
+            PotionContents potionContents = PotionData.read(stack).toContents();
             if (potionContents != null) {
                 List<MobEffectInstance> customEffects = new ArrayList<>();
-                for (MobEffectInstance effect : PotionData.getAllEffects(potionContents)) {
+                for (MobEffectInstance effect : PotionData.of(potionContents).effects()) {
                     int durationApplied = Math.min(EFFECT_DURATION, effect.getDuration());
                     MobEffectInstance e = new MobEffectInstance(effect.getEffect(), durationApplied, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false);
 
@@ -149,7 +149,7 @@ public class PlayerListeners {
                         customEffects.add(new MobEffectInstance(effect.getEffect(), remainingDuration, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false));
                     }
                 }
-                stack.set(DataComponents.POTION_CONTENTS, new PotionContents(potionContents.potion(), potionContents.customColor(), customEffects));
+                PotionData.write(stack, new PotionContents(potionContents.potion(), potionContents.customColor(), customEffects));
             }
         }
     }

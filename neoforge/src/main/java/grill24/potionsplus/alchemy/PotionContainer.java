@@ -1,66 +1,126 @@
 package grill24.potionsplus.alchemy;
 
-import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionContents;
+
+import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
- * The item side of a potion: which container (potion / splash / lingering /
- * tipped arrow) carries the {@link PotionData}. Replaces {@code PUtil.PotionType}
- * and {@code PUtil.createPotionItemStack(...)}.
+ * The item a potion is carried in.
+ *
+ * <p>Replaces three parallel encodings of the same closed set that had accumulated in
+ * {@code PUtil}: the {@code PotionType} enum, the hardcoded four-way {@code isPotion} check, and
+ * {@code getPotionName}, which returned hardcoded English rather than a translation key.
+ *
+ * <p>The set is closed to the four vanilla containers because that is what vanilla brewing itself
+ * supports. Widening it to an item tag so other mods' containers can participate is phase 3 work:
+ * it needs datagen and a migration of the {@code isPotion} call sites, neither of which phase 1
+ * touches. Adding a half-populated tag now would be exactly the kind of drift this package exists
+ * to remove.
  */
-public enum PotionContainer {
-    POTION(Items.POTION, "Potion of "),
-    SPLASH_POTION(Items.SPLASH_POTION, "Splash Potion of "),
-    LINGERING_POTION(Items.LINGERING_POTION, "Lingering Potion of "),
-    TIPPED_ARROW(Items.TIPPED_ARROW, "Arrow of ");
+public enum PotionContainer implements StringRepresentable {
+    POTION("potion", () -> Items.POTION),
+    SPLASH_POTION("splash_potion", () -> Items.SPLASH_POTION),
+    LINGERING_POTION("lingering_potion", () -> Items.LINGERING_POTION),
+    TIPPED_ARROW("tipped_arrow", () -> Items.TIPPED_ARROW);
 
-    private final Item item;
-    private final String namePrefix;
+    private final String serializedName;
+    private final Supplier<Item> item;
 
-    PotionContainer(Item item, String namePrefix) {
+    PotionContainer(String serializedName, Supplier<Item> item) {
+        this.serializedName = serializedName;
         this.item = item;
-        this.namePrefix = namePrefix;
     }
 
-    public Item getItem() {
-        return item;
+    @Override
+    public String getSerializedName() {
+        return this.serializedName;
     }
 
-    public ItemStack createItemStack(Holder<Potion> potion, int count) {
-        ItemStack stack = PotionContents.createItemStack(this.item, potion);
+    public Item item() {
+        return this.item.get();
+    }
+
+    /**
+     * The translation key prefix vanilla builds potion names from, mirroring
+     * {@link net.minecraft.world.item.PotionItem#getName(ItemStack)}. The suffix vanilla appends is
+     * {@code PotionContents.customName()} when present, otherwise {@code Potion.name()} - not the
+     * effect id, which is the mismatch behind the display-name breakage this package is here to fix.
+     */
+    public String nameTranslationPrefix() {
+        return item().getDescriptionId() + ".effect.";
+    }
+
+    /**
+     * The container this stack is carried in, or empty if the stack is not a potion container.
+     *
+     * <p>A linear scan over four constants rather than a static map: building the map eagerly would
+     * read {@link Items} during class initialisation, and this package must stay safe to touch at any
+     * point in the mod lifecycle.
+     */
+    public static Optional<PotionContainer> of(ItemStack stack) {
+        return stack.isEmpty() ? Optional.empty() : of(stack.getItem());
+    }
+
+    public static Optional<PotionContainer> of(Item item) {
+        for (PotionContainer container : values()) {
+            if (container.item() == item) {
+                return Optional.of(container);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /** Whether this stack is one of the four potion containers, regardless of what it contains. */
+    public static boolean isPotionStack(ItemStack stack) {
+        return of(stack).isPresent();
+    }
+
+    /**
+     * A damageable, non-potion-container item that has been imbued with potion effects (a tool or
+     * piece of armor carrying {@code POTION_CONTENTS}), as opposed to one merely eligible to have
+     * effects rolled onto it. See {@link #isPotionStack(ItemStack)} for the container check itself.
+     */
+    public static boolean isPassivePotionEffectItem(ItemStack stack) {
+        return stack.isDamageableItem() && stack.has(DataComponents.POTION_CONTENTS) && !isPotionStack(stack);
+    }
+
+    /**
+     * A damageable, non-potion-container item eligible to have effects rolled onto it or merged into
+     * it - whether or not it currently carries any. See {@link #isPassivePotionEffectItem(ItemStack)}
+     * for one that already does.
+     */
+    public static boolean isItemEligibleForPassivePotionEffects(ItemStack stack) {
+        return stack.isDamageableItem() && !isPotionStack(stack);
+    }
+
+    /** A stack of this container linked to the given potion. */
+    public ItemStack create(Holder<Potion> potion) {
+        return create(potion, 1);
+    }
+
+    public ItemStack create(Holder<Potion> potion, int count) {
+        ItemStack stack = PotionDataBuilder.fromEmpty()
+                .withBasePotion(potion)
+                .applyTo(new ItemStack(item()));
         stack.setCount(count);
         return stack;
     }
 
-    public ItemStack createItemStack(Holder<Potion> potion) {
-        return createItemStack(potion, 1);
-    }
-
-    public String getPotionName(String potionName) {
-        return this.namePrefix + potionName;
-    }
-
-    public static boolean isPotion(ItemStack stack) {
-        Item item = stack.getItem();
-        return item == Items.POTION || item == Items.SPLASH_POTION || item == Items.LINGERING_POTION || item == Items.TIPPED_ARROW;
-    }
-
-    public static boolean isItemEligibleForPassivePotionEffects(ItemStack stack) {
-        return stack.isDamageableItem() && !isPotion(stack);
-    }
-
-    public static boolean isPassivePotionEffectItem(ItemStack stack) {
-        return stack.isDamageableItem() && stack.has(DataComponents.POTION_CONTENTS) && !isPotion(stack);
-    }
-
-    public static boolean isPotionsPlusPotion(ItemStack stack) {
-        return isPotion(stack) && BuiltInRegistries.POTION.getKey(PotionData.getPotion(stack)).getNamespace().equals(ModInfo.MOD_ID);
+    /**
+     * A stack of this container with no linked potion. This is the shape every potion the brewing
+     * cauldron produces takes: custom effects only, so durations are not pinned by a registered
+     * {@link Potion}.
+     */
+    public ItemStack createEmpty(int count) {
+        ItemStack stack = new ItemStack(item());
+        stack.setCount(count);
+        return stack;
     }
 }

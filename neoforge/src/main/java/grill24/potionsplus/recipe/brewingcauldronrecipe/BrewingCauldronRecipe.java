@@ -73,21 +73,20 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
      */
     public ItemStack getResultWithTransformations(List<ItemStack> suppliedIngredients, Function<Integer, Integer> transformDuration, Function<Integer, Integer> transformAmplifier) {
         Optional<ItemStack> inputPotionOptional = suppliedIngredients.stream()
-                .filter(PotionContainer::isPotion).filter((stack) -> stack.has(DataComponents.POTION_CONTENTS)).findFirst();
+                .filter(PotionContainer::isPotionStack).filter((stack) -> PotionData.hasPotionContents(stack)).findFirst();
         ItemStack transformedResult = this.getResult();
 
         // In order to upgrade the amplifier or duration of a potion arbitrarily, we need to have an input potion to work with.
         // Also, to brew splash potions / lingering potions, we transform the input potion accordingly.
-        if (inputPotionOptional.isPresent() && (isDurationUpgrade() || isAmplifierUpgrade() || (PotionContainer.isPotion(this.getResult()) && !inputPotionOptional.get().is(transformedResult.getItem())))) {
+        if (inputPotionOptional.isPresent() && (isDurationUpgrade() || isAmplifierUpgrade() || (PotionContainer.isPotionStack(this.getResult()) && !inputPotionOptional.get().is(transformedResult.getItem())))) {
             if (isDurationUpgrade() || isAmplifierUpgrade()) {
                 transformedResult = new ItemStack(inputPotionOptional.get().getItem());
             }
-            transformedResult.set(DataComponents.POTION_CONTENTS, PotionData.getPotionContents(inputPotionOptional.get()));
+            PotionData.write(transformedResult, PotionData.read(inputPotionOptional.get()).toContents());
 
             // Get all effects from all input potions
             List<MobEffectInstance> allInputEffects = suppliedIngredients.stream()
-                    .filter(PotionContainer::isPotion).map(PotionData::getPotionContents)
-                    .map(PotionData::getAllEffects)
+                    .filter(PotionContainer::isPotionStack).map(stack -> PotionData.read(stack).effects())
                     .flatMap(Collection::stream).toList();
             Map<ResourceKey<MobEffect>, MobEffectInstance> totaledEffects = new HashMap<>();
             // Combine effects for each effect type. Take max duration and amplifier.
@@ -100,7 +99,7 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             }
 
             // Duplicate all mob effect instances into a new PotionContents with no associated potion, and only custom effects. This is how we get durations that aren't pre-determined by the potion.
-            PotionContents potionContents = PotionData.getPotionContents(transformedResult);
+            PotionContents potionContents = PotionData.read(transformedResult).toContents();
             List<MobEffectInstance> customEffects = new ArrayList<>();
             for (Map.Entry<ResourceKey<MobEffect>, MobEffectInstance> entry : totaledEffects.entrySet()) {
                 MobEffectInstance totaledEffect = entry.getValue();
@@ -114,7 +113,14 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
             // Update data components of the transformed result
             transformedResult.set(DataComponents.ITEM_NAME, name);
             transformedResult.set(DataComponents.RARITY, Rarity.RARE);
-            transformedResult.set(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), potionContents.customColor(), customEffects));
+            // Route through the builder rather than writing PotionContents directly so its amplifier/
+            // duration ceiling (EffectScaling.MAX_AMPLIFIER/MAX_DURATION_TICKS) actually applies here -
+            // repeated amplifier or duration upgrades would otherwise climb unbounded.
+            PotionDataBuilder builder = PotionDataBuilder.fromEmpty().withEffects(customEffects);
+            if (potionContents.customColor().isPresent()) {
+                builder.withCustomColor(potionContents.customColor().get());
+            }
+            PotionData.write(transformedResult, builder.build().toContents());
         }
 
         return transformedResult;
@@ -154,10 +160,14 @@ public class BrewingCauldronRecipe extends ShapelessProcessingRecipe {
     public boolean isTrueInIngredients(Function<Pair<MobEffectInstance, MobEffectInstance>, Boolean> function) {
         for (PpIngredient ingredient : this.ingredients) {
             ItemStack itemStack = ingredient.getItemStack();
-            if (PotionContainer.isPotion(itemStack)) {
+            if (PotionContainer.isPotionStack(itemStack)) {
 
-                Potion inputPotion = PotionData.getPotion(itemStack);
-                Potion outputPotion = PotionData.getPotion(this.result);
+                Potion inputPotion = PotionData.read(itemStack).basePotion()
+                        .map(net.minecraft.core.Holder::value)
+                        .orElse(net.minecraft.world.item.alchemy.Potions.WATER.value());
+                Potion outputPotion = PotionData.read(this.result).basePotion()
+                        .map(net.minecraft.core.Holder::value)
+                        .orElse(net.minecraft.world.item.alchemy.Potions.WATER.value());
                 if (!inputPotion.getEffects().isEmpty() && !outputPotion.getEffects().isEmpty() &&
                         function.apply(new Pair<>(inputPotion.getEffects().get(0), outputPotion.getEffects().get(0)))) {
                     return true;

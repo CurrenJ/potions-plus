@@ -52,8 +52,8 @@ public class ItemOverrideUtility {
             ItemModelBuilder imb = null;
 
             Holder<Item> item = getHolder();
-            for (MobEffect mobEffect : EffectRegistry.getAllMobEffects()) {
-                ResourceLocation registryName = BuiltInRegistries.MOB_EFFECT.getKey(mobEffect);
+            for (Holder<MobEffect> mobEffectHolder : EffectRegistry.iconOrder()) {
+                ResourceLocation registryName = BuiltInRegistries.MOB_EFFECT.getKey(mobEffectHolder.value());
                 if (imb == null) {
                     imb = itemModels.getBuilder(item.getKey().location().getPath())
                             .parent(provider.models().getExistingFile(mc("item/generated")))
@@ -66,7 +66,7 @@ public class ItemOverrideUtility {
                 itemModels.singleTexture(name, mc("item/generated"), "layer0", ResourceLocation.fromNamespaceAndPath(registryName.getNamespace(), "mob_effect/" + registryName.getPath()));
 
                 // Add override to main model
-                float f = (grill24.potionsplus.core.potion.MobEffects.POTION_ICON_INDEX_MAP.get().get(registryName) - 1) / 64F;
+                float f = (EffectRegistry.iconIndex(mobEffectHolder) - 1) / (float) EffectRegistry.ICON_STACK_CAP;
                 imb = imb.override().predicate(getOverridePropertyId(), f).model(itemModels.getExistingFile(ppId(name))).end();
             }
         }

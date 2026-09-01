@@ -6,13 +6,11 @@ import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.alchemy.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.Map;
+import java.util.List;
 
 public class MobEffects {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, ModInfo.MOD_ID);
@@ -82,7 +80,18 @@ public class MobEffects {
     public static final Holder<MobEffect> BOUNCING = EFFECTS.register("bouncing", () ->
             new BouncingEffect(MobEffectCategory.BENEFICIAL, 0x035690));
 
+    /**
+     * The literal order this class registered its effects in. Only grows at the end - appending a new
+     * effect here is the only way to add one, and doing so cannot shift any existing effect's icon
+     * index. See {@link EffectRegistry#iconOrder()}.
+     */
+    private static final List<Holder<MobEffect>> REGISTRATION_ORDER = List.of(
+            ANY_POTION, ANY_OTHER_POTION, GEODE_GRACE, FALL_OF_THE_VOID, EXPLODING, MAGNETIC,
+            TELEPORTATION, LOOTING, FORTUITOUS_FATE, METAL_DETECTING, GIANT_STEPS, REACH_FOR_THE_STARS,
+            NAUTICAL_NITRO, CROP_COLLECTOR, BOTANICAL_BOOST, SLIP_N_SLIDE, HARROWING_HANDS, BONE_BUDDY,
+            SHEPHERDS_SERENADE, SOUL_MATE, FLYING_TIME, BOUNCING);
 
-    public static final Lazy<Map<ResourceLocation, Integer>> POTION_ICON_INDEX_MAP = Lazy.of(EffectRegistry::getIconStackSizeMap);
-    public static final int POTION_EFFECT_INDEX_PROPERTY_DIVIDEND = 64;
+    public static List<Holder<MobEffect>> registrationOrder() {
+        return REGISTRATION_ORDER;
+    }
 }

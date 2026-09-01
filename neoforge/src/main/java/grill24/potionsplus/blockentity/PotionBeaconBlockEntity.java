@@ -120,9 +120,9 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
     public static void tick(Level level, BlockPos pos, BlockState state, PotionBeaconBlockEntity blockEntity) {
         if (blockEntity.effects.isEmpty() && !blockEntity.getItem(0).isEmpty()) {
             ItemStack stack = blockEntity.getItem(0);
-            if (stack.has(DataComponents.POTION_CONTENTS)) {
-                PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
-                PotionData.getAllEffects(potionContents).stream().map(effect -> new PotionBeaconEffectState(new MobEffectInstance(effect), effect.getDuration())).forEach(blockEntity.effects::add);
+            if (PotionData.hasPotionContents(stack)) {
+                PotionContents potionContents = PotionData.read(stack).toContents();
+                PotionData.of(potionContents).effects().stream().map(effect -> new PotionBeaconEffectState(new MobEffectInstance(effect), effect.getDuration())).forEach(blockEntity.effects::add);
             }
             stack.shrink(1);
             blockEntity.setItem(0, stack);

@@ -56,7 +56,7 @@ public class PotionUpgradeIngredients implements IPotionUpgradeIngredients {
         this.basePotion = basePotion;
         this.effect = basePotion.value().getEffects().get(0).getEffect();
 
-        PpMultiIngredient input = sampleUniqueIngredientsFromSamplingConfig(config, alreadyUsedRecipeInputs, PpIngredient.of(PotionContainer.POTION.createItemStack(Potions.AWKWARD)), basePotion, random);
+        PpMultiIngredient input = sampleUniqueIngredientsFromSamplingConfig(config, alreadyUsedRecipeInputs, PpIngredient.of(PotionContainer.POTION.create(Potions.AWKWARD)), basePotion, random);
         setBasePotionIngredients(input);
     }
 

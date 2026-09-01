@@ -73,7 +73,7 @@ public class Blocks {
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
         event.register((stack, i) -> {
-            PotionContents potionContents = PotionData.getPotionContents(stack);
+            PotionContents potionContents = PotionData.read(stack).toContents();
 
             boolean isAnyPotion = false;
             for (MobEffectInstance effect : potionContents.getAllEffects()) {
@@ -83,7 +83,7 @@ public class Blocks {
                 }
             }
             if (!isAnyPotion) {
-                return i > 0 ? -1 : FastColor.ARGB32.opaque(stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).getColor());
+                return i > 0 ? -1 : FastColor.ARGB32.opaque(PotionData.read(stack).toContents().getColor());
             }
 
             float ticks = ClientTickHandler.total();

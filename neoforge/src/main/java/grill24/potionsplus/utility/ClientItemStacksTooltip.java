@@ -92,7 +92,7 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
                     try (Level level = player.level()) {
                         PlayerBrewingKnowledge brewingKnowledge = SavedData.instance.getData(player);
                         boolean isInAbyssalTrove = brewingKnowledge.abyssalTroveContainsIngredient(level, PpIngredient.of(itemstack));
-                        boolean isPotion = PotionContainer.isPotion(itemstack);
+                        boolean isPotion = PotionContainer.isPotionStack(itemstack);
                         if (!isInAbyssalTrove && !isPotion && !PotionsPlus.Debug.shouldRevealAllRecipes && this.hideUnknownPotionIngredients) {
                             itemstack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC);
                         }

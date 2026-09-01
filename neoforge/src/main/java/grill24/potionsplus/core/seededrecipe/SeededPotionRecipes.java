@@ -102,8 +102,8 @@ public class SeededPotionRecipes {
         for (PpIngredient ingredient : durationTagItems) {
             durationUpgradeRecipes.add(
                     new BrewingCauldronRecipeBuilder()
-                    .result(PotionContainer.POTION.createItemStack(Potions.ANY_POTION))
-                    .ingredients(PotionContainer.POTION.createItemStack(Potions.ANY_POTION), ingredient.getItemStack())
+                    .result(PotionContainer.POTION.create(Potions.ANY_POTION))
+                    .ingredients(PotionContainer.POTION.create(Potions.ANY_POTION), ingredient.getItemStack())
                     .processingTime(30)
                     .durationToAdd(randomSource.nextInt(100, 1800))
                     .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER, EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
@@ -117,8 +117,8 @@ public class SeededPotionRecipes {
         for (PpIngredient ingredient : amplifierTagItems) {
             amplifierUpgradeRecipes.add(
                     new BrewingCauldronRecipeBuilder()
-                            .result(PotionContainer.POTION.createItemStack(Potions.ANY_POTION))
-                            .ingredients(PotionContainer.POTION.createItemStack(Potions.ANY_POTION), ingredient.getItemStack())
+                            .result(PotionContainer.POTION.create(Potions.ANY_POTION))
+                            .ingredients(PotionContainer.POTION.create(Potions.ANY_POTION), ingredient.getItemStack())
                             .processingTime(30)
                             .amplifierToAdd(1)
                             .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER, EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
@@ -132,8 +132,8 @@ public class SeededPotionRecipes {
         for (PpIngredient ingredient : durationAndAmplifierTagItems) {
             bothUpgradeRecipes.add(
                     new BrewingCauldronRecipeBuilder()
-                            .result(PotionContainer.POTION.createItemStack(Potions.ANY_POTION))
-                            .ingredients(PotionContainer.POTION.createItemStack(Potions.ANY_POTION), ingredient.getItemStack())
+                            .result(PotionContainer.POTION.create(Potions.ANY_POTION))
+                            .ingredients(PotionContainer.POTION.create(Potions.ANY_POTION), ingredient.getItemStack())
                             .processingTime(30)
                             .durationToAdd(randomSource.nextInt(400, 1200))
                             .amplifierToAdd(1)

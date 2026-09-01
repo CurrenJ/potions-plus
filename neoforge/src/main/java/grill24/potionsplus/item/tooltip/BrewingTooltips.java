@@ -92,15 +92,16 @@ public class BrewingTooltips {
 
                         BrewingCauldronRecipe recipe = recipeHolder.value();
                         ItemStack recipeResult = recipe.getResult();
-                        if (!PotionContainer.isPotion(recipeResult) || !PotionData.hasPotion(recipeResult)
-                                || Potions.ANY_POTION.is(PotionData.getPotionHolder(recipeResult).getKey()) || Potions.ANY_OTHER_POTION.is(PotionData.getPotionHolder(recipeResult).getKey())
+                        PotionData recipeResultData = PotionData.read(recipeResult);
+                        if (!PotionContainer.isPotionStack(recipeResult) || !recipeResultData.hasBasePotion()
+                                || recipeResultData.basePotion().get().is(Potions.ANY_POTION) || recipeResultData.basePotion().get().is(Potions.ANY_OTHER_POTION)
                                 || !recipe.canShowInJei())
                             continue;
-                        List<MobEffectInstance> potionEffects = PotionData.getPotion(recipeResult).getEffects();
-                        String effectName = !potionEffects.isEmpty() ? PotionData.getPotion(recipeResult).getEffects().getFirst().getDescriptionId() : "";
+                        List<MobEffectInstance> potionEffects = recipeResultData.basePotion().get().value().getEffects();
+                        String effectName = !potionEffects.isEmpty() ? potionEffects.getFirst().getDescriptionId() : "";
 
                         if (!effectName.isEmpty()) {
-                            long totalNonPotionIngredients = recipe.getIngredientsAsItemStacks().stream().filter(i -> !PotionContainer.isPotion(i)).count();
+                            long totalNonPotionIngredients = recipe.getIngredientsAsItemStacks().stream().filter(i -> !PotionContainer.isPotionStack(i)).count();
                             List<Component> recipeTextComponents = new ArrayList<>();
                             recipeTextComponents.add(Component.literal("1").withStyle(ChatFormatting.GREEN));
                             recipeTextComponents.add(Component.literal(" / ").withStyle(ChatFormatting.GRAY));

@@ -66,7 +66,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 for (RecipeHolder<BrewingCauldronRecipe> recipeHolder : recipesWithInputIngredient) {
                     BrewingCauldronRecipe recipe = recipeHolder.value();
                     ItemStack outputStack = recipe.getResult();
-                    List<MobEffectInstance> outputEffects = PotionData.getAllEffects(outputStack);
+                    List<MobEffectInstance> outputEffects = PotionData.read(outputStack).effects();
 
                     // If the recipe has no potion effects on its output, just display the result item.
                     if (outputEffects.isEmpty()) {
@@ -77,11 +77,12 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                         ResourceLocation mobEffectId = mobEffectInstance.getEffect().getKey().location();
 
                         boolean isMobEffectInIconDataAlready = potionIcons.containsKey(mobEffectId);
-                        boolean doesIconExistForMobEffect = MobEffects.POTION_ICON_INDEX_MAP.get().containsKey(mobEffectId);
+                        Holder<net.minecraft.world.effect.MobEffect> effectHolder = mobEffectInstance.getEffect();
+                        boolean doesIconExistForMobEffect = EffectRegistry.iconOrder().contains(effectHolder);
                         // If we haven't seen this MobEffect type yet and it has an icon, add it to the map of potion icons
                         if (!isMobEffectInIconDataAlready && doesIconExistForMobEffect) {
                             ItemStack displayStack = new ItemStack(DynamicIconItems.POTION_EFFECT_ICON.getValue(), 1);
-                            displayStack.setCount(MobEffects.POTION_ICON_INDEX_MAP.get().get(mobEffectId));
+                            displayStack.setCount(EffectRegistry.iconIndex(effectHolder));
                             potionIcons.put(mobEffectId, new IconData(PpIngredient.of(displayStack), new ArrayList<>()));
 
                             // Add the sub-icons to the potion icon.

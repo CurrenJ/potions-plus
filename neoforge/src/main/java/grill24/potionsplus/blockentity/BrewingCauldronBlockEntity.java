@@ -94,10 +94,13 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
             // ----- Potion MERGE Logic -----
 
             // Get all mobeffectinstances from the potions
-            ItemStack[] potions = this.items.stream().filter(PotionContainer::isPotion).toArray(ItemStack[]::new);
+            ItemStack[] potions = this.items.stream().filter(PotionContainer::isPotionStack).toArray(ItemStack[]::new);
 
-            Stream<MobEffectInstance> customEffects = this.items.stream().filter(PotionContainer::isPotion).map(PotionData::getPotionContents).map(PotionContents::customEffects).flatMap(Collection::stream);
-            Stream<MobEffectInstance> potionEffects = Arrays.stream(potions).map(PotionData::getPotion).map(Potion::getEffects).flatMap(Collection::stream);
+            Stream<MobEffectInstance> customEffects = this.items.stream().filter(PotionContainer::isPotionStack).map(stack -> PotionData.read(stack).toContents()).map(PotionContents::customEffects).flatMap(Collection::stream);
+            Stream<MobEffectInstance> potionEffects = Arrays.stream(potions)
+                    .map(stack -> PotionData.read(stack).basePotion().map(net.minecraft.core.Holder::value)
+                            .orElse(net.minecraft.world.item.alchemy.Potions.WATER.value()))
+                    .map(Potion::getEffects).flatMap(Collection::stream);
             List<MobEffectInstance> allEffects = Stream.concat(customEffects, potionEffects).toList();
 
             Map<ResourceKey<MobEffect>, MobEffectInstance> effectMap = new HashMap<>();
@@ -110,7 +113,9 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
             int effectCount = effectMap.size();
             if (potions.length > 1 && effectCount > 1) {
-                ItemStack potionStack = PotionDataBuilder.setCustomEffects(new ItemStack(potions[0].getItem()), new ArrayList<>(effectMap.values()));
+                ItemStack potionStack = PotionDataBuilder.fromEmpty()
+                        .withEffects(new ArrayList<>(effectMap.values()))
+                        .applyTo(new ItemStack(potions[0].getItem()));
 
                 if(effectCount == 2) {
                     potionStack.set(DataComponents.ITEM_NAME,  Component.translatable("item.potionsplus.merged_potions_2_effects"));
@@ -145,12 +150,12 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
         // ----- Passive Potion Effects on Items Logic -----
         if (this.activeRecipe.isEmpty()) {
             Optional<ItemStack> item = this.items.stream().filter(PotionContainer::isItemEligibleForPassivePotionEffects).findAny();
-            Optional<ItemStack> potion = this.items.stream().filter(PotionContainer::isPotion).findAny();
+            Optional<ItemStack> potion = this.items.stream().filter(PotionContainer::isPotionStack).findAny();
 
             if (item.isPresent() && potion.isPresent()) {
-                List<MobEffectInstance> customEffects = PotionData.getAllEffects(potion.get());
-                customEffects.addAll(PotionData.getAllEffects(item.get()));
-                ItemStack result = PotionDataBuilder.setCustomEffects(item.get().copy(), customEffects);
+                List<MobEffectInstance> customEffects = new java.util.ArrayList<>(PotionData.read(potion.get()).effects());
+                customEffects.addAll(PotionData.read(item.get()).effects());
+                ItemStack result = PotionDataBuilder.from(item.get()).withEffects(customEffects).applyTo(item.get());
 
                 ItemStack[] ingredients = new ItemStack[] { item.get(), potion.get() };
                 this.activeRecipe = Optional.of(
@@ -185,8 +190,8 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
         if (activeRecipe.isPresent()) {
             ItemStack result = activeRecipe.get().value().getResultItemWithTransformations(this.items);
-            if (result.has(DataComponents.POTION_CONTENTS)) {
-                List<MobEffectInstance> effects = PotionData.getAllEffects(PotionData.getPotionContents(result));
+            if (PotionData.hasPotionContents(result)) {
+                List<MobEffectInstance> effects = PotionData.read(result).effects();
                 Color potionColor = new Color(PotionContents.getColor(effects));
 
                 // Lerp water and potions

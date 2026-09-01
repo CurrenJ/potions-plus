@@ -91,7 +91,7 @@ public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
     @Deprecated
     public List<RecipeHolder<BrewingCauldronRecipe>> generateRecipes(PotionBuilder.PotionsPlusPotionGenerationData generationData, Set<PpMultiIngredient> alreadyUsedRecipeInputs, RandomSource random) {
         // Don't try to generate recipes for potions that already exist in saved data.
-        if(SavedData.instance.isResultInRecipeSavedData(PotionContainer.POTION.createItemStack(generationData.potion))) {
+        if(SavedData.instance.isResultInRecipeSavedData(PotionContainer.POTION.create(generationData.potion))) {
             if (PotionsPlus.Debug.DEBUG && PotionsPlus.Debug.DEBUG_POTION_INGREDIENTS_GENERATION) {
                 PotionsPlus.LOGGER.info("[SPR] Skipping recipe generation for potion that already exists in saved data: {}", generationData.potion.getKey().location());
             }
@@ -133,7 +133,7 @@ public class SeededPotionRecipeBuilder implements ISeededPotionRecipeBuilder {
             allIngredients.addAll(nonPotionIngredients.split());
 
             RecipeHolder<BrewingCauldronRecipe> recipe = new BrewingCauldronRecipeBuilder()
-                    .result(PotionContainer.POTION.createItemStack(potionsPlusPotionGenerationData.potion))
+                    .result(PotionContainer.POTION.create(potionsPlusPotionGenerationData.potion))
                     .ingredients(allIngredients.toArray(new PpIngredient[0]))
                     .processingTime(baseProcessingTime)
                     .group(advancementNameIngredient)

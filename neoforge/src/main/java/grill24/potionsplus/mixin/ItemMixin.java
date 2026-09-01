@@ -30,8 +30,8 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, net.neoforg
     @Inject(method = "getTooltipImage", at = @At("RETURN"), cancellable = true)
     private void getTooltipImage(ItemStack stack, CallbackInfoReturnable<Optional<TooltipComponent>> cir) {
         List<List<ItemStack>> displayStacks = new ArrayList<>();
-        if (PotionContainer.isPotion(stack)) {
-            List<MobEffectInstance> effects = PotionData.getAllEffects(stack);
+        if (PotionContainer.isPotionStack(stack)) {
+            List<MobEffectInstance> effects = PotionData.read(stack).effects();
             if (effects.size() == 1) {
                 ResourceKey<MobEffect> mobEffect = effects.getFirst().getEffect().getKey();
                 List<RecipeHolder<BrewingCauldronRecipe>> recipes = Recipes.ALL_BCR_RECIPES_ANALYSIS.getRecipesForMobEffect(mobEffect);

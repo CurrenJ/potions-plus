@@ -133,9 +133,10 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
     }
 
     private static void registerPotionInfo(IRecipeRegistration registration, Potion potion, Component... descriptionComponents) {
-        ItemStack potionItem = PotionContents.createItemStack(Items.POTION, PotionData.getPotionHolder(potion));
-        ItemStack splashPotionItem = PotionContents.createItemStack(Items.SPLASH_POTION, PotionData.getPotionHolder(potion));
-        ItemStack lingeringPotionItem = PotionContents.createItemStack(Items.LINGERING_POTION, PotionData.getPotionHolder(potion));
+        Holder<Potion> potionHolder = BuiltInRegistries.POTION.wrapAsHolder(potion);
+        ItemStack potionItem = PotionContents.createItemStack(Items.POTION, potionHolder);
+        ItemStack splashPotionItem = PotionContents.createItemStack(Items.SPLASH_POTION, potionHolder);
+        ItemStack lingeringPotionItem = PotionContents.createItemStack(Items.LINGERING_POTION, potionHolder);
 
         registration.addItemStackInfo(potionItem, descriptionComponents);
         registration.addItemStackInfo(splashPotionItem, descriptionComponents);

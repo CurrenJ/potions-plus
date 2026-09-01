@@ -1,4 +1,4 @@
-// 1.21.1	2026-08-31T23:15:13.872241	Block States: potionsplus
+// 1.21.1	2026-09-01T14:06:35.9042759	Block States: potionsplus
 32f31cb42acc6abb5df45794da26abaf6f68cc6c assets/potionsplus/blockstates/abyssal_trove.json
 2b73f206032cfc1872c91122fb6394744d0d7913 assets/potionsplus/blockstates/black_coalla_lily.json
 642a602d868033d66b429aa7dc8dd3f96b20ebf8 assets/potionsplus/blockstates/brewing_cauldron.json
@@ -96,7 +96,7 @@ a08d8c7aabff7f5983a01ad4cfbc31e2bfef3b7c assets/potionsplus/models/item/lunar_be
 a9692bf29db7dfdffd00ea20470fd4af72c566e6 assets/potionsplus/models/item/moss.json
 6495dda13052785b815f6eb140fb3b955102f972 assets/potionsplus/models/item/netherite_remnant.json
 79610fc641c7f3783c04293d102ce78ae9faea09 assets/potionsplus/models/item/potion_beacon.json
-69060adfaa4cd956084038f111bb6031c0ba3a39 assets/potionsplus/models/item/potion_effect_icon.json
+295ee0ccb710aa5ad5d7822acb6fed00d4e10791 assets/potionsplus/models/item/potion_effect_icon.json
 1cf83c4ed95a7c24b482320875bb253554a93472 assets/potionsplus/models/item/potion_effect_icon_absorption.json
 04ffe6362e34607416adac2c6ed9b55703a369f4 assets/potionsplus/models/item/potion_effect_icon_any_other_potion.json
 8d418318b67dae61c3d27aa90bdbf89a0f4b3245 assets/potionsplus/models/item/potion_effect_icon_any_potion.json

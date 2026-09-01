@@ -45,6 +45,7 @@ public class DataGen {
         generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, BUILDER, Set.of(ModInfo.MOD_ID)));
         generator.addProvider(event.includeServer(), new AdvancementProvider(output, lookupProvider, existingFileHelper, null));
         generator.addProvider(event.includeServer(), new GlobalLootModifierProvider(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new GameTestStructureProvider(output));
 
         if (event.includeClient()) {
 //            generator.addProvider(true, new LangProvider(output, ModInfo.MOD_ID, "en_us"));

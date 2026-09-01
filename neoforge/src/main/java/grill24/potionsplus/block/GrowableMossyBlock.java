@@ -56,7 +56,7 @@ public class GrowableMossyBlock extends Block {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         // Check if using water bottle
-        if (PotionContainer.isPotion(stack) && PotionData.getPotion(stack) == Potions.WATER.value()) {
+        if (PotionContainer.isPotionStack(stack) && PotionData.read(stack).basePotion().map(h -> h.is(Potions.WATER)).orElse(false)) {
             if (!state.getValue(WATERED)) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, state.setValue(WATERED, true), 3);

@@ -40,20 +40,20 @@ public class BrewingCauldronRecipeAnalysis extends RecipeAnalysis<BrewingCauldro
         allPotionsPlusIngredientsNoPotions.clear();
 
         // Any recipe input ingredient that is not a potion
-        this.uniqueIngredients.stream().filter(ingredient -> !PotionContainer.isPotion(ingredient.getItemStack())).forEach(allPotionsPlusIngredientsNoPotions::add);
+        this.uniqueIngredients.stream().filter(ingredient -> !PotionContainer.isPotionStack(ingredient.getItemStack())).forEach(allPotionsPlusIngredientsNoPotions::add);
 
         // Any recipe input ingredient that is not a potion, but the result is a potion
         recipes.forEach(recipe -> {
             ItemStack result = recipe.value().getResult();
-            if (PotionContainer.isPotion(result)) {
+            if (PotionContainer.isPotionStack(result)) {
                 for (PpIngredient ingredient : recipe.value().getPpIngredients()) {
-                    if (!PotionContainer.isPotion(ingredient.getItemStack())) {
+                    if (!PotionContainer.isPotionStack(ingredient.getItemStack())) {
                         allPotionBrewingIngredientsNoPotions.add(ingredient);
                     }
                 }
 
                 if (recipe.value().getDurationToAdd() == 0 && recipe.value().getAmplifierToAdd() == 0 && recipe.value().getResult().is(Items.POTION)) {
-                    List<MobEffectInstance> effects = PotionData.getAllEffects(result);
+                    List<MobEffectInstance> effects = PotionData.read(result).effects();
                     if (effects.size() == 1) {
                         mobEffectToBasePotionRecipes.computeIfAbsent(effects.get(0).getEffect().getKey(), k -> new ArrayList<>()).add(recipe);
                     }

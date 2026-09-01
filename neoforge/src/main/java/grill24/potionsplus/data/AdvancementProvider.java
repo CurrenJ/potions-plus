@@ -220,14 +220,14 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         false)
                 .rewards(AdvancementRewards.Builder
                         .experience(100))
-                .addCriterion("brew_awkward_potion", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(PotionContainer.POTION.createItemStack(Potions.AWKWARD)), List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER)))
+                .addCriterion("brew_awkward_potion", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(PotionContainer.POTION.create(Potions.AWKWARD)), List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER)))
                 .requirements(AdvancementRequirements.allOf(List.of("brew_awkward_potion")))
                 .save(saver, BREW_AWKWARD_POTION, existingFileHelper);
 
         AdvancementHolder brew_any_potion = Advancement.Builder.advancement()
                 .parent(brew_awkward_potion)
                 .display(
-                        PotionContainer.POTION.createItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION),
+                        PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION),
                         Component.translatable("advancements.potionsplus.brew_any_potion.title"),
                         Component.translatable("advancements.potionsplus.brew_any_potion.description"),
                         null,
@@ -237,7 +237,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
                         false)
                 .rewards(AdvancementRewards.Builder
                         .experience(100))
-                .addCriterion("brew_any_potion", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(PotionContainer.POTION.createItemStack(grill24.potionsplus.core.potion.Potions.ANY_POTION)), List.of(EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT)))
+                .addCriterion("brew_any_potion", CraftRecipeTrigger.TriggerInstance.create(Recipes.BREWING_CAULDRON_RECIPE.getKey(), PpIngredient.of(PotionContainer.POTION.create(grill24.potionsplus.core.potion.Potions.ANY_POTION)), List.of(EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT)))
                 .requirements(AdvancementRequirements.allOf(List.of("brew_any_potion")))
                 .save(saver, BREW_ANY_POTION, existingFileHelper);
 
