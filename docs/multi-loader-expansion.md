@@ -112,7 +112,7 @@ backport step applied after the split has to be applied across four modules inst
 |---|---|---|
 | P0 | *(prereq)* 2.0 backport Phase 6 | ✅ done 2026-09-01 |
 | P1 | *(pre-flight)* Fix the three live `common` bugs (section D) | ✅ done 2026-09-01 |
-| 0 | Build-system swap (ModDevGradle → architectury-loom) | 🟡 in progress |
+| 0 | Build-system swap (ModDevGradle → architectury-loom) | ✅ done 2026-09-01 |
 | 1 | Source split into `common/` | ⬜ not started |
 | 2 | Platform abstraction layer | ⬜ not started |
 | 3 | Fabric + Forge module scaffold | ⬜ not started |
@@ -406,12 +406,18 @@ code, so fixing them **before** Phase 1 means fixing them once instead of review
       1.21.4+'s split item-model atlas, which does not exist on 1.21.1 — item icons here still
       resolve through the `blocks` atlas (vanilla's own `blocks.json` bundles both `block/` and
       `item/` directory sources for exactly this reason). Created `items.json` first, verified it
-      does nothing on 1.21.1, deleted it, and instead rewrote `blocks.json`'s two namespace-wide
-      `directory` sources as 22 scoped `single` sources (one per `potionsplus:mob_effect/*` icon
-      actually referenced by `ItemOverrideUtility`'s generated item models). Confirmed no item
-      model or particle definition references the `particle/` sprites that were leaking in — those
-      already have their own vanilla `particles.json` atlas — so `particle/` was dropped entirely
-      rather than partially restored.
+      does nothing on 1.21.1, deleted it. First attempt scoped `mob_effect/` down to 22 `single`
+      `potionsplus:mob_effect/*` sources — **wrong**: `potionsplus:potion_effect_icon`'s generated
+      item model needs *vanilla* mob-effect icons too (a generic effect-icon item covering every
+      effect, not just this mod's), and `runClient` immediately logged 38 `Missing textures`
+      warnings for `minecraft:mob_effect/*`. Corrected to keep `mob_effect` as a namespace-wide
+      `directory` source (that part of the original file was fine) and drop only `particle`, which
+      really was unused dead weight — confirmed via `grep` that nothing references
+      `<namespace>:particle/*` from an item model, and vanilla particles already have their own
+      `particles.json` atlas. Verified via `runClient`: the missing-texture warnings for vanilla
+      `mob_effect/*` are gone; only the pre-existing, unrelated `generic_icon` warning for
+      `potionsplus:particle/sga_{a,b,c,d}` remains (those four texture files don't exist on disk at
+      all — a separate, likely-dead-code gap, out of scope for this bug).
 
 ---
 
@@ -424,56 +430,88 @@ separable from the "did the source split break it?" question in Phase 1.
 **Files:** `settings.gradle`, `gradle.properties`, `build.gradle` (root), `neoforge/build.gradle`,
 `gradle/wrapper/gradle-wrapper.properties`, new `neoforge/gradle.properties`.
 
-- [ ] `gradle/wrapper/gradle-wrapper.properties`: Gradle → `9.5.0`.
-- [ ] `settings.gradle`: replace the MinecraftForge-only `pluginManagement` block with the four-repo
+- [x] `gradle/wrapper/gradle-wrapper.properties`: Gradle → `9.5.0`.
+- [x] `settings.gradle`: replace the MinecraftForge-only `pluginManagement` block with the four-repo
       form (fabricmc, architectury, files.minecraftforge.net, maven.neoforged.net + gradlePluginPortal).
       Keep `rootProject.name = 'potionsplus'`. **`include 'common'` and `include 'forge'` are already
       in the file but the directories do not exist** — the build is currently broken for those two
       names. Reduce to `include 'neoforge'` for this phase; re-add the others in Phases 1 and 3.
-- [ ] Root `build.gradle`: drop `net.neoforged.moddev`; add
+      **Additional fix not in the original plan:** the old moddev-era `settings.gradle` also had
+      `plugins { id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0' }`. This plugin
+      is the root cause of a multi-hour Gson/reflection rabbit hole (see the progress log entry below)
+      and had to be **removed entirely**, not carried forward.
+- [x] Root `build.gradle`: drop `net.neoforged.moddev`; add
       `dev.architectury.loom` `1.17-SNAPSHOT` (apply false) + `architectury-plugin` `3.5-SNAPSHOT` +
       `com.gradleup.shadow` `8.3.6` (apply false). Add the `architectury { minecraft = … }` block,
       the `subprojects` block applying loom + architectury-plugin, `base.archivesName`,
       `loom { silentMojangMappingsLicense() }`, `minecraft` + `mappings loom.officialMojangMappings()`
       deps, Java 21 toolchain, `options.release = 21`, and the existing jar-manifest block.
-- [ ] `gradle.properties`: rewrite to the 26.1.2/apt-ores key set — `mod_id`, `mod_name`,
+      `com.gradleup.shadow` is declared but not yet applied anywhere — Phase 1 wires it once `common`
+      exists.
+- [x] `gradle.properties`: rewrite to the 26.1.2/apt-ores key set — `mod_id`, `mod_name`,
       `mod_version`, `mod_description`, `mod_authors`, `mod_license`, `mod_icon`, `maven_group`,
       `archives_name`, `enabled_platforms = neoforge,fabric,forge`, `minecraft_version = 1.21.1`,
       the loader versions above, and the `mod_*_version_range` interpolations. Use **26.1.2's
-      `gradle.properties` as the template** and swap the version values (Decision 4).
-- [ ] **Drop Parchment** (`parchment_minecraft`/`parchment_version`, `mapping_channel`,
+      `gradle.properties` as the template** and swap the version values (Decision 4). Bumped
+      `neoforge_version` 21.1.125 → 21.1.209 per the toolchain table above.
+- [x] **Drop Parchment** (`parchment_minecraft`/`parchment_version`, `mapping_channel`,
       `mapping_version`, `neo_form_version`). Loom uses `officialMojangMappings()`. If parameter
       names are wanted back later, layer Parchment through `loom.layered { … parchment(…) }` — but
       apt-ores 1.21.1 does not, and matching it keeps the reference build usable.
-- [ ] **Drop `org.gradle.configuration-cache=true`** from `gradle.properties` — loom/architectury
+- [x] **Drop `org.gradle.configuration-cache=true`** from `gradle.properties` — loom/architectury
       are not configuration-cache clean. (26.1.2's properties file has no such line.)
-- [ ] `neoforge/gradle.properties` (new): `loom.platform = neoforge`.
-- [ ] `neoforge/build.gradle`: rewrite from `net.neoforged.moddev` to the architectury shape — crib
+- [x] `neoforge/gradle.properties` (new): `loom.platform = neoforge`.
+- [x] `neoforge/build.gradle`: rewrite from `net.neoforged.moddev` to the architectury shape — crib
       `apt-ores-worktrees/mc-1.21.1/neoforge/build.gradle`: `architectury { platformSetupLoomIde();
-      neoForge() }`, the `common`/`shadowBundle` configurations, `neoForge "net.neoforged:neoforge:…"`,
-      `processResources` expanding `META-INF/neoforge.mods.toml`, `shadowJar { archiveClassifier =
-      'dev-shadow' }`, `remapJar { inputFile.set shadowJar.archiveFile }`, and `loom.runs` for
-      `client`/`server`/`data`/`gametest`. Do **not** add the `common(project(':common'))` deps yet —
-      no `common/` exists until Phase 1.
-- [ ] `loom { mixin { defaultRefmapName = "potionsplus-refmap.json" } }` — **1.21.1 is obfuscated, so
-      mixins need a refmap.** The existing `potionsplus.mixins.json` already declares
-      `"refmap": "potionsplus.refmap.json"`; reconcile the two names (pick one, use it everywhere).
-- [ ] Port the JEI dependency block: moddev's `compileOnly`/`runtimeOnly` inside `neoForge {}` becomes
-      plain loom `modCompileOnly "mezz.jei:jei-1.21.1-neoforge-api:$jei_version"` /
-      `modRuntimeOnly "mezz.jei:jei-1.21.1-neoforge:$jei_version"`, plus the BlameJared + ModMaven
-      repositories in the `subprojects` `repositories` block.
-- [ ] **Known casualty — record it, fix it in Phase 12:** moddev's `unitTest { enable() }` has **no
+      neoForge() }`, `neoForge "net.neoforged:neoforge:…"`, `processResources` expanding
+      `META-INF/neoforge.mods.toml`, and `loom.runs` for `client`/`server`/`data`/`gametest`.
+      **Deviation:** no `shadowJar`/`remapJar { inputFile.set … }` wiring yet — without a `common`
+      module there's nothing to shade, and architectury-loom auto-wires a plain `remapJar` off the
+      normal `jar` task on its own. The `common`/`shadowBundle` configurations block is deferred to
+      Phase 1 alongside the `common(project(':common'))` deps, per the plan's own instruction not to
+      add them yet.
+- [x] `loom { mixin { defaultRefmapName = "potionsplus-refmap.json" } }` — **1.21.1 is obfuscated, so
+      mixins need a refmap.** The existing `potionsplus.mixins.json` already declared
+      `"refmap": "potionsplus.refmap.json"`; reconciled to `"potionsplus-refmap.json"` (dash) to match.
+- [x] Port the JEI dependency block: `compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:…"` /
+      `runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:…"` (plain, not `modCompileOnly` —
+      JEI's NeoForge artifacts ship already in the runtime mapping namespace, no remap needed), plus
+      the BlameJared + ModMaven repositories in the `subprojects` `repositories` block.
+- [x] **Known casualty — record it, fix it in Phase 12:** moddev's `unitTest { enable() }` has **no
       architectury-loom equivalent.** It is what makes `src/test` JUnit work today (it wires
       NeoForge's junit fixtures and the `-Dfml.junit.argsfile` that lets `Bootstrap.bootStrap()`
       survive). Losing it breaks `AlchemyTestBase` and `PotionContentsAccessTest` — **the two things
-      the backport's Phase 5 just stood up.** Expect `:neoforge:test` to go red in this phase and stay
-      red until Phase 12. Do not delete the tests to make the build green.
-- [ ] Keep `sourceSets.main.resources { srcDir 'src/generated/resources' }` and the `testmod`
+      the backport's Phase 5 just stood up.** `:neoforge:test` is confirmed red as expected (`Bootstrap`
+      failure) and stays red until Phase 12. The tests were not deleted or altered.
+- [x] Keep `sourceSets.main.resources { srcDir 'src/generated/resources' }` and the `testmod`
       sourceSet wiring (translated to loom's `loom.mods` form).
+- [x] **New, not in the original plan — durable per-project JDK pinning.** Added
+      `gradle/gradle-daemon-jvm.properties` (`toolchainVersion=21`, tracked in git). The machine's
+      *global* `~/.gradle/gradle.properties` pins `org.gradle.java.home` to a JDK 25 install (for the
+      MC 26.1.2 branches); a project-level `gradle.properties` `org.gradle.java.home` does **not**
+      override this (daemon JVM selection happens before project properties are read — confirmed via
+      `./gradlew --version`). `gradle/gradle-daemon-jvm.properties` is the mechanism that actually
+      does override it per-project. Every sibling MC 1.21.1-era project should get the same file with
+      `toolchainVersion=21`; MC 26+ projects should get one with `toolchainVersion=25` so neither
+      family depends on the user's global default.
 
 **Exit criterion:** `./gradlew :neoforge:build` produces a working NeoForge jar with all 294 files
 still in `neoforge/`, and `./gradlew :neoforge:runClient` reaches the main menu. `:neoforge:test` is
 knowingly red (tracked to Phase 12). **Nothing else has moved.**
+
+**✅ Met 2026-09-01.** `:neoforge:build -x test` green; `:neoforge:test` red as expected
+(`Bootstrap.bootStrap()` failure, matching the known-casualty note); `:neoforge:runClient` renders
+every vanilla + mod atlas without a missing-texture regression and stays up without crashing. All
+294 source files remain in `neoforge/`; no `common/`/`forge/` sources exist yet.
+
+**Not required for this exit criterion, tried anyway, partially working:** `:neoforge:runGametest`
+now boots the headless game-test server cleanly under the new build (mod discovery, mixins, JEI all
+load correctly) but fails with `IllegalArgumentException: No test functions were given!` — the
+`testmod` source set's `@GameTest` methods aren't being discovered. This is exactly the
+`loom.mods`/testmod-classpath subtlety the plan's own Phase 12 section already flags as needing the
+`compileTestmodJava`-redirect fix (`dependsOn(processResources)`, `jar { exclude '**/gametest/**' }`)
+— not a Phase 0 regression, just not solved yet. Left for Phase 12 rather than reverse-engineering
+loom's exact `RunConfigSettings` gametest wiring now.
 
 ---
 
@@ -1026,3 +1064,37 @@ recorded honestly whatever it turns out to be.
 | 2026-09-01 | — | Plan written. Surveyed `mc/1.21.1` @ `b4fc36b` (294 `.java` files, 118 with `net.neoforged` imports, 36 `@EventBusSubscriber` classes, 18 mixins, no `common/`, ModDevGradle). Verified the Forge 52.1.2 + vanilla 1.21.1 API facts above via `javap` against the loom-cached jars. Decisions 1–6 confirmed with user. Backport status confirmed: Phases 1–5 landed, Phase 6 outstanding. |
 | 2026-09-01 | — | Added the **Implementation history** section after reviewing all 22 commits on `dev/26.1.2/multi-loader-expansion` plus its two handoff docs. Folded ~25 gotchas into the phases, split into apply-directly / inverts-on-1.21.1 / verify-against-52.1.2. **Corrected one direct contradiction:** Phase 6 previously prescribed a second `@Mod` client class, which Forge silently dedups away — 26.1.2 deleted theirs. Confirmed three 26.1.2 bugs are already live in this tree (`DelayedEvents` `ArrayList`, `SoulMateEffect` self-redirect, `atlases/blocks.json`) and added pre-flight phase **P1** for them. |
 | 2026-09-01 | P0, P1 | **P0 verified.** `:neoforge:build`, `:neoforge:test` (unit), `:neoforge:runData`, `:neoforge:runGametest` (33/33 required tests) all green. Bumped `mod_version` 1.5.8 → 1.6.0. **P1 fixed** all three: `DelayedEvents` → `CopyOnWriteArrayList`; `SoulMateEffect`'s two redirect loops now skip the entity's own id; `atlases/blocks.json` rewritten as 22 scoped `single` sources instead of the two namespace-leaking `directory` sources (26.1.2's `items.json` fix does not apply — that assumes MC 1.21.4+'s split item atlas, which 1.21.1 does not have; tried it, confirmed it does nothing here, reverted). **Bonus find during game-test verification:** `data/potionsplus/loot_table/blocks/lunar_berry_bush.json` used JSON boolean literals (`"blooming": false`) for a `block_state_property` condition instead of the required string form (`"blooming": "false"`) — silently failed to parse on every server start (`LootDataType` ERROR in the `runGametest` log), meaning the bush never dropped loot. Fixed; re-ran game tests to confirm the parse error is gone and all 33 still pass. Starting Phase 0 next. |
+| 2026-09-01 | 0 | **Phase 0 done, after a real multi-hour blocker worth recording in full.**
+`:neoforge:build`/`:neoforge:help` failed at project-configuration time with `IllegalAccessException:
+Can not set final java.util.Map field ...VersionsManifest.latest` (Gson 2.9.1, deep inside
+Architectury Loom 1.17.491's Mojang-manifest parsing), on **every** attempt, before any real work
+started. `apt-ores-worktrees/mc-1.21.1` — the reference build, same Loom/Gson/neoforge-version
+combo — never hit it. Things tried and **ruled out** (each verified, not assumed): JDK 16/17/21/25,
+including via a genuinely-confirmed-effective override (`./gradlew --version` showing the actual
+daemon JVM); `--add-opens`; forcing Gson 2.14.0 via a root `buildscript{}` classpath block; matching
+apt-ores' exact `plugins{}` set (its `net.darkhax.curseforgegradle` does resolve Gson to 2.14.0 per
+`buildEnvironment`, but adding it to our own `plugins{}` block changed nothing — Loom evidently
+shades its own Gson, immune to classpath-level version forcing); clearing a stale
+`ACQUIRED_PREVIOUS_OWNER_DISOWNED` loom-cache lock (real, but a red herring — the crash reproduced
+identically with or without it); deleting all project-local `.gradle`/`build` dirs; even renaming
+away apt-ores' own project-local loom cache (it still built cleanly, real work and all — refuting the
+entire "warm cache" theory outright); stripping `neoforge/build.gradle` down to near-byte-identical
+with apt-ores'; adding an empty stub `common/` module. **Actual root cause**, found by diffing
+`settings.gradle` line-by-line against apt-ores': the old moddev-era `settings.gradle` carried
+`plugins { id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0' }` forward
+unnecessarily — apt-ores' `settings.gradle` has no such plugin. Removing it fixed the build outright;
+the very next run did real first-time work (renaming, AT, remapping) and succeeded. Separately,
+while chasing JDK theories, found and fixed a real, independent, durable-value bug: the user's
+*global* `~/.gradle/gradle.properties` pins `org.gradle.java.home` to a JDK 25 install (for the MC
+26.1.2 branches), and a *project-level* `gradle.properties` `org.gradle.java.home` does **not**
+override that (confirmed: daemon JVM selection happens before project properties are read). Added
+`gradle/gradle-daemon-jvm.properties` (`toolchainVersion=21`, tracked in git) as the correct,
+per-project mechanism — every sibling MC 1.21.1-family project should get one, and MC 26+ projects
+should get their own with `toolchainVersion=25`, so neither family depends on whichever JDK happens
+to be the machine's global default. **Lesson for future phases:** when carrying files forward from
+an old build system "unchanged", verify line-by-line against the reference build rather than
+assuming — one stray plugin line cost most of a session. Also found and fixed a regression in this
+same session's own P1 atlas fix: scoping `mob_effect/` in `blocks.json` to only `potionsplus:`
+sources broke `potion_effect_icon` (a generic item that needs *every* vanilla effect's icon too) —
+`runClient` caught it immediately via `Missing textures` warnings; `mob_effect/` needed to stay a
+namespace-wide `directory` source, only `particle/` was actually dead weight. |

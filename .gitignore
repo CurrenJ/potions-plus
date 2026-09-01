@@ -105,6 +105,7 @@ eclipse
 run
 runs
 run-data
+logs
 
 repo
 .claude/settings.local.json
