@@ -6,7 +6,7 @@ import grill24.potionsplus.blockentity.neoforge.ClotheslineBlockEntity;
 import grill24.potionsplus.core.neoforge.Blocks;
 import grill24.potionsplus.core.neoforge.Particles;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
-import grill24.potionsplus.network.ServerboundConstructClotheslinePacket;
+import grill24.potionsplus.network.neoforge.ServerboundConstructClotheslinePacket;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
 
 import java.util.Optional;
 
@@ -50,7 +50,7 @@ public class ClotheslineBehaviour {
                     spawnParticles(event.getLevel(), pos);
                     firstBlockClicked = false;
 
-                    PacketDistributor.sendToServer(new ServerboundConstructClotheslinePacket(firstBlockPos, pos));
+                    PacketNetwork.sendToServer(new ServerboundConstructClotheslinePacket(firstBlockPos, pos));
                 } else {
                     firstBlockPos = pos;
                     spawnParticles(event.getLevel(), firstBlockPos);

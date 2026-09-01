@@ -1,4 +1,4 @@
-package grill24.potionsplus.network;
+package grill24.potionsplus.network.neoforge;
 
 import grill24.potionsplus.core.neoforge.Blocks;
 import io.netty.buffer.ByteBuf;
@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import grill24.potionsplus.network.PacketContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -28,7 +28,7 @@ public record ClientboundSanguineAltarConversionProgressPacket(BlockPos pos, int
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain ( final ClientboundSanguineAltarConversionProgressPacket packet, final IPayloadContext context){
+        public static void handleDataOnMain ( final ClientboundSanguineAltarConversionProgressPacket packet, final PacketContext context){
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

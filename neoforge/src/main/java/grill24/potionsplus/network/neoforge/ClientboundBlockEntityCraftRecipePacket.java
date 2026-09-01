@@ -1,14 +1,13 @@
-package grill24.potionsplus.network;
+package grill24.potionsplus.network.neoforge;
 
 import grill24.potionsplus.blockentity.ICraftingBlockEntity;
+import grill24.potionsplus.network.PacketContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.neoforged.neoforge.network.handlers.ClientPayloadHandler;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -29,7 +28,7 @@ public record ClientboundBlockEntityCraftRecipePacket(BlockPos pos, int slot) im
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain ( final ClientboundBlockEntityCraftRecipePacket packet, final IPayloadContext context){
+        public static void handleDataOnMain ( final ClientboundBlockEntityCraftRecipePacket packet, final PacketContext context){
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

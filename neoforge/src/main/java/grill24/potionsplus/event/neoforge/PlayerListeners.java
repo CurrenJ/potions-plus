@@ -7,7 +7,7 @@ import grill24.potionsplus.behaviour.MossBehaviour;
 import grill24.potionsplus.blockentity.neoforge.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.network.*;
+import grill24.potionsplus.network.neoforge.*;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -31,7 +31,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
 import oshi.util.tuples.Pair;
 
 import java.util.*;
@@ -95,7 +95,7 @@ public class PlayerListeners {
             if (!packets.isEmpty()) {
                 CustomPacketPayload first = packets.getFirst();
                 CustomPacketPayload[] rest = packets.stream().skip(1).toArray(CustomPacketPayload[]::new);
-                PacketDistributor.sendToPlayer(player, first, rest);
+                PacketNetwork.sendToPlayers(player, first, rest);
             }
         }
     }
@@ -169,9 +169,9 @@ public class PlayerListeners {
     public static void onPlayerJoin(final EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             // Sync known brewing cauldron recipe and sync paired abyssal trove.
-            PacketDistributor.sendToPlayer(player,
+            PacketNetwork.sendToPlayers(player,
                     ClientboundSyncKnownBrewingRecipesPacket.of(SavedData.instance.getData(player).getKnownRecipesSerializableData()),
-                    new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos())
+                    new CustomPacketPayload[]{new ClientboundSyncPairedAbyssalTrove(SavedData.instance.getData(player).getPairedAbyssalTrovePos())}
             );
         }
     }

@@ -166,7 +166,7 @@ record it under "VERIFIED API FACTS" with the evidence.
 | P1 | *(pre-flight)* Fix the three live `common` bugs (section D) | ✅ done 2026-09-01 |
 | 0 | Build-system swap (ModDevGradle → architectury-loom) | ✅ done 2026-09-01 |
 | 1 | Source split into `common/` | ✅ **closed 2026-09-01** — split + 107-file `.neoforge` repackage (Decision 4a), all exit criteria met: `comm -12` package intersection empty, `clean` full build green, `runClient` reaches main menu. Committed on `dev/1.21.1/multi-loader-expansion` |
-| 2 | Platform abstraction layer | ⬜ not started |
+| 2 | Platform abstraction layer | ✅ done 2026-09-01 — 7-method `Platform`, 5-method `PacketNetwork`, 3-method `PacketContext`; 12 packet handlers rewritten + `NeoPacketContext`-wrapped; 9 senders + 4 call sites converted to the @ExpectPlatform surface; `:common:compileJava :neoforge:compileJava` green, build green modulo the known Phase-12 junit red; `net.neoforged` = 0 in `common/src/main/java`; `comm -12` empty |
 | 3 | Fabric + Forge module scaffold | ⬜ not started |
 | 4 | Registration hubs (Fabric + Forge) | ⬜ not started |
 | 5 | `@ExpectPlatform` impls + networking | ⬜ not started |
@@ -802,7 +802,7 @@ branch's addition) `PotionsPlusConfig` have no 26.1.2 precedent:**
 
 **New vs 26.1.2** (it inherited this from the 1.21.5 → 26.1.2 port).
 
-- [ ] `common/.../platform/Platform.java` — `@ExpectPlatform` static methods. Start from **26.1.2's
+- [x] `common/.../platform/Platform.java` — `@ExpectPlatform` static methods. **done 2026-09-01.** Start from **26.1.2's
       7-method set** and reconcile against what Phase 1 actually surfaced:
       `isClient`, `isDevelopmentEnvironment`, `getChorusFruitTeleportTarget`,
       `onServerPlayerHeldItemChanged`, `fireCropGrowPost`, `getPotionDrinkTimeTicks`,
@@ -810,7 +810,7 @@ branch's addition) `PotionsPlusConfig` have no 26.1.2 precedent:**
       the list is exact.) **Expect this set to be larger on 1.21.1** — the event
       surface here is 36 classes, not 16, so some listeners that 26.1.2 could express as pure
       fabric-api callbacks may need a platform hook. Enumerate honestly; don't force the 7.
-- [ ] `common/.../platform/PacketNetwork.java` — 5 `@ExpectPlatform` methods. Verified against the
+- [x] `common/.../platform/PacketNetwork.java` — 5 `@ExpectPlatform` methods. **done 2026-09-01.** Verified against the
       26.1.2 tree 2026-09-01, use these exact signatures (an earlier draft of this plan guessed a
       "send-to-all" that does not exist):
       `sendToPlayer(ServerPlayer, CustomPacketPayload)`,
@@ -818,20 +818,30 @@ branch's addition) `PotionsPlusConfig` have no 26.1.2 precedent:**
       `sendToPlayersTrackingEntityAndSelf(ServerPlayer, CustomPacketPayload)`,
       `sendToServer(CustomPacketPayload)`,
       `sendToPlayersTrackingChunk(ServerLevel, ChunkPos, CustomPacketPayload)`.
-- [ ] `common/.../network/PacketContext.java` — the common interface every loader's context wrapper
-      implements (`enqueueWork`, `player`, `isServerSide`, `disconnect`). **Note the package: 26.1.2
+- [x] `common/.../network/PacketContext.java` — the common interface every loader's context wrapper
+      implements (`enqueueWork`, `player`, `disconnect`). **done 2026-09-01 — corrected from this
+      plan's 4-method guess: the 26.1.2 tree's `PacketContext` has only these 3; `isServerSide`
+      does not exist there (mirror discipline — the tree wins).** **Note the package: 26.1.2
       puts this under `network/`, NOT `platform/`** (an earlier draft of this plan said `platform/`;
       the tree is authoritative). Loader wrappers likewise live in `network/<loader>/`:
       `network/fabric/FabricPacketContext`, `network/forge/ForgePacketContext`,
       `network/neoforge/NeoPacketContext`. Only `Platform` and `PacketNetwork` live in `platform/`.
       Crib fishtastic's `IPacketContext` for the method shapes.
-- [ ] Rewrite the 12 `network/*Packet.java` handlers against `PacketContext` instead of
+- [x] Rewrite the 12 `network/*Packet.java` handlers against `PacketContext` instead of
       `IPayloadContext` (12 direct imports today).
-- [ ] `neoforge/.../platform/neoforge/{PlatformImpl,PacketNetworkImpl}.java` + `NeoPacketContext` —
+- [x] `neoforge/.../platform/neoforge/{PlatformImpl,PacketNetworkImpl}.java` + `NeoPacketContext` —
       the NeoForge side of every method, lifted from the code Phase 1 left behind.
 
 **Exit criterion:** `:common:build :neoforge:build` green; `common/` has **zero** `net.neoforged`
 imports (`git grep -c 'net\.neoforged' common/src/main/java` → 0); NeoForge runtime unchanged.
+**MET 2026-09-01** — `:common:compileJava :neoforge:compileJava` BUILD SUCCESSFUL;
+`:common:build :neoforge:build -x :common:compileTestJava` BUILD SUCCESSFUL. The full
+`:common:build` stays red on `:common:compileTestJava` only — the known Phase-12 junit red (junit
+wiring still lives in `neoforge/build.gradle`; see Phase 12 and the Phase 1 closure). `net.neoforged`
+grep → 0 and `comm -12` → empty. "NeoForge runtime unchanged" holds by construction — every
+converted call delegates to the same NeoForge API it called before (`PacketDistributor.*`,
+`EventHooks.onChorusFruitTeleport`, `NeoForge.EVENT_BUS`, `CommonHooks.fireCropGrowPost`,
+`PotionsPlusConfig`); a dev-run smoke check is still recommended when convenient.
 
 ---
 
@@ -1501,3 +1511,4 @@ cosmetic `Missing subtitle translation` warnings (pre-existing i18n gap, not lau
 commit:** the Phase 1 changeset (107 `.neoforge` renames + cross-module import fixes + this doc) is
 committed together on branch `dev/1.21.1/multi-loader-expansion`. Mirror discipline still in force
 for Phase 2+: diff against the actual 26.1.2 tree before concluding anything. |
+| 2026-09-01 | 2 | **Phase 2 done — platform abstraction layer + networking wired, build verified.** `common/.../platform/{Platform,PacketNetwork}.java` (7 + 5 `@ExpectPlatform` methods, mirrored from 26.1.2 incl. the `CustomPacketPayload[] rest` form), `common/.../network/PacketContext.java` (3 methods — **corrected plan prose**: the 26.1.2 tree has no `isServerSide`), `neoforge/.../platform/neoforge/{PlatformImpl,PacketNetworkImpl}` + `network/neoforge/NeoPacketContext`. All 12 `network/*Packet` handlers rewritten against `PacketContext`; registrations in `core/neoforge/Packets.java` wrapped `(pkt, ctx) -> Handler.handleDataOnMain(pkt, new NeoPacketContext(ctx))`. Because Decision 4a must stay empty once `common/.../network/PacketContext` exists, the 12 neoforge packets were `git mv`'d into `.network.neoforge` (they stay loader-side until Phases 4/5/11 resolve their neoforge-only deps) and 10 referencers re-imported. Exercised the abstraction: 9 senders now call `PacketNetwork.sendTo*`; 4 call sites refactored onto `Platform` (`TeleportationEffect` chorus-fruit target, `PotionItemMixin` drink time/cooldown, `InventoryMixin` + `ServerPlayerUtility` held-item-changed). **Two 1.21.1 divergences from 26.1.2** recorded in `PlatformImpl`/`PacketNetworkImpl` comments: no `onItemConsumptionTeleport` on 21.1.209 → chorus-fruit hook; no `ClientPacketDistributor` → static `PacketDistributor.sendToServer`. **First build caught one real error** (`PlayerListeners.onPlayerJoin` sent two packets through 1-arg `sendToPlayer` → now `sendToPlayers(player, first, new CustomPacketPayload[]{second})`, the 26.1.2 form) — fixed, recompile green. Exit criteria: `:common:compileJava :neoforge:compileJava` BUILD SUCCESSFUL; `:common:build :neoforge:build -x :common:compileTestJava` BUILD SUCCESSFUL (`:common:build` itself stays red on the known Phase-12 junit red); `git grep -c 'net\.neoforged' common/src/main/java` → 0; `comm -12` package intersection → empty. **Not committed** — changeset on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |

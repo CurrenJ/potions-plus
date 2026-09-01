@@ -1,8 +1,8 @@
 package grill24.potionsplus.mixin;
 
-import grill24.potionsplus.config.PotionsPlusConfig;
 import grill24.potionsplus.core.neoforge.DataAttachments;
 import grill24.potionsplus.effect.LastPotionUsePlayerData;
+import grill24.potionsplus.platform.Platform;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,13 +24,13 @@ public abstract class PotionItemMixin extends Item {
 
     @Inject(method = "getUseDuration", at = @At("RETURN"), cancellable = true)
     private void getUseDuration(CallbackInfoReturnable<Integer> info) {
-        int drinkTime = PotionsPlusConfig.CONFIG.potionDrinkTimeTicks.getAsInt();
+        int drinkTime = Platform.getPotionDrinkTimeTicks();
         info.setReturnValue(drinkTime);
     }
 
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void use(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
-        int cooldownTime = PotionsPlusConfig.CONFIG.potionDrinkCooldownTimeTicks.getAsInt();
+        int cooldownTime = Platform.getPotionDrinkCooldownTimeTicks();
         long lastUseTime = player.getData(DataAttachments.LAST_POTION_USE_PLAYER_DATA).timestamp();
         if (lastUseTime != -1 && (level.getGameTime() - lastUseTime) < cooldownTime) {
             cir.setReturnValue(InteractionResultHolder.fail(player.getItemInHand(hand)));

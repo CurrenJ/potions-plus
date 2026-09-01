@@ -4,7 +4,7 @@ import grill24.potionsplus.blockentity.neoforge.PotionBeaconBlockEntity;
 import grill24.potionsplus.blockentity.neoforge.HerbalistsLecternSounds;
 import grill24.potionsplus.blockentity.neoforge.PotionBeaconBlockEntity;
 import grill24.potionsplus.core.neoforge.Blocks;
-import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
+import grill24.potionsplus.network.neoforge.ClientboundDisplayAlertWithItemStackName;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
@@ -35,7 +35,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -107,7 +107,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
         }
 
         if (result == InvUtil.InteractionResult.PASS && player instanceof ServerPlayer serverPlayer) {
-            PacketDistributor.sendToPlayer(serverPlayer, new ClientboundDisplayAlertWithItemStackName("block.potionsplus.potion_beacon.hint"));
+            PacketNetwork.sendToPlayer(serverPlayer, new ClientboundDisplayAlertWithItemStackName("block.potionsplus.potion_beacon.hint"));
         }
 
         return InvUtil.getMinecraftInteractionResult(result);

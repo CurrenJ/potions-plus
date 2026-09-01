@@ -2,13 +2,13 @@ package grill24.potionsplus.blockentity.neoforge;
 
 import grill24.potionsplus.advancement.CraftRecipeTrigger;
 import grill24.potionsplus.core.*;
-import grill24.potionsplus.network.ClientboundSanguineAltarConversionProgressPacket;
-import grill24.potionsplus.network.ClientboundSanguineAltarConversionStatePacket;
+import grill24.potionsplus.network.neoforge.ClientboundSanguineAltarConversionProgressPacket;
+import grill24.potionsplus.network.neoforge.ClientboundSanguineAltarConversionStatePacket;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -146,7 +146,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
                     }
 
                     if (!level.isClientSide) {
-                        PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(), new ClientboundSanguineAltarConversionProgressPacket(pos, sanguineAltarBlockEntity.healthDrained));
+                        PacketNetwork.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(), new ClientboundSanguineAltarConversionProgressPacket(pos, sanguineAltarBlockEntity.healthDrained));
                     }
                 }
             }
@@ -170,7 +170,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         }
 
         if(!level.isClientSide()) {
-            PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(), new ClientboundSanguineAltarConversionStatePacket(pos, state.ordinal()));
+            PacketNetwork.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(), new ClientboundSanguineAltarConversionStatePacket(pos, state.ordinal()));
         }
     }
 

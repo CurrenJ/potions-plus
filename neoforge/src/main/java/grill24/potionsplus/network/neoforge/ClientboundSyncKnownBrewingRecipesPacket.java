@@ -1,4 +1,4 @@
-package grill24.potionsplus.network;
+package grill24.potionsplus.network.neoforge;
 
 import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.core.PotionsPlus;
@@ -9,7 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import grill24.potionsplus.network.PacketContext;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public record ClientboundSyncKnownBrewingRecipesPacket(String recipeId) implemen
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundSyncKnownBrewingRecipesPacket packet, final IPayloadContext context){
+        public static void handleDataOnMain (final ClientboundSyncKnownBrewingRecipesPacket packet, final PacketContext context){
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

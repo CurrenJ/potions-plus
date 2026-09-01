@@ -3,7 +3,7 @@ package grill24.potionsplus.utility;
 import java.util.function.Supplier;
 
 /**
- * Loader-agnostic replacement for {@code net.neoforged.neoforge.common.util.Lazy}, used by
+ * Loader-agnostic replacement for NeoForge's {@code Lazy}, used by
  * common code that used to depend on the NeoForge-only class.
  */
 public final class Lazy<T> implements Supplier<T> {

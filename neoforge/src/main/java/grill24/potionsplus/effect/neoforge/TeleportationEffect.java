@@ -3,6 +3,7 @@ package grill24.potionsplus.effect.neoforge;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.effect.IEffectTooltipDetails;
+import grill24.potionsplus.platform.Platform;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -17,8 +18,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.event.EventHooks;
-import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -59,8 +61,8 @@ public class TeleportationEffect extends InstantenousMobEffect implements IEffec
                 livingEntity.stopRiding();
             }
 
-            EntityTeleportEvent.ChorusFruit event = EventHooks.onChorusFruitTeleport(livingEntity, d3, d4, d5);
-            if (livingEntity.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true)) {
+            Vec3 target = Platform.getChorusFruitTeleportTarget(livingEntity, new ItemStack(Items.CHORUS_FRUIT), d3, d4, d5);
+            if (livingEntity.randomTeleport(target.x, target.y, target.z, true)) {
                 SoundEvent soundevent = livingEntity instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
                 livingEntity.level().playSound((Player) null, d0, d1, d2, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
                 livingEntity.playSound(soundevent, 1.0F, 1.0F);

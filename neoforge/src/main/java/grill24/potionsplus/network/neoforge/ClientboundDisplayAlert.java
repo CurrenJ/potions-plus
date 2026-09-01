@@ -1,4 +1,4 @@
-package grill24.potionsplus.network;
+package grill24.potionsplus.network.neoforge;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
@@ -13,7 +13,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import grill24.potionsplus.network.PacketContext;
 
 import javax.swing.text.html.Option;
 import java.util.List;
@@ -48,7 +48,7 @@ public record ClientboundDisplayAlert(Component component, Optional<SoundEvent> 
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundDisplayAlert packet, final IPayloadContext context){
+        public static void handleDataOnMain (final ClientboundDisplayAlert packet, final PacketContext context){
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

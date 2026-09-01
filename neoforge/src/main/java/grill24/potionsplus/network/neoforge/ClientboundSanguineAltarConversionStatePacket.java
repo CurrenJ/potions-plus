@@ -1,4 +1,4 @@
-package grill24.potionsplus.network;
+package grill24.potionsplus.network.neoforge;
 
 import grill24.potionsplus.blockentity.neoforge.SanguineAltarBlockEntity;
 import grill24.potionsplus.core.neoforge.Blocks;
@@ -17,7 +17,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import grill24.potionsplus.network.PacketContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -39,7 +39,7 @@ public record ClientboundSanguineAltarConversionStatePacket(BlockPos pos,
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundSanguineAltarConversionStatePacket packet, final IPayloadContext context){
+        public static void handleDataOnMain (final ClientboundSanguineAltarConversionStatePacket packet, final PacketContext context){
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();

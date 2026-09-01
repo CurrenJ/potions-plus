@@ -2,7 +2,7 @@ package grill24.potionsplus.effect.neoforge;
 
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
-import grill24.potionsplus.network.ClientboundImpulsePlayerPacket;
+import grill24.potionsplus.network.neoforge.ClientboundImpulsePlayerPacket;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.effect.IEffectTooltipDetails;
 import net.minecraft.ChatFormatting;
@@ -21,7 +21,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import grill24.potionsplus.platform.PacketNetwork;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -49,7 +49,7 @@ public class ExplodingEffect extends MobEffect implements IEffectTooltipDetails 
 
                 Vec3 velocity = entity.getLookAngle().scale(3).multiply(2, 0.5, 2).multiply(amplifier, amplifier, amplifier);
 
-                PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) entity.level(), entity.level().getChunkAt(entity.blockPosition()).getPos(), new ClientboundImpulsePlayerPacket(velocity.x, velocity.y, velocity.z));
+                PacketNetwork.sendToPlayersTrackingChunk((ServerLevel) entity.level(), entity.level().getChunkAt(entity.blockPosition()).getPos(), new ClientboundImpulsePlayerPacket(velocity.x, velocity.y, velocity.z));
             }
         }
     }

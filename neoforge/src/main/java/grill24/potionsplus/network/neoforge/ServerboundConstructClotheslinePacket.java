@@ -1,16 +1,16 @@
-package grill24.potionsplus.network;
+package grill24.potionsplus.network.neoforge;
 
 import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
 import grill24.potionsplus.behaviour.ClotheslineBehaviour;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
+import grill24.potionsplus.network.PacketContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.neoforged.neoforge.network.handling.ServerPayloadContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -31,14 +31,14 @@ public record ServerboundConstructClotheslinePacket(BlockPos pos, BlockPos other
     }
 
     public static class ServerPayloadHandler {
-        public static void handleDataOnMain(ServerboundConstructClotheslinePacket packet, final IPayloadContext context) {
+        public static void handleDataOnMain(ServerboundConstructClotheslinePacket packet, final PacketContext context) {
             context.enqueueWork(() -> {
-                            ServerPayloadContext serverContext = (ServerPayloadContext) context;
+                            ServerPlayer player = (ServerPlayer) context.player();
 
-                            Level level = serverContext.player().level();
+                            Level level = player.level();
 
                             ClotheslineBehaviour.replaceWithClothelines(level, packet.pos, packet.otherPos);
-                            CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverContext.player(), BlockEntityBlocks.CLOTHESLINE.value().defaultBlockState());
+                            CreatePotionsPlusBlockTrigger.INSTANCE.trigger(player, BlockEntityBlocks.CLOTHESLINE.value().defaultBlockState());
             }) .exceptionally(e -> {
                 // Handle exception
                 context.disconnect(Component.translatable("my_mod.configuration.failed", e.getMessage()));
