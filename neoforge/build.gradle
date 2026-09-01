@@ -12,17 +12,16 @@ configurations {
         canBeResolved = true
         canBeConsumed = false
     }
+    // All three, per the canonical architectury layout (apt-ores@1.21.1, fishtastic). common's
+    // classes MUST be on runtimeClasspath - `loom.mods` contributes nothing to the run classpath,
+    // and NeoForge's userdev locator only treats a classpath entry as part of the `potionsplus`
+    // mod if it carries META-INF/neoforge.mods.toml, which common's output dir does not. Phase 1
+    // dropped these two to silence a JPMS split-package ResolutionException; the real cause of
+    // that is the 14 packages common and neoforge both occupy (see docs/multi-loader-expansion.md
+    // Phase 1). Fix the packages, not the classpath.
     compileClasspath.extendsFrom common
-    // NOTE(Phase 1): deliberately NOT runtimeClasspath/developmentNeoForge.extendsFrom common -
-    // common and neoforge share package names across most packages this phase touched (block,
-    // blockentity, core, effect, item, utility, ...), and having common's packaged jar on any
-    // runtime-facing configuration *in addition to* the loom.mods association below put two distinct
-    // classpath entries (the jar, and the sourceSet's output dir) on the module path, so JPMS saw two
-    // modules exporting the same package and runClient failed at ModuleLayerHandler with a
-    // ResolutionException (first surfaced on grill24.potionsplus.utility, then .item.tooltip, then
-    // .effect, as each fix peeled off the config that had been contributing that one duplicate).
-    // The loom.mods sourceSet association is sufficient for dev runs; the packaged case
-    // (shadowJar/shadowBundle below) still bundles common's classes correctly regardless.
+    runtimeClasspath.extendsFrom common
+    developmentNeoForge.extendsFrom common
 
     shadowBundle {
         canBeResolved = true
@@ -34,9 +33,12 @@ sourceSets {
     testmod {
         compileClasspath += main.compileClasspath
         runtimeClasspath += main.runtimeClasspath
-        java.srcDir 'src/testmod/java'
+        // Phase 1 moved the gametests to common/src/testmod; point at them there so
+        // :neoforge:runGametest isn't silently NO-SOURCE. (Same shape as fishtastic.)
+        java.srcDir project(':common').file('src/testmod/java')
     }
 }
+
 
 repositories {
     maven {
@@ -118,7 +120,6 @@ loom {
         "${mod_id}" {
             sourceSet sourceSets.main
             sourceSet sourceSets.testmod
-            sourceSet project(':common').sourceSets.main
         }
     }
 

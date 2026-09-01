@@ -113,7 +113,7 @@ backport step applied after the split has to be applied across four modules inst
 | P0 | *(prereq)* 2.0 backport Phase 6 | ✅ done 2026-09-01 |
 | P1 | *(pre-flight)* Fix the three live `common` bugs (section D) | ✅ done 2026-09-01 |
 | 0 | Build-system swap (ModDevGradle → architectury-loom) | ✅ done 2026-09-01 |
-| 1 | Source split into `common/` | 🟡 partial 2026-09-01 — builds green, `runClient` blocked (Phase 9 finding) |
+| 1 | Source split into `common/` | 🟡 partial 2026-09-01 — builds green; dev runs blocked by 14 split packages (root cause found, fix handed to Phase 9) |
 | 2 | Platform abstraction layer | ⬜ not started |
 | 3 | Fabric + Forge module scaffold | ⬜ not started |
 | 4 | Registration hubs (Fabric + Forge) | ⬜ not started |
@@ -569,54 +569,104 @@ green (verified with a `clean` build too). `:neoforge:test` stays red, as alread
 several buckets that 26.1.2 got to finish converting (registration hubs, the model-generator DSL) are
 still whole-class NeoForge-side here, exactly as Phase 4/8 are supposed to inherit them.
 
-**`:neoforge:runClient` does NOT yet reach the main menu — this exit criterion is not met**, and the
-failure is a real, reproducible toolchain problem, not a build error:
+**`:neoforge:runClient` does NOT yet reach the main menu — this exit criterion is not met.** The
+cause was re-investigated 2026-09-01 (second session); **the first session's diagnosis was wrong and
+has been replaced by what follows**, because the wrong one sends Phase 9 chasing a mixin bug that does
+not exist.
 
-- A mixin living in `neoforge/` (e.g. `LivingEntityMixin`, which redirects
-  `BlockState.getFriction` and reads `MobEffects.SLIP_N_SLIDE`) fails at Mixin's PREPARE stage with
-  `java.lang.ClassNotFoundException: grill24.potionsplus.core.potion.MobEffects` the moment it
-  references a field declared in a class that lives in `common/`. This is not a missing-file issue —
-  `common/build/classes/java/main/.../MobEffects.class` is present exactly where `loom.mods`'
-  `neoforge/build.gradle` association (`sourceSet project(':common').sourceSets.main`, added this
-  phase) points — Mixin's own PREPARE-phase class verifier simply doesn't see it.
-- Getting this far took three real fixes along the way, all still in the tree and worth keeping:
-  1. Associating `common`'s sourceSet with the `${mod_id}` entry in `neoforge/build.gradle`'s
-     `loom.mods` block (previously only `main`/`testmod` were listed) — without this, FML's own module
-     resolution fails first, with `Modules potionsplus and generated_XXXXXXX export package
-     grill24.potionsplus.<pkg> to module mixin_synthetic` (a split-package JPMS conflict, since
-     `common` and `neoforge` share several package names).
-  2. Removing `runtimeClasspath`/`developmentNeoForge extendsFrom common` from `neoforge/build.gradle`
-     (kept only on `compileClasspath`) — with both the `loom.mods` association *and* the `common`
-     configuration's jar both landing on the runtime classpath, JPMS saw two separate classpath entries
-     both claiming to export the same packages and the same split-package error recurred.
-  3. Disabling `common/build.gradle`'s `remapJar` task (`tasks.named('remapJar') { enabled = false }`)
-     — `:common:remapJar` fails outright with "Unfixable conflicts" / "Mapping source name conflicts
-     detected" the moment `common` has real `Container`-implementing content (`InventoryBlockEntity`),
-     independent of anything mod-owned — the conflict list is full of pure-vanilla classes
-     (`SimpleContainer`, `MerchantContainer`, `CrafterBlockEntity`, ...). Nothing actually consumes
-     `common`'s own remapped jar (every platform module pulls `namedElements`/`transformProductionXxx`
-     instead), so disabling it is a real, permanent fix, not a workaround pending Phase 9.
-- What did **not** work, tried and reverted: setting `loom.mixin.useLegacyMixinAp = true` (the modern
-  loom default disables the mixin annotation processor, which is what generates
-  `potionsplus-refmap.json`) — this traded the `ClassNotFoundException` for a *compile-time* error
-  (`BucketItemMixin`'s `@Inject` target fails obfuscation-mapping validation the older AP apparently
-  enforces and the disabled one doesn't), so it was reverted rather than chasing a second unrelated
-  mixin problem. Also tried moving the *mixin classes themselves* (not just their common dependencies)
-  into `common/` for the 14 mixins with zero `net.neoforged` imports (`BoatMixin`,
-  `ClientAdvancementsMixin`, `TemptGoalMixin`, etc.) on the theory that co-locating the mixin with what
-  it references would sidestep the cross-module lookup — this made it *worse*:
-  `ClassNotFoundException: The specified mixin 'grill24.potionsplus.mixin.BoatMixin' was not found` —
-  i.e. Mixin couldn't even find the mixin class itself once it lived in `common/`, confirming mixin
-  *classes* specifically need to physically live in `neoforge/` regardless of what they reference.
-  Reverted; all mixins are back in `neoforge/` unchanged from Phase 0.
-- **This is squarely Phase 9's stated scope** ("Mixins + access widening/transformers") and is the
-  single most load-bearing finding for whoever picks that phase up: the refmap/mixin-AP setup as it
-  stands cannot resolve references from a `neoforge`-side mixin into a `common`-side class, which
-  blocks *any* mixin that needs to read a registry field, effect class, or block/item — a fundamental
-  requirement for a mixin-heavy mod like this one. Phase 9 should treat "a neoforge mixin can reference
-  a common static field and the game actually launches" as its own explicit exit criterion, verified
-  with `:neoforge:runClient` before moving on to Fabric/Forge mixin work.
+### Root cause: 14 split packages between `common/` and `neoforge/` (NOT a mixin problem)
 
+`common/` and `neoforge/` both contain classes in **14 of the same packages**, holding **107 of
+`neoforge/`'s 179 files**. In a NeoForge dev run FML/securejarhandler puts each mod jar in its own
+JPMS module, and **JPMS forbids two modules exporting the same package**. Every symptom below is
+that one fact wearing a different hat.
+
+| files | shared package |
+|---:|---|
+| 29 | `grill24.potionsplus.core` |
+| 14 | `grill24.potionsplus.blockentity` |
+| 10 | `grill24.potionsplus.data` |
+| 9 | `grill24.potionsplus.effect`, `grill24.potionsplus.particle` |
+| 8 | `grill24.potionsplus.block` |
+| 7 | `grill24.potionsplus.event`, `grill24.potionsplus.utility` |
+| 5 | `grill24.potionsplus.utility.registration.item` |
+| 3 | `grill24.potionsplus.utility.registration` |
+| 2 | `grill24.potionsplus.core.seededrecipe`, `grill24.potionsplus.item.tooltip` |
+| 1 | `grill24.potionsplus.data.loot`, `grill24.potionsplus.recipe.abyssaltroverecipe` |
+
+Regenerate the list by listing each module's package directories and intersecting them (`comm -12`
+over the sorted, de-duplicated `find … -name '*.java'` paths with the source root and filename
+stripped).
+
+**This is dev-runtime only.** The shipped jar is unaffected — `shadowJar` merges `common` into a
+single jar with no module boundary, which is why `:neoforge:build` is green throughout.
+
+### Three wirings tried; all three fail, for two different reasons
+
+| `neoforge/build.gradle` wiring | Failure |
+|---|---|
+| Phase 1's original — only `compileClasspath.extendsFrom common`, plus `sourceSet project(':common').sourceSets.main` in `loom.mods` | `common` **never reaches the run classpath at all** → `ClassNotFoundException` |
+| **Canonical** — `compileClasspath` + `runtimeClasspath` + `developmentNeoForge` all `extendsFrom common`, nothing extra in `loom.mods` (what apt-ores@1.21.1 and fishtastic both do) | `common`'s jar becomes module `generated_XXXXXXX` → `java.lang.module.ResolutionException: Modules generated_c819675 and potionsplus export package grill24.potionsplus.block to module neoforge` |
+| Output-dirs instead of the jar (`sourceSets.main.runtimeClasspath += project(':common').sourceSets.main.output`) plus the `loom.mods` union | `common`'s dirs **are** on the classpath and the split-package error is gone, but still `ClassNotFoundException` — see the locator note below |
+
+**The tree is left on the canonical wiring** (restored 2026-09-01). It is the correct target state, it
+matches both reference mods, and it fails with the *informative* error rather than a misleading one.
+
+### Facts established, so Phase 9 does not re-derive them
+
+- **`loom.mods` contributes nothing to the run classpath.** It groups class roots for
+  remapping/mod-detection only. Verified by reading the generated
+  `neoforge/build/loom-cache/argFiles/runGametest`: under Phase 1's wiring its `-classpath` lists
+  only `neoforge/build/{classes/java,resources}/{main,testmod}` — no `common` entry — and there is
+  no `-Dfml.modFolders` anywhere in the arg file or in `.gradle/loom-cache/projects/neoforge/launch.cfg`.
+- **NeoForge's userdev mod locator only folds a classpath entry into the `potionsplus` mod if that
+  entry carries `META-INF/neoforge.mods.toml`.** `common`'s output dir does not, so even with its
+  dirs explicitly on `runtimeClasspath` the log still reads `Found mod file "main"` (only
+  `neoforge/`'s own output) and `common`'s classes stay unreachable from the mod's `ModuleClassLoader`.
+  This is why the third wiring above cannot be made to work by any further build-file tweak.
+- **The mixin annotation processor and the refmap are NOT involved.** `Reference map
+  'potionsplus-refmap.json' … could not be read. If this is a development environment you can
+  ignore this message` is benign. The actual failure is
+  `MixinPreProcessorStandard.transformMemberReference` performing an ordinary classload of
+  `MobEffects` and getting `ClassNotFoundException` — identical to what any non-mixin classload of a
+  `common` class does. **Do not** revisit `loom.mixin.useLegacyMixinAp`; the previous session's
+  experiment with it was chasing the wrong bug.
+- **Mixin classes do NOT need to live in `neoforge/`.** The previous session concluded they did,
+  after moving 14 of them to `common/` produced `The specified mixin 'grill24.potionsplus.mixin.BoatMixin' was not found`.
+  That has the same single cause — `common` was not on the run classpath, so the mixin class itself
+  was unloadable. **fishtastic (`D:\GitHub\fishtastic`) keeps its entire mixin set and
+  `fishtastic.mixins.json` in `common/`** and runs fine. Once the packages are unsplit, expect the
+  mixins to be shareable — which matters, because Fabric and Forge will need them.
+- Both reference mods avoid split packages *structurally*: their platform code lives under
+  `….neoforge.*` / `….fabric.*` and never in a package `common` also occupies. apt-ores has no
+  mixins at all, so it validates the build wiring but not the mixin question; fishtastic validates
+  both (it is MC 26.1.2 / loom-no-remap, so its build file differs in the remap details only).
+- The `common:remapJar` disable and the `ConventionalTags`/`Lazy` ports from the first session are
+  unrelated to this and remain correct.
+
+### The fix Phase 9 must apply
+
+Move each split package's `neoforge/` residents into a `.neoforge` sub-package — `grill24.potionsplus.block`
+→ `grill24.potionsplus.block.neoforge`, and so on for all 14 — matching the convention this branch
+already uses for `core.neoforge`, `core.neoforge.potion`, `event.neoforge` and `persistence.neoforge`,
+and satisfying Decision 4. Mechanical, but 107 files plus every import that references them across
+both modules. Phases 4/7/8 will subsequently move many of these files into `common/` anyway, so some
+of the renaming is transitional by design.
+
+**Phase 9 exit criterion (unchanged in spirit, now concrete):** no package is occupied by both
+modules, and `:neoforge:runGametest` boots and runs the gametests with `LivingEntityMixin` still
+reading `MobEffects.SLIP_N_SLIDE` from `common/`.
+
+### Verification plumbing repaired this session (kept)
+
+- `neoforge/build.gradle`'s testmod sourceSet pointed at `neoforge/src/testmod/java`, which Phase 1
+  had emptied — `:neoforge:runGametest` was silently **`NO-SOURCE` and verifying nothing**. It now
+  points at `project(':common').file('src/testmod/java')`, the same shape fishtastic uses.
+- The gametests had not been updated for Phase 1's `Recipes` → `RecipesRegistrar` and `Potions` →
+  `PotionsRegistrar` splits — 9 compile errors in `AlchemyGameTests` and `BrewingCauldronGameTests`.
+  Fixed; `:neoforge:compileTestmodJava` is green. (Those two files now import from
+  `core.neoforge.*` while living in `common/src/testmod` — a layering wart that resolves itself when
+  Phase 4 finishes the registration-hub conversion.)
 **Two judgment calls flagged for later phases, per Decision 2's note that `DataAttachments` and (this
 branch's addition) `PotionsPlusConfig` have no 26.1.2 precedent:**
 - **`DataAttachments`** — still 100% NeoForge-side (`AttachmentType`, genuinely NeoForge-only API, the
@@ -910,6 +960,18 @@ demonstrably fires on all three loaders.
 ## Phase 9 — Mixins + access widening / transformers
 
 *(= 26.1.2 Phase 6, **harder** — 1.21.1 is obfuscated.)* 18 mixin classes today (16 common + 2 client).
+
+> **Do this first — it is the blocker Phase 1 handed over, and it is not a mixin bug.**
+> Dev runs on this branch die before the main menu because `common/` and `neoforge/` share **14
+> packages** (107 of `neoforge/`'s 179 files) and JPMS forbids two modules exporting the same
+> package. Move each split package's `neoforge/` residents into a `.neoforge` sub-package
+> (`grill24.potionsplus.block` → `grill24.potionsplus.block.neoforge`, etc.), matching the
+> `core.neoforge` / `event.neoforge` / `persistence.neoforge` convention already in the tree.
+> **Read Phase 1's "Root cause" section in full before touching anything here** — it records the
+> three build wirings already tried and rejected, why `loom.mods` and the refmap/mixin-AP are red
+> herrings, and why mixin classes can in fact live in `common/` (fishtastic proves it). Treat
+> "`:neoforge:runGametest` boots and `LivingEntityMixin` still reads `MobEffects.SLIP_N_SLIDE` from
+> `common/`" as this phase's first exit criterion, before any Fabric/Forge mixin work.
 
 - [ ] Split `potionsplus.mixins.json` into `common` + `potionsplus.{fabric,forge,neoforge}.mixins.json`
       by target. **`compatibilityLevel` stays `JAVA_21`** (26.1.2's `JAVA_25`-not-recognised crash on

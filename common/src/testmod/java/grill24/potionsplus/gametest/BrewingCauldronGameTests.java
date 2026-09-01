@@ -4,6 +4,7 @@ import grill24.potionsplus.alchemy.PotionContainer;
 import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.alchemy.PotionDataBuilder;
 import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
+import grill24.potionsplus.core.neoforge.RecipesRegistrar;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -589,7 +590,7 @@ public final class BrewingCauldronGameTests {
 
     /** A generated duration upgrade that does not also raise the amplifier. */
     private static RecipeHolder<BrewingCauldronRecipe> pureDurationUpgrade(GameTestHelper helper) {
-        return Recipes.DURATION_UPGRADE_ANALYSIS.getRecipes().stream()
+        return RecipesRegistrar.DURATION_UPGRADE_ANALYSIS.getRecipes().stream()
                 .filter(holder -> holder.value().getDurationToAdd() > 0)
                 .filter(holder -> holder.value().getAmplifierToAdd() == 0)
                 .findFirst()
@@ -599,7 +600,7 @@ public final class BrewingCauldronGameTests {
 
     /** A generated amplifier upgrade that does not also extend the duration. */
     private static RecipeHolder<BrewingCauldronRecipe> pureAmplifierUpgrade(GameTestHelper helper) {
-        return Recipes.AMPLIFICATION_UPGRADE_ANALYSIS.getRecipes().stream()
+        return RecipesRegistrar.AMPLIFICATION_UPGRADE_ANALYSIS.getRecipes().stream()
                 .filter(holder -> holder.value().getAmplifierToAdd() > 0)
                 .filter(holder -> holder.value().getDurationToAdd() == 0)
                 .findFirst()
@@ -610,7 +611,7 @@ public final class BrewingCauldronGameTests {
     /** A generated base-potion recipe whose single result effect is the given one. */
     private static RecipeHolder<BrewingCauldronRecipe> baseRecipeFor(
             GameTestHelper helper, net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect> effect) {
-        return Recipes.ALL_SEEDED_POTION_RECIPES_ANALYSIS
+        return RecipesRegistrar.ALL_SEEDED_POTION_RECIPES_ANALYSIS
                 .getRecipesForMobEffect(effect.unwrapKey().orElseThrow())
                 .stream()
                 .findFirst()
