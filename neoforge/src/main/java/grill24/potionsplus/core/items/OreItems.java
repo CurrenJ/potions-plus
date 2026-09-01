@@ -1,11 +1,11 @@
 package grill24.potionsplus.core.items;
 
-import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.neoforge.Items;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
-import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
-import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.item.neoforge.SimpleItemBuilder;
+import grill24.potionsplus.utility.registration.neoforge.RegistrationUtility;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -19,7 +19,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-import static grill24.potionsplus.data.RecipeProvider.has;
+import static grill24.potionsplus.data.neoforge.RecipeProvider.has;
 import static grill24.potionsplus.utility.Utility.ppId;
 
 public class OreItems {

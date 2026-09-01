@@ -1,9 +1,9 @@
 package grill24.potionsplus.core.blocks;
 
 import grill24.potionsplus.block.*;
-import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.neoforge.Items;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
-import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.neoforge.RegistrationUtility;
 import grill24.potionsplus.utility.registration.block.BlockModelUtility;
 import grill24.potionsplus.utility.registration.block.SimpleBlockBuilder;
 import net.minecraft.core.Holder;
@@ -17,7 +17,8 @@ import net.minecraft.world.level.material.MapColor;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-import static grill24.potionsplus.data.RecipeProvider.has;
+import static grill24.potionsplus.data.neoforge.RecipeProvider.has;
+import grill24.potionsplus.block.neoforge.GrowableMossyBlock;
 
 public class DecorationBlocks {
     public static Holder<Block> GROWING_MOSSY_COBBLESTONE, GROWING_MOSSY_STONE_BRICKS;

@@ -1,6 +1,6 @@
 package grill24.potionsplus.network;
 
-import grill24.potionsplus.core.Particles;
+import grill24.potionsplus.core.neoforge.Particles;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;

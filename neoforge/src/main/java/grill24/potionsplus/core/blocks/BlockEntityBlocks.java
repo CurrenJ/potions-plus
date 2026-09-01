@@ -2,7 +2,7 @@ package grill24.potionsplus.core.blocks;
 
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.utility.registration.RecipeGeneratorUtility;
-import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.neoforge.RegistrationUtility;
 import grill24.potionsplus.utility.registration.block.*;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -21,9 +21,10 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-import static grill24.potionsplus.data.RecipeProvider.has;
+import static grill24.potionsplus.data.neoforge.RecipeProvider.has;
 import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
+import grill24.potionsplus.block.neoforge.*;
 
 public class BlockEntityBlocks {
     public static Holder<Block> BREWING_CAULDRON;
@@ -43,7 +44,7 @@ public class BlockEntityBlocks {
                         .modelGenerator((blockGetter) ->
                                 new BlockModelUtility.FromModelFileBlockStateGenerator<>(blockGetter, mc("block/water_cauldron_full"), true, false))
         ).getHolder();
-        grill24.potionsplus.core.Items.registerBlockItemWithTexture(BREWING_CAULDRON, registerItem, ppId("item/brewing_cauldron"));
+        grill24.potionsplus.core.neoforge.Items.registerBlockItemWithTexture(BREWING_CAULDRON, registerItem, ppId("item/brewing_cauldron"));
 
         HERBALISTS_LECTERN = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("herbalists_lectern")
                         .blockFactory(HerbalistsLecternBlock::new)
@@ -59,7 +60,7 @@ public class BlockEntityBlocks {
                                         .define('D', Items.DEEPSLATE_BRICK_SLAB)
                                         .unlockedBy("has_potion", has(Items.POTION)))))
                 .getHolder();
-        grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> HERBALISTS_LECTERN, registerItem);
+        grill24.potionsplus.core.neoforge.Items.registerBlockItemWithAutoModel(() -> HERBALISTS_LECTERN, registerItem);
 
         SANGUINE_ALTAR = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("sanguine_altar")
                         .blockFactory(SanguineAltarBlock::new)
@@ -75,7 +76,7 @@ public class BlockEntityBlocks {
                                         .define('S', Items.SOUL_SAND)
                                         .unlockedBy("has_potion", has(Items.POTION)))))
                 .getHolder();
-        grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> SANGUINE_ALTAR, registerItem);
+        grill24.potionsplus.core.neoforge.Items.registerBlockItemWithAutoModel(() -> SANGUINE_ALTAR, registerItem);
 
         ABYSSAL_TROVE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("abyssal_trove")
                         .blockFactory(AbyssalTroveBlock::new)
@@ -91,7 +92,7 @@ public class BlockEntityBlocks {
                                         .define('S', Items.SOUL_SAND)
                                         .unlockedBy("has_potion", has(Items.POTION)))))
                 .getHolder();
-        grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> ABYSSAL_TROVE, registerItem);
+        grill24.potionsplus.core.neoforge.Items.registerBlockItemWithAutoModel(() -> ABYSSAL_TROVE, registerItem);
 
         PRECISION_DISPENSER = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("precision_dispenser")
                         .blockFactory(PrecisionDispenserBlock::new)
@@ -103,7 +104,7 @@ public class BlockEntityBlocks {
                                         .requires(net.minecraft.world.item.Items.SPYGLASS)
                                         .unlockedBy("has_dispenser", has(net.minecraft.world.item.Items.DISPENSER)))))
                 .getHolder();
-        grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> PRECISION_DISPENSER, registerItem);
+        grill24.potionsplus.core.neoforge.Items.registerBlockItemWithAutoModel(() -> PRECISION_DISPENSER, registerItem);
 
 
         CLOTHESLINE = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("clothesline")
@@ -112,7 +113,7 @@ public class BlockEntityBlocks {
                         .lootGenerator(null) // Hand-made custom loot table json
                         .modelGenerator(ClotheslineBlockModelGenerator::new))
                 .getHolder();
-        grill24.potionsplus.core.Items.registerBlockItem(CLOTHESLINE, registerItem); // Doesn't generate an item model because we generate it in ClotheslineBlockModelGenerator
+        grill24.potionsplus.core.neoforge.Items.registerBlockItem(CLOTHESLINE, registerItem); // Doesn't generate an item model because we generate it in ClotheslineBlockModelGenerator
 
         POTION_BEACON = RegistrationUtility.register(registerBlock, SimpleBlockBuilder.createSimple("potion_beacon")
                 .blockFactory(PotionBeaconBlock::new)
@@ -139,7 +140,7 @@ public class BlockEntityBlocks {
                                 .define('O', Items.OBSIDIAN)
                                 .unlockedBy("has_glass", has(Items.GLASS))))
         ).getHolder();
-        grill24.potionsplus.core.Items.registerBlockItemWithAutoModel(() -> POTION_BEACON, registerItem);
+        grill24.potionsplus.core.neoforge.Items.registerBlockItemWithAutoModel(() -> POTION_BEACON, registerItem);
     }
 
     public static Block[] toArray(List<Holder<Block>> blocks) {

@@ -1,10 +1,10 @@
 package grill24.potionsplus.core.blocks;
 
 import grill24.potionsplus.block.*;
-import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.Items;
+import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.core.neoforge.Items;
 import grill24.potionsplus.core.potion.MobEffects;
-import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.neoforge.RegistrationUtility;
 import grill24.potionsplus.utility.registration.block.*;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.BlockTags;
@@ -21,6 +21,7 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import static grill24.potionsplus.utility.Utility.ppId;
+import grill24.potionsplus.block.neoforge.LunarBerryBushBlock;
 
 public class FlowerBlocks {
     public static Holder<Block> LUNAR_BERRY_BUSH;

@@ -1,10 +1,10 @@
 package grill24.potionsplus.core.blocks;
 
-import grill24.potionsplus.core.Items;
-import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.core.neoforge.Items;
+import grill24.potionsplus.utility.registration.neoforge.RegistrationUtility;
 import grill24.potionsplus.utility.registration.block.SimpleBlockBuilder;
-import grill24.potionsplus.utility.registration.item.ItemModelUtility;
-import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
+import grill24.potionsplus.utility.registration.item.neoforge.ItemModelUtility;
+import grill24.potionsplus.utility.registration.item.neoforge.SimpleItemBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;

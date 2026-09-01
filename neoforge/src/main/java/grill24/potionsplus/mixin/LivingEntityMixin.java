@@ -118,10 +118,10 @@ public abstract class LivingEntityMixin extends Entity {
 
     /**
      * Create attribute modifiers from our custom attributes so that we can add them as modifiers on the entity movement speed attribute.
-     * {@link grill24.potionsplus.core.Attributes#SPRINTING_SPEED}
+     * {@link grill24.potionsplus.core.neoforge.Attributes#SPRINTING_SPEED}
      */
     @Unique
-    private static final List<Holder<Attribute>> SPRINT_SPEED_ATTRIBUTES = new ArrayList<>() {{ add(grill24.potionsplus.core.Attributes.SPRINTING_SPEED); }};
+    private static final List<Holder<Attribute>> SPRINT_SPEED_ATTRIBUTES = new ArrayList<>() {{ add(grill24.potionsplus.core.neoforge.Attributes.SPRINTING_SPEED); }};
     @Inject(method = "setSprinting", at = @At("TAIL"))
     public void setSprinting(boolean sprinting, CallbackInfo ci) {
         Holder<Attribute> movementSpeed = Attributes.MOVEMENT_SPEED;

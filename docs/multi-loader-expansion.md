@@ -165,7 +165,7 @@ record it under "VERIFIED API FACTS" with the evidence.
 | P0 | *(prereq)* 2.0 backport Phase 6 | ✅ done 2026-09-01 |
 | P1 | *(pre-flight)* Fix the three live `common` bugs (section D) | ✅ done 2026-09-01 |
 | 0 | Build-system swap (ModDevGradle → architectury-loom) | ✅ done 2026-09-01 |
-| 1 | Source split into `common/` | 🟡 partial 2026-09-01 — builds green; dev runs blocked by 14 split packages (root cause found, fix handed to Phase 9) |
+| 1 | Source split into `common/` | ✅ **closed 2026-09-01** — split + 107-file `.neoforge` repackage (Decision 4a), all exit criteria met: `comm -12` package intersection empty, `clean` full build green, `runClient` reaches main menu. Committed on `dev/1.21.1/multi-loader-expansion` |
 | 2 | Platform abstraction layer | ⬜ not started |
 | 3 | Fabric + Forge module scaffold | ⬜ not started |
 | 4 | Registration hubs (Fabric + Forge) | ⬜ not started |
@@ -529,12 +529,20 @@ separable from the "did the source split break it?" question in Phase 1.
       `runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:…"` (plain, not `modCompileOnly` —
       JEI's NeoForge artifacts ship already in the runtime mapping namespace, no remap needed), plus
       the BlameJared + ModMaven repositories in the `subprojects` `repositories` block.
-- [x] **Known casualty — record it, fix it in Phase 12:** moddev's `unitTest { enable() }` has **no
-      architectury-loom equivalent.** It is what makes `src/test` JUnit work today (it wires
+- [x] **Known casualty — record it, fix it in Phase 12:** moddev's `unitTest { enable() }` has no
+      direct architectury-loom equivalent. It is what makes `src/test` JUnit work today (it wires
       NeoForge's junit fixtures and the `-Dfml.junit.argsfile` that lets `Bootstrap.bootStrap()`
       survive). Losing it breaks `AlchemyTestBase` and `PotionContentsAccessTest` — **the two things
       the backport's Phase 5 just stood up.** `:neoforge:test` is confirmed red as expected (`Bootstrap`
       failure) and stays red until Phase 12. The tests were not deleted or altered.
+
+      > **Amended 2026-09-01 — the "no equivalent, therefore blocked" reading was too pessimistic.**
+      > 26.1.2 runs the identical 12 unit tests under architectury-loom with **no** loom test
+      > configuration at all: junit deps plus `useJUnitPlatform()` in `common/build.gradle`, and
+      > Minecraft arrives on the test classpath from Loom itself, with `AlchemyTestBase` bootstrapping
+      > registries on its own. Nothing needs to be rebuilt to replace `unitTest { enable() }`. As of
+      > Phase 1 the tests live in `common/src/test` while the junit wiring is still in
+      > `neoforge/build.gradle`, so the red is at least partly plain misplacement. See Phase 12.
 - [x] Keep `sourceSets.main.resources { srcDir 'src/generated/resources' }` and the `testmod`
       sourceSet wiring (translated to loom's `loom.mods` form).
 - [x] **New, not in the original plan — durable per-project JDK pinning.** Added
@@ -611,20 +619,28 @@ loom's exact `RunConfigSettings` gametest wiring now.
 - [x] Resources: `assets/`, `data/`, `pack.mcmeta`, `potionsplus.png`, `potionsplus.mixins.json` →
       `common/src/main/resources/`. `META-INF/neoforge.mods.toml` and
       `META-INF/accesstransformer.cfg` stayed in `neoforge/`.
-- [ ] **Repackage the `neoforge/` remainder into `.neoforge` packages (Decision 4a) — NOT DONE,
-      handed to Phase 9.** This step was never in the original checklist, which is the omission that
+- [x] **Repackage the `neoforge/` remainder into `.neoforge` packages (Decision 4a) — DONE
+      2026-09-01, pulled forward into Phase 1 per the user's "Pull it forward, finish Phase 1"
+      decision.** This step was never in the original checklist, which is the omission that
       blocked the phase: Phase 1 was scoped as "move files *into* `common/`" and said nothing about
-      renaming what stayed behind. 107 of `neoforge/`'s 179 files are still in packages `common/`
-      also occupies. See the root-cause section below, and Decision 4a for the invariant and its
-      verification command.
+      renaming what stayed behind. All **107** of `neoforge/`'s files that shared packages with
+      `common/` were `git mv`'d into `.neoforge` sub-packages across all **14** split packages
+      (`block`, `blockentity`, `core`, `core.seededrecipe`, `data`, `data.loot`, `effect`, `event`,
+      `item.tooltip`, `particle`, `recipe.abyssaltroverecipe`, `utility`, `utility.registration`,
+      `utility.registration.item`), `package` declarations rewritten, and every cross-module import
+      fixed. `:common:compileJava :neoforge:compileJava` is **green**. See the root-cause section
+      below, and Decision 4a for the invariant and its verification command.
 - [x] Moved `src/test` → `common/src/test` and `src/testmod` → `common/src/testmod`. Location only —
       `neoforge/build.gradle`'s test/testmod sourceSet wiring is untouched, so both are now `NO-SOURCE`
       from `neoforge/`'s point of view (harmless; `:neoforge:test` was already known-red since Phase 0).
 
-**Exit criterion — partially met, 2026-09-01.** Note that a green build is **not** sufficient here
-and never was: Decision 4a's `comm -12` package-intersection check must also come back empty, and
-today it returns 14 packages. `./gradlew :common:build :neoforge:build -x test` is
-green (verified with a `clean` build too). `:neoforge:test` stays red, as already tracked since Phase 0.
+**Exit criterion — MET, 2026-09-01.** The repackaging below is **done** and
+`:common:compileJava :neoforge:compileJava` is green. All three remaining checks passed: (a) re-run
+Decision 4a's `comm -12` package-intersection check came back empty, (b) `./gradlew clean` +
+full `:common:build :neoforge:build -x test` is green (after killing two abandoned dev-run JVMs that
+held `clean`'s file locks), and (c) `:neoforge:runClient` reaches the main menu — mod loads, JEI
+initializes (1864 ingredients), networking live, no split-package `ResolutionException`. `:neoforge:test`
+stays red, as already tracked since Phase 0.
 `neoforge/src/main/java` is down to 177 files (101 moved to `common/`) — more than 26.1.2's 62 because
 several buckets that 26.1.2 got to finish converting (registration hubs, the model-generator DSL) are
 still whole-class NeoForge-side here, exactly as Phase 4/8 are supposed to inherit them.
@@ -704,14 +720,54 @@ matches both reference mods, and it fails with the *informative* error rather th
 - The `common:remapJar` disable and the `ConventionalTags`/`Lazy` ports from the first session are
   unrelated to this and remain correct.
 
-### The fix Phase 9 must apply
+### The fix — APPLIED in Phase 1, 2026-09-01 (was "The fix Phase 9 must apply")
 
 Move each split package's `neoforge/` residents into a `.neoforge` sub-package — `grill24.potionsplus.block`
 → `grill24.potionsplus.block.neoforge`, and so on for all 14 — matching the convention this branch
 already uses for `core.neoforge`, `core.neoforge.potion`, `event.neoforge` and `persistence.neoforge`,
-and satisfying Decision 4. Mechanical, but 107 files plus every import that references them across
-both modules. Phases 4/7/8 will subsequently move many of these files into `common/` anyway, so some
+and satisfying Decision 4. **This is now DONE** (107 `git mv`s, package decls + all imports rewritten,
+compile green). Phases 4/7/8 will subsequently move many of these files into `common/` anyway, so some
 of the renaming is transitional by design.
+
+**How the import pass was done (so a fresh context does not re-derive it):** the `git mv` broke
+same-package references and `core.*`-wildcard dependencies in three distinct ways, each fixed
+differently —
+1. **Same-package gaps** (moved files referencing classes still in the old/common package): added
+   explicit `import` lines for each common class (e.g. moved `blockentity/*` files importing
+   `grill24.potionsplus.blockentity.{InventoryBlockEntity, ISingleStackDisplayer, …}`, moved
+   `effect/*` importing `IEffectTooltipDetails`, moved `utility/*` importing `ModInfo`, moved
+   `utility.registration/*` importing `{IDataGenerator, ILootGenerator, IRecipeGenerator, IRegisterer}`,
+   moved `core.seededrecipe/*` importing `{PpIngredient, PpMultiIngredient}`).
+2. **Broken wildcard reliance** (files that imported `core.*`/`block.*`/`blockentity.*`/`utility.*`
+   and referenced classes that moved into the `.neoforge` twin): added explicit `.neoforge` imports
+   or a sibling `….neoforge.*` wildcard. Wildcards were only ADDED where the common and `.neoforge`
+   packages share zero simple names (verified: `block`, `blockentity`, `particle`, `utility` twins
+   are disjoint) — adding `core.neoforge.*` was **never** safe because both `core` and `core.neoforge`
+   declare `PotionsPlus`, so any file also importing `core.*` got explicit `core.neoforge.{Blocks,
+   Items, Advancements, Particles, Sounds, …}` imports instead.
+3. **Fully-qualified old-location references** (e.g. `grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY`
+   in `ClotheslineBlock`, `grill24.potionsplus.core.Items.` in `BlockEntityBlocks`/`LangProvider`,
+   `grill24.potionsplus.core.Attributes` in `LivingEntityMixin`): string-rewritten to the `.neoforge`
+   path.
+
+**Two non-obvious traps hit and resolved:**
+- **The same-package shadowing trap.** Files living in `core.neoforge` that reference the *common
+  constants class* `PotionsPlus.LOGGER`/`SERVER`/`worldSeed`/`Debug` now resolve bare `PotionsPlus`
+  to the **entrypoint** (`core.neoforge.PotionsPlus`, same package, which has none of those fields).
+  Fix: add `import grill24.potionsplus.core.PotionsPlus;`, which per JLS 7.5.1 shadows the same-package
+  entrypoint inside that file. Applied to `BlockRenderLayers`, `ClientCommands`, `CommonCommands`,
+  `ServerLifecycleListeners` (the latter also needs `core.Recipes`). Verified none of those files use
+  entrypoint-only members.
+- **`LangProvider` vanilla-`Items` collision.** Adding `core.neoforge.Items` collided with its existing
+  `import net.minecraft.world.item.Items;`. Correct fix: remove the added import, keep the fully-qualified
+  `grill24.potionsplus.core.neoforge.Items.ITEMS` rewrite.
+
+**Cascades worth knowing:** `ClotheslineBlock` missing its `HorizontalDirectionalBlock`/`ClotheslinePart`
+imports broke `ClotheslineBlock.FACING` in *other* files too (`ClotheslineBehaviour`) — a broken
+supertype pollutes every external access to inherited statics. Fixing the block's own imports cleared
+both. Similarly, once the top ~100 same-package gaps were fixed, a second compile surfaced ~15 more
+errors in files the first pass had masked (masking is why the earlier 124-line error file was
+incomplete — trust the *fresh* compile, not a cached error list).
 
 **Phase 9 exit criterion (unchanged in spirit, now concrete):** no package is occupied by both
 modules, and `:neoforge:runGametest` boots and runs the gametests with `LivingEntityMixin` still
@@ -801,11 +857,20 @@ imports (`git grep -c 'net\.neoforged' common/src/main/java` → 0); NeoForge ru
         **but NOT `runtimeClasspath.extendsFrom common`** — the JPMS split-package
         `ResolutionException` apt-ores documents in its `forge/build.gradle` comment block.
   - [ ] `META-INF/mods.toml` (**not** `neoforge.mods.toml`), expanded by `processResources`.
-  - [ ] **DIVERGENCE from 26.1.2:** apt-ores' 1.21.1 Forge module needs **no** `generateEmptyMappings`
-        task and no `-Darchitectury.naming.*` run args. That hack existed only because MC 26.1+ is
-        unobfuscated and Forge's runtime AXFORM had no mappings to work from. 1.21.1 remaps normally.
-        Also **no** `sourceSets.main.output.resourcesDir = …` split-dir workaround. Do not port either
-        preemptively; add only if a real failure demands it.
+  - [ ] **DIVERGENCE from 26.1.2 — verified 2026-09-01.** 26.1.2's `forge/build.gradle` really does
+        carry all three of these (`generateEmptyMappings` at line ~213, `architectury.naming.
+        sourceNamespace`/`mappingsPath` run properties at ~258, and `output.resourcesDir =
+        output.classesDirs.singleFile` at ~150/153), so the temptation to copy them is real.
+        **Do not.** apt-ores' 1.21.1 Forge module needs none of them: the hack existed only because
+        MC 26.1+ is unobfuscated and Forge's runtime AXFORM had no mappings to work from, and 1.21.1
+        remaps normally. Add only if a real failure demands it.
+  - [ ] **The Forge `runtimeClasspath` asymmetry is real and is the one place Decision 4a's rule is
+        not enough.** Verified: 26.1.2's `forge/build.gradle` has `compileClasspath.extendsFrom
+        common` and `developmentForge.extendsFrom common` **and no `runtimeClasspath`** — while its
+        `fabric` and `neoforge` modules have all three. Forge is the exception; do not "fix" it to
+        match the others. Note this is a *different* problem from Decision 4a (which unsplits
+        packages so `common` can be its own module); on Forge the entry has to be off the runtime
+        classpath entirely.
 - [ ] `common/build.gradle`: `sourceSets.main.resources.srcDir('src/generated/resources')` (for Phase 10).
 - [ ] Placeholder `fabric.mod.json` and `META-INF/mods.toml` with correct ids/entrypoints.
 
@@ -834,17 +899,35 @@ analysis and hub file list transfer almost verbatim.
       `Holder.Reference` overrides neither `equals` nor `hashCode` (registries hand out one singleton
       per key), so the fix lives entirely on this side and accepts one-sided symmetry.
 - [ ] **Plan a `RegistryMixin` that unwraps `ForgeHolder` during serialization — it is not optional.**
+      (26.1.2's `mixin/forge/` holds **two** registry mixins — `RegistryMixin` here, and
+      `RegistryLoadTaskMixin` for the gametest problem in Phase 12. Don't conflate them.)
       Because the adapter isn't a `Holder.Reference`, mod holders fail to *encode*, which on 26.1.2
       **crashed level saves** once data actually persisted (`00c39e0`). NeoForge patches
       `DeferredHolder` internally for exactly this; Forge does not. The failure appears long after
       registration looks healthy, so write the mixin alongside the adapter rather than waiting for the
       crash.
-- [ ] **Fabric hubs** `fabric/.../core/fabric/`: `Blocks`, `Items`, `Particles`, `Recipes`,
-      `DataComponents`, `MenuTypes`, `LootItemFunctions`, `NumberProviders`, `Sounds`,
-      `CreativeModeTabs`, `blocks/FlowerBlocks`, `potion/{MobEffects,Potions}` — all via
-      `BuiltInRegistries.X` + `Registry.registerForHolder`.
-- [ ] **Forge hubs** `forge/.../core/forge/`: the same set, via `DeferredRegister.create(Registries.X,
-      MOD_ID)` + `ForgeHolder.of(…)`, flushed with `DR.register(modEventBus)` (**`IEventBus`**).
+- [ ] **Fabric hubs** `fabric/.../core/fabric/` — all via `BuiltInRegistries.X` +
+      `Registry.registerForHolder`. *Corrected 2026-09-01 against the 26.1.2 tree; the earlier list
+      here was a guess that both missed real hubs and invented ones that do not exist.* The actual
+      26.1.2 `core.fabric` contents are:
+      `BiomeModifiers`, `Blocks`, `Capabilities`, `CommandArgumentTypes`, `CreativeModeTabs`,
+      `DataComponents`, `FabricRegistration`, `Items`, `LootItemFunctions`, `LootModifiers`,
+      `MenuTypes`, `NumberProviders`, `Packets`, `Particles`, `Recipes`, `ServerLifecycleListeners`,
+      `Sounds` (plus the two entrypoints, Phase 6). Note in particular:
+  - [ ] **`FabricRegistration` is the registration-order orchestrator** — the class that encodes the
+        load-bearing order in the next bullet. It has no NeoForge counterpart, so it is easy to miss
+        entirely; it is the single most important file in this phase.
+  - [ ] `Capabilities`, `CommandArgumentTypes`, `LootModifiers` and `BiomeModifiers` are hubs too and
+        were absent from this plan's earlier list. `CommandArgumentTypes` exists on **all three**.
+  - [ ] There is **no** `core/fabric/potion/` package — `MobEffects`/`Potions` are not separate Fabric
+        hubs. There *is* a single-file `core/fabric/blocks/`.
+- [ ] **Forge hubs** `forge/.../core/forge/`: the same set **minus `BiomeModifiers`** (Forge uses the
+      datapack JSON instead — see Phase 8) and **plus `Renderers`** (Phase 11), via
+      `DeferredRegister.create(Registries.X, MOD_ID)` + `ForgeHolder.of(…)`, flushed with
+      `DR.register(modEventBus)` (**`IEventBus`**). Verified 26.1.2 `core.forge`: `Blocks`,
+      `Capabilities`, `CommandArgumentTypes`, `CreativeModeTabs`, `DataComponents`, `Items`,
+      `LootItemFunctions`, `LootModifiers`, `MenuTypes`, `NumberProviders`, `Packets`, `Particles`,
+      `Recipes`, `Renderers`, `ServerLifecycleListeners`, `Sounds`.
 - [ ] **Fabric registration order.** Fabric registration is *immediate*, not deferred — order is
       load-bearing. Port 26.1.2's verified order verbatim:
       `PotionBuilder.potionFactory` → Advancements/Attributes/Entities/LootItemConditions →
@@ -886,9 +969,12 @@ items, potions and effects present.
       `ClientPlayNetworking.send`, `PlayerLookup.tracking(ServerLevel, ChunkPos)` / `.tracking(Entity)`.
 - [ ] `forge/.../platform/forge/PacketNetworkImpl.java` — `Channel.send(payload,
       PacketDistributor.X)`. `payloadChannel()` confirmed present on Forge 52.1.2.
-- [ ] `FabricPacketContext` + `ForgePacketContext` implementing common `PacketContext`.
+- [ ] `fabric/.../network/fabric/FabricPacketContext` + `forge/.../network/forge/ForgePacketContext`
+      implementing common `network/PacketContext`. **Package confirmed against the 26.1.2 tree —
+      these live under `network/<loader>/`, not `platform/<loader>/`** (see Phase 2).
 - [ ] `fabric/.../core/fabric/Packets.java` (`registerServer()` + `registerClient()`) and
-      `forge/.../core/forge/Packets.java`, mirroring `core/Packets.java`'s 12 payloads.
+      `forge/.../core/forge/Packets.java`, mirroring `core/Packets.java`'s 12 payloads. Both
+      confirmed present in the 26.1.2 tree, alongside `core/neoforge/Packets.java`.
 - [ ] **Carry 26.1.2's codec-side lesson:** a payload's codec must be registered on the side that
       *sends* it **and** the side that *receives* it. Fabric's `PayloadTypeRegistry.register` throws
       `IllegalArgumentException` on duplicate → wrap client-side re-registration in try/catch for the
@@ -922,7 +1008,11 @@ the first world join and none of them were visible at build time.
       `core/PotionsPlusClient.java`; registration is immediate, no deferred flush.
 - [ ] `forge/.../core/forge/PotionsPlusForge.java` (`@Mod` — `net.minecraftforge.fml.common.Mod`) —
       same wiring, then `DR.register(modEventBus)` for every `DeferredRegister`.
-- [ ] **Do NOT create a second `@Mod` class for the client.** 26.1.2 wrote a `PotionsPlusForgeClient`
+- [ ] **Do NOT create a second `@Mod` class for the client. Re-verified 2026-09-01:** the 26.1.2
+      tree's `core/forge/` contains `PotionsPlusForge` and **no** `PotionsPlusForgeClient`, while
+      `core/fabric/` has both `PotionsPlusFabric` and `PotionsPlusFabricClient` and `core/neoforge/`
+      has both `PotionsPlus` and `PotionsPlusClient`. Forge is the odd one out, by necessity, not
+      oversight. 26.1.2 wrote a `PotionsPlusForgeClient`
       mirroring NeoForge's entrypoint split; **Forge dedups `@Mod` classes by modid, first wins, and
       silently dropped it** — the client wiring never ran, and `f5cd94d` deleted the class outright.
       Do client wiring from the single `@Mod` class, dist-gated, and see the Phase 11 timing note
@@ -951,7 +1041,7 @@ The 36 `@EventBusSubscriber` classes, grouped:
 |---|---|---|
 | Registration hubs | `core/{Attributes,Blocks,Capabilities,CreativeModeTabs,Packets,Screens,Renderers,BlockRenderLayers,KeyMappings}`, `core/potion/Potions` | Mostly absorbed by **Phase 4** / **Phase 11**; the annotation just goes away |
 | Mob-effect behaviour | `effect/{BoneBuddy,Bouncing,Exploding,FallOfTheVoid,FlyingTime,GeodeGrace,SoulMate}Effect` | **7 gameplay classes each carrying their own `@SubscribeEvent`.** Extract the handler bodies into `common` static methods; each loader's listener class calls them |
-| Explicit listeners | `event/{AdvancementListeners,ClientTooltipComponentFactoriesListeners,EnchantmentListeners,ItemListenersGame,ItemListenersMod,PlayerListeners}` | Direct analogue of 26.1.2's `event/neoforge/*` — port its mapping table |
+| Explicit listeners | `event/{AdvancementListeners,ClientTooltipComponentFactoriesListeners,EnchantmentListeners,ItemListenersMod,PlayerListeners}` | Direct analogue of 26.1.2's `event/neoforge/*` — port its mapping table. **`event/ItemListenersGame` is NOT one of these** — 26.1.2 keeps it in `common/`, next to `common/event/AnimatedItemTooltipEvent` |
 | Tick / lifecycle | `utility/{ClientTickHandler,ServerTickHandler,DelayedEvents,ServerPlayerUtility}`, `core/ServerLifecycleListeners` | Fabric `ServerTickEvents`/`ClientTickEvents`/`ServerLifecycleEvents`; Forge `TickEvent.*` |
 | Client tooltips | `item/tooltip/{BrewingTooltips,PotionEffectTooltips}`, `blockentity/ClotheslineBlockEntityRenderer` | Fabric `ItemTooltipCallback`; Forge `ItemTooltipEvent` |
 | Commands / input | `core/{CommonCommands,ClientCommands,KeyMappingsListener,ClientEvents}` | Fabric `CommandRegistrationCallback`; Forge `RegisterCommandsEvent` |
@@ -960,9 +1050,27 @@ The 36 `@EventBusSubscriber` classes, grouped:
 - [ ] Extract every `@SubscribeEvent` body into a loader-agnostic `common` method; leave the NeoForge
       annotation on a thin `neoforge/.../event/neoforge/*` listener that delegates. Mirror 26.1.2's
       package layout exactly.
-- [ ] Fabric listeners: fabric-api callbacks where they exist, `mixin/fabric/` where they don't
-      (26.1.2 needed mixins for mob-effect add/remove, enchantment level, advancement earn, and item
-      pickup — expect the same here).
+- [ ] **Know the fan-in shape before you start — it is asymmetric.** On 26.1.2 NeoForge keeps **16**
+      separate listener classes in `event/neoforge/` (`AdvancementListeners`, `ClientGameListeners`,
+      `ClientTooltipComponentFactoriesListeners`, `EffectListeners`, `EnchantmentListeners`,
+      `EntityListeners`, `ItemFrameListeners`, `ItemListenersMod`, `NeoAnimatedItemTooltipEvent`,
+      `NeoAttributeEvents`, `NeoCommandEvents`, `NeoDelayedEvents`, `NeoItemListeners`,
+      `NeoServerTickEvents`, `PlayerListeners`, `ServerPlayerHeldItemChangedEvent`), while Fabric and
+      Forge each collapse to just **two**: `{Fabric,Forge}EventListeners` +
+      `{Fabric,Forge}ClientEventListeners`. Do not build 16 classes per loader.
+- [ ] **`ItemListenersGame` stays in `common/`** on 26.1.2 (`common/event/ItemListenersGame.java`),
+      alongside `AnimatedItemTooltipEvent`. The group table below lists it under "Explicit listeners →
+      analogue of `event/neoforge/*`"; that is wrong — only `ItemListenersMod` and `NeoItemListeners`
+      are NeoForge-side.
+- [ ] **Forge needs gameplay mixins too — not just `BUS.addListener`.** This plan's earlier text
+      anticipated mixins only for Fabric. 26.1.2's `mixin/forge/` contains four gameplay mixins —
+      `BucketItemMixin`, `EnchantmentHelperMixin`, `ItemEntityMixin`, `LivingEntityMixin` — the same
+      set Fabric needs, minus `ItemEntityLifespanMixin`/`PlayerAdvancementsMixin` and plus the two
+      registry mixins from Phases 4 and 12. Budget Forge mixin work in this phase, not just Phase 9.
+- [ ] Fabric listeners: fabric-api callbacks where they exist, `mixin/fabric/` where they don't.
+      26.1.2's exact `mixin/fabric/` set, verified: `BucketItemMixin`, `EnchantmentHelperMixin`,
+      `ItemEntityLifespanMixin`, `ItemEntityMixin`, `LivingEntityMixin`, `PlayerAdvancementsMixin`
+      (six — the earlier prose here undercounted by omitting the bucket and item-lifespan cases).
 - [ ] **Audit the return-value polarity of every fabric-api callback.** They are not uniformly aligned
       with the NeoForge event they replace. 26.1.2 returned a gameplay method's own boolean straight
       out of `PlayerBlockBreakEvents.BEFORE`, where `false` means *cancel* — so a hook that returns
@@ -971,9 +1079,19 @@ The 36 `@EventBusSubscriber` classes, grouped:
 - [ ] Forge listeners: static `BUS.addListener(…)`. **`@SubscribeEvent` on Forge 1.21.1 is
       `net.minecraftforge.eventbus.api.SubscribeEvent`** (26.1.2 moved it to
       `…eventbus.api.listener.SubscribeEvent` — do not copy that import).
-- [ ] Audit the two custom `Event` subclasses (`event/AnimatedItemTooltipEvent`,
-      `event/ServerPlayerHeldItemChangedEvent`). On 26.1.2 both turned out to be **dead code with zero
-      subscribers** and were skipped rather than re-homed. Re-check here before spending effort.
+- [ ] **The two custom `Event` subclasses are load-bearing — the earlier "dead code" note here was
+      wrong.** *Corrected 2026-09-01 by grepping the 26.1.2 tree.* Both were re-homed, not skipped:
+  - [ ] **`event/AnimatedItemTooltipEvent`** lives in **`common/`** on 26.1.2 and is referenced by
+        roughly twenty files — most of `effect/*`, the `IEffectTooltipDetails` /
+        `IEnchantmentBonusTooltipDetails` / `ITickingAreaTooltipDetails` interfaces,
+        `item/WeightDataComponent`, and both `item/tooltip/*` classes. Each loader dispatches it from
+        its own listener: `fabric/event/fabric/FabricClientEventListeners`,
+        `forge/event/forge/ForgeClientEventListeners`,
+        `neoforge/event/neoforge/NeoAnimatedItemTooltipEvent`. Budget for it.
+  - [ ] **`event/ServerPlayerHeldItemChangedEvent`** is the NeoForge-side implementation behind
+        `Platform.onServerPlayerHeldItemChanged` — it sits in `neoforge/event/neoforge/` and is
+        referenced by `event/neoforge/EntityListeners` plus **all three** `PlatformImpl` classes. It
+        is not an orphan; it is one end of a Phase 2 platform hook.
 
 **Exit criterion:** every gameplay behaviour that fires from an event on NeoForge also fires on
 Fabric and Forge. `common/` still has zero `net.neoforged` imports.
@@ -1022,6 +1140,17 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
         .registerConfig(…)` in the `@Mod` constructor.
   - [ ] Fabric: no config API in fabric-api — hand-roll a small JSON config under
         `FabricLoader.getInstance().getConfigDir()`, matching 26.1.2's approach.
+- [ ] **Biome modifiers have equivalents on both other loaders — verified 2026-09-01.** The note
+      below that NeoForge's `BiomeModifier` registry "has no Fabric or Forge equivalent" is wrong in
+      both directions:
+  - [ ] **Forge reads the same datapack JSON.** 26.1.2 ships hand-authored
+        `forge/src/main/resources/data/potionsplus/forge/biome_modifier/{add_lunar_berry_bush_patch,
+        remove_berry_bush_patch}.json` — the NeoForge files with the namespace directory renamed
+        `neoforge/` → `forge/`. No code required.
+  - [ ] **Fabric has a code-only API.** `fabric/.../core/fabric/BiomeModifiers.java` uses
+        `BiomeModifications.create(...)` + `BiomeSelectors.tag(...)` + `ModificationPhase.REMOVALS`
+        with `ctx.getGenerationSettings().removeFeature(...)`. There is no Fabric JSON equivalent,
+        which is exactly why Phase 10's `commonDatagen` excludes `**/neoforge/**`.
 - [ ] **Worldgen / biome modifiers** — if any survive backport Phase 1.8 (`core/Features`,
       `core/PlacementModifierTypes`, `core/blocks/OreBlocks` are still present at tip; confirm what
       Phase 1.8 actually left). NeoForge's `BiomeModifier` datapack registry has no Fabric or Forge
@@ -1112,6 +1241,12 @@ loaders with every mixin applying.
       `common/src/generated/resources/`, excluding `.cache/**`, `data/neoforge/**`, `**/neoforge/**`,
       with a `doFirst { delete … }` so removed content doesn't leave orphans. **Copy 26.1.2's task
       verbatim** — the exclusion list is the interesting part.
+- [ ] **`common/build.gradle` needs `processResources { duplicatesStrategy = DuplicatesStrategy
+      .INCLUDE }`** alongside the `srcDir('src/generated/resources')` it already has, so a
+      hand-authored file in `src/main/resources` can override a generated one at the same path.
+      26.1.2 has both; 1.21.1 currently has only the `srcDir`. (26.1.2 also keeps a
+      `forge/src/generated/resources` dir of its own — the Copy task feeds `common/`, it does not
+      make the platform modules generation-free.)
 - [ ] Keep the NeoForge-only providers (`GlobalLootModifierProvider`, `DatapackBuiltinEntriesProvider`,
       `SoundDefinitionsProvider`, NeoForge `Block`/`ItemTagsProvider`) in `neoforge/`.
 - [ ] **1.21.1 model datagen is the old system** — `BlockStateProvider` + `ItemModelProvider` +
@@ -1179,11 +1314,29 @@ JEI shows the brewing-cauldron and clothesline categories on all three.
 
 *(= 26.1.2 Phase 9, **plus** repairing what Phase 0 knowingly broke.)*
 
-- [ ] **Restore JUnit.** Phase 0 dropped moddev's `unitTest { enable() }`. Under architectury-loom
-      there is no equivalent, so `AlchemyTestBase`'s `Bootstrap.bootStrap()` will fail the way the
-      old `neoforge/build.gradle` comment describes. **26.1.2 has a working `common/src/test` under
-      architectury-loom — copy exactly how it does it.** This is the single highest-value thing to
-      look up before starting this phase.
+- [ ] **Restore JUnit — and the answer is already known, so do this first (30 minutes, not a phase).**
+      *Looked up 2026-09-01.* 26.1.2 needs **no loom test configuration whatsoever**. Its
+      `common/build.gradle` contains only:
+
+      ```gradle
+      dependencies {
+          testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+          testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+      }
+      tasks.withType(Test).configureEach { useJUnitPlatform() }
+      ```
+
+      with the comment *"Minecraft itself is on the test classpath via Loom, so tests that need
+      registries (potions, mob effects) bootstrap it themselves — see `AlchemyTestBase`."* There is no
+      moddev-`unitTest`-equivalent to replace, because none is needed.
+
+      **The likely whole cause of the current red is misplacement, not a missing loom feature:**
+      Phase 1 moved the tests to `common/src/test`, but the junit dependencies and
+      `useJUnitPlatform()` are still in **`neoforge/build.gradle`**, and `common/build.gradle` has
+      **no test wiring at all**. Move that block into `common/build.gradle` and run `:common:test`
+      before assuming anything deeper is wrong. *(Not yet attempted — flagged, not verified.)*
+- [ ] The two trees' unit-test files match 1:1 (12 files, `AlchemyTestBase` … `PotionDataTest`,
+      including `PotionContentsAccessTest`), so no test authoring is needed here — only wiring.
 - [ ] `PotionContentsAccessTest` must run and pass. It is the guard that keeps the alchemy layer
       from unravelling (`CLAUDE.md`; backport plan line 319) and it is worth more than the rest of
       this phase combined.
@@ -1209,6 +1362,17 @@ JEI shows the brewing-cauldron and clothesline categories on all three.
       converts a structure-relative position (an extra `helper.absolutePos()` spawned the item
       millions of blocks away) and that `CropBlock.randomTick` silently no-ops below raw brightness 9.
 - [ ] Port the platform test harness (`TestPlayers.makeMockCreativePlayerInLevel`) per loader.
+      26.1.2's verified testmod inventory, including its **package convention — `<loader>` is an
+      infix here (`grill24.potionsplus.<loader>.gametest`), not the `core.<loader>` suffix used in
+      main source**; either way no package is shared, per Decision 4a:
+      `common/src/testmod` → `gametest/{AlchemyGameTests, BrewingCauldronGameTests, EffectGameTests,
+      RecipeSyncGameTests}`; `fabric/src/testmod` → `fabric/gametest/PotionsPlusFabricGameTests` +
+      its own `fabric.mod.json`; `forge/src/testmod` → `forge/gametest/{ForgeGameTestRegistration,
+      ForgeTestPlayers, PotionsPlusForgeGameTests}`; `neoforge/src/testmod` →
+      `neoforge/gametest/{NeoForgeGameTestRegistration, NeoForgeTestPlayers}`.
+      **1.21.1 has only two of the four shared files** (`AlchemyGameTests`,
+      `BrewingCauldronGameTests`) — `EffectGameTests` and `RecipeSyncGameTests` are 26.1.2 additions,
+      and `RecipeSyncGameTests` covers the runtime-recipe sync packet from Phase 5.
 - [ ] Target: the same 34 shared alchemy + brewing-cauldron tests passing on NeoForge and Fabric.
 
 **Exit criterion:** `:common:test` green; NeoForge and Fabric game-test runs pass; Forge status
@@ -1240,14 +1404,17 @@ recorded honestly whatever it turns out to be.
   `dev.architectury.loom` (here) behave differently in exactly the places that hurt: mappings,
   refmaps, and the `remapJar` step. Phase 0 deliberately changes *only* the build system so a failure
   there is unambiguous.
-- **`unitTest.enable()` has no loom equivalent** — tests go red in Phase 0 by design and stay red
-  until Phase 12. Track it; don't "fix" it by deleting tests.
+- **Unit tests go red in Phase 0 by design** and stay red until Phase 12. Don't "fix" it by deleting
+  tests. *Downgraded 2026-09-01:* this was recorded as "`unitTest.enable()` has no loom equivalent",
+  implying something had to be rebuilt. 26.1.2 shows otherwise — junit deps + `useJUnitPlatform()` in
+  `common/build.gradle` is the whole of it. Likely a wiring-location bug, not a missing capability.
 - **Refmaps fail silently in production and work in dev.** Every mixin-touching phase must verify a
   *built jar*, not a dev run.
 - **AW vs AT split** — `common` wants an access widener, Forge only reads access transformers. Two
   files must be kept in sync by hand; drift shows up as a `NoSuchMethodError` on one loader only.
-- **`DataAttachments` has no off-NeoForge equivalent** and 26.1.2's plan never solved it. Phase 8's
-  three-way design is the least-proven part of this plan.
+- ~~**`DataAttachments` has no off-NeoForge equivalent**~~ — **retired 2026-09-01.** 26.1.2 has no
+  `AttachmentType` usage at all; it uses vanilla `SavedData`, which 1.21.1 already has in `common/`.
+  Phase 8 deletes `DataAttachments` rather than abstracting it, so this stopped being a risk.
 - **Forge capability API on 1.21.1 is the *pre*-1.20.5 shape**, not the one 26.1.2 ported. Do not
   copy 26.1.2's `Capabilities` code without checking it against the 52.1.2 jar.
 - **JEI's Forge 1.21.1 artifact** is assumed from JEI's publishing convention, not verified against a
@@ -1312,3 +1479,25 @@ same session's own P1 atlas fix: scoping `mob_effect/` in `blocks.json` to only 
 sources broke `potion_effect_icon` (a generic item that needs *every* vanilla effect's icon too) —
 `runClient` caught it immediately via `Missing textures` warnings; `mob_effect/` needed to stay a
 namespace-wide `directory` source, only `particle/` was actually dead weight. |
+| 2026-09-01 | 1 | **Phase 1 repackaging done — split-package fix pulled forward and applied.** The launch
+blocker (14 split packages, 107 files) is gone: all 107 files were `git mv`'d into `.neoforge`
+sub-packages, `package` decls + every cross-module import rewritten, and
+`:common:compileJava :neoforge:compileJava` is **BUILD SUCCESSFUL**. Full method in the Phase 1
+section ("The fix — APPLIED in Phase 1"). Compile-iterate history for the record: first pass fixed
+the ~28 same-package import gaps; a **fresh** recompile surfaced ~15 more that the earlier 124-line
+error list had masked (trust fresh compiles, not cached error files); three sub-passes of rewrites
+later it went green. **Two traps documented in the Phase 1 section:** the `core.neoforge`
+same-package `PotionsPlus` shadowing (fixed with `import grill24.potionsplus.core.PotionsPlus;`
+in 4 files) and the `LangProvider` vanilla-`Items` collision. |
+| 2026-09-01 | 1 | **Phase 1 CLOSED — all three exit-criterion verifications done, work committed.** **(1)
+Decision 4a:** `comm -12` re-run on the `common/`↔`neoforge/` package dirs came back **empty** (0
+shared packages). **(2) Clean full build:** killed two abandoned architectury dev-run JVMs that held
+`clean`'s file locks (`cwd` set to `neoforge/build/gametest`), then `./gradlew clean
+:common:build :neoforge:build -x test` → **BUILD SUCCESSFUL**. `:neoforge:test` stays known-red
+until Phase 12 (junit wiring + test location, tracked since Phase 0). **(3) `:neoforge:runClient`:**
+reached the main menu — mod loading complete (no `ResolutionException` / ClassNotFound / mixin
+errors), Sound engine started, JEI initialized (1864 ingredients), PotionsPlus networking live. Only
+cosmetic `Missing subtitle translation` warnings (pre-existing i18n gap, not launch-relevant). **Post
+commit:** the Phase 1 changeset (107 `.neoforge` renames + cross-module import fixes + this doc) is
+committed together on branch `dev/1.21.1/multi-loader-expansion`. Mirror discipline still in force
+for Phase 2+: diff against the actual 26.1.2 tree before concluding anything. |

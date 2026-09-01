@@ -3,7 +3,7 @@ package grill24.potionsplus.loot;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import grill24.potionsplus.core.LootItemConditions;
+import grill24.potionsplus.core.neoforge.LootItemConditions;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;

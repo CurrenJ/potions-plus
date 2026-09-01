@@ -2,8 +2,8 @@ package grill24.potionsplus.core.items;
 
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.item.WormrootItem;
-import grill24.potionsplus.utility.registration.item.SimpleItemBuilder;
-import grill24.potionsplus.utility.registration.RegistrationUtility;
+import grill24.potionsplus.utility.registration.item.neoforge.SimpleItemBuilder;
+import grill24.potionsplus.utility.registration.neoforge.RegistrationUtility;
 import net.minecraft.core.Holder;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;

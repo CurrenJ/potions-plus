@@ -2,7 +2,7 @@ package grill24.potionsplus.advancement;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import grill24.potionsplus.core.Advancements;
+import grill24.potionsplus.core.neoforge.Advancements;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;

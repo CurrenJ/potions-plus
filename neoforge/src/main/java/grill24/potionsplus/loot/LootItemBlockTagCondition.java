@@ -2,7 +2,7 @@ package grill24.potionsplus.loot;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import grill24.potionsplus.core.LootItemConditions;
+import grill24.potionsplus.core.neoforge.LootItemConditions;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;

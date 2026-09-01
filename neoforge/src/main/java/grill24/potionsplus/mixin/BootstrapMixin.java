@@ -1,6 +1,6 @@
 package grill24.potionsplus.mixin;
 
-import grill24.potionsplus.core.Advancements;
+import grill24.potionsplus.core.neoforge.Advancements;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;

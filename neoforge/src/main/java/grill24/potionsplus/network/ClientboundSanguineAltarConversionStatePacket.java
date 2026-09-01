@@ -1,8 +1,8 @@
 package grill24.potionsplus.network;
 
-import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
-import grill24.potionsplus.core.Blocks;
-import grill24.potionsplus.core.Sounds;
+import grill24.potionsplus.blockentity.neoforge.SanguineAltarBlockEntity;
+import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.core.neoforge.Sounds;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;

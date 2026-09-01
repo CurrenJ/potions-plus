@@ -3,7 +3,7 @@ package grill24.potionsplus.gametest;
 import grill24.potionsplus.alchemy.PotionContainer;
 import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.alchemy.PotionDataBuilder;
-import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
+import grill24.potionsplus.blockentity.neoforge.BrewingCauldronBlockEntity;
 import grill24.potionsplus.core.neoforge.RecipesRegistrar;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;

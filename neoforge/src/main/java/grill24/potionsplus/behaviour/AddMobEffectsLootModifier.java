@@ -3,7 +3,7 @@ package grill24.potionsplus.behaviour;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import grill24.potionsplus.core.LootModifiers;
+import grill24.potionsplus.core.neoforge.LootModifiers;
 import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;

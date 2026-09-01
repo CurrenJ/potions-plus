@@ -1,6 +1,6 @@
 package grill24.potionsplus.client.integration.jei;
 
-import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
+import grill24.potionsplus.blockentity.neoforge.BrewingCauldronBlockEntity;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;

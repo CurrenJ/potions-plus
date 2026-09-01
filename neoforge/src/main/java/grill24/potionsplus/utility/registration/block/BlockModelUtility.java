@@ -1,6 +1,6 @@
 package grill24.potionsplus.utility.registration.block;
 
-import grill24.potionsplus.utility.registration.IModelGenerator;
+import grill24.potionsplus.utility.registration.neoforge.IModelGenerator;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;

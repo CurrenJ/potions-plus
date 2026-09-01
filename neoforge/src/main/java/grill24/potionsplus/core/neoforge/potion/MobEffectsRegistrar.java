@@ -1,15 +1,15 @@
 package grill24.potionsplus.core.neoforge.potion;
 
 import grill24.potionsplus.core.potion.MobEffects;
-import grill24.potionsplus.effect.BoneBuddyEffect;
-import grill24.potionsplus.effect.BouncingEffect;
-import grill24.potionsplus.effect.ExplodingEffect;
-import grill24.potionsplus.effect.FallOfTheVoidEffect;
-import grill24.potionsplus.effect.FlyingTimeEffect;
-import grill24.potionsplus.effect.GeodeGraceEffect;
-import grill24.potionsplus.effect.MetalDetectingEffect;
-import grill24.potionsplus.effect.SoulMateEffect;
-import grill24.potionsplus.effect.TeleportationEffect;
+import grill24.potionsplus.effect.neoforge.BoneBuddyEffect;
+import grill24.potionsplus.effect.neoforge.BouncingEffect;
+import grill24.potionsplus.effect.neoforge.ExplodingEffect;
+import grill24.potionsplus.effect.neoforge.FallOfTheVoidEffect;
+import grill24.potionsplus.effect.neoforge.FlyingTimeEffect;
+import grill24.potionsplus.effect.neoforge.GeodeGraceEffect;
+import grill24.potionsplus.effect.neoforge.MetalDetectingEffect;
+import grill24.potionsplus.effect.neoforge.SoulMateEffect;
+import grill24.potionsplus.effect.neoforge.TeleportationEffect;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;

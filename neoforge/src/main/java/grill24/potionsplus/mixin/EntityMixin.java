@@ -1,7 +1,7 @@
 package grill24.potionsplus.mixin;
 
-import grill24.potionsplus.core.DataAttachments;
-import grill24.potionsplus.effect.BouncingEffect;
+import grill24.potionsplus.core.neoforge.DataAttachments;
+import grill24.potionsplus.effect.neoforge.BouncingEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockGetter;

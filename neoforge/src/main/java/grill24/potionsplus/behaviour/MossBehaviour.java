@@ -1,6 +1,6 @@
 package grill24.potionsplus.behaviour;
 
-import grill24.potionsplus.block.GrowableMossyBlock;
+import grill24.potionsplus.block.neoforge.GrowableMossyBlock;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.items.BrewingItems;
 import net.minecraft.core.BlockPos;

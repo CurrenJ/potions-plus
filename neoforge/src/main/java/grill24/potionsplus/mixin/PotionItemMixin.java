@@ -1,7 +1,7 @@
 package grill24.potionsplus.mixin;
 
 import grill24.potionsplus.config.PotionsPlusConfig;
-import grill24.potionsplus.core.DataAttachments;
+import grill24.potionsplus.core.neoforge.DataAttachments;
 import grill24.potionsplus.effect.LastPotionUsePlayerData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
