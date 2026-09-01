@@ -165,7 +165,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     }
 
     public static BlockPos getOtherEnd(BlockPos blockPos, BlockState blockState) {
-        if (!blockState.is(BlockEntityBlocks.CLOTHESLINE.value())) {
+        if (!(blockState.getBlock() instanceof ClotheslineBlock)) {
             PotionsPlus.LOGGER.warn("getOtherEnd called on " + blockState.getBlock() + ". Expected a clothesline block.");
             return blockPos;
         }
@@ -183,7 +183,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     }
 
     public static BlockPos getLeftEnd(BlockPos blockPos, BlockState blockState) {
-        if (!blockState.is(BlockEntityBlocks.CLOTHESLINE.value())) {
+        if (!(blockState.getBlock() instanceof ClotheslineBlock)) {
             PotionsPlus.LOGGER.warn("getLeftEnd called on " + blockState.getBlock() + ". Expected a clothesline block.");
             return blockPos;
         }
@@ -195,7 +195,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     }
 
     public static boolean isLeftEnd(BlockState blockState) {
-        if (!blockState.is(BlockEntityBlocks.CLOTHESLINE.value())) {
+        if (!(blockState.getBlock() instanceof ClotheslineBlock)) {
             PotionsPlus.LOGGER.warn("isLeftEnd called on " + blockState.getBlock() + ". Expected a clothesline block.");
             return false;
         }
@@ -204,7 +204,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     }
 
     public static BlockPos getOneTowardsMiddle(BlockPos blockPos, BlockState blockState) {
-        if (!blockState.is(BlockEntityBlocks.CLOTHESLINE.value())) {
+        if (!(blockState.getBlock() instanceof ClotheslineBlock)) {
             PotionsPlus.LOGGER.warn("getOneTowardsMiddle called on " + blockState.getBlock() + ". Expected a clothesline block.");
             return blockPos;
         }
@@ -216,7 +216,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     }
 
     public static int getDistance(BlockState blockState) {
-        if (!blockState.is(BlockEntityBlocks.CLOTHESLINE.value())) {
+        if (!(blockState.getBlock() instanceof ClotheslineBlock)) {
             PotionsPlus.LOGGER.warn("getDistance called on " + blockState.getBlock() + ". Expected a clothesline block.");
             return -1;
         }
@@ -226,6 +226,11 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+        if (grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY == null) {
+            // Fabric eagerly builds each block's default-state shape cache synchronously during
+            // registration; CLOTHESLINE_BLOCK_ENTITY (registered after blocks) isn't bound yet then.
+            return CENTER_POST;
+        }
         Optional<ClotheslineBlockEntity> blockEntityOptional = blockGetter.getBlockEntity(getLeftEnd(blockPos, blockState), grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.value());
         if (blockEntityOptional.isPresent()) {
             Optional<BlockState> fencePostBlockStateOptional = blockEntityOptional.get().getFencePostBlockState();

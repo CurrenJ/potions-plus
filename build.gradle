@@ -1,5 +1,5 @@
 plugins {
-    id 'dev.architectury.loom-no-remap' version '1.14-SNAPSHOT' apply false
+    id 'dev.architectury.loom-no-remap' version '1.17.491' apply false
     id 'architectury-plugin' version '3.5-SNAPSHOT'
     id 'com.gradleup.shadow' version '8.3.6' apply false
 }
@@ -52,5 +52,28 @@ subprojects {
                 'Built-On-Minecraft'      : minecraft_version
             ])
         }
+    }
+}
+
+// NeoForge datagen (:neoforge:runData) is the source of truth (see docs/multi-loader-expansion.md
+// Phase 7 / Decision 4). This copies its output into common/src/generated/resources so Fabric and
+// Forge pick up shared models/blockstates/tags/sounds.json via common's resources without
+// re-implementing datagen per loader.
+tasks.register('commonDatagen', Copy) {
+    dependsOn ':neoforge:runData'
+
+    from(file('neoforge/src/generated/resources')) {
+        exclude '.cache/**'
+        // NeoForge-only datapack registries (e.g. the neoforge:biome_modifier registry) - Fabric
+        // and Forge each provide their own code-based or hand-authored equivalents (Phase 5) and
+        // must not receive NeoForge-typed json.
+        exclude 'data/neoforge/**'
+        exclude '**/neoforge/**'
+    }
+    into file('common/src/generated/resources')
+
+    doFirst {
+        // Clean stale output so removed/renamed blocks, items, etc. don't leave orphaned files.
+        delete fileTree(dir: 'common/src/generated/resources')
     }
 }

@@ -1,14 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8.5",
-  "compatibilityLevel": "JAVA_25",
+  "compatibilityLevel": "JAVA_21",
   "package": "grill24.potionsplus.mixin",
   "mixins": [
     "AbstractProjectileDispenseBehaviorMixin",
     "ApplyBonusCountMixin",
     "BoatMixin",
     "BootstrapMixin",
-    "BucketItemMixin",
     "CauldronInteractionDispatcherAccessor",
     "EnchantedCountIncreaseFunctionMixin",
     "EntityMixin",
@@ -31,6 +30,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "refmap": "potionsplus.refmap.json"
+  }
 }

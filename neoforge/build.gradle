@@ -61,7 +61,8 @@ dependencies {
     common(project(path: ':common')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
-    compileOnly "mezz.jei:jei-1.21.5-neoforge:$rootProject.jei_version"
+    compileOnly "mezz.jei:jei-26.1.2-neoforge-api:$rootProject.jei_version"
+    modLocalRuntime "mezz.jei:jei-26.1.2-neoforge:$rootProject.jei_version"
 
     // Game tests need the compiled main classes, not just the compile classpath.
     testmodImplementation sourceSets.main.output
@@ -125,7 +126,7 @@ loom {
         data {
             clientData()
 
-            programArgs.addAll '--flat', '--all',
+            programArgs '--flat', '--all',
                     '--mod', 'potionsplus',
                     '--existing', file("src/main/resources").absolutePath,
                     '--output', file("src/generated/resources").absolutePath

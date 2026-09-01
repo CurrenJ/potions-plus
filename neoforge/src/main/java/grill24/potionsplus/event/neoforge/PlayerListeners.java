@@ -1,7 +1,7 @@
 package grill24.potionsplus.event.neoforge;
 
 import grill24.potionsplus.behaviour.ClotheslineBehaviour;
-import grill24.potionsplus.behaviour.neoforge.MossBehaviour;
+import grill24.potionsplus.behaviour.MossBehaviour;
 import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -159,8 +159,9 @@ public class PlayerListeners {
     public static void on(final PlayerInteractEvent.RightClickBlock event) {
         BlockPos pos = event.getPos();
 
-        MossBehaviour.doMossInteractions(event, pos);
-        if (ClotheslineBehaviour.doClotheslineInteractions(event.getLevel(), pos, event.getItemStack(), event.getEntity(), event.getHand())) {
+        boolean mossHandled = MossBehaviour.doMossInteractions(event.getLevel(), pos, event.getItemStack(), event.getEntity(), event.getHand());
+        boolean clotheslineHandled = ClotheslineBehaviour.doClotheslineInteractions(event.getLevel(), pos, event.getItemStack(), event.getEntity(), event.getHand());
+        if (mossHandled || clotheslineHandled) {
             event.setCanceled(true);
         }
     }

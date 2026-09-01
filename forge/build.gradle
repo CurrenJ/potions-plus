@@ -1,0 +1,318 @@
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+    // NOT runtimeClasspath: Loom's Forge dev launcher merges developmentForge's classpath
+    // (including common, via the line above) into one synthetic "generated_XXX" module so the
+    // TRANSFORMER layer gets a single, self-consistent copy of :common's classes. Separately
+    // extending plain runtimeClasspath from common puts a second, independently-loaded copy of
+    // grill24.potionsplus on the classpath used to build the parent SECURE-BOOTSTRAP module layer -
+    // colliding with the merged copy as a JPMS split package (java.lang.module.ResolutionException:
+    // "Modules potionsplus.common.dev and generated_XXX export package grill24.potionsplus") since
+    // both land in module layers that get resolved together at JVM bootstrap.
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+repositories {
+    maven {
+        name = 'MinecraftForge'
+        url = 'https://maven.minecraftforge.net/'
+    }
+}
+
+// True only when this Gradle invocation actually asked for a game-test run. Several dev-runtime
+// workarounds below apply ONLY to that run (they would break :forge:runClient / :forge:runData if
+// applied globally), and loom.mods / sourceSet outputs are project-wide, not per-run - so the gate
+// has to live at configuration time.
+def isGametestRun = gradle.startParameter.taskNames.any {
+    it.contains('runGametest') || it.contains(':forge:gametest')
+}
+
+sourceSets {
+    testmod {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+        // Platform-agnostic game test logic lives in common/ so all three loaders can share it.
+        java.srcDir(project(':common').file('src/testmod/java'))
+    }
+}
+
+dependencies {
+    forge "net.minecraftforge:forge:$rootProject.minecraft_version-$rootProject.forge_version"
+
+    common(project(path: ':common')) { transitive = false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionForge')
+
+    // Game tests need the compiled main classes, not just the compile classpath.
+    testmodImplementation sourceSets.main.output
+}
+
+// Forge's dev runtime pins Mixin to `dev.architectury:mixin-patched` (Architectury's fork, resolved
+// via loom's `useCustomMixin` swap, which defaults to true). That fork is built on Mixin 0.8.7 and
+// its `CompatibilityLevel` only recognises up to JAVA_21. The mixin configs now declare JAVA_21
+// (see docs/forge-production-mixin-handoff.md "RESOLVED": production Forge ships stock mixin 0.8.7,
+// which rejects JAVA_25 outright), so the *compatibility-level* crash that originally motivated this
+// swap is gone. The swap remains because mixin-patched 0.8.7.12 bundles an older ASM that can't read
+// this project's Java-25-compiled mixin/target bytecode - swapping to NeoForge's
+// `net.fabricmc:sponge-mixin:0.17.3+mixin.0.8.7` (Fabric's JAVA_25-aware fork) keeps dev consistent
+// with NeoForge production.
+configurations.all {
+    resolutionStrategy.eachDependency { details ->
+        def isMixin = (details.requested.group == 'dev.architectury' && details.requested.name == 'mixin-patched')
+            || (details.requested.group == 'org.spongepowered' && details.requested.name == 'mixin')
+        if (isMixin) {
+            details.useTarget 'net.fabricmc:sponge-mixin:0.17.3+mixin.0.8.7'
+        }
+    }
+}
+
+processResources {
+    dependsOn ':common:processResources'
+    inputs.property 'version', project.version
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from project(":common").sourceSets.main.resources
+
+    filesMatching('META-INF/mods.toml') {
+        expand([
+            'version': project.version,
+            'mod_license': rootProject.mod_license,
+            'mod_id': rootProject.mod_id,
+            'mod_name': rootProject.mod_name,
+            'mod_authors': rootProject.mod_authors,
+            'mod_description': rootProject.mod_description,
+            'mod_icon': rootProject.mod_icon,
+            'mod_forge_version_range': "[${rootProject.forge_version},)",
+            'mod_minecraft_version_range': "[${rootProject.minecraft_version},)"
+        ])
+    }
+}
+
+jar {
+    archiveClassifier = 'raw'
+
+    // A game-test invocation compiles testmod into main's classes dir (see the merge below), and those
+    // .class files stay on disk afterwards - so a later, unrelated `./gradlew build` would package
+    // them into the distributable jar. Nothing under a gametest package ever belongs in a release.
+    exclude '**/gametest/**'
+
+    // Forge 64.1.0 production does NOT parse [[mixins]] out of mods.toml (CommonLaunchHandler has
+    // no getMixinConfigs(), and no class in fmlloader/fmlcore/forge references the mixin config
+    // table). The ONLY production discovery path is the MixinConfigs manifest attribute, read by
+    // Mixin's MixinContainer (see the MixinGradle wiki "Mixins on Minecraft Forge" and
+    // docs/forge-production-mixin-handoff.md RESOLVED). This jar's manifest flows into shadowJar
+    // via from(zipTree(jar.archiveFile)), the same path that already carries Specification-Title etc.
+    manifest {
+        attributes 'MixinConfigs': 'potionsplus.mixins.json,potionsplus.forge.mixins.json'
+    }
+}
+
+shadowJar {
+    dependsOn(jar)
+    mainSpec.sourcePaths.clear()
+    from(zipTree(jar.archiveFile))
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = null
+}
+
+// shadowJar (the distributable mod jar bundling common) isn't wired into
+// build/assemble by default, so `./gradlew build` would silently produce only
+// the classes-only "raw" jar - anything installed from that (or from a stale
+// standalone shadowJar run) would run outdated common/ code with no warning.
+tasks.named('assemble') {
+    dependsOn(tasks.named('shadowJar'))
+}
+
+// Forge dev runtime: keep the mod on a SINGLE classpath entry. With classes and resources as
+// two separate dirs, Forge's SecureModuleFinder unions them into a `union:` URL; ClasspathLocator
+// can't turn that into a valid module name (empty name) and FML dies at bootstrap. Merging the
+// resources output into the classes dir means :forge:runClient sees one entry per module.
+// testmod needs the identical treatment for :forge:runGametest - same "Invalid module name: ''"
+// crash in ClasspathLocator.scanMods, just for testmod's own classes/resources split instead.
+sourceSets {
+    main {
+        output.resourcesDir = output.classesDirs.singleFile
+    }
+    testmod {
+        output.resourcesDir = output.classesDirs.singleFile
+    }
+}
+
+sourceSets.main.resources.srcDir('src/generated/resources')
+
+// ...and merging each source set's OWN classes/resources split is still not enough for the game-test
+// run, because there the mod spans TWO source sets. FML's per-mod classloader only scans classes that
+// belong to a mod file, so testmod has to be part of the potionsplus mod for its
+// @Mod.EventBusSubscriber listener to fire at all - but associating a second source set with the mod
+// makes Forge's SecureModuleFinder union main's and testmod's directories into one module, and a
+// union root has no file name, so `SecureJar.from(...).moduleDataProvider().descriptor()` derives the
+// automatic module name "" and JPMS rejects it:
+//
+//     java.lang.IllegalArgumentException: : Invalid module name: '' is not a Java identifier
+//         at cpw.mods.jarhandling.impl.SimpleJarMetadata.descriptor(SimpleJarMetadata.java:18)
+//         at ...ModDirTransformerDiscoverer.isServiceProvider(ModDirTransformerDiscoverer.java:99)
+//         at ...moddiscovery.ClasspathLocator.scanMods(ClasspathLocator.java:77)
+//
+// Architectury Loom ships a fix for exactly this (ModDirTransformerDiscovererPatch ASM-prepends
+// `if (path.getFileSystem() != FileSystems.getDefault()) return false;` to isServiceProvider), but it
+// only applies it inside ForgeLibrariesProvider.remapFmlLoader, whose call site is gated on
+// `mappingConfiguration != null`. Under loom-no-remap that is null - MC 26.1.2 is unobfuscated and
+// needs no mappings - so fmlloader is added as a plain dependency and never patched, and the guard is
+// simply absent at runtime (confirmed: no 26.1.2-64.1.0 entry under Loom's transformed-dependencies-v1
+// cache, and the raw jar's line table puts the crashing descriptor() call at line 99 with nothing
+// ahead of it). Nothing we can toggle brings it back.
+//
+// So instead of asking FML to cope with two directories, give it one: compile testmod INTO main's
+// classes dir for game-test invocations. The mod stays a single classpath entry (no union, no crash)
+// and testmod's classes sit inside the potionsplus mod file, so annotation scanning finds them -
+// which was the whole point of the loom.mods association this replaces.
+if (isGametestRun) {
+    def mergedClassesDir = sourceSets.main.output.classesDirs.singleFile
+    tasks.named('compileTestmodJava') {
+        destinationDirectory = file(mergedClassesDir)
+        // main's resources are merged into this same directory (see above), so two tasks now write
+        // here. Order them explicitly, or Gradle fails the build with an implicit-dependency
+        // validation error the moment it picks the other order.
+        dependsOn(tasks.named('processResources'))
+    }
+    // testmod's OWN resources dir is deliberately left where it is. Redirecting it here too would make
+    // processTestmodResources and compileTestmodJava overlap on the same output directory, which
+    // Gradle rejects outright. It is NO-SOURCE today and must stay that way: a resource placed in
+    // forge/src/testmod/resources would land outside the mod file and never be found at runtime. Game
+    // test resources (e.g. the empty_testarea structure) belong in common/ or main, as they already do.
+}
+
+// FML's runtime AXFORM wires its name-handler to modlauncher's "srg" mapping provider, which in
+// loom-no-remap is ArchitecturyNamingService. That service requires the
+// architectury.naming.mappingsPath/sourceNamespace system properties; without them it throws
+// ("Missing required system property...") for every AT line, crashing the dev run at FML bootstrap
+// (Invalid access transformer line / Invalid AccessTransformer config). This mod ships an
+// accesstransformer.cfg of its own (see META-INF/), and forge-universal.jar ships one too, so every
+// dev run goes through AXFORM and needs this. Since the dev runtime is unobfuscated (official names),
+// the correct mapping is identity: feed it a valid but EMPTY official->named mapping file so it loads
+// empty tables and translates nothing.
+def emptyMappings = layout.buildDirectory.file('generated/empty-official-to-named.tiny')
+def emptyMappingsContent = "v1\tofficial\tnamed\n"
+
+tasks.register('generateEmptyMappings') {
+    def out = emptyMappings.get().asFile
+    outputs.file(out)
+    doLast {
+        out.parentFile.mkdirs()
+        out.text = emptyMappingsContent
+    }
+}
+
+// IDE runs never execute generateEmptyMappings - IntelliJ's generated run configuration has only a
+// "Make" step, not a Gradle task dependency - so write the stub at configuration time too. The task
+// above still owns it for Gradle runs, which is what keeps `./gradlew clean runClient` correct (clean
+// deletes build/ after this block has already run).
+def emptyMappingsFile = emptyMappings.get().asFile
+if (!emptyMappingsFile.isFile() || emptyMappingsFile.text != emptyMappingsContent) {
+    emptyMappingsFile.parentFile.mkdirs()
+    emptyMappingsFile.text = emptyMappingsContent
+}
+
+tasks.withType(JavaExec).matching { it.name.startsWith('run') }.configureEach {
+    dependsOn('generateEmptyMappings')
+    // Unlike the fabric/neoforge modules, this one deliberately does NOT extend runtimeClasspath
+    // from `common` (see the configurations block above), so Gradle never infers a dependency on
+    // :common:jar for the dev runs - and Loom snapshots the run classpath at configuration time,
+    // leaving a stale potionsplus-common jar on it. Wire it up explicitly.
+    dependsOn(configurations.common)
+    // The architectury.naming.* properties this run needs are NOT set here. Adding them to the Gradle
+    // JavaExec task only fixes `./gradlew :forge:runClient`; see the loom.runs.configureEach block
+    // below for why they have to live on the loom run config instead.
+}
+
+loom {
+    // Every run needs the architectury.naming.* properties described above, or FML's AXFORM dies at
+    // bootstrap ("Missing required system property" per AT line -> Invalid AccessTransformer config).
+    // These used to be set as jvmArgs on the Gradle JavaExec run tasks, which reaches `./gradlew
+    // :forge:runClient` and nothing else: IntelliJ/Eclipse run configurations are generated from these
+    // RunConfigSettings, and Loom never looks at Gradle task jvmArgs when writing them - so the IDE's
+    // "Minecraft Client (:forge)" launched without them and failed while the Gradle task succeeded.
+    // Declaring them here covers both launchers (Loom renders systemProperties into -Dk=v itself).
+    //
+    // GOTCHA: `ideaSyncTask` will NOT overwrite a run-configuration XML that already exists - it only
+    // writes missing ones. Editing this block and re-syncing therefore appears to do nothing. Delete
+    // the stale .idea/runConfigurations/*__forge.xml files first, then re-run `./gradlew ideaSyncTask`
+    // (or re-import), and verify the flags actually landed in VM_PARAMETERS.
+    runs.configureEach { run ->
+        run.property('architectury.naming.sourceNamespace', 'official')
+        run.property('architectury.naming.mappingsPath', emptyMappings.get().asFile.absolutePath)
+
+        // Forge's dev launcher only applies mixin configs it is given as `--mixin.config` launch
+        // args: MixinPlatformAgentMinecraftForge rejects an exploded-directory mod container
+        // ("rejected container SecureJarResource(potionsplus)" in the log), so the [[mixins]] entries
+        // in mods.toml - which do work in a built jar - are never read in dev. The one config that
+        // did arrive, potionsplus.mixins.json, comes from the Architectury transformer reading the
+        // MixinConfigs manifest attribute of the transformed :common dev jar; this module's own
+        // config is in no such jar, so nothing delivered it and every mixin in
+        // potionsplus.forge.mixins.json was silently inactive in :forge:runClient / runData /
+        // runGametest. RegistryMixin (potion holder serialization) is one of them, so this is not
+        // optional. Loom's `forge.mixinConfigs` does NOT cover this - it only writes
+        // `-mixin.config` entries into launch.cfg, which this Forge userdev launch target ignores.
+        run.programArgs '--mixin.config', 'potionsplus.forge.mixins.json'
+    }
+
+    mods {
+        potionsplus {
+            sourceSet sourceSets.main
+        }
+    }
+
+    // NOTE: testmod is deliberately NOT registered here. Adding a second source set to the mod is
+    // what produced the union module and the "Invalid module name: ''" bootstrap crash; the
+    // compileTestmodJava output redirect above achieves the same goal (testmod classes inside the
+    // potionsplus mod file, visible to FML's per-mod classloader and its annotation scan) while
+    // keeping the mod on a single classpath entry. See the long comment above for the full trace.
+
+    runs {
+        // Forge keeps its datagen on the client run with --output; NeoForge remains the source of
+        // truth for generated resources (Phase 7), so this mirrors apt-ores' minimal setup.
+        data {
+            clientData()
+
+            programArgs '--mod', 'potionsplus',
+                        '--all',
+                        '--output', file("src/generated/resources").absolutePath
+
+            runDir "build/datagen"
+        }
+
+        // Headless game test server, mirroring :neoforge:runGametest - Forge's own userdev
+        // config.json defines a "gameTestServer" run template identical in shape to NeoForge's
+        // (--launchTarget forge_userdev_server_gametest, main class net.minecraft.gametest.Main),
+        // verified by inspecting forge-26.1.2-64.1.0-userdev.jar's config.json directly.
+        // Whether any tests actually run is unverified - see ForgeGameTestRegistration's javadoc.
+        gametest {
+            environment "gameTestServer"
+            forgeTemplate "gameTestServer"
+            source sourceSets.testmod
+            name "Game Test Server"
+            runDir "build/gametest"
+        }
+    }
+}
+
+// Custom run dirs are not created automatically before the run task executes, unlike the default
+// "run" dir, so a fresh checkout would fail its first runData/runGametest with "working directory does not exist".
+file("build/datagen").mkdirs()
+file("build/gametest").mkdirs()

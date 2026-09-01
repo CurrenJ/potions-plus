@@ -6,6 +6,17 @@ loom {
     accessWidenerPath = file("src/main/resources/potionsplus.accesswidener")
 }
 
+// Phase 7 (datagen sharing): NeoForge's runData output is copied here (via the root
+// `commonDatagen` task) so the Fabric + Forge modules pick up models/blockstates/tags/sounds.json
+// from a single shared source.
+sourceSets.main.resources.srcDir('src/generated/resources')
+
+tasks.named('processResources').configure {
+    // Hand-authored files in src/main/resources take precedence over generated ones with the
+    // same path (e.g. a hand-tweaked model overriding a datagen default).
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 dependencies {
     // Fabric Loader provides Fabric @Environment annotations.
     // Architectury remaps these to the correct annotations on each platform.
@@ -14,10 +25,18 @@ dependencies {
 
     // Architectury injectables provides @ExpectPlatform annotations only.
     implementation "dev.architectury:architectury-injectables:1.0.13"
+
+    // JEI integration is optional at runtime (see client/integration/jei); the shared plugin lives in
+    // common, so common compiles against the platform-agnostic JEI API only.
+    compileOnly "mezz.jei:jei-26.1.2-common-api:$rootProject.jei_version"
 }
 
 repositories {
     mavenCentral()
+    maven {
+        name = 'BlameJared'
+        url = 'https://maven.blamejared.com'
+    }
 }
 
 dependencies {
