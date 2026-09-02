@@ -1406,15 +1406,118 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
   - [x] Regression-verified: `:{neoforge,fabric,forge}:build -x test` green; `:{neoforge,fabric,
         forge}:runServer` all reach `Done (...)!` with zero exceptions and the fabric mixin applying
         cleanly (no "Mixin apply failed" in the log); Decision 4a `comm -12` still empty on all three.
-- [ ] **Registration hubs** — the `@EventBusSubscriber` annotations on `core/{Attributes,Blocks,
-      Capabilities,CreativeModeTabs,Packets,Screens,Renderers,BlockRenderLayers,KeyMappings}` and
-      `core/potion/Potions` are mostly vestigial now (Phase 4/5/11 already absorbed the actual
-      registration); this bucket is "delete the now-meaningless annotation", not new work. Not
-      started.
-- [ ] **Explicit listeners** (`event/{AdvancementListeners,ClientTooltipComponentFactoriesListeners,
-      EnchantmentListeners,ItemListenersMod,PlayerListeners}`, plus `ItemListenersGame` → `common/`,
-      plus the two load-bearing custom `Event` subclasses `AnimatedItemTooltipEvent` /
-      `ServerPlayerHeldItemChangedEvent`). Not started.
+- [x] **Registration hubs — confirmed no-op 2026-09-02.** Audited all 8 neoforge-side
+      `@EventBusSubscriber` hub classes (`core/neoforge/{Blocks,Capabilities,CreativeModeTabs,
+      Packets,Screens,Renderers,BlockRenderLayers,KeyMappings}`; the `core/potion/{Potions,
+      MobEffects}` hits in the earlier grep were stale Javadoc prose mentioning "Phase 7", not
+      actual annotations — false positives). None needed the annotation deleted: they already live
+      correctly package-scoped in `neoforge/` (Decision 4a), and each is a real NeoForge lifecycle
+      hook (`RegisterColorHandlersEvent`, `RegisterCapabilitiesEvent`,
+      `BuildCreativeModeTabContentsEvent`, `RegisterPayloadHandlersEvent`,
+      `RegisterMenuScreensEvent`, `EntityRenderersEvent.RegisterRenderers`, `FMLClientSetupEvent`,
+      `RegisterKeyMappingsEvent`), not a vestigial annotation left over from the split. `Blocks`,
+      `Capabilities`, `CreativeModeTabs`, `Packets` already have working Fabric + Forge equivalents
+      (`core/{fabric,forge}/*`) from Phases 4/5. `Screens`, `Renderers`, `BlockRenderLayers`,
+      `KeyMappings` are client-registration hubs correctly deferred to **Phase 11** — no fabric/forge
+      files for them exist yet, and none should before that phase.
+- [~] **Explicit listeners — partially done 2026-09-02, rest genuinely blocked on other buckets/phases
+      (evidence below, not a guess).** Of the six items in this bucket, only two were free of
+      cross-bucket dependencies:
+  - [x] **`EnchantmentListeners`** (`GetEnchantmentLevelEvent` → item-attribute enchantment bonus).
+        Forge 52.1.2 has no such event (confirmed via javap: only `EnchantmentLevelSetEvent` exists,
+        a different hook) and neither does vanilla/Fabric, so both loaders mixin into
+        `EnchantmentHelper.getItemEnchantmentLevel` instead: new
+        `{fabric,forge}/mixin/{fabric,forge}/EnchantmentHelperMixin.java`. **Diverges from 26.1.2's
+        mixin in two ways, both forced by this MC version:** (1) 1.21.1's overload takes `ItemStack`
+        directly, not 26.1.2's `ItemInstance` abstraction; (2) the bonus-calculation body is
+        **inlined** in each mixin rather than calling NeoForge's existing
+        `LootItemModifiersBehaviour.getEnchantmentLevelFromItemAttributes` — that class has zero
+        NeoForge imports (pure vanilla logic) but still physically lives under `neoforge/behaviour/`,
+        because **the entire `behaviour` package is unsplit Phase 8 territory on this branch**
+        (`MossBehaviour`, `ClotheslineBehaviour`, both loot-modifier classes are neoforge-only today —
+        unlike 26.1.2, where `behaviour` was already common). Moving just the one class would leave
+        `common/behaviour` and `neoforge/behaviour` co-existing, violating Decision 4a's zero-package-
+        intersection rule. Also had to swap `Holder.getKey()`/`ItemStack.getAttributeModifiers()` for
+        `Holder.unwrapKey()`/`stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ...)` — both of
+        the former are **NeoForge-only extension methods** (`IHolderExtension`/`IItemStackExtension`,
+        confirmed via javap on the AT-patched NeoForge jar: `Holder<T> extends IHolderExtension<T>`),
+        invisible on Fabric/Forge/vanilla despite compiling silently in the existing neoforge code.
+  - [x] **`ItemListenersMod`** (potion `MAX_STACK_SIZE` → 16). NeoForge keeps
+        `ModifyDefaultComponentsEvent` (unchanged). Neither Fabric nor Forge has that event, and
+        1.21.1 predates `BuiltInRegistries.DATA_COMPONENT_INITIALIZERS` (confirmed absent via a jar
+        listing — that's a 1.21.5+ API, so 26.1.2's Fabric/Forge approach doesn't port). New
+        `{fabric,forge}/mixin/{fabric,forge}/ItemMixin.java`: `@Inject` at `RETURN` of
+        `Item(Item.Properties)`, `@Mutable @Shadow @Final DataComponentMap components`, reassign via
+        `DataComponentMap.builder().addAll(this.components).set(MAX_STACK_SIZE, 16).build()` when
+        `this instanceof PotionItem`. Verified safe against Forge's lazy `builtComponents` cache
+        (`Item.components()` calls `ForgeHooks.gatherItemComponents(this, components)` on first
+        access, well after construction — confirmed via javap on the Forge 52.1.2 merged jar).
+  - [x] Both mixins registered in `potionsplus.{fabric,forge}.mixins.json`. Verified:
+        `:{neoforge,fabric,forge}:build -x test` green (including `remapJar`/refmap generation);
+        Decision 4a `comm -12` empty on all three; `:{neoforge,fabric,forge}:runServer` all reach
+        `Done (...)!` with zero exceptions and no "Mixin apply failed".
+  - [ ] **`AdvancementListeners` — blocked.** Needs `RecipesRegistrar.ALL_SEEDED_POTION_RECIPES_ANALYSIS`,
+        which is neoforge-only (`neoforge/core/neoforge/RecipesRegistrar.java`) pending Phase 5's
+        remaining runtime-recipe work (Phase 5 status: "6/12 payloads ported... runtime-recipe client
+        sync unresolved"). The advancement-id set itself is trivial to port (`Utility.ppId("root")`
+        etc., already in `common/`), but the payload it drops depends on data that doesn't exist on
+        Fabric/Forge yet.
+  - [ ] **`PlayerListeners` — blocked**, on two separate unfinished pieces:
+        `onItemPickedUp`/part of the moss/clothesline handling reach the same `RecipesRegistrar`
+        analyses as above; `onTick` (passive item potion effects) reads `ServerTickHandler.ticksInGame`,
+        which is neoforge-only (`neoforge/utility/neoforge/ServerTickHandler.java`) pending the
+        **Tick / lifecycle** bucket below. The moss/clothesline call itself
+        (`MossBehaviour`/`ClotheslineBehaviour`) is also neoforge-only — same unsplit-`behaviour`-
+        package blocker as `EnchantmentListeners` above, this time for classes that own real state and
+        can't be inlined the way the small attribute-bonus helper was.
+  - [ ] **`ClientTooltipComponentFactoriesListeners` — blocked.** Forge has the same
+        `RegisterClientTooltipComponentFactoriesEvent` NeoForge does (confirmed via jar listing) and
+        Fabric's `ClientTooltipComponentCallback.EVENT` is the documented 26.1.2 equivalent, so the
+        *registration* is trivial — but the actual `ClientTooltipComponent` implementation,
+        `ClientItemStacksTooltip`, lives at `neoforge/utility/neoforge/ClientItemStacksTooltip.java`
+        and hard-depends on `core.neoforge.items.DynamicIconItems.GENERIC_ICON`, which has **no
+        Fabric or Forge equivalent at all** (`DynamicIconItems` was apparently missed by Phase 4/5's
+        item-hub porting; it only exists in `neoforge/`). Porting this listener means porting
+        `DynamicIconItems` first, which is registration-hub/Phase-4 scope, not Phase 7.
+  - [ ] **`ItemListenersGame` → `common/` — blocked.** 26.1.2's version is a pure animation-math
+        helper class with zero loader imports, which is exactly why it lives in `common/` there. On
+        this branch the equivalent helper methods (`animateComponentText`/
+        `animateComponentTextStartTime`) call `ClientTickHandler.total()`, and `ClientTickHandler` is
+        still neoforge-only (`neoforge/utility/neoforge/ClientTickHandler.java`) pending the
+        **Tick / lifecycle** bucket. Moving `ItemListenersGame` to `common/` today would mean `common/`
+        importing a neoforge-only class - not possible (separate module classpaths, not just a style
+        rule). The `@SubscribeEvent`-carrying half of the current `neoforge/event/neoforge/
+        ItemListenersGame.java` (tooltip animation dispatch, `LivingEntityUseItemEvent` duration
+        shortening) additionally reaches into `BrewingTooltips`/`PotionEffectTooltips`
+        (**Client tooltips** bucket, also not done) via `AnimatedItemTooltipBusEvent` — left entirely
+        untouched.
+  - [ ] **`AnimatedItemTooltipEvent` — left as-is, divergence noted, not fixed.** 26.1.2's version is
+        `abstract` with nested `Add`/`Modify` subclasses and is called **directly** by each loader's
+        tooltip listener (no event bus at all — see `NeoItemListeners`/`FabricClientEventListeners`/
+        `ForgeClientEventListeners` there). This branch's `common/event/AnimatedItemTooltipEvent.java`
+        is a plain concrete data holder, and NeoForge still wraps it in a NeoForge-only
+        `AnimatedItemTooltipBusEvent` posted to `NeoForge.EVENT_BUS`. Redesigning this to match
+        26.1.2 means touching `WeightDataComponent`, `BrewingTooltips`, `PotionEffectTooltips` — all
+        **Client tooltips** bucket, not this one — so left alone. Whoever does that bucket should
+        consider adopting 26.1.2's direct-call design instead of inventing a NeoForge-bus-shaped one
+        for Fabric/Forge, since NeoForge's own reference class for the bus-wrapper approach
+        (`NeoAnimatedItemTooltipEvent`) turned out to be **dead code even on 26.1.2** (confirmed via
+        grep — zero call sites; NeoForge's `NeoItemListeners` calls `AnimatedItemTooltipEvent.Add`
+        directly, same as Fabric/Forge). Do not port `NeoAnimatedItemTooltipEvent` when tackling that
+        bucket; 26.1.2 itself doesn't use it.
+  - [x] **`ServerPlayerHeldItemChangedEvent` — confirmed no-op, already correctly scoped.** Verified
+        it is exactly what the plan predicted: one end of a Phase 2 `Platform` hook, neoforge-only by
+        design (`Platform.onServerPlayerHeldItemChanged`), not an orphan. Nothing to port here — this
+        bullet was already satisfied before this session.
+  - **Net effect:** this bucket surfaced three real, evidence-backed prerequisites for other work:
+    (1) Phase 5's remaining runtime-recipe/`RecipesRegistrar` work blocks `AdvancementListeners` and
+    part of `PlayerListeners`; (2) the **Tick / lifecycle** bucket (below) blocks the rest of
+    `PlayerListeners` and `ItemListenersGame`'s move to `common/`; (3) Phase 8's `behaviour` package
+    split blocks the moss/clothesline half of `PlayerListeners` (loot-modifier classes were already
+    known Phase 8 scope, but `MossBehaviour`/`ClotheslineBehaviour` living there too is a **new**
+    finding — worth flagging to whoever scopes Phase 8, since those two classes are general gameplay
+    behaviour, not loot modifiers). None of these are Phase-7-bucket work; they're prerequisites this
+    bucket exposed.
 - [ ] **Tick / lifecycle** (`utility/{ClientTickHandler,ServerTickHandler,DelayedEvents,
       ServerPlayerUtility}`, `core/ServerLifecycleListeners`). Not started — note fabric/forge
       `ServerLifecycleListeners.java` are still stubs (see their class-doc comments).

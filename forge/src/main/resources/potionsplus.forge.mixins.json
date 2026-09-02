@@ -4,6 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "package": "grill24.potionsplus.mixin.forge",
   "mixins": [
+    "EnchantmentHelperMixin",
+    "ItemMixin",
     "RegistryMixin"
   ],
   "injectors": {
