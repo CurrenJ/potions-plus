@@ -2,7 +2,7 @@ package grill24.potionsplus.blockentity.neoforge;
 
 import grill24.potionsplus.block.neoforge.PotionBeaconBlock;
 import grill24.potionsplus.core.neoforge.Blocks;
-import grill24.potionsplus.network.neoforge.ClientboundBlockEntityCraftRecipePacket;
+import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.utility.*;
 import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.blockentity.ICraftingBlockEntity;

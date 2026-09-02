@@ -1,4 +1,4 @@
-package grill24.potionsplus.network.neoforge;
+package grill24.potionsplus.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -9,31 +9,25 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
-import grill24.potionsplus.network.PacketContext;
-
-import java.util.List;
+import net.minecraft.world.item.ItemStack;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
-public record ClientboundDisplayAlertWithParameter(String localizationKey, Boolean playSound, List<String> params) implements CustomPacketPayload {
-    public ClientboundDisplayAlertWithParameter(String localizationKey, String... param) {
-        this(localizationKey, false, List.of(param));
+public record ClientboundDisplayAlertWithItemStackName(String localizationKey, ItemStack param, Boolean playSound) implements CustomPacketPayload {
+    public ClientboundDisplayAlertWithItemStackName(String localizationKey) {
+        this(localizationKey, ItemStack.EMPTY, false);
     }
 
-    public ClientboundDisplayAlertWithParameter(String localizationKey, Boolean playSound, String... param) {
-        this(localizationKey, playSound, List.of(param));
-    }
+    public static final Type<ClientboundDisplayAlertWithItemStackName> TYPE = new Type<>(ppId("display_alert_with_itemstack_param"));
 
-    public static final Type<ClientboundDisplayAlertWithParameter> TYPE = new Type<>(ppId("display_alert_with_param"));
-
-    public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundDisplayAlertWithParameter> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundDisplayAlertWithItemStackName> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.STRING_UTF8,
-            ClientboundDisplayAlertWithParameter::localizationKey,
+            ClientboundDisplayAlertWithItemStackName::localizationKey,
+            ItemStack.OPTIONAL_STREAM_CODEC,
+            ClientboundDisplayAlertWithItemStackName::param,
             ByteBufCodecs.BOOL,
-            ClientboundDisplayAlertWithParameter::playSound,
-            ByteBufCodecs.STRING_UTF8.apply(ByteBufCodecs.list()),
-            ClientboundDisplayAlertWithParameter::params,
-            ClientboundDisplayAlertWithParameter::new
+            ClientboundDisplayAlertWithItemStackName::playSound,
+            ClientboundDisplayAlertWithItemStackName::new
     );
 
     @Override
@@ -42,7 +36,7 @@ public record ClientboundDisplayAlertWithParameter(String localizationKey, Boole
     }
 
     public static class ClientPayloadHandler {
-        public static void handleDataOnMain (final ClientboundDisplayAlertWithParameter packet, final PacketContext context){
+        public static void handleDataOnMain (final ClientboundDisplayAlertWithItemStackName packet, final PacketContext context){
             context.enqueueWork(
                     () -> {
                         Minecraft mc = Minecraft.getInstance();
@@ -52,10 +46,10 @@ public record ClientboundDisplayAlertWithParameter(String localizationKey, Boole
 
                         Player clientPlayer = context.player();
                         MutableComponent text;
-                        if (packet.params.isEmpty()) {
+                        if (packet.param.isEmpty()) {
                             text = Component.translatable(packet.localizationKey);
                         } else {
-                            text = Component.translatable(packet.localizationKey, packet.params.toArray());
+                            text = Component.translatable(packet.localizationKey, packet.param.getHoverName());
                         }
                         clientPlayer.displayClientMessage(text, true);
                         if(packet.playSound) {

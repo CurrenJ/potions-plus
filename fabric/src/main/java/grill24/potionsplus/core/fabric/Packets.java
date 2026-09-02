@@ -1,18 +1,87 @@
 package grill24.potionsplus.core.fabric;
 
+import grill24.potionsplus.network.*;
+import grill24.potionsplus.network.fabric.FabricPacketContext;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
+import java.util.function.BiConsumer;
+
 /**
- * PHASE 5 (networking): Fabric packet registration hub. Fabric splits registration between the
- * server entrypoint ({@link #registerServer()}) and the client entrypoint ({@link #registerClient()}).
- * No payloads are registered until the common packet classes are ported (they currently live in
- * {@code .network.neoforge}).
+ * Fabric packet registration hub. Fabric splits registration between the server entrypoint
+ * ({@link #registerServer()}) and the client entrypoint ({@link #registerClient()}).
+ *
+ * Only the 6 payloads with no remaining neoforge-only dependency are wired here. The other 6
+ * ({@code Clientbound{AcquiredBrewingRecipeKnowledge,SyncKnownBrewingRecipes,SyncPairedAbyssalTrove}}
+ * depend on {@code JeiPotionsPlusPlugin}; {@code ServerboundConstructClotheslinePacket} depends on
+ * {@code ClotheslineBehaviour}; {@code ClientboundSanguineAltarConversion{State,Progress}Packet} depend
+ * on {@code SanguineAltarBlockEntity} / {@code core.neoforge.Blocks} — all still neoforge-only pending
+ * Phase 7 (event/behaviour extraction) and JEI-on-fabric (Phase 11). They stay registered only in
+ * {@code core/neoforge/Packets.java} until those dependencies move to {@code common/}.
  */
 public class Packets {
     public static void registerServer() {
-        // PHASE 5: PayloadTypeRegistry.serverboundPlay().register(...) + ServerPlayNetworking
-        // global receivers for the serverbound packets.
+        // ----- Serverbound Packets: codec (decode) + handler -----
+
+        PayloadTypeRegistry.playC2S().register(
+                ServerboundSpawnDoubleJumpParticlesPacket.TYPE,
+                ServerboundSpawnDoubleJumpParticlesPacket.STREAM_CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(
+                ServerboundSpawnDoubleJumpParticlesPacket.TYPE,
+                (pkt, ctx) -> ServerboundSpawnDoubleJumpParticlesPacket.ServerPayloadHandler.handleDataOnMain(pkt, FabricPacketContext.server(ctx)));
+
+        // ----- Clientbound Packets: codec only (server encodes outgoing S2C; handlers live client-side) -----
+
+        clientboundCodec(ClientboundBlockEntityCraftRecipePacket.TYPE, ClientboundBlockEntityCraftRecipePacket.STREAM_CODEC);
+        clientboundCodec(ClientboundImpulsePlayerPacket.TYPE, ClientboundImpulsePlayerPacket.STREAM_CODEC);
+        clientboundCodec(ClientboundDisplayAlertWithItemStackName.TYPE, ClientboundDisplayAlertWithItemStackName.STREAM_CODEC);
+        clientboundCodec(ClientboundDisplayAlertWithParameter.TYPE, ClientboundDisplayAlertWithParameter.STREAM_CODEC);
+        clientboundCodec(ClientboundDisplayAlert.TYPE, ClientboundDisplayAlert.STREAM_CODEC);
     }
 
     public static void registerClient() {
-        // PHASE 5: clientbound codecs + ClientPlayNetworking global receivers.
+        // ----- Serverbound Packets: codec only (client encodes outgoing C2S). Tolerate the
+        // integrated-server double-registration where registerServer() already ran. -----
+
+        try {
+            PayloadTypeRegistry.playC2S().register(
+                    ServerboundSpawnDoubleJumpParticlesPacket.TYPE,
+                    ServerboundSpawnDoubleJumpParticlesPacket.STREAM_CODEC);
+        } catch (IllegalArgumentException ignored) {
+            // Already registered by the server-side entrypoint in an integrated (singleplayer) environment.
+        }
+
+        // ----- Clientbound Packets: codec (decode) + handler -----
+
+        clientbound(ClientboundBlockEntityCraftRecipePacket.TYPE, ClientboundBlockEntityCraftRecipePacket.STREAM_CODEC,
+                ClientboundBlockEntityCraftRecipePacket.ClientPayloadHandler::handleDataOnMain);
+        clientbound(ClientboundImpulsePlayerPacket.TYPE, ClientboundImpulsePlayerPacket.STREAM_CODEC,
+                ClientboundImpulsePlayerPacket.ClientPayloadHandler::handleDataOnMain);
+        clientbound(ClientboundDisplayAlertWithItemStackName.TYPE, ClientboundDisplayAlertWithItemStackName.STREAM_CODEC,
+                ClientboundDisplayAlertWithItemStackName.ClientPayloadHandler::handleDataOnMain);
+        clientbound(ClientboundDisplayAlertWithParameter.TYPE, ClientboundDisplayAlertWithParameter.STREAM_CODEC,
+                ClientboundDisplayAlertWithParameter.ClientPayloadHandler::handleDataOnMain);
+        clientbound(ClientboundDisplayAlert.TYPE, ClientboundDisplayAlert.STREAM_CODEC,
+                ClientboundDisplayAlert.ClientPayloadHandler::handleDataOnMain);
+    }
+
+    private static <T extends CustomPacketPayload> void clientboundCodec(
+            CustomPacketPayload.Type<T> type, StreamCodec<? super RegistryFriendlyByteBuf, T> codec) {
+        PayloadTypeRegistry.playS2C().register(type, codec);
+    }
+
+    private static <T extends CustomPacketPayload> void clientbound(
+            CustomPacketPayload.Type<T> type, StreamCodec<? super RegistryFriendlyByteBuf, T> codec,
+            BiConsumer<T, PacketContext> handler) {
+        try {
+            PayloadTypeRegistry.playS2C().register(type, codec);
+        } catch (IllegalArgumentException ignored) {
+            // Already registered by the server-side entrypoint in an integrated (singleplayer) environment.
+        }
+        ClientPlayNetworking.registerGlobalReceiver(type, (pkt, ctx) -> handler.accept(pkt, FabricPacketContext.client(ctx)));
     }
 }

@@ -2,7 +2,7 @@ package grill24.potionsplus.effect.neoforge;
 
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
-import grill24.potionsplus.network.neoforge.ClientboundImpulsePlayerPacket;
+import grill24.potionsplus.network.ClientboundImpulsePlayerPacket;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.effect.IEffectTooltipDetails;
 import net.minecraft.ChatFormatting;

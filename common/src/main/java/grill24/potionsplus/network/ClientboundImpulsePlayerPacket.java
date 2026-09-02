@@ -1,11 +1,10 @@
-package grill24.potionsplus.network.neoforge;
+package grill24.potionsplus.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import grill24.potionsplus.network.PacketContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 

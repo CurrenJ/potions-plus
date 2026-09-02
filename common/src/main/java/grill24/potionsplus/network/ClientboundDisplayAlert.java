@@ -1,4 +1,4 @@
-package grill24.potionsplus.network.neoforge;
+package grill24.potionsplus.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
@@ -13,7 +13,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
-import grill24.potionsplus.network.PacketContext;
 
 import javax.swing.text.html.Option;
 import java.util.List;

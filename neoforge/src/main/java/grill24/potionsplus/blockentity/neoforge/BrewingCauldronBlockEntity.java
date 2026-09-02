@@ -3,7 +3,7 @@ package grill24.potionsplus.blockentity.neoforge;
 import grill24.potionsplus.core.*;
 import grill24.potionsplus.core.neoforge.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.network.neoforge.ClientboundBlockEntityCraftRecipePacket;
+import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.persistence.neoforge.PlayerBrewingKnowledgeNetworking;
 import grill24.potionsplus.recipe.ContainerRecipeInput;
@@ -57,7 +57,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
     private int brewTime = 0;
     @BlockEntitySerializableData
-    protected float storedExperience = 0;
+    public float storedExperience = 0;
 
     // Rendering Only
     private ItemStack statusIcon = ItemStack.EMPTY;

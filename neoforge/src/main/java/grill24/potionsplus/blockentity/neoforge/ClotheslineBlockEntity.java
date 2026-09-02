@@ -3,7 +3,7 @@ package grill24.potionsplus.blockentity.neoforge;
 import grill24.potionsplus.advancement.CraftRecipeTrigger;
 import grill24.potionsplus.core.Advancements;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
-import grill24.potionsplus.network.neoforge.ClientboundBlockEntityCraftRecipePacket;
+import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.HolderLookup;

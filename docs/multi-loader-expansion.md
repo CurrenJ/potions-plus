@@ -169,7 +169,7 @@ record it under "VERIFIED API FACTS" with the evidence.
 | 2 | Platform abstraction layer | ✅ done 2026-09-01 — 7-method `Platform`, 5-method `PacketNetwork`, 3-method `PacketContext`; 12 packet handlers rewritten + `NeoPacketContext`-wrapped; 9 senders + 4 call sites converted to the @ExpectPlatform surface; `:common:compileJava :neoforge:compileJava` green, build green modulo the known Phase-12 junit red; `net.neoforged` = 0 in `common/src/main/java`; `comm -12` empty |
 | 3 | Fabric + Forge module scaffold | ✅ done 2026-09-01 — `settings.gradle` includes re-added; `fabric`/`forge` `gradle.properties` + `build.gradle` authored (Forge `runtimeClasspath` asymmetry kept); placeholder `fabric.mod.json` + `mods.toml`; exit criterion met: `:fabric:build :forge:build :neoforge:build -x test` → `BUILD SUCCESSFUL`, all three jars produced. **Divergence required:** removed `RecipeInput` from `InventoryBlockEntity` (1.21.1 mapping collision, see VERIFIED API FACTS) + added `ContainerRecipeInput` wrapper; `BrewingCauldronBlockEntity` now wraps `this` at its one `matches(this, …)` call site |
 | 4 | Registration hubs (Fabric + Forge) | ✅ **closed 2026-09-02** — Fabric (26 files) + Forge (29 files) hubs written, all three loader modules compile green, `comm -12` empty (Decision 4a). **Exit criteria met:** runClient smoke on **all three loaders** boots to main menu — fabric + forge both log "Potions Plus (Fabric|Forge) initializing" + "Sound engine started", zero crash markers, item/block registration proven by the item-model lookups the game attempts; neoforge regression clean after the hub refactor + mixin split; clean three-loader build `BUILD SUCCESSFUL`. Two blockers found only by the smokes (invisible to compile): **mixin split** (common's config listed 16 mixins that lived in neoforge/ → 10 vanilla-only javap-verified → common, 8 neoforge-dependent → new `mixin.neoforge` package + own config) and **fabric class-init ordering NPE** (eager fabric registration: `BrewingItems` derefs `FlowerBlocks.LUNAR_BERRY_BUSH` for the `ItemNameBlockItem` → `FlowerBlocks.init` must run FIRST in the fabric `Blocks` static block). Committed `d9b2cf4`. |
-| 5 | `@ExpectPlatform` impls + networking | ⬜ not started |
+| 5 | `@ExpectPlatform` impls + networking | 🟡 **partially done 2026-09-02** — networking infra (PacketContext adapters, Forge Channel/PacketNetworkImpl, both `core/{fabric,forge}/Packets.java`) complete on all three loaders; 6/12 payloads ported to `common/` and registered cross-loader, 6 remain neoforge-only pending Phases 7/8-9/11; runtime-recipe client sync unresolved. See phase notes. |
 | 6 | Entrypoints | ⬜ not started |
 | 7 | Event surface (36 subscriber classes) | ⬜ not started |
 | 8 | NeoForge-only systems (full parity) | ⬜ not started |
@@ -1145,42 +1145,91 @@ assumptions, `ConsumeEffects`/`BlockPredicateTypes`/`CreativeModeTab.builder(Row
 
 *(= 26.1.2 Phase 2.)*
 
-- [ ] `fabric/.../platform/fabric/PlatformImpl.java` — full implementations
+- [x] `fabric/.../platform/fabric/PlatformImpl.java` — full implementations
       (`FabricLoader.getInstance().getEnvironmentType()`, `isDevelopmentEnvironment()`, etc.).
-- [ ] `forge/.../platform/forge/PlatformImpl.java` — same (`FMLEnvironment.dist`,
-      `!FMLEnvironment.production`). **Note 1.21.1 uses the field form `FMLEnvironment.dist`, not
-      26.1.2's `FMLEnvironment.getDist()`** — verify.
-- [ ] `fabric/.../platform/fabric/PacketNetworkImpl.java` — `ServerPlayNetworking.send`,
+      **Already complete** (written during Phase 4 hub work) — verified against this phase's exit
+      criteria and left unchanged.
+- [x] `forge/.../platform/forge/PlatformImpl.java` — same (`FMLEnvironment.dist`,
+      `!FMLEnvironment.production`). **Already complete**, and confirms the field form
+      `FMLEnvironment.dist` (not 26.1.2's `getDist()`). Left unchanged.
+- [x] `fabric/.../platform/fabric/PacketNetworkImpl.java` — `ServerPlayNetworking.send`,
       `ClientPlayNetworking.send`, `PlayerLookup.tracking(ServerLevel, ChunkPos)` / `.tracking(Entity)`.
-- [ ] `forge/.../platform/forge/PacketNetworkImpl.java` — `Channel.send(payload,
-      PacketDistributor.X)`. `payloadChannel()` confirmed present on Forge 52.1.2.
-- [ ] `fabric/.../network/fabric/FabricPacketContext` + `forge/.../network/forge/ForgePacketContext`
-      implementing common `network/PacketContext`. **Package confirmed against the 26.1.2 tree —
-      these live under `network/<loader>/`, not `platform/<loader>/`** (see Phase 2).
-- [ ] `fabric/.../core/fabric/Packets.java` (`registerServer()` + `registerClient()`) and
-      `forge/.../core/forge/Packets.java`, mirroring `core/Packets.java`'s 12 payloads. Both
-      confirmed present in the 26.1.2 tree, alongside `core/neoforge/Packets.java`.
-- [ ] **Carry 26.1.2's codec-side lesson:** a payload's codec must be registered on the side that
+      **Already complete.** Left unchanged.
+- [x] `forge/.../platform/forge/PacketNetworkImpl.java` — `Channel.send(payload,
+      PacketDistributor.X)`. **Implemented 2026-09-02**, verbatim port of the 26.1.2 body:
+      `PLAYER.with(player)`, `TRACKING_ENTITY_AND_SELF.with(player)`, `SERVER.noArg()`,
+      `TRACKING_CHUNK.with(level.getChunk(chunkPos.x, chunkPos.z))`. `javap`'d
+      `net.minecraftforge.network.PacketDistributor` against `forge-universal.jar` (1.21.1-52.1.2) —
+      all four members present with the exact signatures 26.1.2 uses.
+- [x] `fabric/.../network/fabric/FabricPacketContext` + `forge/.../network/forge/ForgePacketContext`
+      implementing common `network/PacketContext`. **Implemented 2026-09-02**, verbatim ports of the
+      26.1.2 classes (Forge's `CustomPayloadEvent.Context` javap-confirmed identical: `enqueueWork`,
+      `isServerSide`, `getSender`, `getConnection`, no `player()`/`disconnect()`).
+- [x] `fabric/.../core/fabric/Packets.java` (`registerServer()` + `registerClient()`) and
+      `forge/.../core/forge/Packets.java`, mirroring `core/Packets.java`'s 12 payloads.
+      **Implemented 2026-09-02, with a scope correction found while doing it:** 6 of the 12 payload
+      classes (`ClientboundBlockEntityCraftRecipePacket`, `ClientboundDisplayAlert`,
+      `ClientboundDisplayAlertWithItemStackName`, `ClientboundDisplayAlertWithParameter`,
+      `ClientboundImpulsePlayerPacket`, `ServerboundSpawnDoubleJumpParticlesPacket`) had no remaining
+      neoforge-only dependency and were `git mv`'d from `neoforge/.../network/neoforge/` into
+      `common/.../network/` (package `neoforge` → un-suffixed), then registered on all three loaders.
+      **The other 6 are NOT yet portable** — unlike 26.1.2 (whose finished tree has all their
+      dependencies in `common/`), this branch's `SanguineAltarBlockEntity`, `core.neoforge.Blocks`,
+      `JeiPotionsPlusPlugin` and `ClotheslineBehaviour` are still neoforge-only leftovers from the
+      original flat module (never split — this predates Phase 1's 107-file `.neoforge` repackage,
+      which moved files but didn't decouple these four from NeoForge types).
+      `ClientboundSanguineAltarConversionStatePacket`/`...Progress...` need the block entity + Blocks
+      hub; `Clientbound{AcquiredBrewingRecipeKnowledge,SyncKnownBrewingRecipes,SyncPairedAbyssalTrove}`
+      need `JeiPotionsPlusPlugin` (blocked on JEI-on-Fabric/Forge, Phase 11);
+      `ServerboundConstructClotheslinePacket` needs `ClotheslineBehaviour`, whose body is a NeoForge
+      `PlayerInteractEvent.RightClickBlock` handler — exactly Phase 7's "extract the handler body into
+      a common static method, thin per-loader listener calls it" mechanism. **These 6 stay registered
+      only in `core/neoforge/Packets.java` for now**; each has a comment in the new
+      `core/{fabric,forge}/Packets.java` naming its blocking class. Move them to `common/` and register
+      on all three loaders as their dependency chains resolve in Phases 7 (Clothesline) / 8-9 (altar
+      block entity) / 11 (JEI). `ClientboundSyncRuntimeRecipesPacket` (26.1.2's 12th payload) **does
+      not exist in this tree at all** — see the runtime-recipe bullet below.
+- [x] **Carry 26.1.2's codec-side lesson:** a payload's codec must be registered on the side that
       *sends* it **and** the side that *receives* it. Fabric's `PayloadTypeRegistry.register` throws
       `IllegalArgumentException` on duplicate → wrap client-side re-registration in try/catch for the
-      integrated server. Register the serverbound codec client-side too, or
-      `ServerboundConstructClotheslinePacket` breaks on a dedicated client.
-- [ ] Forge buffer-type narrowing: `NetworkProtocol.PLAY` is `NetworkProtocol<RegistryFriendlyByteBuf>`;
-      packets declaring `StreamCodec<ByteBuf, MSG>` need a `playCodec(…)` cast helper (26.1.2 pattern).
-- [ ] **Every Forge handler must call `ctx.setPacketHandled(true)` after `enqueueWork(…)`.** This is
-      the single highest-value gotcha in this plan. Without it, Forge dispatches the payload
-      *correctly*, then falls through and fires `CustomPayloadEvent.BUS` a second time on the same
-      event, re-reading a buffer already consumed → `IndexOutOfBoundsException` and an immediate
-      client disconnect on the **first** custom payload of a world join. 26.1.2 burned two commits
-      here, the first misdiagnosing it as an empty-payload decode bug.
-- [ ] Check how this branch's **injected runtime recipes** reach the client on each loader. On 26.1.2
-      only NeoForge had a built-in path, and Fabric/Forge needed a whole new
-      `ClientboundSyncRuntimeRecipesPacket` — batched at 64 recipes to stay under the **1 MiB payload
-      cap**, post-processing deferred to the final batch, no-op on integrated servers.
+      integrated server. Applied to all 6 ported payloads (`core/fabric/Packets.java`'s
+      `clientbound`/registerClient try/catch).
+      **Divergence:** this fabric-api version (`0.116.7+1.21.1`) names the registries
+      `PayloadTypeRegistry.playC2S()`/`playS2C()`, not 26.1.2's `serverboundPlay()`/`clientboundPlay()`
+      — confirmed via `javap` against `fabric-networking-api-v1-4.3.0`; caught immediately by
+      `:fabric:compileJava`.
+- [x] Forge buffer-type narrowing: packets declaring `StreamCodec<ByteBuf, MSG>` need a `playCodec(…)`
+      cast helper (26.1.2 pattern) — ported verbatim into `core/forge/Packets.java`. `javap` confirms
+      `PayloadConnection.play()` returns `PayloadProtocol<RegistryFriendlyByteBuf, BASE>` on 1.21.1's
+      Forge 52.1.2 too (same `net.minecraftforge.network.payload.*` class hierarchy as 26.1.2).
+- [x] **Every Forge handler must call `ctx.setPacketHandled(true)` after `enqueueWork(…)`.** Wired via
+      the same `handled(...)` wrapper 26.1.2 uses, applied to all 6 ported Forge handlers.
+- [ ] Check how this branch's **injected runtime recipes** reach the client on each loader. **Partially
+      investigated 2026-09-02, not resolved:** unlike 26.1.2, this tree has no
+      `ClientboundSyncRuntimeRecipesPacket` at all — `core/neoforge/RecipesRegistrar.injectRuntimeRecipes`
+      mutates `RecipeManager.byType`/`byName` directly (access-widened fields) and is called from
+      `ServerLifecycleListeners` at server start, before any player joins, so vanilla's own
+      `ClientboundUpdateRecipesPacket` (sent at player login from `recipeManager.getRecipes()`) may
+      already carry the injected recipes for free — this would make 26.1.2's custom sync packet
+      unnecessary here. **Not verified by an actual world join** (out of scope for this pass — needs
+      Phase 9's access-widener work first, since `injectRuntimeRecipes` is NeoForge-only until then).
+      Re-check once Phase 9 wires the shared access widener and Fabric/Forge can call
+      `RecipesRegistrar`-equivalent injection: if seeded recipes are missing from JEI/the recipe book on
+      a real Fabric or Forge world join, build `ClientboundSyncRuntimeRecipesPacket` then (batched at 64
+      recipes / 1 MiB cap, per 26.1.2).
 
 **Exit criterion:** all three modules build; a packet round-trips on each loader. **Verify by
 creating a new world on each loader**, not by building — 26.1.2's networking bugs all appeared on
 the first world join and none of them were visible at build time.
+**Partially met 2026-09-02:** `:neoforge:compileJava :fabric:compileJava :forge:compileJava` and
+`:neoforge:build :fabric:build :forge:build -x test` all green; `comm -12` package-intersection check
+empty against `common/` for all three platform modules; `runClient` smoke on all three loaders reaches
+`Sound engine started` with no new exceptions (only the pre-existing Phase-4 missing-model/subtitle
+warnings). **Not yet verified: an actual world join / packet round-trip** — the 6 ported payloads have
+never fired end-to-end (their sending code paths — `BrewingCauldronBlockEntity`,
+`PotionBeaconBlockEntity`, `ExplodingEffect`, etc. — are still neoforge-only `@EventBusSubscriber`
+classes awaiting Phase 7). Re-verify with a real world join once Phase 7 gives Fabric/Forge callers for
+these packets.
 
 ---
 
@@ -1693,3 +1742,6 @@ for Phase 2+: diff against the actual 26.1.2 tree before concluding anything. |
 | 2026-09-02 | 4 | **Phase 4 registration hubs done — Fabric + Forge written, all three loader modules compile green, `comm -12` empty. Remaining: runClient smoke on fabric + forge (the real exit criterion).** Fabric side: 26.1.2-mirror sub-hubs (`blocks/{OreBlocks,DecorationBlocks,BlockEntityBlocks,FlowerBlocks}.java`, `items/{OreItems,BrewingItems,WreathItem}.java`) + flat hubs (`Particles,Sounds,Recipes,NumberProviders,CreativeModeTabs`) + `MenuTypes/LootItemFunctions/DataComponents/Entities` parity stubs; already existed, verified verbatim against 26.1.2. Forge side (**29 files**): same hub set with the correct Forge idioms — every `DeferredRegister` routes through `ForgeHolder.of(DR.register(...))` because `RegistryObject` does **not** implement `Holder<T>` (a bare `::register` method reference won't type-check; neoforge's `DeferredHolder` does, which is why neoforge keeps bare refs); `Particles`/`Sounds` use `new SimpleParticleType(false) {}` / `SoundEvent.createVariableRangeEvent`; `CreativeModeTabs` uses `builder(Row.TOP, 4).withSearchBar()` (javap-verified Forge patches BOTH in — the plan's "no-arg builder exists in vanilla" claim was NeoForge-only, corrected below); `Blocks.init()`/`Items.init()` run before the `DR.register(bus)` calls so block-holder fields are non-null when ITEM suppliers flush (eager 1.21.1 `BlockItem`/`ArmorItem` derefs); `PotionBuilder.potionFactory` wired in a static block; five consolidated DRs (`TRIGGERS/ATTRIBUTES/MOB_EFFECTS/POTIONS/LOOT_ITEM_CONDITIONS`) live in `PotionsPlusForge`, ENTITIES/BLOCK_PREDICATE_TYPES/CONSUME_EFFECTS dropped (nothing on 1.21.1). **Deferred to Phase 9 (mirrors 26.1.2 Forge):** DISPENSER↔PRECISION_DISPENSER association — Forge 52.1.2 `BlockEntityType.validBlocks` is `private final Set<Block>` (`f_58915_`), no public mutation API (neoforge uses `BlockEntityTypeAddBlocksEvent`, fabric uses `FabricBlockEntityType.addSupportedBlock`). Also wrote `platform/fabric/{PlatformImpl,PacketNetworkImpl}` (all 7 + 5 `@ExpectPlatform` surfaces; chorus-fruit passthrough; potion drink time/cooldown hardcoded to NeoForge defaults pending Phase 8 config). `./gradlew :common:compileJava :neoforge:compileJava :fabric:compileJava :forge:compileJava` → **BUILD SUCCESSFUL**; Decision 4a `comm -12` on all three loader↔common package dirs → **empty**. **Not committed** — changeset on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |
 | 2026-09-02 | 4 | **Mixin split + FABRIC SMOKE PASS — the fabric exit criterion is met.** The fabric runClient crashed twice before booting, both invisible to the compile gate: **(1) mixin ClassNotFound** — common's `potionsplus.mixins.json` (inherited by all three loaders via common resources) listed 16 mixins that all lived in `neoforge/`. Split (step 6a): **10 vanilla-only mixins → `common/`** (config unchanged path, each javap-verified against vanilla 1.21.1), **8 neoforge-dependent → new `grill24.potionsplus.mixin.neoforge` package + `potionsplus.neoforge.mixins.json`** (referenced from `neoforge.mods.toml`); `comm -12` empty after repackage. **(2) class-init ordering NPE** — `FlowerBlocks.LUNAR_BERRY_BUSH` null when `BrewingItems.init` derefed it for the `ItemNameBlockItem`: fabric registration is **eager**, so `Blocks.<clinit>` → first `Items.registerBlockItem` triggers `Items.<clinit>` mid-way → `BrewingItems` derefs `FlowerBlocks` before its init ran (neoforge/forge hide it — their suppliers are deferred). **Fix: `FlowerBlocks.init` runs FIRST in the fabric `Blocks` static block** (step 6b). After both fixes `:fabric:runClient` booted to main menu — "Potions Plus (Fabric) initializing" + "Sound engine started" both present, no crash markers. Missing item-model JSONs (`FileNotFoundException: potionsplus:models/item/...`) are expected — models land in Phase 11. **Forge runClient smoke next; then neoforge regression + commit.** |
 | 2026-09-02 | 4 | **Phase 4 CLOSED — all exit criteria met, committed `d9b2cf4` (153 files, +3150/−523).** Forge runClient smoke **PASS** (main menu reached; 26 item-model lookups prove blocks/items registered — the same signal that proved fabric), neoforge regression smoke **PASS** after the hub refactor + mixin split (Sound engine started, zero crash/mixin markers, JEI initialized), clean three-loader build **BUILD SUCCESSFUL in 12s** (`./gradlew clean :common:build :neoforge:build :fabric:build :forge:build -x test -x :common:compileTestJava`). Standing memory rule applied: killed the three dev-run client JVMs before the clean (abandoned-JVM file locks), and cleaned after the content-removal phase (stale-build registry crash). Full changeset: fabric hubs (26 files) + forge hubs (29 files) + common hub stubs + neoforge hub conversion + the mixin split (6a) + fabric ordering fix (6b). **Noted for Phase 9:** the forge dev-run `--mixin.config` wiring is still outstanding (RegistryMixin + the forge config exist but won't load in dev until then); forge's DISPENSER↔PRECISION_DISPENSER association is also deferred to Phase 9 (private `validBlocks`). |
+| 2026-09-02 | 5 | **Phase 5 partially done — networking infra complete on all three loaders, 6/12 payloads ported.** `PlatformImpl`/`fabric` `PacketNetworkImpl` were already done (Phase 4); wrote the rest: `forge/.../platform/forge/PacketNetworkImpl` (`Channel.send` + `PacketDistributor.{PLAYER,TRACKING_ENTITY_AND_SELF,SERVER,TRACKING_CHUNK}`, javap-verified against `forge-universal.jar`), `network/fabric/FabricPacketContext` + `network/forge/ForgePacketContext` (both verbatim ports of 26.1.2 — Forge's `CustomPayloadEvent.Context` shape javap-confirmed identical), and full `core/fabric/Packets.java` + `core/forge/Packets.java` (Forge's `ChannelBuilder…payloadChannel().play().serverbound()/.clientbound().add(...).build()` chain javap-confirmed to resolve the same way as 26.1.2's MC-26.1 Forge fork; the `handled(...)` `setPacketHandled(true)` wrapper and `playCodec(...)` narrowing cast both ported verbatim). **Scope-narrowing discovery:** unlike the finished 26.1.2 tree (zero split packages, everything portable), 6 of `core/neoforge/Packets.java`'s 12 payload classes still depend on neoforge-only helpers that were never split out of the original flat module — `SanguineAltarBlockEntity` + `core.neoforge.Blocks` (2 packets), `JeiPotionsPlusPlugin` (3 packets), `ClotheslineBehaviour` (1 packet, a raw NeoForge `PlayerInteractEvent.RightClickBlock` handler — textbook Phase 7 work). Moved the other 6 (`ClientboundBlockEntityCraftRecipePacket`, `ClientboundDisplayAlert{,WithItemStackName,WithParameter}`, `ClientboundImpulsePlayerPacket`, `ServerboundSpawnDoubleJumpParticlesPacket`) to `common/network/` via `git mv` + package fix, fixed 7 call-site imports across `neoforge/` (`PotionBeaconBlock`, 3× blockentity, `ExplodingEffect`, `PlayerListeners`, `core/neoforge/Packets`), and registered all 6 on all three loaders. The other 6 stay neoforge-only with a comment naming the blocker; `ClientboundSyncRuntimeRecipesPacket` (26.1.2's 12th payload) doesn't exist in this tree at all — investigated whether it's needed (vanilla's own recipe-sync packet may already cover it, since `RecipesRegistrar.injectRuntimeRecipes` runs at server start before any player joins) but **did not verify with a real world join** — deferred, needs Phase 9's access widener first since the injection path is NeoForge-only until then. **Verified:** `comm -12` empty on all three platform modules; `:neoforge:compileJava :fabric:compileJava :forge:compileJava` and `:neoforge:build :fabric:build :forge:build -x test` both green; fresh `runClient` smoke on **all three loaders** reaches `Sound engine started` with zero new exceptions (Forge's Channel build included — confirms the javap read was right at runtime, not just at compile time). **Not verified: an actual packet round-trip / world join** — none of the 6 ported payloads has a sending call site wired yet (those live in still-neoforge-only `@EventBusSubscriber` classes awaiting Phase 7). **Not committed** — changeset on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |
+| 2026-09-02 | 5 | **Fix pass: real client-server crash found by playing, not by building** — exactly the headline lesson from the 26.1.2 implementation history (budget a fix pass after each phase; game tests/world creation/real play find what builds don't). User ran a dedicated neoforge server + client, joined, and crashed after a few minutes: `NullPointerException: Cannot invoke Holder.getKey() because attribute is null` in a mixin-injected `LivingEntity.setSprinting`, entity-ticking the local player (`crash-2026-09-02_19.06.17-client.txt`). **Root cause:** `mixin/neoforge/LivingEntityMixin.SPRINT_SPEED_ATTRIBUTES` was a `static final` list built **once**, at class-init, from `Attributes.SPRINTING_SPEED` — but that mixin's `<clinit>` runs as part of `LivingEntity`'s own class-load (very early, well before `PotionsPlus`'s constructor assigns `Attributes.SPRINTING_SPEED` during mod construction), so the list permanently captured `null`, and every sprint toggle after that NPE'd. **Not a Phase 5 regression** — this bug was already latent in the file (present since before this phase, untouched by the packet work) and only surfaced now because it needed an actual `setSprinting()` call in a live world to trigger — exactly the class of bug the plan's "test by playing" lesson warns about. **The 26.1.2 tree already hit and fixed this identical bug** (`common/mixin/LivingEntityMixin.java` carries a code comment explaining it) — ported its fix verbatim: read `Attributes.SPRINTING_SPEED` lazily inside `setSprinting()` instead of caching it, null-guard, drop the now-dead `SPRINT_SPEED_ATTRIBUTES` list and its now-unused imports. `:neoforge:compileJava` green. **Confirmed fixed 2026-09-02** — user re-ran server + client, played past the point that crashed before; no recurrence. |
+| 2026-09-02 | 1 | **Fix pass: second real crash found by playing — placing a brewing cauldron.** `java.lang.RuntimeException: IllegalAccessException: class grill24.potionsplus.blockentity.InventoryBlockEntity (in module generated_6bcfdde) cannot access a member of class grill24.potionsplus.blockentity.neoforge.BrewingCauldronBlockEntity (in module potionsplus) with modifiers "protected"` (`crash-2026-09-02_19.13.14-client.txt`), on `BlockItem.place → BlockEntity.saveWithFullMetadata → InventoryBlockEntity.writePacketNbt`. **Root cause: a genuine regression from Phase 1's package split**, not Phase 5. `InventoryBlockEntity.writePacketNbt`/`readPacketNbt` (`common/.../blockentity/InventoryBlockEntity.java`) reflect over `getClass().getDeclaredFields()` — the concrete runtime subclass — and call `field.get(this)`/`field.set(this, …)` on every field annotated `@BlockEntitySerializableData`, with no `setAccessible(true)`. Plain Java reflective access to a `protected` field is only legal when the *caller* is in the same package as the declaring class, or is itself a subclass reading through its own instance — neither holds here: `InventoryBlockEntity` is the **superclass** reflecting into a **subclass**'s field, and before Phase 1 both classes lived in the same package (`grill24.potionsplus.blockentity`), which satisfied the same-package rule by accident. Phase 1 moved `BrewingCauldronBlockEntity` into `blockentity.neoforge`, breaking that accidental same-package cover — invisible to compilation (reflection isn't type-checked) and only surfaced the first time a cauldron with a `@BlockEntitySerializableData` field (`storedExperience`) was saved. Grepped the whole tree: `storedExperience` is the **only** `@BlockEntitySerializableData` field that exists. **Fix:** widened it `protected` → `public` in `BrewingCauldronBlockEntity` — sidesteps the package/module check entirely (public reflective access needs no same-package/subclass relationship), rather than chasing `setAccessible`/module-opens plumbing that would have to be redone for every loader. **Not caught by any of Phase 4/5's `runClient` smokes** because none of them placed a block with a `@BlockEntitySerializableData` field — reinforces the plan's standing lesson that boot-to-menu smokes and green builds don't exercise gameplay code paths; only real interaction does. `:neoforge:compileJava`/`:neoforge:build` green. **Confirmed fixed 2026-09-02** — user re-placed a brewing cauldron on a live server; no recurrence. |

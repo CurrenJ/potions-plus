@@ -1,7 +1,6 @@
-package grill24.potionsplus.network.neoforge;
+package grill24.potionsplus.network;
 
 import grill24.potionsplus.blockentity.ICraftingBlockEntity;
-import grill24.potionsplus.network.PacketContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;

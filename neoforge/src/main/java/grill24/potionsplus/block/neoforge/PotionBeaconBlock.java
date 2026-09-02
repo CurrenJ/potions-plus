@@ -4,7 +4,7 @@ import grill24.potionsplus.blockentity.neoforge.PotionBeaconBlockEntity;
 import grill24.potionsplus.blockentity.neoforge.HerbalistsLecternSounds;
 import grill24.potionsplus.blockentity.neoforge.PotionBeaconBlockEntity;
 import grill24.potionsplus.core.neoforge.Blocks;
-import grill24.potionsplus.network.neoforge.ClientboundDisplayAlertWithItemStackName;
+import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
