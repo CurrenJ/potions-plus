@@ -171,7 +171,7 @@ record it under "VERIFIED API FACTS" with the evidence.
 | 4 | Registration hubs (Fabric + Forge) | ✅ **closed 2026-09-02** — Fabric (26 files) + Forge (29 files) hubs written, all three loader modules compile green, `comm -12` empty (Decision 4a). **Exit criteria met:** runClient smoke on **all three loaders** boots to main menu — fabric + forge both log "Potions Plus (Fabric|Forge) initializing" + "Sound engine started", zero crash markers, item/block registration proven by the item-model lookups the game attempts; neoforge regression clean after the hub refactor + mixin split; clean three-loader build `BUILD SUCCESSFUL`. Two blockers found only by the smokes (invisible to compile): **mixin split** (common's config listed 16 mixins that lived in neoforge/ → 10 vanilla-only javap-verified → common, 8 neoforge-dependent → new `mixin.neoforge` package + own config) and **fabric class-init ordering NPE** (eager fabric registration: `BrewingItems` derefs `FlowerBlocks.LUNAR_BERRY_BUSH` for the `ItemNameBlockItem` → `FlowerBlocks.init` must run FIRST in the fabric `Blocks` static block). Committed `d9b2cf4`. |
 | 5 | `@ExpectPlatform` impls + networking | 🟡 **partially done 2026-09-02** — networking infra (PacketContext adapters, Forge Channel/PacketNetworkImpl, both `core/{fabric,forge}/Packets.java`) complete on all three loaders; 6/12 payloads ported to `common/` and registered cross-loader, 6 remain neoforge-only pending Phases 7/8-9/11; runtime-recipe client sync unresolved. See phase notes. |
 | 6 | Entrypoints | ✅ **closed 2026-09-02** — all checklist items were already in place from Phases 4-5 (hub work required working entrypoints to test); this phase's job was verifying the stronger exit criterion. See phase notes. |
-| 7 | Event surface (36 subscriber classes) | ⬜ not started |
+| 7 | Event surface (36 subscriber classes) | 🟡 **partially done 2026-09-02** — mob-effect behaviour group (7 classes) fully cross-loader: all 9 `effect/*` classes moved to `common/`, dispatched via new `event/{neoforge,forge}/EffectListeners.java` + `mixin/fabric/LivingEntityMixin.java` + `event/fabric/EffectListeners.java`. Remaining groups (registration-hub cleanup, explicit listeners, tick/lifecycle, tooltips, commands/input) not started. See phase notes. |
 | 8 | NeoForge-only systems (full parity) | ⬜ not started |
 | 9 | Mixins + access widening/transformers | ⬜ not started |
 | 10 | Datagen sharing | ⬜ not started |
@@ -1367,6 +1367,61 @@ The 36 `@EventBusSubscriber` classes, grouped:
 
 **Exit criterion:** every gameplay behaviour that fires from an event on NeoForge also fires on
 Fabric and Forge. `common/` still has zero `net.neoforged` imports.
+
+**Phase 7 progress notes (2026-09-02) — mob-effect behaviour group done, five groups remain.**
+
+- [x] **Mob-effect behaviour (7 classes, matches the plan table exactly — `MetalDetectingEffect` and
+      `TeleportationEffect` were miscounted into this bucket in earlier prose; neither ever had
+      `@SubscribeEvent` and both moved to `common/` as pure relocations with zero listener work).**
+      `BoneBuddyEffect`, `BouncingEffect`, `ExplodingEffect`, `FallOfTheVoidEffect`,
+      `FlyingTimeEffect`, `GeodeGraceEffect`, `SoulMateEffect` all moved `neoforge/effect/neoforge/`
+      → `common/effect/`, `@SubscribeEvent` bodies extracted to plain static methods matching
+      26.1.2's signatures exactly (`onPotionAdded`, `onPotionExpired`, `onLivingFall`,
+      `onLivingEntityDamage`, `onEntityHurt`, `onEntityHeal`, `onEntityDeath`, …). Construction moved
+      from the neoforge-only `MobEffectsRegistrar` into common `MobEffects.init()`, so **Fabric and
+      Forge now register these 7 effects for the first time** (previously silently absent from those
+      two loaders — a real feature gap, not just a refactor).
+  - [x] `event/neoforge/EffectListeners.java` (new) — direct 26.1.2 mirror, `@SubscribeEvent` +
+        `@EventBusSubscriber` on `MobEffectEvent.{Added,Expired,Remove}`, `LivingFallEvent`,
+        `LivingDamageEvent.Pre`, `LivingHealEvent`, `LivingDeathEvent`.
+  - [x] `event/forge/EffectListeners.java` (new) — same events, but Forge 52.1.2 keeps the classic
+        event shape (`LivingDamageEvent` has a single mutable `amount`, no `.Pre`/`.Post` split) and
+        this module's established explicit-registration style (`MinecraftForge.EVENT_BUS.addListener`
+        calls from `PotionsPlusForge`'s constructor), not `@SubscribeEvent` auto-discovery — matches
+        how `Packets.register()` etc. are already wired here. Verified via javap against the Forge
+        52.1.2 merged jar: `LivingDamageEvent`/`LivingFallEvent`/`LivingDeathEvent` are all
+        `@Cancelable`, `MobEffectEvent.{Added,Expired,Remove}` exist with the expected accessors.
+  - [x] `mixin/fabric/LivingEntityMixin.java` (new) + `event/fabric/EffectListeners.java` (new,
+        `ServerLivingEntityEvents.AFTER_DEATH` for the death-only pair). **Diverges from 26.1.2's
+        fabric mixin in one load-bearing way:** 1.21.1's `LivingEntity` predates the
+        `onEffectsRemoved(Collection)` batching refactor 26.1.2 redirects — javap against the vanilla
+        merged jar turned up only a singular `onEffectRemoved(MobEffectInstance)`, called from enough
+        different places that a single injection point can't distinguish natural expiry from explicit
+        removal the way NeoForge's patched events do. Fix: detect expiry by **diffing
+        `getActiveEffectsMap()` across `tickEffects()`** (`@Inject` at `HEAD` snapshots, `@Inject` at
+        `RETURN` reports whatever key vanished) instead of redirecting a call that may not be there;
+        explicit removal still redirects `removeEffectNoUpdate`/`removeAllEffects` directly, which
+        does have stable 1.21.1 names (confirmed via javap). New `potionsplus.fabric.mixins.json`
+        registered in `fabric.mod.json`.
+  - [x] Regression-verified: `:{neoforge,fabric,forge}:build -x test` green; `:{neoforge,fabric,
+        forge}:runServer` all reach `Done (...)!` with zero exceptions and the fabric mixin applying
+        cleanly (no "Mixin apply failed" in the log); Decision 4a `comm -12` still empty on all three.
+- [ ] **Registration hubs** — the `@EventBusSubscriber` annotations on `core/{Attributes,Blocks,
+      Capabilities,CreativeModeTabs,Packets,Screens,Renderers,BlockRenderLayers,KeyMappings}` and
+      `core/potion/Potions` are mostly vestigial now (Phase 4/5/11 already absorbed the actual
+      registration); this bucket is "delete the now-meaningless annotation", not new work. Not
+      started.
+- [ ] **Explicit listeners** (`event/{AdvancementListeners,ClientTooltipComponentFactoriesListeners,
+      EnchantmentListeners,ItemListenersMod,PlayerListeners}`, plus `ItemListenersGame` → `common/`,
+      plus the two load-bearing custom `Event` subclasses `AnimatedItemTooltipEvent` /
+      `ServerPlayerHeldItemChangedEvent`). Not started.
+- [ ] **Tick / lifecycle** (`utility/{ClientTickHandler,ServerTickHandler,DelayedEvents,
+      ServerPlayerUtility}`, `core/ServerLifecycleListeners`). Not started — note fabric/forge
+      `ServerLifecycleListeners.java` are still stubs (see their class-doc comments).
+- [ ] **Client tooltips** (`item/tooltip/{BrewingTooltips,PotionEffectTooltips}`,
+      `blockentity/ClotheslineBlockEntityRenderer`). Not started.
+- [ ] **Commands / input** (`core/{CommonCommands,ClientCommands,KeyMappingsListener,ClientEvents}`).
+      Not started.
 
 ---
 

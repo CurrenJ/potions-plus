@@ -1,10 +1,8 @@
-package grill24.potionsplus.effect.neoforge;
+package grill24.potionsplus.effect;
 
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
-import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.effect.IEffectTooltipDetails;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
@@ -13,13 +11,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 
 import java.util.List;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
     public BouncingEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
@@ -61,12 +55,8 @@ public class BouncingEffect extends MobEffect implements IEffectTooltipDetails {
         return false;
     }
 
-    @SubscribeEvent
-    public static void onLivingFall(LivingFallEvent event) {
-        Entity entity = event.getEntity();
-        if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.BOUNCING)) {
-            event.setCanceled(true);
-        }
+    public static boolean onLivingFall(Entity entity, float distance) {
+        return entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.BOUNCING);
     }
 }
 

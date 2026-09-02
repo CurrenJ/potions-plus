@@ -1,12 +1,10 @@
-package grill24.potionsplus.effect.neoforge;
+package grill24.potionsplus.effect;
 
+import grill24.potionsplus.alchemy.EffectScaling;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
-import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
-import grill24.potionsplus.effect.IEffectTooltipDetails;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
@@ -14,15 +12,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.minecraft.world.entity.LivingEntity;
 
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class FlyingTimeEffect extends MobEffect implements IEffectTooltipDetails {
     public static final Map<UUID, Integer> FLYING_TIME_EFFECT_PLAYERS = new java.util.HashMap<>();
 
@@ -35,31 +30,28 @@ public class FlyingTimeEffect extends MobEffect implements IEffectTooltipDetails
         return true;
     }
 
-    @SubscribeEvent
-    public static void onUsePotion(final MobEffectEvent.Added potionAddedEvent) {
-        if (potionAddedEvent.getEffectInstance().getEffect().is(MobEffects.FLYING_TIME)) {
-            if (potionAddedEvent.getEntity().level() instanceof ServerLevel serverLevel) {
-                FLYING_TIME_EFFECT_PLAYERS.put(potionAddedEvent.getEntity().getUUID(), potionAddedEvent.getEffectInstance().getAmplifier());
+    public static void onPotionAdded(LivingEntity entity, @org.jetbrains.annotations.Nullable MobEffectInstance effectInstance) {
+        if (effectInstance != null && effectInstance.getEffect().is(MobEffects.FLYING_TIME)) {
+            if (entity.level() instanceof ServerLevel serverLevel) {
+                FLYING_TIME_EFFECT_PLAYERS.put(entity.getUUID(), effectInstance.getAmplifier());
                 onUpdated(serverLevel.getServer());
             }
         }
     }
 
-    @SubscribeEvent
-    public static void onRemovePotion(final MobEffectEvent.Remove potionRemoveEvent) {
-        if (potionRemoveEvent.getEffectInstance().getEffect().is(MobEffects.FLYING_TIME)) {
-            if (potionRemoveEvent.getEntity().level() instanceof ServerLevel serverLevel) {
-                FLYING_TIME_EFFECT_PLAYERS.remove(potionRemoveEvent.getEntity().getUUID());
+    public static void onPotionRemoved(LivingEntity entity, @org.jetbrains.annotations.Nullable MobEffectInstance effectInstance) {
+        if (effectInstance != null && effectInstance.getEffect().is(MobEffects.FLYING_TIME)) {
+            if (entity.level() instanceof ServerLevel serverLevel) {
+                FLYING_TIME_EFFECT_PLAYERS.remove(entity.getUUID());
                 onUpdated(serverLevel.getServer());
             }
         }
     }
 
-    @SubscribeEvent
-    public static void onPotionExpiry(final MobEffectEvent.Expired potionExpiryEvent) {
-        if (potionExpiryEvent.getEffectInstance().getEffect().is(MobEffects.FLYING_TIME)) {
-            if (potionExpiryEvent.getEntity().level() instanceof ServerLevel serverLevel) {
-                FLYING_TIME_EFFECT_PLAYERS.remove(potionExpiryEvent.getEntity().getUUID());
+    public static void onPotionExpired(LivingEntity entity, @org.jetbrains.annotations.Nullable MobEffectInstance effectInstance) {
+        if (effectInstance != null && effectInstance.getEffect().is(MobEffects.FLYING_TIME)) {
+            if (entity.level() instanceof ServerLevel serverLevel) {
+                FLYING_TIME_EFFECT_PLAYERS.remove(entity.getUUID());
                 onUpdated(serverLevel.getServer());
             }
         }

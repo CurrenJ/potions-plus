@@ -112,6 +112,7 @@ public class PotionsPlusForge {
         Packets.register();
 
         // 9. Event listeners, capabilities, loot modifiers, lifecycle hooks. Phase 7/8.
+        grill24.potionsplus.event.forge.EffectListeners.register();
         Capabilities.register();
         LootModifiers.register();
         ServerLifecycleListeners.register();

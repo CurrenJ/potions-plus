@@ -1,4 +1,4 @@
-package grill24.potionsplus.effect.neoforge;
+package grill24.potionsplus.effect;
 
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;

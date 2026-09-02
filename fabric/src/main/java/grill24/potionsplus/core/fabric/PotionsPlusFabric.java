@@ -84,6 +84,7 @@ public class PotionsPlusFabric implements ModInitializer {
         Packets.registerServer();
 
         // 10. Event listeners, capabilities, loot/biome modifiers, lifecycle hooks. Phase 7/8.
+        grill24.potionsplus.event.fabric.EffectListeners.register();
         Capabilities.register();
         LootModifiers.register();
         BiomeModifiers.register();
