@@ -17,7 +17,7 @@ import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.neoforge.ClientTickHandler;
+import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
 import grill24.potionsplus.blockentity.ISingleStackDisplayer;

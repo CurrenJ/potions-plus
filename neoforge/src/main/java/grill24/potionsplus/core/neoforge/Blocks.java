@@ -12,7 +12,7 @@ import grill24.potionsplus.blockentity.neoforge.ClotheslineBlockEntity;
 import grill24.potionsplus.blockentity.neoforge.HerbalistsLecternBlockEntity;
 import grill24.potionsplus.blockentity.neoforge.PotionBeaconBlockEntity;
 import grill24.potionsplus.blockentity.neoforge.SanguineAltarBlockEntity;
-import grill24.potionsplus.utility.neoforge.ClientTickHandler;
+import grill24.potionsplus.utility.ClientTickHandler;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.component.DataComponents;

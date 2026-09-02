@@ -14,7 +14,7 @@ import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.*;
 import grill24.potionsplus.alchemy.*;
-import grill24.potionsplus.utility.neoforge.ServerTickHandler;
+import grill24.potionsplus.utility.ServerTickHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

@@ -7,7 +7,7 @@ import grill24.potionsplus.core.neoforge.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
-import grill24.potionsplus.utility.neoforge.ClientTickHandler;
+import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.ClientUtility;
 import grill24.potionsplus.blockentity.ISingleStackDisplayer;
 import grill24.potionsplus.blockentity.IStoredIngredientsContainer;

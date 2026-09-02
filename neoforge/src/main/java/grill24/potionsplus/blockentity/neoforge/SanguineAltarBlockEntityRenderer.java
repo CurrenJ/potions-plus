@@ -6,7 +6,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
-import grill24.potionsplus.utility.neoforge.ClientTickHandler;
+import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.neoforge.RUtil;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;

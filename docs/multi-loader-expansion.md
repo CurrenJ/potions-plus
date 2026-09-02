@@ -1518,9 +1518,59 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
     finding — worth flagging to whoever scopes Phase 8, since those two classes are general gameplay
     behaviour, not loot modifiers). None of these are Phase-7-bucket work; they're prerequisites this
     bucket exposed.
-- [ ] **Tick / lifecycle** (`utility/{ClientTickHandler,ServerTickHandler,DelayedEvents,
-      ServerPlayerUtility}`, `core/ServerLifecycleListeners`). Not started — note fabric/forge
-      `ServerLifecycleListeners.java` are still stubs (see their class-doc comments).
+- [~] **Tick / lifecycle — partially done 2026-09-02.** `ClientTickHandler`, `ServerTickHandler`,
+      `TickHandler`, `DelayedEvents` moved `neoforge/utility/neoforge/` → `common/utility/` unchanged
+      (pure vanilla state, `Minecraft.getInstance()` guarded by dist as before). Thin dispatchers
+      added per loader:
+  - [x] NeoForge: `event/neoforge/{ClientGameListeners,NeoServerTickEvents,NeoDelayedEvents}.java`
+        (new), exact 26.1.2 filenames/shapes — `@EventBusSubscriber` delegating to the moved common
+        statics. Old `utility/neoforge/{ClientTickHandler,ServerTickHandler,TickHandler,
+        DelayedEvents}.java` deleted; 12 neoforge files (blockentity renderers, `RUtil`, `Blocks`,
+        `ItemListenersGame`, `PlayerListeners`) repointed to the `common` imports.
+  - [x] Fabric/Forge: `event/{fabric,forge}/TickListeners.java` (new) — this branch's per-concern
+        style (unlike 26.1.2's collapsed `FabricEventListeners`/`ForgeEventListeners`, which don't
+        exist here). Two API corrections needed, both verified via javap/dependency inspection before
+        writing code, not guessed:
+    - **Forge 52.1.2's `TickEvent` predates the `.Post.BUS`-static-field pattern** 26.1.2's Forge
+      tree uses (javap on `forge-1.21.1-52.1.2-universal-srg.jar` confirms `TickEvent$ServerTickEvent
+      $Post`/`ClientTickEvent$Post`/`RenderTickEvent$Post` are plain subclasses with no `BUS` field) —
+      registered instead as classic `MinecraftForge.EVENT_BUS.addListener((TickEvent.X.Post event) ->
+      …)` lambdas, matching this module's existing `EffectListeners` style. `registerServer()` is
+      called unconditionally from `PotionsPlusForge`'s constructor; `registerClient()` is called from
+      the same constructor via a `bus.addListener((FMLClientSetupEvent event) -> …)` listener — that
+      event only ever posts client-side, so no separate dist-gated `@Mod.EventBusSubscriber` class was
+      needed (unlike heavier client wiring that touches client classes eagerly at registration time).
+    - **fabric-api 0.116.7+1.21.1 resolves `fabric-rendering-v1:5.1.0`** (confirmed via `./gradlew
+      :fabric:dependencies`), which has no `LevelRenderEvents` (a later fabric-api addition) — used
+      `WorldRenderEvents.START` + `WorldRenderContext.tickCounter().getGameTimeDeltaPartialTick(true)`
+      instead, the 1.21.1-era equivalent hook.
+    - `Minecraft.getDeltaTracker()` (guessed from 26.1.2) doesn't exist on 1.21.1 either — vanilla's
+      accessor is `Minecraft.getTimer()` (javap-verified against `minecraft-merged-mojang.jar`);
+      moot after switching to `WorldRenderContext.tickCounter()` for the fabric side, but the forge
+      side's `RenderTickEvent.Post.getTimer()` (verified via javap) is the same shape.
+  - [x] Wired into all three entrypoints: `PotionsPlusFabric.onInitialize` (server tick),
+        `PotionsPlusFabricClient.onInitializeClient` (client tick/render), `PotionsPlusForge`'s
+        constructor (both).
+  - [x] Verified: `:{neoforge,fabric,forge}:build -x test` green; Decision 4a `comm -12` empty on all
+        three; `:{neoforge,fabric,forge}:runServer` all reach `Done (...)!` with no exceptions and no
+        "Mixin apply failed" (the pre-existing `potionsplus:blocks/clothesline` loot-table parse
+        warning is unrelated - a real but out-of-scope bug, same on all three loaders).
+  - [ ] **`core/ServerLifecycleListeners` — still blocked, not attempted.** Confirmed via the
+        existing fabric/forge stub class-doc comments (already correctly worded, left as-is): its
+        `onServerStarted`/`onServerAboutToStart` bodies call `RecipesRegistrar.injectRuntimeRecipes`/
+        `SANGUINE_ALTAR_ANALYSIS.compute`/etc., all neoforge-only pending Phase 5's runtime-recipe
+        remainder (same blocker already surfacing in the Explicit-listeners bucket for
+        `AdvancementListeners`/`PlayerListeners`).
+  - [ ] **`ServerPlayerUtility` — deliberately not split further.** It's a single self-contained
+        `onTossItemEvent` → `Platform.onServerPlayerHeldItemChanged` listener, already correctly
+        scoped to `neoforge/`, already working, and low-value to touch now: matching 26.1.2's split
+        (an empty `common/utility/ServerPlayerUtility` marker + the real logic living in a
+        common `EntityListeners`-equivalent) would require that not-yet-existing common listener
+        class, which is Explicit-listeners-bucket scope. Also confirmed (again) that the event it
+        posts is dead code on every loader today - `ServerPlayerHeldItemChangedEvent` has zero
+        subscribers on NeoForge here, matching 26.1.2's own `PlatformImpl` comment ("NeoForge posts a
+        custom event here with zero subscribers") - so there is no missing Fabric/Forge behaviour to
+        chase, only a structural split that isn't worth doing before its dependency exists.
 - [ ] **Client tooltips** (`item/tooltip/{BrewingTooltips,PotionEffectTooltips}`,
       `blockentity/ClotheslineBlockEntityRenderer`). Not started.
 - [ ] **Commands / input** (`core/{CommonCommands,ClientCommands,KeyMappingsListener,ClientEvents}`).

@@ -13,7 +13,7 @@ import org.joml.Vector3f;
 import grill24.potionsplus.block.neoforge.ClotheslineBlock;
 import grill24.potionsplus.core.neoforge.Blocks;
 import grill24.potionsplus.render.LeashRenderer;
-import grill24.potionsplus.utility.neoforge.ClientTickHandler;
+import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;

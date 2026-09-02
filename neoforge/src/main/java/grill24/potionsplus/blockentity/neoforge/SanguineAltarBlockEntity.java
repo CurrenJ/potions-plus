@@ -13,7 +13,7 @@ import org.joml.Vector3d;
 import org.joml.Vector3f;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
-import grill24.potionsplus.utility.neoforge.ClientTickHandler;
+import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.Utility;
 import grill24.potionsplus.blockentity.ISingleStackDisplayer;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;

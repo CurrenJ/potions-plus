@@ -6,7 +6,7 @@ import grill24.potionsplus.event.neoforge.AnimatedItemTooltipBusEvent;
 import grill24.potionsplus.utility.*;
 import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
-import grill24.potionsplus.utility.neoforge.ClientTickHandler;
+import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.neoforge.RUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;

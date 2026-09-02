@@ -1,4 +1,4 @@
-package grill24.potionsplus.utility.neoforge;
+package grill24.potionsplus.utility;
 
 public final class TickHandler {
     public static int ticks() {

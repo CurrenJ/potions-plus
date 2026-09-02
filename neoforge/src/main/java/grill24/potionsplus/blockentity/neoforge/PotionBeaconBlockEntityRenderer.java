@@ -2,7 +2,7 @@ package grill24.potionsplus.blockentity.neoforge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.block.neoforge.PotionBeaconBlock;
-import grill24.potionsplus.utility.neoforge.ClientTickHandler;
+import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.neoforge.RUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;

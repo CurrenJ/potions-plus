@@ -7,6 +7,7 @@ import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.*;
 import grill24.potionsplus.blockentity.ISingleStackDisplayer;
+import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
