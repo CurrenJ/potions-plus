@@ -17,6 +17,9 @@ public class PotionsPlusFabricClient implements ClientModInitializer {
         // Tick / lifecycle bucket (Phase 7).
         grill24.potionsplus.event.fabric.TickListeners.registerClient();
 
+        // Client tooltips bucket (Phase 7).
+        grill24.potionsplus.event.fabric.TooltipListeners.registerClient();
+
         // Client-side event listeners, block entity renderers, particle providers, tint sources.
         // Phase 7 (renderers need the BE-block/BE ports; particles/sounds are registered server-side
         // but their providers are client-side) - deferred until the common BE/particle classes exist.

@@ -10,10 +10,8 @@ import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
-import grill24.potionsplus.event.neoforge.AnimatedItemTooltipBusEvent;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
-import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.ChatFormatting;
@@ -25,8 +23,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,10 +32,14 @@ import java.util.Optional;
 import static grill24.potionsplus.utility.Utility.ppId;
 import grill24.potionsplus.item.tooltip.TooltipPriorities;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+/**
+ * Genuinely blocked from moving to {@code common/} - see docs/multi-loader-expansion.md Phase 7
+ * "Client tooltips" bucket. {@link RecipesRegistrar} and {@link AbyssalTroveBlockEntity} are both
+ * still neoforge-only pending Phase 5's runtime-recipe remainder. Now direct-called (no event bus)
+ * from {@code NeoItemListeners.getTooltipMessages}, matching 26.1.2's design.
+ */
 public class BrewingTooltips {
-    @SubscribeEvent
-    public static void onBrewingTooltip(final AnimatedItemTooltipBusEvent.Add event) {
+    public static void onBrewingTooltip(final AnimatedItemTooltipEvent.Add event) {
         PpIngredient ppIngredient = PpIngredient.of(event.getItemStack().copyWithCount(1));
         if(AbyssalTroveBlockEntity.ABYSSAL_TROVE_INGREDIENTS.contains(ppIngredient))
         {

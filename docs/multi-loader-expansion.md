@@ -1571,8 +1571,76 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
         subscribers on NeoForge here, matching 26.1.2's own `PlatformImpl` comment ("NeoForge posts a
         custom event here with zero subscribers") - so there is no missing Fabric/Forge behaviour to
         chase, only a structural split that isn't worth doing before its dependency exists.
-- [ ] **Client tooltips** (`item/tooltip/{BrewingTooltips,PotionEffectTooltips}`,
-      `blockentity/ClotheslineBlockEntityRenderer`). Not started.
+- [~] **Client tooltips — partially done 2026-09-02.** Adopted the direct-call
+      `AnimatedItemTooltipEvent` redesign the Explicit-listeners bucket flagged (see 351a5c2's plan
+      note): confirmed via grep that 26.1.2's `AnimatedItemTooltipEvent` is `abstract` with nested
+      `Add`/`Modify` classes, called **directly** by each loader's tooltip listener — no bus event at
+      all. This branch's `common/event/AnimatedItemTooltipEvent.java` now matches that shape exactly
+      (verbatim byte-diff against 26.1.2 apart from `ResourceLocation` vs `Identifier`, the known
+      1.21.1-vs-26.1.2 rename). `neoforge/event/neoforge/AnimatedItemTooltipBusEvent.java` deleted —
+      it had exactly one poster (`ItemListenersGame`) and no other subscribers, so it added nothing
+      over a direct call, matching the prior fork's finding that its 26.1.2 analogue
+      (`NeoAnimatedItemTooltipEvent`) was dead code there too.
+  - [x] **Enabling move: `RUtil` → `common/utility/RUtil.java`.** Audited first — zero
+        `net.neoforged`/`net.minecraftforge` imports (confirmed via grep) despite living in
+        `neoforge/` — a pure-vanilla rendering-math class that was never actually loader-coupled, just
+        mis-filed pre-split. Matches 26.1.2's placement exactly. 10 call sites repointed
+        (blockentity renderers, `ItemListenersGame`, `EmitterParticle`).
+  - [x] **`PotionEffectTooltips` → `common/item/tooltip/PotionEffectTooltips.java`.** Had zero
+        `RecipesRegistrar`/neoforge dependency (unlike `BrewingTooltips` below) — a clean move once
+        the bus-event redesign let it drop `@EventBusSubscriber`/`@SubscribeEvent` and take
+        `AnimatedItemTooltipEvent.Add` directly, matching 26.1.2's `common/item/tooltip/
+        PotionEffectTooltips.java` exactly (verified: same file there, same package).
+  - [x] **`ItemListenersGame`'s animation math → `common/event/ItemListenersGame.java`.** This was
+        the blocker the Explicit-listeners bucket recorded ("`ClientTickHandler` is still
+        neoforge-only") — resolved by the Tick/lifecycle bucket (719691c) moving `ClientTickHandler`
+        to `common/` first. The pure animation-math methods (`animateComponentText*`,
+        `durationUpgradeTextAnimationDurationTicks`) now live in `common/`, byte-identical to
+        26.1.2's `common/event/ItemListenersGame.java` apart from the already-common `RUtil`/
+        `ClientTickHandler` imports. The NeoForge-only half (the `ItemTooltipEvent`/
+        `LivingEntityUseItemEvent.Tick` subscriber methods) was renamed
+        `neoforge/event/neoforge/NeoItemListeners.java` to match 26.1.2's naming (mirror discipline)
+        and now direct-calls `BrewingTooltips`/`PotionEffectTooltips` instead of posting bus events.
+  - [x] **Fabric + Forge tooltip listeners added**, matching this tree's per-bucket-file convention
+        (`event/{fabric,forge}/TooltipListeners.java`, alongside the Tick/lifecycle bucket's
+        `TickListeners.java`), wired from `PotionsPlusFabricClient.onInitializeClient` /
+        `PotionsPlusForge`'s `FMLClientSetupEvent` listener. Only `PotionEffectTooltips` is called on
+        these two loaders — `BrewingTooltips` remains genuinely blocked (below). API notes, both
+        javap-verified before writing code:
+    - **Fabric**: `fabric-item-api-v1` 11.2.0's `ItemTooltipCallback` has no `Player` parameter
+      (unlike NeoForge's/Forge's `ItemTooltipEvent`) — used `Minecraft.getInstance().player`, safe
+      because tooltips only render while a player exists.
+    - **Forge**: `net.minecraftforge.event.entity.player.ItemTooltipEvent` has the same shape as
+      NeoForge's (`getEntity()`→`Player`, `getItemStack()`, `getToolTip()`, `getFlags()`) and
+      `LivingEntityUseItemEvent.Tick` also matches — both confirmed via javap on the Forge 52.1.2
+      universal-srg jar. Registered via `MinecraftForge.EVENT_BUS.addListener(...)` from the
+      `FMLClientSetupEvent` listener (client-only event, matching this module's dist-gating
+      convention for client registration), not the mod bus — Forge event classes live on the game
+      bus (`MinecraftForge.EVENT_BUS`), same as this module's `EffectListeners`.
+  - [x] Verified: `:{neoforge,fabric,forge}:build -x test` green; Decision 4a `comm -12` empty on all
+        three; `common/` has zero `net.neoforged`/`net.minecraftforge` imports; `:{neoforge,fabric,
+        forge}:runServer` all reach `Done (...)!` with zero exceptions and no "Mixin apply failed"
+        (the pre-existing `potionsplus:blocks/clothesline` loot-table parse warning is the same
+        already-documented unrelated bug seen in the Tick/lifecycle bucket).
+  - [ ] **`BrewingTooltips` — still blocked, not attempted.** Confirmed via grep: it hard-depends on
+        `RecipesRegistrar` (`DURATION_UPGRADE_ANALYSIS`, `AMPLIFICATION_UPGRADE_ANALYSIS`,
+        `ALL_BCR_RECIPES_ANALYSIS`) and `AbyssalTroveBlockEntity.ABYSSAL_TROVE_INGREDIENTS`, both
+        still neoforge-only pending Phase 5's runtime-recipe remainder — same blocker already
+        recorded against `AdvancementListeners`/part of `PlayerListeners` in the Explicit-listeners
+        bucket. Now direct-called from `NeoItemListeners` (no bus event) but otherwise untouched;
+        left in `neoforge/item/tooltip/neoforge/`.
+  - [ ] **`ClotheslineBlockEntityRenderer` — deferred to Phase 11, not this bucket.** It's a real
+        `BlockEntityRenderer<ClotheslineBlockEntity>` implementation (client rendering, not a tooltip)
+        that needs `core/neoforge/Renderers`'s BE-renderer registration hub — already confirmed
+        deferred to Phase 11 by the Registration-hubs bucket above (no fabric/forge `Renderers`
+        equivalent exists yet, and none should before that phase). Its one `@SubscribeEvent
+        onRender(RenderLevelStageEvent)` static hook (clears a per-frame render-dedup `Set<BlockPos>`)
+        is real Phase-7-shaped listener work, but porting only the hook without the renderer
+        registration it supports would be dead code on Fabric/Forge. Note for whoever does Phase 11:
+        26.1.2's equivalent class has **no such hook** because its 1.21.5+-era renderer pipeline
+        (`ClotheslineRenderState`) redesigned away the per-frame tracking this MC version's older
+        `BlockEntityRenderer` API still needs — 26.1.2's file is not a usable reference for this one
+        piece, unlike the rest of the class.
 - [ ] **Commands / input** (`core/{CommonCommands,ClientCommands,KeyMappingsListener,ClientEvents}`).
       Not started.
 

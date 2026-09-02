@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.neoforge.Items;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.alchemy.EffectComparison;
-import grill24.potionsplus.utility.neoforge.RUtil;
+import grill24.potionsplus.utility.RUtil;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.api.distmarker.Dist;

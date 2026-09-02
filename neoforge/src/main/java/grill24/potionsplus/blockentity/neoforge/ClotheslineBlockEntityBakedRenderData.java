@@ -5,7 +5,7 @@ import org.joml.Vector3f;
 import grill24.potionsplus.block.neoforge.ClotheslineBlock;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.render.LeashRenderer;
-import grill24.potionsplus.utility.neoforge.RUtil;
+import grill24.potionsplus.utility.RUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;

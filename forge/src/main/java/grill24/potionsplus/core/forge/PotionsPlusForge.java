@@ -115,8 +115,10 @@ public class PotionsPlusForge {
         grill24.potionsplus.event.forge.EffectListeners.register();
         grill24.potionsplus.event.forge.TickListeners.registerServer();
         // FMLClientSetupEvent only ever posts on the physical client - no dist gate needed here.
-        bus.addListener((net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) ->
-                grill24.potionsplus.event.forge.TickListeners.registerClient());
+        bus.addListener((net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) -> {
+            grill24.potionsplus.event.forge.TickListeners.registerClient();
+            grill24.potionsplus.event.forge.TooltipListeners.register();
+        });
         Capabilities.register();
         LootModifiers.register();
         ServerLifecycleListeners.register();

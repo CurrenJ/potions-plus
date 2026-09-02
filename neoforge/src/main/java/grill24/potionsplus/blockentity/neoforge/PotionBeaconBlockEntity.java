@@ -9,7 +9,7 @@ import grill24.potionsplus.blockentity.ICraftingBlockEntity;
 import grill24.potionsplus.blockentity.ISingleStackDisplayer;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.utility.ClientTickHandler;
-import grill24.potionsplus.utility.neoforge.RUtil;
+import grill24.potionsplus.utility.RUtil;
 import grill24.potionsplus.utility.ServerTickHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;

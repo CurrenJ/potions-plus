@@ -9,18 +9,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Loader-agnostic tooltip-line collector. The NeoForge event-bus wrapper that actually posts this
- * (so other mods can listen) lives at {@code event.neoforge.AnimatedItemTooltipBusEvent} - see
- * docs/multi-loader-expansion.md Phase 7.
- */
-public class AnimatedItemTooltipEvent {
+public abstract class AnimatedItemTooltipEvent {
     /**
      * Represents tooltip lines to display on an item.
-     * @param id Unique identifier for the tooltip - not used for any display logic.
-     *           Allows for easy identification of specific tooltips, for example if someone wants to modify a specific line in a tooltip.
-     * @param priority Priority of the tooltip - lower numbers are displayed first.
-     * @param text The text to be displayed in the tooltip.
+     *
+     * @param id       Unique identifier for the tooltip.
+     * @param priority Priority of the tooltip — lower numbers are displayed first.
+     * @param text     The text to be displayed in the tooltip.
      */
     public record TooltipLines(ResourceLocation id, int priority, List<List<Component>> text) {
         public static TooltipLines of(ResourceLocation id, int priority, List<Component> text) {
@@ -74,5 +69,17 @@ public class AnimatedItemTooltipEvent {
                 .map(TooltipLines::text)
                 .flatMap(List::stream)
                 .toList();
+    }
+
+    public static class Add extends AnimatedItemTooltipEvent {
+        public Add(Player player, ItemStack stack, List<TooltipLines> tooltipMessages) {
+            super(player, stack, tooltipMessages);
+        }
+    }
+
+    public static class Modify extends AnimatedItemTooltipEvent {
+        public Modify(Player player, ItemStack stack, List<TooltipLines> tooltipMessages) {
+            super(player, stack, tooltipMessages);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package grill24.potionsplus.particle.neoforge;
 
-import grill24.potionsplus.utility.neoforge.RUtil;
+import grill24.potionsplus.utility.RUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;

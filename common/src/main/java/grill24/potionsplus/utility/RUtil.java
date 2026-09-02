@@ -1,4 +1,4 @@
-package grill24.potionsplus.utility.neoforge;
+package grill24.potionsplus.utility;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.blockentity.ITimestampSupplier;

@@ -1,7 +1,7 @@
 package grill24.potionsplus.blockentity.neoforge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import grill24.potionsplus.utility.neoforge.RUtil;
+import grill24.potionsplus.utility.RUtil;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
