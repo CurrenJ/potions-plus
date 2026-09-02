@@ -16,6 +16,7 @@ import net.minecraft.world.level.ItemLike;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -25,6 +26,14 @@ public class PotionBuilder {
     private ISeededPotionRecipeBuilder potionRecipeGenerator;
 
     public static final int DEFAULT_DURATION = 1200; // 3 minutes
+
+    /**
+     * Injected by the loader registrar (NeoForge/Forge {@code DeferredRegister}, fabric immediate
+     * registry) BEFORE the common {@link Potions} hub is first touched, so potions registered at
+     * {@code Potions} class-load are already deferred. The factory builds the {@link Potion} itself.
+     * See docs/multi-loader-expansion.md Phase 4.
+     */
+    public static BiFunction<String, Supplier<MobEffectInstance>, Holder<Potion>> potionFactory;
 
     public PotionBuilder() {
          this.potionRecipeGenerator = SeededPotionRecipeBuilder.defaultPools();
@@ -106,7 +115,7 @@ public class PotionBuilder {
         }
 
         public static Holder<Potion> registerNewPotion(String name, Supplier<MobEffectInstance> effectSupplier) {
-            return Potions.REGISTER.apply(name, () -> new Potion(name, effectSupplier.get()));
+            return potionFactory.apply(name, effectSupplier);
         }
 
         public List<RecipeHolder<BrewingCauldronRecipe>> generateRecipes(Set<PpMultiIngredient> usedRecipeInputs, RandomSource random) {

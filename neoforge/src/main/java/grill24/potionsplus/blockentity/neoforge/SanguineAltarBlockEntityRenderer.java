@@ -1,7 +1,7 @@
 package grill24.potionsplus.blockentity.neoforge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import grill24.potionsplus.core.items.DynamicIconItems;
+import grill24.potionsplus.core.neoforge.items.DynamicIconItems;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3d;

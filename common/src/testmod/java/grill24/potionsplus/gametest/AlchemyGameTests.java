@@ -56,7 +56,7 @@ public final class AlchemyGameTests {
      */
     @GameTest(template = "empty_testarea", timeoutTicks = 200)
     public static void modPotionsReadBackCorrectly(GameTestHelper helper) {
-        List<PotionBuilder.PotionsPlusPotionGenerationData> all = PotionsRegistrar.ALL_POTION_GENERATION_DATA;
+        List<PotionBuilder.PotionsPlusPotionGenerationData> all = Potions.ALL_POTION_GENERATION_DATA;
         assertTrue(helper, !all.isEmpty(), "the mod registered no potions at all");
 
         for (PotionBuilder.PotionsPlusPotionGenerationData generated : all) {
@@ -120,7 +120,7 @@ public final class AlchemyGameTests {
     /** A splash and a drinkable potion of the same mod potion match when the container is ignored. */
     @GameTest(template = "empty_testarea", timeoutTicks = 200)
     public static void modPotionsMatchAcrossContainers(GameTestHelper helper) {
-        Holder<Potion> potion = PotionsRegistrar.MAGNETIC_POTIONS.potion;
+        Holder<Potion> potion = Potions.MAGNETIC_POTIONS.potion;
         ItemStack drinkable = PotionContainer.POTION.create(potion);
         ItemStack splash = PotionContainer.SPLASH_POTION.create(potion);
 
@@ -214,14 +214,14 @@ public final class AlchemyGameTests {
      */
     @GameTest(template = "empty_testarea", timeoutTicks = 200)
     public static void potionDisplayNameUsesRegistryPath(GameTestHelper helper) {
-        for (PotionBuilder.PotionsPlusPotionGenerationData generated : PotionsRegistrar.ALL_POTION_GENERATION_DATA) {
+        for (PotionBuilder.PotionsPlusPotionGenerationData generated : Potions.ALL_POTION_GENERATION_DATA) {
             assertNamesItselfAfterItsRegistryPath(helper, generated.potion, generated.getName());
         }
 
         // The two marker potions are registered outside ALL_POTION_GENERATION_DATA and had the same
         // problem with spaces and capitals in their suffixes.
-        assertNamesItselfAfterItsRegistryPath(helper, PotionsRegistrar.ANY_POTION, "any_potion");
-        assertNamesItselfAfterItsRegistryPath(helper, PotionsRegistrar.ANY_OTHER_POTION, "any_other_potion");
+        assertNamesItselfAfterItsRegistryPath(helper, Potions.ANY_POTION, "any_potion");
+        assertNamesItselfAfterItsRegistryPath(helper, Potions.ANY_OTHER_POTION, "any_other_potion");
 
         helper.succeed();
     }

@@ -1,7 +1,7 @@
 package grill24.potionsplus.blockentity.neoforge;
 
 import grill24.potionsplus.core.*;
-import grill24.potionsplus.core.items.DynamicIconItems;
+import grill24.potionsplus.core.neoforge.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.neoforge.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.persistence.SavedData;
@@ -15,9 +15,9 @@ import grill24.potionsplus.blockentity.BlockEntitySerializableData;
 import grill24.potionsplus.blockentity.ICraftingBlockEntity;
 import grill24.potionsplus.blockentity.IExperienceContainer;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
-import grill24.potionsplus.core.neoforge.Advancements;
+import grill24.potionsplus.core.Advancements;
 import grill24.potionsplus.core.neoforge.Blocks;
-import grill24.potionsplus.core.neoforge.Particles;
+import grill24.potionsplus.core.Particles;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -270,7 +270,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                     level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
                         if(player instanceof ServerPlayer serverPlayer) {
                             PlayerBrewingKnowledgeNetworking.tryAddKnownRecipeServer(SavedData.instance.getData(player.getUUID()), serverPlayer, recipeId.toString(), result);
-                            Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, recipe.getType(), PpIngredient.of(result));
+                            Advancements.CRAFT_RECIPE.trigger(serverPlayer, recipe.getType(), PpIngredient.of(result));
                         }
                     });
                     break;
@@ -301,7 +301,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
             return;
 
         for (int i = 0; i < 10; i++) {
-            level.addParticle(Particles.END_ROD_RAIN.get(), worldPosition.getX() + level.random.nextDouble() * 0.8 + 0.2, worldPosition.getY() + 2, worldPosition.getZ() + level.random.nextDouble() * 0.8 + 0.2, 0, 0, 0);
+            level.addParticle(Particles.END_ROD_RAIN.value(), worldPosition.getX() + level.random.nextDouble() * 0.8 + 0.2, worldPosition.getY() + 2, worldPosition.getZ() + level.random.nextDouble() * 0.8 + 0.2, 0, 0, 0);
         }
     }
 

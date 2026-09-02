@@ -4,7 +4,7 @@ import grill24.potionsplus.advancement.AbyssalTroveTrigger;
 import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
 import grill24.potionsplus.blockentity.neoforge.AbyssalTroveBlockEntity;
 import grill24.potionsplus.core.neoforge.Blocks;
-import grill24.potionsplus.core.neoforge.Sounds;
+import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.utility.InvUtil;

@@ -5,7 +5,7 @@ import grill24.potionsplus.core.neoforge.RecipesRegistrar;
 import grill24.potionsplus.blockentity.neoforge.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.IStoredIngredientsContainer;
 import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.core.neoforge.potion.PotionsRegistrar;
+import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
@@ -102,7 +102,7 @@ public class BrewingTooltips {
                         ItemStack recipeResult = recipe.getResult();
                         PotionData recipeResultData = PotionData.read(recipeResult);
                         if (!PotionContainer.isPotionStack(recipeResult) || !recipeResultData.hasBasePotion()
-                                || recipeResultData.basePotion().get().is(PotionsRegistrar.ANY_POTION) || recipeResultData.basePotion().get().is(PotionsRegistrar.ANY_OTHER_POTION)
+                                || recipeResultData.basePotion().get().is(Potions.ANY_POTION) || recipeResultData.basePotion().get().is(Potions.ANY_OTHER_POTION)
                                 || !recipe.canShowInJei())
                             continue;
                         List<MobEffectInstance> potionEffects = recipeResultData.basePotion().get().value().getEffects();

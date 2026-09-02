@@ -1,12 +1,14 @@
 package grill24.potionsplus.core.neoforge;
 
 import grill24.potionsplus.utility.ModInfo;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+@SuppressWarnings("unchecked")
 public class Particles {
 
 
@@ -26,5 +28,19 @@ public class Particles {
 
     private static DeferredHolder<ParticleType<?>, SimpleParticleType> register(String name, boolean b) {
         return PARTICLE_TYPES.register(name, () -> new SimpleParticleType(b));
+    }
+
+    static {
+        // Populate common stubs. 1.21.1 NeoForge's DeferredHolder implements Holder<R-registry>, not
+        // Holder<T-value>, so the assignment needs the raw cast (matches the 26.1.2 mirror).
+        grill24.potionsplus.core.Particles.END_ROD_RAIN = (Holder) (Object) END_ROD_RAIN;
+        grill24.potionsplus.core.Particles.BLOOD_GOB = (Holder) (Object) BLOOD_GOB;
+        grill24.potionsplus.core.Particles.LUNAR_BERRY_BUSH_AMBIENT = (Holder) (Object) LUNAR_BERRY_BUSH_AMBIENT;
+        grill24.potionsplus.core.Particles.LIGHTNING_BOLT = (Holder) (Object) LIGHTNING_BOLT;
+        grill24.potionsplus.core.Particles.LIGHTNING_BOLT_SMALL = (Holder) (Object) LIGHTNING_BOLT_SMALL;
+        grill24.potionsplus.core.Particles.ELECTRICAL_SPARK = (Holder) (Object) ELECTRICAL_SPARK;
+        grill24.potionsplus.core.Particles.STUN_STARS = (Holder) (Object) STUN_STARS;
+        grill24.potionsplus.core.Particles.BLOOD_EMITTER = (Holder) (Object) BLOOD_EMITTER;
+        grill24.potionsplus.core.Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER = (Holder) (Object) LUNAR_BERRY_BUSH_AMBIENT_EMITTER;
     }
 }

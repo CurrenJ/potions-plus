@@ -5,7 +5,7 @@ import grill24.potionsplus.data.loot.neoforge.GlobalLootModifierProvider;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.worldgen.ConfiguredFeatures;
 import grill24.potionsplus.worldgen.Placements;
-import grill24.potionsplus.core.neoforge.Sounds;
+import grill24.potionsplus.core.neoforge.NeoSounds;
 import grill24.potionsplus.data.GameTestStructureProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -55,7 +55,7 @@ public class DataGen {
 
         BlockTagsProvider blockTagsProvider = new BlockTagProvider(output, lookupProvider, existingFileHelper);
         ItemTagProvider itemTagProvider = new ItemTagProvider(output, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper);
-        Sounds soundsProvider = new Sounds(output, ModInfo.MOD_ID, existingFileHelper);
+        NeoSounds soundsProvider = new NeoSounds(output, ModInfo.MOD_ID, existingFileHelper);
         generator.addProvider(true, blockTagsProvider);
         generator.addProvider(true, itemTagProvider);
         generator.addProvider(true, soundsProvider);

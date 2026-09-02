@@ -1,7 +1,7 @@
 package grill24.potionsplus.event.neoforge;
 
 import com.mojang.datafixers.util.Pair;
-import grill24.potionsplus.core.neoforge.Attributes;
+import grill24.potionsplus.core.Attributes;
 import grill24.potionsplus.event.neoforge.AnimatedItemTooltipBusEvent;
 import grill24.potionsplus.utility.*;
 import grill24.potionsplus.alchemy.*;

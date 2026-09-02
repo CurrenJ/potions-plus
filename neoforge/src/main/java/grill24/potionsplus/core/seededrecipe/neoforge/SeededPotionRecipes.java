@@ -5,7 +5,7 @@ import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.Tags;
 import grill24.potionsplus.core.potion.PotionBuilder;
-import grill24.potionsplus.core.neoforge.potion.PotionsRegistrar;
+import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -52,7 +52,7 @@ public class SeededPotionRecipes {
         SavedData.instance.seededPotionRecipes.forEach(recipe -> allRecipeInputs.add(PpMultiIngredient.of(recipe.value().getIngredientsAsItemStacks())));
 
         // Generate base potion recipes and amplification/duration upgrade recipes.
-        generateRecipesFromGenerationData(allRecipeInputs, PotionsRegistrar.getAllPotionAmpDurMatrices());
+        generateRecipesFromGenerationData(allRecipeInputs, Potions.getAllPotionAmpDurMatrices());
         generateDurationAndAmplificationUpgradeRecipes(allRecipeInputs);
 
         // Remove recipes that already exist in saved data; we don't want to overwrite them with new generations.
@@ -104,8 +104,8 @@ public class SeededPotionRecipes {
         for (PpIngredient ingredient : durationTagItems) {
             durationUpgradeRecipes.add(
                     new BrewingCauldronRecipeBuilder()
-                    .result(PotionContainer.POTION.create(PotionsRegistrar.ANY_POTION))
-                    .ingredients(PotionContainer.POTION.create(PotionsRegistrar.ANY_POTION), ingredient.getItemStack())
+                    .result(PotionContainer.POTION.create(Potions.ANY_POTION))
+                    .ingredients(PotionContainer.POTION.create(Potions.ANY_POTION), ingredient.getItemStack())
                     .processingTime(30)
                     .durationToAdd(randomSource.nextInt(100, 1800))
                     .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER, EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
@@ -119,8 +119,8 @@ public class SeededPotionRecipes {
         for (PpIngredient ingredient : amplifierTagItems) {
             amplifierUpgradeRecipes.add(
                     new BrewingCauldronRecipeBuilder()
-                            .result(PotionContainer.POTION.create(PotionsRegistrar.ANY_POTION))
-                            .ingredients(PotionContainer.POTION.create(PotionsRegistrar.ANY_POTION), ingredient.getItemStack())
+                            .result(PotionContainer.POTION.create(Potions.ANY_POTION))
+                            .ingredients(PotionContainer.POTION.create(Potions.ANY_POTION), ingredient.getItemStack())
                             .processingTime(30)
                             .amplifierToAdd(1)
                             .potionMatchingCriteria(List.of(EffectComparison.MatchCriteria.IGNORE_POTION_CONTAINER, EffectComparison.MatchCriteria.IGNORE_POTION_EFFECTS_MIN_1_EFFECT))
@@ -134,8 +134,8 @@ public class SeededPotionRecipes {
         for (PpIngredient ingredient : durationAndAmplifierTagItems) {
             bothUpgradeRecipes.add(
                     new BrewingCauldronRecipeBuilder()
-                            .result(PotionContainer.POTION.create(PotionsRegistrar.ANY_POTION))
-                            .ingredients(PotionContainer.POTION.create(PotionsRegistrar.ANY_POTION), ingredient.getItemStack())
+                            .result(PotionContainer.POTION.create(Potions.ANY_POTION))
+                            .ingredients(PotionContainer.POTION.create(Potions.ANY_POTION), ingredient.getItemStack())
                             .processingTime(30)
                             .durationToAdd(randomSource.nextInt(400, 1200))
                             .amplifierToAdd(1)

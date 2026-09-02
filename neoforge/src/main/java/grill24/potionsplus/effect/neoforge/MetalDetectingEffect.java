@@ -1,7 +1,7 @@
 package grill24.potionsplus.effect.neoforge;
 
 import grill24.potionsplus.alchemy.EffectScaling;
-import grill24.potionsplus.core.neoforge.Sounds;
+import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.effect.ITickingAreaTooltipDetails;

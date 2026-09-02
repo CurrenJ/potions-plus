@@ -17,10 +17,10 @@ import grill24.potionsplus.utility.neoforge.ClientTickHandler;
 import grill24.potionsplus.utility.Utility;
 import grill24.potionsplus.blockentity.ISingleStackDisplayer;
 import grill24.potionsplus.blockentity.InventoryBlockEntity;
-import grill24.potionsplus.core.neoforge.Advancements;
+import grill24.potionsplus.core.Advancements;
 import grill24.potionsplus.core.neoforge.Blocks;
-import grill24.potionsplus.core.neoforge.Particles;
-import grill24.potionsplus.core.neoforge.Sounds;
+import grill24.potionsplus.core.Particles;
+import grill24.potionsplus.core.Sounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
@@ -133,7 +133,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
                                         double velocity = level.random.nextDouble() * 0.15 + 0.1;
                                         Vec3 vector = towardsBlock.multiply(velocity, velocity, velocity);
                                         Vec3 center = entity.getBoundingBox().getCenter();
-                                        level.addParticle(Particles.BLOOD_EMITTER.get(), center.x, center.y, center.z, vector.x, vector.y, vector.z);
+                                        level.addParticle(Particles.BLOOD_EMITTER.value(), center.x, center.y, center.z, vector.x, vector.y, vector.z);
                                     }
                                 }
                             }
@@ -164,7 +164,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
         if (state == State.CONVERTED) {
             level.getEntitiesOfClass(Player.class, new AABB(pos).inflate(16.0)).forEach(player -> {
                 if (player instanceof ServerPlayer serverPlayer) {
-                    Advancements.CRAFT_RECIPE.get().trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE.value(), PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
+                    Advancements.CRAFT_RECIPE.trigger(serverPlayer, Recipes.SANGUINE_ALTAR_RECIPE.value(), PpIngredient.of(sanguineAltarBlockEntity.chainedIngredientToDisplay));
                 }
             });
         }

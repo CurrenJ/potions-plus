@@ -3,7 +3,7 @@ package grill24.potionsplus.utility.neoforge;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.alchemy.PotionContainer;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
-import grill24.potionsplus.core.items.DynamicIconItems;
+import grill24.potionsplus.core.neoforge.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;

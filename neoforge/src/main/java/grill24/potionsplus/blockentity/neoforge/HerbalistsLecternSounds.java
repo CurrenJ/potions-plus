@@ -1,6 +1,6 @@
 package grill24.potionsplus.blockentity.neoforge;
 
-import grill24.potionsplus.core.neoforge.Sounds;
+import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;

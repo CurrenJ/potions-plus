@@ -1,6 +1,6 @@
 package grill24.potionsplus.network.neoforge;
 
-import grill24.potionsplus.core.neoforge.Particles;
+import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.network.PacketContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -30,7 +30,7 @@ public record ServerboundSpawnDoubleJumpParticlesPacket(Vec3 pos) implements Cus
             context.enqueueWork(() -> {
                 ServerPlayer serverPlayer = (ServerPlayer) context.player();
                 serverPlayer.serverLevel().sendParticles(
-                        Particles.END_ROD_RAIN.get(),
+                        Particles.END_ROD_RAIN.value(),
                         serverPlayer.position().x,
                         serverPlayer.position().y,
                         serverPlayer.position().z,

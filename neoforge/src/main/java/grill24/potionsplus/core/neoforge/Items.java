@@ -1,6 +1,5 @@
 package grill24.potionsplus.core.neoforge;
 
-import grill24.potionsplus.core.items.*;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.utility.Utility;
 import grill24.potionsplus.utility.registration.neoforge.RegistrationUtility;
@@ -21,10 +20,10 @@ public class Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, ModInfo.MOD_ID);
 
     static {
-        WreathItem.init(ITEMS::register);
-        OreItems.init(ITEMS::register);
-        BrewingItems.init(ITEMS::register);
-        DynamicIconItems.init(ITEMS::register);
+        grill24.potionsplus.core.neoforge.items.WreathItem.init(ITEMS::register);
+        grill24.potionsplus.core.neoforge.items.OreItems.init(ITEMS::register);
+        grill24.potionsplus.core.neoforge.items.BrewingItems.init(ITEMS::register);
+        grill24.potionsplus.core.neoforge.items.DynamicIconItems.init(ITEMS::register);
     }
 
     public static Item.Properties properties() {

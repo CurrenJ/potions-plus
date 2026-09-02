@@ -4,7 +4,7 @@ import grill24.potionsplus.block.neoforge.ClotheslineBlock;
 import grill24.potionsplus.block.ClotheslinePart;
 import grill24.potionsplus.blockentity.neoforge.ClotheslineBlockEntity;
 import grill24.potionsplus.core.neoforge.Blocks;
-import grill24.potionsplus.core.neoforge.Particles;
+import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.network.neoforge.ServerboundConstructClotheslinePacket;
 import grill24.potionsplus.utility.Utility;
@@ -85,7 +85,7 @@ public class ClotheslineBehaviour {
     private static void spawnParticles(Level level, BlockPos blockPos) {
         Vec3 pos = Vec3.atCenterOf(blockPos);
         for (int i = 0; i < 5; i++) {
-            level.addParticle(Particles.END_ROD_RAIN.get(),
+            level.addParticle(Particles.END_ROD_RAIN.value(),
                     pos.x + Utility.nextGaussian(0, 0.1, level.random),
                     pos.y + 0.5 + Utility.nextGaussian(0, 0.1, level.random),
                     pos.z + Utility.nextGaussian(0, 0.1, level.random),

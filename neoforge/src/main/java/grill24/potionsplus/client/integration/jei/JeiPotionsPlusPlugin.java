@@ -6,7 +6,7 @@ import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.items.BrewingItems;
 import grill24.potionsplus.core.items.WreathItem;
 import grill24.potionsplus.core.potion.PotionBuilder;
-import grill24.potionsplus.core.neoforge.potion.PotionsRegistrar;
+import grill24.potionsplus.core.potion.Potions;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
@@ -60,7 +60,7 @@ public class JeiPotionsPlusPlugin implements IModPlugin {
         registerDescription(registration, BrewingItems.ROTTEN_WORMROOT.value()); // Rotten Wormroot
         registerDescription(registration, BrewingItems.LUNAR_BERRIES.value()); // Lunar Berries
         registerDescription(registration, WreathItem.WREATH.value()); // Wreath
-        registerAllPotionsInfo(registration, PotionsRegistrar.getAllPotionAmpDurMatrices()); // Potion descriptions
+        registerAllPotionsInfo(registration, Potions.getAllPotionAmpDurMatrices()); // Potion descriptions
 
         // Register recipes for custom JEI recipe categories
         if (Minecraft.getInstance().level != null) {

@@ -3,9 +3,6 @@ package grill24.potionsplus.core.neoforge;
 import grill24.potionsplus.block.*;
 import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
-import grill24.potionsplus.core.blocks.DecorationBlocks;
-import grill24.potionsplus.core.blocks.FlowerBlocks;
-import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.utility.*;
 import grill24.potionsplus.alchemy.*;
@@ -44,10 +41,10 @@ public class Blocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, ModInfo.MOD_ID);
 
     static {
-        BlockEntityBlocks.init(BLOCKS::register, Items.ITEMS::register);
-        OreBlocks.init(BLOCKS::register, Items.ITEMS::register);
-        FlowerBlocks.init(BLOCKS::register, Items.ITEMS::register);
-        DecorationBlocks.init(BLOCKS::register, Items.ITEMS::register);
+        grill24.potionsplus.core.neoforge.blocks.BlockEntityBlocks.init(BLOCKS::register, Items.ITEMS::register);
+        grill24.potionsplus.core.neoforge.blocks.OreBlocks.init(BLOCKS::register, Items.ITEMS::register);
+        grill24.potionsplus.core.neoforge.blocks.FlowerBlocks.init(BLOCKS::register, Items.ITEMS::register);
+        grill24.potionsplus.core.neoforge.blocks.DecorationBlocks.init(BLOCKS::register, Items.ITEMS::register);
     }
 
     // ----- Block Entities -----

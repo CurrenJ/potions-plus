@@ -26,7 +26,11 @@ versionRange = "${mod_minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
-# The common mixin config, copied in from common's resources. potionsplus.forge.mixins.json (if any)
-# is added in Phase 9, which also re-verifies production mixin-config discovery on Forge 52.x.
+# The common mixin config, copied in from common's resources. potionsplus.forge.mixins.json lists
+# the forge-module mixins (currently just RegistryMixin); Phase 9 wires the dev-run --mixin.config
+# + loom.mixin blocks and re-verifies production mixin-config discovery on Forge 52.x.
 [[mixins]]
 config = "${mod_id}.mixins.json"
+
+[[mixins]]
+config = "${mod_id}.forge.mixins.json"

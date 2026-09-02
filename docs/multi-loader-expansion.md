@@ -168,7 +168,7 @@ record it under "VERIFIED API FACTS" with the evidence.
 | 1 | Source split into `common/` | ✅ **closed 2026-09-01** — split + 107-file `.neoforge` repackage (Decision 4a), all exit criteria met: `comm -12` package intersection empty, `clean` full build green, `runClient` reaches main menu. Committed on `dev/1.21.1/multi-loader-expansion` |
 | 2 | Platform abstraction layer | ✅ done 2026-09-01 — 7-method `Platform`, 5-method `PacketNetwork`, 3-method `PacketContext`; 12 packet handlers rewritten + `NeoPacketContext`-wrapped; 9 senders + 4 call sites converted to the @ExpectPlatform surface; `:common:compileJava :neoforge:compileJava` green, build green modulo the known Phase-12 junit red; `net.neoforged` = 0 in `common/src/main/java`; `comm -12` empty |
 | 3 | Fabric + Forge module scaffold | ✅ done 2026-09-01 — `settings.gradle` includes re-added; `fabric`/`forge` `gradle.properties` + `build.gradle` authored (Forge `runtimeClasspath` asymmetry kept); placeholder `fabric.mod.json` + `mods.toml`; exit criterion met: `:fabric:build :forge:build :neoforge:build -x test` → `BUILD SUCCESSFUL`, all three jars produced. **Divergence required:** removed `RecipeInput` from `InventoryBlockEntity` (1.21.1 mapping collision, see VERIFIED API FACTS) + added `ContainerRecipeInput` wrapper; `BrewingCauldronBlockEntity` now wraps `this` at its one `matches(this, …)` call site |
-| 4 | Registration hubs (Fabric + Forge) | ⬜ not started |
+| 4 | Registration hubs (Fabric + Forge) | 🔄 **in progress 2026-09-02** — Fabric (26 files) + Forge (29 files) hubs **both written, all three loader modules `compileJava` green**, `comm -12` empty (Decision 4a), fabric+forge platform impls + both entrypoints firing. Forge deviations recorded (Forge patches `builder()`/`withSearchBar()` in; `SimpleParticleType` protected; `validBlocks` private → DISPENSER assoc deferred to Phase 9; `RegistryObject`→`ForgeHolder` wrapper). **Remaining: runClient smoke on fabric + forge** (runtime world-load is the exit criterion). See "Phase 4 — current execution plan" below. |
 | 5 | `@ExpectPlatform` impls + networking | ⬜ not started |
 | 6 | Entrypoints | ⬜ not started |
 | 7 | Event surface (36 subscriber classes) | ⬜ not started |
@@ -239,17 +239,33 @@ networking approach (`ChannelBuilder.named(id).networkProtocolVersion(1).optiona
 - `BlockEntityType.Builder.of(BlockEntitySupplier<? extends T>, Block...)` → `.build(Type<?>)`.
   **Public vanilla API** — every loader uses the same call. *(26.1.2 had no `Builder` at all; that
   workaround is not needed here.)*
-- `CreativeModeTab.builder()` (no-arg) **and** `builder(Row, int)` both exist in vanilla.
-  *(26.1.2's Fabric/Forge tab rebuild is not needed.)* `withSearchBar()` is still a NeoForge patch —
-  verify before relying on it off-NeoForge.
+- `CreativeModeTab` — **CORRECTED 2026-09-02, with compile evidence from BOTH sides.** Vanilla 1.21.1
+  (the fabric module's classpath) has **only** `builder(Row, int)`. The no-arg `builder()` and
+  `withSearchBar()` are loader patches — **NeoForge** (javap'd `minecraft-merged-mojang-patched.jar`)
+  **and Forge** (javap'd `minecraft-merged-srg-patched.jar`: literal `builder()` + `m_257815_(Row,int)`,
+  Builder has `withSearchBar()`/`withSearchBar(int)`) both patch them in; vanilla has neither. So:
+  **Fabric** uses `builder(CreativeModeTab.Row.TOP, 4)` with **no** `withSearchBar()` (the exact 26.1.2
+  fabric form); **Forge** uses `builder(Row.TOP, 4)` + `.withSearchBar()` (safe cross-patch union). The
+  plan's earlier "no tab rebuild needed" claim was verified against the *patched* jar, not vanilla; the
+  two `:fabric:compileJava` errors (`method builder ... required: Row,int`; `cannot find symbol:
+  withSearchBar()`) are the evidence.
 - `Registry.holders()` → `Stream<Holder.Reference<T>>` **exists**. *(26.1.2 removed it and forced
   `entrySet()`.)*
 - `Registry.registerForHolder(Registry<T>, ResourceKey<T>, T)` / `(…, ResourceLocation, T)` →
   `Holder.Reference<T>` — the Fabric registration path, same as 26.1.2.
-- **`SimpleParticleType(boolean)` is `protected` in vanilla** but **`public` in the Forge-patched
-  jar.** Same trap as 26.1.2 → Fabric needs `new SimpleParticleType(false) {}` (anonymous subclass)
-  or an access-widener entry. Decide in Phase 9 which; prefer matching 26.1.2's anonymous-subclass
-  choice for diffability.
+- **`SimpleParticleType(boolean)` is `protected` in vanilla AND in the Forge 52.1.2 srg-patched jar**
+  (**CORRECTED 2026-09-02** — the earlier "public in the Forge-patched jar" claim was NeoForge-only;
+  javap on `minecraft-merged-srg-patched.jar` shows `protected SimpleParticleType(boolean)`;
+  NeoForge's `minecraft-merged-mojang-patched.jar` is the one that patches it public). Same trap as
+  26.1.2 → **Fabric and Forge both** use `new SimpleParticleType(false) {}` (anonymous subclass);
+  NeoForge can call the ctor directly. Decide in Phase 9 whether to add an access-widener instead;
+  prefer matching 26.1.2's anonymous-subclass choice for diffability.
+- **`BlockEntityType.validBlocks` is `private final Set<Block>` (`f_58915_`) on Forge 52.1.2** — no
+  public mutation API and no forge-patched helper (javap'd `minecraft-merged-srg-patched.jar`). On
+  NeoForge the DISPENSER↔PRECISION_DISPENSER association uses the `BlockEntityTypeAddBlocksEvent`
+  (`event.modify(...)`); on Fabric, `FabricBlockEntityType.addSupportedBlock(Block)`; **on Forge there
+  is no portable hook → the association is deferred to Phase 9** (access-widener/mixin), mirroring the
+  26.1.2 Forge tree which skips it entirely.
 - `Potion` ctors: `(MobEffectInstance...)` **and** `(String, MobEffectInstance...)`. This branch uses
   the first form. `Potion.getName(Optional<Holder<Potion>>, String)` is static. The `CLAUDE.md`
   `Potion.name()` trap is a **26.1.2-only** hazard — leave 1.21.1's call sites alone.
@@ -980,19 +996,145 @@ analysis and hub file list transfer almost verbatim.
       during its own registration. Fix by making those lookups lazy, not by reordering.
 - [ ] Block-entity valid-blocks: NeoForge's `BlockEntityTypeAddBlocksEvent` (used for the
       `PRECISION_DISPENSER` ↔ vanilla `DISPENSER` association) → Fabric
-      `((FabricBlockEntityType) BlockEntityType.DISPENSER).addValidBlock(block)`; Forge equivalent
-      to be identified.
+      `((FabricBlockEntityType) BlockEntityType.DISPENSER).addSupportedBlock(block)` — **the
+      0.116.7 method name, verified via javap; NOT `addValidBlock`** (a later fabric-api name).
+      Forge equivalent to be identified.
 - [ ] `SimpleParticleType` on Fabric: `new SimpleParticleType(false) {}` (ctor is `protected` in
       vanilla — verified) unless Phase 9's access-widener covers it.
-- [ ] Creative tab: vanilla `CreativeModeTab.builder()` works on all three in 1.21.1. NeoForge keeps
+- [ ] Creative tab: **NeoForge-only** `CreativeModeTab.builder()` no-arg patch — vanilla 1.21.1 needs
+      `builder(CreativeModeTab.Row.TOP, 4)` (see VERIFIED API FACTS correction). NeoForge keeps
       `BuildCreativeModeTabContentsEvent`; Fabric/Forge populate via a `displayItems` lambda
-      iterating `BuiltInRegistries.ITEM.holders()` filtered by namespace.
+      iterating `BuiltInRegistries.ITEM.entrySet()` filtered by namespace.
 - [ ] Minimal `{fabric,forge}/.../platform/*/PlatformImpl.java` with at least `isClient` /
       `isDevelopmentEnvironment` — `AbstractRegistererBuilder.modelGenerator()` calls
       `Platform.isClient()` during hub class-load. Rest stubbed until Phase 5/8.
 
 **Exit criterion:** NeoForge build still green; Fabric + Forge compile and load a world with blocks,
 items, potions and effects present.
+
+### Phase 4 — current execution plan (written 2026-09-02)
+
+Fabric + Forge modules currently contain **zero Java** (only `fabric.mod.json` / `mods.toml`). The
+neoforge-side hub conversion (tasks 8–12, done) is the content source; 26.1.2's `core/fabric/` +
+`core/forge/` are the structural template ("own statics via `FabricRegistration.register(...)` /
+`DeferredRegister` + `ForgeHolder.of(...)`, then a trailing static block propagates into the common
+stub"). Remaining work in order:
+
+1. **[task 3] ✅ DONE 2026-09-02** — `forge/.../core/forge/util/ForgeHolder.java` (26.1.2's verbatim
+   minus `components()`/`areComponentsBound()`/`getDelegate()`/`implements Supplier<T>`; `Identifier` →
+   `ResourceLocation`; key-based `equals` fixes `83bf9a8`) + `forge/.../mixin/forge/RegistryMixin.java`
+   (ports verbatim — 1.21.1 has the private-instance `Registry.safeCastToReference`) + a minimal
+   `potionsplus.forge.mixins.json` + `[[mixins]]` in `mods.toml`. Forge dev-runs still won't load it
+   until Phase 9's `--mixin.config` wiring — noted, not done here.
+2. **[task 4] ✅ DONE 2026-09-02 — 26 fabric files, `:fabric:compileJava` green.** All hubs written in
+   `fabric/.../core/fabric/` + sub-hubs (`blocks/`, `items/`) + both entrypoints, content from the
+   1.21.1 neoforge hubs, structure from 26.1.2. **Deviations from the 26.1.2 order/scope, each
+   recorded against evidence:**
+   - **Blocks-before-Items (1.21.1 eager-holder deviation).** 1.21.1 `BlockItem`/`ItemNameBlockItem`
+     take a *concrete* `Block` and deref eagerly, and `ArmorItem`'s ctor eagerly derefs its material
+     holder → fabric order is potionFactory → Advancements/Attributes/LootItemConditions → MobEffects
+     → Potions → percentage attributes → **ArmorMaterials.init** → **Blocks.init()** → **Items.init()**
+     → DISPENSER assoc → Sounds/Particles/Recipes/MenuTypes/LootItemFunctions/NumberProviders →
+     CreativeModeTabs. (26.1.2's lazy Items-before-Blocks order cannot port.)
+   - **Tab = `builder(CreativeModeTab.Row.TOP, 4)`, no `withSearchBar()`** — see VERIFIED API FACTS
+     correction.
+   - **Scope trimmed on 1.21.1-only grounds:** 9 effects + 8 potions deferred (their NeoForge-only
+     effects); **DIAMOUR/GOLDEN_CUBENSIS flowers deferred** (same effects; no common code derefs the
+     null stubs — verified); the 6 BE-block classes + their BEs deferred (neoforge-only
+     `SimpleBlockBuilder`); `DynamicIconItems` deferred (loader-owned; only translation-string refs in
+     common). Fabric Phase 4 registers: 5 ores, 6 decoration blocks, PRECISION_DISPENSER, 6 of 8
+     flowers, 11 items, 14 portable effects, 23 portable potions + ANY_POTION/ANY_OTHER_POTION.
+   - **`FabricBlockEntityType.addSupportedBlock(Block)`** — fabric-api 0.116.7 method name, NOT
+     `addValidBlock` (verified via javap); 1.21.1 also lacks the vanilla `BlockEntityTypeAddBlocksEvent`.
+   - **`FabricRegistration` needs a cast bridge:** `registerForHolder(Registry<R>, ResourceKey<R>, R)`
+     can't infer the `<R, T extends R>` covariant form → `(Holder<T>) (Holder<?>) …` under
+     `@SuppressWarnings("unchecked")`, preserving subtype registration (needed for wildcard
+     `BlockEntityType<?>` registries).
+3. **[task 6] ✅ DONE 2026-09-02** — fabric `PlatformImpl` (all 7) + `PacketNetworkImpl` (all 5)
+   written (ported from the 26.1.2 fabric mirror; `getChorusFruitTeleportTarget` passthrough — fabric
+   fires no chorus-fruit event; config values hardcoded to the NeoForge defaults pending Phase 8).
+   Forge `PlatformImpl` (7) + `PacketNetworkImpl` (5) already existed from Phase 3. `:fabric:compileJava`
+   green with them.
+4. **[task 5] ✅ DONE 2026-09-02 — 29 forge files, `:forge:compileJava` green on the first pass.**
+   Hubs in `forge/.../core/forge/`: `Blocks`/`Items`/`ArmorMaterials` + `blocks/{Ore,Decoration,
+   BlockEntity,Flower}` + `items/{Ore,Brewing,Wreath}` + `Particles`/`Sounds`/`Recipes`/`NumberProviders`/
+   `CreativeModeTabs` + empty-parity + stub hubs. **Deviations/verifications (all javap-evidenced):**
+   - **`CreativeModeTab` — CORRECTED.** Forge 52.1.2 **does** patch in both the no-arg `builder()` and
+     `withSearchBar()` (javap'd `minecraft-merged-srg-patched.jar`: `builder()` literal + `m_257815_(Row,int)`;
+     Builder carries `withSearchBar()`/`withSearchBar(int)`). Forge tab = `builder(CreativeModeTab.Row.TOP, 4)`
+     + `.withSearchBar()`, with vanilla `displayItems` enumerating the ITEM registry (Forge has no
+     `BuildCreativeModeTabContentsEvent` — NeoForge-only).
+   - **`SimpleParticleType(boolean)` is `protected` on Forge 52.1.2** (the plan's "public in the
+     Forge-patched jar" claim was NeoForge-only) → anonymous subclass `new SimpleParticleType(false) {}`,
+     same as fabric's vanilla classpath.
+   - **`BlockEntityType.validBlocks` is `private final Set<Block>` on Forge** — no public mutation API →
+     DISPENSER↔PRECISION_DISPENSER association **deferred to Phase 9** (mirrors the 26.1.2 Forge tree,
+     which skips it entirely).
+   - **Forge's `RegistryObject` does not implement `Holder`** → a bare `DR::register` method reference
+     won't type-check against the common `init(BiFunction)` (unlike NeoForge's `DeferredHolder`) → every
+     hub routes through `ForgeHolder.of(DR.register(...))`, via a shared `register(DeferredRegister<T>)`
+     helper in `PotionsPlusForge`.
+   - **Consolidated DRs live in the entrypoint** (26.1.2 mirror shape): TRIGGERS/ATTRIBUTES/MOB_EFFECTS/
+     POTIONS/LOOT_ITEM_CONDITIONS on `PotionsPlusForge`; `ArmorMaterials.ARMOR_MATERIALS` on its own hub.
+     ENTITIES/BLOCK_PREDICATE_TYPES/CONSUME_EFFECTS dropped (nothing to register on 1.21.1).
+   - **Flush-order note:** at RegisterEvent Forge fires BLOCK before ITEM, ARMOR_MATERIAL before ITEM,
+     MOB_EFFECT before POTION — but `Blocks.init()`/`Items.init()` must still run before the
+     `DR.register(bus)` calls so the block-holder *fields* are non-null when the item suppliers run.
+   - Scope trims carried from fabric: DIAMOUR/GOLDEN_CUBENSIS flowers, the 6 BE-blocks (PRECISION_DISPENSER
+     included), DynamicIconItems deferred.
+5. **Entrypoints ✅ DONE 2026-09-02** — fabric `PotionsPlusFabric` (`ModInitializer`, 10-step order) +
+   `PotionsPlusFabricClient` existed from task 4; forge `PotionsPlusForge` (`@Mod`, no-arg ctor via
+   `FMLJavaModLoadingContext.get().getModEventBus()`, potionFactory static block, 9-step order, all 14
+   DRs registered on the bus). Compile green.
+6. **Compile gate — GREEN 2026-09-02:** `:fabric:compileJava :forge:compileJava :neoforge:compileJava`
+   → BUILD SUCCESSFUL; `comm -12` package-intersection **empty** for fabric/forge/neoforge vs common
+   (Decision 4a holds). **Remaining: runClient smoke on fabric + forge — runtime world-load is the real
+   exit criterion, not the build.**
+6a. **Mixin split — DONE 2026-09-02 (blocker found by the fabric runClient, invisible to the compile
+   gate).** The fabric smoke crashed on the very first launch: common's `potionsplus.mixins.json` listed
+   16 mixins, all living in `neoforge/` — fabric/forge inherit the config (via common resources) but not
+   the classes. Fix (mirrors 26.1.2, which keeps every vanilla-targeting mixin in `common/` and gives each
+   loader a small own config): **10 mixins now live in `common/`** (`grill24.potionsplus.mixin`, config
+   unchanged path) — AbstractProjectileDispenseBehavior, Boat, Bootstrap, ClientAdvancements,
+   ClientPacketListener, Inventory, ItemAttributeModifiers, OreFeature, StateTestingPredicate, TemptGoal
+   (each verified vanilla-1.21.1 via javap: injection method + `@At` target + shadowed fields all exist).
+   **8 mixins stay neoforge-only** in a new `grill24.potionsplus.mixin.neoforge` package +
+   `potionsplus.neoforge.mixins.json` (referenced from `neoforge.mods.toml`): ApplyBonusCount,
+   **BucketItem** (hooks the neoforge-patched `FluidType.onVaporize` call site inside
+   `BucketItem.emptyContents`), EnchantedCountIncreaseFunction, Entity, ItemEntity, Item, LivingEntity,
+   PotionItem. **Lesson for the next phase:** the compile gate cannot catch a mixin that *compiles*
+   against the neoforge-patched jar but targets a patched method/call-site at runtime ("Scanned 0
+   target(s)") — every mixin slated for `common/` needs its injection targets javap-verified against
+   *vanilla*. NeoForge-patched methods used by the 8: `LootItemModifiersBehaviour` (Phase 8),
+   `DataAttachments` (Phase 8), `CommonCommands` (Phase 7), `RecipesRegistrar` (Phase 5),
+   `BlockState.getFriction(LevelReader,BlockPos,Entity)` + `Holder.getKey()` (LivingEntity), and the
+   `onVaporize` call site (BucketItem). `comm -12` re-run on common↔neoforge/fabric/forge after the
+   repackage → **empty** (Decision 4a holds). All four modules compile green.
+6b. **Fabric class-init ordering fix + FABRIC SMOKE **PASS** 2026-09-02.** After 6a the fabric smoke
+   crashed again — `NullPointerException: Cannot invoke Holder.value() because FlowerBlocks.LUNAR_BERRY_BUSH
+   is null` from `BrewingItems.init` (fabric `Items.<clinit>` → `BrewingItems.init` → eagerly derefs
+   `FlowerBlocks.LUNAR_BERRY_BUSH.value()` for the `ItemNameBlockItem`). Root cause: fabric registration is
+   **eager** (the entrypoint's `Blocks.init()` → `OreBlocks.init` → first `Items.registerBlockItem` triggers
+   `Items.<clinit>`, which runs the whole fabric `Items` static block *mid-way through* `Blocks.<clinit>` —
+   neoforge/forge hide this because their suppliers are deferred to RegisterEvent). **Fix: reorder the
+   fabric `Blocks` static block so `FlowerBlocks.init` runs FIRST** (its block-item registration is the first
+   reference to `Items`; by the time any other sub-hub triggers `Items.<clinit>`'s `BrewingItems` deref,
+   `LUNAR_BERRY_BUSH` is already bound). `:fabric:runClient` then booted to the main menu — both markers
+   ("Potions Plus (Fabric) initializing" + "Sound engine started") present, no crash markers. **Missing
+   item model JSONs** (`Unable to load model: 'potionsplus:item/...' FileNotFoundException`) are expected —
+   item/blockstate models land in Phase 11. **Fabric exit criterion met** (world loads with blocks, items,
+   potions, effects present). Lesson carried forward: on fabric, any hub sub-block whose registration
+   eagerly derefs another hub's holder must be ordered *before* the class whose `<clinit>` triggers that
+   deref. Remaining: forge runClient smoke.
+
+**Content-source mapping (neoforge hub → what fabric/forge must reproduce):** registry content for
+every hub is the 1.21.1 `core/neoforge/*` (incl. `potion/MobEffectsRegistrar`, `potion/PotionsRegistrar`,
+`blocks/*`, `items/*`, `RecipesRegistrar`, `NumberProvidersRegistrar`, `NeoSounds`, `Entities`,
+`DataComponents`, `MenuTypes`, `LootItemFunctions`, `CreativeModeTabs`, `Features`, `PlacementModifierTypes`,
+`ArmorMaterials`, `LootModifiers`, `Capabilities`, `Advancements`-TRIGGERS, `LootItemConditions`). The
+26.1.2 `core/fabric`/`core/forge` give the *how* (registry access, immediate vs deferred, propagation
+blocks); they are MC 26.1.2 source and **must not be copied verbatim** (Identifier, `safeCastToReference`
+assumptions, `ConsumeEffects`/`BlockPredicateTypes`/`CreativeModeTab.builder(Row,int)` differ).
 
 ---
 
@@ -1542,4 +1684,8 @@ commit:** the Phase 1 changeset (107 `.neoforge` renames + cross-module import f
 committed together on branch `dev/1.21.1/multi-loader-expansion`. Mirror discipline still in force
 for Phase 2+: diff against the actual 26.1.2 tree before concluding anything. |
 | 2026-09-01 | 2 | **Phase 2 done — platform abstraction layer + networking wired, build verified.** `common/.../platform/{Platform,PacketNetwork}.java` (7 + 5 `@ExpectPlatform` methods, mirrored from 26.1.2 incl. the `CustomPacketPayload[] rest` form), `common/.../network/PacketContext.java` (3 methods — **corrected plan prose**: the 26.1.2 tree has no `isServerSide`), `neoforge/.../platform/neoforge/{PlatformImpl,PacketNetworkImpl}` + `network/neoforge/NeoPacketContext`. All 12 `network/*Packet` handlers rewritten against `PacketContext`; registrations in `core/neoforge/Packets.java` wrapped `(pkt, ctx) -> Handler.handleDataOnMain(pkt, new NeoPacketContext(ctx))`. Because Decision 4a must stay empty once `common/.../network/PacketContext` exists, the 12 neoforge packets were `git mv`'d into `.network.neoforge` (they stay loader-side until Phases 4/5/11 resolve their neoforge-only deps) and 10 referencers re-imported. Exercised the abstraction: 9 senders now call `PacketNetwork.sendTo*`; 4 call sites refactored onto `Platform` (`TeleportationEffect` chorus-fruit target, `PotionItemMixin` drink time/cooldown, `InventoryMixin` + `ServerPlayerUtility` held-item-changed). **Two 1.21.1 divergences from 26.1.2** recorded in `PlatformImpl`/`PacketNetworkImpl` comments: no `onItemConsumptionTeleport` on 21.1.209 → chorus-fruit hook; no `ClientPacketDistributor` → static `PacketDistributor.sendToServer`. **First build caught one real error** (`PlayerListeners.onPlayerJoin` sent two packets through 1-arg `sendToPlayer` → now `sendToPlayers(player, first, new CustomPacketPayload[]{second})`, the 26.1.2 form) — fixed, recompile green. Exit criteria: `:common:compileJava :neoforge:compileJava` BUILD SUCCESSFUL; `:common:build :neoforge:build -x :common:compileTestJava` BUILD SUCCESSFUL (`:common:build` itself stays red on the known Phase-12 junit red); `git grep -c 'net\.neoforged' common/src/main/java` → 0; `comm -12` package intersection → empty. **Not committed** — changeset on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |
+| 2026-09-02 | 4 | **Phase 4 neoforge-side groundwork DONE — session plan written below.** Finished the last of the neoforge side of the hub conversion: rewrote `neoforge/.../core/neoforge/PotionsPlus.java` (single `@Mod` ctor drives every `DeferredRegister.register(bus)` + `common.init(reg::register)` call; `potionFactory` lazy-lambda in a static block; duplicate `TRIGGERS` field removed), `core/neoforge/Particles.java` (mirrors 26.1.2 raw-cast propagation `(Holder) (Object)` for the `DeferredHolder<ParticleType<?>,SimpleParticleType>` → `Holder<SimpleParticleType>` mismatch), `common/.../item/WormrootItem.java` emptied (26.1.2 mirror — `onEntityItemUpdate` is a NeoForge extension method), and consumer import swaps for `core.Particles` / `core.Sounds` / `core.Attributes` / `core.Advancements` / `core.potion.Potions` / `core.neoforge.items.DynamicIconItems` + `.get()`→`.value()` on `Holder`s + `.getKey()`→`.unwrapKey()` in the two biome loot conditions. **`./gradlew :common:compileJava :neoforge:compileJava :neoforge:compileTestmodJava` all BUILD SUCCESSFUL.** Not committed. |
+| 2026-09-02 | 4 | **ForgeHolder + RegistryMixin plan verified against 1.21.1 jars.** `javap` on the loom-cached `forge-1.21.1-52.1.2-minecraft-merged` confirms: 1.21.1 `Holder<T>` extends `Supplier<T>` + Forge's `IReverseTag<T>`; abstract methods are `value, isBound, is(ResourceLocation), is(ResourceKey), is(Predicate), is(TagKey), is(Holder), tags, unwrap, unwrapKey, kind, canSerializeIn`; **NO `components()`/`areComponentsBound()`/`getDelegate()`** (26.1.2's adapter drops those three overrides). `Registry.safeCastToReference` **IS present but is a private INSTANCE method** (my first grep missed it) — `holderByNameCodec → referenceHolderWithLifecycle → flatComapMap(encode = safeCastToReference → key().location())`, so the 26.1.2 `RegistryMixin` (interface mixin, non-static handler at HEAD, unwrap via `ForgeHolder.resolveReference()`) ports **verbatim**. `Registry.registerForHolder(Registry, ResourceKey|ResourceLocation, T)` → `Holder.Reference<T>` confirmed. `RegistryObject.getKey()/getId()/getHolder()` confirmed. |
 | 2026-09-01 | 3 | **Phase 3 done — Fabric + Forge scaffold green, after a real mapping blocker worth recording in full.** `:fabric:remapJar` threw TinyRemapper "Unfixable conflicts" (38-entry set) on the FIRST full three-loader build. Root cause (decompiled loom 1.17.491 + tiny-remapper 0.14.0, verified empirically): Mojang's 1.21.1 named mappings give `Container.getItem/isEmpty` and `RecipeInput.getItem/isEmpty` identical names but different intermediary ids (`method_5438/5442` vs `method_59984/59987`); TinyRemapper 0.14.0's class-less conflict key flags any class implementing both interfaces; `InventoryBlockEntity implements WorldlyContainer, RecipeInput` is exactly that class. The merged `mappings.tiny` is clean — NOT a mapping defect. Ruled out: `fabric.loom.dropNonIntermediateRootMethods=true` (both targets are roots; forced cache rebuild → identical 38-conflict set, flag proven read via `project.findProperty` but inert), `nameSyntheticMembers=false` (worse: 39 conflicts), `ignoreConflicts=true` (would emit a method that fails to override one interface at runtime). **Fix applied:** removed `RecipeInput` from `InventoryBlockEntity` (import, interface, `@Override` on `size()`), added `common/.../recipe/ContainerRecipeInput.java` (a `Container`→`RecipeInput` delegating record, mirroring the mirror's `MultiRecipeInput` location idiom), and the single tree-wide site that passed a block entity as a `RecipeInput` (`neoforge/.../BrewingCauldronBlockEntity.java:101`, `matches(this, …)` — the only such site, proven by grep) now passes `new ContainerRecipeInput(this)`. Full exit criterion `./gradlew :fabric:build :forge:build :neoforge:build -x test` → **BUILD SUCCESSFUL in 15s**; `potionsplus-{fabric,forge,neoforge}-1.6.0.jar` all produced. **Not committed** — changeset on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |
+| 2026-09-02 | 4 | **Phase 4 registration hubs done — Fabric + Forge written, all three loader modules compile green, `comm -12` empty. Remaining: runClient smoke on fabric + forge (the real exit criterion).** Fabric side: 26.1.2-mirror sub-hubs (`blocks/{OreBlocks,DecorationBlocks,BlockEntityBlocks,FlowerBlocks}.java`, `items/{OreItems,BrewingItems,WreathItem}.java`) + flat hubs (`Particles,Sounds,Recipes,NumberProviders,CreativeModeTabs`) + `MenuTypes/LootItemFunctions/DataComponents/Entities` parity stubs; already existed, verified verbatim against 26.1.2. Forge side (**29 files**): same hub set with the correct Forge idioms — every `DeferredRegister` routes through `ForgeHolder.of(DR.register(...))` because `RegistryObject` does **not** implement `Holder<T>` (a bare `::register` method reference won't type-check; neoforge's `DeferredHolder` does, which is why neoforge keeps bare refs); `Particles`/`Sounds` use `new SimpleParticleType(false) {}` / `SoundEvent.createVariableRangeEvent`; `CreativeModeTabs` uses `builder(Row.TOP, 4).withSearchBar()` (javap-verified Forge patches BOTH in — the plan's "no-arg builder exists in vanilla" claim was NeoForge-only, corrected below); `Blocks.init()`/`Items.init()` run before the `DR.register(bus)` calls so block-holder fields are non-null when ITEM suppliers flush (eager 1.21.1 `BlockItem`/`ArmorItem` derefs); `PotionBuilder.potionFactory` wired in a static block; five consolidated DRs (`TRIGGERS/ATTRIBUTES/MOB_EFFECTS/POTIONS/LOOT_ITEM_CONDITIONS`) live in `PotionsPlusForge`, ENTITIES/BLOCK_PREDICATE_TYPES/CONSUME_EFFECTS dropped (nothing on 1.21.1). **Deferred to Phase 9 (mirrors 26.1.2 Forge):** DISPENSER↔PRECISION_DISPENSER association — Forge 52.1.2 `BlockEntityType.validBlocks` is `private final Set<Block>` (`f_58915_`), no public mutation API (neoforge uses `BlockEntityTypeAddBlocksEvent`, fabric uses `FabricBlockEntityType.addSupportedBlock`). Also wrote `platform/fabric/{PlatformImpl,PacketNetworkImpl}` (all 7 + 5 `@ExpectPlatform` surfaces; chorus-fruit passthrough; potion drink time/cooldown hardcoded to NeoForge defaults pending Phase 8 config). `./gradlew :common:compileJava :neoforge:compileJava :fabric:compileJava :forge:compileJava` → **BUILD SUCCESSFUL**; Decision 4a `comm -12` on all three loader↔common package dirs → **empty**. **Not committed** — changeset on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |
+| 2026-09-02 | 4 | **Mixin split + FABRIC SMOKE PASS — the fabric exit criterion is met.** The fabric runClient crashed twice before booting, both invisible to the compile gate: **(1) mixin ClassNotFound** — common's `potionsplus.mixins.json` (inherited by all three loaders via common resources) listed 16 mixins that all lived in `neoforge/`. Split (step 6a): **10 vanilla-only mixins → `common/`** (config unchanged path, each javap-verified against vanilla 1.21.1), **8 neoforge-dependent → new `grill24.potionsplus.mixin.neoforge` package + `potionsplus.neoforge.mixins.json`** (referenced from `neoforge.mods.toml`); `comm -12` empty after repackage. **(2) class-init ordering NPE** — `FlowerBlocks.LUNAR_BERRY_BUSH` null when `BrewingItems.init` derefed it for the `ItemNameBlockItem`: fabric registration is **eager**, so `Blocks.<clinit>` → first `Items.registerBlockItem` triggers `Items.<clinit>` mid-way → `BrewingItems` derefs `FlowerBlocks` before its init ran (neoforge/forge hide it — their suppliers are deferred). **Fix: `FlowerBlocks.init` runs FIRST in the fabric `Blocks` static block** (step 6b). After both fixes `:fabric:runClient` booted to main menu — "Potions Plus (Fabric) initializing" + "Sound engine started" both present, no crash markers. Missing item-model JSONs (`FileNotFoundException: potionsplus:models/item/...`) are expected — models land in Phase 11. **Forge runClient smoke next; then neoforge regression + commit.** |

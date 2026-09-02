@@ -1,6 +1,6 @@
 package grill24.potionsplus.core.neoforge;
 
-import grill24.potionsplus.core.items.DynamicIconItems;
+import grill24.potionsplus.core.neoforge.items.DynamicIconItems;
 import grill24.potionsplus.particle.*;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.particle.neoforge.*;
@@ -30,17 +30,17 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void onParticleFactoryRegister(final RegisterParticleProvidersEvent event) {
-        Minecraft.getInstance().particleEngine.register(Particles.END_ROD_RAIN.get(), EndRodRainParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(Particles.BLOOD_GOB.get(), BloodGobParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(Particles.LUNAR_BERRY_BUSH_AMBIENT.get(), LunarBerryBushAmbientParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(Particles.LIGHTNING_BOLT.get(), LightningBoltParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(Particles.LIGHTNING_BOLT_SMALL.get(), SmallLightningBoltParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(Particles.ELECTRICAL_SPARK.get(), ElectricalSparkParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(Particles.STUN_STARS.get(), StunStarsParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(Particles.END_ROD_RAIN.value(), EndRodRainParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(Particles.BLOOD_GOB.value(), BloodGobParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(Particles.LUNAR_BERRY_BUSH_AMBIENT.value(), LunarBerryBushAmbientParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(Particles.LIGHTNING_BOLT.value(), LightningBoltParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(Particles.LIGHTNING_BOLT_SMALL.value(), SmallLightningBoltParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(Particles.ELECTRICAL_SPARK.value(), ElectricalSparkParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(Particles.STUN_STARS.value(), StunStarsParticle.Provider::new);
 
-        Minecraft.getInstance().particleEngine.register(Particles.BLOOD_EMITTER.get(),
+        Minecraft.getInstance().particleEngine.register(Particles.BLOOD_EMITTER.value(),
                 new EmitterParticle.Provider(ParticleConfigurations.BLOOD::sampleParticleType, 20, 2, 2, 0.4F, Vec3.ZERO, Vec3.ZERO, true));
-        Minecraft.getInstance().particleEngine.register(Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.get(),
+        Minecraft.getInstance().particleEngine.register(Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.value(),
                 new EmitterParticle.Provider(ParticleConfigurations.LUNAR_BERRY_BUSH_AMBIENT::sampleParticleType, 20, 20, 2, 0.5F, Vec3.ZERO, Vec3.ZERO, false, true));
     }
 }

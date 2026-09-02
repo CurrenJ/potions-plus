@@ -88,6 +88,16 @@ side="BOTH"
 [[mixins]]
 config="${mod_id}.mixins.json"
 
+# The neoforge-module mixins (ApplyBonusCount/BucketItem/EnchantedCountIncreaseFunction/Entity/
+# ItemEntity/Item/LivingEntity/PotionItem). The 10 vanilla-only mixins live in common
+# (potionsplus.mixins.json above); these 8 depend on neoforge-only classes or patched methods
+# (LootItemModifiersBehaviour, DataAttachments, CommonCommands, RecipesRegistrar; BucketItemMixin
+# hooks the neoforge-patched FluidType.onVaporize call site; LivingEntityMixin targets the
+# neoforge-patched 3-arg BlockState.getFriction + Holder.getKey) and move to common as those get
+# ported in Phases 5/7/8.
+[[mixins]]
+config="${mod_id}.neoforge.mixins.json"
+
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
 # that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
 # stop your mod loading on the server for example.

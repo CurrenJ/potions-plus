@@ -2,7 +2,7 @@ package grill24.potionsplus.network.neoforge;
 
 import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.core.neoforge.Sounds;
+import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.persistence.SavedData;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;

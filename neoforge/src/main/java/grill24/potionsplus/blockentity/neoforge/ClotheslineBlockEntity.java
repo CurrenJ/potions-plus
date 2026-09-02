@@ -1,7 +1,7 @@
 package grill24.potionsplus.blockentity.neoforge;
 
 import grill24.potionsplus.advancement.CraftRecipeTrigger;
-import grill24.potionsplus.core.neoforge.Advancements;
+import grill24.potionsplus.core.Advancements;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.neoforge.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.persistence.SavedData;
@@ -17,7 +17,7 @@ import grill24.potionsplus.platform.PacketNetwork;
 import org.joml.Vector3f;
 import grill24.potionsplus.block.neoforge.ClotheslineBlock;
 import grill24.potionsplus.core.neoforge.Blocks;
-import grill24.potionsplus.core.neoforge.Particles;
+import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
 import grill24.potionsplus.blockentity.ICraftingBlockEntity;
@@ -186,7 +186,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                     PacketNetwork.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(worldPosition).getPos(), new ClientboundBlockEntityCraftRecipePacket(worldPosition, slot));
                     level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(16.0)).forEach(player -> {
                         if(player instanceof ServerPlayer serverPlayer) {
-                            Advancements.CRAFT_RECIPE.value().trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
+                            Advancements.CRAFT_RECIPE.trigger(serverPlayer, activeRecipe.getType(), PpIngredient.of(result));
                         }
                     });
                 } else {
@@ -210,7 +210,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
         Vector3f pos = ClotheslineBlockEntityBakedRenderData.getItemPoint(getBlockPos(), getBlockState(), slot, true);
         final int count = level.random.nextInt(3, 6);
         for (int i = 0; i < count; i++) {
-            level.addParticle(Particles.END_ROD_RAIN.get(),
+            level.addParticle(Particles.END_ROD_RAIN.value(),
                     pos.x() + Utility.nextGaussian(0, 0.1, level.random),
                     pos.y() + Utility.nextGaussian(0, 0.1, level.random),
                     pos.z() + Utility.nextGaussian(0, 0.1, level.random),

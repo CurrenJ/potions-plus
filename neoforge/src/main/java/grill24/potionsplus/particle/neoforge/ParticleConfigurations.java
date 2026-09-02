@@ -1,6 +1,6 @@
 package grill24.potionsplus.particle.neoforge;
 
-import grill24.potionsplus.core.neoforge.Particles;
+import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.particle.ParticleEmitterConfiguration;
 import net.minecraft.world.level.block.Blocks;
 
