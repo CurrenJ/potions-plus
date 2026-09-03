@@ -71,6 +71,11 @@ dependencies {
 
 processResources {
     inputs.property 'version', project.version
+    // Phase 10: common now carries a copy of neoforge's own shared datagen output
+    // (commonDatagen), so pulling common's resources in below duplicates files already produced
+    // by neoforge's own generated-resources srcDir. Neoforge's own copy wins (declared first in
+    // Gradle's duplicate resolution), matching the 26.1.2 tree.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     from project(":common").sourceSets.main.resources
 
@@ -141,7 +146,15 @@ loom {
         }
         data {
             data()
-            programArgs '--mod', mod_id.toString(), '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            // Two --existing roots: neoforge's own hand-authored assets, plus common's (Phase 1
+            // moved most textures/models there). ExistingFileHelper only sees what's listed here -
+            // it does not walk the runtimeClasspath's `common` configuration - so without the
+            // second root, any item model whose texture lives in common/ (nearly everything) fails
+            // datagen with "Texture ... does not exist in any known resource pack".
+            programArgs '--mod', mod_id.toString(), '--all',
+                    '--output', file('src/generated/resources/').getAbsolutePath(),
+                    '--existing', file('src/main/resources/').getAbsolutePath(),
+                    '--existing', project(':common').file('src/main/resources/').getAbsolutePath()
         }
         // Headless game test server: boots, registers every @GameTest-annotated method in the
         // testmod source set, runs them, and exits with the number of failed required tests.

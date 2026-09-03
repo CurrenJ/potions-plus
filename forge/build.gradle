@@ -48,6 +48,11 @@ dependencies {
 processResources {
     dependsOn ':common:processResources'
     inputs.property 'version', project.version
+    // Phase 10: common now carries a copy of NeoForge's shared datagen output (commonDatagen), so
+    // pulling common's resources in below duplicates files already produced by forge's own
+    // generated-resources srcDir. Forge's own copy wins (declared first in Gradle's duplicate
+    // resolution), matching the 26.1.2 tree.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     from project(":common").sourceSets.main.resources
 

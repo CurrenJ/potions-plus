@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "watered=false": {
+      "model": "potionsplus:block/growing_mossy_cobblestone"
+    },
+    "watered=true": {
+      "model": "potionsplus:block/growing_mossy_cobblestone"
+    }
+  }
+}

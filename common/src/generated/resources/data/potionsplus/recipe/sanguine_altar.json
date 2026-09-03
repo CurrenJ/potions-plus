@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "E": {
+      "item": "minecraft:end_rod"
+    },
+    "S": {
+      "item": "minecraft:soul_sand"
+    }
+  },
+  "pattern": [
+    "AEA",
+    "ESE",
+    "AEA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "potionsplus:sanguine_altar"
+  }
+}

@@ -32,7 +32,16 @@ dependencies {
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
 }
 
+// Phase 10 (datagen sharing): NeoForge's runData output is copied here (via the root
+// `commonDatagen` task) so the Fabric + Forge modules pick up models/blockstates/tags/sounds.json
+// from a single shared source.
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+tasks.named('processResources').configure {
+    // Hand-authored files in src/main/resources take precedence over generated ones with the
+    // same path (e.g. a hand-tweaked model overriding a datagen default).
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
 
 // common is never consumed standalone - every platform module pulls the "named"-mapped jar via the
 // `namedElements`/`transformProductionXxx` configurations wired in its own build.gradle, not this
