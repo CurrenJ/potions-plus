@@ -1,5 +1,6 @@
 package grill24.potionsplus.platform.forge;
 
+import grill24.potionsplus.config.PotionsPlusConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,12 +39,20 @@ public class PlatformImpl {
     }
 
     public static int getPotionDrinkTimeTicks() {
-        // PHASE 8 (config): hardcoded to the NeoForge default until a cross-loader config exists.
-        return 16;
+        // Recipe building can run during datagen, before the server config is loaded - fall back to
+        // the configured default in that case rather than letting ForgeConfigSpec throw.
+        try {
+            return PotionsPlusConfig.CONFIG.potionDrinkTimeTicks.get();
+        } catch (IllegalStateException e) {
+            return PotionsPlusConfig.CONFIG.potionDrinkTimeTicks.getDefault();
+        }
     }
 
     public static int getPotionDrinkCooldownTimeTicks() {
-        // PHASE 8 (config): hardcoded to the NeoForge default until a cross-loader config exists.
-        return 0;
+        try {
+            return PotionsPlusConfig.CONFIG.potionDrinkCooldownTimeTicks.get();
+        } catch (IllegalStateException e) {
+            return PotionsPlusConfig.CONFIG.potionDrinkCooldownTimeTicks.getDefault();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package grill24.potionsplus.platform.fabric;
 
+import grill24.potionsplus.config.PotionsPlusConfig;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
@@ -37,12 +38,10 @@ public class PlatformImpl {
     }
 
     public static int getPotionDrinkTimeTicks() {
-        // PHASE 8 (config): hardcoded to the NeoForge default until a cross-loader config exists.
-        return 16;
+        return PotionsPlusConfig.CONFIG.potionDrinkTimeTicks;
     }
 
     public static int getPotionDrinkCooldownTimeTicks() {
-        // PHASE 8 (config): hardcoded to the NeoForge default until a cross-loader config exists.
-        return 0;
+        return PotionsPlusConfig.CONFIG.potionDrinkCooldownTimeTicks;
     }
 }

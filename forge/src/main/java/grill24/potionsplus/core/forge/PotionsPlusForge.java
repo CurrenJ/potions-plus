@@ -1,6 +1,7 @@
 package grill24.potionsplus.core.forge;
 
 import com.mojang.logging.LogUtils;
+import grill24.potionsplus.config.PotionsPlusConfig;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.forge.util.ForgeHolder;
 import grill24.potionsplus.core.potion.PotionBuilder;
@@ -14,7 +15,9 @@ import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import org.slf4j.Logger;
@@ -46,6 +49,8 @@ public class PotionsPlusForge {
     public PotionsPlusForge() {
         LOGGER.info("Potions Plus (Forge) initializing");
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, PotionsPlusConfig.CONFIG_SPEC);
 
         // 1. Advancements/Attributes/LootItemConditions - common class-load order mirrors the fabric
         //    entrypoint; on Forge the actual registration is deferred to the RegisterEvents.
