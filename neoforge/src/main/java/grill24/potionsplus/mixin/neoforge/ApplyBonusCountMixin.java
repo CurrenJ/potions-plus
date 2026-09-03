@@ -1,6 +1,6 @@
 package grill24.potionsplus.mixin.neoforge;
 
-import grill24.potionsplus.behaviour.LootItemModifiersBehaviour;
+import grill24.potionsplus.behaviour.neoforge.LootItemModifiersBehaviour;
 import grill24.potionsplus.core.potion.MobEffects;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.ItemStack;

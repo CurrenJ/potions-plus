@@ -1,4 +1,4 @@
-package grill24.potionsplus.behaviour;
+package grill24.potionsplus.behaviour.neoforge;
 
 import grill24.potionsplus.core.Attributes;
 import grill24.potionsplus.effect.IEnchantmentBonusTooltipDetails;

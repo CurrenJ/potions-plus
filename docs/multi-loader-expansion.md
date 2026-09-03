@@ -1462,14 +1462,35 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
         sync unresolved"). The advancement-id set itself is trivial to port (`Utility.ppId("root")`
         etc., already in `common/`), but the payload it drops depends on data that doesn't exist on
         Fabric/Forge yet.
-  - [ ] **`PlayerListeners` — blocked**, on two separate unfinished pieces:
-        `onItemPickedUp`/part of the moss/clothesline handling reach the same `RecipesRegistrar`
-        analyses as above; `onTick` (passive item potion effects) reads `ServerTickHandler.ticksInGame`,
-        which is neoforge-only (`neoforge/utility/neoforge/ServerTickHandler.java`) pending the
-        **Tick / lifecycle** bucket below. The moss/clothesline call itself
-        (`MossBehaviour`/`ClotheslineBehaviour`) is also neoforge-only — same unsplit-`behaviour`-
-        package blocker as `EnchantmentListeners` above, this time for classes that own real state and
-        can't be inlined the way the small attribute-bonus helper was.
+  - [ ] **`PlayerListeners` — still blocked overall, but one of its blockers is now cleared
+        (2026-09-03).** `onItemPickedUp` still reaches `RecipesRegistrar` (Phase 5's runtime-recipe
+        remainder). `onTick` (passive item potion effects)'s `ServerTickHandler.ticksInGame` blocker is
+        now **stale** — the Tick/lifecycle bucket already moved `ServerTickHandler` to
+        `common/.../utility/ServerTickHandler.java` (confirmed by re-reading the file: no loader
+        package suffix). **`MossBehaviour` ported to `common/behaviour/` today**, refactored from a
+        `PlayerInteractEvent.RightClickBlock`-shaped API to plain vanilla parameters (`Level, BlockPos,
+        ItemStack, Player, InteractionHand`) returning a `boolean` (handled/should-cancel); NeoForge's
+        `PlayerListeners.on(RightClickBlock)` now calls it and sets `event.setCanceled(true)` itself.
+        **One deliberate behaviour narrowing**, called out because it's a real (if minor) parity loss:
+        the old check was NeoForge's `ItemStack.canPerformAction(ItemAbilities.SHEARS_HARVEST)`, a
+        NeoForge-only capability extension point letting *other mods'* tools register as
+        shear-equivalent; vanilla has no such hook, so the common version checks
+        `itemStack.getItem() instanceof ShearsItem` instead — the same test vanilla's own
+        `BeehiveBlock` uses. Loses only third-party-mod shear-tool compat, not vanilla shears.
+        `ClotheslineBehaviour` stays neoforge-only and genuinely blocked — unlike Moss it isn't a pure
+        vanilla-logic class: it imports `block.neoforge.ClotheslineBlock`,
+        `blockentity.neoforge.ClotheslineBlockEntity`, `core.neoforge.Blocks`, and
+        `network.neoforge.ServerboundConstructClotheslinePacket`, none of which exist cross-loader yet
+        (same dependency chain Phase 5 already flagged for `ServerboundConstructClotheslinePacket`).
+        Porting it needs the Clothesline block/block-entity themselves split first — real Phase 8/11
+        work, not a Phase-7-shaped refactor. **Decision 4a note:** splitting `MossBehaviour` out left
+        `LootItemModifiersBehaviour`/`AddMobEffectsLootModifier`/`WormrootLootModifier`/
+        `ClotheslineBehaviour` alone in `neoforge/.../behaviour/`, which re-created a
+        `common`/`neoforge` package intersection on `grill24.potionsplus.behaviour` — fixed by moving
+        those four into `grill24.potionsplus.behaviour.neoforge` (package-only move, no logic changes)
+        and repointing their seven call sites. Re-verified: `comm -12` empty on all three platform
+        modules; `:{neoforge,fabric,forge}:build -x test` green; `:neoforge:runServer` reaches
+        `Done (...)!` with zero exceptions.
   - [ ] **`ClientTooltipComponentFactoriesListeners` — blocked.** Forge has the same
         `RegisterClientTooltipComponentFactoriesEvent` NeoForge does (confirmed via jar listing) and
         Fabric's `ClientTooltipComponentCallback.EVENT` is the documented 26.1.2 equivalent, so the
@@ -1718,7 +1739,10 @@ Status table.** Net tally across the whole phase:
      `potionHand` subcommand. The single biggest recurring blocker in this phase.
   2. **Phase 8** — the still-unsplit `neoforge/behaviour` package (containing general gameplay
      classes `MossBehaviour`/`ClotheslineBehaviour`, not just loot modifiers — a new finding from this
-     phase) blocks the moss/clothesline half of `PlayerListeners`.
+     phase) blocks the moss/clothesline half of `PlayerListeners`. **Update 2026-09-03:** half-cleared
+     — `MossBehaviour` ported to `common/behaviour/` (see the `PlayerListeners` bullet above);
+     `ClotheslineBehaviour` remains blocked on its own dependency chain (Clothesline block/block-entity
+     not split cross-loader), not on the package-split issue anymore.
   3. **Phase 11** — `DynamicIconItems` (missing Fabric/Forge equivalent, a Phase 4/5 item-hub gap),
      `KeyMappings`/`Renderers`/`Screens`/`BlockRenderLayers` (client-registration hubs, correctly
      deferred), and Decision 3's JEI-on-all-three all block `ClientTooltipComponentFactoriesListeners`,

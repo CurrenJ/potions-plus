@@ -1,6 +1,6 @@
 package grill24.potionsplus.event.neoforge;
 
-import grill24.potionsplus.behaviour.LootItemModifiersBehaviour;
+import grill24.potionsplus.behaviour.neoforge.LootItemModifiersBehaviour;
 import grill24.potionsplus.core.Attributes;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;

@@ -1,4 +1,4 @@
-package grill24.potionsplus.behaviour;
+package grill24.potionsplus.behaviour.neoforge;
 
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;

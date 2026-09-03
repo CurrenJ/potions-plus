@@ -1,7 +1,7 @@
 package grill24.potionsplus.network.neoforge;
 
 import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
-import grill24.potionsplus.behaviour.ClotheslineBehaviour;
+import grill24.potionsplus.behaviour.neoforge.ClotheslineBehaviour;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.network.PacketContext;
 import io.netty.buffer.ByteBuf;
