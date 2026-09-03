@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.effect.LastPotionUsePlayerData;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.core.seededrecipe.PpMultiIngredient;
 import grill24.potionsplus.persistence.adapter.*;
@@ -37,10 +38,23 @@ public class SavedData extends net.minecraft.world.level.saveddata.SavedData {
     public List<RecipeHolder<BrewingCauldronRecipe>> seededPotionRecipes;
     public Map<PpIngredient, List<BrewingCauldronRecipe>> recipeResultsInSavedData;
 
+    // Transient (not persisted to NBT) per-player state, session-lifetime only.
+    private final Map<UUID, LastPotionUsePlayerData> lastPotionUseMap;
+
     public SavedData() {
         playerDataMap = new java.util.HashMap<>();
         seededPotionRecipes = new java.util.ArrayList<>();
         recipeResultsInSavedData = new java.util.HashMap<>();
+        lastPotionUseMap = new java.util.HashMap<>();
+    }
+
+    public long getLastPotionUseTime(Player player) {
+        LastPotionUsePlayerData data = lastPotionUseMap.get(player.getUUID());
+        return data == null ? -1 : data.timestamp();
+    }
+
+    public void setLastPotionUseTime(Player player, long timestamp) {
+        lastPotionUseMap.put(player.getUUID(), new LastPotionUsePlayerData(timestamp));
     }
 
     public static net.minecraft.world.level.saveddata.SavedData.Factory<SavedData> factory(ServerLevel level) {

@@ -1,7 +1,6 @@
 package grill24.potionsplus.mixin.neoforge;
 
-import grill24.potionsplus.core.neoforge.DataAttachments;
-import grill24.potionsplus.effect.LastPotionUsePlayerData;
+import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.platform.Platform;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -31,7 +30,7 @@ public abstract class PotionItemMixin extends Item {
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void use(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         int cooldownTime = Platform.getPotionDrinkCooldownTimeTicks();
-        long lastUseTime = player.getData(DataAttachments.LAST_POTION_USE_PLAYER_DATA).timestamp();
+        long lastUseTime = SavedData.instance.getLastPotionUseTime(player);
         if (lastUseTime != -1 && (level.getGameTime() - lastUseTime) < cooldownTime) {
             cir.setReturnValue(InteractionResultHolder.fail(player.getItemInHand(hand)));
         }
@@ -39,6 +38,8 @@ public abstract class PotionItemMixin extends Item {
 
     @Inject(method = "finishUsingItem", at = @At("HEAD"))
     private void finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving, CallbackInfoReturnable<ItemStack> cir) {
-        entityLiving.setData(DataAttachments.LAST_POTION_USE_PLAYER_DATA, new LastPotionUsePlayerData(level.getGameTime()));
+        if (entityLiving instanceof Player player) {
+            SavedData.instance.setLastPotionUseTime(player, level.getGameTime());
+        }
     }
 }

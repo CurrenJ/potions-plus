@@ -85,7 +85,6 @@ public class PotionsPlus {
         Advancements.TRIGGERS.register(bus);
 
         Features.FEATURES.register(bus);
-        DataAttachments.ATTACHMENT_TYPES.register(bus);
         ATTRIBUTES.register(bus);
         LootItemConditions.LOOT_ITEM_CONDITIONS.register(bus);
         PlacementModifierTypes.PLACEMENT_MODIFIER_TYPES.register(bus);

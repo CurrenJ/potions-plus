@@ -1750,25 +1750,30 @@ Status table.** Net tally across the whole phase:
         API; verify against the 52.1.2 jar.
   - [ ] Fabric: `fabric-transfer-api-v1` `ItemStorage.SIDED.registerForBlockEntity` +
         `InventoryStorage.of(...)` (1.21.1-era name; 26.1.2 used `ContainerStorage.of`).
-- [ ] **`core/DataAttachments` — delete it; do not abstract it.** *Rewritten 2026-09-01 after
-      checking the 26.1.2 tree.* The previous draft of this bullet designed a common
-      `PlayerDataStore` interface with three per-loader implementations. **That is not what 26.1.2
-      did.** `grep -rl "AttachmentType\|DataAttachments"` over the entire 26.1.2 tree returns
-      **nothing** — it carries no attachment abstraction because it has no attachments. Per-player
-      state there lives in `common/.../persistence/SavedData.java`, a plain
-      `net.minecraft.world.level.saveddata.SavedData` subclass keyed by player UUID
-      (`getData(Player)` / `getData(UUID)`), which is pure vanilla and needs no platform hook at all.
-  - [ ] **1.21.1 already has that exact class** — `common/.../persistence/SavedData.java`, already in
-        `common/` since Phase 1, already vanilla-based. Nothing to build.
-  - [ ] The whole surface to migrate is **one** attachment: `LAST_POTION_USE_PLAYER_DATA`
-        (`AttachmentType<LastPotionUsePlayerData>` on `NeoForgeRegistries.ATTACHMENT_TYPES`).
-        Move `LastPotionUsePlayerData` onto `SavedData` the way `PlayerBrewingKnowledge` already is,
-        then delete `neoforge/.../core/DataAttachments.java`.
-  - [ ] Call sites to update (`grep -rl DataAttachments`): `core/neoforge/PotionsPlus.java`,
-        `mixin/EntityMixin.java`, `mixin/PotionItemMixin.java`.
-  - [ ] Net effect: **`DataAttachments` stops being a parity problem** — there is no NeoForge-only
+- [x] **`core/DataAttachments` — deleted, not abstracted. Done 2026-09-03.** Per Decision 2's
+      carve-out and the 26.1.2 precedent (no attachment abstraction there — it has no attachments):
+  - [x] Added a transient (not persisted to NBT — the original attachment builder had no
+        `.serialize(...)` either, so this preserves session-only semantics), `Map<UUID,
+        LastPotionUsePlayerData>` field + `getLastPotionUseTime(Player)`/`setLastPotionUseTime(Player,
+        long)` helpers to `common/.../persistence/SavedData.java`, mirroring the existing
+        `playerDataMap`/`getData(Player)` pattern for `PlayerBrewingKnowledge`.
+  - [x] `neoforge/.../mixin/neoforge/PotionItemMixin.java` now calls
+        `SavedData.instance.getLastPotionUseTime(player)` / `.setLastPotionUseTime(player, …)` instead
+        of `player.getData(DataAttachments.LAST_POTION_USE_PLAYER_DATA)`; `finishUsingItem` gates on
+        `entityLiving instanceof Player` (the attachment API allowed any `LivingEntity`, but
+        `SavedData` is keyed by player UUID and the cooldown check in `use` only ever reads it for a
+        `Player` anyway).
+  - [x] `neoforge/.../mixin/neoforge/EntityMixin.java` no longer `extends AttachmentHolder` — that
+        was only there to give `Entity` the `getData`/`setData` NeoForge attachment API that
+        `PotionItemMixin` consumed; nothing else in the file used it. Dropped along with the
+        now-unused `DataAttachments` import.
+  - [x] Removed `DataAttachments.ATTACHMENT_TYPES.register(bus)` from `core/neoforge/PotionsPlus.java`
+        and deleted `neoforge/.../core/neoforge/DataAttachments.java`.
+  - [x] Net effect: **`DataAttachments` stops being a parity problem** — there is no NeoForge-only
         system left to reimplement on Fabric and Forge, so Decision 2's "plus `DataAttachments`"
         carve-out disappears and this phase matches 26.1.2 Phase 5 exactly.
+        Verified: `:neoforge:compileJava :common:compileJava` and
+        `:neoforge:build :fabric:build :forge:build -x test` both green.
 - [ ] **Server config** (`config/`, `ModConfigSpec`, feeding `Platform.getPotionDrinkTimeTicks` /
       `getPotionDrinkCooldownTimeTicks`):
   - [ ] Forge: `net.minecraftforge.common.ForgeConfigSpec` + `ModLoadingContext.get()
