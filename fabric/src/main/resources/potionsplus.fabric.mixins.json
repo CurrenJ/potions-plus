@@ -6,7 +6,8 @@
   "mixins": [
     "EnchantmentHelperMixin",
     "ItemMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "LootTableMixin"
   ],
   "injectors": {
     "defaultRequire": 1

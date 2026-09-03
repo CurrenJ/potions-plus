@@ -107,6 +107,7 @@ public class PotionsPlusForge {
         MOB_EFFECTS.register(bus);
         POTIONS.register(bus);
         LOOT_ITEM_CONDITIONS.register(bus);
+        LootModifiers.LOOT_MODIFIERS.register(bus);
 
         // 8. Network packets (serverbound handlers + clientbound codecs). Phase 5.
         Packets.register();
@@ -121,7 +122,6 @@ public class PotionsPlusForge {
             grill24.potionsplus.event.forge.TooltipListeners.register();
         });
         Capabilities.register();
-        LootModifiers.register();
         ServerLifecycleListeners.register();
     }
 

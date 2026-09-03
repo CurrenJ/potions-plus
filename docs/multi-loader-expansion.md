@@ -1761,13 +1761,68 @@ Status table.** Net tally across the whole phase:
 
 *(= 26.1.2 Phase 5, **plus `DataAttachments`**.)* Decision 2 is full parity — reimplement, don't stub.
 
-- [ ] **Global loot modifiers** (`core/LootModifiers`, `loot/*`, 3× `IGlobalLootModifier`):
-  - [ ] Forge: Forge's own `net.minecraftforge.common.loot.{IGlobalLootModifier,LootModifier}` —
-        near-verbatim port. **Forge additionally requires a hand-written
-        `data/forge/loot_modifiers/global_loot_modifiers.json` enable/order index** that NeoForge has
-        no equivalent of.
-  - [ ] Fabric: `fabric-loot-api-v3` `LootTableEvents.MODIFY_DROPS` (closer to `doApply` than
-        `MODIFY`, which only edits table structure at load time).
+- [x] **Global loot modifiers — done 2026-09-03** (Wormroot + AddMobEffects, the only two GLMs this
+      tree has; there is no third — the plan's "3×" was wrong, `core/neoforge/LootModifiers.java` only
+      ever held these two `DeferredHolder`s).
+  - [x] **Shared core extracted to `common/behaviour/`:** `WormrootLootBehaviour.apply(List<ItemStack>,
+        RandomSource, Block brokenBlock, List<Block> targetBlocks)` and
+        `AddMobEffectsLootBehaviour.apply(List<ItemStack>, RandomSource, List<Holder<MobEffect>>
+        eligibleEffects)` — pure vanilla logic (no loader imports), lifted verbatim from the neoforge
+        `doApply` bodies. NeoForge's own `WormrootLootModifier`/`AddMobEffectsLootModifier` were
+        refactored to delegate to these too, so the loot logic now has exactly one implementation
+        instead of drifting across three.
+  - [x] **Forge: near-verbatim `net.minecraftforge.common.loot.{IGlobalLootModifier,LootModifier}`
+        port**, confirmed correct via `javap` on `forge-1.21.1-52.1.2-universal-srg.jar` before writing
+        code: `LootModifier.doApply(ObjectArrayList<ItemStack>, LootContext)` — **no extra `LootTable`
+        parameter**, unlike 26.1.2's later-MC-version signature `doApply(LootTable, ObjectArrayList,
+        LootContext)`. 52.1.2 matches NeoForge's shape exactly, so the two wrapper classes
+        (`behaviour/forge/{Wormroot,AddMobEffects}LootModifier.java`) are simpler ports than 26.1.2's.
+        `core/forge/LootModifiers.java` uses Forge's own `DeferredRegister`/`RegistryObject` (not the
+        common `ForgeHolder` abstraction — this registry holds `MapCodec`s, not game objects, so no
+        `Holder` wrapping is needed) against `ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS`,
+        registered from `PotionsPlusForge`'s constructor (`LootModifiers.LOOT_MODIFIERS.register(bus)`,
+        alongside the other `DeferredRegister`s) — replacing the Phase-7-era `LootModifiers.register()`
+        no-op stub and its now-dead call site.
+        `AddMobEffectsLootModifier`'s blacklist codec can't reuse NeoForge's
+        `NeoForgeExtraCodecs.setOf(...)` (Forge has no equivalent) — used 26.1.2's fix instead:
+        `ResourceKey.codec(...).listOf().xmap(HashSet::new, ArrayList::new)`.
+        **Hand-written data, not a ported datagen provider** (Phase 10's `commonDatagen` share hasn't
+        landed yet, so nothing is copied to `common/` automatically): copied NeoForge's already-generated
+        `data/potionsplus/loot_modifiers/{wormroot,add_mob_effects_to_tools_and_armor}_loot_modifier.json`
+        verbatim into `forge/src/main/resources/`, plus the Forge-namespace enable/order index
+        `data/forge/loot_modifiers/global_loot_modifiers.json` NeoForge has no equivalent of (mirrors
+        `data/neoforge/loot_modifiers/global_loot_modifiers.json`'s two entries exactly). Revisit once
+        Phase 10 makes `common/` the shared source for the per-modifier JSON (the enable-list file stays
+        loader-namespaced either way).
+  - [x] **Fabric: no `MODIFY_DROPS` hook exists at this branch's pinned `fabric-loot-api-v3` version —
+        verified by `javap`, not assumed from the plan's original text.** `fabric_api_version =
+        0.116.7+1.21.1` resolves `fabric-loot-api-v3:1.0.3+3f89f5a519`, whose `LootTableEvents` only
+        declares `REPLACE`/`MODIFY`/`ALL_LOADED` — `MODIFY` fires at datapack-load time over a
+        `LootTable.Builder` (structural edits only), not post-generation over the drop list. The
+        plan's original "closer to `doApply` than `MODIFY`" text assumed a newer fabric-api than this
+        toolchain is pinned to (Decision 4's toolchain table pins `0.116.7+1.21.1` from apt-ores as
+        known-good; not bumped without a stronger reason than one event's absence).
+        **Used a mixin instead: `mixin/fabric/LootTableMixin.java` injects at `@At("RETURN")` of
+        `LootTable.getRandomItems(LootParams, RandomSource)`**, the same post-generation,
+        whole-drop-list entry point NeoForge/Forge patch internally to run every `IGlobalLootModifier`
+        — so this reaches every loot table exactly like the other two loaders' GLM system, not a
+        narrower approximation of it. `LootParams` (not just `LootContext`) already exposes
+        `hasParam`/`getParamOrNull`, so `LootContextParams.BLOCK_STATE` reads straight off the mixin's
+        method parameters with no context-construction workaround needed. No explicit registration
+        call — mixins self-apply via `potionsplus.fabric.mixins.json` (added `LootTableMixin` to its
+        list) — so `core/fabric/LootModifiers.java`'s Phase-7-era no-op stub (which had assumed
+        `MODIFY_DROPS` and wouldn't have compiled) was deleted outright, along with its dead
+        `LootModifiers.register()` call site in `PotionsPlusFabric`.
+  - [x] Verified: `:{neoforge,fabric,forge}:build -x test` green (including Fabric's refmap generation
+        for the new mixin); Decision 4a `comm -12` empty on all three; `:{neoforge,fabric,
+        forge}:runServer` all reach `Done (...)!`/`Done (...)!` with zero exceptions and no "Mixin
+        apply failed" (only the pre-existing, already-documented `potionsplus:blocks/clothesline`
+        loot-table parse warning, unrelated — Clothesline is still neoforge-only, tracked above).
+        **Not yet verified: an actual drop roll on Fabric/Forge** (break a Wormroot block or armor
+        piece in a real world) — `runServer`/`runClient` smokes prove the mixin/GLM registered and
+        didn't crash, not that the modified loot is correct. Whoever does Phase 13 (or anyone jumping
+        into a `runClient` session before then) should break a `minecraft:rooted_dirt` block and check
+        for `potionsplus:wormroot` in the drops on all three loaders.
 - [ ] **Capabilities / `IItemHandler`** (`core/Capabilities`, clothesline storage):
   - [ ] Forge: `AttachCapabilitiesEvent.BlockEntities` + `ICapabilityProvider` + `InvWrapper`.
         **1.21.1 Forge still uses the pre-1.20.5 capability-provider shape** — do not assume 26.1.2's

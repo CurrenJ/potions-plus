@@ -88,7 +88,8 @@ public class PotionsPlusFabric implements ModInitializer {
         grill24.potionsplus.event.fabric.TickListeners.registerServer();
         grill24.potionsplus.event.fabric.CommandListeners.register();
         Capabilities.register();
-        LootModifiers.register();
+        // Wormroot/AddMobEffects loot modifiers: mixin.fabric.LootTableMixin, no explicit registration
+        // (fabric-loot-api-v3 1.0.3, pinned by fabric_api_version, has no MODIFY_DROPS hook).
         BiomeModifiers.register();
         ServerLifecycleListeners.register();
     }

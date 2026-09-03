@@ -1,10 +1,10 @@
-package grill24.potionsplus.behaviour.neoforge;
+package grill24.potionsplus.behaviour.forge;
 
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import grill24.potionsplus.behaviour.WormrootLootBehaviour;
-import grill24.potionsplus.core.neoforge.LootModifiers;
+import grill24.potionsplus.core.forge.LootModifiers;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
@@ -12,8 +12,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
-import net.neoforged.neoforge.common.loot.LootModifier;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
+import net.minecraftforge.common.loot.LootModifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -27,11 +27,6 @@ public class WormrootLootModifier extends LootModifier {
 
     private final List<Block> blocks;
 
-    /**
-     * Constructs a LootModifier.
-     *
-     * @param conditionsIn the ILootConditions that need to be matched before the loot is modified.
-     */
     public WormrootLootModifier(LootItemCondition[] conditionsIn, List<Block> blocksIn) {
         super(conditionsIn);
         blocks = blocksIn;
@@ -48,6 +43,6 @@ public class WormrootLootModifier extends LootModifier {
 
     @Override
     public MapCodec<? extends IGlobalLootModifier> codec() {
-        return LootModifiers.WORMROOT.value();
+        return LootModifiers.WORMROOT.get();
     }
 }
