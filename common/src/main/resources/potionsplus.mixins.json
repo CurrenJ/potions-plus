@@ -19,6 +19,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "refmap": "potionsplus-refmap.json"
+  }
 }

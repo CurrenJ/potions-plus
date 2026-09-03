@@ -20,7 +20,13 @@ public abstract class BucketItemMixin extends Item {
         super(properties);
     }
 
-    @Inject(method = "emptyContents(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/BlockHitResult;Lnet/minecraft/world/item/ItemStack;)Z", at = @At(value = "INVOKE", target = "Lnet/neoforged/neoforge/fluids/FluidType;onVaporize(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/neoforged/neoforge/fluids/FluidStack;)V"))
+    // remap = false: both the enclosing method (the ItemStack-taking emptyContents overload) and the
+    // FluidType.onVaporize call are NeoForge-patch additions, absent from the vanilla obfuscation
+    // mapping the AP resolves against - Phase 9 turning the refmap AP back on (see root build.gradle)
+    // surfaced this as a hard "Unable to locate obfuscation mapping" error where it used to silently
+    // pass unchecked. Patch-added members keep their real (unobfuscated) name in production too, so
+    // skipping remap here is correct, not a workaround.
+    @Inject(method = "emptyContents(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/BlockHitResult;Lnet/minecraft/world/item/ItemStack;)Z", at = @At(value = "INVOKE", target = "Lnet/neoforged/neoforge/fluids/FluidType;onVaporize(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/neoforged/neoforge/fluids/FluidStack;)V"), remap = false)
     private void emptyContents(Player p_150716_, Level p_150717_, BlockPos p_150718_, BlockHitResult p_150719_, ItemStack container, CallbackInfoReturnable<Boolean> cir) {
         Block.popResource(p_150717_, p_150718_, new ItemStack(BrewingItems.SALT.value()));
     }

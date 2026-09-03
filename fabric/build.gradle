@@ -63,6 +63,12 @@ remapJar {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 loom {
+    mixin {
+        // Distinct from common's "potionsplus-common-refmap.json" (common/build.gradle) - sharing a
+        // name let shadowJar clobber one with the other silently (see that file's comment).
+        defaultRefmapName = "potionsplus-fabric-refmap.json"
+    }
+
     runs {
         datagen {
             inherit client

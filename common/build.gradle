@@ -5,7 +5,15 @@ architectury {
 loom {
     accessWidenerPath = file("src/main/resources/potionsplus.accesswidener")
     mixin {
-        defaultRefmapName = "potionsplus-refmap.json"
+        // Distinct from each platform module's own refmap name (see forge/fabric/neoforge
+        // build.gradle) - all four used to share "potionsplus-refmap.json" via the root
+        // subprojects{} default, and shadowJar silently let the platform-local refmap clobber
+        // common's when both landed at the same resource path in the merged jar. That dropped every
+        // common mixin's refmap entry (BootstrapMixin included) without any build error, and Mixin's
+        // RemapperChain then resolved injection targets against the wrong namespace at runtime -
+        // crashed :forge:runClient with "target class 'net/minecraft/class_2966' ... not supported"
+        // (a stray Fabric-intermediary id) applying BootstrapMixin. Found 2026-09-03.
+        defaultRefmapName = "potionsplus-common-refmap.json"
     }
 }
 

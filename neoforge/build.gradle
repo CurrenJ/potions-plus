@@ -112,6 +112,12 @@ remapJar {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 loom {
+    mixin {
+        // Distinct from common's "potionsplus-common-refmap.json" (common/build.gradle) - sharing a
+        // name let shadowJar clobber one with the other silently (see that file's comment).
+        defaultRefmapName = "potionsplus-neoforge-refmap.json"
+    }
+
     // TODO(Phase 12): associating testmod here puts its split dirs on every run's classpath, not
     // just gametest's (docs/multi-loader-expansion.md Phase 12's `loom.mods` gotcha). Kept for now
     // to match Phase 0's "change only the build system" scope; revisit with the

@@ -173,7 +173,7 @@ record it under "VERIFIED API FACTS" with the evidence.
 | 6 | Entrypoints | ✅ **closed 2026-09-02** — all checklist items were already in place from Phases 4-5 (hub work required working entrypoints to test); this phase's job was verifying the stronger exit criterion. See phase notes. |
 | 7 | Event surface (36 subscriber classes) | 🟡 **all six buckets touched 2026-09-02, none fully closed — fan-out complete, fan-in blocked on Phases 5/8/11.** Mob-effect behaviour: ✅ done (7 classes, full parity). Registration hubs: ✅ confirmed no-op (already correctly scoped). Explicit listeners: 2/6 ported (`EnchantmentListeners`, `ItemListenersMod`), 4 blocked. Tick/lifecycle: 4 core classes ported, 2 blocked (`ServerLifecycleListeners`, `ServerPlayerUtility`). Client tooltips: `AnimatedItemTooltipEvent` redesigned + `PotionEffectTooltips`/`ItemListenersGame` ported, 2 blocked (`BrewingTooltips`, `ClotheslineBlockEntityRenderer`→Phase 11). Commands/input: `CommonCommands`→`common/command/PpCommands.java` ported, 2 blocked (`ClientCommands`, `KeyMappingsListener`), `ClientEvents` reclassified to Phase 11. Every blocked item has grep/javap evidence in the phase notes, not a guess — the recurring blockers are Phase 5's runtime-recipe remainder (`RecipesRegistrar`/`PotionsRegistrar`), Phase 8's unsplit `behaviour` package, and Phase 11's client-registration hubs (`DynamicIconItems`, `KeyMappings`, JEI-on-all-three). See phase notes for full detail. |
 | 8 | NeoForge-only systems (full parity) | 🟡 **in progress 2026-09-03.** `DataAttachments`: ✅ deleted, moved onto `common/SavedData` (no NeoForge-only system left there — Decision 2's carve-out for this phase now closes to plain 26.1.2-Phase-5 parity). Global loot modifiers (Wormroot, AddMobEffects): ✅ done, all three loaders, logic shared via `common/behaviour/`. Biome modifiers (lunar berry bush add/remove, dense diamond ore): ✅ done, all three loaders; fixed a live `neoforge/`-only resource leak into the Fabric/Forge jars found along the way. Remaining: Capabilities/`IItemHandler` (clothesline storage), server config — not started. |
-| 9 | Mixins + access widening/transformers | ⬜ not started |
+| 9 | Mixins + access widening/transformers | 🟡 **in progress 2026-09-03.** Config split/wiring/refmap declaration/`--mixin.config` all done; Forge+Fabric mixin parity gaps closed (`BucketItemMixin`, `ItemEntityMixin`/`ItemEntityLifespanMixin`, `LivingEntityMixin`). **Two real latent bugs found via actual `runClient` launches (not just green builds) and fixed**: (1) refmap AP was silently disabled by newer loom, so no refmap was ever generated; (2) a shared refmap filename between `common` and each platform let shadowJar-order clobber one with the other, *and* — the real fix — Architectury's own dev-time remap system requires the shared `common` mixin config to **not** hardcode a `"refmap"` path at all (it warns about this explicitly: `contains 'refmap', please remove it so it works in development environment!`); declaring one made Forge's dev launch crash applying `BootstrapMixin` (`@Inject ... target class 'net/minecraft/class_2966' ... not supported` — a stray Fabric-intermediary id). `:forge:runClient` now clears the mixin-apply phase clean (reaches Datafixer Bootstrap, zero errors); `:fabric:runClient`/`:neoforge:runClient` show zero errors in the same window. Remaining: full main-menu boot confirmation (30s smoke runs don't reach it), production-jar mixin-discovery verification, `BlockEntityType.validBlocks` Forge association (still deferred), Capabilities/AT survey beyond the small set needed today. |
 | 10 | Datagen sharing | ⬜ not started |
 | 11 | Client (renderers, particles, tooltips, colors, models, JEI ×3) | ⬜ not started |
 | 12 | Tests (unit + game tests, three loaders) | ⬜ not started |
@@ -1972,48 +1972,171 @@ demonstrably fires on all three loaders.
 > "`:neoforge:runGametest` boots and `LivingEntityMixin` still reads `MobEffects.SLIP_N_SLIDE` from
 > `common/`" as this phase's first exit criterion, before any Fabric/Forge mixin work.
 
-- [ ] Split `potionsplus.mixins.json` into `common` + `potionsplus.{fabric,forge,neoforge}.mixins.json`
+- [x] Split `potionsplus.mixins.json` into `common` + `potionsplus.{fabric,forge,neoforge}.mixins.json`
       by target. **`compatibilityLevel` stays `JAVA_21`** (26.1.2's `JAVA_25`-not-recognised crash on
-      Forge's bundled Sponge Mixin does not apply here).
-- [ ] **Wire the common config into all three loaders.** 26.1.2 got this wrong twice — its Phase 6
-      claimed the fix had landed and its Phase 9 found it still broken. Verify explicitly that
-      `fabric.mod.json`'s `"mixins"` array **and** `META-INF/mods.toml`'s `[[mixins]]` **and**
-      `neoforge.mods.toml` each list `potionsplus.mixins.json`, not just their platform config.
-- [ ] **Refmaps.** New vs 26.1.2 entirely, and the one place its fix **inverts**: `243ac95` deleted the
-      `"refmap"` declaration because unobfuscated 26.1.2 never generates one. **1.21.1 is obfuscated —
-      the refmap is required and must actually be produced.** Set `loom { mixin { defaultRefmapName =
-      "potionsplus-refmap.json" } }` in **every** module, keep the declaration in each config, and
-      confirm each built jar really contains the file. What transfers from 26.1.2 is the symptom:
-      **a refmap mismatch is invisible in dev and silently drops every mixin in production.**
-- [ ] **Pass `--mixin.config` explicitly on every Forge loom run.**
-      `MixinPlatformAgentMinecraftForge` ignores `mods.toml`'s `[[mixins]]` for exploded-directory
-      containers, so on 26.1.2 **no Forge mixin was active in dev for the entire project** until
-      `00c39e0` found it. Verify a Forge mixin actually fires the day you add the first one — don't
-      infer it from a green build.
+      Forge's bundled Sponge Mixin does not apply here). **Already done before this session** (Phase
+      4's mixin-split fix) — 10 vanilla-only mixins in `common`, 4 fabric-only, 6 forge-only (now, see
+      below), 8 neoforge-only.
+- [x] **Wire the common config into all three loaders.** Verified: `fabric.mod.json`'s `"mixins"`
+      array, `forge/META-INF/mods.toml`'s `[[mixins]]`, and `neoforge.mods.toml`'s `[[mixins]]` each
+      list `potionsplus.mixins.json` in addition to their own platform config. Already correct.
+- [x] **Refmaps — three real bugs found via actual `runClient` launches and fixed, 2026-09-03.**
+      `./gradlew build` was never enough to catch any of these — every one is invisible to a green
+      build, exactly the failure mode this checklist item warned about in the abstract. Found by
+      actually running `:forge:runClient` (per explicit instruction: build-only verification is not
+      sufficient for mixin/refmap work) and reading the crash.
+      1. **Refmap generation was silently disabled.** `loom.mixin.defaultRefmapName` was already set
+         project-wide and `common`'s config already declared `"refmap"`, but **newer
+         `dev.architectury.loom` (1.17-SNAPSHOT) disables the legacy mixin annotation processor by
+         default** ("The mixin annotation is no longer enabled by default..." — printed on every
+         `./gradlew` invocation and easy to read as noise). With the AP off, `find . -iname
+         '*refmap*'` across the whole tree returned **zero files** despite a fully green build. Fixed
+         by adding `useLegacyMixinAp = true` to the root `loom.mixin` block.
+      2. **`common` and each platform module generated a refmap under the same filename**
+         (`potionsplus-refmap.json`, from the same `defaultRefmapName` default), and shadowJar merging
+         let one clobber the other in the final jar depending on task ordering. Fixed by giving each
+         module its own name (`potionsplus-{common,fabric,forge,neoforge}-refmap.json`, set per-module
+         in each `build.gradle`'s own `loom.mixin` block, declared explicitly in each `*.mixins.json`).
+      3. **The real fix, and the one that actually mattered: `common`'s shared mixin config must NOT
+         declare a `"refmap"` key at all.** Architectury's own transformer says so explicitly at
+         launch: `[Architectury Transformer] Mixin Config [potionsplus.mixins.json] contains
+         'refmap', please remove it so it works in development environment!` — a shared/cross-loader
+         mixin config gets its refmap resolved dynamically by Architectury's own `RemapperChain`
+         *unless* a `"refmap"` path is hardcoded, in which case Architectury uses that file literally
+         in every environment, dev included, even though the AP only ever produces ONE namespace's
+         data (Fabric intermediary) for it. With `"refmap": "potionsplus-common-refmap.json"` still in
+         `potionsplus.mixins.json`, `:forge:runClient` crashed applying `BootstrapMixin`:
+         `@Inject annotation on bootStrap specifies a target class 'net/minecraft/class_2966', which
+         is not supported` — `class_2966` being `CauldronInteraction`'s Fabric-intermediary id, wrong
+         in every way for a Forge dev environment. Removing the `"refmap"` key from
+         `common/src/main/resources/potionsplus.mixins.json` (keeping `defaultRefmapName` so the AP
+         still has somewhere to write) fixed it outright — `:forge:runClient` now clears the
+         mixin-apply phase cleanly and reaches `Datafixer Bootstrap` with zero errors. Bugs 1 and 2
+         were real and are still fixed (verified via jar inspection - both refmaps coexist correctly,
+         and `transformProductionForge`'s SRG-remapped copy of `common`'s refmap is correct), but
+         **bug 3 was the one actually causing the crash** - 1 and 2 alone did not fix it. Do not
+         re-add a `"refmap"` key to any shared/`common` mixin config; platform-local configs
+         (`potionsplus.{fabric,forge,neoforge}.mixins.json`) keep theirs, since those aren't shared
+         cross-loader and the ambiguity doesn't apply to them.
+      This turned out to also validate the earlier "surfaced a second, related latent bug" note below
+      bullet below.
+- [x] **Pass `--mixin.config` explicitly on every Forge loom run.** Added to `forge/build.gradle`
+      (`loom.runs.configureEach { run.programArgs '--mixin.config', 'potionsplus.forge.mixins.json' }`),
+      copied from 26.1.2's identical fix verbatim. Not yet verified by an actual `:forge:runClient`
+      launch (this session was compile/build/jar-level only) — do that before calling this phase closed.
 - [ ] **Production mixin discovery is a separate problem from dev discovery.** Forge 64.1.0 had no
       `[[mixins]]` parsing in production at all, and the only working path was the **`MixinConfigs`
       manifest attribute** on the jar. Forge 52.x may still parse `[[mixins]]` — **determine this by
-      installing a packaged jar and checking behaviour**, not from documentation. On 26.1.2 this failed
-      silently in production while every dev run passed, and it shipped.
-- [ ] `compatibilityLevel` stays `JAVA_21`, which stock `org.spongepowered:mixin:0.8.x` accepts.
+      installing a packaged jar and checking behaviour**, not from documentation. **Not done this
+      session** — needs a real Forge install, out of reach of a build-only verification pass. On
+      26.1.2 this failed silently in production while every dev run passed, and it shipped.
+- [x] `compatibilityLevel` stays `JAVA_21`, which stock `org.spongepowered:mixin:0.8.x` accepts.
       Expect a harmless `higher than the maximum level supported (JAVA_13)` warning. Do **not** port
       26.1.2's `sponge-mixin` resolutionStrategy swap — that existed solely to get `JAVA_25` accepted.
-- [ ] **Access widener vs access transformer.** Today this branch has
-      `META-INF/accesstransformer.cfg` (NeoForge/Forge). Architectury wants an **access widener** in
-      `common` (`loom.accessWidenerPath`), which loom bakes into the shared remapped Minecraft
-      dependency at compile time for every platform, and which Fabric re-applies at runtime via the
-      `"accessWidener"` key in `fabric.mod.json`. Plan: author
-      `common/src/main/resources/potionsplus.accesswidener` as the source of truth, and keep a
-      **mirrored** `forge/src/main/resources/META-INF/accesstransformer.cfg` (Forge does not read
-      AWs). Confirm whether NeoForge 21.1 reads the AW or needs its AT kept too.
-- [ ] Audit each of the 18 mixins for NeoForge-only injection targets. 26.1.2 found exactly one
-      (`BucketItemMixin` injecting into `FluidType.onVaporize`) — `BucketItemMixin` exists here too.
-      **Check it first.**
-- [ ] `ItemEntityMixin` / `LivingEntityMixin` Forge equivalents: verify Forge's `ItemEntity.lifespan`
-      and `BlockState.getFriction(…)` patches match NeoForge's on 1.21.1 before porting verbatim.
-- [ ] **Descriptor precision.** 26.1.2 lost real time to a mixin targeting `Player.onItemPickup(Entity)`
+      Already correct in all four mixin configs.
+- [x] **Access widener vs access transformer.** `common/src/main/resources/potionsplus.accesswidener`
+      already existed (7 entries: `Block.popExperience`, `HolderSetCodec.homogenousListCodec`, 4
+      `TrackingEmitter` fields) and `neoforge/META-INF/accesstransformer.cfg` already existed
+      (pre-dates the split, broader — neoforge's own historical AT needs, superset of the AW).
+      **Authored the missing mirror**: `forge/src/main/resources/META-INF/accesstransformer.cfg`,
+      same 7 members in AT syntax. Nothing in `forge/` actually touches these members yet (Phase 11
+      client work is what will — `TrackingEmitter` is particle-rendering-only), so this compiles clean
+      but is currently unexercised; that's expected; keep it mirrored as `common`'s AW grows. Confirmed
+      NeoForge 21.1 needs its AT kept (relied on for its own broader pre-existing member set;
+      `neoforge.mods.toml`'s `[[accessTransformers]]` stays commented out, using the default
+      `META-INF/accesstransformer.cfg` fallback path, same as 26.1.2).
+- [x] **Audit each of the 18 mixins for NeoForge-only injection targets — and audit Fabric/Forge for
+      the mixins they were each still missing entirely.** 26.1.2's one NeoForge-only finding
+      (`BucketItemMixin` → `FluidType.onVaporize`) holds here too, confirmed by javap (below). But the
+      bigger finding: **Fabric and Forge had never received `BucketItemMixin`, `ItemEntityMixin`
+      (Forge)/`ItemEntityLifespanMixin` (Fabric), or `LivingEntityMixin` (Forge) at all** — these three
+      gameplay features (salt-on-bucket-empty, `/pp` item-expiry override, Slip'n'Slide friction +
+      Wreath death protection + sprint-speed attribute) were silently NeoForge-only since Phase 4's
+      mixin split, with no plan-doc flag (they weren't part of Phase 7's event-surface audit because
+      they're mixins, not events). Ported all four this session, javap-verifying every injection point
+      against the actual jars this project compiles against rather than assuming 26.1.2 parity:
+      - `BucketItem.emptyContents` **is not the same method across loaders on 1.21.1.** Forge/NeoForge
+        both patch in a 5-arg overload (`Player, Level, BlockPos, BlockHitResult, ItemStack`) absent
+        from plain vanilla (confirmed via javap on all three of Forge's, NeoForge's, and the plain
+        merged jar's `BucketItem.class` — the 5-arg overload's real name survives even in Forge's
+        *SRG*-mapped jar, proof it's a patch addition, not a renamed vanilla member). Fabric's
+        `BucketItemMixin` therefore targets the vanilla 4-arg overload instead (same shape as 26.1.2's
+        Fabric mixin, updated for 1.21.1's `Player`-not-`LivingEntity` vanilla signature). Forge's
+        mirrors NeoForge's 5-arg target exactly (confirmed present) but — like 26.1.2's Forge tree —
+        hooks the plain vanilla ultra-warm-dimension evaporation branch (`Level.playSound(Player,
+        BlockPos,SoundEvent,SoundSource,F,F)`, confirmed present inside the 5-arg method on **both**
+        Forge and NeoForge's jars) rather than `FluidType.onVaporize`, since Forge's own capability
+        attachment isn't wired here either.
+      - `Holder<T>.getKey()` **does not exist on vanilla/Forge's `Holder`** (only NeoForge patches it
+        in — already documented in this file's "VERIFIED API FACTS", and independently corroborated by
+        `ForgeHolder.java`'s own `getKey()` having no `@Override`). Forge's ported `LivingEntityMixin`
+        had to use `attribute.unwrapKey()` instead of the NeoForge original's `attribute.getKey()`.
+        Caught immediately by `:forge:compileJava` — exactly the kind of error the mirror-then-compile
+        workflow is supposed to catch.
+      - **Enabling the refmap AP (previous bullet) surfaced a second latent bug**: with the AP
+        actually validating obfuscation mappings, `neoforge/mixin/neoforge/BucketItemMixin.java`'s
+        `@Inject` failed compilation outright — `error: Unable to locate obfuscation mapping for
+        @Inject target emptyContents` — because both the enclosing 5-arg `emptyContents` and the
+        `FluidType.onVaporize` `@At` target are NeoForge-patch additions with no entry in the vanilla
+        obfuscation table the AP resolves against. This had been silently uncompiled-against until the
+        AP was actually on. Fixed with `remap = false` on that one `@Inject` (patch-added members keep
+        their literal name in production, so skipping the refmap lookup is correct, not a workaround).
+        Forge's and Fabric's new `BucketItemMixin`s never hit this because their targets are real
+        (Forge: patch-added-but-mapped; Fabric: plain vanilla).
+      - `ItemEntity.lifespan` **is a mutable public field on both Forge and NeoForge** (not vanilla —
+        vanilla hardcodes the `6000`-tick despawn literal). Forge's `ItemEntityMixin` ported verbatim
+        from NeoForge's (field `@Redirect`). Fabric has neither the field nor the patch, so its new
+        `ItemEntityLifespanMixin` uses `@ModifyConstant` on the vanilla `6000` literal instead — same
+        shape as 26.1.2's Fabric `ItemEntityLifespanMixin`, confirming the vanilla-literal approach is
+        the right one here too, not a 1.21.1-specific guess.
+      - **`event/{fabric,forge}/PlayerListeners`'-equivalent "on item pickup" mixin (26.1.2's
+        `fabric/mixin/fabric/ItemEntityMixin`) is explicitly NOT part of this — it's a different
+        feature (brewing-knowledge pickup alerts) blocked on Phase 5's runtime-recipe remainder per
+        Phase 7's own notes, not a mixin/refmap concern.** Left untouched; don't conflate the two
+        "ItemEntityMixin" names across branches.
+      - All three loaders' mixin configs updated (`BucketItemMixin` added to fabric+forge;
+        `ItemEntityLifespanMixin` added to fabric; `ItemEntityMixin`+`LivingEntityMixin` added to
+        forge) and verified via `./gradlew build -x test -x compileTestJava` → `BUILD SUCCESSFUL`,
+        all three loader jars produced, refmaps embedded (see above).
+- [x] `ItemEntityMixin` / `LivingEntityMixin` Forge equivalents: confirmed via javap against the actual
+      Forge-named jar this project compiles against — `BlockState.getFriction(LevelReader,BlockPos,
+      Entity)` and the `ItemEntity.lifespan` field both match NeoForge's exactly (same descriptors);
+      see the bullet above for the one real divergence found (`Holder.getKey()`).
+- [x] **Descriptor precision.** 26.1.2 lost real time to a mixin targeting `Player.onItemPickup(Entity)`
       when the actual method is `LivingEntity.onItemPickup(ItemEntity)`. Obfuscated 1.21.1 makes this
-      class of error harder to spot, not easier — `defaultRequire: 1` is already set; keep it.
+      class of error harder to spot, not easier — `defaultRequire: 1` is already set; keep it. With
+      the refmap AP now genuinely on (see above), a wrong descriptor is a **compile-time** error, not
+      just a runtime one — real protection against exactly this class of bug going forward.
+
+**Done this session (2026-09-03, second pass — actual `runClient` launches, 30s smoke each):**
+- `:forge:runClient` — crashed with the refmap bug above on the first attempt; after the fix, launches
+  clean through the mixin-apply phase and past `Datafixer Bootstrap` (well beyond where the crash was)
+  with zero `FATAL`/`ERROR`/exception lines in 30s. `--mixin.config potionsplus.forge.mixins.json` is
+  confirmed present in the launch args and `Remapping refMap potionsplus-forge-refmap.json` confirms
+  it's being read.
+- `:fabric:runClient` — **fully booted to the main menu** on the second (warm-daemon) 30s smoke:
+  `Setting user: Player409` → all vanilla+`potionsplus` texture atlases stitched → `Sound engine
+  started`, zero `[main/FATAL]`/`MixinApplyError`/`BUILD FAILED` lines anywhere in the 521-line log.
+  (Some unrelated `WARN`-level "missing model for variant" lines for a handful of flower/ore
+  blockstates — pre-existing content/datagen gaps, not a mixin or Phase 9 issue; out of scope here.)
+- `:neoforge:runClient` — two 30s smokes, zero errors both times, though neither got past
+  `generateDLIConfig`/Architectury transformer boot within 30s (that task doesn't cache and eats most
+  of the window) — inconclusive on reaching mixin-apply, but no regression signal either. Worth one
+  more warm-daemon attempt like fabric's second run before treating this as fully confirmed.
+- Leftover forked client JVMs from the killed (`timeout 30`) runs were confirmed cleaned up afterward
+  (`tasklist` showed only the two Gradle daemons remaining) — see the memory note about killing
+  architectury dev-run JVMs before any future `clean`.
+
+**Still open before closing this phase:**
+- NeoForge hasn't reached the actual main menu yet (`Sound engine started`) — Forge got well past the
+  mixin-apply phase but was killed before menu; Fabric confirmed reaching it. One more uncapped or
+  warm-daemon run for NeoForge (and ideally Forge) would close this out fully.
+  this phase done.
+- Production mixin-config discovery on Forge 52.x (needs an installed packaged jar).
+- `BlockEntityType.validBlocks` Forge association — still deferred (see "VERIFIED API FACTS", no
+  portable Forge hook found as of Phase 3).
+- A full AT/AW survey beyond the 7 members `common` currently needs — expect this list to grow as
+  Phase 11 (client, particles) lands and Forge/Fabric start actually touching `TrackingEmitter`.
 
 **Exit criterion:** `./gradlew build` green, and **built jars** (not just dev runs) load on all three
 loaders with every mixin applying.

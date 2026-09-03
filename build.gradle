@@ -38,6 +38,12 @@ subprojects {
         silentMojangMappingsLicense()
         mixin {
             defaultRefmapName = "potionsplus-refmap.json"
+            // Newer architectury-loom disables the legacy mixin annotation processor by default,
+            // which also silently stops refmap generation - the exact "invisible in dev, drops every
+            // mixin in production" failure mode Phase 9 calls out (docs/multi-loader-expansion.md).
+            // 1.21.1 is obfuscated and genuinely needs a refmap (unlike unobfuscated 26.1.2), so the
+            // AP must stay on here.
+            useLegacyMixinAp = true
         }
     }
 
