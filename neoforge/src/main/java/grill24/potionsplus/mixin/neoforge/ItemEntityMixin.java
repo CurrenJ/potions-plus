@@ -1,6 +1,6 @@
 package grill24.potionsplus.mixin.neoforge;
 
-import grill24.potionsplus.core.neoforge.CommonCommands;
+import grill24.potionsplus.command.PpCommands;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -24,6 +24,6 @@ public abstract class ItemEntityMixin extends Entity {
     // Redirect field access of lifespan var
     @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/item/ItemEntity;lifespan:I", opcode = Opcodes.GETFIELD))
     private int getLifespanValue(ItemEntity itemEntity) {
-        return CommonCommands.expiryTime == -1 ? itemEntity.lifespan : CommonCommands.expiryTime;
+        return PpCommands.expiryTime == -1 ? itemEntity.lifespan : PpCommands.expiryTime;
     }
 }

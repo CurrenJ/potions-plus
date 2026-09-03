@@ -1,35 +1,46 @@
-package grill24.potionsplus.core.neoforge;
+package grill24.potionsplus.command;
 
+import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import grill24.potionsplus.alchemy.PotionData;
-import grill24.potionsplus.core.neoforge.potion.PotionsRegistrar;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import grill24.potionsplus.persistence.SavedData;
-import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.core.PotionsPlus;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.GameType;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
-import java.util.*;
+import java.util.Map;
+import java.util.UUID;
 
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
-public class CommonCommands {
+/**
+ * Loader-agnostic debug command tree (Phase 7 "Commands / input" bucket), registered by each
+ * platform's command-registration hook, only ever wired up when {@link PotionsPlus.Debug#DEBUG}
+ * is true. Mirrors 26.1.2's {@code common/command/PpCommands.java}.
+ *
+ * <p>26.1.2's {@code potionHand} subcommand is NOT ported here - it needs
+ * {@code Potions.FLYING_TIME_POTIONS}, which on this branch is still
+ * {@code neoforge/core/neoforge/potion/PotionsRegistrar.FLYING_TIME_POTIONS} pending Phase 5's
+ * runtime-recipe/seeded-potion-generation remainder (same blocker already recorded against
+ * {@code AdvancementListeners} and {@code CommonCommands} in the plan doc). NeoForge keeps that one
+ * subcommand registered separately from {@link grill24.potionsplus.core.neoforge.NeoCommandEvents}
+ * via a second {@code dispatcher.register(...)} call under the same {@code potionsplus} literal -
+ * Brigadier merges children of same-named literal nodes registered separately, so this doesn't
+ * require touching the tree here.</p>
+ */
+public final class PpCommands {
     public static int expiryTime = 6000;
 
-    @SubscribeEvent
-    public static void registerCommands(RegisterCommandsEvent event) {
+    private PpCommands() {
+    }
+
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         if (!PotionsPlus.Debug.DEBUG) return;
 
-        event.getDispatcher().register(Commands.literal("potionsplus")
+        dispatcher.register(Commands.literal("potionsplus")
                 .then(Commands.literal("savedData")
                         .requires((source) -> source.hasPermission(2))
                         .then(Commands.literal("clear")
@@ -116,16 +127,6 @@ public class CommonCommands {
                             if (context.getSource().getEntity() instanceof ServerPlayer player) {
                                 player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 6000, 0, false, false, false));
                                 player.setGameMode(GameType.SPECTATOR);
-                            }
-
-                            return 1;
-                        })
-                )
-                .then(Commands.literal("potionHand")
-                        .requires((source) -> source.hasPermission(2))
-                        .executes(context -> {
-                            if (context.getSource().getEntity() instanceof ServerPlayer player) {
-                                PotionData.write(player.getMainHandItem(), new PotionContents(PotionsRegistrar.FLYING_TIME_POTIONS.potion));
                             }
 
                             return 1;

@@ -171,7 +171,7 @@ record it under "VERIFIED API FACTS" with the evidence.
 | 4 | Registration hubs (Fabric + Forge) | ✅ **closed 2026-09-02** — Fabric (26 files) + Forge (29 files) hubs written, all three loader modules compile green, `comm -12` empty (Decision 4a). **Exit criteria met:** runClient smoke on **all three loaders** boots to main menu — fabric + forge both log "Potions Plus (Fabric|Forge) initializing" + "Sound engine started", zero crash markers, item/block registration proven by the item-model lookups the game attempts; neoforge regression clean after the hub refactor + mixin split; clean three-loader build `BUILD SUCCESSFUL`. Two blockers found only by the smokes (invisible to compile): **mixin split** (common's config listed 16 mixins that lived in neoforge/ → 10 vanilla-only javap-verified → common, 8 neoforge-dependent → new `mixin.neoforge` package + own config) and **fabric class-init ordering NPE** (eager fabric registration: `BrewingItems` derefs `FlowerBlocks.LUNAR_BERRY_BUSH` for the `ItemNameBlockItem` → `FlowerBlocks.init` must run FIRST in the fabric `Blocks` static block). Committed `d9b2cf4`. |
 | 5 | `@ExpectPlatform` impls + networking | 🟡 **partially done 2026-09-02** — networking infra (PacketContext adapters, Forge Channel/PacketNetworkImpl, both `core/{fabric,forge}/Packets.java`) complete on all three loaders; 6/12 payloads ported to `common/` and registered cross-loader, 6 remain neoforge-only pending Phases 7/8-9/11; runtime-recipe client sync unresolved. See phase notes. |
 | 6 | Entrypoints | ✅ **closed 2026-09-02** — all checklist items were already in place from Phases 4-5 (hub work required working entrypoints to test); this phase's job was verifying the stronger exit criterion. See phase notes. |
-| 7 | Event surface (36 subscriber classes) | 🟡 **partially done 2026-09-02** — mob-effect behaviour group (7 classes) fully cross-loader: all 9 `effect/*` classes moved to `common/`, dispatched via new `event/{neoforge,forge}/EffectListeners.java` + `mixin/fabric/LivingEntityMixin.java` + `event/fabric/EffectListeners.java`. Remaining groups (registration-hub cleanup, explicit listeners, tick/lifecycle, tooltips, commands/input) not started. See phase notes. |
+| 7 | Event surface (36 subscriber classes) | 🟡 **all six buckets touched 2026-09-02, none fully closed — fan-out complete, fan-in blocked on Phases 5/8/11.** Mob-effect behaviour: ✅ done (7 classes, full parity). Registration hubs: ✅ confirmed no-op (already correctly scoped). Explicit listeners: 2/6 ported (`EnchantmentListeners`, `ItemListenersMod`), 4 blocked. Tick/lifecycle: 4 core classes ported, 2 blocked (`ServerLifecycleListeners`, `ServerPlayerUtility`). Client tooltips: `AnimatedItemTooltipEvent` redesigned + `PotionEffectTooltips`/`ItemListenersGame` ported, 2 blocked (`BrewingTooltips`, `ClotheslineBlockEntityRenderer`→Phase 11). Commands/input: `CommonCommands`→`common/command/PpCommands.java` ported, 2 blocked (`ClientCommands`, `KeyMappingsListener`), `ClientEvents` reclassified to Phase 11. Every blocked item has grep/javap evidence in the phase notes, not a guess — the recurring blockers are Phase 5's runtime-recipe remainder (`RecipesRegistrar`/`PotionsRegistrar`), Phase 8's unsplit `behaviour` package, and Phase 11's client-registration hubs (`DynamicIconItems`, `KeyMappings`, JEI-on-all-three). See phase notes for full detail. |
 | 8 | NeoForge-only systems (full parity) | ⬜ not started |
 | 9 | Mixins + access widening/transformers | ⬜ not started |
 | 10 | Datagen sharing | ⬜ not started |
@@ -1641,8 +1641,95 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
         (`ClotheslineRenderState`) redesigned away the per-frame tracking this MC version's older
         `BlockEntityRenderer` API still needs — 26.1.2's file is not a usable reference for this one
         piece, unlike the rest of the class.
-- [ ] **Commands / input** (`core/{CommonCommands,ClientCommands,KeyMappingsListener,ClientEvents}`).
-      Not started.
+- [~] **Commands / input — partially done 2026-09-02, and one bucket item reclassified as
+      mislabeled.** Of the four items in the plan's bucket table:
+  - [x] **`CommonCommands`** — moved to `common/command/PpCommands.java` (matches 26.1.2's package
+        and class name exactly, confirmed by reading that tree's file). Ported every subcommand
+        except `potionHand`, which needs `Potions.FLYING_TIME_POTIONS` — on 26.1.2 that's common-side
+        (`common/core/potion/Potions.java`), but on this branch the equivalent
+        (`PotionsRegistrar.FLYING_TIME_POTIONS`) is still neoforge-only pending Phase 5's
+        runtime-recipe remainder, the same blocker already recorded against `AdvancementListeners`
+        in the Explicit-listeners bucket. Kept `potionHand` registered from NeoForge's
+        `event/neoforge/NeoCommandEvents.java` via a **second** `dispatcher.register(...)` call under
+        the same `"potionsplus"` literal — Brigadier's `CommandNode.addChild` merges children of two
+        separately-registered nodes with the same name (confirmed against Brigadier's source: a
+        matching existing child has the new node's children folded into it rather than replacing it),
+        so this doesn't require touching `PpCommands` itself or forking the tree. All three loaders'
+        `runServer` reached `Done (...)!` with no registration exceptions, which is consistent with
+        (but doesn't by itself prove) the merge — no further verification attempted within this
+        bucket's scope.
+    - Collapsed a latent double-field bug found by diffing against 26.1.2 rather than reproducing
+      it: 26.1.2 has **three** separate `expiryTime` fields (`core.CommonCommands.expiryTime` default
+      `-1`, read by the loader mixins; `command.PpCommands.expiryTime` default `6000`, set by the
+      command; `core.ModState.expiryTime` default `6000`, unclear consumer) that don't talk to each
+      other — the `quickItemExpiry` command there sets a field the mixins never read, so the command
+      is silently a no-op on 26.1.2. This branch's original `core.neoforge.CommonCommands.expiryTime`
+      (default `6000`) was both the command's field and the one NeoForge's `ItemEntityMixin` reads —
+      already correctly wired. Kept that single-field design in `PpCommands.expiryTime` (still default
+      `6000`, unchanged live behaviour) instead of importing 26.1.2's split; repointed
+      `neoforge/mixin/neoforge/ItemEntityMixin.java`'s one reference.
+  - [ ] **`ClientCommands` — blocked, not attempted.** Its only subcommand body
+        (`JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes`) needs the JEI
+        integration classes, which are entirely neoforge-only today (`neoforge/client/integration/jei/*`,
+        no `fabric`/`forge` equivalents exist) — Decision 3 "JEI on all three" is **Phase 11** scope.
+        The `reveal`/`dumpResource` debug-command shell itself has no loader dependency and could be
+        split out, but doing so now would ship a `reveal` command whose entire purpose (toggling JEI's
+        hidden-recipe filter) is a no-op on Fabric/Forge until Phase 11 lands — deferred as a unit
+        rather than half-ported.
+  - [ ] **`KeyMappingsListener` — blocked, not attempted.** Its only body
+        (`KeyMappings.ACTIVATE_ABILITY.get().consumeClick()`) reads a keybinding that the
+        Registration-hubs bucket already confirmed is correctly deferred to **Phase 11** (`KeyMappings`
+        itself has no fabric/forge equivalent yet, by design — client-registration hub work). Nothing
+        to port until that keybinding exists on the other two loaders.
+  - [x] **`ClientEvents` — reclassified, not this bucket's work.** Read the file: both its methods
+        (`FMLClientSetupEvent` → item-property overrides for `DynamicIconItems`;
+        `RegisterParticleProvidersEvent` → particle-provider registration) are pure **Phase 11**
+        client-registration-hub work with zero command/input logic — the plan's grouping table placed
+        it here by mistake. It also depends on `DynamicIconItems`, the same fabric/forge item-hub gap
+        the Explicit-listeners bucket flagged for `ClientTooltipComponentFactoriesListeners`. Left
+        entirely untouched; whoever does Phase 11 should treat this as that phase's file, not port it
+        as a leftover Phase 7 item.
+  - [x] Verified: `:{neoforge,fabric,forge}:build -x test` green; Decision 4a `comm -12` empty on all
+        three; `common/` has zero `net.neoforged`/`net.minecraftforge` imports;
+        `:{neoforge,fabric,forge}:runServer` all reach `Done (...)!` with zero exceptions.
+
+**Phase 7 summary (2026-09-02) — all six buckets touched, none fully closed; 🟡 partial, matching the
+Status table.** Net tally across the whole phase:
+
+- **Fully done:** mob-effect behaviour (7 classes, full parity on all three loaders).
+- **Confirmed no-op / correctly scoped already:** registration hubs (8 classes — 4 already had
+  Fabric/Forge parity from Phases 4/5, 4 correctly deferred to Phase 11).
+- **Partially ported, real items remain blocked (not silently dropped — every one below has a
+  plan-doc entry with grep/javap evidence):**
+  - Explicit listeners: 2/6 done (`EnchantmentListeners`, `ItemListenersMod`); 4 blocked
+    (`AdvancementListeners`, `PlayerListeners`, `ClientTooltipComponentFactoriesListeners`,
+    `ItemListenersGame`'s move — the last two are now actually resolved, see Tick/lifecycle and
+    Client-tooltips buckets below, which shipped after this entry was first written).
+  - Tick/lifecycle: 4 core classes done; 2 blocked (`ServerLifecycleListeners`, `ServerPlayerUtility`
+    — deliberately not split further).
+  - Client tooltips: `AnimatedItemTooltipEvent` redesigned + `PotionEffectTooltips`/`ItemListenersGame`
+    done; 2 blocked (`BrewingTooltips`, `ClotheslineBlockEntityRenderer` — the latter reclassified to
+    Phase 11).
+  - Commands/input: `CommonCommands`→`PpCommands` done; 2 blocked (`ClientCommands`,
+    `KeyMappingsListener`); `ClientEvents` reclassified to Phase 11.
+- **Blockers this phase surfaced, owned by other phases (not Phase 7 work):**
+  1. **Phase 5** — the runtime-recipe/`RecipesRegistrar`/`PotionsRegistrar` remainder blocks
+     `AdvancementListeners`, part of `PlayerListeners`, `BrewingTooltips`, and `CommonCommands`'s
+     `potionHand` subcommand. The single biggest recurring blocker in this phase.
+  2. **Phase 8** — the still-unsplit `neoforge/behaviour` package (containing general gameplay
+     classes `MossBehaviour`/`ClotheslineBehaviour`, not just loot modifiers — a new finding from this
+     phase) blocks the moss/clothesline half of `PlayerListeners`.
+  3. **Phase 11** — `DynamicIconItems` (missing Fabric/Forge equivalent, a Phase 4/5 item-hub gap),
+     `KeyMappings`/`Renderers`/`Screens`/`BlockRenderLayers` (client-registration hubs, correctly
+     deferred), and Decision 3's JEI-on-all-three all block `ClientTooltipComponentFactoriesListeners`,
+     `ClotheslineBlockEntityRenderer`, `KeyMappingsListener`, `ClientCommands`, and `ClientEvents`
+     (reclassified into Phase 11 outright).
+- **Do not mark Phase 7 ✅ closed.** Every remaining `[ ]` item above is real, evidenced work, not
+  polish — but none of it can proceed further without Phases 5, 8, or 11 landing first. The
+  loader-agnostic-shell-first strategy this phase used throughout (port what's free of cross-bucket
+  dependencies now, leave a plan-doc trail for the rest) means Phase 7 is now **fan-out complete but
+  fan-in blocked** — closing it is a matter of finishing those other phases and returning, not
+  further Phase-7-shaped investigation.
 
 ---
 
