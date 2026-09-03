@@ -172,7 +172,7 @@ record it under "VERIFIED API FACTS" with the evidence.
 | 5 | `@ExpectPlatform` impls + networking | 🟡 **partially done 2026-09-02** — networking infra (PacketContext adapters, Forge Channel/PacketNetworkImpl, both `core/{fabric,forge}/Packets.java`) complete on all three loaders; 6/12 payloads ported to `common/` and registered cross-loader, 6 remain neoforge-only pending Phases 7/8-9/11; runtime-recipe client sync unresolved. See phase notes. |
 | 6 | Entrypoints | ✅ **closed 2026-09-02** — all checklist items were already in place from Phases 4-5 (hub work required working entrypoints to test); this phase's job was verifying the stronger exit criterion. See phase notes. |
 | 7 | Event surface (36 subscriber classes) | 🟡 **all six buckets touched 2026-09-02, none fully closed — fan-out complete, fan-in blocked on Phases 5/8/11.** Mob-effect behaviour: ✅ done (7 classes, full parity). Registration hubs: ✅ confirmed no-op (already correctly scoped). Explicit listeners: 2/6 ported (`EnchantmentListeners`, `ItemListenersMod`), 4 blocked. Tick/lifecycle: 4 core classes ported, 2 blocked (`ServerLifecycleListeners`, `ServerPlayerUtility`). Client tooltips: `AnimatedItemTooltipEvent` redesigned + `PotionEffectTooltips`/`ItemListenersGame` ported, 2 blocked (`BrewingTooltips`, `ClotheslineBlockEntityRenderer`→Phase 11). Commands/input: `CommonCommands`→`common/command/PpCommands.java` ported, 2 blocked (`ClientCommands`, `KeyMappingsListener`), `ClientEvents` reclassified to Phase 11. Every blocked item has grep/javap evidence in the phase notes, not a guess — the recurring blockers are Phase 5's runtime-recipe remainder (`RecipesRegistrar`/`PotionsRegistrar`), Phase 8's unsplit `behaviour` package, and Phase 11's client-registration hubs (`DynamicIconItems`, `KeyMappings`, JEI-on-all-three). See phase notes for full detail. |
-| 8 | NeoForge-only systems (full parity) | 🟡 **in progress 2026-09-03.** `DataAttachments`: ✅ deleted, moved onto `common/SavedData` (no NeoForge-only system left there — Decision 2's carve-out for this phase now closes to plain 26.1.2-Phase-5 parity). Global loot modifiers (Wormroot, AddMobEffects): ✅ done, all three loaders, logic shared via `common/behaviour/`. Remaining: Capabilities/`IItemHandler` (clothesline storage), server config, biome modifiers — not started. |
+| 8 | NeoForge-only systems (full parity) | 🟡 **in progress 2026-09-03.** `DataAttachments`: ✅ deleted, moved onto `common/SavedData` (no NeoForge-only system left there — Decision 2's carve-out for this phase now closes to plain 26.1.2-Phase-5 parity). Global loot modifiers (Wormroot, AddMobEffects): ✅ done, all three loaders, logic shared via `common/behaviour/`. Biome modifiers (lunar berry bush add/remove, dense diamond ore): ✅ done, all three loaders; fixed a live `neoforge/`-only resource leak into the Fabric/Forge jars found along the way. Remaining: Capabilities/`IItemHandler` (clothesline storage), server config — not started. |
 | 9 | Mixins + access widening/transformers | ⬜ not started |
 | 10 | Datagen sharing | ⬜ not started |
 | 11 | Client (renderers, particles, tooltips, colors, models, JEI ×3) | ⬜ not started |
@@ -1859,23 +1859,63 @@ Status table.** Net tally across the whole phase:
         .registerConfig(…)` in the `@Mod` constructor.
   - [ ] Fabric: no config API in fabric-api — hand-roll a small JSON config under
         `FabricLoader.getInstance().getConfigDir()`, matching 26.1.2's approach.
-- [ ] **Biome modifiers have equivalents on both other loaders — verified 2026-09-01.** The note
-      below that NeoForge's `BiomeModifier` registry "has no Fabric or Forge equivalent" is wrong in
-      both directions:
-  - [ ] **Forge reads the same datapack JSON.** 26.1.2 ships hand-authored
+- [x] **Biome modifiers — done 2026-09-03**, all three: `add_lunar_berry_bush_patch`,
+      `remove_berry_bush_patch`, and a third this branch has that 26.1.2 doesn't —
+      `add_dense_diamond_ore`. The plan's "verified 2026-09-01" note only mentioned the first two;
+      the ore modifier needed the same treatment.
+  - [x] **Forge reads the same datapack JSON, confirmed by class listing** (`javap -l` on
+        `forge-1.21.1-52.1.2-universal-srg.jar` shows `net.minecraftforge.common.world.
+        ForgeBiomeModifiers$\{Add,Remove\}FeaturesBiomeModifier`, matching NeoForge's `add_features`/
+        `remove_features` types 1:1) — hand-authored
         `forge/src/main/resources/data/potionsplus/forge/biome_modifier/{add_lunar_berry_bush_patch,
-        remove_berry_bush_patch}.json` — the NeoForge files with the namespace directory renamed
-        `neoforge/` → `forge/`. No code required.
-  - [ ] **Fabric has a code-only API.** `fabric/.../core/fabric/BiomeModifiers.java` uses
-        `BiomeModifications.create(...)` + `BiomeSelectors.tag(...)` + `ModificationPhase.REMOVALS`
-        with `ctx.getGenerationSettings().removeFeature(...)`. There is no Fabric JSON equivalent,
-        which is exactly why Phase 10's `commonDatagen` excludes `**/neoforge/**`.
-- [ ] **Worldgen / biome modifiers** — if any survive backport Phase 1.8 (`core/Features`,
-      `core/PlacementModifierTypes`, `core/blocks/OreBlocks` are still present at tip; confirm what
-      Phase 1.8 actually left). NeoForge's `BiomeModifier` datapack registry has no Fabric or Forge
-      equivalent → Fabric `BiomeModifications` API, Forge hand-written biome-modifier equivalent.
-      **`data/potionsplus/neoforge/biome_modifier/*.json` must never reach the Fabric/Forge jars** —
-      26.1.2 shipped exactly that leak once (see its Phase 7).
+        remove_berry_bush_patch,add_dense_diamond_ore}.json`, the NeoForge files with `"type":
+        "neoforge:…"` → `"forge:…"` and the namespace directory `neoforge/` → `forge/`. No code
+        required, exactly as 26.1.2 predicted.
+  - [x] **Fabric has a code-only API**, ported near-verbatim from 26.1.2's
+        `fabric/.../core/fabric/BiomeModifiers.java`: `BiomeModifications.create(...)` +
+        `BiomeSelectors.tag(ConventionalTags.Biomes.IS_TREE_CONIFEROUS)` + `ModificationPhase.
+        {REMOVALS,ADDITIONS}` with `ctx.getGenerationSettings().{remove,add}Feature(...)`. Verified via
+        `javap` against the resolved `fabric-biome-api-v1:13.0.31` jar (not assumed from 26.1.2, which
+        is on a different fabric-api generation) — `BiomeSelectors`/`BiomeModifications`/
+        `BiomeModificationContext.GenerationSettingsContext` all match the reference shape exactly,
+        plus `BiomeSelectors.foundInOverworld()` for the ore modifier (no `#c:is_overworld` tag needed).
+        **One necessary divergence from 26.1.2:** the placed-feature keys
+        (`potionsplus:patch_lunar_berry_bush`, `potionsplus:ore_dense_diamond_small`) are declared
+        inline via `ResourceKey.create(Registries.PLACED_FEATURE, Utility.ppId(...))` rather than
+        imported from `worldgen.Placements`, because that class is still neoforge-only on this branch
+        (26.1.2's `Placements` is already common). Revisit once worldgen is split.
+  - [x] **Fixed the exact leak the plan warned about, found while doing this work, not preemptively:**
+        `data/potionsplus/neoforge/biome_modifier/*.json` was sitting in `common/src/main/resources/`
+        and shipping inside the Fabric and Forge jars too (confirmed via `unzip -l` on the built jars).
+        **First fix attempt was wrong and is worth recording:** adding a `CopySpec.exclude(...)` to
+        each loader's `processResources` did nothing — the final jar's resources come from
+        `shadowJar`'s `shadowBundle` configuration (`:common`'s prebuilt `transformProduction{Fabric,
+        Forge}` artifact), a completely separate merge path `processResources`'s `from` block never
+        touches. The real fix: moved the three JSON files from `common/src/main/resources/` to
+        `neoforge/src/main/resources/` (they were hand-authored, not datagen'd, so a plain `git mv`
+        was safe) — since they never enter the shared `common` jar, they can't leak into it. Re-verified
+        via `unzip -l` on all three rebuilt jars: present only in the neoforge jar.
+  - [x] **Worldgen JSON these modifiers reference (`configured_feature`/`placed_feature` for
+        `lunar_berry_bush`/`ore_dense_diamond_small`) also didn't exist outside the neoforge jar** —
+        confirmed via `find`, only in `neoforge/src/generated/resources/` (Phase 10's `commonDatagen`
+        share hasn't landed). Hand-copied (not moved — NeoForge's `runData` regenerates its own) into
+        `fabric/src/main/resources/` and `forge/src/main/resources/` individually, **not** `common/`:
+        a first attempt putting them in `common/src/main/resources/` hit the exact same
+        `:neoforge:processResources` "duplicate entry" failure as the biome_modifier leak's mirror
+        image — `common`'s copy collides with `neoforge/src/generated/resources`'s datagen'd copy of
+        the same path. Per-loader placement (matching the loot-modifier JSON precedent from earlier
+        this phase) sidesteps it entirely at the cost of two duplicated copies instead of one shared
+        one; revisit once Phase 10 makes `commonDatagen` the single source instead of neoforge's own
+        `src/generated/resources`.
+  - [x] Verified: `:{neoforge,fabric,forge}:build -x test` green; Decision 4a `comm -12` empty on all
+        three; `:{neoforge,fabric,forge}:runServer` all reach `Done (...)!` with zero exceptions.
+        **Fabric explicitly logs the modifiers firing** — `Applied 63 biome modifications to 53 of 64
+        new biomes` — proof-of-life beyond "didn't crash" that Forge's silent datapack-JSON path
+        doesn't give for free (Forge would only log on a parse failure, same as the pre-existing
+        unrelated clothesline loot-table warning both loaders already show). **Not yet verified: actual
+        worldgen output** (generate a new world on each loader and confirm lunar berry bushes /
+        dense diamond ore actually appear) — same caveat as the loot modifiers above, deferred to
+        whoever does a real `runClient` session or Phase 13.
 
 **Exit criterion:** `:common:test :neoforge:build :fabric:build :forge:build` green; each system
 demonstrably fires on all three loaders.
