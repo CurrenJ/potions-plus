@@ -1,5 +1,6 @@
 package grill24.potionsplus.blockentity.neoforge;
 
+import grill24.potionsplus.blockentity.HerbalistsLecternSounds;
 import grill24.potionsplus.core.neoforge.RecipesRegistrar;
 
 import grill24.potionsplus.core.neoforge.items.DynamicIconItems;

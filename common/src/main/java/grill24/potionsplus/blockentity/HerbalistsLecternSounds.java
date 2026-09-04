@@ -1,4 +1,4 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
 import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.utility.Utility;

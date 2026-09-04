@@ -1,7 +1,7 @@
 package grill24.potionsplus.block.neoforge;
 
 import grill24.potionsplus.blockentity.neoforge.HerbalistsLecternBlockEntity;
-import grill24.potionsplus.blockentity.neoforge.HerbalistsLecternSounds;
+import grill24.potionsplus.blockentity.HerbalistsLecternSounds;
 import grill24.potionsplus.core.neoforge.Blocks;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
