@@ -1,4 +1,4 @@
-package grill24.potionsplus.gametest;
+package grill24.potionsplus.neoforge.gametest;
 
 import com.mojang.authlib.GameProfile;
 import io.netty.channel.embedded.EmbeddedChannel;
@@ -24,10 +24,17 @@ import java.util.UUID;
  * join (known brewing recipes, paired abyssal trove), including to a synthetic player like this one.
  * {@code configureMockConnection} exists to pre-empt exactly that; it just has to run before
  * {@code placeNewPlayer}, which the vanilla helper gives no hook for.
+ *
+ * <p>Moved here from {@code common/src/testmod} (Phase 12) - {@code NetworkRegistry} is NeoForge-only,
+ * so this class cannot live anywhere both loaders can compile it. Fabric's equivalent test wrapper uses
+ * vanilla {@code helper::makeMockServerPlayerInLevel} directly (see {@code fabric.gametest.
+ * PotionsPlusFabricGameTests}) since Fabric's networking registration does not have this same
+ * connection-handshake gate - not independently re-verified against Fabric's actual networking
+ * internals this session, carried over from the reference {@code dev/26.1.2} tree's identical choice.
  */
-public final class TestPlayers {
+public final class NeoForgeTestPlayers {
 
-    private TestPlayers() {}
+    private NeoForgeTestPlayers() {}
 
     /**
      * A creative-mode player in the level. Creative matters for the brewing cauldron: it takes the

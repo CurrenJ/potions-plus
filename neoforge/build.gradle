@@ -39,6 +39,28 @@ sourceSets {
     }
 }
 
+// Phase 12 fix (see loom { mods {} } comment below for the full evidence): compile testmod's
+// classes straight into main's own output directory instead of testmod's separate split dir, so
+// FML's dev-mode annotation scan (which only scans the sourceSet(s) actually associated with the
+// mod - here just `main`) sees the @GameTestHolder-annotated test classes. Two tasks now write to
+// the same directory, hence the explicit dependsOn so `processResources`, which also targets it,
+// always runs first and neither task's Gradle up-to-date tracking gets confused about who owns it.
+tasks.named('compileTestmodJava').configure {
+    destinationDirectory.set(sourceSets.main.output.classesDirs.singleFile)
+    dependsOn(tasks.named('processResources'))
+}
+
+// The merged testmod classes must never reach the distributable jar - shadowJar/remapJar package
+// whatever main's classesDirs contain, and the redirect above just put testmod's .class files there.
+// Both jar and shadowJar now read main's classesDirs after compileTestmodJava writes to it too, so
+// Gradle's task-output-without-a-declared-dependency validation needs an explicit dependsOn here
+// (both tasks already implicitly depend on compileJava for the same directory; this adds the same
+// relationship for compileTestmodJava).
+tasks.named('jar').configure {
+    dependsOn(tasks.named('compileTestmodJava'))
+    exclude '**/gametest/**'
+}
+
 
 repositories {
     maven {
@@ -106,8 +128,12 @@ tasks.withType(Test).configureEach {
 }
 
 shadowJar {
+    dependsOn(tasks.named('compileTestmodJava'))
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = 'dev-shadow'
+    // shadowJar (not `jar`) is what remapJar actually packages (see inputFile below) - the merged
+    // testmod classes from the compileTestmodJava redirect above must not reach it either.
+    exclude '**/gametest/**'
 }
 
 remapJar {
@@ -123,14 +149,21 @@ loom {
         defaultRefmapName = "potionsplus-neoforge-refmap.json"
     }
 
-    // TODO(Phase 12): associating testmod here puts its split dirs on every run's classpath, not
-    // just gametest's (docs/multi-loader-expansion.md Phase 12's `loom.mods` gotcha). Kept for now
-    // to match Phase 0's "change only the build system" scope; revisit with the
-    // compileTestmodJava-redirect fix when Phase 12 lands.
+    // Phase 12: do NOT associate testmod with mod_id here (docs/multi-loader-expansion.md Phase 12's
+    // `loom.mods` gotcha - confirmed empirically this session: with testmod listed as a second
+    // sourceSet, :neoforge:runGametest boots clean and logs "Enabled Gametest Namespaces:
+    // [potionsplus]", but FML's `ModList.getAllScanData()` annotation scan (GameTestHooks.
+    // registerGametests(), decompiled via javap) never finds the `@GameTestHolder`-annotated test
+    // classes - `GameTestServer.create` fails immediately with "No test functions were given!".
+    // loom's mods{} sourceSet association puts testmod's split output dir on the runtime/mod
+    // classpath (classes load and run fine, hence no crash) but does not make FML's dev-mode
+    // mod-file locator re-scan that directory's bytecode for annotations the way it does the
+    // sourceSet(s) actually declared to hold the mod's `main` output. Fixed below by merging
+    // testmod's compiled classes directly into main's own classesDirs instead, so FML scans them as
+    // part of the mod it already recognizes.
     mods {
         "${mod_id}" {
             sourceSet sourceSets.main
-            sourceSet sourceSets.testmod
         }
     }
 

@@ -30,7 +30,17 @@ dependencies {
 
     // compile against the JEI API but do not include it at runtime
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+
+    // Unit tests (Phase 12). Phase 1 moved the tests to common/src/test, but this dependency block
+    // was left behind in neoforge/build.gradle, leaving common with no test wiring at all.
+    // architectury-loom needs no moddev-`unitTest`-equivalent here - Minecraft itself is on the test
+    // classpath via Loom, so tests that need registries (potions, mob effects) bootstrap them
+    // directly; see AlchemyTestBase.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
+tasks.withType(Test).configureEach { useJUnitPlatform() }
 
 // Phase 10 (datagen sharing): NeoForge's runData output is copied here (via the root
 // `commonDatagen` task) so the Fabric + Forge modules pick up models/blockstates/tags/sounds.json

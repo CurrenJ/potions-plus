@@ -22,6 +22,26 @@ configurations {
     }
 }
 
+sourceSets {
+    testmod {
+        // Same shared gametest source as neoforge/build.gradle points at - the loader-agnostic static
+        // methods in common/src/testmod/java/grill24/potionsplus/gametest/*.java (Phase 12).
+        java.srcDir project(':common').file('src/testmod/java')
+    }
+}
+
+// Extending the resolvable *configurations* (not the sourceSet's compileClasspath/runtimeClasspath
+// FileCollection properties directly, which is what neoforge/build.gradle's testmod sourceSet block
+// does) - fabric-api's dependencies are pulled in via Loom's `modImplementation`, which resolves and
+// remaps through its own configuration machinery; `compileClasspath += main.compileClasspath` picked
+// up an empty/pre-remap snapshot of main's classpath here (confirmed: `net.fabricmc.fabric.api.
+// gametest.v1.GameTest` - present on :fabric:compileClasspath per `./gradlew :fabric:dependencies
+// --configuration compileClasspath` - was absent from testmodCompileClasspath with that approach).
+// extendsFrom is resolved lazily at task-execution time and works whichever loader added the
+// dependency.
+configurations.testmodCompileClasspath.extendsFrom(configurations.compileClasspath)
+configurations.testmodRuntimeClasspath.extendsFrom(configurations.runtimeClasspath)
+
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
@@ -39,6 +59,16 @@ dependencies {
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+
+    // Testmod (Phase 12): access the compiled main classes, same as neoforge/build.gradle.
+    testmodImplementation sourceSets.main.output
+}
+
+// The testmod's own fabric.mod.json needs no token expansion (hand-authored fixed values - it is
+// never distributed, so it does not need to track the mod's real version). Explicitly disable
+// duplicatesStrategy surprises should main's resources ever be pulled in here by accident.
+tasks.named('processTestmodResources').configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 processResources {
@@ -94,10 +124,23 @@ loom {
 
             runDir "build/datagen"
         }
-        // NOTE: no `gametest` run yet. Phase 12 wires it up once common/src/testmod's
-        // `core.neoforge.*` imports are resolved (Phase 4) — a testmod source set pointed at
-        // common/src/testmod cannot compile in the fabric module today.
+        // Phase 12: headless game test server. Unlike NeoForge, Fabric needs no loom.mods
+        // association or FML annotation-scan workaround - testmod is its own separate mod (its own
+        // fabric.mod.json, id potionsplus_testmod, declared above), discovered the same way Fabric
+        // Loader discovers any dev-mode mod: by finding fabric.mod.json on the run's classpath. The
+        // `fabric-gametest` entrypoint it declares points fabric-gametest-api-v1's own
+        // TestAnnotationLocator (javap-confirmed against the resolved fabric-gametest-api-v1 jar,
+        // already pulled in transitively by the `fabric-api` umbrella dependency above - no extra
+        // dependency needed) at PotionsPlusFabricGameTests, whose @GameTest-annotated methods
+        // delegate into the same common/src/testmod static methods NeoForge's wrapper uses.
+        gametest {
+            server()
+            source sourceSets.testmod
+            vmArg "-Dfabric-api.gametest"
+            runDir "build/gametest"
+        }
     }
 }
 
 file("build/datagen").mkdirs()
+file("build/gametest").mkdirs()

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "potionsplus_testmod",
+  "version": "1.0.0",
+  "name": "Potions Plus Test Mod",
+  "description": "In-world game tests for Potions Plus. Not shipped in the distributable jar.",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": [
+      "grill24.potionsplus.fabric.gametest.PotionsPlusFabricGameTests"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.17.2",
+    "minecraft": "~1.21.1",
+    "fabric-gametest-api-v1": "*",
+    "potionsplus": "*"
+  }
+}
