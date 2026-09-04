@@ -1,4 +1,4 @@
-package grill24.potionsplus.recipe.abyssaltroverecipe.neoforge;
+package grill24.potionsplus.recipe.abyssaltroverecipe;
 
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.recipe.ShapelessProcessingRecipeBuilder;

@@ -1,28 +1,21 @@
 package grill24.potionsplus.core.neoforge;
 
-import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+import grill24.potionsplus.core.RecipesRegistrar;
 
 import com.google.common.collect.ImmutableList;
-import grill24.potionsplus.blockentity.neoforge.AbyssalTroveBlockEntity;
-import grill24.potionsplus.blockentity.neoforge.SanguineAltarBlockEntity;
-import grill24.potionsplus.core.seededrecipe.neoforge.SeededPotionRecipes;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
 import grill24.potionsplus.persistence.SavedData;
-import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
-import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ModInfo;
 import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.core.Recipes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.dimension.LevelStem;
@@ -33,7 +26,6 @@ import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
-import java.util.List;
 import java.util.Map;
 
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
@@ -69,20 +61,13 @@ public class ServerLifecycleListeners {
         postProcessRecipes(event.getRecipeManager());
     }
 
-    @SuppressWarnings("unchecked")
     public static void postProcessRecipes(RecipeManager recipeManager) {
-        RecipeType<SanguineAltarRecipe> sanguineAltarRecipeType = (RecipeType<SanguineAltarRecipe>) (RecipeType<?>) Recipes.SANGUINE_ALTAR_RECIPE.value();
-        List<RecipeHolder<SanguineAltarRecipe>> sanguineAltarRecipes = recipeManager.getAllRecipesFor(sanguineAltarRecipeType);
-        RecipesRegistrar.SANGUINE_ALTAR_ANALYSIS.compute(sanguineAltarRecipes);
+        // Common half: recomputes DURATION/AMPLIFICATION/ALL_SEEDED/ALL_BCR/SANGUINE_ALTAR analyses.
+        // See RecipesRegistrar's class javadoc for why the two block-entity-facing follow-ups below
+        // stay here rather than in the common method.
+        RecipesRegistrar.postProcessRecipes(recipeManager);
+
         SanguineAltarBlockEntity.computeRecipeMap(RecipesRegistrar.SANGUINE_ALTAR_ANALYSIS.getRecipes());
-
-        RecipeType<BrewingCauldronRecipe> brewingCauldronRecipeType = (RecipeType<BrewingCauldronRecipe>) (RecipeType<?>) Recipes.BREWING_CAULDRON_RECIPE.value();
-        List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronRecipes = recipeManager.getAllRecipesFor(brewingCauldronRecipeType);
-        RecipesRegistrar.DURATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isDurationUpgrade()).toList());
-        RecipesRegistrar.AMPLIFICATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isAmplifierUpgrade()).toList());
-        RecipesRegistrar.ALL_SEEDED_POTION_RECIPES_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isSeededRuntimeRecipe()).toList());
-        RecipesRegistrar.ALL_BCR_RECIPES_ANALYSIS.compute(brewingCauldronRecipes);
-
         AbyssalTroveBlockEntity.computeAbyssalTroveIngredients();
     }
 

@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.core.Attributes;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.event.ItemListenersGame;
-import grill24.potionsplus.item.tooltip.neoforge.BrewingTooltips;
+import grill24.potionsplus.item.tooltip.BrewingTooltips;
 import grill24.potionsplus.item.tooltip.PotionEffectTooltips;
 import grill24.potionsplus.alchemy.EffectComparison;
 import grill24.potionsplus.utility.ClientTickHandler;

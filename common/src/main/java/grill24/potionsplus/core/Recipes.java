@@ -11,9 +11,11 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 /**
- * The loader-agnostic half of the recipe-type/serializer registrations. The DeferredRegister that
- * flushes these, plus runtime recipe injection and analysis (both AT-dependent, NeoForge-only for
- * now), stay at {@code core.neoforge.RecipesRegistrar} - see docs/multi-loader-expansion.md Phase 4.
+ * The loader-agnostic half of the recipe-type/serializer registrations. Each loader flushes these
+ * into its own registry mechanism ({@code core.neoforge.Recipes}, {@code core.forge.Recipes},
+ * {@code core.fabric.Recipes}). Runtime recipe injection and analysis now live at
+ * {@link RecipesRegistrar} (common/ as of Phase 9/11a) - see docs/multi-loader-expansion.md Phase 4
+ * and the Phase 9/11a progress log.
  */
 public class Recipes {
     public static Holder<RecipeType<?>> BREWING_CAULDRON_RECIPE;

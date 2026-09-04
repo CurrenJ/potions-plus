@@ -78,8 +78,8 @@ public class PotionsPlus {
         Items.ITEMS.register(bus);
         Entities.ENTITIES.register(bus);
         Particles.PARTICLE_TYPES.register(bus);
-        RecipesRegistrar.RECIPE_TYPES.register(bus);
-        RecipesRegistrar.RECIPE_SERIALIZERS.register(bus);
+        Recipes.RECIPE_TYPES.register(bus);
+        Recipes.RECIPE_SERIALIZERS.register(bus);
         NeoSounds.SOUNDS.register(bus);
         LootModifiers.LOOT_MODIFIERS.register(bus);
         Advancements.TRIGGERS.register(bus);

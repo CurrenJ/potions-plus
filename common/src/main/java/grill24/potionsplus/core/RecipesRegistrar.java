@@ -1,16 +1,13 @@
-package grill24.potionsplus.core.neoforge;
+package grill24.potionsplus.core;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.datafixers.util.Pair;
-import grill24.potionsplus.core.PotionsPlus;
-import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.core.neoforge.ServerLifecycleListeners;
 import grill24.potionsplus.core.seededrecipe.IRuntimeRecipeProvider;
-import grill24.potionsplus.core.seededrecipe.neoforge.SanguineAltarRecipes;
-import grill24.potionsplus.core.seededrecipe.neoforge.SeededPotionRecipes;
+import grill24.potionsplus.core.seededrecipe.SanguineAltarRecipes;
+import grill24.potionsplus.core.seededrecipe.SeededPotionRecipes;
 import grill24.potionsplus.recipe.BrewingCauldronRecipeAnalysis;
 import grill24.potionsplus.recipe.RecipeAnalysis;
 import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
@@ -18,17 +15,13 @@ import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.alchemy.EffectComparison;
 import grill24.potionsplus.alchemy.PotionContainer;
-import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,20 +29,27 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Owns the NeoForge {@link DeferredRegister}s that flush {@link Recipes}' loader-agnostic type and
- * serializer definitions, plus runtime recipe injection (needs the access-widened
- * {@code RecipeManager.byType}/{@code byName} fields - NeoForge-only until Phase 9 grows a shared
- * access widener entry). See docs/multi-loader-expansion.md Phase 4.
+ * Owns runtime recipe injection (seeded brewing cauldron / sanguine altar recipes) and the recipe
+ * analysis statics consumed by tooltips, block entities and mixins. Ported from
+ * {@code core.neoforge.RecipesRegistrar} to common/ - see docs/multi-loader-expansion.md Phase 9/11a
+ * progress log ("RecipesRegistrar DeferredRegister/SeededPotionRecipes/SanguineAltarRecipes/
+ * postProcessRecipes" entry).
+ *
+ * <p>The DeferredRegister-shaped RECIPE_TYPES/RECIPE_SERIALIZERS half of the original class stayed
+ * per-loader (already existed at {@code core.fabric.Recipes}/{@code core.forge.Recipes}, and now
+ * {@code core.neoforge.Recipes} too), flushing this module's sibling {@link Recipes}
+ * loader-agnostic type/serializer definitions - see those classes.
+ *
+ * <p>{@link #postProcessRecipes} intentionally omits the {@code SanguineAltarBlockEntity
+ * .computeRecipeMap} and {@code AbyssalTroveBlockEntity.computeAbyssalTroveIngredients} calls the
+ * NeoForge original made: both block entities are still neoforge-only (sanguine altar needs its
+ * networking packets ported; abyssal trove's Block class - and herbalist's lectern's - turned out to
+ * still be neoforge-only too, with fabric/forge never having registered those two Blocks in the
+ * first place - a deeper prerequisite than this session's scope), so those follow-up calls stay in
+ * NeoForge's {@code ServerLifecycleListeners} after it calls this method. Fabric/Forge don't have
+ * those block entities yet, so there is nothing for them to call.
  */
 public class RecipesRegistrar {
-    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, ModInfo.MOD_ID);
-    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, ModInfo.MOD_ID);
-
-    static {
-        Recipes.initTypes(RECIPE_TYPES::register);
-        Recipes.initSerializers(RECIPE_SERIALIZERS::register);
-    }
-
     private static final List<Pair<RecipeType<?>, IRuntimeRecipeProvider>> RECIPE_INJECTION_FUNCTIONS = new ArrayList<>();
 
     public static SeededPotionRecipes seededPotionRecipes = new SeededPotionRecipes();
@@ -89,7 +89,12 @@ public class RecipesRegistrar {
         // Add all possible vanilla brewing recipes. Don't show them in JEI because too many recipes. Players already have the vanilla brewing stand recipe viewer.
         List<ItemStack> INGREDIENTS = BuiltInRegistries.ITEM.stream().map(ItemStack::new).filter((item) -> server.potionBrewing().isIngredient(item)).toList();
         for (PotionContainer inputPotionContainer : PotionContainer.values()) {
-            List<ItemStack> POTIONS = BuiltInRegistries.POTION.holders().map((potionHolder) -> inputPotionContainer.create(potionHolder)).filter((item) -> server.potionBrewing().isInput(item)).toList();
+            // NeoForge patches a ItemStack-taking isInput(ItemStack) directly onto vanilla's
+            // PotionBrewing class (verified via javap: absent on the plain vanilla jar, present with
+            // an extra constructor/field on NeoForge's) - not portable. isBrewablePotion(Holder<Potion>)
+            // is vanilla (present on both jars) and captures the same intent (skip potions the
+            // brewing config doesn't consider brewable) filtered before building the container stack.
+            List<ItemStack> POTIONS = BuiltInRegistries.POTION.holders().filter(server.potionBrewing()::isBrewablePotion).map(inputPotionContainer::create).toList();
             POTIONS.forEach(potion -> {
                 INGREDIENTS.forEach(ingredient -> {
                     ItemStack output = server.potionBrewing().mix(ingredient, potion);
@@ -118,7 +123,6 @@ public class RecipesRegistrar {
         int numInjected = 0;
         for (Pair<RecipeType<?>, IRuntimeRecipeProvider> pair : RECIPE_INJECTION_FUNCTIONS) {
             numInjected += injectRuntimeRecipes(server, pair.getFirst(), pair.getSecond().getRuntimeRecipesToInject(server));
-            ServerLifecycleListeners.postProcessRecipes(server.getRecipeManager());
         }
         return numInjected;
     }
@@ -148,5 +152,25 @@ public class RecipesRegistrar {
         recipeManager.byName = ImmutableMap.copyOf(mutableRecipesByName);
 
         return additionalRecipes.size();
+    }
+
+    /**
+     * Recomputes the recipe analysis statics (duration/amplifier upgrades, all seeded potion
+     * recipes, all brewing cauldron recipes) plus the abyssal trove's derived ingredient set. Does
+     * NOT recompute the sanguine altar analysis's block-entity-facing side effect - see the class
+     * javadoc.
+     */
+    @SuppressWarnings("unchecked")
+    public static void postProcessRecipes(RecipeManager recipeManager) {
+        RecipeType<SanguineAltarRecipe> sanguineAltarRecipeType = (RecipeType<SanguineAltarRecipe>) (RecipeType<?>) Recipes.SANGUINE_ALTAR_RECIPE.value();
+        List<RecipeHolder<SanguineAltarRecipe>> sanguineAltarRecipes = recipeManager.getAllRecipesFor(sanguineAltarRecipeType);
+        SANGUINE_ALTAR_ANALYSIS.compute(sanguineAltarRecipes);
+
+        RecipeType<BrewingCauldronRecipe> brewingCauldronRecipeType = (RecipeType<BrewingCauldronRecipe>) (RecipeType<?>) Recipes.BREWING_CAULDRON_RECIPE.value();
+        List<RecipeHolder<BrewingCauldronRecipe>> brewingCauldronRecipes = recipeManager.getAllRecipesFor(brewingCauldronRecipeType);
+        DURATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isDurationUpgrade()).toList());
+        AMPLIFICATION_UPGRADE_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isAmplifierUpgrade()).toList());
+        ALL_SEEDED_POTION_RECIPES_ANALYSIS.compute(brewingCauldronRecipes.stream().filter(recipeHolder -> recipeHolder.value().isSeededRuntimeRecipe()).toList());
+        ALL_BCR_RECIPES_ANALYSIS.compute(brewingCauldronRecipes);
     }
 }

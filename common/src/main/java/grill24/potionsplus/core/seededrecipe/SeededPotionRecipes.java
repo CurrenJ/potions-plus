@@ -1,4 +1,4 @@
-package grill24.potionsplus.core.seededrecipe.neoforge;
+package grill24.potionsplus.core.seededrecipe;
 
 import com.google.common.collect.Sets;
 import grill24.potionsplus.core.PotionsPlus;

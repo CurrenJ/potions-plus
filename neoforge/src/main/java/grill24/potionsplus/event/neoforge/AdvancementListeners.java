@@ -1,6 +1,6 @@
 package grill24.potionsplus.event.neoforge;
 
-import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+import grill24.potionsplus.core.RecipesRegistrar;
 
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;

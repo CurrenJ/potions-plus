@@ -1,6 +1,6 @@
 package grill24.potionsplus.mixin.neoforge;
 
-import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+import grill24.potionsplus.core.RecipesRegistrar;
 
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
