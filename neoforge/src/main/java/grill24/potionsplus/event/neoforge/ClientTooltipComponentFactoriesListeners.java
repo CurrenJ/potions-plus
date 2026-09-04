@@ -1,6 +1,6 @@
 package grill24.potionsplus.event.neoforge;
 
-import grill24.potionsplus.utility.neoforge.ClientItemStacksTooltip;
+import grill24.potionsplus.utility.ClientItemStacksTooltip;
 import grill24.potionsplus.utility.ItemStacksTooltip;
 import grill24.potionsplus.utility.ModInfo;
 import net.neoforged.api.distmarker.Dist;

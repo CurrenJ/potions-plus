@@ -171,7 +171,7 @@ record it under "VERIFIED API FACTS" with the evidence.
 | 4 | Registration hubs (Fabric + Forge) | ✅ **closed 2026-09-02** — Fabric (26 files) + Forge (29 files) hubs written, all three loader modules compile green, `comm -12` empty (Decision 4a). **Exit criteria met:** runClient smoke on **all three loaders** boots to main menu — fabric + forge both log "Potions Plus (Fabric|Forge) initializing" + "Sound engine started", zero crash markers, item/block registration proven by the item-model lookups the game attempts; neoforge regression clean after the hub refactor + mixin split; clean three-loader build `BUILD SUCCESSFUL`. Two blockers found only by the smokes (invisible to compile): **mixin split** (common's config listed 16 mixins that lived in neoforge/ → 10 vanilla-only javap-verified → common, 8 neoforge-dependent → new `mixin.neoforge` package + own config) and **fabric class-init ordering NPE** (eager fabric registration: `BrewingItems` derefs `FlowerBlocks.LUNAR_BERRY_BUSH` for the `ItemNameBlockItem` → `FlowerBlocks.init` must run FIRST in the fabric `Blocks` static block). Committed `d9b2cf4`. |
 | 5 | `@ExpectPlatform` impls + networking | 🟡 **partially done 2026-09-02** — networking infra (PacketContext adapters, Forge Channel/PacketNetworkImpl, both `core/{fabric,forge}/Packets.java`) complete on all three loaders; 6/12 payloads ported to `common/` and registered cross-loader, 6 remain neoforge-only pending Phases 7/8-9/11; runtime-recipe client sync unresolved. See phase notes. |
 | 6 | Entrypoints | ✅ **closed 2026-09-02** — all checklist items were already in place from Phases 4-5 (hub work required working entrypoints to test); this phase's job was verifying the stronger exit criterion. See phase notes. |
-| 7 | Event surface (36 subscriber classes) | 🟡 **all six buckets touched 2026-09-02, none fully closed — fan-out complete, fan-in blocked on Phases 5/8/11.** Mob-effect behaviour: ✅ done (7 classes, full parity). Registration hubs: ✅ confirmed no-op (already correctly scoped). Explicit listeners: 2/6 ported (`EnchantmentListeners`, `ItemListenersMod`), 4 blocked. Tick/lifecycle: 4 core classes ported, 2 blocked (`ServerLifecycleListeners`, `ServerPlayerUtility`). Client tooltips: `AnimatedItemTooltipEvent` redesigned + `PotionEffectTooltips`/`ItemListenersGame`/`BrewingTooltips` (done 2026-09-04, Phase 11a 8th session) ported, 1 reclassified (`ClotheslineBlockEntityRenderer`→Phase 11). Commands/input: `CommonCommands`→`common/command/PpCommands.java` ported, 2 blocked (`ClientCommands`, `KeyMappingsListener`), `ClientEvents` reclassified to Phase 11. Every blocked item has grep/javap evidence in the phase notes, not a guess — the recurring blockers are Phase 5's runtime-recipe remainder (`RecipesRegistrar`/`PotionsRegistrar`), Phase 8's unsplit `behaviour` package, and Phase 11's client-registration hubs (`DynamicIconItems`, `KeyMappings`, JEI-on-all-three). See phase notes for full detail. |
+| 7 | Event surface (36 subscriber classes) | ✅ **closed 2026-09-04 (9th session).** Re-audited every remaining blocked item from the 2026-09-02 pass against current code rather than trusting the dated blocker text, since Phases 5/8/9/11 had all landed in the interim and silently cleared most of them (exactly as the doc predicted would eventually happen). Ported: `AdvancementListeners` (Forge listener + Fabric `PlayerAdvancementsMixin`), `PlayerListeners` (`onItemPickedUp` common-extracted + Fabric `ItemEntityMixin` + Forge `EntityItemPickupEvent`; `onPlayerJoin`; `ClotheslineBehaviour` moved to `common/` and the Moss+Clothesline right-click-block hook wired onto Fabric/Forge for the first time), `ClientTooltipComponentFactoriesListeners` (`ClientItemStacksTooltip` moved to `common/` — Phase 11's "no vanilla/Fabric equivalent" note turned out to be wrong, re-verified via javap), `core/ServerLifecycleListeners` (added the block-entity-facing follow-up Fabric/Forge's already-real classes were silently skipping), `ClientCommands` (Forge byte-identical port; Fabric via `FabricClientCommandSource`, a real API-shape divergence). Confirmed already done/no-op: `ClotheslineBlockEntityRenderer`'s render hook (redesigned away in Phase 11 — no per-frame dedup needed any more), `KeyMappingsListener` (landed silently via the Tick/lifecycle bucket's `TickListeners`). All six buckets' checklist items now `[x]`. `:{common,neoforge,fabric,forge}:compileJava` and `:{neoforge,fabric,forge}:build -x test` green, Decision 4a `comm -12` empty, `:{neoforge,fabric}:runServer` reach `Done` clean, `:forge:runServer` reaches `Done` then hits the pre-existing unrelated `SeededIngredientsLootTables` crash (documented in Phase 8, not a regression). One real mixin-target bug caught only by an actual `:fabric:runServer` launch (`ItemEntityMixin`'s injection target — javap settled it, see phase notes). |
 | 8 | NeoForge-only systems (full parity) | ✅ **closed 2026-09-04.** `DataAttachments`: deleted, moved onto `common/SavedData` (no NeoForge-only system left there — Decision 2's carve-out for this phase closes to plain 26.1.2-Phase-5 parity). Global loot modifiers (Wormroot, AddMobEffects): done, all three loaders, logic shared via `common/behaviour/`. Biome modifiers (lunar berry bush add/remove, dense diamond ore): done, all three loaders; fixed a live `neoforge/`-only resource leak into the Fabric/Forge jars found along the way. Server config: done, all three loaders (`ForgeConfigSpec`/hand-rolled Fabric JSON config). **Capabilities/`IItemHandler` (clothesline storage) — the last open bucket — done 2026-09-04**, closing the phase: Forge's `AttachCapabilitiesEvent<BlockEntity>`/`ICapabilityProvider`/`InvWrapper` (pre-1.20.5 shape, javap-confirmed against the 52.1.2 jar) and Fabric's `ItemStorage.SIDED.registerForBlockEntity`/`InventoryStorage.of` (javap-confirmed against the resolved `fabric-transfer-api-v1:5.4.3+c24bd99419`) both implemented and wired into their existing `Capabilities.register()` call sites. All 4 modules compile green, `:{neoforge,fabric,forge}:build -x test` green, Decision 4a `comm -12` empty, `:neoforge:runServer`/`:fabric:runServer` reach `Done`. `:forge:runServer` also reaches `Done` but then hits a **pre-existing, unrelated** `NoSuchElementException` crash in `SeededIngredientsLootTables` (confirmed via `git stash` reproduction — same crash with this session's changes removed) caused by the `golden_cubensis`/`diamour` items never being registered on Forge; not this bucket's regression, not fixed here. Not verified in-world (no GUI-automation tool to place a Clothesline and test hopper interaction). See the Phase 8 checklist and the 2026-09-04 (Capabilities session) progress-log entry for full evidence. |
 | 9 | Mixins + access widening/transformers | 🟡 **in progress, updated 2026-09-04.** Config split/wiring/refmap declaration/`--mixin.config` all done; Forge+Fabric mixin parity gaps closed (`BucketItemMixin`, `ItemEntityMixin`/`ItemEntityLifespanMixin`, `LivingEntityMixin`). Two real refmap/mixin-config bugs found via actual `runClient` launches and fixed in the 2026-09-03 session (see progress log). **All three loaders now confirmed reaching the actual main menu** (`Sound engine started`) via uncapped warm-daemon `runClient` runs, 2026-09-04 — Fabric was already confirmed, NeoForge and Forge closed this session (13s/~1min to menu respectively, zero `FATAL`/`MixinApplyError`/`Exception` lines in either full log). `RecipeManager.byType`/`byName` access widener/transformer entries added to `common/potionsplus.accesswidener` and `forge/accesstransformer.cfg` (mirroring NeoForge's pre-existing AT entries), unblocking the mechanical field-access half of `core.neoforge.RecipesRegistrar`'s runtime recipe injection cross-loader. **Updated 2026-09-04 (later session): the other three couplings closed too — `RecipesRegistrar` (renamed `core.RecipesRegistrar`) is now common/, with real runtime recipe injection wired on Fabric and Forge for the first time** (new `core.{fabric,forge}.ServerLifecycleListeners`, replacing no-op stubs). Compile green on all 4 modules, `comm -12` empty, all three loaders reach `Sound engine started` clean. See the 2026-09-04 (later) progress-log entry. Remaining: production-jar mixin-discovery verification on Forge 52.x (needs an installed packaged jar), `BlockEntityType.validBlocks` Forge association (still deferred), a full AT/AW survey as Phase 11 client work grows. |
 | 10 | Datagen sharing | ✅ **closed 2026-09-03** — `commonDatagen` Copy task added, `common/build.gradle` `duplicatesStrategy = INCLUDE` added; found and fixed two real gaps neither present on 26.1.2 (see phase notes: the `--existing` datagen arg not covering `common/`, and each platform module's own `processResources` needing `duplicatesStrategy = EXCLUDE` once it pulls both its own generated resources and common's copy of the same files). Exit criterion met: `commonDatagen` then `:fabric:build :forge:build :neoforge:build` all green, Fabric/Forge/NeoForge jars all carry matching blockstate/model/tag/sounds.json counts (27/27 blockstates), zero `neoforge`-tagged leaks in either non-NeoForge jar. |
@@ -1420,8 +1420,10 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
       (`core/{fabric,forge}/*`) from Phases 4/5. `Screens`, `Renderers`, `BlockRenderLayers`,
       `KeyMappings` are client-registration hubs correctly deferred to **Phase 11** — no fabric/forge
       files for them exist yet, and none should before that phase.
-- [~] **Explicit listeners — partially done 2026-09-02, rest genuinely blocked on other buckets/phases
-      (evidence below, not a guess).** Of the six items in this bucket, only two were free of
+- [x] **Explicit listeners — closed 2026-09-04 (9th session, re-audit).** Originally partially done
+      2026-09-02 with the rest recorded as blocked on other phases; those phases (5/9/11a) landed in
+      the interim and cleared every blocker, all six items now `[x]` — see `AdvancementListeners` and
+      `PlayerListeners` below for the 2026-09-04 entries. Of the six items in this bucket, only two were free of
       cross-bucket dependencies:
   - [x] **`EnchantmentListeners`** (`GetEnchantmentLevelEvent` → item-attribute enchantment bonus).
         Forge 52.1.2 has no such event (confirmed via javap: only `EnchantmentLevelSetEvent` exists,
@@ -1456,14 +1458,88 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
         `:{neoforge,fabric,forge}:build -x test` green (including `remapJar`/refmap generation);
         Decision 4a `comm -12` empty on all three; `:{neoforge,fabric,forge}:runServer` all reach
         `Done (...)!` with zero exceptions and no "Mixin apply failed".
-  - [ ] **`AdvancementListeners` — blocked.** Needs `RecipesRegistrar.ALL_SEEDED_POTION_RECIPES_ANALYSIS`,
-        which is neoforge-only (`neoforge/core/neoforge/RecipesRegistrar.java`) pending Phase 5's
-        remaining runtime-recipe work (Phase 5 status: "6/12 payloads ported... runtime-recipe client
-        sync unresolved"). The advancement-id set itself is trivial to port (`Utility.ppId("root")`
-        etc., already in `common/`), but the payload it drops depends on data that doesn't exist on
-        Fabric/Forge yet.
-  - [ ] **`PlayerListeners` — still blocked overall, but one of its blockers is now cleared
-        (2026-09-03).** `onItemPickedUp` still reaches `RecipesRegistrar` (Phase 5's runtime-recipe
+  - [x] **`AdvancementListeners` — done, 2026-09-04 (9th session, Phase 7 re-audit).** Re-verified
+        rather than trusted: `RecipesRegistrar` moved to `common/` in an earlier Phase 9/11a session
+        (confirmed by reading `neoforge/event/neoforge/AdvancementListeners.java` fresh - it already
+        imports `grill24.potionsplus.core.RecipesRegistrar`, not the neoforge-only class the doc's
+        blocker text still named). Ported `event/forge/AdvancementListeners.java` (new,
+        `MinecraftForge.EVENT_BUS.addListener` on `AdvancementEvent.AdvancementEarnEvent`, javap-
+        confirmed present on Forge 52.1.2 with the same `(Player, AdvancementHolder)`/`getAdvancement()`
+        shape as NeoForge's) and `fabric/mixin/fabric/PlayerAdvancementsMixin.java` (new - fabric-api
+        has no advancement-granted event, confirmed by grepping every fabric-api jar in the gradle
+        cache for "advancement": zero hits - so this mixins into
+        `PlayerAdvancements.award(AdvancementHolder, String)` instead, `@Inject at TAIL`, matching the
+        finished `dev/26.1.2` reference tree's own `fabric/mixin/fabric/PlayerAdvancementsMixin`
+        design). The advancement-id constants stay hardcoded via `Utility.ppId(...)` on both new
+        loaders rather than importing the neoforge-only `data.neoforge.AdvancementProvider` datagen
+        class (Decision 5), matching the reference tree's approach exactly. Registered in
+        `potionsplus.fabric.mixins.json` and `PotionsPlusForge`'s constructor.
+  - [x] **`PlayerListeners` — done, 2026-09-04 (9th session).** All four sub-items re-verified fresh
+        and closed:
+    - **`onItemPickedUp`**: `RecipesRegistrar` blocker was already cleared (same finding as
+          `AdvancementListeners` above), but re-reading the method turned up a **second, previously
+          undocumented blocker** the doc's dated text missed - two of the packets it sends
+          (`ClientboundSyncKnownBrewingRecipesPacket`, `ClientboundSyncPairedAbyssalTrove`) were still
+          `network.neoforge.*`. Both had zero neoforge-only imports on inspection (only
+          `PacketContext`/`SavedData`/`JeiPotionsPlusPlugin`, all already `common/`), so moved both to
+          `common/network/` verbatim and wired them into `core.{fabric,forge}.Packets.java` (11 of 12
+          payloads now shared - only `ServerboundConstructClotheslinePacket` remains loader-specific,
+          see below). Extracted the whole handler body to `common/event/PlayerListeners.java`
+          (`onItemPickedUp(ServerPlayer, ItemStack)`/`onPlayerJoin(ServerPlayer)`), matching this
+          phase's "extract every `@SubscribeEvent` body into a loader-agnostic `common` method"
+          directive; NeoForge's listener now delegates to it. Fabric: new
+          `mixin/fabric/ItemEntityMixin.java`, `@Inject` into `ItemEntity.playerTouch` at the
+          `Player.onItemPickup(ItemEntity)` invoke - **one real bug caught by actually running
+          `:fabric:runServer`, not just compiling**: an early draft "corrected" the target to
+          `LivingEntity.onItemPickup(ItemEntity)` on the theory that since the method is *declared* on
+          `LivingEntity`, the invoke's constant-pool owner must be too; that compiled clean but crashed
+          at mixin-apply with "Scanned 0 target(s)". `javap -c` on `ItemEntity.playerTouch` in the
+          NeoForge-patched merged jar settled it: javac emits `invokevirtual` against the *static* type
+          of the local (`Player pPlayer`), so the owner is `Player`, matching the original `dev/26.1.2`
+          reference target after all - reverted to that. Forge: new `event/forge/PlayerListeners.java`,
+          `EntityItemPickupEvent` (javap-confirmed on Forge 52.1.2: `(Player, ItemEntity)`, fires
+          *before* pickup unlike NeoForge's `.Post` - harmless, the shared body reduces to a
+          single-count copy for identity purposes only).
+    - **`onPlayerJoin`**: same common extraction; Fabric wired via `ServerEntityEvents.ENTITY_LOAD`
+          (fabric-lifecycle-events-v1 2.6.0, resolved version confirmed via `:fabric:dependencies`);
+          Forge via the same `EntityJoinLevelEvent` NeoForge uses (Forge 52.1.2 has the identical
+          class, javap-confirmed).
+    - **`ClotheslineBehaviour`**: re-verified all four named dependencies fresh rather than trusting
+          the doc's blocker list - `ClotheslineBlock`/`ClotheslinePart`/`ClotheslineBlockEntity` and
+          `core.blocks.BlockEntityBlocks.CLOTHESLINE`/`core.Blocks.CLOTHESLINE_BLOCK_ENTITY` were all
+          already `common/` (moved in earlier Phase 11a sessions per that phase's log); the class
+          itself still imported the *neoforge-only* `core.neoforge.Blocks` (stale, not `core.Blocks`)
+          and `network.neoforge.ServerboundConstructClotheslinePacket` (genuinely still neoforge-only).
+          Moved the packet to `common/network/` (zero neoforge imports once read: only
+          `ClotheslineBehaviour`/`BlockEntityBlocks`/`CreatePotionsPlusBlockTrigger`, all now common),
+          then moved `ClotheslineBehaviour` itself to `common/behaviour/ClotheslineBehaviour.java`,
+          refactoring `doClotheslineInteractions` from NeoForge's `PlayerInteractEvent.RightClickBlock`
+          shape to plain vanilla parameters `(Level, BlockPos, ItemStack, Player, InteractionHand) ->
+          boolean`, matching `MossBehaviour.doMossInteractions`'s established signature exactly (same
+          design its sibling used when it made the same move, per the earlier 2026-09-03 entry).
+          **Decision 4a check**: `behaviour.neoforge` still has 3 files after removing this one
+          (`AddMobEffectsLootModifier`, `LootItemModifiersBehaviour`, `WormrootLootModifier`) - no new
+          intersection created, nothing further to fix. Wired the right-click-block interaction hook
+          itself (Moss + Clothesline together, since both live in the same handler method) onto Fabric
+          (new `event/fabric/PlayerListeners.java`, `UseBlockCallback.EVENT` from
+          `fabric-events-interaction-v0` 0.7.13, javap-confirmed `interact(Player, Level,
+          InteractionHand, BlockHitResult) -> InteractionResult`) and Forge (same
+          `event/forge/PlayerListeners.java`, `PlayerInteractEvent.RightClickBlock` - the same event
+          class NeoForge's own listener uses) - this was a **previously-undocumented total gap**: prior
+          to this session, right-click-block handling for Moss/Clothesline existed on NeoForge only,
+          even though `MossBehaviour` itself had already been common/ since 2026-09-03.
+    - Verified: `:{common,neoforge,fabric,forge}:compileJava` green; Decision 4a `comm -12` empty on
+          all three; `:{neoforge,fabric,forge}:build -x test` green (mixin/refmap generation
+          included); `:{neoforge,fabric,forge}:runServer` all reach `Done (...)!` - NeoForge and
+          Fabric with zero new exceptions; Forge hits the same **pre-existing, unrelated**
+          `NoSuchElementException` in `SeededIngredientsLootTables` the Phase 8 progress log already
+          documented (golden_cubensis/diamour items never registered on Forge - confirmed by reading
+          the stack trace: it originates inside `RecipesRegistrar.injectRuntimeRecipes`, called from
+          `core.forge.ServerLifecycleListeners.onServerStarted`, a call path that predates this
+          session's changes - not a regression from this work).
+  - [x] **`PlayerListeners` (historical entry below, fully closed by the 2026-09-04 9th-session entry
+        above — kept for the evidence trail, not current status).** As of 2026-09-03: `onItemPickedUp`
+        still reaches `RecipesRegistrar` (Phase 5's runtime-recipe
         remainder). `onTick` (passive item potion effects)'s `ServerTickHandler.ticksInGame` blocker is
         now **stale** — the Tick/lifecycle bucket already moved `ServerTickHandler` to
         `common/.../utility/ServerTickHandler.java` (confirmed by re-reading the file: no loader
@@ -1491,7 +1567,43 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
         and repointing their seven call sites. Re-verified: `comm -12` empty on all three platform
         modules; `:{neoforge,fabric,forge}:build -x test` green; `:neoforge:runServer` reaches
         `Done (...)!` with zero exceptions.
-  - [ ] **`ClientTooltipComponentFactoriesListeners` — blocked.** Forge has the same
+  - [x] **`ClientTooltipComponentFactoriesListeners` — done, 2026-09-04 (9th session).** Historical
+        entry below (`DynamicIconItems` blocker) is superseded — `DynamicIconItems` got its common
+        stub hub in Phase 11a, closing that dependency before this session started. Re-verifying
+        `ClientItemStacksTooltip` fresh (rather than trusting either Phase 7's "registration is
+        trivial, the class is the blocker" text or Phase 11's later, contradictory "NeoForge's
+        tooltip-component-factory extension point itself has no vanilla/Fabric equivalent" note - the
+        task explicitly flagged these as inconsistent) found **Phase 7's original text was the correct
+        one and Phase 11's was wrong**: the class had zero real NeoForge-specific imports beyond the
+        purely decorative `net.neoforged.api.distmarker.{Dist,OnlyIn}` annotations (this module's
+        other client-only `common/` classes, e.g. `blockentity.ClotheslineBlockEntityRenderer`, don't
+        use them either - dropped here too), and every other dependency
+        (`core.items.DynamicIconItems`, `core.blocks.BlockEntityBlocks`, `persistence.{PlayerBrewingKnowledge,
+        SavedData}`, `alchemy.PotionContainer`, `core.seededrecipe.PpIngredient`) was already
+        `common/`. Moved to `common/utility/ClientItemStacksTooltip.java` verbatim (annotations
+        dropped only). Registration:
+    - **Forge**: new `event/forge/ClientTooltipComponentFactoriesListeners.java`, byte-identical
+      logic to NeoForge's - javap-confirmed `RegisterClientTooltipComponentFactoriesEvent#register(Class<T>,
+      Function<? super T, ? extends ClientTooltipComponent>)` on `forge-1.21.1-52.1.2-universal-srg.jar`
+      matches NeoForge's shape exactly. `@Mod.EventBusSubscriber(bus = MOD, value = Dist.CLIENT)`,
+      matching `core.forge.Renderers`'s established dist-gated mod-bus pattern (this event implements
+      `IModBusEvent`, confirmed via javap) - no explicit registration call needed, FML discovers it.
+    - **Fabric**: new `event/fabric/ClientTooltipComponentFactoriesListeners.java`. The exact class
+      name Phase 7's original text predicted (`ClientTooltipComponentCallback`) **does not exist** in
+      the resolved `fabric-rendering-v1` 5.1.0 jar (confirmed via jar listing) - the real class is
+      `net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback`
+      (`getComponent(TooltipComponent) -> ClientTooltipComponent`, single-return, "first non-null
+      wins" shape), a naming detail neither prior doc pass had actually verified against the jar.
+      Registered from `PotionsPlusFabricClient.onInitializeClient`.
+    - Verified: `:{common,neoforge,fabric,forge}:compileJava` green; Decision 4a `comm -12` empty;
+      `common/` still has zero real `net.neoforged`/`net.minecraftforge` imports (the class's javadoc
+      mentions the dropped annotation by name in prose, which is not an import - double-checked with
+      `grep -rl` to be sure); `:{neoforge,fabric,forge}:build -x test` green;
+      `:{neoforge,fabric,forge}:runServer` smoke (server-side only, no in-game tooltip-render
+      verification possible without a GUI-automation tool - same caveat every Phase 11 client-work
+      entry already carries).
+  - [ ] **`ClientTooltipComponentFactoriesListeners` (historical entry, superseded above) — blocked.**
+        Forge has the same
         `RegisterClientTooltipComponentFactoriesEvent` NeoForge does (confirmed via jar listing) and
         Fabric's `ClientTooltipComponentCallback.EVENT` is the documented 26.1.2 equivalent, so the
         *registration* is trivial — but the actual `ClientTooltipComponent` implementation,
@@ -1539,7 +1651,8 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
     finding — worth flagging to whoever scopes Phase 8, since those two classes are general gameplay
     behaviour, not loot modifiers). None of these are Phase-7-bucket work; they're prerequisites this
     bucket exposed.
-- [~] **Tick / lifecycle — partially done 2026-09-02.** `ClientTickHandler`, `ServerTickHandler`,
+- [x] **Tick / lifecycle — closed 2026-09-04 (9th session).** `core/ServerLifecycleListeners` (the
+      one item left blocked below) is now done too — see that entry. `ClientTickHandler`, `ServerTickHandler`,
       `TickHandler`, `DelayedEvents` moved `neoforge/utility/neoforge/` → `common/utility/` unchanged
       (pure vanilla state, `Minecraft.getInstance()` guarded by dist as before). Thin dispatchers
       added per loader:
@@ -1576,12 +1689,28 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
         three; `:{neoforge,fabric,forge}:runServer` all reach `Done (...)!` with no exceptions and no
         "Mixin apply failed" (the pre-existing `potionsplus:blocks/clothesline` loot-table parse
         warning is unrelated - a real but out-of-scope bug, same on all three loaders).
-  - [ ] **`core/ServerLifecycleListeners` — still blocked, not attempted.** Confirmed via the
-        existing fabric/forge stub class-doc comments (already correctly worded, left as-is): its
-        `onServerStarted`/`onServerAboutToStart` bodies call `RecipesRegistrar.injectRuntimeRecipes`/
-        `SANGUINE_ALTAR_ANALYSIS.compute`/etc., all neoforge-only pending Phase 5's runtime-recipe
-        remainder (same blocker already surfacing in the Explicit-listeners bucket for
-        `AdvancementListeners`/`PlayerListeners`).
+  - [x] **`core/ServerLifecycleListeners` — done, 2026-09-04 (9th session).** Historical entry below
+        is stale on two counts. First, its premise: by the time this session started, Phase 9's
+        RecipesRegistrar work had *already* replaced the old neoforge-only-blocked fabric/forge stubs
+        with real `core.{fabric,forge}.ServerLifecycleListeners` classes calling
+        `RecipesRegistrar.injectRuntimeRecipes`/`postProcessRecipes` (per Phase 9's own progress-log
+        entry) - reading those files fresh confirmed this. Second, what the task brief flagged: those
+        real classes' own class-doc comments claimed "Fabric/Forge has no sanguine-altar or
+        abyssal-trove block entity yet, so ... there is no block-entity-facing follow-up to run" -
+        **stale**, since `SanguineAltarBlockEntity`/`AbyssalTroveBlockEntity` moved to `common/` and
+        got registered on all three loaders in Phase 11's 7th/8th sessions, well after those comments
+        were written. NeoForge's `onServerStarted` runs a block-entity-facing follow-up after
+        `RecipesRegistrar.postProcessRecipes` (`SanguineAltarBlockEntity.computeRecipeMap(...)`,
+        `AbyssalTroveBlockEntity.computeAbyssalTroveIngredients()`) that Fabric/Forge's versions were
+        silently skipping. Added the same follow-up to both (`postProcessRecipes(RecipeManager)`
+        method mirroring NeoForge's exactly), confirmed both classes' imports resolve
+        (`grill24.potionsplus.blockentity.{AbyssalTroveBlockEntity,SanguineAltarBlockEntity}`, both
+        `common/`). NeoForge's `onRecipesSynced(RecipesUpdatedEvent)` hook (client-side recipe-sync
+        re-run of `postProcessRecipes`) was **not** mirrored - it's a client-only concern belonging to
+        Phase 11's client-registration scope, not this bucket, and out of this session's remit.
+        Verified: `:{common,fabric,forge}:compileJava` green; `:{fabric,forge}:runServer` reach
+        `Done (...)!` (Forge then hits the pre-existing, unrelated `SeededIngredientsLootTables` crash
+        documented under `PlayerListeners` above - same call path, not a regression from this change).
   - [ ] **`ServerPlayerUtility` — deliberately not split further.** It's a single self-contained
         `onTossItemEvent` → `Platform.onServerPlayerHeldItemChanged` listener, already correctly
         scoped to `neoforge/`, already working, and low-value to touch now: matching 26.1.2's split
@@ -1592,7 +1721,9 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
         subscribers on NeoForge here, matching 26.1.2's own `PlatformImpl` comment ("NeoForge posts a
         custom event here with zero subscribers") - so there is no missing Fabric/Forge behaviour to
         chase, only a structural split that isn't worth doing before its dependency exists.
-- [~] **Client tooltips — partially done 2026-09-02.** Adopted the direct-call
+- [x] **Client tooltips — closed 2026-09-04 (9th session).** `ClotheslineBlockEntityRenderer`'s
+      render hook (the one item left below) is now resolved as no-longer-needed — see that entry.
+      Adopted the direct-call
       `AnimatedItemTooltipEvent` redesign the Explicit-listeners bucket flagged (see 351a5c2's plan
       note): confirmed via grep that 26.1.2's `AnimatedItemTooltipEvent` is `abstract` with nested
       `Add`/`Modify` classes, called **directly** by each loader's tooltip listener — no bus event at
@@ -1655,20 +1786,24 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
         existed as Phase 7 stubs that explicitly skipped it) — one `BrewingTooltips.onBrewingTooltip(addEvent)`
         call added to each, right before the existing `PotionEffectTooltips` call, matching
         `NeoItemListeners`'s call order exactly.
-  - [ ] **`ClotheslineBlockEntityRenderer` — deferred to Phase 11, not this bucket.** It's a real
-        `BlockEntityRenderer<ClotheslineBlockEntity>` implementation (client rendering, not a tooltip)
-        that needs `core/neoforge/Renderers`'s BE-renderer registration hub — already confirmed
-        deferred to Phase 11 by the Registration-hubs bucket above (no fabric/forge `Renderers`
-        equivalent exists yet, and none should before that phase). Its one `@SubscribeEvent
-        onRender(RenderLevelStageEvent)` static hook (clears a per-frame render-dedup `Set<BlockPos>`)
-        is real Phase-7-shaped listener work, but porting only the hook without the renderer
-        registration it supports would be dead code on Fabric/Forge. Note for whoever does Phase 11:
-        26.1.2's equivalent class has **no such hook** because its 1.21.5+-era renderer pipeline
-        (`ClotheslineRenderState`) redesigned away the per-frame tracking this MC version's older
-        `BlockEntityRenderer` API still needs — 26.1.2's file is not a usable reference for this one
-        piece, unlike the rest of the class.
-- [~] **Commands / input — partially done 2026-09-02, and one bucket item reclassified as
-      mislabeled.** Of the four items in the plan's bucket table:
+  - [x] **`ClotheslineBlockEntityRenderer`'s `onRender(RenderLevelStageEvent)` hook — resolved as
+        no-longer-needed, 2026-09-04 (9th session).** Read the class fresh in `common/` (it was
+        already ported there and registered on all three loaders per Phase 11's 7th-session entry -
+        the renderer-registration half of this historical blocker is long since closed). The
+        per-frame render-dedup `@SubscribeEvent onRender(RenderLevelStageEvent)` hook this bucket item
+        was waiting on **turns out not to exist any more, by design, not by omission**: the class's
+        own `render()` method comment (`// ... Platform-neutral replacement for the old per-frame
+        "already rendered" HashSet cleared by a NeoForge RenderLevelStageEvent subscriber.`) confirms
+        whoever did the Phase 11 port already redesigned this away - each of a clothesline's two block
+        entities now decides whether to draw the shared geometry via a deterministic
+        `ClotheslineBlock.isLeftEnd(blockEntity.getBlockState())` check instead of a cross-frame
+        `Set<BlockPos>` that needed clearing every frame. Confirmed via `grep -rl
+        "RenderLevelStageEvent\|alreadyRendered"` across the whole tree: the only hit left is this
+        class's own explanatory comment - no listener anywhere still needs porting. Nothing to do on
+        any of the three loaders for this item; it is fully closed, not merely deferred.
+- [x] **Commands / input — closed 2026-09-04 (9th session).** `ClientCommands` and
+      `KeyMappingsListener` (the two items left blocked below) are both done now — see those entries.
+      Of the four items in the plan's bucket table:
   - [x] **`CommonCommands`** — moved to `common/command/PpCommands.java` (matches 26.1.2's package
         and class name exactly, confirmed by reading that tree's file). Ported every subcommand
         except `potionHand`, which needs `Potions.FLYING_TIME_POTIONS` — on 26.1.2 that's common-side
@@ -1694,19 +1829,47 @@ Fabric and Forge. `common/` still has zero `net.neoforged` imports.
       already correctly wired. Kept that single-field design in `PpCommands.expiryTime` (still default
       `6000`, unchanged live behaviour) instead of importing 26.1.2's split; repointed
       `neoforge/mixin/neoforge/ItemEntityMixin.java`'s one reference.
-  - [ ] **`ClientCommands` — blocked, not attempted.** Its only subcommand body
-        (`JeiPotionsPlusPlugin.scheduleUpdateJeiHiddenBrewingCauldronRecipes`) needs the JEI
-        integration classes, which are entirely neoforge-only today (`neoforge/client/integration/jei/*`,
-        no `fabric`/`forge` equivalents exist) — Decision 3 "JEI on all three" is **Phase 11** scope.
-        The `reveal`/`dumpResource` debug-command shell itself has no loader dependency and could be
-        split out, but doing so now would ship a `reveal` command whose entire purpose (toggling JEI's
-        hidden-recipe filter) is a no-op on Fabric/Forge until Phase 11 lands — deferred as a unit
-        rather than half-ported.
-  - [ ] **`KeyMappingsListener` — blocked, not attempted.** Its only body
-        (`KeyMappings.ACTIVATE_ABILITY.get().consumeClick()`) reads a keybinding that the
-        Registration-hubs bucket already confirmed is correctly deferred to **Phase 11** (`KeyMappings`
-        itself has no fabric/forge equivalent yet, by design — client-registration hub work). Nothing
-        to port until that keybinding exists on the other two loaders.
+  - [x] **`ClientCommands` — done, 2026-09-04 (9th session).** Re-verified rather than trusted:
+        `client.integration.jei.*` moved to `common/` in Phase 11 and JEI is wired on all three
+        loaders (per that phase's closing entry), so the blocker this bullet recorded ("Decision 3
+        'JEI on all three' is Phase 11 scope") is cleared. Ported:
+    - **Forge**: new `event/forge/ClientCommands.java`, byte-identical to NeoForge's - Forge 52.1.2's
+      `RegisterClientCommandsEvent` carries the exact same `CommandDispatcher<CommandSourceStack>`
+      shape as NeoForge's (javap-confirmed on `forge-1.21.1-52.1.2-universal-srg.jar`), so both
+      subcommand trees (`reveal`, `dumpResource`) port verbatim, including the
+      `.requires(source -> source.hasPermission(2))` guards. `@Mod.EventBusSubscriber(bus = MOD,
+      value = Dist.CLIENT)`, matching `core.forge.Renderers`'s established pattern - no explicit
+      registration call needed.
+    - **Fabric**: new `event/fabric/ClientCommands.java`, registered from
+      `PotionsPlusFabricClient.onInitializeClient`. **Not a byte-identical port** - `fabric-command-api-v2`'s
+      client command tree runs over `FabricClientCommandSource`, not `CommandSourceStack` (javap-
+      confirmed: `sendFeedback`/`sendError`/`getPlayer`/`getWorld`, no permission-check accessor of
+      any kind - client commands aren't gated by op level the way `CommandSourceStack` is), and nodes
+      are built via `ClientCommandManager.literal`/`argument` rather than
+      `net.minecraft.commands.Commands`. The `.requires(hasPermission(2))` guards have no equivalent
+      and are dropped - harmless, since the whole tree is already gated behind
+      `PotionsPlus.Debug.DEBUG` and is a client-local debug affordance, not a security boundary.
+      `ResourceLocationArgument.getId(CommandContext<CommandSourceStack>, String)` doesn't accept a
+      `CommandContext<FabricClientCommandSource>` (a real compile error hit and fixed, not
+      anticipated) - used `context.getArgument("longId", ResourceLocation.class)` instead.
+    - Verified: `:{fabric,forge}:compileJava` green; `:{fabric,forge}:build -x test` green;
+      `:{fabric,forge}:runServer` boot-to-`Done` smoke clean (this is a client-only registration path,
+      so the server smoke only proves no eager-init crash, not that the commands themselves work in a
+      client session - no GUI-automation tool available to actually run `/potionsplus reveal` and
+      check JEI's filter, same caveat every Phase 11 client-work entry already carries).
+  - [x] **`KeyMappingsListener` — confirmed already done, 2026-09-04 (9th session).** Re-verified
+        rather than trusted: this bullet's premise ("`KeyMappings` itself has no fabric/forge
+        equivalent yet") is stale. `common/core/KeyMappings.java` (shared `KeyMapping` holder) and
+        `common/event/KeyMappingsListener.java` (`onClientTick()`, the exact body this bullet was
+        waiting to port) both already exist, and **both Fabric and Forge already call
+        `KeyMappingsListener.onClientTick()` from their own `event.{fabric,forge}.TickListeners`**
+        (confirmed by reading those files directly - one line each, alongside the client-tick-handler
+        call) - this landed silently as part of the Tick/lifecycle bucket's `TickListeners` work
+        earlier in this phase, not flagged there because that bucket didn't know this bullet existed
+        yet. Fabric's key registration itself (`KeyBindingHelper.registerKeyBinding`, setting
+        `KeyMappings.ACTIVATE_ABILITY`) and Forge's (`core.forge.Renderers`'s
+        `RegisterKeyMappingsEvent` handler) were also already done, per Phase 11's status entry. No
+        code changed for this item this session - confirmed done, not ported.
   - [x] **`ClientEvents` — reclassified, not this bucket's work.** Read the file: both its methods
         (`FMLClientSetupEvent` → item-property overrides for `DynamicIconItems`;
         `RegisterParticleProvidersEvent` → particle-provider registration) are pure **Phase 11**
@@ -1759,6 +1922,55 @@ Status table.** Net tally across the whole phase:
   dependencies now, leave a plan-doc trail for the rest) means Phase 7 is now **fan-out complete but
   fan-in blocked** — closing it is a matter of finishing those other phases and returning, not
   further Phase-7-shaped investigation.
+
+**Phase 7 CLOSED — 2026-09-04 (9th session, full re-audit).** Every blocker this section listed as
+owned by another phase had, in fact, already been cleared by that phase (Phase 5's runtime-recipe
+work → `RecipesRegistrar`/`PotionsRegistrar` common since Phase 9; Phase 8's `behaviour` package
+split → done; Phase 11's `DynamicIconItems`/JEI-on-all-three/`Renderers`/`KeyMappings` → all done) -
+this session's job was re-verifying each blocker against current code rather than the dated text
+above, and porting whatever was actually unblocked. Result, item by item:
+
+- **`AdvancementListeners`** — done, all three loaders (see the Explicit-listeners bucket entry
+  above, 2026-09-04 9th session).
+- **`PlayerListeners`** — done in full, all three loaders, all three sub-concerns
+  (`onItemPickedUp`/`onPlayerJoin`/the Moss+Clothesline right-click-block interaction hook that
+  bucket item's own class shares) — see the entry above. `ClotheslineBehaviour` moved to `common/`,
+  closing the last neoforge-only piece of this bucket's original blocker list.
+- **`ClientTooltipComponentFactoriesListeners`** — done, all three loaders. The apparent contradiction
+  between this bucket's original "registration is trivial, `ClientItemStacksTooltip` is the blocker"
+  text and Phase 11's later "NeoForge's extension point itself has no equivalent" note was resolved
+  by reading the actual Forge/Fabric APIs fresh: Phase 7's original text was right, Phase 11's was
+  wrong (see the entry above for the javap evidence).
+- **`core/ServerLifecycleListeners`** — done. Phase 9's RecipesRegistrar work had already replaced
+  the neoforge-only-blocked stubs with real fabric/forge classes before this session started, but
+  those classes were missing the block-entity-facing follow-up call NeoForge's version runs (stale
+  since Phase 11's SanguineAltar/AbyssalTrove block-entity port landed after those classes were
+  written) — added.
+- **`ClotheslineBlockEntityRenderer`'s render hook** — resolved as no-longer-needed. The Phase 11
+  renderer port redesigned away the per-frame `Set<BlockPos>` this hook existed to clear, replacing
+  it with a deterministic per-block-entity check. Nothing to port.
+- **`ClientCommands`** — done, all three loaders (Fabric via `fabric-command-api-v2`'s
+  `FabricClientCommandSource`-shaped client command tree, a real API-shape divergence from
+  Forge/NeoForge, not a byte-identical port).
+- **`KeyMappingsListener`** — confirmed already done (landed silently as part of the Tick/lifecycle
+  bucket's `TickListeners` work earlier in this phase, before this bullet was re-examined).
+
+**Every one of the six buckets' checklist items is now `[x]`.** `common/` still has zero real
+`net.neoforged`/`net.minecraftforge` imports (verified via `grep -rl` across the whole `common/src`
+tree — the one hit is a javadoc mention of a dropped annotation's fully-qualified name in prose, not
+an import). Decision 4a `comm -12` empty on all three platform modules. `:{common,neoforge,fabric,
+forge}:compileJava` and `:{neoforge,fabric,forge}:build -x test` (mixin/refmap generation included)
+both green. `:{neoforge,fabric}:runServer` reach `Done (...)!` with zero new exceptions;
+`:forge:runServer` also reaches `Done (...)!` and then hits the same pre-existing, unrelated
+`SeededIngredientsLootTables` `NoSuchElementException` crash Phase 8's progress log already
+documented (golden_cubensis/diamour items never registered on Forge — confirmed via stack trace, the
+call path predates this session). One real mixin bug was caught only by an actual `:fabric:runServer`
+launch, not by compiling (`ItemEntityMixin`'s injection target — see the `PlayerListeners` entry
+above for the full javap-vs-assumption story). **Exit criterion met**: every gameplay behaviour that
+fires from an event on NeoForge now also fires on Fabric and Forge, for everything within this
+phase's own scope (buckets/items explicitly reclassified into Phase 11 — `ClientEvents`, the four
+client-registration hubs — stay correctly out of scope, per that reclassification, not left
+unfinished).
 
 ---
 
@@ -2803,3 +3015,4 @@ for Phase 2+: diff against the actual 26.1.2 tree before concluding anything. |
 | 2026-09-04 | 11a | **`AbyssalTroveBlock`/`HerbalistsLecternBlock` ported cross-loader, closing the 6th session's 3-part register-hub project — 5 of 6 block entities (all but `SanguineAltarBlockEntity`) now common/, registered + rendering on all three loaders.** Read both `Block` classes in full first, checking every import (not just the neoforge package suffix): confirmed each has exactly one real neoforge coupling, `core.neoforge.Blocks.X_BLOCK_ENTITY.get()` (3 call sites in `AbyssalTroveBlock` — `useItemOn`, `getTicker`; 4 in `HerbalistsLecternBlock` — `useItemOn`, `useWithoutItem`, `getTicker`, `getAnalogOutputSignal`), same shape as every prior ported `Block` class in this chain (Clothesline/PotionBeacon/BrewingCauldron). `git mv` both to `common/block/{AbyssalTroveBlock,HerbalistsLecternBlock}.java` (package `grill24.potionsplus.block`, matching the reference tree's package location — its file contents are for a newer MC with a `RenderState`-submission BE-renderer API not present in 1.21.1, so not literally diffable line-for-line, same situation Phase 11a step 3's `DynamicIconItems` re-abstraction already documented), swapped the import to `core.Blocks` and every `.get()` to `.value()`. Re-read both BE classes (`AbyssalTroveBlockEntity`, `HerbalistsLecternBlockEntity`) fresh rather than trusting the 6th session's "reads fully portable" note — confirmed still true (`RecipesRegistrar`, `DynamicIconItems`, `PotionUpgradeIngredients`, `SeededIngredientsLootTables`, `EffectRegistry`, `Recipes`, `MobEffects`, `BrewingCauldronRecipe` all already `common/`), `git mv` to `common/blockentity/`, same `core.neoforge.Blocks`→`core.Blocks`/`.get()`→`.value()` fix in each constructor. **One more hidden NeoForge-only API surfaced mid-move, same class of bug the 4th session hit (`Holder#getKey()`)**: `common:compileJava` failed on `HerbalistsLecternBlockEntity.RendererData#updateItemStacksToDisplay`'s `mobEffectInstance.getEffect().getKey().location()` — `Holder<MobEffect>` has no `getKey()` on vanilla, only NeoForge's patched one; fixed to `.unwrapKey().orElseThrow().location()`, matching the established codebase-wide pattern (`grep unwrapKey common/` shows 10+ existing call sites use exactly this form). Moved both renderers (`AbyssalTroveBlockEntityRenderer`, `HerbalistsLecternBlockEntityRenderer`) to `common/blockentity/` too, stripping `@OnlyIn(Dist.CLIENT)`/the `net.neoforged.api.distmarker` imports (matches how `PotionBeaconBlockEntityRenderer` already lives unannotated in `common/`) — neither had any other neoforge coupling. **Registered both underlying blocks on Fabric and Forge for the first time** (previously confirmed via `grep BREWING_CAULDRON`-style check that only 4 of 6 entries existed): added `HERBALISTS_LECTERN`/`ABYSSAL_TROVE` fields + `registerBlock.apply(...)` + `Items.registerBlockItemWithAutoModel` to both `core.{fabric,forge}.blocks.BlockEntityBlocks` (properties copied verbatim from neoforge's `SimpleBlockBuilder` calls in `core.neoforge.blocks.BlockEntityBlocks` — `herbalists_lectern`: `MapColor.WOOD`, strength 2.5, `SoundType.WOOD`; `abyssal_trove`: `MapColor.COLOR_BROWN`, strength 5.0/6.0, `SoundType.SOUL_SAND`), then the `BlockEntityType` binding on both (`core.{fabric,forge}.Blocks`, identical template to the existing `CLOTHESLINE_BLOCK_ENTITY`/`BREWING_CAULDRON_BLOCK_ENTITY` entries — Fabric via `FabricBlockEntityTypeBuilder`/`FabricRegistration`, Forge via `ForgeHolder`-wrapped `DeferredRegister<BlockEntityType<?>>` + `BlockEntityType.Builder.of(...).build(null)`) and assigned into `core.Blocks.{HERBALISTS_LECTERN,ABYSSAL_TROVE}_BLOCK_ENTITY`, now retyped from `Holder<BlockEntityType<?>>` to their concrete BE class (only `SANGUINE_ALTAR_BLOCK_ENTITY` stays untyped — updated `common/core/Blocks.java`'s javadoc to say so precisely, including the actual confirmed `SanguineAltarBlockEntity` blocker: its 2 still-neoforge-only network packets, read directly rather than guessed). Registered both renderers on Fabric (`BlockEntityRendererRegistry.register` in `PotionsPlusFabricClient`, next to the other 3) and Forge (`EntityRenderersEvent.RegisterRenderers` handler in the existing dist-gated `core/forge/Renderers.java` subscriber, next to the other 3), updating that class's own javadoc from "3 of 6" to "5 of 6". Fixed the 3 stray neoforge-path call sites found by repo-wide grep after the moves (`core.neoforge.ServerLifecycleListeners`, `event.neoforge.PlayerListeners`, `item.tooltip.neoforge.BrewingTooltips` — all just import-line fixes, `AbyssalTroveBlockEntity.computeAbyssalTroveIngredients()`/`.getAcceptedIngredients()`/`.ABYSSAL_TROVE_INGREDIENTS` call sites unchanged since the class name is the same); `core.neoforge.Blocks`/`core.neoforge.blocks.BlockEntityBlocks` needed no import-line changes since both already carry a `blockentity.*`/`block.*` wildcard import that resolves the moved common classes automatically. **Verified**: `./gradlew :common:compileJava :neoforge:compileJava :fabric:compileJava :forge:compileJava` → `BUILD SUCCESSFUL` (one real compile error hit and fixed along the way, the `Holder#getKey()` issue above). Decision 4a `comm -12` re-run empty on fabric/forge vs `common/`. **Real `runClient` smoke on all three loaders**, warm daemon: NeoForge, Fabric, and Forge each reached `[Render thread/INFO] [minecraft/SoundEngine]: Sound engine started` cleanly; grepped all three full logs for `Exception`/`FATAL`/`ERROR`/`Crash`/`MixinApplyError` and found only the pre-existing `Missing subtitle translation` noise (now naming `abyssal_trove_deposit`/`herbalists_lectern_appear`/`herbalists_lectern_disappear` too, since those sound events are reachable on Fabric/Forge for the first time — expected, not a regression). All three dev-run client JVMs identified precisely via `Get-CimInstance Win32_Process -Filter "Name='java.exe'"` (matched on `-Darchitectury.main.class=...`) and killed with `Stop-Process -Force` one loader at a time before starting the next; re-checked after each kill that only the warm gradle daemon remained. Hit one tooling snag along the way, not a code bug: the fresh log-redirect target for the first `:forge:runClient` attempt collided with a stale locked file from a much older (Aug 25) session under the same name in `$TEMP` (`Permission denied` on read/write, silent no-op in bash) — same class of issue the previous session's entry already documented for exactly this reason; fixed by using a fresh unique filename, no code implicated. **Not verified**: actually placing an abyssal trove or herbalist's lectern in a loaded world and interacting with it (inserting ingredients, watching the renderer animate/rotate) — still no GUI-automation tool in this environment, same caveat as every prior Phase 11/11a entry. **What's left in Phase 11 after this session**: only `SanguineAltarBlockEntity` (blocked on its 2 still-neoforge-only sync packets, a Phase-5-shaped move, not attempted — out of this task's explicit scope) and the `ItemStacksTooltip` tooltip-component factory (blocked on NeoForge's own client-tooltip-component-factory extension point, no vanilla/Fabric equivalent, needs its own design). Also noted but not acted on: `item/tooltip/neoforge/BrewingTooltips.java` (the ingredient-tooltip logic, distinct from `ItemStacksTooltip`) is no longer blocked on `RecipesRegistrar`/`AbyssalTroveBlockEntity` now that both are common/, but was never wired into Fabric's/Forge's `TooltipListeners` — their doc comments citing that as the reason are now stale. Not committed, per explicit instruction — changeset (`common/block/{AbyssalTroveBlock,HerbalistsLecternBlock}.java` new locations; `common/blockentity/{AbyssalTroveBlockEntity,AbyssalTroveBlockEntityRenderer,HerbalistsLecternBlockEntity,HerbalistsLecternBlockEntityRenderer}.java` new locations; edits to `common/core/Blocks.java`, `{fabric,forge}/.../core/{fabric,forge}/{Blocks,blocks/BlockEntityBlocks,Renderers or PotionsPlusFabricClient}.java`, `neoforge/.../core/neoforge/Blocks.java`, `neoforge/.../core/neoforge/ServerLifecycleListeners.java`, `neoforge/.../event/neoforge/PlayerListeners.java`, `neoforge/.../item/tooltip/neoforge/BrewingTooltips.java`, this doc) on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |
 | 2026-09-04 | 11a/7 | **8th session: `SanguineAltarBlockEntity` ported cross-loader (all 6 of 6 block entities now common/) and `BrewingTooltips` wired into Fabric/Forge — the two items this session was explicitly assigned.** Read `SanguineAltarBlockEntity`, its `State` enum, `SanguineAltarBlock`, `SanguineAltarBlockEntityRenderer`, and both sync packets (`ClientboundSanguineAltarConversionProgressPacket`/`...StatePacket`) in full before writing anything, checking every import rather than trusting the prior session's blocker note. Found the documented blocker ("packets reference the concrete BE class/enum/fields directly") was stale in exactly the way the task predicted: both packets' *only* neoforge coupling was `core.neoforge.Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get()` (fixed to `core.Blocks...value()`), and referencing the concrete `SanguineAltarBlockEntity`/`State` directly is fine once that class is `common/` too — confirmed against the finished `dev/26.1.2` reference tree, which does exactly that (`common/network/ClientboundSanguineAltarConversion{Progress,State}Packet.java` there import the BE class directly, no abstraction). `SanguineAltarBlock` (only coupling: same `core.neoforge.Blocks` lookup, 4 call sites) and `SanguineAltarBlockEntityRenderer` (only import: `core.items.DynamicIconItems`, already common since Phase 11a step 3; needed only its `@OnlyIn(Dist.CLIENT)` annotation stripped, same as every other block-entity renderer already in `common/`) were equally clean. `git mv` all 5 files (`block/SanguineAltarBlock.java`, `blockentity/{SanguineAltarBlockEntity,SanguineAltarBlockEntityRenderer}.java`, `network/ClientboundSanguineAltarConversion{Progress,State}Packet.java`) to `common/`; retyped `common/core/Blocks.java#SANGUINE_ALTAR_BLOCK_ENTITY` from `Holder<BlockEntityType<?>>` to `Holder<BlockEntityType<SanguineAltarBlockEntity>>` (the last of the six to go concrete). Registered the block + `BlockEntityType` on **Fabric and Forge for the first time** (`core.{fabric,forge}.blocks.BlockEntityBlocks` — added a `SANGUINE_ALTAR` field + `registerBlock.apply("sanguine_altar", () -> new SanguineAltarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(2.5F).requiresCorrectToolForDrops().sound(SoundType.STONE)))`, properties copied verbatim from neoforge's `SimpleBlockBuilder` call; `core.{fabric,forge}.Blocks` — identical template to the other 5 `BlockEntityType` bindings) and assigned into `core.Blocks.SANGUINE_ALTAR_BLOCK_ENTITY`. Registered the renderer on all three (Fabric `BlockEntityRendererRegistry` in `PotionsPlusFabricClient`; Forge `EntityRenderersEvent.RegisterRenderers` on the existing dist-gated `core/forge/Renderers.java` subscriber; NeoForge's existing `core/neoforge/Renderers.java` needed only a stale `blockentity.neoforge.*` import removed, since it already had a `blockentity.*` wildcard that now resolves the moved common class). Registered both packets in `core.{fabric,forge}.Packets.java` (Fabric: `clientboundCodec`/`clientbound` calls added to `registerServer`/`registerClient`; Forge: two more `.add(...)` entries on the existing `ChannelBuilder` chain) — 9 of 12 payloads now shared, up from 7; NeoForge's `core.neoforge.Packets` needed no change (already used a `network.*` wildcard import). Fixed one stray reference found by repo-wide grep after the move: `neoforge/.../core/neoforge/ServerLifecycleListeners.java`'s `SanguineAltarBlockEntity.computeRecipeMap(...)` call site needed only its import line repointed (`blockentity.neoforge.SanguineAltarBlockEntity` → `blockentity.SanguineAltarBlockEntity`); grepped the whole repo afterward for `blockentity\.neoforge\.SanguineAltar`/`block\.neoforge\.SanguineAltar`/`network\.neoforge\.ClientboundSanguineAltar` and confirmed zero remaining hits. **`BrewingTooltips`**: read its full import list fresh (`RecipesRegistrar`, `AbyssalTroveBlockEntity`, `IStoredIngredientsContainer`, `Recipes`, `Potions`, `PotionUpgradeIngredients`, `PpIngredient`, `SeededIngredientsLootTables`, `AnimatedItemTooltipEvent`, `SavedData`, `BrewingCauldronRecipe`, `alchemy.*`, `Utility`, `TooltipPriorities`) and confirmed every one is already `common/` (the two historically-named blockers, `RecipesRegistrar` and `AbyssalTroveBlockEntity`, both landed in earlier sessions this same day) — `git mv` to `common/item/tooltip/BrewingTooltips.java`, package line only. Wired into Fabric's and Forge's `TooltipListeners` (both already existed as Phase 7 stubs whose doc comments explicitly said `BrewingTooltips` was skipped as neoforge-only): added one `BrewingTooltips.onBrewingTooltip(addEvent)` call to each, immediately before the existing `PotionEffectTooltips.onPotionEffectTooltip(addEvent)` call, matching `NeoItemListeners`'s call order exactly; updated both classes' stale doc comments. **Verified**: `./gradlew :common:compileJava :neoforge:compileJava :fabric:compileJava :forge:compileJava` → `BUILD SUCCESSFUL` on the first attempt, no fixes needed beyond the writes described above. Decision 4a `comm -12` re-run empty on fabric/forge vs `common/`. **Real `:neoforge:runClient` smoke**: launched in background, polled the log for `Sound engine started`/`FAILED`/`Exception` — reached `[Render thread/INFO] [minecraft/SoundEngine]: Sound engine started` cleanly; grepped the full log for `Exception`/`ERROR` (excluding known-benign `Missing subtitle translation`/`Missing sound for event` noise) and found only a pre-existing `log4j.xml` URI-parsing `WARN`, not new. Identified the client JVM precisely via `Get-CimInstance Win32_Process` (matched `-Darchitectury.main.class=...neoforge...`) and killed the whole tree with `taskkill /F /T`; re-checked afterward — zero `neoforge`-matching `java.exe` processes remained. **`:fabric:runClient` and `:forge:runClient` were NOT run this session** — the session was checked in on and asked to wrap up before reaching them; this is an honest, explicitly-flagged gap, not a silent skip, and should be the first verification step for whoever picks this up next (the code changes are symmetric with the already-verified NeoForge path and follow the exact template of the prior 3 successful cross-loader BE ports, but that is not a substitute for an actual boot). **This closes Phase 11's block-entity exit criterion in full — 6 of 6 block entities now render/register identically on all three loaders.** The sole remaining Phase 11 item is the `ItemStacksTooltip` tooltip-component-factory extension point, still genuinely NeoForge-only (`ClientTooltipComponentFactoriesListeners` + `ItemMixin`, no vanilla/Fabric-API equivalent) — needs its own design, not a port. Not committed, per explicit instruction — changeset (`common/block/SanguineAltarBlock.java`, `common/blockentity/{SanguineAltarBlockEntity,SanguineAltarBlockEntityRenderer}.java`, `common/network/ClientboundSanguineAltarConversion{Progress,State}Packet.java`, `common/item/tooltip/BrewingTooltips.java` new locations; edits to `common/core/Blocks.java`, `{fabric,forge}/.../core/{fabric,forge}/{Blocks,blocks/BlockEntityBlocks,Packets}.java`, `fabric/.../core/fabric/PotionsPlusFabricClient.java`, `forge/.../core/forge/Renderers.java`, `{fabric,forge}/.../event/{fabric,forge}/TooltipListeners.java`, `neoforge/.../core/neoforge/{Blocks,Renderers}.java`, `neoforge/.../core/neoforge/blocks/BlockEntityBlocks.java`, `neoforge/.../core/neoforge/ServerLifecycleListeners.java`, `neoforge/.../event/neoforge/NeoItemListeners.java`, this doc) on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |
 | 2026-09-04 | 8 | **Capabilities/`IItemHandler` (clothesline storage) — done, closing Phase 8.** `ClotheslineBlock`/`ClotheslineBlockEntity` already lived in `common/` and were already registered on all three loaders from an earlier Phase 11a session, so this was purely the capability-wiring bucket. Implemented `forge/.../core/forge/Capabilities.java`: javap against `forge-1.21.1-52.1.2-universal-srg.jar` (gradle cache) confirmed the plan's warning — 1.21.1 Forge 52.1.2 still uses the pre-1.20.5 shape (`AttachCapabilitiesEvent<BlockEntity>` + `ICapabilityProvider` returning `LazyOptional<T>` + `ForgeCapabilities.ITEM_HANDLER`), not 26.1.2's `RegisterCapabilitiesEvent`/`BlockCapability` API (that class name exists in the jar but is an unrelated old per-mod declaration event); javap on the forge-patched `minecraft-merged-srg-patched.jar` confirmed `BlockEntity` already `extends CapabilityProvider<BlockEntity>`; javap confirmed `net.minecraftforge.items.wrapper.InvWrapper(Container)` at the same package path as NeoForge's. Wired via `MinecraftForge.EVENT_BUS`, matching this module's existing `CommandListeners`/`TickListeners` explicit-registration convention. **One real bug an actual `:forge:runServer` smoke caught that compilation didn't**: `AttachCapabilitiesEvent<T> extends GenericEvent<T>`, so `IEventBus.addListener(...)` throws `IllegalArgumentException` at mod-construction time ("use addGenericListener"); fixed by javap-verifying `IEventBus`'s overloads against `eventbus-6.2.32.jar` and switching to `addGenericListener(BlockEntity.class, ...)`. Implemented `fabric/.../core/fabric/Capabilities.java`: javap against the *actually resolved* `fabric-transfer-api-v1:5.4.3+c24bd99419` (read off `fabric-api-0.116.7+1.21.1.pom`'s own dependency list, not assumed) confirmed `ItemStorage.SIDED` is a `BlockApiLookup<Storage<ItemVariant>, Direction>` (no `ContainerStorage` class exists in this jar at all), `BlockApiLookup.registerForBlockEntity(BiFunction<? super T, C, A>, BlockEntityType<T>)` (from the separate `fabric-api-lookup-api-v1:1.6.71+b559734419` module), and `InventoryStorage.of(Container, Direction)` — matching the plan's 1.21.1-era naming exactly. Both `Capabilities.register()` call sites already existed as no-op stub calls in `PotionsPlusForge`'s constructor and `PotionsPlusFabric.onInitialize()` from an earlier session, so no entrypoint wiring was needed. **Verified:** `:common:compileJava :neoforge:compileJava :fabric:compileJava :forge:compileJava` green; `:neoforge:build :fabric:build :forge:build -x test` green; Decision 4a `comm -12` empty on fabric/forge vs `common/`. `:neoforge:runServer` and `:fabric:runServer` reach `Done (...)!` with zero new exceptions (Fabric's pre-existing `golden_cubensis`/`diamour` item-registration-gap noise is unchanged, unrelated). `:forge:runServer` also reaches `Done (...)!` but then crashes ~2s later with `NoSuchElementException` inside `SeededIngredientsLootTables.getItemsInTags` (via `RecipesRegistrar.injectRuntimeRecipes` → `ServerLifecycleListeners.onServerStarted`) — **confirmed pre-existing via `git stash`**: stashing both `Capabilities.java` changes and re-running `:forge:runServer` reproduces the identical crash at the identical stack trace, so this is Forge hitting the same never-registered `golden_cubensis`/`diamour` items Fabric's `RecipesRegistrar` path happens to tolerate; real, but unrelated to this bucket and not fixed here (not yet tracked as its own checklist item — worth adding when someone next touches `core.{fabric,forge}.items.OreItems` or `RecipesRegistrar`). Killed all `runServer` JVMs cleanly after each smoke, confirmed via `Get-CimInstance Win32_Process` (`architectury.main.class` match) that none were left orphaned. **Not verified in-world**: no GUI-automation tool in this environment to place a Clothesline and confirm a hopper/other `IItemHandler` consumer can actually insert/extract through the new capability — `runServer` proves registration + zero crash at attach/query-setup time, not the runtime query path itself. **This closes Phase 8 in full** — all four buckets (`DataAttachments`, global loot modifiers, biome modifiers, server config, and now Capabilities) are done. |
+| 2026-09-04 | 7 | **Phase 7 re-audit and closure (9th session).** Re-verified every remaining Phase 7 blocker against current code instead of trusting the 2026-09-02/03 dated blocker text, since Phases 5/8/9/11 had all landed in the interim. All six previously-recorded blockers had already cleared silently (RecipesRegistrar → common since Phase 9; ClotheslineBlock/BlockEntity → common since Phase 11a; DynamicIconItems → common stub hub since Phase 11a; JEI → all three loaders since Phase 11; KeyMappings → common since an untracked earlier session). Ported: `AdvancementListeners` (new `event/forge/AdvancementListeners.java`, `MinecraftForge.EVENT_BUS` listener on `AdvancementEvent.AdvancementEarnEvent`; new `fabric/mixin/fabric/PlayerAdvancementsMixin.java`, injecting into `PlayerAdvancements.award` since fabric-api has no advancement-granted event — confirmed via grep across every fabric-api jar in the gradle cache). `PlayerListeners` in full: extracted `onItemPickedUp`/`onPlayerJoin` to `common/event/PlayerListeners.java`; moved 2 previously-undocumented-blocked packets (`ClientboundSyncKnownBrewingRecipesPacket`, `ClientboundSyncPairedAbyssalTrove`) to `common/network/`, bringing shared payloads to 11/12; new `fabric/mixin/fabric/ItemEntityMixin.java` (item pickup) and `fabric/event/fabric/PlayerListeners.java` (join sync + `UseBlockCallback` for Moss/Clothesline right-click); new `forge/event/forge/PlayerListeners.java` (`EntityItemPickupEvent`/`EntityJoinLevelEvent`/`PlayerInteractEvent.RightClickBlock`); moved `ClotheslineBehaviour` to `common/behaviour/ClotheslineBehaviour.java`, refactoring `doClotheslineInteractions` to `MossBehaviour`'s plain-vanilla-parameter signature, and moved `ServerboundConstructClotheslinePacket` to `common/network/`. `ClientTooltipComponentFactoriesListeners`: moved `ClientItemStacksTooltip` to `common/utility/`, resolving the contradiction the task flagged between Phase 7's and Phase 11's dated blocker notes in Phase 7's favor (re-verified via reading the class and javap on both loaders' actual event APIs — Forge has the identical `RegisterClientTooltipComponentFactoriesEvent`, Fabric's real class is `TooltipComponentCallback`, not the `ClientTooltipComponentCallback` name either doc pass had guessed); new `event/{fabric,forge}/ClientTooltipComponentFactoriesListeners.java`. `core/ServerLifecycleListeners`: added the `SanguineAltarBlockEntity.computeRecipeMap`/`AbyssalTroveBlockEntity.computeAbyssalTroveIngredients` follow-up to Fabric's and Forge's already-real (Phase 9) classes, which were silently missing it since their class-doc comments predated Phase 11's block-entity port. `ClientCommands`: new `event/forge/ClientCommands.java` (byte-identical to NeoForge's — Forge 52.1.2's `RegisterClientCommandsEvent` has the identical `CommandDispatcher<CommandSourceStack>` shape) and `event/fabric/ClientCommands.java` (real divergence — `fabric-command-api-v2`'s `FabricClientCommandSource` has no permission-check accessor, so the `.requires(hasPermission(2))` guards are dropped, harmless since the whole tree is `PotionsPlus.Debug.DEBUG`-gated already). Confirmed already resolved with no code change: `ClotheslineBlockEntityRenderer`'s per-frame render-dedup hook (Phase 11's renderer port redesigned it away — a deterministic `ClotheslineBlock.isLeftEnd` check replaced the `Set<BlockPos>` this hook existed to clear) and `KeyMappingsListener` (Fabric/Forge already call `common/event/KeyMappingsListener.onClientTick()` from their `TickListeners`, landed silently during the Tick/lifecycle bucket's earlier work in this same phase). **One real bug caught only by an actual `:fabric:runServer` launch, not by compiling**: `ItemEntityMixin`'s injection target — an early draft "corrected" it from the reference tree's `Player.onItemPickup(ItemEntity)` to `LivingEntity.onItemPickup(ItemEntity)` on the theory that the invoke's constant-pool owner must match the method's *declaring* class; that compiled clean but failed mixin-apply with "Scanned 0 target(s)". `javap -c` on the actual compiled bytecode of `ItemEntity.playerTouch` settled it: javac emits the invokevirtual against the local variable's *static* type (`Player`), not the method's declaring class — reverted to the original reference target. **Verified**: `:{common,neoforge,fabric,forge}:compileJava` green; Decision 4a `comm -12` empty on all three platform modules; `common/` still zero real `net.neoforged`/`net.minecraftforge` imports; `:{neoforge,fabric,forge}:build -x test` green (mixin/refmap generation included, all three jars produced); `:neoforge:runServer` and `:fabric:runServer` reach `Done (...)!` with zero new exceptions; `:forge:runServer` also reaches `Done (...)!` then hits the same pre-existing, unrelated `SeededIngredientsLootTables` `NoSuchElementException` crash Phase 8's progress log already documented (confirmed via stack trace: originates in `RecipesRegistrar.injectRuntimeRecipes`, called from `core.forge.ServerLifecycleListeners.onServerStarted`, a call path unchanged by this session's edits). All `runServer` JVMs killed cleanly after each smoke, confirmed via `Get-CimInstance Win32_Process` that none were left orphaned. **This closes Phase 7 in full** — all six buckets' checklist items are `[x]`. |

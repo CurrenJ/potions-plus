@@ -15,15 +15,16 @@ import java.util.function.BiConsumer;
  * Fabric packet registration hub. Fabric splits registration between the server entrypoint
  * ({@link #registerServer()}) and the client entrypoint ({@link #registerClient()}).
  *
- * 9 payloads (of 12) are wired here as of Phase 11a - {@code ClientboundAcquiredBrewingRecipeKnowledgePacket}
- * moved to {@code common/network/} in an earlier Phase 11a session (its only remaining dependency,
- * {@code JeiPotionsPlusPlugin}, is already common), and {@code
- * ClientboundSanguineAltarConversion{State,Progress}Packet} moved alongside {@code
- * SanguineAltarBlockEntity} itself in a later session. The remaining 3 ({@code
- * ServerboundConstructClotheslinePacket} depends on {@code ClotheslineBehaviour};
- * {@code ClientboundSyncKnownBrewingRecipesPacket} and {@code ClientboundSyncPairedAbyssalTrove}
- * depend on {@code JeiPotionsPlusPlugin} plus other still-neoforge-only BE classes) stay registered
- * only in {@code core/neoforge/Packets.java} until those dependencies move to {@code common/}.
+ * 11 payloads (of 12) are wired here as of Phase 7 (2026-09-04 re-audit) - {@code
+ * ClientboundAcquiredBrewingRecipeKnowledgePacket} moved to {@code common/network/} in an earlier
+ * Phase 11a session (its only remaining dependency, {@code JeiPotionsPlusPlugin}, is already
+ * common), {@code ClientboundSanguineAltarConversion{State,Progress}Packet} moved alongside {@code
+ * SanguineAltarBlockEntity} itself in a later session, and {@code ClientboundSyncKnownBrewingRecipesPacket}/
+ * {@code ClientboundSyncPairedAbyssalTrove} moved to {@code common/network/} this session (read fresh:
+ * both had zero neoforge imports despite living in {@code network.neoforge} - only {@code
+ * JeiPotionsPlusPlugin}/{@code SavedData}, both already common). The sole remaining payload,
+ * {@code ServerboundConstructClotheslinePacket}, stays registered only in {@code core/neoforge/Packets.java}
+ * until it - or the {@code ClotheslineBehaviour} it depends on - moves to {@code common/}.
  */
 public class Packets {
     public static void registerServer() {
@@ -46,6 +47,8 @@ public class Packets {
         clientboundCodec(ClientboundAcquiredBrewingRecipeKnowledgePacket.TYPE, ClientboundAcquiredBrewingRecipeKnowledgePacket.STREAM_CODEC);
         clientboundCodec(ClientboundSanguineAltarConversionStatePacket.TYPE, ClientboundSanguineAltarConversionStatePacket.STREAM_CODEC);
         clientboundCodec(ClientboundSanguineAltarConversionProgressPacket.TYPE, ClientboundSanguineAltarConversionProgressPacket.STREAM_CODEC);
+        clientboundCodec(ClientboundSyncKnownBrewingRecipesPacket.TYPE, ClientboundSyncKnownBrewingRecipesPacket.STREAM_CODEC);
+        clientboundCodec(ClientboundSyncPairedAbyssalTrove.TYPE, ClientboundSyncPairedAbyssalTrove.STREAM_CODEC);
     }
 
     public static void registerClient() {
@@ -78,6 +81,10 @@ public class Packets {
                 ClientboundSanguineAltarConversionStatePacket.ClientPayloadHandler::handleDataOnMain);
         clientbound(ClientboundSanguineAltarConversionProgressPacket.TYPE, ClientboundSanguineAltarConversionProgressPacket.STREAM_CODEC,
                 ClientboundSanguineAltarConversionProgressPacket.ClientPayloadHandler::handleDataOnMain);
+        clientbound(ClientboundSyncKnownBrewingRecipesPacket.TYPE, ClientboundSyncKnownBrewingRecipesPacket.STREAM_CODEC,
+                ClientboundSyncKnownBrewingRecipesPacket.ClientPayloadHandler::handleDataOnMain);
+        clientbound(ClientboundSyncPairedAbyssalTrove.TYPE, ClientboundSyncPairedAbyssalTrove.STREAM_CODEC,
+                ClientboundSyncPairedAbyssalTrove.ClientPayloadHandler::handleDataOnMain);
     }
 
     private static <T extends CustomPacketPayload> void clientboundCodec(

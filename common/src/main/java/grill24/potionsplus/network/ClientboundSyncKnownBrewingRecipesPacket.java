@@ -1,4 +1,4 @@
-package grill24.potionsplus.network.neoforge;
+package grill24.potionsplus.network;
 
 import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.core.PotionsPlus;
@@ -9,7 +9,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
-import grill24.potionsplus.network.PacketContext;
 
 import java.util.List;
 

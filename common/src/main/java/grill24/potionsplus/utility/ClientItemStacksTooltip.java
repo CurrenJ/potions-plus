@@ -1,7 +1,7 @@
-package grill24.potionsplus.utility.neoforge;
+package grill24.potionsplus.utility;
 
-import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.alchemy.PotionContainer;
+import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -15,13 +15,23 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.io.IOException;
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
+/**
+ * Moved to {@code common/} 2026-09-04 (Phase 7 re-audit). Read fresh rather than trusting Phase
+ * 11's dated blocker note ("NeoForge's client tooltip-component-factory extension point itself has
+ * no vanilla/Fabric equivalent") - that note was wrong, and this class itself was the only real
+ * blocker: it had zero NeoForge-specific imports beyond the purely decorative
+ * {@code net.neoforged.api.distmarker.{Dist,OnlyIn}} annotations (dropped here - this module's
+ * other client-only common classes, e.g. {@code blockentity.ClotheslineBlockEntityRenderer}, don't
+ * use them either), and every real dependency ({@link DynamicIconItems}, {@link BlockEntityBlocks},
+ * {@link PlayerBrewingKnowledge}/{@link SavedData}, {@link PotionContainer}/{@link PpIngredient}) is
+ * common/ already (Phase 11a's {@code DynamicIconItems} re-abstraction was the last piece). The
+ * registration side ({@code event.{fabric,forge,neoforge}.ClientTooltipComponentFactoriesListeners})
+ * has its own extension point per loader - see those classes.
+ */
 public class ClientItemStacksTooltip implements ClientTooltipComponent {
     private static final int MARGIN_Y = 4;
     private static final int BORDER_WIDTH = 1;
@@ -120,7 +130,6 @@ public class ClientItemStacksTooltip implements ClientTooltipComponent {
         return isShowing() ? (int) (Math.ceil(this.items.size() / (double) gridSizeX())) : 0;
     }
 
-    @OnlyIn(Dist.CLIENT)
     static enum Texture {
         BLOCKED_SLOT(ResourceLocation.withDefaultNamespace("container/bundle/blocked_slot"), 18, 20),
         SLOT(ResourceLocation.withDefaultNamespace("container/bundle/slot"), 18, 20);

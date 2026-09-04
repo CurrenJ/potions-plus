@@ -1,62 +1,77 @@
-package grill24.potionsplus.behaviour.neoforge;
+package grill24.potionsplus.behaviour;
 
 import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.block.ClotheslinePart;
 import grill24.potionsplus.blockentity.ClotheslineBlockEntity;
-import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
-import grill24.potionsplus.network.neoforge.ServerboundConstructClotheslinePacket;
+import grill24.potionsplus.network.ServerboundConstructClotheslinePacket;
+import grill24.potionsplus.platform.PacketNetwork;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import grill24.potionsplus.platform.PacketNetwork;
 
 import java.util.Optional;
 
+/**
+ * Moved to {@code common/} 2026-09-04 (Phase 7 re-audit) - its four former blockers
+ * ({@code ClotheslineBlock}, {@code ClotheslineBlockEntity}, {@code core.neoforge.Blocks},
+ * {@code ServerboundConstructClotheslinePacket}) all moved to {@code common/} in earlier Phase 11a
+ * sessions except the packet, moved alongside this class in this session. {@code
+ * doClotheslineInteractions} is refactored from NeoForge's {@code PlayerInteractEvent.RightClickBlock}
+ * shape to plain vanilla parameters returning a {@code boolean} (handled/should-cancel), matching
+ * {@link MossBehaviour#doMossInteractions} exactly - same design this class's sibling used when it
+ * made the same move.
+ */
 public class ClotheslineBehaviour {
     private static final Item INTERACTION_ITEM = Items.STRING;
 
     private static boolean firstBlockClicked = false;
     private static BlockPos firstBlockPos = BlockPos.ZERO;
 
-    public static void doClotheslineInteractions(PlayerInteractEvent.RightClickBlock event) {
-
-        BlockPos pos = event.getPos();
-        BlockState state = event.getLevel().getBlockState(pos);
-        Item item = event.getItemStack().getItem();
+    /**
+     * @return {@code true} if a clothesline interaction handled the right-click and the vanilla
+     * interaction should be canceled.
+     */
+    public static boolean doClotheslineInteractions(Level level, BlockPos pos, ItemStack itemStack, Player player, InteractionHand hand) {
+        BlockState state = level.getBlockState(pos);
+        Item item = itemStack.getItem();
         if ((state.is(BlockTags.FENCES) || state.is(BlockTags.WALLS)) && item == INTERACTION_ITEM) {
-            event.setCanceled(true);
-            if (!event.getLevel().isClientSide)
-                return;
-            event.getEntity().swing(event.getHand());
+            if (!level.isClientSide) {
+                return true;
+            }
+            player.swing(hand);
 
             if (!firstBlockClicked) {
                 firstBlockPos = pos;
                 firstBlockClicked = true;
 
-                spawnParticles(event.getLevel(), firstBlockPos);
+                spawnParticles(level, firstBlockPos);
             } else {
                 // Check if the second block is in the same line as the first block
                 if (firstBlockPos.getX() == pos.getX() || firstBlockPos.getZ() == pos.getZ()) {
-                    spawnParticles(event.getLevel(), pos);
+                    spawnParticles(level, pos);
                     firstBlockClicked = false;
 
                     PacketNetwork.sendToServer(new ServerboundConstructClotheslinePacket(firstBlockPos, pos));
                 } else {
                     firstBlockPos = pos;
-                    spawnParticles(event.getLevel(), firstBlockPos);
+                    spawnParticles(level, firstBlockPos);
                 }
             }
+            return true;
         }
+        return false;
     }
 
     public static void replaceWithClothelines(Level level, BlockPos pos, BlockPos otherPos) {

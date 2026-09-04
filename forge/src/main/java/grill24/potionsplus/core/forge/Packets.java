@@ -19,8 +19,9 @@ import java.util.function.BiConsumer;
  * {@link ChannelBuilder} + {@link Channel} with the {@code payloadChannel()} variant (confirmed present
  * on Forge 52.1.2 via javap).
  *
- * 9 payloads (of 12) are wired here as of Phase 11a — see {@code core/fabric/Packets.java} for
- * why the other 3 stay NeoForge-only for now.
+ * 11 payloads (of 12) are wired here as of Phase 7 (2026-09-04 re-audit) — see
+ * {@code core/fabric/Packets.java} for why the last one ({@code ServerboundConstructClotheslinePacket})
+ * stays NeoForge-only for now.
  */
 public class Packets {
     public static Channel<CustomPacketPayload> CHANNEL;
@@ -83,6 +84,16 @@ public class Packets {
                         ClientboundSanguineAltarConversionProgressPacket.TYPE,
                         playCodec(ClientboundSanguineAltarConversionProgressPacket.STREAM_CODEC),
                         handled((pkt, ctx) -> ClientboundSanguineAltarConversionProgressPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
+                )
+                .add(
+                        ClientboundSyncKnownBrewingRecipesPacket.TYPE,
+                        playCodec(ClientboundSyncKnownBrewingRecipesPacket.STREAM_CODEC),
+                        handled((pkt, ctx) -> ClientboundSyncKnownBrewingRecipesPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
+                )
+                .add(
+                        ClientboundSyncPairedAbyssalTrove.TYPE,
+                        playCodec(ClientboundSyncPairedAbyssalTrove.STREAM_CODEC),
+                        handled((pkt, ctx) -> ClientboundSyncPairedAbyssalTrove.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
 
                 .build();

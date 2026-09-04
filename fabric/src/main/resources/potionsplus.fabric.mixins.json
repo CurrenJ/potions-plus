@@ -7,9 +7,11 @@
     "BucketItemMixin",
     "EnchantmentHelperMixin",
     "ItemEntityLifespanMixin",
+    "ItemEntityMixin",
     "ItemMixin",
     "LivingEntityMixin",
-    "LootTableMixin"
+    "LootTableMixin",
+    "PlayerAdvancementsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

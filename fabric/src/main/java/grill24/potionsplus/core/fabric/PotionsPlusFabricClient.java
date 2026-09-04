@@ -45,6 +45,8 @@ public class PotionsPlusFabricClient implements ClientModInitializer {
 
         // Client tooltips bucket (Phase 7).
         grill24.potionsplus.event.fabric.TooltipListeners.registerClient();
+        grill24.potionsplus.event.fabric.ClientTooltipComponentFactoriesListeners.registerClient();
+        grill24.potionsplus.event.fabric.ClientCommands.registerClient();
 
         // Particle providers (Phase 11). 1.21.1-era fabric-api still exposes
         // ParticleFactoryRegistry (not the later ParticleProviderRegistry rename) - see
