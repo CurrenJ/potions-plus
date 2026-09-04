@@ -1,6 +1,5 @@
 package grill24.potionsplus.client.integration.jei;
 
-import grill24.potionsplus.blockentity.neoforge.BrewingCauldronBlockEntity;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
@@ -45,8 +44,14 @@ public class BrewingCauldronRecipeCategory implements IRecipeCategory<BrewingCau
 
     private static final Map<Integer, Point[]> INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT = new HashMap<>();
 
+    // Mirrors BrewingCauldronBlockEntity.CONTAINER_SIZE (currently neoforge-only; not yet ported to
+    // common - see docs/multi-loader-expansion.md Phase 11 progress log). Decoupled here so the JEI
+    // plugin, which is otherwise fully portable, doesn't have to wait on that port. Reconcile if the
+    // BE's container size ever changes.
+    private static final int BREWING_CAULDRON_CONTAINER_SIZE = 6;
+
     static {
-        for (int i = 0; i < BrewingCauldronBlockEntity.CONTAINER_SIZE; i++) {
+        for (int i = 0; i < BREWING_CAULDRON_CONTAINER_SIZE; i++) {
             INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT.put(i, Utility.getPointsOnACircle(i, 20, 38 - 8, 31 - 8));
         }
     }

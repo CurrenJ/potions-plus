@@ -1,4 +1,4 @@
-package grill24.potionsplus.particle.neoforge;
+package grill24.potionsplus.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -6,14 +6,11 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SimpleAnimatedParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
-public class BloodGobParticle extends SimpleAnimatedParticle {
-    BloodGobParticle(ClientLevel clientLevel, double x, double y, double z, double dx, double dy, double dz, SpriteSet spriteSet) {
+public class LightningBoltParticle extends SimpleAnimatedParticle {
+    LightningBoltParticle(ClientLevel clientLevel, double x, double y, double z, double dx, double dy, double dz, SpriteSet spriteSet) {
         super(clientLevel, x, y, z, spriteSet, 0);
-        this.quadSize *= 0.25F + this.random.nextFloat() * 0.25F;
+        this.quadSize *= 0.5F + this.random.nextFloat() * 0.5F;
         this.lifetime = 15 + this.random.nextInt(10);
         this.setPower(0.2F);
         this.xd = dx;
@@ -29,7 +26,6 @@ public class BloodGobParticle extends SimpleAnimatedParticle {
         this.setLocationFromBoundingbox();
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprites;
 
@@ -38,14 +34,14 @@ public class BloodGobParticle extends SimpleAnimatedParticle {
         }
 
         public Particle createParticle(SimpleParticleType p_106566_, ClientLevel p_106567_, double p_106568_, double p_106569_, double p_106570_, double p_106571_, double p_106572_, double p_106573_) {
-            return new BloodGobParticle(p_106567_, p_106568_, p_106569_, p_106570_, p_106571_, p_106572_, p_106573_, this.sprites);
+            return new LightningBoltParticle(p_106567_, p_106568_, p_106569_, p_106570_, p_106571_, p_106572_, p_106573_, this.sprites);
         }
     }
 
     @Override
-    public void setSpriteFromAge(SpriteSet spriteSet) {
+    public void setSpriteFromAge(SpriteSet sprite) {
         if (!this.removed) {
-            this.setSprite(spriteSet.get(this.age, this.lifetime));
+            this.setSprite(sprite.get((this.age * 2) % this.lifetime, this.lifetime));
         }
     }
 }

@@ -175,7 +175,7 @@ record it under "VERIFIED API FACTS" with the evidence.
 | 8 | NeoForge-only systems (full parity) | 🟡 **in progress 2026-09-03.** `DataAttachments`: ✅ deleted, moved onto `common/SavedData` (no NeoForge-only system left there — Decision 2's carve-out for this phase now closes to plain 26.1.2-Phase-5 parity). Global loot modifiers (Wormroot, AddMobEffects): ✅ done, all three loaders, logic shared via `common/behaviour/`. Biome modifiers (lunar berry bush add/remove, dense diamond ore): ✅ done, all three loaders; fixed a live `neoforge/`-only resource leak into the Fabric/Forge jars found along the way. Remaining: Capabilities/`IItemHandler` (clothesline storage), server config — not started. |
 | 9 | Mixins + access widening/transformers | 🟡 **in progress 2026-09-03.** Config split/wiring/refmap declaration/`--mixin.config` all done; Forge+Fabric mixin parity gaps closed (`BucketItemMixin`, `ItemEntityMixin`/`ItemEntityLifespanMixin`, `LivingEntityMixin`). **Two real latent bugs found via actual `runClient` launches (not just green builds) and fixed**: (1) refmap AP was silently disabled by newer loom, so no refmap was ever generated; (2) a shared refmap filename between `common` and each platform let shadowJar-order clobber one with the other, *and* — the real fix — Architectury's own dev-time remap system requires the shared `common` mixin config to **not** hardcode a `"refmap"` path at all (it warns about this explicitly: `contains 'refmap', please remove it so it works in development environment!`); declaring one made Forge's dev launch crash applying `BootstrapMixin` (`@Inject ... target class 'net/minecraft/class_2966' ... not supported` — a stray Fabric-intermediary id). `:forge:runClient` now clears the mixin-apply phase clean (reaches Datafixer Bootstrap, zero errors); `:fabric:runClient`/`:neoforge:runClient` show zero errors in the same window. Remaining: full main-menu boot confirmation (30s smoke runs don't reach it), production-jar mixin-discovery verification, `BlockEntityType.validBlocks` Forge association (still deferred), Capabilities/AT survey beyond the small set needed today. |
 | 10 | Datagen sharing | ✅ **closed 2026-09-03** — `commonDatagen` Copy task added, `common/build.gradle` `duplicatesStrategy = INCLUDE` added; found and fixed two real gaps neither present on 26.1.2 (see phase notes: the `--existing` datagen arg not covering `common/`, and each platform module's own `processResources` needing `duplicatesStrategy = EXCLUDE` once it pulls both its own generated resources and common's copy of the same files). Exit criterion met: `commonDatagen` then `:fabric:build :forge:build :neoforge:build` all green, Fabric/Forge/NeoForge jars all carry matching blockstate/model/tag/sounds.json counts (27/27 blockstates), zero `neoforge`-tagged leaks in either non-NeoForge jar. |
-| 11 | Client (renderers, particles, tooltips, colors, models, JEI ×3) | ⬜ not started |
+| 11 | Client (renderers, particles, tooltips, colors, models, JEI ×3) | 🟡 **partial 2026-09-03** — particles, key mappings, item-tint color, and JEI (incl. build.gradle wiring + a real `modRuntimeOnly` fix) done and smoke-verified on all three loaders. **BE renderers, block (cauldron water) tint, and the `ItemStacksTooltip` component factory are genuinely blocked**: the concrete BlockEntity logic classes (`BrewingCauldronBlockEntity` et al.) and `DynamicIconItems` were never ported off neoforge in an earlier phase, so there is nothing on Fabric/Forge for a renderer/tint/tooltip-factory to target yet. See progress log for full detail. |
 | 12 | Tests (unit + game tests, three loaders) | ⬜ not started |
 | 13 | Verification | ⬜ not started |
 
@@ -2175,48 +2175,96 @@ models/blockstates/tags/`sounds.json`.
 
 *(= 26.1.2 Phase 8.)*
 
-- [ ] **Fabric** (`PotionsPlusFabricClient.onInitializeClient`): BE renderers, entity renderers,
-      model layers, sprite + emitter particles, item/block color handlers, tooltip component
-      factories, key mappings (`KeyBindingHelper.registerKeyBinding`), screens
-      (`MenuScreens.register`).
-      **1.21.1-era API names differ from 26.1.2's** — `ParticleFactoryRegistry` not
-      `ParticleProviderRegistry`, `EntityModelLayerRegistry` not `ModelLayerRegistry`,
-      `ColorProviderRegistry` for tints, and `BlockEntityRendererRegistry`/`EntityRendererRegistry`
-      are still the live fabric-api entry points on 1.21.1 (not yet deprecated in favour of vanilla
-      statics). Verify each against the fabric-api version in use.
-- [ ] **Forge** `forge/.../core/forge/Renderers.java` etc.: `EntityRenderersEvent.RegisterRenderers`,
-      `RegisterLayerDefinitions`, `RegisterParticleProvidersEvent`,
-      `RegisterColorHandlersEvent.{Block,Item}`, `RegisterClientTooltipComponentFactoriesEvent`,
-      `RegisterKeyMappingsEvent`.
-- [ ] **Forge timing (26.1.2 caught this late):** several of those events fire during
-      `Minecraft.<init>`, **before** `FMLClientSetupEvent`. A listener registered from
-      `FMLClientSetupEvent` never runs. Register them from the `@Mod` constructor on the mod bus,
-      guarded by dist, or via `@Mod.EventBusSubscriber(value = Dist.CLIENT)`.
-- [ ] **JEI on all three.** `client/integration/jei/*` moves to `common/` (as 26.1.2 did). Coordinates:
-      `mezz.jei:jei-1.21.1-common-api`, `-fabric-api` / `-forge-api` / `-neoforge-api` (compileOnly)
-      and `jei-1.21.1-{fabric,forge,neoforge}` (runtimeOnly). **Verify the Forge artifact actually
-      resolves before committing to it** — its existence is the reason Decision 3 is satisfiable here,
-      and it is the one claim in this plan that comes from JEI's published-artifact convention rather
-      than a jar we inspected.
-- [ ] **Block/item colour handlers are silently missing unless registered per loader.** NeoForge
-      registers the brewing-cauldron water tint through its own colour-handler event; on 26.1.2
-      Fabric and Forge registered nothing and the water rendered with the fallback colour **for the
-      whole project** until `f7c5890`. Extract the tint into a shared `common` class and register it
-      explicitly on all three. No crash, no log line — you only catch this by looking at the cauldron.
-- [ ] **`Minecraft.getInstance()` is null during Fabric's `onInitializeClient`.** Anything needing the
-      live client instance must be deferred to `ClientLifecycleEvents.CLIENT_STARTED`.
-- [ ] **Verify `assets/minecraft/atlases/blocks.json` early** (section D). Its `directory` sprite
-      sources list *every* namespace's texture folder, dragging vanilla particle sprites into the
-      mipmapped blocks atlas. On 26.1.2 that hard-crashed startup on `GpuDevice`'s mip check.
-- [ ] **Client BE state can hinge on one sync packet that may not arrive.** The cauldron's per-tick
-      resync was gated behind an active recipe, but crafting clears the recipe the instant it
-      finishes, leaving clients rendering an empty cauldron (`f7c5890`). Gate resyncs on a condition
-      that outlives the operation.
-- [ ] **REI / EMI (future note):** keep the recipe-viewer integration behind one interface of
-      categories + recipe suppliers so viewers stay pluggable.
+- [x] **Fabric** (`PotionsPlusFabricClient.onInitializeClient`): sprite + emitter particles, item
+      color handler, key mapping (`KeyBindingHelper.registerKeyBinding`) done. **1.21.1-era API names
+      confirmed by javap against the actual fabric-api jars in the gradle cache** (not just the plan's
+      prediction): `net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry` (fabric-particles-v1
+      4.0.2, matches the plan) and `net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry`
+      (fabric-rendering-v1 5.1.0). **BE renderers, entity renderers/model layers, tooltip component
+      factories, and screens NOT done — see the blocker note below the checklist.** (No entity
+      renderer/model-layer work needed at all: this 1.21.1 tree has no `Grungler`-equivalent entity —
+      that's a 26.1.2-only addition.)
+- [x] **Forge** `forge/.../core/forge/Renderers.java`: `RegisterParticleProvidersEvent`,
+      `RegisterColorHandlersEvent.Item`, `RegisterKeyMappingsEvent` done, using
+      `@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)` +
+      `net.minecraftforge.eventbus.api.SubscribeEvent` (**not** the reference tree's
+      `net.minecraftforge.eventbus.api.listener.SubscribeEvent` — javap-confirmed this Forge version,
+      52.1.2/eventbus 6.x, predates that package move, and `Mod.EventBusSubscriber.Bus` here has only
+      `MOD`/`FORGE`, no `BOTH`). `EntityRenderersEvent.{RegisterRenderers,RegisterLayerDefinitions}`
+      and `RegisterClientTooltipComponentFactoriesEvent` NOT done — see the blocker note.
+- [x] **Forge timing.** Confirmed and followed: `Renderers` registers via FML's own dist-gated
+      `@Mod.EventBusSubscriber` scanning (not nested inside `PotionsPlusForge`'s existing
+      `FMLClientSetupEvent` listener, which fires too late for these three events).
+- [x] **JEI on all three**, with one real blocker found and fixed. `client/integration/jei/*` moved to
+      `common/` (decoupled from the still-neoforge-only `BrewingCauldronBlockEntity.CONTAINER_SIZE` by
+      inlining the constant as `6` with a comment — the only coupling either recipe category had).
+      Coordinates confirmed working at `jei_version = 19.18.10.218`: `mezz.jei:jei-1.21.1-common-api`
+      (already wired pre-Phase-11) + `-fabric-api`/`-forge-api` (compileOnly, this phase) and
+      `jei-1.21.1-{fabric,forge,neoforge}` (runtime, this phase for fabric/forge). **Forge artifact
+      verified to resolve**: `:forge:dependencies --configuration runtimeClasspath` shows
+      `mezz.jei:jei-1.21.1-forge:19.18.10.218` present — the plan's flagged uncertainty is resolved,
+      it exists and resolves. **Real blocker hit and fixed**: plain `runtimeOnly` for the Fabric JEI
+      jar crashed `:fabric:runClient` at `Knot.init` with `AccessWidenerFormatException: Namespace
+      (intermediary) does not match current runtime namespace (named)` — the JEI fabric jar is a real
+      Fabric mod shipping its own intermediary-namespace AW, and this architectury-loom setup runs
+      dev-time in the **named** namespace, so the dependency needs Loom's mod-aware `modRuntimeOnly`
+      (which remaps the jar, AW included) instead of plain `runtimeOnly`. Fixed in `fabric/build.gradle`;
+      re-ran `:fabric:runClient` clean afterward. Fabric plugin registration wired via
+      `fabric.mod.json`'s `jei_mod_plugin` entrypoint + `suggests.jei` (mirrors the reference tree
+      exactly); Forge/NeoForge need no manifest entry (`@JeiPlugin` classpath scanning).
+- [x] **`Minecraft.getInstance()` is null during Fabric's `onInitializeClient`.** No new code in this
+      phase needed the live client instance directly in `onInitializeClient` (particle/color/key-mapping
+      registration doesn't touch it), so nothing to defer to `CLIENT_STARTED` here — noted for whoever
+      picks up the BE-renderer/tint work later, since `BrewingCauldronWaterTintSource`-equivalent block
+      tint registration on Fabric will need this.
+- [ ] **Block/item colour handlers.** Item color (potion tint, rainbow-cycles for "any potion") is
+      DONE and shared: extracted NeoForge's existing inline `registerItemColors` lambda (already
+      present in `core/neoforge/Blocks.java` — turns out this exact silent-failure risk had **already
+      been avoided on NeoForge itself** pre-Phase-11, just not shared) into
+      `common/.../item/tintsource/PotionsPlusItemColors.anyPotionItemColor`, called identically from
+      all three loaders' `ItemColor` registration. **Block (cauldron water) tint is genuinely
+      BLOCKED, not skipped by oversight**: NeoForge's handler (`core/neoforge/Blocks.java
+      #registerBlockColors`) resolves the water color through the concrete `BrewingCauldronBlockEntity`
+      class, which — discovered this phase — was never ported off neoforge (`blockentity.neoforge`
+      package) in any earlier phase, so Fabric and Forge have no cauldron BlockEntity at all to query a
+      color from; there's nothing to share yet. **1.21.1 note**: confirmed this tree predates the
+      `ItemTintSource`/`BlockTintSource` codec system the 26.1.2 reference tree uses — 1.21.1 registers
+      through the classic `ItemColor`/`BlockColor` functional interfaces via
+      `RegisterColorHandlersEvent.{Item,Block}` (NeoForge/Forge) and `ColorProviderRegistry.{ITEM,BLOCK}`
+      (Fabric), matching the plan's own note, not the reference tree's newer API.
+- [ ] **Verify `assets/minecraft/atlases/blocks.json` early** (section D). Not touched this phase — no
+      atlas/mip crash was observed on any of the three `runClient` smokes (all three reached "Sound
+      engine started" and built the blocks atlas without a `GpuDevice` mip-check crash), so this risk
+      did not materialize here. Not independently re-verified beyond that.
+- [ ] **Client BE state can hinge on one sync packet that may not arrive.** Not touched — no code in
+      this phase's scope reaches the cauldron resync path.
+- [ ] **REI / EMI (future note):** not touched this phase.
 
-**Exit criterion:** all three clients render every BE, entity, particle, tooltip and tint correctly;
-JEI shows the brewing-cauldron and clothesline categories on all three.
+**BLOCKER discovered this phase (not in the original plan): BE renderers, the cauldron block tint, and
+the `ItemStacksTooltip` client tooltip-component factory cannot move to `common` or be ported to
+Fabric/Forge yet.** All three depend on classes that were never split out of `neoforge/` in an earlier
+phase: the six concrete BlockEntity logic classes (`BrewingCauldronBlockEntity`,
+`HerbalistsLecternBlockEntity`, `SanguineAltarBlockEntity`, `AbyssalTroveBlockEntity`,
+`ClotheslineBlockEntity`, `PotionBeaconBlockEntity` — all still under
+`neoforge/.../blockentity/neoforge/`) and `core/neoforge/items/DynamicIconItems`. Fabric and Forge have
+**no block entities behind these six blocks at all** right now (only the `Block`/`BlockEntityType`
+registration exists, via the common `core.blocks.BlockEntityBlocks` hub) — so there is nothing yet for
+a renderer, a color-tint lookup, or `ClientItemStacksTooltip` (which renders `DynamicIconItems`'
+"unknown ingredient" icon) to target on those two loaders. This is a real prerequisite gap, not a
+Phase-11 oversight: porting it is BE-logic-class-porting work (register-hub + platform-abstraction
+shaped, like Phases 4/5), not client work, and is out of this phase's scope per the task brief. Until
+that port happens, NeoForge keeps its existing (working, unshared) BE rendering/tint/tooltip and
+Fabric/Forge simply render these six blocks with no BE-driven visuals — not a regression on those two
+loaders (they never had it), but it does mean Phase 11's original exit criterion ("all three clients
+render every BE... correctly") cannot be met until that porting work lands.
+
+**Exit criterion:** **not fully met** — see blocker above. What ships: all three clients render every
+particle correctly (10/10 particle classes ported + registered on all three, smoke-verified); item
+tint (potion rainbow) is correct and shared on all three; key mappings work on all three; JEI shows the
+brewing-cauldron and clothesline categories' recipe types on all three (categories register and JEI's
+own atlas builds cleanly on every loader in the smoke logs) — not manually verified in-game via the JEI
+GUI itself (would need a world join, out of this phase's smoke-test budget). BE rendering, block tint,
+and the tooltip component factory remain neoforge-only pending the BE-porting prerequisite above.
 
 ---
 
@@ -2423,3 +2471,4 @@ for Phase 2+: diff against the actual 26.1.2 tree before concluding anything. |
 | 2026-09-02 | 1 | **Fix pass: second real crash found by playing — placing a brewing cauldron.** `java.lang.RuntimeException: IllegalAccessException: class grill24.potionsplus.blockentity.InventoryBlockEntity (in module generated_6bcfdde) cannot access a member of class grill24.potionsplus.blockentity.neoforge.BrewingCauldronBlockEntity (in module potionsplus) with modifiers "protected"` (`crash-2026-09-02_19.13.14-client.txt`), on `BlockItem.place → BlockEntity.saveWithFullMetadata → InventoryBlockEntity.writePacketNbt`. **Root cause: a genuine regression from Phase 1's package split**, not Phase 5. `InventoryBlockEntity.writePacketNbt`/`readPacketNbt` (`common/.../blockentity/InventoryBlockEntity.java`) reflect over `getClass().getDeclaredFields()` — the concrete runtime subclass — and call `field.get(this)`/`field.set(this, …)` on every field annotated `@BlockEntitySerializableData`, with no `setAccessible(true)`. Plain Java reflective access to a `protected` field is only legal when the *caller* is in the same package as the declaring class, or is itself a subclass reading through its own instance — neither holds here: `InventoryBlockEntity` is the **superclass** reflecting into a **subclass**'s field, and before Phase 1 both classes lived in the same package (`grill24.potionsplus.blockentity`), which satisfied the same-package rule by accident. Phase 1 moved `BrewingCauldronBlockEntity` into `blockentity.neoforge`, breaking that accidental same-package cover — invisible to compilation (reflection isn't type-checked) and only surfaced the first time a cauldron with a `@BlockEntitySerializableData` field (`storedExperience`) was saved. Grepped the whole tree: `storedExperience` is the **only** `@BlockEntitySerializableData` field that exists. **Fix:** widened it `protected` → `public` in `BrewingCauldronBlockEntity` — sidesteps the package/module check entirely (public reflective access needs no same-package/subclass relationship), rather than chasing `setAccessible`/module-opens plumbing that would have to be redone for every loader. **Not caught by any of Phase 4/5's `runClient` smokes** because none of them placed a block with a `@BlockEntitySerializableData` field — reinforces the plan's standing lesson that boot-to-menu smokes and green builds don't exercise gameplay code paths; only real interaction does. `:neoforge:compileJava`/`:neoforge:build` green. **Confirmed fixed 2026-09-02** — user re-placed a brewing cauldron on a live server; no recurrence. |
 | 2026-09-03 | 10 | **Phase 10 closed — datagen sharing wired, two real gaps found and fixed (neither predicted by the plan or present on 26.1.2).** Added the root `commonDatagen` Copy task (verbatim from the 26.1.2 form: copies `neoforge/src/generated/resources` → `common/src/generated/resources`, excluding `.cache/**`, `data/neoforge/**`, `**/neoforge/**`, with a `doFirst` clean) and `common/build.gradle`'s `processResources { duplicatesStrategy = DuplicatesStrategy.INCLUDE }`. **Gap 1 — `:neoforge:runData` crashed outright** (`IllegalArgumentException: Texture potionsplus:item/wreath does not exist in any known resource pack`) the first time it ran since Phase 1's split moved that texture into `common/src/main/resources`: the `data` run's `--existing` arg in `neoforge/build.gradle` only ever pointed at `neoforge/src/main/resources`, and `ExistingFileHelper` does not walk the `common` configuration on the runtime classpath — it only sees paths explicitly passed. Fixed by passing a second `--existing` for `project(':common').file('src/main/resources/')` (repeatable arg, both roots merge). **This is 1.21.1-specific** — 26.1.2 never hits it because it's on the newer model-datagen system, not `ExistingFileHelper`. **Gap 2 — after the Copy ran, all three platform builds failed** with `Entry ... is a duplicate but no duplicate handling strategy has been set`: each platform module's own `processResources` already does `from project(":common").sourceSets.main.resources`, and now that common's copy of the shared datagen output exists, that duplicates the same files each platform module also generates into its own `src/generated/resources` srcDir. Fixed by adding `duplicatesStrategy = DuplicatesStrategy.EXCLUDE` to `neoforge/`, `fabric/`, and `forge/`'s own `processResources` blocks (26.1.2 already carries this on all three — the plan's diff just hadn't been re-checked against it for this exact task). **Also confirmed and worked around a known-real Gradle/architectury-loom hang**, matching the user's prior field experience: `:neoforge:runData`'s underlying MC datagen process completes and logs `[exited with code 0]`, but the forked JVM never actually terminates (a non-daemon thread survives), so Gradle's `Exec`-backed task hangs indefinitely waiting on process exit and never reaches the dependent `commonDatagen` Copy task. Worked around by running `timeout 90 ./gradlew :neoforge:runData` (GNU coreutils `timeout`, which kills the whole process tree cleanly — confirmed no orphaned JVMs afterward) to let the generation finish and files land on disk, then a separate `./gradlew commonDatagen -x :neoforge:runData` to run just the Copy against the already-generated files. **Exit criterion met:** `commonDatagen` (2s, BUILD SUCCESSFUL) then `:fabric:build :forge:build :neoforge:build -x test` (12s, BUILD SUCCESSFUL); unzipped Fabric/NeoForge jars both carry 27/27 matching blockstates plus shared models/tags/sounds.json; grepped both non-NeoForge jars for `neoforge` — zero matches. Not committed — changeset (root `build.gradle`, `common/build.gradle`, `neoforge/build.gradle`, `fabric/build.gradle`, `forge/build.gradle`, this doc) on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |
 | 2026-09-03 | 8 | **Server config ported to all three loaders — Phase 8's second-to-last bucket closed.** `forge/.../config/PotionsPlusConfig.java`: near-verbatim `ForgeConfigSpec` port of the existing `neoforge/.../config/PotionsPlusConfig.java` `ModConfigSpec` version (`javap` on `fmlcore-1.21.1-52.1.2.jar` confirmed `ModLoadingContext.get().registerConfig(ModConfig.Type, IConfigSpec<?>)` is still the right 52.1.2 call, not 26.1.2's newer `FMLJavaModLoadingContext.getModBusGroup()`-shaped constructor), registered in `PotionsPlusForge`'s constructor, read through the same try/`IllegalStateException`-fallback `PlatformImpl` pattern NeoForge already used. `fabric/.../config/PotionsPlusConfig.java`: hand-rolled Gson JSON config under `FabricLoader.getInstance().getConfigDir()`, ported near-verbatim from the 26.1.2 worktree's Fabric config (load-or-create-with-defaults at class-load, `save()` writes pretty JSON) — no config API exists in fabric-api. Both new classes share `neoforge`'s unqualified `grill24.potionsplus.config` package (this branch never put `config/` under `neoforge/`-only, unlike 26.1.2's `config.{fabric,forge}` split), so no Decision 4a intersection risk. **Verified beyond compile:** `:{neoforge,fabric,forge}:build -x test` green; `comm -12` empty on fabric/forge; `runServer` smoke on all three reaches `Done (...)!` and shuts down clean on `stop` with zero PotionsPlus exceptions — **Forge's log is direct runtime proof, not just a compile pass:** it generated `world/serverconfig/potionsplus-server.toml` and logged `Incorrect key potionDrinkTimeTicks was corrected from null to its default, 16` / `potionUseCooldownTimeTicks ... 0`, meaning `ForgeConfigSpec` actually registered and ran its correction pass. Leaves **Capabilities/`IItemHandler`** as the only open Phase 8 bucket, genuinely blocked on porting `ClotheslineBlock`/`ClotheslineBlockEntity` to `common/` first (real Phase 8/11 scope, not a quick follow-on — see the bucket's own notes). Not committed — changeset on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |
+| 2026-09-03 | 11 | **Phase 11 partial — particles/keymappings/item-tint/JEI done and smoke-verified on all three loaders; BE renderers/block-tint/tooltip-factory genuinely blocked on an earlier-phase gap.** Moved 8 particle classes + `ParticleConfigurations` (`particle/neoforge/*` → `common/particle/`, stripped `@OnlyIn`/`Dist` — confirmed against the reference tree, which carries these with zero NeoForge coupling) and all 3 JEI classes (`client/integration/jei/*` → `common/`, decoupling `BrewingCauldronRecipeCategory`/`ClotheslineRecipeCategory` from `BrewingCauldronBlockEntity.CONTAINER_SIZE` by inlining the value `6` as a local constant with a reconcile-later comment — the only neoforge coupling either class had). Wrote `common/core/KeyMappings.java` + `common/event/KeyMappingsListener.java` (mutable-holder idiom matching `core.Particles`/`core.Blocks`, since `KeyMapping`'s Forge/NeoForge ctor overload needs a platform `KeyConflictContext` type with no vanilla equivalent) and `common/item/tintsource/PotionsPlusItemColors.java` (extracted from NeoForge's pre-existing, already-correct `core/neoforge/Blocks.java#registerItemColors` inline lambda — this exact silent-failure risk had already been dodged on NeoForge itself before this phase, it just wasn't shared). Registered particles + item color + key mapping on **Fabric** (`PotionsPlusFabricClient.onInitializeClient`, using javap-confirmed 1.21.1-era `net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry` and `...rendering.v1.ColorProviderRegistry`) and **Forge** (new `core/forge/Renderers.java`, `@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)` — javap on the actual 52.1.2/eventbus-6.x jars showed `SubscribeEvent` lives at `net.minecraftforge.eventbus.api` (not reference tree's newer `.api.listener`) and `Bus` has only `MOD`/`FORGE`, no `BOTH`; corrected the plan's assumed shape rather than guessing). **JEI wired on all three module build.gradles** (`jei-1.21.1-{fabric,forge,neoforge}-api` compileOnly, `-{fabric,forge,neoforge}` runtime) and **Forge artifact resolution verified for real** (`:forge:dependencies --configuration runtimeClasspath` shows `mezz.jei:jei-1.21.1-forge:19.18.10.218` resolved — the plan's flagged uncertainty is now closed, not just assumed). **One real blocker hit and fixed**: `:fabric:runClient` crashed at `Knot.init` with `AccessWidenerFormatException: Namespace (intermediary) does not match current runtime namespace (named)` — JEI's fabric jar is a real Fabric mod carrying its own intermediary-namespace AW, and plain `runtimeOnly` skips Loom's mod-aware remap step (this architectury-loom setup runs dev-time in the **named** namespace); switched to `modRuntimeOnly` and it cleared. Also wired `fabric.mod.json`'s `jei_mod_plugin` entrypoint + `suggests.jei` (Forge/NeoForge need no manifest entry — `@JeiPlugin` classpath scanning). **Real blocker discovered, not worked around**: BE renderers (all 6), the cauldron block-tint, and the `ItemStacksTooltip` client tooltip-component factory cannot be ported — `BrewingCauldronBlockEntity` et al. (still `blockentity.neoforge.*`) and `core.neoforge.items.DynamicIconItems` were never split out of neoforge in an earlier phase, so Fabric/Forge have no BlockEntity behind these six blocks at all (only the `Block`/`BlockEntityType` registration exists, via `core.blocks.BlockEntityBlocks`) and nothing for a renderer/tint/tooltip-factory to target. Confirmed this is a real prerequisite gap by reading the actual files (not inferred): grepped for `blockentity`/BE-logic classes under `common/`, `fabric/`, `forge/` and found only marker interfaces (`InventoryBlockEntity`, `ICraftingBlockEntity`, etc.), zero concrete BE classes outside `neoforge/`. Left clearly commented in `forge/core/forge/Renderers.java` and `fabric/core/fabric/PotionsPlusFabricClient.java` for whoever does that porting work. **Verified beyond compile**: `:common:compileJava :neoforge:compileJava :fabric:compileJava :forge:compileJava` all green together; Decision 4a `comm -12` empty on all three platform modules; **real `runClient` smoke on all three loaders** (not just boot-to-menu — watched for JEI-specific signals too) — all three reach `Sound engine started` with zero exceptions, and all three build `jei:textures/atlas/gui.png-atlas` (proof JEI's own plugin/atlas init ran without crashing, including the Fabric `jei_mod_plugin` entrypoint and the Forge `@JeiPlugin` classpath scan). **Not verified**: JEI's actual in-game GUI (recipe categories opening, ingredients populating) — would need a world join, out of this pass's smoke budget; the atlas-build signal is compile+init proof, not a full behavioral check. Not committed — changeset (particle/JEI moves, `common/core/KeyMappings.java`, `common/event/KeyMappingsListener.java`, `common/item/tintsource/PotionsPlusItemColors.java`, `forge/core/forge/Renderers.java`, `fabric/core/fabric/PotionsPlusFabricClient.java`, `fabric/event/fabric/TickListeners.java`, `forge/event/forge/TickListeners.java`, `neoforge/core/neoforge/{Blocks,ClientEvents,KeyMappings,KeyMappingsListener}.java`, `fabric/build.gradle`, `forge/build.gradle`, `fabric/src/main/resources/fabric.mod.json`, this doc) on `dev/1.21.1/multi-loader-expansion`, ready for review/commit. |

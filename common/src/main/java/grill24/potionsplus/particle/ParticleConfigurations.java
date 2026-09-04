@@ -1,4 +1,4 @@
-package grill24.potionsplus.particle.neoforge;
+package grill24.potionsplus.particle;
 
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.particle.ParticleEmitterConfiguration;

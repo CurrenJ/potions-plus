@@ -76,27 +76,7 @@ public class Blocks {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-        event.register((stack, i) -> {
-            PotionContents potionContents = PotionData.read(stack).toContents();
-
-            boolean isAnyPotion = false;
-            for (MobEffectInstance effect : potionContents.getAllEffects()) {
-                isAnyPotion = effect.getEffect().is(MobEffects.ANY_POTION) || effect.getEffect().is(MobEffects.ANY_OTHER_POTION);
-                if (isAnyPotion) {
-                    break;
-                }
-            }
-            if (!isAnyPotion) {
-                return i > 0 ? -1 : FastColor.ARGB32.opaque(PotionData.read(stack).toContents().getColor());
-            }
-
-            float ticks = ClientTickHandler.total();
-            // returning int rgb int value - rainbow over time
-            int r = (int) (Math.sin(ticks * 0.01f) * 127 + 128);
-            int g = (int) (Math.sin(ticks * 0.01f + 2.0943951023931953) * 127 + 128);
-            int b = (int) (Math.sin(ticks * 0.01f + 4.1887902047863905) * 127 + 128);
-            return i > 0 ? -1 : FastColor.ARGB32.color(r, g, b);
-        }, net.minecraft.world.item.Items.POTION);
+        event.register((stack, i) -> grill24.potionsplus.item.tintsource.PotionsPlusItemColors.anyPotionItemColor(stack, i), net.minecraft.world.item.Items.POTION);
     }
 
     @SubscribeEvent

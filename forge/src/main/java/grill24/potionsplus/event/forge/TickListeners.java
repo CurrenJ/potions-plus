@@ -37,6 +37,7 @@ public final class TickListeners {
         MinecraftForge.EVENT_BUS.addListener((TickEvent.ClientTickEvent.Post event) -> {
             DelayedEvents.tick(TickHandler.ticks());
             ClientTickHandler.clientTickEnd();
+            grill24.potionsplus.event.KeyMappingsListener.onClientTick();
         });
 
         MinecraftForge.EVENT_BUS.addListener((TickEvent.RenderTickEvent.Post event) ->

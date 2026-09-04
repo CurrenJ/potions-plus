@@ -117,6 +117,12 @@ public class PotionsPlusForge {
         // 8. Network packets (serverbound handlers + clientbound codecs). Phase 5.
         Packets.register();
 
+        // 8a. Client particle/color/key-mapping registration (Phase 11) is NOT wired here - Renderers
+        // is a @Mod.EventBusSubscriber(bus = MOD, value = Dist.CLIENT) class, so FML discovers and
+        // registers it itself (on the physical client only) without an explicit call. See its
+        // javadoc for why this needs its own dist-gated subscriber rather than reusing the
+        // FMLClientSetupEvent listener below.
+
         // 9. Event listeners, capabilities, loot modifiers, lifecycle hooks. Phase 7/8.
         grill24.potionsplus.event.forge.EffectListeners.register();
         grill24.potionsplus.event.forge.TickListeners.registerServer();

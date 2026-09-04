@@ -10,8 +10,6 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 public class KeyMappingsListener {
     @SubscribeEvent
     public static void onClientTick(final ClientTickEvent.Post event) {
-        if (KeyMappings.ACTIVATE_ABILITY.get().consumeClick()) {
-            // TODO: Implement ability activation
-        }
+        grill24.potionsplus.event.KeyMappingsListener.onClientTick();
     }
 }

@@ -27,6 +27,16 @@ dependencies {
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
 
+    // compile against the JEI API but do not include it at runtime
+    compileOnly "mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}"
+    // At runtime, use the full JEI jar for Fabric. This is a real Fabric mod (ships its own
+    // fabric.mod.json + an intermediary-namespace access widener), so it must go through Loom's
+    // mod-aware `modRuntimeOnly` (not plain `runtimeOnly`) so Loom remaps it - including its AW -
+    // to this project's dev runtime namespace. Plain `runtimeOnly` skipped that remap and crashed
+    // :fabric:runClient at Knot.init with "Namespace (intermediary) does not match current runtime
+    // namespace (named)" (see docs/multi-loader-expansion.md Phase 11 progress log).
+    modRuntimeOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 }

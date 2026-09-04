@@ -29,6 +29,7 @@ public final class TickListeners {
         ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
             DelayedEvents.tick(TickHandler.ticks());
             ClientTickHandler.clientTickEnd();
+            grill24.potionsplus.event.KeyMappingsListener.onClientTick();
         });
 
         // RenderFrameEvent.Post equivalent. Only fires while a level is being rendered (not at the

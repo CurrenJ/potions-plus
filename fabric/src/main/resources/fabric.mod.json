@@ -16,6 +16,9 @@
     ],
     "client": [
       "grill24.potionsplus.core.fabric.PotionsPlusFabricClient"
+    ],
+    "jei_mod_plugin": [
+      "grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin"
     ]
   },
   "accessWidener": "potionsplus.accesswidener",
@@ -28,5 +31,8 @@
     "minecraft": "${mod_fabric_minecraft_version}",
     "java": ">=21",
     "fabric-api": "*"
+  },
+  "suggests": {
+    "jei": "*"
   }
 }

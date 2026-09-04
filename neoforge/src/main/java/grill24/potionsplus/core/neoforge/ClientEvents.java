@@ -3,7 +3,6 @@ package grill24.potionsplus.core.neoforge;
 import grill24.potionsplus.core.neoforge.items.DynamicIconItems;
 import grill24.potionsplus.particle.*;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.particle.neoforge.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.world.phys.Vec3;

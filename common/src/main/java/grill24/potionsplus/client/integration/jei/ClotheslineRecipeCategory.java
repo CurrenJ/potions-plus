@@ -1,6 +1,5 @@
 package grill24.potionsplus.client.integration.jei;
 
-import grill24.potionsplus.blockentity.neoforge.BrewingCauldronBlockEntity;
 import grill24.potionsplus.core.Translations;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
@@ -39,8 +38,12 @@ public class ClotheslineRecipeCategory implements IRecipeCategory<ClotheslineRec
 
     private static final Map<Integer, Point[]> INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT = new HashMap<>();
 
+    // See BrewingCauldronRecipeCategory.BREWING_CAULDRON_CONTAINER_SIZE for why this is a local
+    // literal rather than a reference to the (still neoforge-only) BrewingCauldronBlockEntity.
+    private static final int BREWING_CAULDRON_CONTAINER_SIZE = 6;
+
     static {
-        for (int i = 0; i < BrewingCauldronBlockEntity.CONTAINER_SIZE; i++) {
+        for (int i = 0; i < BREWING_CAULDRON_CONTAINER_SIZE; i++) {
             INPUT_SLOT_POSITIONS_BY_INGREDIENT_COUNT.put(i, Utility.getPointsOnACircle(i, 20, 38 - 8, 31 - 8));
         }
     }
