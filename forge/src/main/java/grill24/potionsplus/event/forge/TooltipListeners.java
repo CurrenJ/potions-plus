@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.alchemy.EffectComparison;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.event.ItemListenersGame;
+import grill24.potionsplus.item.tooltip.BrewingTooltips;
 import grill24.potionsplus.item.tooltip.PotionEffectTooltips;
 import grill24.potionsplus.utility.ClientTickHandler;
 import net.minecraft.network.chat.Component;
@@ -20,9 +21,8 @@ import java.util.List;
  * Forge equivalent of NeoForge's {@code event/neoforge/NeoItemListeners} (Phase 7 "Client tooltips"
  * bucket). Registered explicitly from {@code PotionsPlusForge}'s constructor, matching this
  * module's established style (see {@code EffectListeners}/{@code TickListeners}). {@code
- * BrewingTooltips} is NOT called here: it is still neoforge-only, blocked on {@code
- * RecipesRegistrar}/{@code AbyssalTroveBlockEntity} (Phase 5's runtime-recipe remainder) - see
- * docs/multi-loader-expansion.md.
+ * BrewingTooltips} is now called here too (Phase 11a): it moved to {@code common/} once its former
+ * blockers, {@code RecipesRegistrar} and {@code AbyssalTroveBlockEntity}, both became common.
  */
 public final class TooltipListeners {
     private static float animationStartTimestamp = 0;
@@ -47,6 +47,7 @@ public final class TooltipListeners {
         if (player != null) {
             ItemStack itemStack = event.getItemStack();
             AnimatedItemTooltipEvent.Add addEvent = new AnimatedItemTooltipEvent.Add(player, itemStack, tooltipMessages);
+            BrewingTooltips.onBrewingTooltip(addEvent);
             PotionEffectTooltips.onPotionEffectTooltip(addEvent);
         }
 

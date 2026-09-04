@@ -1,8 +1,8 @@
-package grill24.potionsplus.item.tooltip.neoforge;
+package grill24.potionsplus.item.tooltip;
 
-import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+import grill24.potionsplus.core.RecipesRegistrar;
 
-import grill24.potionsplus.blockentity.neoforge.AbyssalTroveBlockEntity;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.IStoredIngredientsContainer;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.potion.Potions;
@@ -30,13 +30,13 @@ import java.util.List;
 import java.util.Optional;
 
 import static grill24.potionsplus.utility.Utility.ppId;
-import grill24.potionsplus.item.tooltip.TooltipPriorities;
 
 /**
- * Genuinely blocked from moving to {@code common/} - see docs/multi-loader-expansion.md Phase 7
- * "Client tooltips" bucket. {@link RecipesRegistrar} and {@link AbyssalTroveBlockEntity} are both
- * still neoforge-only pending Phase 5's runtime-recipe remainder. Now direct-called (no event bus)
- * from {@code NeoItemListeners.getTooltipMessages}, matching 26.1.2's design.
+ * Moved to {@code common/} in Phase 11a: its two former neoforge-only dependencies,
+ * {@link RecipesRegistrar} and {@link AbyssalTroveBlockEntity}, are both common now (Phase 9's access
+ * widener gate is gone and the block-entity register-hub project landed). Direct-called (no event
+ * bus) from each loader's own tooltip listener - {@code NeoItemListeners}, Fabric/Forge
+ * {@code TooltipListeners} - matching 26.1.2's design.
  */
 public class BrewingTooltips {
     public static void onBrewingTooltip(final AnimatedItemTooltipEvent.Add event) {

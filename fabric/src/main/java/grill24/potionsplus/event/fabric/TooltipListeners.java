@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import grill24.potionsplus.alchemy.EffectComparison;
 import grill24.potionsplus.event.AnimatedItemTooltipEvent;
 import grill24.potionsplus.event.ItemListenersGame;
+import grill24.potionsplus.item.tooltip.BrewingTooltips;
 import grill24.potionsplus.item.tooltip.PotionEffectTooltips;
 import grill24.potionsplus.utility.ClientTickHandler;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
@@ -21,9 +22,9 @@ import java.util.List;
  * tooltips" bucket). {@code fabric-item-api-v1} 11.2.0's {@link ItemTooltipCallback} has no player
  * parameter (unlike NeoForge's/Forge's {@code ItemTooltipEvent}), so this uses
  * {@code Minecraft.getInstance().player} - always non-null while a tooltip is being built, since
- * tooltips only render in-world/in-inventory. {@code BrewingTooltips} is NOT called here: it is
- * still neoforge-only, blocked on {@code RecipesRegistrar}/{@code AbyssalTroveBlockEntity} (Phase
- * 5's runtime-recipe remainder) - see docs/multi-loader-expansion.md.
+ * tooltips only render in-world/in-inventory. {@code BrewingTooltips} is now called here too (Phase
+ * 11a): it moved to {@code common/} once its former blockers, {@code RecipesRegistrar} and
+ * {@code AbyssalTroveBlockEntity}, both became common.
  */
 public final class TooltipListeners {
     private static float animationStartTimestamp = 0;
@@ -45,6 +46,7 @@ public final class TooltipListeners {
 
         List<AnimatedItemTooltipEvent.TooltipLines> tooltipMessages = new ArrayList<>();
         AnimatedItemTooltipEvent.Add addEvent = new AnimatedItemTooltipEvent.Add(player, stack, tooltipMessages);
+        BrewingTooltips.onBrewingTooltip(addEvent);
         PotionEffectTooltips.onPotionEffectTooltip(addEvent);
 
         List<List<Component>> orderedTooltipMessages = AnimatedItemTooltipEvent.getPriorityOrderTooltipLines(tooltipMessages);
