@@ -26,13 +26,20 @@ import java.util.stream.Stream;
  * ({@code RegisterClientCommandsEvent}). Forge 52.1.2's event carries the exact same
  * {@code CommandDispatcher<CommandSourceStack>} shape as NeoForge's (javap-confirmed against
  * {@code forge-1.21.1-52.1.2-universal-srg.jar}), so this is a byte-identical port apart from the
- * event-class package and {@code @Mod.EventBusSubscriber} annotation shape (matching
- * {@code core.forge.Renderers}'s dist-gated mod-bus pattern). {@code JeiPotionsPlusPlugin} - this
+ * event-class package. {@code RegisterClientCommandsEvent} is dispatched on the FORGE (game) bus,
+ * not the MOD bus - unlike {@code core.forge.Renderers}'s client registration events, which really
+ * are {@code IModBusEvent}s. Phase 13 verification caught this via an actual {@code :forge:runClient}
+ * launch (the class had never been runClient-tested before): FML's automatic-subscriber injection
+ * threw {@code IllegalArgumentException} at mod construction because the annotated method's event
+ * type isn't a subtype of {@code IModBusEvent}, javap-confirmed against
+ * {@code javafmllanguage-1.21.1-52.1.2.jar}'s {@code Mod$EventBusSubscriber$Bus} enum ({@code FORGE},
+ * {@code MOD} - no {@code GAME} value despite {@code CommandListeners}'s doc comment calling it
+ * that). Fixed to {@code bus = Mod.EventBusSubscriber.Bus.FORGE}. {@code JeiPotionsPlusPlugin} - this
  * class's only real dependency - is {@code common/} and JEI is wired on all three loaders (Phase
  * 11), so the blocker Phase 7 originally recorded here ("Decision 3 'JEI on all three' is Phase 11
  * scope") is now cleared.
  */
-@Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ClientCommands {
     @SubscribeEvent
     public static void registerCommands(RegisterClientCommandsEvent event) {
