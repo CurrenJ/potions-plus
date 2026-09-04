@@ -17,6 +17,7 @@ public class Items {
         grill24.potionsplus.core.fabric.items.OreItems.init(Items::register);
         grill24.potionsplus.core.fabric.items.BrewingItems.init(Items::register);
         grill24.potionsplus.core.fabric.items.WreathItem.init(Items::register);
+        grill24.potionsplus.core.fabric.items.DynamicIconItems.init(Items::register);
     }
 
     public static <T extends Item> Holder<T> register(String name, Supplier<T> supplier) {

@@ -9,7 +9,7 @@ import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.blocks.FlowerBlocks;
 import grill24.potionsplus.core.blocks.OreBlocks;
 import grill24.potionsplus.core.items.BrewingItems;
-import grill24.potionsplus.core.neoforge.items.DynamicIconItems;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.items.OreItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -366,7 +366,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder add_first_ingredient_to_abyssal_trove = Advancement.Builder.advancement()
                 .parent(create_abyssal_trove)
                 .display(
-                        DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC),
+                        DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.UNKNOWN_TEX_LOC),
                         Component.translatable("advancements.potionsplus.add_first_ingredient_to_abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.add_first_ingredient_to_abyssal_trove.description"),
                         null,
@@ -383,7 +383,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder add_common_ingredient_to_abyssal_trove = Advancement.Builder.advancement()
                 .parent(add_first_ingredient_to_abyssal_trove)
                 .display(
-                        DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.COMMON_TEX_LOC),
+                        DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.COMMON_TEX_LOC),
                         Component.translatable("advancements.potionsplus.add_common_ingredient_to_abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.add_common_ingredient_to_abyssal_trove.description"),
                         null,
@@ -400,7 +400,7 @@ public class AdvancementProvider extends net.neoforged.neoforge.common.data.Adva
         AdvancementHolder add_rare_ingredient_to_abyssal_trove = Advancement.Builder.advancement()
                 .parent(add_common_ingredient_to_abyssal_trove)
                 .display(
-                        DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.RARE_TEX_LOC),
+                        DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.RARE_TEX_LOC),
                         Component.translatable("advancements.potionsplus.add_rare_ingredient_to_abyssal_trove.title"),
                         Component.translatable("advancements.potionsplus.add_rare_ingredient_to_abyssal_trove.description"),
                         null,

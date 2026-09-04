@@ -22,6 +22,7 @@ public class Items {
         grill24.potionsplus.core.forge.items.OreItems.init(Items::register);
         grill24.potionsplus.core.forge.items.BrewingItems.init(Items::register);
         grill24.potionsplus.core.forge.items.WreathItem.init(Items::register);
+        grill24.potionsplus.core.forge.items.DynamicIconItems.init(Items::register);
     }
 
     public static void init() {

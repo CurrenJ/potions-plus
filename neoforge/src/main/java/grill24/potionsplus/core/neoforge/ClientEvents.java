@@ -1,6 +1,6 @@
 package grill24.potionsplus.core.neoforge;
 
-import grill24.potionsplus.core.neoforge.items.DynamicIconItems;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.particle.*;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
@@ -22,8 +22,8 @@ public class ClientEvents {
             ClampedItemPropertyFunction clampedItemStackCountPropertyFunction =
                     (stack, world, entity, i) -> (float) (stack.getCount() - 1) / 64.0F + 0.01F;
 
-            net.minecraft.client.renderer.item.ItemProperties.register(DynamicIconItems.POTION_EFFECT_ICON.getValue(), DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
-            net.minecraft.client.renderer.item.ItemProperties.register(DynamicIconItems.GENERIC_ICON.getValue(), DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
+            net.minecraft.client.renderer.item.ItemProperties.register(DynamicIconItems.POTION_EFFECT_ICON.value(), DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
+            net.minecraft.client.renderer.item.ItemProperties.register(DynamicIconItems.GENERIC_ICON.value(), DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
         });
     }
 

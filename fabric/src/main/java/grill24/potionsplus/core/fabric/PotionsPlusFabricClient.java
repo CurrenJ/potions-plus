@@ -79,8 +79,11 @@ public class PotionsPlusFabricClient implements ClientModInitializer {
         grill24.potionsplus.core.KeyMappings.ACTIVATE_ABILITY = KeyBindingHelper.registerKeyBinding(activateAbility);
 
         // Tooltip component factory (ClientItemStacksTooltip, e.g. brewing-knowledge item grids) is
-        // NOT wired here - it depends on core.neoforge.items.DynamicIconItems, which (like the BE
-        // classes above) hasn't been ported to common/Fabric/Forge yet. See the Phase 11 progress
-        // log entry for the full blocker chain.
+        // NOT wired here. Phase 11a step 3 ported its DynamicIconItems dependency to common/, so
+        // that blocker is gone, but ClientItemStacksTooltip is still registered through NeoForge's
+        // own client tooltip-component-factory extension point (ClientTooltipComponentFactoriesListeners
+        // + ItemMixin, neoforge/), which has no vanilla/Fabric equivalent - porting it needs a
+        // per-loader tooltip-component registration mechanism, not attempted this session. See the
+        // Phase 11a progress log entry.
     }
 }

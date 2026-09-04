@@ -1,7 +1,7 @@
 package grill24.potionsplus.blockentity.neoforge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import grill24.potionsplus.core.neoforge.items.DynamicIconItems;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3d;
@@ -84,9 +84,9 @@ public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<San
     }
 
     private static final ItemStack[] RUNES = new ItemStack[] {
-            DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.SGA_A_TEX_LOC),
-            DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.SGA_B_TEX_LOC),
-            DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.SGA_C_TEX_LOC),
-            DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.SGA_D_TEX_LOC)
+            DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.SGA_A_TEX_LOC),
+            DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.SGA_B_TEX_LOC),
+            DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.SGA_C_TEX_LOC),
+            DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.SGA_D_TEX_LOC)
     };
 }

@@ -61,5 +61,9 @@ public class DynamicIconItems {
                 NO_HEAT_TEX_LOC, GOLD_FISHING_FRAME_TEX_LOC,
                 GOLD_SELECTION_FRAME_TEX_LOC, GLOBAL_TEX_LOC,
                 RULER_TEX_LOC, COUNT_TEX_LOC).name("generic_icon"));
+
+        // Populate common stubs
+        grill24.potionsplus.core.items.DynamicIconItems.POTION_EFFECT_ICON = POTION_EFFECT_ICON.getHolder();
+        grill24.potionsplus.core.items.DynamicIconItems.GENERIC_ICON = GENERIC_ICON.getHolder();
     }
 }

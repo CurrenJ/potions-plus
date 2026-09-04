@@ -4,7 +4,7 @@ import grill24.potionsplus.core.neoforge.RecipesRegistrar;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.Recipes;
-import grill24.potionsplus.core.neoforge.items.DynamicIconItems;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
@@ -54,7 +54,7 @@ public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<Abys
             for (AbyssalTroveBlockEntity.RendererData.AbyssalTroveRenderedItem item : items.getValue()) {
                 matrices.pushPose();
 
-                boolean isUnknownIngredient = item.icon.is(DynamicIconItems.GENERIC_ICON.getValue());
+                boolean isUnknownIngredient = item.icon.is(DynamicIconItems.GENERIC_ICON.value());
 
                 // Render ingredients and unknown ingredients
                 Vector3d position = new Vector3d(item.position.x * horizontalPaddingScalar, item.position.y * verticalPaddingScalar, item.position.z * horizontalPaddingScalar);

@@ -3,7 +3,7 @@ package grill24.potionsplus.blockentity.neoforge;
 import grill24.potionsplus.blockentity.HerbalistsLecternSounds;
 import grill24.potionsplus.core.neoforge.RecipesRegistrar;
 
-import grill24.potionsplus.core.neoforge.items.DynamicIconItems;
+import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.utility.ClientUtility;
@@ -86,7 +86,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                         boolean doesIconExistForMobEffect = EffectRegistry.iconOrder().contains(effectHolder);
                         // If we haven't seen this MobEffect type yet and it has an icon, add it to the map of potion icons
                         if (!isMobEffectInIconDataAlready && doesIconExistForMobEffect) {
-                            ItemStack displayStack = new ItemStack(DynamicIconItems.POTION_EFFECT_ICON.getValue(), 1);
+                            ItemStack displayStack = new ItemStack(DynamicIconItems.POTION_EFFECT_ICON.value(), 1);
                             displayStack.setCount(EffectRegistry.iconIndex(effectHolder));
                             potionIcons.put(mobEffectId, new IconData(PpIngredient.of(displayStack), new ArrayList<>()));
 
@@ -97,11 +97,11 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                             List<PpIngredient> recipeIngredients = recipe.getPpIngredients();
                             for (PpIngredient recipeIngredient : recipeIngredients) {
                                 if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, recipeIngredient)) {
-                                    ItemStack common = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.COMMON_TEX_LOC);
+                                    ItemStack common = DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.COMMON_TEX_LOC);
                                     subIcons.add(PpIngredient.of(common));
                                 }
                                 if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, recipeIngredient)) {
-                                    ItemStack rare = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.RARE_TEX_LOC);
+                                    ItemStack rare = DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.RARE_TEX_LOC);
                                     subIcons.add(PpIngredient.of(rare));
                                 }
                             }
@@ -115,13 +115,13 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                 // Update the center display stacks - either common, rare, or N/A ingredient.
                 PpIngredient ingredient = PpIngredient.of(inputStack);
                 if(RecipesRegistrar.DURATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
-                    this.centerDisplayStack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.DUR_TEX_LOC);
+                    this.centerDisplayStack = DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.DUR_TEX_LOC);
                 } else if (RecipesRegistrar.AMPLIFICATION_UPGRADE_ANALYSIS.isIngredientUsed(ingredient)) {
-                    this.centerDisplayStack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.AMP_TEX_LOC);
+                    this.centerDisplayStack = DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.AMP_TEX_LOC);
                 } else if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.COMMON, ingredient)) {
-                    this.centerDisplayStack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.COMMON_TEX_LOC);
+                    this.centerDisplayStack = DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.COMMON_TEX_LOC);
                 } else if (SeededIngredientsLootTables.isRarity(PotionUpgradeIngredients.Rarity.RARE, ingredient)) {
-                    this.centerDisplayStack = DynamicIconItems.GENERIC_ICON.getItemStackForTexture(DynamicIconItems.RARE_TEX_LOC);
+                    this.centerDisplayStack = DynamicIconItems.getGenericIconItemStackForTexture(DynamicIconItems.RARE_TEX_LOC);
                 } else {
                     this.centerDisplayStack = ItemStack.EMPTY;
                 }
