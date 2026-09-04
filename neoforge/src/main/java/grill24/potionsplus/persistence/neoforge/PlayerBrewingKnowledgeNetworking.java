@@ -1,6 +1,6 @@
 package grill24.potionsplus.persistence.neoforge;
 
-import grill24.potionsplus.network.neoforge.ClientboundAcquiredBrewingRecipeKnowledgePacket;
+import grill24.potionsplus.network.ClientboundAcquiredBrewingRecipeKnowledgePacket;
 import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;

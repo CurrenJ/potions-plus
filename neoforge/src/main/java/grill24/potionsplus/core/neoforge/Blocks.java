@@ -8,13 +8,12 @@ import grill24.potionsplus.utility.*;
 import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.blockentity.neoforge.AbyssalTroveBlockEntity;
 import grill24.potionsplus.blockentity.neoforge.BrewingCauldronBlockEntity;
-import grill24.potionsplus.blockentity.neoforge.ClotheslineBlockEntity;
 import grill24.potionsplus.blockentity.neoforge.HerbalistsLecternBlockEntity;
-import grill24.potionsplus.blockentity.neoforge.PotionBeaconBlockEntity;
 import grill24.potionsplus.blockentity.neoforge.SanguineAltarBlockEntity;
 import grill24.potionsplus.utility.ClientTickHandler;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.FastColor;
@@ -36,6 +35,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unchecked")
 @EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class Blocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, ModInfo.MOD_ID);
@@ -56,6 +56,15 @@ public class Blocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AbyssalTroveBlockEntity>> ABYSSAL_TROVE_BLOCK_ENTITY = BLOCK_ENTITIES.register("abyssal_trove_block_entity", () -> BlockEntityType.Builder.of(AbyssalTroveBlockEntity::new, BlockEntityBlocks.ABYSSAL_TROVE.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ClotheslineBlockEntity>> CLOTHESLINE_BLOCK_ENTITY = BLOCK_ENTITIES.register("clothesline_block_entity", () -> BlockEntityType.Builder.of(ClotheslineBlockEntity::new, BlockEntityBlocks.CLOTHESLINE.value()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PotionBeaconBlockEntity>> POTION_BEACON_BLOCK_ENTITY = BLOCK_ENTITIES.register("potion_beacon_block_entity", () -> BlockEntityType.Builder.of(PotionBeaconBlockEntity::new, BlockEntityBlocks.POTION_BEACON.value()).build(null));
+
+    static {
+        grill24.potionsplus.core.Blocks.BREWING_CAULDRON_BLOCK_ENTITY = (Holder) (Object) BREWING_CAULDRON_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY = (Holder) (Object) HERBALISTS_LECTERN_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.SANGUINE_ALTAR_BLOCK_ENTITY = (Holder) (Object) SANGUINE_ALTAR_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.ABYSSAL_TROVE_BLOCK_ENTITY = (Holder) (Object) ABYSSAL_TROVE_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY = (Holder) (Object) CLOTHESLINE_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.POTION_BEACON_BLOCK_ENTITY = (Holder) (Object) POTION_BEACON_BLOCK_ENTITY;
+    }
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent

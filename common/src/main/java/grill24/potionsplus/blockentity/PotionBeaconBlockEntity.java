@@ -1,8 +1,8 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
 import grill24.potionsplus.blockentity.HerbalistsLecternSounds;
-import grill24.potionsplus.block.neoforge.PotionBeaconBlock;
-import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.block.PotionBeaconBlock;
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.utility.*;
 import grill24.potionsplus.alchemy.*;
@@ -66,7 +66,7 @@ public class PotionBeaconBlockEntity extends InventoryBlockEntity implements ISi
     }
 
     public PotionBeaconBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(Blocks.POTION_BEACON_BLOCK_ENTITY.get(), blockPos, blockState);
+        super(Blocks.POTION_BEACON_BLOCK_ENTITY.value(), blockPos, blockState);
     }
 
     @Override

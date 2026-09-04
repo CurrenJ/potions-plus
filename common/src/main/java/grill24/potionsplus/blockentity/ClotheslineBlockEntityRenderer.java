@@ -1,20 +1,14 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import grill24.potionsplus.block.neoforge.ClotheslineBlock;
-import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.block.ClotheslineBlock;
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.render.LeashRenderer;
 import grill24.potionsplus.utility.ClientTickHandler;
-import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -31,12 +25,8 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
-@OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<ClotheslineBlockEntity> {
     public final BlockRenderDispatcher blockRenderDispatcher;
     private ProfilerFiller profiler;
@@ -53,14 +43,13 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
     public void render(ClotheslineBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         profiler.push("clothesline_render");
 
-        if (blockEntity.getLevel() != null) {
+        // Only the left end draws the rope, posts and items, so the shared geometry isn't emitted
+        // twice - each clothesline spans two block entities (left + right) that both get render()
+        // calls every frame. (Platform-neutral replacement for the old per-frame "already rendered"
+        // HashSet cleared by a NeoForge RenderLevelStageEvent subscriber.)
+        if (blockEntity.getLevel() != null && ClotheslineBlock.isLeftEnd(blockEntity.getBlockState())) {
             BlockPos left = ClotheslineBlock.getLeftEnd(blockEntity.getBlockPos(), blockEntity.getBlockState());
             BlockPos right = ClotheslineBlock.getOtherEnd(left, blockEntity.getLevel().getBlockState(left));
-
-            // Prevent rendering the same clothesline twice (once for each end)
-            if (clotheslinesRendered.contains(left) || clotheslinesRendered.contains(right))
-                return;
-            clotheslinesRendered.add(blockEntity.getBlockPos());
 
             // Render the "clothesline" (repurposed lead rendering code from vanilla) between the two posts
             Level level = blockEntity.getLevel();
@@ -77,7 +66,7 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
                     Vec3.atLowerCornerOf(right).add(OFFSET_IN_POST_BLOCKS.x(), OFFSET_IN_POST_BLOCKS.y(), OFFSET_IN_POST_BLOCKS.z()),
                     matrices, vertexConsumers, blockLightStart, blockLightEnd, skyLightStart, skyLightEnd);
 
-            ClotheslineBlockEntity leftBlockEntity = level.getBlockEntity(left, Blocks.CLOTHESLINE_BLOCK_ENTITY.get()).orElse(null);
+            ClotheslineBlockEntity leftBlockEntity = level.getBlockEntity(left, Blocks.CLOTHESLINE_BLOCK_ENTITY.value()).orElse(null);
             if (leftBlockEntity == null)
                 return;
 
@@ -145,14 +134,5 @@ public class ClotheslineBlockEntityRenderer implements BlockEntityRenderer<Cloth
         poseStack.translate(rightRelative.getX(), rightRelative.getY(), rightRelative.getZ());
         post.ifPresent(state -> blockRenderDispatcher.renderSingleBlock(state, poseStack, bufferSource, light, overlay));
         poseStack.popPose();
-    }
-
-    private static final Set<BlockPos> clotheslinesRendered = new HashSet<>();
-
-    @SubscribeEvent
-    public static void onRender(final RenderLevelStageEvent event) {
-        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS) {
-            clotheslinesRendered.clear();
-        }
     }
 }

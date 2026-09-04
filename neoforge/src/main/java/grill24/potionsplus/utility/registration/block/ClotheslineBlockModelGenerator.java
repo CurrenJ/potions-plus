@@ -1,6 +1,6 @@
 package grill24.potionsplus.utility.registration.block;
 
-import grill24.potionsplus.block.neoforge.ClotheslineBlock;
+import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.block.ClotheslinePart;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import net.minecraft.core.Holder;

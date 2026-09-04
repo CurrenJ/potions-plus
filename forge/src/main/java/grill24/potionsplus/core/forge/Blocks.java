@@ -1,5 +1,7 @@
 package grill24.potionsplus.core.forge;
 
+import grill24.potionsplus.blockentity.ClotheslineBlockEntity;
+import grill24.potionsplus.blockentity.PotionBeaconBlockEntity;
 import grill24.potionsplus.core.forge.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.forge.blocks.DecorationBlocks;
 import grill24.potionsplus.core.forge.blocks.FlowerBlocks;
@@ -8,6 +10,8 @@ import grill24.potionsplus.core.forge.util.ForgeHolder;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -31,6 +35,32 @@ public class Blocks {
 
     public static <T extends Block> ForgeHolder<T> register(String name, Supplier<T> supplier) {
         return ForgeHolder.of(BLOCKS.register(name, supplier));
+    }
+
+    // ----- Block Entities -----
+    // Only Clothesline/PotionBeacon are portable here (Phase 11a) - the other four BE types are still
+    // neoforge-only.
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ModInfo.MOD_ID);
+
+    public static final ForgeHolder<BlockEntityType<ClotheslineBlockEntity>> CLOTHESLINE_BLOCK_ENTITY =
+            registerBlockEntity("clothesline_block_entity", ClotheslineBlockEntity::new, BlockEntityBlocks.CLOTHESLINE::value);
+    public static final ForgeHolder<BlockEntityType<PotionBeaconBlockEntity>> POTION_BEACON_BLOCK_ENTITY =
+            registerBlockEntity("potion_beacon_block_entity", PotionBeaconBlockEntity::new, BlockEntityBlocks.POTION_BEACON::value);
+
+    // Forge 52.1.2's BlockEntityType constructor is unpatched vanilla (BlockEntitySupplier, Set<Block>,
+    // Type<?>) - no NeoForge-style varargs convenience constructor - so this goes through the public
+    // vanilla BlockEntityType.Builder.of(...).build(Type<?>) path instead (same call on every loader
+    // per the VERIFIED API FACTS in docs/multi-loader-expansion.md), passing build(null) like NeoForge's
+    // core.neoforge.Blocks already does. The block value is captured inside the deferred supplier since
+    // blocks flush before block entities.
+    private static <T extends BlockEntity> ForgeHolder<BlockEntityType<T>> registerBlockEntity(
+            String name, BlockEntityType.BlockEntitySupplier<T> factory, Supplier<Block> blockSupplier) {
+        return ForgeHolder.of(BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of(factory, blockSupplier.get()).build(null)));
+    }
+
+    static {
+        grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY = CLOTHESLINE_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.POTION_BEACON_BLOCK_ENTITY = POTION_BEACON_BLOCK_ENTITY;
     }
 
     // DISPENSER association (PRECISION_DISPENSER -> vanilla BlockEntityType.DISPENSER, as NeoForge's

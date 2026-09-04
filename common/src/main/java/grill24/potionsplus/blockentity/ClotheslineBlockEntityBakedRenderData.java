@@ -1,8 +1,8 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import org.joml.Vector3f;
-import grill24.potionsplus.block.neoforge.ClotheslineBlock;
+import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.render.LeashRenderer;
 import grill24.potionsplus.utility.RUtil;

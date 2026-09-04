@@ -1,4 +1,4 @@
-package grill24.potionsplus.network.neoforge;
+package grill24.potionsplus.network;
 
 import grill24.potionsplus.client.integration.jei.JeiPotionsPlusPlugin;
 import grill24.potionsplus.core.PotionsPlus;

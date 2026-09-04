@@ -1,8 +1,8 @@
 package grill24.potionsplus.behaviour.neoforge;
 
-import grill24.potionsplus.block.neoforge.ClotheslineBlock;
+import grill24.potionsplus.block.ClotheslineBlock;
 import grill24.potionsplus.block.ClotheslinePart;
-import grill24.potionsplus.blockentity.neoforge.ClotheslineBlockEntity;
+import grill24.potionsplus.blockentity.ClotheslineBlockEntity;
 import grill24.potionsplus.core.neoforge.Blocks;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;

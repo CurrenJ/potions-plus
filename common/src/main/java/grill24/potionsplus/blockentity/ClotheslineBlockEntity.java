@@ -1,4 +1,4 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
 import grill24.potionsplus.advancement.CraftRecipeTrigger;
 import grill24.potionsplus.core.Advancements;
@@ -15,8 +15,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.phys.AABB;
 import grill24.potionsplus.platform.PacketNetwork;
 import org.joml.Vector3f;
-import grill24.potionsplus.block.neoforge.ClotheslineBlock;
-import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.block.ClotheslineBlock;
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.recipe.clotheslinerecipe.ClotheslineRecipe;
@@ -47,7 +47,7 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
     private BlockState fencePostBlockState;
 
     public ClotheslineBlockEntity(BlockPos pos, BlockState state) {
-        super(Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), pos, state);
+        super(Blocks.CLOTHESLINE_BLOCK_ENTITY.value(), pos, state);
         progress = new int[this.getContainerSize()];
         activeRecipes = new RecipeHolder[this.getContainerSize()];
 
@@ -168,7 +168,11 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                 float successChance = activeRecipe.getSuccessChance();
                 boolean recipeSucceeds = level.random.nextFloat() < successChance;
 
-                ItemStack container = getItem(slot).getCraftingRemainingItem();
+                // ItemStack#getCraftingRemainingItem()/hasCraftingRemainingItem() are NeoForge-only
+                // sugar (IItemStackExtension), not vanilla API - go through Item directly so common
+                // code doesn't depend on a platform extension interface.
+                net.minecraft.world.item.Item remainingItem = getItem(slot).getItem().getCraftingRemainingItem();
+                ItemStack container = remainingItem != null ? new ItemStack(remainingItem) : ItemStack.EMPTY;
                 getItem(slot).shrink(1);
 
                 if (recipeSucceeds) {

@@ -99,6 +99,7 @@ public class PotionsPlusForge {
         // 7. Register every DeferredRegister on the mod bus. Forge flushes each at its RegisterEvent
         //    in registry-dependency order (ARMOR_MATERIAL/BLOCK before ITEM, MOB_EFFECT before POTION).
         Blocks.BLOCKS.register(bus);
+        Blocks.BLOCK_ENTITIES.register(bus);
         Items.ITEMS.register(bus);
         ArmorMaterials.ARMOR_MATERIALS.register(bus);
         Particles.PARTICLE_TYPES.register(bus);

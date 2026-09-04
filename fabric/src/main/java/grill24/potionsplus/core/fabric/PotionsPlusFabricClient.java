@@ -2,6 +2,8 @@ package grill24.potionsplus.core.fabric;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.logging.LogUtils;
+import grill24.potionsplus.blockentity.ClotheslineBlockEntityRenderer;
+import grill24.potionsplus.blockentity.PotionBeaconBlockEntityRenderer;
 import grill24.potionsplus.item.tintsource.PotionsPlusItemColors;
 import grill24.potionsplus.particle.BloodGobParticle;
 import grill24.potionsplus.particle.ElectricalSparkParticle;
@@ -15,6 +17,7 @@ import grill24.potionsplus.particle.StunStarsParticle;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.world.item.Items;
@@ -60,6 +63,12 @@ public class PotionsPlusFabricClient implements ClientModInitializer {
         // (see docs/multi-loader-expansion.md Phase 11 progress log) - Fabric has no cauldron BE to
         // tint at all right now, so registering one would be a no-op stub.
         ColorProviderRegistry.ITEM.register(PotionsPlusItemColors::anyPotionItemColor, Items.POTION);
+
+        // Block entity renderers (Phase 11a). Only Clothesline/PotionBeacon are portable so far - the
+        // other four BE renderers still reference neoforge-only BE classes (see
+        // docs/multi-loader-expansion.md Phase 11a progress log).
+        BlockEntityRendererRegistry.register(Blocks.CLOTHESLINE_BLOCK_ENTITY.value(), ClotheslineBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(Blocks.POTION_BEACON_BLOCK_ENTITY.value(), PotionBeaconBlockEntityRenderer::new);
 
         // Key mapping (Phase 11).
         KeyMapping activateAbility = new KeyMapping(

@@ -15,13 +15,17 @@ import java.util.function.BiConsumer;
  * Fabric packet registration hub. Fabric splits registration between the server entrypoint
  * ({@link #registerServer()}) and the client entrypoint ({@link #registerClient()}).
  *
- * Only the 6 payloads with no remaining neoforge-only dependency are wired here. The other 6
- * ({@code Clientbound{AcquiredBrewingRecipeKnowledge,SyncKnownBrewingRecipes,SyncPairedAbyssalTrove}}
- * depend on {@code JeiPotionsPlusPlugin}; {@code ServerboundConstructClotheslinePacket} depends on
- * {@code ClotheslineBehaviour}; {@code ClientboundSanguineAltarConversion{State,Progress}Packet} depend
- * on {@code SanguineAltarBlockEntity} / {@code core.neoforge.Blocks} — all still neoforge-only pending
- * Phase 7 (event/behaviour extraction) and JEI-on-fabric (Phase 11). They stay registered only in
- * {@code core/neoforge/Packets.java} until those dependencies move to {@code common/}.
+ * Only 7 payloads (of 12) are wired here as of Phase 11a - {@code
+ * ClientboundAcquiredBrewingRecipeKnowledgePacket} moved to {@code common/network/} in Phase 11a
+ * (its only remaining dependency, {@code JeiPotionsPlusPlugin}, is already common). The other 5
+ * ({@code ServerboundConstructClotheslinePacket} depends on {@code ClotheslineBehaviour};
+ * {@code ClientboundSanguineAltarConversion{State,Progress}Packet} depend on the concrete,
+ * still-neoforge-only {@code SanguineAltarBlockEntity} class - not just its {@code BlockEntityType}
+ * holder, which moving the BE-type hub to {@code core.Blocks} in Phase 11a did NOT unblock - see the
+ * Phase 11a progress-log entry; {@code ClientboundSyncKnownBrewingRecipesPacket} and
+ * {@code ClientboundSyncPairedAbyssalTrove} depend on {@code JeiPotionsPlusPlugin} plus other
+ * still-neoforge-only BE classes) stay registered only in {@code core/neoforge/Packets.java} until
+ * those dependencies move to {@code common/}.
  */
 public class Packets {
     public static void registerServer() {
@@ -41,6 +45,7 @@ public class Packets {
         clientboundCodec(ClientboundDisplayAlertWithItemStackName.TYPE, ClientboundDisplayAlertWithItemStackName.STREAM_CODEC);
         clientboundCodec(ClientboundDisplayAlertWithParameter.TYPE, ClientboundDisplayAlertWithParameter.STREAM_CODEC);
         clientboundCodec(ClientboundDisplayAlert.TYPE, ClientboundDisplayAlert.STREAM_CODEC);
+        clientboundCodec(ClientboundAcquiredBrewingRecipeKnowledgePacket.TYPE, ClientboundAcquiredBrewingRecipeKnowledgePacket.STREAM_CODEC);
     }
 
     public static void registerClient() {
@@ -67,6 +72,8 @@ public class Packets {
                 ClientboundDisplayAlertWithParameter.ClientPayloadHandler::handleDataOnMain);
         clientbound(ClientboundDisplayAlert.TYPE, ClientboundDisplayAlert.STREAM_CODEC,
                 ClientboundDisplayAlert.ClientPayloadHandler::handleDataOnMain);
+        clientbound(ClientboundAcquiredBrewingRecipeKnowledgePacket.TYPE, ClientboundAcquiredBrewingRecipeKnowledgePacket.STREAM_CODEC,
+                ClientboundAcquiredBrewingRecipeKnowledgePacket.ClientPayloadHandler::handleDataOnMain);
     }
 
     private static <T extends CustomPacketPayload> void clientboundCodec(

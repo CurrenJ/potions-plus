@@ -19,8 +19,8 @@ import java.util.function.BiConsumer;
  * {@link ChannelBuilder} + {@link Channel} with the {@code payloadChannel()} variant (confirmed present
  * on Forge 52.1.2 via javap).
  *
- * Only the 6 payloads with no remaining neoforge-only dependency are wired here — see
- * {@code core/fabric/Packets.java} for why the other 6 stay NeoForge-only for now.
+ * Only 7 payloads (of 12) are wired here as of Phase 11a — see {@code core/fabric/Packets.java} for
+ * why the other 5 stay NeoForge-only for now.
  */
 public class Packets {
     public static Channel<CustomPacketPayload> CHANNEL;
@@ -68,6 +68,11 @@ public class Packets {
                         ClientboundDisplayAlert.TYPE,
                         playCodec(ClientboundDisplayAlert.STREAM_CODEC),
                         handled((pkt, ctx) -> ClientboundDisplayAlert.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
+                )
+                .add(
+                        ClientboundAcquiredBrewingRecipeKnowledgePacket.TYPE,
+                        playCodec(ClientboundAcquiredBrewingRecipeKnowledgePacket.STREAM_CODEC),
+                        handled((pkt, ctx) -> ClientboundAcquiredBrewingRecipeKnowledgePacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
 
                 .build();

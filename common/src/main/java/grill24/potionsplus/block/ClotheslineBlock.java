@@ -1,13 +1,11 @@
-package grill24.potionsplus.block.neoforge;
+package grill24.potionsplus.block;
 
 import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
-import grill24.potionsplus.blockentity.neoforge.ClotheslineBlockEntity;
+import grill24.potionsplus.blockentity.ClotheslineBlockEntity;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
-import grill24.potionsplus.block.ClotheslinePart;
-import grill24.potionsplus.block.HorizontalDirectionalBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -217,7 +215,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        Optional<ClotheslineBlockEntity> blockEntityOptional = blockGetter.getBlockEntity(getLeftEnd(blockPos, blockState), grill24.potionsplus.core.neoforge.Blocks.CLOTHESLINE_BLOCK_ENTITY.value());
+        Optional<ClotheslineBlockEntity> blockEntityOptional = blockGetter.getBlockEntity(getLeftEnd(blockPos, blockState), grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.value());
         if (blockEntityOptional.isPresent()) {
             Optional<BlockState> fencePostBlockStateOptional = blockEntityOptional.get().getFencePostBlockState();
             if (fencePostBlockStateOptional.isPresent()) {
@@ -245,7 +243,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
         if (stack.getItem() instanceof BlockItem blockItem) {
             Block block = blockItem.getBlock();
             if (block instanceof FenceBlock || block instanceof WallBlock) {
-                Optional<ClotheslineBlockEntity> blockEntityOptional = level.getBlockEntity(getLeftEnd(pos, state), grill24.potionsplus.core.neoforge.Blocks.CLOTHESLINE_BLOCK_ENTITY.value());
+                Optional<ClotheslineBlockEntity> blockEntityOptional = level.getBlockEntity(getLeftEnd(pos, state), grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.value());
                 if (blockEntityOptional.isPresent()) {
                     blockEntityOptional.get().setFencePostBlockItem(stack);
                     return ItemInteractionResult.SUCCESS;
@@ -271,7 +269,7 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         if (isLeftEnd(state))
-            return Utility.createTickerHelper(type, grill24.potionsplus.core.neoforge.Blocks.CLOTHESLINE_BLOCK_ENTITY.get(), ClotheslineBlockEntity::tick);
+            return Utility.createTickerHelper(type, grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY.value(), ClotheslineBlockEntity::tick);
 
         return null;
     }

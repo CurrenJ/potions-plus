@@ -1,6 +1,8 @@
 package grill24.potionsplus.core.forge;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import grill24.potionsplus.blockentity.ClotheslineBlockEntityRenderer;
+import grill24.potionsplus.blockentity.PotionBeaconBlockEntityRenderer;
 import grill24.potionsplus.item.tintsource.PotionsPlusItemColors;
 import grill24.potionsplus.particle.BloodGobParticle;
 import grill24.potionsplus.particle.ElectricalSparkParticle;
@@ -16,6 +18,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
@@ -39,13 +42,14 @@ import org.lwjgl.glfw.GLFW;
  * existing {@code FMLClientSetupEvent} handler would be too late, which is why this needs its own
  * dist-gated subscriber class rather than reusing that hook.
  *
- * <p><b>BE renderers are intentionally NOT registered here.</b> All six block-entity renderers
- * (brewing cauldron, herbalist's lectern, sanguine altar, abyssal trove, clothesline, potion beacon)
- * still reference their concrete {@code BlockEntity} subclasses under
- * {@code blockentity.neoforge.*}, which were never ported to {@code common}/Fabric/Forge (a
- * prerequisite this branch hasn't reached yet - see the Phase 11 progress-log entry). Porting the BE
- * renderers requires porting the BE logic classes first; that's out of this phase's scope. The block
- * (cauldron water) tint is skipped for the same reason - registering it here would be a no-op stub.
+ * <p><b>Only 2 of 6 BE renderers are registered here (Phase 11a).</b> Clothesline and PotionBeacon
+ * were ported to {@code common/} in Phase 11a (their only neoforge coupling was the
+ * {@code BlockEntityType} holder lookup, now {@code core.Blocks}). The other four (brewing cauldron,
+ * herbalist's lectern, sanguine altar, abyssal trove) still reference their concrete
+ * {@code BlockEntity} subclasses under {@code blockentity.neoforge.*}, blocked on the
+ * {@code DynamicIconItems}/{@code RecipesRegistrar} registration DSL (Phase 11a steps 3/4) - see
+ * docs/multi-loader-expansion.md. The block (cauldron water) tint is skipped for the same reason -
+ * registering it here would be a no-op stub.
  */
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class Renderers {
@@ -72,6 +76,12 @@ public class Renderers {
         // core.neoforge.Blocks#registerItemColors via the shared PotionsPlusItemColors helper. No
         // block (cauldron water) tint here - see class javadoc.
         event.register((stack, i) -> PotionsPlusItemColors.anyPotionItemColor(stack, i), Items.POTION);
+    }
+
+    @SubscribeEvent
+    public static void registerBlockEntityRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(Blocks.CLOTHESLINE_BLOCK_ENTITY.value(), ClotheslineBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(Blocks.POTION_BEACON_BLOCK_ENTITY.value(), PotionBeaconBlockEntityRenderer::new);
     }
 
     @SubscribeEvent

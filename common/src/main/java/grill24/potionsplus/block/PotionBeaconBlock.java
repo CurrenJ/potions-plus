@@ -1,9 +1,8 @@
-package grill24.potionsplus.block.neoforge;
+package grill24.potionsplus.block;
 
-import grill24.potionsplus.blockentity.neoforge.PotionBeaconBlockEntity;
+import grill24.potionsplus.blockentity.PotionBeaconBlockEntity;
 import grill24.potionsplus.blockentity.HerbalistsLecternSounds;
-import grill24.potionsplus.blockentity.neoforge.PotionBeaconBlockEntity;
-import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.network.ClientboundDisplayAlertWithItemStackName;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.alchemy.*;
@@ -58,7 +57,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         // Cache items before interaction
-        Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+        Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.value());
         if (blockEntity.isEmpty()) {
             return ItemInteractionResult.FAIL;
         }
@@ -91,7 +90,7 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 // Cache items before interaction
-        Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+        Optional<PotionBeaconBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.POTION_BEACON_BLOCK_ENTITY.value());
         if (blockEntity.isEmpty()) {
             return InteractionResult.FAIL;
         }
@@ -116,12 +115,12 @@ public class PotionBeaconBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return Utility.createTickerHelper(type, Blocks.POTION_BEACON_BLOCK_ENTITY.get(), PotionBeaconBlockEntity::tick);
+        return Utility.createTickerHelper(type, Blocks.POTION_BEACON_BLOCK_ENTITY.value(), PotionBeaconBlockEntity::tick);
     }
 
     @Override
     public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
-        Optional<PotionBeaconBlockEntity> PotionBeaconBlockEntity = level.getBlockEntity(blockPos, Blocks.POTION_BEACON_BLOCK_ENTITY.get());
+        Optional<PotionBeaconBlockEntity> PotionBeaconBlockEntity = level.getBlockEntity(blockPos, Blocks.POTION_BEACON_BLOCK_ENTITY.value());
         return PotionBeaconBlockEntity.filter(potionBeaconBlockEntity -> !potionBeaconBlockEntity.getItem(0).isEmpty()).map(potionBeaconBlockEntity -> 15).orElse(0);
     }
 
