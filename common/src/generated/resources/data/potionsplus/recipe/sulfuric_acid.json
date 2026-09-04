@@ -1,0 +1,31 @@
+{
+  "type": "potionsplus:brewing_cauldron_recipe",
+  "category": "BREWING",
+  "ingredients": [
+    {
+      "ppIngredient": {
+        "components": {
+          "minecraft:potion_contents": {
+            "potion": "minecraft:water"
+          }
+        },
+        "count": 1,
+        "id": "minecraft:potion"
+      }
+    },
+    {
+      "ppIngredient": {
+        "count": 1,
+        "id": "potionsplus:sulfur_shard"
+      }
+    }
+  ],
+  "matchingCriteria": [
+    "exact_match"
+  ],
+  "processingTime": 40,
+  "result": {
+    "count": 1,
+    "id": "potionsplus:sulfuric_acid"
+  }
+}

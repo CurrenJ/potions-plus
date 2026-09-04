@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_21",
+  "package": "grill24.potionsplus.mixin",
+  "mixins": [
+    "AbstractProjectileDispenseBehaviorMixin",
+    "BoatMixin",
+    "BootstrapMixin",
+    "InventoryMixin",
+    "ItemAttributeModifiersMixin",
+    "OreFeatureMixin",
+    "StateTestingPredicateMixin",
+    "TemptGoalMixin"
+  ],
+  "client": [
+    "ClientAdvancementsMixin",
+    "ClientPacketListenerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

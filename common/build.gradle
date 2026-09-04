@@ -1,0 +1,63 @@
+architectury {
+    common rootProject.enabled_platforms.split(',')
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/potionsplus.accesswidener")
+    mixin {
+        // Distinct from each platform module's own refmap name (see forge/fabric/neoforge
+        // build.gradle) - all four used to share "potionsplus-refmap.json" via the root
+        // subprojects{} default, and shadowJar silently let the platform-local refmap clobber
+        // common's when both landed at the same resource path in the merged jar. That dropped every
+        // common mixin's refmap entry (BootstrapMixin included) without any build error, and Mixin's
+        // RemapperChain then resolved injection targets against the wrong namespace at runtime -
+        // crashed :forge:runClient with "target class 'net/minecraft/class_2966' ... not supported"
+        // (a stray Fabric-intermediary id) applying BootstrapMixin. Found 2026-09-03.
+        defaultRefmapName = "potionsplus-common-refmap.json"
+    }
+}
+
+dependencies {
+    // We depend on Fabric Loader here to use the Fabric @Environment annotations,
+    // which get remapped to the correct annotations on each platform.
+    // Do NOT use other classes from Fabric Loader.
+    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+
+    // Architectury injectables only (Decision 6) — not the full architectury runtime library.
+    modImplementation "dev.architectury:architectury-injectables:1.0.13"
+
+    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+
+    // compile against the JEI API but do not include it at runtime
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+
+    // Unit tests (Phase 12). Phase 1 moved the tests to common/src/test, but this dependency block
+    // was left behind in neoforge/build.gradle, leaving common with no test wiring at all.
+    // architectury-loom needs no moddev-`unitTest`-equivalent here - Minecraft itself is on the test
+    // classpath via Loom, so tests that need registries (potions, mob effects) bootstrap them
+    // directly; see AlchemyTestBase.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.withType(Test).configureEach { useJUnitPlatform() }
+
+// Phase 10 (datagen sharing): NeoForge's runData output is copied here (via the root
+// `commonDatagen` task) so the Fabric + Forge modules pick up models/blockstates/tags/sounds.json
+// from a single shared source.
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+tasks.named('processResources').configure {
+    // Hand-authored files in src/main/resources take precedence over generated ones with the
+    // same path (e.g. a hand-tweaked model overriding a datagen default).
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+// common is never consumed standalone - every platform module pulls the "named"-mapped jar via the
+// `namedElements`/`transformProductionXxx` configurations wired in its own build.gradle, not this
+// jar. remapJar's named->intermediary remap is therefore both unneeded and (as of this mapping
+// snapshot) fails outright on vanilla's own Container/RecipeInput bridge-method ambiguity - it hits
+// dozens of pure-vanilla classes (SimpleContainer, MerchantContainer, etc.), not anything mod-owned,
+// the moment `common` has real Container-implementing content to remap. Disable it rather than work
+// around a jar nothing reads.
+tasks.named('remapJar') { enabled = false }

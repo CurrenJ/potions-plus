@@ -1,17 +1,17 @@
 pluginManagement {
     repositories {
+        maven { url = 'https://maven.fabricmc.net/' }
+        maven { url = 'https://maven.architectury.dev/' }
+        maven { url = 'https://files.minecraftforge.net/maven/' }
+        maven { url = 'https://maven.neoforged.net/releases/' }
         gradlePluginPortal()
-        maven {
-            name = 'MinecraftForge'
-            url = 'https://maven.minecraftforge.net/'
-        }
     }
 }
 
-plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0'
-}
+rootProject.name = 'potionsplus'
 
-include("forge")
-include("neoforge")
-include("common")
+// All four modules (Phase 3 re-adds 'fabric' and 'forge').
+include 'common'
+include 'neoforge'
+include 'fabric'
+include 'forge'

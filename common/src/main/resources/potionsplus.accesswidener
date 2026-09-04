@@ -1,0 +1,21 @@
+accessWidener v2 named
+
+# Members common code needs that are private/protected in vanilla. NeoForge's own
+# accesstransformer.cfg (neoforge/src/main/resources/META-INF/accesstransformer.cfg) widens the
+# same set for the neoforge module's own compile view; this file is the cross-loader equivalent for
+# common (Decision 4 / Phase 9). Only entries actually needed by code living in common belong here -
+# see docs/multi-loader-expansion.md Phase 1's notes for what's still pending a full AT survey.
+accessible method net/minecraft/world/level/block/Block popExperience (Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;I)V
+accessible field net/minecraft/resources/HolderSetCodec homogenousListCodec Lcom/mojang/serialization/Codec;
+accessible field net/minecraft/client/particle/TrackingEmitter entity Lnet/minecraft/world/entity/Entity;
+accessible field net/minecraft/client/particle/TrackingEmitter life I
+mutable field net/minecraft/client/particle/TrackingEmitter life I
+accessible field net/minecraft/client/particle/TrackingEmitter lifeTime I
+accessible field net/minecraft/client/particle/TrackingEmitter particleType Lnet/minecraft/core/particles/ParticleOptions;
+# RecipeManager.byType / byName — private fields; core.neoforge.RecipesRegistrar's runtime recipe
+# injection mutates these directly (mirrors NeoForge's own pre-existing AT entries below). Confirmed
+# via javap against minecraft-merged-mojang-patched.jar (fabric-loom neoforge cache, 21.1.209):
+# `private Multimap<RecipeType<?>, RecipeHolder<?>> byType;` / `private Map<ResourceLocation,
+# RecipeHolder<?>> byName;` — neither is final, so "accessible" alone (no "mutable") is enough.
+accessible field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
+accessible field net/minecraft/world/item/crafting/RecipeManager byName Ljava/util/Map;

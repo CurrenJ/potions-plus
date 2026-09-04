@@ -1,0 +1,53 @@
+package grill24.potionsplus.behaviour.neoforge;
+
+import com.google.common.base.Suppliers;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import grill24.potionsplus.behaviour.WormrootLootBehaviour;
+import grill24.potionsplus.core.neoforge.LootModifiers;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.common.loot.LootModifier;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.function.Supplier;
+
+public class WormrootLootModifier extends LootModifier {
+    public static final Supplier<MapCodec<WormrootLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(inst -> codecStart(inst)
+            .and(BuiltInRegistries.BLOCK.byNameCodec().listOf().fieldOf("blocks").forGetter(m -> m.blocks))
+            .apply(inst, WormrootLootModifier::new)
+    ));
+
+    private final List<Block> blocks;
+
+    /**
+     * Constructs a LootModifier.
+     *
+     * @param conditionsIn the ILootConditions that need to be matched before the loot is modified.
+     */
+    public WormrootLootModifier(LootItemCondition[] conditionsIn, List<Block> blocksIn) {
+        super(conditionsIn);
+        blocks = blocksIn;
+    }
+
+    @Override
+    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+        if (context.hasParam(LootContextParams.BLOCK_STATE)) {
+            Block block = context.getParamOrNull(LootContextParams.BLOCK_STATE).getBlock();
+            WormrootLootBehaviour.apply(generatedLoot, context.getRandom(), block, blocks);
+        }
+        return generatedLoot;
+    }
+
+    @Override
+    public MapCodec<? extends IGlobalLootModifier> codec() {
+        return LootModifiers.WORMROOT.value();
+    }
+}

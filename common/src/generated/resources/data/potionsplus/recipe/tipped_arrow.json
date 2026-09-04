@@ -1,0 +1,36 @@
+{
+  "type": "potionsplus:brewing_cauldron_recipe",
+  "category": "BREWING",
+  "ingredients": [
+    {
+      "ppIngredient": {
+        "components": {
+          "minecraft:potion_contents": {
+            "potion": "potionsplus:any_potion"
+          }
+        },
+        "count": 1,
+        "id": "minecraft:potion"
+      }
+    },
+    {
+      "ppIngredient": {
+        "count": 1,
+        "id": "minecraft:arrow"
+      }
+    }
+  ],
+  "matchingCriteria": [
+    "ignore_potion_effects"
+  ],
+  "processingTime": 30,
+  "result": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "potionsplus:any_potion"
+      }
+    },
+    "count": 1,
+    "id": "minecraft:tipped_arrow"
+  }
+}

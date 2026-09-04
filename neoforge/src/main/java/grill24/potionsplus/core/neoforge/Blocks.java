@@ -1,0 +1,111 @@
+package grill24.potionsplus.core.neoforge;
+
+import grill24.potionsplus.block.*;
+import grill24.potionsplus.blockentity.*;
+import grill24.potionsplus.core.blocks.BlockEntityBlocks;
+import grill24.potionsplus.core.potion.MobEffects;
+import grill24.potionsplus.utility.*;
+import grill24.potionsplus.alchemy.*;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
+import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntity;
+import grill24.potionsplus.utility.ClientTickHandler;
+import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.util.FastColor;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.Optional;
+import java.util.function.Supplier;
+
+@SuppressWarnings("unchecked")
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+public class Blocks {
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, ModInfo.MOD_ID);
+
+    static {
+        grill24.potionsplus.core.neoforge.blocks.BlockEntityBlocks.init(BLOCKS::register, Items.ITEMS::register);
+        grill24.potionsplus.core.neoforge.blocks.OreBlocks.init(BLOCKS::register, Items.ITEMS::register);
+        grill24.potionsplus.core.neoforge.blocks.FlowerBlocks.init(BLOCKS::register, Items.ITEMS::register);
+        grill24.potionsplus.core.neoforge.blocks.DecorationBlocks.init(BLOCKS::register, Items.ITEMS::register);
+    }
+
+    // ----- Block Entities -----
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ModInfo.MOD_ID);
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BrewingCauldronBlockEntity>> BREWING_CAULDRON_BLOCK_ENTITY = BLOCK_ENTITIES.register("brewing_cauldron_block_entity", () -> BlockEntityType.Builder.of(BrewingCauldronBlockEntity::new, BlockEntityBlocks.BREWING_CAULDRON.value()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HerbalistsLecternBlockEntity>> HERBALISTS_LECTERN_BLOCK_ENTITY = BLOCK_ENTITIES.register("herbalists_lectern_block_entity", () -> BlockEntityType.Builder.of(HerbalistsLecternBlockEntity::new, BlockEntityBlocks.HERBALISTS_LECTERN.value()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SanguineAltarBlockEntity>> SANGUINE_ALTAR_BLOCK_ENTITY = BLOCK_ENTITIES.register("sanguine_altar_block_entity", () -> BlockEntityType.Builder.of(SanguineAltarBlockEntity::new, BlockEntityBlocks.SANGUINE_ALTAR.value()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AbyssalTroveBlockEntity>> ABYSSAL_TROVE_BLOCK_ENTITY = BLOCK_ENTITIES.register("abyssal_trove_block_entity", () -> BlockEntityType.Builder.of(AbyssalTroveBlockEntity::new, BlockEntityBlocks.ABYSSAL_TROVE.value()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ClotheslineBlockEntity>> CLOTHESLINE_BLOCK_ENTITY = BLOCK_ENTITIES.register("clothesline_block_entity", () -> BlockEntityType.Builder.of(ClotheslineBlockEntity::new, BlockEntityBlocks.CLOTHESLINE.value()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PotionBeaconBlockEntity>> POTION_BEACON_BLOCK_ENTITY = BLOCK_ENTITIES.register("potion_beacon_block_entity", () -> BlockEntityType.Builder.of(PotionBeaconBlockEntity::new, BlockEntityBlocks.POTION_BEACON.value()).build(null));
+
+    static {
+        grill24.potionsplus.core.Blocks.BREWING_CAULDRON_BLOCK_ENTITY = (Holder) (Object) BREWING_CAULDRON_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY = (Holder) (Object) HERBALISTS_LECTERN_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.SANGUINE_ALTAR_BLOCK_ENTITY = (Holder) (Object) SANGUINE_ALTAR_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.ABYSSAL_TROVE_BLOCK_ENTITY = (Holder) (Object) ABYSSAL_TROVE_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY = (Holder) (Object) CLOTHESLINE_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.POTION_BEACON_BLOCK_ENTITY = (Holder) (Object) POTION_BEACON_BLOCK_ENTITY;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+        BlockColor cauldronWater = (blockState, world, pos, i) -> {
+            if (world != null && pos != null) {
+                Optional<BrewingCauldronBlockEntity> brewingCauldron = world.getBlockEntity(pos, BREWING_CAULDRON_BLOCK_ENTITY.value());
+                if (brewingCauldron.isPresent()) {
+                    return brewingCauldron.get().getWaterColor(world, pos);
+                }
+            }
+            // No block entity or world, just return the biome color. This can happen bc block entity creation is lazy and can be null up until first interaction with it.
+            return BiomeColors.getAverageWaterColor(world, pos);
+        };
+        event.register(cauldronWater, BlockEntityBlocks.BREWING_CAULDRON.value());
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+        event.register((stack, i) -> grill24.potionsplus.item.tintsource.PotionsPlusItemColors.anyPotionItemColor(stack, i), net.minecraft.world.item.Items.POTION);
+    }
+
+    @SubscribeEvent
+    public static void addValidBlocksToBlockEntityTypes(final BlockEntityTypeAddBlocksEvent event) {
+        event.modify(BlockEntityType.DISPENSER, BlockEntityBlocks.PRECISION_DISPENSER.value());
+    }
+
+    public static <T extends Block> DeferredHolder<Block, T> register(final String name, final Supplier<T> sup, boolean registerBlockItem, Item.Properties properties) {
+        DeferredHolder<Block, T> block = BLOCKS.register(name, sup);
+        if (registerBlockItem) {
+            Items.ITEMS.register(name, () -> new BlockItem(block.value(), new Item.Properties()));
+        }
+        return block;
+    }
+
+    public static <T extends Block> DeferredHolder<Block, T> register(final String name, final Supplier<T> sup, boolean registerBlockItem) {
+        return register(name, sup, registerBlockItem, Items.properties());
+    }
+
+    public static <T extends Block> DeferredHolder<Block, T> register(final String name, final Supplier<T> sup) {
+        return register(name, sup, true, Items.properties());
+    }
+
+}

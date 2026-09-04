@@ -1,0 +1,227 @@
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+    // NOT runtimeClasspath: Loom's Forge dev launcher merges developmentForge's classpath
+    // (including common, via the line above) into one synthetic "generated_XXX" module so the
+    // TRANSFORMER layer gets a single, self-consistent copy of :common's classes. Separately
+    // extending plain runtimeClasspath from common puts a second, independently-loaded copy of
+    // grill24.potionsplus on the classpath used to build the parent SECURE-BOOTSTRAP module layer -
+    // colliding with the merged copy as a JPMS split package (java.lang.module.ResolutionException:
+    // "Modules potionsplus.common.dev and generated_XXX export package grill24.potionsplus") since
+    // both land in module layers that get resolved together at JVM bootstrap. (Verified 2026-09-01:
+    // 26.1.2's forge/build.gradle has the identical asymmetry - only compileClasspath and
+    // developmentForge extend common.)
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+sourceSets {
+    testmod {
+        // Same shared gametest source as neoforge/build.gradle and fabric/build.gradle point at - the
+        // loader-agnostic static methods in common/src/testmod/java/grill24/potionsplus/gametest/*.java
+        // (Phase 12).
+        java.srcDir project(':common').file('src/testmod/java')
+    }
+}
+
+// See fabric/build.gradle's identical line for why extendsFrom on the resolvable configuration (not
+// `sourceSets.testmod.compileClasspath += ...`) is required for compiling.
+// Extending testmodRuntimeClasspath from plain `compileClasspath` (which pulls in :common via the
+// `common` configuration above) recreated exactly the JPMS split-package collision the
+// `configurations {}` block's own comment already warns about: `:forge:runGametest` failed with
+// "Module generated_XXXXXXX contains package grill24.potionsplus.command, module
+// potionsplus.common.dev exports package grill24.potionsplus.command to generated_XXXXXXX". Extending
+// it from plain `runtimeClasspath` instead (not `compileClasspath`, not `common`) supplies the same
+// Forge bootstrap/launcher jars `main`'s own runtimeClasspath needs (confirmed necessary: without any
+// runtime extendsFrom at all, the run failed one step later with "ClassNotFoundException:
+// net.minecraftforge.bootstrap.ForgeBootstrap") without re-adding :common a second time, because
+// forge/build.gradle's own `runtimeClasspath` deliberately never extends `common` in the first place
+// (only `developmentForge` does, per this file's top comment) - so this extendsFrom chain still never
+// reaches `common`.
+configurations.testmodCompileClasspath.extendsFrom(configurations.compileClasspath)
+configurations.testmodRuntimeClasspath.extendsFrom(configurations.runtimeClasspath)
+
+// Phase 12: compile testmod's classes straight into main's own output directory instead of a
+// separate split dir - same fix as neoforge/build.gradle, same theoretical root cause (Forge 52.1.2
+// ships the same ASM ModFileScanData-based @GameTestHolder annotation scan NeoForge does - confirmed
+// via javap, net.minecraftforge.gametest.ForgeGameTestHooks mirrors net.neoforged.neoforge.gametest
+// .GameTestHooks almost exactly, right down to the "forge.enabledGameTestNamespaces" system property).
+// NECESSARY BUT NOT SUFFICIENT for Forge, unlike NeoForge (confirmed this session): with this redirect
+// in place, `PotionsPlusForgeGameTests.class` verifiably lands in forge/build/classes/java/main/... (not
+// a separate testmod dir - checked directly), :forge:runGametest gets much further than before (FML
+// boots, loads Forge, loads recipes/advancements, reaches "Enabled Gametest Namespaces: [potionsplus]"),
+// but ForgeGameTestHooks.registerGametests() still reports "No test functions were given!" - the ASM
+// scan itself is not finding the class even though it is unambiguously present in the sourceSet FML
+// scans. Root cause NOT isolated (see the loom.runs.gametest comment for the two infra bugs found and
+// fixed to get this far - the missing architectury-transformer-runtime/dev-launch-injector jars and the
+// JPMS split-package collision - this is a third, distinct, still-open issue on top of those).
+tasks.named('compileTestmodJava').configure {
+    destinationDirectory.set(sourceSets.main.output.classesDirs.singleFile)
+    dependsOn(tasks.named('processResources'))
+}
+
+repositories {
+    maven {
+        name = 'MinecraftForge'
+        url = 'https://maven.minecraftforge.net/'
+    }
+}
+
+dependencies {
+    forge "net.minecraftforge:forge:$rootProject.minecraft_version-$rootProject.forge_version"
+
+    // compile against the JEI API but do not include it at runtime
+    compileOnly "mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"
+    // at runtime, use the full JEI jar for Forge
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-forge:${jei_version}"
+
+    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionForge')
+
+    // Testmod (Phase 12): access the compiled main classes, same as neoforge/build.gradle and
+    // fabric/build.gradle.
+    testmodImplementation sourceSets.main.output
+    // CONFIRMED NECESSARY (Phase 12), not just a compile-time nicety: without these two,
+    // `:forge:runGametest`'s launch process fails before FML even starts, first with "Could not find
+    // or load main class dev.architectury.transformer.TransformerRuntime", then (once that's fixed)
+    // "ClassNotFoundException: net.minecraftforge.bootstrap.ForgeBootstrap". Both jars are present on
+    // every other Forge run's (client/server/data) generated classpath already - Architectury's own
+    // Gradle plugin injects them there - but empirically does NOT inject them for a run named
+    // "gametest" specifically (confirmed by diffing the generated argFiles for :forge:runGametest vs
+    // :forge:runServer byte-for-byte; NeoForge's own gametest run does not have this problem, so this
+    // is a forge()-platform-specific gap in Architectury's plugin, not a NeoForge-vs-Forge Minecraft
+    // API difference). Adding them directly to testmod's own runtime classpath works around it.
+    testmodRuntimeOnly "dev.architectury:architectury-transformer:5.2.91:runtime"
+    testmodRuntimeOnly "net.fabricmc:dev-launch-injector:0.2.1+build.8"
+}
+
+processResources {
+    dependsOn ':common:processResources'
+    inputs.property 'version', project.version
+    // Phase 10: common now carries a copy of NeoForge's shared datagen output (commonDatagen), so
+    // pulling common's resources in below duplicates files already produced by forge's own
+    // generated-resources srcDir. Forge's own copy wins (declared first in Gradle's duplicate
+    // resolution), matching the 26.1.2 tree.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from project(":common").sourceSets.main.resources
+
+    filesMatching('META-INF/mods.toml') {
+        expand([
+            'version': project.version,
+            'mod_license': rootProject.mod_license,
+            'mod_id': rootProject.mod_id,
+            'mod_name': rootProject.mod_name,
+            'mod_authors': rootProject.mod_authors,
+            'mod_description': rootProject.mod_description,
+            'mod_icon': rootProject.mod_icon,
+            'mod_forge_version_range': "[${rootProject.forge_version},)",
+            'mod_minecraft_version_range': "[${rootProject.minecraft_version},)"
+        ])
+    }
+}
+
+shadowJar {
+    dependsOn(tasks.named('compileTestmodJava'))
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+    // shadowJar (not `jar`) is what remapJar actually packages - the merged testmod classes from the
+    // compileTestmodJava redirect above must not reach it (same as neoforge/build.gradle).
+    exclude '**/gametest/**'
+}
+
+tasks.named('jar').configure {
+    dependsOn(tasks.named('compileTestmodJava'))
+    exclude '**/gametest/**'
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+loom {
+    mixin {
+        // Distinct from common's "potionsplus-common-refmap.json" (common/build.gradle) - sharing a
+        // name let shadowJar clobber one with the other silently. See that file's comment for the
+        // :forge:runClient crash this caused.
+        defaultRefmapName = "potionsplus-forge-refmap.json"
+    }
+
+    // Forge's dev launcher only applies mixin configs it is given as `--mixin.config` launch args:
+    // MixinPlatformAgentMinecraftForge rejects an exploded-directory mod container, so the
+    // [[mixins]] entries in mods.toml - which do work in a built jar - are never read in dev.
+    // potionsplus.mixins.json (common) arrives anyway via the Architectury transformer reading the
+    // MixinConfigs manifest attribute of the transformed :common dev jar; this module's OWN config
+    // has no such jar, so nothing delivers it unless it's passed explicitly here. Without this,
+    // RegistryMixin (the ForgeHolder equals/serialization fix) is silently inactive in every Forge
+    // dev run. Mirrors 26.1.2 `forge/build.gradle` (docs/multi-loader-expansion.md Phase 9).
+    runs.configureEach { run ->
+        run.programArgs '--mixin.config', 'potionsplus.forge.mixins.json'
+    }
+
+    runs {
+        configureEach {
+            vmArg "-Dforge.enabledGameTestNamespaces=${mod_id}"
+        }
+        data {
+            data()
+            programArgs "--mod", "${mod_id}",
+                        "--all",
+                        "--output", file("src/generated/resources").absolutePath
+        }
+        // Phase 12: headless game test server. STILL BLOCKED this session, but got substantially
+        // further than the reference dev/26.1.2 tree's Forge notes predicted (which never got past
+        // RegisterEvent never firing at all) - three distinct, real infra bugs found and fixed to get
+        // here, then a fourth, deeper one still open:
+        //   1. `forgeTemplate('gameTestServer')` correctly selects the userdev gameTestServer launch
+        //      template (confirmed present via `unzip -p forge-1.21.1-52.1.2-userdev.jar config.json`).
+        //   2/3. Architectury's Gradle plugin does not inject `architectury-transformer-*-runtime.jar`
+        //      or `dev-launch-injector-*.jar` onto a run named "gametest" for the forge() platform the
+        //      way it does for every other Forge run (client/server/data) and the way it DOES for
+        //      NeoForge's own identically-shaped `gametest` run (confirmed by diffing
+        //      `forge/build/loom-cache/argFiles/runGametest` against the working `runServer`'s
+        //      byte-for-byte) - fixed by adding both jars directly via `testmodRuntimeOnly` above.
+        //   4. STILL OPEN: with the launcher now working, the run boots all the way through FML/Forge
+        //      (loads recipes, advancements, logs "Enabled Gametest Namespaces: [potionsplus]" - i.e.
+        //      reaches exactly the point NeoForge's run used to fail at before its own
+        //      compileTestmodJava redirect fix), then fails with the identical
+        //      "IllegalArgumentException: No test functions were given!" NeoForge had - except the
+        //      same redirect fix is already applied here too (confirmed: `PotionsPlusForgeGameTests
+        //      .class` verifiably lands in `forge/build/classes/java/main/...`, not a separate testmod
+        //      dir) and it did NOT resolve it for Forge. `ForgeGameTestHooks`'s ASM ModFileScanData
+        //      scan is simply not finding the annotated class for a reason not isolated this session -
+        //      ruled out: not a stale-cache artifact (`--rerun-tasks` + deleting `forge/build/gametest`
+        //      first gives the identical failure). Reproduce: `rm forge/build/loom-cache/argFiles/
+        //      runGametest && ./gradlew :forge:runGametest --rerun-tasks`.
+        gametest {
+            environment('gameTestServer')
+            forgeTemplate('gameTestServer')
+            source sourceSets.testmod
+            runDir 'build/gametest'
+        }
+    }
+}
+
+file('build/gametest').mkdirs()
+
+// Custom run dirs are not created automatically before the run task executes, unlike the default
+// "run" dir, so a fresh checkout would fail its first runData with "working directory does not exist".
+file("build/datagen").mkdirs()

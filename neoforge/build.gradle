@@ -1,91 +1,122 @@
 plugins {
-    id 'net.neoforged.moddev'
+    id 'com.gradleup.shadow'
 }
 
-version = mod_version
-base {
-    archivesName = mod_id
+architectury {
+    platformSetupLoomIde()
+    neoForge()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    // All three, per the canonical architectury layout (apt-ores@1.21.1, fishtastic). common's
+    // classes MUST be on runtimeClasspath - `loom.mods` contributes nothing to the run classpath,
+    // and NeoForge's userdev locator only treats a classpath entry as part of the `potionsplus`
+    // mod if it carries META-INF/neoforge.mods.toml, which common's output dir does not. Phase 1
+    // dropped these two to silence a JPMS split-package ResolutionException; the real cause of
+    // that is the 14 packages common and neoforge both occupy (see docs/multi-loader-expansion.md
+    // Phase 1). Fix the packages, not the classpath.
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentNeoForge.extendsFrom common
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
 }
 
 sourceSets {
-    // Declared here (before neoForge {}) only so `neoForge.mods { sourceSet sourceSets.testmod }`
-    // below has something to reference. The moddev plugin decorates sourceSets.main's classpath
-    // reactively while it processes the neoForge {} block, so extending testmod's classpath from
-    // main's has to happen *after* that block runs (see the bottom of this file) - doing it here
-    // eagerly would capture main's classpath before Minecraft/NeoForge were added to it.
     testmod {
-        java.srcDir 'src/testmod/java'
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+        // Phase 1 moved the gametests to common/src/testmod; point at them there so
+        // :neoforge:runGametest isn't silently NO-SOURCE. (Same shape as fishtastic.)
+        java.srcDir project(':common').file('src/testmod/java')
     }
 }
 
-neoForge {
-    version = neoforge_version
+// Phase 12 fix (see loom { mods {} } comment below for the full evidence): compile testmod's
+// classes straight into main's own output directory instead of testmod's separate split dir, so
+// FML's dev-mode annotation scan (which only scans the sourceSet(s) actually associated with the
+// mod - here just `main`) sees the @GameTestHolder-annotated test classes. Two tasks now write to
+// the same directory, hence the explicit dependsOn so `processResources`, which also targets it,
+// always runs first and neither task's Gradle up-to-date tracking gets confused about who owns it.
+tasks.named('compileTestmodJava').configure {
+    destinationDirectory.set(sourceSets.main.output.classesDirs.singleFile)
+    dependsOn(tasks.named('processResources'))
+}
 
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
-    }
+// The merged testmod classes must never reach the distributable jar - shadowJar/remapJar package
+// whatever main's classesDirs contain, and the redirect above just put testmod's .class files there.
+// Both jar and shadowJar now read main's classesDirs after compileTestmodJava writes to it too, so
+// Gradle's task-output-without-a-declared-dependency validation needs an explicit dependsOn here
+// (both tasks already implicitly depend on compileJava for the same directory; this adds the same
+// relationship for compileTestmodJava).
+tasks.named('jar').configure {
+    dependsOn(tasks.named('compileTestmodJava'))
+    exclude '**/gametest/**'
+}
 
-    accessTransformers {
-        file('src/main/resources/META-INF/accesstransformer.cfg')
-    }
-    runs {
-        configureEach {
-            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
-            ideName = "NeoForge ${it.name.capitalize()} (${project.path})"
-        }
-        client {
-            client()
-        }
-        data {
-            data()
 
-            programArguments.addAll '--mod', mod_id.toString(), '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-        }
-        server {
-            server()
-        }
-        // Headless game test server: boots, registers every @GameTest-annotated method in the
-        // testmod source set, runs them, and exits with the number of failed required tests.
-        // Run with ./gradlew :neoforge:runGametest
-        gametest {
-            type = 'gameTestServer'
-            sourceSet = sourceSets.testmod
-        }
+repositories {
+    maven {
+        name = 'NeoForged'
+        url = 'https://maven.neoforged.net/releases'
     }
-    mods {
-        "${mod_id}" {
-            sourceSet sourceSets.main
-            sourceSet sourceSets.testmod
-        }
-    }
-
-    // Bare Bootstrap.bootStrap() fails in a plain `test` JVM on this classpath: NeoForge's MobEffect
-    // patch reads FeatureFlags, which needs FML's LoadingModList, which a bare JUnit process never
-    // populates - Bootstrap.bootStrap() itself throws NoClassDefFoundError on Blocks.<clinit> before a
-    // single test runs. unitTest.enable() is the moddev plugin's supported fix: it wires the `test`
-    // task with NeoForge's own junit fixtures/classpath and an `-Dfml.junit.argsfile=...` JVM arg that
-    // gives Bootstrap a real (if minimal) mod-loading context to run in.
-    unitTest {
-        enable()
-        testedMod = mods.getByName(mod_id.toString())
-    }
-
-    dependencies {
-        // compile against the JEI API but do not include it at runtime
-        compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
-        // at runtime, use the full JEI jar for NeoForge
-        runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
-    }
-
-    accessTransformers
 }
 
 dependencies {
-    // Unit tests. Minecraft itself is on the test classpath via the moddev plugin, but tests that
-    // need registries (potions, mob effects) bootstrap them manually - see AlchemyTestBase.
+    neoForge "net.neoforged:neoforge:$rootProject.neoforge_version"
+
+    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
+
+    // compile against the JEI API but do not include it at runtime
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    // at runtime, use the full JEI jar for NeoForge
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+
+    // Testmod: access the compiled main classes.
+    testmodImplementation sourceSets.main.output
+
+    // Unit tests. NOTE: architectury-loom has no equivalent of moddev's `unitTest { enable() }`.
+    // `AlchemyTestBase`'s `Bootstrap.bootStrap()` is expected to go red here and stay red until
+    // Phase 12 restores a working `common/src/test` setup - see docs/multi-loader-expansion.md
+    // Phase 0's "known casualty" note. Do not delete the tests to make the build green.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+processResources {
+    inputs.property 'version', project.version
+    // Phase 10: common now carries a copy of neoforge's own shared datagen output
+    // (commonDatagen), so pulling common's resources in below duplicates files already produced
+    // by neoforge's own generated-resources srcDir. Neoforge's own copy wins (declared first in
+    // Gradle's duplicate resolution), matching the 26.1.2 tree.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from project(":common").sourceSets.main.resources
+
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand([
+            'version': project.version,
+            'mod_version': rootProject.mod_version,
+            'mod_license': rootProject.mod_license,
+            'mod_id': rootProject.mod_id,
+            'mod_name': rootProject.mod_name,
+            'mod_authors': rootProject.mod_authors,
+            'mod_description': rootProject.mod_description,
+            'mod_icon': rootProject.mod_icon,
+            'neoforge_version': rootProject.neoforge_version,
+            'neo_version_range': rootProject.neo_version_range,
+            'neoforge_loader_version_range': rootProject.neoforge_loader_version_range,
+            'minecraft_version_range': rootProject.minecraft_version_range
+        ])
+    }
 }
 
 tasks.withType(Test).configureEach {
@@ -96,11 +127,78 @@ tasks.withType(Test).configureEach {
     }
 }
 
+shadowJar {
+    dependsOn(tasks.named('compileTestmodJava'))
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+    // shadowJar (not `jar`) is what remapJar actually packages (see inputFile below) - the merged
+    // testmod classes from the compileTestmodJava redirect above must not reach it either.
+    exclude '**/gametest/**'
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+}
+
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-// Extends testmod's classpath from main's now that neoForge {} above has finished decorating main's
-// classpath with Minecraft/NeoForge/mod dependencies - see the comment on the testmod block up top.
-// sourceSets.main.compileClasspath is main's *dependencies*, not its compiled classes - main.output
-// (the compiled classes themselves) has to be added separately for game tests to see mod classes.
-sourceSets.testmod.compileClasspath += sourceSets.main.compileClasspath + sourceSets.main.output
-sourceSets.testmod.runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.main.output
+loom {
+    mixin {
+        // Distinct from common's "potionsplus-common-refmap.json" (common/build.gradle) - sharing a
+        // name let shadowJar clobber one with the other silently (see that file's comment).
+        defaultRefmapName = "potionsplus-neoforge-refmap.json"
+    }
+
+    // Phase 12: do NOT associate testmod with mod_id here (docs/multi-loader-expansion.md Phase 12's
+    // `loom.mods` gotcha - confirmed empirically this session: with testmod listed as a second
+    // sourceSet, :neoforge:runGametest boots clean and logs "Enabled Gametest Namespaces:
+    // [potionsplus]", but FML's `ModList.getAllScanData()` annotation scan (GameTestHooks.
+    // registerGametests(), decompiled via javap) never finds the `@GameTestHolder`-annotated test
+    // classes - `GameTestServer.create` fails immediately with "No test functions were given!".
+    // loom's mods{} sourceSet association puts testmod's split output dir on the runtime/mod
+    // classpath (classes load and run fine, hence no crash) but does not make FML's dev-mode
+    // mod-file locator re-scan that directory's bytecode for annotations the way it does the
+    // sourceSet(s) actually declared to hold the mod's `main` output. Fixed below by merging
+    // testmod's compiled classes directly into main's own classesDirs instead, so FML scans them as
+    // part of the mod it already recognizes.
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+
+    runs {
+        configureEach {
+            vmArg "-Dneoforge.enabledGameTestNamespaces=${mod_id}"
+        }
+        client {
+            client()
+        }
+        server {
+            server()
+        }
+        data {
+            data()
+            // Two --existing roots: neoforge's own hand-authored assets, plus common's (Phase 1
+            // moved most textures/models there). ExistingFileHelper only sees what's listed here -
+            // it does not walk the runtimeClasspath's `common` configuration - so without the
+            // second root, any item model whose texture lives in common/ (nearly everything) fails
+            // datagen with "Texture ... does not exist in any known resource pack".
+            programArgs '--mod', mod_id.toString(), '--all',
+                    '--output', file('src/generated/resources/').getAbsolutePath(),
+                    '--existing', file('src/main/resources/').getAbsolutePath(),
+                    '--existing', project(':common').file('src/main/resources/').getAbsolutePath()
+        }
+        // Headless game test server: boots, registers every @GameTest-annotated method in the
+        // testmod source set, runs them, and exits with the number of failed required tests.
+        // Run with ./gradlew :neoforge:runGametest
+        gametest {
+            environment('gameTestServer')
+            forgeTemplate('gameTestServer')
+            source sourceSets.testmod
+            runDir 'build/gametest'
+        }
+    }
+}
+
+file('build/gametest').mkdirs()
