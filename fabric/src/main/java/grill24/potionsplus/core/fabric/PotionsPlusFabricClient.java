@@ -2,8 +2,13 @@ package grill24.potionsplus.core.fabric;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.logging.LogUtils;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntityRenderer;
 import grill24.potionsplus.blockentity.ClotheslineBlockEntityRenderer;
+import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntityRenderer;
 import grill24.potionsplus.blockentity.PotionBeaconBlockEntityRenderer;
+import grill24.potionsplus.blockentity.BrewingCauldronBlockEntityRenderer;
+import grill24.potionsplus.blockentity.SanguineAltarBlockEntityRenderer;
+import grill24.potionsplus.block.tintsource.PotionsPlusBlockColors;
 import grill24.potionsplus.item.tintsource.PotionsPlusItemColors;
 import grill24.potionsplus.particle.BloodGobParticle;
 import grill24.potionsplus.particle.ElectricalSparkParticle;
@@ -58,17 +63,23 @@ public class PotionsPlusFabricClient implements ClientModInitializer {
         particleRegistry.register(grill24.potionsplus.core.Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.value(),
                 new EmitterParticle.Provider(ParticleConfigurations.LUNAR_BERRY_BUSH_AMBIENT::sampleParticleType, 20, 20, 2, 0.5F, Vec3.ZERO, Vec3.ZERO, false, true));
 
-        // Item color (potion tint - rainbow-cycles for "any potion" placeholder effects). No block
-        // (cauldron water) tint here: BrewingCauldronBlockEntity hasn't been ported off neoforge yet
-        // (see docs/multi-loader-expansion.md Phase 11 progress log) - Fabric has no cauldron BE to
-        // tint at all right now, so registering one would be a no-op stub.
+        // Item color (potion tint - rainbow-cycles for "any potion" placeholder effects).
         ColorProviderRegistry.ITEM.register(PotionsPlusItemColors::anyPotionItemColor, Items.POTION);
 
-        // Block entity renderers (Phase 11a). Only Clothesline/PotionBeacon are portable so far - the
-        // other four BE renderers still reference neoforge-only BE classes (see
-        // docs/multi-loader-expansion.md Phase 11a progress log).
+        // Block color (cauldron water tint - lerps towards the brewing potion's color). BrewingCauldronBlock
+        // is now common/ as of this session, so Fabric has a real cauldron Block/BlockEntityType to
+        // tint - see docs/multi-loader-expansion.md Phase 11 progress log.
+        ColorProviderRegistry.BLOCK.register(PotionsPlusBlockColors::cauldronWaterColor,
+                grill24.potionsplus.core.fabric.blocks.BlockEntityBlocks.BREWING_CAULDRON.value());
+
+        // Block entity renderers (Phase 11a). All six block entities are portable as of this session
+        // (see docs/multi-loader-expansion.md Phase 11a progress log).
         BlockEntityRendererRegistry.register(Blocks.CLOTHESLINE_BLOCK_ENTITY.value(), ClotheslineBlockEntityRenderer::new);
         BlockEntityRendererRegistry.register(Blocks.POTION_BEACON_BLOCK_ENTITY.value(), PotionBeaconBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(Blocks.BREWING_CAULDRON_BLOCK_ENTITY.value(), BrewingCauldronBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value(), HerbalistsLecternBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.value(), AbyssalTroveBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value(), SanguineAltarBlockEntityRenderer::new);
 
         // Key mapping (Phase 11).
         KeyMapping activateAbility = new KeyMapping(

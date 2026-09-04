@@ -24,7 +24,6 @@ import java.util.function.Supplier;
 import static grill24.potionsplus.data.neoforge.RecipeProvider.has;
 import static grill24.potionsplus.utility.Utility.mc;
 import static grill24.potionsplus.utility.Utility.ppId;
-import grill24.potionsplus.block.neoforge.*;
 
 public class BlockEntityBlocks {
     public static Holder<Block> BREWING_CAULDRON;

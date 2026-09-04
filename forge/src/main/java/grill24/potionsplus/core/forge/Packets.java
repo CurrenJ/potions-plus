@@ -19,8 +19,8 @@ import java.util.function.BiConsumer;
  * {@link ChannelBuilder} + {@link Channel} with the {@code payloadChannel()} variant (confirmed present
  * on Forge 52.1.2 via javap).
  *
- * Only 7 payloads (of 12) are wired here as of Phase 11a — see {@code core/fabric/Packets.java} for
- * why the other 5 stay NeoForge-only for now.
+ * 9 payloads (of 12) are wired here as of Phase 11a — see {@code core/fabric/Packets.java} for
+ * why the other 3 stay NeoForge-only for now.
  */
 public class Packets {
     public static Channel<CustomPacketPayload> CHANNEL;
@@ -73,6 +73,16 @@ public class Packets {
                         ClientboundAcquiredBrewingRecipeKnowledgePacket.TYPE,
                         playCodec(ClientboundAcquiredBrewingRecipeKnowledgePacket.STREAM_CODEC),
                         handled((pkt, ctx) -> ClientboundAcquiredBrewingRecipeKnowledgePacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
+                )
+                .add(
+                        ClientboundSanguineAltarConversionStatePacket.TYPE,
+                        playCodec(ClientboundSanguineAltarConversionStatePacket.STREAM_CODEC),
+                        handled((pkt, ctx) -> ClientboundSanguineAltarConversionStatePacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
+                )
+                .add(
+                        ClientboundSanguineAltarConversionProgressPacket.TYPE,
+                        playCodec(ClientboundSanguineAltarConversionProgressPacket.STREAM_CODEC),
+                        handled((pkt, ctx) -> ClientboundSanguineAltarConversionProgressPacket.ClientPayloadHandler.handleDataOnMain(pkt, new ForgePacketContext(ctx)))
                 )
 
                 .build();

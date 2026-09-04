@@ -1,15 +1,14 @@
-package grill24.potionsplus.block.neoforge;
+package grill24.potionsplus.block;
 
 import grill24.potionsplus.advancement.AbyssalTroveTrigger;
 import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
-import grill24.potionsplus.blockentity.neoforge.AbyssalTroveBlockEntity;
-import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Sounds;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.persistence.SavedData;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
-import grill24.potionsplus.block.HorizontalDirectionalBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -62,7 +61,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        Optional<AbyssalTroveBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get());
+        Optional<AbyssalTroveBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.value());
         if (blockEntity.isEmpty()) {
             return ItemInteractionResult.FAIL;
         }
@@ -142,7 +141,7 @@ public class AbyssalTroveBlock extends HorizontalDirectionalBlock implements Ent
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return Utility.createTickerHelper(type, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), AbyssalTroveBlockEntity::tick);
+        return Utility.createTickerHelper(type, Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.value(), AbyssalTroveBlockEntity::tick);
     }
 
     @Override

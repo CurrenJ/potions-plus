@@ -1,8 +1,8 @@
-package grill24.potionsplus.block.neoforge;
+package grill24.potionsplus.block;
 
 import grill24.potionsplus.advancement.CreatePotionsPlusBlockTrigger;
-import grill24.potionsplus.blockentity.neoforge.BrewingCauldronBlockEntity;
-import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
@@ -49,7 +49,7 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return Utility.createTickerHelper(type, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get(), BrewingCauldronBlockEntity::tick);
+        return Utility.createTickerHelper(type, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.value(), BrewingCauldronBlockEntity::tick);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
         InvUtil.InteractionResult result = InvUtil.insertOnPlayerUseItem(level, pos, player, hand, SoundEvents.GENERIC_SPLASH);
 
         if (result == InvUtil.InteractionResult.INSERT) {
-            level.getBlockEntity(pos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get()).ifPresent(cauldronBlockEntity -> cauldronBlockEntity.onPlayerInsertItem(player));
+            level.getBlockEntity(pos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.value()).ifPresent(cauldronBlockEntity -> cauldronBlockEntity.onPlayerInsertItem(player));
         }
 
         return InvUtil.getMinecraftItemInteractionResult(result);
@@ -70,20 +70,20 @@ public class BrewingCauldronBlock extends CauldronBlock implements EntityBlock {
         return InvUtil.getMinecraftInteractionResult(result);
     }
 
-        @Override
+    @Override
     public boolean hasAnalogOutputSignal(@NotNull BlockState blockState) {
         return true;
     }
 
     @Override
     public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
-        Optional<BrewingCauldronBlockEntity> brewingCauldronBlockEntity = level.getBlockEntity(blockPos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get());
+        Optional<BrewingCauldronBlockEntity> brewingCauldronBlockEntity = level.getBlockEntity(blockPos, Blocks.BREWING_CAULDRON_BLOCK_ENTITY.value());
         return brewingCauldronBlockEntity.map(AbstractContainerMenu::getRedstoneSignalFromContainer).orElse(0);
     }
 
     @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @javax.annotation.Nullable LivingEntity placer, ItemStack stack) {
-        if(placer instanceof ServerPlayer serverPlayer) {
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        if (placer instanceof ServerPlayer serverPlayer) {
             CreatePotionsPlusBlockTrigger.INSTANCE.trigger(serverPlayer, state);
         }
     }

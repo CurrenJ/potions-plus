@@ -1,14 +1,11 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import grill24.potionsplus.core.neoforge.Items;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.alchemy.EffectComparison;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
 import net.minecraft.client.Minecraft;
@@ -24,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-@OnlyIn(Dist.CLIENT)
 public class BrewingCauldronBlockEntityRenderer implements BlockEntityRenderer<BrewingCauldronBlockEntity> {
 
     public final BlockRenderDispatcher blockRenderDispatcher;

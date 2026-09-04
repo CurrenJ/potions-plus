@@ -1,15 +1,15 @@
-package grill24.potionsplus.persistence.neoforge;
+package grill24.potionsplus.persistence;
 
 import grill24.potionsplus.network.ClientboundAcquiredBrewingRecipeKnowledgePacket;
-import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import grill24.potionsplus.platform.PacketNetwork;
 
 /**
- * The NeoForge-only half of {@link PlayerBrewingKnowledge}'s server-side recipe-learning flow -
- * sends a client sync packet via the Phase 2 {@link grill24.potionsplus.platform.PacketNetwork}
- * abstraction. Will move to common/ alongside PlayerBrewingKnowledge in Phase 5.
+ * {@link PlayerBrewingKnowledge}'s server-side recipe-learning flow - sends a client sync packet
+ * via the Phase 2 {@link grill24.potionsplus.platform.PacketNetwork} abstraction. Ported to
+ * common/ in Phase 11a (its only former neoforge coupling, {@code ClientboundAcquiredBrewingRecipeKnowledgePacket},
+ * had already moved to common/network/ earlier in this task chain).
  */
 public class PlayerBrewingKnowledgeNetworking {
     public static void tryAddKnownRecipeServer(PlayerBrewingKnowledge knowledge, ServerPlayer player, String recipeId, ItemStack result) {

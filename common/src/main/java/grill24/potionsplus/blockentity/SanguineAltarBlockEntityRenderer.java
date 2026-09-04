@@ -1,9 +1,7 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.items.DynamicIconItems;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
 import grill24.potionsplus.utility.ClientTickHandler;
@@ -15,7 +13,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
 public class SanguineAltarBlockEntityRenderer implements BlockEntityRenderer<SanguineAltarBlockEntity> {
     private final BlockRenderDispatcher blockRenderDispatcher;
     private static final int CONVERTED_ITEM_DESCENT_TICKS = 20;

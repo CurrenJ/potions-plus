@@ -2,7 +2,6 @@ package grill24.potionsplus.core.neoforge;
 
 import grill24.potionsplus.blockentity.*;
 import grill24.potionsplus.utility.ModInfo;
-import grill24.potionsplus.blockentity.neoforge.*;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

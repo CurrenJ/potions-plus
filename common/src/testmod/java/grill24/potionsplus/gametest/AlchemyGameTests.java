@@ -5,7 +5,7 @@ import grill24.potionsplus.alchemy.EffectRegistry;
 import grill24.potionsplus.alchemy.PotionContainer;
 import grill24.potionsplus.alchemy.PotionData;
 import grill24.potionsplus.alchemy.PotionDataBuilder;
-import grill24.potionsplus.blockentity.neoforge.BrewingCauldronBlockEntity;
+import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
 import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.potion.PotionBuilder;
 import grill24.potionsplus.core.neoforge.potion.PotionsRegistrar;

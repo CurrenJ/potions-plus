@@ -1,8 +1,8 @@
-package grill24.potionsplus.block.neoforge;
+package grill24.potionsplus.block;
 
-import grill24.potionsplus.blockentity.neoforge.HerbalistsLecternBlockEntity;
+import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntity;
 import grill24.potionsplus.blockentity.HerbalistsLecternSounds;
-import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.utility.InvUtil;
 import grill24.potionsplus.utility.Utility;
 import net.minecraft.core.BlockPos;
@@ -77,7 +77,7 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         // Cache items before interaction
-        Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
+        Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value());
         if (blockEntity.isEmpty()) {
             return ItemInteractionResult.FAIL;
         }
@@ -107,7 +107,7 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 // Cache items before interaction
-        Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
+        Optional<HerbalistsLecternBlockEntity> blockEntity = level.getBlockEntity(pos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value());
         if (blockEntity.isEmpty()) {
             return InteractionResult.FAIL;
         }
@@ -128,12 +128,12 @@ public class HerbalistsLecternBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return Utility.createTickerHelper(type, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get(), HerbalistsLecternBlockEntity::tick);
+        return Utility.createTickerHelper(type, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value(), HerbalistsLecternBlockEntity::tick);
     }
 
     @Override
     public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
-        Optional<HerbalistsLecternBlockEntity> herbalistsLecternBlockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get());
+        Optional<HerbalistsLecternBlockEntity> herbalistsLecternBlockEntity = level.getBlockEntity(blockPos, Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value());
         return Math.min(herbalistsLecternBlockEntity.get().rendererData.allIcons.size(), 15);
     }
 

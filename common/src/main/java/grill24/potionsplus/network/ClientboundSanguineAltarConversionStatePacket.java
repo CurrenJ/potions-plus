@@ -1,7 +1,7 @@
-package grill24.potionsplus.network.neoforge;
+package grill24.potionsplus.network;
 
-import grill24.potionsplus.blockentity.neoforge.SanguineAltarBlockEntity;
-import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Sounds;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -17,7 +17,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import grill24.potionsplus.network.PacketContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -47,7 +46,7 @@ public record ClientboundSanguineAltarConversionStatePacket(BlockPos pos,
                             return;
                         }
 
-                        mc.level.getBlockEntity(packet.pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get()).ifPresent(
+                        mc.level.getBlockEntity(packet.pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value()).ifPresent(
                                 blockEntity -> {
                                     // parse int to enum
                                     blockEntity.state = SanguineAltarBlockEntity.State.values()[packet.state];

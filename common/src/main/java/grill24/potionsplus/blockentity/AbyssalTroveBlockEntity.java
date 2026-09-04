@@ -1,6 +1,6 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+import grill24.potionsplus.core.RecipesRegistrar;
 
 import grill24.potionsplus.core.*;
 import grill24.potionsplus.core.items.DynamicIconItems;
@@ -9,10 +9,6 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.ClientUtility;
-import grill24.potionsplus.blockentity.ISingleStackDisplayer;
-import grill24.potionsplus.blockentity.IStoredIngredientsContainer;
-import grill24.potionsplus.blockentity.InventoryBlockEntity;
-import grill24.potionsplus.core.neoforge.Blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -98,7 +94,7 @@ public class AbyssalTroveBlockEntity extends InventoryBlockEntity implements ISi
     }
 
     public AbyssalTroveBlockEntity(BlockPos pos, BlockState state) {
-        super(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.get(), pos, state);
+        super(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.value(), pos, state);
 
         storedIngredients = new HashSet<>();
     }

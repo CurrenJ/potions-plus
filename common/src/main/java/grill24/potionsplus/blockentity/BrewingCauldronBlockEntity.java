@@ -1,22 +1,18 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
 import grill24.potionsplus.core.*;
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.network.ClientboundBlockEntityCraftRecipePacket;
 import grill24.potionsplus.persistence.SavedData;
-import grill24.potionsplus.persistence.neoforge.PlayerBrewingKnowledgeNetworking;
+import grill24.potionsplus.persistence.PlayerBrewingKnowledgeNetworking;
 import grill24.potionsplus.recipe.ContainerRecipeInput;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipeBuilder;
 import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
-import grill24.potionsplus.blockentity.BlockEntitySerializableData;
-import grill24.potionsplus.blockentity.ICraftingBlockEntity;
-import grill24.potionsplus.blockentity.IExperienceContainer;
-import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.core.Advancements;
-import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Particles;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
@@ -63,7 +59,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
     private ItemStack statusIcon = ItemStack.EMPTY;
 
     public BrewingCauldronBlockEntity(BlockPos pos, BlockState state) {
-        super(Blocks.BREWING_CAULDRON_BLOCK_ENTITY.get(), pos, state);
+        super(Blocks.BREWING_CAULDRON_BLOCK_ENTITY.value(), pos, state);
     }
 
     @Override
@@ -117,7 +113,7 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
 
             Map<ResourceKey<MobEffect>, MobEffectInstance> effectMap = new HashMap<>();
             for (MobEffectInstance effect : allEffects) {
-                ResourceKey<MobEffect> key = effect.getEffect().getKey();
+                ResourceKey<MobEffect> key = effect.getEffect().unwrapKey().orElseThrow();
                 if (!effectMap.containsKey(key) || effect.getAmplifier() > effectMap.get(key).getAmplifier()) {
                     effectMap.put(key, effect);
                 }

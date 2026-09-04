@@ -1,9 +1,9 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
 import grill24.potionsplus.advancement.CraftRecipeTrigger;
 import grill24.potionsplus.core.*;
-import grill24.potionsplus.network.neoforge.ClientboundSanguineAltarConversionProgressPacket;
-import grill24.potionsplus.network.neoforge.ClientboundSanguineAltarConversionStatePacket;
+import grill24.potionsplus.network.ClientboundSanguineAltarConversionProgressPacket;
+import grill24.potionsplus.network.ClientboundSanguineAltarConversionStatePacket;
 import grill24.potionsplus.persistence.SavedData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,10 +15,7 @@ import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import grill24.potionsplus.recipe.abyssaltroverecipe.SanguineAltarRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.utility.Utility;
-import grill24.potionsplus.blockentity.ISingleStackDisplayer;
-import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import grill24.potionsplus.core.Advancements;
-import grill24.potionsplus.core.neoforge.Blocks;
 import grill24.potionsplus.core.Particles;
 import grill24.potionsplus.core.Sounds;
 import net.minecraft.core.BlockPos;
@@ -70,7 +67,7 @@ public class SanguineAltarBlockEntity extends InventoryBlockEntity implements IS
     public State state = State.IDLE;
 
     public SanguineAltarBlockEntity(BlockPos pos, BlockState state) {
-        super(Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get(), pos, state);
+        super(Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value(), pos, state);
     }
 
     @Override

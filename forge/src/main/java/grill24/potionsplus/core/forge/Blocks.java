@@ -1,7 +1,11 @@
 package grill24.potionsplus.core.forge;
 
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.blockentity.BrewingCauldronBlockEntity;
 import grill24.potionsplus.blockentity.ClotheslineBlockEntity;
+import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntity;
 import grill24.potionsplus.blockentity.PotionBeaconBlockEntity;
+import grill24.potionsplus.blockentity.SanguineAltarBlockEntity;
 import grill24.potionsplus.core.forge.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.forge.blocks.DecorationBlocks;
 import grill24.potionsplus.core.forge.blocks.FlowerBlocks;
@@ -38,14 +42,23 @@ public class Blocks {
     }
 
     // ----- Block Entities -----
-    // Only Clothesline/PotionBeacon are portable here (Phase 11a) - the other four BE types are still
-    // neoforge-only.
+    // All six block entities (Clothesline/PotionBeacon/BrewingCauldron/HerbalistsLectern/AbyssalTrove/
+    // SanguineAltar) are portable here as of Phase 11a (see docs/multi-loader-expansion.md Phase 11a
+    // progress log).
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ModInfo.MOD_ID);
 
     public static final ForgeHolder<BlockEntityType<ClotheslineBlockEntity>> CLOTHESLINE_BLOCK_ENTITY =
             registerBlockEntity("clothesline_block_entity", ClotheslineBlockEntity::new, BlockEntityBlocks.CLOTHESLINE::value);
     public static final ForgeHolder<BlockEntityType<PotionBeaconBlockEntity>> POTION_BEACON_BLOCK_ENTITY =
             registerBlockEntity("potion_beacon_block_entity", PotionBeaconBlockEntity::new, BlockEntityBlocks.POTION_BEACON::value);
+    public static final ForgeHolder<BlockEntityType<BrewingCauldronBlockEntity>> BREWING_CAULDRON_BLOCK_ENTITY =
+            registerBlockEntity("brewing_cauldron_block_entity", BrewingCauldronBlockEntity::new, BlockEntityBlocks.BREWING_CAULDRON::value);
+    public static final ForgeHolder<BlockEntityType<HerbalistsLecternBlockEntity>> HERBALISTS_LECTERN_BLOCK_ENTITY =
+            registerBlockEntity("herbalists_lectern_block_entity", HerbalistsLecternBlockEntity::new, BlockEntityBlocks.HERBALISTS_LECTERN::value);
+    public static final ForgeHolder<BlockEntityType<AbyssalTroveBlockEntity>> ABYSSAL_TROVE_BLOCK_ENTITY =
+            registerBlockEntity("abyssal_trove_block_entity", AbyssalTroveBlockEntity::new, BlockEntityBlocks.ABYSSAL_TROVE::value);
+    public static final ForgeHolder<BlockEntityType<SanguineAltarBlockEntity>> SANGUINE_ALTAR_BLOCK_ENTITY =
+            registerBlockEntity("sanguine_altar_block_entity", SanguineAltarBlockEntity::new, BlockEntityBlocks.SANGUINE_ALTAR::value);
 
     // Forge 52.1.2's BlockEntityType constructor is unpatched vanilla (BlockEntitySupplier, Set<Block>,
     // Type<?>) - no NeoForge-style varargs convenience constructor - so this goes through the public
@@ -61,6 +74,10 @@ public class Blocks {
     static {
         grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY = CLOTHESLINE_BLOCK_ENTITY;
         grill24.potionsplus.core.Blocks.POTION_BEACON_BLOCK_ENTITY = POTION_BEACON_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.BREWING_CAULDRON_BLOCK_ENTITY = BREWING_CAULDRON_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY = HERBALISTS_LECTERN_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.ABYSSAL_TROVE_BLOCK_ENTITY = ABYSSAL_TROVE_BLOCK_ENTITY;
+        grill24.potionsplus.core.Blocks.SANGUINE_ALTAR_BLOCK_ENTITY = SANGUINE_ALTAR_BLOCK_ENTITY;
     }
 
     // DISPENSER association (PRECISION_DISPENSER -> vanilla BlockEntityType.DISPENSER, as NeoForge's

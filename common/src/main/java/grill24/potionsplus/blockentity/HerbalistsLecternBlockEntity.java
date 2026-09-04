@@ -1,7 +1,6 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.blockentity.HerbalistsLecternSounds;
-import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+import grill24.potionsplus.core.RecipesRegistrar;
 
 import grill24.potionsplus.core.items.DynamicIconItems;
 import grill24.potionsplus.core.seededrecipe.PotionUpgradeIngredients;
@@ -13,7 +12,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import org.joml.Quaternionf;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
-import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.core.Blocks;
 import grill24.potionsplus.core.Recipes;
 import grill24.potionsplus.core.potion.MobEffects;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
@@ -21,8 +20,6 @@ import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
 import grill24.potionsplus.utility.ClientTickHandler;
 import grill24.potionsplus.alchemy.*;
 import grill24.potionsplus.utility.Utility;
-import grill24.potionsplus.blockentity.ISingleStackDisplayer;
-import grill24.potionsplus.blockentity.InventoryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -79,7 +76,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
                     }
                     // If the potion has effects, display the potion icon. No duplicates.
                     for (MobEffectInstance mobEffectInstance : outputEffects) {
-                        ResourceLocation mobEffectId = mobEffectInstance.getEffect().getKey().location();
+                        ResourceLocation mobEffectId = mobEffectInstance.getEffect().unwrapKey().orElseThrow().location();
 
                         boolean isMobEffectInIconDataAlready = potionIcons.containsKey(mobEffectId);
                         Holder<net.minecraft.world.effect.MobEffect> effectHolder = mobEffectInstance.getEffect();
@@ -132,7 +129,7 @@ public class HerbalistsLecternBlockEntity extends InventoryBlockEntity implement
     }
 
     public HerbalistsLecternBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.get(), blockPos, blockState);
+        super(Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value(), blockPos, blockState);
     }
 
     @Override

@@ -1,10 +1,8 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.seededrecipe.PpIngredient;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import grill24.potionsplus.utility.ClientTickHandler;
@@ -19,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
 public class HerbalistsLecternBlockEntityRenderer implements BlockEntityRenderer<HerbalistsLecternBlockEntity> {
 
     public final BlockRenderDispatcher blockRenderDispatcher;

@@ -1,8 +1,13 @@
 package grill24.potionsplus.core.forge;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntityRenderer;
+import grill24.potionsplus.blockentity.BrewingCauldronBlockEntityRenderer;
 import grill24.potionsplus.blockentity.ClotheslineBlockEntityRenderer;
+import grill24.potionsplus.blockentity.HerbalistsLecternBlockEntityRenderer;
 import grill24.potionsplus.blockentity.PotionBeaconBlockEntityRenderer;
+import grill24.potionsplus.blockentity.SanguineAltarBlockEntityRenderer;
+import grill24.potionsplus.block.tintsource.PotionsPlusBlockColors;
 import grill24.potionsplus.item.tintsource.PotionsPlusItemColors;
 import grill24.potionsplus.particle.BloodGobParticle;
 import grill24.potionsplus.particle.ElectricalSparkParticle;
@@ -42,14 +47,13 @@ import org.lwjgl.glfw.GLFW;
  * existing {@code FMLClientSetupEvent} handler would be too late, which is why this needs its own
  * dist-gated subscriber class rather than reusing that hook.
  *
- * <p><b>Only 2 of 6 BE renderers are registered here (Phase 11a).</b> Clothesline and PotionBeacon
- * were ported to {@code common/} in Phase 11a (their only neoforge coupling was the
- * {@code BlockEntityType} holder lookup, now {@code core.Blocks}). The other four (brewing cauldron,
- * herbalist's lectern, sanguine altar, abyssal trove) still reference their concrete
- * {@code BlockEntity} subclasses under {@code blockentity.neoforge.*}, blocked on the
- * {@code DynamicIconItems}/{@code RecipesRegistrar} registration DSL (Phase 11a steps 3/4) - see
- * docs/multi-loader-expansion.md. The block (cauldron water) tint is skipped for the same reason -
- * registering it here would be a no-op stub.
+ * <p><b>All 6 BE renderers are registered here (Phase 11a).</b> Clothesline, PotionBeacon,
+ * BrewingCauldron, HerbalistsLectern, AbyssalTrove and SanguineAltar are all ported to {@code common/}
+ * (their only neoforge coupling was the {@code BlockEntityType} holder lookup, now {@code core.Blocks},
+ * plus - for SanguineAltar - its two sync packets, now {@code common/network/}). The block (cauldron
+ * water) tint is registered too, via {@code RegisterColorHandlersEvent.Block} on this same dist-gated
+ * subscriber class (same timing fix as everything else here - registering it from
+ * {@code PotionsPlusForge}'s {@code FMLClientSetupEvent} would be too late).
  */
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class Renderers {
@@ -73,15 +77,26 @@ public class Renderers {
     @SubscribeEvent
     public static void registerColorHandlers(final RegisterColorHandlersEvent.Item event) {
         // Potion item tint (rainbow-cycles for "any potion" placeholder effects). Mirrors NeoForge's
-        // core.neoforge.Blocks#registerItemColors via the shared PotionsPlusItemColors helper. No
-        // block (cauldron water) tint here - see class javadoc.
+        // core.neoforge.Blocks#registerItemColors via the shared PotionsPlusItemColors helper.
         event.register((stack, i) -> PotionsPlusItemColors.anyPotionItemColor(stack, i), Items.POTION);
+    }
+
+    @SubscribeEvent
+    public static void registerBlockColorHandlers(final RegisterColorHandlersEvent.Block event) {
+        // Cauldron water tint (lerps towards the brewing potion's color). Mirrors NeoForge's
+        // core.neoforge.Blocks#registerBlockColors via the shared PotionsPlusBlockColors helper.
+        event.register(PotionsPlusBlockColors::cauldronWaterColor,
+                grill24.potionsplus.core.forge.blocks.BlockEntityBlocks.BREWING_CAULDRON.value());
     }
 
     @SubscribeEvent
     public static void registerBlockEntityRenderers(final EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(Blocks.CLOTHESLINE_BLOCK_ENTITY.value(), ClotheslineBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(Blocks.POTION_BEACON_BLOCK_ENTITY.value(), PotionBeaconBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(Blocks.BREWING_CAULDRON_BLOCK_ENTITY.value(), BrewingCauldronBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value(), HerbalistsLecternBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.value(), AbyssalTroveBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value(), SanguineAltarBlockEntityRenderer::new);
     }
 
     @SubscribeEvent

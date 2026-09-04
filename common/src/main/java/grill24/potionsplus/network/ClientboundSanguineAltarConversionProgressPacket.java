@@ -1,13 +1,12 @@
-package grill24.potionsplus.network.neoforge;
+package grill24.potionsplus.network;
 
-import grill24.potionsplus.core.neoforge.Blocks;
+import grill24.potionsplus.core.Blocks;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import grill24.potionsplus.network.PacketContext;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -36,7 +35,7 @@ public record ClientboundSanguineAltarConversionProgressPacket(BlockPos pos, int
                             return;
                         }
 
-                        mc.level.getBlockEntity(packet.pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.get()).ifPresent(
+                        mc.level.getBlockEntity(packet.pos, Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value()).ifPresent(
                                 blockEntity -> {
                                     blockEntity.setHealthDrained(packet.healthDrained);
                                 }

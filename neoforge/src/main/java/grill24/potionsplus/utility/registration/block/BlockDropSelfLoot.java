@@ -1,6 +1,6 @@
 package grill24.potionsplus.utility.registration.block;
 
-import grill24.potionsplus.block.neoforge.BrewingCauldronBlock;
+import grill24.potionsplus.block.BrewingCauldronBlock;
 import grill24.potionsplus.core.PotionsPlus;
 import grill24.potionsplus.data.neoforge.PotionsPlusBlockLoot;
 import grill24.potionsplus.utility.registration.LootGenerator;

@@ -1,6 +1,6 @@
-package grill24.potionsplus.blockentity.neoforge;
+package grill24.potionsplus.blockentity;
 
-import grill24.potionsplus.core.neoforge.RecipesRegistrar;
+import grill24.potionsplus.core.RecipesRegistrar;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import grill24.potionsplus.core.Recipes;
@@ -11,8 +11,6 @@ import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3d;
 import grill24.potionsplus.utility.RUtil;
 import net.minecraft.client.Minecraft;
@@ -26,7 +24,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Map;
 
-@OnlyIn(Dist.CLIENT)
 public class AbyssalTroveBlockEntityRenderer implements BlockEntityRenderer<AbyssalTroveBlockEntity> {
     private final BlockRenderDispatcher blockRenderDispatcher;
     private ProfilerFiller profiler;
