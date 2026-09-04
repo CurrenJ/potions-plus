@@ -32,6 +32,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static grill24.potionsplus.utility.Utility.ppId;
 
@@ -211,8 +212,14 @@ public class SeededIngredientsLootTables {
 
     public static List<PpIngredient> getItemsInTags(TagKey<Item>... tags) {
         return Arrays.stream(tags)
-                .map((tag) -> Objects.requireNonNull(BuiltInRegistries.ITEM.getTag(tag)))
-                .flatMap((tag) -> tag.orElseThrow().stream())
+                .flatMap((tag) -> {
+                    Optional<net.minecraft.core.HolderSet.Named<Item>> holders = BuiltInRegistries.ITEM.getTag(tag);
+                    if (holders.isEmpty()) {
+                        PotionsPlus.LOGGER.warn("Item tag " + tag.location() + " is not bound (no valid entries on this loader); treating as empty.");
+                        return Stream.empty();
+                    }
+                    return holders.get().stream();
+                })
                 .map(Holder::value)
                 .map(ItemStack::new)
                 .map(PpIngredient::of)

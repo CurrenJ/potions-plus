@@ -134,6 +134,20 @@ public class PotionsPlusForge {
         bus.addListener((net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) -> {
             grill24.potionsplus.event.forge.TickListeners.registerClient();
             grill24.potionsplus.event.forge.TooltipListeners.register();
+
+            // Item property overrides (dynamic-icon items: mirrors core.neoforge.ClientEvents).
+            // Without this, GENERIC_ICON/POTION_EFFECT_ICON always render item model override index 0
+            // (the amplifier-upgrade texture) since the "dynamic_icon_index" predicate is never bound.
+            event.enqueueWork(() -> {
+                net.minecraft.client.renderer.item.ClampedItemPropertyFunction clampedItemStackCountPropertyFunction =
+                        (stack, world, entity, i) -> (float) (stack.getCount() - 1) / 64.0F + 0.01F;
+                net.minecraft.client.renderer.item.ItemProperties.register(
+                        grill24.potionsplus.core.items.DynamicIconItems.POTION_EFFECT_ICON.value(),
+                        grill24.potionsplus.core.items.DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
+                net.minecraft.client.renderer.item.ItemProperties.register(
+                        grill24.potionsplus.core.items.DynamicIconItems.GENERIC_ICON.value(),
+                        grill24.potionsplus.core.items.DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
+            });
         });
         Capabilities.register();
         ServerLifecycleListeners.register();

@@ -25,6 +25,8 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
 import org.lwjgl.glfw.GLFW;
@@ -64,6 +66,16 @@ public class PotionsPlusFabricClient implements ClientModInitializer {
                 new EmitterParticle.Provider(ParticleConfigurations.BLOOD::sampleParticleType, 20, 2, 2, 0.4F, Vec3.ZERO, Vec3.ZERO, true));
         particleRegistry.register(grill24.potionsplus.core.Particles.LUNAR_BERRY_BUSH_AMBIENT_EMITTER.value(),
                 new EmitterParticle.Provider(ParticleConfigurations.LUNAR_BERRY_BUSH_AMBIENT::sampleParticleType, 20, 20, 2, 0.5F, Vec3.ZERO, Vec3.ZERO, false, true));
+
+        // Item property overrides (dynamic-icon items: NeoForge's core.neoforge.ClientEvents equivalent).
+        // Without this, GENERIC_ICON/POTION_EFFECT_ICON always render item model override index 0
+        // (the amplifier-upgrade texture) since the "dynamic_icon_index" predicate is never bound.
+        ClampedItemPropertyFunction clampedItemStackCountPropertyFunction =
+                (stack, world, entity, i) -> (float) (stack.getCount() - 1) / 64.0F + 0.01F;
+        ItemProperties.register(grill24.potionsplus.core.items.DynamicIconItems.POTION_EFFECT_ICON.value(),
+                grill24.potionsplus.core.items.DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
+        ItemProperties.register(grill24.potionsplus.core.items.DynamicIconItems.GENERIC_ICON.value(),
+                grill24.potionsplus.core.items.DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
 
         // Item color (potion tint - rainbow-cycles for "any potion" placeholder effects).
         ColorProviderRegistry.ITEM.register(PotionsPlusItemColors::anyPotionItemColor, Items.POTION);
