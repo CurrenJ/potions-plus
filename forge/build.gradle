@@ -149,6 +149,15 @@ shadowJar {
 tasks.named('jar').configure {
     dependsOn(tasks.named('compileTestmodJava'))
     exclude '**/gametest/**'
+    // Belt-and-suspenders alongside mods.toml's [[mixins]] entries: production Forge has never been
+    // confirmed here to actually apply mixin configs via the toml-only path (see loom.mixin comment
+    // below) - the classic MixinConfigs manifest attribute is the pre-toml Forge mechanism and costs
+    // nothing to add. Comma-separated, matching mods.toml's two [[mixins]] entries.
+    manifest {
+        attributes([
+                'MixinConfigs': "${mod_id}.mixins.json,${mod_id}.forge.mixins.json"
+        ])
+    }
 }
 
 remapJar {
@@ -167,12 +176,22 @@ loom {
 
     // Forge's dev launcher only applies mixin configs it is given as `--mixin.config` launch args:
     // MixinPlatformAgentMinecraftForge rejects an exploded-directory mod container, so the
-    // [[mixins]] entries in mods.toml - which do work in a built jar - are never read in dev.
-    // potionsplus.mixins.json (common) arrives anyway via the Architectury transformer reading the
-    // MixinConfigs manifest attribute of the transformed :common dev jar; this module's OWN config
-    // has no such jar, so nothing delivers it unless it's passed explicitly here. Without this,
-    // RegistryMixin (the ForgeHolder equals/serialization fix) is silently inactive in every Forge
-    // dev run. Mirrors 26.1.2 `forge/build.gradle` (docs/multi-loader-expansion.md Phase 9).
+    // [[mixins]] entries in mods.toml are never read in dev. potionsplus.mixins.json (common) arrives
+    // anyway via the Architectury transformer reading the MixinConfigs manifest attribute of the
+    // transformed :common dev jar; this module's OWN config has no such jar, so nothing delivers it
+    // unless it's passed explicitly here. Without this, RegistryMixin (the ForgeHolder
+    // equals/serialization fix) is silently inactive in every Forge dev run. Mirrors 26.1.2
+    // `forge/build.gradle` (docs/multi-loader-expansion.md Phase 9).
+    //
+    // Production is a DIFFERENT bug, found and fixed 2026-09-05: the mods.toml [[mixins]] entries
+    // were assumed (per the comment that used to be here) to work in a packaged jar, but never
+    // actually verified with a real launch - a live-launch diagnostic (temporary logging in
+    // ItemMixin, since removed) proved neither potionsplus.mixins.json nor
+    // potionsplus.forge.mixins.json were being applied at all in the built jar on Forge 52.1.16,
+    // silently (no crash, no log line - defaultRequire:1 only fires once Mixin actually attempts the
+    // config). The `jar { manifest { attributes(['MixinConfigs': ...]) } }` block below - the classic
+    // pre-toml Forge mechanism - is what actually makes it load in production; the mods.toml entries
+    // are kept alongside it but are not load-bearing on Forge 52.x.
     runs.configureEach { run ->
         run.programArgs '--mixin.config', 'potionsplus.forge.mixins.json'
     }
