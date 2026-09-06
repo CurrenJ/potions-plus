@@ -61,13 +61,21 @@ dependencies {
     common(project(path: ':common')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
-    compileOnly "mezz.jei:jei-1.21.5-neoforge:$rootProject.jei_version"
+    compileOnly "mezz.jei:jei-26.1.2-neoforge-api:$rootProject.jei_version"
+    modLocalRuntime "mezz.jei:jei-26.1.2-neoforge:$rootProject.jei_version"
 
     // Game tests need the compiled main classes, not just the compile classpath.
     testmodImplementation sourceSets.main.output
 }
 
 processResources {
+    // Ordering only (not dependsOn) - see jar below for why, and fabric/forge/common's
+    // build.gradle for the equivalent pattern. Both are needed: runNeoForgeDataAndExit is what
+    // actually (re)populates neoforge/src/generated/resources that this task reads directly, and
+    // commonDatagen is needed too because `from project(":common").sourceSets.main.resources`
+    // below also pulls in common/src/generated/resources, which commonDatagen writes.
+    mustRunAfter ':runNeoForgeDataAndExit'
+    mustRunAfter ':commonDatagen'
     inputs.property 'version', project.version
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
@@ -89,6 +97,11 @@ processResources {
 }
 
 jar {
+    // NeoForge is the actual source of the datagen this reads from
+    // (sourceSets.main.resources.srcDir('src/generated/resources') below) - unlike Fabric/Forge,
+    // it doesn't go through commonDatagen, but it still needs a guarantee that a fresh run has
+    // completed before packaging, or a stale/removed recipe can silently ship (as happened here).
+    dependsOn ':runNeoForgeDataAndExit'
     archiveClassifier = 'raw'
 }
 
@@ -125,7 +138,7 @@ loom {
         data {
             clientData()
 
-            programArgs.addAll '--flat', '--all',
+            programArgs '--flat', '--all',
                     '--mod', 'potionsplus',
                     '--existing', file("src/main/resources").absolutePath,
                     '--output', file("src/generated/resources").absolutePath

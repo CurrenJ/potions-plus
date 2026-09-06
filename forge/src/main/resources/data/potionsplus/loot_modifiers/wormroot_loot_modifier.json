@@ -1,0 +1,8 @@
+{
+  "type": "potionsplus:wormroot_loot_modifier",
+  "conditions": [],
+  "blocks": [
+    "minecraft:hanging_roots",
+    "minecraft:rooted_dirt"
+  ]
+}

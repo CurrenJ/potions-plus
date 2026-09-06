@@ -5,18 +5,12 @@ import grill24.potionsplus.core.blocks.BlockEntityBlocks;
 import grill24.potionsplus.core.blocks.DecorationBlocks;
 import grill24.potionsplus.core.neoforge.blocks.FlowerBlocks;
 import grill24.potionsplus.utility.ModInfo;
-import net.minecraft.client.color.block.BlockTintSource;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.client.renderer.block.BlockAndTintGetter;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -63,24 +57,7 @@ public class Blocks {
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.BlockTintSources event) {
         // Cauldron water color
-        event.register(List.of(new BlockTintSource() {
-            @Override
-            public int color(BlockState state) {
-                return 0; // Default fallback
-            }
-
-            @Override
-            public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
-                if (level != null && pos != null) {
-                    BlockEntity be = level.getBlockEntity(pos);
-                    if (be instanceof BrewingCauldronBlockEntity brewingCauldron) {
-                        return brewingCauldron.getWaterColor(level, pos);
-                    }
-                }
-                // No block entity or world, just return the biome color. This can happen bc block entity creation is lazy and can be null up until first interaction with it.
-                return BiomeColors.getAverageWaterColor(level, pos);
-            }
-        }), BlockEntityBlocks.BREWING_CAULDRON.value());
+        event.register(List.of(BrewingCauldronWaterTintSource.INSTANCE), BlockEntityBlocks.BREWING_CAULDRON.value());
     }
 
     @SubscribeEvent

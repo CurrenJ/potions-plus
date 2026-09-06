@@ -28,6 +28,39 @@ Two suites, both in `common/src/testmod/java/grill24/potionsplus/gametest/`.
 | `effect_registry_icon_index_is_dense_and_unique` | `EffectRegistry.iconIndex` assigns every vanilla and mod effect a unique index in `[1, ICON_STACK_CAP]`. |
 | `effect_registry_excludes_marker_effects_from_the_passive_pool` | `ANY_POTION`/`ANY_OTHER_POTION` are structurally ineligible for the passive-effect pool, even with an empty blacklist. |
 
+### `EffectGameTests` — what each custom effect actually does
+
+Ticking effects are exercised by calling their public `applyEffectTick` directly, not by waiting on
+real duration/tick-interval scheduling — same "prefer synchronous" idea as the cauldron suite below,
+applied to remove flakiness from tick budgets and RNG-gated tick intervals. Static one-shot hooks
+(`onPotionAdded`, `onEntityDeath`, etc.) are normally invoked by loader-specific event
+listeners/mixins the common testmod can't reach, so those are also called directly — testing the
+shared logic, not the per-loader wiring.
+
+`ANY_POTION`/`ANY_OTHER_POTION` are markers already covered by
+`effect_registry_excludes_marker_effects_from_the_passive_pool`. `SHEPHERDS_SERENADE` has no
+server-observable behaviour (its only override calls `Minecraft.getInstance()`) and isn't covered.
+`NAUTICAL_NITRO`, `LOOTING`, `FORTUITOUS_FATE`, and `METAL_DETECTING` expose pure amplifier-to-value
+functions with no server/registry dependency and are covered by JUnit tests instead — see below.
+
+| Test | What it pins down |
+|---|---|
+| `magnetic_pulls_items_toward_the_holder` | A dropped item moves closer to a nearby holder after one tick. |
+| `crop_collector_harvests_a_mature_crop_in_range` | A fully-grown crop in range is destroyed. |
+| `botanical_boost_ages_a_young_crop_in_range` | A young crop in range eventually grows under repeated boosted random-ticks. |
+| `giant_steps_raises_step_height` | The holder's `STEP_HEIGHT` attribute rises above its base value. |
+| `reach_for_the_stars_increases_interaction_range` | `BLOCK_INTERACTION_RANGE`/`ENTITY_INTERACTION_RANGE` rise once the effect is added. |
+| `teleportation_moves_the_holder` | The holder's position changes (chorus-fruit-style teleport), retried since a given attempt can fail to find a legal target. |
+| `harrowing_hands_grants_bone_buddy_to_nearby_skeletons` | A nearby skeleton gains `BONE_BUDDY`. |
+| `exploding_damages_the_holder_on_expiry` | Expiry damages the holder (the explosion side effect). |
+| `bone_buddy_retargets_a_skeletons_aggro` | A skeleton's target-selector goal swaps to attack monsters instead of players, and swaps back on expiry. |
+| `geode_grace_eventually_converts_stone_to_ore` | Repeated kills (chance-based, ~3-10% each) eventually convert stone to ore. |
+| `fall_of_the_void_rescues_the_holder` | Void damage is negated, the holder is teleported to the top of the world, and gains Slow Falling. |
+| `soul_mate_redirects_damage_to_the_paired_entity` | Damage to the holder is partially redirected onto their paired entity. |
+| `flying_time_tracks_holders_by_uuid` | Adding/expiring the effect updates the server-wide tracking map keyed by player UUID. |
+| `slip_n_slide_reduces_air_friction_on_landing` | An entity with the effect retains more horizontal speed on landing than one without it. |
+| `bouncing_reverses_downward_velocity_on_fall` | A downward fall is converted into an upward bounce. |
+
 ### `BrewingCauldronGameTests` — what the cauldron does to potions
 
 **Recipe formation tests (`sync`)** read the result of `setChanged()` on the same tick — no heat
@@ -148,9 +181,11 @@ only).
 |---|---|
 | Test logic (platform-agnostic) | `common/src/testmod/java/grill24/potionsplus/gametest/` |
 | Registration (NeoForge) | `neoforge/src/testmod/java/grill24/potionsplus/neoforge/gametest/` |
+| Registration (Fabric) | `fabric/src/testmod/java/grill24/potionsplus/fabric/gametest/PotionsPlusFabricGameTests.java` |
+| Registration (Forge) | `forge/src/testmod/java/grill24/potionsplus/forge/gametest/PotionsPlusForgeGameTests.java` + `ForgeGameTestRegistration.java` (built via `RegistryLoadTaskMixin` in `forge/src/main/`, since stock Forge has no working native hook) |
 | Structure generator | `neoforge/src/main/java/grill24/potionsplus/data/neoforge/GameTestStructureProvider.java` |
 | Generated structure (committed) | `neoforge/src/generated/resources/data/potionsplus/structure/empty_testarea.nbt` |
-| Source set, run config, classpath | `neoforge/build.gradle` |
+| Source set, run config, classpath | `neoforge/build.gradle`, `fabric/build.gradle`, `forge/build.gradle` |
 
 In MC 26.1.2 the old `@GameTest` annotation is gone; tests are registry entries. NeoForge's
 `RegisterGameTestsEvent` registers them in code instead of datapack JSON; `ConsumerTestInstance` is a
@@ -178,7 +213,10 @@ minimal `GameTestInstance` wrapping a `Consumer<GameTestHelper>`.
 ## Unit tests, and which to use
 
 JUnit tests live in `common/src/test/java/grill24/potionsplus/alchemy/`, covering `PotionContainer`,
-`PotionData`, `PotionDataBuilder`, `EffectComparison`, and `EffectScaling`.
+`PotionData`, `PotionDataBuilder`, `EffectComparison`, and `EffectScaling`; and in
+`common/src/test/java/grill24/potionsplus/effect/`, covering the custom effects whose behaviour is a
+pure function of amplifier with no server/registry dependency: `NauticalNitroEffect`, `LootingEffect`,
+`FortuitousFateEffect`, and `MetalDetectingEffect`'s radius/tick-interval scaling.
 
 ```bash
 ./gradlew :common:test
@@ -218,3 +256,37 @@ Extend `AlchemyTestBase` and this is handled for you.
 - **Datapack parse errors in the log** — `potionsplus:blocks/lunar_berry_bush` currently fails to load
   on every run (`{"blooming":true}` where a string is expected); non-fatal and unrelated to tests, but
   real and worth fixing separately.
+- **Forge now runs the full suite too.** Stock Forge 26.1.2 never fires an event once
+  `Registries.TEST_INSTANCE` is populated for a world — `RegisterEvent` doesn't cover dynamic
+  registries, and nothing calls `ForgeGameTestHooks#gatherTests` automatically — so
+  `PotionsPlusForgeGameTests`' tests used to never register. `RegistryLoadTaskMixin`
+  (`forge/src/main/java/grill24/potionsplus/mixin/forge/`) fixes this by injecting into
+  `RegistryLoadTask`'s constructor and registering directly into the still-empty, still-mutable
+  `TEST_INSTANCE` registry for that task, gated on Forge's own `ForgeGameTestHooks.isGametestServer()`
+  flag. See that mixin's javadoc for the full investigation of why no simpler Forge-native hook exists
+  (NeoForge's equivalent is a source-level patch to `RegistryDataLoader#load`, not something a mod can
+  replicate via an event). `:forge:runGametest` now reports the same test count and pass/fail results
+  as NeoForge and Fabric.
+- **Forge crashes with `Invalid module name: '' is not a Java identifier`** — the mod is spanning two
+  class directories, which Forge unions into a module whose root has no file name. Do **not** add a
+  second source set to `loom.mods` (that mapping is global and breaks `runClient`/`runData` too);
+  `forge/build.gradle` instead compiles testmod into main's classes dir for game-test invocations.
+  Loom's own guard for this is skipped under loom-no-remap — see `forge/build.gradle` for the trace.
+- **A Forge mixin silently does nothing in a dev run** (but works in a built jar) — Forge's dev
+  launcher only applies mixin configs passed as `--mixin.config` launch args.
+  `MixinPlatformAgentMinecraftForge` rejects an exploded-directory mod container, so mods.toml's
+  `[[mixins]]` entries are never read in dev; `potionsplus.mixins.json` arrives only because the
+  Architectury transformer reads the `MixinConfigs` manifest attribute off the transformed `:common`
+  dev jar. `forge/build.gradle` therefore passes `--mixin.config potionsplus.forge.mixins.json` on
+  every loom run. Loom's `forge.mixinConfigs` does *not* work for this — it writes `-mixin.config`
+  entries into `launch.cfg`, which these Forge userdev launch targets ignore.
+- **A Forge run finishes but Gradle never returns** — Architectury's transformer leaves non-daemon
+  thread pools running, so the JVM only exits when the game calls `System.exit` (which
+  `GameTestServer` does, but datagen and any crashing run do not). Kill the leaked `java.exe`, or
+  wrap the invocation in a timeout.
+- **The IDE's Forge run fails with AXFORM / `Invalid AccessTransformer config` but `./gradlew
+  :forge:runClient` is fine** — the `architectury.naming.*` system properties were reaching only the
+  Gradle JavaExec tasks. They now live on `loom.runs` in `forge/build.gradle`, which feeds both
+  launchers. Note that `ideaSyncTask` only writes run-configuration XMLs that don't already exist, so
+  after changing that block you must delete `.idea/runConfigurations/*__forge.xml` and re-sync;
+  otherwise the stale file silently persists and it looks like the build change did nothing.

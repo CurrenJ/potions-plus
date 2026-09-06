@@ -15,4 +15,5 @@ rootProject.name = 'potionsplus'
 
 include 'common'
 include 'neoforge'
-// fabric module not included yet; add "include 'fabric'" when enabling.
+include 'fabric'
+include 'forge'

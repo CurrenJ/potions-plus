@@ -340,12 +340,17 @@ public class BrewingCauldronBlockEntity extends InventoryBlockEntity implements 
                         blockEntity.craft();
                     }
                 }
-
-                level.setBlock(pos, state, 3);
-                level.sendBlockUpdated(pos, state, state, 3);
             } else {
                 blockEntity.brewTime = 0;
             }
+
+            // Keep resyncing every tick while heated, not just while a recipe is actively matching -
+            // craft() flips activeRecipe back to empty the instant it finishes (the freshly-made potion
+            // usually matches nothing else), so without this the client only gets the one sync fired
+            // from craft()'s own setChanged(); if that single packet is missed, the client is stuck
+            // showing an empty cauldron until the player's own interaction forces a resync.
+            level.setBlock(pos, state, 3);
+            level.sendBlockUpdated(pos, state, state, 3);
 
             // Client-side visual effects
             if (isClientSide) {
