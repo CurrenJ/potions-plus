@@ -10,6 +10,9 @@ build
 /Forge/run
 /Fabric/run
 
+## Generated datagen output (produced by runData; not hand-authored)
+/*/src/generated/
+
 ## eclipse
 .settings
 .metadata
