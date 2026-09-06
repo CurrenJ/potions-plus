@@ -72,6 +72,11 @@ tasks.named('processTestmodResources').configure {
 }
 
 processResources {
+    // Ordering only (not dependsOn) so quick iteration loops like :fabric:runClient - which need
+    // classes/resources but never build a jar - don't pay for a full NeoForge datagen run every
+    // time. jar (below) is what actually pulls commonDatagen into the graph; this just makes sure
+    // that when it's there, generated resources land before processResources reads them.
+    mustRunAfter ':commonDatagen'
     dependsOn ':common:processResources'
     inputs.property 'version', project.version
     // Phase 10: common now carries a copy of NeoForge's shared datagen output (commonDatagen), so
@@ -94,6 +99,36 @@ processResources {
             'mod_fabric_minecraft_version': "~${rootProject.minecraft_version}"
         ])
     }
+
+    // potionsplus.mixins.json (common/src/main/resources) ships with no "refmap" key - Forge and
+    // NeoForge's Mixin environments run against literal (named) method names and need none, but
+    // Fabric's runtime classes are intermediary-named and Fabric Mixin requires an explicit
+    // "refmap" pointer to translate them; without one it silently falls back to a legacy
+    // no-refmap mode that fails to find bootStrap()V on net.minecraft.class_2966, crashing every
+    // client at startup ("No refMap loaded" - PP2 1.21.1 Fabric log, 2026-09-06). Adding the key
+    // to the shared source json instead broke NeoForge's runData: its Mixin fell back to that same
+    // refmap (Fabric-intermediary-only content) and produced a target selector NeoForge's older
+    // bundled Mixin version rejects outright. So the key is injected here, Fabric-side only, after
+    // common's resources have been copied in above - common's own generated
+    // "potionsplus-common-refmap.json" already ships correctly in every platform's jar (confirmed
+    // present in the built fabric jar), it just needed this file to point at it.
+    doLast {
+        def mixinsJson = file("${destinationDir}/potionsplus.mixins.json")
+        if (mixinsJson.exists()) {
+            def json = new groovy.json.JsonSlurper().parse(mixinsJson)
+            json.refmap = 'potionsplus-common-refmap.json'
+            mixinsJson.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(json))
+        }
+    }
+}
+
+tasks.named('jar').configure {
+    // commonDatagen copies NeoForge's datagen output (recipes, models, tags, ...) into
+    // common/src/generated/resources - Fabric doesn't run its own datagen, so without this a
+    // packaged jar would silently ship without whatever that step was supposed to produce. Wired
+    // onto jar rather than processResources so it only fires when actually packaging, not on
+    // every runClient/runServer.
+    dependsOn ':commonDatagen'
 }
 
 shadowJar {
