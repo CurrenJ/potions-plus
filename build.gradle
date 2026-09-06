@@ -94,11 +94,69 @@ subprojects {
     }
 }
 
+// NeoForge's own dataclient bootstrap (unlike vanilla's client Main, which calls
+// Util.shutdownExecutors() when it's done) never shuts down Util.backgroundExecutor()'s
+// non-daemon worker threads, so the JVM :neoforge:runData spawns never exits on its own once
+// datagen finishes - it just hangs (confirmed on this branch's NeoForge 21.1.209 too). Rather than
+// block on it in-process (which would hang this build forever too), run it as its own subprocess,
+// watch its log for the line it prints right after generation completes, and kill the whole
+// process tree once that shows up. Ported from the 26.1.2 tree.
+tasks.register('runNeoForgeDataAndExit') {
+    group = 'data'
+    description = 'Runs :neoforge:runData in a subprocess and kills it once datagen finishes, working around the NeoForge dataclient JVM never exiting on its own.'
+
+    def logFile = layout.buildDirectory.file('runNeoForgeDataAndExit.log').get().asFile
+
+    doLast {
+        logFile.parentFile.mkdirs()
+        boolean isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows()
+        List<String> command = isWindows
+                ? ['cmd', '/c', file('gradlew.bat').absolutePath, ':neoforge:runData', '--console=plain', '--no-daemon']
+                : [file('gradlew').absolutePath, ':neoforge:runData', '--console=plain', '--no-daemon']
+
+        ProcessBuilder pb = new ProcessBuilder(command)
+        pb.directory(rootDir)
+        pb.redirectErrorStream(true)
+        pb.redirectOutput(logFile)
+        Process process = pb.start()
+
+        // Printed by vanilla's HashCache right after all data providers have finished running - the
+        // last line datagen itself is responsible for, before the JVM should (but doesn't) exit.
+        // Deliberately not a NeoForge-specific log line (e.g. "Clearing ModLoader"): this branch's
+        // older NeoForge (21.1.209) doesn't print one at all, unlike the 26.1.2 tree's.
+        String completionMarker = 'Caching: total files'
+        long deadline = System.currentTimeMillis() + 5 * 60 * 1000
+        boolean completed = false
+        while (System.currentTimeMillis() < deadline) {
+            if (logFile.exists() && logFile.text.contains(completionMarker)) {
+                completed = true
+                break
+            }
+            if (!process.isAlive()) {
+                break
+            }
+            Thread.sleep(500)
+        }
+        // Let the just-printed line's file writes (HashCache, generated resources) finish flushing.
+        Thread.sleep(1000)
+
+        if (process.isAlive()) {
+            process.descendants().forEach { it.destroyForcibly() }
+            process.destroyForcibly()
+        }
+
+        if (!completed) {
+            throw new GradleException("neoforge:runData did not finish within the timeout - see ${logFile}")
+        }
+        logger.lifecycle('neoforge:runData finished; killed the process tree since it never exits on its own.')
+    }
+}
+
 // Phase 10 (datagen sharing, Decision 5): NeoForge datagen stays the source of truth. Copy its
 // generated output into common/ so Fabric and Forge pick up the shared models/blockstates/tags/
 // sounds.json without running their own datagen.
 tasks.register('commonDatagen', Copy) {
-    dependsOn ':neoforge:runData'
+    dependsOn ':runNeoForgeDataAndExit'
 
     from(file('neoforge/src/generated/resources')) {
         exclude '.cache/**'
