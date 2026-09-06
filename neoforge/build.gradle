@@ -92,6 +92,13 @@ dependencies {
 }
 
 processResources {
+    // Ordering only (not dependsOn) - see jar below for why, and fabric/forge/common's
+    // build.gradle for the equivalent pattern. Both are needed: runNeoForgeDataAndExit is what
+    // actually (re)populates neoforge/src/generated/resources that this task reads directly, and
+    // commonDatagen is needed too because `from project(":common").sourceSets.main.resources`
+    // below also pulls in common/src/generated/resources, which commonDatagen writes.
+    mustRunAfter ':runNeoForgeDataAndExit'
+    mustRunAfter ':commonDatagen'
     inputs.property 'version', project.version
     // Phase 10: common now carries a copy of neoforge's own shared datagen output
     // (commonDatagen), so pulling common's resources in below duplicates files already produced
@@ -125,6 +132,14 @@ tasks.withType(Test).configureEach {
         events 'passed', 'skipped', 'failed'
         exceptionFormat = 'full'
     }
+}
+
+tasks.named('jar').configure {
+    // NeoForge is the actual source of the datagen this reads from
+    // (sourceSets.main.resources.srcDir('src/generated/resources') below) - unlike Fabric/Forge,
+    // it doesn't go through commonDatagen, but it still needs a guarantee that a fresh run has
+    // completed before packaging, or a stale/removed recipe can silently ship (as happened here).
+    dependsOn ':runNeoForgeDataAndExit'
 }
 
 shadowJar {
