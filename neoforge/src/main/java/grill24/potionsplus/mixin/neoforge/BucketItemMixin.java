@@ -1,0 +1,33 @@
+package grill24.potionsplus.mixin.neoforge;
+
+import grill24.potionsplus.core.items.BrewingItems;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.BlockHitResult;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+@Mixin(BucketItem.class)
+public abstract class BucketItemMixin extends Item {
+    public BucketItemMixin(Properties properties) {
+        super(properties);
+    }
+
+    // remap = false: both the enclosing method (the ItemStack-taking emptyContents overload) and the
+    // FluidType.onVaporize call are NeoForge-patch additions, absent from the vanilla obfuscation
+    // mapping the AP resolves against - Phase 9 turning the refmap AP back on (see root build.gradle)
+    // surfaced this as a hard "Unable to locate obfuscation mapping" error where it used to silently
+    // pass unchecked. Patch-added members keep their real (unobfuscated) name in production too, so
+    // skipping remap here is correct, not a workaround.
+    @Inject(method = "emptyContents(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/BlockHitResult;Lnet/minecraft/world/item/ItemStack;)Z", at = @At(value = "INVOKE", target = "Lnet/neoforged/neoforge/fluids/FluidType;onVaporize(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/neoforged/neoforge/fluids/FluidStack;)V"), remap = false)
+    private void emptyContents(Player p_150716_, Level p_150717_, BlockPos p_150718_, BlockHitResult p_150719_, ItemStack container, CallbackInfoReturnable<Boolean> cir) {
+        Block.popResource(p_150717_, p_150718_, new ItemStack(BrewingItems.SALT.value()));
+    }
+}

@@ -1,15 +1,73 @@
 plugins {
-    // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
-    id 'net.neoforged.moddev' version '1.0.17' apply false
+    id 'dev.architectury.loom' version '1.17-SNAPSHOT' apply false
+    id 'architectury-plugin' version '3.5-SNAPSHOT'
+    id 'com.gradleup.shadow' version '8.3.6' apply false
+}
+
+architectury {
+    minecraft = project.minecraft_version
+}
+
+allprojects {
+    group = rootProject.maven_group
+    version = "$rootProject.mod_version+$rootProject.minecraft_version"
 }
 
 subprojects {
-    apply plugin: 'java'
+    apply plugin: 'dev.architectury.loom'
+    apply plugin: 'architectury-plugin'
 
-    java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-    java.withSourcesJar()
-    java.withJavadocJar()
-        
+    base {
+        archivesName = "$rootProject.archives_name-$project.name"
+    }
+
+    repositories {
+        maven {
+            // location of the maven that hosts JEI files since January 2023
+            name = "Jared's maven"
+            url = "https://maven.blamejared.com/"
+        }
+        maven {
+            // location of a maven mirror for JEI files, as a fallback
+            name = "ModMaven"
+            url = "https://modmaven.dev"
+        }
+    }
+
+    loom {
+        silentMojangMappingsLicense()
+        mixin {
+            defaultRefmapName = "potionsplus-refmap.json"
+            // Newer architectury-loom disables the legacy mixin annotation processor by default,
+            // which also silently stops refmap generation - the exact "invisible in dev, drops every
+            // mixin in production" failure mode Phase 9 calls out (docs/multi-loader-expansion.md).
+            // 1.21.1 is obfuscated and genuinely needs a refmap (unlike unobfuscated 26.1.2), so the
+            // AP must stay on here.
+            useLegacyMixinAp = true
+        }
+    }
+
+    dependencies {
+        minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
+        mappings loom.officialMojangMappings()
+    }
+
+    java {
+        withSourcesJar()
+
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.encoding = 'UTF-8'
+        it.options.release = 21
+    }
+
     jar {
         from(rootProject.file("license.txt")) {
             rename { "${it}_${mod_name}" }
@@ -23,74 +81,95 @@ subprojects {
                 'Implementation-Version'  : project.jar.archiveVersion,
                 'Implementation-Vendor'   : mod_authors,
                 'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                'Timestamp'               : System.currentTimeMillis(),
-                'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
                 'Built-On-Minecraft'      : minecraft_version
             ])
         }
-    }
-
-    sourcesJar {
-        from(rootProject.file("license.txt")) {
-            rename { "${it}_${mod_name}" }
-        }
-    }
-
-    repositories {
-        mavenCentral()
-        maven {
-            // location of the maven that hosts JEI files since January 2023
-            name = "Jared's maven"
-            url = "https://maven.blamejared.com/"
-        }
-        maven {
-            // location of a maven mirror for JEI files, as a fallback
-            name = "ModMaven"
-            url = "https://modmaven.dev"
-        }
-        maven {
-            url = 'https://maven.minecraftforge.net/'
-        }
-
-    }
-
-    tasks.withType(JavaCompile).configureEach {
-    
-        it.options.encoding = 'UTF-8'
-        it.options.getRelease().set(21)
-    }
-
-    processResources {
-        def expandProps = [
-            "version": version,
-            "group": project.group, //Else we target the task's group.
-            "minecraft_version": minecraft_version,
-            "minecraft_version_range": minecraft_version_range,
-            "mod_name": mod_name,
-            "mod_authors": mod_authors,
-            "mod_id": mod_id,
-            "mod_license": mod_license,
-            "mod_version": mod_version,
-            "mod_description": mod_description,
-            "description": project.description,
-            "neoforge_version": neoforge_version,
-            "neo_version_range": neo_version_range,
-            "neoforge_loader_version_range": neoforge_loader_version_range,
-            "credits": credits
-        ]
-
-        filesMatching(['pack.mcmeta', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
-            expand expandProps
-        }
-        inputs.properties(expandProps)
     }
 
     // Disables Gradle's custom module metadata from being published to maven. The
     // metadata includes mapped dependencies which are not reasonably consumable by
     // other mod developers.
     tasks.withType(GenerateModuleMetadata).configureEach {
-
         enabled = false
     }
 }
 
+// NeoForge's own dataclient bootstrap (unlike vanilla's client Main, which calls
+// Util.shutdownExecutors() when it's done) never shuts down Util.backgroundExecutor()'s
+// non-daemon worker threads, so the JVM :neoforge:runData spawns never exits on its own once
+// datagen finishes - it just hangs (confirmed on this branch's NeoForge 21.1.209 too). Rather than
+// block on it in-process (which would hang this build forever too), run it as its own subprocess,
+// watch its log for the line it prints right after generation completes, and kill the whole
+// process tree once that shows up. Ported from the 26.1.2 tree.
+tasks.register('runNeoForgeDataAndExit') {
+    group = 'data'
+    description = 'Runs :neoforge:runData in a subprocess and kills it once datagen finishes, working around the NeoForge dataclient JVM never exiting on its own.'
+
+    def logFile = layout.buildDirectory.file('runNeoForgeDataAndExit.log').get().asFile
+
+    doLast {
+        logFile.parentFile.mkdirs()
+        boolean isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows()
+        List<String> command = isWindows
+                ? ['cmd', '/c', file('gradlew.bat').absolutePath, ':neoforge:runData', '--console=plain', '--no-daemon']
+                : [file('gradlew').absolutePath, ':neoforge:runData', '--console=plain', '--no-daemon']
+
+        ProcessBuilder pb = new ProcessBuilder(command)
+        pb.directory(rootDir)
+        pb.redirectErrorStream(true)
+        pb.redirectOutput(logFile)
+        Process process = pb.start()
+
+        // Printed by vanilla's HashCache right after all data providers have finished running - the
+        // last line datagen itself is responsible for, before the JVM should (but doesn't) exit.
+        // Deliberately not a NeoForge-specific log line (e.g. "Clearing ModLoader"): this branch's
+        // older NeoForge (21.1.209) doesn't print one at all, unlike the 26.1.2 tree's.
+        String completionMarker = 'Caching: total files'
+        long deadline = System.currentTimeMillis() + 5 * 60 * 1000
+        boolean completed = false
+        while (System.currentTimeMillis() < deadline) {
+            if (logFile.exists() && logFile.text.contains(completionMarker)) {
+                completed = true
+                break
+            }
+            if (!process.isAlive()) {
+                break
+            }
+            Thread.sleep(500)
+        }
+        // Let the just-printed line's file writes (HashCache, generated resources) finish flushing.
+        Thread.sleep(1000)
+
+        if (process.isAlive()) {
+            process.descendants().forEach { it.destroyForcibly() }
+            process.destroyForcibly()
+        }
+
+        if (!completed) {
+            throw new GradleException("neoforge:runData did not finish within the timeout - see ${logFile}")
+        }
+        logger.lifecycle('neoforge:runData finished; killed the process tree since it never exits on its own.')
+    }
+}
+
+// Phase 10 (datagen sharing, Decision 5): NeoForge datagen stays the source of truth. Copy its
+// generated output into common/ so Fabric and Forge pick up the shared models/blockstates/tags/
+// sounds.json without running their own datagen.
+tasks.register('commonDatagen', Copy) {
+    dependsOn ':runNeoForgeDataAndExit'
+
+    from(file('neoforge/src/generated/resources')) {
+        exclude '.cache/**'
+        // NeoForge-only datapack registries (e.g. the neoforge:biome_modifier registry) - Fabric
+        // and Forge each provide their own code-based or hand-authored equivalents (Phase 8) and
+        // must not receive NeoForge-typed json.
+        exclude 'data/neoforge/**'
+        exclude '**/neoforge/**'
+    }
+    into file('common/src/generated/resources')
+
+    doFirst {
+        // Clean stale output so removed/renamed blocks, items, etc. don't leave orphaned files.
+        delete fileTree(dir: 'common/src/generated/resources')
+    }
+}

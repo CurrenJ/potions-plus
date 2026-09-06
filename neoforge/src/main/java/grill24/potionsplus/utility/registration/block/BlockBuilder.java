@@ -1,6 +1,6 @@
 package grill24.potionsplus.utility.registration.block;
 
-import grill24.potionsplus.utility.registration.AbstractRegistererBuilder;
+import grill24.potionsplus.utility.registration.neoforge.AbstractRegistererBuilder;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;

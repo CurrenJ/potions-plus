@@ -1,0 +1,129 @@
+package grill24.potionsplus.core.potion;
+
+import grill24.potionsplus.core.seededrecipe.*;
+import grill24.potionsplus.data.loot.SeededIngredientsLootTables;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import net.minecraft.core.Holder;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.ItemLike;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+public class PotionBuilder {
+    private String name = "";
+    private Supplier<MobEffectInstance> effectSupplier = null;
+    private ISeededPotionRecipeBuilder potionRecipeGenerator;
+
+    public static final int DEFAULT_DURATION = 1200; // 3 minutes
+
+    /**
+     * Injected by the loader registrar (NeoForge/Forge {@code DeferredRegister}, fabric immediate
+     * registry) BEFORE the common {@link Potions} hub is first touched, so potions registered at
+     * {@code Potions} class-load are already deferred. The factory builds the {@link Potion} itself.
+     * See docs/multi-loader-expansion.md Phase 4.
+     */
+    public static BiFunction<String, Supplier<MobEffectInstance>, Holder<Potion>> potionFactory;
+
+    public PotionBuilder() {
+         this.potionRecipeGenerator = SeededPotionRecipeBuilder.defaultPools();
+    }
+
+    public PotionBuilder name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public PotionBuilder effects(Supplier<MobEffectInstance> effectSupplier) {
+        this.effectSupplier = effectSupplier;
+        return this;
+    }
+
+    public final PotionBuilder effect(Holder<MobEffect> effect, int duration) {
+        this.effectSupplier = () -> new MobEffectInstance(effect, duration);
+        return this;
+    }
+
+    public final PotionBuilder effect(Holder<MobEffect> effect) {
+        this.effectSupplier = () -> new MobEffectInstance(effect, DEFAULT_DURATION);
+        return this;
+    }
+
+    public PotionBuilder recipeGenerator(SeededPotionRecipeBuilder potionRecipeGenerator) {
+        this.potionRecipeGenerator = potionRecipeGenerator;
+        return this;
+    }
+
+    public PotionBuilder withRaritySamplingConfigs(Map<PotionUpgradeIngredients.Rarity, PotionUpgradeIngredients.IngredientSamplingConfig> tieredIngredientPools) {
+        this.potionRecipeGenerator.withRaritySamplingConfigs(tieredIngredientPools);
+        return this;
+    }
+
+    public PotionBuilder addItemsToRarityPool(PotionUpgradeIngredients.Rarity rarity, SeededIngredientsLootTables.WeightingMode weightingMode, int weight, ItemLike... items) {
+        this.potionRecipeGenerator.addItemsToRaritySamplingPool(rarity, weightingMode, weight, items);
+        return this;
+    }
+
+    public PotionBuilder clearRaritySamplingConfig(PotionUpgradeIngredients.Rarity rarity) {
+        this.potionRecipeGenerator.clearRaritySamplingConfig(rarity);
+        return this;
+    }
+
+    public PotionBuilder withRarityCount(PotionUpgradeIngredients.Rarity rarity, int count) {
+        this.potionRecipeGenerator.withRarityCount(rarity, count);
+        return this;
+    }
+
+    public PotionsPlusPotionGenerationData build() {
+        if (name.isBlank())
+            throw new IllegalArgumentException("Name must be set");
+        else if (effectSupplier == null)
+            throw new IllegalArgumentException("Effect function must be set");
+
+        return new PotionsPlusPotionGenerationData(name, effectSupplier, potionRecipeGenerator);
+    }
+
+    public PotionsPlusPotionGenerationData build(Consumer<PotionsPlusPotionGenerationData> consumer) {
+        PotionsPlusPotionGenerationData potions = build();
+        consumer.accept(potions);
+
+        return potions;
+    }
+
+    @FunctionalInterface
+    public interface DurationFunction {
+        int getDurationTicks(int durationLevel);
+    }
+
+    public static class PotionsPlusPotionGenerationData {
+        public final Holder<Potion> potion;
+        private final ISeededPotionRecipeBuilder potionRecipeGenerator;
+
+        public PotionsPlusPotionGenerationData(String name, Supplier<MobEffectInstance> effectSupplier, ISeededPotionRecipeBuilder potionRecipeGenerator) {
+            this.potion = registerNewPotion(name, effectSupplier);
+            this.potionRecipeGenerator = potionRecipeGenerator;
+        }
+
+        public static Holder<Potion> registerNewPotion(String name, Supplier<MobEffectInstance> effectSupplier) {
+            return potionFactory.apply(name, effectSupplier);
+        }
+
+        public List<RecipeHolder<BrewingCauldronRecipe>> generateRecipes(Set<PpMultiIngredient> usedRecipeInputs, RandomSource random) {
+            return potionRecipeGenerator.generateRecipes(this, usedRecipeInputs, random);
+        }
+
+        public String getName() {
+            return potion.unwrapKey().orElseThrow().location().getPath();
+        }
+    }
+}

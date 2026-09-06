@@ -1,0 +1,127 @@
+package grill24.potionsplus.event.neoforge;
+
+import grill24.potionsplus.core.RecipesRegistrar;
+
+import grill24.potionsplus.behaviour.ClotheslineBehaviour;
+import grill24.potionsplus.behaviour.MossBehaviour;
+import grill24.potionsplus.blockentity.AbyssalTroveBlockEntity;
+import grill24.potionsplus.core.Recipes;
+import grill24.potionsplus.core.seededrecipe.PpIngredient;
+import grill24.potionsplus.network.*;
+import grill24.potionsplus.network.neoforge.*;
+import grill24.potionsplus.persistence.PlayerBrewingKnowledge;
+import grill24.potionsplus.persistence.SavedData;
+import grill24.potionsplus.recipe.brewingcauldronrecipe.BrewingCauldronRecipe;
+import grill24.potionsplus.utility.*;
+import grill24.potionsplus.alchemy.*;
+import grill24.potionsplus.utility.ServerTickHandler;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import grill24.potionsplus.platform.PacketNetwork;
+import oshi.util.tuples.Pair;
+
+import java.util.*;
+
+@EventBusSubscriber(modid = ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+public class PlayerListeners {
+
+    @SubscribeEvent
+    public static void onItemPickedUp(final ItemEntityPickupEvent.Post event) {
+        Level level = event.getPlayer().level();
+        if (!level.isClientSide()) {
+            grill24.potionsplus.event.PlayerListeners.onItemPickedUp((ServerPlayer) event.getPlayer(), event.getOriginalStack());
+        }
+    }
+
+    private static final int EFFECT_DURATION = 20 * 15; // Every 15 seconds
+    private static int lastEffectActivation;
+
+    @SubscribeEvent
+    public static void onTick(final ServerTickEvent.Pre event) {
+        applyAllPassiveItemPotionEffects(event.getServer().getPlayerList().getPlayers());
+    }
+
+    @SubscribeEvent
+    public static void onServerTickEnd(final ServerTickEvent.Post event) {}
+
+    private static void applyAllPassiveItemPotionEffects(List<ServerPlayer> players) {
+        // Apply passive item potion effects every interval of time
+        if (ServerTickHandler.ticksInGame > lastEffectActivation + EFFECT_DURATION) {
+            lastEffectActivation = ServerTickHandler.ticksInGame;
+            for (ServerPlayer player : players) {
+                tryApplyPassiveItemPotionEffects(player, EquipmentSlot.MAINHAND);
+                tryApplyPassiveItemPotionEffects(player, EquipmentSlot.OFFHAND);
+
+                tryApplyPassiveItemPotionEffects(player, EquipmentSlot.HEAD);
+                tryApplyPassiveItemPotionEffects(player, EquipmentSlot.CHEST);
+                tryApplyPassiveItemPotionEffects(player, EquipmentSlot.LEGS);
+                tryApplyPassiveItemPotionEffects(player, EquipmentSlot.FEET);
+            }
+        }
+    }
+
+    private static void tryApplyPassiveItemPotionEffects(Player player, EquipmentSlot slot) {
+        ItemStack stack = player.getItemBySlot(slot);
+        if (PotionContainer.isPassivePotionEffectItem(stack)) {
+            PotionContents potionContents = PotionData.read(stack).toContents();
+            if (potionContents != null) {
+                List<MobEffectInstance> customEffects = new ArrayList<>();
+                for (MobEffectInstance effect : PotionData.of(potionContents).effects()) {
+                    int durationApplied = Math.min(EFFECT_DURATION, effect.getDuration());
+                    MobEffectInstance e = new MobEffectInstance(effect.getEffect(), durationApplied, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false);
+
+                    // Damage the item, but don't break it.
+                    int maxDamage = stack.getOrDefault(DataComponents.MAX_DAMAGE, 0);
+                    int damage = stack.getOrDefault(DataComponents.DAMAGE, 0);
+                    int damageToApply = (e.getAmplifier() + 1) * 2;
+                    if (damage + damageToApply < maxDamage) {
+                        player.addEffect(e);
+                        stack.hurtAndBreak(e.getAmplifier() + 1, player, slot);
+                    }
+
+                    // Update the potion effects data on the item with the new duration
+                    int remainingDuration = effect.getDuration() - durationApplied;
+                    if (remainingDuration > 0) {
+                        customEffects.add(new MobEffectInstance(effect.getEffect(), remainingDuration, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), false));
+                    }
+                }
+                PotionData.write(stack, new PotionContents(potionContents.potion(), potionContents.customColor(), customEffects));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void on(final PlayerInteractEvent.RightClickBlock event) {
+        BlockPos pos = event.getPos();
+
+        if (MossBehaviour.doMossInteractions(event.getLevel(), pos, event.getItemStack(), event.getEntity(), event.getHand())) {
+            event.setCanceled(true);
+            return;
+        }
+        if (ClotheslineBehaviour.doClotheslineInteractions(event.getLevel(), pos, event.getItemStack(), event.getEntity(), event.getHand())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerJoin(final EntityJoinLevelEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            grill24.potionsplus.event.PlayerListeners.onPlayerJoin(player);
+        }
+    }
+}
