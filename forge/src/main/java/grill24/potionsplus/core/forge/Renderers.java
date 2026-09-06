@@ -30,6 +30,7 @@ import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.lwjgl.glfw.GLFW;
 
 /**
@@ -97,6 +98,25 @@ public class Renderers {
         event.registerBlockEntityRenderer(Blocks.HERBALISTS_LECTERN_BLOCK_ENTITY.value(), HerbalistsLecternBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(Blocks.ABYSSAL_TROVE_BLOCK_ENTITY.value(), AbyssalTroveBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(Blocks.SANGUINE_ALTAR_BLOCK_ENTITY.value(), SanguineAltarBlockEntityRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void onClientSetup(final FMLClientSetupEvent event) {
+        // Item property overrides (dynamic-icon items: mirrors core.neoforge.ClientEvents). Moved out
+        // of PotionsPlusForge's own FMLClientSetupEvent listener - see that class's comment for why a
+        // lambda referencing client-only types cannot live in the always-loaded @Mod class's bytecode.
+        // Without this, GENERIC_ICON/POTION_EFFECT_ICON always render item model override index 0
+        // (the amplifier-upgrade texture) since the "dynamic_icon_index" predicate is never bound.
+        event.enqueueWork(() -> {
+            net.minecraft.client.renderer.item.ClampedItemPropertyFunction clampedItemStackCountPropertyFunction =
+                    (stack, world, entity, i) -> (float) (stack.getCount() - 1) / 64.0F + 0.01F;
+            net.minecraft.client.renderer.item.ItemProperties.register(
+                    grill24.potionsplus.core.items.DynamicIconItems.POTION_EFFECT_ICON.value(),
+                    grill24.potionsplus.core.items.DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
+            net.minecraft.client.renderer.item.ItemProperties.register(
+                    grill24.potionsplus.core.items.DynamicIconItems.GENERIC_ICON.value(),
+                    grill24.potionsplus.core.items.DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
+        });
     }
 
     @SubscribeEvent

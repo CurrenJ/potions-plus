@@ -206,10 +206,9 @@ loom {
                         "--all",
                         "--output", file("src/generated/resources").absolutePath
         }
-        // Phase 12: headless game test server. STILL BLOCKED this session, but got substantially
-        // further than the reference dev/26.1.2 tree's Forge notes predicted (which never got past
-        // RegisterEvent never firing at all) - three distinct, real infra bugs found and fixed to get
-        // here, then a fourth, deeper one still open:
+        // Phase 12: headless game test server. RESOLVED (investigation session 2026-09-05) - 33/33
+        // passing, matching NeoForge/Fabric. Four distinct infra bugs total, on top of the reference
+        // dev/26.1.2 tree's Forge notes (which never got past RegisterEvent never firing at all):
         //   1. `forgeTemplate('gameTestServer')` correctly selects the userdev gameTestServer launch
         //      template (confirmed present via `unzip -p forge-1.21.1-52.1.2-userdev.jar config.json`).
         //   2/3. Architectury's Gradle plugin does not inject `architectury-transformer-*-runtime.jar`
@@ -218,18 +217,21 @@ loom {
         //      NeoForge's own identically-shaped `gametest` run (confirmed by diffing
         //      `forge/build/loom-cache/argFiles/runGametest` against the working `runServer`'s
         //      byte-for-byte) - fixed by adding both jars directly via `testmodRuntimeOnly` above.
-        //   4. STILL OPEN: with the launcher now working, the run boots all the way through FML/Forge
-        //      (loads recipes, advancements, logs "Enabled Gametest Namespaces: [potionsplus]" - i.e.
-        //      reaches exactly the point NeoForge's run used to fail at before its own
-        //      compileTestmodJava redirect fix), then fails with the identical
-        //      "IllegalArgumentException: No test functions were given!" NeoForge had - except the
-        //      same redirect fix is already applied here too (confirmed: `PotionsPlusForgeGameTests
-        //      .class` verifiably lands in `forge/build/classes/java/main/...`, not a separate testmod
-        //      dir) and it did NOT resolve it for Forge. `ForgeGameTestHooks`'s ASM ModFileScanData
-        //      scan is simply not finding the annotated class for a reason not isolated this session -
-        //      ruled out: not a stale-cache artifact (`--rerun-tasks` + deleting `forge/build/gametest`
-        //      first gives the identical failure). Reproduce: `rm forge/build/loom-cache/argFiles/
-        //      runGametest && ./gradlew :forge:runGametest --rerun-tasks`.
+        //   4. Two more bugs stacked on top of that, both now fixed - see their own commits/comments:
+        //      (a) `PotionsPlusForge`'s `@Mod` constructor inlined a client-only lambda (dynamic-icon
+        //      `ItemProperties.register`), which crashed mod construction outright on DEDICATED_SERVER
+        //      (RuntimeDistCleaner) before gametest registration ever ran - moved to `Renderers`
+        //      (already `Dist.CLIENT`-gated). See `PotionsPlusForge`'s comment at that call site.
+        //      (b) Once mod construction succeeded, FML's ASM scan turned out to find the
+        //      `@GameTestHolder`/`@GameTest` annotations just fine (confirmed by temporarily dumping
+        //      this mod's own `ModFileScanData` from a `RegisterGameTestsEvent` listener) - the
+        //      previous session's "ASM scan isn't finding the class" theory was wrong. The real bug:
+        //      `PotionsPlusForgeGameTests`'s class-level `@GameTestDontPrefix` suppressed both the
+        //      structure-template prefix AND the test batch name, and `-Dforge.enabledGameTestNamespaces`
+        //      (set below) filters by batch name - so every test silently fell back to a batch that
+        //      never matched "potionsplus" and got filtered out with zero errors logged. Fixed by
+        //      dropping `@GameTestDontPrefix` and fully-qualifying each `@GameTest`'s `template` with
+        //      the `potionsplus:` namespace instead (see that class's javadoc for the full mechanism).
         gametest {
             environment('gameTestServer')
             forgeTemplate('gameTestServer')

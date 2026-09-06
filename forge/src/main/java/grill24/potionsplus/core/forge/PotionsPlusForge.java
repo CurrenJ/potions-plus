@@ -130,24 +130,20 @@ public class PotionsPlusForge {
         grill24.potionsplus.event.forge.CommandListeners.register();
         grill24.potionsplus.event.forge.AdvancementListeners.register();
         grill24.potionsplus.event.forge.PlayerListeners.register();
-        // FMLClientSetupEvent only ever posts on the physical client - no dist gate needed here.
+        // FMLClientSetupEvent only ever posts on the physical client - no dist gate needed here for
+        // the listener registration itself. The item-property-override work used to be inlined here
+        // too, but that meant PotionsPlusForge.class's own bytecode (a lambda body compiles into a
+        // synthetic method of the ENCLOSING class, not a separate class file) directly referenced
+        // client-only types (ClampedItemPropertyFunction, ItemProperties). Verifying/loading
+        // PotionsPlusForge.class is unavoidable on every dist (FML must construct the @Mod class to
+        // boot at all), so RuntimeDistCleaner rejected those types outright on DEDICATED_SERVER,
+        // crashing mod construction before anything else could register - the dedicated-gametest-server
+        // launch (and any headless server) never got past ModLoader.gatherAndInitializeMods. Moved to
+        // Renderers#onClientSetup, which - like Renderers' other handlers - only ever loads on the
+        // physical client via @Mod.EventBusSubscriber(value = Dist.CLIENT).
         bus.addListener((net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) -> {
             grill24.potionsplus.event.forge.TickListeners.registerClient();
             grill24.potionsplus.event.forge.TooltipListeners.register();
-
-            // Item property overrides (dynamic-icon items: mirrors core.neoforge.ClientEvents).
-            // Without this, GENERIC_ICON/POTION_EFFECT_ICON always render item model override index 0
-            // (the amplifier-upgrade texture) since the "dynamic_icon_index" predicate is never bound.
-            event.enqueueWork(() -> {
-                net.minecraft.client.renderer.item.ClampedItemPropertyFunction clampedItemStackCountPropertyFunction =
-                        (stack, world, entity, i) -> (float) (stack.getCount() - 1) / 64.0F + 0.01F;
-                net.minecraft.client.renderer.item.ItemProperties.register(
-                        grill24.potionsplus.core.items.DynamicIconItems.POTION_EFFECT_ICON.value(),
-                        grill24.potionsplus.core.items.DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
-                net.minecraft.client.renderer.item.ItemProperties.register(
-                        grill24.potionsplus.core.items.DynamicIconItems.GENERIC_ICON.value(),
-                        grill24.potionsplus.core.items.DynamicIconItems.DYNAMIC_ICON_INDEX_PROPERTY_NAME, clampedItemStackCountPropertyFunction);
-            });
         });
         Capabilities.register();
         ServerLifecycleListeners.register();
