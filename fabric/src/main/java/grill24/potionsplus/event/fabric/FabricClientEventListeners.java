@@ -46,6 +46,8 @@ public final class FabricClientEventListeners {
         ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
             DelayedEvents.tick(TickHandler.ticks());
             ClientTickHandler.clientTickEnd();
+            // Unattended in-game self-test (inert unless its marker file exists; see GameSelfTest).
+            grill24.potionsplus.client.selftest.GameSelfTest.tick(minecraft, "fabric");
         });
 
         // RenderFrameEvent.Post equivalent. Only fires while a level is being rendered (not at the

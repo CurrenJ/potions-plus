@@ -125,6 +125,13 @@ public class PotionsPlusForge {
 
         // Clothesline IItemHandler capability (attached externally, mirroring the NeoForge Capabilities hub).
         Capabilities.register();
+
+        // Precision dispenser -> vanilla DISPENSER block-entity association. Deferred to
+        // FMLCommonSetupEvent because it reads PRECISION_DISPENSER's bound holder, which the BLOCK
+        // RegisterEvent (earlier in setup) is what binds. See the method for why Forge has to write
+        // into BlockEntityType#validBlocks directly.
+        net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent.getBus(bus).addListener(event ->
+                event.enqueueWork(Blocks::addValidBlocksToBlockEntityTypes));
     }
 
     private static <T> BiFunction<String, Supplier<T>, Holder<T>> register(DeferredRegister<T> register) {

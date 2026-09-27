@@ -46,6 +46,9 @@ public final class ForgeClientEventListeners {
         TickEvent.ClientTickEvent.Post.BUS.addListener((TickEvent.ClientTickEvent.Post event) -> {
             DelayedEvents.tick(TickHandler.ticks());
             ClientTickHandler.clientTickEnd();
+            // Unattended in-game self-test (inert unless its marker file exists; see GameSelfTest).
+            grill24.potionsplus.client.selftest.GameSelfTest.tick(
+                    net.minecraft.client.Minecraft.getInstance(), "forge");
         });
 
         // RenderFrameEvent.Post equivalent (Forge has no RenderFrameEvent; use RenderTickEvent.Post).

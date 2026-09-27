@@ -88,6 +88,10 @@ jar {
     // every runClient/runServer.
     dependsOn ':commonDatagen'
     archiveClassifier = 'raw'
+    // Dev tooling: the in-game self-test harness (common/.../client/selftest) is compiled with main so
+    // :fabric:runClient can use it, and must not ship. shadowJar below unpacks THIS jar, so cutting it
+    // here is what keeps it out of the distributable too. See docs/self-test-harness.md.
+    exclude '**/client/selftest/**'
 }
 
 shadowJar {
@@ -96,6 +100,7 @@ shadowJar {
     from(zipTree(jar.archiveFile))
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = null
+    exclude '**/client/selftest/**'
 }
 
 // shadowJar (the distributable mod jar bundling common) isn't wired into

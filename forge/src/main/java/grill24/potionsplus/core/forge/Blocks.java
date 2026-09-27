@@ -61,4 +61,31 @@ public class Blocks {
         grill24.potionsplus.core.Blocks.CLOTHESLINE_BLOCK_ENTITY = CLOTHESLINE_BLOCK_ENTITY;
         grill24.potionsplus.core.Blocks.POTION_BEACON_BLOCK_ENTITY = POTION_BEACON_BLOCK_ENTITY;
     }
+
+    /**
+     * DISPENSER association (PRECISION_DISPENSER -> vanilla BlockEntityType.DISPENSER, as NeoForge's
+     * BlockEntityTypeAddBlocksEvent and Fabric's FabricBlockEntityType.addValidBlock do).
+     *
+     * <p>Forge has no public API for this, so this writes into {@code BlockEntityType#validBlocks}
+     * directly — widened by {@code forge/src/main/resources/META-INF/accesstransformer.cfg}.
+     *
+     * <p>Without the association, placing a precision dispenser throws
+     * {@code IllegalStateException("Invalid block entity minecraft:dispenser ... got
+     * Block{potionsplus:precision_dispenser}")} and the block cannot be placed at all: the block
+     * inherits {@code DispenserBlock.newBlockEntity}, which produces a {@code DispenserBlockEntity}
+     * whose type does not list this block. Caught by the self-test harness's {@code blocks} scene the
+     * first time it ran on Forge — see docs/self-test-harness.md.
+     *
+     * <p>{@code validBlocks} is an ImmutableSet, so it must be replaced rather than mutated.
+     *
+     * <p>Runs on FMLCommonSetupEvent because {@link DeferredRegister} only binds
+     * {@code PRECISION_DISPENSER} at its RegisterEvent, which fires earlier in setup than this.
+     */
+    public static void addValidBlocksToBlockEntityTypes() {
+        BlockEntityType<net.minecraft.world.level.block.entity.DispenserBlockEntity> dispenser =
+                BlockEntityType.DISPENSER;
+        Set<Block> validBlocks = new java.util.HashSet<>(dispenser.validBlocks);
+        validBlocks.add(BlockEntityBlocks.PRECISION_DISPENSER.value());
+        dispenser.validBlocks = validBlocks;
+    }
 }

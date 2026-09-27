@@ -47,7 +47,20 @@ public class ClotheslineBlock extends HorizontalDirectionalBlock implements Enti
 
     public ClotheslineBlock(Properties properties) {
         super(properties);
-        registerDefaultState(this.stateDefinition.any().setValue(PART, ClotheslinePart.LEFT).setValue(DISTANCE, 2));
+        // FACING must be set explicitly here. stateDefinition.any() builds a fresh state from each
+        // property's OWN default, so it does not carry over the direction=north that
+        // HorizontalDirectionalBlock's constructor registered — and FACING's own default is
+        // Direction.DOWN (the first of all six, because the base class creates it with
+        // EnumProperty.create(name, Direction.class) and no plane filter). Left off, this block's
+        // default state is direction=down, which ClotheslineBlockEntityBakedRenderData has no baked
+        // data for (it covers Direction.Plane.HORIZONTAL only), so the renderer NPEs at
+        // getItemPoint and takes the client down as soon as the line holds an item. Player placement
+        // is unaffected (getStateForPlacement uses getHorizontalDirection), so this only reproduces
+        // via commands/API/other mods. Found by the self-test harness's clothesline scene.
+        registerDefaultState(this.stateDefinition.any()
+                .setValue(FACING, Direction.NORTH)
+                .setValue(PART, ClotheslinePart.LEFT)
+                .setValue(DISTANCE, 2));
     }
 
     @Override

@@ -123,6 +123,11 @@ jar {
     // them into the distributable jar. Nothing under a gametest package ever belongs in a release.
     exclude '**/gametest/**'
 
+    // Dev tooling: the in-game self-test harness (common/.../client/selftest) is compiled with main so
+    // :forge:runClient can use it, and must not ship. shadowJar below unpacks THIS jar, so cutting it
+    // here is what keeps it out of the distributable too. See docs/self-test-harness.md.
+    exclude '**/client/selftest/**'
+
     // Forge 64.1.0 production does NOT parse [[mixins]] out of mods.toml (CommonLaunchHandler has
     // no getMixinConfigs(), and no class in fmlloader/fmlcore/forge references the mixin config
     // table). The ONLY production discovery path is the MixinConfigs manifest attribute, read by
@@ -140,6 +145,7 @@ shadowJar {
     from(zipTree(jar.archiveFile))
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = null
+    exclude '**/client/selftest/**'
 }
 
 // shadowJar (the distributable mod jar bundling common) isn't wired into
