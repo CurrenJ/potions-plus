@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "potionsplus:block/growing_mossy_cobblestone",
-    "side": "potionsplus:block/growing_mossy_cobblestone",
-    "top": "potionsplus:block/growing_mossy_cobblestone"
-  }
-}

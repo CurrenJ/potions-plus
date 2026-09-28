@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "compatibilityLevel": "JAVA_21",
+  "package": "grill24.potionsplus.mixin.fabric",
+  "mixins": [
+    "LivingEntityMixin",
+    "EnchantmentHelperMixin",
+    "PlayerAdvancementsMixin",
+    "ItemEntityMixin",
+    "ItemEntityLifespanMixin",
+    "BucketItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

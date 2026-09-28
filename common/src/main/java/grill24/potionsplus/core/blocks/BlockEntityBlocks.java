@@ -121,17 +121,6 @@ public class BlockEntityBlocks {
                 .properties(() -> BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.BEACON).mapColor(MapColor.WOOD).requiresCorrectToolForDrops().strength(2.5F).sound(SoundType.WOOD))
                 .modelGenerator(h -> new BlockModelUtility.FromModelFileBlockStateGenerator<>(h, ppId("block/potion_beacon"), true, false))
                 .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
-                        ppId("potion_beacon"),
-                        (recipeProvider, h) ->
-                                recipeProvider.shaped(RecipeCategory.BREWING, h.value())
-                                        .pattern("GGG")
-                                        .pattern("GNG")
-                                        .pattern("OOO")
-                                        .define('G', Items.GLASS)
-                                        .define('N', Items.NETHER_STAR)
-                                        .define('O', Items.OBSIDIAN)
-                                        .unlockedBy("has_glass", recipeProvider.has(Items.GLASS))))
-                .recipeGenerator(holder -> new RecipeGeneratorUtility.RecipeGenerator<>(holder,
                         ppId("potion_beacon_alternate"),
                         (recipeProvider, h) ->
                                 recipeProvider.shaped(RecipeCategory.BREWING, h.value())

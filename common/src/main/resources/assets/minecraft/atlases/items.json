@@ -1,0 +1,25 @@
+{
+    "sources": [
+        {
+            "type": "directory",
+            "source": "mob_effect",
+            "prefix": "mob_effect/"
+        },
+        {
+            "type": "single",
+            "resource": "minecraft:particle/sga_a"
+        },
+        {
+            "type": "single",
+            "resource": "minecraft:particle/sga_b"
+        },
+        {
+            "type": "single",
+            "resource": "minecraft:particle/sga_c"
+        },
+        {
+            "type": "single",
+            "resource": "minecraft:particle/sga_d"
+        }
+    ]
+}

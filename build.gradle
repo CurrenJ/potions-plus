@@ -1,5 +1,5 @@
 plugins {
-    id 'dev.architectury.loom-no-remap' version '1.14-SNAPSHOT' apply false
+    id 'dev.architectury.loom-no-remap' version '1.17.491' apply false
     id 'architectury-plugin' version '3.5-SNAPSHOT'
     id 'com.gradleup.shadow' version '8.3.6' apply false
 }
@@ -52,5 +52,84 @@ subprojects {
                 'Built-On-Minecraft'      : minecraft_version
             ])
         }
+    }
+}
+
+// NeoForge's own dataclient bootstrap (unlike vanilla's client Main, which calls
+// Util.shutdownExecutors() when it's done) never shuts down Util.backgroundExecutor()'s
+// non-daemon worker threads, so the JVM :neoforge:runData spawns never exits on its own once
+// datagen finishes - it just hangs. Rather than block on it in-process (which would hang this
+// build forever too), run it as its own subprocess, watch its log for the line it prints right
+// after generation completes, and kill the whole process tree once that shows up.
+tasks.register('runNeoForgeDataAndExit') {
+    group = 'data'
+    description = 'Runs :neoforge:runData in a subprocess and kills it once datagen finishes, working around the NeoForge dataclient JVM never exiting on its own.'
+
+    def logFile = layout.buildDirectory.file('runNeoForgeDataAndExit.log').get().asFile
+
+    doLast {
+        logFile.parentFile.mkdirs()
+        boolean isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows()
+        List<String> command = isWindows
+                ? ['cmd', '/c', file('gradlew.bat').absolutePath, ':neoforge:runData', '--console=plain', '--no-daemon']
+                : [file('gradlew').absolutePath, ':neoforge:runData', '--console=plain', '--no-daemon']
+
+        ProcessBuilder pb = new ProcessBuilder(command)
+        pb.directory(rootDir)
+        pb.redirectErrorStream(true)
+        pb.redirectOutput(logFile)
+        Process process = pb.start()
+
+        // Printed by vanilla's HashCache right after all data providers have finished running - the
+        // last line datagen itself is responsible for, before the JVM should (but doesn't) exit.
+        // Deliberately not a NeoForge-specific log line (e.g. "Clearing ModLoader"): the 1.21.1
+        // tree's older NeoForge (21.1.209) doesn't print one at all, so this stays version-agnostic.
+        String completionMarker = 'Caching: total files'
+        long deadline = System.currentTimeMillis() + 5 * 60 * 1000
+        boolean completed = false
+        while (System.currentTimeMillis() < deadline) {
+            if (logFile.exists() && logFile.text.contains(completionMarker)) {
+                completed = true
+                break
+            }
+            if (!process.isAlive()) {
+                break
+            }
+            Thread.sleep(500)
+        }
+        // Let the just-printed line's file writes (HashCache, generated resources) finish flushing.
+        Thread.sleep(1000)
+
+        if (process.isAlive()) {
+            process.descendants().forEach { it.destroyForcibly() }
+            process.destroyForcibly()
+        }
+
+        if (!completed) {
+            throw new GradleException("neoforge:runData did not finish within the timeout - see ${logFile}")
+        }
+        logger.lifecycle('neoforge:runData finished; killed the process tree since it never exits on its own.')
+    }
+}
+
+// This copies NeoForge's datagen output into common/src/generated/resources so Fabric and Forge
+// pick up shared models/blockstates/tags/sounds.json/recipes via common's resources without
+// re-implementing datagen per loader (see docs/multi-loader-expansion.md Phase 7 / Decision 4).
+tasks.register('commonDatagen', Copy) {
+    dependsOn ':runNeoForgeDataAndExit'
+
+    from(file('neoforge/src/generated/resources')) {
+        exclude '.cache/**'
+        // NeoForge-only datapack registries (e.g. the neoforge:biome_modifier registry) - Fabric
+        // and Forge each provide their own code-based or hand-authored equivalents (Phase 5) and
+        // must not receive NeoForge-typed json.
+        exclude 'data/neoforge/**'
+        exclude '**/neoforge/**'
+    }
+    into file('common/src/generated/resources')
+
+    doFirst {
+        // Clean stale output so removed/renamed blocks, items, etc. don't leave orphaned files.
+        delete fileTree(dir: 'common/src/generated/resources')
     }
 }

@@ -1,0 +1,25 @@
+{
+  "type": "potionsplus:add_mob_effects_loot_modifier",
+  "conditions": [],
+  "blacklistedEffects": [
+    "minecraft:slowness",
+    "minecraft:mining_fatigue",
+    "minecraft:instant_health",
+    "minecraft:instant_damage",
+    "minecraft:nausea",
+    "minecraft:blindness",
+    "minecraft:hunger",
+    "minecraft:weakness",
+    "minecraft:poison",
+    "minecraft:wither",
+    "minecraft:levitation",
+    "minecraft:unluck",
+    "minecraft:darkness",
+    "minecraft:wind_charged",
+    "minecraft:weaving",
+    "minecraft:oozing",
+    "minecraft:infested",
+    "minecraft:saturation",
+    "potionsplus:teleportation"
+  ]
+}

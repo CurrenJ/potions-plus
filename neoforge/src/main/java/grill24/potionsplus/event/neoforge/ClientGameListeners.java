@@ -18,5 +18,7 @@ public class ClientGameListeners {
     @SubscribeEvent
     public static void clientTickEnd(final ClientTickEvent.Post event) {
         ClientTickHandler.clientTickEnd();
+        // Unattended in-game self-test (inert unless its marker file exists; see GameSelfTest).
+        grill24.potionsplus.client.selftest.GameSelfTest.tick(net.minecraft.client.Minecraft.getInstance(), "neoforge");
     }
 }

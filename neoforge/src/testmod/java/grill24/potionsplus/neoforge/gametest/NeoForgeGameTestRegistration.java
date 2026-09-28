@@ -3,6 +3,8 @@ package grill24.potionsplus.neoforge.gametest;
 import com.mojang.serialization.MapCodec;
 import grill24.potionsplus.gametest.AlchemyGameTests;
 import grill24.potionsplus.gametest.BrewingCauldronGameTests;
+import grill24.potionsplus.gametest.EffectGameTests;
+import grill24.potionsplus.gametest.RecipeSyncGameTests;
 import grill24.potionsplus.utility.ModInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -127,6 +129,45 @@ public class NeoForgeGameTestRegistration {
                 BrewingCauldronGameTests::brewingWithGunpowderConvertsToASplashPotion);
         register(event, env, "brewing_cauldron_does_not_mutate_its_ingredients",
                 AlchemyGameTests::brewingCauldronDoesNotMutateItsIngredients);
+
+        // ----- runtime recipe sync (the Forge/Fabric client packet, common code) -----
+
+        register(event, env, "runtime_recipe_sync_batches_cover_every_recipe",
+                RecipeSyncGameTests::runtimeRecipeSyncBatchesCoverEveryRecipe);
+        register(event, env, "runtime_recipe_sync_round_trips_through_the_stream_codec",
+                RecipeSyncGameTests::runtimeRecipeSyncRoundTripsThroughTheStreamCodec);
+
+        // ----- custom effects: what they actually do in the world -----
+        register(event, env, "magnetic_pulls_items_toward_the_holder",
+                EffectGameTests::magneticPullsItemsTowardTheHolder);
+        register(event, env, "crop_collector_harvests_a_mature_crop_in_range",
+                EffectGameTests::cropCollectorHarvestsAMatureCropInRange);
+        register(event, env, "botanical_boost_ages_a_young_crop_in_range",
+                EffectGameTests::botanicalBoostAgesAYoungCropInRange);
+        register(event, env, "giant_steps_raises_step_height",
+                EffectGameTests::giantStepsRaisesStepHeight);
+        register(event, env, "reach_for_the_stars_increases_interaction_range",
+                EffectGameTests::reachForTheStarsIncreasesInteractionRange);
+        register(event, env, "teleportation_moves_the_holder",
+                EffectGameTests::teleportationMovesTheHolder);
+        register(event, env, "harrowing_hands_grants_bone_buddy_to_nearby_skeletons",
+                EffectGameTests::harrowingHandsGrantsBoneBuddyToNearbySkeletons);
+        register(event, env, "exploding_damages_the_holder_on_expiry",
+                EffectGameTests::explodingDamagesTheHolderOnExpiry);
+        register(event, env, "bone_buddy_retargets_a_skeletons_aggro",
+                EffectGameTests::boneBuddyRetargetsASkeletonsAggro);
+        register(event, env, "geode_grace_eventually_converts_stone_to_ore",
+                EffectGameTests::geodeGraceEventuallyConvertsStoneToOre);
+        register(event, env, "fall_of_the_void_rescues_the_holder",
+                EffectGameTests::fallOfTheVoidRescuesTheHolder);
+        register(event, env, "soul_mate_redirects_damage_to_the_paired_entity",
+                EffectGameTests::soulMateRedirectsDamageToThePairedEntity);
+        register(event, env, "flying_time_tracks_holders_by_uuid",
+                EffectGameTests::flyingTimeTracksHoldersByUuid);
+        register(event, env, "slip_n_slide_reduces_air_friction_on_landing",
+                EffectGameTests::slipNSlideReducesAirFrictionOnLanding);
+        register(event, env, "bouncing_reverses_downward_velocity_on_fall",
+                EffectGameTests::bouncingReversesDownwardVelocityOnFall);
     }
 
     private static void register(

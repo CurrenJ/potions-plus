@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
@@ -167,7 +168,8 @@ public class ClotheslineBlockEntity extends InventoryBlockEntity implements ICra
                 float successChance = activeRecipe.getSuccessChance();
                 boolean recipeSucceeds = level.getRandom().nextFloat() < successChance;
 
-                ItemStack container = getItem(slot).getItem().getCraftingRemainder().create();
+                ItemStackTemplate craftingRemainder = getItem(slot).getItem().getCraftingRemainder();
+                ItemStack container = craftingRemainder != null ? craftingRemainder.create() : ItemStack.EMPTY;
                 getItem(slot).shrink(1);
 
                 if (recipeSucceeds) {

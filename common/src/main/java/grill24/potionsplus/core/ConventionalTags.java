@@ -3,6 +3,7 @@ package grill24.potionsplus.core;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
@@ -30,6 +31,14 @@ public class ConventionalTags {
 
         private static TagKey<Fluid> fluid(String id) {
             return TagKey.create(Registries.FLUID, Identifier.fromNamespaceAndPath("c", id));
+        }
+    }
+
+    public static class Biomes {
+        public static final TagKey<Biome> IS_TREE_CONIFEROUS = biome("is_tree/coniferous");
+
+        private static TagKey<Biome> biome(String id) {
+            return TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath("c", id));
         }
     }
 }

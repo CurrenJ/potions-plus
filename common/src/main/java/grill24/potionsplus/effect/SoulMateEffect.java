@@ -62,6 +62,13 @@ public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails {
             float damageToRedirectPerEntity = totalDamageToRedirect / ((float) soulMates.size() - 1);
 
             for (int soulMate : soulMates) {
+                // entity is itself in this set (it registers its own id via onPotionAdded), so without
+                // this guard redirecting onto "every soul mate" includes redirecting onto entity itself
+                // - .hurt() re-fires the damage event pipeline, re-entering this method on the same
+                // entity and recursing forever.
+                if (soulMate == entity.getId()) {
+                    continue;
+                }
                 Entity soulMateEntity = entity.level().getEntity(soulMate);
                 if (soulMateEntity != null) {
                     soulMateEntity.hurt(source, damageToRedirectPerEntity);
@@ -86,6 +93,9 @@ public class SoulMateEffect extends MobEffect implements IEffectTooltipDetails {
             float healToRedirectPerEntity = totalHealToRedirect / ((float) soulMates.size() - 1);
 
             for (int soulMate : soulMates) {
+                if (soulMate == entity.getId()) {
+                    continue;
+                }
                 Entity soulMateEntity = entity.level().getEntity(soulMate);
                 if (soulMateEntity instanceof LivingEntity livingEntity) {
                     if (healToRedirectPerEntity <= 0) return amount - totalHealToRedirect;
